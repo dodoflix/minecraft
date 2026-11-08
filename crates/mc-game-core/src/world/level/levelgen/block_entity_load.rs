@@ -11,7 +11,7 @@ use super::block_entity_data::{base_tag, block_entity_type_of};
 use crate::world::block_entity::create_block_entity;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
-use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_nbt::{CompoundTag, ListTag};
 
 /// The `loadWithComponents` + `saveWithFullMetadata` result for the block entity of `state` at `pos` loaded from `nbt`.
 pub fn load_with_components(
@@ -37,33 +37,6 @@ pub fn load_with_components(
         "minecraft:hopper" => {
             randomizable_container(nbt, &mut out, 5);
             out.put_int("TransferCooldown", nbt.get_int_or("TransferCooldown", -1));
-        }
-        "minecraft:furnace" | "minecraft:blast_furnace" | "minecraft:smoker" => {
-            out.put_int(
-                "cooking_time_spent",
-                nbt.get_int_or("cooking_time_spent", 0),
-            );
-            out.put_int(
-                "cooking_total_time",
-                nbt.get_int_or("cooking_total_time", 0),
-            );
-            out.put_int(
-                "lit_time_remaining",
-                nbt.get_int_or("lit_time_remaining", 0),
-            );
-            out.put_int("lit_total_time", nbt.get_int_or("lit_total_time", 0));
-            out.put_float(
-                "speed_multiplier",
-                nbt.get_float_or("speed_multiplier", 1.0),
-            );
-            out.put("Items", save_items(&load_items(nbt, 3)));
-            let mut recipes = CompoundTag::new();
-            for (key, value) in nbt.get_compound_or_empty("RecipesUsed").iter() {
-                if let Ok(id) = mc_core::ident::Identifier::parse(key) {
-                    recipes.put_int(id.to_string(), value_int(value));
-                }
-            }
-            out.put("RecipesUsed", recipes);
         }
         "minecraft:brewing_stand" => {
             out.put_int("BrewTime", nbt.get_int_or("BrewTime", 0));
@@ -125,12 +98,6 @@ pub fn load_with_components(
         _ => return None,
     }
     Some(out)
-}
-
-fn value_int(tag: &Tag) -> i32 {
-    let mut holder = CompoundTag::new();
-    holder.put("v", tag.clone());
-    holder.get_int_or("v", 0)
 }
 
 /// `RandomizableContainerBlockEntity`: `tryLoadLootTable` / `tryLoad ContainerHelper.loadAllItems`, then the matching save.

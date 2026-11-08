@@ -113,7 +113,7 @@ impl ServerLevel {
             .rev()
             .find(|t| t.pos == pos)
         {
-            // `setBlock` from inside the block entity's own code (brewing stand `HAS_BOTTLE`, furnace `LIT`, ...): the live
+            // `setBlock` from inside the block entity's own code (brewing stand `HAS_BOTTLE`, ...): the live
             // block entity keeps living, it just learns its new state when it is put back
             if !taken.removed && state.has_block_entity() {
                 taken.new_state = Some(state);

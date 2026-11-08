@@ -1,0 +1,75 @@
+# furnace destroyed with items and recipes used
+DESTROY true
+E item#1 minecraft:item pos=0.6152151483717136,-59.74609860470211,0.2796009829056223 delta=-0.07954538081382466,0.2,0.09978278461550158 rot=53.898434,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:furnace*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.3080879379231899,-59.38589323285858,0.40295834451023105 delta=0.055352332133455084,0.23533399989700987,0.09221753227448941 rot=219.35005,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:raw_iron*3 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6411061762576299,-59.86511657056842,0.26707526818790683 delta=-0.043395682757425856,0.11480616939637658,-0.020572905597470506 rot=145.64545,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*2 age=0 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.3492080331831676,-59.645211995128506,0.4080661032277329 delta=-0.026916417792054666,0.1702803843690138,0.012358860641039372 rot=64.54444,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*5 age=0 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=0.5,-59.5,0.5 delta=-0.11234439765201798,0.08317571973482765,0.16616584132876105 rot=47.593117,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+# smoker and blast furnace destroyed
+DESTROY true
+DESTROY true
+E item#1 minecraft:item pos=0.6152151483717136,-59.74609860470211,0.2796009829056223 delta=-0.07954538081382466,0.2,0.09978278461550158 rot=53.898434,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:furnace*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.3080879379231899,-59.38589323285858,0.40295834451023105 delta=0.055352332133455084,0.23533399989700987,0.09221753227448941 rot=219.35005,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:raw_iron*3 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6411061762576299,-59.86511657056842,0.26707526818790683 delta=-0.043395682757425856,0.11480616939637658,-0.020572905597470506 rot=145.64545,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*2 age=0 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.3492080331831676,-59.645211995128506,0.4080661032277329 delta=-0.026916417792054666,0.1702803843690138,0.012358860641039372 rot=64.54444,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*5 age=0 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=0.5,-59.5,0.5 delta=-0.11234439765201798,0.08317571973482765,0.16616584132876105 rot=47.593117,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E item#5 minecraft:item pos=4.615170357485611,-59.66132640679175,0.5647496908854266 delta=-0.05825156477088585,0.2,-0.08688533519216463 rot=213.0247,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:smoker*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=4.144797964878727,-59.85823527031426,0.15763243160206472 delta=-0.06233566973936361,0.18672466178893324,-0.04449266066122819 rot=49.894432,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*6 age=0 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=4.654334127816984,-59.41590777770039,0.587220600053337 delta=-0.06889094858900677,0.21785567955657195,-0.00471747327698559 rot=153.90472,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_beef*4 age=0 pickup=0 health=5 owner=- thrower=-
+E experience_orb#2 minecraft:experience_orb pos=4.5,-59.5,0.5 delta=-0.05792273680299939,0.23804155588529463,0.013154757047185495 rot=87.959335,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E item#8 minecraft:item pos=8.614946403055098,-59.73746541723996,0.4904932456856098 delta=0.06419759011518139,0.2,0.0022869125880724817 rot=124.284294,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:blast_furnace*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=8.37053249968078,-59.66615414055601,0.6464984529931714 delta=0.04410755575408005,0.2221927983608122,-0.0013024071345972773 rot=350.67316,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:lava_bucket*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=8.730849747761878,-59.455600719850295,0.8713577391914973 delta=-0.03488087827938498,0.1370076851176444,-0.08321991839577907 rot=323.04324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*18 age=0 pickup=0 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=8.730849747761878,-59.455600719850295,0.8713577391914973 delta=-0.017820795964287504,0.2050436808566061,-0.07624903892031877 rot=215.79526,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*19 age=0 pickup=0 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=8.730849747761878,-59.455600719850295,0.8713577391914973 delta=-0.010821605660719455,0.15505905935765335,0.09039044689513011 rot=320.39795,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*24 age=0 pickup=0 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=8.730849747761878,-59.455600719850295,0.8713577391914973 delta=-0.016723436508033672,0.18070110345674245,-0.07785535003702657 rot=10.967123,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*3 age=0 pickup=0 health=5 owner=- thrower=-
+E experience_orb#3 minecraft:experience_orb pos=8.5,-59.5,0.5 delta=-0.08510345357313431,0.05454384444935787,0.06915794568774264 rot=335.5554,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=8.5,-59.5,0.5 delta=0.0458907918401735,0.3318238811305875,0.05788861600392786 rot=303.60187,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+# furnace replaced by another block drops contents without the block loot
+B 12 -60 0 minecraft:stone
+E item#1 minecraft:item pos=0.6152151483717136,-59.74609860470211,0.2796009829056223 delta=-0.07954538081382466,0.2,0.09978278461550158 rot=53.898434,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:furnace*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.3080879379231899,-59.38589323285858,0.40295834451023105 delta=0.055352332133455084,0.23533399989700987,0.09221753227448941 rot=219.35005,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:raw_iron*3 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6411061762576299,-59.86511657056842,0.26707526818790683 delta=-0.043395682757425856,0.11480616939637658,-0.020572905597470506 rot=145.64545,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*2 age=0 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.3492080331831676,-59.645211995128506,0.4080661032277329 delta=-0.026916417792054666,0.1702803843690138,0.012358860641039372 rot=64.54444,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*5 age=0 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=0.5,-59.5,0.5 delta=-0.11234439765201798,0.08317571973482765,0.16616584132876105 rot=47.593117,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E item#5 minecraft:item pos=4.615170357485611,-59.66132640679175,0.5647496908854266 delta=-0.05825156477088585,0.2,-0.08688533519216463 rot=213.0247,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:smoker*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=4.144797964878727,-59.85823527031426,0.15763243160206472 delta=-0.06233566973936361,0.18672466178893324,-0.04449266066122819 rot=49.894432,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*6 age=0 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=4.654334127816984,-59.41590777770039,0.587220600053337 delta=-0.06889094858900677,0.21785567955657195,-0.00471747327698559 rot=153.90472,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_beef*4 age=0 pickup=0 health=5 owner=- thrower=-
+E experience_orb#2 minecraft:experience_orb pos=4.5,-59.5,0.5 delta=-0.05792273680299939,0.23804155588529463,0.013154757047185495 rot=87.959335,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E item#8 minecraft:item pos=8.614946403055098,-59.73746541723996,0.4904932456856098 delta=0.06419759011518139,0.2,0.0022869125880724817 rot=124.284294,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:blast_furnace*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=8.37053249968078,-59.66615414055601,0.6464984529931714 delta=0.04410755575408005,0.2221927983608122,-0.0013024071345972773 rot=350.67316,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:lava_bucket*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=8.730849747761878,-59.455600719850295,0.8713577391914973 delta=-0.03488087827938498,0.1370076851176444,-0.08321991839577907 rot=323.04324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*18 age=0 pickup=0 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=8.730849747761878,-59.455600719850295,0.8713577391914973 delta=-0.017820795964287504,0.2050436808566061,-0.07624903892031877 rot=215.79526,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*19 age=0 pickup=0 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=8.730849747761878,-59.455600719850295,0.8713577391914973 delta=-0.010821605660719455,0.15505905935765335,0.09039044689513011 rot=320.39795,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*24 age=0 pickup=0 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=8.730849747761878,-59.455600719850295,0.8713577391914973 delta=-0.016723436508033672,0.18070110345674245,-0.07785535003702657 rot=10.967123,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*3 age=0 pickup=0 health=5 owner=- thrower=-
+E experience_orb#3 minecraft:experience_orb pos=8.5,-59.5,0.5 delta=-0.08510345357313431,0.05454384444935787,0.06915794568774264 rot=335.5554,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=8.5,-59.5,0.5 delta=0.0458907918401735,0.3318238811305875,0.05788861600392786 rot=303.60187,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E item#14 minecraft:item pos=12.672352418253494,-59.66653982899441,0.16346294167399214 delta=-0.08039555375823636,0.22689452728150547,-0.01794741457638544 rot=82.700554,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*26 age=0 pickup=0 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=12.672352418253494,-59.66653982899441,0.16346294167399214 delta=-0.012306180681437143,0.17221687466142988,0.05783511877646819 rot=316.93152,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*24 age=0 pickup=0 health=5 owner=- thrower=-
+E item#16 minecraft:item pos=12.672352418253494,-59.66653982899441,0.16346294167399214 delta=0.00509559038034932,0.22555109298053724,-0.006536574030346982 rot=172.29869,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*14 age=0 pickup=0 health=5 owner=- thrower=-
+# comparator reads the furnace; changing the contents and removing the furnace update it
+B 0 -60 6 minecraft:furnace[facing=north,lit=false]
+B 1 -60 6 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 6 minecraft:redstone_lamp[lit=false]
+BE 1 -60 6 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:6}
+B 0 -60 6 minecraft:furnace[facing=north,lit=false]
+B 1 -60 6 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 6 minecraft:redstone_lamp[lit=true]
+BE 1 -60 6 {OutputSignal:8,components:{},id:"minecraft:comparator",x:1,y:-60,z:6}
+B 0 -60 6 minecraft:furnace[facing=north,lit=false]
+B 1 -60 6 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 6 minecraft:redstone_lamp[lit=true]
+BE 1 -60 6 {OutputSignal:15,components:{},id:"minecraft:comparator",x:1,y:-60,z:6}
+B 1 -60 6 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 6 minecraft:redstone_lamp[lit=false]
+BE 1 -60 6 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:6}
+# comparator through a solid block from a smoker and a blast furnace
+B 0 -60 10 minecraft:smoker[facing=north,lit=false]
+B 0 -60 14 minecraft:blast_furnace[facing=north,lit=false]
+B 1 -60 10 minecraft:stone
+B 1 -60 14 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 10 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 14 minecraft:redstone_lamp[lit=true]
+B 3 -60 10 minecraft:redstone_lamp[lit=true]
+BE 2 -60 10 {OutputSignal:3,components:{},id:"minecraft:comparator",x:2,y:-60,z:10}
+BE 1 -60 14 {OutputSignal:15,components:{},id:"minecraft:comparator",x:1,y:-60,z:14}

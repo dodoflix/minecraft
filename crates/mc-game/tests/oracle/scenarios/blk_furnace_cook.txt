@@ -1,0 +1,408 @@
+level flat
+preload 2
+# Every cooking recipe in its furnace type with 8 coal, then edge cases: progress, lit toggling, results.
+# netherite_scrap_from_blasting
+block 0 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:ancient_debris",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# coal_from_blasting_coal_ore
+block 1 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 1 -60 0 {Items:[{Slot:0b,id:"minecraft:coal_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# copper_ingot_from_blasting_copper_ore
+block 2 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 2 -60 0 {Items:[{Slot:0b,id:"minecraft:copper_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# copper_nugget_from_blasting
+block 3 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 3 -60 0 {Items:[{Slot:0b,id:"minecraft:copper_pickaxe",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# coal_from_blasting_deepslate_coal_ore
+block 4 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 4 -60 0 {Items:[{Slot:0b,id:"minecraft:deepslate_coal_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# copper_ingot_from_blasting_deepslate_copper_ore
+block 5 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 5 -60 0 {Items:[{Slot:0b,id:"minecraft:deepslate_copper_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# diamond_from_blasting_deepslate_diamond_ore
+block 6 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:deepslate_diamond_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# emerald_from_blasting_deepslate_emerald_ore
+block 7 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 7 -60 0 {Items:[{Slot:0b,id:"minecraft:deepslate_emerald_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_ingot_from_blasting_deepslate_gold_ore
+block 8 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 8 -60 0 {Items:[{Slot:0b,id:"minecraft:deepslate_gold_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# iron_ingot_from_blasting_deepslate_iron_ore
+block 9 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 9 -60 0 {Items:[{Slot:0b,id:"minecraft:deepslate_iron_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# lapis_lazuli_from_blasting_deepslate_lapis_ore
+block 10 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 10 -60 0 {Items:[{Slot:0b,id:"minecraft:deepslate_lapis_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# redstone_from_blasting_deepslate_redstone_ore
+block 11 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 11 -60 0 {Items:[{Slot:0b,id:"minecraft:deepslate_redstone_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# diamond_from_blasting_diamond_ore
+block 12 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 12 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# emerald_from_blasting_emerald_ore
+block 13 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 13 -60 0 {Items:[{Slot:0b,id:"minecraft:emerald_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_ingot_from_blasting_gold_ore
+block 14 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 14 -60 0 {Items:[{Slot:0b,id:"minecraft:gold_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_nugget_from_blasting
+block 15 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 15 -60 0 {Items:[{Slot:0b,id:"minecraft:golden_pickaxe",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# iron_ingot_from_blasting_iron_ore
+block 16 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 16 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# iron_nugget_from_blasting
+block 17 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 17 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_pickaxe",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# lapis_lazuli_from_blasting_lapis_ore
+block 18 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 18 -60 0 {Items:[{Slot:0b,id:"minecraft:lapis_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_ingot_from_blasting_nether_gold_ore
+block 19 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 19 -60 0 {Items:[{Slot:0b,id:"minecraft:nether_gold_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# quartz_from_blasting
+block 20 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 20 -60 0 {Items:[{Slot:0b,id:"minecraft:nether_quartz_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# copper_ingot_from_blasting_raw_copper
+block 21 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 21 -60 0 {Items:[{Slot:0b,id:"minecraft:raw_copper",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_ingot_from_blasting_raw_gold
+block 22 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 22 -60 0 {Items:[{Slot:0b,id:"minecraft:raw_gold",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# iron_ingot_from_blasting_raw_iron
+block 23 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 23 -60 0 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# redstone_from_blasting_redstone_ore
+block 24 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 24 -60 0 {Items:[{Slot:0b,id:"minecraft:redstone_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# netherite_scrap
+block 25 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 25 -60 0 {Items:[{Slot:0b,id:"minecraft:ancient_debris",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# smooth_basalt
+block 26 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 26 -60 0 {Items:[{Slot:0b,id:"minecraft:basalt",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_beef
+block 27 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 27 -60 0 {Items:[{Slot:0b,id:"minecraft:beef",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# black_glazed_terracotta
+block 28 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 28 -60 0 {Items:[{Slot:0b,id:"minecraft:black_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# blue_glazed_terracotta
+block 29 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 29 -60 0 {Items:[{Slot:0b,id:"minecraft:blue_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# brown_glazed_terracotta
+block 30 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 30 -60 0 {Items:[{Slot:0b,id:"minecraft:brown_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# green_dye
+block 31 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 31 -60 0 {Items:[{Slot:0b,id:"minecraft:cactus",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_chicken
+block 32 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 32 -60 0 {Items:[{Slot:0b,id:"minecraft:chicken",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# popped_chorus_fruit
+block 33 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 33 -60 0 {Items:[{Slot:0b,id:"minecraft:chorus_fruit",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# terracotta
+block 34 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 34 -60 0 {Items:[{Slot:0b,id:"minecraft:clay",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# brick
+block 35 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 35 -60 0 {Items:[{Slot:0b,id:"minecraft:clay_ball",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# coal_from_smelting_coal_ore
+block 36 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 36 -60 0 {Items:[{Slot:0b,id:"minecraft:coal_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# deepslate
+block 37 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 37 -60 0 {Items:[{Slot:0b,id:"minecraft:cobbled_deepslate",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# stone
+block 38 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 38 -60 0 {Items:[{Slot:0b,id:"minecraft:cobblestone",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_cod
+block 39 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 39 -60 0 {Items:[{Slot:0b,id:"minecraft:cod",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# copper_ingot_from_smelting_copper_ore
+block 0 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -60 2 {Items:[{Slot:0b,id:"minecraft:copper_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# copper_nugget_from_smelting
+block 1 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 1 -60 2 {Items:[{Slot:0b,id:"minecraft:copper_pickaxe",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cyan_glazed_terracotta
+block 2 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 2 -60 2 {Items:[{Slot:0b,id:"minecraft:cyan_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# charcoal
+block 3 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 3 -60 2 {Items:[{Slot:0b,id:"minecraft:dark_oak_log",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cracked_deepslate_bricks
+block 4 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 4 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_bricks",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# coal_from_smelting_deepslate_coal_ore
+block 5 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 5 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_coal_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# copper_ingot_from_smelting_deepslate_copper_ore
+block 6 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 6 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_copper_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# diamond_from_smelting_deepslate_diamond_ore
+block 7 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 7 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_diamond_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# emerald_from_smelting_deepslate_emerald_ore
+block 8 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 8 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_emerald_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_ingot_from_smelting_deepslate_gold_ore
+block 9 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 9 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_gold_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# iron_ingot_from_smelting_deepslate_iron_ore
+block 10 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 10 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_iron_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# lapis_lazuli_from_smelting_deepslate_lapis_ore
+block 11 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 11 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_lapis_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# redstone_from_smelting_deepslate_redstone_ore
+block 12 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 12 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_redstone_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cracked_deepslate_tiles
+block 13 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 13 -60 2 {Items:[{Slot:0b,id:"minecraft:deepslate_tiles",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# diamond_from_smelting_diamond_ore
+block 14 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 14 -60 2 {Items:[{Slot:0b,id:"minecraft:diamond_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# emerald_from_smelting_emerald_ore
+block 15 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 15 -60 2 {Items:[{Slot:0b,id:"minecraft:emerald_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_ingot_from_smelting_gold_ore
+block 16 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 16 -60 2 {Items:[{Slot:0b,id:"minecraft:gold_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_nugget_from_smelting
+block 17 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 17 -60 2 {Items:[{Slot:0b,id:"minecraft:golden_pickaxe",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gray_glazed_terracotta
+block 18 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 18 -60 2 {Items:[{Slot:0b,id:"minecraft:gray_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# green_glazed_terracotta
+block 19 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 19 -60 2 {Items:[{Slot:0b,id:"minecraft:green_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# iron_ingot_from_smelting_iron_ore
+block 20 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 20 -60 2 {Items:[{Slot:0b,id:"minecraft:iron_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# iron_nugget_from_smelting
+block 21 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 21 -60 2 {Items:[{Slot:0b,id:"minecraft:iron_pickaxe",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# leaf_litter
+block 22 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 22 -60 2 {Items:[{Slot:0b,id:"minecraft:jungle_leaves",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# dried_kelp_from_smelting
+block 23 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 23 -60 2 {Items:[{Slot:0b,id:"minecraft:kelp",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# lapis_lazuli_from_smelting_lapis_ore
+block 24 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 24 -60 2 {Items:[{Slot:0b,id:"minecraft:lapis_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# light_blue_glazed_terracotta
+block 25 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 25 -60 2 {Items:[{Slot:0b,id:"minecraft:light_blue_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# light_gray_glazed_terracotta
+block 26 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 26 -60 2 {Items:[{Slot:0b,id:"minecraft:light_gray_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# lime_glazed_terracotta
+block 27 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 27 -60 2 {Items:[{Slot:0b,id:"minecraft:lime_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# magenta_glazed_terracotta
+block 28 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 28 -60 2 {Items:[{Slot:0b,id:"minecraft:magenta_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_mutton
+block 29 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 29 -60 2 {Items:[{Slot:0b,id:"minecraft:mutton",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cracked_nether_bricks
+block 30 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 30 -60 2 {Items:[{Slot:0b,id:"minecraft:nether_bricks",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_ingot_from_smelting_nether_gold_ore
+block 31 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 31 -60 2 {Items:[{Slot:0b,id:"minecraft:nether_gold_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# quartz
+block 32 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 32 -60 2 {Items:[{Slot:0b,id:"minecraft:nether_quartz_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# nether_brick
+block 33 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 33 -60 2 {Items:[{Slot:0b,id:"minecraft:netherrack",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# orange_glazed_terracotta
+block 34 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 34 -60 2 {Items:[{Slot:0b,id:"minecraft:orange_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# pink_glazed_terracotta
+block 35 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 35 -60 2 {Items:[{Slot:0b,id:"minecraft:pink_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cracked_polished_blackstone_bricks
+block 36 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 36 -60 2 {Items:[{Slot:0b,id:"minecraft:polished_blackstone_bricks",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_porkchop
+block 37 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 37 -60 2 {Items:[{Slot:0b,id:"minecraft:porkchop",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# baked_potato
+block 38 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 38 -60 2 {Items:[{Slot:0b,id:"minecraft:potato",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# purple_glazed_terracotta
+block 39 -60 2 minecraft:furnace[facing=north,lit=false]
+be_nbt 39 -60 2 {Items:[{Slot:0b,id:"minecraft:purple_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# smooth_quartz
+block 0 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:quartz_block",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_rabbit
+block 1 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 1 -60 4 {Items:[{Slot:0b,id:"minecraft:rabbit",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# copper_ingot_from_smelting_raw_copper
+block 2 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 2 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_copper",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# gold_ingot_from_smelting_raw_gold
+block 3 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 3 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_gold",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# iron_ingot_from_smelting_raw_iron
+block 4 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 4 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# smooth_red_sandstone
+block 5 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 5 -60 4 {Items:[{Slot:0b,id:"minecraft:red_sandstone",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# red_glazed_terracotta
+block 6 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 6 -60 4 {Items:[{Slot:0b,id:"minecraft:red_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# redstone_from_smelting_redstone_ore
+block 7 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 7 -60 4 {Items:[{Slot:0b,id:"minecraft:redstone_ore",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# resin_brick
+block 8 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 8 -60 4 {Items:[{Slot:0b,id:"minecraft:resin_clump",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_salmon
+block 9 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 9 -60 4 {Items:[{Slot:0b,id:"minecraft:salmon",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# glass
+block 10 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 10 -60 4 {Items:[{Slot:0b,id:"minecraft:sand",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# smooth_sandstone
+block 11 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 11 -60 4 {Items:[{Slot:0b,id:"minecraft:sandstone",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# lime_dye_from_smelting
+block 12 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 12 -60 4 {Items:[{Slot:0b,id:"minecraft:sea_pickle",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# smooth_stone
+block 13 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 13 -60 4 {Items:[{Slot:0b,id:"minecraft:stone",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cracked_stone_bricks
+block 14 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 14 -60 4 {Items:[{Slot:0b,id:"minecraft:stone_bricks",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# sponge
+block 15 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 15 -60 4 {Items:[{Slot:0b,id:"minecraft:wet_sponge",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# white_glazed_terracotta
+block 16 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 16 -60 4 {Items:[{Slot:0b,id:"minecraft:white_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# yellow_glazed_terracotta
+block 17 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 17 -60 4 {Items:[{Slot:0b,id:"minecraft:yellow_terracotta",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_beef_from_smoking
+block 18 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 18 -60 4 {Items:[{Slot:0b,id:"minecraft:beef",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_chicken_from_smoking
+block 19 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 19 -60 4 {Items:[{Slot:0b,id:"minecraft:chicken",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_cod_from_smoking
+block 20 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 20 -60 4 {Items:[{Slot:0b,id:"minecraft:cod",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# dried_kelp_from_smoking
+block 21 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 21 -60 4 {Items:[{Slot:0b,id:"minecraft:kelp",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_mutton_from_smoking
+block 22 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 22 -60 4 {Items:[{Slot:0b,id:"minecraft:mutton",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_porkchop_from_smoking
+block 23 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 23 -60 4 {Items:[{Slot:0b,id:"minecraft:porkchop",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# baked_potato_from_smoking
+block 24 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 24 -60 4 {Items:[{Slot:0b,id:"minecraft:potato",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_rabbit_from_smoking
+block 25 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 25 -60 4 {Items:[{Slot:0b,id:"minecraft:rabbit",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+# cooked_salmon_from_smoking
+block 26 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 26 -60 4 {Items:[{Slot:0b,id:"minecraft:salmon",count:1},{Slot:1b,id:"minecraft:coal",count:8}],cooking_total_time:200}
+level_seed 99
+# lit state without burn time
+block 27 -60 4 minecraft:furnace[facing=north,lit=true]
+be_nbt 27 -60 4 {}
+# burn the remaining lit time, then cool down
+block 28 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 28 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3}],lit_time_remaining:5,lit_total_time:5,cooking_time_spent:2,cooking_total_time:200}
+# cooking progress decays without fuel
+block 29 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 29 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3}],cooking_time_spent:100,cooking_total_time:200}
+# progress above the total time decays to the total
+block 30 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 30 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3}],cooking_time_spent:300,cooking_total_time:200}
+# wet sponge turns the bucket left by lava into water
+block 31 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 31 -60 4 {Items:[{Slot:0b,id:"minecraft:wet_sponge",count:2},{Slot:1b,id:"minecraft:lava_bucket",count:1}],cooking_total_time:200}
+# lava bucket stack drops the bucket
+block 32 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 32 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:lava_bucket",count:2}],cooking_total_time:200}
+# full result stack blocks cooking
+block 33 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 33 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:coal",count:2},{Slot:2b,id:"minecraft:iron_ingot",count:64}],cooking_total_time:200}
+# result stack one below the maximum takes one more
+block 34 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 34 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:coal",count:2},{Slot:2b,id:"minecraft:iron_ingot",count:63}],cooking_total_time:1}
+# other item in the result slot blocks cooking
+block 35 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 35 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:coal",count:2},{Slot:2b,id:"minecraft:stick",count:1}],cooking_total_time:200}
+# input without recipe keeps the fuel
+block 36 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 36 -60 4 {Items:[{Slot:0b,id:"minecraft:stick",count:3},{Slot:1b,id:"minecraft:coal",count:2}]}
+# total time zero cooks at once
+block 37 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 37 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:coal",count:2}]}
+# stored speed multiplier, relight rescales the progress
+block 38 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 38 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:coal",count:2}],cooking_time_spent:100,cooking_total_time:200,speed_multiplier:2.0f}
+# a non-fuel in the fuel slot does not light
+block 39 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 39 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:stone",count:2}],cooking_total_time:200}
+# custom name survives
+block 0 -60 6 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -60 6 {CustomName:"Hot",Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:coal",count:2}],cooking_total_time:200}
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 3
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 10
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 30
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 50
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 50
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 49
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 4
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 45
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 50
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 100
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+tick 100
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:6,-60,0 be:7,-60,0 be:8,-60,0 be:9,-60,0 be:10,-60,0 be:11,-60,0 be:12,-60,0 be:13,-60,0 be:14,-60,0 be:15,-60,0 be:16,-60,0 be:17,-60,0 be:18,-60,0 be:19,-60,0 be:20,-60,0 be:21,-60,0 be:22,-60,0 be:23,-60,0 be:24,-60,0 be:25,-60,0 be:26,-60,0 be:27,-60,0 be:28,-60,0 be:29,-60,0 be:30,-60,0 be:31,-60,0 be:32,-60,0 be:33,-60,0 be:34,-60,0 be:35,-60,0 be:36,-60,0 be:37,-60,0 be:38,-60,0 be:39,-60,0 be:0,-60,2 be:1,-60,2 be:2,-60,2 be:3,-60,2 be:4,-60,2 be:5,-60,2 be:6,-60,2 be:7,-60,2 be:8,-60,2 be:9,-60,2 be:10,-60,2 be:11,-60,2 be:12,-60,2 be:13,-60,2 be:14,-60,2 be:15,-60,2 be:16,-60,2 be:17,-60,2 be:18,-60,2 be:19,-60,2 be:20,-60,2 be:21,-60,2 be:22,-60,2 be:23,-60,2 be:24,-60,2 be:25,-60,2 be:26,-60,2 be:27,-60,2 be:28,-60,2 be:29,-60,2 be:30,-60,2 be:31,-60,2 be:32,-60,2 be:33,-60,2 be:34,-60,2 be:35,-60,2 be:36,-60,2 be:37,-60,2 be:38,-60,2 be:39,-60,2 be:0,-60,4 be:1,-60,4 be:2,-60,4 be:3,-60,4 be:4,-60,4 be:5,-60,4 be:6,-60,4 be:7,-60,4 be:8,-60,4 be:9,-60,4 be:10,-60,4 be:11,-60,4 be:12,-60,4 be:13,-60,4 be:14,-60,4 be:15,-60,4 be:16,-60,4 be:17,-60,4 be:18,-60,4 be:19,-60,4 be:20,-60,4 be:21,-60,4 be:22,-60,4 be:23,-60,4 be:24,-60,4 be:25,-60,4 be:26,-60,4 be:27,-60,4 be:28,-60,4 be:29,-60,4 be:30,-60,4 be:31,-60,4 be:32,-60,4 be:33,-60,4 be:34,-60,4 be:35,-60,4 be:36,-60,4 be:37,-60,4 be:38,-60,4 be:39,-60,4 be:0,-60,6 blocks:0,-60,0,39,-60,6
+dump entities

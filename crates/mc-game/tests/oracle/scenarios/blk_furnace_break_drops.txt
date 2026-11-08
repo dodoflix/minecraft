@@ -1,0 +1,54 @@
+# AbstractFurnaceBlockEntity.preRemoveSideEffects: the contents drop and the experience of the recipes used pops (furnace,
+# smoker, blast furnace), the block drops itself with its custom name, comparators next to it are updated.
+level flat
+preload 2
+note furnace destroyed with items and recipes used
+block 0 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -60 0 {CustomName:"Named",Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:coal",count:2},{Slot:2b,id:"minecraft:iron_ingot",count:5}],RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":2}}
+level_seed 10
+destroy 0 -60 0
+dump blocks:0,-60,0,0,-60,0 entities
+note smoker and blast furnace destroyed
+block 4 -60 0 minecraft:smoker[facing=east,lit=true]
+be_nbt 4 -60 0 {Items:[{Slot:0b,id:"minecraft:beef",count:6},{Slot:2b,id:"minecraft:cooked_beef",count:4}],RecipesUsed:{"minecraft:cooked_beef_from_smoking":4}}
+level_seed 11
+destroy 4 -60 0
+block 8 -60 0 minecraft:blast_furnace[facing=south,lit=false]
+be_nbt 8 -60 0 {Items:[{Slot:1b,id:"minecraft:lava_bucket",count:1},{Slot:2b,id:"minecraft:iron_ingot",count:64}],RecipesUsed:{"minecraft:iron_ingot_from_blasting_iron_ore":3}}
+level_seed 12
+destroy 8 -60 0
+dump blocks:4,-60,0,8,-60,0 entities
+note furnace replaced by another block drops contents without the block loot
+block 12 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 12 -60 0 {Items:[{Slot:0b,id:"minecraft:cobblestone",count:64}],RecipesUsed:{"minecraft:stone":5}}
+level_seed 13
+block 12 -60 0 minecraft:stone
+dump blocks:12,-60,0,12,-60,0 entities
+note comparator reads the furnace; changing the contents and removing the furnace update it
+block 0 -60 6 minecraft:furnace[facing=north,lit=false]
+block 1 -60 6 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 6 minecraft:redstone_lamp
+tick 6
+dump blocks:0,-60,6,2,-60,6 be:1,-60,6
+be_nbt 0 -60 6 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:64},{Slot:2b,id:"minecraft:iron_ingot",count:32}]}
+tick 6
+dump blocks:0,-60,6,2,-60,6 be:1,-60,6
+be_nbt 0 -60 6 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:64},{Slot:1b,id:"minecraft:coal",count:64},{Slot:2b,id:"minecraft:iron_ingot",count:64}]}
+tick 6
+dump blocks:0,-60,6,2,-60,6 be:1,-60,6
+level_seed 14
+block 0 -60 6 minecraft:air
+tick 6
+dump blocks:0,-60,6,2,-60,6 be:1,-60,6
+note comparator through a solid block from a smoker and a blast furnace
+block 0 -60 10 minecraft:smoker[facing=north,lit=false]
+be_nbt 0 -60 10 {Items:[{Slot:0b,id:"minecraft:beef",count:32}]}
+block 1 -60 10 minecraft:stone
+block 2 -60 10 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 3 -60 10 minecraft:redstone_lamp
+block 0 -60 14 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 0 -60 14 {Items:[{Slot:2b,id:"minecraft:iron_ingot",count:64},{Slot:1b,id:"minecraft:coal",count:64},{Slot:0b,id:"minecraft:raw_iron",count:64}]}
+block 1 -60 14 minecraft:comparator[facing=west,mode=subtract,powered=false]
+block 2 -60 14 minecraft:redstone_lamp
+tick 6
+dump blocks:0,-60,10,3,-60,14 be:2,-60,10 be:1,-60,14

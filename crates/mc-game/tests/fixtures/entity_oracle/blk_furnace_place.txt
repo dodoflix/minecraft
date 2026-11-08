@@ -1,0 +1,16 @@
+# facing south (yaw 0), west (90), north (180), east (270)
+B 0 -60 0 minecraft:furnace[facing=north,lit=false]
+B 0 -60 4 minecraft:furnace[facing=east,lit=false]
+B 0 -60 8 minecraft:furnace[facing=south,lit=false]
+B 0 -60 12 minecraft:furnace[facing=west,lit=false]
+B 3 -60 0 minecraft:smoker[facing=north,lit=false]
+B 3 -60 4 minecraft:smoker[facing=east,lit=false]
+B 3 -60 8 minecraft:smoker[facing=south,lit=false]
+B 3 -60 12 minecraft:smoker[facing=west,lit=false]
+B 6 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+B 6 -60 4 minecraft:blast_furnace[facing=east,lit=false]
+B 6 -60 8 minecraft:blast_furnace[facing=south,lit=false]
+B 6 -60 12 minecraft:blast_furnace[facing=west,lit=false]
+BE 0 -60 0 {Items:[],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:0,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:0}
+BE 3 -60 4 {Items:[],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:0,id:"minecraft:smoker",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:3,y:-60,z:4}
+BE 6 -60 8 {Items:[],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:0,id:"minecraft:blast_furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:6,y:-60,z:8}

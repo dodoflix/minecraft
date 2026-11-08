@@ -13,6 +13,7 @@ mod attack_golden;
 mod blk_doors_connect_golden;
 mod block_behaviour_golden;
 mod block_scenario_golden;
+mod blocks_furnaces_golden;
 mod blocks_infra_golden;
 mod blocks_plants_vines_golden;
 mod blocks_redstone_devices_golden;

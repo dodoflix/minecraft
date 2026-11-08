@@ -1,0 +1,84 @@
+# AbstractFurnaceBlockEntity.RecipesUsed and getRecipesToAwardAndPopExperience: removing a furnace pops the experience of the
+# recipes it used (the fraction is drawn from Level.random), cooked recipes accumulate, loading keeps what the codec reads.
+level flat
+preload 2
+note a fractional experience value (0.7 per iron ingot), one ingot, several level seeds
+block 0 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -60 0 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":1}}
+level_seed 30
+block 0 -60 0 minecraft:air
+block 1 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 1 -60 0 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":1}}
+level_seed 100000
+block 1 -60 0 minecraft:air
+block 2 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 2 -60 0 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":1}}
+level_seed 31
+block 2 -60 0 minecraft:air
+block 3 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 3 -60 0 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":1}}
+level_seed 100007
+block 3 -60 0 minecraft:air
+block 4 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 4 -60 0 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":1}}
+level_seed 32
+block 4 -60 0 minecraft:air
+block 5 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 5 -60 0 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":1}}
+level_seed 100014
+block 5 -60 0 minecraft:air
+block 6 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 6 -60 0 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":1}}
+level_seed 33
+block 6 -60 0 minecraft:air
+block 7 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 7 -60 0 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":1}}
+level_seed 100021
+block 7 -60 0 minecraft:air
+dump entities
+note many ingots: the experience splits into several orbs
+block 0 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -60 4 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":50}}
+level_seed 5
+block 0 -60 4 minecraft:air
+dump entities
+note blast furnace and smoker recipes
+block 1 -60 4 minecraft:blast_furnace[facing=north,lit=false]
+be_nbt 1 -60 4 {RecipesUsed:{"minecraft:iron_ingot_from_blasting_iron_ore":7}}
+level_seed 6
+block 1 -60 4 minecraft:air
+block 2 -60 4 minecraft:smoker[facing=north,lit=false]
+be_nbt 2 -60 4 {RecipesUsed:{"minecraft:cooked_beef_from_smoking":9}}
+level_seed 7
+block 2 -60 4 minecraft:air
+dump entities
+note cooking adds to the recipes used: two ingots cooked, then removed
+block 0 -60 8 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:coal",count:2}],cooking_time_spent:199,cooking_total_time:200}
+tick 2
+dump be:0,-60,8
+tick 200
+dump be:0,-60,8
+level_seed 8
+block 0 -60 8 minecraft:air
+dump entities
+note two recipes of the same furnace: one per furnace only (the pop order of several recipes is identity hash order in vanilla)
+note entries the codec rejects are dropped, other numeric tags are read as ints, an unknown recipe id is kept and pops nothing
+block 0 -60 12 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -60 12 {RecipesUsed:{"minecraft:nonexistent":4}}
+dump be:0,-60,12
+level_seed 9
+block 0 -60 12 minecraft:air
+block 1 -60 12 minecraft:furnace[facing=north,lit=false]
+be_nbt 1 -60 12 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":2b}}
+dump be:1,-60,12
+block 2 -60 12 minecraft:furnace[facing=north,lit=false]
+be_nbt 2 -60 12 {RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":"x"}}
+dump be:2,-60,12
+block 3 -60 12 minecraft:furnace[facing=north,lit=false]
+be_nbt 3 -60 12 {RecipesUsed:{"Bad Key":1,"minecraft:iron_ingot_from_smelting_raw_iron":2}}
+dump be:3,-60,12
+level_seed 10
+block 1 -60 12 minecraft:air
+block 3 -60 12 minecraft:air
+dump entities

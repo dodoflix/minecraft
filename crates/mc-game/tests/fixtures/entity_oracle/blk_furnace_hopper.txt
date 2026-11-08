@@ -1,0 +1,167 @@
+# hopper above a furnace: only the input slot, replacing the input resets the cooking time
+BE 0 -60 0 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:0}
+BE 0 -60 0 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:0}
+B 0 -60 0 minecraft:furnace[facing=north,lit=false]
+B 0 -59 0 minecraft:hopper[enabled=true,facing=down]
+# a different input in a cooking furnace: total time recomputed, progress reset
+BE 4 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"},{Slot:1b,count:1,id:"minecraft:coal"}],RecipesUsed:{},components:{},cooking_time_spent:51,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:1600,lit_total_time:1600,speed_multiplier:1.0f,x:4,y:-60,z:0}
+BE 4 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"},{Slot:1b,count:1,id:"minecraft:coal"}],RecipesUsed:{},components:{},cooking_time_spent:71,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:1580,lit_total_time:1600,speed_multiplier:1.0f,x:4,y:-60,z:0}
+# hopper at the side of a furnace feeds the fuel slot: stone does not fit, coal and one bucket do
+BE 0 -60 4 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"},{Slot:1b,count:2,id:"minecraft:coal"}],RecipesUsed:{},components:{},cooking_time_spent:39,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:1562,lit_total_time:1600,speed_multiplier:1.0f,x:0,y:-60,z:4}
+BE 0 -60 4 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"},{Slot:1b,count:2,id:"minecraft:coal"}],RecipesUsed:{},components:{},cooking_time_spent:79,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:1522,lit_total_time:1600,speed_multiplier:1.0f,x:0,y:-60,z:4}
+# smoker and blast furnace take their own recipes through the hopper above
+BE 4 -60 4 {Items:[{Slot:0b,count:1,id:"minecraft:iron_ingot"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:smoker",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:4,y:-60,z:4}
+BE 8 -60 4 {Items:[{Slot:0b,count:1,id:"minecraft:beef"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:blast_furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:8,y:-60,z:4}
+# hopper below a furnace pulls the result first, then fuel only when it is a bucket
+BE 0 -59 8 {Items:[],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:0,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-59,z:8}
+BE 0 -61 8 {Items:[{Slot:0b,count:3,id:"minecraft:iron_ingot"},{Slot:1b,count:1,id:"minecraft:bucket"}],components:{},id:"minecraft:barrel",x:0,y:-61,z:8}
+# coal in the fuel slot is not takeable from below, a water bucket is
+BE 4 -59 8 {Items:[{Slot:1b,count:5,id:"minecraft:coal"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:0,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:4,y:-59,z:8}
+BE 4 -61 8 {Items:[],components:{},id:"minecraft:barrel",x:4,y:-61,z:8}
+BE 8 -59 8 {Items:[],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:0,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:8,y:-59,z:8}
+BE 8 -61 8 {Items:[{Slot:0b,count:1,id:"minecraft:water_bucket"}],components:{},id:"minecraft:barrel",x:8,y:-61,z:8}
+# a comparator next to the furnace follows the hopper traffic
+T 322
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 12 minecraft:redstone_lamp[lit=false]
+T 323
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 12 minecraft:redstone_lamp[lit=false]
+T 324
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 325
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 326
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 327
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 328
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 329
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 330
+BE 0 -60 12 {Items:[{Slot:0b,count:2,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 331
+BE 0 -60 12 {Items:[{Slot:0b,count:2,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 332
+BE 0 -60 12 {Items:[{Slot:0b,count:2,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 333
+BE 0 -60 12 {Items:[{Slot:0b,count:2,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 334
+BE 0 -60 12 {Items:[{Slot:0b,count:2,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 335
+BE 0 -60 12 {Items:[{Slot:0b,count:2,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 336
+BE 0 -60 12 {Items:[{Slot:0b,count:2,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 337
+BE 0 -60 12 {Items:[{Slot:0b,count:2,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 338
+BE 0 -60 12 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 339
+BE 0 -60 12 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 340
+BE 0 -60 12 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 341
+BE 0 -60 12 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 342
+BE 0 -60 12 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 343
+BE 0 -60 12 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 344
+BE 0 -60 12 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]
+T 345
+BE 0 -60 12 {Items:[{Slot:0b,count:3,id:"minecraft:raw_iron"}],RecipesUsed:{},components:{},cooking_time_spent:0,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:0,lit_total_time:0,speed_multiplier:1.0f,x:0,y:-60,z:12}
+BE 1 -60 12 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:12}
+B 0 -60 12 minecraft:furnace[facing=north,lit=false]
+B 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:redstone_lamp[lit=true]

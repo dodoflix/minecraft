@@ -1,0 +1,65 @@
+# Furnace, smoker and blast furnace as WorldlyContainers next to hoppers (the hoppers are not dumped): input from above (slot 0), fuel from the sides
+# (slot 1, fuel items and one bucket only), output and takeable fuel pulled from below (slots 2 then 1).
+level flat
+preload 2
+note hopper above a furnace: only the input slot, replacing the input resets the cooking time
+block 0 -60 0 minecraft:furnace[facing=north,lit=false]
+block 0 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 0 -59 0 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3},{Slot:1b,id:"minecraft:coal",count:2},{Slot:2b,id:"minecraft:beef",count:1}]}
+tick 20
+dump be:0,-60,0
+tick 40
+dump be:0,-60,0 blocks:0,-60,0,0,-59,0
+note a different input in a cooking furnace: total time recomputed, progress reset
+block 4 -60 0 minecraft:furnace[facing=north,lit=false]
+be_nbt 4 -60 0 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:1},{Slot:1b,id:"minecraft:coal",count:2}],cooking_time_spent:50,cooking_total_time:200}
+block 4 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 4 -59 0 {Items:[{Slot:0b,id:"minecraft:sand",count:1}]}
+tick 1
+dump be:4,-60,0
+tick 20
+dump be:4,-60,0
+note hopper at the side of a furnace feeds the fuel slot: stone does not fit, coal and one bucket do
+block 0 -60 4 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:3}],cooking_total_time:200}
+block 1 -60 4 minecraft:hopper[facing=west,enabled=true]
+be_nbt 1 -60 4 {Items:[{Slot:0b,id:"minecraft:stone",count:2},{Slot:1b,id:"minecraft:coal",count:3},{Slot:2b,id:"minecraft:bucket",count:2}]}
+tick 40
+dump be:0,-60,4
+tick 40
+dump be:0,-60,4
+note smoker and blast furnace take their own recipes through the hopper above
+block 4 -60 4 minecraft:smoker[facing=north,lit=false]
+block 4 -59 4 minecraft:hopper[facing=down,enabled=true]
+be_nbt 4 -59 4 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:1},{Slot:1b,id:"minecraft:beef",count:2}]}
+block 8 -60 4 minecraft:blast_furnace[facing=north,lit=false]
+block 8 -59 4 minecraft:hopper[facing=down,enabled=true]
+be_nbt 8 -59 4 {Items:[{Slot:0b,id:"minecraft:beef",count:1},{Slot:1b,id:"minecraft:raw_iron",count:2}]}
+tick 40
+dump be:4,-60,4 be:8,-60,4
+note hopper below a furnace pulls the result first, then fuel only when it is a bucket
+block 0 -59 8 minecraft:furnace[facing=north,lit=false]
+be_nbt 0 -59 8 {Items:[{Slot:1b,id:"minecraft:bucket",count:1},{Slot:2b,id:"minecraft:iron_ingot",count:3}]}
+block 0 -60 8 minecraft:hopper[facing=down,enabled=true]
+block 0 -61 8 minecraft:barrel[facing=up,open=false]
+tick 60
+dump be:0,-59,8 be:0,-61,8
+note coal in the fuel slot is not takeable from below, a water bucket is
+block 4 -59 8 minecraft:furnace[facing=north,lit=false]
+be_nbt 4 -59 8 {Items:[{Slot:1b,id:"minecraft:coal",count:5}]}
+block 4 -60 8 minecraft:hopper[facing=down,enabled=true]
+block 4 -61 8 minecraft:barrel[facing=up,open=false]
+block 8 -59 8 minecraft:furnace[facing=north,lit=false]
+be_nbt 8 -59 8 {Items:[{Slot:1b,id:"minecraft:water_bucket",count:1}]}
+block 8 -60 8 minecraft:hopper[facing=down,enabled=true]
+block 8 -61 8 minecraft:barrel[facing=up,open=false]
+tick 60
+dump be:4,-59,8 be:4,-61,8 be:8,-59,8 be:8,-61,8
+note a comparator next to the furnace follows the hopper traffic
+block 0 -60 12 minecraft:furnace[facing=north,lit=false]
+block 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 12 minecraft:redstone_lamp
+block 0 -59 12 minecraft:hopper[facing=down,enabled=true]
+be_nbt 0 -59 12 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:64},{Slot:1b,id:"minecraft:raw_iron",count:64}]}
+watch be:0,-60,12 be:1,-60,12 blocks:0,-60,12,2,-60,12
+tick 24

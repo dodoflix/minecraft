@@ -1,3 +1,5 @@
+pub mod abstract_furnace_block_entity;
+
 mod beacon_block_entity;
 
 pub use beacon_block_entity::BeaconBlockEntity;

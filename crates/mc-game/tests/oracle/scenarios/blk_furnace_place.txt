@@ -1,0 +1,51 @@
+# AbstractFurnaceBlock.getStateForPlacement: the furnace, smoker and blast furnace face the player (opposite of the
+# horizontal direction), unlit; the block entity is created empty.
+level flat
+preload 2
+spawn_player Steve creative 3.5 -60 -2.5 0 0
+give Steve hotbar0 minecraft:furnace 64
+give Steve hotbar1 minecraft:smoker 64
+give Steve hotbar2 minecraft:blast_furnace 64
+tick 1
+note facing south (yaw 0), west (90), north (180), east (270)
+snap Steve 3.5 -60 -2.5 0 0
+select Steve 0
+use_on Steve 0 -61 0 up main 0.5 1.0 0.5
+tick 1
+select Steve 1
+use_on Steve 3 -61 0 up main 0.5 1.0 0.5
+tick 1
+select Steve 2
+use_on Steve 6 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 3.5 -60 1.5 90 0
+select Steve 0
+use_on Steve 0 -61 4 up main 0.5 1.0 0.5
+tick 1
+select Steve 1
+use_on Steve 3 -61 4 up main 0.5 1.0 0.5
+tick 1
+select Steve 2
+use_on Steve 6 -61 4 up main 0.5 1.0 0.5
+tick 1
+snap Steve 3.5 -60 5.5 180 0
+select Steve 0
+use_on Steve 0 -61 8 up main 0.5 1.0 0.5
+tick 1
+select Steve 1
+use_on Steve 3 -61 8 up main 0.5 1.0 0.5
+tick 1
+select Steve 2
+use_on Steve 6 -61 8 up main 0.5 1.0 0.5
+tick 1
+snap Steve 3.5 -60 9.5 270 0
+select Steve 0
+use_on Steve 0 -61 12 up main 0.5 1.0 0.5
+tick 1
+select Steve 1
+use_on Steve 3 -61 12 up main 0.5 1.0 0.5
+tick 1
+select Steve 2
+use_on Steve 6 -61 12 up main 0.5 1.0 0.5
+tick 1
+dump blocks:0,-60,0,6,-60,12 be:0,-60,0 be:3,-60,4 be:6,-60,8
