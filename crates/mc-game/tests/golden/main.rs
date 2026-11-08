@@ -16,6 +16,7 @@ mod block_scenario_golden;
 mod blocks_infra_golden;
 mod blocks_redstone_devices_golden;
 mod blocks_redstone_golden;
+mod blocks_scaffolding_golden;
 mod blocks_speleothem_copper_golden;
 mod boat_golden;
 mod books_golden;

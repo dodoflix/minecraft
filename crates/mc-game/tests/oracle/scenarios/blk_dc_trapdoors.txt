@@ -2,6 +2,9 @@
 level flat
 preload 3
 spawn_player Steve creative 0.5 -60 -6.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+level_seed 11
 watch events
 snap Steve 1.5 -60 -2.5 0 0
 give Steve hotbar0 minecraft:oak_trapdoor 64

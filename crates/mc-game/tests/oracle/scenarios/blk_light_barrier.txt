@@ -1,0 +1,68 @@
+# LightBlock / BarrierBlock: placement from the item (block_state component, waterlogging), the empty-hand cycle (game master only), block light,
+# waterlogged water ticks, the shape only holding the light item (no collision, no hit-test for others), the creative block pick data.
+level flat
+preload 3
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Op creative 6.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+level_seed 11
+watch events
+give Alice hotbar0 minecraft:light[block_state={level:"7"}] 8
+give Alice hotbar1 minecraft:barrier 8
+give Op hotbar0 minecraft:light 8
+give Op hotbar1 minecraft:barrier 8
+select Alice 0
+select Op 0
+# placement: the stored level, the default level 15, replacing air
+use_on Alice 2 -61 2 up
+use_on Op 8 -61 2 up
+tick 1
+dump blocks:0,-61,0,10,-58,6 inventory:Alice
+# empty hand: survival players never cycle, creative players only with game master permission
+give Alice hotbar0 minecraft:air
+select Alice 0
+use_on Alice 2 -60 2 up main 0.5 0.5 0.5
+use_on Op 8 -60 2 up main 0.5 0.5 0.5
+tick 1
+dump blocks:0,-61,0,10,-58,6
+# plain block cycle and block light
+block 4 -60 2 minecraft:light[level=15]
+block 5 -60 2 minecraft:light[level=3]
+block 6 -60 4 minecraft:stone
+tick 2
+dump blocks:0,-61,0,10,-58,6
+# waterlogged: water ticks, no flow through, skylight propagation (barrier above a light block)
+block 1 -60 5 minecraft:water
+block 1 -59 5 minecraft:barrier[waterlogged=true]
+block 2 -60 5 minecraft:light[level=9,waterlogged=true]
+block 3 -60 5 minecraft:barrier[waterlogged=false]
+block 3 -59 5 minecraft:light[level=0,waterlogged=false]
+tick 3
+dump blocks:0,-61,0,10,-58,6 ticks
+# neighbour updates: the waterlogged ones reschedule their water tick when a neighbour changes
+block 2 -61 5 minecraft:stone
+block 1 -58 5 minecraft:stone
+tick 2
+dump blocks:0,-61,0,10,-58,6 ticks
+# placing the barrier item against water waterlogs it (getStateForPlacement); breaking it again
+block 9 -60 5 minecraft:water
+block 9 -61 5 minecraft:stone
+select Op 1
+use_on Op 9 -61 5 up
+select Alice 1
+use_on Alice 9 -61 5 up
+tick 2
+dump blocks:8,-61,4,10,-58,6 inventory:Alice
+dig Op 9 -60 5
+tick 2
+dump blocks:8,-61,4,10,-58,6
+# creative players break a light block (the barrier above); survival players cannot mine them (unbreakable)
+dig Op 8 -60 2
+tick 2
+dump blocks:0,-61,0,10,-58,6 entities
+# item entities fall through a light block and rest on a barrier
+spawn_item i0 minecraft:stick 5.5 -56 2.5 0 0 0
+spawn_item i1 minecraft:stick 3.5 -56 5.5 0 0 0
+tick 40
+dump entities

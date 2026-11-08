@@ -2,6 +2,9 @@
 level flat
 preload 3
 spawn_player Steve creative 0.5 -60 -6.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+level_seed 11
 watch events
 fill 0 -60 0 14 -55 10 minecraft:air
 fill 0 -60 4 8 -57 4 minecraft:stone

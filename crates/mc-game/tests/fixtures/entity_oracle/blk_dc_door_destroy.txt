@@ -1,0 +1,37 @@
+B 2 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 2 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 5 -60 0 minecraft:iron_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 5 -59 0 minecraft:iron_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 8 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 8 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 11 -60 0 minecraft:iron_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 11 -59 0 minecraft:iron_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+DIG Steve ticks=0 broken=false
+B 2 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 2 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 5 -60 0 minecraft:iron_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 5 -59 0 minecraft:iron_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 8 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 8 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 11 -60 0 minecraft:iron_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 11 -59 0 minecraft:iron_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+DIG Steve ticks=0 broken=true
+B 2 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 2 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 5 -60 0 minecraft:iron_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 5 -59 0 minecraft:iron_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 11 -60 0 minecraft:iron_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 11 -59 0 minecraft:iron_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+DIG Alex ticks=25 broken=true
+B 2 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 2 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 11 -60 0 minecraft:iron_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 11 -59 0 minecraft:iron_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+E item#1 minecraft:item pos=5.316863295514192,-59.57271082282879,0.7279778729161238 delta=-0.030946050007716407,0.1568000030517578,-4.7908581764864435E-4 rot=245.55382,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_door*1 age=1 pickup=9 health=5 owner=- thrower=-
+DIG Alex ticks=151 broken=true
+B 2 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 2 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+E item#1 minecraft:item pos=4.997522666990098,-60.0,0.7230340572728751 delta=-4.446108233682591E-11,-0.12,-6.883164080575912E-13 rot=245.55382,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_door*1 age=152 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.343441290838,-59.610794697098015,0.2932313932996668 delta=0.0035913045369913225,0.1568000030517578,0.021986432568232548 rot=75.78502,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_door*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=4.997522666990098,-60.0,0.7230340572728751 delta=-2.6143119042939957E-11,-0.08,-4.047300886365038E-13 rot=245.55382,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_door*1 age=155 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.354001162901325,-59.38655596229332,0.3578803008645972 delta=0.0033801072971383892,0.0323152326326785,0.020693455650013994 rot=75.78502,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_door*1 age=4 pickup=6 health=5 owner=- thrower=-

@@ -1,5 +1,6 @@
 # Scaffolding: distance/bottom updates when placed in chains, collapse when the support goes (scheduled ticks, falling scaffolding).
-level void
+# A flat level: block ticks never run in the oracle's void level (its chunks do not reach block ticking).
+level flat
 preload 3
 level_seed 3
 fill 0 -62 0 15 -62 15 minecraft:stone

@@ -1,0 +1,95 @@
+T 31
+EV sound at=1.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 32
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 33
+EV sound at=5.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 34
+EV sound at=7.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 35
+EV sound at=11.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 36
+EV sound at=13.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.nether_wood.place source=block vol=1.0 pitch=0.8
+T 37
+EV sound at=15.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.bamboo_wood.place source=block vol=1.0 pitch=0.8
+B 1 -60 0 minecraft:oak_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 3 -60 0 minecraft:oak_fence_gate[facing=west,in_wall=false,open=false,powered=false]
+B 5 -60 0 minecraft:oak_fence_gate[facing=north,in_wall=false,open=false,powered=false]
+B 7 -60 0 minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 10 -60 0 minecraft:cobblestone_wall[east=low,north=none,south=none,up=true,waterlogged=false,west=none]
+B 11 -60 0 minecraft:oak_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+B 12 -60 0 minecraft:cobblestone_wall[east=none,north=none,south=none,up=true,waterlogged=false,west=low]
+B 13 -60 0 minecraft:crimson_fence_gate[facing=west,in_wall=false,open=false,powered=false]
+B 14 -60 0 minecraft:cobblestone_wall[east=low,north=none,south=low,up=true,waterlogged=false,west=none]
+B 14 -60 1 minecraft:cobblestone_wall[east=none,north=low,south=none,up=true,waterlogged=false,west=none]
+B 15 -60 0 minecraft:bamboo_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+T 38
+EV sound at=9.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 39
+EV sound at=8.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 40
+EV sound at=6.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.cherry_wood.place source=block vol=1.0 pitch=0.8
+T 41
+EV sound at=7.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 42
+EV sound at=4.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.nether_wood.place source=block vol=1.0 pitch=0.8
+T 43
+EV sound at=5.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 44
+EV sound at=3.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+B 3 -60 3 minecraft:cobblestone_wall[east=low,north=none,south=none,up=true,waterlogged=false,west=none]
+B 4 -60 3 minecraft:warped_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+B 5 -60 3 minecraft:cobblestone_wall[east=low,north=none,south=none,up=false,waterlogged=false,west=low]
+B 6 -60 3 minecraft:cherry_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+B 7 -60 3 minecraft:cobblestone_wall[east=low,north=none,south=none,up=false,waterlogged=false,west=low]
+B 8 -60 3 minecraft:oak_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+B 9 -60 3 minecraft:cobblestone_wall[east=none,north=none,south=none,up=true,waterlogged=false,west=low]
+T 45
+EV sound at=1.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.fence_gate.open source=block vol=1.0 pitch=0.9643913
+T 46
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.fence_gate.open source=block vol=1.0 pitch=0.92702377
+T 47
+EV sound at=5.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.fence_gate.open source=block vol=1.0 pitch=0.9302365
+T 48
+EV sound at=7.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.fence_gate.open source=block vol=1.0 pitch=0.93223244
+B 1 -60 0 minecraft:oak_fence_gate[facing=north,in_wall=false,open=true,powered=false]
+B 3 -60 0 minecraft:oak_fence_gate[facing=east,in_wall=false,open=true,powered=false]
+B 5 -60 0 minecraft:oak_fence_gate[facing=south,in_wall=false,open=true,powered=false]
+B 7 -60 0 minecraft:oak_fence_gate[facing=west,in_wall=false,open=true,powered=false]
+B 10 -60 0 minecraft:cobblestone_wall[east=low,north=none,south=none,up=true,waterlogged=false,west=none]
+T 49
+EV sound at=1.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.fence_gate.close source=block vol=1.0 pitch=0.94984716
+T 50
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.fence_gate.close source=block vol=1.0 pitch=0.9592281
+T 51
+EV sound at=5.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.fence_gate.close source=block vol=1.0 pitch=0.9921988
+T 52
+EV sound at=7.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.fence_gate.close source=block vol=1.0 pitch=0.98059577
+B 1 -60 0 minecraft:oak_fence_gate[facing=north,in_wall=false,open=false,powered=false]
+B 3 -60 0 minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 5 -60 0 minecraft:oak_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 7 -60 0 minecraft:oak_fence_gate[facing=west,in_wall=false,open=false,powered=false]
+B 10 -60 0 minecraft:cobblestone_wall[east=low,north=none,south=none,up=true,waterlogged=false,west=none]
+T 53
+EV sound at=1.5,-59.5,6.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 54
+EV sound at=4.5,-59.5,6.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 55
+EV sound at=7.5,-59.5,6.5 r=16.0 ex=1 event=minecraft:block.cherry_wood.place source=block vol=1.0 pitch=0.8
+T 56
+EV sound at=4.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.fence_gate.open source=block vol=1.0 pitch=0.97834164
+EV sound at=1.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.fence_gate.close source=block vol=1.0 pitch=0.94975436
+EV sound at=7.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.cherry_wood_fence_gate.open source=block vol=1.0 pitch=0.99312425
+T 57
+B 1 -60 6 minecraft:oak_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 4 -60 6 minecraft:oak_fence_gate[facing=south,in_wall=false,open=true,powered=true]
+B 4 -60 7 minecraft:redstone_block
+B 7 -60 6 minecraft:cherry_fence_gate[facing=south,in_wall=false,open=true,powered=true]
+B 7 -60 7 minecraft:redstone_block
+T 58
+EV sound at=4.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.fence_gate.close source=block vol=1.0 pitch=0.9998812
+T 59
+B 1 -60 6 minecraft:oak_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 4 -60 6 minecraft:oak_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 7 -60 6 minecraft:cherry_fence_gate[facing=south,in_wall=false,open=true,powered=true]
+B 7 -60 7 minecraft:redstone_block

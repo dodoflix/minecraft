@@ -57,3 +57,22 @@ fn stairs_waterlogged_random_updates() {
 fn ladders_chains_lanterns_waterlogged_random_updates() {
     check("blk_dc_np_misc_wet");
 }
+
+/// Player-driven scenarios (survival/creative players placing and using the blocks).
+macro_rules! player_golden {
+    ($($name:ident => $scenario:literal),+ $(,)?) => {$(
+        #[test]
+        fn $name() {
+            check($scenario);
+        }
+    )+};
+}
+
+player_golden!(
+    doors_player_placement_and_use => "blk_dc_doors",
+    connecting_blocks_player_placement => "blk_dc_connect",
+    fence_gates_player_placement_and_use => "blk_dc_fence_gates",
+    misc_shaped_blocks_player_placement => "blk_dc_misc",
+    stairs_slabs_player_placement => "blk_dc_stairs_slabs",
+    trapdoors_player_placement_and_use => "blk_dc_trapdoors",
+);
