@@ -55,3 +55,8 @@ fn block_entity_map_and_ticker_dump() {
 fn sign_update_verb_edits_a_sign() {
     check("blk_harness_sign");
 }
+
+#[test]
+fn block_entity_map_order_with_many_block_entities() {
+    check("blk_infra_be_order");
+}
