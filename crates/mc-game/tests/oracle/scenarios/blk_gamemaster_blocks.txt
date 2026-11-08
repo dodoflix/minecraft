@@ -1,0 +1,36 @@
+# GameMasterBlock: a creative player without the game master permission cannot break command, structure and jigsaw blocks (the client is told
+# the block is unchanged), cannot place their items, and breaks plain blocks as usual. Survival players are refused as well.
+level flat
+preload 2
+spawn_player Creative creative 6.5 -60 0.5 0 0
+spawn_player Survival survival 6.5 -60 8.5 0 0
+tick 30
+level_seed 3
+watch events
+block 4 -60 0 minecraft:command_block[facing=north,conditional=false]
+block 4 -60 2 minecraft:repeating_command_block[facing=north,conditional=false]
+block 4 -60 4 minecraft:chain_command_block[facing=north,conditional=false]
+block 2 -60 0 minecraft:structure_block[mode=save]
+block 2 -60 2 minecraft:jigsaw[orientation=north_up]
+block 2 -60 4 minecraft:stone
+block 4 -60 8 minecraft:command_block[facing=north,conditional=false]
+give Creative hotbar0 minecraft:command_block 4
+give Creative hotbar1 minecraft:structure_block 4
+give Creative hotbar2 minecraft:stone 4
+select Creative 0
+dig Creative 4 -60 0
+dig Creative 4 -60 2
+dig Creative 4 -60 4
+dig Creative 2 -60 0
+dig Creative 2 -60 2
+dig Creative 2 -60 4
+dig Survival 4 -60 8 10
+tick 2
+dump blocks:0,-60,0,8,-60,9 events
+use_on Creative 6 -61 0 up
+select Creative 1
+use_on Creative 6 -61 2 up
+select Creative 2
+use_on Creative 6 -61 4 up
+tick 2
+dump blocks:0,-60,0,8,-60,9 inventory:Creative events

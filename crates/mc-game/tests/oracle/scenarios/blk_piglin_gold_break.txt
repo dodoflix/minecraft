@@ -1,0 +1,18 @@
+level flat
+preload 3
+difficulty normal
+gamerule mob_drops false
+spawn_player Alice survival 4.5 -60 0.5 0 0
+spawn P1 minecraft:piglin 9.5 -60 0.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,NoAI:1b}
+spawn P2 minecraft:piglin 36.5 -60 0.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b,NoAI:1b}
+give Alice mainhand minecraft:diamond_pickaxe
+block 3 -60 0 minecraft:stone
+block 5 -60 0 minecraft:gold_block
+tick 20
+dump nbt:P1 nbt:P2
+dig Alice 3 -60 0
+tick 2
+dump nbt:P1 nbt:P2
+dig Alice 5 -60 0
+tick 2
+dump nbt:P1 nbt:P2 blocks:2,-60,0,6,-60,0

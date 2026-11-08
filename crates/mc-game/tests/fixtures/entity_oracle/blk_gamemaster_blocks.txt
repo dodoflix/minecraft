@@ -1,0 +1,48 @@
+DIG Creative ticks=0 broken=false
+DIG Creative ticks=0 broken=false
+DIG Creative ticks=0 broken=false
+DIG Creative ticks=0 broken=false
+DIG Creative ticks=0 broken=false
+DIG Creative ticks=0 broken=true
+T 31
+EV level_event r=64.0 ex=1 type=2001 pos=2,-60,4 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,8 data=1 global=0
+T 32
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,8 data=1 global=0
+T 33
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,8 data=1 global=0
+T 34
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,8 data=1 global=0
+T 35
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,8 data=1 global=0
+T 36
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,8 data=1 global=0
+T 37
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,8 data=1 global=0
+T 38
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,8 data=1 global=0
+T 39
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,8 data=1 global=0
+T 40
+DIG Survival ticks=10 broken=false
+T 41
+T 42
+B 2 -60 0 minecraft:structure_block[mode=save]
+B 2 -60 2 minecraft:jigsaw[orientation=north_up]
+B 4 -60 0 minecraft:command_block[conditional=false,facing=north]
+B 4 -60 2 minecraft:repeating_command_block[conditional=false,facing=north]
+B 4 -60 4 minecraft:chain_command_block[conditional=false,facing=north]
+B 4 -60 8 minecraft:command_block[conditional=false,facing=north]
+T 43
+EV sound at=6.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 44
+B 2 -60 0 minecraft:structure_block[mode=save]
+B 2 -60 2 minecraft:jigsaw[orientation=north_up]
+B 4 -60 0 minecraft:command_block[conditional=false,facing=north]
+B 4 -60 2 minecraft:repeating_command_block[conditional=false,facing=north]
+B 4 -60 4 minecraft:chain_command_block[conditional=false,facing=north]
+B 4 -60 8 minecraft:command_block[conditional=false,facing=north]
+B 6 -60 4 minecraft:stone
+I Creative 0 minecraft:command_block*4
+I Creative 1 minecraft:structure_block*4
+I Creative 2 minecraft:stone*4

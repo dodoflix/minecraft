@@ -16,6 +16,7 @@ mod block_behaviour_golden;
 mod block_scenario_golden;
 mod blocks_furnaces_golden;
 mod blocks_infra_golden;
+mod blocks_plain_hooks_golden;
 mod blocks_plants_vines_golden;
 mod blocks_redstone_devices_golden;
 mod blocks_redstone_golden;

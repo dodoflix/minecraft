@@ -1,0 +1,46 @@
+# ComposterBlock as a WorldlyContainerHolder: the input container (up face, compostable items, one layer per setChanged, level event 1500), the
+# empty container at level 7, the output container (down face, bone meal at level 8, emptying), hoppers and droppers against it, and the
+# comparator reading the level. Items are placed with be_nbt, the level random is seeded after the chunks settle.
+level flat
+preload 3
+tick 30
+level_seed 77
+watch events
+# column A: hopper above a fresh composter, wheat seeds and a stick (only the compostable item passes the up face)
+block 0 -60 0 minecraft:composter[level=0]
+block 0 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 0 -59 0 {Items:[{Slot:0b,id:"minecraft:stick",count:2},{Slot:1b,id:"minecraft:wheat_seeds",count:20}]}
+# column B: hopper below a ready composter pulls the bone meal into a barrel next to it
+block 4 -59 0 minecraft:composter[level=8]
+block 4 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 5 -60 0 minecraft:barrel[facing=up]
+# column C: composter with a comparator and a lamp, fed from above
+block 8 -60 0 minecraft:composter[level=5]
+block 9 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 10 -60 0 minecraft:redstone_lamp
+block 8 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 8 -59 0 {Items:[{Slot:0b,id:"minecraft:carrot",count:8}]}
+# column D: composters that refuse everything from above (level 7: empty container, level 8: output container)
+block 12 -60 0 minecraft:composter[level=7]
+block 12 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 12 -59 0 {Items:[{Slot:0b,id:"minecraft:wheat_seeds",count:4}]}
+block 16 -60 0 minecraft:composter[level=8]
+block 16 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 16 -59 0 {Items:[{Slot:0b,id:"minecraft:wheat_seeds",count:4}]}
+# column E: a dropper above a composter (HopperBlockEntity.addItem into the worldly container), powered by a redstone block
+block 20 -60 0 minecraft:composter[level=0]
+block 20 -59 0 minecraft:dropper[facing=down]
+be_nbt 20 -59 0 {Items:[{Slot:0b,id:"minecraft:beetroot",count:6}]}
+dump blocks:0,-61,0,21,-58,0 be:0,-59,0 be:4,-60,0 be:5,-60,0 be:8,-59,0 be:12,-59,0 be:16,-59,0 be:20,-59,0 ticks
+tick 9
+dump blocks:0,-61,0,21,-58,0 be:0,-59,0 be:4,-60,0 be:5,-60,0 be:8,-59,0 be:12,-59,0 be:16,-59,0 be:20,-59,0 ticks
+block 21 -59 0 minecraft:redstone_block
+tick 10
+dump blocks:0,-61,0,21,-58,0 be:0,-59,0 be:4,-60,0 be:5,-60,0 be:8,-59,0 be:12,-59,0 be:16,-59,0 be:20,-59,0 ticks
+tick 40
+dump blocks:0,-61,0,21,-58,0 be:0,-59,0 be:4,-60,0 be:5,-60,0 be:8,-59,0 be:12,-59,0 be:16,-59,0 be:20,-59,0 ticks
+block 21 -59 0 minecraft:air
+tick 1
+block 21 -59 0 minecraft:redstone_block
+tick 60
+dump blocks:0,-61,0,21,-58,0 be:0,-59,0 be:4,-60,0 be:5,-60,0 be:8,-59,0 be:12,-59,0 be:16,-59,0 be:20,-59,0 ticks entities
