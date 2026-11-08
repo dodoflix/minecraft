@@ -300,9 +300,14 @@ impl ServerLevel {
                 let chunk = match slot {
                     ChunkSlot::Proto(proto) => {
                         // `postLoadProtoChunk`: legacy entity NBT of the proto chunk is loaded with the entity code.
-                        Box::new(LevelChunk::from_proto(*proto, &self.factory))
+                        let mut chunk = Box::new(LevelChunk::from_proto(*proto, &self.factory));
+                        chunk.promote_pending_block_entities();
+                        chunk
                     }
-                    ChunkSlot::Level(chunk) => chunk,
+                    ChunkSlot::Level(mut chunk) => {
+                        chunk.run_post_load();
+                        chunk
+                    }
                     other => {
                         // The chunk is lent to the worldgen thread (a neighbour's step reads it): retry after the batch.
                         if let Some(h) = self.chunk_source.chunk_map.holders.holder_mut(pos.pack())
@@ -314,7 +319,6 @@ impl ServerLevel {
                     }
                 };
                 let mut chunk = chunk;
-                chunk.promote_pending_block_entities();
                 chunk.data.set_loaded(true);
                 self.chunk_source.chunk_map.complete_full_step(pos, chunk);
                 self.register_all_block_entities_after_level_load(pos);
@@ -716,7 +720,6 @@ impl BlockGetter for ServerLevel {
         self.chunk_now(pos.x() >> 4, pos.z() >> 4)?
             .block_entities
             .get(&pos)
-            .map(|b| &**b)
     }
 
     fn level_height(&self) -> LevelHeight {

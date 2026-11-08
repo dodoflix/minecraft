@@ -109,18 +109,18 @@ impl ChunkMap {
                 self.chunk_type_cache.insert(key, CHUNK_TYPE_REPLACEABLE);
                 ChunkSlot::Proto(Box::new(proto))
             }
-            LoadedChunk::Level(mut chunk) => {
+            LoadedChunk::Level(chunk) => {
                 self.chunk_type_cache.insert(key, CHUNK_TYPE_FULL);
-                for tag in loaded.post_load_block_entities {
-                    chunk.access.set_block_entity_nbt(tag);
-                }
                 if !loaded.post_load_entities.is_empty() {
                     self.events.push(ChunkMapEvent::LegacyEntities(
                         pos,
                         loaded.post_load_entities,
                     ));
                 }
-                ChunkSlot::Level(Box::new(LevelChunk::from_data(chunk)))
+                ChunkSlot::Level(Box::new(LevelChunk::from_data(
+                    chunk,
+                    loaded.post_load_block_entities,
+                )))
             }
         };
         self.finish_load(key, slot);
@@ -407,7 +407,12 @@ impl ChunkMap {
                 data
             }
             ChunkSlot::Proto(p) => {
-                let block_entities = p.access.block_entities.values().cloned().collect();
+                let block_entities = p
+                    .access
+                    .get_block_entities_pos(std::iter::empty())
+                    .iter()
+                    .filter_map(|pos| p.access.get_block_entity_nbt(*pos).cloned())
+                    .collect();
                 SerializableChunkData::from_proto_chunk(p, game_time, &light_fn, block_entities)
             }
             _ => return false,

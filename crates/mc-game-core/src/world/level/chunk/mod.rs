@@ -2,4 +2,4 @@
 pub mod level_chunk;
 pub mod status;
 
-pub use level_chunk::{LevelChunk, TickerCell};
+pub use level_chunk::{BlockEntityMap, LevelChunk, TickerCell};

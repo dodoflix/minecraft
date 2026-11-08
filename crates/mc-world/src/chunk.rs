@@ -17,12 +17,12 @@ use crate::status::ChunkStatus;
 use crate::ticks::{LevelChunkTicks, PackedTicks, ProtoChunkTicks, SerializableTickContainer};
 use crate::upgrade_data::UpgradeData;
 use indexmap::{IndexMap, IndexSet};
+use mc_core::java_collections::{JavaHashMap, block_pos_hash, hash_set_union_order};
 use mc_core::math::mth;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos, quart_pos};
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::{Fluid, FluidState};
 use mc_nbt::{CompoundTag, Tag};
-use std::collections::HashMap;
 
 /// `LevelHeightAccessor` for a dimension (or `BelowZeroRetrogen.UPGRADE_HEIGHT_ACCESSOR`).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -218,7 +218,7 @@ pub struct ChunkAccess {
     pub blending_data: Option<BlendingData>,
     pub structures: StructureData,
     /// `pendingBlockEntities` (raw block entity NBT keyed by position). Live instances are `mc-game`'s.
-    pub block_entities: HashMap<BlockPos, CompoundTag>,
+    pub block_entities: JavaHashMap<BlockPos, CompoundTag>,
     /// `skyLightSources`.
     pub sky_light_sources: ChunkSkyLightSources,
     inhabited_time: i64,
@@ -263,7 +263,7 @@ impl ChunkAccess {
             upgrade_data,
             blending_data,
             structures: StructureData::default(),
-            block_entities: HashMap::new(),
+            block_entities: JavaHashMap::new(block_pos_hash),
             sky_light_sources: ChunkSkyLightSources::new(level_height.min_y, level_height.height),
             inhabited_time,
             unsaved: false,
@@ -309,9 +309,18 @@ impl ChunkAccess {
         &mut self.sections[section_index]
     }
 
-    /// `getBlockEntitiesPos()`.
-    pub fn get_block_entities_pos(&self) -> Vec<BlockPos> {
-        self.block_entities.keys().copied().collect()
+    /// `getBlockEntitiesPos()`: `new HashSet<>(pendingBlockEntities.keySet())` plus the keys of the live block entities
+    /// (`live`, in their map's order), in the set's iteration order.
+    pub fn get_block_entities_pos(&self, live: impl Iterator<Item = BlockPos>) -> Vec<BlockPos> {
+        hash_set_union_order(
+            self.block_entities
+                .keys()
+                .copied()
+                .collect::<Vec<_>>()
+                .into_iter(),
+            live,
+            block_pos_hash,
+        )
     }
 
     /// `setBlockEntityNbt(tag)`: `pendingBlockEntities.put` (an existing entry is replaced; live instances do not exist here).
@@ -915,7 +924,10 @@ impl LevelChunk {
         {
             log::error!("Chunk at {} contains duplicated block entities", p.pos);
         }
-        chunk.access.block_entities.extend(p.block_entities);
+        chunk
+            .access
+            .block_entities
+            .put_all(p.block_entities.into_entries().into_iter());
         chunk.access.post_processing = p.post_processing;
         chunk.access.set_all_starts(p.structures.starts);
         chunk.access.set_all_references(p.structures.references);

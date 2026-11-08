@@ -162,7 +162,7 @@ impl ServerLevel {
 
     /// Take the block entity at `pos` out of its chunk (pair with `put_back_block_entity`).
     pub fn take_block_entity(&mut self, pos: BlockPos) -> Option<Box<dyn BlockEntity>> {
-        self.chunk_at_mut(pos)?.block_entities.remove(&pos)
+        self.chunk_at_mut(pos)?.block_entities.take(&pos)
     }
 
     /// Put a taken block entity back unless it was replaced or removed (`setRemoved`) in the meantime.
@@ -171,7 +171,7 @@ impl ServerLevel {
             return;
         }
         if let Some(chunk) = self.chunk_at_mut(pos) {
-            chunk.block_entities.entry(pos).or_insert(block_entity);
+            chunk.block_entities.put_back(pos, block_entity);
         }
     }
 
