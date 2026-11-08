@@ -12,9 +12,9 @@
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
-//! `note`, `gamerule NAME VALUE`, `time N` (sets the dimension's default clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `rand_value N`,
+//! `note`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
-//! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list order), `ticks` (`TICK block|fluid x y z id
+//! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list; `BEM` order is only comparable for one block entity per chunk while our chunk map is a std `HashMap`), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
 //! dump: [`ServerLevel`]'s `tick_state.broadcast_log` here, `VanillaLevel.RecordingPlayerList` in Java). Everything else panics
 //! with the line number, so a scenario never silently runs half.
@@ -317,9 +317,8 @@ pub struct Scenario {
     actors: actors::Actors,
     line_no: usize,
     line: String,
-    /// The `world_clock` totals the attribute timelines read (`time N` sets the dimension's default clock).
+    /// The `world_clock` totals the attribute timelines read (`time N` sets the overworld clock).
     clocks: Arc<mc_game::world::clock::ClockTotals>,
-    default_clock: Option<Identifier>,
 }
 
 impl Scenario {
@@ -342,7 +341,6 @@ impl Scenario {
         set_rule(&mut game_rules, "random_tick_speed", "0");
         Scenario {
             clocks: Arc::default(),
-            default_clock: None,
             level: None,
             env: Env {
                 game_rules,
@@ -403,7 +401,6 @@ impl Scenario {
                 ids.iter().filter_map(|id| timeline(id.path())).collect()
             }
         };
-        self.default_clock = dimension_type.default_clock.clone();
         // flat only exists in the overworld; the other dimensions are void here (scenarios fill what they dump)
         let generator: Arc<dyn ChunkGeneratorBackend> =
             if self.opts.flat && self.opts.dimension == "overworld" {
@@ -420,6 +417,7 @@ impl Scenario {
                 min_y: dimension_type.min_y,
                 height: dimension_type.height,
             },
+            // the generator settings' sea levels (the replay has no noise settings)
             sea_level: match self.opts.dimension {
                 "overworld" => 63,
                 "the_nether" => 32,
@@ -445,7 +443,7 @@ impl Scenario {
             &dimension_type.attributes,
             &vec![None],
             &timelines,
-            false,
+            false, // shortcut: no weather layers; the scenarios keep the weather clear, so the sky does not depend on them
             self.clocks.clone(),
         );
         level.tick_state.tick_time = true;
@@ -572,10 +570,10 @@ impl Scenario {
                 self.world();
                 let ticks: i64 = a[1].parse().unwrap_or_else(|_| panic!("time {}", a[1]));
                 self.env.clock = ticks;
-                // `/time set`: the default clock of the level; the sky follows from the next tick (`updateSkyBrightness`)
-                if let Some(clock) = &self.default_clock {
-                    self.clocks.set(clock, ticks);
-                }
+                // `/time set` runs from the overworld command source: it moves the overworld clock whatever `dimension` is;
+                // the sky follows from the next tick (`updateSkyBrightness`)
+                self.clocks
+                    .set(&Identifier::parse("minecraft:overworld").unwrap(), ticks);
             }
             "level_seed" => {
                 self.world();

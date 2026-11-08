@@ -309,7 +309,11 @@ public final class VanillaLevel {
       Server server = new Server(Thread.currentThread(), access, packs, stem, settings, services, new NotificationManager());
       server.start();
       REGISTRIES = server.registryAccess();
-      VanillaLevel v = new VanillaLevel(dir, server, server.getLevel(net.minecraft.resources.ResourceKey.create(Registries.DIMENSION, net.minecraft.resources.Identifier.withDefaultNamespace(o.dimension))));
+      net.minecraft.server.level.ServerLevel level = server.getLevel(net.minecraft.resources.ResourceKey.create(Registries.DIMENSION, net.minecraft.resources.Identifier.withDefaultNamespace(o.dimension)));
+      if (level == null) {
+         throw new IllegalArgumentException("dimension overworld|the_nether|the_end, got " + o.dimension);
+      }
+      VanillaLevel v = new VanillaLevel(dir, server, level);
       // frozen, quiet world; scripts may flip any rule with `gamerule`
       for (String rule : new String[] {"advance_time", "advance_weather", "spawn_mobs", "spawn_monsters", "spawn_patrols", "spawn_phantoms", "spawn_wandering_traders", "spawn_wardens", "raids", "log_admin_commands", "send_command_feedback"}) {
          v.command("gamerule " + rule + " false");
