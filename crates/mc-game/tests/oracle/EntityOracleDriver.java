@@ -109,6 +109,7 @@ import net.minecraft.util.RandomSource;
  * tick_chunk CX CZ SPEED      ServerLevel.tickChunk(chunk, SPEED): random ticks of one chunk (use instead of gamerule random_tick_speed)
  * random_tick X Y Z           randomTick of that block (+ its fluid) as tickChunk's inner loop does for one chosen position
  * bonemeal X Y Z            BoneMealItem.growCrop without a player; prints `BONEMEAL true|false` (true = the block was a valid target)
+ * destroy X Y Z              Level.destroyBlock(pos, true) (no breaker: destroy particles event, drops, BLOCK_DESTROY); prints `DESTROY true|false`
  * be_nbt X Y Z SNBT           merge SNBT into the block entity (`/data merge block`: saveWithFullMetadata.merge, loadWithComponents, setChanged)
  * -- entities --
  * spawn REF TYPE X Y Z [yaw pitch] [SNBT]        real vanilla entity (EntityType.create + addFreshEntity), random seeded from REF
@@ -414,6 +415,11 @@ public final class EntityOracleDriver {
             world();
             BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
             out.println("BONEMEAL " + net.minecraft.world.item.BoneMealItem.growCrop(new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 64), v.level, pos));
+         }
+         case "destroy" -> {
+            world();
+            BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
+            out.println("DESTROY " + v.level.destroyBlock(pos, true));
          }
          case "be_nbt" -> {
             world();

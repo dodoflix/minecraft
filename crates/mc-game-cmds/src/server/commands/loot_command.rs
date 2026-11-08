@@ -574,7 +574,7 @@ fn drop_block_loot(
             .block_entity(block_entity)
             .optional_this_entity(this_entity)
             .tool(&tool);
-        Ok((key, state_get_drops(state, pos, builder)))
+        Ok((key, state_get_drops(state, builder)))
     })?;
     let mut used = Tracker::create();
     output(c, &drops, &mut used)?;

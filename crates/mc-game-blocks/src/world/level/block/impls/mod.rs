@@ -222,6 +222,8 @@ pub mod mangrove_roots_block;
 
 pub mod moving_piston_block;
 
+pub mod mud_block;
+
 pub mod mushroom_block;
 
 pub mod nether_fungus_block;
@@ -316,6 +318,8 @@ pub mod snow_layer_block;
 
 pub mod snowy_block;
 
+pub mod soul_sand_block;
+
 pub mod spawner_block;
 
 pub mod speleothem_block;
@@ -355,6 +359,8 @@ pub mod target_block;
 pub mod test_block;
 
 pub mod test_instance_block;
+
+pub mod transparent_block;
 
 pub mod trap_door_block;
 

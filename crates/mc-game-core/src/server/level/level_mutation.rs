@@ -6,8 +6,8 @@ use super::FullChunkStatus;
 use super::ServerLevel;
 use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::PoiTypes;
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::helpers::{drop_resources, update_or_destroy_limited};
+use crate::world::level::block::{BlockStateExt, behaviour};
 use crate::world::level::flags::*;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::redstone::{
@@ -263,8 +263,7 @@ impl ServerLevel {
         if block_state.is_air() {
             return false;
         }
-        // `Block.spawnDestroyParticles`: levelEvent 2001 with the state id.
-        self.level_event_impl(None, 2001, pos, block_state.id() as i32);
+        behaviour(block_state.block()).spawn_destroy_particles(self, pos, block_state);
         if drop_block {
             drop_resources(self, block_state, pos, breaker);
         }

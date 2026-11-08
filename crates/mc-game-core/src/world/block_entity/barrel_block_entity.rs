@@ -168,16 +168,6 @@ impl BlockEntity for BarrelBlockEntity {
         self.container.get_custom_name().cloned()
     }
 
-    fn pre_remove_side_effects(
-        &mut self,
-        level: &mut ServerLevel,
-        pos: BlockPos,
-        _state: BlockState,
-    ) {
-        self.unpack(level, None);
-        crate::world::containers::drop_contents_list(level, pos, &self.items);
-    }
-
     fn as_container(&self) -> Option<&dyn Container> {
         Some(self)
     }

@@ -10,6 +10,16 @@ use mc_game_core::{register_block_class, update_shape};
 pub struct SnowLayerBlock;
 
 impl BlockBehaviour for SnowLayerBlock {
+    /// `getVisualShape`: `SHAPES[layers]`, the outline shape (the collision shape is one layer lower).
+    fn get_visual_shape(
+        &self,
+        state: BlockState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        context: &mc_game_core::world::level::collision::CollisionContext,
+    ) -> mc_core::phys::shapes::VoxelShape {
+        self.get_shape(state, level, pos, context)
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below_state = level.get_block_state(pos.below());
         if below_state.is_tag("cannot_support_snow_layer") {

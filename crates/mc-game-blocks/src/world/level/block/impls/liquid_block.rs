@@ -10,6 +10,7 @@ use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::collision::CollisionContext;
 use mc_game_core::world::level::material::{fluid_behaviour, fluid_is_tag};
 use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::storage::loot::context::LootParamsBuilder;
 use mc_game_core::{register_block_class, update_shape};
 
 /// `LiquidBlock` with its `fluid` (the flowing fluid of the block: water or lava).
@@ -101,6 +102,10 @@ impl LiquidBlock {
 }
 
 impl BlockBehaviour for LiquidBlock {
+    /// `getDrops`: a liquid never drops anything.
+    fn get_drops<'a>(&self, _state: BlockState, _builder: LootParamsBuilder<'a>) -> Vec<ItemStack> {
+        Vec::new()
+    }
     fn get_collision_shape(
         &self,
         state: BlockState,

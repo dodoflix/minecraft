@@ -1,6 +1,6 @@
 // Golden generator for the block behaviour classes: for every block state it evaluates canSurvive / updateShape (6
-// directions) / rotate (4) / mirror (3) / getPostProcessPos in K pseudo-random worlds over a stub LevelReader and prints
-// one 64-bit hash per block (or the detail per state with `verbose <block>`).
+// directions) / rotate (4) / mirror (3) / getPostProcessPos / getVisualShape in K pseudo-random worlds over a stub
+// LevelReader and prints one 64-bit hash per block (or the detail per state with `verbose <block>`).
 // Usage: scripts/golden-block-behaviour.sh   (`verbose <block>` prints the per-state detail instead)
 // Output: crates/mc-game/tests/fixtures/block_behaviour.txt
 // The world function, hashing and pools are mirrored 1:1 by crates/mc-game/tests/golden/block_behaviour_golden.rs.
@@ -140,6 +140,11 @@ public class BlockBehaviourOracle {
          h = mix(h ^ (surv ? 1 : 2));
          BlockPos pp = s.getPostProcessPos(level, ORIGIN);
          h = mix(h ^ (pp == null ? 7 : ((long)(pp.getX() - ORIGIN.getX()) * 31 + (pp.getY() - ORIGIN.getY()) * 5 + (pp.getZ() - ORIGIN.getZ()))));
+         java.util.List<net.minecraft.world.phys.AABB> visual = s.getVisualShape(level, ORIGIN, net.minecraft.world.phys.shapes.CollisionContext.empty()).toAabbs();
+         h = mix(h ^ visual.size());
+         for (net.minecraft.world.phys.AABB box : visual) {
+            for (double c : new double[]{box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ}) h = mix(h ^ Double.doubleToLongBits(c));
+         }
          if (verbose != null) verbose.append("S").append(sid).append(" w").append(w).append(" surv=").append(surv).append(" pp=").append(pp == null ? "null" : pp.toString());
          for (int di = 0; di < 6; di++) {
             Direction d = UPDATE_ORDER[di];

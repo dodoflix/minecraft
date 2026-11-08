@@ -1,0 +1,186 @@
+# BonemealableBlock server dispatch (`isValidBonemealTarget` of saplings, azalea and mushrooms needs the ServerLevel):
+# BoneMealItem.growCrop six times on every sapling kind, azalea and the mushrooms, each roll with its own level random seed.
+level flat
+preload 6
+note oak_sapling
+block 0 -60 0 minecraft:oak_sapling
+level_seed 1
+bonemeal 0 -60 0
+level_seed 2
+bonemeal 0 -60 0
+level_seed 3
+bonemeal 0 -60 0
+level_seed 4
+bonemeal 0 -60 0
+level_seed 5
+bonemeal 0 -60 0
+level_seed 6
+bonemeal 0 -60 0
+dump blocks:-8,-61,-8,8,-40,8 events
+note spruce_sapling
+block 24 -60 0 minecraft:spruce_sapling
+level_seed 7
+bonemeal 24 -60 0
+level_seed 8
+bonemeal 24 -60 0
+level_seed 9
+bonemeal 24 -60 0
+level_seed 10
+bonemeal 24 -60 0
+level_seed 11
+bonemeal 24 -60 0
+level_seed 12
+bonemeal 24 -60 0
+dump blocks:16,-61,-8,32,-40,8 events
+note birch_sapling
+block 48 -60 0 minecraft:birch_sapling
+level_seed 13
+bonemeal 48 -60 0
+level_seed 14
+bonemeal 48 -60 0
+level_seed 15
+bonemeal 48 -60 0
+level_seed 16
+bonemeal 48 -60 0
+level_seed 17
+bonemeal 48 -60 0
+level_seed 18
+bonemeal 48 -60 0
+dump blocks:40,-61,-8,56,-40,8 events
+note jungle_sapling
+block 72 -60 0 minecraft:jungle_sapling
+level_seed 19
+bonemeal 72 -60 0
+level_seed 20
+bonemeal 72 -60 0
+level_seed 21
+bonemeal 72 -60 0
+level_seed 22
+bonemeal 72 -60 0
+level_seed 23
+bonemeal 72 -60 0
+level_seed 24
+bonemeal 72 -60 0
+dump blocks:64,-61,-8,80,-40,8 events
+note acacia_sapling
+block 0 -60 24 minecraft:acacia_sapling
+level_seed 25
+bonemeal 0 -60 24
+level_seed 26
+bonemeal 0 -60 24
+level_seed 27
+bonemeal 0 -60 24
+level_seed 28
+bonemeal 0 -60 24
+level_seed 29
+bonemeal 0 -60 24
+level_seed 30
+bonemeal 0 -60 24
+dump blocks:-8,-61,16,8,-40,32 events
+note dark_oak_sapling
+block 24 -60 24 minecraft:dark_oak_sapling
+level_seed 31
+bonemeal 24 -60 24
+level_seed 32
+bonemeal 24 -60 24
+level_seed 33
+bonemeal 24 -60 24
+level_seed 34
+bonemeal 24 -60 24
+level_seed 35
+bonemeal 24 -60 24
+level_seed 36
+bonemeal 24 -60 24
+dump blocks:16,-61,16,32,-40,32 events
+note cherry_sapling
+block 48 -60 24 minecraft:cherry_sapling
+level_seed 37
+bonemeal 48 -60 24
+level_seed 38
+bonemeal 48 -60 24
+level_seed 39
+bonemeal 48 -60 24
+level_seed 40
+bonemeal 48 -60 24
+level_seed 41
+bonemeal 48 -60 24
+level_seed 42
+bonemeal 48 -60 24
+dump blocks:40,-61,16,56,-40,32 events
+note pale_oak_sapling
+block 72 -60 24 minecraft:pale_oak_sapling
+level_seed 43
+bonemeal 72 -60 24
+level_seed 44
+bonemeal 72 -60 24
+level_seed 45
+bonemeal 72 -60 24
+level_seed 46
+bonemeal 72 -60 24
+level_seed 47
+bonemeal 72 -60 24
+level_seed 48
+bonemeal 72 -60 24
+dump blocks:64,-61,16,80,-40,32 events
+note azalea
+block 0 -60 48 minecraft:azalea
+level_seed 49
+bonemeal 0 -60 48
+level_seed 50
+bonemeal 0 -60 48
+level_seed 51
+bonemeal 0 -60 48
+level_seed 52
+bonemeal 0 -60 48
+level_seed 53
+bonemeal 0 -60 48
+level_seed 54
+bonemeal 0 -60 48
+dump blocks:-8,-61,40,8,-40,56 events
+note flowering_azalea
+block 24 -60 48 minecraft:flowering_azalea
+level_seed 55
+bonemeal 24 -60 48
+level_seed 56
+bonemeal 24 -60 48
+level_seed 57
+bonemeal 24 -60 48
+level_seed 58
+bonemeal 24 -60 48
+level_seed 59
+bonemeal 24 -60 48
+level_seed 60
+bonemeal 24 -60 48
+dump blocks:16,-61,40,32,-40,56 events
+note brown_mushroom
+block 48 -61 48 minecraft:mycelium
+block 48 -60 48 minecraft:brown_mushroom
+level_seed 61
+bonemeal 48 -60 48
+level_seed 62
+bonemeal 48 -60 48
+level_seed 63
+bonemeal 48 -60 48
+level_seed 64
+bonemeal 48 -60 48
+level_seed 65
+bonemeal 48 -60 48
+level_seed 66
+bonemeal 48 -60 48
+dump blocks:40,-61,40,56,-40,56 events
+note red_mushroom
+block 72 -61 48 minecraft:mycelium
+block 72 -60 48 minecraft:red_mushroom
+level_seed 67
+bonemeal 72 -60 48
+level_seed 68
+bonemeal 72 -60 48
+level_seed 69
+bonemeal 72 -60 48
+level_seed 70
+bonemeal 72 -60 48
+level_seed 71
+bonemeal 72 -60 48
+level_seed 72
+bonemeal 72 -60 48
+dump blocks:64,-61,40,80,-40,56 events

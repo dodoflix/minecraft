@@ -1,0 +1,57 @@
+# BlockBehaviour.getDrops overrides and Level.destroyBlock: decorated pot (dynamic `sherds` drop when cracked, copied
+# pot_decorations otherwise), shulker box (`contents`), water (LiquidBlock drops nothing), straw bed (destroy particles 2014).
+level flat
+preload 2
+spawn_player Steve survival 0.5 -60 0.5
+give Steve hotbar0 minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+select Steve 0
+note cracked pot with four sherds, Level.destroyBlock without breaker
+block 2 -60 0 minecraft:decorated_pot[cracked=true]
+be_nbt 2 -60 0 {sherds:{back:{id:"minecraft:angler_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"}}}
+level_seed 11
+destroy 2 -60 0
+dump blocks:2,-60,0,2,-60,0 entities events
+note cracked pot with two sherds, silk touch pickaxe
+block 3 -60 0 minecraft:decorated_pot[cracked=true]
+be_nbt 3 -60 0 {sherds:{left:{id:"minecraft:archer_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"}}}
+level_seed 12
+dig Steve 3 -60 0
+dump blocks:3,-60,0,3,-60,0 entities events
+note whole pot with sherds, silk touch pickaxe
+block 4 -60 0 minecraft:decorated_pot
+be_nbt 4 -60 0 {sherds:{back:{id:"minecraft:angler_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"}}}
+level_seed 13
+dig Steve 4 -60 0
+dump blocks:4,-60,0,4,-60,0 entities events
+note whole pot with sherds, Level.destroyBlock
+block 5 -60 0 minecraft:decorated_pot
+be_nbt 5 -60 0 {sherds:{back:{id:"minecraft:angler_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"}}}
+level_seed 14
+destroy 5 -60 0
+dump blocks:5,-60,0,5,-60,0 entities events
+note cracked pot without sherds
+block 6 -60 0 minecraft:decorated_pot[cracked=true]
+level_seed 15
+destroy 6 -60 0
+dump blocks:6,-60,0,6,-60,0 entities events
+note shulker box with contents
+block 7 -60 0 minecraft:shulker_box
+be_nbt 7 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:5b,id:"minecraft:stone",count:64}]}
+level_seed 16
+destroy 7 -60 0
+dump blocks:7,-60,0,7,-60,0 entities events
+note water source: no drops, particles event 2001
+block 8 -60 0 minecraft:water
+destroy 8 -60 0
+dump blocks:8,-60,0,8,-60,0 events
+note straw bed: destroy particles event 2014
+block 9 -60 2 minecraft:straw_bed[facing=south,part=foot,occupied=false]
+block 9 -60 3 minecraft:straw_bed[facing=south,part=head,occupied=false]
+destroy 9 -60 2
+dump blocks:9,-60,2,9,-60,3 entities events
+note regular bed: destroy particles event 2001
+block 11 -60 2 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 11 -60 3 minecraft:red_bed[facing=south,part=head,occupied=false]
+level_seed 17
+destroy 11 -60 2
+dump blocks:11,-60,2,11,-60,3 entities events

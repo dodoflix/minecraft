@@ -355,16 +355,6 @@ impl BlockEntity for BrewingStandBlockEntity {
         }
     }
 
-    /// `preRemoveSideEffects`: `Containers.dropContents(level, pos, this)` (a `BaseContainerBlockEntity`).
-    fn pre_remove_side_effects(
-        &mut self,
-        level: &mut ServerLevel,
-        pos: BlockPos,
-        _state: BlockState,
-    ) {
-        mc_game_core::world::containers::drop_contents_list(level, pos, &self.items);
-    }
-
     fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
         self.container
             .apply_implicit_components(stack, &mut self.items);

@@ -15,6 +15,8 @@ use mc_game_core::world::item::{
 };
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::storage::loot::block_drops::default_get_drops;
+use mc_game_core::world::level::storage::loot::context::LootParamsBuilder;
 use mc_game_core::{register_block_class, update_shape};
 use mc_protocol::packets::play::ParticleOptions;
 use mc_protocol::packets::play::level::SoundSource;
@@ -197,6 +199,29 @@ impl BlockBehaviour for DecoratedPotBlock {
         _moved_by_piston: bool,
     ) {
         level.update_neighbour_for_output_signal(pos, state.block());
+    }
+
+    /// `getDrops`: the `minecraft:sherds` dynamic drop (left, back, front, right) of a pot with a block entity.
+    fn get_drops<'a>(&self, state: BlockState, builder: LootParamsBuilder<'a>) -> Vec<ItemStack> {
+        let pot = builder
+            .get_block_entity()
+            .and_then(|be| be.as_any().downcast_ref::<DecoratedPotBlockEntity>());
+        let builder = match pot {
+            Some(pot) => builder.dynamic_drop(
+                Identifier::with_default_namespace("sherds").expect("valid id"),
+                Box::new(move |output| {
+                    let sherds = pot.get_decorations();
+                    for sherd in [&sherds.left, &sherds.back, &sherds.front, &sherds.right]
+                        .into_iter()
+                        .flatten()
+                    {
+                        output(sherd.create());
+                    }
+                }),
+            ),
+            None => builder,
+        };
+        default_get_drops(state, builder)
     }
 
     fn player_will_destroy(

@@ -106,11 +106,21 @@ impl Scenario {
             .1
     }
 
+    /// The driver's `stack(spec, count)`: an item id, or an item with components (`minecraft:iron_pickaxe[enchantments={...}]`).
     fn item_stack(&self, spec: &str, count: i32) -> ItemStack {
-        assert!(
-            !spec.contains('['),
-            "item components are not supported by the Rust replay: {spec}"
-        );
+        if spec.contains('[') {
+            use mc_game::commands::CommandBuildContext;
+            use mc_game::commands::command_build_context::StaticRegistries;
+            let context = CommandBuildContext::simple(
+                std::sync::Arc::new(StaticRegistries),
+                mc_world::level_storage::FeatureFlagSet::ALL,
+            );
+            let mut reader = mc_brigadier::StringReader::new(spec);
+            return mc_game::commands::arguments::item::item_parser::ItemParser::new(&context)
+                .parse(&mut reader)
+                .and_then(|input| input.create_item_stack(count))
+                .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
+        }
         let item = Item::by_name(spec).unwrap_or_else(|| panic!("unknown item {spec}"));
         ItemStack::with_count(item, count)
     }
@@ -514,8 +524,7 @@ impl Scenario {
         let limit: i32 = a.get(5).map_or(-1, |l| l.parse().unwrap());
         let max_y = self.level().get_max_y();
         let name = a[1].clone();
-        let st = self.level().get_block_state(pos);
-        let (creative, instant) = self.with_player_named(&name, |level, p| {
+        let creative = self.with_player_named(&name, |level, p| {
             p.handle_block_break_action(
                 level,
                 pos,
@@ -524,8 +533,11 @@ impl Scenario {
                 max_y,
                 false,
             );
-            (p.is_creative(), p.get_destroy_progress(st) >= 1.0)
+            p.is_creative()
         });
+        // the client decides on the state the START packet left behind (air after an instant break: it then ticks once)
+        let st = self.level().get_block_state(pos);
+        let instant = self.with_player_named(&name, |_, p| p.get_destroy_progress(st) >= 1.0);
         let (mut progress, mut ticks) = (0f32, 0);
         let stopped = creative || (!st.is_air() && instant);
         if !stopped {

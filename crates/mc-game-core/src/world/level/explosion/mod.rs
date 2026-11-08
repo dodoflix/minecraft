@@ -281,6 +281,14 @@ pub fn default_on_explosion_hit(
         );
         let radius = (explosion.get_block_interaction() == BlockInteraction::DestroyWithDecay)
             .then(|| explosion.radius());
+        behaviour(block).before_get_drops(
+            state,
+            level,
+            pos,
+            explosion
+                .get_direct_source_entity_ref()
+                .map(|e| e.get_type()),
+        );
         let block_entity = if state.has_block_entity() {
             level.get_block_entity(pos)
         } else {

@@ -398,7 +398,6 @@ impl Entity for Enderman {
                     .optional_this_entity(Some(this));
                 mc_game_core::world::level::storage::loot::block_drops::state_get_drops(
                     carrying_block,
-                    this.base().block_position(),
                     builder,
                 )
             };

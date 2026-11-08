@@ -42,6 +42,16 @@ impl BlockBehaviour for PowderSnowBlock {
         }
         Shapes::empty()
     }
+    /// `getVisualShape`: empty.
+    fn get_visual_shape(
+        &self,
+        _state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _context: &mc_game_core::world::level::collision::CollisionContext,
+    ) -> mc_core::phys::shapes::VoxelShape {
+        mc_core::phys::shapes::Shapes::empty()
+    }
     fn get_entity_inside_collision_shape(
         &self,
         state: BlockState,

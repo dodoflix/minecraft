@@ -685,18 +685,37 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     ) {
     }
 
-    // ==== [Blocks:Pistons] ====
-    /// The state whose loot table `BlockBehaviour.getDrops` uses: `state` itself except `MovingPistonBlock` (the drops
-    /// of the block entity's moved state, nothing without a block entity). Consumed by `helpers::drop_resources`.
-    fn get_drops_state(
+    // ==== [Blocks:Drops] ====
+    /// `BlockBehaviour.getDrops(state, params)`: the drops of one destroyed block; `builder` is the `LootParams.Builder`
+    /// the caller filled (origin, tool, block entity, this entity, ...). Vanilla's overrides (decorated pot sherds, shulker
+    /// box contents, liquids, the piston head's moved block) add dynamic drops or pick another state before delegating to
+    /// [`default_get_drops`](crate::world::level::storage::loot::block_drops::default_get_drops).
+    fn get_drops<'a>(
         &self,
         state: BlockState,
-        _level: &dyn BlockGetter,
-        _pos: BlockPos,
-    ) -> BlockState {
-        state
+        builder: crate::world::level::storage::loot::context::LootParamsBuilder<'a>,
+    ) -> Vec<crate::world::item::ItemStack> {
+        crate::world::level::storage::loot::block_drops::default_get_drops(state, builder)
     }
-    // ==== [/Blocks:Pistons] ====
+    /// What vanilla's `getDrops` overrides do to the world before they roll the loot (`BeehiveBlock.getDrops` releases the
+    /// bees when the block is destroyed by TNT, a creeper or a wither). `LootParams` holds the level immutably, so the
+    /// callers that own the level mutably (`Block.dropResources`, `Level.destroyBlock`, explosions) run this right before
+    /// `get_drops`; `this_entity` is the type of the `THIS_ENTITY` parameter. Not implemented: `/loot` and the enderman's
+    /// carried block hold the level immutably and skip it.
+    fn before_get_drops(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _this_entity: Option<mc_data::EntityType>,
+    ) {
+    }
+    /// `Block.spawnDestroyParticles(level, pos, state)` (`Level.destroyBlock` only; `playerWillDestroy` sends its own event):
+    /// level event 2001 with the state id, except `StrawBedBlock` (2014).
+    fn spawn_destroy_particles(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+        level.level_event_impl(None, 2001, pos, state.id() as i32);
+    }
+    // ==== [/Blocks:Drops] ====
 }
 
 /// Vanilla's base behavior (every method default).

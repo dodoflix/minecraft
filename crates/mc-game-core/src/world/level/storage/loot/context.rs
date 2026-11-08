@@ -355,6 +355,14 @@ impl<'a> LootParamsBuilder<'a> {
     pub fn has(&self, key: ContextKey) -> bool {
         self.params.has(key)
     }
+    /// `getOptionalParameter(BLOCK_ENTITY)`.
+    pub fn get_block_entity(&self) -> Option<&'a dyn BlockEntity> {
+        self.params.block_entity
+    }
+    /// `getOptionalParameter(ORIGIN)`.
+    pub fn get_origin(&self) -> Option<Vec3> {
+        self.params.origin
+    }
 
     /// `create(contextKeySet)`: `ContextMap.Builder.buildAndValidate` (panics like the `IllegalArgumentException`).
     pub fn create(self, set: &ContextKeySet) -> LootParams<'a> {

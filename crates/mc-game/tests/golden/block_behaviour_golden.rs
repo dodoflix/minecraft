@@ -1,5 +1,5 @@
 //! Golden test of the block behaviour classes (`can_survive`, `update_shape`, `rotate`, `mirror`,
-//! `get_post_process_pos`) against the vanilla block classes: for every state of every block, 16 pseudo-random
+//! `get_post_process_pos`, `get_visual_shape`) against the vanilla block classes: for every state of every block, 16 pseudo-random
 //! worlds over a stub `LevelReader` (see `tests/oracle/BlockBehaviourOracle.java`, which mirrors the world function,
 //! the pools and the hashing). One 64-bit hash per block is compared with `tests/fixtures/block_behaviour.txt`.
 //! Debugging a mismatch: `BLOCK_BEHAVIOUR_VERBOSE=<block> cargo test ... -- --nocapture` prints the per-state detail in
@@ -11,6 +11,7 @@ use mc_core::rotation::Rotation;
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::Fluid;
 use mc_game::world::level::block::{BlockStateExt, UPDATE_SHAPE_ORDER};
+use mc_game::world::level::collision::CollisionContext;
 use mc_game::world::level::{BlockGetter, LevelAccessor, LevelHeight, LevelReader, LightLayer};
 use mc_world::heightmap::HeightmapType;
 use mc_world::ticks::TickPriority;
@@ -211,6 +212,15 @@ fn eval_state(stub: &mut Stub, s: BlockState, verbose: &mut Option<String>) -> u
                     + i64::from(p.z() - ORIGIN.z())) as u64
             }
         });
+        let visual = s
+            .get_visual_shape(&*stub, ORIGIN, &CollisionContext::empty())
+            .to_aabbs();
+        h = mix(h ^ visual.len() as u64);
+        for b in &visual {
+            for c in [b.min_x, b.min_y, b.min_z, b.max_x, b.max_y, b.max_z] {
+                h = mix(h ^ c.to_bits());
+            }
+        }
         if let Some(v) = verbose {
             let _ = write!(
                 v,

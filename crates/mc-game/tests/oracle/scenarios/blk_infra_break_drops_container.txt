@@ -1,0 +1,40 @@
+# BlockEntity.preRemoveSideEffects default: every Container block entity drops its contents when its block is replaced
+# or removed (hopper, dispenser, dropper, chest, barrel, brewing stand), Level.random seeded for the drop spread.
+level flat
+preload 2
+note hopper replaced by air
+block 2 -60 0 minecraft:hopper
+be_nbt 2 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:2b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:apple",count:1}]}
+level_seed 21
+block 2 -60 0 minecraft:air
+dump blocks:2,-60,0,2,-60,0 entities events
+note dispenser replaced by air
+block 3 -60 0 minecraft:dispenser[facing=up]
+be_nbt 3 -60 0 {Items:[{Slot:0b,id:"minecraft:arrow",count:16},{Slot:8b,id:"minecraft:stone",count:3}]}
+level_seed 22
+block 3 -60 0 minecraft:air
+dump blocks:3,-60,0,3,-60,0 entities events
+note dropper replaced by stone
+block 4 -60 0 minecraft:dropper[facing=down]
+be_nbt 4 -60 0 {Items:[{Slot:3b,id:"minecraft:cobblestone",count:64},{Slot:4b,id:"minecraft:cobblestone",count:64}]}
+level_seed 23
+block 4 -60 0 minecraft:stone
+dump blocks:4,-60,0,4,-60,0 entities events
+note chest replaced by air
+block 5 -60 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 5 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:7},{Slot:26b,id:"minecraft:gold_ingot",count:9}]}
+level_seed 24
+block 5 -60 0 minecraft:air
+dump blocks:5,-60,0,5,-60,0 entities events
+note barrel replaced by air
+block 6 -60 0 minecraft:barrel[facing=up,open=false]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:coal",count:12},{Slot:13b,id:"minecraft:stick",count:40}]}
+level_seed 25
+block 6 -60 0 minecraft:air
+dump blocks:6,-60,0,6,-60,0 entities events
+note brewing stand replaced by air
+block 7 -60 0 minecraft:brewing_stand
+be_nbt 7 -60 0 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1},{Slot:3b,id:"minecraft:nether_wart",count:2},{Slot:4b,id:"minecraft:blaze_powder",count:5}]}
+level_seed 26
+block 7 -60 0 minecraft:air
+dump blocks:7,-60,0,7,-60,0 entities events

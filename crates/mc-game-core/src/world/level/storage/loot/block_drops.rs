@@ -16,16 +16,15 @@ use crate::world::entity::{Entity, EntityId};
 use crate::world::level::BlockGetter;
 use crate::world::level::block::{BlockStateExt, behaviour, helpers};
 
-/// `BlockBehaviour.BlockStateBase.getDrops(params)` (`BlockBehaviour.getDrops`): the loot table of the state's block with
-/// `BLOCK_STATE` added to `params`; blocks without a loot table drop nothing.
-pub fn state_get_drops(
-    state: BlockState,
-    pos: BlockPos,
-    builder: LootParamsBuilder,
-) -> Vec<ItemStack> {
+/// `BlockBehaviour.BlockStateBase.getDrops(params)`: the block behaviour's `getDrops` (`BlockBehaviour::get_drops`).
+pub fn state_get_drops(state: BlockState, builder: LootParamsBuilder) -> Vec<ItemStack> {
+    behaviour(state.block()).get_drops(state, builder)
+}
+
+/// `BlockBehaviour.getDrops` (the base implementation): the loot table of the state's block with `BLOCK_STATE` added to
+/// `params`; blocks without a loot table drop nothing.
+pub fn default_get_drops(state: BlockState, builder: LootParamsBuilder) -> Vec<ItemStack> {
     let level = builder.level();
-    // `MovingPistonBlock.getDrops`: the moved state's drops
-    let state = behaviour(state.block()).get_drops_state(state, level, pos);
     let Some(key) = state.block().data().loot_table else {
         return Vec::new();
     };
@@ -49,7 +48,7 @@ pub fn get_drops(
         .origin(Vec3::at_center_of(&pos))
         .tool(&ItemStack::empty())
         .block_entity(block_entity);
-    state_get_drops(state, pos, params)
+    state_get_drops(state, params)
 }
 
 /// `Block.getDrops(state, level, pos, blockEntity, breaker, tool)`.
@@ -66,7 +65,7 @@ pub fn block_drops(
         .tool(tool)
         .optional_this_entity(breaker)
         .block_entity(block_entity);
-    state_get_drops(state, pos, params)
+    state_get_drops(state, params)
 }
 
 /// The drops of a block destroyed by an explosion (`ServerExplosion.destroyBlocks`): `ORIGIN` at the block's center, an
@@ -85,7 +84,7 @@ pub fn block_drops_explosion(
         .block_entity(block_entity)
         .optional_this_entity(this_entity)
         .optional_explosion_radius(explosion_radius);
-    state_get_drops(state, pos, params)
+    state_get_drops(state, params)
 }
 
 /// `Block.dropResources(state, level, pos, blockEntity, breaker, tool)`: pops every drop, then `spawnAfterBreak`.
@@ -97,6 +96,7 @@ pub fn drop_resources_with_tool(
     breaker: Option<&dyn Entity>,
     tool: &ItemStack,
 ) {
+    behaviour(state.block()).before_get_drops(state, level, pos, breaker.map(|e| e.get_type()));
     let drops = block_drops(level, state, pos, block_entity, breaker, tool);
     for stack in drops {
         helpers::pop_resource(level, pos, stack);
@@ -112,6 +112,10 @@ pub fn drop_resources_for_destroy(
     pos: BlockPos,
     breaker: Option<EntityId>,
 ) {
+    let breaker_type = breaker
+        .and_then(|id| level.get_entity(id))
+        .map(|e| e.get_type());
+    behaviour(state.block()).before_get_drops(state, level, pos, breaker_type);
     let drops = {
         let level_ref: &ServerLevel = level;
         let block_entity = if state.has_block_entity() {

@@ -306,13 +306,18 @@ pub trait BlockEntity: Any {
         self.get_type().data().valid_blocks.contains(&state.block())
     }
     /// `preRemoveSideEffects(pos, state)`: called (server side) before the block entity is removed because its block
-    /// was replaced (containers drop their contents here). The entity is out of the chunk while this runs.
+    /// was replaced. A `Container` unpacks its loot table (vanilla's `getItem`) and drops its contents; the entity is out
+    /// of the chunk while this runs.
     fn pre_remove_side_effects(
         &mut self,
-        _level: &mut crate::server::level::ServerLevel,
-        _pos: BlockPos,
+        level: &mut crate::server::level::ServerLevel,
+        pos: BlockPos,
         _state: BlockState,
     ) {
+        self.unpack_loot_table(level, None);
+        if let Some(container) = self.as_container() {
+            crate::world::containers::drop_contents_at(level, pos, container);
+        }
     }
     /// `EntityBlock.getListener(level, blockEntity)`: the game event listener of this block entity, if it has one.
     fn game_event_listener(&self) -> Option<crate::world::level::gameevent::BlockEntityListener> {

@@ -240,20 +240,6 @@ impl BlockEntity for DecoratedPotBlockEntity {
         }
     }
 
-    fn pre_remove_side_effects(
-        &mut self,
-        level: &mut ServerLevel,
-        pos: BlockPos,
-        _state: BlockState,
-    ) {
-        self.unpack(level, None);
-        mc_game_core::world::containers::drop_contents_list(
-            level,
-            pos,
-            std::slice::from_ref(&self.item),
-        );
-    }
-
     fn as_container(&self) -> Option<&dyn Container> {
         Some(self)
     }

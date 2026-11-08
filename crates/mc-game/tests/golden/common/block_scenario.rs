@@ -13,7 +13,7 @@
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
 //! `note`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `rand_value N`,
-//! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
+//! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list; `BEM` order is only comparable for one block entity per chunk while our chunk map is a std `HashMap`), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
 //! dump: [`ServerLevel`]'s `tick_state.broadcast_log` here, `VanillaLevel.RecordingPlayerList` in Java). Everything else panics
@@ -511,6 +511,10 @@ impl Scenario {
 
     fn run_command(&mut self, a: &[String]) {
         use mc_core::random::RandomSource;
+        if self.level.is_some() {
+            // the oracle driver seeds the entity random sequence from the command line (drops, spawns draw reproducible seeds)
+            mc_core::random::reseed_uniquifier(super::entity_scenario::java_hash(&self.line));
+        }
         match a[0].as_str() {
             "level" => {
                 assert!(
@@ -607,6 +611,11 @@ impl Scenario {
                 let grown = self.bonemeal(p);
                 self.out.push(format!("BONEMEAL {grown}"));
             }
+            "destroy" => {
+                self.world();
+                let destroyed = self.level().destroy_block_impl(pos(a, 1), true, None, 512);
+                self.out.push(format!("DESTROY {destroyed}"));
+            }
             "tick_chunk" => {
                 self.world();
                 self.level()
@@ -689,19 +698,17 @@ impl Scenario {
         }
     }
 
-    /// `BoneMealItem.growCrop` (the stack bookkeeping aside).
+    /// `BoneMealItem.growCrop(new ItemStack(BONE_MEAL, 64), level, pos)`. Saplings, azalea and mushrooms grow features:
+    /// they need the data pack registries and a generation environment (the feature harness's overworld one; the grown
+    /// features never consult the generator).
     fn bonemeal(&mut self, p: BlockPos) -> bool {
-        use mc_game::world::level::block::bonemeal::BonemealSource::Interaction;
+        self.load_registries();
         let level = self.level();
-        let state = level.get_block_state(p);
-        let b = mc_game::world::level::block::behaviour(state.block());
-        if !(b.is_bonemealable() && b.is_valid_bonemeal_target(&*level, p, state, Interaction)) {
-            return false;
+        if level.gen_env.is_none() {
+            level.gen_env = Some(super::feature_harness::gen_env(4242));
         }
-        if b.is_bonemeal_success(level, p, state, Interaction) {
-            b.perform_bonemeal(level, p, state, Interaction);
-        }
-        true
+        let mut stack = mc_game::world::item::ItemStack::new(mc_data::Item::BONE_MEAL);
+        mc_game::world::item::bone_meal_item::grow_crop(&mut stack, level, p)
     }
 
     /// `/data merge block`.

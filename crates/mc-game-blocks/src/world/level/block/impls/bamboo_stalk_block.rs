@@ -1,11 +1,19 @@
 //! `net.minecraft.world.level.block.BambooStalkBlock`.
+use mc_core::phys::shapes::VoxelShape;
 use mc_data::enums::BambooLeaves;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::collision::CollisionContext;
+use mc_game_core::world::level::shapes::column;
 use mc_game_core::{register_block_class, update_shape};
+use std::sync::LazyLock;
 
 pub struct BambooStalkBlock;
+
+static SHAPE_SMALL: LazyLock<VoxelShape> = LazyLock::new(|| column(6.0, 0.0, 16.0));
+static SHAPE_LARGE: LazyLock<VoxelShape> = LazyLock::new(|| column(10.0, 0.0, 16.0));
+static SHAPE_COLLISION: LazyLock<VoxelShape> = LazyLock::new(|| column(3.0, 0.0, 16.0));
 
 const MAX_HEIGHT: i32 = 16;
 
@@ -83,6 +91,32 @@ fn grow_bamboo(state: BlockState, level: &mut ServerLevel, pos: BlockPos, height
 }
 
 impl BlockBehaviour for BambooStalkBlock {
+    /// `getShape`: the small or large shape moved by the block's position offset (the extracted shape is baked with the
+    /// offset of the origin position, so it cannot be reused).
+    fn get_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+        _context: &CollisionContext,
+    ) -> VoxelShape {
+        let shape = if state.get(props::BAMBOO_LEAVES) == BambooLeaves::Large {
+            &*SHAPE_LARGE
+        } else {
+            &*SHAPE_SMALL
+        };
+        shape.move_vec(state.get_offset(pos))
+    }
+    /// `getCollisionShape`.
+    fn get_collision_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+        _context: &CollisionContext,
+    ) -> VoxelShape {
+        SHAPE_COLLISION.move_vec(state.get_offset(pos))
+    }
     fn get_state_for_placement(
         &self,
         block: Block,

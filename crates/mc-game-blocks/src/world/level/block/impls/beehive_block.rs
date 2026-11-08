@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.BeehiveBlock` (`bee_nest`, `beehive`).
 use mc_core::ident::Identifier;
+use mc_data::EntityType;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{BeeReleaseStatus, BeehiveBlockEntity};
 use mc_game_core::world::entity::ServerPlayer;
@@ -19,6 +20,31 @@ pub fn reset_honey_level(level: &mut ServerLevel, state: BlockState, pos: BlockP
 }
 
 impl BlockBehaviour for BeehiveBlock {
+    /// `getDrops`: TNT, creepers, wither skulls, withers and TNT minecarts make the bees leave the hive angry.
+    fn before_get_drops(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        this_entity: Option<EntityType>,
+    ) {
+        if matches!(
+            this_entity,
+            Some(
+                EntityType::TNT
+                    | EntityType::CREEPER
+                    | EntityType::WITHER_SKULL
+                    | EntityType::WITHER
+                    | EntityType::TNT_MINECART
+            )
+        ) {
+            level.with_block_entity(pos, |level, be| {
+                if let Some(hive) = be.as_any_mut().downcast_mut::<BeehiveBlockEntity>() {
+                    hive.empty_all_living_from_hive(level, state, BeeReleaseStatus::Emergency);
+                }
+            });
+        }
+    }
     fn on_explosion_hit(
         &self,
         state: BlockState,

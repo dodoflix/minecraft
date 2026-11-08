@@ -17,7 +17,7 @@ pub fn grow_crop(stack: &mut ItemStack, level: &mut ServerLevel, pos: BlockPos) 
     let state = level.get_block_state(pos);
     let behaviour = block_behaviour(state.block());
     if behaviour.is_bonemealable()
-        && behaviour.is_valid_bonemeal_target(&*level, pos, state, BonemealSource::Interaction)
+        && behaviour.is_valid_bonemeal_target_server(level, pos, state, BonemealSource::Interaction)
     {
         if behaviour.is_bonemeal_success(level, pos, state, BonemealSource::Interaction) {
             behaviour.perform_bonemeal(level, pos, state, BonemealSource::Interaction);

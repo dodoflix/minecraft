@@ -233,15 +233,6 @@ impl BlockEntity for ChiseledBookShelfBlockEntity {
             self.update_state(level, slot);
         }
     }
-
-    fn pre_remove_side_effects(
-        &mut self,
-        level: &mut ServerLevel,
-        pos: BlockPos,
-        _state: BlockState,
-    ) {
-        mc_game_core::world::containers::drop_contents_list(level, pos, &self.items);
-    }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]

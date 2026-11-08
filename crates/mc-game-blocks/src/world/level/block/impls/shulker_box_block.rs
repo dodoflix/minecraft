@@ -1,4 +1,5 @@
 //! `net.minecraft.world.level.block.ShulkerBoxBlock`.
+use mc_core::ident::Identifier;
 use mc_core::phys::shapes::{Shapes, VoxelShape};
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
@@ -10,6 +11,8 @@ use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
 use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::storage::loot::block_drops::default_get_drops;
+use mc_game_core::world::level::storage::loot::context::LootParamsBuilder;
 
 pub struct ShulkerBoxBlock;
 
@@ -72,6 +75,26 @@ impl BlockBehaviour for ShulkerBoxBlock {
         b1: i32,
     ) -> bool {
         helpers::base_entity_trigger_event(level, pos, b0, b1)
+    }
+
+    /// `getDrops`: the `minecraft:contents` dynamic drop (every slot, in order) of a box with a block entity.
+    fn get_drops<'a>(&self, state: BlockState, builder: LootParamsBuilder<'a>) -> Vec<ItemStack> {
+        use mc_game_core::world::container::Container;
+        let shulker = builder
+            .get_block_entity()
+            .and_then(|be| be.as_any().downcast_ref::<ShulkerBoxBlockEntity>());
+        let builder = match shulker {
+            Some(shulker) => builder.dynamic_drop(
+                Identifier::with_default_namespace("contents").expect("valid id"),
+                Box::new(move |output| {
+                    for slot in 0..shulker.get_container_size() {
+                        output(shulker.get_item(slot).clone());
+                    }
+                }),
+            ),
+            None => builder,
+        };
+        default_get_drops(state, builder)
     }
 
     fn player_will_destroy(

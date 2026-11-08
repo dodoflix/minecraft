@@ -167,6 +167,11 @@ fn kick_villager_out_of_bed(level: &mut ServerLevel, pos: BlockPos) -> bool {
 pub use crate::world::entity::living_entity::sleeping::find_stand_up_position;
 
 impl BlockBehaviour for AbstractBedBlock {
+    /// `StrawBedBlock.spawnDestroyParticles`: level event 2014 instead of 2001.
+    fn spawn_destroy_particles(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+        let event = if is_straw_bed(state) { 2014 } else { 2001 };
+        level.level_event_impl(None, event, pos, state.id() as i32);
+    }
     update_shape!(
         |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
             if direction

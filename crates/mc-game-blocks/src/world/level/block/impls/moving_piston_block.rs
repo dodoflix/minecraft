@@ -8,6 +8,8 @@ use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::item::{InteractionResult, ItemStack};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::collision::CollisionContext;
+use mc_game_core::world::level::storage::loot::block_drops::state_get_drops;
+use mc_game_core::world::level::storage::loot::context::LootParamsBuilder;
 
 pub struct MovingPistonBlock;
 
@@ -38,20 +40,17 @@ impl BlockBehaviour for MovingPistonBlock {
         }
     }
 
-    /// `getDrops`: the drops of the moved block (nothing without a block entity).
-    fn get_drops_state(
-        &self,
-        _state: BlockState,
-        level: &dyn BlockGetter,
-        pos: BlockPos,
-    ) -> BlockState {
-        match level
-            .get_block_entity(pos)
+    /// `getDrops`: the drops of the block entity's moved state (nothing without a block entity).
+    fn get_drops<'a>(&self, _state: BlockState, builder: LootParamsBuilder<'a>) -> Vec<ItemStack> {
+        let origin = builder
+            .get_origin()
+            .expect("Missing required parameter: minecraft:origin");
+        let moved = builder
+            .level()
+            .get_block_entity(BlockPos::containing_position(&origin))
             .and_then(|be| be.as_any().downcast_ref::<PistonMovingBlockEntity>())
-        {
-            Some(entity) => entity.get_moved_state(),
-            None => helpers::air(),
-        }
+            .map(PistonMovingBlockEntity::get_moved_state);
+        moved.map_or_else(Vec::new, |moved| state_get_drops(moved, builder))
     }
 
     fn get_collision_shape(
