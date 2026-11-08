@@ -1,0 +1,53 @@
+# Rain filling cauldrons through Block.handlePrecipitation on random ticks (empty cauldron 5% per hit, layered cauldron
+# of the matching precipitation type +1 level up to 3, lava cauldron never); under a roof nothing falls.
+level flat
+preload 3
+level_seed 17
+rand_value 3
+watch events
+cmd weather rain
+tick 40
+block 4 -60 4 minecraft:cauldron
+block 6 -60 4 minecraft:water_cauldron[level=1]
+block 8 -60 4 minecraft:water_cauldron[level=3]
+block 10 -60 4 minecraft:powder_snow_cauldron[level=1]
+block 12 -60 4 minecraft:lava_cauldron
+block 4 -60 8 minecraft:cauldron
+fill 3 -58 7 5 -58 9 minecraft:stone
+dump blocks:3,-60,3,13,-58,9
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events

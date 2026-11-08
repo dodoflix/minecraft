@@ -1,7 +1,8 @@
 # Water flowing through waterloggable blocks (slab/stairs/trapdoor/fence/ladder/chain/lantern/bars/scaffolding/leaves/sign/
-# candle/rail/barrier/campfire...) and past non-waterloggable ones; waterlogged blocks spread further.
+# candle/rail/barrier/campfire/coral/sea pickle/conduit/dried ghast/powered rails...) and past non-waterloggable ones; waterlogged blocks spread further.
 level flat
 preload 2
+level_seed 21
 block 0 -60 0 minecraft:water[level=0]
 block 1 -60 0 minecraft:oak_slab[type=bottom,waterlogged=false]
 block 2 -60 0 minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
@@ -30,6 +31,24 @@ block 2 -60 8 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterl
 block 3 -60 8 minecraft:barrier[waterlogged=false]
 block 4 -60 8 minecraft:light[level=15,waterlogged=false]
 block 5 -60 8 minecraft:end_rod[facing=up]
-watch blocks:-1,-61,-1,14,-58,10
+block 0 -60 12 minecraft:water[level=0]
+block 1 -60 12 minecraft:tube_coral
+block 2 -60 12 minecraft:tube_coral_fan[waterlogged=false]
+block 3 -60 12 minecraft:tube_coral_wall_fan[facing=north,waterlogged=false]
+block 4 -60 12 minecraft:dead_brain_coral[waterlogged=false]
+block 5 -60 12 minecraft:dead_horn_coral_fan[waterlogged=false]
+block 6 -60 12 minecraft:conduit[waterlogged=false]
+block 7 -60 12 minecraft:dried_ghast[facing=north,hydration=0,waterlogged=false]
+block 8 -60 12 minecraft:fire_coral_block
+block 0 -60 16 minecraft:water[level=0]
+block 1 -60 16 minecraft:powered_rail[powered=false,shape=east_west,waterlogged=false]
+block 2 -60 16 minecraft:detector_rail[powered=false,shape=east_west,waterlogged=false]
+block 3 -60 16 minecraft:activator_rail[powered=false,shape=east_west,waterlogged=false]
+block 4 -60 16 minecraft:sea_pickle[pickles=3,waterlogged=false]
+block 5 -60 16 minecraft:candle[candles=4,lit=false,waterlogged=false]
+block 6 -60 16 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+block 7 -60 16 minecraft:soul_campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+block 8 -60 16 minecraft:red_candle[candles=1,lit=true,waterlogged=false]
+watch blocks:-1,-61,-1,14,-58,18
 tick 60
 dump ticks

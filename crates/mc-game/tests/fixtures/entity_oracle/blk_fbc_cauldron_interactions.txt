@@ -1,0 +1,829 @@
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:bucket*2
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:water_bucket*1
+I Alice 1 minecraft:bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:lava_bucket*1
+I Alice 1 minecraft:bucket*2
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_lava source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:powder_snow_bucket*1
+I Alice 1 minecraft:bucket*3
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:glass_bottle*2
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:glass_bottle*1
+I Alice 1 minecraft:bucket*3
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bottle.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:wolf_armor*1
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:white_banner*1
+I Alice 1 minecraft:bucket*3
+EV sound at=4.5,-58.5,4.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:red_shulker_box*1
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:stick*2
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:bucket*2
+I Alice 1 minecraft:bucket*3
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:water_bucket*1
+I Alice 1 minecraft:bucket*4
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:lava_bucket*1
+I Alice 1 minecraft:bucket*5
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_lava source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:powder_snow_bucket*1
+I Alice 1 minecraft:bucket*6
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:glass_bottle*1
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:glass_bottle*1
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bottle.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:wolf_armor*1
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:white_banner*1
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:stick*2
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:bucket*2
+I Alice 1 minecraft:bucket*6
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:water_bucket*1
+I Alice 1 minecraft:bucket*7
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:lava_bucket*1
+I Alice 1 minecraft:bucket*8
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_lava source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:powder_snow_bucket*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:glass_bottle*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+I Alice 4 minecraft:potion*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:glass_bottle*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+I Alice 4 minecraft:potion*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bottle.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+I Alice 4 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+I Alice 4 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+I Alice 4 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:wolf_armor*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*1
+I Alice 4 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:white_banner*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=1]
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:stick*2
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:bucket*1
+I Alice 1 minecraft:bucket*9
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.fill source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:water_bucket*1
+I Alice 1 minecraft:bucket*10
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:lava_bucket*1
+I Alice 1 minecraft:bucket*11
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_lava source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:powder_snow_bucket*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:glass_bottle*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:wolf_armor*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*2
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:white_banner*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:stick*2
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:bucket*1
+I Alice 1 minecraft:bucket*12
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.fill_lava source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:water_bucket*1
+I Alice 1 minecraft:bucket*13
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:lava_bucket*1
+I Alice 1 minecraft:bucket*14
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_lava source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:powder_snow_bucket*1
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:glass_bottle*2
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:wolf_armor*1
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:red_shulker_box*1
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:stick*2
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:bucket*2
+I Alice 1 minecraft:bucket*15
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:water_bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:lava_bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_lava source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:powder_snow_bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:glass_bottle*2
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:wolf_armor*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:red_shulker_box*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+I Alice 0 minecraft:stick*2
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+B 4 -60 4 minecraft:cauldron
+I Alice 0 minecraft:bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*2
+I Alice 9 minecraft:powder_snow_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.fill_powder_snow source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Alice 0 minecraft:water_bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*3
+I Alice 9 minecraft:powder_snow_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:lava_cauldron
+I Alice 0 minecraft:lava_bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*4
+I Alice 9 minecraft:powder_snow_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_lava source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:powder_snow_bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=1.0
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:glass_bottle*2
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:potion*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:leather_helmet*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:wolf_armor*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:white_banner*2
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:red_shulker_box*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:shulker_box*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+I Alice 0 minecraft:stick*2
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:cauldron
+B 4 -59 4 minecraft:water[level=0]
+I Alice 0 minecraft:lava_bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:cauldron
+B 4 -59 4 minecraft:water[level=0]
+I Alice 0 minecraft:powder_snow_bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:water_cauldron[level=3]
+B 4 -59 4 minecraft:water[level=0]
+I Alice 0 minecraft:bucket*1
+I Alice 1 minecraft:bucket*16
+I Alice 2 minecraft:potion*1
+I Alice 3 minecraft:white_banner*3
+I Alice 4 minecraft:potion*1
+I Alice 5 minecraft:water_bucket*1
+I Alice 6 minecraft:potion*1
+I Alice 7 minecraft:lava_bucket*1
+I Alice 8 minecraft:bucket*5
+I Alice 9 minecraft:powder_snow_bucket*1
+B 4 -60 4 minecraft:water_cauldron[level=3]
+I Bob 0 minecraft:water_bucket*1
+I Bob 1 minecraft:bucket*1
+B 4 -60 4 minecraft:water_cauldron[level=2]
+I Bob 0 minecraft:glass_bottle*1
+I Bob 1 minecraft:bucket*1
+I Bob 2 minecraft:potion*1

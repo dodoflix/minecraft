@@ -45,16 +45,6 @@ const SIMPLE_WATERLOGGED: [&str; 39] = [
     "WaterloggedTransparentBlock",
 ];
 
-/// Classes that have not wired the macro yet (the entry is removed together with adding
-/// `crate::simple_waterlogged!();` / its own override: coral, sea pickle, conduit, dried ghast; rails).
-const PENDING_OWNERS: [&str; 5] = [
-    "BaseCoralPlantTypeBlock",
-    "SeaPickleBlock",
-    "ConduitBlock",
-    "DriedGhastBlock",
-    "BaseRailBlock",
-];
-
 #[test]
 fn simple_waterlogged_blocks_are_containers() {
     let missing: Vec<&str> = Block::iter()
@@ -64,7 +54,6 @@ fn simple_waterlogged_blocks_are_containers() {
                 .iter()
                 .any(|c| SIMPLE_WATERLOGGED.contains(c))
         })
-        .filter(|b| !b.data().classes.iter().any(|c| PENDING_OWNERS.contains(c)))
         .filter(|b| {
             !(behaviour(*b).is_liquid_block_container() && behaviour(*b).is_bucket_pickup())
         })

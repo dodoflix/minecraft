@@ -1,0 +1,93 @@
+# Cauldron entityInside: getEntityInsideCollisionShape (layered: body + content up to 6+3*level px, lava: body + 15 px, empty: full block)
+# decides whether a burning chicken hovering at feet = cauldron y + h touches the cauldron. Water / powder snow cauldrons put it out
+# and lose a level (powder snow becomes a water cauldron level), the lava cauldron ignites and burns it.
+level flat
+preload 2
+difficulty normal
+level_seed 5
+watch events
+block 2 -60 4 minecraft:cauldron
+block 4 -60 4 minecraft:water_cauldron[level=1]
+block 6 -60 4 minecraft:water_cauldron[level=2]
+block 8 -60 4 minecraft:water_cauldron[level=3]
+block 10 -60 4 minecraft:powder_snow_cauldron[level=1]
+block 12 -60 4 minecraft:powder_snow_cauldron[level=3]
+block 14 -60 4 minecraft:lava_cauldron
+block 2 -60 8 minecraft:cauldron
+block 4 -60 8 minecraft:water_cauldron[level=1]
+block 6 -60 8 minecraft:water_cauldron[level=2]
+block 8 -60 8 minecraft:water_cauldron[level=3]
+block 10 -60 8 minecraft:powder_snow_cauldron[level=1]
+block 12 -60 8 minecraft:powder_snow_cauldron[level=3]
+block 14 -60 8 minecraft:lava_cauldron
+block 2 -60 12 minecraft:cauldron
+block 4 -60 12 minecraft:water_cauldron[level=1]
+block 6 -60 12 minecraft:water_cauldron[level=2]
+block 8 -60 12 minecraft:water_cauldron[level=3]
+block 10 -60 12 minecraft:powder_snow_cauldron[level=1]
+block 12 -60 12 minecraft:powder_snow_cauldron[level=3]
+block 14 -60 12 minecraft:lava_cauldron
+block 2 -60 16 minecraft:cauldron
+block 4 -60 16 minecraft:water_cauldron[level=1]
+block 6 -60 16 minecraft:water_cauldron[level=2]
+block 8 -60 16 minecraft:water_cauldron[level=3]
+block 10 -60 16 minecraft:powder_snow_cauldron[level=1]
+block 12 -60 16 minecraft:powder_snow_cauldron[level=3]
+block 14 -60 16 minecraft:lava_cauldron
+spawn c4_0 minecraft:chicken 2.5 -59.50 4.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c4_0 fire 400
+spawn c4_1 minecraft:chicken 4.5 -59.50 4.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c4_1 fire 400
+spawn c4_2 minecraft:chicken 6.5 -59.50 4.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c4_2 fire 400
+spawn c4_3 minecraft:chicken 8.5 -59.50 4.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c4_3 fire 400
+spawn c4_4 minecraft:chicken 10.5 -59.50 4.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c4_4 fire 400
+spawn c4_5 minecraft:chicken 12.5 -59.50 4.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c4_5 fire 400
+spawn c4_6 minecraft:chicken 14.5 -59.50 4.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+spawn c8_0 minecraft:chicken 2.5 -59.30 8.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c8_0 fire 400
+spawn c8_1 minecraft:chicken 4.5 -59.30 8.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c8_1 fire 400
+spawn c8_2 minecraft:chicken 6.5 -59.30 8.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c8_2 fire 400
+spawn c8_3 minecraft:chicken 8.5 -59.30 8.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c8_3 fire 400
+spawn c8_4 minecraft:chicken 10.5 -59.30 8.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c8_4 fire 400
+spawn c8_5 minecraft:chicken 12.5 -59.30 8.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c8_5 fire 400
+spawn c8_6 minecraft:chicken 14.5 -59.30 8.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+spawn c12_0 minecraft:chicken 2.5 -59.20 12.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c12_0 fire 400
+spawn c12_1 minecraft:chicken 4.5 -59.20 12.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c12_1 fire 400
+spawn c12_2 minecraft:chicken 6.5 -59.20 12.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c12_2 fire 400
+spawn c12_3 minecraft:chicken 8.5 -59.20 12.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c12_3 fire 400
+spawn c12_4 minecraft:chicken 10.5 -59.20 12.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c12_4 fire 400
+spawn c12_5 minecraft:chicken 12.5 -59.20 12.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c12_5 fire 400
+spawn c12_6 minecraft:chicken 14.5 -59.20 12.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+spawn c16_0 minecraft:chicken 2.5 -59.05 16.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c16_0 fire 400
+spawn c16_1 minecraft:chicken 4.5 -59.05 16.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c16_1 fire 400
+spawn c16_2 minecraft:chicken 6.5 -59.05 16.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c16_2 fire 400
+spawn c16_3 minecraft:chicken 8.5 -59.05 16.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c16_3 fire 400
+spawn c16_4 minecraft:chicken 10.5 -59.05 16.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c16_4 fire 400
+spawn c16_5 minecraft:chicken 12.5 -59.05 16.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+set c16_5 fire 400
+spawn c16_6 minecraft:chicken 14.5 -59.05 16.5 0 0 {NoAI:1b,NoGravity:1b,Silent:1b,PersistenceRequired:1b}
+dump blocks:0,-60,0,16,-60,20
+tick 1
+dump entities blocks:0,-60,0,16,-60,20 events
+tick 3
+dump entities blocks:0,-60,0,16,-60,20 events
