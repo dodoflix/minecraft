@@ -280,7 +280,7 @@ fn dispense_item(
             CRAFTER_ADVANCEMENT_DIAMETER,
             CRAFTER_ADVANCEMENT_DIAMETER,
         );
-        for id in level.get_entities_of_class(&area, |e| e.is_player(), |_| true) {
+        for id in level.get_entities_of_class(&area, |e| e.is_player(), |e| !e.is_spectator()) {
             level.with_player(id, |level, player| {
                 CriteriaTriggers::CRAFTER_RECIPE_CRAFTED.trigger(
                     level,

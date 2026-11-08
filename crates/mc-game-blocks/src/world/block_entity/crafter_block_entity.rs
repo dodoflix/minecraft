@@ -4,6 +4,9 @@
 //! Not implemented: the crafter menu (`CrafterMenu`) does not exist yet, so `menu_provider` stays `None` and the block
 //! opens nothing; `container_data` plus [`CrafterBlockEntity::set_slot_state`] / [`CrafterBlockEntity::is_slot_disabled`]
 //! are what that menu reads.
+//!
+//! Known difference: a container operation on a crafter that still has a loot table rolls it before the operation, while
+//! vanilla rolls it inside the first `setItem` / `removeItem` (its `getItem`, `isEmpty` and `canPlaceItem` do not unpack).
 
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
@@ -107,11 +110,6 @@ impl CrafterBlockEntity {
     /// `setTriggered(value)`.
     pub fn set_triggered(&mut self, value: bool) {
         self.data[DATA_TRIGGERED] = i32::from(value);
-    }
-
-    /// `isTriggered()`.
-    pub fn is_triggered(&self) -> bool {
-        self.data[DATA_TRIGGERED] == 1
     }
 
     /// `setCraftingTicksRemaining(maxCraftingTicks)`.
