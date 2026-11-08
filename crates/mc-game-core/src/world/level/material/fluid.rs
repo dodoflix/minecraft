@@ -10,7 +10,7 @@ use mc_data::block::BlockState;
 use mc_data::fluid::{Fluid, FluidState};
 use std::sync::OnceLock;
 
-/// `Fluid` (overridable behavior). Defaults are vanilla's `EmptyFluid` / base `Fluid` behavior; static per-state data
+/// `Fluid` (overridable behavior). Defaults are the behavior of vanilla's base `Fluid`; static per-state data
 /// (amount, source flag, own height, legacy block, random ticking, explosion resistance) is in `mc_data`.
 pub trait FluidBehaviour: Send + Sync + 'static {
     /// `tick(level, pos, blockState, fluidState)` (scheduled fluid tick).
@@ -33,17 +33,15 @@ pub trait FluidBehaviour: Send + Sync + 'static {
         _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
     ) {
     }
-    /// `canBeReplacedWith(state, level, pos, other, direction)`.
+    /// `canBeReplacedWith(state, level, pos, other, direction)` (abstract in vanilla's `Fluid`).
     fn can_be_replaced_with(
         &self,
-        _state: FluidState,
-        _level: &dyn BlockGetter,
-        _pos: BlockPos,
-        _other: Fluid,
-        _direction: Direction,
-    ) -> bool {
-        false
-    }
+        state: FluidState,
+        level: &dyn BlockGetter,
+        pos: BlockPos,
+        other: Fluid,
+        direction: Direction,
+    ) -> bool;
     /// `getFlow(level, pos, state)`.
     fn get_flow(&self, _level: &dyn BlockGetter, _pos: BlockPos, _state: FluidState) -> Vec3 {
         Vec3::ZERO
@@ -67,6 +65,16 @@ pub trait FluidBehaviour: Send + Sync + 'static {
 /// `EmptyFluid`.
 pub struct EmptyFluid;
 impl FluidBehaviour for EmptyFluid {
+    fn can_be_replaced_with(
+        &self,
+        _state: FluidState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _other: Fluid,
+        _direction: Direction,
+    ) -> bool {
+        true
+    }
     fn is_same(&self, other: Fluid) -> bool {
         other == Fluid::EMPTY
     }

@@ -76,6 +76,7 @@ impl BlockBehaviour for CandleBlock {
             state
         }
     );
+    crate::simple_waterlogged!(no_place_liquid);
     fn place_liquid(
         &self,
         level: &mut dyn LevelAccessor,

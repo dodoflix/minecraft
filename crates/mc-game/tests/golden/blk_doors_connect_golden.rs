@@ -39,25 +39,21 @@ fn ladders_chains_lanterns_carpets_random_updates() {
 }
 
 #[test]
-#[ignore = "deviation: waterlogged blocks do not spread water into neighbouring air (#3)"]
 fn trapdoors_waterlogged_water_ticks() {
     check("blk_dc_np_trapdoors_wet");
 }
 
 #[test]
-#[ignore = "deviation: waterlogged blocks do not spread water into neighbouring air (#3)"]
 fn fences_bars_walls_gates_waterlogged_random_updates() {
     check("blk_dc_np_fences_wet");
 }
 
 #[test]
-#[ignore = "deviation: waterlogged blocks do not spread water into neighbouring air (#3)"]
 fn stairs_waterlogged_random_updates() {
     check("blk_dc_np_stairs_wet");
 }
 
 #[test]
-#[ignore = "deviation: waterlogged blocks do not spread water into neighbouring air (#3)"]
 fn ladders_chains_lanterns_waterlogged_random_updates() {
     check("blk_dc_np_misc_wet");
 }

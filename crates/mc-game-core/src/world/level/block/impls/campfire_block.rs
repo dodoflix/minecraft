@@ -115,6 +115,7 @@ impl BlockBehaviour for CampfireBlock {
                 .set(props::HORIZONTAL_FACING, context.get_horizontal_direction()),
         )
     }
+    crate::simple_waterlogged!(no_place_liquid);
     fn place_liquid(
         &self,
         level: &mut dyn LevelAccessor,

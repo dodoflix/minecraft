@@ -63,9 +63,27 @@ pub fn get_pickup_sound() -> Option<SoundEvent> {
 }
 
 /// Splices the `SimpleWaterloggedBlock` hooks (`LiquidBlockContainer` + `BucketPickup`) into a `BlockBehaviour` impl.
+/// `simple_waterlogged!(no_place_liquid)` leaves `place_liquid` out for classes that override `placeLiquid`.
 #[macro_export]
 macro_rules! simple_waterlogged {
     () => {
+        $crate::simple_waterlogged!(no_place_liquid);
+        fn place_liquid(
+            &self,
+            level: &mut dyn $crate::world::level::LevelAccessor,
+            pos: ::mc_core::pos::BlockPos,
+            state: ::mc_data::block::BlockState,
+            fluid_state: ::mc_data::fluid::FluidState,
+        ) -> bool {
+            $crate::world::level::block::simple_waterlogged::place_liquid(
+                level,
+                pos,
+                state,
+                fluid_state,
+            )
+        }
+    };
+    (no_place_liquid) => {
         fn is_liquid_block_container(&self) -> bool {
             true
         }
@@ -79,20 +97,6 @@ macro_rules! simple_waterlogged {
         ) -> bool {
             $crate::world::level::block::simple_waterlogged::can_place_liquid(
                 user, level, pos, state, fluid,
-            )
-        }
-        fn place_liquid(
-            &self,
-            level: &mut dyn $crate::world::level::LevelAccessor,
-            pos: ::mc_core::pos::BlockPos,
-            state: ::mc_data::block::BlockState,
-            fluid_state: ::mc_data::fluid::FluidState,
-        ) -> bool {
-            $crate::world::level::block::simple_waterlogged::place_liquid(
-                level,
-                pos,
-                state,
-                fluid_state,
             )
         }
         fn is_bucket_pickup(&self) -> bool {

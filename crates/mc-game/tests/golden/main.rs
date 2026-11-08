@@ -50,6 +50,7 @@ mod feat_ores_golden;
 mod feat_underground_golden;
 mod feature_registries_load;
 mod fluid_waterlogged;
+mod fluids_golden;
 mod functions_system;
 mod goals_combat_golden;
 mod gossip_golden;
