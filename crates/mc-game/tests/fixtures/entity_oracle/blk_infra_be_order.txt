@@ -22,6 +22,23 @@ BET 4 -60 9
 BET 2 -45 14
 BET 6 -60 6
 BET 11 -35 1
+CHUNKBES 0 0
+BEP 12 -40 3 minecraft:chest
+BEP 0 -55 0 minecraft:chest
+BEP 10 -58 10 minecraft:chest
+BEP 11 -35 1 minecraft:hopper
+BEP 6 -60 6 minecraft:sign
+BEP 2 -45 14 minecraft:hopper
+BEP 7 -30 12 minecraft:barrel
+BEP 8 -59 8 minecraft:hopper
+BEP 4 -60 9 minecraft:sign
+BEP 5 -25 5 minecraft:barrel
+BEP 1 -60 1 minecraft:sign
+BEP 3 -19 4 minecraft:chest
+BEP 3 -50 5 minecraft:chest
+BEP 9 -10 2 minecraft:barrel
+BEP 13 0 7 minecraft:chest
+BEP 15 -60 15 minecraft:hopper
 BES 0 0
 BEM 12 -40 3 minecraft:chest
 BEM 0 -55 0 minecraft:chest
@@ -46,6 +63,23 @@ BET 4 -60 9
 BET 2 -45 14
 BET 6 -60 6
 BET 11 -35 1
+CHUNKBES 0 0
+BEP 12 -40 3 minecraft:chest
+BEP 0 -55 0 minecraft:chest
+BEP 10 -58 10 minecraft:chest
+BEP 11 -35 1 minecraft:hopper
+BEP 6 -60 6 minecraft:sign
+BEP 2 -45 14 minecraft:hopper
+BEP 7 -30 12 minecraft:barrel
+BEP 8 -59 8 minecraft:hopper
+BEP 4 -60 9 minecraft:sign
+BEP 5 -25 5 minecraft:barrel
+BEP 1 -60 1 minecraft:sign
+BEP 3 -19 4 minecraft:chest
+BEP 3 -50 5 minecraft:chest
+BEP 9 -10 2 minecraft:barrel
+BEP 13 0 7 minecraft:chest
+BEP 15 -60 15 minecraft:hopper
 BES 0 0
 BEM 12 -40 3 minecraft:chest
 BEM 0 -55 0 minecraft:chest
@@ -67,6 +101,20 @@ BET 4 -60 9
 BET 2 -45 14
 BET 6 -60 6
 BET 11 -35 1
+CHUNKBES 0 0
+BEP 12 -40 3 minecraft:chest
+BEP 0 -55 0 minecraft:chest
+BEP 10 -58 10 minecraft:chest
+BEP 11 -35 1 minecraft:hopper
+BEP 6 -60 6 minecraft:sign
+BEP 2 -45 14 minecraft:hopper
+BEP 7 -30 12 minecraft:barrel
+BEP 8 -59 8 minecraft:hopper
+BEP 4 -60 9 minecraft:sign
+BEP 5 -25 5 minecraft:barrel
+BEP 3 -19 4 minecraft:chest
+BEP 9 -10 2 minecraft:barrel
+BEP 15 -60 15 minecraft:hopper
 BES 0 0
 BEM 12 -40 3 minecraft:hopper
 BEM 0 -55 0 minecraft:chest
@@ -90,6 +138,603 @@ BET 2 -45 14
 BET 6 -60 6
 BET 11 -35 1
 BET 12 -40 3
+CHUNKBES 0 0
+BEP 12 -40 3 minecraft:hopper
+BEP 0 -55 0 minecraft:chest
+BEP 10 -58 10 minecraft:chest
+BEP 11 -35 1 minecraft:hopper
+BEP 6 -60 6 minecraft:sign
+BEP 2 -45 14 minecraft:hopper
+BEP 7 -30 12 minecraft:barrel
+BEP 8 -59 8 minecraft:barrel
+BEP 4 -60 9 minecraft:sign
+BEP 3 -50 5 minecraft:chest
+BEP 5 -25 5 minecraft:barrel
+BEP 3 -19 4 minecraft:chest
+BEP 9 -10 2 minecraft:barrel
+BEP 15 -60 15 minecraft:hopper
+BES 0 0
+BEM 12 -40 3 minecraft:hopper
+BEM 0 -55 0 minecraft:chest
+BEM 10 -58 10 minecraft:chest
+BEM 11 -35 1 minecraft:hopper
+BEM 6 -60 6 minecraft:sign
+BEM 2 -45 14 minecraft:hopper
+BEM 7 -30 12 minecraft:barrel
+BEM 8 -59 8 minecraft:barrel
+BEM 4 -60 9 minecraft:sign
+BEM 3 -50 5 minecraft:chest
+BEM 5 -25 5 minecraft:barrel
+BEM 3 -19 4 minecraft:chest
+BEM 9 -10 2 minecraft:barrel
+BEM 15 -60 15 minecraft:hopper
+BET 15 -60 15
+BET 4 -60 9
+BET 2 -45 14
+BET 6 -60 6
+BET 11 -35 1
+BET 12 -40 3
+CHUNKBES 0 0
+BEP 12 -40 3 minecraft:hopper
+BEP 0 -55 0 minecraft:chest
+BEP 10 -58 10 minecraft:chest
+BEP 11 -35 1 minecraft:hopper
+BEP 6 -60 6 minecraft:sign
+BEP 2 -45 14 minecraft:hopper
+BEP 7 -30 12 minecraft:barrel
+BEP 8 -59 8 minecraft:barrel
+BEP 4 -60 9 minecraft:sign
+BEP 3 -50 5 minecraft:chest
+BEP 5 -25 5 minecraft:barrel
+BEP 3 -19 4 minecraft:chest
+BEP 9 -10 2 minecraft:barrel
+BEP 15 -60 15 minecraft:hopper
+BES 1 0
+BEM 18 -45 0 minecraft:chest
+BEM 29 17 1 minecraft:hopper
+BEM 29 18 15 minecraft:barrel
+BEM 27 -59 2 minecraft:hopper
+BEM 20 48 1 minecraft:chest
+BEM 29 -59 13 minecraft:barrel
+BEM 26 -58 1 minecraft:chest
+BEM 16 -30 3 minecraft:hopper
+BEM 29 -29 2 minecraft:chest
+BEM 25 48 1 minecraft:barrel
+BEM 31 -12 8 minecraft:hopper
+BEM 27 -30 0 minecraft:barrel
+BET 27 -59 2
+BET 31 -12 8
+BET 16 -30 3
+BET 29 17 1
+CHUNKBES 1 0
+BEP 18 -45 0 minecraft:chest
+BEP 29 17 1 minecraft:hopper
+BEP 29 18 15 minecraft:barrel
+BEP 27 -59 2 minecraft:hopper
+BEP 20 48 1 minecraft:chest
+BEP 29 -59 13 minecraft:barrel
+BEP 26 -58 1 minecraft:chest
+BEP 16 -30 3 minecraft:hopper
+BEP 29 -29 2 minecraft:chest
+BEP 25 48 1 minecraft:barrel
+BEP 31 -12 8 minecraft:hopper
+BEP 27 -30 0 minecraft:barrel
+BES 1 0
+BEM 20 -13 13 minecraft:barrel
+BEM 29 48 8 minecraft:hopper
+BEM 18 -45 0 minecraft:chest
+BEM 19 -59 0 minecraft:hopper
+BEM 29 17 1 minecraft:hopper
+BEM 29 18 15 minecraft:barrel
+BEM 27 -59 2 minecraft:hopper
+BEM 19 -59 14 minecraft:chest
+BEM 22 -13 7 minecraft:hopper
+BEM 22 50 12 minecraft:chest
+BEM 20 48 1 minecraft:chest
+BEM 19 50 1 minecraft:barrel
+BEM 29 -59 13 minecraft:barrel
+BEM 28 18 2 minecraft:hopper
+BEM 23 -14 4 minecraft:barrel
+BEM 26 -58 1 minecraft:chest
+BEM 21 -45 1 minecraft:chest
+BEM 31 -12 0 minecraft:chest
+BEM 18 -29 10 minecraft:barrel
+BEM 16 -30 3 minecraft:hopper
+BEM 29 -29 2 minecraft:chest
+BEM 25 48 1 minecraft:barrel
+BEM 31 -12 8 minecraft:hopper
+BEM 27 -30 0 minecraft:barrel
+BET 27 -59 2
+BET 31 -12 8
+BET 16 -30 3
+BET 29 17 1
+BET 28 18 2
+BET 19 -59 0
+BET 22 -13 7
+BET 29 48 8
+CHUNKBES 1 0
+BEP 20 -13 13 minecraft:barrel
+BEP 29 48 8 minecraft:hopper
+BEP 18 -45 0 minecraft:chest
+BEP 19 -59 0 minecraft:hopper
+BEP 29 17 1 minecraft:hopper
+BEP 29 18 15 minecraft:barrel
+BEP 27 -59 2 minecraft:hopper
+BEP 19 -59 14 minecraft:chest
+BEP 22 -13 7 minecraft:hopper
+BEP 22 50 12 minecraft:chest
+BEP 20 48 1 minecraft:chest
+BEP 19 50 1 minecraft:barrel
+BEP 29 -59 13 minecraft:barrel
+BEP 28 18 2 minecraft:hopper
+BEP 23 -14 4 minecraft:barrel
+BEP 26 -58 1 minecraft:chest
+BEP 21 -45 1 minecraft:chest
+BEP 31 -12 0 minecraft:chest
+BEP 18 -29 10 minecraft:barrel
+BEP 16 -30 3 minecraft:hopper
+BEP 29 -29 2 minecraft:chest
+BEP 25 48 1 minecraft:barrel
+BEP 31 -12 8 minecraft:hopper
+BEP 27 -30 0 minecraft:barrel
+BES 1 0
+BEM 17 -60 0 minecraft:chest
+BEM 18 -45 0 minecraft:chest
+BEM 27 -59 2 minecraft:hopper
+BEM 19 -59 0 minecraft:hopper
+BEM 29 18 15 minecraft:barrel
+BEM 29 17 1 minecraft:hopper
+BEM 17 48 9 minecraft:barrel
+BEM 29 48 8 minecraft:hopper
+BEM 20 48 1 minecraft:chest
+BEM 29 -59 13 minecraft:barrel
+BEM 26 -58 1 minecraft:chest
+BEM 25 50 1 minecraft:hopper
+BEM 27 -30 0 minecraft:barrel
+BEM 21 -58 5 minecraft:hopper
+BEM 20 -13 13 minecraft:barrel
+BEM 21 49 0 minecraft:chest
+BEM 29 18 1 minecraft:chest
+BEM 19 -59 14 minecraft:chest
+BEM 22 50 12 minecraft:chest
+BEM 22 -13 7 minecraft:hopper
+BEM 19 50 1 minecraft:barrel
+BEM 28 18 2 minecraft:hopper
+BEM 24 17 1 minecraft:hopper
+BEM 23 -14 4 minecraft:barrel
+BEM 23 -60 3 minecraft:barrel
+BEM 21 -45 1 minecraft:chest
+BEM 31 -12 0 minecraft:chest
+BEM 25 48 1 minecraft:barrel
+BEM 16 -30 3 minecraft:hopper
+BEM 29 -29 2 minecraft:chest
+BEM 18 -29 10 minecraft:barrel
+BEM 31 -12 8 minecraft:hopper
+BET 27 -59 2
+BET 31 -12 8
+BET 16 -30 3
+BET 29 17 1
+BET 28 18 2
+BET 19 -59 0
+BET 22 -13 7
+BET 29 48 8
+BET 25 50 1
+BET 24 17 1
+BET 21 -58 5
+CHUNKBES 1 0
+BEP 17 -60 0 minecraft:chest
+BEP 18 -45 0 minecraft:chest
+BEP 27 -59 2 minecraft:hopper
+BEP 19 -59 0 minecraft:hopper
+BEP 29 18 15 minecraft:barrel
+BEP 29 17 1 minecraft:hopper
+BEP 17 48 9 minecraft:barrel
+BEP 29 48 8 minecraft:hopper
+BEP 20 48 1 minecraft:chest
+BEP 29 -59 13 minecraft:barrel
+BEP 26 -58 1 minecraft:chest
+BEP 25 50 1 minecraft:hopper
+BEP 27 -30 0 minecraft:barrel
+BEP 21 -58 5 minecraft:hopper
+BEP 20 -13 13 minecraft:barrel
+BEP 21 49 0 minecraft:chest
+BEP 29 18 1 minecraft:chest
+BEP 19 -59 14 minecraft:chest
+BEP 22 50 12 minecraft:chest
+BEP 22 -13 7 minecraft:hopper
+BEP 19 50 1 minecraft:barrel
+BEP 28 18 2 minecraft:hopper
+BEP 24 17 1 minecraft:hopper
+BEP 23 -14 4 minecraft:barrel
+BEP 23 -60 3 minecraft:barrel
+BEP 21 -45 1 minecraft:chest
+BEP 31 -12 0 minecraft:chest
+BEP 25 48 1 minecraft:barrel
+BEP 16 -30 3 minecraft:hopper
+BEP 29 -29 2 minecraft:chest
+BEP 18 -29 10 minecraft:barrel
+BEP 31 -12 8 minecraft:hopper
+BES 1 0
+BEM 25 -44 7 minecraft:hopper
+BEM 17 -60 0 minecraft:chest
+BEM 18 -45 0 minecraft:chest
+BEM 27 -59 2 minecraft:hopper
+BEM 19 -59 0 minecraft:hopper
+BEM 29 18 15 minecraft:barrel
+BEM 29 17 1 minecraft:hopper
+BEM 17 48 9 minecraft:barrel
+BEM 16 19 10 minecraft:barrel
+BEM 29 48 8 minecraft:hopper
+BEM 20 48 1 minecraft:chest
+BEM 29 -59 13 minecraft:barrel
+BEM 24 -29 13 minecraft:chest
+BEM 26 -58 1 minecraft:chest
+BEM 24 17 14 minecraft:barrel
+BEM 25 50 1 minecraft:hopper
+BEM 28 18 13 minecraft:chest
+BEM 27 49 12 minecraft:chest
+BEM 27 -30 0 minecraft:barrel
+BEM 21 -58 5 minecraft:hopper
+BEM 20 -13 13 minecraft:barrel
+BEM 21 49 0 minecraft:chest
+BEM 29 18 1 minecraft:chest
+BEM 19 -59 14 minecraft:chest
+BEM 22 50 12 minecraft:chest
+BEM 22 -13 7 minecraft:hopper
+BEM 19 50 1 minecraft:barrel
+BEM 20 17 10 minecraft:barrel
+BEM 28 18 2 minecraft:hopper
+BEM 24 17 1 minecraft:hopper
+BEM 23 -14 4 minecraft:barrel
+BEM 23 -60 3 minecraft:barrel
+BEM 21 -45 1 minecraft:chest
+BEM 31 -12 0 minecraft:chest
+BEM 20 -60 2 minecraft:hopper
+BEM 25 48 1 minecraft:barrel
+BEM 16 -30 3 minecraft:hopper
+BEM 29 -29 2 minecraft:chest
+BEM 18 -29 10 minecraft:barrel
+BEM 31 -12 8 minecraft:hopper
+BET 27 -59 2
+BET 31 -12 8
+BET 16 -30 3
+BET 29 17 1
+BET 28 18 2
+BET 19 -59 0
+BET 22 -13 7
+BET 29 48 8
+BET 25 50 1
+BET 24 17 1
+BET 21 -58 5
+BET 25 -44 7
+BET 20 -60 2
+CHUNKBES 1 0
+BEP 25 -44 7 minecraft:hopper
+BEP 17 -60 0 minecraft:chest
+BEP 18 -45 0 minecraft:chest
+BEP 27 -59 2 minecraft:hopper
+BEP 19 -59 0 minecraft:hopper
+BEP 29 18 15 minecraft:barrel
+BEP 29 17 1 minecraft:hopper
+BEP 17 48 9 minecraft:barrel
+BEP 16 19 10 minecraft:barrel
+BEP 29 48 8 minecraft:hopper
+BEP 20 48 1 minecraft:chest
+BEP 29 -59 13 minecraft:barrel
+BEP 24 -29 13 minecraft:chest
+BEP 26 -58 1 minecraft:chest
+BEP 24 17 14 minecraft:barrel
+BEP 25 50 1 minecraft:hopper
+BEP 28 18 13 minecraft:chest
+BEP 27 49 12 minecraft:chest
+BEP 27 -30 0 minecraft:barrel
+BEP 21 -58 5 minecraft:hopper
+BEP 20 -13 13 minecraft:barrel
+BEP 21 49 0 minecraft:chest
+BEP 29 18 1 minecraft:chest
+BEP 19 -59 14 minecraft:chest
+BEP 22 50 12 minecraft:chest
+BEP 22 -13 7 minecraft:hopper
+BEP 19 50 1 minecraft:barrel
+BEP 20 17 10 minecraft:barrel
+BEP 28 18 2 minecraft:hopper
+BEP 24 17 1 minecraft:hopper
+BEP 23 -14 4 minecraft:barrel
+BEP 23 -60 3 minecraft:barrel
+BEP 21 -45 1 minecraft:chest
+BEP 31 -12 0 minecraft:chest
+BEP 20 -60 2 minecraft:hopper
+BEP 25 48 1 minecraft:barrel
+BEP 16 -30 3 minecraft:hopper
+BEP 29 -29 2 minecraft:chest
+BEP 18 -29 10 minecraft:barrel
+BEP 31 -12 8 minecraft:hopper
+BES 1 0
+BEM 25 -44 7 minecraft:hopper
+BEM 17 -60 0 minecraft:chest
+BEM 19 -59 0 minecraft:hopper
+BEM 29 18 15 minecraft:barrel
+BEM 29 17 1 minecraft:hopper
+BEM 17 48 9 minecraft:barrel
+BEM 16 19 10 minecraft:barrel
+BEM 29 48 8 minecraft:hopper
+BEM 20 48 1 minecraft:chest
+BEM 29 -59 13 minecraft:barrel
+BEM 24 -29 13 minecraft:chest
+BEM 24 17 14 minecraft:barrel
+BEM 25 50 1 minecraft:hopper
+BEM 28 18 13 minecraft:chest
+BEM 27 49 12 minecraft:chest
+BEM 27 -30 0 minecraft:barrel
+BEM 21 -58 5 minecraft:hopper
+BEM 20 -13 13 minecraft:barrel
+BEM 21 49 0 minecraft:chest
+BEM 29 18 1 minecraft:chest
+BEM 19 -59 14 minecraft:chest
+BEM 22 50 12 minecraft:chest
+BEM 22 -13 7 minecraft:hopper
+BEM 19 50 1 minecraft:barrel
+BEM 20 17 10 minecraft:barrel
+BEM 28 18 2 minecraft:hopper
+BEM 24 17 1 minecraft:hopper
+BEM 23 -14 4 minecraft:barrel
+BEM 23 -60 3 minecraft:barrel
+BEM 21 -45 1 minecraft:chest
+BEM 31 -12 0 minecraft:chest
+BEM 20 -60 2 minecraft:hopper
+BEM 16 -30 3 minecraft:hopper
+BEM 29 -29 2 minecraft:chest
+BEM 18 -29 10 minecraft:barrel
+BET 16 -30 3
+BET 29 17 1
+BET 28 18 2
+BET 19 -59 0
+BET 22 -13 7
+BET 29 48 8
+BET 25 50 1
+BET 24 17 1
+BET 21 -58 5
+BET 25 -44 7
+BET 20 -60 2
+CHUNKBES 1 0
+BEP 25 -44 7 minecraft:hopper
+BEP 17 -60 0 minecraft:chest
+BEP 19 -59 0 minecraft:hopper
+BEP 29 18 15 minecraft:barrel
+BEP 29 17 1 minecraft:hopper
+BEP 17 48 9 minecraft:barrel
+BEP 16 19 10 minecraft:barrel
+BEP 29 48 8 minecraft:hopper
+BEP 20 48 1 minecraft:chest
+BEP 29 -59 13 minecraft:barrel
+BEP 24 -29 13 minecraft:chest
+BEP 24 17 14 minecraft:barrel
+BEP 25 50 1 minecraft:hopper
+BEP 28 18 13 minecraft:chest
+BEP 27 49 12 minecraft:chest
+BEP 27 -30 0 minecraft:barrel
+BEP 21 -58 5 minecraft:hopper
+BEP 20 -13 13 minecraft:barrel
+BEP 21 49 0 minecraft:chest
+BEP 29 18 1 minecraft:chest
+BEP 19 -59 14 minecraft:chest
+BEP 22 50 12 minecraft:chest
+BEP 22 -13 7 minecraft:hopper
+BEP 19 50 1 minecraft:barrel
+BEP 20 17 10 minecraft:barrel
+BEP 28 18 2 minecraft:hopper
+BEP 24 17 1 minecraft:hopper
+BEP 23 -14 4 minecraft:barrel
+BEP 23 -60 3 minecraft:barrel
+BEP 21 -45 1 minecraft:chest
+BEP 31 -12 0 minecraft:chest
+BEP 20 -60 2 minecraft:hopper
+BEP 16 -30 3 minecraft:hopper
+BEP 29 -29 2 minecraft:chest
+BEP 18 -29 10 minecraft:barrel
+BES 1 0
+BEM 17 -60 0 minecraft:chest
+BEM 19 -59 0 minecraft:hopper
+BEM 25 -44 7 minecraft:hopper
+BEM 17 48 9 minecraft:barrel
+BEM 29 48 8 minecraft:hopper
+BEM 16 19 10 minecraft:barrel
+BEM 24 -29 13 minecraft:chest
+BEM 24 17 14 minecraft:barrel
+BEM 25 50 1 minecraft:hopper
+BEM 28 18 13 minecraft:chest
+BEM 27 49 12 minecraft:chest
+BEM 21 -58 5 minecraft:hopper
+BEM 20 -13 13 minecraft:barrel
+BEM 21 49 0 minecraft:chest
+BEM 29 18 1 minecraft:chest
+BEM 19 -59 14 minecraft:chest
+BEM 22 50 12 minecraft:chest
+BEM 22 -13 7 minecraft:hopper
+BEM 19 50 1 minecraft:barrel
+BEM 20 17 10 minecraft:barrel
+BEM 28 18 2 minecraft:hopper
+BEM 24 17 1 minecraft:hopper
+BEM 23 -14 4 minecraft:barrel
+BEM 23 -60 3 minecraft:barrel
+BEM 21 -45 1 minecraft:chest
+BEM 20 -60 2 minecraft:hopper
+BEM 18 -29 10 minecraft:barrel
+BET 28 18 2
+BET 19 -59 0
+BET 22 -13 7
+BET 29 48 8
+BET 25 50 1
+BET 24 17 1
+BET 21 -58 5
+BET 25 -44 7
+BET 20 -60 2
+CHUNKBES 1 0
+BEP 17 -60 0 minecraft:chest
+BEP 19 -59 0 minecraft:hopper
+BEP 25 -44 7 minecraft:hopper
+BEP 17 48 9 minecraft:barrel
+BEP 29 48 8 minecraft:hopper
+BEP 16 19 10 minecraft:barrel
+BEP 24 -29 13 minecraft:chest
+BEP 24 17 14 minecraft:barrel
+BEP 25 50 1 minecraft:hopper
+BEP 28 18 13 minecraft:chest
+BEP 27 49 12 minecraft:chest
+BEP 21 -58 5 minecraft:hopper
+BEP 20 -13 13 minecraft:barrel
+BEP 21 49 0 minecraft:chest
+BEP 29 18 1 minecraft:chest
+BEP 19 -59 14 minecraft:chest
+BEP 22 50 12 minecraft:chest
+BEP 22 -13 7 minecraft:hopper
+BEP 19 50 1 minecraft:barrel
+BEP 20 17 10 minecraft:barrel
+BEP 28 18 2 minecraft:hopper
+BEP 24 17 1 minecraft:hopper
+BEP 23 -14 4 minecraft:barrel
+BEP 23 -60 3 minecraft:barrel
+BEP 21 -45 1 minecraft:chest
+BEP 20 -60 2 minecraft:hopper
+BEP 18 -29 10 minecraft:barrel
+BES 1 0
+BEM 17 -60 0 minecraft:chest
+BEM 25 -44 7 minecraft:hopper
+BEM 17 48 9 minecraft:barrel
+BEM 29 48 8 minecraft:hopper
+BEM 16 19 10 minecraft:barrel
+BEM 24 -29 13 minecraft:chest
+BEM 24 17 14 minecraft:barrel
+BEM 25 50 1 minecraft:hopper
+BEM 28 18 13 minecraft:chest
+BEM 27 49 12 minecraft:chest
+BEM 21 -58 5 minecraft:hopper
+BEM 20 -13 13 minecraft:barrel
+BEM 21 49 0 minecraft:chest
+BEM 29 18 1 minecraft:chest
+BEM 20 17 10 minecraft:barrel
+BEM 24 17 1 minecraft:hopper
+BEM 23 -60 3 minecraft:barrel
+BEM 21 -45 1 minecraft:chest
+BEM 20 -60 2 minecraft:hopper
+BET 29 48 8
+BET 25 50 1
+BET 24 17 1
+BET 21 -58 5
+BET 25 -44 7
+BET 20 -60 2
+CHUNKBES 1 0
+BEP 17 -60 0 minecraft:chest
+BEP 25 -44 7 minecraft:hopper
+BEP 17 48 9 minecraft:barrel
+BEP 29 48 8 minecraft:hopper
+BEP 16 19 10 minecraft:barrel
+BEP 24 -29 13 minecraft:chest
+BEP 24 17 14 minecraft:barrel
+BEP 25 50 1 minecraft:hopper
+BEP 28 18 13 minecraft:chest
+BEP 27 49 12 minecraft:chest
+BEP 21 -58 5 minecraft:hopper
+BEP 20 -13 13 minecraft:barrel
+BEP 21 49 0 minecraft:chest
+BEP 29 18 1 minecraft:chest
+BEP 20 17 10 minecraft:barrel
+BEP 24 17 1 minecraft:hopper
+BEP 23 -60 3 minecraft:barrel
+BEP 21 -45 1 minecraft:chest
+BEP 20 -60 2 minecraft:hopper
+BES 1 0
+BEM 25 -44 7 minecraft:hopper
+BEM 17 48 9 minecraft:barrel
+BEM 16 19 10 minecraft:barrel
+BEM 24 -29 13 minecraft:chest
+BEM 24 17 14 minecraft:barrel
+BEM 25 50 1 minecraft:hopper
+BEM 28 18 13 minecraft:chest
+BEM 27 49 12 minecraft:chest
+BEM 21 -58 5 minecraft:hopper
+BEM 21 49 0 minecraft:chest
+BEM 29 18 1 minecraft:chest
+BEM 20 17 10 minecraft:barrel
+BEM 24 17 1 minecraft:hopper
+BEM 23 -60 3 minecraft:barrel
+BEM 20 -60 2 minecraft:hopper
+BET 25 50 1
+BET 24 17 1
+BET 21 -58 5
+BET 25 -44 7
+BET 20 -60 2
+CHUNKBES 1 0
+BEP 25 -44 7 minecraft:hopper
+BEP 17 48 9 minecraft:barrel
+BEP 16 19 10 minecraft:barrel
+BEP 24 -29 13 minecraft:chest
+BEP 24 17 14 minecraft:barrel
+BEP 25 50 1 minecraft:hopper
+BEP 28 18 13 minecraft:chest
+BEP 27 49 12 minecraft:chest
+BEP 21 -58 5 minecraft:hopper
+BEP 21 49 0 minecraft:chest
+BEP 29 18 1 minecraft:chest
+BEP 20 17 10 minecraft:barrel
+BEP 24 17 1 minecraft:hopper
+BEP 23 -60 3 minecraft:barrel
+BEP 20 -60 2 minecraft:hopper
+BES 1 0
+BEM 25 -44 7 minecraft:hopper
+BEM 17 48 9 minecraft:barrel
+BEM 16 19 10 minecraft:barrel
+BEM 24 -29 13 minecraft:chest
+BEM 24 17 14 minecraft:barrel
+BEM 28 18 13 minecraft:chest
+BEM 27 49 12 minecraft:chest
+BEM 21 -58 5 minecraft:hopper
+BEM 21 49 0 minecraft:chest
+BEM 24 17 1 minecraft:hopper
+BEM 20 17 10 minecraft:barrel
+BEM 20 -60 2 minecraft:hopper
+BET 24 17 1
+BET 21 -58 5
+BET 25 -44 7
+BET 20 -60 2
+CHUNKBES 1 0
+BEP 25 -44 7 minecraft:hopper
+BEP 17 48 9 minecraft:barrel
+BEP 16 19 10 minecraft:barrel
+BEP 24 -29 13 minecraft:chest
+BEP 24 17 14 minecraft:barrel
+BEP 28 18 13 minecraft:chest
+BEP 27 49 12 minecraft:chest
+BEP 21 -58 5 minecraft:hopper
+BEP 21 49 0 minecraft:chest
+BEP 24 17 1 minecraft:hopper
+BEP 20 17 10 minecraft:barrel
+BEP 20 -60 2 minecraft:hopper
+BES 1 0
+BEM 21 -58 5 minecraft:hopper
+BEM 21 49 0 minecraft:chest
+BEM 25 -44 7 minecraft:hopper
+BEM 16 19 10 minecraft:barrel
+BEM 24 -29 13 minecraft:chest
+BEM 20 17 10 minecraft:barrel
+BEM 24 17 14 minecraft:barrel
+BEM 20 -60 2 minecraft:hopper
+BEM 28 18 13 minecraft:chest
+BEM 27 49 12 minecraft:chest
+BET 21 -58 5
+BET 25 -44 7
+BET 20 -60 2
+CHUNKBES 1 0
+BEP 21 -58 5 minecraft:hopper
+BEP 21 49 0 minecraft:chest
+BEP 25 -44 7 minecraft:hopper
+BEP 16 19 10 minecraft:barrel
+BEP 24 -29 13 minecraft:chest
+BEP 20 17 10 minecraft:barrel
+BEP 24 17 14 minecraft:barrel
+BEP 20 -60 2 minecraft:hopper
+BEP 28 18 13 minecraft:chest
+BEP 27 49 12 minecraft:chest
 BES 0 0
 BEM 12 -40 3 minecraft:hopper
 BEM 0 -55 0 minecraft:chest
@@ -112,302 +757,6 @@ BET 6 -60 6
 BET 11 -35 1
 BET 12 -40 3
 BES 1 0
-BEM 18 -45 0 minecraft:chest
-BEM 29 17 1 minecraft:hopper
-BEM 29 18 15 minecraft:barrel
-BEM 27 -59 2 minecraft:hopper
-BEM 20 48 1 minecraft:chest
-BEM 29 -59 13 minecraft:barrel
-BEM 26 -58 1 minecraft:chest
-BEM 16 -30 3 minecraft:hopper
-BEM 29 -29 2 minecraft:chest
-BEM 25 48 1 minecraft:barrel
-BEM 31 -12 8 minecraft:hopper
-BEM 27 -30 0 minecraft:barrel
-BET 27 -59 2
-BET 31 -12 8
-BET 16 -30 3
-BET 29 17 1
-BES 1 0
-BEM 20 -13 13 minecraft:barrel
-BEM 29 48 8 minecraft:hopper
-BEM 18 -45 0 minecraft:chest
-BEM 19 -59 0 minecraft:hopper
-BEM 29 17 1 minecraft:hopper
-BEM 29 18 15 minecraft:barrel
-BEM 27 -59 2 minecraft:hopper
-BEM 19 -59 14 minecraft:chest
-BEM 22 -13 7 minecraft:hopper
-BEM 22 50 12 minecraft:chest
-BEM 20 48 1 minecraft:chest
-BEM 19 50 1 minecraft:barrel
-BEM 29 -59 13 minecraft:barrel
-BEM 28 18 2 minecraft:hopper
-BEM 23 -14 4 minecraft:barrel
-BEM 26 -58 1 minecraft:chest
-BEM 21 -45 1 minecraft:chest
-BEM 31 -12 0 minecraft:chest
-BEM 18 -29 10 minecraft:barrel
-BEM 16 -30 3 minecraft:hopper
-BEM 29 -29 2 minecraft:chest
-BEM 25 48 1 minecraft:barrel
-BEM 31 -12 8 minecraft:hopper
-BEM 27 -30 0 minecraft:barrel
-BET 27 -59 2
-BET 31 -12 8
-BET 16 -30 3
-BET 29 17 1
-BET 28 18 2
-BET 19 -59 0
-BET 22 -13 7
-BET 29 48 8
-BES 1 0
-BEM 17 -60 0 minecraft:chest
-BEM 18 -45 0 minecraft:chest
-BEM 27 -59 2 minecraft:hopper
-BEM 19 -59 0 minecraft:hopper
-BEM 29 18 15 minecraft:barrel
-BEM 29 17 1 minecraft:hopper
-BEM 17 48 9 minecraft:barrel
-BEM 29 48 8 minecraft:hopper
-BEM 20 48 1 minecraft:chest
-BEM 29 -59 13 minecraft:barrel
-BEM 26 -58 1 minecraft:chest
-BEM 25 50 1 minecraft:hopper
-BEM 27 -30 0 minecraft:barrel
-BEM 21 -58 5 minecraft:hopper
-BEM 20 -13 13 minecraft:barrel
-BEM 21 49 0 minecraft:chest
-BEM 29 18 1 minecraft:chest
-BEM 19 -59 14 minecraft:chest
-BEM 22 50 12 minecraft:chest
-BEM 22 -13 7 minecraft:hopper
-BEM 19 50 1 minecraft:barrel
-BEM 28 18 2 minecraft:hopper
-BEM 24 17 1 minecraft:hopper
-BEM 23 -14 4 minecraft:barrel
-BEM 23 -60 3 minecraft:barrel
-BEM 21 -45 1 minecraft:chest
-BEM 31 -12 0 minecraft:chest
-BEM 25 48 1 minecraft:barrel
-BEM 16 -30 3 minecraft:hopper
-BEM 29 -29 2 minecraft:chest
-BEM 18 -29 10 minecraft:barrel
-BEM 31 -12 8 minecraft:hopper
-BET 27 -59 2
-BET 31 -12 8
-BET 16 -30 3
-BET 29 17 1
-BET 28 18 2
-BET 19 -59 0
-BET 22 -13 7
-BET 29 48 8
-BET 25 50 1
-BET 24 17 1
-BET 21 -58 5
-BES 1 0
-BEM 25 -44 7 minecraft:hopper
-BEM 17 -60 0 minecraft:chest
-BEM 18 -45 0 minecraft:chest
-BEM 27 -59 2 minecraft:hopper
-BEM 19 -59 0 minecraft:hopper
-BEM 29 18 15 minecraft:barrel
-BEM 29 17 1 minecraft:hopper
-BEM 17 48 9 minecraft:barrel
-BEM 16 19 10 minecraft:barrel
-BEM 29 48 8 minecraft:hopper
-BEM 20 48 1 minecraft:chest
-BEM 29 -59 13 minecraft:barrel
-BEM 24 -29 13 minecraft:chest
-BEM 26 -58 1 minecraft:chest
-BEM 24 17 14 minecraft:barrel
-BEM 25 50 1 minecraft:hopper
-BEM 28 18 13 minecraft:chest
-BEM 27 49 12 minecraft:chest
-BEM 27 -30 0 minecraft:barrel
-BEM 21 -58 5 minecraft:hopper
-BEM 20 -13 13 minecraft:barrel
-BEM 21 49 0 minecraft:chest
-BEM 29 18 1 minecraft:chest
-BEM 19 -59 14 minecraft:chest
-BEM 22 50 12 minecraft:chest
-BEM 22 -13 7 minecraft:hopper
-BEM 19 50 1 minecraft:barrel
-BEM 20 17 10 minecraft:barrel
-BEM 28 18 2 minecraft:hopper
-BEM 24 17 1 minecraft:hopper
-BEM 23 -14 4 minecraft:barrel
-BEM 23 -60 3 minecraft:barrel
-BEM 21 -45 1 minecraft:chest
-BEM 31 -12 0 minecraft:chest
-BEM 20 -60 2 minecraft:hopper
-BEM 25 48 1 minecraft:barrel
-BEM 16 -30 3 minecraft:hopper
-BEM 29 -29 2 minecraft:chest
-BEM 18 -29 10 minecraft:barrel
-BEM 31 -12 8 minecraft:hopper
-BET 27 -59 2
-BET 31 -12 8
-BET 16 -30 3
-BET 29 17 1
-BET 28 18 2
-BET 19 -59 0
-BET 22 -13 7
-BET 29 48 8
-BET 25 50 1
-BET 24 17 1
-BET 21 -58 5
-BET 25 -44 7
-BET 20 -60 2
-BES 1 0
-BEM 25 -44 7 minecraft:hopper
-BEM 17 -60 0 minecraft:chest
-BEM 19 -59 0 minecraft:hopper
-BEM 29 18 15 minecraft:barrel
-BEM 29 17 1 minecraft:hopper
-BEM 17 48 9 minecraft:barrel
-BEM 16 19 10 minecraft:barrel
-BEM 29 48 8 minecraft:hopper
-BEM 20 48 1 minecraft:chest
-BEM 29 -59 13 minecraft:barrel
-BEM 24 -29 13 minecraft:chest
-BEM 24 17 14 minecraft:barrel
-BEM 25 50 1 minecraft:hopper
-BEM 28 18 13 minecraft:chest
-BEM 27 49 12 minecraft:chest
-BEM 27 -30 0 minecraft:barrel
-BEM 21 -58 5 minecraft:hopper
-BEM 20 -13 13 minecraft:barrel
-BEM 21 49 0 minecraft:chest
-BEM 29 18 1 minecraft:chest
-BEM 19 -59 14 minecraft:chest
-BEM 22 50 12 minecraft:chest
-BEM 22 -13 7 minecraft:hopper
-BEM 19 50 1 minecraft:barrel
-BEM 20 17 10 minecraft:barrel
-BEM 28 18 2 minecraft:hopper
-BEM 24 17 1 minecraft:hopper
-BEM 23 -14 4 minecraft:barrel
-BEM 23 -60 3 minecraft:barrel
-BEM 21 -45 1 minecraft:chest
-BEM 31 -12 0 minecraft:chest
-BEM 20 -60 2 minecraft:hopper
-BEM 16 -30 3 minecraft:hopper
-BEM 29 -29 2 minecraft:chest
-BEM 18 -29 10 minecraft:barrel
-BET 16 -30 3
-BET 29 17 1
-BET 28 18 2
-BET 19 -59 0
-BET 22 -13 7
-BET 29 48 8
-BET 25 50 1
-BET 24 17 1
-BET 21 -58 5
-BET 25 -44 7
-BET 20 -60 2
-BES 1 0
-BEM 17 -60 0 minecraft:chest
-BEM 19 -59 0 minecraft:hopper
-BEM 25 -44 7 minecraft:hopper
-BEM 17 48 9 minecraft:barrel
-BEM 29 48 8 minecraft:hopper
-BEM 16 19 10 minecraft:barrel
-BEM 24 -29 13 minecraft:chest
-BEM 24 17 14 minecraft:barrel
-BEM 25 50 1 minecraft:hopper
-BEM 28 18 13 minecraft:chest
-BEM 27 49 12 minecraft:chest
-BEM 21 -58 5 minecraft:hopper
-BEM 20 -13 13 minecraft:barrel
-BEM 21 49 0 minecraft:chest
-BEM 29 18 1 minecraft:chest
-BEM 19 -59 14 minecraft:chest
-BEM 22 50 12 minecraft:chest
-BEM 22 -13 7 minecraft:hopper
-BEM 19 50 1 minecraft:barrel
-BEM 20 17 10 minecraft:barrel
-BEM 28 18 2 minecraft:hopper
-BEM 24 17 1 minecraft:hopper
-BEM 23 -14 4 minecraft:barrel
-BEM 23 -60 3 minecraft:barrel
-BEM 21 -45 1 minecraft:chest
-BEM 20 -60 2 minecraft:hopper
-BEM 18 -29 10 minecraft:barrel
-BET 28 18 2
-BET 19 -59 0
-BET 22 -13 7
-BET 29 48 8
-BET 25 50 1
-BET 24 17 1
-BET 21 -58 5
-BET 25 -44 7
-BET 20 -60 2
-BES 1 0
-BEM 17 -60 0 minecraft:chest
-BEM 25 -44 7 minecraft:hopper
-BEM 17 48 9 minecraft:barrel
-BEM 29 48 8 minecraft:hopper
-BEM 16 19 10 minecraft:barrel
-BEM 24 -29 13 minecraft:chest
-BEM 24 17 14 minecraft:barrel
-BEM 25 50 1 minecraft:hopper
-BEM 28 18 13 minecraft:chest
-BEM 27 49 12 minecraft:chest
-BEM 21 -58 5 minecraft:hopper
-BEM 20 -13 13 minecraft:barrel
-BEM 21 49 0 minecraft:chest
-BEM 29 18 1 minecraft:chest
-BEM 20 17 10 minecraft:barrel
-BEM 24 17 1 minecraft:hopper
-BEM 23 -60 3 minecraft:barrel
-BEM 21 -45 1 minecraft:chest
-BEM 20 -60 2 minecraft:hopper
-BET 29 48 8
-BET 25 50 1
-BET 24 17 1
-BET 21 -58 5
-BET 25 -44 7
-BET 20 -60 2
-BES 1 0
-BEM 25 -44 7 minecraft:hopper
-BEM 17 48 9 minecraft:barrel
-BEM 16 19 10 minecraft:barrel
-BEM 24 -29 13 minecraft:chest
-BEM 24 17 14 minecraft:barrel
-BEM 25 50 1 minecraft:hopper
-BEM 28 18 13 minecraft:chest
-BEM 27 49 12 minecraft:chest
-BEM 21 -58 5 minecraft:hopper
-BEM 21 49 0 minecraft:chest
-BEM 29 18 1 minecraft:chest
-BEM 20 17 10 minecraft:barrel
-BEM 24 17 1 minecraft:hopper
-BEM 23 -60 3 minecraft:barrel
-BEM 20 -60 2 minecraft:hopper
-BET 25 50 1
-BET 24 17 1
-BET 21 -58 5
-BET 25 -44 7
-BET 20 -60 2
-BES 1 0
-BEM 25 -44 7 minecraft:hopper
-BEM 17 48 9 minecraft:barrel
-BEM 16 19 10 minecraft:barrel
-BEM 24 -29 13 minecraft:chest
-BEM 24 17 14 minecraft:barrel
-BEM 28 18 13 minecraft:chest
-BEM 27 49 12 minecraft:chest
-BEM 21 -58 5 minecraft:hopper
-BEM 21 49 0 minecraft:chest
-BEM 24 17 1 minecraft:hopper
-BEM 20 17 10 minecraft:barrel
-BEM 20 -60 2 minecraft:hopper
-BET 24 17 1
-BET 21 -58 5
-BET 25 -44 7
-BET 20 -60 2
-BES 1 0
 BEM 21 -58 5 minecraft:hopper
 BEM 21 49 0 minecraft:chest
 BEM 25 -44 7 minecraft:hopper
@@ -421,38 +770,29 @@ BEM 27 49 12 minecraft:chest
 BET 21 -58 5
 BET 25 -44 7
 BET 20 -60 2
-BES 0 0
-BEM 12 -40 3 minecraft:hopper
-BEM 0 -55 0 minecraft:chest
-BEM 10 -58 10 minecraft:chest
-BEM 11 -35 1 minecraft:hopper
-BEM 6 -60 6 minecraft:sign
-BEM 2 -45 14 minecraft:hopper
-BEM 7 -30 12 minecraft:barrel
-BEM 8 -59 8 minecraft:barrel
-BEM 4 -60 9 minecraft:sign
-BEM 3 -50 5 minecraft:chest
-BEM 5 -25 5 minecraft:barrel
-BEM 3 -19 4 minecraft:chest
-BEM 9 -10 2 minecraft:barrel
-BEM 15 -60 15 minecraft:hopper
-BET 15 -60 15
-BET 4 -60 9
-BET 2 -45 14
-BET 6 -60 6
-BET 11 -35 1
-BET 12 -40 3
-BES 1 0
-BEM 21 -58 5 minecraft:hopper
-BEM 21 49 0 minecraft:chest
-BEM 25 -44 7 minecraft:hopper
-BEM 16 19 10 minecraft:barrel
-BEM 24 -29 13 minecraft:chest
-BEM 20 17 10 minecraft:barrel
-BEM 24 17 14 minecraft:barrel
-BEM 20 -60 2 minecraft:hopper
-BEM 28 18 13 minecraft:chest
-BEM 27 49 12 minecraft:chest
-BET 21 -58 5
-BET 25 -44 7
-BET 20 -60 2
+CHUNKBES 0 0
+BEP 12 -40 3 minecraft:hopper
+BEP 0 -55 0 minecraft:chest
+BEP 10 -58 10 minecraft:chest
+BEP 11 -35 1 minecraft:hopper
+BEP 6 -60 6 minecraft:sign
+BEP 2 -45 14 minecraft:hopper
+BEP 7 -30 12 minecraft:barrel
+BEP 8 -59 8 minecraft:barrel
+BEP 4 -60 9 minecraft:sign
+BEP 3 -50 5 minecraft:chest
+BEP 5 -25 5 minecraft:barrel
+BEP 3 -19 4 minecraft:chest
+BEP 9 -10 2 minecraft:barrel
+BEP 15 -60 15 minecraft:hopper
+CHUNKBES 1 0
+BEP 21 -58 5 minecraft:hopper
+BEP 21 49 0 minecraft:chest
+BEP 25 -44 7 minecraft:hopper
+BEP 16 19 10 minecraft:barrel
+BEP 24 -29 13 minecraft:chest
+BEP 20 17 10 minecraft:barrel
+BEP 24 17 14 minecraft:barrel
+BEP 20 -60 2 minecraft:hopper
+BEP 28 18 13 minecraft:chest
+BEP 27 49 12 minecraft:chest

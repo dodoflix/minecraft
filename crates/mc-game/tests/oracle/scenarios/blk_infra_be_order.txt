@@ -1,6 +1,6 @@
 # Block entity map order: 16 mixed block entities in one chunk (hash collisions at y+31/z-1 included), a chunk that grows past a rehash
 # and shrinks again through removals (backward-shift deletion, table halving), replacement by another block entity type. `bes:` is the
-# map's iteration order (vanilla's fastutil order).
+# map's iteration order (vanilla's fastutil order), `chunkbes:` the order of the block entity list in the chunk packet.
 level flat
 preload 2
 watch off
@@ -20,19 +20,19 @@ block 6 -60 6 minecraft:oak_sign[rotation=0]
 block 10 -58 10 minecraft:chest[facing=north]
 block 5 -25 5 minecraft:barrel[facing=up,open=false]
 block 11 -35 1 minecraft:hopper[facing=down,enabled=true]
-dump bes:0,0
+dump bes:0,0 chunkbes:0,0
 tick 3
-dump bes:0,0
+dump bes:0,0 chunkbes:0,0
 block 3 -50 5 minecraft:air
 block 13 0 7 minecraft:air
 block 1 -60 1 minecraft:air
-dump bes:0,0
+dump bes:0,0 chunkbes:0,0
 block 8 -59 8 minecraft:barrel[facing=up,open=false]
 block 12 -40 3 minecraft:hopper[facing=down,enabled=true]
 block 3 -50 5 minecraft:chest[facing=north]
-dump bes:0,0
+dump bes:0,0 chunkbes:0,0
 tick 2
-dump bes:0,0
+dump bes:0,0 chunkbes:0,0
 block 26 -58 1 minecraft:chest[facing=north]
 block 27 -59 2 minecraft:hopper[facing=down,enabled=true]
 block 25 48 1 minecraft:barrel[facing=up,open=false]
@@ -45,7 +45,7 @@ block 29 18 15 minecraft:barrel[facing=up,open=false]
 block 20 48 1 minecraft:chest[facing=north]
 block 29 17 1 minecraft:hopper[facing=down,enabled=true]
 block 29 -59 13 minecraft:barrel[facing=up,open=false]
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 block 31 -12 0 minecraft:chest[facing=north]
 block 28 18 2 minecraft:hopper[facing=down,enabled=true]
 block 19 50 1 minecraft:barrel[facing=up,open=false]
@@ -58,7 +58,7 @@ block 23 -14 4 minecraft:barrel[facing=up,open=false]
 block 21 -45 1 minecraft:chest[facing=north]
 block 29 48 8 minecraft:hopper[facing=down,enabled=true]
 block 20 -13 13 minecraft:barrel[facing=up,open=false]
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 block 17 -60 0 minecraft:chest[facing=north]
 block 25 50 1 minecraft:hopper[facing=down,enabled=true]
 block 23 -60 3 minecraft:barrel[facing=up,open=false]
@@ -67,7 +67,7 @@ block 24 17 1 minecraft:hopper[facing=down,enabled=true]
 block 17 48 9 minecraft:barrel[facing=up,open=false]
 block 21 49 0 minecraft:chest[facing=north]
 block 21 -58 5 minecraft:hopper[facing=down,enabled=true]
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 block 20 17 10 minecraft:barrel[facing=up,open=false]
 block 27 49 12 minecraft:chest[facing=north]
 block 25 -44 7 minecraft:hopper[facing=down,enabled=true]
@@ -76,14 +76,14 @@ block 24 -29 13 minecraft:chest[facing=north]
 block 20 -60 2 minecraft:hopper[facing=down,enabled=true]
 block 16 19 10 minecraft:barrel[facing=up,open=false]
 block 28 18 13 minecraft:chest[facing=north]
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 tick 2
 block 26 -58 1 minecraft:air
 block 27 -59 2 minecraft:air
 block 25 48 1 minecraft:air
 block 18 -45 0 minecraft:air
 block 31 -12 8 minecraft:air
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 block 27 -30 0 minecraft:air
 block 29 -29 2 minecraft:air
 block 16 -30 3 minecraft:air
@@ -92,7 +92,7 @@ block 20 48 1 minecraft:air
 block 29 17 1 minecraft:air
 block 29 -59 13 minecraft:air
 block 31 -12 0 minecraft:air
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 block 28 18 2 minecraft:air
 block 19 50 1 minecraft:air
 block 22 50 12 minecraft:air
@@ -101,18 +101,18 @@ block 18 -29 10 minecraft:air
 block 19 -59 14 minecraft:air
 block 22 -13 7 minecraft:air
 block 23 -14 4 minecraft:air
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 block 21 -45 1 minecraft:air
 block 29 48 8 minecraft:air
 block 20 -13 13 minecraft:air
 block 17 -60 0 minecraft:air
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 block 25 50 1 minecraft:air
 block 23 -60 3 minecraft:air
 block 29 18 1 minecraft:air
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 block 24 17 1 minecraft:air
 block 17 48 9 minecraft:air
-dump bes:1,0
+dump bes:1,0 chunkbes:1,0
 tick 1
-dump bes:0,0 bes:1,0
+dump bes:0,0 bes:1,0 chunkbes:0,0 chunkbes:1,0
