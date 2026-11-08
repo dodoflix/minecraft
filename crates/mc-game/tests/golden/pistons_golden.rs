@@ -11,17 +11,14 @@ macro_rules! scenario {
     )*};
 }
 
-scenario!(bud, extend_dirs, sticky_dirs, slime_honey, machines);
-
-// Both scenarios destroy popped blocks (poppy/torch/...): from the first such drop on, the level RNG-dependent piston sound
-// pitches differ from vanilla (our run draws fewer values than vanilla between two events). Not yet diagnosed (drops through
-// the loot system in the scenario level); block states and block events match up to there.
-#[test]
-fn push_limit() {
-    common::block_scenario::check("blk_pistons_push_limit");
-}
-
-#[test]
-fn reactions() {
-    common::block_scenario::check("blk_pistons_reactions");
-}
+scenario!(
+    bud,
+    extend_dirs,
+    sticky_dirs,
+    slime_honey,
+    machines,
+    push_limit,
+    reactions,
+    zero_tick,
+    player_break
+);

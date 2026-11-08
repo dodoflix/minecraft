@@ -1,0 +1,83 @@
+# Players mining piston heads and extended bases: creative (the base goes without a drop and without a head broadcast), survival
+# bare handed and with a pickaxe; sticky and normal; a head without a base and a head with the wrong base.
+level flat
+preload 3
+spawn_player Steve creative 0.5 -60 -3.5 0 0
+spawn_player Alex survival 0.5 -60 3.5 0 0
+tick 30
+level_seed 21
+give Alex hotbar1 minecraft:iron_pickaxe
+note creative breaks a normal head
+block 2 -59 0 minecraft:redstone_block
+block 2 -60 0 minecraft:piston[facing=east,extended=true]
+block 3 -60 0 minecraft:piston_head[facing=east,type=normal,short=false]
+snap Steve 0.5 -60 0.5 0 0
+dig Steve 3 -60 0
+tick 3
+dump blocks:1,-60,0,4,-60,0 events entities
+note creative breaks a sticky head
+block 2 -59 2 minecraft:redstone_block
+block 2 -60 2 minecraft:sticky_piston[facing=east,extended=true]
+block 3 -60 2 minecraft:piston_head[facing=east,type=sticky,short=false]
+snap Steve 0.5 -60 2.5 0 0
+dig Steve 3 -60 2
+tick 3
+dump blocks:1,-60,2,4,-60,2 events entities
+note creative breaks the extended base (the head follows)
+block 2 -59 4 minecraft:redstone_block
+block 2 -60 4 minecraft:sticky_piston[facing=east,extended=true]
+block 3 -60 4 minecraft:piston_head[facing=east,type=sticky,short=false]
+snap Steve 0.5 -60 4.5 0 0
+dig Steve 2 -60 4
+tick 3
+dump blocks:1,-60,4,4,-60,4 events entities
+note creative breaks a head without a base and a head over the wrong base
+block 3 -60 6 minecraft:piston_head[facing=east,type=normal,short=false]
+snap Steve 0.5 -60 6.5 0 0
+dig Steve 3 -60 6
+block 2 -59 8 minecraft:redstone_block
+block 2 -60 8 minecraft:piston[facing=east,extended=true]
+block 3 -60 8 minecraft:piston_head[facing=east,type=sticky,short=false]
+snap Steve 0.5 -60 8.5 0 0
+dig Steve 3 -60 8
+tick 3
+dump blocks:1,-60,6,4,-60,8 events entities
+note survival bare handed breaks a normal head (the base drops)
+block 2 -59 10 minecraft:redstone_block
+block 2 -60 10 minecraft:piston[facing=east,extended=true]
+block 3 -60 10 minecraft:piston_head[facing=east,type=normal,short=false]
+level_seed 22
+snap Alex 0.5 -60 10.5 0 0
+select Alex 0
+dig Alex 3 -60 10
+tick 3
+dump blocks:1,-60,10,4,-60,10 events entities
+note survival with a pickaxe breaks a sticky head
+block 2 -59 12 minecraft:redstone_block
+block 2 -60 12 minecraft:sticky_piston[facing=east,extended=true]
+block 3 -60 12 minecraft:piston_head[facing=east,type=sticky,short=false]
+level_seed 23
+snap Alex 0.5 -60 12.5 0 0
+select Alex 1
+dig Alex 3 -60 12
+tick 3
+dump blocks:1,-60,12,4,-60,12 events entities
+note survival with a pickaxe breaks the sticky base
+block 2 -59 14 minecraft:redstone_block
+block 2 -60 14 minecraft:sticky_piston[facing=east,extended=true]
+block 3 -60 14 minecraft:piston_head[facing=east,type=sticky,short=false]
+level_seed 24
+snap Alex 0.5 -60 14.5 0 0
+dig Alex 2 -60 14
+tick 3
+dump blocks:1,-60,14,4,-60,14 events entities
+note survival breaks a retracted sticky piston and a head without a base
+block 2 -60 16 minecraft:sticky_piston[facing=east,extended=false]
+level_seed 25
+snap Alex 0.5 -60 16.5 0 0
+dig Alex 2 -60 16
+block 3 -60 18 minecraft:piston_head[facing=east,type=normal,short=false]
+snap Alex 0.5 -60 18.5 0 0
+dig Alex 3 -60 18
+tick 3
+dump blocks:1,-60,16,4,-60,18 events entities

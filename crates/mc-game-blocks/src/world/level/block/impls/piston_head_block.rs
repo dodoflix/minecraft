@@ -46,13 +46,13 @@ impl BlockBehaviour for PistonHeadBlock {
         pos: BlockPos,
         player: &mut ServerPlayer,
     ) -> BlockState {
-        if player.player.abilities.instabuild {
+        if player.prevents_block_drops() {
             let base_pos = pos.relative(state.get(props::FACING).get_opposite());
             if is_fitting_base(state, level.get_block_state(base_pos)) {
                 level.destroy_block(base_pos, false, None, 512);
             }
         }
-        state
+        mc_game_core::server::level::block_break::player_will_destroy(level, pos, state, player)
     }
     fn affect_neighbors_after_removal(
         &self,
