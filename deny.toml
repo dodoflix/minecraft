@@ -30,23 +30,25 @@ allow-wildcard-paths = true # workspace path dependencies carry no version
 # Duplicate versions that remain after unifying our own manifests: an upstream crate pins the older generation, or the
 # newer one is a deliberate choice. A new duplicate fails the check: unify it or add it here with the reason.
 skip = [
-  # `p12-keystore` (TLS key store loading) builds on the `aes` 0.8 cipher stack; `mc-protocol` deliberately uses `aes` 0.9
-  # and `cfb8` 0.9 for AES-128/CFB8 (the 0.8 `cfb8` stream API consumes the cipher and does not fit a long-lived stream).
-  { crate = "aes@0.8.4", reason = "p12-keystore -> pkcs5" },
-  { crate = "cipher@0.4.4", reason = "aes 0.8 (p12-keystore)" },
-  { crate = "cpufeatures@0.2.17", reason = "aes 0.8 (p12-keystore), sha1 0.10 and sha2 0.10 (rsa 0.9)" },
-  { crate = "crypto-common@0.1.7", reason = "digest 0.10 (rsa 0.9, p12-keystore, sha1/sha2/md-5)" },
-  { crate = "inout@0.1.4", reason = "cipher 0.4 (p12-keystore)" },
+  # `rsa` 0.9 (login key exchange, signature verification) is built on the `digest` 0.10 / RustCrypto 0.7 stack, so
+  # `sha1` and `sha2` stay on 0.10; `md-5`, `p12-keystore` and `tungstenite` use `digest` 0.11 and `der` 0.8.
+  { crate = "block-buffer@0.10.4", reason = "digest 0.10 (rsa 0.9, sha1/sha2 0.10)" },
+  { crate = "const-oid@0.9.6", reason = "der 0.7 and digest 0.10 (rsa 0.9)" },
+  { crate = "cpufeatures@0.2.17", reason = "sha1 0.10 and sha2 0.10 (rsa 0.9)" },
+  { crate = "crypto-common@0.1.7", reason = "digest 0.10 (rsa 0.9, sha1/sha2 0.10)" },
+  { crate = "der@0.7.10", reason = "pkcs1, pkcs8 0.10 and spki 0.7 (rsa 0.9)" },
+  { crate = "digest@0.10.7", reason = "rsa 0.9, sha1 0.10, sha2 0.10" },
+  { crate = "pem-rfc7468@0.7.0", reason = "pkcs1 and pkcs8 0.10 (rsa 0.9)" },
+  { crate = "pkcs8@0.10.2", reason = "rsa 0.9" },
+  { crate = "sha1@0.10.7", reason = "rsa 0.9 signature verification; tungstenite uses 0.11" },
+  { crate = "sha2@0.10.9", reason = "rsa 0.9 signature verification; p12-keystore uses 0.11" },
+  { crate = "spki@0.7.3", reason = "rsa 0.9" },
   # `rsa` 0.9 draws randomness through `rand_core` 0.6 (`mc-protocol` names it directly for `OsRng`), and its big-integer crate uses `rand` 0.8.
   { crate = "getrandom@0.2.17", reason = "rand_core 0.6 (rsa 0.9)" },
   { crate = "rand@0.8.8", reason = "num-bigint-dig (rsa 0.9)" },
-  { crate = "rand_chacha@0.3.1", reason = "rand 0.8 (rsa 0.9)" },
   { crate = "rand_core@0.6.4", reason = "rsa 0.9 generators; named directly in mc-protocol" },
-  # `rand` 0.9 and `getrandom` 0.3 are used by tungstenite and p12-keystore as well; uuid, tempfile and zip already use `getrandom` 0.4.
-  { crate = "getrandom@0.3.4", reason = "rand_core 0.9 (rand 0.9)" },
-  { crate = "r-efi@5.3.0", reason = "getrandom 0.3" },
-  # Proc-macro stack: `serde_derive`, `thiserror-impl` and `zerofrom` moved to `syn` 3; `asn1-rs`, `der_derive`, `tokio-macros` and `mc-protocol-macros` still use `syn` 2.
-  { crate = "syn@2.0.119", reason = "asn1-rs-derive, der_derive, tokio-macros, mc-protocol-macros" },
+  # Proc-macro stack: the workspace, `serde_derive`, `thiserror-impl` and `zerofrom` use `syn` 3; `asn1-rs`, `der_derive` and `tokio-macros` still use `syn` 2.
+  { crate = "syn@2.0.119", reason = "asn1-rs-derive, asn1-rs-impl, der_derive, tokio-macros" },
   { crate = "synstructure@0.13.2", reason = "asn1-rs-derive (syn 2)" },
 ]
 

@@ -7,7 +7,7 @@ use mc_core::ident::Identifier;
 use mc_core::uuid_util;
 use mc_text::Component;
 use mc_world::level_storage::{DataPackConfig, Difficulty, GameType, WorldOptions};
-use rand::Rng;
+use rand::RngExt;
 use uuid::Uuid;
 
 use super::java_properties::Properties;

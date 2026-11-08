@@ -16,7 +16,7 @@ use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::phys::{AABB, Vec3};
 use mc_data::EntityType;
 use mc_text::Component;
-use rand::Rng;
+use rand::RngExt;
 use std::sync::{Arc, LazyLock};
 use uuid::Uuid;
 

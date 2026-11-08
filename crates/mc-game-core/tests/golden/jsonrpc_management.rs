@@ -607,12 +607,16 @@ fn tls_websocket_with_pkcs12_keystore() {
     server.start(mock, Some(acceptor)).unwrap();
     let port = server.get_port();
 
-    let p12 =
-        p12_keystore::KeyStore::from_pkcs12(&std::fs::read(keystore).unwrap(), "changeit").unwrap();
+    let p12 = p12_keystore::KeyStore::from_pkcs12(
+        &std::fs::read(keystore).unwrap(),
+        "changeit",
+        p12_keystore::Pkcs12ImportPolicy::Strict,
+    )
+    .unwrap();
     let (_, chain) = p12.private_key_chain().unwrap();
     let mut roots = RootCertStore::empty();
     roots
-        .add(CertificateDer::from(chain.chain()[0].as_der().to_vec()))
+        .add(CertificateDer::from(chain.certs()[0].as_der().to_vec()))
         .unwrap();
     let client_config = ClientConfig::builder()
         .with_root_certificates(roots)

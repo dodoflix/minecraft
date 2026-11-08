@@ -8,6 +8,12 @@ updates:
     groups:
       cargo:
         patterns: ["*"]
+    # `rsa` 0.9 verifies signatures through `digest` 0.10, so `sha1`/`sha2` cannot move to 0.11 before it does.
+    ignore:
+      - dependency-name: sha1
+        versions: [">= 0.11"]
+      - dependency-name: sha2
+        versions: [">= 0.11"]
   - package-ecosystem: github-actions
     directories: [/, /.github/actions/ref]
     schedule:

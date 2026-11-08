@@ -14,7 +14,7 @@ use mc_protocol::packets::login::{
     ServerboundHelloPacket, ServerboundKeyPacket, ServerboundLoginPacket,
 };
 use mc_text::Component;
-use rand::RngCore;
+use rand::Rng;
 use std::sync::atomic::{AtomicU32, Ordering};
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender, unbounded_channel};
 

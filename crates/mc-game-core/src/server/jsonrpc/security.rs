@@ -138,17 +138,21 @@ pub fn create_tls_acceptor(
     let password = std::env::var(PASSWORD_ENV_VARIABLE_KEY)
         .unwrap_or_else(|_| password_from_properties.to_owned());
     let bytes = fs::read(file).map_err(|e| format!("java.io.IOException: {e}"))?;
-    let keystore = p12_keystore::KeyStore::from_pkcs12(&bytes, &password)
-        .map_err(|e| format!("java.io.IOException: {e}"))?;
+    let keystore = p12_keystore::KeyStore::from_pkcs12(
+        &bytes,
+        &password,
+        p12_keystore::Pkcs12ImportPolicy::Strict,
+    )
+    .map_err(|e| format!("java.io.IOException: {e}"))?;
     let (_, chain) = keystore.private_key_chain().ok_or_else(|| {
         "java.security.UnrecoverableKeyException: no private key entry in the keystore".to_owned()
     })?;
     let certs: Vec<CertificateDer<'static>> = chain
-        .chain()
+        .certs()
         .iter()
         .map(|c| CertificateDer::from(c.as_der().to_vec()))
         .collect();
-    let key = PrivateKeyDer::Pkcs8(PrivatePkcs8KeyDer::from(chain.key().to_vec()));
+    let key = PrivateKeyDer::Pkcs8(PrivatePkcs8KeyDer::from(chain.key().as_der().to_vec()));
     let config = ServerConfig::builder()
         .with_no_client_auth()
         .with_single_cert(certs, key)

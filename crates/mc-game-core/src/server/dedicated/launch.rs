@@ -382,7 +382,7 @@ fn world_data_supplier(
 }
 
 fn random_world_options() -> WorldOptions {
-    use rand::Rng;
+    use rand::RngExt;
     WorldOptions::new(rand::rng().random::<i64>(), true, false)
 }
 

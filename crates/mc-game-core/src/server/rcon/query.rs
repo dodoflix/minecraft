@@ -6,7 +6,7 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::{Duration, Instant};
 
-use rand::Rng;
+use rand::RngExt;
 
 use super::GenericThread;
 use super::pkt_utils::{
