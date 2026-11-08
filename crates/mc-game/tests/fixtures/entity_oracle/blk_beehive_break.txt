@@ -1,0 +1,369 @@
+# silk touch beehive with two occupants at honey level 3
+DIG Steve ticks=3 broken=true
+BE -4 -60 2 -
+E item#1 minecraft:item pos=-3.453209994516594,-59.63991268243505,2.624220924072528 delta=0.05666042275399235,0.1568000030517578,-0.08814708547563017 rot=356.94968,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=-4,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-4,-60,2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=-4,-60,2 data=25152 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=1
+I Steve 1 minecraft:iron_axe*1
+I Steve 2 minecraft:iron_shovel*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+# silk touch bee nest with a bee at honey level 5
+DIG Steve ticks=2 broken=true
+BE -3 -60 2 -
+E item#1 minecraft:item pos=-3.3410223563829775,-59.44864867416479,2.449689693149508 delta=0.0544166721311294,0.07297472653442398,-0.08465646418608883 rot=356.94968,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.478005697262808,-59.45121111220728,2.4282827966444596 delta=-0.00587143961815829,0.1568000030517578,0.00942459725363079 rot=279.93356,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=-3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=-3,-60,2 data=25130 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=2
+I Steve 1 minecraft:iron_axe*1
+I Steve 2 minecraft:iron_shovel*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+# silk touch empty beehive
+DIG Steve ticks=3 broken=true
+BE -2 -60 2 -
+E item#1 minecraft:item pos=-3.1810155705763745,-59.47088978716423,2.2007658210772383 delta=0.05121653946688457,-0.04658045162980263,-0.07967799149248951 rot=356.94968,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.4952700786475277,-59.22697237740259,2.4559948829411247 delta=-0.005526152319755841,0.0323152326326785,0.008870356056263582 rot=279.93356,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.5449120659896587,-59.60377714506776,2.3879531945854104 delta=-0.01061115297967152,0.1568000030517578,0.05377589816437544 rot=229.14175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=-2,-60,2 data=25149 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=3
+I Steve 1 minecraft:iron_axe*1
+I Steve 2 minecraft:iron_shovel*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+# silk touch empty bee nest at honey level 2
+DIG Steve ticks=2 broken=true
+BE -1 -60 2 -
+E item#1 minecraft:item pos=-3.079606821455065,-59.68231908304263,2.043003396402372 delta=0.04918836641867677,-0.1223518697449284,-0.07652274600807163 rot=356.94968,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.5062118603460473,-59.28218821693646,2.4735581881017152 delta=-0.005307316894483373,-0.04658045162980263,0.008519090288045233 rot=279.93356,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.5659221490918,-59.41251313679749,2.4944294739765676 delta=-0.010190951718364228,0.07297472653442398,0.05164637460742616 rot=229.14175,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=-0.7103433708351357,-59.334784711202786,2.2875313728767224 delta=0.02532328453732364,0.1568000030517578,-0.05707564044675542 rot=144.29912,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=-1,-60,2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=-1,-60,2 data=25127 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 1 minecraft:iron_axe*1
+I Steve 2 minecraft:iron_shovel*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+# plain axe beehive: drops the item, occupants are offered for release
+DIG Steve ticks=3 broken=true
+BE 0 -60 2 -
+E item#1 minecraft:item pos=-2.953869547340903,-60.0,1.847392885394795 delta=0.016666454584125995,0.0,-0.025928140409067955 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.5218174952422237,-59.65596938255979,2.4986077216656497 delta=-0.0049952044942137,-0.159104835446646,0.008018100094548472 rot=279.93356,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=9 pickup=1 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.595887624099834,-59.43475424979694,2.6462904767880695 delta=-0.009591642789749626,-0.04658045162980263,0.04860915744771488 rot=229.14175,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=-0.6358827835518993,-59.11054597639809,2.1197061564847335 delta=0.023834074211881908,0.0323152326326785,-0.05371913931992762 rot=144.29912,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=0.24290593037501698,-59.399549014242844,2.3782973425624445 delta=-0.056697073351595136,0.1568000030517578,-0.0414070568825192 rot=24.853456,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=0,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=0,-60,2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=0,-60,2 data=25151 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 1 minecraft:iron_axe*1/dmg=1
+I Steve 2 minecraft:iron_shovel*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+# plain axe bee nest: no drops
+DIG Steve ticks=2 broken=true
+BE 1 -60 2 -
+E item#1 minecraft:item pos=-2.92740321647586,-60.0,1.806218996892121 delta=0.0057623278326243985,0.0,-0.00896450078048802 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=13 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.531708000236043,-60.0,2.5144835600057887 delta=-0.002878436983216356,0.0,0.004620350553018123 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6148790770064843,-59.646183545675335,2.7425366094616908 delta=-0.009211814093849836,-0.1223518697449284,0.04668423662999174 rot=229.14175,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=-0.5886913161577743,-59.165761815931965,2.0133422596066657 delta=0.022890245764105217,-0.04658045162980263,-0.05159186341109659 rot=144.29912,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=0.13064572405744776,-59.20828500597258,2.2963113691452794 delta=-0.05445187136643726,0.07297472653442398,-0.03976733897793425 rot=24.853456,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=3 pickup=7 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=1,-60,2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=1,-60,2 data=25130 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 1 minecraft:iron_axe*1/dmg=2
+I Steve 2 minecraft:iron_shovel*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+# shovel (slow) beehive
+DIG Steve ticks=18 broken=true
+BE 2 -60 2 -
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=1.400359528868153E-4,-0.08,-2.1785508312158994E-4 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=31 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.1896547541921635E-4,-0.04,1.9095856652350584E-4 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=29 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6456893841033469,-60.0,2.898679107833749 delta=-1.2900014750448548E-4,-0.12,6.537554221186403E-4 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=26 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3414909638190888,-60.0,1.9515000846192865 delta=-6.754828963594753E-4,0.0,-4.933192678090625E-4 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=21 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.753966181611005,-59.34293967448498,2.668484912249154 delta=0.01778836104422464,0.1568000030517578,-0.016742579143351824 rot=314.98608,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=2,-60,2 data=25150 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 1 minecraft:iron_axe*1/dmg=2
+I Steve 2 minecraft:iron_shovel*1/dmg=1
+I Steve 3 minecraft:bee_nest*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+# bare hand empty beehive
+DIG Steve ticks=18 broken=true
+BE 3 -60 2 -
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=3,-60,2 data=25153 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 1 minecraft:iron_axe*1/dmg=2
+I Steve 2 minecraft:iron_shovel*1/dmg=1
+I Steve 3 minecraft:bee_nest*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+# Level.destroyBlock: beehive and bee nest with occupants
+DESTROY true
+BE -2 -60 2 -
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2001 pos=-2,-60,2 data=25152 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 1 minecraft:iron_axe*1/dmg=2
+I Steve 2 minecraft:iron_shovel*1/dmg=1
+I Steve 3 minecraft:bee_nest*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+DESTROY true
+BE 2 -60 2 -
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,2 data=25128 global=0
+I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 1 minecraft:iron_axe*1/dmg=2
+I Steve 2 minecraft:iron_shovel*1/dmg=1
+I Steve 3 minecraft:bee_nest*1
+I Steve 4 minecraft:beehive*8
+I Steve 5 minecraft:bee_nest*1
+# creative player breaking: the hive with bees and honey level drops; empty and dry hive does not
+# creative beehive with bees
+DIG Alex ticks=0 broken=true
+BE 28 -60 2 -
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=28.0,-60.0,2.0 delta=-0.022114851191860324,0.2,0.09273556425377497 rot=71.86097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=1 type=2001 pos=28,-60,2 data=25152 global=0
+I Alex 0 minecraft:iron_axe*1
+# creative bee nest, honey level 0, one bee
+DIG Alex ticks=0 broken=true
+BE 29 -60 2 -
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=28.0,-60.0,2.0 delta=-0.022114851191860324,0.2,0.09273556425377497 rot=71.86097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0010587555159324163 rot=173.52461,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=1 type=2001 pos=29,-60,2 data=25125 global=0
+I Alex 0 minecraft:iron_axe*1
+# creative beehive, honey level 4, no bees
+DIG Alex ticks=0 broken=true
+BE 30 -60 2 -
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=28.0,-60.0,2.0 delta=-0.022114851191860324,0.2,0.09273556425377497 rot=71.86097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0010587555159324163 rot=173.52461,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=30.0,-60.0,2.0 delta=0.03349879915648746,0.2,0.0843232966470342 rot=158.1189,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=1 type=2001 pos=30,-60,2 data=25153 global=0
+I Alex 0 minecraft:iron_axe*1
+# creative bee nest, honey level 0, no bees: no drop
+DIG Alex ticks=0 broken=true
+BE 31 -60 2 -
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=28.0,-60.0,2.0 delta=-0.022114851191860324,0.2,0.09273556425377497 rot=71.86097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0010587555159324163 rot=173.52461,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=30.0,-60.0,2.0 delta=0.03349879915648746,0.2,0.0843232966470342 rot=158.1189,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=1 type=2001 pos=31,-60,2 data=25125 global=0
+I Alex 0 minecraft:iron_axe*1
+C Game rule block_drops is now set to false
+# creative with block_drops off: no drop
+DIG Alex ticks=0 broken=true
+BE 32 -60 2 -
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=28.0,-60.0,2.0 delta=-0.022114851191860324,0.2,0.09273556425377497 rot=71.86097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0010587555159324163 rot=173.52461,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=30.0,-60.0,2.0 delta=0.03349879915648746,0.2,0.0843232966470342 rot=158.1189,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=1 type=2001 pos=32,-60,2 data=25154 global=0
+I Alex 0 minecraft:iron_axe*1
+C Game rule block_drops is now set to true
+# explosions: TNT and creeper sources release, the block explosion has no source; every hive drops its item by chance
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=28.0,-60.0,2.0 delta=-0.022114851191860324,0.2,0.09273556425377497 rot=71.86097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0010587555159324163 rot=173.52461,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=30.0,-60.0,2.0 delta=0.03349879915648746,0.2,0.0843232966470342 rot=158.1189,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E t1 minecraft:tnt pos=2.5,-60.0,25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E item#12 minecraft:item pos=3.576451734023946,-60.5550501513004,27.702270399949942 delta=-0.007804111982273154,0.2,0.006005764304752859 rot=97.33277,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=1.3059671882647037,-60.84747802383517,25.454365993587633 delta=-0.01669163230782418,0.2,-0.010691663281146277 rot=183.35712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=0.6305300603175895,-59.58313187423703,25.677069966370276 delta=-0.08873700384013208,0.2,-0.051923949804662355 rot=170.26736,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=0.5404203231845432,-61.475605529433544,25.481634449691526 delta=0.01013639225172927,0.2,-0.0054509300240215 rot=1.8940687,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#16 minecraft:item pos=2.4575035786561545,-60.70180039376657,23.352010779310305 delta=-0.05265099113235812,0.2,-0.06858596551086707 rot=19.052181,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=2.3420797930292014,-60.60718528666491,26.545640182916838 delta=-0.06492660488955523,0.2,0.08153495214467676 rot=125.95727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=0 pickup=10 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=28.0,-60.0,2.0 delta=-0.022114851191860324,0.2,0.09273556425377497 rot=71.86097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0010587555159324163 rot=173.52461,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=30.0,-60.0,2.0 delta=0.03349879915648746,0.2,0.0843232966470342 rot=158.1189,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E t1 minecraft:tnt pos=2.5,-60.0,25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E item#12 minecraft:item pos=3.576451734023946,-60.5550501513004,27.702270399949942 delta=-0.007804111982273154,0.2,0.006005764304752859 rot=97.33277,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=1.3059671882647037,-60.84747802383517,25.454365993587633 delta=-0.01669163230782418,0.2,-0.010691663281146277 rot=183.35712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=0.6305300603175895,-59.58313187423703,25.677069966370276 delta=-0.08873700384013208,0.2,-0.051923949804662355 rot=170.26736,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=0.5404203231845432,-61.475605529433544,25.481634449691526 delta=0.01013639225172927,0.2,-0.0054509300240215 rot=1.8940687,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#16 minecraft:item pos=2.4575035786561545,-60.70180039376657,23.352010779310305 delta=-0.05265099113235812,0.2,-0.06858596551086707 rot=19.052181,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=2.3420797930292014,-60.60718528666491,26.545640182916838 delta=-0.06492660488955523,0.2,0.08153495214467676 rot=125.95727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=0 pickup=10 health=5 owner=- thrower=-
+E c1 minecraft:creeper pos=10.5,-60.0,25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#18 minecraft:item pos=10.580052639934735,-61.724064275453664,27.37562350074646 delta=-0.08962442155939719,0.2,-0.08286695157029692 rot=27.652458,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#19 minecraft:item pos=8.580140471959217,-59.68750819733409,25.276655088007914 delta=-0.06992452454987715,0.2,-0.07582268283287995 rot=211.5465,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#20 minecraft:item pos=8.44135998925529,-60.81592412801271,26.65353540098161 delta=-0.08975369068017572,0.2,0.008109142990345222 rot=54.823944,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=28.0,-60.0,2.0 delta=-0.022114851191860324,0.2,0.09273556425377497 rot=71.86097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0010587555159324163 rot=173.52461,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=30.0,-60.0,2.0 delta=0.03349879915648746,0.2,0.0843232966470342 rot=158.1189,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E t1 minecraft:tnt pos=2.5,-60.0,25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E item#12 minecraft:item pos=3.576451734023946,-60.5550501513004,27.702270399949942 delta=-0.007804111982273154,0.2,0.006005764304752859 rot=97.33277,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=1.3059671882647037,-60.84747802383517,25.454365993587633 delta=-0.01669163230782418,0.2,-0.010691663281146277 rot=183.35712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=0.6305300603175895,-59.58313187423703,25.677069966370276 delta=-0.08873700384013208,0.2,-0.051923949804662355 rot=170.26736,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=0.5404203231845432,-61.475605529433544,25.481634449691526 delta=0.01013639225172927,0.2,-0.0054509300240215 rot=1.8940687,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#16 minecraft:item pos=2.4575035786561545,-60.70180039376657,23.352010779310305 delta=-0.05265099113235812,0.2,-0.06858596551086707 rot=19.052181,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=2.3420797930292014,-60.60718528666491,26.545640182916838 delta=-0.06492660488955523,0.2,0.08153495214467676 rot=125.95727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=0 pickup=10 health=5 owner=- thrower=-
+E c1 minecraft:creeper pos=10.5,-60.0,25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#18 minecraft:item pos=10.580052639934735,-61.724064275453664,27.37562350074646 delta=-0.08962442155939719,0.2,-0.08286695157029692 rot=27.652458,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#19 minecraft:item pos=8.580140471959217,-59.68750819733409,25.276655088007914 delta=-0.06992452454987715,0.2,-0.07582268283287995 rot=211.5465,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#20 minecraft:item pos=8.44135998925529,-60.81592412801271,26.65353540098161 delta=-0.08975369068017572,0.2,0.008109142990345222 rot=54.823944,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#21 minecraft:item pos=16.38149031585657,-60.55524903839029,27.72246719509903 delta=0.03063435959578864,0.2,0.046335427408752905 rot=272.39145,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#22 minecraft:item pos=16.744791896840074,-59.84100608826065,25.447163992448743 delta=0.09983955625627103,0.2,0.09113620005091258 rot=88.83933,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#23 minecraft:item pos=20.511755569527367,-60.4514411848443,26.349156085224664 delta=-0.06780284368099838,0.2,0.003037289410353597 rot=209.48837,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=0 pickup=10 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-2.538405747575412,-60.0,2.525234512972233 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=-1.6458942363452116,-60.0,2.899717271482728 delta=-9.067280596371706E-6,-0.04,4.5951760276421586E-5 rot=229.14175,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=-0.3425636306984475,-60.0,1.9507166935928366 delta=-8.074652402162704E-5,-0.08,-5.897087302011768E-5 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.001635282092705599 rot=314.98608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=28.0,-60.0,2.0 delta=-0.022114851191860324,0.2,0.09273556425377497 rot=71.86097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0010587555159324163 rot=173.52461,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=30.0,-60.0,2.0 delta=0.03349879915648746,0.2,0.0843232966470342 rot=158.1189,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
+E t1 minecraft:tnt pos=2.5,-60.0,25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E item#12 minecraft:item pos=3.576451734023946,-60.5550501513004,27.702270399949942 delta=-0.007804111982273154,0.2,0.006005764304752859 rot=97.33277,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=1.3059671882647037,-60.84747802383517,25.454365993587633 delta=-0.01669163230782418,0.2,-0.010691663281146277 rot=183.35712,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=0.6305300603175895,-59.58313187423703,25.677069966370276 delta=-0.08873700384013208,0.2,-0.051923949804662355 rot=170.26736,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=0.5404203231845432,-61.475605529433544,25.481634449691526 delta=0.01013639225172927,0.2,-0.0054509300240215 rot=1.8940687,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#16 minecraft:item pos=2.4575035786561545,-60.70180039376657,23.352010779310305 delta=-0.05265099113235812,0.2,-0.06858596551086707 rot=19.052181,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=2.3420797930292014,-60.60718528666491,26.545640182916838 delta=-0.06492660488955523,0.2,0.08153495214467676 rot=125.95727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=0 pickup=10 health=5 owner=- thrower=-
+E c1 minecraft:creeper pos=10.5,-60.0,25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#18 minecraft:item pos=10.580052639934735,-61.724064275453664,27.37562350074646 delta=-0.08962442155939719,0.2,-0.08286695157029692 rot=27.652458,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#19 minecraft:item pos=8.580140471959217,-59.68750819733409,25.276655088007914 delta=-0.06992452454987715,0.2,-0.07582268283287995 rot=211.5465,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#20 minecraft:item pos=8.44135998925529,-60.81592412801271,26.65353540098161 delta=-0.08975369068017572,0.2,0.008109142990345222 rot=54.823944,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#21 minecraft:item pos=16.38149031585657,-60.55524903839029,27.72246719509903 delta=0.03063435959578864,0.2,0.046335427408752905 rot=272.39145,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#22 minecraft:item pos=16.744791896840074,-59.84100608826065,25.447163992448743 delta=0.09983955625627103,0.2,0.09113620005091258 rot=88.83933,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#23 minecraft:item pos=20.511755569527367,-60.4514411848443,26.349156085224664 delta=-0.06780284368099838,0.2,0.003037289410353597 rot=209.48837,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=0 pickup=10 health=5 owner=- thrower=-
+E t2 minecraft:tnt pos=26.5,-60.0,25.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E item#24 minecraft:item pos=28.49011526199514,-60.56849821342066,25.469897080623888 delta=-0.07359351002625653,0.2,0.05189000044683598 rot=0.7777977,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#25 minecraft:item pos=28.559847057464467,-60.62139493209703,22.736310875782944 delta=0.08400789737025863,0.2,0.029508092261294278 rot=234.00833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#26 minecraft:item pos=24.474903472919856,-59.653759808040064,25.484405040077846 delta=-0.040726856204481736,0.2,-0.09517779761002348 rot=312.4772,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#27 minecraft:item pos=27.64237626972123,-60.57993593924674,24.427305237936896 delta=0.019347831244760874,0.2,0.07414394959617673 rot=244.7761,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=25.358910084571743,-60.63188876052419,27.647934580692215 delta=-0.08143785063356322,0.2,0.05148350679481395 rot=287.79013,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=0 pickup=10 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=24.362998181072566,-60.78429708446222,27.400438194370786 delta=0.05397839493781814,0.2,-0.007848915835207276 rot=333.67004,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=0 pickup=10 health=5 owner=- thrower=-
+# placing hive items: bees and honey level of the item reach the block entity
+B 2 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 2 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:2,y:-60,z:2}
+I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 1 minecraft:iron_axe*1/dmg=2
+I Steve 2 minecraft:iron_shovel*1/dmg=1
+I Steve 3 minecraft:bee_nest*1
+I Steve 4 minecraft:beehive*7
+I Steve 5 minecraft:bee_nest*1
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+B -2 -60 2 minecraft:bee_nest[facing=north,honey_level=3]
+BE -2 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],components:{},id:"minecraft:beehive",x:-2,y:-60,z:2}
+I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 1 minecraft:iron_axe*1/dmg=2
+I Steve 2 minecraft:iron_shovel*1/dmg=1
+I Steve 3 minecraft:bee_nest*1
+I Steve 4 minecraft:beehive*7
+EV sound at=-1.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+BE -2 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:8}],components:{},id:"minecraft:beehive",x:-2,y:-60,z:2}

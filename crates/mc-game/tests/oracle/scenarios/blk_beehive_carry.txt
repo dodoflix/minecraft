@@ -1,0 +1,41 @@
+# Beehive carried as an item: a silk touch break and a creative break drop a hive item that keeps its bees and honey level;
+# the player picks it up and places it again, where the placed block entity and state show what the item carried.
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 30.5 -60 0.5 0 0
+give Steve hotbar0 minecraft:iron_axe[enchantments={"minecraft:silk_touch":1}]
+give Alex hotbar0 minecraft:iron_axe
+note silk touch: beehive with a bee (partly through its stay) and a pig, honey level 3
+block 0 -60 2 minecraft:beehive[honey_level=3,facing=east]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee",HasNectar:1b},ticks_in_hive:50,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:pig"},ticks_in_hive:7,min_ticks_in_hive:2400}]}
+level_seed 301
+dig Steve 0 -60 2
+tick 15
+dump blocks:0,-60,2,0,-60,2 entities inventory:Steve
+select Steve 1
+use_on Steve 2 -61 2 up main 0.5 1.0 0.5
+dump blocks:2,-60,2,2,-60,2 be:2,-60,2 inventory:Steve events
+tick 3
+dump be:2,-60,2
+note silk touch: bee nest at honey level 0 holding one bee
+block 0 -60 2 minecraft:bee_nest[honey_level=0,facing=south]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:600}]}
+select Steve 0
+level_seed 302
+dig Steve 0 -60 2
+tick 15
+dump blocks:0,-60,2,0,-60,2 entities inventory:Steve
+select Steve 1
+use_on Steve -2 -61 2 up main 0.5 1.0 0.5
+dump blocks:-2,-60,2,-2,-60,2 be:-2,-60,2 inventory:Steve events
+note creative: the dropped item keeps the bees and honey level 4
+block 30 -60 1 minecraft:beehive[honey_level=4,facing=west]
+be_nbt 30 -60 1 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:9,min_ticks_in_hive:600}]}
+level_seed 303
+dig Alex 30 -60 1
+tick 15
+dump blocks:30,-60,1,30,-60,1 entities inventory:Alex
+select Alex 1
+use_on Alex 32 -61 1 up main 0.5 1.0 0.5
+dump blocks:32,-60,1,32,-60,1 be:32,-60,1 inventory:Alex events

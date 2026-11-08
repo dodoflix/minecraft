@@ -1,0 +1,173 @@
+# Beehive breaking: silk touch keeps the bees and honey level in the dropped item and keeps them in the hive, other tools and
+# Level.destroyBlock release them (occupants that are not bees never leave the hive, so only the release path runs), a creative
+# player drops the hive with its bees and honey level (not with `block_drops` off), explosions of TNT and creepers, hive items
+# keep their bees when placed. Players keep their position (a teleport makes vanilla ignore them); every case has its own X,
+# the driver seeds new entities from the command line.
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 30.5 -60 0.5 0 0
+give Steve hotbar0 minecraft:iron_axe[enchantments={"minecraft:silk_touch":1}]
+give Steve hotbar1 minecraft:iron_axe
+give Steve hotbar2 minecraft:iron_shovel
+give Steve hotbar4 minecraft:beehive 8
+give Steve hotbar5 minecraft:bee_nest[bees=[{entity_data:{id:"minecraft:bee"},ticks_in_hive:5,min_ticks_in_hive:600}],block_state={honey_level:"3"}]
+give Alex hotbar0 minecraft:iron_axe
+note silk touch beehive with two occupants at honey level 3
+block -4 -60 2 minecraft:beehive[honey_level=3,facing=north]
+be_nbt -4 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 0
+level_seed 201
+dig Steve -4 -60 2
+dump blocks:-4,-60,2,-4,-60,2 be:-4,-60,2 entities events inventory:Steve
+note silk touch bee nest with a bee at honey level 5
+block -3 -60 2 minecraft:bee_nest[honey_level=5,facing=north]
+be_nbt -3 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 0
+level_seed 202
+dig Steve -3 -60 2
+dump blocks:-3,-60,2,-3,-60,2 be:-3,-60,2 entities events inventory:Steve
+note silk touch empty beehive
+block -2 -60 2 minecraft:beehive[honey_level=0,facing=north]
+be_nbt -2 -60 2 {bees:[]}
+select Steve 0
+level_seed 203
+dig Steve -2 -60 2
+dump blocks:-2,-60,2,-2,-60,2 be:-2,-60,2 entities events inventory:Steve
+note silk touch empty bee nest at honey level 2
+block -1 -60 2 minecraft:bee_nest[honey_level=2,facing=north]
+be_nbt -1 -60 2 {bees:[]}
+select Steve 0
+level_seed 204
+dig Steve -1 -60 2
+dump blocks:-1,-60,2,-1,-60,2 be:-1,-60,2 entities events inventory:Steve
+note plain axe beehive: drops the item, occupants are offered for release
+block 0 -60 2 minecraft:beehive[honey_level=2,facing=north]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 1
+level_seed 205
+dig Steve 0 -60 2
+dump blocks:0,-60,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+note plain axe bee nest: no drops
+block 1 -60 2 minecraft:bee_nest[honey_level=5,facing=north]
+be_nbt 1 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 1
+level_seed 206
+dig Steve 1 -60 2
+dump blocks:1,-60,2,1,-60,2 be:1,-60,2 entities events inventory:Steve
+note shovel (slow) beehive
+block 2 -60 2 minecraft:beehive[honey_level=1,facing=north]
+be_nbt 2 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 2
+level_seed 207
+dig Steve 2 -60 2
+dump blocks:2,-60,2,2,-60,2 be:2,-60,2 entities events inventory:Steve
+note bare hand empty beehive
+block 3 -60 2 minecraft:beehive[honey_level=4,facing=north]
+be_nbt 3 -60 2 {bees:[]}
+select Steve 8
+level_seed 208
+dig Steve 3 -60 2
+dump blocks:3,-60,2,3,-60,2 be:3,-60,2 entities events inventory:Steve
+note Level.destroyBlock: beehive and bee nest with occupants
+block -2 -60 2 minecraft:beehive[honey_level=3,facing=north]
+be_nbt -2 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 209
+destroy -2 -60 2
+dump blocks:-2,-60,2,-2,-60,2 be:-2,-60,2 entities events inventory:Steve
+block 2 -60 2 minecraft:bee_nest[honey_level=3,facing=north]
+be_nbt 2 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 210
+destroy 2 -60 2
+dump blocks:2,-60,2,2,-60,2 be:2,-60,2 entities events inventory:Steve
+note creative player breaking: the hive with bees and honey level drops; empty and dry hive does not
+select Alex 0
+note creative beehive with bees
+block 28 -60 2 minecraft:beehive[honey_level=3,facing=north]
+be_nbt 28 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Alex 0
+level_seed 211
+dig Alex 28 -60 2
+dump blocks:28,-60,2,28,-60,2 be:28,-60,2 entities events inventory:Alex
+note creative bee nest, honey level 0, one bee
+block 29 -60 2 minecraft:bee_nest[honey_level=0,facing=north]
+be_nbt 29 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Alex 0
+level_seed 212
+dig Alex 29 -60 2
+dump blocks:29,-60,2,29,-60,2 be:29,-60,2 entities events inventory:Alex
+note creative beehive, honey level 4, no bees
+block 30 -60 2 minecraft:beehive[honey_level=4,facing=north]
+be_nbt 30 -60 2 {bees:[]}
+select Alex 0
+level_seed 213
+dig Alex 30 -60 2
+dump blocks:30,-60,2,30,-60,2 be:30,-60,2 entities events inventory:Alex
+note creative bee nest, honey level 0, no bees: no drop
+block 31 -60 2 minecraft:bee_nest[honey_level=0,facing=north]
+be_nbt 31 -60 2 {bees:[]}
+select Alex 0
+level_seed 214
+dig Alex 31 -60 2
+dump blocks:31,-60,2,31,-60,2 be:31,-60,2 entities events inventory:Alex
+gamerule block_drops false
+note creative with block_drops off: no drop
+block 32 -60 2 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 32 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Alex 0
+level_seed 215
+dig Alex 32 -60 2
+dump blocks:32,-60,2,32,-60,2 be:32,-60,2 entities events inventory:Alex
+gamerule block_drops true
+note explosions: TNT and creeper sources release, the block explosion has no source; every hive drops its item by chance
+block 0 -60 25 minecraft:beehive[honey_level=1,facing=north]
+be_nbt 0 -60 25 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 4 -60 25 minecraft:beehive[honey_level=1,facing=north]
+be_nbt 4 -60 25 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 2 -60 27 minecraft:bee_nest[honey_level=5,facing=north]
+be_nbt 2 -60 27 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 8 -60 25 minecraft:beehive[honey_level=2,facing=north]
+be_nbt 8 -60 25 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 12 -60 25 minecraft:beehive[honey_level=2,facing=north]
+be_nbt 12 -60 25 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 10 -60 27 minecraft:bee_nest[honey_level=5,facing=north]
+be_nbt 10 -60 27 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 16 -60 25 minecraft:beehive[honey_level=3,facing=north]
+be_nbt 16 -60 25 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 20 -60 25 minecraft:beehive[honey_level=3,facing=north]
+be_nbt 20 -60 25 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 18 -60 27 minecraft:bee_nest[honey_level=5,facing=north]
+be_nbt 18 -60 27 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 24 -60 25 minecraft:beehive[honey_level=4,facing=north]
+be_nbt 24 -60 25 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 28 -60 25 minecraft:beehive[honey_level=4,facing=north]
+be_nbt 28 -60 25 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+block 26 -60 27 minecraft:bee_nest[honey_level=5,facing=north]
+be_nbt 26 -60 27 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+spawn t1 minecraft:tnt 2.5 -60 25.5
+entity_seed t1 7
+level_seed 216
+explode 2.5 -59.5 25.5 3 tnt source=t1
+dump blocks:0,-60,25,4,-60,27 entities events
+spawn c1 minecraft:creeper 10.5 -60 25.5
+entity_seed c1 8
+level_seed 217
+explode 10.5 -59.5 25.5 3 mob source=c1
+dump blocks:8,-60,25,12,-60,27 entities events
+level_seed 218
+explode 18.5 -59.5 25.5 3 block
+dump blocks:16,-60,25,20,-60,27 entities events
+spawn t2 minecraft:tnt 26.5 -60 25.5
+entity_seed t2 9
+level_seed 219
+explode 26.5 -59.5 25.5 3 tnt source=t2
+dump blocks:24,-60,25,28,-60,27 entities events
+note placing hive items: bees and honey level of the item reach the block entity
+select Steve 4
+use_on Steve 2 -61 2 up main 0.5 1.0 0.5
+dump blocks:2,-60,2,2,-60,2 be:2,-60,2 inventory:Steve events
+select Steve 5
+use_on Steve -2 -61 2 up main 0.5 1.0 0.5
+dump blocks:-2,-60,2,-2,-60,2 be:-2,-60,2 inventory:Steve events
+tick 3
+dump be:-2,-60,2

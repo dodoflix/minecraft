@@ -1,0 +1,211 @@
+# Beehive useItemOn: glass bottle and shears at honey levels 0..5, smoked (lit campfire below) or not, creative and full-inventory
+# players, other items. Occupants that are not bees never leave the hive (not a `beehive_inhabitors` entity), so the release
+# path runs without a bee entity; bees stay inside only while the hive is smoked. Players keep their position (a teleport
+# makes vanilla ignore the player until the client confirms it); each case rebuilds the hive in front of its player, and the
+# hit offset differs per click (the driver seeds new entities from the command line).
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 20.5 -60 0.5 0 0
+spawn_player Cid survival 40.5 -60 0.5 0 0
+give Steve hotbar0 minecraft:shears
+give Steve hotbar1 minecraft:glass_bottle 12
+give Steve hotbar2 minecraft:stick
+give Steve hotbar4 minecraft:honey_bottle 3
+note glass bottle on every honey level: only level 5 fills it
+select Steve 1
+block 0 -60 2 minecraft:beehive[honey_level=0,facing=north]
+level_seed 101
+use_on Steve 0 -60 2 up main 0.11 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=1,facing=north]
+level_seed 102
+use_on Steve 0 -60 2 up main 0.12 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=2,facing=north]
+level_seed 103
+use_on Steve 0 -60 2 up main 0.13 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=3,facing=north]
+level_seed 104
+use_on Steve 0 -60 2 up main 0.14 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=4,facing=north]
+level_seed 105
+use_on Steve 0 -60 2 up main 0.15 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+level_seed 106
+use_on Steve 0 -60 2 up main 0.16 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+note shears on every honey level: only level 5 drops honeycombs
+select Steve 0
+block 0 -60 2 minecraft:beehive[honey_level=0,facing=north]
+level_seed 107
+use_on Steve 0 -60 2 up main 0.17 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=1,facing=north]
+level_seed 108
+use_on Steve 0 -60 2 up main 0.18 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=2,facing=north]
+level_seed 109
+use_on Steve 0 -60 2 up main 0.19 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=3,facing=north]
+level_seed 110
+use_on Steve 0 -60 2 up main 0.20 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=4,facing=north]
+level_seed 111
+use_on Steve 0 -60 2 up main 0.21 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+level_seed 112
+use_on Steve 0 -60 2 up main 0.22 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+note stick and empty hand on a full hive do nothing; an offhand bottle is used by the offhand packet
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+select Steve 2
+level_seed 113
+use_on Steve 0 -60 2 up main 0.23 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+select Steve 7
+level_seed 114
+use_on Steve 0 -60 2 up main 0.24 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+give Steve offhand minecraft:glass_bottle 2
+level_seed 115
+use_on Steve 0 -60 2 up off 0.25 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+give Steve offhand minecraft:air
+note smoked hive (lit campfire below): honey level resets, bees stay; bottle then shears
+block 0 -61 2 minecraft:campfire[lit=true]
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 1
+level_seed 116
+use_on Steve 0 -60 2 up main 0.26 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 0
+level_seed 117
+use_on Steve 0 -60 2 up main 0.27 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+note the same with no occupants
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 0 -60 2 {bees:[]}
+select Steve 1
+level_seed 118
+use_on Steve 0 -60 2 up main 0.28 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 0 -60 2 {bees:[]}
+select Steve 0
+level_seed 119
+use_on Steve 0 -60 2 up main 0.29 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+note soul campfire (campfires tag) and bee nest
+block 0 -61 2 minecraft:soul_campfire[lit=true]
+block 0 -60 2 minecraft:bee_nest[honey_level=5,facing=east]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 1
+level_seed 120
+use_on Steve 0 -60 2 up main 0.30 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+note unlit campfire below does not smoke: the hive releases (pigs stay inside) and resets
+block 0 -61 2 minecraft:campfire[lit=false]
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 1
+level_seed 121
+use_on Steve 0 -60 2 up main 0.31 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 0
+level_seed 122
+use_on Steve 0 -60 2 up main 0.32 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+note a lit campfire right behind the solid ground block smokes the hive; one more block deeper does not
+block 0 -61 2 minecraft:grass_block
+block 0 -62 2 minecraft:campfire[lit=true]
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 1
+level_seed 123
+use_on Steve 0 -60 2 up main 0.33 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -62 2 minecraft:dirt
+block 0 -63 2 minecraft:campfire[lit=true]
+block 0 -60 2 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 0 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+select Steve 1
+level_seed 124
+use_on Steve 0 -60 2 up main 0.34 1.0 0.5
+dump blocks:0,-61,2,0,-60,2 be:0,-60,2 entities events inventory:Steve
+block 0 -63 2 minecraft:dirt
+note creative player: the bottle stack still shrinks, shears are not damaged
+give Alex hotbar0 minecraft:glass_bottle 2
+give Alex hotbar1 minecraft:shears
+select Alex 0
+block 20 -60 2 minecraft:beehive[honey_level=5,facing=north]
+level_seed 125
+use_on Alex 20 -60 2 up main 0.35 1.0 0.5
+dump blocks:20,-61,2,20,-60,2 be:20,-60,2 entities events inventory:Alex
+block 20 -60 2 minecraft:beehive[honey_level=5,facing=north]
+level_seed 126
+use_on Alex 20 -60 2 up main 0.36 1.0 0.5
+dump blocks:20,-61,2,20,-60,2 be:20,-60,2 entities events inventory:Alex
+block 20 -60 2 minecraft:beehive[honey_level=5,facing=north]
+level_seed 127
+use_on Alex 20 -60 2 up main 0.37 1.0 0.5
+dump blocks:20,-61,2,20,-60,2 be:20,-60,2 entities events inventory:Alex
+select Alex 1
+block 20 -60 2 minecraft:beehive[honey_level=5,facing=north]
+level_seed 128
+use_on Alex 20 -60 2 up main 0.38 1.0 0.5
+dump blocks:20,-61,2,20,-60,2 be:20,-60,2 entities events inventory:Alex
+note full inventory: the honey bottle is thrown out of the player
+give Cid hotbar0 minecraft:glass_bottle 2
+give Cid hotbar1 minecraft:stone 64
+give Cid hotbar2 minecraft:stone 64
+give Cid hotbar3 minecraft:stone 64
+give Cid hotbar4 minecraft:stone 64
+give Cid hotbar5 minecraft:stone 64
+give Cid hotbar6 minecraft:stone 64
+give Cid hotbar7 minecraft:stone 64
+give Cid hotbar8 minecraft:stone 64
+give Cid inv9 minecraft:stone 64
+give Cid inv10 minecraft:stone 64
+give Cid inv11 minecraft:stone 64
+give Cid inv12 minecraft:stone 64
+give Cid inv13 minecraft:stone 64
+give Cid inv14 minecraft:stone 64
+give Cid inv15 minecraft:stone 64
+give Cid inv16 minecraft:stone 64
+give Cid inv17 minecraft:stone 64
+give Cid inv18 minecraft:stone 64
+give Cid inv19 minecraft:stone 64
+give Cid inv20 minecraft:stone 64
+give Cid inv21 minecraft:stone 64
+give Cid inv22 minecraft:stone 64
+give Cid inv23 minecraft:stone 64
+give Cid inv24 minecraft:stone 64
+give Cid inv25 minecraft:stone 64
+give Cid inv26 minecraft:stone 64
+give Cid inv27 minecraft:stone 64
+give Cid inv28 minecraft:stone 64
+give Cid inv29 minecraft:stone 64
+give Cid inv30 minecraft:stone 64
+give Cid inv31 minecraft:stone 64
+give Cid inv32 minecraft:stone 64
+give Cid inv33 minecraft:stone 64
+give Cid inv34 minecraft:stone 64
+give Cid inv35 minecraft:stone 64
+select Cid 0
+block 40 -60 2 minecraft:beehive[honey_level=5,facing=north]
+level_seed 129
+use_on Cid 40 -60 2 up main 0.39 1.0 0.5
+dump blocks:40,-61,2,40,-60,2 be:40,-60,2 entities events inventory:Cid

@@ -1,0 +1,311 @@
+# glass bottle on every honey level: only level 5 fills it
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*12
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*3
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=1]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*12
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*3
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=2]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*12
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*3
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=3]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*12
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*3
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=4]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*12
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*3
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*4
+# shears on every honey level: only level 5 drops honeycombs
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*4
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=1]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*4
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=2]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*4
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=3]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*4
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=4]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+I Steve 0 minecraft:shears*1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*4
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*4
+# stick and empty hand on a full hive do nothing; an offhand bottle is used by the offhand packet
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=5]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+I Steve 0 minecraft:shears*1/dmg=1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*4
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=5]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+I Steve 0 minecraft:shears*1/dmg=1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*4
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=1
+I Steve 1 minecraft:glass_bottle*11
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*5
+I Steve 40 minecraft:glass_bottle*1
+# smoked hive (lit campfire below): honey level resets, bees stay; bottle then shears
+B 0 -61 2 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:0},{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=1
+I Steve 1 minecraft:glass_bottle*10
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*6
+B 0 -61 2 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:0},{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=2
+I Steve 1 minecraft:glass_bottle*10
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*6
+# the same with no occupants
+B 0 -61 2 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=2
+I Steve 1 minecraft:glass_bottle*9
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*7
+B 0 -61 2 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=3
+I Steve 1 minecraft:glass_bottle*9
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*7
+# soul campfire (campfires tag) and bee nest
+B 0 -61 2 minecraft:soul_campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 0 -60 2 minecraft:bee_nest[facing=east,honey_level=0]
+BE 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=3
+I Steve 1 minecraft:glass_bottle*8
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*8
+# unlit campfire below does not smoke: the hive releases (pigs stay inside) and resets
+B 0 -61 2 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=3
+I Steve 1 minecraft:glass_bottle*7
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*9
+B 0 -61 2 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=4
+I Steve 1 minecraft:glass_bottle*7
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*9
+# a lit campfire right behind the solid ground block smokes the hive; one more block deeper does not
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=4
+I Steve 1 minecraft:glass_bottle*6
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*10
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 0 -60 2 {bees:[{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Steve 0 minecraft:shears*1/dmg=4
+I Steve 1 minecraft:glass_bottle*5
+I Steve 2 minecraft:stick*1
+I Steve 4 minecraft:honey_bottle*11
+# creative player: the bottle stack still shrinks, shears are not damaged
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 20 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:20,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Alex 0 minecraft:glass_bottle*1
+I Alex 1 minecraft:shears*1
+I Alex 2 minecraft:honey_bottle*1
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 20 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:20,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Alex 0 minecraft:honey_bottle*1
+I Alex 1 minecraft:shears*1
+I Alex 2 minecraft:honey_bottle*1
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -60 2 minecraft:beehive[facing=north,honey_level=5]
+BE 20 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:20,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+I Alex 0 minecraft:honey_bottle*1
+I Alex 1 minecraft:shears*1
+I Alex 2 minecraft:honey_bottle*1
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 20 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:20,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=20.621217097307124,-59.60557315449239,2.5696737410828043 delta=0.007538627125805816,0.2,0.03693020916925785 rot=209.51859,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
+I Alex 0 minecraft:honey_bottle*1
+I Alex 1 minecraft:shears*1
+I Alex 2 minecraft:honey_bottle*1
+# full inventory: the honey bottle is thrown out of the player
+B 40 -61 2 minecraft:grass_block[snowy=false]
+B 40 -60 2 minecraft:beehive[facing=north,honey_level=0]
+BE 40 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:40,y:-60,z:2}
+E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=20.621217097307124,-59.60557315449239,2.5696737410828043 delta=0.007538627125805816,0.2,0.03693020916925785 rot=209.51859,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=40.5,-58.68000000715256,0.5 delta=0.001985140777036988,0.08266434073448181,0.2892497290929009 rot=125.1705,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honey_bottle*1 age=0 pickup=40 health=5 owner=- thrower=-
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
+I Cid 0 minecraft:glass_bottle*1
+I Cid 1 minecraft:stone*64
+I Cid 2 minecraft:stone*64
+I Cid 3 minecraft:stone*64
+I Cid 4 minecraft:stone*64
+I Cid 5 minecraft:stone*64
+I Cid 6 minecraft:stone*64
+I Cid 7 minecraft:stone*64
+I Cid 8 minecraft:stone*64
+I Cid 9 minecraft:stone*64
+I Cid 10 minecraft:stone*64
+I Cid 11 minecraft:stone*64
+I Cid 12 minecraft:stone*64
+I Cid 13 minecraft:stone*64
+I Cid 14 minecraft:stone*64
+I Cid 15 minecraft:stone*64
+I Cid 16 minecraft:stone*64
+I Cid 17 minecraft:stone*64
+I Cid 18 minecraft:stone*64
+I Cid 19 minecraft:stone*64
+I Cid 20 minecraft:stone*64
+I Cid 21 minecraft:stone*64
+I Cid 22 minecraft:stone*64
+I Cid 23 minecraft:stone*64
+I Cid 24 minecraft:stone*64
+I Cid 25 minecraft:stone*64
+I Cid 26 minecraft:stone*64
+I Cid 27 minecraft:stone*64
+I Cid 28 minecraft:stone*64
+I Cid 29 minecraft:stone*64
+I Cid 30 minecraft:stone*64
+I Cid 31 minecraft:stone*64
+I Cid 32 minecraft:stone*64
+I Cid 33 minecraft:stone*64
+I Cid 34 minecraft:stone*64
+I Cid 35 minecraft:stone*64
