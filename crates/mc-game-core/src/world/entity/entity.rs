@@ -1609,6 +1609,10 @@ pub trait Entity: Any {
     }
     /// `doWaterSplashEffect()`.
     fn do_water_splash_effect(&mut self, level: &mut ServerLevel) {
+        // `Player.doWaterSplashEffect`: spectators make no splash
+        if self.is_player() && self.is_spectator() {
+            return;
+        }
         let controller = self.get_controlling_passenger().and_then(|id| {
             level
                 .entity_manager

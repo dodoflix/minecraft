@@ -367,6 +367,77 @@ impl Entity for ServerPlayer {
     fn is_always_ticking(&self) -> bool {
         true
     }
+    /// `Player.getSwimSound()`.
+    fn get_swim_sound(&self) -> mc_data::SoundEvent {
+        mc_data::SoundEvent::ENTITY_PLAYER_SWIM
+    }
+    /// `Player.getSwimSplashSound()`.
+    fn get_swim_splash_sound(&self) -> mc_data::SoundEvent {
+        mc_data::SoundEvent::ENTITY_PLAYER_SPLASH
+    }
+    /// `Player.getSwimHighSpeedSplashSound()`.
+    fn get_swim_high_speed_splash_sound(&self) -> mc_data::SoundEvent {
+        mc_data::SoundEvent::ENTITY_PLAYER_SPLASH_HIGH_SPEED
+    }
+    /// `Player.getSoundSource()`.
+    fn get_sound_source(&self) -> mc_protocol::packets::play::SoundSource {
+        mc_protocol::packets::play::SoundSource::Players
+    }
+    /// `Player.playSound(sound, volume, pitch)`: no silent check, the player itself is excluded from the broadcast.
+    fn play_sound(
+        &self,
+        level: &mut crate::server::level::ServerLevel,
+        sound: mc_data::SoundEvent,
+        volume: f32,
+        pitch: f32,
+    ) {
+        let p = self.base().position();
+        level.play_sound_at(
+            Some(self.player.living.entity.id),
+            p.x,
+            p.y,
+            p.z,
+            sound,
+            self.get_sound_source(),
+            volume,
+            pitch,
+        );
+    }
+    /// `Player.playStepSound(onPos, onState)`.
+    fn play_step_sound(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        on_pos: BlockPos,
+        on_state: mc_data::block::BlockState,
+    ) {
+        use crate::world::level::BlockGetter;
+        if self.is_in_water() {
+            self.water_swim_sound(level);
+            self.play_muffled_step_sound(level, on_state);
+            return;
+        }
+        let primary_pos = self.get_primary_step_sound_block_pos(level, on_pos);
+        let state = if on_pos == primary_pos {
+            on_state
+        } else {
+            let primary_state = level.get_block_state(primary_pos);
+            if primary_state
+                .block()
+                .is_in_tag("combination_step_sound_blocks")
+            {
+                self.play_combination_step_sounds(level, primary_state, on_state);
+                return;
+            }
+            primary_state
+        };
+        let sound_type = state.get_sound_type();
+        self.play_sound(
+            level,
+            sound_type.step_sound,
+            sound_type.volume * 0.15,
+            sound_type.pitch,
+        );
+    }
     /// `getItemBySlot(slot)`: a player's equipment lives in its inventory (`PlayerEquipment`).
     fn get_item_by_slot(
         &self,
