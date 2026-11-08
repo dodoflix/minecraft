@@ -1,0 +1,4 @@
+BE 0 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:0,y:-60,z:0}
+BE 0 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["Hello","&aworld","","last line"]},id:"minecraft:sign",is_waxed:0b,x:0,y:-60,z:0}
+BEU 0 -60 0 minecraft:sign {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},front_text:{color:"black",has_glowing_text:0b,messages:["Hello","&aworld","","last line"]},is_waxed:0b}
+BE 0 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["Hello","&aworld","","last line"]},id:"minecraft:sign",is_waxed:0b,x:0,y:-60,z:0}

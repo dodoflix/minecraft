@@ -1,0 +1,3 @@
+B 2 102 2 minecraft:lava[level=0]
+TICK fluid 2 102 2 minecraft:lava delay=10 prio=0
+B 2 102 2 minecraft:lava[level=0]

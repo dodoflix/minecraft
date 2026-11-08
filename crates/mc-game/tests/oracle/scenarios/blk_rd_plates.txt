@@ -13,17 +13,17 @@ block 7 -60 1 minecraft:heavy_weighted_pressure_plate
 block 7 -61 1 minecraft:redstone_lamp
 tick 2
 # an item: triggers oak and the weighted plates, not the stone plate
-spawn_item i1 minecraft:stick 1.5 -60 1.5 0 0 0
-spawn_item i2 minecraft:stick 3.5 -60 1.5 0 0 0
-spawn_item i3 minecraft:stick 5.5 -60 1.5 0 0 0
-spawn_item i4 minecraft:stick 7.5 -60 1.5 0 0 0
+spawn_item i1 minecraft:stick 1.5 -60 1.5 0 0 0 rot=0
+spawn_item i2 minecraft:stick 3.5 -60 1.5 0 0 0 rot=0
+spawn_item i3 minecraft:stick 5.5 -60 1.5 0 0 0 rot=0
+spawn_item i4 minecraft:stick 7.5 -60 1.5 0 0 0 rot=0
 tick 4
 dump entities
 # more items on the light weighted plate: strength grows with the count
-spawn_item i5 minecraft:apple 5.5 -60 1.5 0 0 0
-spawn_item i6 minecraft:bread 5.5 -60 1.5 0 0 0
-spawn_item i7 minecraft:carrot 5.5 -60 1.5 0 0 0
-spawn_item i8 minecraft:cookie 5.5 -60 1.5 0 0 0
+spawn_item i5 minecraft:apple 5.5 -60 1.5 0 0 0 rot=0
+spawn_item i6 minecraft:bread 5.5 -60 1.5 0 0 0 rot=0
+spawn_item i7 minecraft:carrot 5.5 -60 1.5 0 0 0 rot=0
+spawn_item i8 minecraft:cookie 5.5 -60 1.5 0 0 0 rot=0
 tick 4
 kill i2
 kill i5

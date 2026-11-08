@@ -1,0 +1,13 @@
+BES 0 0
+BEM 1 -60 1 minecraft:hopper
+BET 1 -60 1
+BES 1 0
+BEM 17 -60 1 minecraft:chest
+BES 0 0
+BEM 1 -60 1 minecraft:hopper
+BET 1 -60 1
+BES 1 0
+BEM 17 -60 1 minecraft:chest
+BES 0 0
+BET 0 0 0
+BES 0 0

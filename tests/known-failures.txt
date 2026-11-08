@@ -11,8 +11,7 @@ mc-game tests/golden/main.rs attack_golden::enchantments_and_attributes
 mc-game tests/golden/main.rs attack_golden::game_modes_and_reach
 mc-game tests/golden/main.rs attack_golden::mob_do_hurt_target
 mc-game tests/golden/main.rs attack_golden::weapon_damage_durability_exhaustion
-mc-game tests/golden/main.rs blocks_redstone_devices_golden::comparator
-mc-game tests/golden/main.rs blocks_redstone_devices_golden::daylight
+
 mc-game tests/golden/main.rs books_golden::books_match_vanilla
 mc-game tests/golden/main.rs commands_entity::attribute_get_set_and_modifiers
 mc-game tests/golden/main.rs commands_entity::damage_hurts_living_entities_and_reports_invulnerability

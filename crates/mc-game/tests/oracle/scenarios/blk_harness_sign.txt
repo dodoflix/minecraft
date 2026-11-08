@@ -1,0 +1,17 @@
+# sign_update: the client's sign editor result (ServerboundSignUpdatePacket) after opening the editor by using the sign.
+level flat
+preload 2
+watch off
+spawn_player p creative 0.5 -60 3.5 0 0
+block 0 -60 0 minecraft:oak_sign[rotation=0]
+tick 1
+use_on p 0 -60 0 up main
+tick 1
+dump be:0,-60,0
+sign_update p 0 -60 0 front "Hello" "&aworld" "" "last line"
+tick 1
+dump be:0,-60,0 beu:0,-60,0
+# a second update without opening the editor again is rejected
+sign_update p 0 -60 0 front "again" "" "" ""
+tick 1
+dump be:0,-60,0

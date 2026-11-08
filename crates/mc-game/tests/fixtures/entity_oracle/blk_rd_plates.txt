@@ -1,0 +1,468 @@
+T 1
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 2
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 3
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=10 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=10 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=20 prio=0
+EV sound at=1.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.wooden_pressure_plate.click_on source=block vol=1.0 pitch=1.0
+EV sound at=5.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.metal_pressure_plate.click_on source=block vol=1.0 pitch=1.0
+EV sound at=7.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.metal_pressure_plate.click_on source=block vol=1.0 pitch=1.0
+T 4
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=9 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=9 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=19 prio=0
+T 5
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=8 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=8 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=18 prio=0
+T 6
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=7 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=7 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=17 prio=0
+E i1 minecraft:item pos=1.5,-60.0,1.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=0 health=5 owner=- thrower=-
+E i2 minecraft:item pos=3.5,-60.0,1.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=0 health=5 owner=- thrower=-
+E i3 minecraft:item pos=5.5,-60.0,1.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=0 health=5 owner=- thrower=-
+E i4 minecraft:item pos=7.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=0 health=5 owner=- thrower=-
+T 7
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=6 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=6 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=16 prio=0
+T 8
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=5 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=5 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=15 prio=0
+T 9
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=4 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=4 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=14 prio=0
+T 10
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=3 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=3 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=13 prio=0
+T 11
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=2 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=2 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=12 prio=0
+T 12
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=1]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=1 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=1 prio=0
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=11 prio=0
+T 13
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=10 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=10 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=10 prio=0
+T 14
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=9 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=9 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=9 prio=0
+T 15
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=8 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=8 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=8 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=20 prio=0
+EV sound at=3.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.stone_pressure_plate.click_on source=block vol=1.0 pitch=1.0
+T 16
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=7 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=7 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=7 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=19 prio=0
+T 17
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=6 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=6 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=6 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=18 prio=0
+T 18
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=5 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=5 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=5 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=17 prio=0
+T 19
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=4 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=4 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=4 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=16 prio=0
+T 20
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=3 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=3 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=3 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=15 prio=0
+T 21
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=2 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=2 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=2 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=14 prio=0
+T 22
+B 1 -60 1 minecraft:oak_pressure_plate[powered=true]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=3]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=1]
+TICK block 1 -60 1 minecraft:oak_pressure_plate delay=1 prio=0
+TICK block 5 -60 1 minecraft:light_weighted_pressure_plate delay=1 prio=0
+TICK block 7 -60 1 minecraft:heavy_weighted_pressure_plate delay=1 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=13 prio=0
+T 23
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 1 -61 1 minecraft:redstone_lamp delay=4 prio=0
+TICK block 5 -61 1 minecraft:redstone_lamp delay=4 prio=0
+TICK block 7 -61 1 minecraft:redstone_lamp delay=4 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=12 prio=0
+EV sound at=1.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.wooden_pressure_plate.click_off source=block vol=1.0 pitch=1.0
+EV sound at=5.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.metal_pressure_plate.click_off source=block vol=1.0 pitch=1.0
+EV sound at=7.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.metal_pressure_plate.click_off source=block vol=1.0 pitch=1.0
+T 24
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 1 -61 1 minecraft:redstone_lamp delay=3 prio=0
+TICK block 5 -61 1 minecraft:redstone_lamp delay=3 prio=0
+TICK block 7 -61 1 minecraft:redstone_lamp delay=3 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=11 prio=0
+T 25
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 1 -61 1 minecraft:redstone_lamp delay=2 prio=0
+TICK block 5 -61 1 minecraft:redstone_lamp delay=2 prio=0
+TICK block 7 -61 1 minecraft:redstone_lamp delay=2 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=10 prio=0
+T 26
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 1 -61 1 minecraft:redstone_lamp delay=1 prio=0
+TICK block 5 -61 1 minecraft:redstone_lamp delay=1 prio=0
+TICK block 7 -61 1 minecraft:redstone_lamp delay=1 prio=0
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=9 prio=0
+T 27
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=8 prio=0
+T 28
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=7 prio=0
+T 29
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=6 prio=0
+T 30
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=5 prio=0
+T 31
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=4 prio=0
+T 32
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=3 prio=0
+T 33
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=2 prio=0
+T 34
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=1 prio=0
+T 35
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=20 prio=0
+T 36
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=19 prio=0
+T 37
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=18 prio=0
+T 38
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=17 prio=0
+T 39
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=16 prio=0
+T 40
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=15 prio=0
+T 41
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=14 prio=0
+T 42
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=13 prio=0
+T 43
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=12 prio=0
+T 44
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=11 prio=0
+T 45
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=10 prio=0
+T 46
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=9 prio=0
+T 47
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=8 prio=0
+T 48
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=7 prio=0
+T 49
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=6 prio=0
+T 50
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=5 prio=0
+T 51
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=4 prio=0
+T 52
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=3 prio=0
+T 53
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=2 prio=0
+T 54
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -60 1 minecraft:stone_pressure_plate delay=1 prio=0
+T 55
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -61 1 minecraft:redstone_lamp delay=4 prio=0
+EV sound at=3.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.stone_pressure_plate.click_off source=block vol=1.0 pitch=1.0
+T 56
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -61 1 minecraft:redstone_lamp delay=3 prio=0
+T 57
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -61 1 minecraft:redstone_lamp delay=2 prio=0
+T 58
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+TICK block 3 -61 1 minecraft:redstone_lamp delay=1 prio=0
+T 59
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 60
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 61
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 62
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 63
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 64
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 65
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 66
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 67
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
+T 68
+B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
+B 3 -60 1 minecraft:stone_pressure_plate[powered=false]
+B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
+B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]

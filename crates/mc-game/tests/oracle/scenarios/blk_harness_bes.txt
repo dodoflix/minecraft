@@ -1,0 +1,13 @@
+# dump bes: block entity map and ticker list of a chunk (one block entity per chunk, so the map order is unambiguous).
+level flat
+preload 2
+watch off
+block 1 -60 1 minecraft:hopper[facing=down,enabled=true]
+block 17 -60 1 minecraft:chest[facing=north]
+dump bes:0,0 bes:1,0
+tick 2
+dump bes:0,0 bes:1,0
+block 1 -60 1 minecraft:air
+dump bes:0,0
+tick 1
+dump bes:0,0

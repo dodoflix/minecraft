@@ -1,0 +1,9 @@
+# dimension option: a block scenario in the nether. Lava schedules its fluid tick with the nether delay (FAST_LAVA) and the nether has no sky light.
+dimension the_nether
+preload 2
+watch off
+fill 0 100 0 4 104 4 minecraft:stone
+block 2 102 2 minecraft:lava
+dump blocks:2,102,2,2,102,2 ticks:0,100,0,4,104,4
+tick 12
+dump blocks:2,102,2,2,102,2 ticks:0,100,0,4,104,4

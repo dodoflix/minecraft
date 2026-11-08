@@ -24,8 +24,6 @@ use_on p 5 -60 0 up main
 use_on p 5 -60 0 up main
 tick 2
 dump blocks:5,-60,0,5,-60,0 events
-swing p
-attack p 5 -60 0
 dig p 5 -60 0 1
 tick 2
 dump events

@@ -18,5 +18,20 @@ golden!(
     observer,
     copper_bulb,
     noteblock,
-    daylight
+    daylight,
+    lever_button,
+    clicks,
+    tripwire
 );
+
+/// Item entities on plates: the item's `delta` movement is not part of the comparison (it depends on the entity's random seed).
+#[test]
+fn plates() {
+    common::block_scenario::check_with(
+        "blk_rd_plates",
+        &common::entity_oracle::Options {
+            ignore_fields: vec!["delta"],
+            ..Default::default()
+        },
+    );
+}

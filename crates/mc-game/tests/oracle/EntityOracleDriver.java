@@ -92,6 +92,7 @@ import net.minecraft.util.RandomSource;
  * <pre>
  * -- options (only before the first world command) --
  * level flat|void|normal      world type (default flat)            seed N              world seed (default 4242)
+ * dimension overworld|the_nether|the_end   the level every world command acts on (default overworld; the nether and end keep their real generator)
  * difficulty peaceful|easy|normal|hard (default normal)            preload R           chunk radius kept loaded (6)
  * features NAME[,NAME]       extra feature flags besides vanilla, e.g. redstone_experiments
  * -- world --
@@ -133,6 +134,8 @@ import net.minecraft.util.RandomSource;
  *                             client would send it (or after TICKS ticks); prints "DIG ticks=N broken=B"; ticks the server
  * use PLAYER [main|off]       ServerboundUseItemPacket              release PLAYER   RELEASE_USE_ITEM
  * use_on PLAYER X Y Z FACE [main|off] [cx cy cz]  ServerboundUseItemOnPacket (FACE: down up north south west east)
+ * sign_update PLAYER X Y Z front|back L1 L2 L3 L4   ServerboundSignUpdatePacket (each line one token: "quote" it to keep spaces; missing = "")
+ * brush X Y Z PLAYER DIR    BrushableBlockEntity.brush(gameTime, level, PLAYER, DIR, main hand item) called directly; prints "BRUSH x y z result"
  * attack PLAYER REF           ServerboundAttackPacket               swing PLAYER   ServerboundPunchPacket (main hand)
  * client_tick_end PLAYER    ServerboundClientTickEndPacket (re-arms the one position packet per tick; zeroes the known movement without one)
  * mob_attack MOB REF        Mob.doHurtTarget(level, REF); prints "MOBATTACK mob ref -> result"
@@ -173,7 +176,9 @@ import net.minecraft.util.RandomSource;
  * dump WHAT...                same WHATs immediately, plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
  *                             block oracle extras: be:X,Y,Z -> `BE x y z SNBT` (saveWithFullMetadata, sorted keys; `-` = none),
  *                             beu:X,Y,Z -> `BEU x y z TYPE SNBT` (getUpdatePacket tag; `-` = none),
- *                             ticks -> `TICK block|fluid x y z id delay=N prio=P` for every pending scheduled tick in execution order,
+ *                             bes:CX,CZ -> `BES cx cz`, `BEM x y z type` per block entity in map iteration order, then `BET x y z` / `BETP x y z`
+ *                             (ticker list / pending ticker list order) for the tickers inside that chunk,
+ *                             ticks[:X1,Y1,Z1,X2,Y2,Z2] -> `TICK block|fluid x y z id delay=N prio=P` for every pending scheduled tick (inside the optional box) in execution order,
  *                             events -> the `EV ...` lines of level events / sounds / block events broadcast since the last dump (see
  *                             VanillaLevel.RecordingPlayerList; also valid in `watch`, printed after each tick)
 
@@ -357,6 +362,7 @@ public final class EntityOracleDriver {
       }
       switch (cmd) {
          case "level" -> options.levelType = a.get(1);
+         case "dimension" -> options.dimension = a.get(1);
          case "seed" -> options.seed = Long.parseLong(a.get(1));
          case "features" -> options.features = a.get(1);
          case "difficulty" -> {
@@ -592,6 +598,25 @@ public final class EntityOracleDriver {
                : Vec3.atCenterOf(pos).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
             int handIdx = a.size() > 6 && (a.get(6).equals("main") || a.get(6).equals("off")) ? 6 : -1;
             p.connection.handleUseItemOn(new ServerboundUseItemOnPacket(handIdx > 0 ? hand(a, 6) : InteractionHand.MAIN_HAND, new BlockHitResult(hit, face, pos, false), seq(a.get(1))));
+         }
+         case "sign_update" -> {
+            world();
+            List<String> lines = new ArrayList<>();
+            for (int i = 6; i < 10; i++) {
+               String l = a.size() > i ? a.get(i) : "";
+               lines.add(l.length() >= 2 && l.startsWith("\"") && l.endsWith("\"") ? l.substring(1, l.length() - 1) : l);
+            }
+            player(a.get(1)).connection.handleSignUpdate(new ServerboundSignUpdatePacket(
+               new BlockPos(Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)), Integer.parseInt(a.get(4))), lines,
+               a.get(5).equals("front") ? net.minecraft.world.level.block.entity.SignTextSlot.FRONT : net.minecraft.world.level.block.entity.SignTextSlot.BACK));
+         }
+         case "brush" -> { // brush X Y Z PLAYER DIR: BrushableBlockEntity.brush(gameTime, level, player, DIR, main hand); prints "BRUSH x y z result"
+            world();
+            BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
+            ServerPlayer p = player(a.get(4));
+            boolean r = v.level.getBlockEntity(pos) instanceof net.minecraft.world.level.block.entity.BrushableBlockEntity be
+               && be.brush(v.level.getGameTime(), v.level, p, Direction.byName(a.get(5)), p.getMainHandItem());
+            out.println("BRUSH " + a.get(1) + " " + a.get(2) + " " + a.get(3) + " " + r);
          }
          case "attack" -> {
             world();
@@ -1529,6 +1554,24 @@ public final class EntityOracleDriver {
                var pk = be == null ? null : (net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket)be.getUpdatePacket();
                out.println("BEU " + c[0] + " " + c[1] + " " + c[2] + " " + (pk == null ? "-" : BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(pk.getType()) + " " + pk.getTag()));
             }
+            case "bes" -> { // bes:CX,CZ: the chunk's block entity map in iteration order, then the level's ticker lists restricted to the chunk
+               String[] c = arg.split(",");
+               int cx = Integer.parseInt(c[0]);
+               int cz = Integer.parseInt(c[1]);
+               out.println("BES " + cx + " " + cz);
+               for (var en : v.level.getChunk(cx, cz).getBlockEntities().entrySet()) {
+                  BlockPos bp = en.getKey();
+                  out.println("BEM " + bp.getX() + " " + bp.getY() + " " + bp.getZ() + " " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(en.getValue().getType()));
+               }
+               for (String list : new String[] {"blockEntityTickers", "pendingBlockEntityTickers"}) {
+                  for (Object t : (List<?>)priv(v.level, Level.class, list)) {
+                     BlockPos bp = ((net.minecraft.world.level.block.entity.TickingBlockEntity)t).getPos();
+                     if (bp.getX() >> 4 == cx && bp.getZ() >> 4 == cz) {
+                        out.println((list.startsWith("pending") ? "BETP " : "BET ") + bp.getX() + " " + bp.getY() + " " + bp.getZ());
+                     }
+                  }
+               }
+            }
             case "ticks" -> {
                // every pending scheduled tick of the loaded chunks in execution order (trigger tick, priority, sub tick order)
                List<net.minecraft.world.ticks.ScheduledTick<?>> all = new ArrayList<>();
@@ -1540,7 +1583,12 @@ public final class EntityOracleDriver {
                   }
                }
                all.sort(net.minecraft.world.ticks.ScheduledTick.DRAIN_ORDER);
+               int[] box = arg == null ? null : Arrays.stream(arg.split(",")).mapToInt(Integer::parseInt).toArray(); // ticks:x1,y1,z1,x2,y2,z2 keeps the ticks inside that box
                for (var t : all) {
+                  if (box != null && !(t.pos().getX() >= Math.min(box[0], box[3]) && t.pos().getX() <= Math.max(box[0], box[3]) && t.pos().getY() >= Math.min(box[1], box[4]) && t.pos().getY() <= Math.max(box[1], box[4])
+                     && t.pos().getZ() >= Math.min(box[2], box[5]) && t.pos().getZ() <= Math.max(box[2], box[5]))) {
+                     continue;
+                  }
                   String tk = t.type() instanceof net.minecraft.world.level.block.Block ? "block" : "fluid";
                   String name = t.type() instanceof net.minecraft.world.level.block.Block b ? BuiltInRegistries.BLOCK.getKey(b).toString() : BuiltInRegistries.FLUID.getKey((net.minecraft.world.level.material.Fluid)t.type()).toString();
                   out.println("TICK " + tk + " " + t.pos().getX() + " " + t.pos().getY() + " " + t.pos().getZ() + " " + name + " delay=" + (t.triggerTick() - v.level.getGameTime()) + " prio=" + t.priority().getValue());

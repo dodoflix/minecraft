@@ -545,19 +545,29 @@ impl crate::server::network::game_packets::hooks::PlayHandlers for SignPlayHandl
         packet: &mc_protocol::packets::play::ServerboundSignUpdatePacket,
         lines: &[String],
     ) {
-        use crate::server::network::text_filter::{DummyTextFilter, TextFilter};
-        use crate::world::level::LevelReader;
-        // `filterTextPacket(lines)`: the dummy filter (no `text-filtering-config` backend is ported)
-        let filtered = DummyTextFilter.process_message_bundle(lines);
-        let pos = packet.pos;
-        if ctx.level.has_chunk(pos.x() >> 4, pos.z() >> 4) {
-            let player: &ServerPlayer = ctx.player;
-            ctx.level.with_block_entity(pos, |level, be| {
-                if let Some(sign) = be.as_any_mut().downcast_mut::<SignBlockEntity>() {
-                    sign.update_sign_text(level, player, packet.slot, &filtered);
-                }
-            });
-        }
+        update_sign_text_from_packet(ctx.level, ctx.player, packet.pos, packet.slot, lines);
+    }
+}
+
+/// `ServerGamePacketListenerImpl.updateSignText` of the already formatting-stripped lines: text filtering, then
+/// `SignBlockEntity.updateSignText` for a loaded chunk.
+pub fn update_sign_text_from_packet(
+    level: &mut ServerLevel,
+    player: &ServerPlayer,
+    pos: BlockPos,
+    slot: SignTextSlot,
+    lines: &[String],
+) {
+    use crate::server::network::text_filter::{DummyTextFilter, TextFilter};
+    use crate::world::level::LevelReader;
+    // `filterTextPacket(lines)`: the dummy filter (no `text-filtering-config` backend is ported)
+    let filtered = DummyTextFilter.process_message_bundle(lines);
+    if level.has_chunk(pos.x() >> 4, pos.z() >> 4) {
+        level.with_block_entity(pos, |level, be| {
+            if let Some(sign) = be.as_any_mut().downcast_mut::<SignBlockEntity>() {
+                sign.update_sign_text(level, player, slot, &filtered);
+            }
+        });
     }
 }
 

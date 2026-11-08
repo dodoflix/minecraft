@@ -1,0 +1,1041 @@
+T 1
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+T 2
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+EV sound at=1.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.6
+T 3
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 4
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 5
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=3 prio=0
+EV sound at=1.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.5
+T 6
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=2 prio=0
+T 7
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=1 prio=0
+T 8
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+T 9
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=true]
+EV sound at=4.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.6
+T 10
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=true]
+T 11
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=true]
+T 12
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+TICK block 3 -61 0 minecraft:redstone_lamp delay=3 prio=0
+TICK block 5 -61 0 minecraft:redstone_lamp delay=3 prio=0
+EV sound at=4.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.5
+T 13
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+TICK block 3 -61 0 minecraft:redstone_lamp delay=2 prio=0
+TICK block 5 -61 0 minecraft:redstone_lamp delay=2 prio=0
+T 14
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+TICK block 3 -61 0 minecraft:redstone_lamp delay=1 prio=0
+TICK block 5 -61 0 minecraft:redstone_lamp delay=1 prio=0
+T 15
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=false]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=false]
+T 16
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+EV sound at=7.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.6
+T 17
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+T 18
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+T 19
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+T 20
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=19 prio=0
+EV sound at=1.5,-59.5,5.5 r=16.0 ex=1 event=minecraft:block.stone_button.click_on source=block vol=1.0 pitch=1.0
+T 21
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=18 prio=0
+T 22
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=17 prio=0
+T 23
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=16 prio=0
+T 24
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=15 prio=0
+T 25
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=14 prio=0
+T 26
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=13 prio=0
+T 27
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=12 prio=0
+T 28
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=11 prio=0
+T 29
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=10 prio=0
+T 30
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=9 prio=0
+T 31
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=8 prio=0
+T 32
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=7 prio=0
+T 33
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=6 prio=0
+T 34
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=5 prio=0
+T 35
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=4 prio=0
+T 36
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=3 prio=0
+T 37
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=2 prio=0
+T 38
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 5 minecraft:stone_button delay=1 prio=0
+T 39
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 4 minecraft:redstone_lamp delay=4 prio=0
+EV sound at=1.5,-59.5,5.5 r=16.0 ex=0 event=minecraft:block.stone_button.click_off source=block vol=1.0 pitch=1.0
+T 40
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 4 minecraft:redstone_lamp delay=3 prio=0
+T 41
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 4 minecraft:redstone_lamp delay=2 prio=0
+T 42
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 4 minecraft:redstone_lamp delay=1 prio=0
+T 43
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+B 5 -60 4 minecraft:redstone_lamp[lit=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+T 44
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=29 prio=0
+EV sound at=4.5,-59.5,5.5 r=16.0 ex=1 event=minecraft:block.wooden_button.click_on source=block vol=1.0 pitch=1.0
+T 45
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=28 prio=0
+T 46
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=27 prio=0
+T 47
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=26 prio=0
+T 48
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=25 prio=0
+T 49
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=24 prio=0
+T 50
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=23 prio=0
+T 51
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=22 prio=0
+T 52
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=21 prio=0
+T 53
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=20 prio=0
+T 54
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=19 prio=0
+T 55
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=18 prio=0
+T 56
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=17 prio=0
+T 57
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=16 prio=0
+T 58
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=15 prio=0
+T 59
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=14 prio=0
+T 60
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=13 prio=0
+T 61
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=12 prio=0
+T 62
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=11 prio=0
+T 63
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=10 prio=0
+T 64
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=9 prio=0
+T 65
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=8 prio=0
+T 66
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=7 prio=0
+T 67
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=6 prio=0
+T 68
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=5 prio=0
+T 69
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=4 prio=0
+T 70
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=3 prio=0
+T 71
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=2 prio=0
+T 72
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=1 prio=0
+T 73
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 5 -60 4 minecraft:redstone_lamp delay=4 prio=0
+EV sound at=4.5,-59.5,5.5 r=16.0 ex=0 event=minecraft:block.wooden_button.click_off source=block vol=1.0 pitch=1.0
+T 74
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 5 -60 4 minecraft:redstone_lamp delay=3 prio=0
+T 75
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 5 -60 4 minecraft:redstone_lamp delay=2 prio=0
+T 76
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=true]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 5 -60 4 minecraft:redstone_lamp delay=1 prio=0
+EV sound at=1.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.6
+T 77
+B 1 -60 0 minecraft:stone
+B 1 -60 1 minecraft:lever[face=wall,facing=south,powered=true]
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+B 5 -60 4 minecraft:redstone_lamp[lit=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+DIG p ticks=0 broken=true
+T 78
+B 1 -60 0 minecraft:stone
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+B 5 -60 4 minecraft:redstone_lamp[lit=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=3 prio=0
+EV level_event r=64.0 ex=1 type=2001 pos=1,-60,1 data=8449 global=0
+T 79
+B 1 -60 0 minecraft:stone
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+B 5 -60 4 minecraft:redstone_lamp[lit=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=2 prio=0
+T 80
+B 1 -60 0 minecraft:stone
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+B 5 -60 4 minecraft:redstone_lamp[lit=false]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=1 prio=0
+T 81
+B 1 -60 0 minecraft:stone
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=29 prio=0
+EV sound at=4.5,-59.5,5.5 r=16.0 ex=1 event=minecraft:block.wooden_button.click_on source=block vol=1.0 pitch=1.0
+T 82
+B 1 -60 0 minecraft:stone
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=true]
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 5 minecraft:oak_button delay=28 prio=0
+DIG p ticks=0 broken=true
+T 83
+B 1 -60 0 minecraft:stone
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 5 -60 4 minecraft:redstone_lamp delay=3 prio=0
+TICK block 4 -60 5 minecraft:oak_button delay=27 prio=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,5 data=12428 global=0
+T 84
+B 1 -60 0 minecraft:stone
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 5 -60 4 minecraft:redstone_lamp delay=2 prio=0
+TICK block 4 -60 5 minecraft:oak_button delay=26 prio=0
+T 85
+B 1 -60 0 minecraft:stone
+B 1 -60 4 minecraft:stone
+B 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+B 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+B 4 -60 4 minecraft:stone
+B 5 -60 4 minecraft:redstone_lamp[lit=true]
+B 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=true]
+B 7 -59 0 minecraft:stone
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 5 -60 4 minecraft:redstone_lamp delay=1 prio=0
+TICK block 4 -60 5 minecraft:oak_button delay=25 prio=0

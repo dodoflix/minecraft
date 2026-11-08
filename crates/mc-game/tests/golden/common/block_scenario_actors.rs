@@ -1,5 +1,5 @@
 //! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `tp`, `snap`, `velocity`, `set`,
-//! `spawn_player`, `give`, `select`, `use_on`, `use`, `dig`, `explode`, `dump entities|entity:REF|player:NAME|inventory:NAME|packets:NAME`).
+//! `spawn_player`, `give`, `select`, `use_on`, `use`, `sign_update`, `dig`, `explode`, `dump entities|entity:REF|player:NAME|inventory:NAME|packets:NAME`).
 //! Included by `block_scenario.rs` (private state of `Scenario`). Differences from the Java driver, all caused by the Rust level having no
 //! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` (no packet handler: no acks, no
 //! build-limit messages), entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
@@ -16,6 +16,7 @@ use mc_data::{EntityType, Item};
 use mc_game::server::level::ServerLevel;
 use mc_game::server::level::level_explode::Explode;
 use mc_game::server::network::{ConnectionSender, Outbound};
+use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
@@ -307,6 +308,32 @@ impl Scenario {
             "use_on" => {
                 self.world();
                 self.use_on(a);
+            }
+            "sign_update" => {
+                self.world();
+                let pos = BlockPos::new(
+                    a[2].parse().unwrap(),
+                    a[3].parse().unwrap(),
+                    a[4].parse().unwrap(),
+                );
+                let slot = if a[5] == "front" {
+                    SignTextSlot::Front
+                } else {
+                    SignTextSlot::Back
+                };
+                let lines: Vec<String> = (6..10)
+                    .map(|i| {
+                        a.get(i).map_or("", |l| {
+                            l.strip_prefix('"')
+                                .and_then(|l| l.strip_suffix('"'))
+                                .unwrap_or(l)
+                        })
+                    })
+                    .map(mc_text::ChatFormatting::strip_formatting)
+                    .collect();
+                self.with_player_named(&a[1], |level, p| {
+                    update_sign_text_from_packet(level, p, pos, slot, &lines)
+                });
             }
             "dig" => {
                 self.world();

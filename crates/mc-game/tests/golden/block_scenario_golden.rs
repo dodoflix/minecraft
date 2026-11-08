@@ -41,3 +41,18 @@ fn player_item_entity_dig_and_events() {
 fn explosion_destroys_blocks_with_level_random() {
     check("blk_harness_explode");
 }
+
+#[test]
+fn nether_dimension_lava_tick_delay() {
+    check("blk_harness_dimension");
+}
+
+#[test]
+fn block_entity_map_and_ticker_dump() {
+    check("blk_harness_bes");
+}
+
+#[test]
+fn sign_update_verb_edits_a_sign() {
+    check("blk_harness_sign");
+}

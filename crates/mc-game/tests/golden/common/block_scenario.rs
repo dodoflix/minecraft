@@ -11,10 +11,10 @@
 //! ```
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
-//! Supported commands (same text as the Java driver, see its header): `level flat|void`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
-//! `note`, `gamerule NAME VALUE`, `time N`, `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `rand_value N`,
+//! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
+//! `note`, `gamerule NAME VALUE`, `time N` (sets the dimension's default clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
-//! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `ticks` (`TICK block|fluid x y z id
+//! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list order), `ticks` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
 //! dump: [`ServerLevel`]'s `tick_state.broadcast_log` here, `VanillaLevel.RecordingPlayerList` in Java). Everything else panics
 //! with the line number, so a scenario never silently runs half.
@@ -70,7 +70,11 @@ pub fn check(name: &str) {
 pub fn check_with(name: &str, opts: &Options) {
     let actual = run_scenario(name);
     let fixture = Fixture::load(name);
-    if let Err(report) = compare(&fixture.lines, &actual, opts) {
+    // `C` lines are the command feedback of the driver's `time`/`gamerule` verbs ("Set minecraft:overworld to N tick(s)"): the
+    // replay changes the same state without a command, so the text is not part of the comparison
+    let mut opts = opts.clone();
+    opts.ignore_kinds.push("C");
+    if let Err(report) = compare(&fixture.lines, &actual, &opts) {
         panic!(
             "block oracle scenario `{name}` differs from {}:\n{report}",
             fixture_dir().join(format!("{name}.txt")).display()
@@ -262,6 +266,43 @@ struct Options_ {
     difficulty: Difficulty,
     preload: i32,
     features: mc_world::level_storage::FeatureFlagSet,
+    /// `dimension`: the level every world command acts on.
+    dimension: &'static str,
+}
+
+/// Accepts every registry reference while decoding the vanilla dimension type JSON.
+struct AllKnown;
+impl mc_game::registry::codec::RegistryLookup for AllKnown {
+    fn contains(&self, _: &str, _: &Identifier) -> mc_game::registry::codec::Lookup {
+        mc_game::registry::codec::Lookup::Yes
+    }
+    fn tag_exists(&self, _: &str, _: &Identifier) -> mc_game::registry::codec::Lookup {
+        mc_game::registry::codec::Lookup::Yes
+    }
+}
+
+fn timeline(name: &str) -> Option<mc_game::world::attribute::Timeline> {
+    let json = mc_data::datapack::read_string(&format!("data/minecraft/timeline/{name}.json"))?;
+    mc_game::world::attribute::Timeline::from_json(&serde_json::from_str(&json).unwrap())
+}
+
+/// The timelines of a timeline tag (`data/minecraft/tags/timeline`), nested tags first-come like `HolderSet` expansion.
+fn timelines_of_tag(tag: &str) -> Vec<mc_game::world::attribute::Timeline> {
+    let json = mc_data::datapack::read_string(&format!("data/minecraft/tags/timeline/{tag}.json"))
+        .unwrap_or_else(|| panic!("timeline tag {tag}"));
+    let json: serde_json::Value = serde_json::from_str(&json).unwrap();
+    let mut out = Vec::new();
+    for v in json["values"].as_array().expect("values") {
+        let v = v.as_str().expect("tag entry");
+        let v = v.strip_prefix("minecraft:").unwrap_or(v);
+        match v.strip_prefix('#') {
+            Some(nested) => out.extend(timelines_of_tag(
+                nested.strip_prefix("minecraft:").unwrap_or(nested),
+            )),
+            None => out.extend(timeline(v)),
+        }
+    }
+    out
 }
 
 pub struct Scenario {
@@ -276,6 +317,9 @@ pub struct Scenario {
     actors: actors::Actors,
     line_no: usize,
     line: String,
+    /// The `world_clock` totals the attribute timelines read (`time N` sets the dimension's default clock).
+    clocks: Arc<mc_game::world::clock::ClockTotals>,
+    default_clock: Option<Identifier>,
 }
 
 impl Scenario {
@@ -297,6 +341,8 @@ impl Scenario {
         }
         set_rule(&mut game_rules, "random_tick_speed", "0");
         Scenario {
+            clocks: Arc::default(),
+            default_clock: None,
             level: None,
             env: Env {
                 game_rules,
@@ -312,6 +358,7 @@ impl Scenario {
                 difficulty: Difficulty::Normal,
                 preload: 6,
                 features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS,
+                dimension: "overworld",
             },
             log: Arc::new(Mutex::new(Vec::new())),
             line_no: 0,
@@ -337,22 +384,48 @@ impl Scenario {
         ));
         let (shared, _rx) = ServerShared::new();
         let biomes = BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
-        let generator: Arc<dyn ChunkGeneratorBackend> = if self.opts.flat {
-            Arc::new(FlatGenerator::default_layers())
-        } else {
-            Arc::new(FlatGenerator { layers: Vec::new() })
+        let dimension_json: serde_json::Value = serde_json::from_str(
+            &mc_data::datapack::read_string(&format!(
+                "data/minecraft/dimension_type/{}.json",
+                self.opts.dimension
+            ))
+            .expect("dimension type json"),
+        )
+        .unwrap();
+        let dimension_type = mc_game::registry::typed::dimension_type::DimensionType::from_json(
+            &dimension_json,
+            &mc_game::registry::codec::RegistryDecodeContext::new(&AllKnown),
+        )
+        .expect("dimension type");
+        let timelines = match &dimension_type.timelines {
+            mc_game::registry::typed::HolderSetRef::Tag(tag) => timelines_of_tag(tag.path()),
+            mc_game::registry::typed::HolderSetRef::Elements(ids) => {
+                ids.iter().filter_map(|id| timeline(id.path())).collect()
+            }
         };
+        self.default_clock = dimension_type.default_clock.clone();
+        // flat only exists in the overworld; the other dimensions are void here (scenarios fill what they dump)
+        let generator: Arc<dyn ChunkGeneratorBackend> =
+            if self.opts.flat && self.opts.dimension == "overworld" {
+                Arc::new(FlatGenerator::default_layers())
+            } else {
+                Arc::new(FlatGenerator { layers: Vec::new() })
+            };
         let mut level = ServerLevel::new(ServerLevelParams {
             shared,
-            dimension: Identifier::parse("minecraft:overworld").unwrap(),
+            dimension: Identifier::parse(&format!("minecraft:{}", self.opts.dimension)).unwrap(),
             level_id: "block_scenario".to_string(),
             dimension_dir: dir,
             level_height: LevelHeight {
-                min_y: -64,
-                height: 384,
+                min_y: dimension_type.min_y,
+                height: dimension_type.height,
             },
-            sea_level: 63,
-            has_sky_light: true,
+            sea_level: match self.opts.dimension {
+                "overworld" => 63,
+                "the_nether" => 32,
+                _ => 0,
+            },
+            has_sky_light: dimension_type.has_sky_light,
             factory: Arc::new(PalettedContainerFactory::create(biomes).expect("plains registered")),
             generator,
             generate_structures: false,
@@ -367,6 +440,14 @@ impl Scenario {
                 mc_game::server::level::level_data::default_world_data(),
             )),
         });
+        // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`); no biome layers
+        level.tick_state.attributes = mc_game::world::attribute::EnvironmentAttributeSystem::build(
+            &dimension_type.attributes,
+            &vec![None],
+            &timelines,
+            false,
+            self.clocks.clone(),
+        );
         level.tick_state.tick_time = true;
         level.tick_state.enabled_features = self.opts.features;
         level.server_state.rules.refresh(&self.env.game_rules);
@@ -446,6 +527,18 @@ impl Scenario {
                     }
                 };
             }
+            "dimension" => {
+                assert!(
+                    self.level.is_none(),
+                    "`dimension` only before the first world command"
+                );
+                self.opts.dimension = match a[1].as_str() {
+                    "overworld" => "overworld",
+                    "the_nether" => "the_nether",
+                    "the_end" => "the_end",
+                    other => panic!("dimension {other}"),
+                };
+            }
             "seed" => {}
             "difficulty" => {
                 self.opts.difficulty = match a[1].as_str() {
@@ -477,7 +570,12 @@ impl Scenario {
             }
             "time" => {
                 self.world();
-                self.env.clock = a[1].parse().unwrap_or_else(|_| panic!("time {}", a[1]));
+                let ticks: i64 = a[1].parse().unwrap_or_else(|_| panic!("time {}", a[1]));
+                self.env.clock = ticks;
+                // `/time set`: the default clock of the level; the sky follows from the next tick (`updateSkyBrightness`)
+                if let Some(clock) = &self.default_clock {
+                    self.clocks.set(clock, ticks);
+                }
             }
             "level_seed" => {
                 self.world();
@@ -620,6 +718,7 @@ impl Scenario {
             be.load_with_components(&merged);
         });
         assert!(ok.is_some(), "no block entity at {}", p.to_short_string());
+        level.block_entity_set_changed(p, state); // be.setChanged() of `/data merge block`
         level.send_block_updated(p, state, state, 3);
     }
 
@@ -673,7 +772,11 @@ impl Scenario {
                     self.out
                         .push(format!("BEU {} {} {} {text}", c[0], c[1], c[2]));
                 }
-                "ticks" => self.dump_ticks(),
+                "bes" => {
+                    let c: Vec<i32> = arg.expect("bes:cx,cz").split(',').map(int).collect();
+                    self.dump_bes(c[0], c[1]);
+                }
+                "ticks" => self.dump_ticks(arg),
                 _ if self.dump_actor(kind, arg) => {}
                 "events" => self.dump_events(),
                 other => panic!("dump {other} is not supported by tests/common/block_scenario.rs"),
@@ -681,7 +784,43 @@ impl Scenario {
         }
     }
 
-    fn dump_ticks(&mut self) {
+    /// `dump bes:cx,cz`: the chunk's block entity map in iteration order, then the level's ticker lists for that chunk.
+    fn dump_bes(&mut self, cx: i32, cz: i32) {
+        let level = self.level();
+        let mut rows = vec![format!("BES {cx} {cz}")];
+        let chunk = level.chunk_now(cx, cz).expect("bes: chunk not loaded");
+        for (p, be) in &chunk.block_entities {
+            rows.push(format!(
+                "BEM {} {} {} {}",
+                p.x(),
+                p.y(),
+                p.z(),
+                be.get_type().name()
+            ));
+        }
+        for (tag, list) in [
+            ("BET", &level.tick_state.block_entity_tickers),
+            ("BETP", &level.tick_state.pending_block_entity_tickers),
+        ] {
+            // a removed block entity's ticker is rebound to `NULL_TICKER`, whose position is `BlockPos.ZERO`
+            for p in list.iter().map(|t| t.0.get().unwrap_or(BlockPos::ZERO)) {
+                if p.x() >> 4 == cx && p.z() >> 4 == cz {
+                    rows.push(format!("{tag} {} {} {}", p.x(), p.y(), p.z()));
+                }
+            }
+        }
+        self.out.extend(rows);
+    }
+
+    /// `ticks[:x1,y1,z1,x2,y2,z2]`: the pending ticks (inside the optional box) in execution order.
+    fn dump_ticks(&mut self, area: Option<&str>) {
+        let b: Vec<i32> = area.map_or_else(Vec::new, |a| a.split(',').map(int).collect());
+        let inside = |p: BlockPos| {
+            b.is_empty()
+                || (b[0].min(b[3])..=b[0].max(b[3])).contains(&p.x())
+                    && (b[1].min(b[4])..=b[1].max(b[4])).contains(&p.y())
+                    && (b[2].min(b[5])..=b[2].max(b[5])).contains(&p.z())
+        };
         let r = self.opts.preload;
         let game_time = self.level().game_time();
         let mut rows: Vec<(i64, i32, i64, String)> = Vec::new();
@@ -691,7 +830,7 @@ impl Scenario {
             for cz in -r..=r {
                 let cp = ChunkPos::new(cx, cz);
                 if let Some(c) = containers.block.container(cp) {
-                    for t in c.get_all() {
+                    for t in c.get_all().filter(|t| inside(t.pos)) {
                         rows.push((
                             t.trigger_tick,
                             t.priority.get_value(),
@@ -709,7 +848,7 @@ impl Scenario {
                     }
                 }
                 if let Some(c) = containers.fluid.container(cp) {
-                    for t in c.get_all() {
+                    for t in c.get_all().filter(|t| inside(t.pos)) {
                         rows.push((
                             t.trigger_tick,
                             t.priority.get_value(),

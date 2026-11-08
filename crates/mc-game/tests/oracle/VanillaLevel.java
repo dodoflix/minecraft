@@ -99,6 +99,7 @@ public final class VanillaLevel {
       public String levelType = "flat"; // flat | void | normal
       public long seed = 4242L;
       public String difficulty = "normal";
+      public String dimension = "overworld"; // overworld | the_nether | the_end: the level `v.level` (blocks, ticks, dumps) refers to
       public String features = ""; // comma list of extra feature flags, e.g. redstone_experiments
       public GameType defaultGameType = GameType.SURVIVAL;
       public int preloadRadiusChunks = 6; // > view distance, so joining a player never waits for async chunk generation
@@ -308,7 +309,7 @@ public final class VanillaLevel {
       Server server = new Server(Thread.currentThread(), access, packs, stem, settings, services, new NotificationManager());
       server.start();
       REGISTRIES = server.registryAccess();
-      VanillaLevel v = new VanillaLevel(dir, server, server.overworld());
+      VanillaLevel v = new VanillaLevel(dir, server, server.getLevel(net.minecraft.resources.ResourceKey.create(Registries.DIMENSION, net.minecraft.resources.Identifier.withDefaultNamespace(o.dimension))));
       // frozen, quiet world; scripts may flip any rule with `gamerule`
       for (String rule : new String[] {"advance_time", "advance_weather", "spawn_mobs", "spawn_monsters", "spawn_patrols", "spawn_phantoms", "spawn_wandering_traders", "spawn_wardens", "raids", "log_admin_commands", "send_command_feedback"}) {
          v.command("gamerule " + rule + " false");
