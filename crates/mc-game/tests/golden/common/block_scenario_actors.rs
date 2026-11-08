@@ -4,7 +4,7 @@
 //! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` (no packet handler: no acks, no
 //! build-limit messages), entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
 //! reproduce: always call `entity_seed` right after `spawn`/`spawn_item` when the entity's randomness matters, and give `spawn_item` an
-//! explicit velocity), `explode` has no `source=`, `attack/swing/drop/respawn/hurt/effect/attribute/nbt/input/move_packet` are not replayed.
+//! explicit velocity), `explode` takes `source=REF`, `attack/swing/drop/respawn/hurt/effect/attribute/nbt/input/move_packet` are not replayed.
 use super::Scenario;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
@@ -76,6 +76,15 @@ static ACCESS: std::sync::LazyLock<(
         .expect("recipe manager")
         .clone();
     (stem.registries.composite_access().clone(), recipes)
+});
+
+/// The vanilla advancement tree of the default data pack; every replayed player gets progress over it (`PlayerAdvancements`).
+static ADVANCEMENTS: std::sync::LazyLock<
+    mc_game::advancements::server_advancement_manager::ServerAdvancementManager,
+> = std::sync::LazyLock::new(|| {
+    mc_game::advancements::server_advancement_manager::ServerAdvancementManager::from_registries(
+        &ACCESS.0,
+    )
 });
 
 fn dbl(v: f64) -> String {
@@ -471,7 +480,7 @@ impl Scenario {
         let mut p = ServerPlayer::new(
             id,
             Identifier::parse("minecraft:overworld").unwrap(),
-            profile,
+            profile.clone(),
             Default::default(),
         );
         let mode = match a[2].as_str() {
@@ -482,6 +491,12 @@ impl Scenario {
             other => panic!("game mode {other}"),
         };
         p.set_game_mode_for_player(mode, None);
+        p.advancements = mc_game::advancements::SharedAdvancements::new(
+            mc_game::advancements::player_advancements::PlayerAdvancements::new(
+                &ADVANCEMENTS,
+                None,
+            ),
+        );
         let (yaw, pitch) = if a.len() > 7 {
             (num(&a[6]) as f32, num(&a[7]) as f32)
         } else {
@@ -492,6 +507,16 @@ impl Scenario {
         let (tx, rx) = unbounded_channel();
         let sender = ConnectionSender::new(tx);
         p.connection = Some(sender.clone());
+        // the player list's roster: `PlayerList.broadcastSystemMessage` (advancement announcements) reaches the players
+        let handle = mc_game::server::players::PlayerHandle::new(
+            id,
+            profile,
+            sender.clone(),
+            "<unknown>".to_owned(),
+            level.dimension.clone(),
+        );
+        level.server_state.roster.add(handle.clone());
+        p.handle = Some(handle);
         let tracking = PlayerTrackingInfo {
             entity_id: id,
             uuid: p.uuid(),
@@ -632,9 +657,11 @@ impl Scenario {
         use mc_game::world::level::explosion::ExplosionInteraction as I;
         let mut inter = I::None;
         let mut fire = false;
+        let mut source = None;
         for t in &a[5..] {
             match t.as_str() {
                 "fire" => fire = true,
+                t if t.starts_with("source=") => source = Some(t[7..].to_owned()),
                 "none" => inter = I::None,
                 "block" => inter = I::Block,
                 "mob" => inter = I::Mob,
@@ -643,22 +670,32 @@ impl Scenario {
                 other => panic!("explode option {other} is not supported by the Rust replay"),
             }
         }
-        let params = Explode::new(
-            None,
-            num(&a[1]),
-            num(&a[2]),
-            num(&a[3]),
-            num(&a[4]) as f32,
-            inter,
-        )
-        .with_fire(fire);
-        self.level().explode(params, &mut []);
+        let (x, y, z, radius) = (num(&a[1]), num(&a[2]), num(&a[3]), num(&a[4]) as f32);
+        let Some(source) = source else {
+            let params = Explode::new(None, x, y, z, radius, inter).with_fire(fire);
+            self.level().explode(params, &mut []);
+            return;
+        };
+        // the source entity is out of the level's storage while it explodes, like a primed TNT's own tick
+        let id = self.entity_id(&source);
+        self.level().with_entity(id, |level, e| {
+            let params = Explode::new(Some(&*e), x, y, z, radius, inter).with_fire(fire);
+            level.explode(params, &mut []);
+        });
     }
 
     /// The player half of a tick, after `ServerLevel::tick` (which ticked the player entity): `ServerGamePacketListenerImpl.tick` -> `doTick`.
     pub(super) fn tick_players(&mut self) {
         for name in self.actors.players.clone() {
-            self.with_player_named(&name, |level, p| p.do_tick(level));
+            // `tickPlayer`: `resetPosition`, `xo/yo/zo`, `doTick`, then `absSnapTo(firstGood)`: a client-authoritative player
+            // keeps the position it had, whatever the server-side tick did to it
+            self.with_player_named(&name, |level, p| {
+                let pos = p.position();
+                p.player.living.entity.set_old_pos(pos);
+                p.do_tick(level);
+                let (y_rot, x_rot) = (p.get_y_rot(), p.get_x_rot());
+                p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
+            });
         }
     }
 
@@ -717,11 +754,14 @@ impl Scenario {
                     .get_entity(id)
                     .and_then(|e| {
                         e.as_any().downcast_ref::<ServerPlayer>().map(|p| {
-                            p.player
-                                .inventory
-                                .get_non_equipment_items()
-                                .iter()
-                                .enumerate()
+                            // `Inventory.getItem(i)`: the 36 slots, then the equipment slots (feet, legs, chest, head, offhand, body, saddle)
+                            let inv = &p.player.inventory;
+                            let main = inv.get_non_equipment_items().iter().enumerate();
+                            let worn = (36..=42).filter_map(|i| {
+                                mc_game::world::entity::player::inventory::equipment_slot_for(i)
+                                    .map(|es| (i, inv.equipment_get(es)))
+                            });
+                            main.chain(worn)
                                 .filter(|(_, s)| !s.is_empty())
                                 .map(|(i, s)| format!("I {name} {i} {}", item_name(s)))
                                 .collect()
@@ -852,6 +892,18 @@ impl Scenario {
                 o.count,
                 o.age,
                 o.health
+            );
+        } else if let Some(f) =
+            e.as_any()
+                .downcast_ref::<mc_game::world::entity::falling_block_entity::FallingBlockEntity>()
+        {
+            s += &format!(
+                " state={} time={} hurt={} cancel={} drop={}",
+                super::state_string(f.get_block_state()),
+                f.time,
+                f.hurts_entities(),
+                f.is_drop_cancelled(),
+                f.drop_item
             );
         } else if let Some(t) = e
             .as_any()

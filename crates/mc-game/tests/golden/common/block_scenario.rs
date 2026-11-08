@@ -12,7 +12,7 @@
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
-//! `note`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `rand_value N`,
+//! `note`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
@@ -408,6 +408,13 @@ impl Scenario {
             } else {
                 Arc::new(FlatGenerator { layers: Vec::new() })
             };
+        // `VanillaLevel.boot` reseeds the uniquifier before the server exists: the level's sound seed generator is deterministic.
+        // The vanilla server draws unique seeds before the overworld's sound seed generator (the 5th draw, measured against the
+        // oracle's first sound seed), our level one before it. The other dimensions come after further draws: not reproduced.
+        mc_core::random::reseed_uniquifier(8682522807148012);
+        for _ in 0..3 {
+            mc_core::random::generate_unique_seed();
+        }
         let mut level = ServerLevel::new(ServerLevelParams {
             shared,
             dimension: Identifier::parse(&format!("minecraft:{}", self.opts.dimension)).unwrap(),
@@ -453,6 +460,8 @@ impl Scenario {
             false, // shortcut: no weather layers; the scenarios keep the weather clear, so the sky does not depend on them
             self.clocks.clone(),
         );
+        // the level's own id sequence (starts at 1 like the oracle's `ENTITY_COUNTER`): parallel tests must not share ids
+        level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
         level.tick_state.tick_time = true;
         level.tick_state.enabled_features = self.opts.features;
         level.server_state.rules.refresh(&self.env.game_rules);
@@ -599,6 +608,15 @@ impl Scenario {
                 self.clocks
                     .set(&Identifier::parse("minecraft:overworld").unwrap(), ticks);
             }
+            "entity_counter" => {
+                self.world();
+                let n = int(&a[1]);
+                self.level()
+                    .entity_id_counter
+                    .as_ref()
+                    .expect("per-level counter")
+                    .store(n, std::sync::atomic::Ordering::Relaxed);
+            }
             "level_seed" => {
                 self.world();
                 let seed: i64 = a[1].parse().unwrap();
@@ -741,12 +759,13 @@ impl Scenario {
             mc_nbt::snbt::parse_compound(snbt).unwrap_or_else(|e| panic!("bad SNBT {snbt}: {e}"));
         let level = self.level();
         let state = level.get_block_state(p);
-        let ok = level.with_block_entity(p, |_, be| {
-            let mut merged = be.save_with_full_metadata();
-            merged.merge(&tag);
-            be.load_with_components(&merged);
-        });
-        assert!(ok.is_some(), "no block entity at {}", p.to_short_string());
+        let mut merged = level
+            .get_block_entity_immediate(p)
+            .unwrap_or_else(|| panic!("no block entity at {}", p.to_short_string()))
+            .save_with_full_metadata();
+        merged.merge(&tag);
+        // `loadWithComponents` on a block entity that has its level: the level-attached `loadAdditional` effects run
+        assert!(level.load_block_entity_in_level(p, &merged));
         level.block_entity_set_changed(p, state); // be.setChanged() of `/data merge block`
         level.send_block_updated(p, state, state, 3);
     }
