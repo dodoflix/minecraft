@@ -56,20 +56,27 @@ pub struct Actors {
     pub registries_loaded: bool,
 }
 
-static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> =
-    std::sync::LazyLock::new(|| {
-        let _serial = super::super::SERIAL
-            .lock()
-            .unwrap_or_else(|e| e.into_inner());
-        let dir = tempfile::tempdir().unwrap();
-        let (_, stem) = super::super::load_world(
-            dir.path(),
-            mc_world::level_storage::WorldDataConfiguration::DEFAULT,
-            true,
-        )
-        .expect("default world loads");
-        stem.registries.composite_access().clone()
-    });
+static ACCESS: std::sync::LazyLock<(
+    mc_game::registry::RegistryAccess,
+    mc_game::world::item::crafting::RecipeManager,
+)> = std::sync::LazyLock::new(|| {
+    let _serial = super::super::SERIAL
+        .lock()
+        .unwrap_or_else(|e| e.into_inner());
+    let dir = tempfile::tempdir().unwrap();
+    let (_, stem) = super::super::load_world(
+        dir.path(),
+        mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+        true,
+    )
+    .expect("default world loads");
+    let recipes = stem
+        .data_pack_resources
+        .listener::<mc_game::world::item::crafting::RecipeManager>()
+        .expect("recipe manager")
+        .clone();
+    (stem.registries.composite_access().clone(), recipes)
+});
 
 fn dbl(v: f64) -> String {
     mc_core::math::java::java_double_to_string(v)
@@ -110,7 +117,9 @@ impl Scenario {
     pub(super) fn load_registries(&mut self) {
         if !self.actors.registries_loaded {
             self.actors.registries_loaded = true;
-            self.level().registries = ACCESS.clone();
+            let level = self.level();
+            level.registries = ACCESS.0.clone();
+            level.shared.set_recipe_manager(ACCESS.1.clone());
         }
     }
 
@@ -832,6 +841,17 @@ impl Scenario {
                 item.health,
                 item.target.map_or("-".into(), |u| u.to_string()),
                 item.thrower.map_or("-".into(), |u| u.to_string())
+            );
+        } else if let Some(o) = e
+            .as_any()
+            .downcast_ref::<mc_game::world::entity::experience_orb::ExperienceOrb>()
+        {
+            s += &format!(
+                " value={} count={} age={} health={}",
+                o.get_value(),
+                o.count,
+                o.age,
+                o.health
             );
         } else if let Some(t) = e
             .as_any()
