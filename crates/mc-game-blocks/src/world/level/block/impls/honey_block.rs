@@ -1,8 +1,10 @@
 //! `net.minecraft.world.level.block.HoneyBlock` (the entity-facing half: sliding and landing).
 use mc_core::phys::Vec3;
+use mc_game_core::advancements::triggers::CriteriaTriggers;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier;
 use mc_game_core::world::level::block::impls::prelude::*;
 
@@ -60,6 +62,16 @@ fn do_slide_movement(entity: &mut dyn Entity) {
     entity.reset_fall_distance();
 }
 
+/// `maybeDoSlideAchievement`: players trigger `slide_down_block` once per second.
+fn maybe_do_slide_achievement(level: &mut ServerLevel, entity: &mut dyn Entity, pos: BlockPos) {
+    if level.get_game_time() % 20 == 0
+        && let Some(player) = entity.as_any_mut().downcast_mut::<ServerPlayer>()
+    {
+        let state = level.get_block_state(pos);
+        CriteriaTriggers::HONEY_BLOCK_SLIDE.trigger(level, player, state);
+    }
+}
+
 fn maybe_do_slide_effects(level: &mut ServerLevel, entity: &mut dyn Entity) {
     if does_entity_do_honey_block_slide_effects(entity) {
         if LevelAccessor::random(level).next_int_bounded(5) == 0 {
@@ -114,7 +126,7 @@ impl BlockBehaviour for HoneyBlock {
         _is_precise: bool,
     ) {
         if is_sliding_down(pos, entity) {
-            // `maybeDoSlideAchievement` (HONEY_BLOCK_SLIDE trigger) needs the advancement triggers
+            maybe_do_slide_achievement(level, entity, pos);
             do_slide_movement(entity);
             maybe_do_slide_effects(level, entity);
         }

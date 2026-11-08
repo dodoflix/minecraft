@@ -31,19 +31,20 @@ impl BlockBehaviour for EndGatewayBlock {
         if !entity.can_use_portal(false) {
             return;
         }
-        let triggered = level
-            .with_block_entity(pos, |level, be| {
-                match be.as_any_mut().downcast_mut::<TheEndGatewayBlockEntity>() {
-                    Some(gateway) if !gateway.is_cooling_down() => {
-                        gateway.trigger_cooldown(level);
-                        true
-                    }
-                    _ => false,
-                }
+        let ready = level
+            .with_block_entity(pos, |_, be| {
+                be.as_any_mut()
+                    .downcast_mut::<TheEndGatewayBlockEntity>()
+                    .is_some_and(|gateway| !gateway.is_cooling_down())
             })
             .unwrap_or(false);
-        if triggered {
+        if ready {
             entity.set_as_inside_portal(level, &END_GATEWAY_BLOCK, pos);
+            level.with_block_entity(pos, |level, be| {
+                if let Some(gateway) = be.as_any_mut().downcast_mut::<TheEndGatewayBlockEntity>() {
+                    gateway.trigger_cooldown(level);
+                }
+            });
         }
     }
 

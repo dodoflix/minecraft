@@ -822,6 +822,9 @@ pub fn anger_nearby_piglins(
     }
 }
 
+#[linkme::distributed_slice(mc_game_core::server::level::block_break::PIGLIN_ANGER)]
+static ANGER_NEARBY_PIGLINS: fn(&mut ServerLevel, &dyn Entity, bool) = anger_nearby_piglins;
+
 /// `BehaviorUtils.canSee(body, target)` for a target that may be out of the level.
 fn can_see_entity(level: &ServerLevel, body: &dyn Entity, target: &dyn Entity) -> bool {
     body.brain()

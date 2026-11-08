@@ -370,6 +370,7 @@ impl BlockBehaviour for ChestBlock {
                 };
                 player.award_stat_once(&*level, stat);
             }
+            crate::server::level::block_break::anger_nearby_piglins(level, &*player, true);
         }
         crate::world::item::InteractionResult::SUCCESS
     }

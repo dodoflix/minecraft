@@ -162,6 +162,7 @@ impl BlockBehaviour for ShulkerBoxBlock {
                 player
                     .award_stat_once(&*level, mc_game_core::stats::stats::Stats::OPEN_SHULKER_BOX);
             }
+            mc_game_core::server::level::block_break::anger_nearby_piglins(level, &*player, true);
         }
         mc_game_core::world::item::InteractionResult::SUCCESS
     }
