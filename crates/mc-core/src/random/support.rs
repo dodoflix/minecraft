@@ -66,6 +66,15 @@ pub fn reseed_uniquifier(value: i64) {
     ORACLE_UNIQUIFIER.with(|c| c.set(Some(value)));
 }
 
+/// Runs `f` without advancing the calling thread's oracle uniquifier: for copies that vanilla does not create (a damage source
+/// refers to its entity, ours snapshots it), so the seeds of the entities created afterwards stay those of the oracle.
+pub fn without_advancing_oracle_uniquifier<R>(f: impl FnOnce() -> R) -> R {
+    let saved = ORACLE_UNIQUIFIER.with(|c| c.get());
+    let result = f();
+    ORACLE_UNIQUIFIER.with(|c| c.set(saved));
+    result
+}
+
 pub fn generate_unique_seed() -> i64 {
     if let Some(current) = ORACLE_UNIQUIFIER.with(|c| c.get()) {
         let updated = current.wrapping_mul(1181783497276652981);

@@ -21,6 +21,7 @@ pub use random_source::{
 pub use support::{
     GOLDEN_RATIO_64, SILVER_RATIO_64, Seed128bit, generate_unique_seed, mix_stafford13,
     reseed_uniquifier, seed_from_hash_of, upgrade_seed_to_128bit, upgrade_seed_to_128bit_unmixed,
+    without_advancing_oracle_uniquifier,
 };
 pub use worldgen_random::{Algorithm, WorldgenRandom};
 pub use xoroshiro::{

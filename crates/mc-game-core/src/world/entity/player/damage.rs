@@ -498,12 +498,14 @@ fn broadcast_death_message(player: &ServerPlayer, level: &ServerLevel, message: 
 /// evaluation reads of an attacker (position, flags, attributes, effects, equipment, inventory, abilities, game mode).
 pub fn snapshot_for_damage(player: &ServerPlayer) -> Box<dyn Entity> {
     use crate::world::entity::entity::DATA_SHARED_FLAGS_ID;
-    let mut copy = ServerPlayer::new(
-        player.id(),
-        player.dimension.clone(),
-        player.player.game_profile.clone(),
-        Default::default(),
-    );
+    let mut copy = mc_core::random::without_advancing_oracle_uniquifier(|| {
+        ServerPlayer::new(
+            player.id(),
+            player.dimension.clone(),
+            player.player.game_profile.clone(),
+            Default::default(),
+        )
+    });
     let (src, dst) = (&player.player, &mut copy.player);
     dst.inventory
         .equipment_mut()
