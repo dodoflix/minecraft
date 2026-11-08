@@ -186,7 +186,10 @@ impl ManagementApi for ServerManagementApi {
         self.with(move |s| super::players::player_ops::deop(s, &user));
     }
     fn clear_operators(&self) {
-        self.with(|s| s.player_list.ops.clear());
+        self.with(|s| {
+            s.player_list.ops.clear();
+            s.player_list.refresh_player_permissions();
+        });
     }
 
     fn players(&self) -> Vec<ManagementPlayer> {

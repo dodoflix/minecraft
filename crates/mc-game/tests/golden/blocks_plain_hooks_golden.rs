@@ -1,6 +1,6 @@
 //! Plain block-side hooks against the real vanilla level: game master blocks and the op permission, composters as
 //! `WorldlyContainerHolder`s, piglins angered by guarded blocks. Scenarios: `tests/oracle/scenarios/blk_light_barrier.txt`,
-//! `blk_composter_hopper.txt`, `blk_piglin_gold_break.txt`; fixtures from `scripts/block-oracle.sh NAME`.
+//! `blk_composter_hopper.txt`, `blk_piglin_gold_break.txt`, `blk_gamemaster_blocks.txt`; fixtures from `scripts/block-oracle.sh NAME`.
 use crate::common::block_scenario::check;
 
 #[test]

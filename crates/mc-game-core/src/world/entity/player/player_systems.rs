@@ -100,7 +100,7 @@ impl PlayerSystems for ServerPlayerSystems {
             mc_data::GameEvent::CONTAINER_OPEN,
             position,
         );
-        // Not implemented: `PiglinAi.angerNearbyPiglins(level, player, true)`
+        crate::server::level::block_break::anger_nearby_piglins(ctx.level, &*ctx.player, true);
     }
 
     /// `Player.tryToStartFallFlying()`.

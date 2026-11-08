@@ -254,7 +254,7 @@ pub trait ContainerEntity: Entity {
         if level.entity_drops() {
             self.drop_chest_contents(level);
             if source.direct_is_player() {
-                // Not implemented: `PiglinAi.angerNearbyPiglins(level, player, true)`
+                // Not implemented: `PiglinAi.angerNearbyPiglins(level, player, true)` (the attacking player is taken out of the level here; call `block_break::anger_nearby_piglins`)
             }
         }
     }

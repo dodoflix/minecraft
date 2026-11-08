@@ -1006,7 +1006,7 @@ impl Entity for AbstractBoat {
                 GameEvent::CONTAINER_OPEN,
                 self.base.position(),
             );
-            // Not implemented: `PiglinAi.angerNearbyPiglins(level, player, true)`
+            crate::server::level::block_break::anger_nearby_piglins(level, &*player, true);
         }
         result
     }
