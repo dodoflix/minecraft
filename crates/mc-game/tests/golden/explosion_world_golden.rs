@@ -142,6 +142,8 @@ fn run(scenario: &str) {
     let text = std::fs::read_to_string(scenario_dir().join(format!("{scenario}.txt"))).unwrap();
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     level.registries = registries();
+    // loot random sequences are seeded from the oracle world's seed (`VanillaLevel.Options.seed`)
+    level.server_state.loot.world_seed = 4242;
     for x in -3..=40 {
         for z in -12..=12 {
             level

@@ -17,13 +17,11 @@ scenario!(bud, extend_dirs, sticky_dirs, slime_honey, machines);
 // pitches differ from vanilla (our run draws fewer values than vanilla between two events). Not yet diagnosed (drops through
 // the loot system in the scenario level); block states and block events match up to there.
 #[test]
-#[ignore = "deviation: piston sound pitch differs after blocks are destroyed by pushing (#5)"]
 fn push_limit() {
     common::block_scenario::check("blk_pistons_push_limit");
 }
 
 #[test]
-#[ignore = "deviation: piston sound pitch differs after blocks are destroyed by pushing (#5)"]
 fn reactions() {
     common::block_scenario::check("blk_pistons_reactions");
 }

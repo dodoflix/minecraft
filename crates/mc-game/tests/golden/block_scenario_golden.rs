@@ -37,7 +37,6 @@ fn player_item_entity_dig_and_events() {
 }
 
 #[test]
-#[ignore = "deviation: explosion drops differ in stack size and position (#4)"]
 fn explosion_destroys_blocks_with_level_random() {
     check("blk_harness_explode");
 }

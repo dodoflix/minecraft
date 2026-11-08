@@ -29,7 +29,6 @@ mc-game tests/golden/main.rs entity_items_orbs_golden::orb_follow_pickup_and_men
 mc-game tests/golden/main.rs entity_scenarios::item_collide
 mc-game tests/golden/main.rs entity_scenarios::item_motion
 mc-game tests/golden/main.rs entity_scenarios::mob_trades_villagers
-mc-game tests/golden/main.rs explosion_world_golden::explosions_vs_entities_match_vanilla
 mc-game tests/golden/main.rs explosion_world_golden::tnt_blocks_match_vanilla
 mc-game tests/golden/main.rs goals_combat_golden::creeper_target_swell_melee
 mc-game tests/golden/main.rs gossip_golden::gossip_container_matches_vanilla

@@ -1,20 +1,21 @@
 //! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `tp`, `snap`, `velocity`, `set`,
-//! `spawn_player`, `give`, `select`, `use_on`, `use`, `sign_update`, `dig`, `explode`, `dump entities|entity:REF|player:NAME|inventory:NAME|packets:NAME`).
+//! `spawn_player`, `give`, `select`, `use_on`, `use`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|entity:REF|player:NAME|inventory:NAME|packets:NAME`).
 //! Included by `block_scenario.rs` (private state of `Scenario`). Differences from the Java driver, all caused by the Rust level having no
 //! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` (no packet handler: no acks, no
 //! build-limit messages), entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
 //! reproduce: always call `entity_seed` right after `spawn`/`spawn_item` when the entity's randomness matters, and give `spawn_item` an
-//! explicit velocity), `explode` has no `source=`, `attack/swing/drop/respawn/pcommand/hurt/effect/attribute/nbt/input/move_packet` are not replayed.
+//! explicit velocity), `explode` has no `source=`, `attack/swing/drop/respawn/hurt/effect/attribute/nbt/input/move_packet` are not replayed.
 use super::Scenario;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::phys::{BlockHitResult, Vec3};
-use mc_core::pos::BlockPos;
+use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::LegacyRandomSource;
 use mc_data::enums::GameType;
 use mc_data::{EntityType, Item};
-use mc_game::server::level::ServerLevel;
+use mc_game::server::level::chunk_send_sink::ChunkSendSink;
 use mc_game::server::level::level_explode::Explode;
+use mc_game::server::level::{PlayerTrackingInfo, ServerLevel};
 use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
 use mc_game::world::entity::equipment::EquipmentSlot;
@@ -23,9 +24,25 @@ use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::item::{InteractionHand, ItemStack};
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_protocol::codec::{GameProfile, read_varint};
+use mc_protocol::codec::read_varint;
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
+
+/// The chunk sink of a player that acknowledges every chunk at once.
+struct AcknowledgedChunks;
+
+impl ChunkSendSink for AcknowledgedChunks {
+    fn mark_chunk_pending_to_send(&mut self, _pos: ChunkPos) {}
+    fn drop_chunk(&mut self, _pos: ChunkPos, _alive: bool) {}
+    fn is_pending(&self, _pos: i64) -> bool {
+        false
+    }
+}
+
+/// `VanillaLevel.reseed(hash(name))`: the entity random seeds of what a spawn command creates.
+fn reseed_for(name: &str) {
+    mc_core::random::reseed_uniquifier(crate::common::entity_scenario::java_hash(name));
+}
 
 /// What the actors need next to the level.
 #[derive(Default)]
@@ -165,11 +182,13 @@ impl Scenario {
             "spawn" => {
                 self.world();
                 self.load_registries();
+                reseed_for(&a[1]);
                 self.spawn(a);
             }
             "spawn_item" => {
                 self.world();
                 self.load_registries();
+                reseed_for(&a[1]);
                 let rot = a
                     .iter()
                     .skip(3)
@@ -271,6 +290,7 @@ impl Scenario {
             "spawn_player" => {
                 self.world();
                 self.load_registries();
+                reseed_for(&a[1]);
                 self.spawn_player(a);
             }
             "give" => {
@@ -306,6 +326,22 @@ impl Scenario {
                         .inventory
                         .set_selected_slot(a[2].parse().unwrap())
                         .expect("hotbar slot");
+                });
+            }
+            "pcommand" => {
+                self.world();
+                // `handlePlayerCommand` of the actions the scenarios use (the packet handler itself needs a connection)
+                self.with_player_named(&a[1], |level, p| {
+                    match a[2].to_ascii_lowercase().as_str() {
+                        "start_sprinting" => p.set_sprinting(true),
+                        "stop_sprinting" => p.set_sprinting(false),
+                        "stop_sleeping" => {
+                            if p.is_sleeping() {
+                                p.stop_sleep_in_bed(level, false, true);
+                            }
+                        }
+                        other => panic!("pcommand {other} is not supported by the Rust replay"),
+                    }
                 });
             }
             "use" => {
@@ -422,11 +458,7 @@ impl Scenario {
         );
         let level = self.level();
         let id = level.next_entity_id();
-        let profile = GameProfile {
-            id: uuid::Uuid::from_u128(id as u128),
-            name: name.clone(),
-            properties: vec![],
-        };
+        let profile = mc_game::server::network::login_listener::create_offline_profile(&name);
         let mut p = ServerPlayer::new(
             id,
             Identifier::parse("minecraft:overworld").unwrap(),
@@ -449,8 +481,22 @@ impl Scenario {
         p.snap_to(num(&a[3]), num(&a[4]), num(&a[5]), yaw, pitch);
         p.base_mut().first_tick = true;
         let (tx, rx) = unbounded_channel();
-        p.connection = Some(ConnectionSender::new(tx));
+        let sender = ConnectionSender::new(tx);
+        p.connection = Some(sender.clone());
+        let tracking = PlayerTrackingInfo {
+            entity_id: id,
+            uuid: p.uuid(),
+            connection: sender,
+            sink: Box::new(AcknowledgedChunks),
+            position: p.position(),
+            requested_view_distance: p.requested_view_distance,
+            spectator: p.is_spectator(),
+            alive: true,
+        };
         level.add_player(Box::new(p));
+        // `PlayerList.placeNewPlayer` registers the player with the chunk map: the spawning chunks it creates are shuffled
+        // with the level random on every tick (`ServerChunkCache.tickChunks`), which every later spawner draw depends on.
+        level.chunk_source.chunk_map.add_player(tracking);
         // a non-simulated player has no movement packets: onGround is derived once (resting on a block)
         level.with_player(id, |level, p| {
             let bb = p.base().bounding_box().move_(0.0, -1.0E-3, 0.0);
@@ -628,6 +674,23 @@ impl Scenario {
                 let name = arg.expect("entity:REF");
                 let id = self.entity_id(name);
                 let line = self.describe(name, id);
+                self.out.push(line);
+            }
+            // N REF {canonical sorted SNBT of saveWithoutId, UUID removed}
+            "nbt" => {
+                let name = arg.expect("nbt:REF");
+                let id = self.entity_id(name);
+                let level = self.level();
+                let e = level
+                    .get_entity(id)
+                    .unwrap_or_else(|| panic!("entity {name} is gone"));
+                let mut tag = mc_nbt::CompoundTag::new();
+                e.save_without_id(&mut tag, &|i| level.get_entity(i));
+                tag.remove("UUID");
+                let line = format!(
+                    "N {name} {}",
+                    super::super::entity_scenario::canon(&mc_nbt::Tag::Compound(tag))
+                );
                 self.out.push(line);
             }
             "all_players" => {

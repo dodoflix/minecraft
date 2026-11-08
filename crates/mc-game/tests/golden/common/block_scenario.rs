@@ -14,7 +14,7 @@
 //! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
 //! `note`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
-//! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list; `BEM` order is only comparable for one block entity per chunk while our chunk map is a std `HashMap`), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
+//! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
 //! dump: [`ServerLevel`]'s `tick_state.broadcast_log` here, `VanillaLevel.RecordingPlayerList` in Java). Everything else panics
 //! with the line number, so a scenario never silently runs half.
@@ -435,7 +435,14 @@ impl Scenario {
             sync_writes: false,
             is_debug: false,
             level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
-                mc_game::server::level::level_data::default_world_data(),
+                {
+                    let data = mc_game::server::level::level_data::default_world_data();
+                    if self.opts.flat {
+                        // the vanilla flat world's spawn (natural spawning keeps its distance from it)
+                        data.lock().respawn_data.pos = BlockPos::new(0, -60, 0);
+                    }
+                    data
+                },
             )),
         });
         // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`); no biome layers
@@ -449,6 +456,8 @@ impl Scenario {
         level.tick_state.tick_time = true;
         level.tick_state.enabled_features = self.opts.features;
         level.server_state.rules.refresh(&self.env.game_rules);
+        // loot random sequences are seeded from the world seed (`VanillaLevel.Options.seed`)
+        level.server_state.loot.world_seed = self.opts_seed();
         level.tick_state.broadcast_log = Some(self.log.clone());
         self.env.difficulty = self.opts.difficulty;
         let r = self.opts.preload;
@@ -484,6 +493,9 @@ impl Scenario {
             .random
             .set_seed(self.opts_seed() ^ 0x5DEECE66D);
         self.level = Some(level);
+        // loot tables, damage types, ... (the oracle server has them from the start)
+        self.load_registries();
+        mc_core::random::reseed_uniquifier(8682522807148012);
     }
 
     fn opts_seed(&self) -> i64 {
@@ -499,6 +511,10 @@ impl Scenario {
     fn run(&mut self, a: &[String]) {
         let line = self.line.clone();
         let ctx = format!("scenario line {}: {}", self.line_no, line);
+        // `EntityOracleDriver.run`: entities a command creates (drops, spawns) draw the seeds of `hash(line)`
+        if self.level.is_some() && a[0] != "reseed" {
+            mc_core::random::reseed_uniquifier(super::entity_scenario::java_hash(&line));
+        }
         let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
             self.run_command(a);
             self.name_new_entities();
@@ -540,6 +556,10 @@ impl Scenario {
                     "the_end" => "the_end",
                     other => panic!("dimension {other}"),
                 };
+            }
+            "reseed" => {
+                self.world();
+                mc_core::random::reseed_uniquifier(a[1].parse().expect("reseed N"));
             }
             "seed" => {}
             "difficulty" => {
@@ -671,6 +691,10 @@ impl Scenario {
 
     /// One real server tick; with `watch`es set the `T n` header and the dumps follow.
     pub fn tick_once(&mut self) {
+        // `VanillaLevel.tick`: every tick restarts the entity-seed sequence
+        mc_core::random::reseed_uniquifier(
+            8682522807148012i64 ^ ((self.ticks + 1).wrapping_mul(0x9E3779B97F4A7C15u64 as i64)),
+        );
         let mut level = self.level.take().expect("world");
         level.tick(&mut self.env, &mut || true);
         self.level = Some(level);
@@ -781,6 +805,10 @@ impl Scenario {
                     let c: Vec<i32> = arg.expect("bes:cx,cz").split(',').map(int).collect();
                     self.dump_bes(c[0], c[1]);
                 }
+                "chunkbes" => {
+                    let c: Vec<i32> = arg.expect("chunkbes:cx,cz").split(',').map(int).collect();
+                    self.dump_chunk_packet_bes(c[0], c[1]);
+                }
                 "ticks" => self.dump_ticks(arg),
                 _ if self.dump_actor(kind, arg) => {}
                 "events" => self.dump_events(),
@@ -789,12 +817,32 @@ impl Scenario {
         }
     }
 
+    /// `dump chunkbes:cx,cz`: the block entity list of the chunk's `ClientboundLevelChunkPacketData`, in packet order.
+    fn dump_chunk_packet_bes(&mut self, cx: i32, cz: i32) {
+        let level = self.level();
+        let chunk = level.chunk_now(cx, cz).expect("chunkbes: chunk not loaded");
+        let packet = mc_game::server::network::player_chunk_sender::level_chunk_with_light_packet(
+            level, chunk,
+        );
+        let mut rows = vec![format!("CHUNKBES {cx} {cz}")];
+        for info in &packet.chunk_data.block_entities_data {
+            rows.push(format!(
+                "BEP {} {} {} {}",
+                cx * 16 + i32::from((info.packed_xz >> 4) & 15),
+                info.y,
+                cz * 16 + i32::from(info.packed_xz & 15),
+                info.r#type.name()
+            ));
+        }
+        self.out.extend(rows);
+    }
+
     /// `dump bes:cx,cz`: the chunk's block entity map in iteration order, then the level's ticker lists for that chunk.
     fn dump_bes(&mut self, cx: i32, cz: i32) {
         let level = self.level();
         let mut rows = vec![format!("BES {cx} {cz}")];
         let chunk = level.chunk_now(cx, cz).expect("bes: chunk not loaded");
-        for (p, be) in &chunk.block_entities {
+        for (p, be) in chunk.block_entities.iter() {
             rows.push(format!(
                 "BEM {} {} {} {}",
                 p.x(),

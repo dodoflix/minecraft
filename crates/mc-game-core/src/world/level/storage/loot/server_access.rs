@@ -101,8 +101,8 @@ pub fn random_sequence(level: &ServerLevel, key: &Identifier) -> Box<dyn RandomS
     })
 }
 
-/// `level.getRandom()` for a table without a random sequence: vanilla draws from the level's own random, which cannot be
-/// borrowed mutably through `&ServerLevel`, so the roll uses a copy of its current state (the level random does not advance).
+/// `level.getRandom()` for a table without a random sequence: `LevelRandom` is a shared handle, so draws through this
+/// clone advance the level's own random exactly like vanilla.
 pub fn level_random(level: &ServerLevel) -> Box<dyn RandomSource> {
     Box::new(level.tick_state.random.clone())
 }

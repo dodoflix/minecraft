@@ -179,6 +179,7 @@ import net.minecraft.util.RandomSource;
  *                             beu:X,Y,Z -> `BEU x y z TYPE SNBT` (getUpdatePacket tag; `-` = none),
  *                             bes:CX,CZ -> `BES cx cz`, `BEM x y z type` per block entity in map iteration order, then `BET x y z` / `BETP x y z`
  *                             (ticker list / pending ticker list order) for the tickers inside that chunk,
+ *                             chunkbes:CX,CZ -> `BEP x y z type` per block entity of the chunk's `ClientboundLevelChunkPacketData`, in packet order,
  *                             ticks[:X1,Y1,Z1,X2,Y2,Z2] -> `TICK block|fluid x y z id delay=N prio=P` for every pending scheduled tick (inside the optional box) in execution order,
  *                             events -> the `EV ...` lines of level events / sounds / block events broadcast since the last dump (see
  *                             VanillaLevel.RecordingPlayerList; also valid in `watch`, printed after each tick)
@@ -1577,6 +1578,14 @@ public final class EntityOracleDriver {
                      }
                   }
                }
+            }
+            case "chunkbes" -> { // chunkbes:CX,CZ: the block entity list of the chunk packet
+               String[] c = arg.split(",");
+               int cx = Integer.parseInt(c[0]);
+               int cz = Integer.parseInt(c[1]);
+               out.println("CHUNKBES " + cx + " " + cz);
+               new net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData(v.level.getChunk(cx, cz)).forEachBlockEntityTag(cx, cz, (bp, type, tag) ->
+                  out.println("BEP " + bp.getX() + " " + bp.getY() + " " + bp.getZ() + " " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type)));
             }
             case "ticks" -> {
                // every pending scheduled tick of the loaded chunks in execution order (trigger tick, priority, sub tick order)
