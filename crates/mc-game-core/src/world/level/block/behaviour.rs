@@ -479,6 +479,10 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn as_portal(&self) -> Option<&'static dyn crate::world::entity::portal::Portal> {
         None
     }
+    /// `block instanceof BrushableBlock`: `getTurnsInto()`, `getBrushSound()`, `getBrushCompletedSound()`.
+    fn as_brushable(&self) -> Option<BrushableData> {
+        None
+    }
     /// `Block.isPossibleToRespawnInThis`.
     fn is_possible_to_respawn_in_this(&self, state: BlockState) -> bool {
         !state.is_solid() && !state.liquid()
@@ -716,6 +720,14 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         level.level_event_impl(None, 2001, pos, state.id() as i32);
     }
     // ==== [/Blocks:Drops] ====
+}
+
+/// The constructor data of `BrushableBlock` (suspicious sand / gravel).
+#[derive(Clone, Copy)]
+pub struct BrushableData {
+    pub turns_into: Block,
+    pub brush_sound: mc_data::SoundEvent,
+    pub brush_completed_sound: mc_data::SoundEvent,
 }
 
 /// Vanilla's base behavior (every method default).

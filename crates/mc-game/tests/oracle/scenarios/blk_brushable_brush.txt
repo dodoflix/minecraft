@@ -1,0 +1,137 @@
+# BrushableBlock / BrushableBlockEntity.brush: DUSTED 0..3 by brush count (1-2 -> 1, 3-5 -> 2, 6-9 -> 3), cooldown 10 ticks, reset by
+# checkReset (2 brushes back every 4 ticks once 40 ticks passed), the 10th brush drops 10..30 of the archaeology loot (LootTableSeed) on
+# the side the brushing started from, event 3008, turns into sand / gravel. brush = BrushableBlockEntity.brush called directly.
+level flat
+preload 3
+watch events
+level_seed 5
+spawn_player Alice survival 0.5 -60 0.5 0 0
+give Alice mainhand minecraft:brush
+note suspicious sand with a loot table, brushed from the north side every 10 ticks
+block 4 -60 4 minecraft:suspicious_sand
+be_nbt 4 -60 4 {LootTable:"minecraft:archaeology/desert_pyramid",LootTableSeed:12345L}
+tick 3
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+tick 10
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+tick 10
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+tick 10
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+tick 10
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+tick 10
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+tick 10
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+tick 10
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+tick 10
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+tick 10
+brush 4 -60 4 Alice north
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 ticks
+dump entities
+tick 5
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 entities
+note the cooldown: a second brush in the same tick does nothing
+block 6 -60 4 minecraft:suspicious_gravel
+be_nbt 6 -60 4 {LootTable:"minecraft:archaeology/desert_pyramid",LootTableSeed:777L}
+tick 3
+brush 6 -60 4 Alice up
+brush 6 -60 4 Alice east
+dump blocks:6,-60,4,6,-60,4 be:6,-60,4 beu:6,-60,4 ticks
+tick 4
+brush 6 -60 4 Alice east
+dump be:6,-60,4
+note not brushed for 40+ ticks: checkReset relaxes the brush count and dusted, then clears the hit direction
+tick 10
+dump blocks:6,-60,4,6,-60,4 be:6,-60,4
+tick 10
+dump blocks:6,-60,4,6,-60,4 be:6,-60,4
+tick 10
+dump blocks:6,-60,4,6,-60,4 be:6,-60,4 ticks
+tick 12
+dump blocks:6,-60,4,6,-60,4 be:6,-60,4 ticks
+tick 8
+dump blocks:6,-60,4,6,-60,4 be:6,-60,4 ticks
+note a stored item instead of a loot table, brushed from above (default drop side)
+block 8 -60 4 minecraft:suspicious_sand
+be_nbt 8 -60 4 {item:{id:"minecraft:diamond",count:40}}
+tick 3
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+tick 10
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+tick 10
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+tick 10
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+tick 10
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+tick 10
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+tick 10
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+tick 10
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+tick 10
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+tick 10
+brush 8 -60 4 Alice up
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 ticks
+dump entities
+note an empty suspicious block just turns into gravel
+block 10 -60 4 minecraft:suspicious_gravel
+tick 3
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+tick 10
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+tick 10
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+tick 10
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+tick 10
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+tick 10
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+tick 10
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+tick 10
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+tick 10
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+tick 10
+brush 10 -60 4 Alice south
+dump blocks:10,-60,4,10,-60,4 be:10,-60,4 ticks
+dump entities
+note brushing a block without a brushable entity does nothing
+block 12 -60 4 minecraft:sand
+brush 12 -60 4 Alice up

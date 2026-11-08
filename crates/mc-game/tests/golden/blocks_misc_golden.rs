@@ -1,6 +1,6 @@
-//! Block scenarios of the explosion, door-destruction and bed rules (`tests/oracle/scenarios/blk_fbc_{tnt,dragon_egg,respawn_anchor,beds}.txt`,
-//! `blk_infra_explode_drops.txt`, `blk_dc_door_destroy.txt`) replayed on the real vanilla level (`scripts/block-oracle.sh NAME`) vs our ticking level
-//! (fixtures `tests/fixtures/entity_oracle/NAME.txt`).
+//! Block scenarios of the explosion, door-destruction, bed and brushable-block rules (`tests/oracle/scenarios/blk_fbc_{tnt,dragon_egg,respawn_anchor,beds}.txt`,
+//! `blk_infra_explode_drops.txt`, `blk_dc_door_destroy.txt`, `blk_brushable_{fall,brush}.txt`) replayed on the real vanilla level
+//! (`scripts/block-oracle.sh NAME`) vs our ticking level (fixtures `tests/fixtures/entity_oracle/NAME.txt`).
 
 use crate::common;
 
@@ -20,4 +20,6 @@ golden!(
     explode_drops => "blk_infra_explode_drops",
     door_destroy => "blk_dc_door_destroy",
     beds => "blk_fbc_beds",
+    brushable_fall => "blk_brushable_fall",
+    brushable_brush => "blk_brushable_brush",
 );

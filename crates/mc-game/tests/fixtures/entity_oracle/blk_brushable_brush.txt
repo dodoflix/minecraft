@@ -1,0 +1,502 @@
+# suspicious sand with a loot table, brushed from the north side every 10 ticks
+T 1
+T 2
+T 3
+B 4 -60 4 minecraft:suspicious_sand[dusted=0]
+BE 4 -60 4 {LootTable:"minecraft:archaeology/desert_pyramid",LootTableSeed:12345L,components:{},id:"minecraft:brushable_block",x:4,y:-60,z:4}
+BRUSH 4 -60 4 false
+B 4 -60 4 minecraft:suspicious_sand[dusted=1]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+BRUSH 4 -60 4 false
+B 4 -60 4 minecraft:suspicious_sand[dusted=1]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+BRUSH 4 -60 4 false
+B 4 -60 4 minecraft:suspicious_sand[dusted=2]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+T 32
+T 33
+BRUSH 4 -60 4 false
+B 4 -60 4 minecraft:suspicious_sand[dusted=2]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+T 43
+BRUSH 4 -60 4 false
+B 4 -60 4 minecraft:suspicious_sand[dusted=2]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+BRUSH 4 -60 4 false
+B 4 -60 4 minecraft:suspicious_sand[dusted=3]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 54
+T 55
+T 56
+T 57
+T 58
+T 59
+T 60
+T 61
+T 62
+T 63
+BRUSH 4 -60 4 false
+B 4 -60 4 minecraft:suspicious_sand[dusted=3]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 64
+T 65
+T 66
+T 67
+T 68
+T 69
+T 70
+T 71
+T 72
+T 73
+BRUSH 4 -60 4 false
+B 4 -60 4 minecraft:suspicious_sand[dusted=3]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+T 83
+BRUSH 4 -60 4 false
+B 4 -60 4 minecraft:suspicious_sand[dusted=3]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 84
+T 85
+T 86
+T 87
+T 88
+T 89
+T 90
+T 91
+T 92
+T 93
+BRUSH 4 -60 4 true
+B 4 -60 4 minecraft:sand
+BE 4 -60 4 -
+TICK block 4 -60 4 minecraft:suspicious_sand delay=2 prio=0
+TICK block 4 -60 4 minecraft:sand delay=2 prio=0
+E item#1 minecraft:item pos=4.5,-59.375,3.5 delta=0.0,0.0,0.0 rot=16.454966,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=0 pickup=0 health=5 owner=- thrower=-
+T 94
+EV level_event r=64.0 ex=0 type=3008 pos=4,-60,4 data=125 global=0
+T 95
+T 96
+T 97
+T 98
+B 4 -60 4 minecraft:sand
+BE 4 -60 4 -
+E item#1 minecraft:item pos=4.5,-59.95923810120649,3.5 delta=0.0,-0.18831524911932757,0.0 rot=16.454966,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=5 pickup=0 health=5 owner=- thrower=-
+# the cooldown: a second brush in the same tick does nothing
+T 99
+T 100
+T 101
+BRUSH 6 -60 4 false
+BRUSH 6 -60 4 false
+B 6 -60 4 minecraft:suspicious_gravel[dusted=1]
+BE 6 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:tnt"},x:6,y:-60,z:4}
+BEU 6 -60 4 minecraft:brushable_block {hit_direction:1b,item:{count:1,id:"minecraft:tnt"}}
+TICK block 6 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 102
+T 103
+T 104
+T 105
+BRUSH 6 -60 4 false
+BE 6 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:tnt"},x:6,y:-60,z:4}
+# not brushed for 40+ ticks: checkReset relaxes the brush count and dusted, then clears the hit direction
+T 106
+T 107
+T 108
+T 109
+T 110
+T 111
+T 112
+T 113
+T 114
+T 115
+B 6 -60 4 minecraft:suspicious_gravel[dusted=1]
+BE 6 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:tnt"},x:6,y:-60,z:4}
+T 116
+T 117
+T 118
+T 119
+T 120
+T 121
+T 122
+T 123
+T 124
+T 125
+B 6 -60 4 minecraft:suspicious_gravel[dusted=1]
+BE 6 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:tnt"},x:6,y:-60,z:4}
+T 126
+T 127
+T 128
+T 129
+T 130
+T 131
+T 132
+T 133
+T 134
+T 135
+B 6 -60 4 minecraft:suspicious_gravel[dusted=1]
+BE 6 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:tnt"},x:6,y:-60,z:4}
+TICK block 6 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 136
+T 137
+T 138
+T 139
+T 140
+T 141
+T 142
+T 143
+T 144
+T 145
+T 146
+T 147
+B 6 -60 4 minecraft:suspicious_gravel[dusted=0]
+BE 6 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:tnt"},x:6,y:-60,z:4}
+T 148
+T 149
+T 150
+T 151
+T 152
+T 153
+T 154
+T 155
+B 6 -60 4 minecraft:suspicious_gravel[dusted=0]
+BE 6 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:tnt"},x:6,y:-60,z:4}
+# a stored item instead of a loot table, brushed from above (default drop side)
+T 156
+T 157
+T 158
+BRUSH 8 -60 4 false
+B 8 -60 4 minecraft:suspicious_sand[dusted=1]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:40,id:"minecraft:diamond"},x:8,y:-60,z:4}
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 159
+T 160
+T 161
+T 162
+T 163
+T 164
+T 165
+T 166
+T 167
+T 168
+BRUSH 8 -60 4 false
+B 8 -60 4 minecraft:suspicious_sand[dusted=1]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:40,id:"minecraft:diamond"},x:8,y:-60,z:4}
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 169
+T 170
+T 171
+T 172
+T 173
+T 174
+T 175
+T 176
+T 177
+T 178
+BRUSH 8 -60 4 false
+B 8 -60 4 minecraft:suspicious_sand[dusted=2]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:40,id:"minecraft:diamond"},x:8,y:-60,z:4}
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 179
+T 180
+T 181
+T 182
+T 183
+T 184
+T 185
+T 186
+T 187
+T 188
+BRUSH 8 -60 4 false
+B 8 -60 4 minecraft:suspicious_sand[dusted=2]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:40,id:"minecraft:diamond"},x:8,y:-60,z:4}
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 189
+T 190
+T 191
+T 192
+T 193
+T 194
+T 195
+T 196
+T 197
+T 198
+BRUSH 8 -60 4 false
+B 8 -60 4 minecraft:suspicious_sand[dusted=2]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:40,id:"minecraft:diamond"},x:8,y:-60,z:4}
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 199
+T 200
+T 201
+T 202
+T 203
+T 204
+T 205
+T 206
+T 207
+T 208
+BRUSH 8 -60 4 false
+B 8 -60 4 minecraft:suspicious_sand[dusted=3]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:40,id:"minecraft:diamond"},x:8,y:-60,z:4}
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 209
+T 210
+T 211
+T 212
+T 213
+T 214
+T 215
+T 216
+T 217
+T 218
+BRUSH 8 -60 4 false
+B 8 -60 4 minecraft:suspicious_sand[dusted=3]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:40,id:"minecraft:diamond"},x:8,y:-60,z:4}
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 219
+T 220
+T 221
+T 222
+T 223
+T 224
+T 225
+T 226
+T 227
+T 228
+BRUSH 8 -60 4 false
+B 8 -60 4 minecraft:suspicious_sand[dusted=3]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:40,id:"minecraft:diamond"},x:8,y:-60,z:4}
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 229
+T 230
+T 231
+T 232
+T 233
+T 234
+T 235
+T 236
+T 237
+T 238
+BRUSH 8 -60 4 false
+B 8 -60 4 minecraft:suspicious_sand[dusted=3]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:40,id:"minecraft:diamond"},x:8,y:-60,z:4}
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+T 239
+T 240
+T 241
+T 242
+T 243
+T 244
+T 245
+T 246
+T 247
+T 248
+BRUSH 8 -60 4 true
+B 8 -60 4 minecraft:sand
+BE 8 -60 4 -
+TICK block 8 -60 4 minecraft:suspicious_sand delay=2 prio=0
+TICK block 8 -60 4 minecraft:sand delay=2 prio=0
+E item#1 minecraft:item pos=4.5,-60.0,3.5 delta=0.0,-0.04,0.0 rot=16.454966,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=155 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.5,-58.375,4.5 delta=0.0,0.0,0.0 rot=128.39575,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*16 age=0 pickup=0 health=5 owner=- thrower=-
+# an empty suspicious block just turns into gravel
+T 249
+EV level_event r=64.0 ex=0 type=3008 pos=8,-60,4 data=125 global=0
+T 250
+T 251
+BRUSH 10 -60 4 false
+B 10 -60 4 minecraft:suspicious_gravel[dusted=1]
+BE 10 -60 4 {components:{},id:"minecraft:brushable_block",x:10,y:-60,z:4}
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 252
+T 253
+T 254
+T 255
+T 256
+T 257
+T 258
+T 259
+T 260
+T 261
+BRUSH 10 -60 4 false
+B 10 -60 4 minecraft:suspicious_gravel[dusted=1]
+BE 10 -60 4 {components:{},id:"minecraft:brushable_block",x:10,y:-60,z:4}
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 262
+T 263
+T 264
+T 265
+T 266
+T 267
+T 268
+T 269
+T 270
+T 271
+BRUSH 10 -60 4 false
+B 10 -60 4 minecraft:suspicious_gravel[dusted=2]
+BE 10 -60 4 {components:{},id:"minecraft:brushable_block",x:10,y:-60,z:4}
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 272
+T 273
+T 274
+T 275
+T 276
+T 277
+T 278
+T 279
+T 280
+T 281
+BRUSH 10 -60 4 false
+B 10 -60 4 minecraft:suspicious_gravel[dusted=2]
+BE 10 -60 4 {components:{},id:"minecraft:brushable_block",x:10,y:-60,z:4}
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 282
+T 283
+T 284
+T 285
+T 286
+T 287
+T 288
+T 289
+T 290
+T 291
+BRUSH 10 -60 4 false
+B 10 -60 4 minecraft:suspicious_gravel[dusted=2]
+BE 10 -60 4 {components:{},id:"minecraft:brushable_block",x:10,y:-60,z:4}
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 292
+T 293
+T 294
+T 295
+T 296
+T 297
+T 298
+T 299
+T 300
+T 301
+BRUSH 10 -60 4 false
+B 10 -60 4 minecraft:suspicious_gravel[dusted=3]
+BE 10 -60 4 {components:{},id:"minecraft:brushable_block",x:10,y:-60,z:4}
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 302
+T 303
+T 304
+T 305
+T 306
+T 307
+T 308
+T 309
+T 310
+T 311
+BRUSH 10 -60 4 false
+B 10 -60 4 minecraft:suspicious_gravel[dusted=3]
+BE 10 -60 4 {components:{},id:"minecraft:brushable_block",x:10,y:-60,z:4}
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 312
+T 313
+T 314
+T 315
+T 316
+T 317
+T 318
+T 319
+T 320
+T 321
+BRUSH 10 -60 4 false
+B 10 -60 4 minecraft:suspicious_gravel[dusted=3]
+BE 10 -60 4 {components:{},id:"minecraft:brushable_block",x:10,y:-60,z:4}
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 322
+T 323
+T 324
+T 325
+T 326
+T 327
+T 328
+T 329
+T 330
+T 331
+BRUSH 10 -60 4 false
+B 10 -60 4 minecraft:suspicious_gravel[dusted=3]
+BE 10 -60 4 {components:{},id:"minecraft:brushable_block",x:10,y:-60,z:4}
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+T 332
+T 333
+T 334
+T 335
+T 336
+T 337
+T 338
+T 339
+T 340
+T 341
+BRUSH 10 -60 4 true
+B 10 -60 4 minecraft:gravel
+BE 10 -60 4 -
+TICK block 10 -60 4 minecraft:suspicious_gravel delay=2 prio=0
+TICK block 10 -60 4 minecraft:gravel delay=2 prio=0
+E item#1 minecraft:item pos=4.5,-60.0,3.5 delta=0.0,-0.08,0.0 rot=16.454966,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=248 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=128.39575,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*16 age=93 pickup=0 health=5 owner=- thrower=-
+# brushing a block without a brushable entity does nothing
+BRUSH 12 -60 4 false

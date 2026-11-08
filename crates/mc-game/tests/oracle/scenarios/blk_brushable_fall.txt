@@ -1,0 +1,41 @@
+# BrushableBlock falling: the scheduled tick (onPlace / updateShape, delay 2) starts the fall with disableDrop, so the entity never lands as a
+# block or drops an item: onBrokenAfterFall sends level event 2001 and the BLOCK_DESTROY game event. Water below does not stop it.
+level flat
+preload 3
+watch events
+level_seed 8
+spawn_player Alice survival 0.5 -60 0.5 0 0
+note suspicious sand placed in the air falls and breaks on the ground
+block 4 -55 4 minecraft:suspicious_sand
+dump ticks
+tick 1
+dump blocks:3,-61,3,5,-54,5 ticks entities
+tick 1
+dump entities
+tick 12
+dump blocks:3,-61,3,5,-54,5 entities
+tick 5
+dump blocks:3,-61,3,5,-54,5 ticks entities
+note suspicious gravel loses its support (partially brushed: the block entity is carried by the falling block)
+block 8 -60 8 minecraft:sandstone
+block 8 -59 8 minecraft:suspicious_gravel[dusted=2]
+be_nbt 8 -59 8 {LootTable:"minecraft:archaeology/desert_pyramid",LootTableSeed:99L}
+tick 2
+block 8 -60 8 minecraft:air
+dump ticks
+tick 1
+dump blocks:7,-61,7,9,-58,9 ticks entities
+tick 8
+dump blocks:7,-61,7,9,-58,9 ticks entities
+note a falling suspicious block over water still breaks without a drop
+fill 12 -60 12 12 -60 12 minecraft:water
+block 12 -56 12 minecraft:suspicious_sand
+tick 20
+dump blocks:11,-61,11,13,-55,13 ticks entities
+note a block beside it getting an update reschedules the tick (updateShape): a placed neighbour wakes a floating block
+block 16 -57 16 minecraft:suspicious_gravel
+tick 1
+block 17 -57 16 minecraft:stone
+dump ticks
+tick 15
+dump blocks:15,-61,15,18,-56,17 ticks entities

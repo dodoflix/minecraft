@@ -362,6 +362,18 @@ pub trait BlockEntity: Any {
     }
     /// `RandomizableContainer.setLootTable(table, seed)` (no-op for other block entities).
     fn set_loot_table(&mut self, _table: mc_core::ident::Identifier, _seed: i64) {}
+    /// `BrushableBlockEntity.brush(gameTime, level, user, direction, brush)`: `None` for every other block entity. The block
+    /// entity is out of its chunk (see [`brush_block`]).
+    fn try_brush(
+        &mut self,
+        _game_time: i64,
+        _level: &mut crate::server::level::ServerLevel,
+        _user: &mut crate::world::entity::ServerPlayer,
+        _direction: mc_core::direction::Direction,
+        _brush: &crate::world::item::ItemStack,
+    ) -> Option<bool> {
+        None
+    }
 
     /// The `Container` view of this block entity (vanilla `this instanceof Container`); menus reach block-entity
     /// containers through `ContainerKey::BlockEntity(pos)`.
@@ -490,4 +502,22 @@ pub fn set_changed(
     if !state.is_air() {
         level.update_neighbour_for_output_signal(pos, state.block());
     }
+}
+
+/// `BrushItem.onUseTick`'s `level.getBlockEntity(pos) instanceof BrushableBlockEntity be && be.brush(...)`: whether the
+/// block at `pos` was fully brushed by this stroke.
+pub fn brush_block(
+    level: &mut crate::server::level::ServerLevel,
+    pos: BlockPos,
+    user: &mut crate::world::entity::ServerPlayer,
+    direction: mc_core::direction::Direction,
+    brush: &crate::world::item::ItemStack,
+) -> bool {
+    let game_time = crate::world::level::LevelAccessor::get_game_time(level);
+    level
+        .with_block_entity(pos, |level, be| {
+            be.try_brush(game_time, level, user, direction, brush)
+        })
+        .flatten()
+        .unwrap_or(false)
 }

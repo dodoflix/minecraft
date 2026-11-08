@@ -398,6 +398,22 @@ impl Scenario {
                 self.world();
                 self.use_on(a);
             }
+            "brush" => {
+                self.world();
+                let pos = BlockPos::new(
+                    a[1].parse().unwrap(),
+                    a[2].parse().unwrap(),
+                    a[3].parse().unwrap(),
+                );
+                let direction =
+                    Direction::by_name(&a[5]).unwrap_or_else(|| panic!("direction {}", a[5]));
+                let result = self.with_player_named(&a[4], |level, p| {
+                    let brush = p.get_item_in_hand(InteractionHand::MainHand);
+                    mc_game::world::block_entity::brush_block(level, pos, p, direction, &brush)
+                });
+                self.out
+                    .push(format!("BRUSH {} {} {} {result}", a[1], a[2], a[3]));
+            }
             "sign_update" => {
                 self.world();
                 let pos = BlockPos::new(
