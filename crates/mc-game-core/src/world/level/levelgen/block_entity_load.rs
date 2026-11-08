@@ -49,17 +49,6 @@ pub fn load_with_components(
                 nbt.get_float_or("speed_multiplier", 1.0),
             );
         }
-        "minecraft:campfire" | "minecraft:soul_campfire" => {
-            out.put("Items", save_items(&load_items(nbt, 4)));
-            for key in ["CookingTimes", "CookingTotalTimes"] {
-                let mut times = vec![0; 4];
-                if let Some(read) = nbt.get_int_array(key) {
-                    let n = read.len().min(4);
-                    times[..n].copy_from_slice(&read[..n]);
-                }
-                out.put_int_array(key, times);
-            }
-        }
         "minecraft:comparator" => out.put_int("OutputSignal", nbt.get_int_or("OutputSignal", 0)),
         "minecraft:banner" => {
             if let Some(patterns) = nbt.get_list("patterns").filter(|p| !p.is_empty()) {

@@ -1,0 +1,32 @@
+# a survival player with an empty hand opens each menu in turn (the previous one is closed first)
+PKT Alice minecraft:open_screen 3c01080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+B 0 -60 0 minecraft:anvil[facing=east]
+B 1 -60 0 minecraft:chipped_anvil[facing=north]
+B 2 -60 0 minecraft:damaged_anvil[facing=south]
+B 3 -60 0 minecraft:grindstone[face=floor,facing=north]
+B 4 -60 0 minecraft:grindstone[face=wall,facing=west]
+B 5 -60 0 minecraft:grindstone[face=ceiling,facing=east]
+B 6 -60 0 minecraft:enchanting_table
+B 7 -60 0 minecraft:stone
+PKT Alice minecraft:container_close 1101
+PKT Alice minecraft:open_screen 3c02080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT Alice minecraft:container_close 1102
+PKT Alice minecraft:open_screen 3c03080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT Alice minecraft:container_close 1103
+PKT Alice minecraft:open_screen 3c040f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT Alice minecraft:container_close 1104
+PKT Alice minecraft:open_screen 3c050f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT Alice minecraft:container_close 1105
+PKT Alice minecraft:open_screen 3c060f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT Alice minecraft:container_close 1106
+PKT Alice minecraft:open_screen 3c070d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400
+# a held item that does nothing on the block falls through to the block
+PKT Alice minecraft:container_close 1107
+PKT Alice minecraft:open_screen 3c08080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+I Alice 0 minecraft:apple*1
+# a spectator opens the menus through getMenuProvider; stone has none
+PKT Bob minecraft:open_screen 3c01080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT Bob minecraft:container_close 1101
+PKT Bob minecraft:open_screen 3c020f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT Bob minecraft:container_close 1102
+PKT Bob minecraft:open_screen 3c030d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400

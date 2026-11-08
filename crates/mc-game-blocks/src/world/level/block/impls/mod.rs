@@ -132,6 +132,8 @@ pub mod end_rod_block;
 
 pub mod ender_chest_block;
 
+pub mod enchanting_table_block;
+
 pub mod eyeblossom_block;
 
 pub mod farmland_block;

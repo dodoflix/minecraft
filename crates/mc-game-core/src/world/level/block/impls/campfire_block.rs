@@ -71,8 +71,36 @@ impl BlockBehaviour for CampfireBlock {
         hand: crate::world::item::InteractionHand,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> crate::world::item::InteractionResult {
+        use crate::world::block_entity::campfire_block_entity::CampfireBlockEntity;
         use crate::world::item::InteractionResult;
-        // Not implemented: `CampfireBlockEntity.placeFood` (the `CAMPFIRE_INPUT` recipe branch of vanilla's useItemOn).
+        use crate::world::item::crafting::RecipePropertySet;
+        if level
+            .get_block_entity(pos)
+            .is_some_and(|be| be.as_any().is::<CampfireBlockEntity>())
+            && level
+                .recipe_access()
+                .property_set(RecipePropertySet::CAMPFIRE_INPUT)
+                .test(stack)
+        {
+            let mut placed = stack.clone();
+            let source = player.base_id();
+            let infinite = player.has_infinite_materials();
+            let success = level
+                .with_block_entity(pos, |level, be| {
+                    be.as_any_mut()
+                        .downcast_mut::<CampfireBlockEntity>()
+                        .is_some_and(|campfire| {
+                            campfire.place_food(level, Some(source), infinite, &mut placed)
+                        })
+                })
+                .unwrap_or(false);
+            if success {
+                player.set_item_in_hand(hand, placed);
+                player.award_stat_once(level, crate::stats::stats::Stats::INTERACT_WITH_CAMPFIRE);
+                return InteractionResult::SUCCESS_SERVER;
+            }
+            return InteractionResult::CONSUME;
+        }
         let douses = mc_data::tags::get::<mc_data::Item>("douses_campfires")
             .is_some_and(|tag| tag.contains(stack.item()));
         if douses && state.get(props::LIT) {

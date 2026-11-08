@@ -1,0 +1,26 @@
+# a placed table has a block entity without a name and no update packet
+BE 0 -60 0 {components:{},id:"minecraft:enchanting_table",x:0,y:-60,z:0}
+BEU 0 -60 0 -
+# custom name through NBT (valid, replaced, malformed, cleared)
+BE 0 -60 0 {CustomName:"Fancy table",components:{},id:"minecraft:enchanting_table",x:0,y:-60,z:0}
+BEU 0 -60 0 -
+BE 0 -60 0 {CustomName:{bold:1b,color:"gold",text:"Gold"},components:{},id:"minecraft:enchanting_table",x:0,y:-60,z:0}
+BE 0 -60 0 {components:{},id:"minecraft:enchanting_table",x:0,y:-60,z:0}
+BE 2 -60 0 {CustomName:"Kept",components:{},id:"minecraft:enchanting_table",x:2,y:-60,z:0}
+CHUNKBES 0 0
+BEP 0 -60 0 minecraft:enchanting_table
+BEP 2 -60 0 minecraft:enchanting_table
+# an item with a custom name names the placed table
+B 4 -60 0 minecraft:enchanting_table
+BE 4 -60 0 {CustomName:"Named by item",components:{},id:"minecraft:enchanting_table",x:4,y:-60,z:0}
+# breaking a named table drops the table with its name (copy_components); an unnamed table drops a plain item
+DESTROY true
+E item#1 minecraft:item pos=4.615439095351645,-59.669959594253896,0.35385742065485853 delta=-0.05825156477088585,0.2,-0.08688533519216463 rot=213.0247,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:enchanting_table*1 age=0 pickup=10 health=5 owner=- thrower=-
+N item#1 {Age:0s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{components:{minecraft:custom_name:"Named by item"},count:1,id:"minecraft:enchanting_table"},Motion:[-0.05825156477088585d,0.2d,-0.08688533519216463d],OnGround:0b,PickupDelay:10s,PortalCooldown:0,Pos:[4.615439095351645d,-59.669959594253896d,0.35385742065485853d],Rotation:[213.0247f,0.0f],fall_distance:0.0d}
+DESTROY true
+E item#1 minecraft:item pos=4.615439095351645,-59.669959594253896,0.35385742065485853 delta=-0.05825156477088585,0.2,-0.08688533519216463 rot=213.0247,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:enchanting_table*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.615573468009953,-59.42427618798497,0.4984112967154454 delta=-0.024414262181265703,0.2,-0.01649462119840213 rot=29.213655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:enchanting_table*1 age=0 pickup=10 health=5 owner=- thrower=-
+N item#2 {Age:0s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:1,id:"minecraft:enchanting_table"},Motion:[-0.024414262181265703d,0.2d,-0.01649462119840213d],OnGround:0b,PickupDelay:10s,PortalCooldown:0,Pos:[5.615573468009953d,-59.42427618798497d,0.4984112967154454d],Rotation:[29.213655f,0.0f],fall_distance:0.0d}
+# using the table opens the enchantment menu titled with the block entity name
+PKT Alice minecraft:open_screen 3c010d08000c52656164696e67206465736b
+PKT Alice minecraft:open_screen 3c020d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400

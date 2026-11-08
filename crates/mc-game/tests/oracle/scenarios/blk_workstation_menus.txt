@@ -1,0 +1,48 @@
+# AnvilBlock / GrindstoneBlock / EnchantingTableBlock: useWithoutItem opens the menu (screen packet with the title), a
+# spectator opens only blocks with a menu provider, and an anvil keeps its facing when used.
+level flat
+preload 2
+spawn_player Alice survival 3.5 -60 2.5 0 0
+spawn_player Bob spectator 5.5 -60 2.5 0 0
+block 0 -60 0 minecraft:anvil[facing=east]
+block 1 -60 0 minecraft:chipped_anvil[facing=north]
+block 2 -60 0 minecraft:damaged_anvil[facing=south]
+block 3 -60 0 minecraft:grindstone[face=floor,facing=north]
+block 4 -60 0 minecraft:grindstone[face=wall,facing=west]
+block 5 -60 0 minecraft:grindstone[face=ceiling,facing=east]
+block 6 -60 0 minecraft:enchanting_table
+block 7 -60 0 minecraft:stone
+tick 1
+dump packets:Alice:none packets:Bob:none
+note a survival player with an empty hand opens each menu in turn (the previous one is closed first)
+use_on Alice 0 -60 0 up
+dump packets:Alice:open_screen,container_close blocks:0,-60,0,7,-60,0
+use_on Alice 1 -60 0 north
+dump packets:Alice:open_screen,container_close
+use_on Alice 2 -60 0 south
+dump packets:Alice:open_screen,container_close
+use_on Alice 3 -60 0 up
+dump packets:Alice:open_screen,container_close
+use_on Alice 4 -60 0 east
+dump packets:Alice:open_screen,container_close
+use_on Alice 5 -60 0 down
+dump packets:Alice:open_screen,container_close
+use_on Alice 6 -60 0 up
+dump packets:Alice:open_screen,container_close
+use_on Alice 7 -60 0 up
+dump packets:Alice:open_screen,container_close
+note a held item that does nothing on the block falls through to the block
+give Alice mainhand minecraft:apple
+use_on Alice 0 -60 0 up
+dump packets:Alice:open_screen,container_close inventory:Alice
+note a spectator opens the menus through getMenuProvider; stone has none
+use_on Bob 0 -60 0 up
+dump packets:Bob:open_screen,container_close
+use_on Bob 3 -60 0 up
+dump packets:Bob:open_screen,container_close
+use_on Bob 6 -60 0 up
+dump packets:Bob:open_screen,container_close
+use_on Bob 7 -60 0 up
+dump packets:Bob:open_screen,container_close
+tick 2
+dump packets:Alice:open_screen,container_close packets:Bob:open_screen,container_close

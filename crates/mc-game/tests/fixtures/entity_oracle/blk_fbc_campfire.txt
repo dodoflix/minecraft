@@ -1,0 +1,78 @@
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:hay_block[axis=y]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -60 4 minecraft:campfire[facing=south,lit=true,signal_fire=true,waterlogged=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:campfire*3
+I Alice 40 minecraft:iron_shovel*1
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 1
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:stone
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -60 4 minecraft:campfire[facing=south,lit=true,signal_fire=false,waterlogged=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:stone
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -60 4 minecraft:campfire[facing=south,lit=false,signal_fire=false,waterlogged=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:iron_shovel*1/dmg=1
+I Alice 40 minecraft:iron_shovel*1
+EV level_event r=64.0 ex=0 type=1009 pos=4,-60,4 data=0 global=0
+B 7 -61 7 minecraft:grass_block[snowy=false]
+B 7 -61 8 minecraft:grass_block[snowy=false]
+B 7 -61 9 minecraft:grass_block[snowy=false]
+B 8 -61 7 minecraft:grass_block[snowy=false]
+B 8 -61 8 minecraft:stone
+B 8 -61 9 minecraft:grass_block[snowy=false]
+B 8 -60 8 minecraft:water[level=0]
+B 9 -61 7 minecraft:grass_block[snowy=false]
+B 9 -61 8 minecraft:grass_block[snowy=false]
+B 9 -61 9 minecraft:grass_block[snowy=false]
+T 2
+T 3
+T 4
+T 5
+T 6
+B 11 -61 11 minecraft:grass_block[snowy=false]
+B 11 -61 12 minecraft:grass_block[snowy=false]
+B 11 -61 13 minecraft:grass_block[snowy=false]
+B 11 -61 14 minecraft:grass_block[snowy=false]
+B 11 -60 13 minecraft:water[level=1]
+B 12 -61 11 minecraft:grass_block[snowy=false]
+B 12 -61 12 minecraft:stone
+B 12 -61 13 minecraft:grass_block[snowy=false]
+B 12 -61 14 minecraft:grass_block[snowy=false]
+B 12 -60 12 minecraft:soul_campfire[facing=east,lit=true,signal_fire=false,waterlogged=false]
+B 12 -60 13 minecraft:water[level=0]
+B 12 -60 14 minecraft:water[level=1]
+B 13 -61 11 minecraft:grass_block[snowy=false]
+B 13 -61 12 minecraft:grass_block[snowy=false]
+B 13 -61 13 minecraft:grass_block[snowy=false]
+B 13 -61 14 minecraft:grass_block[snowy=false]
+B 13 -60 13 minecraft:water[level=1]
+TICK fluid 8 -60 7 minecraft:flowing_water delay=5 prio=0
+TICK fluid 8 -60 8 minecraft:water delay=5 prio=0
+TICK fluid 8 -60 9 minecraft:flowing_water delay=5 prio=0
+TICK fluid 7 -60 8 minecraft:flowing_water delay=5 prio=0
+TICK fluid 9 -60 8 minecraft:flowing_water delay=5 prio=0
+TICK fluid 12 -60 14 minecraft:flowing_water delay=5 prio=0
+TICK fluid 12 -60 13 minecraft:water delay=5 prio=0
+TICK fluid 11 -60 13 minecraft:flowing_water delay=5 prio=0
+TICK fluid 13 -60 13 minecraft:flowing_water delay=5 prio=0

@@ -1,0 +1,42 @@
+# EnchantingTableBlockEntity: the custom name through NBT, an item's custom_name component, the block loot, the update
+# packet, and the menu opened by using the block (EnchantingTableBlock.useWithoutItem / getMenuProvider).
+level flat
+preload 2
+spawn_player Alice survival 3.5 -60 2.5 0 0
+note a placed table has a block entity without a name and no update packet
+block 0 -60 0 minecraft:enchanting_table
+dump be:0,-60,0 beu:0,-60,0
+note custom name through NBT (valid, replaced, malformed, cleared)
+be_nbt 0 -60 0 {CustomName:"Fancy table"}
+dump be:0,-60,0 beu:0,-60,0
+be_nbt 0 -60 0 {CustomName:{text:"Gold",color:"gold",bold:1b}}
+dump be:0,-60,0
+be_nbt 0 -60 0 {CustomName:5}
+dump be:0,-60,0
+block 2 -60 0 minecraft:enchanting_table
+be_nbt 2 -60 0 {CustomName:"Kept",extra:1b}
+dump be:2,-60,0 chunkbes:0,0
+note an item with a custom name names the placed table
+give Alice mainhand minecraft:enchanting_table[custom_name="Named by item"]
+use_on Alice 4 -61 0 up
+dump blocks:4,-60,0,4,-60,0 be:4,-60,0
+note breaking a named table drops the table with its name (copy_components); an unnamed table drops a plain item
+level_seed 1
+destroy 4 -60 0
+dump entities nbt:item#1
+block 5 -60 0 minecraft:enchanting_table
+level_seed 2
+destroy 5 -60 0
+dump entities nbt:item#2
+note using the table opens the enchantment menu titled with the block entity name
+give Alice mainhand minecraft:lapis_lazuli 3
+tick 1
+dump packets:Alice:none
+block 6 -60 0 minecraft:enchanting_table
+be_nbt 6 -60 0 {CustomName:"Reading desk"}
+use_on Alice 6 -60 0 up
+dump packets:Alice:open_screen
+block 7 -60 0 minecraft:enchanting_table
+select Alice 1
+use_on Alice 7 -60 0 up
+dump packets:Alice:open_screen

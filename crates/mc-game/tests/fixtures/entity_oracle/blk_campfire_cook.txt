@@ -1,0 +1,68 @@
+# placing food into a lit campfire: the slots fill in order, the fifth item stays in the hand
+BE 2 -60 0 {CookingTimes:[I;0,0,0,0],CookingTotalTimes:[I;600,0,0,0],Items:[{Slot:0b,count:1,id:"minecraft:beef"}],components:{},id:"minecraft:campfire",x:2,y:-60,z:0}
+BEU 2 -60 0 minecraft:campfire {Items:[{Slot:0b,count:1,id:"minecraft:beef"}]}
+I Alice 0 minecraft:beef*5
+BE 2 -60 0 {CookingTimes:[I;0,0,0,0],CookingTotalTimes:[I;600,600,600,600],Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:beef"},{Slot:2b,count:1,id:"minecraft:beef"},{Slot:3b,count:1,id:"minecraft:beef"}],components:{},id:"minecraft:campfire",x:2,y:-60,z:0}
+BEU 2 -60 0 minecraft:campfire {Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:beef"},{Slot:2b,count:1,id:"minecraft:beef"},{Slot:3b,count:1,id:"minecraft:beef"}]}
+I Alice 0 minecraft:beef*2
+BE 2 -60 0 {CookingTimes:[I;3,3,3,3],CookingTotalTimes:[I;600,600,600,600],Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:beef"},{Slot:2b,count:1,id:"minecraft:beef"},{Slot:3b,count:1,id:"minecraft:beef"}],components:{},id:"minecraft:campfire",x:2,y:-60,z:0}
+I Alice 0 minecraft:beef*2
+# an item without a campfire recipe is not placed; a creative player keeps the stack
+BE 4 -60 0 {CookingTimes:[I;0,0,0,0],CookingTotalTimes:[I;0,0,0,0],Items:[],components:{},id:"minecraft:campfire",x:4,y:-60,z:0}
+I Alice 0 minecraft:apple*3
+BE 4 -60 0 {CookingTimes:[I;0,0,0,0],CookingTotalTimes:[I;0,0,0,0],Items:[],components:{},id:"minecraft:campfire",x:4,y:-60,z:0}
+I Alice 0 minecraft:stick*3
+BE 4 -60 0 {CookingTimes:[I;0,0,0,0],CookingTotalTimes:[I;600,600,0,0],Items:[{Slot:0b,count:1,id:"minecraft:potato"},{Slot:1b,count:1,id:"minecraft:potato"}],components:{},id:"minecraft:campfire",x:4,y:-60,z:0}
+BEU 4 -60 0 minecraft:campfire {Items:[{Slot:0b,count:1,id:"minecraft:potato"},{Slot:1b,count:1,id:"minecraft:potato"}]}
+I Bob 0 minecraft:potato*2
+# an unlit campfire takes food and cools down: the progress drops by 2 per tick down to 0
+BE 6 -60 0 {CookingTimes:[I;10,3,0,0],CookingTotalTimes:[I;600,600,600,0],Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:potato"},{Slot:2b,count:1,id:"minecraft:chicken"}],components:{},id:"minecraft:campfire",x:6,y:-60,z:0}
+I Alice 0 minecraft:chicken*1
+BE 6 -60 0 {CookingTimes:[I;4,0,0,0],CookingTotalTimes:[I;600,600,600,0],Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:potato"},{Slot:2b,count:1,id:"minecraft:chicken"}],components:{},id:"minecraft:campfire",x:6,y:-60,z:0}
+BE 6 -60 0 {CookingTimes:[I;0,0,0,0],CookingTotalTimes:[I;600,600,600,0],Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:potato"},{Slot:2b,count:1,id:"minecraft:chicken"}],components:{},id:"minecraft:campfire",x:6,y:-60,z:0}
+# a soul campfire cooks and drops the results; the stick has no recipe and drops itself
+BE 8 -60 0 {CookingTimes:[I;600,1,5,11],CookingTotalTimes:[I;600,600,5,100],Items:[{Slot:1b,count:1,id:"minecraft:cod"},{Slot:3b,count:1,id:"minecraft:kelp"}],components:{},id:"minecraft:campfire",x:8,y:-60,z:0}
+BEU 8 -60 0 minecraft:campfire {Items:[{Slot:1b,count:1,id:"minecraft:cod"},{Slot:3b,count:1,id:"minecraft:kelp"}]}
+E item#1 minecraft:item pos=8.573019453392362,-59.438784431658824,0.4188395601654089 delta=0.010323736980916817,0.14181281213311686,-0.029894196361977744 rot=152.1689,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_beef*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.68033605003635,-59.314461824161334,0.15951970344601654 delta=-0.05358719054613933,0.26674698958010407,0.060113820661169576 rot=162.44707,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=0 health=5 owner=- thrower=-
+BE 8 -60 0 {CookingTimes:[I;600,3,5,13],CookingTotalTimes:[I;600,600,5,100],Items:[{Slot:1b,count:1,id:"minecraft:cod"},{Slot:3b,count:1,id:"minecraft:kelp"}],components:{},id:"minecraft:campfire",x:8,y:-60,z:0}
+E item#1 minecraft:item pos=8.593460452811486,-59.27719506169333,0.3596490507985064 delta=0.00991491738241544,0.05858102781587955,-0.028710387303609065 rot=152.1689,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_beef*1 age=2 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.5742334117329,-58.90550278046787,0.27854506950171243 delta=-0.05146513980381754,0.17856781650650955,0.05773331561028435 rot=162.44707,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=2 pickup=0 health=5 owner=- thrower=-
+# douse a campfire that is cooking: the progress then cools down
+B 2 -60 0 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+BE 2 -60 0 {CookingTimes:[I;12,12,12,12],CookingTotalTimes:[I;600,600,600,600],Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:beef"},{Slot:2b,count:1,id:"minecraft:beef"},{Slot:3b,count:1,id:"minecraft:beef"}],components:{},id:"minecraft:campfire",x:2,y:-60,z:0}
+I Alice 0 minecraft:iron_shovel*1/dmg=1
+BE 2 -60 0 {CookingTimes:[I;8,8,8,8],CookingTotalTimes:[I;600,600,600,600],Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:beef"},{Slot:2b,count:1,id:"minecraft:beef"},{Slot:3b,count:1,id:"minecraft:beef"}],components:{},id:"minecraft:campfire",x:2,y:-60,z:0}
+# the whole cooking time of a potato in a lit campfire, then the result drops
+BE 10 -60 0 {CookingTimes:[I;599,0,0,0],CookingTotalTimes:[I;600,0,0,0],Items:[{Slot:0b,count:1,id:"minecraft:potato"}],components:{},id:"minecraft:campfire",x:10,y:-60,z:0}
+E item#1 minecraft:item pos=8.6539567142432,-59.5625,0.18447148459858534 delta=4.741666528678797E-38,0.0,-1.373032948760315E-37 rot=152.1689,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_beef*1 age=603 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.001953947935888,-59.5625,0.9205250782342697 delta=-3.7079528235994956E-37,-0.04,4.159561432242244E-37 rot=162.44707,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=603 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=8.668573659546873,-60.0,3.0743614659017537 delta=-6.946669471447996E-35,-0.12,1.4932630700638794E-31 rot=348.2371,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dried_kelp*1 age=514 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=5.060115355890933,-59.5625,0.8754226947163553 delta=0.003744902352487524,0.0,0.004900614432800855 rot=23.189756,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:baked_potato*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=4.555653252858966,-58.61380503180598,0.7040317574350128 delta=0.004643519058197506,-0.11069246547586943,-0.011580648682614762 rot=204.17451,0.0 og=0 fall=0.22253495454788208 fire=0 air=300 alive=1 pose=standing item=minecraft:baked_potato*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=8.58611404473763,-59.70527323115312,1.132490477827921 delta=-0.007168635321125181,-0.017874689959422548,0.1415658888951299 rot=176.6377,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_cod*1 age=4 pickup=0 health=5 owner=- thrower=-
+BE 10 -60 0 {CookingTimes:[I;600,0,0,0],CookingTotalTimes:[I;600,0,0,0],Items:[],components:{},id:"minecraft:campfire",x:10,y:-60,z:0}
+E item#1 minecraft:item pos=8.6539567142432,-59.5625,0.18447148459858534 delta=4.741666528678797E-38,-0.08,-1.373032948760315E-37 rot=152.1689,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_beef*1 age=605 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.001953947935888,-59.5625,0.9205250782342697 delta=-3.7079528235994956E-37,-0.12,4.159561432242244E-37 rot=162.44707,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=605 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=8.668573659546873,-60.0,3.0743614659017537 delta=-4.0846420599527576E-35,-0.04,8.780387734909326E-32 rot=348.2371,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dried_kelp*1 age=516 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=5.066062261048111,-59.5625,0.8832048707254057 delta=0.0012947777793576299,0.0,0.001694358377215119 rot=23.189756,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:baked_potato*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=4.564847420682765,-58.952176116322434,0.6811020728225522 delta=0.0044596358770863575,-0.18392505023945666,-0.011122055427714578 rot=204.17451,0.0 og=0 fall=0.5609060376882553 fire=0 air=300 alive=1 pose=standing item=minecraft:baked_potato*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=8.571920146665072,-59.859865118376646,1.4127909405404333 delta=-0.006884757630401127,-0.09478285516355824,0.13595988498718667 rot=176.6377,0.0 og=0 fall=0.1545918844640255 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_cod*1 age=6 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=10.3863650320607,-59.31161124486423,0.782815424300414 delta=0.06038965011357463,0.1383200214797046,-0.01163376488915664 rot=226.50768,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:baked_potato*1 age=1 pickup=0 health=5 owner=- thrower=-
+# breaking a campfire drops its items
+DESTROY true
+E item#1 minecraft:item pos=8.6539567142432,-59.5625,0.18447148459858534 delta=4.741666528678797E-38,-0.08,-1.373032948760315E-37 rot=152.1689,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_beef*1 age=605 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.001953947935888,-59.5625,0.9205250782342697 delta=-3.7079528235994956E-37,-0.12,4.159561432242244E-37 rot=162.44707,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=605 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=8.668573659546873,-60.0,3.0743614659017537 delta=-4.0846420599527576E-35,-0.04,8.780387734909326E-32 rot=348.2371,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dried_kelp*1 age=516 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=5.066062261048111,-59.5625,0.8832048707254057 delta=0.0012947777793576299,0.0,0.001694358377215119 rot=23.189756,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:baked_potato*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=4.564847420682765,-58.952176116322434,0.6811020728225522 delta=0.0044596358770863575,-0.18392505023945666,-0.011122055427714578 rot=204.17451,0.0 og=0 fall=0.5609060376882553 fire=0 air=300 alive=1 pose=standing item=minecraft:baked_potato*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=8.571920146665072,-59.859865118376646,1.4127909405404333 delta=-0.006884757630401127,-0.09478285516355824,0.13595988498718667 rot=176.6377,0.0 og=0 fall=0.1545918844640255 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_cod*1 age=6 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=10.3863650320607,-59.31161124486423,0.782815424300414 delta=0.06038965011357463,0.1383200214797046,-0.01163376488915664 rot=226.50768,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:baked_potato*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=12.61552868457443,-59.83950398262404,0.2835600046952498 delta=0.002144178286274695,0.2,-0.06887370706279955 rot=193.71147,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:charcoal*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=12.70111773805856,-59.829499004196414,0.6202397125156537 delta=-0.0396316667366027,0.11619934953956233,0.015538872556122416 rot=14.1641445,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=12.429411214733815,-59.94440046377669,0.8196879681487147 delta=-0.05233844761019915,0.24075471543560598,0.03647123287052242 rot=270.77167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potato*1 age=0 pickup=0 health=5 owner=- thrower=-
+# a campfire item with container contents is applied to the placed block entity
+B 4 -60 4 minecraft:campfire[facing=south,lit=true,signal_fire=false,waterlogged=false]
+BE 4 -60 4 {CookingTimes:[I;0,0,0,0],CookingTotalTimes:[I;0,0,0,0],Items:[{Slot:0b,count:2,id:"minecraft:beef"},{Slot:3b,count:1,id:"minecraft:potato"}],components:{},id:"minecraft:campfire",x:4,y:-60,z:4}
+BEU 4 -60 4 minecraft:campfire {Items:[{Slot:0b,count:2,id:"minecraft:beef"},{Slot:3b,count:1,id:"minecraft:potato"}]}
+BE 4 -60 4 {CookingTimes:[I;1,0,0,1],CookingTotalTimes:[I;0,0,0,0],Items:[],components:{},id:"minecraft:campfire",x:4,y:-60,z:4}

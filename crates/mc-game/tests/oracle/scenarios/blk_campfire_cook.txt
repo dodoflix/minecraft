@@ -1,0 +1,78 @@
+# CampfireBlockEntity: placeFood (recipe check, first free slot, creative keeps the stack), cookTick / cooldownTick, the
+# cooked drop, the update tag, preRemoveSideEffects and a campfire item placed with container contents.
+level flat
+preload 2
+spawn_player Alice survival 3.5 -60 2.5 0 0
+spawn_player Bob creative 5.5 -60 2.5 0 0
+note placing food into a lit campfire: the slots fill in order, the fifth item stays in the hand
+block 2 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+give Alice mainhand minecraft:beef 6
+use_on Alice 2 -60 0 up
+dump be:2,-60,0 beu:2,-60,0 inventory:Alice events
+use_on Alice 2 -60 0 up
+use_on Alice 2 -60 0 up
+use_on Alice 2 -60 0 up
+use_on Alice 2 -60 0 up
+dump be:2,-60,0 beu:2,-60,0 inventory:Alice events
+tick 3
+dump be:2,-60,0 inventory:Alice
+note an item without a campfire recipe is not placed; a creative player keeps the stack
+block 4 -60 0 minecraft:campfire[facing=east,lit=true,signal_fire=false,waterlogged=false]
+give Alice mainhand minecraft:apple 3
+use_on Alice 4 -60 0 up
+dump be:4,-60,0 inventory:Alice
+give Alice mainhand minecraft:stick 3
+use_on Alice 4 -60 0 up
+dump be:4,-60,0 inventory:Alice
+give Bob mainhand minecraft:potato 2
+use_on Bob 4 -60 0 up
+use_on Bob 4 -60 0 up
+dump be:4,-60,0 beu:4,-60,0 inventory:Bob
+note an unlit campfire takes food and cools down: the progress drops by 2 per tick down to 0
+block 6 -60 0 minecraft:campfire[facing=south,lit=false,signal_fire=false,waterlogged=false]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:beef",count:1},{Slot:1b,id:"minecraft:potato",count:1}],CookingTimes:[I;10,3,0,0],CookingTotalTimes:[I;600,600,0,0]}
+give Alice mainhand minecraft:chicken 2
+use_on Alice 6 -60 0 up
+dump be:6,-60,0 inventory:Alice
+tick 3
+dump be:6,-60,0
+tick 3
+dump be:6,-60,0
+note a soul campfire cooks and drops the results; the stick has no recipe and drops itself
+block 8 -60 0 minecraft:soul_campfire[facing=west,lit=true,signal_fire=false,waterlogged=false]
+be_nbt 8 -60 0 {Items:[{Slot:0b,id:"minecraft:beef",count:1},{Slot:1b,id:"minecraft:cod",count:1},{Slot:2b,id:"minecraft:stick",count:1},{Slot:3b,id:"minecraft:kelp",count:1}],CookingTimes:[I;599,0,4,10],CookingTotalTimes:[I;600,600,5,100]}
+entity_counter 100
+level_seed 7
+tick 1
+dump be:8,-60,0 beu:8,-60,0 entities events
+tick 2
+dump be:8,-60,0 entities
+note douse a campfire that is cooking: the progress then cools down
+give Alice mainhand minecraft:iron_shovel
+use_on Alice 2 -60 0 up
+dump blocks:2,-60,0,2,-60,0 be:2,-60,0 inventory:Alice
+tick 2
+dump be:2,-60,0
+note the whole cooking time of a potato in a lit campfire, then the result drops
+block 10 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=true,waterlogged=false]
+give Bob mainhand minecraft:potato 1
+use_on Bob 10 -60 0 up
+entity_counter 200
+level_seed 9
+tick 599
+dump be:10,-60,0 entities
+tick 2
+dump be:10,-60,0 entities
+note breaking a campfire drops its items
+block 12 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+be_nbt 12 -60 0 {Items:[{Slot:0b,id:"minecraft:beef",count:1},{Slot:3b,id:"minecraft:potato",count:1}],CookingTimes:[I;5,0,0,6],CookingTotalTimes:[I;600,0,0,600]}
+entity_counter 300
+level_seed 3
+destroy 12 -60 0
+dump blocks:12,-60,0,12,-60,0 entities
+note a campfire item with container contents is applied to the placed block entity
+give Alice mainhand minecraft:campfire[container=[{slot:0,item:{id:"minecraft:beef",count:2}},{slot:3,item:{id:"minecraft:potato",count:1}}]]
+use_on Alice 4 -61 4 up
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 beu:4,-60,4
+tick 2
+dump be:4,-60,4

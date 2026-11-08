@@ -83,6 +83,7 @@ pub mod barrel_block_entity;
 pub mod base_container;
 mod beehive_block_entity;
 mod bell_block_entity;
+pub mod campfire_block_entity;
 pub mod changed_log;
 pub mod chest_block_entity;
 pub mod command_block_entity;
