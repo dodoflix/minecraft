@@ -980,10 +980,7 @@ pub fn block_entity_load_data(
     let Some(()) = level.with_block_entity(pos, |_, e| e.load_with_components(data)) else {
         return;
     };
-    level.block_entity_changed(pos);
-    if !state.is_air() {
-        level.update_neighbour_for_output_signal(pos, state.block());
-    }
+    level.block_entity_set_changed(pos, state);
     level.send_block_updated(pos, state, state, 3);
 }
 

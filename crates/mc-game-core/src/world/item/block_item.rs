@@ -798,7 +798,8 @@ pub fn update_custom_block_entity_tag(
         return false;
     }
     level.load_block_entity_additional_in_level(pos, &old);
-    level.block_entity_changed(pos);
+    let state = level.get_block_state(pos);
+    level.block_entity_set_changed(pos, state);
     true
 }
 
@@ -806,7 +807,8 @@ pub fn update_custom_block_entity_tag(
 fn update_block_entity_components(level: &mut ServerLevel, pos: BlockPos, stack: &ItemStack) {
     if let Some(be) = level.get_block_entity_immediate(pos) {
         be.apply_components_from_item_stack(stack);
-        level.block_entity_changed(pos);
+        let state = be.get_block_state();
+        level.block_entity_set_changed(pos, state);
     }
 }
 

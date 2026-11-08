@@ -11,6 +11,8 @@ use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor;
 use crate::world::level::block::BlockStateExt;
+use crate::world::level::block::helpers::is_instance_of;
+use crate::world::level::block::impls::campfire_block::CampfireBlock;
 use crate::world::level::gameevent::GameEventContext;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
@@ -18,6 +20,7 @@ use mc_data::block::BlockState;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{BlockEntityType, EntityType, GameEvent, SoundEvent, props};
 use mc_nbt::CompoundTag;
+use mc_protocol::components::map::DataComponentMapBuilder;
 use mc_protocol::components::{BeeOccupant, Bees, block_pos_codec};
 use mc_protocol::packets::play::SoundSource;
 
@@ -135,6 +138,23 @@ impl BeehiveBlockEntity {
         self.saved_flower_pos.is_some()
     }
 
+    /// `isFireNearby()`: any `FireBlock` within one block (`findBlocksIn(pos - 1, pos + 1)`).
+    pub fn is_fire_nearby(&self, level: &dyn BlockGetter) -> bool {
+        let pos = self.get_block_pos();
+        (pos.x() - 1..=pos.x() + 1).any(|x| {
+            (pos.y() - 1..=pos.y() + 1).any(|y| {
+                (pos.z() - 1..=pos.z() + 1).any(|z| {
+                    is_instance_of(level.get_block_state(BlockPos::new(x, y, z)), "FireBlock")
+                })
+            })
+        })
+    }
+
+    /// `isSedated()`: a lit campfire below.
+    pub fn is_sedated(&self, level: &dyn BlockGetter) -> bool {
+        CampfireBlock::is_smokey_pos(level, self.get_block_pos())
+    }
+
     /// `storeBee(occupant)`.
     pub fn store_bee(&mut self, occupant: BeeOccupant) {
         self.stored.push(BeeData::new(occupant));
@@ -153,8 +173,9 @@ impl BeehiveBlockEntity {
         }
     }
 
-    /// `emptyAllLivingFromHive(player, state, releaseReason)`: every occupant that may leave does. The player and the bee
-    /// reactions (target, stay-out countdown) are absent because no `Bee` entity exists.
+    /// `emptyAllLivingFromHive(player, state, releaseReason)`: every occupant that may leave does. Not implemented: the
+    /// `player` argument and the reactions of the released bees within 4 blocks of it (`Bee.setTarget(player)`, or
+    /// `setStayOutOfHiveCountdown(400)` when [`Self::is_sedated`]), which need the `Bee` entity.
     pub fn empty_all_living_from_hive(
         &mut self,
         level: &mut ServerLevel,
@@ -295,6 +316,15 @@ impl BlockEntity for BeehiveBlockEntity {
         }
     }
 
+    fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
+        *builder = std::mem::take(builder).set(
+            mc_protocol::components::BEES,
+            Bees {
+                bees: self.get_bees(),
+            },
+        );
+    }
+
     fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
         let bees = stack
             .get(&mc_protocol::components::BEES)
@@ -335,3 +365,28 @@ static BEEHIVE: BlockEntityRegistration = BlockEntityRegistration {
     ty: BlockEntityType::BEEHIVE,
     create: |pos, state| Box::new(BeehiveBlockEntity::new(pos, state)),
 };
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mc_protocol::components::map::DataComponentGetter;
+    use mc_protocol::components::{BEES, TypedEntityData};
+
+    #[test]
+    fn the_bees_component_carries_the_stored_bees() {
+        let bees = Bees {
+            bees: vec![BeeOccupant {
+                entity_data: TypedEntityData::of(EntityType::BEE, CompoundTag::new()),
+                ticks_in_hive: 7,
+                min_ticks_in_hive: 600,
+            }],
+        };
+        let mut hive = BeehiveBlockEntity::new(
+            BlockPos::new(0, 0, 0),
+            mc_data::Block::BEEHIVE.default_state(),
+        );
+        hive.set_bees(&bees);
+        assert_eq!(hive.collect_components().get(&BEES), Some(&bees));
+        assert_eq!(hive.get_occupant_count(), 1);
+    }
+}

@@ -2,8 +2,8 @@
 //! (`level.getBlockEntity(pos) instanceof FooBlockEntity foo` followed by calls that read or mutate the level).
 
 use super::ServerLevel;
-use crate::world::block_entity::BlockEntity;
-use crate::world::level::LevelAccessor;
+use crate::world::block_entity::{BeeReleaseStatus, BeehiveBlockEntity, BlockEntity};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_nbt::CompoundTag;
@@ -31,8 +31,21 @@ impl ServerLevel {
     }
 
     /// `BlockEntity.setChanged()` of the entity at `pos` whose cached block state is `state`:
-    /// `blockEntityChanged(pos)` and the comparator update.
+    /// `blockEntityChanged(pos)` and the comparator update. A beehive with fire next to it first releases its bees
+    /// (`BeehiveBlockEntity.setChanged`).
     pub fn block_entity_set_changed(&mut self, pos: BlockPos, state: BlockState) {
+        // a block entity that is taken out (the caller is inside its code) reads as absent: no creation, no hive branch
+        if self
+            .get_block_entity(pos)
+            .is_some_and(|be| be.as_any().is::<BeehiveBlockEntity>())
+        {
+            self.with_typed_block_entity::<BeehiveBlockEntity, _>(pos, |level, hive| {
+                if hive.is_fire_nearby(&*level) {
+                    let state = level.get_block_state(pos);
+                    hive.empty_all_living_from_hive(level, state, BeeReleaseStatus::Emergency);
+                }
+            });
+        }
         self.block_entity_changed(pos);
         if !state.is_air() {
             self.update_neighbour_for_output_signal(pos, state.block());
