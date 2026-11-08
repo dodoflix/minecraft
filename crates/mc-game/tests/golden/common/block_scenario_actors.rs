@@ -302,6 +302,23 @@ impl Scenario {
                     "tag" => {
                         e.base_mut().add_tag(&v);
                     }
+                    "health" => e
+                        .living_mut()
+                        .expect("living entity")
+                        .set_health(v.parse().unwrap()),
+                    "food" | "saturation" | "exhaustion" => {
+                        let food = &mut e
+                            .as_any_mut()
+                            .downcast_mut::<ServerPlayer>()
+                            .expect("player")
+                            .player
+                            .food_data;
+                        match a[2].as_str() {
+                            "food" => food.set_food_level(v.parse().unwrap()),
+                            "saturation" => food.set_saturation(v.parse().unwrap()),
+                            _ => food.exhaustion_level = v.parse().unwrap(),
+                        }
+                    }
                     other => panic!("set {other} is not supported by the Rust replay"),
                 });
             }
@@ -797,7 +814,12 @@ impl Scenario {
                         .as_ref()
                         .is_none_or(|o| o.contains(&ty.trim_start_matches("minecraft:")))
                     {
-                        let hex: String = p.iter().map(|b| format!("{b:02x}")).collect();
+                        // `VanillaLevel.record`: the advancement update carries timestamps of obtained criteria
+                        let hex: String = if ty == "minecraft:update_advancements" {
+                            "-".into()
+                        } else {
+                            p.iter().map(|b| format!("{b:02x}")).collect()
+                        };
                         self.out.push(format!("PKT {name} {ty} {hex}"));
                     }
                 }

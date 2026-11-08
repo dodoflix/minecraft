@@ -4,10 +4,14 @@ level flat
 preload 3
 difficulty normal
 watch events
-level_seed 99
 spawn_player Alice survival 0.5 -60 0.5 0 0
 give Alice mainhand minecraft:flint_and_steel
 give Alice offhand minecraft:fire_charge 4
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness; the join and
+# give packets are only sent by the vanilla server, on its next tick
+tick 30
+dump packets:Alice:none
+level_seed 99
 # redstone ignition on neighbour update
 block 5 -60 5 minecraft:tnt
 block 5 -60 6 minecraft:redstone_block
@@ -38,6 +42,8 @@ block 0 -60 10 minecraft:tnt[unstable=true]
 dig Alice 0 -60 10
 dump blocks:-1,-61,9,1,-59,11 entities
 # the game rule off: flint and steel only shows the overlay message
+# the packet streams of the explosions above are not compared (tracker and chunk update batching), only this message
+dump packets:Alice:none
 gamerule tnt_explodes false
 block 0 -60 14 minecraft:tnt
 use_on Alice 0 -60 14 up

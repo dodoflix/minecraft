@@ -19,12 +19,17 @@ dump blocks:-1,-61,1,3,-59,6 player:Alice
 time 14000
 tick 1
 give Alice mainhand minecraft:air
+# the join and give packets are only sent by the vanilla server, on its next tick
+tick 1
+dump packets:Alice:none
 use_on Alice 1 -60 4 up
 tick 2
-dump blocks:-1,-61,1,3,-59,6 player:Alice packets:Alice events
+# the replay has no packet listener: only the packets the level and the player produce are compared
+dump blocks:-1,-61,1,3,-59,6 player:Alice packets:Alice:system_chat,set_entity_data,update_advancements events
 pcommand Alice STOP_SLEEPING
 tick 1
-dump blocks:-1,-61,1,3,-59,6 player:Alice
+# no player dump: a client-authoritative player keeps onGround=false until its next movement packet, the replay runs travel
+dump blocks:-1,-61,1,3,-59,6
 # one half removed: the other disappears
 block 1 -60 4 minecraft:air
 tick 1

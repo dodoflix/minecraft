@@ -336,7 +336,7 @@ fn run(scenario: &str) {
 
 #[test]
 fn tnt_blocks_match_vanilla() {
-    run("tnt_blocks");
+    common::block_scenario::check("tnt_blocks");
 }
 
 #[test]

@@ -1,0 +1,34 @@
+# Explosion drops: decay on and off, blocks with and without loot tables, stack merging (16 per explosion stack), a block entity
+# (chest contents), blocks that drop nothing, and the level random consumed by the shuffle, the rays and every popResource.
+level flat
+preload 3
+level_seed 123
+fill 0 -60 0 8 -58 8 minecraft:dirt
+fill 0 -60 12 8 -58 12 minecraft:cobblestone
+block 20 -60 0 minecraft:chest
+be_nbt 20 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:1b,id:"minecraft:stick",count:20}]}
+block 22 -60 0 minecraft:glass
+block 23 -60 0 minecraft:oak_leaves[persistent=true]
+block 24 -60 0 minecraft:tnt
+block 20 -60 6 minecraft:diamond_ore
+block 21 -60 6 minecraft:oak_log
+block 22 -60 6 minecraft:sand
+note decay on (default blockExplosionDropDecay): each drop survives with probability 1 / radius
+explode 4 -57 4 3 block
+dump blocks:-1,-61,-1,9,-57,9 events entities
+tick 2
+dump entities
+note no decay
+gamerule block_explosion_drop_decay false
+explode 4 -57 12 3 block
+dump blocks:-1,-61,11,9,-57,13 events entities
+tick 2
+dump entities
+note chest, glass, leaves, diamond ore, logs and a tnt block next to each other (mob interaction keeps drops)
+explode 22 -60 3 4 mob
+dump blocks:18,-61,-3,26,-57,9 events entities
+tick 3
+dump entities
+note triggerable only: nothing is destroyed
+explode 21 -60 3 3 trigger
+dump blocks:18,-61,-3,26,-57,9 events entities
