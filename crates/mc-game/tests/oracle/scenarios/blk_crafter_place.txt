@@ -1,0 +1,80 @@
+# CrafterBlock.getStateForPlacement: the front faces the player (opposite of the nearest looking direction), the top follows from the
+# horizontal direction when looking up or down; TRIGGERED comes from hasNeighborSignal and a triggered crafter schedules its tick
+# in setPlacedBy.
+level flat
+preload 3
+spawn_player Steve creative 0.5 -60 -2.5 0 0
+give Steve hotbar0 minecraft:crafter 64
+tick 1
+note yaw 0 90 180 270 at pitch 0, then looking down (80) and up (-80), then diagonals
+snap Steve 0.5 -60 -2.5 0 0
+tick 1
+use_on Steve 0 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 2.5 -60 -2.5 90 0
+tick 1
+use_on Steve 2 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 4.5 -60 -2.5 180 0
+tick 1
+use_on Steve 4 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 6.5 -60 -2.5 270 0
+tick 1
+use_on Steve 6 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 8.5 -60 -2.5 0 80
+tick 1
+use_on Steve 8 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 10.5 -60 -2.5 90 80
+tick 1
+use_on Steve 10 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 12.5 -60 -2.5 180 80
+tick 1
+use_on Steve 12 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 14.5 -60 -2.5 270 80
+tick 1
+use_on Steve 14 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 16.5 -60 -2.5 0 -80
+tick 1
+use_on Steve 16 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 18.5 -60 -2.5 90 -80
+tick 1
+use_on Steve 18 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 20.5 -60 -2.5 180 -80
+tick 1
+use_on Steve 20 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 22.5 -60 -2.5 270 -80
+tick 1
+use_on Steve 22 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 24.5 -60 -2.5 45 30
+tick 1
+use_on Steve 24 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 26.5 -60 -2.5 135 -30
+tick 1
+use_on Steve 26 -61 0 up main 0.5 1.0 0.5
+tick 1
+dump blocks:0,-60,0,26,-60,0 be:0,-60,0 be:8,-60,0 ticks
+note placed next to a redstone block: triggered, its tick runs and crafts nothing (1050)
+block 0 -60 4 minecraft:redstone_block
+block 4 -60 4 minecraft:redstone_block
+snap Steve 0.5 -60 2.5 0 0
+tick 1
+use_on Steve 0 -61 5 up main 0.5 1.0 0.5
+tick 1
+snap Steve 4.5 -60 2.5 0 80
+tick 1
+use_on Steve 4 -61 5 up main 0.5 1.0 0.5
+tick 1
+dump blocks:0,-60,5,4,-60,5 be:0,-60,5 be:4,-60,5 ticks events
+tick 5
+dump blocks:0,-60,5,4,-60,5 be:0,-60,5 ticks events

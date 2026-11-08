@@ -1,0 +1,65 @@
+# CrafterBlockEntity: loadAdditional / saveAdditional (`disabled_slots` only for empty slots in range, `triggered`,
+# `crafting_ticks_remaining`, loot table), the CRAFTING reset after the remaining ticks run out, the comparator signal (filled or
+# disabled slots), canPlaceItem for hoppers (disabled slots, smaller stack rule), and the neighbor update that clears TRIGGERED.
+level flat
+preload 3
+note stored state: slots 0 4 disabled (empty), 2 holds an item so it cannot be disabled, 9 and -1 are out of range
+block 0 -60 0 minecraft:crafter[orientation=north_up,triggered=true,crafting=true]
+be_nbt 0 -60 0 {disabled_slots:[I;0,4,2,9,-1],crafting_ticks_remaining:3,triggered:1,Items:[{Slot:2b,id:"minecraft:stick",count:3}]}
+dump be:0,-60,0 beu:0,-60,0 blocks:0,-60,0,0,-60,0
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0
+tick 5
+watch off
+note placed with triggered=true: the entity starts triggered, a plain placement does not
+block 2 -60 0 minecraft:crafter[orientation=west_up,triggered=true,crafting=false]
+block 12 -60 0 minecraft:crafter[orientation=west_up,triggered=false,crafting=false]
+dump be:2,-60,0 be:12,-60,0
+note loot table in place of the items
+block 4 -60 0 minecraft:crafter[orientation=south_up,triggered=false,crafting=false]
+be_nbt 4 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L,disabled_slots:[I;1]}
+dump be:4,-60,0
+note custom name and locked-free container
+block 5 -60 0 minecraft:crafter[orientation=south_up,triggered=false,crafting=false]
+be_nbt 5 -60 0 {CustomName:"Mine",Items:[{Slot:8b,id:"minecraft:apple",count:7}]}
+dump be:5,-60,0
+note comparator beside the crafter: filled slots plus disabled slots
+block 8 -60 0 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+block 9 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 10 -60 0 minecraft:redstone_lamp
+be_nbt 8 -60 0 {Items:[{Slot:0b,id:"minecraft:stick",count:1},{Slot:1b,id:"minecraft:stick",count:64},{Slot:8b,id:"minecraft:stick",count:3}],disabled_slots:[I;2,3]}
+tick 3
+dump be:9,-60,0 blocks:8,-60,0,10,-60,0
+be_nbt 8 -60 0 {Items:[],disabled_slots:[I;0,1,2,3,4,5,6,7,8]}
+tick 3
+dump be:8,-60,0 be:9,-60,0 blocks:8,-60,0,10,-60,0
+note a hopper above fills the crafter around a disabled slot, spreading by the smaller-stack rule
+block 14 -60 0 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 14 -60 0 {disabled_slots:[I;0],Items:[{Slot:1b,id:"minecraft:cobblestone",count:3}]}
+block 14 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 14 -59 0 {Items:[{Slot:0b,id:"minecraft:cobblestone",count:20}]}
+tick 80
+dump be:14,-60,0 be:14,-59,0
+note a hopper below pulls the items out of the crafter first slot first
+block 18 -59 0 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 18 -59 0 {disabled_slots:[I;0],Items:[{Slot:1b,id:"minecraft:cobblestone",count:3},{Slot:5b,id:"minecraft:dirt",count:2}]}
+block 18 -60 0 minecraft:hopper[facing=south,enabled=true]
+block 18 -60 1 minecraft:barrel[facing=up,open=false]
+tick 40
+dump be:18,-59,0 be:18,-60,1
+note a triggered crafter whose power is gone clears TRIGGERED and CRAFTING on the next neighbor update
+block 22 -60 0 minecraft:crafter[orientation=north_up,triggered=true,crafting=true]
+be_nbt 22 -60 0 {triggered:1}
+dump be:22,-60,0 blocks:22,-60,0,22,-60,0
+block 23 -60 0 minecraft:stone
+tick 1
+dump be:22,-60,0 blocks:22,-60,0,22,-60,0 ticks
+note breaking a crafter drops its items (not the disabled slot markers) and updates the comparator
+block 26 -60 0 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 26 -60 0 {disabled_slots:[I;1],Items:[{Slot:0b,id:"minecraft:iron_ingot",count:4},{Slot:4b,id:"minecraft:gold_ingot",count:2}]}
+block 27 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+tick 2
+dump be:27,-60,0
+level_seed 11
+destroy 26 -60 0
+tick 2
+dump blocks:26,-60,0,27,-60,0 be:27,-60,0 entities events

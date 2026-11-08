@@ -1,0 +1,73 @@
+# CrafterBlock.dispenseFrom / dispenseItem: a powered crafter (neighborChanged schedules a 4-tick tick, CRAFTING stays on for 6 block
+# entity ticks) crafts its 3x3 grid, inserts the result and the remaining items into the container in front through
+# HopperBlockEntity.addItem (one at a time into a crafter or when the result exceeds the target's max stack size), drops what does not fit
+# (events 1049 + 2010), sends 1050 when nothing can be crafted, and shrinks every filled slot by one.
+level flat
+preload 3
+level_seed 7
+note crafting table (any 2x2 shape of planks) into a chest in front
+block 0 -60 0 minecraft:crafter[orientation=east_up,triggered=false,crafting=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:oak_planks",count:2},{Slot:1b,id:"minecraft:oak_planks",count:1},{Slot:3b,id:"minecraft:oak_planks",count:5},{Slot:4b,id:"minecraft:oak_planks",count:4}]}
+block 1 -60 0 minecraft:chest[facing=west,type=single,waterlogged=false]
+block 0 -60 -1 minecraft:redstone_block
+dump be:0,-60,0 blocks:0,-60,-1,1,-60,0 ticks events
+tick 3
+dump be:0,-60,0 events
+tick 2
+dump be:0,-60,0 be:1,-60,0 blocks:0,-60,0,1,-60,0 events ticks
+tick 6
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 events
+note unpowering resets triggered and crafting; powering again crafts again
+block 0 -60 -1 minecraft:air
+tick 1
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 events
+block 0 -60 -1 minecraft:redstone_block
+tick 5
+dump be:0,-60,0 be:1,-60,0 blocks:0,-60,0,0,-60,0 events
+note cake: the milk buckets leave three empty buckets that go into the barrel after the cake
+block 6 -60 0 minecraft:crafter[orientation=east_up,triggered=false,crafting=false]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:milk_bucket",count:2},{Slot:1b,id:"minecraft:milk_bucket",count:1},{Slot:2b,id:"minecraft:milk_bucket",count:1},{Slot:3b,id:"minecraft:sugar",count:2},{Slot:4b,id:"minecraft:egg",count:1},{Slot:5b,id:"minecraft:sugar",count:1},{Slot:6b,id:"minecraft:wheat",count:3},{Slot:7b,id:"minecraft:wheat",count:1},{Slot:8b,id:"minecraft:wheat",count:1}]}
+block 7 -60 0 minecraft:barrel[facing=up,open=false]
+block 6 -60 -1 minecraft:redstone_block
+tick 6
+dump be:6,-60,0 be:7,-60,0 blocks:6,-60,0,7,-60,0 events
+note result and remaining items dropped in front of a crafter whose target is full of unrelated items
+block 12 -60 0 minecraft:crafter[orientation=east_up,triggered=false,crafting=false]
+be_nbt 12 -60 0 {Items:[{Slot:0b,id:"minecraft:milk_bucket",count:1},{Slot:1b,id:"minecraft:milk_bucket",count:1},{Slot:2b,id:"minecraft:milk_bucket",count:1},{Slot:3b,id:"minecraft:sugar",count:1},{Slot:4b,id:"minecraft:egg",count:1},{Slot:5b,id:"minecraft:sugar",count:1},{Slot:6b,id:"minecraft:wheat",count:1},{Slot:7b,id:"minecraft:wheat",count:1},{Slot:8b,id:"minecraft:wheat",count:1}]}
+block 13 -60 0 minecraft:hopper[facing=south,enabled=false]
+be_nbt 13 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64}]}
+block 12 -60 -1 minecraft:redstone_block
+tick 6
+dump be:12,-60,0 be:13,-60,0 blocks:12,-60,0,13,-60,0 entities events
+note nothing in front: the result drops upwards from a crafter facing up, and 1049/2010 are sent per dropped stack
+block 18 -60 0 minecraft:crafter[orientation=up_north,triggered=false,crafting=false]
+be_nbt 18 -60 0 {Items:[{Slot:0b,id:"minecraft:oak_log",count:2}]}
+block 18 -60 -1 minecraft:redstone_block
+tick 6
+dump be:18,-60,0 blocks:18,-60,0,18,-60,0 entities events
+note a crafter facing a crafter inserts one item at a time, skipping disabled slots and following the smaller-stack rule
+block 24 -60 0 minecraft:crafter[orientation=east_up,triggered=false,crafting=false]
+be_nbt 24 -60 0 {Items:[{Slot:4b,id:"minecraft:oak_log",count:3}]}
+block 25 -60 0 minecraft:crafter[orientation=north_up,triggered=false,crafting=false]
+be_nbt 25 -60 0 {disabled_slots:[I;0,5],Items:[{Slot:1b,id:"minecraft:oak_planks",count:62},{Slot:2b,id:"minecraft:oak_planks",count:63}]}
+block 24 -60 -1 minecraft:redstone_block
+tick 6
+dump be:24,-60,0 be:25,-60,0 events
+note nothing can be crafted (1050): a lone dirt block and an empty grid
+block 30 -60 0 minecraft:crafter[orientation=east_up,triggered=false,crafting=false]
+be_nbt 30 -60 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:1},{Slot:8b,id:"minecraft:stick",count:1}]}
+block 32 -60 0 minecraft:crafter[orientation=east_up,triggered=false,crafting=false]
+block 30 -60 -1 minecraft:redstone_block
+block 32 -60 -1 minecraft:redstone_block
+tick 6
+dump be:30,-60,0 be:32,-60,0 blocks:30,-60,0,32,-60,0 events
+note a pulse shorter than the tick delay still crafts
+block 36 -60 0 minecraft:crafter[orientation=east_up,triggered=false,crafting=false]
+be_nbt 36 -60 0 {Items:[{Slot:0b,id:"minecraft:oak_planks",count:1},{Slot:1b,id:"minecraft:oak_planks",count:1},{Slot:3b,id:"minecraft:oak_planks",count:1},{Slot:4b,id:"minecraft:oak_planks",count:1}]}
+block 37 -60 0 minecraft:barrel[facing=up,open=false]
+block 36 -60 -1 minecraft:redstone_block
+tick 1
+block 36 -60 -1 minecraft:air
+dump be:36,-60,0 blocks:36,-60,0,36,-60,0 ticks events
+tick 8
+dump be:36,-60,0 be:37,-60,0 blocks:36,-60,0,36,-60,0 events

@@ -1,0 +1,45 @@
+# yaw 0 90 180 270 at pitch 0, then looking down (80) and up (-80), then diagonals
+B 0 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=false]
+B 2 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=false]
+B 4 -60 0 minecraft:crafter[crafting=false,orientation=south_up,triggered=false]
+B 6 -60 0 minecraft:crafter[crafting=false,orientation=west_up,triggered=false]
+B 8 -60 0 minecraft:crafter[crafting=false,orientation=up_south,triggered=false]
+B 10 -60 0 minecraft:crafter[crafting=false,orientation=up_west,triggered=false]
+B 12 -60 0 minecraft:crafter[crafting=false,orientation=up_north,triggered=false]
+B 14 -60 0 minecraft:crafter[crafting=false,orientation=up_east,triggered=false]
+B 16 -60 0 minecraft:crafter[crafting=false,orientation=down_north,triggered=false]
+B 18 -60 0 minecraft:crafter[crafting=false,orientation=down_east,triggered=false]
+B 20 -60 0 minecraft:crafter[crafting=false,orientation=down_south,triggered=false]
+B 22 -60 0 minecraft:crafter[crafting=false,orientation=down_west,triggered=false]
+B 24 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=false]
+B 26 -60 0 minecraft:crafter[crafting=false,orientation=south_up,triggered=false]
+BE 0 -60 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:0,y:-60,z:0}
+BE 8 -60 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:8,y:-60,z:0}
+# placed next to a redstone block: triggered, its tick runs and crafts nothing (1050)
+B 0 -60 5 minecraft:crafter[crafting=false,orientation=north_up,triggered=true]
+B 4 -60 5 minecraft:crafter[crafting=false,orientation=up_south,triggered=true]
+BE 0 -60 5 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:5}
+BE 4 -60 5 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:4,y:-60,z:5}
+TICK block 0 -60 5 minecraft:crafter delay=1 prio=0
+TICK block 4 -60 5 minecraft:crafter delay=3 prio=0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=4.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=8.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=10.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=14.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=16.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=18.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=20.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=22.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=24.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=26.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=0.5,-59.5,5.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=4.5,-59.5,5.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+B 0 -60 5 minecraft:crafter[crafting=false,orientation=north_up,triggered=true]
+B 4 -60 5 minecraft:crafter[crafting=false,orientation=up_south,triggered=true]
+BE 0 -60 5 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:5}
+EV level_event r=64.0 ex=0 type=1050 pos=0,-60,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=1050 pos=4,-60,5 data=0 global=0

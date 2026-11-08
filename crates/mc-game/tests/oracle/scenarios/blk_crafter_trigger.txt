@@ -1,0 +1,27 @@
+# CrafterBlock.dispenseItem: only a stack that is dropped (not inserted into a container) fires CRAFTER_RECIPE_CRAFTED, for every
+# ServerPlayer in AABB.ofSize(center, 17, 17, 17) (advancement adventure/crafters_crafting_crafters: craft a crafter).
+level flat
+preload 4
+spawn_player Steve survival 3.5 -60 5.5
+spawn_player Alex survival 14.5 -60 5.5
+dump packets:Steve:none packets:Alex:none
+note the crafter is inserted into a chest: no trigger
+block 0 -60 0 minecraft:crafter[orientation=east_up,triggered=false,crafting=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:1},{Slot:1b,id:"minecraft:iron_ingot",count:1},{Slot:2b,id:"minecraft:iron_ingot",count:1},{Slot:3b,id:"minecraft:iron_ingot",count:1},{Slot:4b,id:"minecraft:crafting_table",count:1},{Slot:5b,id:"minecraft:iron_ingot",count:1},{Slot:6b,id:"minecraft:redstone",count:1},{Slot:7b,id:"minecraft:dropper",count:1},{Slot:8b,id:"minecraft:redstone",count:1}]}
+block 1 -60 0 minecraft:chest[facing=west,type=single,waterlogged=false]
+block 0 -60 -1 minecraft:redstone_block
+tick 6
+dump be:1,-60,0 packets:Steve:system_chat packets:Alex:system_chat events
+note dropped: Steve (inside the 17 block box) gets the advancement, Alex (14 blocks away) does not
+block 0 -60 3 minecraft:crafter[orientation=up_north,triggered=false,crafting=false]
+be_nbt 0 -60 3 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:1},{Slot:1b,id:"minecraft:iron_ingot",count:1},{Slot:2b,id:"minecraft:iron_ingot",count:1},{Slot:3b,id:"minecraft:iron_ingot",count:1},{Slot:4b,id:"minecraft:crafting_table",count:1},{Slot:5b,id:"minecraft:iron_ingot",count:1},{Slot:6b,id:"minecraft:redstone",count:1},{Slot:7b,id:"minecraft:dropper",count:1},{Slot:8b,id:"minecraft:redstone",count:1}]}
+block 0 -60 2 minecraft:redstone_block
+level_seed 3
+tick 6
+dump be:0,-60,3 packets:Steve:system_chat packets:Alex:system_chat entities events
+note a crafter next to Alex: Alex gets it, Steve (10 blocks away) already has it and is out of range anyway
+block 14 -60 3 minecraft:crafter[orientation=up_north,triggered=false,crafting=false]
+be_nbt 14 -60 3 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:1},{Slot:1b,id:"minecraft:iron_ingot",count:1},{Slot:2b,id:"minecraft:iron_ingot",count:1},{Slot:3b,id:"minecraft:iron_ingot",count:1},{Slot:4b,id:"minecraft:crafting_table",count:1},{Slot:5b,id:"minecraft:iron_ingot",count:1},{Slot:6b,id:"minecraft:redstone",count:1},{Slot:7b,id:"minecraft:dropper",count:1},{Slot:8b,id:"minecraft:redstone",count:1}]}
+block 14 -60 2 minecraft:redstone_block
+tick 6
+dump packets:Steve:system_chat packets:Alex:system_chat events

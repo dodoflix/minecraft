@@ -1,0 +1,56 @@
+# stored state: slots 0 4 disabled (empty), 2 holds an item so it cannot be disabled, 9 and -1 are out of range
+BE 0 -60 0 {Items:[{Slot:2b,count:3,id:"minecraft:stick"}],components:{},crafting_ticks_remaining:3,disabled_slots:[I;0,4],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+BEU 0 -60 0 -
+B 0 -60 0 minecraft:crafter[crafting=true,orientation=north_up,triggered=true]
+T 1
+BE 0 -60 0 {Items:[{Slot:2b,count:3,id:"minecraft:stick"}],components:{},crafting_ticks_remaining:2,disabled_slots:[I;0,4],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=true,orientation=north_up,triggered=true]
+T 2
+BE 0 -60 0 {Items:[{Slot:2b,count:3,id:"minecraft:stick"}],components:{},crafting_ticks_remaining:1,disabled_slots:[I;0,4],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=true,orientation=north_up,triggered=true]
+T 3
+BE 0 -60 0 {Items:[{Slot:2b,count:3,id:"minecraft:stick"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0,4],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=true]
+T 4
+BE 0 -60 0 {Items:[{Slot:2b,count:3,id:"minecraft:stick"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0,4],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=true]
+T 5
+BE 0 -60 0 {Items:[{Slot:2b,count:3,id:"minecraft:stick"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0,4],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=true]
+# placed with triggered=true: the entity starts triggered, a plain placement does not
+BE 2 -60 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:2,y:-60,z:0}
+BE 12 -60 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:12,y:-60,z:0}
+# loot table in place of the items
+BE 4 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L,components:{},crafting_ticks_remaining:0,disabled_slots:[I;1],id:"minecraft:crafter",triggered:0,x:4,y:-60,z:0}
+# custom name and locked-free container
+BE 5 -60 0 {CustomName:"Mine",Items:[{Slot:8b,count:7,id:"minecraft:apple"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:5,y:-60,z:0}
+# comparator beside the crafter: filled slots plus disabled slots
+BE 9 -60 0 {OutputSignal:5,components:{},id:"minecraft:comparator",x:9,y:-60,z:0}
+B 8 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=false]
+B 9 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 10 -60 0 minecraft:redstone_lamp[lit=true]
+BE 8 -60 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0,1,2,3,4,5,6,7,8],id:"minecraft:crafter",triggered:0,x:8,y:-60,z:0}
+BE 9 -60 0 {OutputSignal:9,components:{},id:"minecraft:comparator",x:9,y:-60,z:0}
+B 8 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=false]
+B 9 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 10 -60 0 minecraft:redstone_lamp[lit=true]
+# a hopper above fills the crafter around a disabled slot, spreading by the smaller-stack rule
+BE 14 -60 0 {Items:[{Slot:1b,count:3,id:"minecraft:cobblestone"},{Slot:2b,count:2,id:"minecraft:cobblestone"},{Slot:3b,count:2,id:"minecraft:cobblestone"},{Slot:4b,count:2,id:"minecraft:cobblestone"},{Slot:5b,count:1,id:"minecraft:cobblestone"},{Slot:6b,count:1,id:"minecraft:cobblestone"},{Slot:7b,count:1,id:"minecraft:cobblestone"},{Slot:8b,count:1,id:"minecraft:cobblestone"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0],id:"minecraft:crafter",triggered:0,x:14,y:-60,z:0}
+BE 14 -59 0 {Items:[{Slot:0b,count:10,id:"minecraft:cobblestone"}],TransferCooldown:1,components:{},id:"minecraft:hopper",x:14,y:-59,z:0}
+# a hopper below pulls the items out of the crafter first slot first
+BE 18 -59 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0],id:"minecraft:crafter",triggered:0,x:18,y:-59,z:0}
+BE 18 -60 1 {Items:[{Slot:0b,count:3,id:"minecraft:cobblestone"},{Slot:1b,count:1,id:"minecraft:dirt"}],components:{},id:"minecraft:barrel",x:18,y:-60,z:1}
+# a triggered crafter whose power is gone clears TRIGGERED and CRAFTING on the next neighbor update
+BE 22 -60 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:22,y:-60,z:0}
+B 22 -60 0 minecraft:crafter[crafting=true,orientation=north_up,triggered=true]
+BE 22 -60 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:22,y:-60,z:0}
+B 22 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=false]
+# breaking a crafter drops its items (not the disabled slot markers) and updates the comparator
+BE 27 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:27,y:-60,z:0}
+DESTROY true
+B 27 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+BE 27 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:27,y:-60,z:0}
+E item#1 minecraft:item pos=26.532718982019777,-59.38452640374,0.4909849055041948 delta=-0.03999308248330474,0.11446400521850592,-0.03577964745218059 rot=209.58054,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:crafter*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=26.021373337605826,-59.607720437173626,0.06953696264420275 delta=-0.05986717954804358,0.10171436990431171,-0.04273075296235867 rot=70.652435,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*4 age=2 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=26.91622741868291,-59.62223247873731,0.7837391316947347 delta=0.08260681043453885,0.134297493649194,0.04896521749610846 rot=100.28503,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*2 age=2 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2001 pos=26,-60,0 data=35504 global=0

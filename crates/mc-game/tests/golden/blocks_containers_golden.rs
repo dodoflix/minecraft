@@ -23,3 +23,24 @@ fn an_activated_beacon_fires_construct_beacon_for_players_in_range() {
 fn a_player_opening_a_loot_container_fires_generate_loot() {
     common::block_scenario::check("blk_loot_container_trigger");
 }
+
+/// Crafting, inserting and dropping the results, the remaining items and the level events 1049/1050/2010.
+#[test]
+fn a_powered_crafter_crafts_and_dispenses_like_vanilla() {
+    common::block_scenario::check("blk_crafter_craft");
+}
+
+#[test]
+fn crafter_slots_and_saved_state_match_vanilla() {
+    common::block_scenario::check("blk_crafter_slots_nbt");
+}
+
+#[test]
+fn crafter_placement_orientation_matches_vanilla() {
+    common::block_scenario::check("blk_crafter_place");
+}
+
+#[test]
+fn a_dropped_crafter_result_fires_crafter_recipe_crafted_for_players_in_range() {
+    common::block_scenario::check("blk_crafter_trigger");
+}

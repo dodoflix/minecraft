@@ -1,0 +1,67 @@
+# crafting table (any 2x2 shape of planks) into a chest in front
+BE 0 -60 0 {Items:[{Slot:0b,count:2,id:"minecraft:oak_planks"},{Slot:1b,count:1,id:"minecraft:oak_planks"},{Slot:3b,count:5,id:"minecraft:oak_planks"},{Slot:4b,count:4,id:"minecraft:oak_planks"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+B 0 -60 -1 minecraft:redstone_block
+B 0 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=true]
+B 1 -60 0 minecraft:chest[facing=west,type=single,waterlogged=false]
+TICK block 0 -60 0 minecraft:crafter delay=4 prio=0
+BE 0 -60 0 {Items:[{Slot:0b,count:2,id:"minecraft:oak_planks"},{Slot:1b,count:1,id:"minecraft:oak_planks"},{Slot:3b,count:5,id:"minecraft:oak_planks"},{Slot:4b,count:4,id:"minecraft:oak_planks"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:oak_planks"},{Slot:3b,count:4,id:"minecraft:oak_planks"},{Slot:4b,count:3,id:"minecraft:oak_planks"}],components:{},crafting_ticks_remaining:4,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+BE 1 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:crafting_table"}],components:{},id:"minecraft:chest",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=true,orientation=east_up,triggered=true]
+B 1 -60 0 minecraft:chest[facing=west,type=single,waterlogged=false]
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:oak_planks"},{Slot:3b,count:4,id:"minecraft:oak_planks"},{Slot:4b,count:3,id:"minecraft:oak_planks"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=true]
+# unpowering resets triggered and crafting; powering again crafts again
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:oak_planks"},{Slot:3b,count:4,id:"minecraft:oak_planks"},{Slot:4b,count:3,id:"minecraft:oak_planks"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:0,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=false]
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:oak_planks"},{Slot:3b,count:4,id:"minecraft:oak_planks"},{Slot:4b,count:3,id:"minecraft:oak_planks"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:0,y:-60,z:0}
+BE 1 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:crafting_table"}],components:{},id:"minecraft:chest",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=true]
+EV level_event r=64.0 ex=0 type=1050 pos=0,-60,0 data=0 global=0
+# cake: the milk buckets leave three empty buckets that go into the barrel after the cake
+BE 6 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:milk_bucket"},{Slot:3b,count:1,id:"minecraft:sugar"},{Slot:6b,count:2,id:"minecraft:wheat"}],components:{},crafting_ticks_remaining:3,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:6,y:-60,z:0}
+BE 7 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:cake"},{Slot:1b,count:3,id:"minecraft:bucket"}],components:{},id:"minecraft:barrel",x:7,y:-60,z:0}
+B 6 -60 0 minecraft:crafter[crafting=true,orientation=east_up,triggered=true]
+B 7 -60 0 minecraft:barrel[facing=up,open=false]
+# result and remaining items dropped in front of a crafter whose target is full of unrelated items
+BE 12 -60 0 {Items:[],components:{},crafting_ticks_remaining:3,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:12,y:-60,z:0}
+BE 13 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:stone"},{Slot:1b,count:64,id:"minecraft:stone"},{Slot:2b,count:64,id:"minecraft:stone"},{Slot:3b,count:64,id:"minecraft:stone"},{Slot:4b,count:64,id:"minecraft:stone"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:13,y:-60,z:0}
+B 12 -60 0 minecraft:crafter[crafting=true,orientation=east_up,triggered=true]
+B 13 -60 0 minecraft:hopper[enabled=true,facing=south]
+E item#1 minecraft:item pos=13.736676875167156,-59.43191878882189,-0.14075008034706116 delta=0.12487896879065621,0.020282629608450422,-0.23441743174460328 rot=128.71417,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cake*1 age=3 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=13.537176868786124,-59.490521441886955,-0.13450971245765686 delta=0.07845745107045846,0.006646419028511115,-0.2403702550225404 rot=253.21431,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bucket*1 age=3 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=13.516250699510643,-59.481688312135994,0.06392202526330948 delta=0.07358815529719272,0.0087017938462746,-0.17794935960208846 rot=98.89719,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bucket*1 age=3 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=13.69056551282695,-59.49189430407807,-0.28271687030792236 delta=0.11414934796102037,0.006326968680173715,-0.29166664035547285 rot=37.86103,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bucket*1 age=3 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1049 pos=12,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2010 pos=12,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1049 pos=12,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2010 pos=12,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1049 pos=12,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2010 pos=12,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1049 pos=12,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2010 pos=12,-60,0 data=5 global=0
+# nothing in front: the result drops upwards from a crafter facing up, and 1049/2010 are sent per dropped stack
+BE 18 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:3,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:18,y:-60,z:0}
+B 18 -60 0 minecraft:crafter[crafting=true,orientation=up_north,triggered=true]
+E item#1 minecraft:item pos=14.44947119689724,-60.0,-1.4787769385141125 delta=0.06637386295348795,0.0,-0.12459416216519155 rot=128.71417,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cake*1 age=9 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=13.956634952962144,-60.0,-1.4196043120019401 delta=0.025020343670822117,0.0,-0.07665487862339716 rot=253.21431,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bucket*3 age=8 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=18.35887505037251,-58.72344928321155,0.3749128316319904 delta=-0.04517265637155247,0.025053029568626893,-0.040039126235961245 rot=309.46964,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*4 age=3 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1049 pos=18,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2010 pos=18,-60,0 data=1 global=0
+# a crafter facing a crafter inserts one item at a time, skipping disabled slots and following the smaller-stack rule
+BE 24 -60 0 {Items:[{Slot:4b,count:2,id:"minecraft:oak_log"}],components:{},crafting_ticks_remaining:3,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:24,y:-60,z:0}
+BE 25 -60 0 {Items:[{Slot:1b,count:62,id:"minecraft:oak_planks"},{Slot:2b,count:63,id:"minecraft:oak_planks"},{Slot:3b,count:1,id:"minecraft:oak_planks"},{Slot:4b,count:1,id:"minecraft:oak_planks"},{Slot:6b,count:1,id:"minecraft:oak_planks"},{Slot:7b,count:1,id:"minecraft:oak_planks"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;0,5],id:"minecraft:crafter",triggered:0,x:25,y:-60,z:0}
+# nothing can be crafted (1050): a lone dirt block and an empty grid
+BE 30 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:dirt"},{Slot:8b,count:1,id:"minecraft:stick"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:30,y:-60,z:0}
+BE 32 -60 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:1,x:32,y:-60,z:0}
+B 30 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=true]
+B 32 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=true]
+EV level_event r=64.0 ex=0 type=1050 pos=30,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=1050 pos=32,-60,0 data=0 global=0
+# a pulse shorter than the tick delay still crafts
+BE 36 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:oak_planks"},{Slot:1b,count:1,id:"minecraft:oak_planks"},{Slot:3b,count:1,id:"minecraft:oak_planks"},{Slot:4b,count:1,id:"minecraft:oak_planks"}],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:36,y:-60,z:0}
+B 36 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=false]
+TICK block 36 -60 0 minecraft:crafter delay=3 prio=0
+BE 36 -60 0 {Items:[],components:{},crafting_ticks_remaining:0,disabled_slots:[I;],id:"minecraft:crafter",triggered:0,x:36,y:-60,z:0}
+BE 37 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:crafting_table"}],components:{},id:"minecraft:barrel",x:37,y:-60,z:0}
+B 36 -60 0 minecraft:crafter[crafting=false,orientation=east_up,triggered=false]
