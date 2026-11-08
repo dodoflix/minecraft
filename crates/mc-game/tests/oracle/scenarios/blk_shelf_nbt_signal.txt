@@ -1,0 +1,50 @@
+# ShelfBlockEntity: fresh NBT and update tag, items in slots 0..2, align_items_to_bottom, the comparator signal (3 slot bits,
+# read only from behind the shelf), droppable contents and the container component.
+level flat
+preload 2
+note a north facing shelf at x=1 with a comparator on each side (only the one behind, south, reads the shelf)
+block 1 -60 0 minecraft:oak_shelf[facing=north]
+block 1 -60 1 minecraft:comparator[facing=north]
+block 1 -60 -1 minecraft:comparator[facing=south]
+block 2 -60 0 minecraft:comparator[facing=west]
+block 0 -60 0 minecraft:comparator[facing=east]
+tick 4
+dump be:1,-60,0 beu:1,-60,0 be:1,-60,1 be:1,-60,-1 be:2,-60,0 be:0,-60,0 chunkbes:0,0
+note items in slot 0 and 2, aligned to the bottom
+be_nbt 1 -60 0 {Items:[{Slot:0b,id:"minecraft:apple",count:3},{Slot:2b,id:"minecraft:stick",count:1}],align_items_to_bottom:1b}
+tick 4
+dump be:1,-60,0 beu:1,-60,0 be:1,-60,1 be:1,-60,-1 be:2,-60,0 be:0,-60,0 events
+note all three slots, then only the middle one, an out of range slot, then none
+be_nbt 1 -60 0 {Items:[{Slot:0b,id:"minecraft:apple",count:3},{Slot:1b,id:"minecraft:cobblestone",count:64},{Slot:2b,id:"minecraft:stick",count:1}]}
+tick 4
+dump be:1,-60,0 be:1,-60,1
+be_nbt 1 -60 0 {Items:[{Slot:1b,id:"minecraft:cobblestone",count:64}],align_items_to_bottom:0b}
+tick 4
+dump be:1,-60,0 beu:1,-60,0 be:1,-60,1
+be_nbt 1 -60 0 {Items:[{Slot:5b,id:"minecraft:apple",count:1},{Slot:0b,id:"minecraft:diamond",count:1}]}
+tick 4
+dump be:1,-60,0 be:1,-60,1
+be_nbt 1 -60 0 {Items:[]}
+tick 4
+dump be:1,-60,0 beu:1,-60,0 be:1,-60,1
+note stacks with components and a count above the item stack limit survive the round trip
+be_nbt 1 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond_sword",count:1,components:{"minecraft:damage":5,"minecraft:custom_name":'"Blade"'}},{Slot:1b,id:"minecraft:apple",count:99},{Slot:2b,id:"minecraft:stone",count:1}]}
+tick 4
+dump be:1,-60,0 beu:1,-60,0 be:1,-60,1
+note shelves facing east, south and west read from behind too
+block 5 -60 0 minecraft:oak_shelf[facing=east]
+block 4 -60 0 minecraft:comparator[facing=east]
+block 5 -60 3 minecraft:birch_shelf[facing=south]
+block 5 -60 2 minecraft:comparator[facing=south]
+block 8 -60 0 minecraft:spruce_shelf[facing=west,waterlogged=true]
+block 9 -60 0 minecraft:comparator[facing=west]
+be_nbt 5 -60 0 {Items:[{Slot:0b,id:"minecraft:apple",count:1},{Slot:1b,id:"minecraft:apple",count:1}]}
+be_nbt 5 -60 3 {Items:[{Slot:2b,id:"minecraft:apple",count:1}]}
+be_nbt 8 -60 0 {Items:[{Slot:0b,id:"minecraft:apple",count:1},{Slot:2b,id:"minecraft:apple",count:1}]}
+tick 4
+dump blocks:4,-60,-1,9,-60,4 be:4,-60,0 be:5,-60,2 be:9,-60,0 be:5,-60,0 be:5,-60,3 be:8,-60,0 ticks
+note breaking the shelf drops its stacks and updates the comparator behind it
+level_seed 31
+destroy 1 -60 0
+tick 4
+dump blocks:0,-60,-1,2,-60,1 entities events be:1,-60,1

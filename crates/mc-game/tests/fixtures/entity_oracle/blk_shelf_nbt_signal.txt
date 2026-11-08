@@ -1,0 +1,64 @@
+# a north facing shelf at x=1 with a comparator on each side (only the one behind, south, reads the shelf)
+BE 1 -60 0 {Items:[],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:1,y:-60,z:0}
+BEU 1 -60 0 minecraft:shelf {Items:[],align_items_to_bottom:0b}
+BE 1 -60 1 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+BE 1 -60 -1 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:-1}
+BE 2 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:2,y:-60,z:0}
+BE 0 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:0,y:-60,z:0}
+CHUNKBES 0 0
+BEP 0 -60 0 minecraft:comparator
+BEP 1 -60 0 minecraft:shelf
+BEP 2 -60 0 minecraft:comparator
+BEP 1 -60 1 minecraft:comparator
+# items in slot 0 and 2, aligned to the bottom
+BE 1 -60 0 {Items:[{Slot:0b,count:3,id:"minecraft:apple"},{Slot:2b,count:1,id:"minecraft:stick"}],align_items_to_bottom:1b,components:{},id:"minecraft:shelf",x:1,y:-60,z:0}
+BEU 1 -60 0 minecraft:shelf {Items:[{Slot:0b,count:3,id:"minecraft:apple"},{Slot:2b,count:1,id:"minecraft:stick"}],align_items_to_bottom:1b}
+BE 1 -60 1 {OutputSignal:5,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+BE 1 -60 -1 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:-1}
+BE 2 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:2,y:-60,z:0}
+BE 0 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:0,y:-60,z:0}
+# all three slots, then only the middle one, an out of range slot, then none
+BE 1 -60 0 {Items:[{Slot:0b,count:3,id:"minecraft:apple"},{Slot:1b,count:64,id:"minecraft:cobblestone"},{Slot:2b,count:1,id:"minecraft:stick"}],align_items_to_bottom:1b,components:{},id:"minecraft:shelf",x:1,y:-60,z:0}
+BE 1 -60 1 {OutputSignal:7,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+BE 1 -60 0 {Items:[{Slot:1b,count:64,id:"minecraft:cobblestone"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:1,y:-60,z:0}
+BEU 1 -60 0 minecraft:shelf {Items:[{Slot:1b,count:64,id:"minecraft:cobblestone"}],align_items_to_bottom:0b}
+BE 1 -60 1 {OutputSignal:2,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+BE 1 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:diamond"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:1,y:-60,z:0}
+BE 1 -60 1 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+BE 1 -60 0 {Items:[],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:1,y:-60,z:0}
+BEU 1 -60 0 minecraft:shelf {Items:[],align_items_to_bottom:0b}
+BE 1 -60 1 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+# stacks with components and a count above the item stack limit survive the round trip
+BE 1 -60 0 {Items:[{Slot:0b,components:{"minecraft:custom_name":'"Blade"',"minecraft:damage":5},count:1,id:"minecraft:diamond_sword"},{Slot:1b,count:99,id:"minecraft:apple"},{Slot:2b,count:1,id:"minecraft:stone"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:1,y:-60,z:0}
+BEU 1 -60 0 minecraft:shelf {Items:[{Slot:0b,components:{"minecraft:custom_name":'"Blade"',"minecraft:damage":5},count:1,id:"minecraft:diamond_sword"},{Slot:1b,count:99,id:"minecraft:apple"},{Slot:2b,count:1,id:"minecraft:stone"}],align_items_to_bottom:0b}
+BE 1 -60 1 {OutputSignal:7,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}
+# shelves facing east, south and west read from behind too
+B 4 -60 0 minecraft:comparator[facing=east,mode=compare,powered=true]
+B 5 -60 0 minecraft:oak_shelf[facing=east,powered=false,side_chain=unconnected,waterlogged=false]
+B 5 -60 2 minecraft:comparator[facing=south,mode=compare,powered=true]
+B 5 -60 3 minecraft:birch_shelf[facing=south,powered=false,side_chain=unconnected,waterlogged=false]
+B 8 -60 0 minecraft:spruce_shelf[facing=west,powered=false,side_chain=unconnected,waterlogged=true]
+B 9 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+BE 4 -60 0 {OutputSignal:3,components:{},id:"minecraft:comparator",x:4,y:-60,z:0}
+BE 5 -60 2 {OutputSignal:4,components:{},id:"minecraft:comparator",x:5,y:-60,z:2}
+BE 9 -60 0 {OutputSignal:5,components:{},id:"minecraft:comparator",x:9,y:-60,z:0}
+BE 5 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:apple"},{Slot:1b,count:1,id:"minecraft:apple"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:5,y:-60,z:0}
+BE 5 -60 3 {Items:[{Slot:2b,count:1,id:"minecraft:apple"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:5,y:-60,z:3}
+BE 8 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:apple"},{Slot:2b,count:1,id:"minecraft:apple"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:8,y:-60,z:0}
+TICK fluid 8 -60 0 minecraft:water delay=1 prio=0
+# breaking the shelf drops its stacks and updates the comparator behind it
+DESTROY true
+B 0 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 1 -60 -1 minecraft:comparator[facing=south,mode=compare,powered=false]
+B 1 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+B 2 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+E item#1 minecraft:item pos=1.414350952187193,-59.29435404691136,0.43774039277071963 delta=-0.04784768691090213,0.0323152326326785,-0.048766795982459 rot=228.43723,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_shelf*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.9403083641731775,-59.07224647952452,0.8054674585278327 delta=0.07984973055029876,0.028429012487696602,-0.010948845313019092 rot=138.11548,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1/dmg=5 age=4 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.1293643876779669,-59.27302150219519,0.20363630084941806 delta=-0.06776208154043412,-0.008500421678754084,-0.04530387908037384 rot=224.27911,0.0 og=0 fall=0.008673899807035923 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*24 age=4 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=1.5577571122572198,-58.8990272888793,0.44895357390015034 delta=0.034035281126173836,0.08037042598917328,0.012989948009373453 rot=243.77151,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*28 age=4 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=1.2893368685274003,-59.02375800109918,0.022772400210428978 delta=-0.02974841857334968,0.05073113283828507,-0.08828189208170897 rot=248.66597,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*16 age=4 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=1.362029618396831,-58.89896358019271,0.3247204280060515 delta=-0.012474712001980335,0.08038556484635224,-0.01653111031442536 rot=76.687614,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*18 age=4 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=1.1219251495280633,-59.32751418437261,0.20146642261490957 delta=-0.0695298399090031,-0.021449314159920845,-0.045819499138575304 rot=244.86201,0.0 og=0 fall=0.021887054666876793 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*13 age=4 pickup=0 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=2.0223192417046185,-59.566959956103965,0.7653690128622195 delta=0.08735650431543644,7.046534062078447E-4,0.08192056045913657 rot=60.269386,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=4 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,0 data=4613 global=0
+BE 1 -60 1 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:1}

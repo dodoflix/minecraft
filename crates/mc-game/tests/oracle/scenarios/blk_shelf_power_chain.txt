@@ -1,0 +1,132 @@
+# Shelves: powered shelves join a chain of at most 3 (side_chain unconnected/right/center/left). The row of a north facing
+# shelf runs along x (left = +x, right = -x), chains for other facings use the same rule. A redstone block above a shelf
+# powers it; unpowering and breaking disconnect the neighbours.
+level flat
+preload 3
+note rows of 1..5 north facing shelves at z=0,2,4,6,8 (unpowered)
+block 0 -60 0 minecraft:oak_shelf[facing=north]
+block 0 -60 2 minecraft:oak_shelf[facing=north]
+block 1 -60 2 minecraft:oak_shelf[facing=north]
+block 0 -60 4 minecraft:oak_shelf[facing=north]
+block 1 -60 4 minecraft:oak_shelf[facing=north]
+block 2 -60 4 minecraft:oak_shelf[facing=north]
+block 0 -60 6 minecraft:oak_shelf[facing=north]
+block 1 -60 6 minecraft:oak_shelf[facing=north]
+block 2 -60 6 minecraft:oak_shelf[facing=north]
+block 3 -60 6 minecraft:oak_shelf[facing=north]
+block 0 -60 8 minecraft:oak_shelf[facing=north]
+block 1 -60 8 minecraft:oak_shelf[facing=north]
+block 2 -60 8 minecraft:oak_shelf[facing=north]
+block 3 -60 8 minecraft:oak_shelf[facing=north]
+block 4 -60 8 minecraft:oak_shelf[facing=north]
+tick 2
+dump blocks:-1,-60,-1,6,-60,10 events
+note power every row from x=0 upwards
+block 0 -59 0 minecraft:redstone_block
+block 0 -59 2 minecraft:redstone_block
+block 1 -59 2 minecraft:redstone_block
+block 0 -59 4 minecraft:redstone_block
+block 1 -59 4 minecraft:redstone_block
+block 2 -59 4 minecraft:redstone_block
+block 0 -59 6 minecraft:redstone_block
+block 1 -59 6 minecraft:redstone_block
+block 2 -59 6 minecraft:redstone_block
+block 3 -59 6 minecraft:redstone_block
+block 0 -59 8 minecraft:redstone_block
+block 1 -59 8 minecraft:redstone_block
+block 2 -59 8 minecraft:redstone_block
+block 3 -59 8 minecraft:redstone_block
+block 4 -59 8 minecraft:redstone_block
+tick 2
+dump blocks:-1,-60,-1,6,-60,10 events
+note break the middle of the chain of three (z=4) and of the chain of 3+2 (z=8, x=1)
+destroy 1 -60 4
+block 1 -60 8 minecraft:air
+tick 2
+dump blocks:-1,-60,-1,6,-60,10 events
+note remove the power under the end shelf (z=2, x=0)
+block 0 -59 2 minecraft:air
+tick 2
+dump blocks:-1,-60,-1,6,-60,10 events
+note rows of 5 and 3 powered in other orders: z=12 from x=4 down to 0, z=14 centre first, z=16 mixed woods
+block 0 -60 12 minecraft:oak_shelf[facing=north]
+block 1 -60 12 minecraft:oak_shelf[facing=north]
+block 2 -60 12 minecraft:oak_shelf[facing=north]
+block 3 -60 12 minecraft:oak_shelf[facing=north]
+block 4 -60 12 minecraft:oak_shelf[facing=north]
+block 0 -60 14 minecraft:oak_shelf[facing=north]
+block 1 -60 14 minecraft:oak_shelf[facing=north]
+block 2 -60 14 minecraft:oak_shelf[facing=north]
+block 0 -60 16 minecraft:oak_shelf[facing=north]
+block 1 -60 16 minecraft:spruce_shelf[facing=north]
+block 2 -60 16 minecraft:birch_shelf[facing=north]
+tick 2
+block 4 -59 12 minecraft:redstone_block
+block 3 -59 12 minecraft:redstone_block
+block 2 -59 12 minecraft:redstone_block
+block 1 -59 12 minecraft:redstone_block
+block 0 -59 12 minecraft:redstone_block
+block 1 -59 14 minecraft:redstone_block
+block 0 -59 14 minecraft:redstone_block
+block 2 -59 14 minecraft:redstone_block
+block 1 -59 16 minecraft:redstone_block
+block 2 -59 16 minecraft:redstone_block
+block 0 -59 16 minecraft:redstone_block
+tick 2
+dump blocks:-1,-60,11,6,-60,17 events
+note unpower the middle of the mixed chain (z=16) and the end of the reversed row (z=12, x=4)
+block 1 -59 16 minecraft:air
+block 4 -59 12 minecraft:air
+tick 2
+dump blocks:-1,-60,11,6,-60,17 events
+note shelves placed already powered (redstone blocks above first): z=20 left to right, z=22 gap filled last, z=24 explicit centre state
+block 0 -59 20 minecraft:redstone_block
+block 1 -59 20 minecraft:redstone_block
+block 2 -59 20 minecraft:redstone_block
+block 3 -59 20 minecraft:redstone_block
+block 4 -59 20 minecraft:redstone_block
+block 0 -59 22 minecraft:redstone_block
+block 1 -59 22 minecraft:redstone_block
+block 2 -59 22 minecraft:redstone_block
+block 0 -59 24 minecraft:redstone_block
+block 1 -59 24 minecraft:redstone_block
+block 2 -59 24 minecraft:redstone_block
+block 0 -60 20 minecraft:oak_shelf[facing=north,powered=true]
+block 1 -60 20 minecraft:oak_shelf[facing=north,powered=true]
+block 2 -60 20 minecraft:oak_shelf[facing=north,powered=true]
+block 3 -60 20 minecraft:oak_shelf[facing=north,powered=true]
+block 4 -60 20 minecraft:oak_shelf[facing=north,powered=true]
+block 0 -60 22 minecraft:oak_shelf[facing=north,powered=true]
+block 2 -60 22 minecraft:oak_shelf[facing=north,powered=true]
+block 1 -60 22 minecraft:oak_shelf[facing=north,powered=true]
+block 0 -60 24 minecraft:oak_shelf[facing=north,powered=true,side_chain=left]
+block 1 -60 24 minecraft:oak_shelf[facing=north,powered=true,side_chain=center]
+block 2 -60 24 minecraft:oak_shelf[facing=north,powered=true,side_chain=right]
+tick 2
+dump blocks:-1,-60,19,6,-60,25 events
+note other facings: east (z=28..30, x=10), south (x=1..3, z=34), west (z=28..30, x=14), powered by a block above each
+block 10 -60 28 minecraft:oak_shelf[facing=east]
+block 10 -60 29 minecraft:oak_shelf[facing=east]
+block 10 -60 30 minecraft:oak_shelf[facing=east]
+block 1 -60 34 minecraft:oak_shelf[facing=south]
+block 2 -60 34 minecraft:oak_shelf[facing=south]
+block 3 -60 34 minecraft:oak_shelf[facing=south]
+block 14 -60 28 minecraft:oak_shelf[facing=west]
+block 14 -60 29 minecraft:oak_shelf[facing=west]
+block 14 -60 30 minecraft:oak_shelf[facing=west]
+tick 2
+block 10 -59 28 minecraft:redstone_block
+block 10 -59 29 minecraft:redstone_block
+block 10 -59 30 minecraft:redstone_block
+block 1 -59 34 minecraft:redstone_block
+block 2 -59 34 minecraft:redstone_block
+block 3 -59 34 minecraft:redstone_block
+block 14 -59 28 minecraft:redstone_block
+block 14 -59 29 minecraft:redstone_block
+block 14 -59 30 minecraft:redstone_block
+tick 2
+dump blocks:0,-60,27,15,-60,35 events
+note break the end of the east chain
+destroy 10 -60 28
+tick 2
+dump blocks:0,-60,27,15,-60,35 events

@@ -1,0 +1,157 @@
+# rows of 1..5 north facing shelves at z=0,2,4,6,8 (unpowered)
+B 0 -60 0 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 0 -60 2 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 0 -60 4 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 0 -60 6 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 0 -60 8 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 1 -60 2 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 1 -60 4 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 1 -60 6 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 1 -60 8 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 2 -60 4 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 2 -60 6 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 2 -60 8 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 3 -60 6 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 3 -60 8 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 4 -60 8 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+# power every row from x=0 upwards
+B 0 -60 0 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 0 -60 2 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 4 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 1 -60 2 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 1 -60 4 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 1 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 1 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 2 -60 4 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 3 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 3 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 4 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=1.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=1.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=2.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=1.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=2.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=3.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,8.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=1.5,-59.5,8.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=2.5,-59.5,8.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=3.5,-59.5,8.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=4.5,-59.5,8.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+# break the middle of the chain of three (z=4) and of the chain of 3+2 (z=8, x=1)
+DESTROY true
+B 0 -60 0 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 0 -60 2 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 4 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 0 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 1 -60 2 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 1 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 2 -60 4 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 2 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 3 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 3 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 4 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,4 data=4609 global=0
+# remove the power under the end shelf (z=2, x=0)
+B 0 -60 0 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 0 -60 2 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 0 -60 4 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 0 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 1 -60 2 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 1 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 2 -60 4 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 2 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 3 -60 6 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 3 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 4 -60 8 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+EV sound at=0.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.shelf.deactivate source=block vol=1.0 pitch=1.0
+# rows of 5 and 3 powered in other orders: z=12 from x=4 down to 0, z=14 centre first, z=16 mixed woods
+B 0 -60 12 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 14 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 16 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 1 -60 12 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 1 -60 14 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 1 -60 16 minecraft:spruce_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 2 -60 12 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 2 -60 14 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 16 minecraft:birch_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 3 -60 12 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 4 -60 12 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+EV sound at=4.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=3.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=2.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=1.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=1.5,-59.5,14.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,14.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=2.5,-59.5,14.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=1.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=2.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+# unpower the middle of the mixed chain (z=16) and the end of the reversed row (z=12, x=4)
+B 0 -60 12 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 14 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 16 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 1 -60 12 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 1 -60 14 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 1 -60 16 minecraft:spruce_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 2 -60 12 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 2 -60 14 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 16 minecraft:birch_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 3 -60 12 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 4 -60 12 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+EV sound at=1.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.shelf.deactivate source=block vol=1.0 pitch=1.0
+EV sound at=4.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.shelf.deactivate source=block vol=1.0 pitch=1.0
+# shelves placed already powered (redstone blocks above first): z=20 left to right, z=22 gap filled last, z=24 explicit centre state
+B 0 -60 20 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 22 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 0 -60 24 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 1 -60 20 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 1 -60 22 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 1 -60 24 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 2 -60 20 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 22 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 24 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 3 -60 20 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 4 -60 20 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+# other facings: east (z=28..30, x=10), south (x=1..3, z=34), west (z=28..30, x=14), powered by a block above each
+B 1 -60 34 minecraft:oak_shelf[facing=south,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 34 minecraft:oak_shelf[facing=south,powered=true,side_chain=center,waterlogged=false]
+B 3 -60 34 minecraft:oak_shelf[facing=south,powered=true,side_chain=right,waterlogged=false]
+B 10 -60 28 minecraft:oak_shelf[facing=east,powered=true,side_chain=right,waterlogged=false]
+B 10 -60 29 minecraft:oak_shelf[facing=east,powered=true,side_chain=center,waterlogged=false]
+B 10 -60 30 minecraft:oak_shelf[facing=east,powered=true,side_chain=left,waterlogged=false]
+B 14 -60 28 minecraft:oak_shelf[facing=west,powered=true,side_chain=left,waterlogged=false]
+B 14 -60 29 minecraft:oak_shelf[facing=west,powered=true,side_chain=center,waterlogged=false]
+B 14 -60 30 minecraft:oak_shelf[facing=west,powered=true,side_chain=right,waterlogged=false]
+EV sound at=10.5,-59.5,28.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=10.5,-59.5,29.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=10.5,-59.5,30.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=1.5,-59.5,34.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=2.5,-59.5,34.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=3.5,-59.5,34.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,28.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,29.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,30.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+# break the end of the east chain
+DESTROY true
+B 1 -60 34 minecraft:oak_shelf[facing=south,powered=true,side_chain=left,waterlogged=false]
+B 2 -60 34 minecraft:oak_shelf[facing=south,powered=true,side_chain=center,waterlogged=false]
+B 3 -60 34 minecraft:oak_shelf[facing=south,powered=true,side_chain=right,waterlogged=false]
+B 10 -60 29 minecraft:oak_shelf[facing=east,powered=true,side_chain=right,waterlogged=false]
+B 10 -60 30 minecraft:oak_shelf[facing=east,powered=true,side_chain=left,waterlogged=false]
+B 14 -60 28 minecraft:oak_shelf[facing=west,powered=true,side_chain=left,waterlogged=false]
+B 14 -60 29 minecraft:oak_shelf[facing=west,powered=true,side_chain=center,waterlogged=false]
+B 14 -60 30 minecraft:oak_shelf[facing=west,powered=true,side_chain=right,waterlogged=false]
+EV level_event r=64.0 ex=0 type=2001 pos=10,-60,28 data=4655 global=0

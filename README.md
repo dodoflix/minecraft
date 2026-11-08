@@ -40,7 +40,7 @@ bullet links to the `parity` issue that tracks the category, and known differenc
 - **Items:** several items do nothing when used (ender pearl, egg, fishing rod, flint and steel, minecarts, brush, dyes on signs, carrot on a stick boost, and more). ([#15](https://github.com/dodoflix/minecraft/issues/15))
 - **Dispensers:** only five dispense behaviours exist; every other item is dropped. ([#16](https://github.com/dodoflix/minecraft/issues/16))
 - **Workstations and menus:** most crafting and workstation blocks open no menu, campfires and the crafter have no block entity, and the recipe book cannot place recipes. ([#17](https://github.com/dodoflix/minecraft/issues/17))
-- **Redstone and blocks:** carved pumpkins build no golems, and shelves, the copper golem statue, sign commands and some statistics are incomplete. ([#18](https://github.com/dodoflix/minecraft/issues/18))
+- **Redstone and blocks:** carved pumpkins build no golems, and the copper golem statue, sign commands and some statistics are incomplete. ([#18](https://github.com/dodoflix/minecraft/issues/18))
 - **Commands, advancements and loot:** advancement data is loaded and tracked, but `/advancement` and the `advancements` selector do not reach it; loot contexts cannot be built by the commands, and some criteria are never fired. ([#22](https://github.com/dodoflix/minecraft/issues/22))
 - **Raids and custom spawners:** raids spawn no raiders, omen effects start no raid, and only the phantom spawner runs. ([#19](https://github.com/dodoflix/minecraft/issues/19))
 - **World upgrade and data fixers:** no data fix is ported, so old worlds are not upgraded. ([#20](https://github.com/dodoflix/minecraft/issues/20))

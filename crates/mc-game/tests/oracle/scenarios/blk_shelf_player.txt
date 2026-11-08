@@ -1,0 +1,156 @@
+# Shelf player interaction: item placement of a shelf (facing, powered, waterlogged), then an unpowered shelf stores, swaps and
+# gives back one stack per slot (survival and creative), only the front face with the main hand counts, vibrations of the
+# interactions; a powered shelf swaps the hotbar with every shelf of its connected chain.
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 -1.5 0 0
+spawn_player Alex creative 8.5 -60 -1.5 0 0
+spawn_player Bob survival 15.5 -60 -1.5 0 0
+spawn_player Cid survival 20.5 -60 -1.5 0 0
+spawn_player Dan survival 24.5 -60 -1.5 0 0
+spawn_player Eve survival 30.5 -60 -1.5 0 0
+give Steve hotbar0 minecraft:oak_shelf 4
+select Steve 0
+note placing: facing opposite the player, unpowered; next to a redstone block it is placed powered; in water it is waterlogged
+use_on Steve 0 -61 0 up main 0.5 1.0 0.5
+block -3 -60 0 minecraft:redstone_block
+use_on Steve -2 -61 0 up main 0.5 1.0 0.5
+block 2 -60 0 minecraft:stone
+block 4 -60 0 minecraft:stone
+block 3 -60 1 minecraft:stone
+block 3 -60 -1 minecraft:stone
+block 3 -60 0 minecraft:water
+use_on Steve 3 -61 0 up main 0.5 1.0 0.5
+tick 2
+dump blocks:-3,-60,0,4,-60,0 inventory:Steve events ticks
+note store a stack in the middle slot, swap it for another stack, take it back with an empty hand
+give Steve hotbar1 minecraft:apple 5
+give Steve hotbar2 minecraft:stick 3
+select Steve 1
+use_on Steve 0 -60 0 north main 0.5 0.5 0.0
+dump be:0,-60,0 beu:0,-60,0 inventory:Steve events
+select Steve 2
+use_on Steve 0 -60 0 north main 0.5 0.5 0.0
+dump be:0,-60,0 inventory:Steve events
+select Steve 8
+use_on Steve 0 -60 0 north main 0.5 0.5 0.0
+dump be:0,-60,0 inventory:Steve events
+note an empty hand on an empty slot, the top face, the side face and the off hand do nothing
+select Steve 7
+use_on Steve 0 -60 0 north main 0.5 0.5 0.0
+use_on Steve 0 -60 0 up main 0.5 1.0 0.5
+use_on Steve 0 -60 0 east main 1.0 0.5 0.5
+give Steve offhand minecraft:stick 1
+use_on Steve 0 -60 0 north off 0.5 0.5 0.0
+give Steve offhand minecraft:air
+dump be:0,-60,0 inventory:Steve events
+note left and right slots (column from the clicked x), a stack that is already at its limit, taking from the left slot
+give Steve hotbar3 minecraft:diamond_sword
+give Steve hotbar4 minecraft:ender_pearl 16
+select Steve 3
+use_on Steve 0 -60 0 north main 0.9 0.5 0.0
+select Steve 4
+use_on Steve 0 -60 0 north main 0.1 0.5 0.0
+select Steve 5
+use_on Steve 0 -60 0 north main 0.9 0.5 0.0
+dump be:0,-60,0 beu:0,-60,0 inventory:Steve events
+note an item with use_effects that sends no interaction vibrations
+give Steve hotbar6 minecraft:stick[minecraft:use_effects={interact_vibrations:false}] 2
+select Steve 6
+use_on Steve 0 -60 0 north main 0.5 0.5 0.0
+dump be:0,-60,0 inventory:Steve events
+note creative player keeps the stack in hand
+give Alex hotbar0 minecraft:oak_shelf 1
+give Alex hotbar1 minecraft:apple 5
+use_on Alex 8 -61 0 up main 0.5 1.0 0.5
+select Alex 1
+use_on Alex 8 -60 0 north main 0.5 0.5 0.0
+dump be:8,-60,0 inventory:Alex events
+select Alex 5
+use_on Alex 8 -60 0 north main 0.5 0.5 0.0
+dump be:8,-60,0 inventory:Alex events
+note powered shelves swap the hotbar: a chain of three (x=14..16) over hotbar 0..8, twice
+select Bob 4
+give Bob hotbar0 minecraft:apple 1
+give Bob hotbar1 minecraft:apple 2
+give Bob hotbar2 minecraft:apple 3
+give Bob hotbar3 minecraft:apple 4
+give Bob hotbar4 minecraft:apple 5
+give Bob hotbar5 minecraft:apple 6
+give Bob hotbar6 minecraft:apple 7
+give Bob hotbar7 minecraft:apple 8
+give Bob hotbar8 minecraft:apple 9
+block 14 -60 0 minecraft:oak_shelf[facing=north]
+block 15 -60 0 minecraft:oak_shelf[facing=north]
+block 16 -60 0 minecraft:oak_shelf[facing=north]
+be_nbt 14 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:1},{Slot:2b,id:"minecraft:dirt",count:2}]}
+be_nbt 15 -60 0 {Items:[{Slot:1b,id:"minecraft:sand",count:3}]}
+be_nbt 16 -60 0 {Items:[{Slot:0b,id:"minecraft:gravel",count:4},{Slot:1b,id:"minecraft:clay_ball",count:5},{Slot:2b,id:"minecraft:flint",count:6}]}
+block 14 -59 0 minecraft:redstone_block
+block 15 -59 0 minecraft:redstone_block
+block 16 -59 0 minecraft:redstone_block
+tick 2
+dump blocks:14,-60,0,16,-60,0 events
+use_on Bob 15 -60 0 north main 0.5 0.5 0.0
+dump be:14,-60,0 be:15,-60,0 be:16,-60,0 inventory:Bob events
+use_on Bob 14 -60 0 north main 0.5 0.5 0.0
+dump be:14,-60,0 be:15,-60,0 be:16,-60,0 inventory:Bob events
+note a single powered shelf maps to hotbar 6..8, selected slot outside that range
+give Cid hotbar0 minecraft:apple 1
+give Cid hotbar6 minecraft:apple 7
+give Cid hotbar7 minecraft:apple 8
+give Cid hotbar8 minecraft:apple 9
+block 20 -60 0 minecraft:oak_shelf[facing=north]
+block 20 -59 0 minecraft:redstone_block
+be_nbt 20 -60 0 {Items:[{Slot:1b,id:"minecraft:cactus",count:2}]}
+tick 2
+select Cid 0
+use_on Cid 20 -60 0 north main 0.5 0.5 0.0
+dump be:20,-60,0 inventory:Cid events
+note a powered shelf with nothing to swap consumes the click without a sound
+block 24 -60 0 minecraft:oak_shelf[facing=north]
+block 24 -59 0 minecraft:redstone_block
+tick 2
+select Dan 8
+use_on Dan 24 -60 0 north main 0.5 0.5 0.0
+dump be:24,-60,0 inventory:Dan events
+note vibrations: a sculk sensor two blocks away hears the interactions (frequency tells which game event fired; taking back an item whose use_effects mute interaction vibrations is silent)
+give Eve hotbar0 minecraft:stick 3
+give Eve hotbar1 minecraft:stick[minecraft:use_effects={interact_vibrations:false}] 3
+give Eve hotbar2 minecraft:apple 2
+give Eve hotbar6 minecraft:apple 7
+block 30 -60 0 minecraft:oak_shelf[facing=north]
+block 32 -60 0 minecraft:sculk_sensor
+tick 45
+select Eve 0
+use_on Eve 30 -60 0 north main 0.5 0.5 0.0
+tick 6
+dump blocks:32,-60,0,32,-60,0 be:32,-60,0 events
+tick 45
+select Eve 1
+use_on Eve 30 -60 0 north main 0.1 0.5 0.0
+tick 6
+dump blocks:32,-60,0,32,-60,0 be:32,-60,0 events
+tick 45
+select Eve 7
+use_on Eve 30 -60 0 north main 0.1 0.5 0.0
+tick 6
+dump blocks:32,-60,0,32,-60,0 be:32,-60,0 be:30,-60,0 inventory:Eve events
+tick 45
+select Eve 5
+use_on Eve 30 -60 0 north main 0.5 0.5 0.0
+tick 6
+dump blocks:32,-60,0,32,-60,0 be:32,-60,0 events
+tick 45
+block 30 -59 0 minecraft:redstone_block
+tick 6
+dump blocks:30,-60,0,32,-60,0 be:32,-60,0 events
+tick 45
+select Eve 4
+use_on Eve 30 -60 0 north main 0.5 0.5 0.0
+tick 6
+dump blocks:32,-60,0,32,-60,0 be:32,-60,0 inventory:Eve events
+tick 45
+block 30 -59 0 minecraft:air
+tick 6
+dump blocks:30,-60,0,32,-60,0 be:32,-60,0 events

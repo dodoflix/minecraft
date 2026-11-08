@@ -297,6 +297,7 @@ pub mod sea_pickle_block;
 pub mod seagrass_block;
 
 pub mod shelf_block;
+pub mod side_chain_part;
 
 pub mod shelf_mushroom_block;
 

@@ -1,0 +1,140 @@
+# placing: facing opposite the player, unpowered; next to a redstone block it is placed powered; in water it is waterlogged
+B -3 -60 0 minecraft:redstone_block
+B -2 -60 0 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 0 -60 0 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 2 -60 0 minecraft:stone
+B 3 -60 0 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=true]
+B 4 -60 0 minecraft:stone
+I Steve 0 minecraft:oak_shelf*1
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.shelf.place source=block vol=1.0 pitch=0.8
+EV sound at=-1.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.shelf.place source=block vol=1.0 pitch=0.8
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.shelf.place source=block vol=1.0 pitch=0.8
+TICK fluid 3 -60 0 minecraft:water delay=3 prio=0
+# store a stack in the middle slot, swap it for another stack, take it back with an empty hand
+BE 0 -60 0 {Items:[{Slot:1b,count:5,id:"minecraft:apple"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:0,y:-60,z:0}
+BEU 0 -60 0 minecraft:shelf {Items:[{Slot:1b,count:5,id:"minecraft:apple"}],align_items_to_bottom:0b}
+I Steve 0 minecraft:oak_shelf*1
+I Steve 2 minecraft:stick*3
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.place_item source=block vol=1.0 pitch=1.0
+BE 0 -60 0 {Items:[{Slot:1b,count:3,id:"minecraft:stick"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:0,y:-60,z:0}
+I Steve 0 minecraft:oak_shelf*1
+I Steve 2 minecraft:apple*5
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.single_swap source=block vol=1.0 pitch=1.0
+BE 0 -60 0 {Items:[],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:0,y:-60,z:0}
+I Steve 0 minecraft:oak_shelf*1
+I Steve 2 minecraft:apple*5
+I Steve 8 minecraft:stick*3
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.take_item source=block vol=1.0 pitch=1.0
+# an empty hand on an empty slot, the top face, the side face and the off hand do nothing
+BE 0 -60 0 {Items:[],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:0,y:-60,z:0}
+I Steve 0 minecraft:oak_shelf*1
+I Steve 2 minecraft:apple*5
+I Steve 8 minecraft:stick*3
+# left and right slots (column from the clicked x), a stack that is already at its limit, taking from the left slot
+BE 0 -60 0 {Items:[{Slot:2b,count:16,id:"minecraft:ender_pearl"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:0,y:-60,z:0}
+BEU 0 -60 0 minecraft:shelf {Items:[{Slot:2b,count:16,id:"minecraft:ender_pearl"}],align_items_to_bottom:0b}
+I Steve 0 minecraft:oak_shelf*1
+I Steve 2 minecraft:apple*5
+I Steve 5 minecraft:diamond_sword*1
+I Steve 8 minecraft:stick*3
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.place_item source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.place_item source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.take_item source=block vol=1.0 pitch=1.0
+# an item with use_effects that sends no interaction vibrations
+BE 0 -60 0 {Items:[{Slot:1b,components:{"minecraft:use_effects":{interact_vibrations:0b}},count:2,id:"minecraft:stick"},{Slot:2b,count:16,id:"minecraft:ender_pearl"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:0,y:-60,z:0}
+I Steve 0 minecraft:oak_shelf*1
+I Steve 2 minecraft:apple*5
+I Steve 5 minecraft:diamond_sword*1
+I Steve 8 minecraft:stick*3
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.place_item source=block vol=1.0 pitch=1.0
+# creative player keeps the stack in hand
+BE 8 -60 0 {Items:[{Slot:1b,count:5,id:"minecraft:apple"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:8,y:-60,z:0}
+I Alex 0 minecraft:oak_shelf*1
+I Alex 1 minecraft:apple*5
+EV sound at=8.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.shelf.place source=block vol=1.0 pitch=0.8
+EV sound at=8.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.place_item source=block vol=1.0 pitch=1.0
+BE 8 -60 0 {Items:[],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:8,y:-60,z:0}
+I Alex 0 minecraft:oak_shelf*1
+I Alex 1 minecraft:apple*5
+I Alex 5 minecraft:apple*5
+EV sound at=8.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.take_item source=block vol=1.0 pitch=1.0
+# powered shelves swap the hotbar: a chain of three (x=14..16) over hotbar 0..8, twice
+B 14 -60 0 minecraft:oak_shelf[facing=north,powered=true,side_chain=right,waterlogged=false]
+B 15 -60 0 minecraft:oak_shelf[facing=north,powered=true,side_chain=center,waterlogged=false]
+B 16 -60 0 minecraft:oak_shelf[facing=north,powered=true,side_chain=left,waterlogged=false]
+EV sound at=14.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=15.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=16.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+BE 14 -60 0 {Items:[{Slot:0b,count:7,id:"minecraft:apple"},{Slot:1b,count:8,id:"minecraft:apple"},{Slot:2b,count:9,id:"minecraft:apple"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:14,y:-60,z:0}
+BE 15 -60 0 {Items:[{Slot:0b,count:4,id:"minecraft:apple"},{Slot:1b,count:5,id:"minecraft:apple"},{Slot:2b,count:6,id:"minecraft:apple"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:15,y:-60,z:0}
+BE 16 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:apple"},{Slot:1b,count:2,id:"minecraft:apple"},{Slot:2b,count:3,id:"minecraft:apple"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:16,y:-60,z:0}
+I Bob 0 minecraft:gravel*4
+I Bob 1 minecraft:clay_ball*5
+I Bob 2 minecraft:flint*6
+I Bob 4 minecraft:sand*3
+I Bob 6 minecraft:stone*1
+I Bob 8 minecraft:dirt*2
+EV sound at=15.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.multi_swap source=block vol=1.0 pitch=1.0
+BE 14 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:stone"},{Slot:2b,count:2,id:"minecraft:dirt"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:14,y:-60,z:0}
+BE 15 -60 0 {Items:[{Slot:1b,count:3,id:"minecraft:sand"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:15,y:-60,z:0}
+BE 16 -60 0 {Items:[{Slot:0b,count:4,id:"minecraft:gravel"},{Slot:1b,count:5,id:"minecraft:clay_ball"},{Slot:2b,count:6,id:"minecraft:flint"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:16,y:-60,z:0}
+I Bob 0 minecraft:apple*1
+I Bob 1 minecraft:apple*2
+I Bob 2 minecraft:apple*3
+I Bob 3 minecraft:apple*4
+I Bob 4 minecraft:apple*5
+I Bob 5 minecraft:apple*6
+I Bob 6 minecraft:apple*7
+I Bob 7 minecraft:apple*8
+I Bob 8 minecraft:apple*9
+EV sound at=14.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.multi_swap source=block vol=1.0 pitch=1.0
+# a single powered shelf maps to hotbar 6..8, selected slot outside that range
+BE 20 -60 0 {Items:[{Slot:0b,count:7,id:"minecraft:apple"},{Slot:1b,count:8,id:"minecraft:apple"},{Slot:2b,count:9,id:"minecraft:apple"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:20,y:-60,z:0}
+I Cid 0 minecraft:apple*1
+I Cid 7 minecraft:cactus*2
+EV sound at=20.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=20.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.multi_swap source=block vol=1.0 pitch=1.0
+# a powered shelf with nothing to swap consumes the click without a sound
+BE 24 -60 0 {Items:[],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:24,y:-60,z:0}
+EV sound at=24.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+# vibrations: a sculk sensor two blocks away hears the interactions (frequency tells which game event fired; taking back an item whose use_effects mute interaction vibrations is silent)
+B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.place_item source=block vol=1.0 pitch=1.0
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.96363336
+B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.97631216
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.place_item source=block vol=1.0 pitch=1.0
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8983205
+B 32 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
+BE 30 -60 0 {Items:[{Slot:1b,count:3,id:"minecraft:stick"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:30,y:-60,z:0}
+I Eve 2 minecraft:apple*2
+I Eve 6 minecraft:apple*7
+I Eve 7 minecraft:stick*3
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8270706
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.take_item source=block vol=1.0 pitch=1.0
+B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.take_item source=block vol=1.0 pitch=1.0
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.896453
+B 30 -60 0 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
+B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.94810313
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.81230456
+B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:6,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
+I Eve 2 minecraft:apple*2
+I Eve 5 minecraft:stick*3
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.97986126
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.multi_swap source=block vol=1.0 pitch=1.0
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9737657
+B 30 -60 0 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
+B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:9,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8295102
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.deactivate source=block vol=1.0 pitch=1.0
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.991923
