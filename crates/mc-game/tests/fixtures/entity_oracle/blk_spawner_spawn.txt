@@ -1,106 +1,98 @@
 C Set minecraft:overworld to 18000 tick(s)
-BE 8 -59 12 {Delay:504s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{id:"minecraft:slime"}},SpawnPotentials:[{data:{entity:{id:"minecraft:slime"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:8,y:-59,z:12}
-E slime#1 minecraft:slime pos=9.441633944621245,-58.0,11.223677656756516 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#2 minecraft:slime pos=8.332916739684261,-58.0,14.689878289260328 delta=0.0,0.0,0.0 rot=42.22535,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#3 minecraft:slime pos=8.904879473673379,-58.0,12.944052100915124 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#4 minecraft:slime pos=8.903351519938363,-58.0,14.011430339902853 delta=0.0,0.0,0.0 rot=258.26294,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#5 minecraft:slime pos=7.127357827621554,-58.0,10.247447111951793 delta=0.0,0.0,0.0 rot=139.44124,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#6 minecraft:slime pos=7.906819786319221,-58.0,12.505037664999307 delta=0.0,0.0,0.0 rot=11.196957,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#7 minecraft:slime pos=10.200620740320849,-60.0,11.685799610317389 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#8 minecraft:slime pos=8.405391633578425,-58.0,11.682816236180631 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#9 minecraft:slime pos=8.055358223500466,-60.0,10.336249955289565 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#10 minecraft:slime pos=5.790869569808141,-59.0,12.082146333899743 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,12 data=0 global=0
-EV sound at=8.5,-60.0,8.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
-EV sound at=8.055358223500466,-60.0,10.336249955289565 r=16.0 ex=0 event=minecraft:entity.slime.attack source=hostile vol=1.0 pitch=0.92072976
-N slime#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[9.441633944621245d,-58.0d,11.223677656756516d],Rotation:[0.0f,0.0f],Size:1,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.021277571654484892d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.4000000059604645d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"},{base:2.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,wasOnGround:0b}
-N slime#2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:1.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[8.332916739684261d,-58.0d,14.689878289260328d],Rotation:[42.22535f,0.0f],Size:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.02444348653278452d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:1.0d,id:"minecraft:max_health"},{base:1.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,wasOnGround:0b}
-BE 8 -59 4 {Delay:504s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{id:"minecraft:slime"},equipment:{loot_table:"minecraft:equipment/trial_chamber_melee",slot_drop_chances:0.25f}},SpawnPotentials:[{data:{entity:{id:"minecraft:slime"},equipment:{loot_table:"minecraft:equipment/trial_chamber_melee",slot_drop_chances:0.25f}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:8,y:-59,z:4}
-E slime#11 minecraft:slime pos=9.441633944621245,-58.0,3.2236776567565157 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#12 minecraft:slime pos=8.332916739684261,-58.0,6.689878289260327 delta=0.0,0.0,0.0 rot=42.22535,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#13 minecraft:slime pos=8.904879473673379,-58.0,4.9440521009151235 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#14 minecraft:slime pos=8.903351519938363,-58.0,6.011430339902853 delta=0.0,0.0,0.0 rot=258.26294,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#15 minecraft:slime pos=7.127357827621554,-58.0,2.247447111951794 delta=0.0,0.0,0.0 rot=139.44124,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#16 minecraft:slime pos=7.906819786319221,-58.0,4.505037664999307 delta=0.0,0.0,0.0 rot=11.196957,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#17 minecraft:slime pos=10.200620740320849,-60.0,3.685799610317388 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#18 minecraft:slime pos=8.405391633578425,-58.0,3.682816236180632 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#19 minecraft:slime pos=8.055358223500466,-60.0,2.3362499552895652 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#20 minecraft:slime pos=5.790869569808141,-59.0,4.082146333899743 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
-EV block_event r=64.0 ex=0 pos=8,-59,12 block=minecraft:spawner b0=1 b1=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=8,-59,4 data=0 global=0
-N slime#11 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[9.441633944621245d,-58.0d,3.2236776567565157d],Rotation:[0.0f,0.0f],Size:1,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.021277571654484892d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.4000000059604645d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"},{base:2.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,drop_chances:{chest:0.25f,head:0.25f,mainhand:0.25f},equipment:{chest:{components:{minecraft:enchantments:{minecraft:fire_protection:4,minecraft:projectile_protection:4,minecraft:protection:4},minecraft:trim:{material:"minecraft:copper",pattern:"minecraft:bolt"}},count:1,id:"minecraft:chainmail_chestplate"},head:{components:{minecraft:enchantments:{minecraft:fire_protection:4,minecraft:projectile_protection:4,minecraft:protection:4},minecraft:trim:{material:"minecraft:copper",pattern:"minecraft:bolt"}},count:1,id:"minecraft:chainmail_helmet"},mainhand:{count:1,id:"minecraft:diamond_sword"}},fall_distance:0.0d,wasOnGround:0b}
-N slime#12 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:1.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[8.332916739684261d,-58.0d,6.689878289260327d],Rotation:[42.22535f,0.0f],Size:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.02444348653278452d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:1.0d,id:"minecraft:max_health"},{base:1.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,drop_chances:{chest:0.25f,mainhand:0.25f},equipment:{chest:{components:{minecraft:enchantments:{minecraft:fire_protection:4,minecraft:projectile_protection:4,minecraft:protection:4},minecraft:trim:{material:"minecraft:copper",pattern:"minecraft:bolt"}},count:1,id:"minecraft:chainmail_chestplate"},mainhand:{count:1,id:"minecraft:iron_sword"}},fall_distance:0.0d,wasOnGround:0b}
-BE 14 -59 8 {Delay:325s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{Health:5.0f,id:"minecraft:slime"}},SpawnPotentials:[{data:{entity:{Health:5.0f,id:"minecraft:slime"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:14,y:-59,z:8}
-E slime#21 minecraft:slime pos=15.441633944621245,-58.0,7.223677656756516 delta=0.0,0.0,0.0 rot=108.55915,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#22 minecraft:slime pos=15.055792032768434,-58.0,6.162216546621556 delta=0.0,0.0,0.0 rot=332.4472,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#23 minecraft:slime pos=14.420264913616943,-58.0,6.903156438865138 delta=0.0,0.0,0.0 rot=191.46338,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#24 minecraft:slime pos=14.171945390050158,-58.0,9.792719693428984 delta=0.0,0.0,0.0 rot=54.3967,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#25 minecraft:slime pos=13.092904104944482,-58.0,8.556483083115644 delta=0.0,0.0,0.0 rot=264.73038,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#26 minecraft:slime pos=13.90681978631922,-58.0,8.505037664999307 delta=0.0,0.0,0.0 rot=11.196957,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-E slime#27 minecraft:slime pos=13.19149206256965,-60.0,10.099186609664109 delta=0.0,0.0,0.0 rot=19.73904,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
-EV block_event r=64.0 ex=0 pos=8,-59,4 block=minecraft:spawner b0=1 b1=0
-EV level_event r=64.0 ex=0 type=2004 pos=14,-59,8 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=14,-59,8 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=14,-59,8 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=14,-59,8 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=14,-59,8 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=14,-59,8 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=14,-59,8 data=0 global=0
-N slime#21 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:1.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[15.441633944621245d,-58.0d,7.223677656756516d],Rotation:[108.55915f,0.0f],Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:1.0d,id:"minecraft:max_health"},{base:1.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,wasOnGround:0b}
-N slime#22 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:1.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[15.055792032768434d,-58.0d,6.162216546621556d],Rotation:[332.4472f,0.0f],Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:1.0d,id:"minecraft:max_health"},{base:1.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,wasOnGround:0b}
-BE 4 -59 22 {Delay:0s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{id:"minecraft:cow"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:4,y:-59,z:22}
-EV block_event r=64.0 ex=0 pos=14,-59,8 block=minecraft:spawner b0=1 b1=0
-BE 10 -59 16 {Delay:374s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{id:"minecraft:cow"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:10,y:-59,z:16}
-E cow#1 minecraft:cow pos=10.32146005634585,-60.0,15.534413752234874 delta=0.0,0.0,0.0 rot=47.028843,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=9.243132776486048,-60.0,16.55780121305965 delta=0.0,0.0,0.0 rot=87.729324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=8.301718682550865,-60.0,18.420530010589154 delta=0.0,0.0,0.0 rot=310.09763,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=10.998871486218542,-60.0,17.527524080344666 delta=0.0,0.0,0.0 rot=148.30148,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=10.183934585431311,-60.0,18.86500176716985 delta=0.0,0.0,0.0 rot=227.89777,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-EV level_event r=64.0 ex=0 type=2004 pos=10,-59,16 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=10,-59,16 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=10,-59,16 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=10,-59,16 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=10,-59,16 data=0 global=0
-N cow#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[10.32146005634585d,-60.0d,15.534413752234874d],Rotation:[47.028843f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.04839191938508586d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:moody",variant:"minecraft:temperate"}
-N cow#2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[9.243132776486048d,-60.0d,16.55780121305965d],Rotation:[87.729324f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:9.638163476017314E-4d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:moody",variant:"minecraft:temperate"}
-BE 12 -59 22 {Delay:331s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{custom_spawn_rules:{},entity:{id:"minecraft:cow"}},SpawnPotentials:[{data:{custom_spawn_rules:{},entity:{id:"minecraft:cow"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:12,y:-59,z:22}
-E cow#6 minecraft:cow pos=12.32146005634585,-60.0,21.534413752234872 delta=0.0,0.0,0.0 rot=47.028843,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#7 minecraft:cow pos=14.215650367045885,-59.0,22.403355122562296 delta=0.0,0.0,0.0 rot=8.057785,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#8 minecraft:cow pos=11.719760251437604,-59.0,24.754040477530943 delta=0.0,0.0,0.0 rot=90.3992,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#9 minecraft:cow pos=11.242071963541111,-58.0,22.192858660354183 delta=0.0,0.0,0.0 rot=32.520798,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#10 minecraft:cow pos=13.178323010370912,-59.0,23.73824121563454 delta=0.0,0.0,0.0 rot=118.40348,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#11 minecraft:cow pos=10.251173440036835,-58.0,23.014678408379083 delta=0.0,0.0,0.0 rot=302.1064,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#12 minecraft:cow pos=12.297513054362806,-58.0,21.303505552043035 delta=0.0,0.0,0.0 rot=48.782494,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#13 minecraft:cow pos=13.51964371925495,-59.0,20.974463706687118 delta=0.0,0.0,0.0 rot=317.84464,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#14 minecraft:cow pos=11.05412820392483,-60.0,23.564876653708673 delta=0.0,0.0,0.0 rot=60.319275,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#15 minecraft:cow pos=14.62139282562718,-58.0,23.477811969791077 delta=0.0,0.0,0.0 rot=137.53497,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-EV block_event r=64.0 ex=0 pos=10,-59,16 block=minecraft:spawner b0=1 b1=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-EV level_event r=64.0 ex=0 type=2004 pos=12,-59,22 data=0 global=0
-N cow#6 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[12.32146005634585d,-60.0d,21.534413752234872d],Rotation:[47.028843f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.04839191938508586d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:moody",variant:"minecraft:temperate"}
+BE 8 -59 8 {Delay:504s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{id:"minecraft:slime"}},SpawnPotentials:[{data:{entity:{id:"minecraft:slime"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:8,y:-59,z:8}
+E slime#1 minecraft:slime pos=9.441633944621245,-58.0,7.223677656756516 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#2 minecraft:slime pos=8.332916739684261,-58.0,10.689878289260328 delta=0.0,0.0,0.0 rot=42.22535,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#3 minecraft:slime pos=8.904879473673379,-58.0,8.944052100915124 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#4 minecraft:slime pos=8.903351519938363,-58.0,10.011430339902853 delta=0.0,0.0,0.0 rot=258.26294,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#5 minecraft:slime pos=7.127357827621554,-58.0,6.247447111951794 delta=0.0,0.0,0.0 rot=139.44124,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#6 minecraft:slime pos=7.906819786319221,-58.0,8.505037664999307 delta=0.0,0.0,0.0 rot=11.196957,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#7 minecraft:slime pos=10.200620740320849,-60.0,7.685799610317388 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#8 minecraft:slime pos=8.405391633578425,-58.0,7.682816236180631 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#9 minecraft:slime pos=8.055358223500466,-60.0,6.336249955289565 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#10 minecraft:slime pos=5.790869569808141,-59.0,8.082146333899743 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=8,-59,8 data=0 global=0
+N slime#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[9.441633944621245d,-58.0d,7.223677656756516d],Rotation:[0.0f,0.0f],Size:1,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.021277571654484892d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.4000000059604645d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"},{base:2.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,wasOnGround:0b}
+N slime#2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:1.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[8.332916739684261d,-58.0d,10.689878289260328d],Rotation:[42.22535f,0.0f],Size:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.02444348653278452d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:1.0d,id:"minecraft:max_health"},{base:1.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,wasOnGround:0b}
+BE 4 -59 8 {Delay:504s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{id:"minecraft:slime"},equipment:{loot_table:"minecraft:equipment/trial_chamber_melee",slot_drop_chances:0.25f}},SpawnPotentials:[{data:{entity:{id:"minecraft:slime"},equipment:{loot_table:"minecraft:equipment/trial_chamber_melee",slot_drop_chances:0.25f}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:4,y:-59,z:8}
+E slime#11 minecraft:slime pos=5.441633944621244,-58.0,7.223677656756516 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#12 minecraft:slime pos=4.332916739684261,-58.0,10.689878289260328 delta=0.0,0.0,0.0 rot=42.22535,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#13 minecraft:slime pos=4.904879473673379,-58.0,8.944052100915124 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#14 minecraft:slime pos=4.903351519938363,-58.0,10.011430339902853 delta=0.0,0.0,0.0 rot=258.26294,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#15 minecraft:slime pos=3.1273578276215543,-58.0,6.247447111951794 delta=0.0,0.0,0.0 rot=139.44124,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#16 minecraft:slime pos=3.906819786319221,-58.0,8.505037664999307 delta=0.0,0.0,0.0 rot=11.196957,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#17 minecraft:slime pos=6.200620740320849,-60.0,7.685799610317388 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#18 minecraft:slime pos=4.405391633578425,-58.0,7.682816236180631 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#19 minecraft:slime pos=4.055358223500466,-60.0,6.336249955289565 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#20 minecraft:slime pos=1.7908695698081414,-59.0,8.082146333899743 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV block_event r=64.0 ex=0 pos=8,-59,8 block=minecraft:spawner b0=1 b1=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,8 data=0 global=0
+N slime#11 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[5.441633944621244d,-58.0d,7.223677656756516d],Rotation:[0.0f,0.0f],Size:1,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.021277571654484892d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.4000000059604645d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"},{base:2.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,drop_chances:{chest:0.25f,head:0.25f,mainhand:0.25f},equipment:{chest:{components:{minecraft:enchantments:{minecraft:fire_protection:4,minecraft:projectile_protection:4,minecraft:protection:4},minecraft:trim:{material:"minecraft:copper",pattern:"minecraft:bolt"}},count:1,id:"minecraft:chainmail_chestplate"},head:{components:{minecraft:enchantments:{minecraft:fire_protection:4,minecraft:projectile_protection:4,minecraft:protection:4},minecraft:trim:{material:"minecraft:copper",pattern:"minecraft:bolt"}},count:1,id:"minecraft:chainmail_helmet"},mainhand:{count:1,id:"minecraft:diamond_sword"}},fall_distance:0.0d,wasOnGround:0b}
+N slime#12 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:1.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[4.332916739684261d,-58.0d,10.689878289260328d],Rotation:[42.22535f,0.0f],Size:0,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.02444348653278452d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:1.0d,id:"minecraft:max_health"},{base:1.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,drop_chances:{chest:0.25f,mainhand:0.25f},equipment:{chest:{components:{minecraft:enchantments:{minecraft:fire_protection:4,minecraft:projectile_protection:4,minecraft:protection:4},minecraft:trim:{material:"minecraft:copper",pattern:"minecraft:bolt"}},count:1,id:"minecraft:chainmail_chestplate"},mainhand:{count:1,id:"minecraft:iron_sword"}},fall_distance:0.0d,wasOnGround:0b}
+BE 12 -59 8 {Delay:325s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{Health:5.0f,id:"minecraft:slime"}},SpawnPotentials:[{data:{entity:{Health:5.0f,id:"minecraft:slime"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:12,y:-59,z:8}
+E slime#21 minecraft:slime pos=13.441633944621245,-58.0,7.223677656756516 delta=0.0,0.0,0.0 rot=108.55915,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#22 minecraft:slime pos=13.055792032768434,-58.0,6.162216546621556 delta=0.0,0.0,0.0 rot=332.4472,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#23 minecraft:slime pos=12.420264913616943,-58.0,6.903156438865138 delta=0.0,0.0,0.0 rot=191.46338,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#24 minecraft:slime pos=12.171945390050158,-58.0,9.792719693428984 delta=0.0,0.0,0.0 rot=54.3967,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#25 minecraft:slime pos=11.092904104944482,-58.0,8.556483083115644 delta=0.0,0.0,0.0 rot=264.73038,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#26 minecraft:slime pos=11.90681978631922,-58.0,8.505037664999307 delta=0.0,0.0,0.0 rot=11.196957,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E slime#27 minecraft:slime pos=11.19149206256965,-60.0,10.099186609664109 delta=0.0,0.0,0.0 rot=19.73904,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV block_event r=64.0 ex=0 pos=4,-59,8 block=minecraft:spawner b0=1 b1=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,8 data=0 global=0
+N slime#21 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:1.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[13.441633944621245d,-58.0d,7.223677656756516d],Rotation:[108.55915f,0.0f],Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:1.0d,id:"minecraft:max_health"},{base:1.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,wasOnGround:0b}
+N slime#22 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:1.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[13.055792032768434d,-58.0d,6.162216546621556d],Rotation:[332.4472f,0.0f],Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:1.0d,id:"minecraft:max_health"},{base:1.0d,id:"minecraft:attack_damage"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,wasOnGround:0b}
+BE 4 -59 5 {Delay:372s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{id:"minecraft:cow"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:4,y:-59,z:5}
+E cow#1 minecraft:cow pos=4.823646508271825,-60.0,4.443760977729985 delta=0.0,0.0,0.0 rot=138.39648,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=5.988778852352782,-60.0,4.460132143003043 delta=0.0,0.0,0.0 rot=144.64008,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=3.901491879719472,-60.0,6.557179029295158 delta=0.0,0.0,0.0 rot=127.27833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV block_event r=64.0 ex=0 pos=12,-59,8 block=minecraft:spawner b0=1 b1=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=4,-59,5 data=0 global=0
+N cow#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[4.823646508271825d,-60.0d,4.443760977729985d],Rotation:[138.39648f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.04593159312405927d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+N cow#2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[5.988778852352782d,-60.0d,4.460132143003043d],Rotation:[144.64008f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.039228316804267124d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+BE 12 -59 5 {Delay:285s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{custom_spawn_rules:{},entity:{id:"minecraft:cow"}},SpawnPotentials:[{data:{custom_spawn_rules:{},entity:{id:"minecraft:cow"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:12,y:-59,z:5}
+E cow#4 minecraft:cow pos=11.392421464483965,-59.0,5.3106247519841405 delta=0.0,0.0,0.0 rot=139.8427,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=11.223630559191314,-59.0,3.9579033473714023 delta=0.0,0.0,0.0 rot=228.6819,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#6 minecraft:cow pos=14.215144473012241,-60.0,4.580728788664968 delta=0.0,0.0,0.0 rot=316.16055,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#7 minecraft:cow pos=12.872447794748537,-58.0,4.647268719137491 delta=0.0,0.0,0.0 rot=129.85983,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#8 minecraft:cow pos=10.914594844867961,-59.0,7.518446277952782 delta=0.0,0.0,0.0 rot=117.83444,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#9 minecraft:cow pos=12.602988611222138,-60.0,4.390734437104768 delta=0.0,0.0,0.0 rot=151.21103,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#10 minecraft:cow pos=13.874752292273902,-59.0,6.367030554417607 delta=0.0,0.0,0.0 rot=54.782616,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#11 minecraft:cow pos=12.688904841336107,-58.0,6.031710932852673 delta=0.0,0.0,0.0 rot=15.325605,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV block_event r=64.0 ex=0 pos=4,-59,5 block=minecraft:spawner b0=1 b1=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2004 pos=12,-59,5 data=0 global=0
+N cow#4 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.392421464483965d,-59.0d,5.3106247519841405d],Rotation:[139.8427f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.039957410666083736d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+N cow#5 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.223630559191314d,-59.0d,3.9579033473714023d],Rotation:[228.6819f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.030295087525598997d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:moody",variant:"minecraft:temperate"}
+BE 14 -59 10 {Delay:1s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{id:"minecraft:cow"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:14,y:-59,z:10}
+EV block_event r=64.0 ex=0 pos=12,-59,5 block=minecraft:spawner b0=1 b1=0
