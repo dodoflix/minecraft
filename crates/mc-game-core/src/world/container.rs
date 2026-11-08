@@ -303,6 +303,42 @@ pub fn get_redstone_signal_from_block_entity(
     get_redstone_signal_from_container(block_entity.and_then(|be| be.as_container()))
 }
 
+/// The lazy `RandomizableContainerBlockEntity.unpackLootTable(null)` that vanilla runs inside `getItem` when
+/// `getRedstoneSignalFromContainer` reads the container of the block at `pos` (a chest reads both halves of a double
+/// chest, `first` before `second`, and only when `ChestBlock.getContainer` finds one). The analog output getters only
+/// get a shared level, so the comparator calls this first; the block entity changes of the fill are replayed here
+/// instead of inside each `setItem`.
+pub fn unpack_loot_for_signal(
+    level: &mut ServerLevel,
+    state: mc_data::block::BlockState,
+    pos: mc_core::pos::BlockPos,
+) {
+    use crate::world::level::block::helpers::is_instance_of;
+    use crate::world::level::block::impls::chest_block::{combine, combined_positions};
+    use crate::world::level::level_access::BlockGetter;
+    let (first, second) = if is_instance_of(state, "ChestBlock") {
+        match combined_positions(combine(level, state, pos, false)) {
+            Some(positions) => positions,
+            None => return,
+        }
+    } else {
+        (pos, None)
+    };
+    for pos in [Some(first), second].into_iter().flatten() {
+        if level
+            .get_block_entity(pos)
+            .is_some_and(|be| be.has_loot_table())
+        {
+            level.with_block_entity(pos, |level, be| {
+                be.unpack_loot_table(level, None);
+                if be.container_pending() {
+                    be.container_accessed(level);
+                }
+            });
+        }
+    }
+}
+
 /// `ContainerHelper`.
 pub mod helper {
     use super::*;

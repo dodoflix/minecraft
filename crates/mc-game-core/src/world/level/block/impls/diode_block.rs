@@ -29,11 +29,11 @@ pub trait Diode {
         false
     }
     /// `shouldTurnOn`.
-    fn should_turn_on(&self, level: &ServerLevel, pos: BlockPos, state: BlockState) -> bool {
+    fn should_turn_on(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> bool {
         self.get_input_signal(level, pos, state) > 0
     }
-    /// `getInputSignal`.
-    fn get_input_signal(&self, level: &ServerLevel, pos: BlockPos, state: BlockState) -> i32 {
+    /// `getInputSignal` (the level is mutable: the comparator's read unpacks loot tables).
+    fn get_input_signal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> i32 {
         base_input_signal(level, pos, state)
     }
     /// `sideInputDiodesOnly`.

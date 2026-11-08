@@ -119,6 +119,10 @@ impl BlockEntity for DispenserBlockEntity {
         self.loot = loot;
     }
 
+    fn has_loot_table(&self) -> bool {
+        self.loot.loot_table.is_some()
+    }
+
     fn set_loot_table(&mut self, table: mc_core::ident::Identifier, seed: i64) {
         self.loot.set_loot_table(table, seed);
     }

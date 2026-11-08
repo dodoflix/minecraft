@@ -153,6 +153,10 @@ impl BlockEntity for HopperBlockEntity {
         self.loot = loot;
     }
 
+    fn has_loot_table(&self) -> bool {
+        self.loot.loot_table.is_some()
+    }
+
     fn set_loot_table(&mut self, table: mc_core::ident::Identifier, seed: i64) {
         self.loot.set_loot_table(table, seed);
     }
@@ -268,6 +272,11 @@ fn try_move_items(
 ) -> bool {
     if !entity.is_on_cooldown() && state.get(props::ENABLED) {
         let mut changed = false;
+        // `isEmpty()` unpacks the loot table first
+        if entity.has_loot_table() {
+            entity.unpack_loot_table(level, None);
+            changed_log::flush(level);
+        }
         if !entity.is_empty() {
             changed = eject_items(level, pos, entity);
         }

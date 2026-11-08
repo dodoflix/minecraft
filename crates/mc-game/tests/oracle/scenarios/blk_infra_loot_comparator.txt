@@ -1,0 +1,96 @@
+# RandomizableContainerBlockEntity unpacks its loot table lazily inside getItem/isEmpty: the comparator read
+# (AbstractContainerMenu.getRedstoneSignalFromContainer / getRedstoneSignalFromBlockEntity) and a hopper's own isEmpty
+# roll the table; a chest the comparator cannot read (ChestBlock.getContainer null) keeps it. The comparator only
+# reads on a neighbour update, so the lamp behind it is placed last.
+level flat
+preload 2
+spawn_player Steve creative 10.5 -60 -10.5
+note single chest: the container exists first, the comparator is placed next to it, the lamp update makes it read
+block 0 -60 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:1234L}
+block 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,0 be:1,-60,0 blocks:0,-60,0,2,-60,0
+note barrel: the comparator exists first, the loot table arrives with the block entity update
+block 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 4 minecraft:redstone_lamp
+block 0 -60 4 minecraft:barrel[facing=up]
+be_nbt 0 -60 4 {LootTable:"minecraft:chests/village/village_toolsmith",LootTableSeed:77L}
+tick 6
+dump be:0,-60,4 be:1,-60,4 blocks:0,-60,4,2,-60,4
+note dispenser
+block 0 -60 8 minecraft:dispenser[facing=up]
+be_nbt 0 -60 8 {LootTable:"minecraft:chests/jungle_temple_dispenser",LootTableSeed:5L}
+block 1 -60 8 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 8 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,8 be:1,-60,8 blocks:0,-60,8,2,-60,8
+note dropper
+block 0 -60 12 minecraft:dropper[facing=up]
+be_nbt 0 -60 12 {LootTable:"minecraft:chests/jungle_temple_dispenser",LootTableSeed:6L}
+block 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 12 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,12 be:1,-60,12 blocks:0,-60,12,2,-60,12
+note hopper locked by a redstone block (no own isEmpty): only the comparator read unpacks it
+block 0 -59 16 minecraft:redstone_block
+block 0 -60 16 minecraft:hopper[enabled=false,facing=down]
+be_nbt 0 -60 16 {LootTable:"minecraft:chests/jungle_temple_dispenser",LootTableSeed:7L}
+block 1 -60 16 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 16 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,16 be:1,-60,16 blocks:0,-60,16,2,-60,16
+note shulker box
+block 0 -60 20 minecraft:shulker_box[facing=up]
+be_nbt 0 -60 20 {LootTable:"minecraft:chests/end_city_treasure",LootTableSeed:8L}
+block 1 -60 20 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 20 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,20 be:1,-60,20 blocks:0,-60,20,2,-60,20
+note decorated pot
+block 0 -60 24 minecraft:decorated_pot
+be_nbt 0 -60 24 {LootTable:"minecraft:chests/jungle_temple_dispenser",LootTableSeed:9L}
+block 1 -60 24 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 24 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,24 be:1,-60,24 blocks:0,-60,24,2,-60,24
+note trapped chest (single)
+block 0 -60 28 minecraft:trapped_chest[facing=north,type=single,waterlogged=false]
+be_nbt 0 -60 28 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:10L}
+block 1 -60 28 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 28 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,28 be:1,-60,28 blocks:0,-60,28,2,-60,28
+note double chest, both halves roll (first before second)
+block 0 -60 32 minecraft:chest[facing=east,type=left,waterlogged=false]
+block 0 -60 33 minecraft:chest[facing=east,type=right,waterlogged=false]
+be_nbt 0 -60 32 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+be_nbt 0 -60 33 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:12L}
+block 1 -60 32 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 32 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,32 be:0,-60,33 be:1,-60,32 blocks:0,-60,32,2,-60,33
+note chest with a solid block above: ChestBlock.getContainer is null, the table stays
+block 0 -60 36 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 0 -60 36 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:13L}
+block 0 -59 36 minecraft:stone
+block 1 -60 36 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 36 minecraft:redstone_lamp
+tick 6
+dump be:0,-60,36 be:1,-60,36 blocks:0,-60,36,2,-60,36
+note rear input through a solid block, subtract mode with a weak side input
+block 0 -60 40 minecraft:barrel[facing=up]
+be_nbt 0 -60 40 {LootTable:"minecraft:chests/village/village_toolsmith",LootTableSeed:14L}
+block 1 -60 40 minecraft:stone
+block 3 -60 40 minecraft:redstone_lamp
+block 2 -60 40 minecraft:comparator[facing=west,mode=subtract,powered=false]
+block 2 -60 39 minecraft:redstone_wire[power=2]
+tick 6
+dump be:0,-60,40 be:2,-60,40 blocks:0,-60,40,3,-60,40
+note hopper with a loot table and a chest below: its own tick unpacks it (isEmpty) and pushes the items down
+block 0 -61 44 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 0 -60 44 minecraft:hopper[enabled=true,facing=down]
+be_nbt 0 -60 44 {LootTable:"minecraft:chests/jungle_temple_dispenser",LootTableSeed:15L}
+tick 20
+dump be:0,-60,44 be:0,-61,44

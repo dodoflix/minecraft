@@ -2,8 +2,10 @@
 //!
 //! Vanilla's block entities hold their `Level` and unpack the loot table lazily inside `getItem`/`isEmpty`/`removeItem`/
 //! `setItem`. Rust containers have no level at hand there, so the unpacking happens at the entry points that do have it
-//! (`BlockEntity::unpack_loot_table`: hopper/dropper container resolution, `createMenu`, ...). Observable behavior is
-//! the same: every vanilla access path unpacks before it reads, and the fill uses its own seeded random.
+//! (`BlockEntity::unpack_loot_table`: hopper/dropper container resolution, a hopper's own tick, `createMenu`, the
+//! comparator read through `container::unpack_loot_for_signal`, ...). Observable behavior is the same: every vanilla
+//! access path unpacks before it reads, and the fill uses its own seeded random. The `setChanged` notifications of the
+//! fill run after it, not inside each `setItem`.
 //! Not implemented: the `GENERATE_LOOT` criterion trigger of a player's unpack is not fired.
 
 use crate::server::level::ServerLevel;

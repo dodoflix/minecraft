@@ -18,3 +18,8 @@ fn bonemeal_server_dispatch() {
 fn container_contents_drop_when_the_block_goes() {
     common::block_scenario::check("blk_infra_break_drops_container");
 }
+
+#[test]
+fn loot_tables_unpack_when_a_comparator_or_hopper_reads_the_container() {
+    common::block_scenario::check("blk_infra_loot_comparator");
+}

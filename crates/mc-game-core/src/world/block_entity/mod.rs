@@ -355,6 +355,10 @@ pub trait BlockEntity: Any {
         _player: Option<&dyn crate::world::entity::Entity>,
     ) {
     }
+    /// `RandomizableContainer.getLootTable() != null`: an unpack would roll a table.
+    fn has_loot_table(&self) -> bool {
+        false
+    }
     /// `RandomizableContainer.setLootTable(table, seed)` (no-op for other block entities).
     fn set_loot_table(&mut self, _table: mc_core::ident::Identifier, _seed: i64) {}
 

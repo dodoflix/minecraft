@@ -2,6 +2,7 @@
 use crate::world::block_entity::ComparatorBlockEntity;
 use mc_data::enums::ComparatorMode;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::unpack_loot_for_signal;
 use mc_game_core::world::entity::Entity as _;
 use mc_game_core::world::item::InteractionResult;
 use mc_game_core::world::level::block::impls::diode_block::{self, Diode, diode_behaviour};
@@ -21,7 +22,7 @@ fn stored_output(level: &dyn BlockGetter, pos: BlockPos) -> i32 {
 }
 
 /// `ComparatorBlock.calculateOutputSignal`.
-fn calculate_output_signal(level: &ServerLevel, pos: BlockPos, state: BlockState) -> i32 {
+fn calculate_output_signal(level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> i32 {
     let input_signal = ComparatorBlock.get_input_signal(level, pos, state);
     if input_signal == 0 {
         return 0;
@@ -65,7 +66,7 @@ impl Diode for ComparatorBlock {
     fn get_output_signal(&self, level: &dyn BlockGetter, pos: BlockPos, _state: BlockState) -> i32 {
         stored_output(level, pos)
     }
-    fn should_turn_on(&self, level: &ServerLevel, pos: BlockPos, state: BlockState) -> bool {
+    fn should_turn_on(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> bool {
         let input = self.get_input_signal(level, pos, state);
         if input == 0 {
             return false;
@@ -74,12 +75,13 @@ impl Diode for ComparatorBlock {
         input > side_input
             || (input == side_input && state.get(props::MODE_COMPARATOR) == ComparatorMode::Compare)
     }
-    fn get_input_signal(&self, level: &ServerLevel, pos: BlockPos, state: BlockState) -> i32 {
+    fn get_input_signal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> i32 {
         let mut result_signal = diode_block::base_input_signal(level, pos, state);
         let direction = state.get(props::HORIZONTAL_FACING);
         let mut target_pos = pos.relative(direction);
         let mut target_state = level.get_block_state(target_pos);
         if target_state.has_analog_output_signal() {
+            unpack_loot_for_signal(level, target_state, target_pos);
             result_signal =
                 target_state.get_analog_output_signal(level, target_pos, direction.get_opposite());
         } else if result_signal < 15 && target_state.is_redstone_conductor() {
@@ -87,6 +89,7 @@ impl Diode for ComparatorBlock {
             target_state = level.get_block_state(target_pos);
             let item_frame_signal = item_frame_analog_output(level, direction, target_pos);
             let block_signal = if target_state.has_analog_output_signal() {
+                unpack_loot_for_signal(level, target_state, target_pos);
                 target_state.get_analog_output_signal(level, target_pos, direction.get_opposite())
             } else {
                 i32::MIN
