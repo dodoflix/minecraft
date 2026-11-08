@@ -30,7 +30,8 @@ kill i5
 kill i6
 tick 4
 # a mob triggers the stone plate
-spawn pig1 minecraft:pig 3.5 -60 1.5
+spawn pig1 minecraft:pig 3.5 -60 1.5 {NoAI:1b}
+entity_seed pig1 7
 tick 6
 kill i1
 kill i3

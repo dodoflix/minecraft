@@ -17,7 +17,8 @@ tick 6
 kill i1
 tick 16
 # a mob crosses
-spawn pig1 minecraft:pig 1.5 -60 0.5
+spawn pig1 minecraft:pig 1.5 -60 0.5 {NoAI:1b}
+entity_seed pig1 7
 tick 8
 kill pig1
 tick 16

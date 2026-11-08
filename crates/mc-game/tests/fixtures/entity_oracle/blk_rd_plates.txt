@@ -307,6 +307,7 @@ B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
 B 5 -60 1 minecraft:light_weighted_pressure_plate[power=0]
 B 7 -60 1 minecraft:heavy_weighted_pressure_plate[power=0]
 TICK block 3 -60 1 minecraft:stone_pressure_plate delay=15 prio=0
+EV sound at=3.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=0.9764718
 T 41
 B 1 -60 1 minecraft:oak_pressure_plate[powered=false]
 B 3 -60 1 minecraft:stone_pressure_plate[powered=true]
