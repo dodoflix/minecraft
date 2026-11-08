@@ -5,6 +5,8 @@
 //! Tested against the real `java.util.HashMap` / fastutil classes (`tests/golden/java_collections.rs`, `HashOrderGolden.java`).
 
 use crate::math::java::java_string_hash;
+use crate::pos::BlockPos;
+use std::fmt;
 
 /// `java.util.HashMap.tableSizeFor(cap)`.
 fn table_size_for(cap: usize) -> usize {
@@ -66,17 +68,26 @@ fn mix(x: i32) -> usize {
 }
 
 /// fastutil `Object2ObjectOpenHashMap` / `Int2ObjectOpenHashMap` / `ObjectOpenHashSet` (load factor 0.75, linear
-/// probing) with `put` only: [`FastOpenHashMap::into_entries`] is the iteration order of vanilla's map after the same
-/// sequence of `put`s. `hash` is the key's `hashCode()`. The key fastutil keeps outside the table (`null` for object
-/// maps, `0` for int maps) is iterated first.
+/// probing, backward-shift deletion, shrink on remove): [`FastOpenHashMap::iter`] is the iteration order of vanilla's map
+/// after the same sequence of `put`s, `remove`s and `clear`s. `hash` is the key's `hashCode()`. The key fastutil keeps
+/// outside the table (`null` for object maps, `0` for int maps) is iterated first.
+#[derive(Clone)]
 pub struct FastOpenHashMap<K, V> {
     null_key: Option<(K, V)>,
     is_null: fn(&K) -> bool,
     slots: Vec<Option<(K, V)>>,
     mask: usize,
     max_fill: usize,
+    /// `minN`: the table never shrinks below the size of the constructor's `expected`.
+    min_n: usize,
     size: usize,
     hash: fn(&K) -> i32,
+}
+
+impl<K: PartialEq + fmt::Debug, V: fmt::Debug> fmt::Debug for FastOpenHashMap<K, V> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_map().entries(self.iter()).finish()
+    }
 }
 
 impl<K: PartialEq, V> FastOpenHashMap<K, V> {
@@ -107,31 +118,73 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
             slots: (0..n).map(|_| None).collect(),
             mask: n - 1,
             max_fill: Self::max_fill(n),
+            min_n: n,
             size: 0,
             hash,
         }
     }
 
-    pub fn put(&mut self, k: K, v: V) {
+    pub fn len(&self) -> usize {
+        self.size
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.size == 0
+    }
+
+    /// The table slot holding `k` (never the null key).
+    fn find(&self, k: &K) -> Option<usize> {
+        let mut pos = mix((self.hash)(k)) & self.mask;
+        while let Some((ek, _)) = &self.slots[pos] {
+            if ek == k {
+                return Some(pos);
+            }
+            pos = (pos + 1) & self.mask;
+        }
+        None
+    }
+
+    pub fn get(&self, k: &K) -> Option<&V> {
+        if (self.is_null)(k) {
+            return self.null_key.as_ref().map(|e| &e.1);
+        }
+        self.find(k)
+            .and_then(|pos| self.slots[pos].as_ref())
+            .map(|e| &e.1)
+    }
+
+    pub fn get_mut(&mut self, k: &K) -> Option<&mut V> {
+        if (self.is_null)(k) {
+            return self.null_key.as_mut().map(|e| &mut e.1);
+        }
+        let pos = self.find(k)?;
+        self.slots[pos].as_mut().map(|e| &mut e.1)
+    }
+
+    pub fn contains_key(&self, k: &K) -> bool {
+        self.get(k).is_some()
+    }
+
+    /// `put`: an existing key keeps its slot and gets the new value (the old one is returned).
+    pub fn put(&mut self, k: K, v: V) -> Option<V> {
         if (self.is_null)(&k) {
             if let Some(e) = &mut self.null_key {
-                e.1 = v;
-                return;
+                return Some(std::mem::replace(&mut e.1, v));
             }
             self.null_key = Some((k, v));
             self.grow();
-            return;
+            return None;
         }
         let mut pos = mix((self.hash)(&k)) & self.mask;
         while let Some((ek, ev)) = &mut self.slots[pos] {
             if *ek == k {
-                *ev = v;
-                return;
+                return Some(std::mem::replace(ev, v));
             }
             pos = (pos + 1) & self.mask;
         }
         self.slots[pos] = Some((k, v));
         self.grow();
+        None
     }
 
     /// `if (size++ >= maxFill) rehash(arraySize(size + 1, f))`.
@@ -159,13 +212,280 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
         self.max_fill = Self::max_fill(new_n);
     }
 
+    /// `remove(k)`: backward-shift deletion, then the table halves while it is under a quarter of `maxFill`.
+    pub fn remove(&mut self, k: &K) -> Option<V> {
+        let removed = if (self.is_null)(k) {
+            self.null_key.take()?.1
+        } else {
+            let pos = self.find(k)?;
+            let removed = self.slots[pos].take()?.1;
+            self.shift_keys(pos);
+            removed
+        };
+        self.size -= 1;
+        let n = self.mask + 1;
+        if n > self.min_n && self.size < self.max_fill / 4 && n > 16 {
+            self.rehash(n / 2);
+        }
+        Some(removed)
+    }
+
+    /// `shiftKeys(pos)`: refills the hole at `pos` from the probe sequence behind it.
+    fn shift_keys(&mut self, mut pos: usize) {
+        loop {
+            let last = pos;
+            pos = (last + 1) & self.mask;
+            loop {
+                let Some((ck, _)) = &self.slots[pos] else {
+                    return;
+                };
+                let slot = mix((self.hash)(ck)) & self.mask;
+                let movable = if last <= pos {
+                    last >= slot || slot > pos
+                } else {
+                    last >= slot && slot > pos
+                };
+                if movable {
+                    break;
+                }
+                pos = (pos + 1) & self.mask;
+            }
+            self.slots[last] = self.slots[pos].take();
+        }
+    }
+
+    /// `clear()`: the table keeps its size.
+    pub fn clear(&mut self) {
+        self.null_key = None;
+        self.slots.iter_mut().for_each(|s| *s = None);
+        self.size = 0;
+    }
+
     /// The map iterator walks the table from its last slot down.
+    pub fn iter(&self) -> impl Iterator<Item = (&K, &V)> {
+        self.null_key
+            .iter()
+            .chain(self.slots.iter().rev().flatten())
+            .map(|e| (&e.0, &e.1))
+    }
+
+    pub fn iter_mut(&mut self) -> impl Iterator<Item = (&K, &mut V)> {
+        self.null_key
+            .iter_mut()
+            .chain(self.slots.iter_mut().rev().flatten())
+            .map(|e| (&e.0, &mut e.1))
+    }
+
     pub fn into_entries(self) -> Vec<(K, V)> {
         self.null_key
             .into_iter()
             .chain(self.slots.into_iter().rev().flatten())
             .collect()
     }
+}
+
+/// `java.util.HashMap` with its table, bin order and resize policy (load factor 0.75, never shrinks): iteration is
+/// ascending bucket, insertion order within a bucket (a resize keeps the relative order). Bins of 9+ keys in a table
+/// of 64+ are not treeified here (treeifying reorders them).
+#[derive(Clone)]
+pub struct JavaHashMap<K, V> {
+    /// Empty until the first `put` (Java allocates the table lazily).
+    table: Vec<Vec<(K, V)>>,
+    /// `threshold` before the table exists: the initial capacity (0: the default 16).
+    initial_capacity: usize,
+    size: usize,
+    hash: fn(&K) -> i32,
+}
+
+impl<K: PartialEq + fmt::Debug, V: fmt::Debug> fmt::Debug for JavaHashMap<K, V> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_map().entries(self.iter()).finish()
+    }
+}
+
+impl<K: PartialEq, V> JavaHashMap<K, V> {
+    /// `new HashMap<>()`.
+    pub fn new(hash: fn(&K) -> i32) -> Self {
+        Self::with_capacity(0, hash)
+    }
+
+    /// `new HashMap<>(initialCapacity)` (`0` is the default table of 16).
+    pub fn with_capacity(initial_capacity: usize, hash: fn(&K) -> i32) -> Self {
+        JavaHashMap {
+            table: Vec::new(),
+            initial_capacity: if initial_capacity == 0 {
+                0
+            } else {
+                table_size_for(initial_capacity)
+            },
+            size: 0,
+            hash,
+        }
+    }
+
+    fn bucket(&self, k: &K, cap: usize) -> usize {
+        let h = (self.hash)(k);
+        ((h ^ ((h as u32) >> 16) as i32) as u32 as usize) & (cap - 1)
+    }
+
+    /// `(int)(cap * 0.75F)`.
+    fn threshold(cap: usize) -> usize {
+        (cap as f32 * 0.75f32) as usize
+    }
+
+    pub fn len(&self) -> usize {
+        self.size
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.size == 0
+    }
+
+    pub fn get(&self, k: &K) -> Option<&V> {
+        if self.table.is_empty() {
+            return None;
+        }
+        self.table[self.bucket(k, self.table.len())]
+            .iter()
+            .find(|e| e.0 == *k)
+            .map(|e| &e.1)
+    }
+
+    pub fn get_mut(&mut self, k: &K) -> Option<&mut V> {
+        if self.table.is_empty() {
+            return None;
+        }
+        let b = self.bucket(k, self.table.len());
+        self.table[b]
+            .iter_mut()
+            .find(|e| e.0 == *k)
+            .map(|e| &mut e.1)
+    }
+
+    pub fn contains_key(&self, k: &K) -> bool {
+        self.get(k).is_some()
+    }
+
+    /// `put`: an existing key keeps its place and gets the new value (the old one is returned).
+    pub fn insert(&mut self, k: K, v: V) -> Option<V> {
+        if self.table.is_empty() {
+            let cap = if self.initial_capacity == 0 {
+                HASH_MAP_DEFAULT_CAPACITY
+            } else {
+                self.initial_capacity
+            };
+            self.table = (0..cap).map(|_| Vec::new()).collect();
+        }
+        let b = self.bucket(&k, self.table.len());
+        if let Some(e) = self.table[b].iter_mut().find(|e| e.0 == k) {
+            return Some(std::mem::replace(&mut e.1, v));
+        }
+        self.table[b].push((k, v));
+        // `treeifyBin`: a bin that reaches 9 keys in a table under 64 doubles the table instead of treeifying
+        if self.table[b].len() > 8 && self.table.len() < 64 {
+            self.resize();
+        }
+        self.size += 1;
+        if self.size > Self::threshold(self.table.len()) {
+            self.resize();
+        }
+        None
+    }
+
+    /// `resize()`: double the table; entries are re-bucketed in iteration order, which keeps each bin's order.
+    fn resize(&mut self) {
+        let cap = self.table.len() * 2;
+        let old = std::mem::take(&mut self.table);
+        self.table = (0..cap).map(|_| Vec::new()).collect();
+        for e in old.into_iter().flatten() {
+            let b = self.bucket(&e.0, cap);
+            self.table[b].push(e);
+        }
+    }
+
+    /// `putAll(m)` (`putMapEntries`): a map without a table is pre-sized for `m.size()` entries, one with a table
+    /// doubles while `m.size()` exceeds its threshold.
+    pub fn put_all(&mut self, entries: impl ExactSizeIterator<Item = (K, V)>) {
+        let s = entries.len();
+        if s == 0 {
+            return;
+        }
+        if self.table.is_empty() {
+            let t = calculate_hash_map_capacity(s);
+            if t > self.initial_capacity {
+                self.initial_capacity = table_size_for(t);
+            }
+        } else {
+            while s > Self::threshold(self.table.len()) {
+                self.resize();
+            }
+        }
+        for (k, v) in entries {
+            self.insert(k, v);
+        }
+    }
+
+    pub fn remove(&mut self, k: &K) -> Option<V> {
+        if self.table.is_empty() {
+            return None;
+        }
+        let b = self.bucket(k, self.table.len());
+        let i = self.table[b].iter().position(|e| e.0 == *k)?;
+        self.size -= 1;
+        Some(self.table[b].remove(i).1)
+    }
+
+    /// `clear()`: the table keeps its size.
+    pub fn clear(&mut self) {
+        self.table.iter_mut().for_each(Vec::clear);
+        self.size = 0;
+    }
+
+    pub fn iter(&self) -> impl Iterator<Item = (&K, &V)> {
+        self.table.iter().flatten().map(|e| (&e.0, &e.1))
+    }
+
+    pub fn into_entries(self) -> Vec<(K, V)> {
+        self.table.into_iter().flatten().collect()
+    }
+
+    pub fn keys(&self) -> impl Iterator<Item = &K> {
+        self.iter().map(|e| e.0)
+    }
+
+    pub fn values(&self) -> impl Iterator<Item = &V> {
+        self.iter().map(|e| e.1)
+    }
+
+    pub fn values_mut(&mut self) -> impl Iterator<Item = &mut V> {
+        self.table.iter_mut().flatten().map(|e| &mut e.1)
+    }
+}
+
+impl<'a, K: PartialEq, V> IntoIterator for &'a JavaHashMap<K, V> {
+    type Item = (&'a K, &'a V);
+    type IntoIter = Box<dyn Iterator<Item = (&'a K, &'a V)> + 'a>;
+    fn into_iter(self) -> Self::IntoIter {
+        Box::new(self.iter())
+    }
+}
+
+/// `BlockPos.hashCode()`: `(y + z * 31) * 31 + x`.
+pub fn block_pos_hash(p: &BlockPos) -> i32 {
+    p.hash_code()
+}
+
+/// The keys of `new HashSet<>(first)` after `addAll(second)` in iteration order (vanilla `getBlockEntitiesPos`).
+pub fn hash_set_union_order<K: PartialEq + Clone>(
+    first: impl ExactSizeIterator<Item = K>,
+    second: impl Iterator<Item = K>,
+    hash: fn(&K) -> i32,
+) -> Vec<K> {
+    let mut set = JavaHashMap::with_capacity(hash_set_copy_capacity(first.len()), hash);
+    first.chain(second).for_each(|k| {
+        set.insert(k, ());
+    });
+    set.keys().cloned().collect()
 }
 
 /// `FastOpenHashMap` keyed by `String`.
