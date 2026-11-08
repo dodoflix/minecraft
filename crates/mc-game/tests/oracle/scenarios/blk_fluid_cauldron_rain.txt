@@ -5,7 +5,7 @@ preload 3
 level_seed 17
 rand_value 3
 watch events
-cmd weather rain
+cmd weather rain 100000
 tick 40
 block 4 -60 4 minecraft:cauldron
 block 6 -60 4 minecraft:water_cauldron[level=1]
