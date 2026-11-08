@@ -121,6 +121,14 @@ fn pose_name(pose: impl std::fmt::Debug) -> String {
     })
 }
 
+/// The worldgen biome registry of the vanilla data pack (`cmd weather` scenarios: precipitation reads the biome).
+pub(super) fn worldgen_biomes() -> std::sync::Arc<mc_worldgen::biome::BiomeRegistry> {
+    std::sync::Arc::new(
+        mc_worldgen::biome::BiomeRegistry::load(&ACCESS.0.worldgen_registries())
+            .expect("vanilla biomes load"),
+    )
+}
+
 impl Scenario {
     /// Entity creation needs the data pack registries (damage types, enchantments, ...): loaded once per test binary.
     pub(super) fn load_registries(&mut self) {

@@ -12,7 +12,7 @@
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
-//! `note`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
+//! `note`, `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
@@ -84,6 +84,10 @@ pub fn check_with(name: &str, opts: &Options) {
 
 pub fn run_scenario_text(text: &str) -> Vec<String> {
     let mut s = Scenario::new();
+    // precipitation reads the biome: only the weather scenarios pay for the real biome registry
+    s.real_biomes = text
+        .lines()
+        .any(|l| l.trim_start().starts_with("cmd weather"));
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();
         if line.is_empty() || line.starts_with('#') {
@@ -313,6 +317,7 @@ pub struct Scenario {
     pub ticks: i64,
     watches: Vec<Vec<String>>,
     opts: Options_,
+    real_biomes: bool,
     log: Arc<Mutex<Vec<BroadcastRecord>>>,
     actors: actors::Actors,
     line_no: usize,
@@ -358,6 +363,7 @@ impl Scenario {
                 features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS,
                 dimension: "overworld",
             },
+            real_biomes: false,
             log: Arc::new(Mutex::new(Vec::new())),
             line_no: 0,
             actors: Default::default(),
@@ -381,7 +387,12 @@ impl Scenario {
             COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
         ));
         let (shared, _rx) = ServerShared::new();
-        let biomes = BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
+        let worldgen_biomes = self.real_biomes.then(actors::worldgen_biomes);
+        let biomes = BiomeRegistry::new(
+            worldgen_biomes
+                .as_ref()
+                .map_or_else(|| vec!["minecraft:plains".to_string()], |b| b.names()),
+        );
         let dimension_json: serde_json::Value = serde_json::from_str(
             &mc_data::datapack::read_string(&format!(
                 "data/minecraft/dimension_type/{}.json",
@@ -463,6 +474,15 @@ impl Scenario {
         // the level's own id sequence (starts at 1 like the oracle's `ENTITY_COUNTER`): parallel tests must not share ids
         level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
         level.tick_state.tick_time = true;
+        if let Some(biomes) = worldgen_biomes {
+            level.tick_state.biomes = Some(biomes);
+            level.tick_state.biome_zoom_seed =
+                mc_worldgen::biome::BiomeManager::obfuscate_seed(4242);
+        }
+        // `Level.canHaveWeather()`
+        level.tick_state.can_have_weather = dimension_type.has_sky_light
+            && !dimension_type.has_ceiling
+            && self.opts.dimension != "the_end";
         level.tick_state.enabled_features = self.opts.features;
         level.server_state.rules.refresh(&self.env.game_rules);
         // loot random sequences are seeded from the world seed (`VanillaLevel.Options.seed`)
@@ -592,6 +612,36 @@ impl Scenario {
                             other => panic!("unknown feature flag {other}"),
                         },
                     );
+                }
+            }
+            // `cmd weather rain|clear DURATION` only (the duration is explicit: the command's default draws from the level random)
+            "cmd" => {
+                self.world();
+                match (a.get(1).map(String::as_str), a.get(2).map(String::as_str)) {
+                    (Some("weather"), Some(kind @ ("rain" | "clear"))) => {
+                        let ticks: i32 = a
+                            .get(3)
+                            .and_then(|d| d.parse().ok())
+                            .unwrap_or_else(|| panic!("weather {kind} needs a duration in ticks"));
+                        self.env.weather = if kind == "rain" {
+                            WeatherState {
+                                clear_weather_time: 0,
+                                rain_time: ticks,
+                                thunder_time: ticks,
+                                thundering: false,
+                                raining: true,
+                            }
+                        } else {
+                            WeatherState {
+                                clear_weather_time: ticks,
+                                rain_time: 0,
+                                thunder_time: 0,
+                                thundering: false,
+                                raining: false,
+                            }
+                        };
+                    }
+                    _ => panic!("cmd {:?} is not supported by the Rust replay", &a[1..]),
                 }
             }
             "note" => self.out.push(format!("# {}", self.line[4..].trim())),
