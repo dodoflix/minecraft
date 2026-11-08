@@ -9,7 +9,8 @@ use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::packet::{ConnectionState, PacketFlow, packet_name};
 use mc_protocol::packets::play::{
     ClientboundBlockEntityDataPacket, ClientboundBlockUpdatePacket, ClientboundLevelEventPacket,
-    ClientboundSectionBlocksUpdatePacket,
+    ClientboundSectionBlocksUpdatePacket, ServerboundChunkBatchReceivedPacket,
+    ServerboundPlayPacket,
 };
 use mc_testbot::conn::Conn;
 use mc_testbot::join::*;
@@ -110,6 +111,19 @@ async fn drain(conn: &mut Conn, duration: Duration) -> Vec<String> {
         let name = packet_name(ConnectionState::Play, PacketFlow::Clientbound, id).unwrap_or("?");
         if std::env::var("MC_RECORD_DEBUG").is_ok() {
             eprintln!("packet {name}");
+        }
+        // Acknowledge every chunk batch like a real client: otherwise the server keeps the chunks past the first batch
+        // pending, and which chunks make the first batch depends on how fast they generate (block changes of pending
+        // chunks are not sent).
+        if name == "minecraft:chunk_batch_finished" {
+            conn.send(&ServerboundPlayPacket::ChunkBatchReceived(
+                ServerboundChunkBatchReceivedPacket {
+                    desired_chunks_per_tick: 9.0,
+                },
+            ))
+            .await
+            .expect("ack chunk batch");
+            continue;
         }
         let line = match name {
             "minecraft:block_update" => {

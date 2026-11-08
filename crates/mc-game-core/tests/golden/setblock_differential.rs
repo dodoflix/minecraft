@@ -26,10 +26,9 @@ struct Sink;
 impl ChunkSendSink for Sink {
     fn mark_chunk_pending_to_send(&mut self, _pos: ChunkPos) {}
     fn drop_chunk(&mut self, _pos: ChunkPos, _alive: bool) {}
-    /// The recording bot never acknowledges chunk batches, so the vanilla `PlayerChunkSender` keeps the chunks beyond
-    /// the first batch pending (and block changes of pending chunks are not sent): chunk (6, -1) is one of them.
-    fn is_pending(&self, pos: i64) -> bool {
-        pos == ChunkPos::pack_xz(6, -1)
+    /// The recording bot acknowledges every chunk batch, so no chunk stays pending and every block change is sent.
+    fn is_pending(&self, _pos: i64) -> bool {
+        false
     }
 }
 
