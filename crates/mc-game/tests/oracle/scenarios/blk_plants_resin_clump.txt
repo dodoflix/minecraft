@@ -1,0 +1,41 @@
+level flat
+seed 4242
+difficulty peaceful
+note resin clump (a plain MultifaceBlock): placement, extra faces, waterlogging, mining, support removal
+fill -8 -61 -8 8 -61 8 minecraft:stone
+fill -8 -60 -3 8 -57 -3 minecraft:stone
+fill 1 -60 0 1 -59 0 minecraft:stone
+fill -8 -56 -8 8 -56 8 minecraft:stone
+block 3 -60 0 minecraft:water[level=0]
+spawn_player Steve survival 0.5 -60 1.5 0 0
+give Steve mainhand minecraft:resin_clump 64
+level_seed 17
+note place on the floor, add the east face against the pillar, then the north face against the wall
+use_on Steve 0 -61 0 up main
+dump events blocks:-8,-61,-8,8,-56,8
+use_on Steve 1 -60 0 west main
+use_on Steve 0 -60 -3 south main
+use_on Steve 0 -60 -1 north main
+dump events blocks:-8,-61,-8,8,-56,8
+note the clump itself as target, the ceiling, a water block and a full set of faces
+use_on Steve 0 -60 0 up main
+use_on Steve -3 -56 0 down main
+use_on Steve 3 -61 0 up main
+use_on Steve 3 -60 0 north main
+use_on Steve 3 -60 0 up main
+use_on Steve 1 -59 0 up main
+use_on Steve 1 -59 0 north main
+use_on Steve 1 -59 0 south main
+use_on Steve 1 -59 0 east main
+use_on Steve 1 -59 0 west main
+tick 2
+dump events blocks:-8,-61,-8,8,-56,8
+note mine a clump by hand, then remove the supports of the others
+dig Steve 0 -60 0
+dump entities events blocks:-8,-61,-8,8,-56,8
+block 3 -61 0 minecraft:air
+block 1 -60 0 minecraft:air
+block -3 -56 0 minecraft:air
+fill 0 -60 -3 0 -59 -3 minecraft:air
+tick 5
+dump entities events blocks:-8,-61,-8,8,-56,8

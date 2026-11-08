@@ -10,7 +10,7 @@ block -3 -60 0 minecraft:big_dripleaf[facing=west,tilt=none,waterlogged=false]
 block -3 -60 2 minecraft:lever[face=floor,facing=north,powered=true]
 block -3 -61 1 minecraft:redstone_block
 spawn_player Steve creative 0.5 -50 8.5 0 0
-watch packets:Steve
+watch events
 level_seed 9
 spawn_item i1 minecraft:stick 3.5 -58 0.5 0 0 0
 spawn_item i2 minecraft:stick 0.5 -57 0.5 0 0 0

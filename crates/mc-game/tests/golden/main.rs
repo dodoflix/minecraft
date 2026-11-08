@@ -14,6 +14,7 @@ mod blk_doors_connect_golden;
 mod block_behaviour_golden;
 mod block_scenario_golden;
 mod blocks_infra_golden;
+mod blocks_plants_vines_golden;
 mod blocks_redstone_devices_golden;
 mod blocks_redstone_golden;
 mod blocks_scaffolding_golden;

@@ -1,0 +1,229 @@
+# big dripleaf tilt state machine (items on the leaf), stem growth, small dripleaf
+T 1
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
+T 2
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
+T 3
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
+T 4
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
+T 5
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
+T 6
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
+T 7
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+T 8
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+T 9
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+T 10
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+T 11
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+T 12
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+T 13
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+T 14
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+T 15
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+T 16
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
+# the leaf resets, the item rolls on the leaf again
+T 17
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=0.8971615
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=0.9040499
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=0.8662692
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=1.0787737
+T 28
+T 29
+T 30
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+T 43
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+T 57
+T 58
+T 59
+T 60
+T 61
+T 62
+T 63
+T 64
+T 65
+T 66
+T 67
+T 68
+T 69
+T 70
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+B -3 -60 0 minecraft:big_dripleaf[facing=west,tilt=none,waterlogged=false]
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=full,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=full,waterlogged=false]
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+T 83
+T 84
+T 85
+T 86
+T 87
+T 88
+T 89
+T 90
+T 91
+T 92
+T 93
+T 94
+T 95
+T 96
+T 97
+T 98
+T 99
+T 100
+T 101
+T 102
+T 103
+T 104
+T 105
+T 106
+T 107
+T 108
+T 109
+T 110
+T 111
+T 112
+T 113
+T 114
+T 115
+T 116
+T 117
+T 118
+T 119
+T 120
+T 121
+T 122
+T 123
+T 124
+T 125
+T 126
+T 127
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_up source=block vol=1.0 pitch=1.0747784
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_up source=block vol=1.0 pitch=0.8872125
+T 128
+T 129
+T 130
+T 131
+T 132
+T 133
+T 134
+T 135
+T 136
+B -3 -60 0 minecraft:big_dripleaf[facing=west,tilt=none,waterlogged=false]
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
+# bonemeal: leaf -> stem + leaf; small dripleaf -> big dripleaf of random height
+BONEMEAL true
+BONEMEAL true
+B 0 -61 0 minecraft:clay
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -58 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -57 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+BONEMEAL true
+B 2 -61 3 minecraft:moss_block
+B 2 -60 3 minecraft:big_dripleaf_stem[facing=south,waterlogged=false]
+B 2 -59 3 minecraft:big_dripleaf_stem[facing=south,waterlogged=false]
+B 2 -58 3 minecraft:big_dripleaf_stem[facing=south,waterlogged=false]
+B 2 -57 3 minecraft:big_dripleaf[facing=south,tilt=none,waterlogged=false]
+BONEMEAL false
+BONEMEAL true
+B 2 -61 2 minecraft:clay
+B 2 -60 2 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 2 -59 2 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 2 -58 2 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 2 -57 2 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 2 -56 2 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+# remove the support of the stem
+E i1 minecraft:item pos=3.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=66.45862,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=141 pickup=0 health=5 owner=- thrower=-
+E i2 minecraft:item pos=0.5,-61.0,0.5 delta=0.0,0.0,0.0 rot=118.68753,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=141 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.5370381196197662,-59.261911816117234,0.10109055448920799 delta=0.010555516775401376,-0.0075310721665503766,-0.06694570092197906 rot=46.04917,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=5 pickup=5 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.02438434084960521,-58.32862150380886,0.8232247519013415 delta=-0.057712655982723834,0.0323152326326785,0.050362911917531505 rot=251.7561,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.6551281671793399,-57.327017432427034,0.48357621830084546 delta=0.03975108591580198,0.07297472653442398,0.009158066831659874 rot=32.190865,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.4413099244897026,-56.19238743690233,0.43404058642556925 delta=0.005065929579972874,0.07297472653442398,0.025483736942066012 rot=127.862854,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=3 pickup=7 health=5 owner=- thrower=-
