@@ -2,7 +2,9 @@
 use super::abstract_cauldron_block;
 use super::cauldron_block::should_handle_precipitation;
 use super::cauldron_interactions::CauldronKind;
+use mc_core::phys::shapes::{Shapes, VoxelShape};
 use mc_data::GameEvent;
+use mc_data::fluid::Fluid;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::inside_block_effects::{
@@ -13,6 +15,7 @@ use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::precipitation::Precipitation;
+use mc_game_core::world::level::shapes::{column, voxel_shape};
 
 pub struct LayeredCauldronBlock {
     precipitation_type: Precipitation,
@@ -34,6 +37,18 @@ impl LayeredCauldronBlock {
             }
         }
     }
+}
+
+/// `FILLED_SHAPES[level - 1]`: the cauldron body plus its content (`getPixelContentHeight(level)` = 6 + 3 * level).
+fn filled_shape(state: BlockState) -> VoxelShape {
+    Shapes::or(
+        &voxel_shape(state.shape()),
+        &column(
+            12.0,
+            4.0,
+            6.0 + 3.0 * f64::from(state.get(props::LEVEL_CAULDRON)),
+        ),
+    )
 }
 
 /// `handleEntityOnFireInside(state, level, pos)`.
@@ -73,6 +88,47 @@ pub fn lower_fill_level(state: BlockState, level: &mut ServerLevel, pos: BlockPo
 }
 
 impl BlockBehaviour for LayeredCauldronBlock {
+    fn get_interaction_shape(
+        &self,
+        _state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+    ) -> VoxelShape {
+        abstract_cauldron_block::interaction_shape()
+    }
+    fn get_entity_inside_collision_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+        _entity: &dyn Entity,
+    ) -> VoxelShape {
+        filled_shape(state)
+    }
+    fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+        abstract_cauldron_block::tick(self, state, level, pos);
+    }
+    fn can_receive_stalactite_drip(&self, fluid: Fluid) -> bool {
+        fluid == Fluid::WATER && self.precipitation_type == Precipitation::Rain
+    }
+    fn receive_stalactite_drip(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _fluid: Fluid,
+    ) {
+        if state.get(props::LEVEL_CAULDRON) != 3 {
+            let new_state = state.set(props::LEVEL_CAULDRON, state.get(props::LEVEL_CAULDRON) + 1);
+            level.set_block_and_update(pos, new_state);
+            level.game_event_at_block(
+                GameEvent::BLOCK_CHANGE,
+                pos,
+                &GameEventContext::of_state(Some(new_state)),
+            );
+            level.level_event(None, 1047, pos, 0);
+        }
+    }
     fn use_item_on(
         &self,
         stack: &ItemStack,
