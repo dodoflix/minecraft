@@ -301,9 +301,18 @@ impl PlayerList {
 
     /// The list part of `placeNewPlayer`: `players.add` + `playersByUUID.put`.
     pub fn add_player(&mut self, handle: PlayerHandle) {
+        handle.shared.lock().permissions = self.get_profile_permissions(&handle.name_and_id());
         self.players_by_uuid.insert(handle.uuid, handle.clone());
         self.roster.add(handle.clone());
         self.players.push(handle);
+    }
+
+    /// `ServerPlayer.permissions()` asks the server on every call; the handles mirror the answer, so every change of
+    /// the op list or the operator level refreshes them.
+    pub fn refresh_player_permissions(&mut self) {
+        for handle in self.players.clone() {
+            handle.shared.lock().permissions = self.get_profile_permissions(&handle.name_and_id());
+        }
     }
 
     /// The list part of `respawn`: `players.remove(serverPlayer)` (by identity).
@@ -418,6 +427,7 @@ impl PlayerList {
             .unwrap_or_else(|| self.ops.can_bypass_player_limit(&name_and_id));
         self.ops
             .add(ServerOpListEntry::new(name_and_id, permissions, bypass));
+        self.refresh_player_permissions();
     }
 }
 

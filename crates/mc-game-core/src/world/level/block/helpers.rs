@@ -175,6 +175,22 @@ pub fn is_instance_of(state: BlockState, class: &str) -> bool {
     state.block().data().classes.contains(&class)
 }
 
+/// `block instanceof GameMasterBlock` (the interface is only implemented by these classes, which `classes` lists).
+pub fn is_game_master_block(block: mc_data::block::Block) -> bool {
+    const GAME_MASTER_CLASSES: [&str; 5] = [
+        "CommandBlock",
+        "JigsawBlock",
+        "StructureBlock",
+        "TestBlock",
+        "TestInstanceBlock",
+    ];
+    block
+        .data()
+        .classes
+        .iter()
+        .any(|class| GAME_MASTER_CLASSES.contains(class))
+}
+
 /// `Block.isExceptionForConnection(state)`.
 pub fn is_exception_for_connection(state: BlockState) -> bool {
     use mc_data::block::Block;

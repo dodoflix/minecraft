@@ -445,6 +445,7 @@ impl MinecraftServer {
                 let permissions = LevelBasedPermissionSet::for_level(l);
                 self.set_operator_user_permissions(permissions);
                 self.player_list.settings.operator_user_permissions = permissions;
+                self.player_list.refresh_player_permissions();
             }
             (SettingKey::HidesOnlinePlayers, SettingValue::Bool(b)) => {
                 self.set_hides_online_players(b)

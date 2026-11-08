@@ -15,6 +15,7 @@ use crate::world::item::{
     ContextPlayer, InteractionHand, InteractionResult, ItemStack, UseOnContext,
 };
 use crate::world::level::block::behaviour as block_behaviour;
+use crate::world::level::block::helpers as block_helpers;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
@@ -293,7 +294,7 @@ impl ServerPlayer {
         }
         let block_entity = block_break::snapshot_block_entity(level, pos);
         let block = state.block();
-        if block.data().classes.contains(&"GameMasterBlock") && !self.can_use_game_master_blocks() {
+        if block_helpers::is_game_master_block(block) && !self.can_use_game_master_blocks() {
             level.send_block_updated(pos, state, state, 3);
             return false;
         }
@@ -372,10 +373,23 @@ impl ServerPlayer {
         );
     }
 
-    /// `Player.canUseGameMasterBlocks()`: `abilities.instabuild` and op permission (op permission is not checked, so
-    /// creative players are allowed).
+    /// `Player.canUseGameMasterBlocks()`: creative mode and the game master permission.
     pub fn can_use_game_master_blocks(&self) -> bool {
         self.player.abilities.instabuild
+            && self
+                .permissions()
+                .has_permission(&crate::server::permissions::permissions::COMMANDS_GAMEMASTER)
+    }
+
+    /// `ServerPlayer.permissions()`: what the server grants this player (`PermissionSet.NO_PERMISSIONS` while the
+    /// player list does not know the player, as for `Player`).
+    pub fn permissions(&self) -> crate::server::permissions::PermissionSet {
+        use crate::server::permissions::PermissionSet;
+        self.handle
+            .as_ref()
+            .map_or(PermissionSet::NoPermissions, |handle| {
+                PermissionSet::LevelBased(handle.shared.lock().permissions)
+            })
     }
 
     /// `Player.getItemInHand(hand)`.
@@ -604,5 +618,62 @@ impl ServerPlayer {
             self.game_mode.last_sent_state = s;
         }
         progress
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
+    use crate::server::players::player_handle::test_support::handle;
+
+    fn creative_player(permissions: Option<PermissionLevel>) -> ServerPlayer {
+        let mut player = ServerPlayer::new(
+            1,
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+            mc_protocol::codec::GameProfile {
+                id: uuid::Uuid::from_u128(7),
+                name: "Steve".into(),
+                properties: vec![],
+            },
+            Default::default(),
+        );
+        player.set_game_mode_for_player(GameType::Creative, None);
+        if let Some(level) = permissions {
+            let (handle, _wire) = handle(1, "Steve", "minecraft:overworld");
+            handle.shared.lock().permissions = LevelBasedPermissionSet::for_level(level);
+            player.handle = Some(handle);
+        }
+        player
+    }
+
+    #[test]
+    fn game_master_blocks_need_creative_and_the_game_master_permission() {
+        // not known to the player list: `Player.permissions()` is NO_PERMISSIONS
+        assert!(!creative_player(None).can_use_game_master_blocks());
+        assert!(!creative_player(Some(PermissionLevel::All)).can_use_game_master_blocks());
+        assert!(!creative_player(Some(PermissionLevel::Moderators)).can_use_game_master_blocks());
+        assert!(creative_player(Some(PermissionLevel::Gamemasters)).can_use_game_master_blocks());
+        assert!(creative_player(Some(PermissionLevel::Owners)).can_use_game_master_blocks());
+        let mut survival_op = creative_player(Some(PermissionLevel::Owners));
+        survival_op.set_game_mode_for_player(GameType::Survival, None);
+        assert!(!survival_op.can_use_game_master_blocks());
+    }
+
+    #[test]
+    fn game_master_block_classes() {
+        for block in [
+            Block::COMMAND_BLOCK,
+            Block::REPEATING_COMMAND_BLOCK,
+            Block::CHAIN_COMMAND_BLOCK,
+            Block::STRUCTURE_BLOCK,
+            Block::JIGSAW,
+            Block::TEST_BLOCK,
+            Block::TEST_INSTANCE_BLOCK,
+        ] {
+            assert!(block_helpers::is_game_master_block(block), "{block:?}");
+        }
+        assert!(!block_helpers::is_game_master_block(Block::STONE));
+        assert!(!block_helpers::is_game_master_block(Block::LIGHT));
     }
 }

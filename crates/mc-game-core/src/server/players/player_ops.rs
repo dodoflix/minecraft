@@ -124,10 +124,11 @@ pub fn op(
 
 /// `deop(nameAndId)`.
 pub fn deop(server: &mut MinecraftServer, name_and_id: &NameAndId) {
-    if server.player_list.ops.remove(name_and_id)
-        && let Some(player) = server.player_list.get_player(&name_and_id.id).cloned()
-    {
-        send_permission_level(server, &player);
+    if server.player_list.ops.remove(name_and_id) {
+        server.player_list.refresh_player_permissions();
+        if let Some(player) = server.player_list.get_player(&name_and_id.id).cloned() {
+            send_permission_level(server, &player);
+        }
     }
 }
 

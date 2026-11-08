@@ -11,6 +11,7 @@ use crate::server::chat::outgoing_chat_message::{
 };
 use crate::server::chat::{PlayerChatMessage, RemoteChatSession};
 use crate::server::network::ConnectionSender;
+use crate::server::permissions::LevelBasedPermissionSet;
 use crate::server::players::NameAndId;
 use crate::world::entity::EntityId;
 use crate::world::level::DimensionKey;
@@ -50,6 +51,8 @@ pub struct PlayerSharedState {
     pub allows_listing: bool,
     /// `ClientInformation.textFilteringEnabled`.
     pub text_filtering_enabled: bool,
+    /// `server.getProfilePermissions(nameAndId)`, kept current by the player list (op, deop, operator level changes).
+    pub permissions: LevelBasedPermissionSet,
 }
 
 pub struct PlayerHandle {
@@ -104,6 +107,7 @@ impl PlayerHandle {
                 chat_visibility: ChatVisibility::Full,
                 allows_listing: false,
                 text_filtering_enabled: false,
+                permissions: LevelBasedPermissionSet::ALL,
             })),
         }
     }

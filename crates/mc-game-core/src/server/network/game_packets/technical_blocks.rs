@@ -21,13 +21,6 @@ use mc_protocol::packets::play::{
 
 struct TechnicalBlockHandlers;
 
-impl PlayCtx<'_> {
-    /// `player.canUseGameMasterBlocks()`: creative mode and the game master permission.
-    fn can_use_game_master_blocks(&mut self) -> bool {
-        self.player.can_use_game_master_blocks() && self.has_gamemaster_permission()
-    }
-}
-
 fn command_block_state(mode: CommandBlockEntityMode) -> mc_data::block::BlockState {
     match mode {
         CommandBlockEntityMode::Sequence => Block::CHAIN_COMMAND_BLOCK,
@@ -52,7 +45,7 @@ impl PlayHandlers for TechnicalBlockHandlers {
         ctx: &mut PlayCtx,
         packet: &ServerboundSetCommandBlockPacket,
     ) {
-        if !ctx.can_use_game_master_blocks() {
+        if !ctx.player.can_use_game_master_blocks() {
             ctx.player
                 .send_system_message(translatable!("advMode.notAllowed"));
             return;
@@ -123,7 +116,7 @@ impl PlayHandlers for TechnicalBlockHandlers {
         ctx: &mut PlayCtx,
         packet: &ServerboundSetStructureBlockPacket,
     ) {
-        if !ctx.can_use_game_master_blocks() {
+        if !ctx.player.can_use_game_master_blocks() {
             return;
         }
         let pos = packet.pos;
@@ -215,7 +208,7 @@ impl PlayHandlers for TechnicalBlockHandlers {
     }
 
     fn handle_set_jigsaw_block(&self, ctx: &mut PlayCtx, packet: &ServerboundSetJigsawBlockPacket) {
-        if !ctx.can_use_game_master_blocks() {
+        if !ctx.player.can_use_game_master_blocks() {
             return;
         }
         let pos = packet.pos;
