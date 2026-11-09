@@ -666,10 +666,11 @@ impl Scenario {
                 self.world();
                 let ticks: i64 = a[1].parse().unwrap_or_else(|_| panic!("time {}", a[1]));
                 self.env.clock = ticks;
-                // `/time set` runs from the overworld command source: it moves the overworld clock whatever `dimension` is;
-                // the sky follows from the next tick (`updateSkyBrightness`)
+                // `/time set` runs from the overworld command source: it moves the overworld clock whatever `dimension` is
+                // (`modifyClock` then drops the cached attribute values); the sky follows from the next tick (`updateSkyBrightness`)
                 self.clocks
                     .set(&Identifier::parse("minecraft:overworld").unwrap(), ticks);
+                self.level().tick_state.attributes.invalidate_tick_cache();
             }
             "entity_counter" => {
                 self.world();
