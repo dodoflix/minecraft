@@ -67,10 +67,9 @@ impl BlockBehaviour for RedStoneOreBlock {
         hit: &BlockHitResult,
     ) -> InteractionResult {
         interact(state, level, pos);
-        let clicked = hit.block_pos;
         let place_context = BlockPlaceContext::new(
             UseOnContext::new(Some(player.context_player()), hand, stack.clone(), *hit),
-            |c| BlockGetter::get_block_state(level, clicked).can_be_replaced_by(c),
+            |pos| BlockGetter::get_block_state(level, pos),
         );
         let can_place = place_context.can_place(|c| {
             BlockGetter::get_block_state(level, c.get_clicked_pos()).can_be_replaced_by(c)

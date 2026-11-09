@@ -34,6 +34,17 @@ pub fn damage(state: BlockState) -> Option<BlockState> {
 }
 
 impl BlockBehaviour for AnvilBlock {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        _level: &mut ServerLevel,
+        context: &crate::world::item::BlockPlaceContext,
+    ) -> Option<BlockState> {
+        Some(block.default_state().set(
+            props::HORIZONTAL_FACING,
+            context.get_horizontal_direction().get_clockwise(),
+        ))
+    }
     update_shape!(
         |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
             falling_block::update_shape(state, level, pos, 2)

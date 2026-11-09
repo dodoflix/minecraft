@@ -245,9 +245,10 @@ impl BlockBehaviour for VineBlock {
         state: BlockState,
         context: &crate::world::item::BlockPlaceContext,
     ) -> bool {
-        // `state` is the state at the clicked position (`context.getLevel().getBlockState(context.getClickedPos())`)
-        if state.is_block(Block::VINE) {
-            count_faces(state) < FACE_PROPERTIES.len()
+        // vanilla reads the clicked position's state whatever state is asked (`bed`/`door` ask about their neighbours)
+        let clicked_state = context.get_clicked_state();
+        if clicked_state.is_block(Block::VINE) {
+            count_faces(clicked_state) < FACE_PROPERTIES.len()
         } else {
             crate::world::level::block::PlainBlock.can_be_replaced(state, context)
         }

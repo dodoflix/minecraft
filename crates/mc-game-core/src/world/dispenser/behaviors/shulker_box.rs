@@ -4,7 +4,7 @@ use crate::world::dispenser::{
     BlockSource, DispenseTemplate, OptionalState, Templated, play_optional_sound,
 };
 use crate::world::item::{BlockItem, BlockPlaceContext, ItemStack};
-use crate::world::level::LevelReader;
+use crate::world::level::{BlockGetter, LevelReader};
 use mc_core::direction::Direction;
 
 struct ShulkerBoxDispense(OptionalState);
@@ -23,8 +23,14 @@ impl DispenseTemplate for ShulkerBoxDispense {
         } else {
             Direction::Up
         };
-        let mut context =
-            BlockPlaceContext::directional(relative_pos, facing, dispensed, clicked_face);
+        let state_at_pos = BlockGetter::get_block_state(&*source.level, relative_pos);
+        let mut context = BlockPlaceContext::directional(
+            relative_pos,
+            facing,
+            dispensed,
+            clicked_face,
+            state_at_pos,
+        );
         let result = BlockItem::for_item(item).place(&mut context, source.level, None);
         self.0.set_success(result.consumes_action());
         context.use_on.item_stack

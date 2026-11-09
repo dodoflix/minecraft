@@ -281,6 +281,7 @@ impl Entity for FallingBlockEntity {
                                 Direction::Down,
                                 ItemStack::empty(),
                                 Direction::Up,
+                                current_state,
                             ));
                         let would_continue_falling =
                             crate::world::level::block::impls::falling_block::is_free(

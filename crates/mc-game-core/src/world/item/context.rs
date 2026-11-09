@@ -7,9 +7,11 @@
 //! player facts used for orientation (`getHorizontalDirection`, `getRotation`, nearest-looking directions, sneaking).
 
 use super::{InteractionHand, ItemStack};
+use crate::world::level::block::BlockStateExt;
 use mc_core::direction::{Axis, Direction};
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
+use mc_data::block::BlockState;
 
 /// The player facts a `UseOnContext` exposes.
 #[derive(Clone, Copy, Debug)]
@@ -90,26 +92,31 @@ pub struct BlockPlaceContext {
     relative_pos: BlockPos,
     replace_clicked: bool,
     kind: PlaceKind,
+    /// `level.getBlockState(getClickedPos())` when the context was built: `VineBlock.canBeReplaced` reads it for any state
+    /// it is asked about, not only the clicked one.
+    clicked_state: BlockState,
 }
 
 impl BlockPlaceContext {
-    /// `new BlockPlaceContext(UseOnContext)`: `can_be_replaced` is `level.getBlockState(clicked).canBeReplaced(this)`
-    /// evaluated against the context under construction (`replaceClicked == true` while it runs).
-    pub fn new(
-        use_on: UseOnContext,
-        can_be_replaced: impl FnOnce(&BlockPlaceContext) -> bool,
-    ) -> Self {
+    /// `new BlockPlaceContext(UseOnContext)`: `state_at` is `level.getBlockState`; the clicked block is replaced iff its
+    /// state's `canBeReplaced(this)` holds for the context under construction (`replaceClicked == true` while it runs).
+    pub fn new(use_on: UseOnContext, state_at: impl Fn(BlockPos) -> BlockState) -> Self {
         let relative_pos = use_on
             .hit_result
             .block_pos
             .relative(use_on.hit_result.direction);
+        let clicked_state = state_at(use_on.hit_result.block_pos);
         let mut ctx = Self {
             use_on,
             relative_pos,
             replace_clicked: true,
             kind: PlaceKind::Normal,
+            clicked_state,
         };
-        ctx.replace_clicked = can_be_replaced(&ctx);
+        ctx.replace_clicked = clicked_state.can_be_replaced_by(&ctx);
+        if !ctx.replace_clicked {
+            ctx.clicked_state = state_at(relative_pos);
+        }
         ctx
     }
 
@@ -118,7 +125,7 @@ impl BlockPlaceContext {
         context: &BlockPlaceContext,
         pos: BlockPos,
         direction: Direction,
-        can_be_replaced: impl FnOnce(&BlockPlaceContext) -> bool,
+        state_at: impl Fn(BlockPos) -> BlockState,
     ) -> Self {
         let hit = BlockHitResult {
             location: Vec3::new(
@@ -138,15 +145,17 @@ impl BlockPlaceContext {
             context.use_on.item_stack.clone(),
             hit,
         );
-        Self::new(use_on, can_be_replaced)
+        Self::new(use_on, state_at)
     }
 
-    /// `new DirectionalPlaceContext(level, pos, direction, dispensed, clickedFace)`.
+    /// `new DirectionalPlaceContext(level, pos, direction, dispensed, clickedFace)`; `state_at_pos` is
+    /// `level.getBlockState(pos)`.
     pub fn directional(
         pos: BlockPos,
         direction: Direction,
         dispensed: ItemStack,
         clicked_face: Direction,
+        state_at_pos: BlockState,
     ) -> Self {
         let hit = BlockHitResult {
             location: Vec3::new(pos.x() as f64 + 0.5, pos.y() as f64, pos.z() as f64 + 0.5),
@@ -163,7 +172,13 @@ impl BlockPlaceContext {
             relative_pos,
             replace_clicked: true,
             kind: PlaceKind::Directional(direction),
+            clicked_state: state_at_pos,
         }
+    }
+
+    /// `level.getBlockState(getClickedPos())`.
+    pub fn get_clicked_state(&self) -> BlockState {
+        self.clicked_state
     }
 
     pub fn get_clicked_pos(&self) -> BlockPos {

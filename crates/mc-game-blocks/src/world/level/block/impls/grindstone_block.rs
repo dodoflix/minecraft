@@ -6,7 +6,8 @@ use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::inventory::{
     ContainerLevelAccess, GrindstoneMenu, MenuProvider, SimpleMenuProvider,
 };
-use mc_game_core::world::item::InteractionResult;
+use mc_game_core::world::item::{BlockPlaceContext, InteractionResult};
+use mc_game_core::world::level::block::impls::face_attached_horizontal_directional_block as face_attached;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::{register_block_class, update_shape};
 use mc_text::Component;
@@ -14,6 +15,14 @@ use mc_text::Component;
 pub struct GrindstoneBlock;
 
 impl BlockBehaviour for GrindstoneBlock {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
+        face_attached::get_state_for_placement(block, &*level, context)
+    }
     fn can_survive(&self, _state: BlockState, _level: &dyn LevelReader, _pos: BlockPos) -> bool {
         true
     }

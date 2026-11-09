@@ -724,10 +724,8 @@ impl BlockItem {
         level: &mut ServerLevel,
         player: &mut ServerPlayer,
     ) -> InteractionResult {
-        let hit = context.hit_result;
-        let mut place_ctx = BlockPlaceContext::new(context.clone(), |c| {
-            level.get_block_state(hit.block_pos).can_be_replaced_by(c)
-        });
+        let mut place_ctx =
+            BlockPlaceContext::new(context.clone(), |pos| level.get_block_state(pos));
         let place_result = self.place(&mut place_ctx, level, Some(player));
         context.item_stack = place_ctx.use_on.item_stack;
         if place_result.consumes_action() {

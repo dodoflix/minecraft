@@ -51,10 +51,8 @@ impl ItemBehaviour for ArmorStandItem {
         if context.get_clicked_face() == Direction::Down {
             return InteractionResult::FAIL;
         }
-        let hit = context.hit_result;
-        let place_context = BlockPlaceContext::new(context.clone(), |c| {
-            level.get_block_state(hit.block_pos).can_be_replaced_by(c)
-        });
+        let place_context =
+            BlockPlaceContext::new(context.clone(), |pos| level.get_block_state(pos));
         let block_pos = place_context.get_clicked_pos();
         let pos = Vec3::at_bottom_center_of(&block_pos);
         let aabb = EntityDimensions::of_type(EntityType::ARMOR_STAND).make_bounding_box_vec(pos);
@@ -272,10 +270,8 @@ impl ItemBehaviour for CushionItem {
         if recalculated.get_clicked_face() != Direction::Up {
             return InteractionResult::FAIL;
         }
-        let hit = recalculated.hit_result;
-        let place_context = BlockPlaceContext::new(recalculated.clone(), |c| {
-            level.get_block_state(hit.block_pos).can_be_replaced_by(c)
-        });
+        let place_context =
+            BlockPlaceContext::new(recalculated.clone(), |pos| level.get_block_state(pos));
         let block_pos = place_context.get_clicked_pos();
         let entity_pos = Vec3::at_center_of_with_y(&block_pos, recalculated.get_click_location().y);
         let spawn_aabb = get_spawn_aabb(EntityType::CUSHION, entity_pos);

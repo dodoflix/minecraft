@@ -218,6 +218,8 @@ pub mod lily_pad_block;
 
 pub mod liquid_block;
 
+pub mod loom_block;
+
 pub mod magma_block;
 
 pub mod mangrove_propagule_block;
