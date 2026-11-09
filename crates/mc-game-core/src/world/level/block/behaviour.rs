@@ -714,10 +714,21 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         _this_entity: Option<mc_data::EntityType>,
     ) {
     }
-    /// `Block.spawnDestroyParticles(level, pos, state)` (`Level.destroyBlock` only; `playerWillDestroy` sends its own event):
-    /// level event 2001 with the state id, except `StrawBedBlock` (2014).
+    /// `Block.spawnDestroyParticles(level, pos, state)` (`Level.destroyBlock`): `spawnDestroyByEntityParticles` without an entity;
+    /// `StrawBedBlock` sends 2014 instead.
     fn spawn_destroy_particles(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
-        level.level_event_impl(None, 2001, pos, state.id() as i32);
+        self.spawn_destroy_by_entity_particles(level, None, pos, state);
+    }
+    /// `Block.spawnDestroyByEntityParticles(level, entity, pos, state)`: level event 2001 with the state id (also the
+    /// `Block.playerWillDestroy` event); fire blocks send none.
+    fn spawn_destroy_by_entity_particles(
+        &self,
+        level: &mut ServerLevel,
+        entity: Option<crate::world::entity::EntityId>,
+        pos: BlockPos,
+        state: BlockState,
+    ) {
+        level.level_event_impl(entity, 2001, pos, state.id() as i32);
     }
     // ==== [/Blocks:Drops] ====
 }

@@ -20,6 +20,15 @@ impl BlockBehaviour for SoulFireBlock {
             context.get_clicked_pos(),
         ))
     }
+    /// `BaseFireBlock.spawnDestroyByEntityParticles`: nothing.
+    fn spawn_destroy_by_entity_particles(
+        &self,
+        _level: &mut crate::server::level::ServerLevel,
+        _entity: Option<crate::world::entity::EntityId>,
+        _pos: BlockPos,
+        _state: BlockState,
+    ) {
+    }
     fn player_will_destroy(
         &self,
         state: BlockState,
