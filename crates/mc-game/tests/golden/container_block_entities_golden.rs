@@ -101,7 +101,7 @@ fn run_case(f: &[&str]) -> Vec<String> {
         .find(|ty| ty.data().valid_blocks.contains(&block))
         .unwrap();
     let mut diffs = Vec::new();
-    let mut entity = if input == "-" {
+    let entity = if input == "-" {
         fresh(ty, block, state)
     } else {
         let mut entity = create_block_entity(ty, POS, state)

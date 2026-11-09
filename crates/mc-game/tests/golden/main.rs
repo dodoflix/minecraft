@@ -51,6 +51,7 @@ mod commands_fx;
 mod commands_operating;
 mod commands_state_tree;
 mod common;
+mod container_block_entities_golden;
 mod container_menu_golden;
 mod damage_golden;
 mod decoration_common;
