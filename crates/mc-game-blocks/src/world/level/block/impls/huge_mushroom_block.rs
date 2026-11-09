@@ -1,4 +1,6 @@
 //! `net.minecraft.world.level.block.HugeMushroomBlock`.
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::{register_block_class, update_shape};
 
@@ -16,6 +18,26 @@ fn map_faces(state: BlockState, map: impl Fn(Direction) -> Direction) -> BlockSt
 }
 
 impl BlockBehaviour for HugeMushroomBlock {
+    fn get_state_for_placement(
+        &self,
+        block: Block,
+        level: &mut ServerLevel,
+        context: &BlockPlaceContext,
+    ) -> Option<BlockState> {
+        let pos = context.get_clicked_pos();
+        let face = |direction: Direction| {
+            !level
+                .get_block_state(pos.relative(direction))
+                .is_block(block)
+        };
+        Some(
+            Direction::ALL
+                .into_iter()
+                .fold(block.default_state(), |state, direction| {
+                    state.set(helpers::pipe_property(direction), face(direction))
+                }),
+        )
+    }
     update_shape!(
         |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
             if neighbour_state.is_block(state.block()) {

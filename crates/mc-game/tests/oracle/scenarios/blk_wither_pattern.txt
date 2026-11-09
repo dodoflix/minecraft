@@ -1,0 +1,77 @@
+# WitherSkullBlock: the wither pattern (soul sand T with three wither skeleton skulls, standing or wall skulls) is
+# checked when the last skull is placed; peaceful difficulty, wrong bases and a base block of the other kind.
+level flat
+preload 6
+level_seed 31337
+spawn_player Steve survival 0.5 -60 4.5 0 0
+spawn_player Near survival 0.5 -60 40.5 0 0
+spawn_player Far survival 0.5 -60 60.5 0 0
+spawn_player Spec spectator 0.5 -60 6.5 0 0
+dump packets:Steve:none
+give Steve hotbar0 minecraft:wither_skeleton_skull 16
+give Steve hotbar1 minecraft:stone 4
+select Steve 0
+note summon: soul sand T along x, two side skulls then the middle one; Withering Heights goes to the players within 50 blocks (Steve, Near), not to Far or the spectator
+fill -1 -59 0 1 -59 0 minecraft:soul_sand
+block 0 -60 0 minecraft:soul_sand
+use_on Steve -1 -59 0 up main 0.5 1.0 0.5
+use_on Steve 1 -59 0 up main 0.5 1.0 0.5
+dump blocks:-2,-60,-1,2,-57,1 entities events
+use_on Steve 0 -59 0 up main 0.5 1.0 0.5
+dump blocks:-2,-60,-1,2,-57,1 entities events packets:Steve:system_chat
+kill wither#1
+note the T along z, skulls placed middle first
+snap Steve 8.5 -60 2.5 0 0
+fill 8 -59 -1 8 -59 1 minecraft:soul_sand
+block 8 -60 0 minecraft:soul_sand
+use_on Steve 8 -59 0 up main 0.5 1.0 0.5
+use_on Steve 8 -59 -1 up main 0.5 1.0 0.5
+use_on Steve 8 -59 1 up main 0.5 1.0 0.5
+dump blocks:7,-60,-2,9,-57,2 entities events
+kill wither#2
+note wall skulls: the middle skull is a wall skull on a stone block behind the pattern
+snap Steve 16.5 -60 4.5 0 0
+fill 15 -59 0 17 -59 0 minecraft:soul_sand
+block 16 -60 0 minecraft:soul_sand
+block 16 -58 1 minecraft:stone
+use_on Steve 15 -59 0 up main 0.5 1.0 0.5
+use_on Steve 17 -59 0 up main 0.5 1.0 0.5
+use_on Steve 16 -58 1 north main 0.5 0.5 0.0
+dump blocks:14,-60,-1,18,-57,2 entities events
+kill wither#3
+note other base blocks of the tag: soul soil
+snap Steve 24.5 -60 4.5 0 0
+fill 23 -59 0 25 -59 0 minecraft:soul_soil
+block 24 -60 0 minecraft:soul_soil
+use_on Steve 23 -59 0 up main 0.5 1.0 0.5
+use_on Steve 25 -59 0 up main 0.5 1.0 0.5
+use_on Steve 24 -59 0 up main 0.5 1.0 0.5
+dump blocks:22,-60,-1,26,-57,1 entities events
+kill wither#4
+note wrong shapes: stone base, a block below a corner, missing foot
+snap Steve 32.5 -60 4.5 0 0
+fill 31 -59 0 33 -59 0 minecraft:stone
+block 32 -60 0 minecraft:stone
+use_on Steve 31 -59 0 up main 0.5 1.0 0.5
+use_on Steve 33 -59 0 up main 0.5 1.0 0.5
+use_on Steve 32 -59 0 up main 0.5 1.0 0.5
+fill 39 -59 0 41 -59 0 minecraft:soul_sand
+block 40 -60 0 minecraft:soul_sand
+block 39 -60 0 minecraft:stone
+use_on Steve 39 -59 0 up main 0.5 1.0 0.5
+use_on Steve 41 -59 0 up main 0.5 1.0 0.5
+use_on Steve 40 -59 0 up main 0.5 1.0 0.5
+fill 47 -59 0 49 -59 0 minecraft:soul_sand
+use_on Steve 47 -59 0 up main 0.5 1.0 0.5
+use_on Steve 49 -59 0 up main 0.5 1.0 0.5
+use_on Steve 48 -59 0 up main 0.5 1.0 0.5
+dump blocks:30,-60,-1,50,-57,1 entities events
+note peaceful: the pattern is complete and nothing happens; back to normal the next skull does not retrigger
+difficulty peaceful
+snap Steve 56.5 -60 4.5 0 0
+fill 55 -59 0 57 -59 0 minecraft:soul_sand
+block 56 -60 0 minecraft:soul_sand
+use_on Steve 55 -59 0 up main 0.5 1.0 0.5
+use_on Steve 57 -59 0 up main 0.5 1.0 0.5
+use_on Steve 56 -59 0 up main 0.5 1.0 0.5
+dump blocks:54,-60,-1,58,-57,1 entities events

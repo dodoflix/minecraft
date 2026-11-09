@@ -64,6 +64,8 @@ pub mod calibrated_sculk_sensor_block;
 
 pub mod carpet_block;
 
+pub mod carved_pumpkin_block;
+
 pub mod cave_vines_block;
 
 pub mod cave_vines_plant_block;
@@ -263,6 +265,8 @@ pub mod potent_sulfur_block;
 pub mod powder_snow_block;
 
 pub mod powered_rail_block;
+
+pub mod pumpkin_block;
 
 pub mod rail_block;
 

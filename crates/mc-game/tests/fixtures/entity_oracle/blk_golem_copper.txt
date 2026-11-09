@@ -1,0 +1,129 @@
+# the eight blocks of the copper tag, the player faces every way
+B 0 -60 0 minecraft:copper_chest[facing=north,type=single,waterlogged=false]
+B 4 -60 0 minecraft:exposed_copper_chest[facing=east,type=single,waterlogged=false]
+B 8 -60 0 minecraft:weathered_copper_chest[facing=south,type=single,waterlogged=false]
+B 12 -60 0 minecraft:oxidized_copper_chest[facing=west,type=single,waterlogged=false]
+B 16 -60 0 minecraft:waxed_copper_chest[facing=north,type=single,waterlogged=false]
+B 20 -60 0 minecraft:waxed_exposed_copper_chest[facing=east,type=single,waterlogged=false]
+B 24 -60 0 minecraft:waxed_weathered_copper_chest[facing=south,type=single,waterlogged=false]
+B 28 -60 0 minecraft:waxed_oxidized_copper_chest[facing=west,type=single,waterlogged=false]
+E copper_golem#1 minecraft:copper_golem pos=0.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#2 minecraft:copper_golem pos=4.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#3 minecraft:copper_golem pos=8.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#4 minecraft:copper_golem pos=12.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#5 minecraft:copper_golem pos=16.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#6 minecraft:copper_golem pos=20.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#7 minecraft:copper_golem pos=24.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#8 minecraft:copper_golem pos=28.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,0 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=31139 global=0
+EV sound at=0.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=4,-59,0 data=8692 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,0 data=31140 global=0
+EV sound at=4.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=8,-59,0 data=8690 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-60,0 data=31141 global=0
+EV sound at=8.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV sound at=8.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=12,-59,0 data=8691 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=12,-60,0 data=31142 global=0
+EV sound at=12.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV sound at=12.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=16,-59,0 data=8693 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=16,-60,0 data=31143 global=0
+EV sound at=16.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV sound at=16.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=20,-59,0 data=8696 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=20,-60,0 data=31144 global=0
+EV sound at=20.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV sound at=20.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=24,-59,0 data=8694 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=24,-60,0 data=31145 global=0
+EV sound at=24.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV sound at=24.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=28,-59,0 data=8695 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=28,-60,0 data=31146 global=0
+EV sound at=28.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+EV sound at=28.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+N copper_golem#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-58.95d,0.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"unaffected"}
+N copper_golem#2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[4.5d,-58.95d,0.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"exposed"}
+N copper_golem#3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8.5d,-58.95d,0.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"weathered"}
+N copper_golem#4 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[12.5d,-58.95d,0.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"oxidized"}
+N copper_golem#5 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[16.5d,-58.95d,0.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"unaffected"}
+N copper_golem#6 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[20.5d,-58.95d,0.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"exposed"}
+N copper_golem#7 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[24.5d,-58.95d,0.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"weathered"}
+N copper_golem#8 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:12.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[28.5d,-58.95d,0.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,next_weather_age:-1L,weather_state:"oxidized"}
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 28 -60 0 {Items:[],components:{},id:"minecraft:chest",x:28,y:-60,z:0}
+# a block that is not in the tag (cut copper, a copper ore) builds nothing
+B 36 -60 0 minecraft:cut_copper
+B 36 -59 0 minecraft:carved_pumpkin[facing=north]
+B 38 -60 0 minecraft:copper_ore
+B 38 -59 0 minecraft:carved_pumpkin[facing=north]
+E copper_golem#1 minecraft:copper_golem pos=0.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#2 minecraft:copper_golem pos=4.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#3 minecraft:copper_golem pos=8.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#4 minecraft:copper_golem pos=12.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#5 minecraft:copper_golem pos=16.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#6 minecraft:copper_golem pos=20.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#7 minecraft:copper_golem pos=24.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#8 minecraft:copper_golem pos=28.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=36.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+EV sound at=38.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+# setBlock with no player; the chest connects to a copper chest beside it and takes the least oxidized stage of the pair
+B 43 -60 0 minecraft:exposed_copper_chest[facing=north,type=left,waterlogged=false]
+B 44 -60 0 minecraft:exposed_copper_chest[facing=north,type=right,waterlogged=false]
+E copper_golem#1 minecraft:copper_golem pos=0.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#2 minecraft:copper_golem pos=4.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#3 minecraft:copper_golem pos=8.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#4 minecraft:copper_golem pos=12.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#5 minecraft:copper_golem pos=16.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#6 minecraft:copper_golem pos=20.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#7 minecraft:copper_golem pos=24.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#8 minecraft:copper_golem pos=28.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#9 minecraft:copper_golem pos=43.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=43,-59,0 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=43,-60,0 data=31141 global=0
+EV sound at=43.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+B 49 -60 0 minecraft:copper_chest[facing=south,type=right,waterlogged=false]
+B 50 -60 0 minecraft:copper_chest[facing=south,type=left,waterlogged=false]
+E copper_golem#1 minecraft:copper_golem pos=0.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#2 minecraft:copper_golem pos=4.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#3 minecraft:copper_golem pos=8.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#4 minecraft:copper_golem pos=12.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#5 minecraft:copper_golem pos=16.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#6 minecraft:copper_golem pos=20.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#7 minecraft:copper_golem pos=24.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#8 minecraft:copper_golem pos=28.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#9 minecraft:copper_golem pos=43.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#10 minecraft:copper_golem pos=50.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=50,-59,0 data=8694 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=50,-60,0 data=31142 global=0
+EV sound at=50.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0
+# a snow pattern wins over copper below it
+B 55 -61 -1 minecraft:grass_block[snowy=false]
+B 55 -61 0 minecraft:grass_block[snowy=false]
+B 55 -61 1 minecraft:grass_block[snowy=false]
+B 56 -61 -1 minecraft:grass_block[snowy=false]
+B 56 -61 0 minecraft:snow_block
+B 56 -61 1 minecraft:grass_block[snowy=false]
+B 56 -60 0 minecraft:copper_chest[facing=north,type=single,waterlogged=false]
+B 57 -61 -1 minecraft:grass_block[snowy=false]
+B 57 -61 0 minecraft:grass_block[snowy=false]
+B 57 -61 1 minecraft:grass_block[snowy=false]
+E copper_golem#1 minecraft:copper_golem pos=0.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#2 minecraft:copper_golem pos=4.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#3 minecraft:copper_golem pos=8.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#4 minecraft:copper_golem pos=12.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#5 minecraft:copper_golem pos=16.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#6 minecraft:copper_golem pos=20.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#7 minecraft:copper_golem pos=24.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#8 minecraft:copper_golem pos=28.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#9 minecraft:copper_golem pos=43.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#10 minecraft:copper_golem pos=50.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E copper_golem#11 minecraft:copper_golem pos=56.5,-58.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=56,-59,0 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=56,-60,0 data=31139 global=0
+EV sound at=56.5,-58.95,0.5 r=16.0 ex=0 event=minecraft:entity.copper_golem.spawn source=neutral vol=1.0 pitch=1.0

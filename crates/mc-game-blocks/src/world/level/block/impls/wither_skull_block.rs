@@ -105,7 +105,7 @@ pub fn check_spawn(level: &mut ServerLevel, pos: BlockPos) {
     if let Some(living) = wither.living_mut() {
         living.y_body_rot = rot;
     }
-    // `CriteriaTriggers.SUMMONED_ENTITY` for the players within 50 blocks: not implemented (advancement triggers)
+    pattern_blocks::trigger_summoned_entity(level, &*wither, 50.0);
     pattern_blocks::add_fresh_entity(level, wither);
     pattern_blocks::update_pattern_blocks(level, &mut found);
 }

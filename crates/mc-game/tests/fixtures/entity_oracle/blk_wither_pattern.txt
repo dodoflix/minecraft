@@ -1,0 +1,92 @@
+# summon: soul sand T along x, two side skulls then the middle one; Withering Heights goes to the players within 50 blocks (Steve, Near), not to Far or the spectator
+B -1 -59 0 minecraft:soul_sand
+B -1 -58 0 minecraft:wither_skeleton_skull[powered=false,rotation=0]
+B 0 -60 0 minecraft:soul_sand
+B 0 -59 0 minecraft:soul_sand
+B 1 -59 0 minecraft:soul_sand
+B 1 -58 0 minecraft:wither_skeleton_skull[powered=false,rotation=0]
+EV sound at=-0.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+E wither#1 minecraft:wither pos=0.5,-59.45,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=1,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,-60,0 data=0 global=0
+EV sound at=0.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+PKT Steve minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c2053746576652000080009696e73657274696f6e0005537465766508000474657874000553746576650a000b686f7665725f6576656e740800046e616d6500055374657665080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000045627dd98e6be3c21b8a8e923441836410000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c617465002d616476616e63656d656e74732e6e65746865722e73756d6d6f6e5f7769746865722e6465736372697074696f6e000800097472616e736c6174650027616476616e63656d656e74732e6e65746865722e73756d6d6f6e5f7769746865722e7469746c6500000800097472616e736c6174650027616476616e63656d656e74732e6e65746865722e73756d6d6f6e5f7769746865722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT Steve minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000b2f74656c6c204e6561722000080009696e73657274696f6e00044e6561720800047465787400044e6561720a000b686f7665725f6576656e740800046e616d6500044e656172080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f5c73187a33f3031bcfbe06ca66f99510000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c617465002d616476616e63656d656e74732e6e65746865722e73756d6d6f6e5f7769746865722e6465736372697074696f6e000800097472616e736c6174650027616476616e63656d656e74732e6e65746865722e73756d6d6f6e5f7769746865722e7469746c6500000800097472616e736c6174650027616476616e63656d656e74732e6e65746865722e73756d6d6f6e5f7769746865722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+# the T along z, skulls placed middle first
+E wither#2 minecraft:wither pos=8.5,-59.45,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=8.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=8.5,-57.5,-0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=8,-58,1 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-59,1 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-60,1 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-60,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-58,-1 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-59,-1 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-60,-1 data=0 global=0
+EV sound at=8.5,-57.5,1.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+# wall skulls: the middle skull is a wall skull on a stone block behind the pattern
+B 16 -58 1 minecraft:stone
+E wither#3 minecraft:wither pos=16.5,-59.45,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=15.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=17.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=17,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=17,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=17,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=16,-58,0 data=12755 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=16,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=16,-60,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=15,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=15,-59,0 data=8668 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=15,-60,0 data=0 global=0
+EV sound at=16.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+# other base blocks of the tag: soul soil
+E wither#4 minecraft:wither pos=24.5,-59.45,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=23.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=25.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=25,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=25,-59,0 data=8669 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=25,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=24,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=24,-59,0 data=8669 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=24,-60,0 data=8669 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=23,-58,0 data=12738 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=23,-59,0 data=8669 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=23,-60,0 data=0 global=0
+EV sound at=24.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+# wrong shapes: stone base, a block below a corner, missing foot
+B 31 -59 0 minecraft:stone
+B 31 -58 0 minecraft:wither_skeleton_skull[powered=false,rotation=0]
+B 32 -60 0 minecraft:stone
+B 32 -59 0 minecraft:stone
+B 32 -58 0 minecraft:wither_skeleton_skull[powered=false,rotation=0]
+B 33 -59 0 minecraft:stone
+B 33 -58 0 minecraft:wither_skeleton_skull[powered=false,rotation=0]
+B 39 -60 0 minecraft:stone
+B 39 -59 0 minecraft:soul_sand
+B 40 -60 0 minecraft:soul_sand
+B 40 -59 0 minecraft:soul_sand
+B 41 -59 0 minecraft:soul_sand
+B 47 -59 0 minecraft:soul_sand
+B 48 -59 0 minecraft:soul_sand
+B 49 -59 0 minecraft:soul_sand
+EV sound at=31.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=33.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=32.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+# peaceful: the pattern is complete and nothing happens; back to normal the next skull does not retrigger
+C The difficulty has been set to Peaceful
+B 55 -59 0 minecraft:soul_sand
+B 55 -58 0 minecraft:wither_skeleton_skull[powered=false,rotation=0]
+B 56 -60 0 minecraft:soul_sand
+B 56 -59 0 minecraft:soul_sand
+B 57 -59 0 minecraft:soul_sand
+EV sound at=55.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8

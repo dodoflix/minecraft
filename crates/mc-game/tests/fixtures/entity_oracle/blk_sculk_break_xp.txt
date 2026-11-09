@@ -1,0 +1,68 @@
+# Level.destroyBlock drops the experience at the block
+DESTROY true
+E experience_orb#1 minecraft:experience_orb pos=0.5,-59.5,0.5 delta=-0.14011284648017233,0.11427366732903668,0.044605977351074605 rot=11.841566,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=31000 global=0
+# a player mining sculk with a plain pickaxe
+DIG Steve ticks=20 broken=true
+E experience_orb#2 minecraft:experience_orb pos=2.344313995800771,-59.332459881291136,0.6925146201522647 delta=-0.15257228708471937,0.1641893195302616,0.18866433142114442 rot=152.52673,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=2,-60,0 data=31000 global=0
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=1
+I Steve 1 minecraft:diamond_pickaxe*1
+E experience_orb#2 minecraft:experience_orb pos=2.0123627108932487,-59.095239604922014,1.1285163655581543 delta=-0.16632455076890096,0.10023909256075988,0.2228468339742769 rot=152.52673,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=3 health=5
+# silk touch keeps the block and drops no experience
+DIG Steve ticks=20 broken=true
+E item#1 minecraft:item pos=4.700668456614636,-59.38064756741969,0.5783670689731744 delta=0.011505543212042621,0.1568000030517578,-0.08123225709146949 rot=236.83118,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sculk*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,0 data=31000 global=0
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=1
+I Steve 1 minecraft:diamond_pickaxe*1/dmg=1
+E item#1 minecraft:item pos=4.723449432393932,-59.18938355914943,0.41752719838268243 delta=0.011049924130969347,0.07297472653442398,-0.07801546274743672 rot=236.83118,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sculk*1 age=3 pickup=7 health=5 owner=- thrower=-
+# the ores keep their ranges (coal 0-2, lapis 2-5, gold none)
+DESTROY true
+DESTROY true
+DESTROY true
+E item#1 minecraft:item pos=4.723449432393932,-59.18938355914943,0.41752719838268243 delta=0.011049924130969347,0.07297472653442398,-0.07801546274743672 rot=236.83118,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sculk*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=6.440128490887589,-59.80678785341551,0.6198925277136346 delta=0.059034761477124886,0.2,-0.08534559013471493 rot=39.593803,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=7.505657817746346,-59.798865569040835,0.6574076823542183 delta=0.03127214959447375,0.2,0.09628428439872791 rot=175.35352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:lapis_lazuli*9 age=0 pickup=10 health=5 owner=- thrower=-
+E experience_orb#3 minecraft:experience_orb pos=7.5,-59.5,0.5 delta=0.07184776834770201,0.010187010542163755,0.08981927392608735 rot=195.66481,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
+E item#4 minecraft:item pos=8.645692121813752,-59.85896945119801,0.4479090844824595 delta=0.06419759011518139,0.2,0.0022869125880724817 rot=124.284294,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:raw_gold*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2001 pos=6,-60,0 data=136 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=7,-60,0 data=662 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=8,-60,0 data=132 global=0

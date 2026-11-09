@@ -1,0 +1,35 @@
+# SculkBlock is a DropExperienceBlock with ConstantInt(1): one experience point when it is destroyed or mined, none with
+# silk touch, and the other ore blocks keep their ranges.
+level flat
+preload 3
+level_seed 2024
+spawn_player Steve survival 0.5 -60 4.5 0 0
+give Steve hotbar0 minecraft:diamond_pickaxe 1
+give Steve hotbar1 minecraft:diamond_pickaxe[enchantments={"minecraft:silk_touch":1}] 1
+select Steve 0
+note Level.destroyBlock drops the experience at the block
+block 0 -60 0 minecraft:sculk
+destroy 0 -60 0
+dump blocks:-1,-60,-1,1,-60,1 entities events
+note a player mining sculk with a plain pickaxe
+block 2 -60 0 minecraft:sculk
+dig Steve 2 -60 0 20
+dump blocks:1,-60,-1,3,-60,1 entities events inventory:Steve
+tick 2
+dump entities
+note silk touch keeps the block and drops no experience
+select Steve 1
+block 4 -60 0 minecraft:sculk
+dig Steve 4 -60 0 20
+dump blocks:3,-60,-1,5,-60,1 entities events inventory:Steve
+tick 2
+dump entities
+note the ores keep their ranges (coal 0-2, lapis 2-5, gold none)
+select Steve 0
+block 6 -60 0 minecraft:coal_ore
+block 7 -60 0 minecraft:lapis_ore
+block 8 -60 0 minecraft:gold_ore
+destroy 6 -60 0
+destroy 7 -60 0
+destroy 8 -60 0
+dump blocks:5,-60,-1,9,-60,1 entities events

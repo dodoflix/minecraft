@@ -551,6 +551,37 @@ impl ServerLevel {
         out
     }
 
+    /// `getEntitiesOfClass(ServerPlayer.class, bb)` (spectators excluded) in vanilla's iteration order. A player that is
+    /// taken out of the level (its packet or tick is being handled) is included, as vanilla's entity storage still holds
+    /// it: its box is the standing one at the position it had when it was taken out.
+    pub fn get_players_in_aabb(&self, bb: &AABB) -> Vec<EntityId> {
+        let mut out = Vec::new();
+        self.entity_manager
+            .for_each_in_aabb_with_taken_out(bb, |id, entity| {
+                let included = match entity {
+                    Some(e) => {
+                        e.as_any().is::<crate::world::entity::ServerPlayer>() && !e.is_spectator()
+                    }
+                    None => self.taken_out_players.get(&id).is_some_and(|p| {
+                        let p = p.position;
+                        bb.intersects_aabb(&AABB::new(
+                            p.x - 0.3,
+                            p.y,
+                            p.z - 0.3,
+                            p.x + 0.3,
+                            p.y + 1.8,
+                            p.z + 0.3,
+                        ))
+                    }),
+                };
+                if included {
+                    out.push(id);
+                }
+                ControlFlow::Continue(())
+            });
+        out
+    }
+
     /// `getNearestPlayer(x, y, z, range, predicate)`.
     pub fn get_nearest_player(
         &self,

@@ -1,0 +1,59 @@
+# Copper golem pattern: a carved pumpkin or jack o'lantern on a block of the copper tag builds a copper golem (state from the
+# block's weathering, waxed blocks as their unwaxed stage) and the block becomes a chest of that stage facing like the head.
+level flat
+preload 6
+level_seed 555
+spawn_player Steve survival 0.5 -60 4.5 0 0
+give Steve hotbar0 minecraft:carved_pumpkin 16
+give Steve hotbar1 minecraft:jack_o_lantern 16
+select Steve 0
+note the eight blocks of the copper tag, the player faces every way
+block 0 -60 0 minecraft:copper_block
+use_on Steve 0 -60 0 up main 0.5 1.0 0.5
+snap Steve 4.5 -60 4.5 90 0
+block 4 -60 0 minecraft:exposed_copper
+use_on Steve 4 -60 0 up main 0.5 1.0 0.5
+snap Steve 8.5 -60 4.5 180 0
+block 8 -60 0 minecraft:weathered_copper
+use_on Steve 8 -60 0 up main 0.5 1.0 0.5
+snap Steve 12.5 -60 4.5 270 0
+block 12 -60 0 minecraft:oxidized_copper
+use_on Steve 12 -60 0 up main 0.5 1.0 0.5
+select Steve 1
+snap Steve 16.5 -60 4.5 0 0
+block 16 -60 0 minecraft:waxed_copper_block
+use_on Steve 16 -60 0 up main 0.5 1.0 0.5
+snap Steve 20.5 -60 4.5 90 0
+block 20 -60 0 minecraft:waxed_exposed_copper
+use_on Steve 20 -60 0 up main 0.5 1.0 0.5
+snap Steve 24.5 -60 4.5 180 0
+block 24 -60 0 minecraft:waxed_weathered_copper
+use_on Steve 24 -60 0 up main 0.5 1.0 0.5
+snap Steve 28.5 -60 4.5 270 0
+block 28 -60 0 minecraft:waxed_oxidized_copper
+use_on Steve 28 -60 0 up main 0.5 1.0 0.5
+dump blocks:-1,-60,-1,29,-59,1 entities events nbt:copper_golem#1 nbt:copper_golem#2 nbt:copper_golem#3 nbt:copper_golem#4 nbt:copper_golem#5 nbt:copper_golem#6 nbt:copper_golem#7 nbt:copper_golem#8
+dump be:0,-60,0 be:28,-60,0
+note a block that is not in the tag (cut copper, a copper ore) builds nothing
+select Steve 0
+snap Steve 36.5 -60 4.5 0 0
+block 36 -60 0 minecraft:cut_copper
+use_on Steve 36 -60 0 up main 0.5 1.0 0.5
+block 38 -60 0 minecraft:copper_ore
+snap Steve 38.5 -60 4.5 0 0
+use_on Steve 38 -60 0 up main 0.5 1.0 0.5
+dump blocks:35,-60,-1,39,-59,1 entities events
+note setBlock with no player; the chest connects to a copper chest beside it and takes the least oxidized stage of the pair
+block 44 -60 0 minecraft:exposed_copper_chest[facing=north,type=single]
+block 43 -60 0 minecraft:weathered_copper
+block 43 -59 0 minecraft:carved_pumpkin[facing=north]
+dump blocks:42,-60,-1,45,-59,1 entities events
+block 49 -60 0 minecraft:copper_chest[facing=south,type=single]
+block 50 -60 0 minecraft:oxidized_copper
+block 50 -59 0 minecraft:jack_o_lantern[facing=south]
+dump blocks:48,-60,-1,52,-59,1 entities events
+note a snow pattern wins over copper below it
+block 56 -61 0 minecraft:snow_block
+block 56 -60 0 minecraft:copper_block
+block 56 -59 0 minecraft:carved_pumpkin[facing=north]
+dump blocks:55,-61,-1,57,-59,1 entities events

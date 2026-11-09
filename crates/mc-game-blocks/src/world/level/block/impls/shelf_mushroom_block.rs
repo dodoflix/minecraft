@@ -1,9 +1,12 @@
 //! `net.minecraft.world.level.block.ShelfMushroomBlock` (extends `HorizontalDirectionalBlock`).
+use mc_data::{EntityType, SoundEvent};
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
 use mc_game_core::world::item::BlockPlaceContext;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::{register_block_class, update_shape};
+use mc_protocol::packets::play::level::SoundSource;
 
 pub struct ShelfMushroomBlock;
 
@@ -32,6 +35,25 @@ impl BlockBehaviour for ShelfMushroomBlock {
             }
         }
         None
+    }
+    fn bounce_on(
+        &self,
+        level: &mut ServerLevel,
+        _state: BlockState,
+        pos: BlockPos,
+        entity: &mut dyn Entity,
+        _fall_distance: f64,
+    ) {
+        if !matches!(entity.get_type(), EntityType::ITEM | EntityType::TNT) {
+            level.play_sound(
+                None,
+                pos,
+                SoundEvent::BLOCK_SHELF_MUSHROOM_BOUNCE,
+                SoundSource::Blocks,
+                1.0,
+                1.0,
+            );
+        }
     }
     fn is_bonemealable(&self) -> bool {
         true

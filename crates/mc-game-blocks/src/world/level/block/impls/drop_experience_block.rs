@@ -25,6 +25,7 @@ fn xp_range(block: Block) -> IntProvider {
         "nether_gold_ore" => uniform(0, 1),
         "lapis_ore" | "nether_quartz_ore" => uniform(2, 5),
         "diamond_ore" | "emerald_ore" => uniform(3, 7),
+        "sculk" => IntProvider::Constant(1),
         // gold, iron and copper ore
         _ => IntProvider::Constant(0),
     }

@@ -850,6 +850,27 @@ impl PersistentEntitySectionManager {
             });
     }
 
+    /// `for_each_in_aabb` that also visits the entities taken out of their slot (the running one): `entity` is `None`
+    /// for them and the consumer decides whether they are in the box.
+    pub fn for_each_in_aabb_with_taken_out(
+        &self,
+        bb: &AABB,
+        mut consumer: impl FnMut(EntityId, Option<&dyn Entity>) -> ControlFlow<()>,
+    ) {
+        self.section_storage
+            .for_each_accessible_non_empty_section(bb, |_, section| {
+                for &id in section.entities() {
+                    let e = self.get_any(id);
+                    if e.is_none_or(|e| e.get_bounding_box().intersects_aabb(bb))
+                        && consumer(id, e).is_break()
+                    {
+                        return ControlFlow::Break(());
+                    }
+                }
+                ControlFlow::Continue(())
+            });
+    }
+
     pub fn gather_stats(&self) -> String {
         format!(
             "{},{},{},{},{},{},{}",

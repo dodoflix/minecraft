@@ -1,0 +1,53 @@
+# HugeMushroomBlock.getStateForPlacement: a face is shown unless the neighbour is the same block; a stem next to a cap, the
+# three kinds next to each other, and shelf mushrooms (placement + bounce sound, bounce is checked by the entity oracle).
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 4.5 0 0
+give Steve hotbar0 minecraft:brown_mushroom_block 32
+give Steve hotbar1 minecraft:red_mushroom_block 32
+give Steve hotbar2 minecraft:mushroom_stem 32
+select Steve 0
+note a row of brown caps: each new block hides the faces that touch the previous one
+use_on Steve 0 -61 0 up main 0.5 1.0 0.5
+use_on Steve 0 -60 0 east main 1.0 0.5 0.5
+use_on Steve 1 -60 0 east main 1.0 0.5 0.5
+use_on Steve 0 -60 0 up main 0.5 1.0 0.5
+use_on Steve 1 -60 0 up main 0.5 1.0 0.5
+dump blocks:-1,-61,-1,3,-58,1 events
+note mixed kinds: a red cap and a stem next to the brown ones only hide their own kind
+select Steve 1
+use_on Steve 2 -60 0 up main 0.5 1.0 0.5
+use_on Steve 2 -60 0 south main 0.5 0.5 1.0
+select Steve 2
+use_on Steve 0 -59 0 east main 1.0 0.5 0.5
+use_on Steve 0 -59 0 north main 0.5 0.5 0.0
+dump blocks:-1,-61,-1,3,-57,2 events
+note a mushroom block next to the cluster set by setBlock keeps its default (all faces); placing on top of it hides only the touching face
+block 6 -60 0 minecraft:red_mushroom_block
+block 6 -60 1 minecraft:red_mushroom_block[north=false,south=false]
+select Steve 1
+use_on Steve 6 -60 0 up main 0.5 1.0 0.5
+use_on Steve 6 -60 1 up main 0.5 1.0 0.5
+use_on Steve 6 -60 0 west main 0.0 0.5 0.5
+dump blocks:4,-61,-1,8,-58,2 events
+note shelf mushrooms on a trunk: the nearest looking directions pick the support, none gives no placement
+give Steve hotbar3 minecraft:shelf_mushroom 8
+fill 12 -60 0 12 -58 0 minecraft:oak_log
+select Steve 3
+use_on Steve 12 -59 0 south main 0.5 0.5 1.0
+use_on Steve 12 -59 0 north main 0.5 0.5 0.0
+use_on Steve 12 -58 0 east main 1.0 0.5 0.5
+use_on Steve 12 -58 0 up main 0.5 1.0 0.5
+dump blocks:11,-60,-1,13,-57,1 events
+note entities landing on a shelf mushroom bounce (a living entity and a primed TNT are told apart from an item by the bounce sound)
+block 20 -60 1 minecraft:oak_log
+block 20 -60 0 minecraft:shelf_mushroom[facing=north]
+block 22 -60 1 minecraft:oak_log
+block 22 -60 0 minecraft:shelf_mushroom[facing=north]
+block 24 -60 1 minecraft:oak_log
+block 24 -60 0 minecraft:shelf_mushroom[facing=north]
+spawn standA minecraft:armor_stand 20.5 -54 0.65
+spawn_item itemA minecraft:stone 22.5 -54 0.65 0 0 0
+spawn tntA minecraft:tnt 24.5 -54 0.65 0 0 {fuse:400s}
+tick 30
+dump entities events

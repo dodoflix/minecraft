@@ -1,0 +1,162 @@
+# CarvedPumpkinBlock: placement facing, snow and iron golem patterns on place (player, setBlock, replacement of one head by the
+# other), wrong shapes, and PumpkinBlock carving with shears.
+level flat
+preload 10
+level_seed 777
+spawn_player Steve survival 0.5 -60 4.5 0 0
+spawn_player Far survival 48.5 -60 12.5 0 0
+spawn_player Spec spectator 49.5 -60 2.5 0 0
+dump packets:Steve:none
+give Steve hotbar0 minecraft:carved_pumpkin 32
+give Steve hotbar1 minecraft:jack_o_lantern 32
+give Steve hotbar2 minecraft:shears 1
+give Steve hotbar3 minecraft:pumpkin 4
+give Steve hotbar4 minecraft:stick 1
+select Steve 0
+note snow golem: a carved pumpkin on two snow blocks; the pumpkin and both blocks go with destroy particles
+fill 0 -60 0 0 -59 0 minecraft:snow_block
+use_on Steve 0 -59 0 up main 0.5 1.0 0.5
+dump blocks:-1,-60,-1,1,-57,1 entities events inventory:Steve
+tick 2
+dump entities
+note the same with a jack o'lantern, the player faces west
+snap Steve 8.5 -60 4.5 90 0
+fill 8 -60 0 8 -59 0 minecraft:snow_block
+select Steve 1
+use_on Steve 8 -59 0 up main 0.5 1.0 0.5
+dump blocks:7,-60,-1,9,-57,1 entities events
+tick 2
+dump entities
+note wrong shapes: one snow block, snow under an iron block; none builds a golem
+snap Steve 16.5 -60 4.5 0 0
+select Steve 0
+block 16 -60 0 minecraft:snow_block
+use_on Steve 16 -60 0 up main 0.5 1.0 0.5
+snap Steve 20.5 -60 4.5 0 0
+block 20 -60 0 minecraft:snow_block
+block 20 -59 0 minecraft:iron_block
+use_on Steve 20 -59 0 up main 0.5 1.0 0.5
+note three snow blocks: the golem takes the top two
+snap Steve 24.5 -60 4.5 0 0
+fill 24 -60 0 24 -58 0 minecraft:snow_block
+use_on Steve 24 -58 0 up main 0.5 1.0 0.5
+dump blocks:15,-60,-1,25,-56,1 entities events
+tick 1
+dump entities
+note a pumpkin that was there before the snow does nothing; setBlock of the same block does not retrigger, the other head does
+snap Steve 32.5 -60 4.5 0 0
+block 32 -60 0 minecraft:carved_pumpkin[facing=north]
+fill 32 -62 0 32 -61 0 minecraft:snow_block
+block 32 -60 0 minecraft:carved_pumpkin[facing=east]
+dump blocks:31,-62,-1,33,-58,1 entities events
+tick 1
+dump entities
+block 32 -60 0 minecraft:jack_o_lantern[facing=east]
+dump blocks:31,-62,-1,33,-58,1 entities events
+tick 1
+dump entities
+note setBlock with no player: a pumpkin set on two snow blocks builds the golem
+block 40 -60 0 minecraft:snow_block
+block 40 -59 0 minecraft:snow_block
+block 40 -58 0 minecraft:carved_pumpkin[facing=west]
+dump blocks:39,-60,-1,41,-57,1 entities events
+tick 1
+dump entities
+note iron golem along the x axis (player created); Hired Help goes to Steve only (Far is 12 blocks away, Spec is a spectator in the box)
+snap Steve 48.5 -60 4.5 0 0
+select Steve 0
+fill 47 -59 0 49 -59 0 minecraft:iron_block
+block 48 -60 0 minecraft:iron_block
+use_on Steve 48 -59 0 up main 0.5 1.0 0.5
+dump blocks:46,-60,-1,50,-57,1 entities events inventory:Steve packets:Steve:system_chat
+tick 1
+dump entities
+note iron golem along the z axis with a jack o'lantern
+snap Steve 56.5 -60 4.5 0 0
+select Steve 1
+fill 56 -59 -1 56 -59 1 minecraft:iron_block
+block 56 -60 0 minecraft:iron_block
+use_on Steve 56 -59 0 up main 0.5 1.0 0.5
+dump blocks:55,-60,-2,57,-57,2 entities events
+tick 1
+dump entities
+note iron golem wrong shapes: a block in a corner, a missing arm, an arm of snow
+snap Steve 64.5 -60 4.5 0 0
+select Steve 0
+fill 63 -59 0 65 -59 0 minecraft:iron_block
+block 64 -60 0 minecraft:iron_block
+block 65 -60 0 minecraft:stone
+use_on Steve 64 -59 0 up main 0.5 1.0 0.5
+snap Steve 72.5 -60 4.5 0 0
+block 72 -59 0 minecraft:iron_block
+block 73 -59 0 minecraft:iron_block
+block 72 -60 0 minecraft:iron_block
+use_on Steve 72 -59 0 up main 0.5 1.0 0.5
+snap Steve 80.5 -60 4.5 0 0
+block 80 -59 0 minecraft:iron_block
+block 81 -59 0 minecraft:iron_block
+block 79 -59 0 minecraft:snow_block
+block 80 -60 0 minecraft:iron_block
+use_on Steve 80 -59 0 up main 0.5 1.0 0.5
+dump blocks:62,-60,-1,82,-57,1 entities events
+tick 1
+dump entities
+note placement facing: four players, every direction, carved pumpkin then jack o'lantern
+spawn_player Alex survival 100.5 -60 4.5 0 0
+spawn_player Bob survival 104.5 -60 4.5 90 0
+spawn_player Cid survival 108.5 -60 4.5 180 0
+spawn_player Dan survival 112.5 -60 4.5 270 0
+give Alex hotbar0 minecraft:carved_pumpkin 2
+give Alex hotbar1 minecraft:jack_o_lantern 2
+give Bob hotbar0 minecraft:carved_pumpkin 2
+give Bob hotbar1 minecraft:jack_o_lantern 2
+give Cid hotbar0 minecraft:carved_pumpkin 2
+give Cid hotbar1 minecraft:jack_o_lantern 2
+give Dan hotbar0 minecraft:carved_pumpkin 2
+give Dan hotbar1 minecraft:jack_o_lantern 2
+select Alex 0
+select Bob 0
+select Cid 0
+select Dan 0
+use_on Alex 100 -61 0 up main 0.5 1.0 0.5
+use_on Bob 104 -61 0 up main 0.5 1.0 0.5
+use_on Cid 108 -61 0 up main 0.5 1.0 0.5
+use_on Dan 112 -61 0 up main 0.5 1.0 0.5
+select Alex 1
+select Bob 1
+select Cid 1
+select Dan 1
+use_on Alex 100 -61 1 up main 0.5 1.0 0.5
+use_on Bob 104 -61 1 up main 0.5 1.0 0.5
+use_on Cid 108 -61 1 up main 0.5 1.0 0.5
+use_on Dan 112 -61 1 up main 0.5 1.0 0.5
+note a side click uses the player's direction, not the clicked face
+use_on Alex 100 -60 0 east main 1.0 0.5 0.5
+use_on Dan 112 -60 1 north main 0.5 0.5 0.0
+dump blocks:99,-61,-1,113,-59,2 entities events
+note shears carve a pumpkin: a side face, the top (the player's opposite), and a stick or a bare hand does nothing
+level_seed 4242
+snap Steve 120.5 -60 4.5 0 0
+block 120 -60 0 minecraft:pumpkin
+block 124 -60 0 minecraft:pumpkin
+block 128 -60 0 minecraft:pumpkin
+block 132 -60 0 minecraft:pumpkin
+select Steve 4
+use_on Steve 120 -60 0 north main 0.5 0.5 0.0
+select Steve 2
+use_on Steve 120 -60 0 east main 1.0 0.5 0.5
+dump blocks:119,-60,-1,121,-60,1 entities events inventory:Steve
+snap Steve 124.5 -60 4.5 90 0
+use_on Steve 124 -60 0 up main 0.5 1.0 0.5
+dump blocks:123,-60,-1,125,-60,1 entities events inventory:Steve
+snap Steve 128.5 -60 4.5 0 0
+use_on Steve 128 -60 0 west main 0.0 0.5 0.5
+dump blocks:127,-60,-1,129,-60,1 entities events inventory:Steve
+note carving a pumpkin on two snow blocks builds the golem (setBlock flags 11 runs onPlace)
+snap Steve 136.5 -60 4.5 0 0
+fill 136 -60 0 136 -59 0 minecraft:snow_block
+block 136 -58 0 minecraft:pumpkin
+use_on Steve 136 -58 0 south main 0.5 0.5 1.0
+dump blocks:135,-60,-1,137,-57,1 entities events
+tick 2
+dump entities

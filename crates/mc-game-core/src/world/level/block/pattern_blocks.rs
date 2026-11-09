@@ -1,13 +1,11 @@
 //! `CarvedPumpkinBlock.clearPatternBlocks` / `updatePatternBlocks` (also used by `WitherSkullBlock.checkSpawn`) and the
-//! entity creation shared by the golem/wither summoning.
-//!
-//! Not implemented: `CarvedPumpkinBlock.onPlace` (`trySpawnGolem`) is not ported, so a carved pumpkin or jack o'lantern
-//! never builds a snow or iron golem; only the wither pattern uses these helpers.
+//! entity creation and `SUMMONED_ENTITY` trigger shared by the golem/wither summoning.
 
 use super::pattern::BlockPatternMatch;
+use crate::advancements::triggers::{CriteriaTriggers, fire_with_entity};
 use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
+use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::LevelAccessor;
 use mc_data::EntityType;
 use mc_data::block::Block;
@@ -61,4 +59,70 @@ pub fn add_fresh_entity(
 ) -> Option<EntityId> {
     let id = entity.id();
     level.add_fresh_entity(entity).then_some(id)
+}
+
+/// `CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity)` for the entity with id `entity_id` (which must be in the
+/// level), reading both from the level.
+fn award_summoned_entity(level: &mut ServerLevel, player: &mut ServerPlayer, entity_id: EntityId) {
+    let Some(entity) = level.get_entity(entity_id) else {
+        return;
+    };
+    let matches = CriteriaTriggers::SUMMONED_ENTITY.matches(&*level, &*player, entity);
+    matches.award(level, player);
+}
+
+/// `level.getEntitiesOfClass(ServerPlayer.class, entity.getBoundingBox().inflate(range))` +
+/// `CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity)` for the not yet added `entity`. When one of the players is
+/// running (taken out of the level: the one whose placement summoned the entity) every award waits until it is put back,
+/// to keep vanilla's order.
+pub fn trigger_summoned_entity(level: &mut ServerLevel, entity: &dyn Entity, range: f64) {
+    let search = entity.get_bounding_box().inflate_scalar(range);
+    let players = level.get_players_in_aabb(&search);
+    let Some(running) = players
+        .iter()
+        .copied()
+        .find(|&id| level.get_entity(id).is_none())
+    else {
+        for id in players {
+            fire_with_entity(level, id, entity, |level, player, entity| {
+                CriteriaTriggers::SUMMONED_ENTITY.matches(level, player, entity)
+            });
+        }
+        return;
+    };
+    let entity_id = entity.id();
+    level.with_entity_or_defer(running, move |level, running_entity| {
+        for id in players {
+            if id == running {
+                if let Some(player) = running_entity.as_any_mut().downcast_mut::<ServerPlayer>() {
+                    award_summoned_entity(level, player, entity_id);
+                }
+            } else {
+                level.with_player(id, |level, player| {
+                    award_summoned_entity(level, player, entity_id);
+                });
+            }
+        }
+    });
+}
+
+/// `CarvedPumpkinBlock.spawnGolemInWorld(level, match, golem, spawnPos)`.
+pub fn spawn_golem_in_world(
+    level: &mut ServerLevel,
+    m: &mut BlockPatternMatch,
+    mut golem: Box<dyn Entity>,
+    spawn_pos: mc_core::pos::BlockPos,
+) {
+    clear_pattern_blocks(level, m);
+    golem.snap_to(
+        f64::from(spawn_pos.x()) + 0.5,
+        f64::from(spawn_pos.y()) + 0.05,
+        f64::from(spawn_pos.z()) + 0.5,
+        0.0,
+        0.0,
+    );
+    // vanilla triggers after `addFreshEntity`; the trigger only reads the entity, so the order is not observable
+    trigger_summoned_entity(level, &*golem, 5.0);
+    add_fresh_entity(level, golem);
+    update_pattern_blocks(level, m);
 }
