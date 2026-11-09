@@ -130,6 +130,8 @@ import net.minecraft.util.RandomSource;
  * kill REF                    discard (no death logic)
  * -- inputs / actions (vanilla packet handlers of the player's real ServerGamePacketListenerImpl) --
  * input PLAYER FLAGS          sim player: forward,back,left,right,jump,sneak,sprint (comma list) or `none`; applied each tick
+ * op PLAYER                   PlayerList.op (the server's operator permissions)
+ * pick_block PLAYER X Y Z [true|false]   ServerboundPickItemFromBlockPacket (the flag = include block data, creative only)
  * move_packet PLAYER X Y Z ONGROUND [yaw pitch]   ServerboundMovePlayerPacket (server-authoritative path)
  * dig PLAYER X Y Z [TICKS]    client-like digging: START_DESTROY_BLOCK, per tick client progress, STOP_DESTROY_BLOCK when the
  *                             client would send it (or after TICKS ticks); prints "DIG ticks=N broken=B"; ticks the server
@@ -571,6 +573,16 @@ public final class EntityOracleDriver {
             p.inSneak = fl.contains("sneak");
             p.inSprint = fl.contains("sprint");
             p.connection.handlePlayerInput(new ServerboundPlayerInputPacket(new net.minecraft.world.entity.player.Input(p.inForward, p.inBack, p.inLeft, p.inRight, p.inJump, p.inSneak, p.inSprint)));
+         }
+         case "op" -> {
+            world();
+            v.server.getPlayerList().op(player(a.get(1)).nameAndId());
+         }
+         case "pick_block" -> {
+            world();
+            ServerPlayer p = player(a.get(1));
+            p.connection.handlePickItemFromBlock(new ServerboundPickItemFromBlockPacket(
+               new BlockPos(Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)), Integer.parseInt(a.get(4))), a.size() > 5 && Boolean.parseBoolean(a.get(5))));
          }
          case "move_packet" -> {
             world();

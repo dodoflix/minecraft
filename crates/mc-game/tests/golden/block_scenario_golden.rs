@@ -60,3 +60,8 @@ fn sign_update_verb_edits_a_sign() {
 fn block_entity_map_order_with_many_block_entities() {
     check("blk_infra_be_order");
 }
+
+#[test]
+fn op_input_pick_block_and_arrow_verbs() {
+    check("blk_harness_verbs");
+}

@@ -1,0 +1,4 @@
+I Op 0 minecraft:chest*1
+I Op 1 minecraft:light_gray_banner*1
+P Sn minecraft:player pos=3.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E a1 minecraft:arrow pos=2.5,-58.149500000476834,-2.5 delta=0.0,-0.14850500142097472,0.0 rot=0.0,-32.399998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0

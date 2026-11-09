@@ -1332,7 +1332,7 @@ impl Harness {
 }
 
 /// `instanceof AbstractArrow`.
-fn abstract_arrow(
+pub fn abstract_arrow(
     e: &dyn Entity,
 ) -> Option<&dyn mc_game::world::entity::projectile::arrow::AbstractArrow> {
     use mc_game::world::entity::projectile::arrow::{Arrow, SpectralArrow, ThrownTrident};

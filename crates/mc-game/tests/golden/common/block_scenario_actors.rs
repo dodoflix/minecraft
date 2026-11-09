@@ -1,10 +1,10 @@
-//! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `tp`, `snap`, `velocity`, `set`,
+//! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `input` (sneak: the shift key), `op`, `pick_block`, `tp`, `snap`, `velocity`, `set`,
 //! `spawn_player`, `give`, `select`, `use_on`, `use`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|entity:REF|player:NAME|inventory:NAME|packets:NAME`).
 //! Included by `block_scenario.rs` (private state of `Scenario`). Differences from the Java driver, all caused by the Rust level having no
 //! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` (no packet handler: no acks, no
 //! build-limit messages), entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
 //! reproduce: always call `entity_seed` right after `spawn`/`spawn_item` when the entity's randomness matters, and give `spawn_item` an
-//! explicit velocity), `explode` takes `source=REF`, `attack/swing/drop/respawn/effect/attribute/input/move_packet` are not replayed.
+//! explicit velocity), `explode` takes `source=REF`, `attack/swing/drop/respawn/effect/attribute/move_packet` are not replayed.
 use super::Scenario;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
@@ -300,6 +300,53 @@ impl Scenario {
                 let seed: i64 = a[2].parse().unwrap();
                 self.level().with_entity(id, |_, e| {
                     e.base_mut().random = LegacyRandomSource::new(seed)
+                });
+            }
+            "input" => {
+                self.world();
+                let flags: Vec<&str> = a[2].split(',').collect();
+                let has = |f: &str| flags.contains(&f);
+                let input = mc_protocol::packets::play::Input {
+                    forward: has("forward"),
+                    backward: has("back"),
+                    left: has("left"),
+                    right: has("right"),
+                    jump: has("jump"),
+                    shift: has("sneak"),
+                    sprint: has("sprint"),
+                };
+                // `handlePlayerInput`
+                self.with_player_named(&a[1], |_, p| {
+                    p.set_last_client_input(input);
+                    p.set_shift_key_down(input.shift);
+                });
+            }
+            "op" => {
+                self.world();
+                // `PlayerList.op`: the operator permissions of the server (level 4)
+                self.with_player_named(&a[1], |_, p| {
+                    use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
+                    p.handle
+                        .as_ref()
+                        .expect("player list entry")
+                        .shared
+                        .lock()
+                        .permissions = LevelBasedPermissionSet::for_level(PermissionLevel::Owners);
+                });
+            }
+            "pick_block" => {
+                self.world();
+                // ServerboundPickItemFromBlockPacket: `pick_block PLAYER X Y Z [true|false]` (include block data)
+                let packet = mc_protocol::packets::play::ServerboundPickItemFromBlockPacket {
+                    pos: BlockPos::new(
+                        a[2].parse().unwrap(),
+                        a[3].parse().unwrap(),
+                        a[4].parse().unwrap(),
+                    ),
+                    include_data: a.get(5).is_some_and(|v| v == "true"),
+                };
+                self.with_player_named(&a[1], |level, p| {
+                    mc_game::world::item::pick_item_from_block(p, level, &packet)
                 });
             }
             "nbt" => {
@@ -1019,6 +1066,18 @@ impl Scenario {
             .downcast_ref::<mc_game::world::entity::item::primed_tnt::PrimedTnt>()
         {
             s += &format!(" fuse={}", t.get_fuse());
+        } else if let Some(a) = super::super::entity_scenario::abstract_arrow(e) {
+            let d = a.arrow_data();
+            s += &format!(
+                " ground={} crit={} pierce={} pickup={} shake={} life={} dmg={}",
+                u8::from(a.is_in_ground()),
+                u8::from(a.is_crit_arrow()),
+                a.pierce_level(),
+                d.pickup.ordinal(),
+                d.shake_time,
+                d.life,
+                dbl(d.base_damage)
+            );
         }
         s
     }

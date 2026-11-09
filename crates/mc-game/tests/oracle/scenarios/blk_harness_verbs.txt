@@ -1,0 +1,18 @@
+# Harness verbs: op, input (sneak), pick_block (with and without block data), the rich arrow line.
+level flat
+preload 2
+spawn_player Op creative 0.5 -60 0.5 0 0
+spawn_player Sn survival 3.5 -60 0.5 0 0
+op Op
+input Sn sneak
+tick 2
+block 1 -60 2 minecraft:chest
+block 2 -60 2 minecraft:light_gray_banner
+pick_block Op 1 -60 2 false
+pick_block Op 1 -60 2 true
+pick_block Op 2 -60 2 true
+dump inventory:Op player:Sn
+use_on Op 0 -61 2 up main
+spawn a1 minecraft:arrow 2.5 -58 -2.5 0 0
+tick 3
+dump entity:a1
