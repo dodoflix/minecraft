@@ -81,9 +81,11 @@ pub fn grow_water_plant(
                 if let Some(block) = random_block_of_tag("minecraft:wall_corals", level) {
                     state_to_grow = block.default_state();
                 }
-                if state_to_grow.has_property(mc_data::props::FACING) {
-                    state_to_grow = state_to_grow
-                        .set(mc_data::props::FACING, clicked_face.expect("checked above"));
+                if state_to_grow.has_property(mc_data::props::HORIZONTAL_FACING) {
+                    state_to_grow = state_to_grow.set(
+                        mc_data::props::HORIZONTAL_FACING,
+                        clicked_face.expect("checked above"),
+                    );
                 }
             } else if LevelAccessor::random(level).next_int_bounded(4) == 0
                 && let Some(block) = random_block_of_tag("minecraft:underwater_bonemeals", level)
@@ -92,12 +94,12 @@ pub fn grow_water_plant(
             }
         }
         if wall_corals.is_some_and(|t| t.contains(state_to_grow.block()))
-            && state_to_grow.has_property(mc_data::props::FACING)
+            && state_to_grow.has_property(mc_data::props::HORIZONTAL_FACING)
         {
             let mut d = 0;
             while !state_to_grow.can_survive(&*level, test_pos) && d < 4 {
                 let direction = random_horizontal_direction(level);
-                state_to_grow = state_to_grow.set(mc_data::props::FACING, direction);
+                state_to_grow = state_to_grow.set(mc_data::props::HORIZONTAL_FACING, direction);
                 d += 1;
             }
         }
