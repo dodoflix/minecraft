@@ -731,25 +731,26 @@ fn check(name: &str) {
         ..Default::default()
     };
     // Player lines: the player physics fields (`og`, `fire`, ...) are covered by the player tests; only items/orbs/falling blocks compare them.
+    let strip = |text: &str| -> Vec<String> {
+        text.lines()
+            .map(|l| {
+                if l.starts_with("P ") {
+                    l.split(' ')
+                        .filter(|t| {
+                            !["og", "fire", "fx", "gm", "sel", "main"]
+                                .contains(&t.split('=').next().unwrap_or(""))
+                        })
+                        .collect::<Vec<_>>()
+                        .join(" ")
+                } else {
+                    l.to_string()
+                }
+            })
+            .collect()
+    };
     let text = std::fs::read_to_string(fixture_dir().join(format!("{name}.txt"))).unwrap();
-    let text: String = text
-        .lines()
-        .map(|l| {
-            if l.starts_with("P ") {
-                l.split(' ')
-                    .filter(|t| {
-                        !["og", "fire", "fx", "gm", "sel", "main"]
-                            .contains(&t.split('=').next().unwrap_or(""))
-                    })
-                    .collect::<Vec<_>>()
-                    .join(" ")
-            } else {
-                l.to_string()
-            }
-        })
-        .collect::<Vec<_>>()
-        .join("\n");
-    Fixture::from_text(name, &text).assert_matches(&replay(name), &opts);
+    let actual = strip(&replay(name).join("\n"));
+    Fixture::from_text(name, &strip(&text).join("\n")).assert_matches(&actual, &opts);
 }
 
 #[test]
