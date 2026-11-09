@@ -41,6 +41,8 @@ pub struct Options {
     pub ignore_kinds: Vec<&'static str>,
     /// Field keys (`"fire"`, `"hurt"`, ...) of `P`/`E` lines ignored on both sides (for fields the Rust side does not model yet).
     pub ignore_fields: Vec<&'static str>,
+    /// Lines containing any of these substrings are skipped on both sides (output of mobs whose class is still a placeholder).
+    pub ignore_containing: Vec<&'static str>,
 }
 
 /// A parsed `P`/`E`/`I`/... line: `kind name rest...` with `k=v` pairs of the rest in `fields`.
@@ -179,7 +181,7 @@ impl Fixture {
 
 fn keep(line: &str, opts: &Options) -> bool {
     let kind = line.split_whitespace().next().unwrap_or("");
-    !opts.ignore_kinds.contains(&kind)
+    !opts.ignore_kinds.contains(&kind) && !opts.ignore_containing.iter().any(|s| line.contains(s))
 }
 
 fn normalize(line: &str, opts: &Options) -> String {
