@@ -1,0 +1,117 @@
+# two hoppers above a double chest push into it; comparators beside each half
+T 6
+TICK block 12 -60 0 minecraft:comparator delay=2 prio=0
+TICK block 9 -60 0 minecraft:comparator delay=2 prio=0
+T 7
+TICK block 12 -60 0 minecraft:comparator delay=1 prio=0
+TICK block 9 -60 0 minecraft:comparator delay=1 prio=0
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+T 43
+T 44
+T 45
+BE 10 -60 0 {Items:[],components:{},id:"minecraft:chest",x:10,y:-60,z:0}
+BE 11 -60 0 {Items:[{Slot:0b,count:5,id:"minecraft:stone"},{Slot:1b,count:5,id:"minecraft:dirt"}],components:{},id:"minecraft:chest",x:11,y:-60,z:0}
+BE 9 -60 0 {OutputSignal:1,components:{},id:"minecraft:comparator",x:9,y:-60,z:0}
+BE 12 -60 0 {OutputSignal:1,components:{},id:"minecraft:comparator",x:12,y:-60,z:0}
+B 8 -60 0 minecraft:redstone_lamp[lit=true]
+B 9 -60 0 minecraft:comparator[facing=east,mode=compare,powered=true]
+B 10 -60 0 minecraft:chest[facing=north,type=left,waterlogged=false]
+B 10 -59 0 minecraft:hopper[enabled=true,facing=down]
+B 11 -60 0 minecraft:chest[facing=north,type=right,waterlogged=false]
+B 11 -59 0 minecraft:hopper[enabled=true,facing=down]
+B 12 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 13 -60 0 minecraft:redstone_lamp[lit=true]
+# a hopper below the right half sucks from the double chest; comparators beside each half
+T 46
+TICK block 19 -60 0 minecraft:comparator delay=1 prio=0
+TICK block 22 -60 0 minecraft:comparator delay=1 prio=0
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+T 57
+T 58
+T 59
+T 60
+T 61
+T 62
+T 63
+T 64
+T 65
+T 66
+T 67
+T 68
+T 69
+T 70
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+T 83
+T 84
+T 85
+BE 20 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:stone"},{Slot:1b,count:30,id:"minecraft:stone"}],components:{},id:"minecraft:chest",x:20,y:-60,z:0}
+BE 21 -60 0 {Items:[{Slot:0b,count:7,id:"minecraft:gravel"}],components:{},id:"minecraft:chest",x:21,y:-60,z:0}
+BE 19 -60 0 {OutputSignal:1,components:{},id:"minecraft:comparator",x:19,y:-60,z:0}
+BE 22 -60 0 {OutputSignal:1,components:{},id:"minecraft:comparator",x:22,y:-60,z:0}
+BE 21 -61 0 {Items:[{Slot:0b,count:5,id:"minecraft:gravel"}],TransferCooldown:1,components:{},id:"minecraft:hopper",x:21,y:-61,z:0}
+B 18 -61 0 minecraft:grass_block[snowy=false]
+B 18 -60 0 minecraft:redstone_lamp[lit=true]
+B 19 -61 0 minecraft:grass_block[snowy=false]
+B 19 -60 0 minecraft:comparator[facing=east,mode=compare,powered=true]
+B 20 -61 0 minecraft:grass_block[snowy=false]
+B 20 -60 0 minecraft:chest[facing=north,type=left,waterlogged=false]
+B 21 -61 0 minecraft:hopper[enabled=true,facing=south]
+B 21 -60 0 minecraft:chest[facing=north,type=right,waterlogged=false]
+B 22 -61 0 minecraft:grass_block[snowy=false]
+B 22 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 23 -61 0 minecraft:grass_block[snowy=false]
+B 23 -60 0 minecraft:redstone_lamp[lit=true]

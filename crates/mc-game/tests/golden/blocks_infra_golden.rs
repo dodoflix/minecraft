@@ -33,3 +33,8 @@ fn block_entity_setting_its_own_block_stays_visible() {
 fn container_set_changed_schedules_comparators_in_vanilla_order() {
     common::block_scenario::check("blk_infra_setchanged_order");
 }
+
+#[test]
+fn double_chest_set_changed_visits_both_halves_in_vanilla_order() {
+    common::block_scenario::check("blk_infra_double_chest_changed");
+}

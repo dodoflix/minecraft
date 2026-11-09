@@ -54,6 +54,9 @@ const EXTRA: [&str; 26] = [
     "tripwire_hook",
     "tripwire",
 ];
+/// Blocks only one block needs next to it (cocoa: a jungle log), added to that block's own neighbour pool: in the shared pool
+/// they would be too rare to ever turn up.
+const NEEDS: [(&str, [&str; 2]); 1] = [("cocoa", ["jungle_log", "jungle_wood"])];
 const POOL_CAP: usize = 24;
 const CLASS_CAP: usize = 200;
 const BASE: BlockPos = BlockPos::new(4, 80, 4);
@@ -225,6 +228,17 @@ fn block_placement_matches_vanilla() {
                 let room = CLASS_CAP - mates.len();
                 mates.extend(capped(o, room));
             }
+        }
+        for need in NEEDS
+            .iter()
+            .filter(|(block, _)| *block == name)
+            .flat_map(|(_, needs)| needs.iter())
+        {
+            mates.extend(capped(
+                Block::by_name(&format!("minecraft:{need}"))
+                    .unwrap_or_else(|| panic!("needed block {need}")),
+                POOL_CAP,
+            ));
         }
         pools.mates = mates;
         let name_hash = fnv(name);

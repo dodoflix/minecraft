@@ -1,0 +1,31 @@
+# A double chest is one CompoundContainer: its setChanged runs setChanged of the left and the right half in vanilla's order, so the
+# comparators beside either half schedule their ticks in that order (`dump ticks` shows the execution order of the shared trigger time).
+level flat
+preload 2
+tick 5
+watch ticks
+note two hoppers above a double chest push into it; comparators beside each half
+block 10 -60 0 minecraft:chest[facing=north,type=left,waterlogged=false]
+block 11 -60 0 minecraft:chest[facing=north,type=right,waterlogged=false]
+block 9 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 8 -60 0 minecraft:redstone_lamp
+block 12 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 13 -60 0 minecraft:redstone_lamp
+block 10 -59 0 minecraft:hopper[enabled=true,facing=down]
+block 11 -59 0 minecraft:hopper[enabled=true,facing=down]
+be_nbt 10 -59 0 {Items:[{Slot:0b,id:"minecraft:stone",count:20}]}
+be_nbt 11 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:20}]}
+tick 40
+dump be:10,-60,0 be:11,-60,0 be:9,-60,0 be:12,-60,0 blocks:8,-60,0,13,-59,0
+note a hopper below the right half sucks from the double chest; comparators beside each half
+block 20 -60 0 minecraft:chest[facing=north,type=left,waterlogged=false]
+block 21 -60 0 minecraft:chest[facing=north,type=right,waterlogged=false]
+block 19 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 18 -60 0 minecraft:redstone_lamp
+block 22 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 23 -60 0 minecraft:redstone_lamp
+block 21 -61 0 minecraft:hopper[enabled=true,facing=south]
+be_nbt 20 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:30},{Slot:30b,id:"minecraft:dirt",count:7}]}
+be_nbt 21 -60 0 {Items:[{Slot:0b,id:"minecraft:gravel",count:12}]}
+tick 40
+dump be:20,-60,0 be:21,-60,0 be:19,-60,0 be:22,-60,0 be:21,-61,0 blocks:18,-61,0,23,-60,0

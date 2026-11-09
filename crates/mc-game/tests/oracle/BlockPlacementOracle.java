@@ -33,11 +33,13 @@ import net.minecraft.world.phys.Vec3;
 public class BlockPlacementOracle {
    static final int WORLDS = 4; // neighbourhoods per block
    static final int PER_WORLD = 16; // contexts per neighbourhood
-   // blocks some placements need next to them (cocoa: a jungle log, pointed dripstone: dripstone, ...), added to the pool of the
-   // block behaviour golden
+   // blocks some placements need next to them (pointed dripstone: dripstone, ...), added to the pool of the block behaviour golden
    static final String[] EXTRA = {"jungle_log", "pointed_dripstone", "redstone_wire", "redstone_block", "rail", "powered_rail", "lever", "stone",
       "oak_fence", "oak_stairs", "scaffolding", "sea_pickle", "snow", "vine", "sculk_vein", "white_bed", "torch", "wall_torch", "oak_door",
       "oak_trapdoor", "oak_sign", "piston", "sticky_piston", "observer", "tripwire_hook", "tripwire"};
+   // blocks only one block needs next to it (cocoa: a jungle log), added to that block's own neighbour pool: in the shared pool
+   // they would be too rare to ever turn up
+   static final java.util.Map<String, String[]> NEEDS = java.util.Map.of("cocoa", new String[]{"jungle_log", "jungle_wood"});
    static final int POOL_CAP = 24;
    static final int CLASS_CAP = 200;
    // the neighbourhood is the 8x8x8 cube at BASE; the clicked cell is one of its 8 central cells, so every cell a placement reads
@@ -142,6 +144,7 @@ public class BlockPlacementOracle {
          for (Block other : BuiltInRegistries.BLOCK) {
             if (other.getClass() == b.getClass() && m.size() < CLASS_CAP) m.addAll(capped(other, CLASS_CAP - m.size()));
          }
+         for (String need : NEEDS.getOrDefault(nm, new String[0])) m.addAll(capped(BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace(need)), POOL_CAP));
          mates = m;
          long nameHash = fnv(nm);
          Item item = b.asItem();

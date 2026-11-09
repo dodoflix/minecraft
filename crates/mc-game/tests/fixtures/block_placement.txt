@@ -444,7 +444,7 @@ end_portal_frame e63e46ff3477e350
 end_stone 7df7f425bf4c81b6
 dragon_egg 9d694924e3f3e18c
 redstone_lamp f2dd3284fc49e459
-cocoa f9d95a9e8aa90bb0
+cocoa 1434a224d52c63e7
 shelf_mushroom 2146293d52b8e255
 sandstone_stairs 46a558717009d168
 emerald_ore fb9dc2d7a3821c7c
