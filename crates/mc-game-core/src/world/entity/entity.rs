@@ -3202,7 +3202,8 @@ pub trait Entity: Any {
 
     /// `shouldDropExperience()` / `isAlwaysExperienceDropper()` / `getBaseExperienceReward(level)`.
     fn should_drop_experience(&self) -> bool {
-        !self.is_baby()
+        // `Monster.shouldDropExperience()` is `true`, also for babies
+        super::mob::monster::is_monster(self.as_dyn()) || !self.is_baby()
     }
     fn is_always_experience_dropper(&self) -> bool {
         false
