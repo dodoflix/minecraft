@@ -26,6 +26,30 @@ impl MayPlaceOn for SmallDripleafBlock {
 
 impl BlockBehaviour for SmallDripleafBlock {
     mc_game_core::simple_waterlogged!();
+    // `DoublePlantBlock` overrides this class inherits
+    fn get_seed(&self, state: BlockState, pos: BlockPos) -> i64 {
+        double_plant_block::get_seed(state, pos)
+    }
+    fn player_will_destroy(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
+    ) -> BlockState {
+        double_plant_block::player_will_destroy(level, pos, state, player)
+    }
+    fn player_destroy(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
+        pos: BlockPos,
+        _state: BlockState,
+        block_entity: Option<&dyn mc_game_core::world::block_entity::BlockEntity>,
+        destroyed_with: &mc_game_core::world::item::ItemStack,
+    ) {
+        double_plant_block::player_destroy(level, player, pos, block_entity, destroyed_with);
+    }
     fn get_state_for_placement(
         &self,
         block: Block,
