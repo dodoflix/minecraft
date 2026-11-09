@@ -1,0 +1,88 @@
+# FlowingFluid.canConvertToSource (water_source_conversion, lava_source_conversion): two sources with a gap over solid ground or over a
+# source become a source (not over a hole), per rule value and fluid, switched while running; fire_spread_radius_around_player gates
+# lava random ticks (`canSpreadFireAround`: -1 always, otherwise a player within the radius: no player here).
+level flat
+preload 3
+level_seed 8
+# overworld defaults: water converts, lava does not
+block 0 -60 0 minecraft:water[level=0]
+block 2 -60 0 minecraft:water[level=0]
+block 6 -60 0 minecraft:lava[level=0]
+block 8 -60 0 minecraft:lava[level=0]
+block 6 -60 4 minecraft:lava[level=0]
+block 8 -60 4 minecraft:lava[level=0]
+fill 7 -61 4 7 -61 4 minecraft:air
+tick 80
+dump blocks:-2,-62,-2,12,-58,6 ticks events
+gamerule lava_source_conversion true
+gamerule water_source_conversion false
+note lava converts now, water does not
+block 14 -60 0 minecraft:water[level=0]
+block 16 -60 0 minecraft:water[level=0]
+block 20 -60 0 minecraft:lava[level=0]
+block 22 -60 0 minecraft:lava[level=0]
+block 20 -60 4 minecraft:lava[level=0]
+block 22 -60 4 minecraft:lava[level=0]
+fill 21 -61 4 21 -61 4 minecraft:air
+tick 80
+dump blocks:12,-62,-2,26,-58,6 ticks events
+note both rules on: a source below also counts
+gamerule water_source_conversion true
+block 28 -61 0 minecraft:water[level=0]
+block 28 -60 0 minecraft:water[level=0]
+block 30 -61 0 minecraft:water[level=0]
+block 30 -60 -1 minecraft:water[level=0]
+block 30 -60 1 minecraft:water[level=0]
+block 34 -61 0 minecraft:lava[level=0]
+block 34 -60 -1 minecraft:lava[level=0]
+block 34 -60 1 minecraft:lava[level=0]
+block 38 -60 0 minecraft:lava[level=0]
+block 40 -60 0 minecraft:lava[level=0]
+block 42 -60 -1 minecraft:lava[level=0]
+block 42 -60 1 minecraft:lava[level=0]
+tick 80
+dump blocks:26,-62,-4,46,-58,6 ticks events
+note a water source over a source of its own type via a vertical neighbour, rule off again: sources stay flowing
+gamerule water_source_conversion false
+gamerule lava_source_conversion false
+block 48 -60 0 minecraft:water[level=0]
+block 50 -60 0 minecraft:water[level=0]
+block 52 -60 0 minecraft:lava[level=0]
+block 54 -60 0 minecraft:lava[level=0]
+tick 60
+dump blocks:46,-62,-2,60,-58,2 ticks events
+note lava random ticks need the fire spread rule: radius 0 and no player means no fire, -1 always
+gamerule fire_spread_radius_around_player 0
+fill -3 -60 20 3 -60 20 minecraft:oak_planks
+fill -3 -59 20 3 -59 20 minecraft:oak_planks
+block 0 -61 20 minecraft:stone
+block 0 -60 20 minecraft:lava[level=0]
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+dump blocks:-3,-61,19,3,-57,21
+gamerule fire_spread_radius_around_player -1
+level_seed 9
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+tick 3
+dump blocks:-3,-61,19,3,-57,21 ticks events

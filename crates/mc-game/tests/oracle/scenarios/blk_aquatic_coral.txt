@@ -1,0 +1,82 @@
+# Coral blocks / plants / fans / wall fans: dying in air via the scheduled scanForWater tick (60 + nextInt(40)), staying alive in
+# water or next to water, onPlace/updateShape tick scheduling, dead variants, neighbour support loss.
+level flat
+preload 3
+level_seed 77
+watch events
+# dry platform and a water basin
+fill 0 -61 0 20 -61 20 minecraft:stone
+fill 0 -61 24 12 -52 36 minecraft:stone
+fill 1 -60 25 11 -53 35 minecraft:water[level=0]
+block 1 -60 1 minecraft:tube_coral_block
+block 1 -60 3 minecraft:tube_coral[waterlogged=false]
+block 1 -60 5 minecraft:tube_coral_fan[waterlogged=false]
+block 1 -60 7 minecraft:tube_coral[waterlogged=true]
+block 1 -60 9 minecraft:dead_tube_coral_fan[waterlogged=false]
+block 4 -60 1 minecraft:brain_coral_block
+block 4 -60 3 minecraft:brain_coral[waterlogged=false]
+block 4 -60 5 minecraft:brain_coral_fan[waterlogged=false]
+block 4 -60 7 minecraft:brain_coral[waterlogged=true]
+block 4 -60 9 minecraft:dead_brain_coral_fan[waterlogged=false]
+block 7 -60 1 minecraft:bubble_coral_block
+block 7 -60 3 minecraft:bubble_coral[waterlogged=false]
+block 7 -60 5 minecraft:bubble_coral_fan[waterlogged=false]
+block 7 -60 7 minecraft:bubble_coral[waterlogged=true]
+block 7 -60 9 minecraft:dead_bubble_coral_fan[waterlogged=false]
+block 10 -60 1 minecraft:fire_coral_block
+block 10 -60 3 minecraft:fire_coral[waterlogged=false]
+block 10 -60 5 minecraft:fire_coral_fan[waterlogged=false]
+block 10 -60 7 minecraft:fire_coral[waterlogged=true]
+block 10 -60 9 minecraft:dead_fire_coral_fan[waterlogged=false]
+block 13 -60 1 minecraft:horn_coral_block
+block 13 -60 3 minecraft:horn_coral[waterlogged=false]
+block 13 -60 5 minecraft:horn_coral_fan[waterlogged=false]
+block 13 -60 7 minecraft:horn_coral[waterlogged=true]
+block 13 -60 9 minecraft:dead_horn_coral_fan[waterlogged=false]
+dump blocks:0,-61,0,20,-59,12 ticks events
+tick 40
+dump blocks:0,-61,0,20,-59,12 ticks events
+tick 80
+dump blocks:0,-61,0,20,-59,12 ticks events
+# wall fans on a stone wall, dry
+fill 0 -60 14 20 -58 14 minecraft:stone
+block 1 -59 15 minecraft:tube_coral_wall_fan[facing=south,waterlogged=false]
+block 1 -59 13 minecraft:tube_coral_wall_fan[facing=north,waterlogged=false]
+block 4 -59 15 minecraft:brain_coral_wall_fan[facing=south,waterlogged=false]
+block 4 -59 13 minecraft:brain_coral_wall_fan[facing=north,waterlogged=false]
+block 7 -59 15 minecraft:bubble_coral_wall_fan[facing=south,waterlogged=false]
+block 7 -59 13 minecraft:bubble_coral_wall_fan[facing=north,waterlogged=false]
+block 10 -59 15 minecraft:fire_coral_wall_fan[facing=south,waterlogged=false]
+block 10 -59 13 minecraft:fire_coral_wall_fan[facing=north,waterlogged=false]
+block 13 -59 15 minecraft:horn_coral_wall_fan[facing=south,waterlogged=false]
+block 13 -59 13 minecraft:horn_coral_wall_fan[facing=north,waterlogged=false]
+dump blocks:0,-61,12,20,-57,16 ticks events
+tick 120
+dump blocks:0,-61,12,20,-57,16 ticks events
+# living blocks in water stay alive; coral plant beside water without being waterlogged
+block 1 -60 31 minecraft:tube_coral_block
+block 1 -60 27 minecraft:tube_coral_fan[waterlogged=true]
+block 1 -58 25 minecraft:tube_coral_wall_fan[facing=south,waterlogged=true]
+block 3 -60 31 minecraft:brain_coral_block
+block 3 -60 27 minecraft:brain_coral_fan[waterlogged=true]
+block 3 -58 25 minecraft:brain_coral_wall_fan[facing=south,waterlogged=true]
+block 5 -60 31 minecraft:bubble_coral_block
+block 5 -60 27 minecraft:bubble_coral_fan[waterlogged=true]
+block 5 -58 25 minecraft:bubble_coral_wall_fan[facing=south,waterlogged=true]
+block 7 -60 31 minecraft:fire_coral_block
+block 7 -60 27 minecraft:fire_coral_fan[waterlogged=true]
+block 7 -58 25 minecraft:fire_coral_wall_fan[facing=south,waterlogged=true]
+block 9 -60 31 minecraft:horn_coral_block
+block 9 -60 27 minecraft:horn_coral_fan[waterlogged=true]
+block 9 -58 25 minecraft:horn_coral_wall_fan[facing=south,waterlogged=true]
+fill 1 -60 25 11 -53 35 minecraft:air
+dump blocks:0,-60,24,12,-52,36 ticks events
+tick 150
+dump blocks:0,-60,24,12,-52,36 ticks events
+# support loss: removing the block below a coral plant / wall fan
+block 1 -60 7 minecraft:tube_coral[waterlogged=false]
+block 1 -61 7 minecraft:air
+block 4 -58 15 minecraft:brain_coral_wall_fan[facing=south,waterlogged=false]
+block 4 -58 14 minecraft:air
+tick 3
+dump blocks:0,-61,0,20,-57,16 ticks events

@@ -1,0 +1,22 @@
+# SpongeBlock: a sponge in air next to a basin; water arriving next to it triggers neighborChanged; the 65 block limit in
+# a big pool; a wet sponge in the overworld does not dry.
+level flat
+preload 3
+level_seed 5
+watch events
+fill 0 -60 0 30 -45 30 minecraft:stone
+fill 1 -59 1 29 -46 29 minecraft:water[level=0]
+dump blocks:14,-60,14,16,-46,16
+block 15 -50 15 minecraft:sponge
+tick 1
+dump blocks:8,-60,8,22,-44,22 events
+block 20 -50 20 minecraft:wet_sponge
+tick 1
+dump blocks:19,-51,19,21,-49,21 events
+# dry sponge beside a water source: absorbs on neighbour change
+fill 0 -60 40 6 -50 46 minecraft:stone
+fill 1 -59 41 5 -52 45 minecraft:air
+block 3 -59 43 minecraft:sponge
+block 3 -58 43 minecraft:water[level=0]
+tick 2
+dump blocks:0,-60,40,6,-50,46 ticks events

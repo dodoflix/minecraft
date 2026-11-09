@@ -1,0 +1,40 @@
+# BubbleColumnBlock.updateColumn driven by LiquidBlock (soul sand pushes up, magma drags down), column growth/shrink,
+# canSurvive, canOccupy, updateShape scheduling and the bubble column pickup.
+level flat
+preload 3
+level_seed 3
+watch events
+fill 0 -61 0 20 -45 8 minecraft:stone
+fill 1 -60 1 19 -46 7 minecraft:water[level=0]
+dump blocks:0,-61,0,20,-45,8
+note soul sand source (push up), magma source (drag down)
+block 3 -60 3 minecraft:soul_sand
+block 7 -60 3 minecraft:magma_block
+tick 25
+dump blocks:2,-61,2,8,-45,4 ticks events
+note column grows when the water above rises and shrinks when blocked
+block 3 -50 3 minecraft:stone
+tick 25
+dump blocks:2,-61,2,4,-45,4 ticks events
+block 3 -50 3 minecraft:water[level=0]
+tick 25
+dump blocks:2,-61,2,4,-45,4 ticks events
+note removing the source
+block 3 -60 3 minecraft:air
+tick 10
+dump blocks:2,-61,2,8,-45,4 ticks events
+note replace soul sand by magma (flip direction), column next to column
+block 7 -60 3 minecraft:soul_sand
+block 8 -60 3 minecraft:magma_block
+tick 25
+dump blocks:6,-61,2,9,-45,4 ticks events
+note flowing water above a source does not form a column
+block 12 -60 3 minecraft:soul_sand
+block 12 -55 3 minecraft:water[level=3]
+tick 25
+dump blocks:11,-61,2,13,-45,4 ticks events
+note waterlogged-free: kelp over soul sand
+block 15 -60 3 minecraft:soul_sand
+block 15 -59 3 minecraft:kelp[age=0]
+tick 25
+dump blocks:14,-61,2,16,-45,4 ticks events

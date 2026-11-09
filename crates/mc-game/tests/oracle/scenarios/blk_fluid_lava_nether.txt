@@ -1,0 +1,122 @@
+# Lava in the nether (FAST_LAVA dimension attribute: tick delay 10, drop-off 1, slope find distance 4 instead of 30/2/2): flat spread, a cliff,
+# a hole 3 blocks away (found only with the longer slope search), lava meeting water, getSpreadDelay's random x4 when the level rises, and
+# random ticks that set (soul) fire on flammable blocks above and beside it.
+dimension the_nether
+level void
+preload 3
+level_seed 41
+gamerule fire_spread_radius_around_player -1
+# the vanilla nether level has real terrain: wall the working box in with stone and clear it (the replay level is void)
+fill -16 52 -12 22 70 12 minecraft:stone
+fill -15 53 -11 21 69 11 minecraft:air
+# netherrack floor y=59
+fill -14 59 -10 20 59 10 minecraft:netherrack
+# 1. flat spread from a source
+block -10 60 0 minecraft:lava[level=0]
+# 2. a cliff: platform at y=59 ends, ground at y=55
+fill 8 55 -3 20 55 3 minecraft:netherrack
+fill 8 56 -3 20 59 3 minecraft:air
+block 7 60 0 minecraft:lava[level=0]
+# 3. hole three blocks away from the source (a 1x1 hole, floor removed)
+fill 0 59 6 4 59 6 minecraft:air
+block 4 60 8 minecraft:lava[level=0]
+fill 1 59 8 1 59 8 minecraft:air
+# 4. water source next to lava (obsidian/cobblestone), lava source above water
+block 12 60 8 minecraft:lava[level=0]
+block 14 60 8 minecraft:water[level=0]
+block 18 60 8 minecraft:lava[level=0]
+block 18 61 8 minecraft:water[level=0]
+tick 12
+dump blocks:-14,59,-10,20,61,10 ticks:-16,52,-12,22,70,12 events
+tick 30
+dump blocks:-14,59,-10,20,61,10 ticks:-16,52,-12,22,70,12 events
+tick 100
+dump blocks:-14,55,-10,20,61,10 ticks:-16,52,-12,22,70,12 events
+note a source pouring onto an existing lower flow raises the level: the delay is multiplied by 4 with probability 3/4
+block -8 60 4 minecraft:lava[level=2]
+block -8 60 5 minecraft:lava[level=0]
+tick 80
+dump blocks:-14,59,-10,0,61,10 ticks:-16,52,-12,22,70,12 events
+note random ticks: soul fire above soul soil, plain fire on netherrack base, flammable blocks beside and above the lava
+fill -14 59 -10 -1 59 -10 minecraft:soul_soil
+fill -14 60 -9 -6 61 -9 minecraft:oak_planks
+fill -14 60 -10 -6 60 -10 minecraft:oak_planks
+block -12 60 -8 minecraft:lava[level=0]
+block -12 60 -10 minecraft:air
+fill -6 59 -6 -2 59 -3 minecraft:soul_soil
+block -4 60 -4 minecraft:lava[level=0]
+block -4 61 -4 minecraft:air
+block -4 61 -5 minecraft:oak_planks
+block -4 60 -5 minecraft:oak_planks
+block -3 60 -4 minecraft:oak_planks
+block -5 60 -4 minecraft:hay_block
+block -5 60 -3 minecraft:soul_soil
+block -6 61 -3 minecraft:oak_planks
+block -3 60 -3 minecraft:soul_soil
+block -2 61 -3 minecraft:hay_block
+block -4 62 -4 minecraft:oak_planks
+block -3 62 -5 minecraft:oak_planks
+block -4 62 -3 minecraft:oak_planks
+block -5 62 -3 minecraft:oak_planks
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+random_tick -12 60 -8
+random_tick -4 60 -4
+tick 5
+dump blocks:-14,59,-10,-1,63,-3 ticks:-16,52,-12,22,70,12 events

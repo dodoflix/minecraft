@@ -1,0 +1,33 @@
+# SpongeBlock.removeWaterBreadthFirstSearch: BFS order/limits in a closed pool, with kelp/seagrass/waterlogged blocks, a
+# bubble column, placing the sponge into water, and water flowing next to a placed sponge (neighborChanged).
+level flat
+preload 3
+level_seed 11
+watch events
+# stone basin 0..12 x 0..12, floor y=-60, walls up to y=-48, water inside
+fill 0 -60 0 12 -48 12 minecraft:stone
+fill 1 -59 1 11 -50 11 minecraft:water[level=0]
+# plants on the floor
+block 2 -59 2 minecraft:seagrass
+block 3 -59 2 minecraft:tall_seagrass[half=lower]
+block 3 -58 2 minecraft:tall_seagrass[half=upper]
+block 4 -59 2 minecraft:kelp[age=3]
+block 5 -59 2 minecraft:kelp_plant
+block 5 -58 2 minecraft:kelp[age=7]
+# waterlogged blocks
+block 9 -59 9 minecraft:oak_slab[type=bottom,waterlogged=true]
+block 9 -59 8 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=true]
+block 8 -59 9 minecraft:sea_pickle[pickles=2,waterlogged=true]
+block 10 -59 9 minecraft:tube_coral_fan[waterlogged=true]
+block 10 -59 8 minecraft:conduit[waterlogged=true]
+block 8 -59 10 minecraft:oak_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=true]
+block 6 -59 6 minecraft:magma_block
+dump blocks:0,-60,0,12,-48,12
+note sponge in the middle of the water
+block 6 -55 6 minecraft:sponge
+tick 2
+dump blocks:0,-60,0,12,-48,12 ticks events
+note a second sponge: absorbs again only when water remains within reach
+block 6 -57 5 minecraft:sponge
+tick 2
+dump blocks:0,-60,0,12,-48,12 ticks events

@@ -1,0 +1,441 @@
+# Placing blocks into water with a player (BlockItem.place -> getStateForPlacement): waterloggable blocks take a water SOURCE
+# (not flowing water), double slabs and stacked pickles/candles, plants that need water, and blocks that replace the fluid;
+# then a second row into flowing and falling water. Every target has its own X, the player is moved next to it.
+level flat
+preload 5
+level_seed 31
+spawn_player Steve creative 0.5 -60 -2.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+level_seed 31
+fill -2 -61 -2 70 -52 -2 minecraft:stone
+fill -2 -61 4 70 -52 4 minecraft:stone
+fill -2 -61 -1 -2 -52 3 minecraft:stone
+fill 70 -61 -1 70 -52 3 minecraft:stone
+fill -1 -60 -1 69 -54 3 minecraft:water[level=0]
+note slab
+snap Steve 0.5 -60 -2.5
+give Steve hotbar0 minecraft:oak_slab 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1001
+use_on Steve 0 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:0,-61,1,0,-59,1 events
+note slab_double
+block 2 -60 1 minecraft:oak_slab[type=bottom,waterlogged=true]
+snap Steve 2.5 -60 -2.5
+give Steve hotbar0 minecraft:oak_slab 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1002
+use_on Steve 2 -60 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:2,-61,1,2,-59,1 events
+note stairs
+snap Steve 4.5 -60 -2.5
+give Steve hotbar0 minecraft:oak_stairs 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1003
+use_on Steve 4 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:4,-61,1,4,-59,1 events
+note trapdoor
+snap Steve 6.5 -60 -2.5
+give Steve hotbar0 minecraft:oak_trapdoor 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1004
+use_on Steve 6 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:6,-61,1,6,-59,1 events
+note fence
+snap Steve 8.5 -60 -2.5
+give Steve hotbar0 minecraft:oak_fence 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1005
+use_on Steve 8 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:8,-61,1,8,-59,1 events
+note wall
+snap Steve 10.5 -60 -2.5
+give Steve hotbar0 minecraft:cobblestone_wall 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1006
+use_on Steve 10 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:10,-61,1,10,-59,1 events
+note bars
+snap Steve 12.5 -60 -2.5
+give Steve hotbar0 minecraft:iron_bars 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1007
+use_on Steve 12 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:12,-61,1,12,-59,1 events
+note pane
+snap Steve 14.5 -60 -2.5
+give Steve hotbar0 minecraft:glass_pane 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1008
+use_on Steve 14 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:14,-61,1,14,-59,1 events
+note chain
+snap Steve 16.5 -60 -2.5
+give Steve hotbar0 minecraft:iron_chain 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1009
+use_on Steve 16 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:16,-61,1,16,-59,1 events
+note lantern
+snap Steve 18.5 -60 -2.5
+give Steve hotbar0 minecraft:lantern 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1010
+use_on Steve 18 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:18,-61,1,18,-59,1 events
+note sea_pickle
+snap Steve 20.5 -60 -2.5
+give Steve hotbar0 minecraft:sea_pickle 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1011
+use_on Steve 20 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:20,-61,1,20,-59,1 events
+note sea_pickle_stack
+block 22 -60 1 minecraft:sea_pickle[pickles=2,waterlogged=true]
+snap Steve 22.5 -60 -2.5
+give Steve hotbar0 minecraft:sea_pickle 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1012
+use_on Steve 22 -60 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:22,-61,1,22,-59,1 events
+note seagrass
+snap Steve 24.5 -60 -2.5
+give Steve hotbar0 minecraft:seagrass 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1013
+use_on Steve 24 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:24,-61,1,24,-59,1 events
+note kelp
+snap Steve 26.5 -60 -2.5
+give Steve hotbar0 minecraft:kelp 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1014
+use_on Steve 26 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:26,-61,1,26,-59,1 events
+note coral
+snap Steve 28.5 -60 -2.5
+give Steve hotbar0 minecraft:tube_coral 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1015
+use_on Steve 28 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:28,-61,1,28,-59,1 events
+note coral_fan
+snap Steve 30.5 -60 -2.5
+give Steve hotbar0 minecraft:brain_coral_fan 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1016
+use_on Steve 30 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:30,-61,1,30,-59,1 events
+note dead_coral
+snap Steve 32.5 -60 -2.5
+give Steve hotbar0 minecraft:dead_fire_coral 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1017
+use_on Steve 32 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:32,-61,1,32,-59,1 events
+note candle
+snap Steve 34.5 -60 -2.5
+give Steve hotbar0 minecraft:candle 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1018
+use_on Steve 34 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:34,-61,1,34,-59,1 events
+note candle_stack
+block 36 -60 1 minecraft:candle[candles=2,lit=false,waterlogged=true]
+snap Steve 36.5 -60 -2.5
+give Steve hotbar0 minecraft:candle 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1019
+use_on Steve 36 -60 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:36,-61,1,36,-59,1 events
+note campfire
+snap Steve 38.5 -60 -2.5
+give Steve hotbar0 minecraft:campfire 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1020
+use_on Steve 38 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:38,-61,1,38,-59,1 events
+note scaffolding
+snap Steve 40.5 -60 -2.5
+give Steve hotbar0 minecraft:scaffolding 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1021
+use_on Steve 40 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:40,-61,1,40,-59,1 events
+note chest
+snap Steve 42.5 -60 -2.5
+give Steve hotbar0 minecraft:chest 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1022
+use_on Steve 42 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:42,-61,1,42,-59,1 events
+note conduit
+snap Steve 44.5 -60 -2.5
+give Steve hotbar0 minecraft:conduit 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1023
+use_on Steve 44 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:44,-61,1,44,-59,1 events
+note rail
+snap Steve 46.5 -60 -2.5
+give Steve hotbar0 minecraft:rail 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1024
+use_on Steve 46 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:46,-61,1,46,-59,1 events
+note lightning_rod
+snap Steve 48.5 -60 -2.5
+give Steve hotbar0 minecraft:lightning_rod 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1025
+use_on Steve 48 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:48,-61,1,48,-59,1 events
+note torch
+snap Steve 50.5 -60 -2.5
+give Steve hotbar0 minecraft:torch 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1026
+use_on Steve 50 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:50,-61,1,50,-59,1 events
+note stone
+snap Steve 52.5 -60 -2.5
+give Steve hotbar0 minecraft:stone 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1027
+use_on Steve 52 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:52,-61,1,52,-59,1 events
+note redstone
+snap Steve 54.5 -60 -2.5
+give Steve hotbar0 minecraft:redstone 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1028
+use_on Steve 54 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:54,-61,1,54,-59,1 events
+note button
+snap Steve 56.5 -60 -2.5
+give Steve hotbar0 minecraft:stone_button 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1029
+use_on Steve 56 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:56,-61,1,56,-59,1 events
+note plate
+snap Steve 58.5 -60 -2.5
+give Steve hotbar0 minecraft:stone_pressure_plate 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1030
+use_on Steve 58 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:58,-61,1,58,-59,1 events
+note end_rod
+snap Steve 60.5 -60 -2.5
+give Steve hotbar0 minecraft:end_rod 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1031
+use_on Steve 60 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:60,-61,1,60,-59,1 events
+note sign
+snap Steve 62.5 -60 -2.5
+give Steve hotbar0 minecraft:oak_sign 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1032
+use_on Steve 62 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:62,-61,1,62,-59,1 events
+note flower
+snap Steve 64.5 -60 -2.5
+give Steve hotbar0 minecraft:poppy 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1033
+use_on Steve 64 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:64,-61,1,64,-59,1 events
+note dried_ghast
+snap Steve 66.5 -60 -2.5
+give Steve hotbar0 minecraft:dried_ghast 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1034
+use_on Steve 66 -61 1 up main 0.5 1.0 0.5
+tick 1
+dump blocks:66,-61,1,66,-59,1 events
+tick 5
+dump blocks:-1,-61,-1,69,-59,3 ticks events
+note a second row into flowing and falling water
+fill -1 -60 6 24 -52 12 minecraft:stone
+fill 0 -60 7 23 -53 11 minecraft:air
+block 0 -61 9 minecraft:stone
+block 0 -60 9 minecraft:water[level=3]
+note slab into flowing water
+snap Steve 0.5 -60 5.5
+give Steve hotbar0 minecraft:oak_slab 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1035
+use_on Steve 0 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:0,-61,9,0,-59,9 events
+block 2 -61 9 minecraft:stone
+block 2 -60 9 minecraft:water[level=8]
+note stairs into falling water
+snap Steve 2.5 -60 5.5
+give Steve hotbar0 minecraft:oak_stairs 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1036
+use_on Steve 2 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:2,-61,9,2,-59,9 events
+block 4 -61 9 minecraft:stone
+block 4 -60 9 minecraft:water[level=3]
+note fence into flowing water
+snap Steve 4.5 -60 5.5
+give Steve hotbar0 minecraft:oak_fence 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1037
+use_on Steve 4 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:4,-61,9,4,-59,9 events
+block 6 -61 9 minecraft:stone
+block 6 -60 9 minecraft:water[level=8]
+note trapdoor into falling water
+snap Steve 6.5 -60 5.5
+give Steve hotbar0 minecraft:oak_trapdoor 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1038
+use_on Steve 6 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:6,-61,9,6,-59,9 events
+block 8 -61 9 minecraft:stone
+block 8 -60 9 minecraft:water[level=3]
+note sea_pickle into flowing water
+snap Steve 8.5 -60 5.5
+give Steve hotbar0 minecraft:sea_pickle 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1039
+use_on Steve 8 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:8,-61,9,8,-59,9 events
+block 10 -61 9 minecraft:stone
+block 10 -60 9 minecraft:water[level=8]
+note seagrass into falling water
+snap Steve 10.5 -60 5.5
+give Steve hotbar0 minecraft:seagrass 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1040
+use_on Steve 10 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:10,-61,9,10,-59,9 events
+block 12 -61 9 minecraft:stone
+block 12 -60 9 minecraft:water[level=3]
+note coral into flowing water
+snap Steve 12.5 -60 5.5
+give Steve hotbar0 minecraft:tube_coral 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1041
+use_on Steve 12 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:12,-61,9,12,-59,9 events
+block 14 -61 9 minecraft:stone
+block 14 -60 9 minecraft:water[level=8]
+note candle into falling water
+snap Steve 14.5 -60 5.5
+give Steve hotbar0 minecraft:candle 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1042
+use_on Steve 14 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:14,-61,9,14,-59,9 events
+block 16 -61 9 minecraft:stone
+block 16 -60 9 minecraft:water[level=3]
+note lantern into flowing water
+snap Steve 16.5 -60 5.5
+give Steve hotbar0 minecraft:lantern 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1043
+use_on Steve 16 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:16,-61,9,16,-59,9 events
+block 18 -61 9 minecraft:stone
+block 18 -60 9 minecraft:water[level=8]
+note torch into falling water
+snap Steve 18.5 -60 5.5
+give Steve hotbar0 minecraft:torch 8
+select Steve 0
+# natural spawning draws level random on the vanilla side: seed it for the placement
+level_seed 1044
+use_on Steve 18 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:18,-61,9,18,-59,9 events
+tick 3
+dump blocks:-1,-61,6,24,-58,12 ticks events

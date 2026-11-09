@@ -1,0 +1,494 @@
+# Water flowing sideways and down through every kind of neighbour: FlowingFluid.canPassThroughWall (merged face shapes in both
+# directions), canHoldFluid (doors, signs, ladders, sugar cane, bubble columns and liquid containers), waterlogging by flow, and the
+# falling/flowing level a block gives to the cell below it. Row part: source at x=0, tested block at x=1, open ground behind it.
+# Column part: tested block under a source between stone walls, open shaft below.
+level flat
+preload 5
+level_seed 17
+block 1 -60 0 minecraft:stone
+block 0 -60 0 minecraft:water[level=0]
+block 9 -60 0 minecraft:stone
+fill -1 -60 1 9 -60 1 minecraft:stone
+block 1 -60 2 minecraft:glass
+block 0 -60 2 minecraft:water[level=0]
+block 9 -60 2 minecraft:stone
+fill -1 -60 3 9 -60 3 minecraft:stone
+block 1 -60 4 minecraft:oak_leaves[distance=7,persistent=true,waterlogged=false]
+block 0 -60 4 minecraft:water[level=0]
+block 9 -60 4 minecraft:stone
+fill -1 -60 5 9 -60 5 minecraft:stone
+block 1 -60 6 minecraft:ice
+block 0 -60 6 minecraft:water[level=0]
+block 9 -60 6 minecraft:stone
+fill -1 -60 7 9 -60 7 minecraft:stone
+block 1 -60 8 minecraft:oak_slab[type=bottom,waterlogged=false]
+block 0 -60 8 minecraft:water[level=0]
+block 9 -60 8 minecraft:stone
+fill -1 -60 9 9 -60 9 minecraft:stone
+block 1 -60 10 minecraft:oak_slab[type=top,waterlogged=false]
+block 0 -60 10 minecraft:water[level=0]
+block 9 -60 10 minecraft:stone
+fill -1 -60 11 9 -60 11 minecraft:stone
+block 1 -60 12 minecraft:oak_slab[type=double,waterlogged=false]
+block 0 -60 12 minecraft:water[level=0]
+block 9 -60 12 minecraft:stone
+fill -1 -60 13 9 -60 13 minecraft:stone
+block 1 -60 14 minecraft:oak_slab[type=bottom,waterlogged=true]
+block 0 -60 14 minecraft:water[level=0]
+block 9 -60 14 minecraft:stone
+fill -1 -60 15 9 -60 15 minecraft:stone
+block 1 -60 16 minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+block 0 -60 16 minecraft:water[level=0]
+block 9 -60 16 minecraft:stone
+fill -1 -60 17 9 -60 17 minecraft:stone
+block 1 -60 18 minecraft:oak_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+block 0 -60 18 minecraft:water[level=0]
+block 9 -60 18 minecraft:stone
+fill -1 -60 19 9 -60 19 minecraft:stone
+block 1 -60 20 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+block 0 -60 20 minecraft:water[level=0]
+block 9 -60 20 minecraft:stone
+fill -1 -60 21 9 -60 21 minecraft:stone
+block 1 -60 22 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+block 0 -60 22 minecraft:water[level=0]
+block 9 -60 22 minecraft:stone
+fill -1 -60 23 9 -60 23 minecraft:stone
+block 1 -60 24 minecraft:oak_stairs[facing=west,half=top,shape=straight,waterlogged=false]
+block 0 -60 24 minecraft:water[level=0]
+block 9 -60 24 minecraft:stone
+fill -1 -60 25 9 -60 25 minecraft:stone
+block 1 -60 26 minecraft:oak_stairs[facing=east,half=bottom,shape=outer_left,waterlogged=false]
+block 0 -60 26 minecraft:water[level=0]
+block 9 -60 26 minecraft:stone
+fill -1 -60 27 9 -60 27 minecraft:stone
+block 1 -60 28 minecraft:oak_trapdoor[facing=east,half=bottom,open=false,powered=false,waterlogged=false]
+block 0 -60 28 minecraft:water[level=0]
+block 9 -60 28 minecraft:stone
+fill -1 -60 29 9 -60 29 minecraft:stone
+block 1 -60 30 minecraft:oak_trapdoor[facing=east,half=top,open=false,powered=false,waterlogged=false]
+block 0 -60 30 minecraft:water[level=0]
+block 9 -60 30 minecraft:stone
+fill -1 -60 31 9 -60 31 minecraft:stone
+block 1 -60 32 minecraft:oak_trapdoor[facing=east,half=bottom,open=true,powered=false,waterlogged=false]
+block 0 -60 32 minecraft:water[level=0]
+block 9 -60 32 minecraft:stone
+fill -1 -60 33 9 -60 33 minecraft:stone
+block 1 -60 34 minecraft:oak_trapdoor[facing=west,half=bottom,open=true,powered=false,waterlogged=false]
+block 0 -60 34 minecraft:water[level=0]
+block 9 -60 34 minecraft:stone
+fill -1 -60 35 9 -60 35 minecraft:stone
+block 1 -60 36 minecraft:oak_trapdoor[facing=north,half=bottom,open=true,powered=false,waterlogged=false]
+block 0 -60 36 minecraft:water[level=0]
+block 9 -60 36 minecraft:stone
+fill -1 -60 37 9 -60 37 minecraft:stone
+block 1 -60 38 minecraft:oak_fence[waterlogged=false]
+block 0 -60 38 minecraft:water[level=0]
+block 9 -60 38 minecraft:stone
+fill -1 -60 39 9 -60 39 minecraft:stone
+block 1 -60 40 minecraft:oak_fence[east=true,west=true,waterlogged=false]
+block 0 -60 40 minecraft:water[level=0]
+block 9 -60 40 minecraft:stone
+fill -1 -60 41 9 -60 41 minecraft:stone
+block 1 -60 42 minecraft:cobblestone_wall[up=true,waterlogged=false]
+block 0 -60 42 minecraft:water[level=0]
+block 9 -60 42 minecraft:stone
+fill -1 -60 43 9 -60 43 minecraft:stone
+block 1 -60 44 minecraft:iron_bars[waterlogged=false]
+block 0 -60 44 minecraft:water[level=0]
+block 9 -60 44 minecraft:stone
+fill -1 -60 45 9 -60 45 minecraft:stone
+block 1 -60 46 minecraft:glass_pane[waterlogged=false]
+block 0 -60 46 minecraft:water[level=0]
+block 9 -60 46 minecraft:stone
+fill -1 -60 47 9 -60 47 minecraft:stone
+block 13 -60 0 minecraft:glass_pane[east=true,west=true,waterlogged=false]
+block 12 -60 0 minecraft:water[level=0]
+block 21 -60 0 minecraft:stone
+fill 11 -60 1 21 -60 1 minecraft:stone
+block 13 -60 2 minecraft:oak_door[facing=east,half=lower,hinge=left,open=false,powered=false]
+block 12 -60 2 minecraft:water[level=0]
+block 21 -60 2 minecraft:stone
+fill 11 -60 3 21 -60 3 minecraft:stone
+block 13 -60 4 minecraft:oak_door[facing=east,half=lower,hinge=left,open=true,powered=false]
+block 12 -60 4 minecraft:water[level=0]
+block 21 -60 4 minecraft:stone
+fill 11 -60 5 21 -60 5 minecraft:stone
+block 13 -60 6 minecraft:oak_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+block 12 -60 6 minecraft:water[level=0]
+block 21 -60 6 minecraft:stone
+fill 11 -60 7 21 -60 7 minecraft:stone
+block 13 -60 8 minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+block 12 -60 8 minecraft:water[level=0]
+block 21 -60 8 minecraft:stone
+fill 11 -60 9 21 -60 9 minecraft:stone
+block 13 -60 10 minecraft:oak_fence_gate[facing=north,in_wall=false,open=false,powered=false]
+block 12 -60 10 minecraft:water[level=0]
+block 21 -60 10 minecraft:stone
+fill 11 -60 11 21 -60 11 minecraft:stone
+block 13 -60 12 minecraft:oak_fence_gate[facing=north,in_wall=false,open=true,powered=false]
+block 12 -60 12 minecraft:water[level=0]
+block 21 -60 12 minecraft:stone
+fill 11 -60 13 21 -60 13 minecraft:stone
+block 13 -60 14 minecraft:ladder[facing=east,waterlogged=false]
+block 12 -60 14 minecraft:water[level=0]
+block 21 -60 14 minecraft:stone
+fill 11 -60 15 21 -60 15 minecraft:stone
+block 13 -60 16 minecraft:ladder[facing=north,waterlogged=false]
+block 12 -60 16 minecraft:water[level=0]
+block 21 -60 16 minecraft:stone
+fill 11 -60 17 21 -60 17 minecraft:stone
+block 13 -60 18 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+block 12 -60 18 minecraft:water[level=0]
+block 21 -60 18 minecraft:stone
+fill 11 -60 19 21 -60 19 minecraft:stone
+block 13 -60 20 minecraft:sugar_cane[age=0]
+block 12 -60 20 minecraft:water[level=0]
+block 21 -60 20 minecraft:stone
+fill 11 -60 21 21 -60 21 minecraft:stone
+block 13 -60 22 minecraft:oak_sign[rotation=0,waterlogged=false]
+block 12 -60 22 minecraft:water[level=0]
+block 21 -60 22 minecraft:stone
+fill 11 -60 23 21 -60 23 minecraft:stone
+block 13 -60 24 minecraft:torch
+block 12 -60 24 minecraft:water[level=0]
+block 21 -60 24 minecraft:stone
+fill 11 -60 25 21 -60 25 minecraft:stone
+block 13 -60 26 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+block 12 -60 26 minecraft:water[level=0]
+block 21 -60 26 minecraft:stone
+fill 11 -60 27 21 -60 27 minecraft:stone
+block 13 -60 28 minecraft:stone_button[face=floor,facing=east,powered=false]
+block 12 -60 28 minecraft:water[level=0]
+block 21 -60 28 minecraft:stone
+fill 11 -60 29 21 -60 29 minecraft:stone
+block 13 -60 30 minecraft:lever[face=floor,facing=east,powered=false]
+block 12 -60 30 minecraft:water[level=0]
+block 21 -60 30 minecraft:stone
+fill 11 -60 31 21 -60 31 minecraft:stone
+block 13 -60 32 minecraft:rail[shape=east_west,waterlogged=false]
+block 12 -60 32 minecraft:water[level=0]
+block 21 -60 32 minecraft:stone
+fill 11 -60 33 21 -60 33 minecraft:stone
+block 13 -60 34 minecraft:white_carpet
+block 12 -60 34 minecraft:water[level=0]
+block 21 -60 34 minecraft:stone
+fill 11 -60 35 21 -60 35 minecraft:stone
+block 13 -60 36 minecraft:snow[layers=1]
+block 12 -60 36 minecraft:water[level=0]
+block 21 -60 36 minecraft:stone
+fill 11 -60 37 21 -60 37 minecraft:stone
+block 13 -60 38 minecraft:snow[layers=4]
+block 12 -60 38 minecraft:water[level=0]
+block 21 -60 38 minecraft:stone
+fill 11 -60 39 21 -60 39 minecraft:stone
+block 13 -60 40 minecraft:snow[layers=8]
+block 12 -60 40 minecraft:water[level=0]
+block 21 -60 40 minecraft:stone
+fill 11 -60 41 21 -60 41 minecraft:stone
+block 13 -60 42 minecraft:stone_pressure_plate[powered=false]
+block 12 -60 42 minecraft:water[level=0]
+block 21 -60 42 minecraft:stone
+fill 11 -60 43 21 -60 43 minecraft:stone
+block 13 -60 44 minecraft:lantern[hanging=false,waterlogged=false]
+block 12 -60 44 minecraft:water[level=0]
+block 21 -60 44 minecraft:stone
+fill 11 -60 45 21 -60 45 minecraft:stone
+block 13 -60 46 minecraft:iron_chain[axis=y,waterlogged=false]
+block 12 -60 46 minecraft:water[level=0]
+block 21 -60 46 minecraft:stone
+fill 11 -60 47 21 -60 47 minecraft:stone
+block 25 -60 0 minecraft:iron_chain[axis=x,waterlogged=false]
+block 24 -60 0 minecraft:water[level=0]
+block 33 -60 0 minecraft:stone
+fill 23 -60 1 33 -60 1 minecraft:stone
+block 25 -60 2 minecraft:cauldron
+block 24 -60 2 minecraft:water[level=0]
+block 33 -60 2 minecraft:stone
+fill 23 -60 3 33 -60 3 minecraft:stone
+block 25 -60 4 minecraft:hopper[enabled=true,facing=down]
+block 24 -60 4 minecraft:water[level=0]
+block 33 -60 4 minecraft:stone
+fill 23 -60 5 33 -60 5 minecraft:stone
+block 25 -60 6 minecraft:composter[level=0]
+block 24 -60 6 minecraft:water[level=0]
+block 33 -60 6 minecraft:stone
+fill 23 -60 7 33 -60 7 minecraft:stone
+block 25 -60 8 minecraft:chest[facing=east,type=single,waterlogged=false]
+block 24 -60 8 minecraft:water[level=0]
+block 33 -60 8 minecraft:stone
+fill 23 -60 9 33 -60 9 minecraft:stone
+block 25 -60 10 minecraft:enchanting_table
+block 24 -60 10 minecraft:water[level=0]
+block 33 -60 10 minecraft:stone
+fill 23 -60 11 33 -60 11 minecraft:stone
+block 25 -60 12 minecraft:anvil[facing=east]
+block 24 -60 12 minecraft:water[level=0]
+block 33 -60 12 minecraft:stone
+fill 23 -60 13 33 -60 13 minecraft:stone
+block 25 -60 14 minecraft:bell[attachment=floor,facing=east,powered=false]
+block 24 -60 14 minecraft:water[level=0]
+block 33 -60 14 minecraft:stone
+fill 23 -60 15 33 -60 15 minecraft:stone
+block 25 -60 16 minecraft:dragon_egg
+block 24 -60 16 minecraft:water[level=0]
+block 33 -60 16 minecraft:stone
+fill 23 -60 17 33 -60 17 minecraft:stone
+block 25 -60 18 minecraft:end_rod[facing=east]
+block 24 -60 18 minecraft:water[level=0]
+block 33 -60 18 minecraft:stone
+fill 23 -60 19 33 -60 19 minecraft:stone
+block 25 -60 20 minecraft:end_rod[facing=up]
+block 24 -60 20 minecraft:water[level=0]
+block 33 -60 20 minecraft:stone
+fill 23 -60 21 33 -60 21 minecraft:stone
+block 25 -60 22 minecraft:lightning_rod[facing=up,powered=false,waterlogged=false]
+block 24 -60 22 minecraft:water[level=0]
+block 33 -60 22 minecraft:stone
+fill 23 -60 23 33 -60 23 minecraft:stone
+block 25 -60 24 minecraft:farmland[moisture=0]
+block 24 -60 24 minecraft:water[level=0]
+block 33 -60 24 minecraft:stone
+fill 23 -60 25 33 -60 25 minecraft:stone
+block 25 -60 26 minecraft:dirt_path
+block 24 -60 26 minecraft:water[level=0]
+block 33 -60 26 minecraft:stone
+fill 23 -60 27 33 -60 27 minecraft:stone
+block 25 -60 28 minecraft:soul_sand
+block 24 -60 28 minecraft:water[level=0]
+block 33 -60 28 minecraft:stone
+fill 23 -60 29 33 -60 29 minecraft:stone
+block 25 -60 30 minecraft:mud
+block 24 -60 30 minecraft:water[level=0]
+block 33 -60 30 minecraft:stone
+fill 23 -60 31 33 -60 31 minecraft:stone
+block 25 -60 32 minecraft:honey_block
+block 24 -60 32 minecraft:water[level=0]
+block 33 -60 32 minecraft:stone
+fill 23 -60 33 33 -60 33 minecraft:stone
+block 25 -60 34 minecraft:slime_block
+block 24 -60 34 minecraft:water[level=0]
+block 33 -60 34 minecraft:stone
+fill 23 -60 35 33 -60 35 minecraft:stone
+block 25 -60 36 minecraft:cactus[age=0]
+block 24 -60 36 minecraft:water[level=0]
+block 33 -60 36 minecraft:stone
+fill 23 -60 37 33 -60 37 minecraft:stone
+block 25 -60 38 minecraft:flower_pot
+block 24 -60 38 minecraft:water[level=0]
+block 33 -60 38 minecraft:stone
+fill 23 -60 39 33 -60 39 minecraft:stone
+block 25 -60 40 minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]
+block 24 -60 40 minecraft:water[level=0]
+block 33 -60 40 minecraft:stone
+fill 23 -60 41 33 -60 41 minecraft:stone
+block 25 -60 42 minecraft:sea_pickle[pickles=1,waterlogged=false]
+block 24 -60 42 minecraft:water[level=0]
+block 33 -60 42 minecraft:stone
+fill 23 -60 43 33 -60 43 minecraft:stone
+block 25 -60 44 minecraft:seagrass
+block 24 -60 44 minecraft:water[level=0]
+block 33 -60 44 minecraft:stone
+fill 23 -60 45 33 -60 45 minecraft:stone
+block 25 -60 46 minecraft:kelp[age=0]
+block 24 -60 46 minecraft:water[level=0]
+block 33 -60 46 minecraft:stone
+fill 23 -60 47 33 -60 47 minecraft:stone
+block 37 -60 0 minecraft:tube_coral[waterlogged=false]
+block 36 -60 0 minecraft:water[level=0]
+block 45 -60 0 minecraft:stone
+fill 35 -60 1 45 -60 1 minecraft:stone
+block 37 -60 2 minecraft:tube_coral_fan[waterlogged=false]
+block 36 -60 2 minecraft:water[level=0]
+block 45 -60 2 minecraft:stone
+fill 35 -60 3 45 -60 3 minecraft:stone
+block 37 -60 4 minecraft:cobweb
+block 36 -60 4 minecraft:water[level=0]
+block 45 -60 4 minecraft:stone
+fill 35 -60 5 45 -60 5 minecraft:stone
+block 37 -60 6 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,powered=false,south=false,west=false]
+block 36 -60 6 minecraft:water[level=0]
+block 45 -60 6 minecraft:stone
+fill 35 -60 7 45 -60 7 minecraft:stone
+block 37 -60 8 minecraft:cake[bites=0]
+block 36 -60 8 minecraft:water[level=0]
+block 45 -60 8 minecraft:stone
+fill 35 -60 9 45 -60 9 minecraft:stone
+block 37 -60 10 minecraft:candle[candles=1,lit=false,waterlogged=false]
+block 36 -60 10 minecraft:water[level=0]
+block 45 -60 10 minecraft:stone
+fill 35 -60 11 45 -60 11 minecraft:stone
+block 37 -60 12 minecraft:piston[extended=false,facing=east]
+block 36 -60 12 minecraft:water[level=0]
+block 45 -60 12 minecraft:stone
+fill 35 -60 13 45 -60 13 minecraft:stone
+block 37 -60 14 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+block 36 -60 14 minecraft:water[level=0]
+block 45 -60 14 minecraft:stone
+fill 35 -60 15 45 -60 15 minecraft:stone
+block 37 -60 16 minecraft:daylight_detector[inverted=false,power=0]
+block 36 -60 16 minecraft:water[level=0]
+block 45 -60 16 minecraft:stone
+fill 35 -60 17 45 -60 17 minecraft:stone
+block 37 -60 18 minecraft:conduit[waterlogged=false]
+block 36 -60 18 minecraft:water[level=0]
+block 45 -60 18 minecraft:stone
+fill 35 -60 19 45 -60 19 minecraft:stone
+block 37 -60 20 minecraft:beacon
+block 36 -60 20 minecraft:water[level=0]
+block 45 -60 20 minecraft:stone
+fill 35 -60 21 45 -60 21 minecraft:stone
+block 37 -60 22 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+block 36 -60 22 minecraft:water[level=0]
+block 45 -60 22 minecraft:stone
+fill 35 -60 23 45 -60 23 minecraft:stone
+block 37 -60 24 minecraft:amethyst_cluster[facing=up,waterlogged=false]
+block 36 -60 24 minecraft:water[level=0]
+block 45 -60 24 minecraft:stone
+fill 35 -60 25 45 -60 25 minecraft:stone
+block 37 -60 26 minecraft:vine[east=false,north=false,south=false,up=false,west=true]
+block 36 -60 26 minecraft:water[level=0]
+block 45 -60 26 minecraft:stone
+fill 35 -60 27 45 -60 27 minecraft:stone
+block 37 -60 28 minecraft:lily_pad
+block 36 -60 28 minecraft:water[level=0]
+block 45 -60 28 minecraft:stone
+fill 35 -60 29 45 -60 29 minecraft:stone
+block 37 -60 30 minecraft:turtle_egg[eggs=1,hatch=0]
+block 36 -60 30 minecraft:water[level=0]
+block 45 -60 30 minecraft:stone
+fill 35 -60 31 45 -60 31 minecraft:stone
+block 37 -60 32 minecraft:frogspawn
+block 36 -60 32 minecraft:water[level=0]
+block 45 -60 32 minecraft:stone
+fill 35 -60 33 45 -60 33 minecraft:stone
+block 37 -60 34 minecraft:small_dripleaf[facing=east,half=lower,waterlogged=false]
+block 36 -60 34 minecraft:water[level=0]
+block 45 -60 34 minecraft:stone
+fill 35 -60 35 45 -60 35 minecraft:stone
+block 37 -60 36 minecraft:bamboo[age=0,leaves=none,stage=0]
+block 36 -60 36 minecraft:water[level=0]
+block 45 -60 36 minecraft:stone
+fill 35 -60 37 45 -60 37 minecraft:stone
+block 37 -60 38 minecraft:oak_wall_sign[facing=east,waterlogged=false]
+block 36 -60 38 minecraft:water[level=0]
+block 45 -60 38 minecraft:stone
+fill 35 -60 39 45 -60 39 minecraft:stone
+block 37 -60 40 minecraft:oak_button[face=wall,facing=east,powered=false]
+block 36 -60 40 minecraft:water[level=0]
+block 45 -60 40 minecraft:stone
+fill 35 -60 41 45 -60 41 minecraft:stone
+fill -1 -60 -1 -1 -60 48 minecraft:stone
+fill -1 -60 47 45 -60 47 minecraft:stone
+fill -1 -60 -1 9 -60 -1 minecraft:stone
+fill 11 -60 -1 21 -60 -1 minecraft:stone
+fill 23 -60 -1 33 -60 -1 minecraft:stone
+fill 35 -60 -1 45 -60 -1 minecraft:stone
+tick 40
+dump blocks:-1,-61,-1,46,-59,48 ticks events
+tick 40
+dump blocks:-1,-61,-1,46,-59,48 ticks
+note column part
+fill -1 -60 59 66 -54 61 minecraft:stone
+fill 0 -60 60 0 -56 60 minecraft:air
+block 0 -55 60 minecraft:stone
+block 0 -54 60 minecraft:water[level=0]
+fill 2 -60 60 2 -56 60 minecraft:air
+block 2 -55 60 minecraft:glass
+block 2 -54 60 minecraft:water[level=0]
+fill 4 -60 60 4 -56 60 minecraft:air
+block 4 -55 60 minecraft:oak_slab[type=bottom,waterlogged=false]
+block 4 -54 60 minecraft:water[level=0]
+fill 6 -60 60 6 -56 60 minecraft:air
+block 6 -55 60 minecraft:oak_slab[type=top,waterlogged=false]
+block 6 -54 60 minecraft:water[level=0]
+fill 8 -60 60 8 -56 60 minecraft:air
+block 8 -55 60 minecraft:oak_slab[type=double,waterlogged=false]
+block 8 -54 60 minecraft:water[level=0]
+fill 10 -60 60 10 -56 60 minecraft:air
+block 10 -55 60 minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+block 10 -54 60 minecraft:water[level=0]
+fill 12 -60 60 12 -56 60 minecraft:air
+block 12 -55 60 minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+block 12 -54 60 minecraft:water[level=0]
+fill 14 -60 60 14 -56 60 minecraft:air
+block 14 -55 60 minecraft:oak_trapdoor[facing=east,half=bottom,open=false,powered=false,waterlogged=false]
+block 14 -54 60 minecraft:water[level=0]
+fill 16 -60 60 16 -56 60 minecraft:air
+block 16 -55 60 minecraft:oak_trapdoor[facing=east,half=top,open=false,powered=false,waterlogged=false]
+block 16 -54 60 minecraft:water[level=0]
+fill 18 -60 60 18 -56 60 minecraft:air
+block 18 -55 60 minecraft:oak_trapdoor[facing=east,half=bottom,open=true,powered=false,waterlogged=false]
+block 18 -54 60 minecraft:water[level=0]
+fill 20 -60 60 20 -56 60 minecraft:air
+block 20 -55 60 minecraft:oak_fence[waterlogged=false]
+block 20 -54 60 minecraft:water[level=0]
+fill 22 -60 60 22 -56 60 minecraft:air
+block 22 -55 60 minecraft:cobblestone_wall[up=true,waterlogged=false]
+block 22 -54 60 minecraft:water[level=0]
+fill 24 -60 60 24 -56 60 minecraft:air
+block 24 -55 60 minecraft:iron_bars[waterlogged=false]
+block 24 -54 60 minecraft:water[level=0]
+fill 26 -60 60 26 -56 60 minecraft:air
+block 26 -55 60 minecraft:glass_pane[waterlogged=false]
+block 26 -54 60 minecraft:water[level=0]
+fill 28 -60 60 28 -56 60 minecraft:air
+block 28 -55 60 minecraft:iron_chain[axis=y,waterlogged=false]
+block 28 -54 60 minecraft:water[level=0]
+fill 30 -60 60 30 -56 60 minecraft:air
+block 30 -55 60 minecraft:iron_chain[axis=x,waterlogged=false]
+block 30 -54 60 minecraft:water[level=0]
+fill 32 -60 60 32 -56 60 minecraft:air
+block 32 -55 60 minecraft:lantern[hanging=false,waterlogged=false]
+block 32 -54 60 minecraft:water[level=0]
+fill 34 -60 60 34 -56 60 minecraft:air
+block 34 -55 60 minecraft:ladder[facing=east,waterlogged=false]
+block 34 -54 60 minecraft:water[level=0]
+fill 36 -60 60 36 -56 60 minecraft:air
+block 36 -55 60 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+block 36 -54 60 minecraft:water[level=0]
+fill 38 -60 60 38 -56 60 minecraft:air
+block 38 -55 60 minecraft:oak_door[facing=east,half=lower,hinge=left,open=false,powered=false]
+block 38 -54 60 minecraft:water[level=0]
+fill 40 -60 60 40 -56 60 minecraft:air
+block 40 -55 60 minecraft:white_carpet
+block 40 -54 60 minecraft:water[level=0]
+fill 42 -60 60 42 -56 60 minecraft:air
+block 42 -55 60 minecraft:snow[layers=1]
+block 42 -54 60 minecraft:water[level=0]
+fill 44 -60 60 44 -56 60 minecraft:air
+block 44 -55 60 minecraft:torch
+block 44 -54 60 minecraft:water[level=0]
+fill 46 -60 60 46 -56 60 minecraft:air
+block 46 -55 60 minecraft:cauldron
+block 46 -54 60 minecraft:water[level=0]
+fill 48 -60 60 48 -56 60 minecraft:air
+block 48 -55 60 minecraft:hopper[enabled=true,facing=down]
+block 48 -54 60 minecraft:water[level=0]
+fill 50 -60 60 50 -56 60 minecraft:air
+block 50 -55 60 minecraft:sea_pickle[pickles=1,waterlogged=false]
+block 50 -54 60 minecraft:water[level=0]
+fill 52 -60 60 52 -56 60 minecraft:air
+block 52 -55 60 minecraft:kelp[age=0]
+block 52 -54 60 minecraft:water[level=0]
+fill 54 -60 60 54 -56 60 minecraft:air
+block 54 -55 60 minecraft:seagrass
+block 54 -54 60 minecraft:water[level=0]
+fill 56 -60 60 56 -56 60 minecraft:air
+block 56 -55 60 minecraft:lily_pad
+block 56 -54 60 minecraft:water[level=0]
+fill 58 -60 60 58 -56 60 minecraft:air
+block 58 -55 60 minecraft:iron_bars[east=true,west=true,waterlogged=false]
+block 58 -54 60 minecraft:water[level=0]
+fill 60 -60 60 60 -56 60 minecraft:air
+block 60 -55 60 minecraft:end_rod[facing=up]
+block 60 -54 60 minecraft:water[level=0]
+fill 62 -60 60 62 -56 60 minecraft:air
+block 62 -55 60 minecraft:end_rod[facing=east]
+block 62 -54 60 minecraft:water[level=0]
+fill 64 -60 60 64 -56 60 minecraft:air
+block 64 -55 60 minecraft:composter[level=0]
+block 64 -54 60 minecraft:water[level=0]
+tick 40
+dump blocks:-1,-61,59,66,-53,61 ticks events
+tick 40
+dump blocks:-1,-61,59,66,-53,61 ticks

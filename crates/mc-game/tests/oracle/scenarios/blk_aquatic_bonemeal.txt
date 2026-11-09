@@ -1,0 +1,141 @@
+# Bone meal item on underwater blocks (BoneMealItem.useOn: growCrop first, then growWaterPlant on the cell next to a sturdy face when
+# it is full water): seagrass spreading with the 128-step random walk (plains: no coral), tall seagrass from seagrass (1 in 10), a
+# side face, flowing water refusing, and growCrop on kelp, seagrass, tall seagrass and sea pickles. Every click has its own level seed.
+level flat
+preload 3
+spawn_player Steve creative 4.5 -58 2.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+give Steve hotbar0 minecraft:bone_meal 64
+select Steve 0
+fill -1 -61 -1 17 -54 -1 minecraft:stone
+fill -1 -61 6 17 -54 6 minecraft:stone
+fill -1 -61 0 -1 -54 5 minecraft:stone
+fill 17 -61 0 17 -54 5 minecraft:stone
+fill 0 -61 0 16 -61 5 minecraft:sand
+fill 0 -60 0 16 -55 5 minecraft:water[level=0]
+# one bonemeal verb line makes the replay load the real biome registry (the feature lists read the biome)
+block 14 -60 4 minecraft:seagrass
+level_seed 99
+bonemeal 14 -60 4
+block 14 -60 4 minecraft:water[level=0]
+block 14 -59 4 minecraft:water[level=0]
+note sand top, repeated: seagrass appears around it and grows into tall seagrass
+snap Steve 4.5 -58 2.5
+level_seed 1
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 2
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 3
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 4
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 5
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 6
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+dump blocks:0,-61,0,9,-58,5
+block 9 -61 2 minecraft:stone
+note a stone block on the floor, from above
+snap Steve 9.5 -58 2.5
+level_seed 7
+use_on Steve 9 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 9.5 -58 2.5
+level_seed 8
+use_on Steve 9 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 9.5 -58 2.5
+level_seed 9
+use_on Steve 9 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+note the side of the basin wall (horizontal face)
+snap Steve 1.5 -58 2.5
+level_seed 10
+use_on Steve -1 -58 2 east main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 1.5 -58 2.5
+level_seed 11
+use_on Steve -1 -58 2 east main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+block 13 -60 3 minecraft:water[level=3]
+note flowing water above the floor: nothing grows, the item is not used
+snap Steve 13.5 -58 2.5
+level_seed 12
+use_on Steve 13 -61 3 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+block 6 -61 5 minecraft:stone
+block 6 -60 5 minecraft:stone
+note north side of a stone pillar (horizontal face) in the pool
+snap Steve 6.5 -58 2.5
+level_seed 13
+use_on Steve 6 -60 5 north main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+note growCrop on kelp, seagrass, tall seagrass and sea pickle on coral
+block 11 -60 1 minecraft:kelp[age=2]
+block 12 -60 1 minecraft:seagrass
+block 13 -60 1 minecraft:tall_seagrass[half=lower]
+block 13 -59 1 minecraft:tall_seagrass[half=upper]
+block 15 -61 1 minecraft:brain_coral_block
+block 15 -60 1 minecraft:sea_pickle[pickles=1,waterlogged=true]
+snap Steve 11.5 -58 2.5
+level_seed 20
+use_on Steve 11 -60 1 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 11.5 -58 2.5
+level_seed 21
+use_on Steve 11 -59 1 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 12.5 -58 2.5
+level_seed 22
+use_on Steve 12 -60 1 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 12.5 -58 2.5
+level_seed 23
+use_on Steve 12 -60 1 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 13.5 -58 2.5
+level_seed 24
+use_on Steve 13 -60 1 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 15.5 -58 2.5
+level_seed 25
+use_on Steve 15 -60 1 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 15.5 -58 2.5
+level_seed 26
+use_on Steve 15 -60 1 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+tick 20
+dump blocks:0,-61,0,16,-55,5 ticks events
