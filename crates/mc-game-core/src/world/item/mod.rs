@@ -37,6 +37,7 @@ mod misc_items;
 pub mod mob_bucket;
 pub mod name_tag_item;
 mod player_systems;
+pub use player_systems::pick_item_from_block;
 mod potion_item;
 mod projectile_item;
 pub mod projectile_weapon_item;

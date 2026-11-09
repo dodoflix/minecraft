@@ -2,11 +2,13 @@
 //! `PlayHandlers`): the `ServerGamePacketListenerImpl` side of items, hands and menus.
 
 use super::{InteractionHand, InteractionResult, ItemStack, is_item_enabled};
+use crate::server::level::ServerLevel;
 use crate::server::network::game_packets::PlayCtx;
 use crate::server::network::game_packets::hooks::{
     ITEM_SYSTEMS, ItemSystems, PLAY_HANDLERS, PlayHandlers, ServerboundBlockHitResult,
     SwingAnimationRef,
 };
+use crate::world::entity::ServerPlayer;
 use crate::world::entity::player::menu_ctx::PlayerCtx;
 use crate::world::inventory::{
     AbstractContainerMenu, CreativeSlotResult, PlayerMenus, handle_container_button_click,
@@ -269,39 +271,7 @@ impl PlayHandlers for MenuHandlers {
         ctx: &mut PlayCtx,
         packet: &ServerboundPickItemFromBlockPacket,
     ) {
-        let pos = packet.pos;
-        if !ctx.player.is_within_block_interaction_range(pos, 1.0) || !ctx.level.is_loaded(pos) {
-            return;
-        }
-        let state = ctx.level.get_block_state(pos);
-        let include_data = ctx.player.player.abilities.instabuild && packet.include_data;
-        let mut stack = block_behaviour(state.block()).get_clone_item_stack(
-            state,
-            ctx.level,
-            pos,
-            include_data,
-        );
-        if stack.is_empty() {
-            return;
-        }
-        if include_data && state.has_block_entity() {
-            // `addBlockDataToItem`: the custom data as `block_entity_data` (what the components do not carry) and the
-            // collected components
-            if let Some(be) = ctx.level.get_block_entity_immediate(pos) {
-                let mut tag = mc_nbt::CompoundTag::new();
-                be.save_additional(&mut tag);
-                be.remove_components_from_tag(&mut tag);
-                if tag.is_empty() {
-                    stack.remove(DataComponentType::BLOCK_ENTITY_DATA);
-                } else {
-                    stack.set(BLOCK_ENTITY_DATA, TypedEntityData::of(be.get_type(), tag));
-                }
-                for (ty, value) in be.collect_components().iter() {
-                    stack.set_value(ty, Some(value.clone()));
-                }
-            }
-        }
-        try_pick(ctx, stack);
+        pick_item_from_block(ctx.player, ctx.level, packet);
     }
 
     fn handle_pick_item_from_entity(
@@ -313,15 +283,49 @@ impl PlayHandlers for MenuHandlers {
     }
 }
 
-/// `ServerGamePacketListenerImpl.tryPickItem(stack)`.
-fn try_pick(ctx: &mut PlayCtx, stack: ItemStack) {
-    if !is_item_enabled(&stack, ctx.level.enabled_features()) {
+/// `ServerGamePacketListenerImpl.handlePickItemFromBlock`.
+pub fn pick_item_from_block(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    packet: &ServerboundPickItemFromBlockPacket,
+) {
+    let pos = packet.pos;
+    if !player.is_within_block_interaction_range(pos, 1.0) || !level.is_loaded(pos) {
         return;
     }
-    let mut pctx = PlayerCtx {
-        player: &mut *ctx.player,
-        level: &mut *ctx.level,
-    };
+    let state = level.get_block_state(pos);
+    let include_data = player.player.abilities.instabuild && packet.include_data;
+    let mut stack =
+        block_behaviour(state.block()).get_clone_item_stack(state, level, pos, include_data);
+    if stack.is_empty() {
+        return;
+    }
+    if include_data && state.has_block_entity() {
+        // `addBlockDataToItem`: the custom data as `block_entity_data` (what the components do not carry) and the
+        // collected components
+        if let Some(be) = level.get_block_entity_immediate(pos) {
+            let mut tag = mc_nbt::CompoundTag::new();
+            be.save_additional(&mut tag);
+            be.remove_components_from_tag(&mut tag);
+            if tag.is_empty() {
+                stack.remove(DataComponentType::BLOCK_ENTITY_DATA);
+            } else {
+                stack.set(BLOCK_ENTITY_DATA, TypedEntityData::of(be.get_type(), tag));
+            }
+            for (ty, value) in be.collect_components().iter() {
+                stack.set_value(ty, Some(value.clone()));
+            }
+        }
+    }
+    try_pick(player, level, stack);
+}
+
+/// `ServerGamePacketListenerImpl.tryPickItem(stack)`.
+fn try_pick(player: &mut ServerPlayer, level: &mut ServerLevel, stack: ItemStack) {
+    if !is_item_enabled(&stack, level.enabled_features()) {
+        return;
+    }
+    let mut pctx = PlayerCtx { player, level };
     let slot = try_pick_item(&mut pctx, stack);
     pctx.player.send(&ClientboundSetHeldSlotPacket { slot });
     let mut menus = std::mem::take(&mut pctx.player.player.menus);
