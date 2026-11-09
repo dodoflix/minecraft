@@ -328,6 +328,41 @@ impl BlockBehaviour for ChestBlock {
         }
     );
 
+    /// `ChestBlock.getMenuProvider`: `combine(state, level, pos, false).apply(MENU_PROVIDER_COMBINER)`.
+    fn get_menu_provider(
+        &self,
+        state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
+        use crate::world::block_entity::container_menus::{
+            BlockEntityMenuProvider, ContainerBlockKind,
+        };
+        let (first, second) = combined_positions(combine(level, state, pos, false))?;
+        let name_of = |p: BlockPos| {
+            level
+                .get_block_entity(p)
+                .and_then(|be| be.as_any().downcast_ref::<ChestBlockEntity>())
+                .map(|c| (c.container.get_custom_name().cloned(), c.get_display_name()))
+        };
+        let title = match second {
+            None => name_of(first)
+                .map(|n| n.1)
+                .unwrap_or_else(ChestBlockEntity::default_name),
+            Some(second) => match (name_of(first), name_of(second)) {
+                (Some((Some(_), n)), _) => n,
+                (_, Some((Some(_), n))) => n,
+                _ => mc_text::Component::translatable("container.chestDouble", vec![]),
+            },
+        };
+        Some(Box::new(BlockEntityMenuProvider {
+            kind: ContainerBlockKind::Chest,
+            first,
+            second,
+            title,
+        }))
+    }
+
     fn use_without_item(
         &self,
         state: BlockState,
@@ -336,33 +371,8 @@ impl BlockBehaviour for ChestBlock {
         player: &mut crate::world::entity::ServerPlayer,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> crate::world::item::InteractionResult {
-        use crate::world::block_entity::container_menus::{
-            BlockEntityMenuProvider, ContainerBlockKind,
-        };
-        if let Some((first, second)) = combined_positions(combine(level, state, pos, false)) {
-            let name_of = |p: BlockPos| {
-                level
-                    .get_block_entity(p)
-                    .and_then(|be| be.as_any().downcast_ref::<ChestBlockEntity>())
-                    .map(|c| (c.container.get_custom_name().cloned(), c.get_display_name()))
-            };
-            let title = match second {
-                None => name_of(first)
-                    .map(|n| n.1)
-                    .unwrap_or_else(ChestBlockEntity::default_name),
-                Some(second) => match (name_of(first), name_of(second)) {
-                    (Some((Some(_), n)), _) => n,
-                    (_, Some((Some(_), n))) => n,
-                    _ => mc_text::Component::translatable("container.chestDouble", vec![]),
-                },
-            };
-            let provider = BlockEntityMenuProvider {
-                kind: ContainerBlockKind::Chest,
-                first,
-                second,
-                title,
-            };
-            if player.open_menu(level, &provider).is_some() {
+        if let Some(provider) = self.get_menu_provider(state, level, pos) {
+            if player.open_menu(level, provider.as_ref()).is_some() {
                 let stat = if self.kind == ChestKind::Trapped {
                     crate::stats::stats::Stats::TRIGGER_TRAPPED_CHEST
                 } else {

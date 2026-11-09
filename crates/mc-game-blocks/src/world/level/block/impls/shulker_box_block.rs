@@ -132,6 +132,27 @@ impl BlockBehaviour for ShulkerBoxBlock {
         mc_game_core::server::level::block_break::player_will_destroy(level, pos, state, player)
     }
 
+    fn get_menu_provider(
+        &self,
+        _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
+        use mc_game_core::world::block_entity::container_menus::{
+            BlockEntityMenuProvider, ContainerBlockKind,
+        };
+        let title = level
+            .get_block_entity(pos)
+            .and_then(|be| be.as_any().downcast_ref::<ShulkerBoxBlockEntity>())
+            .map(|s| s.get_display_name())?;
+        Some(Box::new(BlockEntityMenuProvider {
+            kind: ContainerBlockKind::ShulkerBox,
+            first: pos,
+            second: None,
+            title,
+        }))
+    }
+
     fn use_without_item(
         &self,
         state: BlockState,
@@ -140,22 +161,12 @@ impl BlockBehaviour for ShulkerBoxBlock {
         player: &mut ServerPlayer,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> mc_game_core::world::item::InteractionResult {
-        use mc_game_core::world::block_entity::container_menus::{
-            BlockEntityMenuProvider, ContainerBlockKind,
-        };
-        let title = level
+        let openable = level
             .get_block_entity(pos)
             .and_then(|be| be.as_any().downcast_ref::<ShulkerBoxBlockEntity>())
-            .filter(|s| can_open(level, state, pos, s))
-            .map(|s| s.get_display_name());
-        if let Some(title) = title {
-            let provider = BlockEntityMenuProvider {
-                kind: ContainerBlockKind::ShulkerBox,
-                first: pos,
-                second: None,
-                title,
-            };
-            if player.open_menu(level, &provider).is_some() {
+            .is_some_and(|s| can_open(level, state, pos, s));
+        if openable && let Some(provider) = self.get_menu_provider(state, level, pos) {
+            if player.open_menu(level, provider.as_ref()).is_some() {
                 player
                     .award_stat_once(&*level, mc_game_core::stats::stats::Stats::OPEN_SHULKER_BOX);
             }

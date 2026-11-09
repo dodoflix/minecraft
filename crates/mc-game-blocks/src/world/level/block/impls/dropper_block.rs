@@ -51,6 +51,14 @@ impl BlockBehaviour for DropperBlock {
     ) -> mc_game_core::world::item::InteractionResult {
         DispenserBlock.use_without_item(state, level, pos, player, hit)
     }
+    fn get_menu_provider(
+        &self,
+        state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
+        DispenserBlock.get_menu_provider(state, level, pos)
+    }
     fn affect_neighbors_after_removal(
         &self,
         state: BlockState,

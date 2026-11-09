@@ -14,9 +14,31 @@ use mc_game_core::world::level::block::impls::prelude::*;
 pub struct BeaconBlock;
 
 impl BlockBehaviour for BeaconBlock {
-    fn use_without_item(
+    /// `BeaconBlockEntity.createMenu` (`BaseEntityBlock.getMenuProvider`): the lock is checked by the caller; spectators
+    /// always unlock.
+    fn get_menu_provider(
         &self,
         _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
+        let name = level
+            .get_block_entity(pos)
+            .and_then(|be| be.as_any().downcast_ref::<BeaconBlockEntity>())?
+            .get_name();
+        Some(Box::new(SimpleMenuProvider::new(
+            name,
+            move |id, _player| {
+                Some(Box::new(BeaconMenu::new(
+                    id,
+                    ContainerLevelAccess::create(pos),
+                )))
+            },
+        )))
+    }
+    fn use_without_item(
+        &self,
+        state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
         player: &mut ServerPlayer,
@@ -42,13 +64,9 @@ impl BlockBehaviour for BeaconBlock {
             return InteractionResult::SUCCESS;
         };
         if unlocked {
-            let provider = SimpleMenuProvider::new(name, move |id, _player| {
-                Some(Box::new(BeaconMenu::new(
-                    id,
-                    ContainerLevelAccess::create(pos),
-                )))
-            });
-            player.open_menu(level, &provider);
+            if let Some(provider) = self.get_menu_provider(state, level, pos) {
+                player.open_menu(level, provider.as_ref());
+            }
             player.award_stat_once(level, Stats::INTERACT_WITH_BEACON);
         } else {
             send_chest_locked_notifications(level, Vec3::at_center_of(&pos), player, &name);

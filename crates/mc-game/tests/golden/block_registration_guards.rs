@@ -1012,10 +1012,7 @@ fn every_block_scenario_has_a_fixture_and_a_replay() {
 }
 
 /// Known shadowed ancestor overrides (key as in the failure text, why).
-const ACCEPTED_SHADOWS: &[(&str, &str)] = &[(
-    "DropperBlock lacks get_menu_provider of its ancestor DispenserBlock (DispenserBlock)",
-    "menus are not implemented yet",
-)];
+const ACCEPTED_SHADOWS: &[(&str, &str)] = &[];
 
 /// Known hooks without a Rust override (key as in the failure text, why).
 const ACCEPTED_HOOKS: &[(&str, &str)] = &[
@@ -1073,18 +1070,6 @@ const ACCEPTED_HOOKS: &[(&str, &str)] = &[
     ),
     (
         "useWithoutItem@StonecutterBlock -> StonecutterBlock (registered as StonecutterBlock)",
-        "menus are not implemented yet",
-    ),
-    (
-        "getMenuProvider@ChestBlock -> ChestBlock (registered as ChestBlock)",
-        "menus are not implemented yet",
-    ),
-    (
-        "getMenuProvider@ChestBlock -> ChestBlock (registered as CopperChestBlock)",
-        "menus are not implemented yet",
-    ),
-    (
-        "getMenuProvider@ChestBlock -> ChestBlock (registered as TrappedChestBlock)",
         "menus are not implemented yet",
     ),
     (

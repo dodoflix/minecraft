@@ -11,6 +11,16 @@ use mc_game_core::world::level::block::impls::prelude::*;
 pub struct BrewingStandBlock;
 
 impl BlockBehaviour for BrewingStandBlock {
+    /// `BaseEntityBlock.getMenuProvider`: the brewing stand block entity.
+    fn get_menu_provider(
+        &self,
+        _state: BlockState,
+        level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
+        BrewingStandBlockEntity::menu_provider(level, pos)
+            .map(|p| Box::new(p) as Box<dyn mc_game_core::world::inventory::MenuProvider>)
+    }
     /// `useWithoutItem`: `player.openMenu(blockEntity)` + `INTERACT_WITH_BREWINGSTAND`.
     fn use_without_item(
         &self,
