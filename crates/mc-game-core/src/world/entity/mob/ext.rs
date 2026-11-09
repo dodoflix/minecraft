@@ -611,9 +611,9 @@ pub fn get_last_damage_source(
     }
 }
 
-/// `ChestBlockEntity.getOpenCount(level, pos)`. Not implemented: always `0`.
-pub fn chest_open_count(_level: &ServerLevel, _pos: mc_core::pos::BlockPos) -> i32 {
-    0
+/// `ChestBlockEntity.getOpenCount(level, pos)`.
+pub fn chest_open_count(level: &ServerLevel, pos: mc_core::pos::BlockPos) -> i32 {
+    crate::world::block_entity::chest_block_entity::ChestBlockEntity::get_open_count(level, pos)
 }
 /// `LivingEntity.PLAYER_NOT_WEARING_DISGUISE_ITEM.test(entity)`.
 pub fn player_not_wearing_disguise_item(entity: &dyn Entity) -> bool {
