@@ -1,0 +1,169 @@
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+# lever on (activate, freq 10)
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=25 prio=0
+# lever off (deactivate, freq 9)
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:9,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=25 prio=0
+# door open (10)
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=24 prio=0
+# door close (9)
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:9,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=24 prio=0
+# note block played (10)
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=25 prio=0
+EV sound at=3.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.6
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9178705
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.917587
+EV sound at=3.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.5
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9444431
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.99692804
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.93923163
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8493602
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.89177316
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9981693
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.82859397
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.9734852
+EV sound at=1.5,-59.5,3.5 r=48.0 ex=0 event=minecraft:block.note_block.harp source=record vol=3.0 pitch=0.5297316
+EV block_event r=64.0 ex=0 pos=1,-60,3 block=minecraft:note_block b0=0 b1=0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9737622
+# button pressed (10), released by itself after 20 ticks (9)
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 3 -60 2 minecraft:stone_button delay=12 prio=0
+TICK block 0 -60 0 minecraft:sculk_sensor delay=24 prio=0
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=12 prio=0
+# trapdoor open (10)
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=13,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=23 prio=0
+# explosion (15) at distance ~5.6
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=26 prio=0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.9509808
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.9975071
+EV sound at=3.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.stone_button.click_on source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.87117124
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9868495
+EV sound at=3.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.stone_button.click_off source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.869077
+EV sound at=1.5,-59.5,1.5 r=16.0 ex=1 event=minecraft:block.wooden_trapdoor.open source=block vol=1.0 pitch=0.9269583
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.82423425
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8964513
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8064438
+# item entity falling to the ground
+T 482
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-57.04,-1.5 delta=0.0,-0.03920000076293945,0.0 rot=82.788895,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=0 health=5 owner=- thrower=-
+T 483
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-57.11920000076294,-1.5 delta=0.0,-0.0776160022583008,0.0 rot=82.788895,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=2 pickup=0 health=5 owner=- thrower=-
+T 484
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-57.23681600302124,-1.5 delta=0.0,-0.115263684456482,0.0 rot=82.788895,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+T 485
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-57.39207968747772,-1.5 delta=0.0,-0.15215841372877212,0.0 rot=82.788895,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=4 pickup=0 health=5 owner=- thrower=-
+T 486
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-57.58423810120649,-1.5 delta=0.0,-0.18831524911932757,0.0 rot=82.788895,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=5 pickup=0 health=5 owner=- thrower=-
+T 487
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-57.812553350325814,-1.5 delta=0.0,-0.22374894849170882,0.0 rot=82.788895,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=6 pickup=0 health=5 owner=- thrower=-
+T 488
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-58.076302298817524,-1.5 delta=0.0,-0.2584739745524866,0.0 rot=82.788895,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=7 pickup=0 health=5 owner=- thrower=-
+T 489
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-58.37477627337001,-1.5 delta=0.0,-0.2925045007543761,0.0 rot=82.788895,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=8 pickup=0 health=5 owner=- thrower=-
+T 490
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-58.707280774124385,-1.5 delta=0.0,-0.32585441708130863,0.0 rot=82.788895,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=9 pickup=0 health=5 owner=- thrower=-
+T 491
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-59.073135191205694,-1.5 delta=0.0,-0.35853733571780166,0.0 rot=82.788895,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=10 pickup=0 health=5 owner=- thrower=-
+T 492
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-59.4716725269235,-1.5 delta=0.0,-0.39056659660494203,0.0 rot=82.788895,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=11 pickup=0 health=5 owner=- thrower=-
+T 493
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-59.90223912352844,-1.5 delta=0.0,-0.42195527288524926,0.0 rot=82.788895,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=12 pickup=0 health=5 owner=- thrower=-
+T 494
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{event:{distance:3.640055f,game_event:"minecraft:hit_ground",pos:[3.5d,-60.0d,-1.5d],source:[I;614876043,1440631955,-1475759065,1955016102]},tick:494L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=13 pickup=0 health=5 owner=- thrower=-
+T 495
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event:{distance:3.640055f,game_event:"minecraft:hit_ground",pos:[3.5d,-60.0d,-1.5d],source:[I;614876043,1440631955,-1475759065,1955016102]},event_delay:2,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=14 pickup=0 health=5 owner=- thrower=-
+T 496
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event:{distance:3.640055f,game_event:"minecraft:hit_ground",pos:[3.5d,-60.0d,-1.5d],source:[I;614876043,1440631955,-1475759065,1955016102]},event_delay:1,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+E it minecraft:item pos=3.5,-60.0,-1.5 delta=0.0,-0.04,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=15 pickup=0 health=5 owner=- thrower=-
+T 497
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:2,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=9,sculk_sensor_phase=active,waterlogged=false]
+E it minecraft:item pos=3.5,-60.0,-1.5 delta=0.0,-0.08,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=16 pickup=0 health=5 owner=- thrower=-
+T 498
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:2,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=9,sculk_sensor_phase=active,waterlogged=false]
+E it minecraft:item pos=3.5,-60.0,-1.5 delta=0.0,-0.12,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=17 pickup=0 health=5 owner=- thrower=-
+T 499
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:2,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=9,sculk_sensor_phase=active,waterlogged=false]
+E it minecraft:item pos=3.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=18 pickup=0 health=5 owner=- thrower=-
+T 500
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:2,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=9,sculk_sensor_phase=active,waterlogged=false]
+E it minecraft:item pos=3.5,-60.0,-1.5 delta=0.0,-0.04,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=19 pickup=0 health=5 owner=- thrower=-
+T 501
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:2,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=9,sculk_sensor_phase=active,waterlogged=false]
+E it minecraft:item pos=3.5,-60.0,-1.5 delta=0.0,-0.08,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=20 pickup=0 health=5 owner=- thrower=-
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:2,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=9,sculk_sensor_phase=active,waterlogged=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=26 prio=0

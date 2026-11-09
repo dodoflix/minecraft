@@ -1,0 +1,21 @@
+# Two catalysts, a pig and a baby zombie killed by a player in the same tick (xp from the entity random, cursor merging, charge cap), KILL_MOB_NEAR_SCULK_CATALYST source.
+level flat
+preload 3
+level_seed 8
+spawn_player Steve survival 6.5 -60 6.5
+block 0 -60 0 minecraft:sculk_catalyst
+block 3 -60 0 minecraft:sculk_catalyst
+tick 3
+spawn p minecraft:pig 1.5 -60 0.5 0 0 {NoAI:1b,Silent:1b}
+entity_seed p 11
+spawn b minecraft:zombie 2.5 -60 1.5 0 0 {NoAI:1b,Silent:1b,IsBaby:1b}
+entity_seed b 12
+hurt p minecraft:player_attack 100 by=Steve
+hurt b minecraft:player_attack 100 by=Steve
+dump be:0,-60,0 be:3,-60,0 entities events
+tick 6
+dump be:0,-60,0 be:3,-60,0 blocks:-3,-61,-3,6,-60,4
+tick 60
+dump be:0,-60,0 be:3,-60,0 blocks:-8,-61,-8,12,-60,12 events
+tick 200
+dump be:0,-60,0 be:3,-60,0 blocks:-14,-61,-14,18,-60,18 events

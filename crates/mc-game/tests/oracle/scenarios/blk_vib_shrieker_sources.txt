@@ -1,0 +1,33 @@
+# A player's lever, door, button and chest use as vibration sources for a shrieker next to a sensor (the sensor passes the player on with its clicking event): the shrieker shrieks for each.
+level flat
+preload 3
+level_seed 9
+spawn_player Steve creative 4.5 -60 4.5
+block 1 -60 0 minecraft:sculk_shrieker[can_summon=false]
+block 0 -60 0 minecraft:sculk_sensor
+block 3 -60 1 minecraft:lever[face=floor,facing=north,powered=false]
+block 2 -60 3 minecraft:oak_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+block 2 -59 3 minecraft:oak_door[facing=north,half=upper,hinge=left,open=false,powered=false]
+block 3 -60 3 minecraft:stone_button[face=floor,facing=north,powered=false]
+block 4 -60 2 minecraft:chest[facing=north,type=single,waterlogged=false]
+tick 50
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0
+note lever
+use_on Steve 3 -60 1 up
+tick 12
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events
+tick 100
+note door
+use_on Steve 2 -60 3 up
+tick 12
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events
+tick 100
+note button
+use_on Steve 3 -60 3 up
+tick 12
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events
+tick 100
+note chest opened
+use_on Steve 4 -60 2 up
+tick 12
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events

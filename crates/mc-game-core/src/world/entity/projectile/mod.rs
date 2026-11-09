@@ -619,21 +619,15 @@ pub fn on_hit_base(projectile: &mut dyn Projectile, level: &mut ServerLevel, hit
                 projectile.on_redirect_projectile(level, id);
             }
             projectile.on_hit_entity(level, entity_hit);
-            level.post_game_event(
-                GameEvent::PROJECTILE_LAND,
-                entity_hit.location,
-                &GameEventContext::of(Some(projectile.id()), None),
-            );
+            let context = GameEventContext::of_entity_ref(level, &*projectile, None);
+            level.post_game_event(GameEvent::PROJECTILE_LAND, entity_hit.location, &context);
         }
         HitResult::Block(block_hit) if !block_hit.miss => {
             projectile.on_hit_block(level, block_hit);
             let target = block_hit.block_pos;
             let state = level.get_block_state(target);
-            level.game_event_at_block(
-                GameEvent::PROJECTILE_LAND,
-                target,
-                &GameEventContext::of(Some(projectile.id()), Some(state)),
-            );
+            let context = GameEventContext::of_entity_ref(level, &*projectile, Some(state));
+            level.game_event_at_block(GameEvent::PROJECTILE_LAND, target, &context);
         }
         HitResult::Block(_) => {}
     }

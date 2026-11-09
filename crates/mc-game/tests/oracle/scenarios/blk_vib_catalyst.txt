@@ -1,0 +1,22 @@
+# Sculk catalyst: a zombie killed next to it (ENTITY_DIE with xp reward 5) charges the spreader; bloom, cursors, spreading over the flat ground, charge particles/events.
+level flat
+preload 3
+level_seed 6
+spawn_player Steve survival 6.5 -60 6.5
+block 0 -60 0 minecraft:sculk_catalyst
+tick 3
+spawn z minecraft:zombie 2.5 -60 0.5 0 0 {NoAI:1b,Silent:1b}
+entity_seed z 7
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0
+hurt z minecraft:generic_kill 1000
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 entities events
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0 events
+tick 12
+watch off
+dump blocks:-6,-61,-6,8,-60,8
+tick 20
+dump be:0,-60,0 blocks:-8,-61,-8,10,-60,10
+tick 40
+dump be:0,-60,0 blocks:-10,-61,-10,12,-60,12 events
+tick 100
+dump be:0,-60,0 blocks:-12,-61,-12,14,-60,14 events

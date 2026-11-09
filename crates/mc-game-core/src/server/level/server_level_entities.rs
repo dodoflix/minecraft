@@ -155,6 +155,8 @@ impl ServerLevel {
         {
             self.taken_out_players
                 .insert(id, super::TrackerPlayer::of(p));
+            let source = crate::world::level::gameevent::vibrations::capture_source_entity(self, p);
+            self.taken_out_player_sources.insert(id, source);
         }
         Some(entity)
     }
@@ -162,6 +164,7 @@ impl ServerLevel {
     /// Put a taken-out entity back and apply removal / section moves (`EntityInLevelCallback`).
     pub fn put_back_entity(&mut self, id: EntityId, entity: Box<dyn Entity>) {
         self.taken_out_players.remove(&id);
+        self.taken_out_player_sources.remove(&id);
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
         self.process_waypoint_state(id);
@@ -649,7 +652,7 @@ impl crate::world::level::collision::CollisionGetter for ServerLevel {
             return true;
         }
         let source = source.and_then(|id| self.entity_manager.get_any(id));
-        self.get_entities(None, &shape.bounds(), |_| true)
+        self.get_entities(None, &shape.bounds(), |e| !e.is_spectator())
             .into_iter()
             .filter_map(|id| self.entity_manager.get_any(id))
             .all(|e| {

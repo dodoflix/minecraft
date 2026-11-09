@@ -1,0 +1,37 @@
+# Entities as vibration sources: an arrow hit on the sensor (owner = player, power 15), an arrow landing next to it, a falling no-AI pig (hit ground, damage), a sliding pig (steps).
+level flat
+preload 3
+level_seed 10
+spawn_player Steve creative 8.5 -60 8.5
+block 0 -60 0 minecraft:sculk_sensor
+tick 50
+note arrow shot by Steve into the sensor
+spawn a1 minecraft:arrow 4.5 -59.2 0.5 0 0 {Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed a1 3
+velocity a1 -1.0 0 0
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0 entities
+tick 8
+watch off
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events
+tick 45
+note arrow landing in the ground
+spawn a2 minecraft:arrow 4.5 -59.2 3.5 0 0 {Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed a2 4
+velocity a2 0 -1.0 0
+tick 8
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events entities
+tick 45
+note pig falling 6 blocks
+spawn pg minecraft:pig 3.5 -54 0.5 0 0 {NoAI:1b,Silent:1b}
+entity_seed pg 5
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0 entity:pg
+tick 20
+watch off
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events
+tick 45
+note pig sliding on the ground: step events
+velocity pg -0.35 0 0
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0 entity:pg
+tick 12
+watch off
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events

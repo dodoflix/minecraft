@@ -49,7 +49,7 @@ pub fn player_will_destroy(
     level.game_event_at_block(
         GameEvent::BLOCK_DESTROY,
         pos,
-        &GameEventContext::of(Some(player.id()), Some(state)),
+        &GameEventContext::of_entity_ref(level, player, Some(state)),
     );
     state
 }

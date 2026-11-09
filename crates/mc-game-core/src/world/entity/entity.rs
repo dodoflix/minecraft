@@ -4569,13 +4569,15 @@ pub fn check_fall_damage_base(
                 Some(p) => level.get_block_state(p),
                 None => on_state,
             };
+            let context = crate::world::level::gameevent::GameEventContext::of_entity_ref(
+                level,
+                &*this,
+                Some(ctx_state),
+            );
             level.post_game_event(
                 mc_data::GameEvent::HIT_GROUND,
                 this.base().position(),
-                &crate::world::level::gameevent::GameEventContext::of(
-                    Some(this.id()),
-                    Some(ctx_state),
-                ),
+                &context,
             );
         }
         this.reset_fall_distance();

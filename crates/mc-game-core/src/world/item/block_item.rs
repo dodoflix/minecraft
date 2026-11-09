@@ -16,6 +16,7 @@ use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
 use mc_core::phys::BlockHitResult;
+use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::{DataComponentType, GameEvent, Item, SoundEvent};
@@ -560,7 +561,10 @@ impl BlockItem {
         level.game_event(
             GameEvent::BLOCK_PLACE,
             mc_core::phys::Vec3::at_center_of(&pos),
-            &GameEventContext::of(player_id, Some(placed_state)),
+            &match player.as_deref() {
+                Some(player) => GameEventContext::of_entity_ref(level, player, Some(placed_state)),
+                None => GameEventContext::of_state(Some(placed_state)),
+            },
         );
         let infinite = player
             .as_deref()
@@ -695,8 +699,26 @@ impl BlockItem {
             ),
             None => CollisionContext::placement_without_entity(),
         };
-        (!self.must_survive() || state.can_survive(level, pos))
-            && level.is_unobstructed_state(state, pos, &context)
+        if self.must_survive() && !state.can_survive(level, pos) {
+            return false;
+        }
+        let shape = state.get_collision_shape_ctx(level, pos, &context);
+        if shape.is_empty() {
+            return true;
+        }
+        let shape = shape.move_vec3i(*pos);
+        // the placing player is out of the level's entity storage while it acts: `isUnobstructed` cannot find it
+        let player_in_the_way = player.is_some_and(|p| {
+            !p.is_spectator()
+                && !p.is_removed()
+                && p.base().blocks_building
+                && Shapes::join_is_not_empty(
+                    &shape,
+                    &Shapes::create(p.get_bounding_box()),
+                    BooleanOp::AND,
+                )
+        });
+        !player_in_the_way && level.is_unobstructed(None, &shape)
     }
 
     /// `placeBlock(context, placementState)`.

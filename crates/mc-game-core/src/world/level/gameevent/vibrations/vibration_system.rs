@@ -234,10 +234,12 @@ pub fn resolve_source_entity(
     context: &GameEventContext,
 ) -> Option<SourceEntityInfo> {
     context.source_info.or_else(|| {
-        context
-            .source_entity
-            .and_then(|id| level.get_entity(id))
-            .map(|entity| super::capture_source_entity(level, entity))
+        let id = context.source_entity?;
+        match level.get_entity(id) {
+            Some(entity) => Some(super::capture_source_entity(level, entity)),
+            // a player that is being handled is out of the level's entity storage
+            None => level.taken_out_player_sources.get(&id).copied(),
+        }
     })
 }
 

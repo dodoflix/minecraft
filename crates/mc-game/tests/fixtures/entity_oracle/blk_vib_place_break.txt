@@ -1,0 +1,129 @@
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 1
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event:{distance:5.8309517f,game_event:"minecraft:block_place",pos:[5.5d,-59.5d,3.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:4,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+EV sound at=5.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+PKT Steve minecraft:level_particles 303a000000000000000fc40500004016000000000000c04dc00000000000400c0000000000000000000000000000000000000000000000000000000000000100
+T 2
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event:{distance:5.8309517f,game_event:"minecraft:block_place",pos:[5.5d,-59.5d,3.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:3,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 3
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event:{distance:5.8309517f,game_event:"minecraft:block_place",pos:[5.5d,-59.5d,3.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:2,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 4
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event:{distance:5.8309517f,game_event:"minecraft:block_place",pos:[5.5d,-59.5d,3.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:1,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 5
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=30 prio=0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.85328335
+T 6
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=29 prio=0
+T 7
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=28 prio=0
+T 8
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=27 prio=0
+T 9
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=26 prio=0
+T 10
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=25 prio=0
+T 11
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=24 prio=0
+T 12
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=23 prio=0
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+# break the stone: distance 5.83 again, freq 12
+DIG Steve ticks=0 broken=true
+T 52
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event:{distance:5.8309517f,game_event:"minecraft:block_destroy",pos:[5.5d,-59.5d,3.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:4,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8517568
+EV level_event r=64.0 ex=1 type=2001 pos=5,-60,3 data=1 global=0
+PKT Steve minecraft:level_particles 303a000000000000000fc40500004016000000000000c04dc00000000000400c0000000000000000000000000000000000000000000000000000000000000100
+T 53
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event:{distance:5.8309517f,game_event:"minecraft:block_destroy",pos:[5.5d,-59.5d,3.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:3,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 54
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event:{distance:5.8309517f,game_event:"minecraft:block_destroy",pos:[5.5d,-59.5d,3.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:2,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 55
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event:{distance:5.8309517f,game_event:"minecraft:block_destroy",pos:[5.5d,-59.5d,3.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:1,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 56
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:12,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=30 prio=0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8227889
+T 57
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:12,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=29 prio=0
+T 58
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:12,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=28 prio=0
+T 59
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:12,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=27 prio=0
+T 60
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:12,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=26 prio=0
+T 61
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:12,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=25 prio=0
+T 62
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:12,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=24 prio=0
+T 63
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:12,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=23 prio=0
+# close placement (distance 2): power 13
+T 104
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:12,listener:{event:{distance:2.0f,game_event:"minecraft:block_place",pos:[2.5d,-59.5d,0.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:1,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8966917
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+PKT Steve minecraft:level_particles 303a000000000000000fc40200004004000000000000c04dc000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+T 105
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=30 prio=0
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9585887
+T 106
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=29 prio=0
+T 107
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=28 prio=0
+T 108
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=27 prio=0
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+B 2 -60 0 minecraft:stone

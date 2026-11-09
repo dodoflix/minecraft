@@ -1,0 +1,28 @@
+# Sculk sensor: vibrations of a placed (freq 13) and a broken (12) block: travel time = floor(distance), redstone power by distance, active/cooldown/inactive phases, particles, sound pitch.
+level flat
+preload 3
+level_seed 1
+spawn_player Steve creative 5.5 -60 0.5
+give Steve hotbar0 minecraft:stone 8
+block 0 -60 0 minecraft:sculk_sensor
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events packets:Steve:level_particles
+use_on Steve 5 -61 3 up
+tick 12
+watch off
+tick 36
+dump blocks:0,-60,0,0,-60,0 ticks
+tick 3
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0
+note break the stone: distance 5.83 again, freq 12
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events packets:Steve:level_particles
+dig Steve 5 -60 3
+tick 12
+watch off
+tick 40
+note close placement (distance 2): power 13
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events packets:Steve:level_particles
+use_on Steve 2 -61 0 up
+tick 5
+watch off
+dump be:0,-60,0 blocks:0,-60,0,6,-60,3

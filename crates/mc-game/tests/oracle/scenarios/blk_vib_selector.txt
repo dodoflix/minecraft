@@ -1,0 +1,39 @@
+# Vibration selection: two events in the same tick, the nearer wins; same distance: the higher frequency wins; arrival after floor(distance) ticks.
+level flat
+preload 3
+level_seed 9
+spawn_player Steve creative 5.5 -60 5.5
+give Steve hotbar0 minecraft:stone 8
+block 3 -60 4 minecraft:lever[face=floor,facing=north,powered=false]
+block 0 -60 0 minecraft:sculk_sensor
+tick 50
+note far stone (7,-60,0) then near stone (2,-60,1): near wins
+use_on Steve 7 -61 0 up
+use_on Steve 2 -61 1 up
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0
+tick 4
+watch off
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks
+tick 45
+note near then far
+dig Steve 7 -60 0
+tick 45
+dig Steve 2 -60 1
+tick 45
+use_on Steve 2 -61 1 up
+use_on Steve 7 -61 0 up
+tick 5
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks
+tick 45
+note equal distance 5: lever (10) at (3,-60,4) then stone (13) at (4,-60,3): the stone wins
+use_on Steve 3 -60 4 up
+use_on Steve 4 -61 3 up
+tick 6
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks
+tick 45
+note equal distance, stone first then lever: the stone stays
+use_on Steve 3 -60 4 up
+use_on Steve 4 -60 3 up
+use_on Steve 3 -60 4 up
+tick 6
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks

@@ -1,0 +1,15 @@
+# Block entity NBT (saveWithFullMetadata, update tag) of the four vibration block entities: fresh, merged, with a pending vibration.
+level flat
+preload 2
+block 0 -60 0 minecraft:sculk_sensor
+block 4 -60 0 minecraft:calibrated_sculk_sensor[facing=east]
+block 8 -60 0 minecraft:sculk_shrieker
+block 12 -60 0 minecraft:sculk_catalyst
+dump be:0,-60,0 be:4,-60,0 be:8,-60,0 be:12,-60,0 beu:0,-60,0 beu:4,-60,0 beu:8,-60,0 beu:12,-60,0
+be_nbt 0 -60 0 {last_vibration_frequency:9}
+be_nbt 4 -60 0 {last_vibration_frequency:13,listener:{event_delay:6,selector:{tick:100L},event:{game_event:"minecraft:block_place",distance:6.5f,pos:[1.5d,-59.5d,2.5d],source:[I;1,2,3,4],projectile_owner:[I;5,6,7,8]}}}
+be_nbt 8 -60 0 {warning_level:3,listener:{event_delay:2,selector:{tick:7L}}}
+be_nbt 12 -60 0 {cursors:[{pos:[I;12,-60,0],charge:20,decay_delay:3,update_delay:1,facings:["up","north"]},{pos:[I;13,-60,1],charge:-5,decay_delay:1,update_delay:0}]}
+dump be:0,-60,0 be:4,-60,0 be:8,-60,0 be:12,-60,0 beu:0,-60,0 beu:4,-60,0 beu:8,-60,0 beu:12,-60,0
+tick 20
+dump be:0,-60,0 be:4,-60,0 be:8,-60,0 be:12,-60,0 blocks:0,-60,0,15,-60,2 events

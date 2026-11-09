@@ -726,11 +726,8 @@ fn vibration_and_sound_effects_from_block(
         }
         if should_vibrate {
             let position = entity.base().position();
-            level.post_game_event(
-                mc_data::GameEvent::STEP,
-                position,
-                &GameEventContext::of(Some(entity.id()), Some(block_state)),
-            );
+            let context = GameEventContext::of_entity_ref(level, &*entity, Some(block_state));
+            level.post_game_event(mc_data::GameEvent::STEP, position, &context);
         }
         true
     } else {

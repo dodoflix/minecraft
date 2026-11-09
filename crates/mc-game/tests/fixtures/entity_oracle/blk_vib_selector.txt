@@ -1,0 +1,30 @@
+# far stone (7,-60,0) then near stone (2,-60,1): near wins
+T 51
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event:{distance:2.236068f,game_event:"minecraft:block_place",pos:[2.5d,-59.5d,1.5d],source:[I;1445453208,-423740383,-1196889821,1142437441]},event_delay:1,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 52
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=11,sculk_sensor_phase=active,waterlogged=false]
+T 53
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=11,sculk_sensor_phase=active,waterlogged=false]
+T 54
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=11,sculk_sensor_phase=active,waterlogged=false]
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=11,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=28 prio=0
+# near then far
+DIG Steve ticks=0 broken=true
+DIG Steve ticks=0 broken=true
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=11,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=27 prio=0
+# equal distance 5: lever (10) at (3,-60,4) then stone (13) at (4,-60,3): the stone wins
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=6,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=29 prio=0
+# equal distance, stone first then lever: the stone stays
+BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
+B 0 -60 0 minecraft:sculk_sensor[power=6,sculk_sensor_phase=active,waterlogged=false]
+TICK block 0 -60 0 minecraft:sculk_sensor delay=29 prio=0

@@ -1,0 +1,39 @@
+# Calibrated sculk sensor: radius 16, redstone strength by distance, frequency filter by the signal at its back (comparison with the game event frequency).
+level flat
+preload 3
+level_seed 4
+spawn_player Steve creative 9.5 -60 9.5
+give Steve hotbar0 minecraft:stone 8
+block 0 -60 0 minecraft:calibrated_sculk_sensor[facing=north]
+tick 50
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0
+note no input: any frequency, distance ~12.7 (radius 16)
+use_on Steve 9 -61 9 up
+tick 14
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events
+tick 45
+note signal 13 at the back (redstone block at the back): freq 13 (place) accepted
+fill 0 -60 1 0 -60 3 minecraft:redstone_wire
+block 0 -60 4 minecraft:redstone_block
+tick 5
+dump blocks:0,-60,0,0,-60,4
+dig Steve 9 -60 9
+tick 14
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks
+tick 45
+use_on Steve 9 -61 9 up
+tick 14
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events
+tick 45
+note signal 12: only the break (12)
+block 0 -60 5 minecraft:redstone_block
+block 0 -60 4 minecraft:redstone_wire
+tick 5
+dump blocks:0,-60,1,0,-60,5
+use_on Steve 9 -61 10 up
+tick 14
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks
+tick 45
+dig Steve 9 -60 9
+tick 14
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 ticks events

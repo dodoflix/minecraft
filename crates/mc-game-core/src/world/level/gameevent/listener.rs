@@ -1,5 +1,5 @@
 use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
+use crate::world::entity::{Entity, EntityId};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::GameEvent;
@@ -58,6 +58,17 @@ impl GameEventContext {
             source_entity,
             affected_state: state,
             source_info: None,
+        }
+    }
+    /// `Context.of(entity, state)` with the entity's facts captured (the entity may be out of the level's slot).
+    pub fn of_entity_ref(
+        level: &ServerLevel,
+        entity: &dyn Entity,
+        state: Option<BlockState>,
+    ) -> Self {
+        Self {
+            affected_state: state,
+            ..Self::of_captured(super::vibrations::capture_source_entity(level, entity))
         }
     }
     /// `Context.of(entity)` with the entity's facts captured.

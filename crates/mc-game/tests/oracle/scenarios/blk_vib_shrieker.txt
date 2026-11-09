@@ -1,0 +1,39 @@
+# Sculk shrieker fed by a sculk sensor (tendrils clicking with a player as the source): shriek, warning level (WardenSpawnTracker cooldown 200), warden summon at level 4.
+level flat
+preload 3
+level_seed 5
+spawn_player Steve survival 3.5 -60 3.5
+give Steve hotbar0 minecraft:stone 8
+block 1 -60 0 minecraft:sculk_shrieker[can_summon=true]
+block 0 -60 0 minecraft:sculk_sensor
+tick 50
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0
+note warning 1: block placed, sensor clicks, shrieker shrieks 90 ticks
+use_on Steve 3 -61 0 up
+tick 12
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events
+tick 90
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events player:Steve
+note break the stone during the warning cooldown: no new warning
+dig Steve 3 -60 0
+tick 60
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events
+tick 200
+note warning 2
+use_on Steve 3 -61 0 up
+tick 100
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events player:Steve
+dig Steve 3 -60 0
+tick 205
+note warning 3
+use_on Steve 3 -61 0 up
+tick 100
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events player:Steve
+dig Steve 3 -60 0
+tick 205
+note warning 4 summons the warden
+use_on Steve 3 -61 0 up
+tick 100
+dump be:1,-60,0 blocks:0,-60,0,1,-60,0 ticks events player:Steve entities
+tick 5
+dump entities
