@@ -422,6 +422,7 @@ impl ServerPlayer {
         ContextPlayer {
             entity_id: self.base_id(),
             y_rot: self.base().y_rot(),
+            view_y_rot: self.get_view_y_rot(1.0),
             x_rot: self.base().x_rot(),
             secondary_use_active: self.is_shift_key_down(),
             can_use_game_master_blocks: self.can_use_game_master_blocks(),

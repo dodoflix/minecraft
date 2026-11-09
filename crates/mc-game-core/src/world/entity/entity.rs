@@ -2460,9 +2460,15 @@ pub trait Entity: Any {
             mth::lerp_f32(a, self.base().x_rot_o, self.base().x_rot())
         }
     }
-    /// `getViewYRot(a)` / `getYRot(a)`.
+    /// `getViewYRot(a)` / `getYRot(a)`; `LivingEntity.getViewYRot` is the head rotation.
     fn get_view_y_rot(&self, a: f32) -> f32 {
-        if a == 1.0 {
+        if let Some(l) = self.living() {
+            if a == 1.0 {
+                l.y_head_rot
+            } else {
+                mth::rot_lerp_f32(a, l.y_head_rot_o, l.y_head_rot)
+            }
+        } else if a == 1.0 {
             self.base().y_rot()
         } else {
             mth::rot_lerp_f32(a, self.base().y_rot_o, self.base().y_rot())

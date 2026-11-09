@@ -234,6 +234,7 @@ fn block_placement_matches_vanilla() {
             let player = ContextPlayer {
                 entity_id: 0,
                 y_rot: yaw,
+                view_y_rot: yaw,
                 x_rot: pitch,
                 secondary_use_active: sneak,
                 can_use_game_master_blocks: false,

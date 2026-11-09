@@ -18,6 +18,8 @@ use mc_data::block::BlockState;
 pub struct ContextPlayer {
     pub entity_id: i32,
     pub y_rot: f32,
+    /// `getViewYRot(1.0F)`: the head rotation, which a player only copies from `yRot` on its tick.
+    pub view_y_rot: f32,
     pub x_rot: f32,
     pub secondary_use_active: bool,
     /// `Player.canUseGameMasterBlocks()`.
@@ -247,7 +249,7 @@ impl BlockPlaceContext {
             .use_on
             .player
             .expect("nearest-looking direction needs a player");
-        Direction::ordered_by_nearest(p.x_rot, p.y_rot)
+        Direction::ordered_by_nearest(p.x_rot, p.view_y_rot)
     }
 
     pub fn get_nearest_looking_direction(&self) -> Direction {
@@ -262,7 +264,7 @@ impl BlockPlaceContext {
             .use_on
             .player
             .expect("nearest-looking direction needs a player");
-        Direction::get_facing_axis(Axis::Y, p.x_rot, p.y_rot)
+        Direction::get_facing_axis(Axis::Y, p.x_rot, p.view_y_rot)
     }
 
     pub fn get_nearest_looking_directions(&self) -> [Direction; 6] {
