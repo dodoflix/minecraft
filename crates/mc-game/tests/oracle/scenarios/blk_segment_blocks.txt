@@ -100,7 +100,7 @@ dump blocks:1,-61,6,5,-59,6 entities events
 tick 1
 dump blocks:1,-61,6,5,-59,6 entities
 note sneaking: the first click places a segment on empty ground, further clicks add none (isSecondaryUseActive); without sneaking the segment is added
-spawn_player Sneaky survival 10.5 -60 0.5 0 0 sim
+spawn_player Sneaky survival 10.5 -60 0.5 0 0
 tick 1
 give Sneaky mainhand minecraft:pink_petals 8
 input Sneaky sneak
