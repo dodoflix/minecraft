@@ -93,6 +93,9 @@ pub struct TakenBlockEntity {
     pub new_state: Option<mc_data::block::BlockState>,
     /// `setBlock` replaced the block (or removed the block entity): it must not be put back.
     pub removed: bool,
+    /// The state the block entity had when `setBlock` replaced it and ran side effects: its `preRemoveSideEffects` run
+    /// when its own code returns (it is not in its chunk to run them earlier).
+    pub pre_remove_state: Option<mc_data::block::BlockState>,
 }
 
 pub struct LevelTickState {

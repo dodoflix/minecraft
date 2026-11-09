@@ -82,9 +82,10 @@ impl ServerLevel {
                 .chunk_at(pos)
                 .is_some_and(|c| c.block_entities.contains_key(&pos));
             if !in_chunk && let Some(taken) = self.live_taken_block_entity(pos) {
-                // the block entity is out of its chunk running its own code: it is dropped when that code returns.
-                // Not implemented: its `preRemoveSideEffects` (vanilla runs it while the entity is still in the chunk)
+                // the block entity is out of its chunk running its own code: it is dropped when that code returns, and its
+                // `preRemoveSideEffects` run then
                 taken.removed = true;
+                taken.pre_remove_state = side_effects.then_some(old_state);
             } else if side_effects && let Some(mut block_entity) = self.take_block_entity(pos) {
                 block_entity.pre_remove_side_effects(self, pos, old_state);
                 self.put_back_block_entity(pos, block_entity);
@@ -201,11 +202,15 @@ impl ServerLevel {
                 pos,
                 new_state: None,
                 removed: false,
+                pre_remove_state: None,
             });
         crate::world::block_entity::deferred::enter();
         let result = f(self, block_entity.as_mut());
         if let Some(taken) = self.tick_state.taken_block_entities.pop() {
             if taken.removed {
+                if let Some(old_state) = taken.pre_remove_state {
+                    block_entity.pre_remove_side_effects(self, pos, old_state);
+                }
                 block_entity.set_removed();
             } else {
                 let new_state = taken.new_state;
@@ -762,4 +767,49 @@ pub fn give_ticks(chunk: &mut LevelChunk, ticks: &super::level_tick_state::Share
     ticks
         .fluid
         .add_container(pos, std::mem::take(&mut chunk.data.fluid_ticks));
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::world::item::ItemStack;
+    use mc_data::Item;
+
+    /// A block entity whose own code replaces its block still drops its contents (`preRemoveSideEffects`).
+    #[test]
+    fn replacing_the_block_from_the_block_entitys_own_code_drops_its_contents() {
+        let mut level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
+        let pos = BlockPos::new(0, 64, 0);
+        level.set_block_and_update(pos, Block::CHEST.default_state());
+        level
+            .with_block_entity(pos, |_, be| {
+                be.as_container_mut()
+                    .expect("a chest is a container")
+                    .set_item(0, ItemStack::with_count(Item::DIAMOND, 3));
+            })
+            .expect("the chest has a block entity");
+        // an item entity takes one id from the counter
+        level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(100));
+        let ids_taken = |level: &ServerLevel| {
+            level
+                .entity_id_counter
+                .as_ref()
+                .unwrap()
+                .load(std::sync::atomic::Ordering::Relaxed)
+                - 100
+        };
+        level
+            .with_block_entity(pos, |level, _| {
+                level.set_block_and_update(pos, Block::AIR.default_state());
+            })
+            .expect("the chest has a block entity");
+        assert_eq!(
+            ids_taken(&level),
+            1,
+            "the three diamonds drop as one item entity"
+        );
+        assert!(level.get_block_entity(pos).is_none());
+    }
 }
