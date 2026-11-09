@@ -1,0 +1,42 @@
+# Snow through Block.handlePrecipitation in a cold biome (snowy plains): an empty cauldron becomes a powder snow cauldron (10% per hit),
+# a powder snow cauldron gains a level up to 3, a water cauldron and a lava cauldron stay; under a roof nothing falls.
+level flat
+preload 3
+level_seed 17
+rand_value 3
+biome 0 -64 0 15 -48 15 minecraft:snowy_plains
+watch events
+cmd weather rain 100000
+tick 40
+block 4 -60 4 minecraft:cauldron
+block 6 -60 4 minecraft:water_cauldron[level=1]
+block 8 -60 4 minecraft:powder_snow_cauldron[level=1]
+block 10 -60 4 minecraft:powder_snow_cauldron[level=3]
+block 12 -60 4 minecraft:lava_cauldron
+block 4 -60 8 minecraft:cauldron
+fill 3 -58 7 5 -58 9 minecraft:stone
+dump blocks:3,-60,3,13,-58,9
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 1
+dump blocks:4,-60,3,12,-60,9 events

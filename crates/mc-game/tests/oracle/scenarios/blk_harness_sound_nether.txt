@@ -1,0 +1,10 @@
+dimension the_nether
+preload 2
+spawn_player Alice survival 0.5 101 0.5 0 0
+fill -3 99 -3 8 99 8 minecraft:stone
+block 2 100 2 minecraft:lever[face=floor,facing=north,powered=false]
+tick 30
+dump packets:Alice:none
+use_on Alice 2 100 2 up
+tick 1
+dump packets:Alice:sound events

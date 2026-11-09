@@ -39,3 +39,11 @@ block 30 319 10 minecraft:scaffolding[distance=0,bottom=false,waterlogged=false]
 snap Steve 30.5 318 12.5
 use_on Steve 30 319 10 up main 0.5 1.0 0.5
 dump blocks:30,318,10,30,319,10 inventory:Steve packets:Steve:system_chat
+note sneaking uses the clicked face
+input Steve sneak
+tick 2
+use_on Steve 2 -60 2 east main 1.0 0.5 0.5
+use_on Steve 2 -60 2 east main 1.0 0.5 0.5
+use_on Steve 2 -60 2 south main 0.5 0.5 1.0
+use_on Steve 2 -59 2 down main 0.5 0.0 0.5
+dump blocks:0,-60,-8,6,-56,4 inventory:Steve events

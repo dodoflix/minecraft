@@ -21,6 +21,7 @@ golden!(
     bubble_column => "blk_aquatic_bubble_column",
     plants => "blk_aquatic_plants",
     bonemeal => "blk_aquatic_bonemeal",
+    bonemeal_warm_ocean => "blk_aquatic_bonemeal_warm",
     kelp => "blk_aquatic_kelp",
     waterlog_place => "blk_aquatic_waterlog_place",
     lava_nether => "blk_fluid_lava_nether",

@@ -1,0 +1,110 @@
+# Bone meal on sand under water in a warm ocean (BoneMealItem.growWaterPlant: PRODUCES_CORALS_FROM_BONEMEAL biomes grow coral on the
+# random walk, and a wall coral on the clicked side face): the top of the sand floor and the side of the basin wall, every click with
+# its own level seed. The `biome` verb (/fillbiome) turns the flat plains into a warm ocean.
+level flat
+preload 3
+spawn_player Steve creative 4.5 -58 2.5 0 0
+biome 0 -64 0 17 -48 6 minecraft:warm_ocean
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+give Steve hotbar0 minecraft:bone_meal 64
+select Steve 0
+fill -1 -61 -1 17 -54 -1 minecraft:stone
+fill -1 -61 6 17 -54 6 minecraft:stone
+fill -1 -61 0 -1 -54 5 minecraft:stone
+fill 17 -61 0 17 -54 5 minecraft:stone
+fill 0 -61 0 16 -61 5 minecraft:sand
+fill 0 -60 0 16 -55 5 minecraft:water[level=0]
+tick 1
+snap Steve 4.5 -58 2.5
+level_seed 1
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 2
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 3
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 4
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 5
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 4.5 -58 2.5
+level_seed 6
+use_on Steve 4 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 9.5 -58 2.5
+level_seed 7
+use_on Steve 9 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 9.5 -58 2.5
+level_seed 8
+use_on Steve 9 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 9.5 -58 2.5
+level_seed 9
+use_on Steve 9 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 9.5 -58 2.5
+level_seed 10
+use_on Steve 9 -61 2 up main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 1.5 -58 2.5
+level_seed 11
+use_on Steve -1 -58 2 east main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 1.5 -58 2.5
+level_seed 12
+use_on Steve -1 -58 2 east main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 1.5 -58 2.5
+level_seed 13
+use_on Steve -1 -58 2 east main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 1.5 -58 2.5
+level_seed 14
+use_on Steve -1 -58 2 east main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 1.5 -58 2.5
+level_seed 15
+use_on Steve -1 -58 2 east main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 6.5 -58 2.5
+level_seed 16
+use_on Steve 6 -60 6 north main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 6.5 -58 2.5
+level_seed 17
+use_on Steve 6 -60 6 north main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+snap Steve 6.5 -58 2.5
+level_seed 18
+use_on Steve 6 -60 6 north main 0.5 0.5 0.5
+tick 1
+dump events inventory:Steve
+tick 20
+dump blocks:0,-61,0,8,-58,5 ticks events

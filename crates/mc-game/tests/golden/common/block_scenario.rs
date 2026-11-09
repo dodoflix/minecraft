@@ -13,7 +13,7 @@
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
 //! `note`, `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
-//! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
+//! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
 //! dump: [`ServerLevel`]'s `tick_state.broadcast_log` here, `VanillaLevel.RecordingPlayerList` in Java). Everything else panics
@@ -92,11 +92,14 @@ pub fn check_with(name: &str, opts: &Options) {
 
 pub fn run_scenario_text(text: &str) -> Vec<String> {
     let mut s = Scenario::new();
-    // precipitation and the bone meal feature lists read the biome: only the weather and bone meal scenarios pay for the real
-    // biome registry
+    // precipitation, the bone meal feature lists and the coral bone meal tag read the biome: only the weather, `biome` and bone meal
+    // scenarios pay for the real biome registry
     s.real_biomes = text.lines().any(|l| {
         let l = l.trim_start();
-        l.starts_with("cmd weather") || l.starts_with("bonemeal")
+        l.starts_with("cmd weather")
+            || l.starts_with("bonemeal")
+            || l.starts_with("biome ")
+            || l.contains("minecraft:bone_meal")
     });
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();
@@ -433,10 +436,17 @@ impl Scenario {
                 Arc::new(FlatGenerator { layers: Vec::new() })
             };
         // `VanillaLevel.boot` reseeds the uniquifier before the server exists: the level's sound seed generator is deterministic.
-        // The vanilla server draws unique seeds before the overworld's sound seed generator (the 5th draw, measured against the
-        // oracle's first sound seed), our level one before it. The other dimensions come after further draws: not reproduced.
+        // The vanilla server creates the overworld, the nether and the end in turn, every `Level` constructor drawing unique seeds
+        // (`random`, the sound seed generator, ...): measured against the first sound seed of each dimension in the oracle, the
+        // sound seed generator is the 5th (overworld) and 9th (nether) draw; the end's is the 9th or the 12th depending on the run
+        // (the oracle itself is not deterministic there, so the end is not asserted). `ServerLevel::new` draws the level's `random`
+        // itself before the sound seed generator.
         mc_core::random::reseed_uniquifier(8682522807148012);
-        for _ in 0..3 {
+        let draws_before_level = match self.opts.dimension {
+            "overworld" => 3,
+            _ => 7,
+        };
+        for _ in 0..draws_before_level {
             mc_core::random::generate_unique_seed();
         }
         let mut level = ServerLevel::new(ServerLevelParams {
@@ -491,6 +501,8 @@ impl Scenario {
             level.tick_state.biomes = Some(biomes);
             level.tick_state.biome_zoom_seed =
                 mc_worldgen::biome::BiomeManager::obfuscate_seed(4242);
+            // the generation environment bone meal reads (feature lists, biome tags); the grown features never consult the generator
+            level.gen_env = Some(super::feature_harness::gen_env(4242));
         }
         // `Level.canHaveWeather()`
         level.tick_state.can_have_weather = dimension_type.has_sky_light
@@ -707,6 +719,18 @@ impl Scenario {
                     }
                 }
             }
+            // `/fillbiome X1 Y1 Z1 X2 Y2 Z2 BIOME`: needs the real biome registry (see `run_scenario_text`)
+            "biome" => {
+                self.world();
+                let (from, to) = (pos(a, 1), pos(a, 4));
+                let level = self.level();
+                let registry = level.tick_state.biomes.clone().expect("real biomes");
+                let id = Identifier::parse(&a[7]).unwrap_or_else(|_| panic!("biome {}", a[7]));
+                let biome = registry
+                    .id_of(&id)
+                    .unwrap_or_else(|| panic!("unknown biome {id}"));
+                fill_biomes(level, from, to, biome);
+            }
             "bonemeal" => {
                 self.world();
                 let p = pos(a, 1);
@@ -805,14 +829,10 @@ impl Scenario {
     }
 
     /// `BoneMealItem.growCrop(new ItemStack(BONE_MEAL, 64), level, pos)`. Saplings, azalea and mushrooms grow features:
-    /// they need the data pack registries and a generation environment (the feature harness's overworld one; the grown
-    /// features never consult the generator).
+    /// they need the data pack registries and the generation environment `world` sets with the real biomes.
     fn bonemeal(&mut self, p: BlockPos) -> bool {
         self.load_registries();
         let level = self.level();
-        if level.gen_env.is_none() {
-            level.gen_env = Some(super::feature_harness::gen_env(4242));
-        }
         let mut stack = mc_game::world::item::ItemStack::new(mc_data::Item::BONE_MEAL);
         mc_game::world::item::bone_meal_item::grow_crop(&mut stack, level, p)
     }
@@ -1013,6 +1033,44 @@ impl Scenario {
             self.out.push(format_broadcast(&r));
         }
     }
+}
+
+/// `FillBiomeCommand.fill` without the command plumbing: the biome cells of the box (corners quantized to the quart grid) become `biome`.
+fn fill_biomes(
+    level: &mut ServerLevel,
+    raw_from: BlockPos,
+    raw_to: BlockPos,
+    biome: mc_world::palette::BiomeId,
+) {
+    use mc_core::pos::quart_pos;
+    let quantize = |c: i32| quart_pos::to_block(quart_pos::from_block(c));
+    let q = |p: BlockPos| BlockPos::new(quantize(p.x()), quantize(p.y()), quantize(p.z()));
+    let region = mc_core::bounding_box::BoundingBox::from_corners(&q(raw_from), &q(raw_to));
+    let mut changed = Vec::new();
+    for chunk_z in (region.min_z() >> 4)..=(region.max_z() >> 4) {
+        for chunk_x in (region.min_x() >> 4)..=(region.max_x() >> 4) {
+            let chunk = level
+                .chunk_now_mut(chunk_x, chunk_z)
+                .expect("fillbiome: chunk not loaded");
+            let access = &mut chunk.data.access;
+            let height = access.level_height;
+            let mut any = false;
+            access.fill_biomes_from_noise_with_current(height, |qx, qy, qz, current| {
+                let inside = region.is_inside_xyz(
+                    quart_pos::to_block(qx),
+                    quart_pos::to_block(qy),
+                    quart_pos::to_block(qz),
+                );
+                any |= inside && current != biome;
+                if inside { biome } else { current }
+            });
+            if any {
+                access.mark_unsaved();
+                changed.push(ChunkPos::new(chunk_x, chunk_z));
+            }
+        }
+    }
+    level.resend_biomes_for_chunks(&changed);
 }
 
 /// `/gamerule NAME VALUE` (unknown rules and rules disabled by the feature flags are ignored like a rejected command).

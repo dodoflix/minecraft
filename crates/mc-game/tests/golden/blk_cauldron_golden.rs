@@ -32,3 +32,8 @@ fn waterlogging_through_every_container_matches_vanilla() {
 fn rain_fills_cauldrons_like_vanilla() {
     common::block_scenario::check("blk_fluid_cauldron_rain");
 }
+
+#[test]
+fn snow_fills_cauldrons_in_a_cold_biome_like_vanilla() {
+    common::block_scenario::check("blk_fluid_cauldron_snow");
+}

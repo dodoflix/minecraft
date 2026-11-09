@@ -44,3 +44,19 @@ EV sound at=11.5,-49.5,10.5 r=16.0 ex=1 event=minecraft:block.scaffolding.place 
 # the world top: clicking the top of scaffolding at the build limit sends the too-high message and places nothing
 B 30 319 10 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
 I Steve 0 minecraft:scaffolding*50
+# sneaking uses the clicked face
+B 2 -60 -5 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -60 -4 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -60 -3 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -60 -2 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -60 -1 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -60 0 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -60 1 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -60 2 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -59 2 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -58 2 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 2 -57 2 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+I Steve 0 minecraft:scaffolding*50
+EV sound at=30.5,319.5,9.5 r=16.0 ex=1 event=minecraft:block.scaffolding.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=12,-50,10 data=24074 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=11,-50,10 data=24076 global=0
