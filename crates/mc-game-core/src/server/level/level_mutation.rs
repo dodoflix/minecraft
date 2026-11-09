@@ -83,7 +83,8 @@ impl ServerLevel {
                 }
             }
             if flags & UPDATE_KNOWN_SHAPE == 0 && update_limit > 0 {
-                let neighbour_update_flags = flags & !34;
+                // vanilla's `flags & -34`: neither `UPDATE_NEIGHBORS` nor `UPDATE_SUPPRESS_DROPS`
+                let neighbour_update_flags = flags & !(UPDATE_NEIGHBORS | UPDATE_SUPPRESS_DROPS);
                 old_state.update_indirect_neighbour_shapes(
                     self,
                     pos,
