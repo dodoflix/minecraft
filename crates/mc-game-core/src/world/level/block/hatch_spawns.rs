@@ -7,6 +7,7 @@
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::EntityId;
+use crate::world::entity::entity::{read_vec2, read_vec3};
 use crate::world::entity::factory::{self, EntitySpawnRequest};
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
@@ -47,6 +48,11 @@ pub fn spawn_breeding(
     if let Err(message) = entity.load(tag) {
         log::warn!("Exception configuring hatched {}: {message}", ty.name());
         return None;
+    }
+    // `Entity.load` wraps the rotation (`setRot`); vanilla's `snapTo` keeps what it is given (a tadpole's 360 degrees)
+    if let (Some(pos), Some(rotation)) = (read_vec3(tag.get("Pos")), read_vec2(tag.get("Rotation")))
+    {
+        entity.snap_to(pos.x, pos.y, pos.z, rotation.x, rotation.y);
     }
     let id = entity.id();
     level.add_fresh_entity(entity).then_some(id)
