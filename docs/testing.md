@@ -110,6 +110,12 @@ crate can use it as a dev-dependency.
   `<module>::<test>` in the output. Only `mc-server` has nothing but an oracle target; crates without T2 tests have
   only `golden`. `ls crates/*/tests` shows which crate has which target. Run one module with
   `cargo test -p mc-game --test golden -- args::`.
+- Block registration guards (`mc-game` `golden/block_registration_guards.rs`): a registered block class must override what its
+  registered ancestors override, a block must be bound to a behaviour that overrides every server-side hook its vanilla
+  class chain overrides (`tests/fixtures/block_overrides.txt`, regenerated with `scripts/vanilla-java.sh -o ... BlockOverridesGolden.java`),
+  random ticking, signal and analog output blocks need their methods, every block entity type has an implementation, and
+  every `blk_*` oracle scenario has a fixture and a replay. A known gap goes into the `ACCEPTED_*` lists with its reason;
+  an entry that is no longer a gap fails the test, so the lists only shrink.
 - A third target, `tests/it/main.rs`, holds T0/T1 tests that need a process of their own because they change
   process-wide state that every other test of the crate would see (today only `mc-text`: `Language::inject` replaces
   the translations of the whole process). A crate adds it only for that reason. Tests that capture log lines, or that

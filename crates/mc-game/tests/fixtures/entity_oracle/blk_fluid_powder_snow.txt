@@ -1,0 +1,329 @@
+T 1
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=9/19 death=0 fx=-
+T 2
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/18 death=0 fx=-
+T 3
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/17 death=0 fx=-
+T 4
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=6/16 death=0 fx=-
+T 5
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/15 death=0 fx=-
+T 6
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=4/14 death=0 fx=-
+T 7
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=3/13 death=0 fx=-
+T 8
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=2/12 death=0 fx=-
+B 0 -61 0 minecraft:stone
+B 0 -61 1 minecraft:stone
+B 0 -61 2 minecraft:stone
+B 0 -61 3 minecraft:stone
+B 0 -61 4 minecraft:stone
+B 1 -61 0 minecraft:stone
+B 1 -61 1 minecraft:stone
+B 1 -61 2 minecraft:stone
+B 1 -61 3 minecraft:stone
+B 1 -61 4 minecraft:stone
+B 1 -60 1 minecraft:powder_snow
+B 1 -60 2 minecraft:powder_snow
+B 1 -60 3 minecraft:powder_snow
+B 1 -59 1 minecraft:powder_snow
+B 1 -59 2 minecraft:powder_snow
+B 1 -59 3 minecraft:powder_snow
+B 1 -58 1 minecraft:powder_snow
+B 1 -58 2 minecraft:powder_snow
+B 1 -58 3 minecraft:powder_snow
+B 2 -61 0 minecraft:stone
+B 2 -61 1 minecraft:stone
+B 2 -61 2 minecraft:stone
+B 2 -61 3 minecraft:stone
+B 2 -61 4 minecraft:stone
+B 2 -60 1 minecraft:powder_snow
+B 2 -60 2 minecraft:powder_snow
+B 2 -60 3 minecraft:powder_snow
+B 2 -59 1 minecraft:powder_snow
+B 2 -59 2 minecraft:powder_snow
+B 2 -59 3 minecraft:powder_snow
+B 2 -58 1 minecraft:powder_snow
+B 2 -58 2 minecraft:powder_snow
+B 2 -58 3 minecraft:powder_snow
+B 3 -61 0 minecraft:stone
+B 3 -61 1 minecraft:stone
+B 3 -61 2 minecraft:stone
+B 3 -61 3 minecraft:stone
+B 3 -61 4 minecraft:stone
+B 3 -60 1 minecraft:powder_snow
+B 3 -60 2 minecraft:powder_snow
+B 3 -60 3 minecraft:powder_snow
+B 3 -59 1 minecraft:powder_snow
+B 3 -59 2 minecraft:powder_snow
+B 3 -59 3 minecraft:powder_snow
+B 3 -58 1 minecraft:powder_snow
+B 3 -58 2 minecraft:powder_snow
+B 3 -58 3 minecraft:powder_snow
+B 4 -61 0 minecraft:stone
+B 4 -61 1 minecraft:stone
+B 4 -61 2 minecraft:stone
+B 4 -61 3 minecraft:stone
+B 4 -61 4 minecraft:stone
+B 5 -61 0 minecraft:stone
+B 5 -61 1 minecraft:stone
+B 5 -61 2 minecraft:stone
+B 5 -61 3 minecraft:stone
+B 5 -61 4 minecraft:stone
+B 6 -61 0 minecraft:stone
+B 6 -61 1 minecraft:stone
+B 6 -61 2 minecraft:stone
+B 6 -61 3 minecraft:stone
+B 6 -61 4 minecraft:stone
+B 6 -60 1 minecraft:powder_snow
+B 6 -60 2 minecraft:powder_snow
+B 6 -60 3 minecraft:powder_snow
+B 6 -59 1 minecraft:powder_snow
+B 6 -59 2 minecraft:powder_snow
+B 6 -59 3 minecraft:powder_snow
+B 6 -58 1 minecraft:powder_snow
+B 6 -58 2 minecraft:powder_snow
+B 6 -58 3 minecraft:powder_snow
+B 7 -61 0 minecraft:stone
+B 7 -61 1 minecraft:stone
+B 7 -61 2 minecraft:stone
+B 7 -61 3 minecraft:stone
+B 7 -61 4 minecraft:stone
+B 7 -60 1 minecraft:powder_snow
+B 7 -60 3 minecraft:powder_snow
+B 7 -59 1 minecraft:powder_snow
+B 7 -59 3 minecraft:powder_snow
+B 7 -58 1 minecraft:powder_snow
+B 7 -58 2 minecraft:powder_snow
+B 7 -58 3 minecraft:powder_snow
+B 8 -61 0 minecraft:stone
+B 8 -61 1 minecraft:stone
+B 8 -61 2 minecraft:stone
+B 8 -61 3 minecraft:stone
+B 8 -61 4 minecraft:stone
+B 8 -60 1 minecraft:powder_snow
+B 8 -60 2 minecraft:powder_snow
+B 8 -60 3 minecraft:powder_snow
+B 8 -59 1 minecraft:powder_snow
+B 8 -59 2 minecraft:powder_snow
+B 8 -59 3 minecraft:powder_snow
+B 8 -58 1 minecraft:powder_snow
+B 8 -58 2 minecraft:powder_snow
+B 8 -58 3 minecraft:powder_snow
+B 9 -61 0 minecraft:stone
+B 9 -61 1 minecraft:stone
+B 9 -61 2 minecraft:stone
+B 9 -61 3 minecraft:stone
+B 9 -61 4 minecraft:stone
+EV sound at=7.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.zombie.hurt source=hostile vol=1.0 pitch=1.134013
+EV level_event r=64.0 ex=0 type=2001 pos=7,-60,2 data=30519 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=7,-59,2 data=30519 global=0
+EV sound at=7.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.generic.extinguish_fire source=hostile vol=0.7 pitch=1.489968
+T 9
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=1/11 death=0 fx=-
+E faller minecraft:cow pos=12.5,-55.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-49.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 10
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/10 death=0 fx=-
+E faller minecraft:cow pos=12.5,-55.07840000152588,2.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-49.07840000152588,2.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 11
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/9 death=0 fx=-
+E faller minecraft:cow pos=12.5,-55.23363200604248,2.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-49.23363200604248,2.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 12
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/8 death=0 fx=-
+E faller minecraft:cow pos=12.5,-55.46415937495544,2.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-49.46415937495544,2.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 13
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/7 death=0 fx=-
+E faller minecraft:cow pos=12.5,-55.768476202412984,2.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-49.768476202412984,2.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 14
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/6 death=0 fx=-
+E faller minecraft:cow pos=12.5,-56.14510670065164,2.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-50.14510670065164,2.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=160 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 15
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/5 death=0 fx=-
+E faller minecraft:cow pos=12.5,-56.59260459763506,2.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-50.59260459763506,2.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=159 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=9/19 death=0 fx=-
+T 16
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/4 death=0 fx=-
+E faller minecraft:cow pos=12.5,-57.109552546740034,2.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-51.109552546740034,2.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=158 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/18 death=0 fx=-
+T 17
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/3 death=0 fx=-
+E faller minecraft:cow pos=12.5,-57.694561548248785,2.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-51.694561548248785,2.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=157 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/17 death=0 fx=-
+T 18
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/2 death=0 fx=-
+E faller minecraft:cow pos=12.5,-58.346270382411404,2.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-52.346270382411404,2.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=156 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=6/16 death=0 fx=-
+T 19
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/1 death=0 fx=-
+E faller minecraft:cow pos=12.5,-59.06334505384701,2.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-53.06334505384701,2.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=155 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/15 death=0 fx=-
+T 20
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-59.84447824705689,2.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-53.84447824705689,2.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=154 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=4/14 death=0 fx=-
+T 21
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-60.10000002384186,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-54.68838879282739,2.5 delta=0.0,-0.9054323524772837,0.0 rot=0.0,0.0 og=0 fall=5.688388764858246 fire=153 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=3/13 death=0 fx=-
+T 22
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-60.217600026130675,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-55.59382114530467,2.5 delta=0.0,-0.9657237242233685,0.0 rot=0.0,0.0 og=0 fall=6.593821108341217 fire=152 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=2/12 death=0 fx=-
+T 23
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-60.33520002841949,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-56.55954486952804,2.5 delta=0.0,-1.0248092696844984,0.0 rot=0.0,0.0 og=0 fall=7.559544861316681 fire=151 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=1/11 death=0 fx=-
+T 24
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-60.45280003070831,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-57.584354139212536,2.5 delta=0.0,-1.082713105363373,0.0 rot=0.0,0.0 og=0 fall=8.584354102611542 fire=150 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/10 death=0 fx=-
+T 25
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-60.57040003299713,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-58.66706724457591,2.5 delta=0.0,-1.1394588654330982,0.0 rot=0.0,0.0 og=0 fall=9.667067229747772 fire=149 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/9 death=0 fx=-
+T 26
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-60.688000035285945,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-59.80652611000901,2.5 delta=0.0,-1.1950697113837683,0.0 rot=0.0,0.0 og=0 fall=10.806526124477386 fire=148 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/8 death=0 fx=-
+T 27
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-60.80560003757476,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-60.10000002384186,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/7 death=0 fx=-
+T 28
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-60.92320003986358,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-60.217600026130675,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.11760000139474869 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/6 death=0 fx=-
+T 29
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-60.296000027656554,2.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.19600000232458115 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/5 death=0 fx=-
+T 30
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-60.45123203217315,2.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.35123199969530106 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/4 death=0 fx=-
+T 31
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-60.68175940108612,2.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.5817593708634377 fire=160 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/3 death=0 fx=-
+T 32
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-60.98607622854366,2.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.8860761895775795 fire=159 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=9/19 death=0 fx=-
+T 33
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=158 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=8/18 death=0 fx=-
+T 34
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=157 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=7/17 death=0 fx=-
+T 35
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=156 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=6/16 death=0 fx=-
+T 36
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=155 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=5/15 death=0 fx=-
+T 37
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=154 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=4/14 death=0 fx=-
+T 38
+E cow minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie minecraft:zombie pos=7.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E faller minecraft:cow pos=12.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E bigfaller minecraft:zombie pos=16.5,-61.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=153 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=3/13 death=0 fx=-
+B 11 -62 1 minecraft:dirt
+B 11 -62 2 minecraft:dirt
+B 11 -62 3 minecraft:dirt
+B 11 -61 1 minecraft:stone
+B 11 -61 2 minecraft:stone
+B 11 -61 3 minecraft:stone
+B 12 -62 1 minecraft:dirt
+B 12 -62 2 minecraft:dirt
+B 12 -62 3 minecraft:dirt
+B 12 -61 1 minecraft:stone
+B 12 -61 2 minecraft:powder_snow
+B 12 -61 3 minecraft:stone
+B 13 -62 1 minecraft:dirt
+B 13 -62 2 minecraft:dirt
+B 13 -62 3 minecraft:dirt
+B 13 -61 1 minecraft:stone
+B 13 -61 2 minecraft:stone
+B 13 -61 3 minecraft:stone
+B 14 -62 1 minecraft:dirt
+B 14 -62 2 minecraft:dirt
+B 14 -62 3 minecraft:dirt
+B 14 -61 1 minecraft:stone
+B 14 -61 2 minecraft:stone
+B 14 -61 3 minecraft:stone
+B 15 -62 1 minecraft:dirt
+B 15 -62 2 minecraft:dirt
+B 15 -62 3 minecraft:dirt
+B 15 -61 1 minecraft:stone
+B 15 -61 2 minecraft:stone
+B 15 -61 3 minecraft:stone
+B 16 -62 1 minecraft:dirt
+B 16 -62 2 minecraft:dirt
+B 16 -62 3 minecraft:dirt
+B 16 -61 1 minecraft:stone
+B 16 -61 3 minecraft:stone
+B 17 -62 1 minecraft:dirt
+B 17 -62 2 minecraft:dirt
+B 17 -62 3 minecraft:dirt
+B 17 -61 1 minecraft:stone
+B 17 -61 2 minecraft:stone
+B 17 -61 3 minecraft:stone
+EV sound at=16.5,-50.14510670065164,2.5 r=16.0 ex=0 event=minecraft:entity.zombie.hurt source=hostile vol=1.0 pitch=0.92817825
+EV sound at=2.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=0.90386266
+EV sound at=12.5,-59.84447824705689,2.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=1.1006974
+EV sound at=12.5,-60.10000002384186,2.5 r=16.0 ex=0 event=minecraft:entity.generic.small_fall source=neutral vol=1.0 pitch=1.0
+EV sound at=16.5,-60.10000002384186,2.5 r=16.0 ex=0 event=minecraft:entity.hostile.big_fall source=hostile vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=2001 pos=16,-61,2 data=30519 global=0
+EV sound at=16.5,-60.10000002384186,2.5 r=16.0 ex=0 event=minecraft:entity.generic.extinguish_fire source=hostile vol=0.7 pitch=1.6633705
+EV sound at=16.5,-60.68175940108612,2.5 r=16.0 ex=0 event=minecraft:entity.zombie.hurt source=hostile vol=1.0 pitch=0.9462971

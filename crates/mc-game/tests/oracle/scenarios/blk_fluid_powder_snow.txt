@@ -1,0 +1,30 @@
+# Powder snow: entities inside it (stuck, freezing, snowflake particles), a burning entity destroys the block, fall sounds by
+# entity type, falling blocks and leather boots collide as a full block, the 0.9 high landing slab for a falling entity.
+level flat
+preload 4
+level_seed 3
+fill 0 -61 0 20 -61 20 minecraft:stone
+fill 1 -60 1 3 -58 3 minecraft:powder_snow
+entity_counter 100
+# a cow stands in the column
+spawn cow minecraft:cow 2.5 -60 2.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed cow 11
+# a zombie on fire in its own column
+fill 6 -60 1 8 -58 3 minecraft:powder_snow
+spawn zombie minecraft:zombie 7.5 -60 2.5 {Fire:200s,attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed zombie 12
+watch entities
+tick 8
+watch off
+dump blocks:0,-61,0,9,-57,4 events
+# fall sounds: from 5 and from 9 blocks above a powder snow block, a cow and a zombie
+block 12 -61 2 minecraft:powder_snow
+block 16 -61 2 minecraft:powder_snow
+spawn faller minecraft:cow 12.5 -55 2.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed faller 13
+spawn bigfaller minecraft:zombie 16.5 -49 2.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed bigfaller 14
+watch entities
+tick 30
+watch off
+dump blocks:11,-62,1,17,-60,3 events

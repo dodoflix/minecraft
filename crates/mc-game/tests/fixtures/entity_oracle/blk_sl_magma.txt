@@ -1,0 +1,135 @@
+T 1
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 2
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.04,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=2 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 3
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.08,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=3 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 4
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.12,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=4 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 5
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=7/17 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=7/17 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=5 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 6
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=6/16 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=6/16 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.04,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=6 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 7
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=5/15 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=5/15 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.08,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=7 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 8
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.12,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=8 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 9
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=3/13 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=3/13 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=9 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 10
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=2/12 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=2/12 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.04,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=10 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 11
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=1/11 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=1/11 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.08,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=11 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 12
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=10/20 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=10/20 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.12,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=12 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 13
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=9/19 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=9/19 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=13 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 14
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=8/18 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=8/18 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.04,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=14 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 15
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=7/17 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=7/17 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.08,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=15 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 16
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=6/16 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=6/16 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.12,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=16 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 17
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=5/15 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=5/15 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=17 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 18
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=4/14 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=4/14 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.04,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=18 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 19
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=3/13 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=3/13 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.08,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=19 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 20
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=2/12 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=2/12 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.12,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=20 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 21
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=1/11 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=1/11 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=21 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 22
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=10/20 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=10/20 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.04,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 23
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.08,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=23 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 24
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=8/18 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=8/18 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,-0.12,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=24 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 25
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=7/17 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=7/17 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=25 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow minecraft:cow pos=1.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=89.999985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=7/17 death=0 fx=-
+E pig minecraft:pig pos=4.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=7/17 death=0 fx=-
+E gold minecraft:item pos=8.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=318.5967,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=25 pickup=0 health=5 owner=- thrower=-
+E offcow minecraft:cow pos=11.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.8729322
+EV sound at=4.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0694442
+EV sound at=1.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.83818734
+EV sound at=4.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0208828
+EV sound at=1.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.9866519
+EV sound at=4.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9258777

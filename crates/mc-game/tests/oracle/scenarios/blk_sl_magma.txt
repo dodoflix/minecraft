@@ -1,0 +1,21 @@
+# Magma block: hot floor damage for living entities standing on it (not for item entities, nor off the block).
+level flat
+preload 3
+level_seed 4
+entity_counter 200
+fill 0 -61 0 12 -61 4 minecraft:stone
+fill 1 -61 1 1 -61 1 minecraft:magma_block
+fill 4 -61 1 4 -61 1 minecraft:magma_block
+fill 8 -61 1 8 -61 1 minecraft:magma_block
+spawn cow minecraft:cow 1.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed cow 21
+spawn pig minecraft:pig 4.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig 22
+spawn_item gold minecraft:gold_ingot 8.5 -60 1.5 0 0 0
+entity_seed gold 23
+spawn offcow minecraft:cow 11.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed offcow 24
+watch entities
+tick 25
+watch off
+dump entities events
