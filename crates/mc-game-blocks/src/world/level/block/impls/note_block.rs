@@ -123,7 +123,7 @@ impl BlockBehaviour for NoteBlock {
         let state = state.cycle(props::NOTE);
         level.set_block_and_update(pos, state);
         play_note(Some(player.id()), state, level, pos);
-        // `player.awardStat(Stats.TUNE_NOTEBLOCK)`: not implemented (`Stats::TUNE_NOTEBLOCK` exists, this block does not award it)
+        player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::TUNE_NOTEBLOCK);
         InteractionResult::SUCCESS
     }
     fn attack(
@@ -134,7 +134,7 @@ impl BlockBehaviour for NoteBlock {
         player: &mut ServerPlayer,
     ) {
         play_note(Some(player.id()), state, level, pos);
-        // `player.awardStat(Stats.PLAY_NOTEBLOCK)`: see `use_without_item`
+        player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::PLAY_NOTEBLOCK);
     }
     fn trigger_event(
         &self,
