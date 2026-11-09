@@ -7,7 +7,7 @@ use super::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, ContainerUser,
 };
 use crate::server::level::ServerLevel;
-use crate::world::container::{Container, helper};
+use crate::world::container::{Container, WorldlyContainer, helper};
 use crate::world::entity::{Entity, MoverType};
 use crate::world::item::ItemStack;
 use crate::world::level::block::BlockStateExt;
@@ -236,7 +236,51 @@ fn do_neighbor_updates(level: &mut ServerLevel, pos: BlockPos, state: BlockState
     level.update_neighbors_at(pos, state.block());
 }
 
-impl_items_container!(ShulkerBoxBlockEntity, item_stacks);
+impl_items_container!(ShulkerBoxBlockEntity, item_stacks {
+    fn as_worldly(&self) -> Option<&dyn WorldlyContainer> {
+        Some(self)
+    }
+});
+
+/// `ShulkerBoxBlockEntity.SLOTS`.
+static SLOTS: [usize; ShulkerBoxBlockEntity::CONTAINER_SIZE] = {
+    let mut slots = [0; ShulkerBoxBlockEntity::CONTAINER_SIZE];
+    let mut i = 0;
+    while i < ShulkerBoxBlockEntity::CONTAINER_SIZE {
+        slots[i] = i;
+        i += 1;
+    }
+    slots
+};
+
+impl WorldlyContainer for ShulkerBoxBlockEntity {
+    fn get_slots_for_face(&self, _direction: Direction) -> &'static [usize] {
+        &SLOTS
+    }
+
+    /// Everything but shulker boxes (`Block.byItem(item) instanceof ShulkerBoxBlock`).
+    fn can_place_item_through_face(
+        &self,
+        _level: &ServerLevel,
+        _slot: usize,
+        stack: &ItemStack,
+        _direction: Option<Direction>,
+    ) -> bool {
+        !stack
+            .item()
+            .block()
+            .is_some_and(|block| block.data().classes.contains(&"ShulkerBoxBlock"))
+    }
+
+    fn can_take_item_through_face(
+        &self,
+        _slot: usize,
+        _stack: &ItemStack,
+        _direction: Direction,
+    ) -> bool {
+        true
+    }
+}
 
 impl BlockEntity for ShulkerBoxBlockEntity {
     block_entity_base!();

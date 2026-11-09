@@ -507,7 +507,7 @@ fn can_place_item_in_container(
     slot: usize,
     direction: Option<Direction>,
 ) -> bool {
-    if !container.can_place_item(slot, stack) {
+    if !container.can_place_item_in_level(level, slot, stack) {
         return false;
     }
     match container.as_worldly() {

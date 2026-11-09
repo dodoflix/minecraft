@@ -3,6 +3,7 @@ use super::dispenser_block::update_neighbours_after_destroy;
 use crate::world::block_entity::container_menu_provider::BlockEntityMenuProvider;
 use crate::world::block_entity::hopper_block_entity;
 use mc_core::phys::BlockHitResult;
+use mc_core::phys::shapes::VoxelShape;
 use mc_data::block::PathComputationType;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
@@ -14,6 +15,7 @@ use mc_game_core::world::item::BlockPlaceContext;
 use mc_game_core::world::item::InteractionResult;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::shapes::voxel_shape;
 use mc_game_core::world::level::signal_getter::has_neighbor_signal;
 
 pub struct HopperBlock;
@@ -32,6 +34,16 @@ impl BlockBehaviour for HopperBlock {
     }
     fn mirror(&self, state: BlockState, mirror: Mirror) -> BlockState {
         helpers::mirror_facing(state, props::FACING_HOPPER, mirror)
+    }
+
+    fn get_interaction_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        _pos: BlockPos,
+    ) -> VoxelShape {
+        // `interactionShapes`: the bowl, plus the spout for a horizontal facing (the extracted shape)
+        voxel_shape(state.interaction_shape())
     }
 
     fn get_state_for_placement(

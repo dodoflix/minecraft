@@ -464,9 +464,12 @@ impl Container for BrewingStandBlockEntity {
         mc_game_core::world::container::still_valid_block_entity(self.base.pos, player)
     }
     /// `canPlaceItem` of a block entity whose `level` is `null` (only the fuel slot answers); with a level use
-    /// [`BrewingStandBlockEntity::can_place_item_in`] / the `WorldlyContainer` face methods.
+    /// [`Container::can_place_item_in_level`].
     fn can_place_item(&self, slot: usize, stack: &ItemStack) -> bool {
         slot == FUEL_SLOT && stack.has(mc_data::DataComponentType::BREWING_FUEL)
+    }
+    fn can_place_item_in_level(&self, level: &ServerLevel, slot: usize, stack: &ItemStack) -> bool {
+        self.can_place_item_in(level, slot, stack)
     }
 }
 

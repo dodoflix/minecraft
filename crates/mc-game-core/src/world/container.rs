@@ -74,6 +74,15 @@ pub trait Container: Any {
     fn can_place_item(&self, _slot: usize, _stack: &ItemStack) -> bool {
         true
     }
+    /// `canPlaceItem(slot, stack)` of a container whose answer reads `this.level` (the brewing stand's recipes).
+    fn can_place_item_in_level(
+        &self,
+        _level: &ServerLevel,
+        slot: usize,
+        stack: &ItemStack,
+    ) -> bool {
+        self.can_place_item(slot, stack)
+    }
     fn can_take_item(&self, _into: &dyn Container, _slot: usize, _stack: &ItemStack) -> bool {
         true
     }
@@ -183,6 +192,9 @@ impl Container for BlockEntityContainer {
     }
     fn can_place_item(&self, slot: usize, stack: &ItemStack) -> bool {
         self.inner().can_place_item(slot, stack)
+    }
+    fn can_place_item_in_level(&self, level: &ServerLevel, slot: usize, stack: &ItemStack) -> bool {
+        self.inner().can_place_item_in_level(level, slot, stack)
     }
     fn as_worldly(&self) -> Option<&dyn WorldlyContainer> {
         self.inner().as_worldly()
