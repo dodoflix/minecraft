@@ -1,0 +1,177 @@
+# HopperBlockEntity transfer timing: cooldown 8, the tickedGameTime skip when a hopper feeds a hopper that already ticked this game tick
+# (the order of the block entity tickers decides), the redstone lock (ENABLED), full inventories, stack merging, custom cooldowns from NBT,
+# a comparator reading a hopper, and the item entities above a hopper (suck box, blocked by a full block, entityInside).
+level flat
+preload 3
+note chain of four hoppers facing east into a chest: placed west to east
+block 0 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 1 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 2 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 3 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 4 -60 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2},{Slot:4b,id:"minecraft:sand",count:1}]}
+note the mirrored chain, placed east to west (the other block entity ticker order)
+block 3 -60 4 minecraft:hopper[facing=west,enabled=true]
+block 2 -60 4 minecraft:hopper[facing=west,enabled=true]
+block 1 -60 4 minecraft:hopper[facing=west,enabled=true]
+block 0 -60 4 minecraft:hopper[facing=west,enabled=true]
+block -1 -60 4 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 3 -60 4 {Items:[{Slot:0b,id:"minecraft:dirt",count:3},{Slot:1b,id:"minecraft:stone",count:2},{Slot:4b,id:"minecraft:sand",count:1}]}
+note a vertical chain of hoppers facing down into a chest, the items in the middle one
+block 0 -61 8 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 0 -60 8 minecraft:hopper[facing=down,enabled=true]
+block 0 -59 8 minecraft:hopper[facing=down,enabled=true]
+block 0 -58 8 minecraft:hopper[facing=down,enabled=true]
+be_nbt 0 -59 8 {Items:[{Slot:0b,id:"minecraft:dirt",count:2},{Slot:2b,id:"minecraft:stone",count:1}]}
+note two hoppers facing each other pass one item back and forth
+block 0 -60 12 minecraft:hopper[facing=east,enabled=true]
+block 1 -60 12 minecraft:hopper[facing=west,enabled=true]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:3,-60,4 be:2,-60,4 be:1,-60,4 be:0,-60,4 be:-1,-60,4 be:0,-60,8 be:0,-59,8 be:0,-58,8 be:0,-61,8 be:0,-60,12 be:1,-60,12 ticks
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:3,-60,4 be:2,-60,4 be:0,-59,8 be:0,-60,8 be:0,-60,12 be:1,-60,12
+tick 7
+dump be:0,-60,0 be:1,-60,0 be:3,-60,4 be:2,-60,4 be:0,-59,8 be:0,-60,8 be:0,-60,12 be:1,-60,12
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,4 be:2,-60,4 be:1,-60,4 be:0,-59,8 be:0,-60,8 be:0,-61,8 be:0,-60,12 be:1,-60,12
+tick 7
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,4 be:2,-60,4 be:1,-60,4 be:0,-59,8 be:0,-60,8 be:0,-61,8 be:0,-60,12 be:1,-60,12
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:3,-60,4 be:2,-60,4 be:1,-60,4 be:0,-60,4 be:0,-59,8 be:0,-60,8 be:0,-61,8 be:0,-60,12 be:1,-60,12
+tick 4
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:3,-60,4 be:2,-60,4 be:1,-60,4 be:0,-60,4 be:0,-59,8 be:0,-60,8 be:0,-61,8 be:0,-60,12 be:1,-60,12
+tick 40
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:3,-60,4 be:2,-60,4 be:1,-60,4 be:0,-60,4 be:-1,-60,4 be:0,-59,8 be:0,-60,8 be:0,-58,8 be:0,-61,8 be:0,-60,12 be:1,-60,12
+tick 40
+dump be:0,-60,0 be:4,-60,0 be:-1,-60,4 be:0,-61,8 be:0,-60,12 be:1,-60,12 ticks
+
+note redstone lock: a powered hopper neither pushes nor sucks; unpowering enables it again (cooldown stays)
+block 10 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 11 -60 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 10 -60 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:4}]}
+block 10 -59 0 minecraft:redstone_block
+block 10 -60 4 minecraft:hopper[facing=down,enabled=true]
+block 10 -59 4 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 10 -59 4 {Items:[{Slot:0b,id:"minecraft:dirt",count:4}]}
+block 10 -61 4 minecraft:barrel[facing=up,open=false]
+block 11 -60 4 minecraft:redstone_block
+dump blocks:10,-61,0,12,-58,4 be:10,-60,0 be:11,-60,0 be:10,-60,4 be:10,-59,4 be:10,-61,4 ticks
+tick 20
+dump blocks:10,-61,0,12,-58,4 be:10,-60,0 be:11,-60,0 be:10,-60,4 be:10,-59,4 be:10,-61,4
+block 10 -59 0 minecraft:air
+block 11 -60 4 minecraft:air
+tick 1
+dump blocks:10,-60,0,10,-60,4 be:10,-60,0 be:11,-60,0 be:10,-60,4 be:10,-59,4 be:10,-61,4 ticks
+tick 12
+dump be:10,-60,0 be:11,-60,0 be:10,-60,4 be:10,-59,4 be:10,-61,4
+note a hopper powered while on cooldown keeps the cooldown; powering through a repeater-style neighbour update (lever) works too
+block 14 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 15 -60 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 14 -60 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:4}],TransferCooldown:30}
+block 14 -59 0 minecraft:lever[face=floor,facing=north,powered=true]
+tick 3
+dump blocks:14,-60,0,14,-59,0 be:14,-60,0 be:15,-60,0
+block 14 -59 0 minecraft:air
+tick 40
+dump blocks:14,-60,0,14,-60,0 be:14,-60,0 be:15,-60,0
+
+note full inventories and merging: a full hopper does not suck, a full target does not receive, partial stacks fill up, other items and components do not merge
+block 20 -59 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 20 -60 0 minecraft:hopper[facing=down,enabled=true]
+block 20 -61 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 20 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:64}]}
+be_nbt 20 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64}]}
+block 24 -59 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 24 -60 0 minecraft:hopper[facing=down,enabled=true]
+block 24 -61 0 minecraft:hopper[facing=down,enabled=true]
+block 24 -62 0 minecraft:barrel[facing=up,open=false]
+be_nbt 24 -59 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:10},{Slot:1b,id:"minecraft:dirt",count:60},{Slot:2b,id:"minecraft:dirt",count:60}]}
+be_nbt 24 -60 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:63},{Slot:1b,id:"minecraft:stone",count:1},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64}]}
+block 28 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 29 -60 0 minecraft:hopper[facing=down,enabled=true]
+block 29 -61 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 28 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond_sword",count:1},{Slot:1b,id:"minecraft:ender_pearl",count:3},{Slot:2b,id:"minecraft:dirt",count:1,components:{"minecraft:custom_name":"named"}},{Slot:3b,id:"minecraft:dirt",count:1}]}
+be_nbt 29 -60 0 {Items:[{Slot:0b,id:"minecraft:ender_pearl",count:14},{Slot:1b,id:"minecraft:dirt",count:1}]}
+be_nbt 29 -61 0 {Items:[{Slot:0b,id:"minecraft:diamond_sword",count:1},{Slot:1b,id:"minecraft:ender_pearl",count:15},{Slot:2b,id:"minecraft:dirt",count:1}]}
+tick 40
+dump be:20,-59,0 be:20,-60,0 be:20,-61,0 be:24,-59,0 be:24,-60,0 be:24,-61,0 be:24,-62,0 be:28,-60,0 be:29,-60,0 be:29,-61,0
+tick 60
+dump be:20,-59,0 be:20,-60,0 be:20,-61,0 be:24,-59,0 be:24,-60,0 be:24,-61,0 be:24,-62,0 be:28,-60,0 be:29,-60,0 be:29,-61,0
+
+note a custom TransferCooldown above 8 on the target: the feeding hopper does not touch it
+block 34 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 35 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 36 -60 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 34 -60 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:2}]}
+be_nbt 35 -60 0 {TransferCooldown:20}
+block 34 -60 4 minecraft:hopper[facing=east,enabled=true]
+block 35 -60 4 minecraft:hopper[facing=east,enabled=true]
+block 36 -60 4 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 34 -60 4 {Items:[{Slot:0b,id:"minecraft:dirt",count:2}]}
+be_nbt 35 -60 4 {TransferCooldown:3}
+dump be:34,-60,0 be:35,-60,0 be:34,-60,4 be:35,-60,4
+tick 2
+dump be:34,-60,0 be:35,-60,0 be:36,-60,0 be:34,-60,4 be:35,-60,4 be:36,-60,4
+tick 6
+dump be:34,-60,0 be:35,-60,0 be:36,-60,0 be:34,-60,4 be:35,-60,4 be:36,-60,4
+tick 20
+dump be:34,-60,0 be:35,-60,0 be:36,-60,0 be:34,-60,4 be:35,-60,4 be:36,-60,4
+
+note a comparator next to a hopper follows its contents (setChanged -> comparator update), a lamp behind it
+block 40 -60 0 minecraft:hopper[facing=down,enabled=true]
+block 40 -61 0 minecraft:barrel[facing=up,open=false]
+block 41 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 42 -60 0 minecraft:redstone_lamp
+be_nbt 40 -60 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:64},{Slot:1b,id:"minecraft:dirt",count:64},{Slot:2b,id:"minecraft:sand",count:10}]}
+tick 3
+dump blocks:40,-61,0,42,-60,0 be:40,-60,0 be:41,-60,0 ticks events
+tick 10
+dump blocks:40,-61,0,42,-60,0 be:40,-60,0 be:41,-60,0 ticks events
+tick 60
+dump blocks:40,-61,0,42,-60,0 be:40,-60,0 be:41,-60,0 be:40,-61,0 ticks events
+
+note item entities: the suck box (hopper cell and the two blocks above), the full block above that blocks it, the beehive that does not
+block 50 -60 0 minecraft:hopper[facing=east,enabled=true]
+block 51 -60 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+spawn_item a1 minecraft:dirt 50.5 -59.5 0.5 0 0 0 rot=10
+spawn_item a2 minecraft:stone 50.5 -58.2 0.5 0 0 0 rot=20
+spawn_item a3 minecraft:sand 50.5 -57.2 0.5 0 0 0 rot=30
+spawn_item a4 minecraft:gravel 52.5 -59.5 0.5 0 0 0 rot=40
+block 50 -60 4 minecraft:hopper[facing=east,enabled=true]
+block 51 -60 4 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 50 -59 4 minecraft:stone
+spawn_item b1 minecraft:dirt 50.5 -58.5 4.5 0 0 0 rot=10
+block 50 -60 8 minecraft:hopper[facing=east,enabled=true]
+block 51 -60 8 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 50 -59 8 minecraft:bee_nest[facing=north,honey_level=0]
+spawn_item c1 minecraft:dirt 50.5 -58.5 8.5 0 0 0 rot=10
+block 50 -60 12 minecraft:hopper[facing=east,enabled=true]
+block 51 -60 12 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 50 -59 12 minecraft:oak_slab[type=bottom,waterlogged=false]
+spawn_item d1 minecraft:dirt 50.5 -58.6 12.5 0 0 0 rot=10
+spawn_item d2 minecraft:stone 50.5 -59.6 12.5 0 0 0 rot=20 5
+dump be:50,-60,0 be:51,-60,0 be:50,-60,4 be:51,-60,4 be:50,-60,8 be:51,-60,8 be:50,-60,12 be:51,-60,12 entities
+tick 1
+dump be:50,-60,0 be:51,-60,0 be:50,-60,4 be:51,-60,4 be:50,-60,8 be:51,-60,8 be:50,-60,12 be:51,-60,12 entities
+tick 9
+dump be:50,-60,0 be:51,-60,0 be:50,-60,4 be:51,-60,4 be:50,-60,8 be:51,-60,8 be:50,-60,12 be:51,-60,12 entities
+tick 30
+dump be:50,-60,0 be:51,-60,0 be:50,-60,4 be:51,-60,4 be:50,-60,8 be:51,-60,8 be:50,-60,12 be:51,-60,12 entities
+
+note an item falling into a hopper that is idle: entityInside moves it at once, also into a hopper with items; a locked hopper keeps the item entity
+block 56 -60 0 minecraft:hopper[facing=down,enabled=true]
+block 56 -61 0 minecraft:barrel[facing=up,open=false]
+spawn_item e1 minecraft:dirt 56.5 -57.5 0.5 0 -0.1 0 rot=10 4
+block 56 -60 4 minecraft:hopper[facing=down,enabled=true]
+block 56 -61 4 minecraft:barrel[facing=up,open=false]
+block 57 -60 4 minecraft:redstone_block
+spawn_item f1 minecraft:dirt 56.5 -57.5 4.5 0 -0.1 0 rot=10 4
+block 56 -60 8 minecraft:hopper[facing=down,enabled=true]
+block 56 -61 8 minecraft:barrel[facing=up,open=false]
+be_nbt 56 -60 8 {Items:[{Slot:0b,id:"minecraft:stone",count:1},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:stone",count:64},{Slot:3b,id:"minecraft:stone",count:64},{Slot:4b,id:"minecraft:stone",count:64}]}
+spawn_item g1 minecraft:stone 56.5 -57.5 8.5 0 -0.1 0 rot=10 20
+dump be:56,-60,0 be:56,-61,0 be:56,-60,4 be:56,-61,4 be:56,-60,8 be:56,-61,8 entities
+tick 12
+dump be:56,-60,0 be:56,-61,0 be:56,-60,4 be:56,-61,4 be:56,-60,8 be:56,-61,8 entities
+tick 40
+dump be:56,-60,0 be:56,-61,0 be:56,-60,4 be:56,-61,4 be:56,-60,8 be:56,-61,8 entities

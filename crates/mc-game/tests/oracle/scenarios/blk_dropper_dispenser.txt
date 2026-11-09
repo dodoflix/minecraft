@@ -1,0 +1,219 @@
+# DispenserBlock / DropperBlock: neighborChanged (hasNeighborSignal at the block and the block above, TRIGGERED, a 4 tick scheduled tick),
+# dispenseFrom with the level random choosing the slot (DispenserBlockEntity.getRandomSlot), the default behaviour (level events 1000/2000,
+# the item entity position and velocity from the level random), the empty case (level event 1001), droppers inserting into the container in
+# front through HopperBlockEntity.addItem (sided slots, full targets, double chests), loot tables unpacked on the first dispense, and the
+# comparator reading both. Only plain items are dispensed (the item-specific behaviours are not block side).
+level flat
+preload 3
+note dispenser with three filled slots among nine, pulsed repeatedly: the slot choice follows the level random
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stick",count:3},{Slot:3b,id:"minecraft:dirt",count:2},{Slot:8b,id:"minecraft:cobblestone",count:1}]}
+level_seed 12345
+block 0 -60 -1 minecraft:redstone_block
+dump blocks:0,-60,-1,0,-60,0 ticks events
+tick 3
+dump blocks:0,-60,0,0,-60,0 ticks events
+tick 1
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 ticks entities events
+block 0 -60 -1 minecraft:air
+tick 1
+dump blocks:0,-60,0,0,-60,0 ticks events
+block 0 -60 -1 minecraft:redstone_block
+tick 5
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 ticks entities events
+block 0 -60 -1 minecraft:air
+tick 1
+block 0 -60 -1 minecraft:redstone_block
+tick 5
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 entities events
+block 0 -60 -1 minecraft:air
+tick 1
+block 0 -60 -1 minecraft:redstone_block
+tick 5
+dump be:0,-60,0 entities events
+block 0 -60 -1 minecraft:air
+tick 1
+block 0 -60 -1 minecraft:redstone_block
+tick 5
+dump be:0,-60,0 entities events
+block 0 -60 -1 minecraft:air
+tick 1
+block 0 -60 -1 minecraft:redstone_block
+tick 5
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 entities events
+block 0 -60 -1 minecraft:air
+tick 1
+block 0 -60 -1 minecraft:redstone_block
+tick 5
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 entities events
+
+note every facing: the item spawns 0.7 blocks in front, lower for horizontal facings, and the dispenser keeps nothing else
+block 10 -58 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 10 -58 0 {Items:[{Slot:4b,id:"minecraft:stick",count:2}]}
+block 14 -58 0 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 14 -58 0 {Items:[{Slot:4b,id:"minecraft:stick",count:2}]}
+block 18 -60 0 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 18 -60 0 {Items:[{Slot:4b,id:"minecraft:stick",count:2}]}
+block 22 -60 0 minecraft:dispenser[facing=south,triggered=false]
+be_nbt 22 -60 0 {Items:[{Slot:4b,id:"minecraft:stick",count:2}]}
+block 26 -60 0 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 26 -60 0 {Items:[{Slot:4b,id:"minecraft:stick",count:2}]}
+level_seed 777
+block 10 -59 0 minecraft:redstone_block
+block 14 -59 0 minecraft:redstone_block
+block 18 -61 0 minecraft:redstone_block
+block 22 -61 0 minecraft:redstone_block
+block 26 -61 0 minecraft:redstone_block
+tick 6
+dump blocks:10,-61,0,26,-58,0 be:10,-58,0 be:14,-58,0 be:18,-60,0 be:22,-60,0 be:26,-60,0 entities events
+
+note empty dispenser and empty dropper: level event 1001 and nothing else, also when only the unrelated neighbour toggles
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+block 4 -60 4 minecraft:dropper[facing=east,triggered=false]
+level_seed 5
+block 0 -60 3 minecraft:redstone_block
+block 4 -60 3 minecraft:redstone_block
+tick 6
+dump blocks:0,-60,3,4,-60,4 be:0,-60,4 be:4,-60,4 ticks entities events
+
+note quasi-connectivity: a signal next to the position above powers the dispenser, a block two above does not
+block 8 -60 4 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 8 -60 4 {Items:[{Slot:0b,id:"minecraft:stick",count:2}]}
+block 8 -58 4 minecraft:redstone_block
+block 12 -60 4 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 12 -60 4 {Items:[{Slot:0b,id:"minecraft:stick",count:2}]}
+block 12 -57 4 minecraft:redstone_block
+level_seed 6
+tick 1
+dump blocks:8,-60,4,12,-57,4 ticks
+tick 6
+dump blocks:8,-60,4,12,-57,4 be:8,-60,4 be:12,-60,4 ticks entities events
+
+note one redstone block next to three droppers/dispensers: they dispense in scheduled tick order, drawing from the level random in turn
+block 20 -60 4 minecraft:dropper[facing=up,triggered=false]
+be_nbt 20 -60 4 {Items:[{Slot:1b,id:"minecraft:stick",count:4},{Slot:2b,id:"minecraft:dirt",count:4}]}
+block 22 -60 4 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 22 -60 4 {Items:[{Slot:0b,id:"minecraft:cobblestone",count:4},{Slot:7b,id:"minecraft:dirt",count:4}]}
+block 21 -60 5 minecraft:dropper[facing=up,triggered=false]
+be_nbt 21 -60 5 {Items:[{Slot:3b,id:"minecraft:cobblestone",count:4},{Slot:4b,id:"minecraft:stick",count:4},{Slot:5b,id:"minecraft:dirt",count:4}]}
+level_seed 4242
+block 21 -60 4 minecraft:redstone_block
+tick 6
+dump be:20,-60,4 be:22,-60,4 be:21,-60,5 entities events ticks
+
+note a dropper facing each kind of container: chest, double chest, barrel, hopper, a full chest, a dispenser
+block 0 -60 8 minecraft:dropper[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:stick",count:3},{Slot:1b,id:"minecraft:dirt",count:2}]}
+block 1 -60 8 minecraft:chest[facing=north,type=single,waterlogged=false]
+be_nbt 1 -60 8 {Items:[{Slot:0b,id:"minecraft:stick",count:62}]}
+block 0 -60 7 minecraft:redstone_block
+block 4 -60 8 minecraft:dropper[facing=east,triggered=false]
+be_nbt 4 -60 8 {Items:[{Slot:0b,id:"minecraft:stick",count:3}]}
+block 5 -60 8 minecraft:chest[facing=north,type=left,waterlogged=false]
+block 6 -60 8 minecraft:chest[facing=north,type=right,waterlogged=false]
+be_nbt 5 -60 8 {Items:[{Slot:0b,id:"minecraft:dirt",count:64},{Slot:1b,id:"minecraft:dirt",count:64},{Slot:2b,id:"minecraft:dirt",count:64},{Slot:3b,id:"minecraft:dirt",count:64},{Slot:4b,id:"minecraft:dirt",count:64},{Slot:5b,id:"minecraft:dirt",count:64},{Slot:6b,id:"minecraft:dirt",count:64},{Slot:7b,id:"minecraft:dirt",count:64},{Slot:8b,id:"minecraft:dirt",count:64},{Slot:9b,id:"minecraft:dirt",count:64},{Slot:10b,id:"minecraft:dirt",count:64},{Slot:11b,id:"minecraft:dirt",count:64},{Slot:12b,id:"minecraft:dirt",count:64},{Slot:13b,id:"minecraft:dirt",count:64},{Slot:14b,id:"minecraft:dirt",count:64},{Slot:15b,id:"minecraft:dirt",count:64},{Slot:16b,id:"minecraft:dirt",count:64},{Slot:17b,id:"minecraft:dirt",count:64},{Slot:18b,id:"minecraft:dirt",count:64},{Slot:19b,id:"minecraft:dirt",count:64},{Slot:20b,id:"minecraft:dirt",count:64},{Slot:21b,id:"minecraft:dirt",count:64},{Slot:22b,id:"minecraft:dirt",count:64},{Slot:23b,id:"minecraft:dirt",count:64},{Slot:24b,id:"minecraft:dirt",count:64},{Slot:25b,id:"minecraft:dirt",count:64},{Slot:26b,id:"minecraft:dirt",count:64}]}
+block 4 -60 7 minecraft:redstone_block
+block 8 -60 8 minecraft:dropper[facing=east,triggered=false]
+be_nbt 8 -60 8 {Items:[{Slot:0b,id:"minecraft:stick",count:3}]}
+block 9 -60 8 minecraft:barrel[facing=up,open=false]
+block 8 -60 7 minecraft:redstone_block
+block 12 -60 8 minecraft:dropper[facing=east,triggered=false]
+be_nbt 12 -60 8 {Items:[{Slot:0b,id:"minecraft:stick",count:3}]}
+block 13 -60 8 minecraft:hopper[facing=south,enabled=true]
+block 13 -60 9 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 12 -60 7 minecraft:redstone_block
+block 16 -60 8 minecraft:dropper[facing=east,triggered=false]
+be_nbt 16 -60 8 {Items:[{Slot:0b,id:"minecraft:stick",count:3}]}
+block 17 -60 8 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 17 -60 8 {Items:[{Slot:0b,id:"minecraft:stick",count:63}]}
+block 16 -60 7 minecraft:redstone_block
+level_seed 99
+tick 1
+dump blocks:0,-60,7,17,-60,9 ticks events
+tick 5
+dump be:0,-60,8 be:1,-60,8 be:4,-60,8 be:5,-60,8 be:6,-60,8 be:8,-60,8 be:9,-60,8 be:12,-60,8 be:13,-60,8 be:13,-60,9 be:16,-60,8 be:17,-60,8 entities events ticks
+tick 12
+dump be:12,-60,8 be:13,-60,8 be:13,-60,9 entities events
+
+note droppers facing sided containers (furnace, brewing stand, shulker box, crafter, shelf, chiseled bookshelf) and non-containers
+block 0 -60 12 minecraft:dropper[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:coal",count:3},{Slot:1b,id:"minecraft:raw_iron",count:3}]}
+block 1 -60 12 minecraft:furnace[facing=north,lit=false]
+block 4 -60 12 minecraft:dropper[facing=east,triggered=false]
+be_nbt 4 -60 12 {Items:[{Slot:0b,id:"minecraft:blaze_powder",count:2},{Slot:1b,id:"minecraft:nether_wart",count:2},{Slot:2b,id:"minecraft:glass_bottle",count:2}]}
+block 5 -60 12 minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]
+block 8 -60 12 minecraft:dropper[facing=east,triggered=false]
+be_nbt 8 -60 12 {Items:[{Slot:0b,id:"minecraft:shulker_box",count:1},{Slot:1b,id:"minecraft:dirt",count:1}]}
+block 9 -60 12 minecraft:shulker_box[facing=up]
+block 12 -60 12 minecraft:dropper[facing=east,triggered=false]
+be_nbt 12 -60 12 {Items:[{Slot:0b,id:"minecraft:oak_planks",count:3},{Slot:1b,id:"minecraft:oak_planks",count:3}]}
+block 13 -60 12 minecraft:crafter[orientation=west_up,triggered=false,crafting=false]
+block 16 -60 12 minecraft:dropper[facing=east,triggered=false]
+be_nbt 16 -60 12 {Items:[{Slot:0b,id:"minecraft:book",count:3},{Slot:1b,id:"minecraft:dirt",count:3}]}
+block 17 -60 12 minecraft:chiseled_bookshelf[facing=west,slot_0_occupied=false,slot_1_occupied=false,slot_2_occupied=false,slot_3_occupied=false,slot_4_occupied=false,slot_5_occupied=false]
+block 20 -60 12 minecraft:dropper[facing=east,triggered=false]
+be_nbt 20 -60 12 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 21 -60 12 minecraft:ender_chest[facing=north,waterlogged=false]
+block 24 -60 12 minecraft:dropper[facing=east,triggered=false]
+be_nbt 24 -60 12 {Items:[{Slot:0b,id:"minecraft:dirt",count:3}]}
+block 25 -60 12 minecraft:stone
+level_seed 31
+block 0 -60 11 minecraft:redstone_block
+block 4 -60 11 minecraft:redstone_block
+block 8 -60 11 minecraft:redstone_block
+block 12 -60 11 minecraft:redstone_block
+block 16 -60 11 minecraft:redstone_block
+block 20 -60 11 minecraft:redstone_block
+block 24 -60 11 minecraft:redstone_block
+tick 6
+dump be:0,-60,12 be:1,-60,12 be:4,-60,12 be:5,-60,12 be:8,-60,12 be:9,-60,12 be:12,-60,12 be:13,-60,12 be:16,-60,12 be:17,-60,12 be:20,-60,12 be:24,-60,12 blocks:0,-60,12,25,-60,12 entities events
+
+note loot tables are unpacked by the first dispense (getRandomSlot): chest bonus loot in a dispenser and a dropper
+block 0 -60 16 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 16 {LootTable:"minecraft:chests/spawn_bonus_chest",LootTableSeed:5L}
+block 4 -60 16 minecraft:dropper[facing=east,triggered=false]
+be_nbt 4 -60 16 {LootTable:"minecraft:chests/spawn_bonus_chest",LootTableSeed:6L}
+block 5 -60 16 minecraft:barrel[facing=up,open=false]
+block 8 -60 16 minecraft:comparator[facing=south,mode=compare,powered=false]
+block 8 -60 15 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 8 -60 15 {LootTable:"minecraft:chests/spawn_bonus_chest",LootTableSeed:7L}
+block 8 -60 17 minecraft:redstone_lamp
+dump be:0,-60,16 be:4,-60,16 be:8,-60,15 blocks:8,-60,15,8,-60,17
+level_seed 17
+block 0 -60 15 minecraft:redstone_block
+block 4 -60 15 minecraft:redstone_block
+tick 6
+dump be:0,-60,16 be:4,-60,16 be:5,-60,16 entities events
+block 0 -60 15 minecraft:air
+block 4 -60 15 minecraft:air
+tick 1
+block 0 -60 15 minecraft:redstone_block
+block 4 -60 15 minecraft:redstone_block
+tick 6
+dump be:0,-60,16 be:4,-60,16 be:5,-60,16 entities events
+
+note comparators read droppers and dispensers; items taken out by a dropper into a hopper update the comparator
+block 0 -60 20 minecraft:dropper[facing=east,triggered=false]
+be_nbt 0 -60 20 {Items:[{Slot:0b,id:"minecraft:stick",count:30},{Slot:1b,id:"minecraft:dirt",count:30}]}
+block 1 -60 20 minecraft:hopper[facing=east,enabled=true]
+block 2 -60 20 minecraft:chest[facing=north,type=single,waterlogged=false]
+block 0 -60 21 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 0 -60 22 minecraft:redstone_lamp
+block 4 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 4 -60 20 {Items:[{Slot:0b,id:"minecraft:stick",count:64},{Slot:1b,id:"minecraft:stick",count:64},{Slot:2b,id:"minecraft:stick",count:64},{Slot:3b,id:"minecraft:stick",count:64},{Slot:4b,id:"minecraft:stick",count:64}]}
+block 4 -60 21 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 4 -60 22 minecraft:redstone_lamp
+level_seed 3
+tick 2
+dump blocks:0,-60,20,4,-60,22 ticks
+block 0 -60 19 minecraft:redstone_block
+block 4 -60 19 minecraft:redstone_block
+tick 6
+dump blocks:0,-60,20,4,-60,22 be:0,-60,20 be:4,-60,20 ticks events
+block 0 -60 19 minecraft:air
+block 4 -60 19 minecraft:air
+tick 1
+block 0 -60 19 minecraft:redstone_block
+block 4 -60 19 minecraft:redstone_block
+tick 30
+dump blocks:0,-60,20,4,-60,22 be:0,-60,20 be:1,-60,20 be:2,-60,20 be:4,-60,20 ticks events entities
