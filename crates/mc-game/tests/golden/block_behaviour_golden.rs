@@ -5,6 +5,7 @@
 //! the pools and the hashing). One 64-bit hash per block is compared with `tests/fixtures/block_behaviour.txt`.
 //! Debugging a mismatch: `BLOCK_BEHAVIOUR_VERBOSE=<block> cargo test ... -- --nocapture` prints the per-state detail in
 //! the format of `scripts/golden-block-behaviour.sh verbose <block>`.
+use crate::common::block_pool::{Pools, mix};
 use mc_core::mirror::Mirror;
 use mc_core::phys::shapes::VoxelShape;
 use mc_core::pos::BlockPos;
@@ -20,26 +21,15 @@ use mc_world::ticks::TickPriority;
 use std::collections::HashMap;
 
 const WORLDS: i64 = 16;
-const POOL_CAP: usize = 24;
-const CLASS_CAP: usize = 200;
 const ORIGIN: BlockPos = BlockPos::new(100, 70, -37);
-
-fn mix(z: u64) -> u64 {
-    let z = (z ^ (z >> 30)).wrapping_mul(0xBF58476D1CE4E5B9);
-    let z = (z ^ (z >> 27)).wrapping_mul(0x94D049BB133111EB);
-    z ^ (z >> 31)
-}
 
 fn brightness(x: i32, y: i32, z: i32, layer: i64) -> i32 {
     (i64::from(x) * 3 + i64::from(y) * 5 + i64::from(z) * 7 + layer * 11).rem_euclid(16) as i32
 }
 
 struct Stub {
-    world_seed: i64,
+    pools: Pools,
     center: BlockState,
-    global: Vec<BlockState>,
-    own: Vec<BlockState>,
-    mates: Vec<BlockState>,
     ticks: Vec<[i64; 7]>,
     random: LegacyRandomSource,
 }
@@ -49,25 +39,7 @@ impl Stub {
         if x == ORIGIN.x() && y == ORIGIN.y() && z == ORIGIN.z() {
             return self.center;
         }
-        let h = mix(
-            (self.world_seed.wrapping_mul(0x9E3779B97F4A7C15u64 as i64)).wrapping_add(
-                (i64::from(x).wrapping_mul(73856093))
-                    ^ (i64::from(y).wrapping_mul(19349663))
-                    ^ (i64::from(z).wrapping_mul(83492791)),
-            ) as u64,
-        );
-        let r = h % 100;
-        let h2 = mix(h);
-        let pool = if r < 25 {
-            return Block::AIR.default_state();
-        } else if r < 55 {
-            &self.global
-        } else if r < 80 {
-            &self.own
-        } else {
-            &self.mates
-        };
-        pool[(h2 % pool.len() as u64) as usize]
+        self.pools.cell_at(x, y, z)
     }
 }
 
@@ -186,10 +158,6 @@ impl LevelAccessor for Stub {
     fn update_neighbors_at(&mut self, _pos: BlockPos, _source: Block) {}
 }
 
-fn capped(block: Block, cap: usize) -> Vec<BlockState> {
-    block.states().take(cap).collect()
-}
-
 fn hash_shape(mut h: u64, shape: &VoxelShape) -> u64 {
     let boxes = shape.to_aabbs();
     h = mix(h ^ boxes.len() as u64);
@@ -213,7 +181,7 @@ fn eval_state(stub: &mut Stub, s: BlockState, verbose: &mut Option<String>) -> u
     }
     stub.center = s;
     for w in 0..WORLDS {
-        stub.world_seed = w + 1;
+        stub.pools.world_seed = (w + 1) as u64;
         let surv = s.can_survive(&*stub, ORIGIN);
         h = mix(h ^ if surv { 1 } else { 2 });
         let pp = s.get_post_process_pos(&*stub, ORIGIN);
@@ -277,24 +245,10 @@ fn block_behaviour_matches_vanilla() {
         .filter(|l| !l.starts_with('S'))
         .filter_map(|l| l.split_once(' '))
         .collect();
-    let mut global = Vec::new();
-    for name in include_str!("../fixtures/block_behaviour_pool.txt")
-        .lines()
-        .filter(|l| !l.trim().is_empty())
-    {
-        global.extend(capped(
-            Block::by_name(&format!("minecraft:{name}"))
-                .unwrap_or_else(|| panic!("pool block {name}")),
-            POOL_CAP,
-        ));
-    }
     let only = std::env::var("BLOCK_BEHAVIOUR_VERBOSE").ok();
     let mut stub = Stub {
-        world_seed: 0,
+        pools: Pools::new(&[]),
         center: Block::AIR.default_state(),
-        global,
-        own: Vec::new(),
-        mates: Vec::new(),
         ticks: Vec::new(),
         random: LegacyRandomSource::new(0),
     };
@@ -304,15 +258,7 @@ fn block_behaviour_matches_vanilla() {
         if only.as_deref().is_some_and(|o| o != name) {
             continue;
         }
-        stub.own = b.states().collect();
-        let mut mates = Vec::new();
-        for o in Block::iter() {
-            if o.data().class == b.data().class && mates.len() < CLASS_CAP {
-                let room = CLASS_CAP - mates.len();
-                mates.extend(capped(o, room));
-            }
-        }
-        stub.mates = mates;
+        stub.pools.select(b);
         let mut verbose = only.as_ref().map(|_| String::new());
         let mut h = 0u64;
         for s in b.states() {

@@ -79,6 +79,7 @@ pub fn load_world(
     )
 }
 
+pub mod block_pool;
 pub mod block_scenario;
 pub mod entity_oracle;
 pub mod entity_scenario;

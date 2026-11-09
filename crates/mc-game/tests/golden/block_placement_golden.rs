@@ -5,6 +5,7 @@
 //! One 64-bit hash per block is compared with `tests/fixtures/block_placement.txt`.
 //! Debugging a mismatch: `BLOCK_PLACEMENT_VERBOSE=<block|*> cargo test ... -- --nocapture` prints the per-context detail in the
 //! format of `scripts/golden-block-placement.sh verbose <block>`.
+use crate::common::block_pool::{POOL_CAP, Pools, capped, mix};
 use crate::common::block_scenario::parse_state;
 use mc_core::direction::Direction;
 use mc_core::phys::{BlockHitResult, Vec3};
@@ -57,8 +58,6 @@ const EXTRA: [&str; 26] = [
 /// Blocks only one block needs next to it (cocoa: a jungle log), added to that block's own neighbour pool: in the shared pool
 /// they would be too rare to ever turn up.
 const NEEDS: [(&str, [&str; 2]); 1] = [("cocoa", ["jungle_log", "jungle_wood"])];
-const POOL_CAP: usize = 24;
-const CLASS_CAP: usize = 200;
 const BASE: BlockPos = BlockPos::new(4, 80, 4);
 const SIZE: i32 = 8;
 const FACES: [Direction; 6] = [
@@ -73,50 +72,14 @@ const FRACTION: [f64; 8] = [0.0, 0.0625, 0.25, 0.4375, 0.5, 0.5625, 0.75, 1.0];
 /// 0 keep, 1 air, 2 water, 3 flowing water, 4 own state, 5 snow, 6 short grass, 7 lava.
 const SEL: [usize; 12] = [0, 0, 1, 1, 2, 3, 4, 4, 4, 5, 6, 7];
 
-fn mix(z: u64) -> u64 {
-    let z = (z ^ (z >> 30)).wrapping_mul(0xBF58476D1CE4E5B9);
-    let z = (z ^ (z >> 27)).wrapping_mul(0x94D049BB133111EB);
-    z ^ (z >> 31)
-}
-
 fn fnv(s: &str) -> u64 {
     s.bytes().fold(0xCBF29CE484222325u64, |h, c| {
         (h ^ u64::from(c)).wrapping_mul(0x100000001B3)
     })
 }
 
-/// The neighbourhood function of the oracle (the pools of `block_behaviour_golden`).
-struct Pools {
-    world_seed: u64,
-    global: Vec<BlockState>,
-    own: Vec<BlockState>,
-    mates: Vec<BlockState>,
-}
-
+/// The placement oracle's replacement of the clicked and the beside cell.
 impl Pools {
-    fn cell(&self, p: BlockPos) -> BlockState {
-        let h = mix(self
-            .world_seed
-            .wrapping_mul(0x9E3779B97F4A7C15)
-            .wrapping_add(
-                (i64::from(p.x()).wrapping_mul(73856093)
-                    ^ i64::from(p.y()).wrapping_mul(19349663)
-                    ^ i64::from(p.z()).wrapping_mul(83492791)) as u64,
-            ));
-        let r = h % 100;
-        let h2 = mix(h);
-        let pool = if r < 25 {
-            return Block::AIR.default_state();
-        } else if r < 55 {
-            &self.global
-        } else if r < 80 {
-            &self.own
-        } else {
-            &self.mates
-        };
-        pool[(h2 % pool.len() as u64) as usize]
-    }
-
     fn special(
         &self,
         sel: usize,
@@ -167,10 +130,6 @@ fn level() -> ServerLevel {
     }
 }
 
-fn capped(block: Block, cap: usize) -> Vec<BlockState> {
-    block.states().take(cap).collect()
-}
-
 fn describe(s: Option<BlockState>) -> String {
     s.map_or_else(
         || "none".to_string(),
@@ -182,24 +141,6 @@ fn describe(s: Option<BlockState>) -> String {
 fn block_placement_matches_vanilla() {
     let fixture = include_str!("../fixtures/block_placement.txt");
     let expected: HashMap<&str, &str> = fixture.lines().filter_map(|l| l.split_once(' ')).collect();
-    let mut global = Vec::new();
-    for name in include_str!("../fixtures/block_behaviour_pool.txt")
-        .lines()
-        .filter(|l| !l.trim().is_empty())
-    {
-        global.extend(capped(
-            Block::by_name(&format!("minecraft:{name}"))
-                .unwrap_or_else(|| panic!("pool block {name}")),
-            POOL_CAP,
-        ));
-    }
-    for name in EXTRA {
-        global.extend(capped(
-            Block::by_name(&format!("minecraft:{name}"))
-                .unwrap_or_else(|| panic!("extra block {name}")),
-            POOL_CAP,
-        ));
-    }
     let fixed = [
         parse_state("minecraft:water"),
         parse_state("minecraft:water[level=3]"),
@@ -209,38 +150,25 @@ fn block_placement_matches_vanilla() {
     ];
     let only = std::env::var("BLOCK_PLACEMENT_VERBOSE").ok();
     let mut level = level();
-    let mut pools = Pools {
-        world_seed: 0,
-        global,
-        own: Vec::new(),
-        mates: Vec::new(),
-    };
+    let mut pools = Pools::new(&EXTRA);
     let mut mismatches = Vec::new();
     for b in Block::iter() {
         let name = b.data().name.trim_start_matches("minecraft:");
         if only.as_deref().is_some_and(|o| o != "*" && o != name) {
             continue;
         }
-        pools.own = b.states().collect();
-        let mut mates = Vec::new();
-        for o in Block::iter() {
-            if o.data().class == b.data().class && mates.len() < CLASS_CAP {
-                let room = CLASS_CAP - mates.len();
-                mates.extend(capped(o, room));
-            }
-        }
+        pools.select(b);
         for need in NEEDS
             .iter()
             .filter(|(block, _)| *block == name)
             .flat_map(|(_, needs)| needs.iter())
         {
-            mates.extend(capped(
+            pools.mates.extend(capped(
                 Block::by_name(&format!("minecraft:{need}"))
                     .unwrap_or_else(|| panic!("needed block {need}")),
                 POOL_CAP,
             ));
         }
-        pools.mates = mates;
         let name_hash = fnv(name);
         let mut verbose = only.as_ref().map(|_| String::new());
         let mut h = 0u64;
