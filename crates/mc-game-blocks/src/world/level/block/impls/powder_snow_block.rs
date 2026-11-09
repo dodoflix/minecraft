@@ -150,18 +150,7 @@ impl BlockBehaviour for PowderSnowBlock {
         fall_distance: f64,
     ) {
         if !(fall_distance < 4.0) && entity.living().is_some() {
-            // `LivingEntity.getFallSounds()`: players have their own, mobs override per type (generic default here)
-            let (small, big) = if entity.is_player() {
-                (
-                    mc_data::SoundEvent::ENTITY_PLAYER_SMALL_FALL,
-                    mc_data::SoundEvent::ENTITY_PLAYER_BIG_FALL,
-                )
-            } else {
-                (
-                    mc_data::SoundEvent::ENTITY_GENERIC_SMALL_FALL,
-                    mc_data::SoundEvent::ENTITY_GENERIC_BIG_FALL,
-                )
-            };
+            let (small, big) = entity.get_fall_sounds();
             entity.play_sound(
                 level,
                 if fall_distance < 7.0 { small } else { big },
