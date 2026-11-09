@@ -66,6 +66,8 @@ pub mod carpet_block;
 
 pub mod carved_pumpkin_block;
 
+pub mod cartography_table_block;
+
 pub mod cave_vines_block;
 
 pub mod cave_vines_plant_block;
@@ -103,6 +105,8 @@ pub mod coral_plant_block;
 pub mod coral_wall_fan_block;
 
 pub mod crafter_block;
+
+pub mod crafting_table_block;
 
 pub mod cross_collision_block;
 
@@ -320,6 +324,8 @@ pub mod slab_block;
 pub mod slime_block;
 
 pub mod small_dripleaf_block;
+
+pub mod smithing_table_block;
 
 pub mod sniffer_egg_block;
 

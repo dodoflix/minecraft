@@ -142,16 +142,20 @@ impl JukeboxBlockEntity {
     }
 }
 
+/// `input.read("RecordItem", ItemStack.CODEC).orElse(ItemStack.EMPTY)`.
+fn read_record_item(tag: &CompoundTag) -> ItemStack {
+    mc_game_core::world::block_entity::read_codec(tag, "RecordItem", &ItemStack::codec())
+        .unwrap_or_else(ItemStack::empty)
+}
+
 impl BlockEntity for JukeboxBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        let new_item =
-            mc_game_core::world::block_entity::read_codec(tag, "RecordItem", &ItemStack::codec())
-                .unwrap_or_else(ItemStack::empty);
+        let new_item = read_record_item(tag);
         if !self.item.is_empty() && !ItemStack::is_same_item_same_components(&new_item, &self.item)
         {
-            // vanilla stops the player with the level; there is none here, so the song just ends
+            // no level yet (chunk loading): there is nobody to hear the stop, so the song just ends
             self.song_player = JukeboxSongPlayer::new(self.base.pos);
         }
         self.item = new_item;
@@ -169,6 +173,26 @@ impl BlockEntity for JukeboxBlockEntity {
         {
             self.pending_song = Some((song, ticks));
         }
+    }
+
+    /// `loadAdditional` of an entity attached to a level (`/data merge block`): a changed record stops the song with the
+    /// level (event 1011, neighbour update, `setChanged`).
+    fn load_additional_in_level(
+        &mut self,
+        level: &mut ServerLevel,
+        tag: &CompoundTag,
+    ) -> Option<BlockState> {
+        let new_item = read_record_item(tag);
+        if !self.item.is_empty() && !ItemStack::is_same_item_same_components(&new_item, &self.item)
+        {
+            self.resolve_pending_song(level);
+            let state = self.base.block_state;
+            if self.song_player.stop(level, Some(state)) {
+                self.on_song_changed(level);
+            }
+        }
+        self.load_additional(tag);
+        None
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {

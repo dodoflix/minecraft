@@ -977,9 +977,9 @@ pub fn block_entity_load_data(
         return;
     };
     let state = BlockGetter::get_block_state(level, pos);
-    let Some(()) = level.with_block_entity(pos, |_, e| e.load_with_components(data)) else {
+    if !level.load_block_entity_in_level(pos, data) {
         return;
-    };
+    }
     level.block_entity_set_changed(pos, state);
     level.send_block_updated(pos, state, state, 3);
 }

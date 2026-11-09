@@ -1,0 +1,22 @@
+# CreakingHeartBlockEntity: the comparator beside the heart reads the live entity (the output signal update runs with the
+# entity in its chunk), and the protector link (setCreakingInfo from the saved UUID) is read back from the level.
+level flat
+preload 2
+difficulty normal
+level_seed 5
+time 18000
+spawn_player P survival 4.5 -60 4.5 0 0
+block 0 -61 0 minecraft:pale_oak_log[axis=y]
+block 0 -59 0 minecraft:pale_oak_log[axis=y]
+block 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=awake,natural=true]
+block 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp[lit=false]
+spawn creaking minecraft:creaking 6.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,PersistenceRequired:1b,UUID:[I;1,2,3,4]}
+be_nbt 0 -60 0 {creaking:[I;1,2,3,4]}
+tick 1
+dump entities
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 be:1,-60,0 ticks
+tick 4
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 be:1,-60,0 entities events ticks
+tick 25
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 be:1,-60,0 entities events ticks

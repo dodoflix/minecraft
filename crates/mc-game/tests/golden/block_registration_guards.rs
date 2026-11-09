@@ -1021,27 +1021,19 @@ const ACCEPTED_HOOKS: &[(&str, &str)] = &[
         "minecart detection needs minecart entities",
     ),
     (
-        "getMenuProvider@CartographyTableBlock -> PlainBlock (registered as none)",
+        "getMenuProvider@CartographyTableBlock -> CartographyTableBlock (registered as CartographyTableBlock)",
         "menus are not implemented yet",
     ),
     (
-        "useWithoutItem@CartographyTableBlock -> PlainBlock (registered as none)",
+        "getMenuProvider@CraftingTableBlock -> CraftingTableBlock (registered as CraftingTableBlock)",
         "menus are not implemented yet",
     ),
     (
-        "getMenuProvider@CraftingTableBlock -> PlainBlock (registered as none)",
+        "getMenuProvider@SmithingTableBlock -> SmithingTableBlock (registered as SmithingTableBlock)",
         "menus are not implemented yet",
     ),
     (
-        "useWithoutItem@CraftingTableBlock -> PlainBlock (registered as none)",
-        "menus are not implemented yet",
-    ),
-    (
-        "getMenuProvider@SmithingTableBlock -> PlainBlock (registered as none)",
-        "menus are not implemented yet",
-    ),
-    (
-        "useWithoutItem@SmithingTableBlock -> PlainBlock (registered as none)",
+        "getMenuProvider@CraftingTableBlock -> SmithingTableBlock (registered as SmithingTableBlock)",
         "menus are not implemented yet",
     ),
     (
@@ -1049,15 +1041,7 @@ const ACCEPTED_HOOKS: &[(&str, &str)] = &[
         "menus are not implemented yet",
     ),
     (
-        "useWithoutItem@LoomBlock -> LoomBlock (registered as LoomBlock)",
-        "menus are not implemented yet",
-    ),
-    (
         "getMenuProvider@StonecutterBlock -> StonecutterBlock (registered as StonecutterBlock)",
-        "menus are not implemented yet",
-    ),
-    (
-        "useWithoutItem@StonecutterBlock -> StonecutterBlock (registered as StonecutterBlock)",
         "menus are not implemented yet",
     ),
     (

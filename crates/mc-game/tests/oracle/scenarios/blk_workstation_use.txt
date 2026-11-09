@@ -1,0 +1,30 @@
+# LoomBlock / StonecutterBlock / CraftingTableBlock / SmithingTableBlock / CartographyTableBlock.useWithoutItem: opens the
+# menu and returns SUCCESS, so a block item in hand is NOT placed against the table (the use falls through to placement
+# only when useItemOn passes and useWithoutItem is not reached).
+level flat
+preload 2
+spawn_player Alice survival 4.5 -60 4.5 0 0
+give Alice mainhand minecraft:stone 16
+block 0 -60 0 minecraft:loom[facing=north]
+block 2 -60 0 minecraft:stonecutter[facing=north]
+block 4 -60 0 minecraft:crafting_table
+block 6 -60 0 minecraft:smithing_table
+block 8 -60 0 minecraft:cartography_table
+tick 1
+note a stone in hand: no placement against any table (top face, then a side face)
+use_on Alice 0 -60 0 up main
+dump blocks:-1,-60,-1,9,-59,1 inventory:Alice
+use_on Alice 2 -60 0 up main
+dump blocks:-1,-60,-1,9,-59,1 inventory:Alice
+use_on Alice 4 -60 0 up main
+dump blocks:-1,-60,-1,9,-59,1 inventory:Alice
+use_on Alice 6 -60 0 up main
+dump blocks:-1,-60,-1,9,-59,1 inventory:Alice
+use_on Alice 8 -60 0 up main
+dump blocks:-1,-60,-1,9,-59,1 inventory:Alice
+use_on Alice 0 -60 0 south main
+use_on Alice 2 -60 0 south main
+use_on Alice 4 -60 0 south main
+use_on Alice 6 -60 0 south main
+use_on Alice 8 -60 0 south main
+dump blocks:-1,-60,-1,9,-59,1 inventory:Alice

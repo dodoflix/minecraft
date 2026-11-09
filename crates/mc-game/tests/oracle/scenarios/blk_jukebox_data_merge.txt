@@ -1,0 +1,17 @@
+# JukeboxBlockEntity.loadAdditional of an entity that has a level (/data merge block): a record that differs from the held
+# one stops the song with the level (game event, level event 1011, neighbour update) before the new record is stored.
+level flat
+preload 2
+block 2 -60 0 minecraft:jukebox[has_record=true]
+block 3 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+be_nbt 2 -60 0 {RecordItem:{id:"minecraft:music_disc_cat",count:1},ticks_since_song_started:5L}
+tick 6
+dump blocks:2,-60,0,3,-60,0 be:2,-60,0 events ticks
+note the same record does not stop the song
+be_nbt 2 -60 0 {RecordItem:{id:"minecraft:music_disc_cat",count:1}}
+dump be:2,-60,0 events ticks
+note another record stops it
+be_nbt 2 -60 0 {RecordItem:{id:"minecraft:music_disc_13",count:1}}
+dump blocks:2,-60,0,3,-60,0 be:2,-60,0 events ticks
+tick 6
+dump blocks:2,-60,0,3,-60,0 be:2,-60,0 events ticks

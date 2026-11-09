@@ -3,6 +3,7 @@
 
 use super::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
+    set_changed,
 };
 use crate::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
 use crate::server::level::ServerLevel;
@@ -59,8 +60,9 @@ impl TheEndGatewayBlockEntity {
     pub fn trigger_cooldown(&mut self, level: &mut ServerLevel) {
         self.teleport_cooldown = Self::COOLDOWN_TIME;
         let pos = self.get_block_pos();
-        level.block_event(pos, self.get_block_state().block(), 1, 0);
-        level.block_entity_changed(pos);
+        let state = self.get_block_state();
+        level.block_event(pos, state.block(), 1, 0);
+        set_changed(level, pos, state);
     }
 
     /// `getPortalPosition(currentLevel, portalEntryPos)`.
@@ -81,6 +83,7 @@ impl TheEndGatewayBlockEntity {
                 },
             );
             self.set_exit_position(exit_portal_pos, self.exact_teleport);
+            set_changed(level, self.get_block_pos(), self.get_block_state());
         }
         let exit = self.exit_portal?;
         let pos = if self.exact_teleport {
@@ -91,7 +94,7 @@ impl TheEndGatewayBlockEntity {
         Some(Vec3::at_bottom_center_of(&pos))
     }
 
-    /// `setExitPosition(exactPosition, exact)`.
+    /// `setExitPosition(exactPosition, exact)` without the `setChanged()` (the callers that hold the level add it).
     pub fn set_exit_position(&mut self, exact_position: BlockPos, exact: bool) {
         self.exact_teleport = exact;
         self.exit_portal = Some(exact_position);
@@ -142,7 +145,7 @@ impl BlockEntity for TheEndGatewayBlockEntity {
             self.trigger_cooldown(level);
         }
         if spawning != self.is_spawning() || cooling_down != self.is_cooling_down() {
-            level.block_entity_changed(self.get_block_pos());
+            set_changed(level, self.get_block_pos(), self.get_block_state());
         }
     }
 

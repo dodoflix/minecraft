@@ -1,0 +1,11 @@
+B 5 -60 5 minecraft:end_gateway
+B 6 -60 5 minecraft:stone
+B 7 -60 5 minecraft:comparator[facing=east,mode=compare,powered=false]
+BE 5 -60 5 {Age:2L,components:{},id:"minecraft:end_gateway",x:5,y:-60,z:5}
+BE 7 -60 5 {OutputSignal:0,components:{},id:"minecraft:comparator",x:7,y:-60,z:5}
+BE 7 -60 5 {OutputSignal:9,components:{},id:"minecraft:comparator",x:7,y:-60,z:5}
+B 5 -60 5 minecraft:end_gateway
+B 6 -60 5 minecraft:stone
+B 7 -60 5 minecraft:comparator[facing=east,mode=compare,powered=false]
+BE 5 -60 5 {Age:204L,components:{},id:"minecraft:end_gateway",x:5,y:-60,z:5}
+BE 7 -60 5 {OutputSignal:0,components:{},id:"minecraft:comparator",x:7,y:-60,z:5}

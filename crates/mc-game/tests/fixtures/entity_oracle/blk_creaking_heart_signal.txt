@@ -1,0 +1,20 @@
+C Set minecraft:overworld to 18000 tick(s)
+E creaking minecraft:creaking pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=awake,natural=true]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+BE 0 -60 0 {components:{},creaking:[I;1,2,3,4],id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+TICK block 1 -60 0 minecraft:comparator delay=2 prio=0
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=awake,natural=true]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+BE 0 -60 0 {components:{},creaking:[I;1,2,3,4],id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:13,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+E creaking minecraft:creaking pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=awake,natural=true]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+BE 0 -60 0 {components:{},creaking:[I;1,2,3,4],id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:13,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+E creaking minecraft:creaking pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-

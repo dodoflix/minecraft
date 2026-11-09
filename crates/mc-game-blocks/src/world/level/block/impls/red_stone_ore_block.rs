@@ -52,8 +52,7 @@ impl BlockBehaviour for RedStoneOreBlock {
         on_state: BlockState,
         entity: &mut dyn Entity,
     ) {
-        // shortcut: `Entity.isSteppingCarefully` = `isShiftKeyDown` (Cat/Ocelot also check `isCrouching`), switch once the trait has it
-        if !entity.is_shift_key_down() {
+        if !entity.is_stepping_carefully() {
             interact(on_state, level, pos);
         }
     }

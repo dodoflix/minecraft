@@ -1,0 +1,14 @@
+# TheEndGatewayBlockEntity.setChanged(level, pos, state) also updates the comparators beside it (through a solid block): when
+# the spawn animation ends (age 200) the comparator whose stored output differs from its input is re-evaluated.
+level flat
+preload 2
+block 5 -60 5 minecraft:end_gateway
+block 6 -60 5 minecraft:stone
+block 7 -60 5 minecraft:comparator[facing=east,mode=compare,powered=false]
+tick 2
+dump blocks:5,-60,5,7,-60,5 be:5,-60,5 be:7,-60,5
+tick 190
+be_nbt 7 -60 5 {OutputSignal:9}
+dump be:7,-60,5 ticks
+tick 12
+dump blocks:5,-60,5,7,-60,5 be:5,-60,5 be:7,-60,5 events ticks

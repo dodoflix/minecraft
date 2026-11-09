@@ -1,0 +1,13 @@
+# ShulkerBoxBlockEntity.moveCollidedEntities skips entities whose getPistonPushReaction is IGNORE_ENTITY: a marker armor
+# stand stays where it is while the lid pushes a normal armor stand up.
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+block 0 -60 0 minecraft:shulker_box[facing=up]
+spawn stand minecraft:armor_stand 0.3 -59 0.5 0 0 {NoGravity:1b}
+spawn marker minecraft:armor_stand 0.7 -59 0.5 0 0 {Marker:1b,NoGravity:1b}
+tick 2
+dump entities
+use_on A 0 -60 0 south main
+tick 15
+dump entities events

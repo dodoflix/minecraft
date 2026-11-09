@@ -1,0 +1,37 @@
+# a stone in hand: no placement against any table (top face, then a side face)
+B 0 -60 0 minecraft:loom[facing=north]
+B 2 -60 0 minecraft:stonecutter[facing=north]
+B 4 -60 0 minecraft:crafting_table
+B 6 -60 0 minecraft:smithing_table
+B 8 -60 0 minecraft:cartography_table
+I Alice 0 minecraft:stone*16
+B 0 -60 0 minecraft:loom[facing=north]
+B 2 -60 0 minecraft:stonecutter[facing=north]
+B 4 -60 0 minecraft:crafting_table
+B 6 -60 0 minecraft:smithing_table
+B 8 -60 0 minecraft:cartography_table
+I Alice 0 minecraft:stone*16
+B 0 -60 0 minecraft:loom[facing=north]
+B 2 -60 0 minecraft:stonecutter[facing=north]
+B 4 -60 0 minecraft:crafting_table
+B 6 -60 0 minecraft:smithing_table
+B 8 -60 0 minecraft:cartography_table
+I Alice 0 minecraft:stone*16
+B 0 -60 0 minecraft:loom[facing=north]
+B 2 -60 0 minecraft:stonecutter[facing=north]
+B 4 -60 0 minecraft:crafting_table
+B 6 -60 0 minecraft:smithing_table
+B 8 -60 0 minecraft:cartography_table
+I Alice 0 minecraft:stone*16
+B 0 -60 0 minecraft:loom[facing=north]
+B 2 -60 0 minecraft:stonecutter[facing=north]
+B 4 -60 0 minecraft:crafting_table
+B 6 -60 0 minecraft:smithing_table
+B 8 -60 0 minecraft:cartography_table
+I Alice 0 minecraft:stone*16
+B 0 -60 0 minecraft:loom[facing=north]
+B 2 -60 0 minecraft:stonecutter[facing=north]
+B 4 -60 0 minecraft:crafting_table
+B 6 -60 0 minecraft:smithing_table
+B 8 -60 0 minecraft:cartography_table
+I Alice 0 minecraft:stone*16

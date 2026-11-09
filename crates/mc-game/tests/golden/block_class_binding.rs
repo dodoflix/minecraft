@@ -26,22 +26,10 @@ const DATA_OR_CLIENT: [&str; 14] = [
 ];
 
 /// Unregistered block classes that override server-side methods, and where those are implemented.
-const MASKED: [(&str, &str); 17] = [
+const MASKED: [(&str, &str); 14] = [
     (
         "BaseEntityBlock",
         "trial spawner: no menu, and the trial spawner block entity has no block event",
-    ),
-    (
-        "CartographyTableBlock",
-        "menus: no `getMenuProvider`/`useWithoutItem` yet (menu hand-off)",
-    ),
-    (
-        "CraftingTableBlock",
-        "menus: no `getMenuProvider`/`useWithoutItem` yet (menu hand-off)",
-    ),
-    (
-        "SmithingTableBlock",
-        "menus: no `getMenuProvider`/`useWithoutItem` yet (menu hand-off)",
     ),
     (
         "StrawBedBlock",

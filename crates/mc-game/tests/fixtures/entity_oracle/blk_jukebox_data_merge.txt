@@ -1,0 +1,13 @@
+B 2 -60 0 minecraft:jukebox[has_record=true]
+B 3 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+BE 2 -60 0 {RecordItem:{count:1,id:"minecraft:music_disc_cat"},components:{},id:"minecraft:jukebox",ticks_since_song_started:11L,x:2,y:-60,z:0}
+# the same record does not stop the song
+BE 2 -60 0 {RecordItem:{count:1,id:"minecraft:music_disc_cat"},components:{},id:"minecraft:jukebox",ticks_since_song_started:11L,x:2,y:-60,z:0}
+# another record stops it
+B 2 -60 0 minecraft:jukebox[has_record=true]
+B 3 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+BE 2 -60 0 {RecordItem:{count:1,id:"minecraft:music_disc_13"},components:{},id:"minecraft:jukebox",ticks_since_song_started:11L,x:2,y:-60,z:0}
+EV level_event r=64.0 ex=0 type=1011 pos=2,-60,0 data=0 global=0
+B 2 -60 0 minecraft:jukebox[has_record=true]
+B 3 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+BE 2 -60 0 {RecordItem:{count:1,id:"minecraft:music_disc_13"},components:{},id:"minecraft:jukebox",ticks_since_song_started:17L,x:2,y:-60,z:0}

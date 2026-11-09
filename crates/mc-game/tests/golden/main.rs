@@ -22,6 +22,7 @@ mod block_placement_golden;
 mod block_registration_guards;
 mod block_scenario_golden;
 mod blocks_audit_probes_golden;
+mod blocks_be_hooks_golden;
 mod blocks_beehive_golden;
 mod blocks_containers_golden;
 mod blocks_crops_golden;
