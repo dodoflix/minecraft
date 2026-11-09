@@ -1,10 +1,10 @@
-//! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `tp`, `snap`, `velocity`, `set`,
+//! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `tp`, `snap`, `velocity`, `set`,
 //! `spawn_player`, `give`, `select`, `use_on`, `use`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|entity:REF|player:NAME|inventory:NAME|packets:NAME`).
 //! Included by `block_scenario.rs` (private state of `Scenario`). Differences from the Java driver, all caused by the Rust level having no
 //! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` (no packet handler: no acks, no
 //! build-limit messages), entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
 //! reproduce: always call `entity_seed` right after `spawn`/`spawn_item` when the entity's randomness matters, and give `spawn_item` an
-//! explicit velocity), `explode` takes `source=REF`, `attack/swing/drop/respawn/hurt/effect/attribute/nbt/input/move_packet` are not replayed.
+//! explicit velocity), `explode` takes `source=REF`, `attack/swing/drop/respawn/effect/attribute/input/move_packet` are not replayed.
 use super::Scenario;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
@@ -149,6 +149,50 @@ impl Scenario {
             .1
     }
 
+    /// `hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]`: `entity.hurtServer(level, source, amount)`, prints `HURT ..`.
+    fn hurt(&mut self, a: &[String]) {
+        let (mut by, mut direct, mut at) = (None, None, None);
+        for t in &a[4..] {
+            match t.split_once('=') {
+                Some(("by", r)) => by = Some(self.entity_id(r)),
+                Some(("direct", r)) => direct = Some(self.entity_id(r)),
+                Some(("at", r)) => {
+                    let c: Vec<f64> = r.split(',').map(num).collect();
+                    at = Some(Vec3::new(c[0], c[1], c[2]));
+                }
+                _ => panic!("hurt option {t} is not replayed (by= direct= at=)"),
+            }
+        }
+        let direct = direct.or(by);
+        let key = Identifier::parse(&if a[2].contains(':') {
+            a[2].clone()
+        } else {
+            format!("minecraft:{}", a[2])
+        })
+        .unwrap();
+        let level = self.level();
+        let data = level
+            .registries
+            .get::<mc_game::registry::typed::damage_type::DamageType>("minecraft:damage_type", &key)
+            .unwrap_or_else(|| panic!("unknown damage type {key}"))
+            .clone();
+        let source = mc_game::world::damagesource::DamageSource::new(
+            key,
+            std::sync::Arc::new(data),
+            direct.and_then(|i| level.get_entity(i)),
+            by.and_then(|i| level.get_entity(i)),
+            at,
+        );
+        let amount = num(&a[3]) as f32;
+        let id = self.entity_id(&a[1]);
+        let r = self
+            .level()
+            .with_entity(id, |level, e| e.hurt_server(level, &source, amount))
+            .unwrap_or_else(|| panic!("entity {} is gone", a[1]));
+        self.out
+            .push(format!("HURT {} {} {} -> {r}", a[1], a[2], a[3]));
+    }
+
     /// The driver's `stack(spec, count)`: an item id, or an item with components (`minecraft:iron_pickaxe[enchantments={...}]`).
     fn item_stack(&self, spec: &str, count: i32) -> ItemStack {
         if spec.contains('[') {
@@ -257,6 +301,25 @@ impl Scenario {
                 self.level().with_entity(id, |_, e| {
                     e.base_mut().random = LegacyRandomSource::new(seed)
                 });
+            }
+            "nbt" => {
+                self.world();
+                let id = self.entity_id(&a[1]);
+                let snbt = self.line[self.line.find(&a[2]).expect("snbt token")..].to_string();
+                let extra = mc_nbt::snbt::parse_compound(&snbt)
+                    .unwrap_or_else(|e| panic!("bad SNBT {snbt}: {e}"));
+                self.level().with_entity(id, |_, e| {
+                    let mut tag = mc_nbt::CompoundTag::new();
+                    e.save_without_id(&mut tag, &|_| None);
+                    tag.merge(&extra);
+                    e.load(&tag)
+                        .unwrap_or_else(|er| panic!("entity load: {er}"));
+                });
+            }
+            "hurt" => {
+                self.world();
+                self.load_registries();
+                self.hurt(a);
             }
             "kill" => {
                 self.world();
