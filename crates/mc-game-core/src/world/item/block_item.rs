@@ -8,6 +8,7 @@ use super::{
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, ServerPlayer};
+use crate::world::level::block::impls::scaffolding;
 use crate::world::level::block::{BlockStateExt, behaviour as block_behaviour};
 use crate::world::level::collision::{
     BlockGetterExt, ClipContext, CollisionContext, CollisionGetter,
@@ -579,22 +580,64 @@ impl BlockItem {
         &self,
         ctx: &BlockPlaceContext,
         level: &mut ServerLevel,
-        _player: Option<&mut ServerPlayer>,
+        player: Option<&mut ServerPlayer>,
     ) -> Option<BlockPlaceContext> {
         match self.kind {
-            Kind::Scaffolding => {
-                // Not implemented: `ScaffoldingBlock.getDistance` (the scaffolding block's stability distance);
-                // behaves like the non-scaffolding path for a freshly clicked position, which is the common case.
-                let pos = ctx.get_clicked_pos();
-                let replaced = level.get_block_state(pos);
-                if replaced.block() != self.block {
-                    Some(ctx.clone())
-                } else {
-                    None
-                }
-            }
+            Kind::Scaffolding => self.update_scaffolding_placement_context(ctx, level, player),
             _ => Some(ctx.clone()),
         }
+    }
+
+    /// `ScaffoldingBlockItem.updatePlacementContext`: clicking scaffolding places at the end of the line of scaffolding
+    /// (up, or along the player's horizontal direction when the top face was clicked), at most 7 blocks sideways.
+    fn update_scaffolding_placement_context(
+        &self,
+        ctx: &BlockPlaceContext,
+        level: &mut ServerLevel,
+        player: Option<&mut ServerPlayer>,
+    ) -> Option<BlockPlaceContext> {
+        let pos = ctx.get_clicked_pos();
+        if level.get_block_state(pos).block() != self.block {
+            return (scaffolding::get_distance(&*level, pos) != 7).then(|| ctx.clone());
+        }
+        let direction = if ctx.is_secondary_use_active() {
+            if ctx.use_on.is_inside() {
+                ctx.get_clicked_face().get_opposite()
+            } else {
+                ctx.get_clicked_face()
+            }
+        } else if ctx.get_clicked_face() == Direction::Up {
+            ctx.get_horizontal_direction()
+        } else {
+            Direction::Up
+        };
+        let mut horizontal_distance = 0;
+        let mut placement_pos = pos.relative(direction);
+        while horizontal_distance < 7 {
+            if !level.is_in_world_bounds(placement_pos) {
+                let max_y = level.get_max_y();
+                if let Some(player) = player
+                    && placement_pos.y() > max_y
+                {
+                    player.send_build_limit_message(true, max_y);
+                }
+                break;
+            }
+            let replaced = level.get_block_state(placement_pos);
+            if replaced.block() != self.block {
+                if replaced.can_be_replaced_by(ctx) {
+                    return Some(BlockPlaceContext::at(ctx, placement_pos, direction, |p| {
+                        level.get_block_state(p)
+                    }));
+                }
+                break;
+            }
+            placement_pos = placement_pos.relative(direction);
+            if direction.get_axis().is_horizontal() {
+                horizontal_distance += 1;
+            }
+        }
+        None
     }
 
     /// `getPlacementState(context)`.

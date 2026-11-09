@@ -3,6 +3,7 @@ use mc_core::phys::shapes::{Shapes, VoxelShape};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::BlockPlaceContext;
 use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::scaffolding::get_distance;
 use mc_game_core::world::level::collision::CollisionContext;
 use mc_game_core::world::level::shapes::{box_, box_z, column};
 use mc_game_core::{register_block_class, update_shape};
@@ -32,28 +33,6 @@ static SHAPE_BELOW_BLOCK: LazyLock<VoxelShape> =
     LazyLock::new(|| Shapes::block().move_(0.0, -1.0, 0.0).optimize());
 
 pub struct ScaffoldingBlock;
-
-/// `ScaffoldingBlock.getDistance`.
-pub fn get_distance(level: &dyn BlockGetter, pos: BlockPos) -> i32 {
-    let below_pos = pos.below();
-    let below_state = level.get_block_state(below_pos);
-    let mut distance = 7;
-    if below_state.is_block(Block::SCAFFOLDING) {
-        distance = below_state.get(props::STABILITY_DISTANCE);
-    } else if below_state.is_face_sturdy_at(level, below_pos, Direction::Up) {
-        return 0;
-    }
-    for direction in Direction::HORIZONTAL {
-        let relative_state = level.get_block_state(pos.relative(direction));
-        if relative_state.is_block(Block::SCAFFOLDING) {
-            distance = distance.min(relative_state.get(props::STABILITY_DISTANCE) + 1);
-            if distance == 1 {
-                break;
-            }
-        }
-    }
-    distance
-}
 
 /// `isBottom`.
 fn is_bottom(level: &dyn BlockGetter, pos: BlockPos, distance: i32) -> bool {

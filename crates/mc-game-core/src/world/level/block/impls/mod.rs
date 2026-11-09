@@ -71,6 +71,7 @@ pub mod multiface_spreadeable_block;
 pub mod multiface_spreader;
 pub mod redstone_wire_block;
 pub mod rotated_pillar_block;
+pub mod scaffolding;
 pub mod sculk_block;
 pub mod sculk_sensor_block;
 pub mod sculk_vein_block;

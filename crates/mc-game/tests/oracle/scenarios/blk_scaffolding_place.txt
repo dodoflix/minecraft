@@ -1,0 +1,41 @@
+# ScaffoldingBlockItem.updatePlacementContext: clicking scaffolding places at the end of the line (along the player's direction when
+# the top is clicked, up when a side is clicked), at most 7 blocks sideways; scaffolding that would
+# have stability distance 7 is refused; the build limit message above the world.
+level flat
+preload 3
+level_seed 5
+spawn_player Steve survival 2.5 -60 5.5 180 0
+give Steve hotbar0 minecraft:scaffolding 64
+select Steve 0
+note a first scaffolding on the ground, then the top is clicked again and again: the line grows towards the player's direction (north) and stops after 7
+use_on Steve 2 -61 2 up main 0.5 1.0 0.5
+use_on Steve 2 -60 2 up main 0.5 1.0 0.5
+use_on Steve 2 -60 2 up main 0.5 1.0 0.5
+use_on Steve 2 -60 2 up main 0.5 1.0 0.5
+use_on Steve 2 -60 2 up main 0.5 1.0 0.5
+use_on Steve 2 -60 2 up main 0.5 1.0 0.5
+use_on Steve 2 -60 2 up main 0.5 1.0 0.5
+use_on Steve 2 -60 2 up main 0.5 1.0 0.5
+use_on Steve 2 -60 2 up main 0.5 1.0 0.5
+dump blocks:0,-60,-8,6,-57,4 inventory:Steve events
+note a side face goes up
+use_on Steve 2 -60 2 east main 1.0 0.5 0.5
+use_on Steve 2 -60 2 east main 1.0 0.5 0.5
+use_on Steve 2 -60 2 west main 0.0 0.5 0.5
+dump blocks:0,-60,-8,6,-56,4 inventory:Steve events
+note floating blocks: scaffolding with no support (stability distance 7) is refused, one beside supported scaffolding is accepted
+block 10 -50 10 minecraft:stone
+block 12 -50 10 minecraft:scaffolding[distance=3,bottom=false,waterlogged=false]
+block 20 -50 10 minecraft:stone
+snap Steve 10.5 -49 12.5
+use_on Steve 10 -50 10 up main 0.5 1.0 0.5
+snap Steve 21.5 -49 12.5
+use_on Steve 20 -50 10 east main 1.0 0.5 0.5
+snap Steve 12.5 -49 12.5
+use_on Steve 10 -50 10 east main 1.0 0.5 0.5
+dump blocks:9,-50,9,21,-48,11 inventory:Steve events
+note the world top: clicking the top of scaffolding at the build limit sends the too-high message and places nothing
+block 30 319 10 minecraft:scaffolding[distance=0,bottom=false,waterlogged=false]
+snap Steve 30.5 318 12.5
+use_on Steve 30 319 10 up main 0.5 1.0 0.5
+dump blocks:30,318,10,30,319,10 inventory:Steve packets:Steve:system_chat
