@@ -296,6 +296,10 @@ impl Entity for ItemEntity {
     fn as_dyn_mut(&mut self) -> &mut dyn Entity {
         self
     }
+    /// `ItemEntity.getSoundSource()`.
+    fn get_sound_source(&self) -> mc_protocol::packets::play::SoundSource {
+        mc_protocol::packets::play::SoundSource::Ambient
+    }
     fn tracking_kind(&self) -> super::TrackingKind {
         super::TrackingKind::ItemEntity
     }
