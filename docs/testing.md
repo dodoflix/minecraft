@@ -116,6 +116,12 @@ crate can use it as a dev-dependency.
   random ticking, signal and analog output blocks need their methods, every block entity type has an implementation, and
   every `blk_*` oracle scenario has a fixture and a replay. A known gap goes into the `ACCEPTED_*` lists with its reason;
   an entry that is no longer a gap fails the test, so the lists only shrink.
+- Block coverage: `block_behaviour_golden` hashes `canSurvive`, `updateShape`, `rotate`, `mirror` and `postProcessPos` of every block
+  state against vanilla; `block_placement_golden` compares `getStateForPlacement` of every block; `container_block_entities_golden`
+  compares the saved NBT, update tag and item components of every block entity type; and every `blk_*` scenario
+  (`crates/mc-game/tests/oracle/scenarios/`) is recorded from the vanilla server and replayed for ticks, neighbour
+  and shape updates, fluids, redstone, pistons, drops, growth and the rest of the observable block behaviour. What no test
+  covers is behaviour that needs entities, items or menus that are not ported yet (README, Known gaps).
 - A third target, `tests/it/main.rs`, holds T0/T1 tests that need a process of their own because they change
   process-wide state that every other test of the crate would see (today only `mc-text`: `Language::inject` replaces
   the translations of the whole process). A crate adds it only for that reason. Tests that capture log lines, or that

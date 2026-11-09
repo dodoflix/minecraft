@@ -1,9 +1,6 @@
 //! `CampfireBlockEntity`: four cooking slots (the campfire cooking recipes), the cooking progress of each slot,
 //! `cookTick`/`cooldownTick` (the server ticker chosen by `CampfireBlock.getTicker`) and `placeFood`.
-//!
-//! Not implemented: `Clearable.tryClear` (`/setblock`, `/fill`, `/clone` and structure placement clear the items of the
-//! block entity they replace) and `removeComponentsFromTag` (creative pick block with data keeps `Items`); the
-//! particle ticker is client only.
+//! The particle ticker is client only.
 
 use super::ComponentReader;
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};

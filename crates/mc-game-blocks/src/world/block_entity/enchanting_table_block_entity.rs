@@ -1,7 +1,5 @@
 //! `EnchantingTableBlockEntity`: only the custom name is state (`Nameable`); the book animation (`bookAnimationTick`) is
 //! client side.
-//!
-//! Not implemented: `removeComponentsFromTag` (creative pick block with data keeps `CustomName`).
 
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
