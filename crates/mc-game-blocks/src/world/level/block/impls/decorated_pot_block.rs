@@ -74,10 +74,14 @@ impl BlockBehaviour for DecoratedPotBlock {
             return InteractionResult::PASS;
         }
         let item_stack = stack.clone();
+        // `getTheItem()` unpacks the loot table first
         let pot_item = level
-            .get_block_entity(pos)
-            .and_then(|be| be.as_any().downcast_ref::<DecoratedPotBlockEntity>())
-            .map(|p| p.the_item().clone())
+            .with_block_entity(pos, |level, be| {
+                let pot = be.as_any_mut().downcast_mut::<DecoratedPotBlockEntity>()?;
+                pot.unpack(level, None);
+                Some(pot.the_item().clone())
+            })
+            .flatten()
             .unwrap_or_default();
         if !item_stack.is_empty()
             && (pot_item.is_empty()

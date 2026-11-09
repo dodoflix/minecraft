@@ -15,7 +15,6 @@ pub mod rail_state;
 pub mod rotation_segment;
 pub mod sculk_behaviour;
 pub mod sculk_spreader;
-pub mod segmentable_block;
 pub mod simple_waterlogged;
 pub mod state;
 pub mod valid_spawn;

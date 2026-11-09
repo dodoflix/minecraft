@@ -1,4 +1,5 @@
 //! `net.minecraft.world.level.block.LeafLitterBlock` (extends `VegetationBlock`).
+use mc_game_core::world::level::block::PlainBlock;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::{register_block_class, update_shape};
 
@@ -11,7 +12,7 @@ impl BlockBehaviour for LeafLitterBlock {
         context: &mc_game_core::world::item::BlockPlaceContext,
     ) -> bool {
         super::segmentable_block::can_be_replaced(state, context, props::SEGMENT_AMOUNT)
-            || mc_game_core::world::level::block::PlainBlock.can_be_replaced(state, context)
+            || PlainBlock.can_be_replaced(state, context)
     }
     fn get_state_for_placement(
         &self,

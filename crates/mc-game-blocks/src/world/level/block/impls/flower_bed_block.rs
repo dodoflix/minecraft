@@ -1,8 +1,8 @@
 //! `net.minecraft.world.level.block.FlowerBlock`-like `FlowerBedBlock` (pink petals, wildflowers; extends
 //! `VegetationBlock`, implements `SegmentableBlock`).
-use mc_data::props::{EnumProperty, IntegerProperty};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
+use mc_game_core::world::level::block::PlainBlock;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
@@ -10,37 +10,6 @@ use mc_game_core::{register_block_class, update_shape};
 
 pub struct FlowerBedBlock;
 impl MayPlaceOn for FlowerBedBlock {}
-
-/// `SegmentableBlock.canBeReplaced(state, context, segment)`: another segment of the same block can be added.
-pub fn segment_can_be_replaced(
-    state: BlockState,
-    context: &BlockPlaceContext,
-    segment: IntegerProperty,
-) -> bool {
-    let held = context.use_on.get_item_in_hand();
-    !context.is_secondary_use_active()
-        && !held.is_empty()
-        && Some(held.item()) == state.block().item()
-        && state.get(segment) < 4
-}
-
-/// `SegmentableBlock.getStateForPlacement(context, block, segment, facing)`.
-pub fn segment_state_for_placement(
-    level: &dyn BlockGetter,
-    context: &BlockPlaceContext,
-    block: Block,
-    segment: IntegerProperty,
-    facing: EnumProperty<Direction>,
-) -> BlockState {
-    let state = level.get_block_state(context.get_clicked_pos());
-    if state.is_block(block) {
-        state.set(segment, 4.min(state.get(segment) + 1))
-    } else {
-        block
-            .default_state()
-            .set(facing, context.get_horizontal_direction().get_opposite())
-    }
-}
 
 impl BlockBehaviour for FlowerBedBlock {
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
@@ -60,11 +29,8 @@ impl BlockBehaviour for FlowerBedBlock {
         helpers::mirror_facing(state, props::HORIZONTAL_FACING, mirror)
     }
     fn can_be_replaced(&self, state: BlockState, context: &BlockPlaceContext) -> bool {
-        if segment_can_be_replaced(state, context, props::FLOWER_AMOUNT) {
-            return true;
-        }
-        let held = context.use_on.get_item_in_hand();
-        state.can_be_replaced() && (held.is_empty() || Some(held.item()) != state.block().item())
+        super::segmentable_block::can_be_replaced(state, context, props::FLOWER_AMOUNT)
+            || PlainBlock.can_be_replaced(state, context)
     }
     fn get_state_for_placement(
         &self,
@@ -72,7 +38,7 @@ impl BlockBehaviour for FlowerBedBlock {
         level: &mut ServerLevel,
         context: &BlockPlaceContext,
     ) -> Option<BlockState> {
-        Some(segment_state_for_placement(
+        Some(super::segmentable_block::get_state_for_placement(
             &*level,
             context,
             block,
