@@ -69,6 +69,14 @@ pub fn check(name: &str) {
 
 pub fn check_with(name: &str, opts: &Options) {
     let actual = run_scenario(name);
+    // `BLOCK_SCENARIO_ACTUAL=DIR` writes the replay output to DIR/NAME.txt, to diff it against the fixture by hand
+    if let Some(dir) = std::env::var_os("BLOCK_SCENARIO_ACTUAL") {
+        std::fs::write(
+            std::path::Path::new(&dir).join(format!("{name}.txt")),
+            actual.join("\n") + "\n",
+        )
+        .expect("write the replay output");
+    }
     let fixture = Fixture::load(name);
     // `C` lines are the command feedback of the driver's `time`/`gamerule` verbs ("Set minecraft:overworld to N tick(s)"): the
     // replay changes the same state without a command, so the text is not part of the comparison
@@ -84,10 +92,12 @@ pub fn check_with(name: &str, opts: &Options) {
 
 pub fn run_scenario_text(text: &str) -> Vec<String> {
     let mut s = Scenario::new();
-    // precipitation reads the biome: only the weather scenarios pay for the real biome registry
-    s.real_biomes = text
-        .lines()
-        .any(|l| l.trim_start().starts_with("cmd weather"));
+    // precipitation and the bone meal feature lists read the biome: only the weather and bone meal scenarios pay for the real
+    // biome registry
+    s.real_biomes = text.lines().any(|l| {
+        let l = l.trim_start();
+        l.starts_with("cmd weather") || l.starts_with("bonemeal")
+    });
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();
         if line.is_empty() || line.starts_with('#') {
@@ -272,6 +282,8 @@ struct Options_ {
     features: mc_world::level_storage::FeatureFlagSet,
     /// `dimension`: the level every world command acts on.
     dimension: &'static str,
+    /// `seed`: the world seed (loot random sequences, positional randoms of the geysers, ...).
+    seed: i64,
 }
 
 /// Accepts every registry reference while decoding the vanilla dimension type JSON.
@@ -362,6 +374,7 @@ impl Scenario {
                 preload: 6,
                 features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS,
                 dimension: "overworld",
+                seed: 4242,
             },
             real_biomes: false,
             log: Arc::new(Mutex::new(Vec::new())),
@@ -446,7 +459,7 @@ impl Scenario {
             generator,
             generate_structures: false,
             hooks: Arc::new(mc_game::server::level::world_gen::NoWorldGenHooks),
-            seed: 4242,
+            seed: self.opts.seed,
             is_known_structure: Arc::new(|_| false),
             view_distance: 4,
             simulation_distance: 4,
@@ -528,7 +541,7 @@ impl Scenario {
     }
 
     fn opts_seed(&self) -> i64 {
-        4242
+        self.opts.seed
     }
 
     // ------------------------------------------------------------------------------------------------ commands
@@ -590,7 +603,7 @@ impl Scenario {
                 self.world();
                 mc_core::random::reseed_uniquifier(a[1].parse().expect("reseed N"));
             }
-            "seed" => {}
+            "seed" => self.opts.seed = a[1].parse().expect("seed N"),
             "difficulty" => {
                 self.opts.difficulty = match a[1].as_str() {
                     "peaceful" => Difficulty::Peaceful,
