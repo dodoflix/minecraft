@@ -1,0 +1,514 @@
+# the default chance 0.002 almost never hatches in the day
+C Set minecraft:overworld to 6000 tick(s)
+B 0 -61 0 minecraft:sand
+B 0 -61 1 minecraft:sand
+B 0 -61 2 minecraft:sand
+B 0 -61 3 minecraft:sand
+B 0 -60 0 minecraft:turtle_egg[eggs=1,hatch=0]
+B 1 -61 0 minecraft:sand
+B 1 -61 1 minecraft:sand
+B 1 -61 2 minecraft:sand
+B 1 -61 3 minecraft:sand
+B 2 -61 0 minecraft:sand
+B 2 -61 1 minecraft:sand
+B 2 -61 2 minecraft:sand
+B 2 -61 3 minecraft:sand
+B 2 -60 0 minecraft:turtle_egg[eggs=3,hatch=1]
+B 3 -61 0 minecraft:sand
+B 3 -61 1 minecraft:sand
+B 3 -61 2 minecraft:sand
+B 3 -61 3 minecraft:sand
+B 4 -61 0 minecraft:sand
+B 4 -61 1 minecraft:sand
+B 4 -61 2 minecraft:sand
+B 4 -61 3 minecraft:sand
+B 4 -60 0 minecraft:turtle_egg[eggs=4,hatch=2]
+B 5 -61 0 minecraft:sand
+B 5 -61 1 minecraft:sand
+B 5 -61 2 minecraft:sand
+B 5 -61 3 minecraft:sand
+B 6 -61 0 minecraft:sand
+B 6 -61 1 minecraft:sand
+B 6 -61 2 minecraft:sand
+B 6 -61 3 minecraft:sand
+B 6 -60 3 minecraft:turtle_egg[eggs=2,hatch=0]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=false]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=false]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -60 0 minecraft:turtle_egg[eggs=2,hatch=0]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+EV level_event r=64.0 ex=0 type=2012 pos=0,-60,0 data=15 global=0
+EV level_event r=64.0 ex=0 type=2012 pos=2,-60,0 data=15 global=0
+EV level_event r=64.0 ex=0 type=2012 pos=4,-60,0 data=15 global=0
+EV level_event r=64.0 ex=0 type=2012 pos=6,-60,3 data=15 global=0
+B 0 -60 0 minecraft:turtle_egg[eggs=1,hatch=0]
+B 2 -60 0 minecraft:turtle_egg[eggs=3,hatch=1]
+B 4 -60 0 minecraft:turtle_egg[eggs=4,hatch=2]
+B 6 -60 3 minecraft:turtle_egg[eggs=2,hatch=0]
+B 8 -60 0 minecraft:turtle_egg[eggs=2,hatch=0]
+# the hatch chance is 1.0 between day time 21062 and 21905
+C Set minecraft:overworld to 21100 tick(s)
+B 0 -60 0 minecraft:turtle_egg[eggs=1,hatch=1]
+B 2 -60 0 minecraft:turtle_egg[eggs=3,hatch=2]
+B 6 -60 3 minecraft:turtle_egg[eggs=2,hatch=1]
+B 8 -60 0 minecraft:turtle_egg[eggs=2,hatch=0]
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_crack source=block vol=0.7 pitch=0.9237027
+EV level_event r=64.0 ex=0 type=2012 pos=0,-60,0 data=15 global=0
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_crack source=block vol=0.7 pitch=0.93281627
+EV level_event r=64.0 ex=0 type=2012 pos=2,-60,0 data=15 global=0
+EV sound at=4.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_hatch source=block vol=0.7 pitch=1.0793136
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,0 data=18458 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,0 data=18458 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,0 data=18458 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,0 data=18458 global=0
+EV sound at=6.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_crack source=block vol=0.7 pitch=0.964382
+EV level_event r=64.0 ex=0 type=2012 pos=6,-60,3 data=15 global=0
+E turtle#1 minecraft:turtle pos=4.3,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#2 minecraft:turtle pos=4.5,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#3 minecraft:turtle pos=4.7,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#4 minecraft:turtle pos=4.9,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+B 0 -60 0 minecraft:turtle_egg[eggs=1,hatch=2]
+B 6 -60 3 minecraft:turtle_egg[eggs=2,hatch=2]
+B 8 -60 0 minecraft:turtle_egg[eggs=2,hatch=0]
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_crack source=block vol=0.7 pitch=1.0456918
+EV level_event r=64.0 ex=0 type=2012 pos=0,-60,0 data=15 global=0
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_hatch source=block vol=0.7 pitch=1.036862
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,0 data=18455 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,0 data=18455 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,0 data=18455 global=0
+EV sound at=6.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_crack source=block vol=0.7 pitch=0.98898494
+EV level_event r=64.0 ex=0 type=2012 pos=6,-60,3 data=15 global=0
+E turtle#1 minecraft:turtle pos=4.3,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#2 minecraft:turtle pos=4.5,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#3 minecraft:turtle pos=4.7,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#4 minecraft:turtle pos=4.9,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#5 minecraft:turtle pos=2.3,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#6 minecraft:turtle pos=2.5,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#7 minecraft:turtle pos=2.6999999999999997,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+B 8 -60 0 minecraft:turtle_egg[eggs=2,hatch=0]
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_hatch source=block vol=0.7 pitch=1.0478163
+EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=18449 global=0
+EV sound at=6.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_hatch source=block vol=0.7 pitch=1.0281742
+EV level_event r=64.0 ex=0 type=2001 pos=6,-60,3 data=18452 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=6,-60,3 data=18452 global=0
+E turtle#1 minecraft:turtle pos=4.3,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#2 minecraft:turtle pos=4.5,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#3 minecraft:turtle pos=4.7,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#4 minecraft:turtle pos=4.9,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#5 minecraft:turtle pos=2.3,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#6 minecraft:turtle pos=2.5,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#7 minecraft:turtle pos=2.6999999999999997,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#8 minecraft:turtle pos=0.3,-60.0,0.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#9 minecraft:turtle pos=6.3,-60.0,3.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+E turtle#10 minecraft:turtle pos=6.5,-60.0,3.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=-
+# the baby turtles are placeholders for the mob scope: removed
+# a player adds eggs to a clutch (canBeReplaced + getStateForPlacement) and breaks eggs one at a time (playerDestroy puts the block back)
+B 11 -61 0 minecraft:sand
+B 11 -61 1 minecraft:sand
+B 11 -61 2 minecraft:sand
+B 11 -60 0 minecraft:turtle_egg[eggs=1,hatch=0]
+B 12 -61 0 minecraft:sand
+B 12 -61 1 minecraft:sand
+B 12 -61 2 minecraft:sand
+B 12 -60 0 minecraft:turtle_egg[eggs=3,hatch=1]
+B 13 -61 0 minecraft:sand
+B 13 -61 1 minecraft:sand
+B 13 -61 2 minecraft:sand
+I Steve 0 minecraft:turtle_egg*8
+I Steve 1 minecraft:diamond_pickaxe*1
+I Steve 2 minecraft:diamond_pickaxe*1
+B 11 -61 0 minecraft:sand
+B 11 -61 1 minecraft:sand
+B 11 -61 2 minecraft:sand
+B 11 -60 0 minecraft:turtle_egg[eggs=1,hatch=0]
+B 12 -61 0 minecraft:sand
+B 12 -61 1 minecraft:sand
+B 12 -61 2 minecraft:sand
+B 12 -60 0 minecraft:turtle_egg[eggs=4,hatch=1]
+B 13 -61 0 minecraft:sand
+B 13 -61 1 minecraft:sand
+B 13 -61 2 minecraft:sand
+I Steve 0 minecraft:turtle_egg*7
+I Steve 1 minecraft:diamond_pickaxe*1
+I Steve 2 minecraft:diamond_pickaxe*1
+EV level_event r=64.0 ex=0 type=2012 pos=12,-60,0 data=15 global=0
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.metal.place source=block vol=1.0 pitch=1.2
+B 11 -61 0 minecraft:sand
+B 11 -61 1 minecraft:sand
+B 11 -61 2 minecraft:sand
+B 11 -60 0 minecraft:turtle_egg[eggs=1,hatch=0]
+B 12 -61 0 minecraft:sand
+B 12 -61 1 minecraft:sand
+B 12 -61 2 minecraft:sand
+B 12 -60 0 minecraft:turtle_egg[eggs=4,hatch=1]
+B 12 -59 0 minecraft:turtle_egg[eggs=2,hatch=0]
+B 13 -61 0 minecraft:sand
+B 13 -61 1 minecraft:sand
+B 13 -61 2 minecraft:sand
+I Steve 0 minecraft:turtle_egg*5
+I Steve 1 minecraft:diamond_pickaxe*1
+I Steve 2 minecraft:diamond_pickaxe*1
+EV sound at=12.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.metal.place source=block vol=1.0 pitch=1.2
+EV sound at=12.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.metal.place source=block vol=1.0 pitch=1.2
+B 11 -61 0 minecraft:sand
+B 11 -61 1 minecraft:sand
+B 11 -61 2 minecraft:sand
+B 11 -60 0 minecraft:turtle_egg[eggs=2,hatch=0]
+B 12 -61 0 minecraft:sand
+B 12 -61 1 minecraft:sand
+B 12 -61 2 minecraft:sand
+B 12 -60 0 minecraft:turtle_egg[eggs=4,hatch=1]
+B 12 -59 0 minecraft:turtle_egg[eggs=2,hatch=0]
+B 13 -61 0 minecraft:sand
+B 13 -61 1 minecraft:sand
+B 13 -61 2 minecraft:sand
+I Steve 0 minecraft:turtle_egg*4
+I Steve 1 minecraft:diamond_pickaxe*1
+I Steve 2 minecraft:diamond_pickaxe*1
+EV level_event r=64.0 ex=0 type=2012 pos=11,-60,0 data=15 global=0
+EV sound at=11.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.metal.place source=block vol=1.0 pitch=1.2
+DIG Steve ticks=30 broken=false
+B 11 -61 0 minecraft:sand
+B 11 -61 1 minecraft:sand
+B 11 -61 2 minecraft:sand
+B 11 -60 0 minecraft:turtle_egg[eggs=2,hatch=0]
+B 12 -61 0 minecraft:sand
+B 12 -61 1 minecraft:sand
+B 12 -61 2 minecraft:sand
+B 12 -60 0 minecraft:turtle_egg[eggs=3,hatch=1]
+B 12 -59 0 minecraft:turtle_egg[eggs=2,hatch=0]
+B 13 -61 0 minecraft:sand
+B 13 -61 1 minecraft:sand
+B 13 -61 2 minecraft:sand
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=12,-60,0 data=18457 global=0
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_break source=block vol=0.7 pitch=1.0099059
+EV level_event r=64.0 ex=0 type=2012 pos=12,-60,0 data=15 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=12,-60,0 data=18457 global=0
+I Steve 0 minecraft:turtle_egg*4
+I Steve 1 minecraft:diamond_pickaxe*1/dmg=1
+I Steve 2 minecraft:diamond_pickaxe*1
+DIG Steve ticks=30 broken=false
+B 11 -61 0 minecraft:sand
+B 11 -61 1 minecraft:sand
+B 11 -61 2 minecraft:sand
+B 11 -60 0 minecraft:turtle_egg[eggs=2,hatch=0]
+B 12 -61 0 minecraft:sand
+B 12 -61 1 minecraft:sand
+B 12 -61 2 minecraft:sand
+B 12 -60 0 minecraft:turtle_egg[eggs=2,hatch=1]
+B 12 -59 0 minecraft:turtle_egg[eggs=2,hatch=0]
+B 13 -61 0 minecraft:sand
+B 13 -61 1 minecraft:sand
+B 13 -61 2 minecraft:sand
+E item#1 minecraft:item pos=12.683975886946612,-59.32385926680956,0.41795994829738514 delta=0.008039694577032077,0.1568000030517578,-0.0714725417405908 rot=44.251877,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:turtle_egg*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=12,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=12,-60,0 data=18454 global=0
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_break source=block vol=0.7 pitch=1.0535135
+EV level_event r=64.0 ex=0 type=2012 pos=12,-60,0 data=15 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=12,-60,0 data=18454 global=0
+I Steve 0 minecraft:turtle_egg*4
+I Steve 1 minecraft:diamond_pickaxe*1/dmg=1
+I Steve 2 minecraft:diamond_pickaxe*1/dmg=1
+DIG Steve ticks=30 broken=false
+B 11 -61 0 minecraft:sand
+B 11 -61 1 minecraft:sand
+B 11 -61 2 minecraft:sand
+B 11 -60 0 minecraft:turtle_egg[eggs=1,hatch=0]
+B 12 -61 0 minecraft:sand
+B 12 -61 1 minecraft:sand
+B 12 -61 2 minecraft:sand
+B 12 -60 0 minecraft:turtle_egg[eggs=2,hatch=1]
+B 12 -59 0 minecraft:turtle_egg[eggs=2,hatch=0]
+B 13 -61 0 minecraft:sand
+B 13 -61 1 minecraft:sand
+B 13 -61 2 minecraft:sand
+E item#1 minecraft:item pos=12.733129346386592,-59.5625,-0.019012208773723154 delta=2.1542443088732627E-5,-0.12,-1.9151139985496018E-4 rot=44.251877,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:turtle_egg*1 age=31 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.517639361964006,-59.58656984074859,0.14056405589850152 delta=0.02363122565697294,0.11760000228881835,-0.14014710639490602 rot=136.49117,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:turtle_egg*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=11,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=11,-60,0 data=18450 global=0
+EV sound at=11.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.turtle.egg_break source=block vol=0.7 pitch=0.9738324
+EV level_event r=64.0 ex=0 type=2012 pos=11,-60,0 data=15 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=11,-60,0 data=18450 global=0
+I Steve 0 minecraft:turtle_egg*4
+I Steve 1 minecraft:diamond_pickaxe*1/dmg=1
+I Steve 2 minecraft:diamond_pickaxe*1/dmg=2
+# infested blocks: breaking one releases a silverfish (not with silk touch), the host state keeps its properties
+DIG Steve ticks=40 broken=true
+B 13 -60 3 minecraft:infested_cobblestone
+B 15 -60 3 minecraft:infested_deepslate[axis=x]
+B 16 -60 3 minecraft:infested_stone
+E item#1 minecraft:item pos=12.733129346386592,-59.5625,-0.019012208773723154 delta=1.0643112475645739E-7,-0.12,-9.461681577289576E-7 rot=44.251877,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:turtle_egg*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.656871443609445,-60.0,-1.9882498081268516 delta=5.452109402093775E-6,-0.08,-8.336100377294234E-5 rot=136.49117,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:turtle_egg*1 age=41 pickup=0 health=5 owner=- thrower=-
+E silverfish#1 minecraft:silverfish pos=14.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=14,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=14,-60,3 data=9494 global=0
+I Steve 0 minecraft:turtle_egg*4
+I Steve 1 minecraft:diamond_pickaxe*1/dmg=2
+I Steve 2 minecraft:diamond_pickaxe*1/dmg=2
+DIG Steve ticks=40 broken=true
+B 13 -60 3 minecraft:infested_cobblestone
+B 15 -60 3 minecraft:infested_deepslate[axis=x]
+E item#1 minecraft:item pos=12.733129346386592,-59.5625,-0.019012208773723154 delta=5.258263545256518E-10,-0.12,-4.674573855019644E-9 rot=44.251877,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:turtle_egg*1 age=111 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.656871443609445,-60.0,-1.9882498081268516 delta=2.6936319783692432E-8,-0.08,-4.118476885763241E-7 rot=136.49117,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:turtle_egg*1 age=81 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=16.773993751261806,-59.59492131522383,3.3661754546892264 delta=0.04852707485198954,0.1568000030517578,-0.02642027828745166 rot=78.56946,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=16,-60,3 data=9494 global=0
+I Steve 0 minecraft:turtle_egg*4
+I Steve 1 minecraft:diamond_pickaxe*1/dmg=2
+I Steve 2 minecraft:diamond_pickaxe*1/dmg=3
+DESTROY true
+B 13 -60 3 minecraft:infested_cobblestone
+E item#1 minecraft:item pos=12.733129346386592,-59.5625,-0.019012208773723154 delta=5.258263545256518E-10,-0.12,-4.674573855019644E-9 rot=44.251877,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:turtle_egg*1 age=111 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.656871443609445,-60.0,-1.9882498081268516 delta=2.6936319783692432E-8,-0.08,-4.118476885763241E-7 rot=136.49117,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:turtle_egg*1 age=81 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=16.773993751261806,-59.59492131522383,3.3661754546892264 delta=0.04852707485198954,0.1568000030517578,-0.02642027828745166 rot=78.56946,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=9 health=5 owner=- thrower=-
+E silverfish#2 minecraft:silverfish pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=15,-60,3 data=35423 global=0
+# frogspawn on water (scheduled hatch, tadpoles) and without support, sniffer eggs (boosted by moss, scheduled stages)
+TICK block 22 -60 0 minecraft:frogspawn delay=3928 prio=0
+TICK block 32 -60 0 minecraft:sniffer_egg delay=4130 prio=0
+TICK block 28 -60 0 minecraft:sniffer_egg delay=4161 prio=0
+TICK block 20 -60 0 minecraft:frogspawn delay=4531 prio=0
+TICK block 26 -60 0 minecraft:frogspawn delay=5819 prio=0
+TICK block 22 -60 2 minecraft:frogspawn delay=6814 prio=0
+TICK block 30 -60 0 minecraft:sniffer_egg delay=8147 prio=0
+EV level_event r=64.0 ex=0 type=3009 pos=28,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3009 pos=32,-60,0 data=0 global=0
+B 20 -60 0 minecraft:frogspawn
+B 22 -60 0 minecraft:frogspawn
+B 22 -60 2 minecraft:frogspawn
+B 26 -60 0 minecraft:frogspawn
+B 28 -60 0 minecraft:sniffer_egg[hatch=0]
+B 30 -60 0 minecraft:sniffer_egg[hatch=2]
+B 32 -60 0 minecraft:sniffer_egg[hatch=2]
+B 20 -60 0 minecraft:frogspawn
+B 22 -60 2 minecraft:frogspawn
+B 26 -60 0 minecraft:frogspawn
+B 28 -60 0 minecraft:sniffer_egg[hatch=0]
+B 30 -60 0 minecraft:sniffer_egg[hatch=2]
+B 32 -60 0 minecraft:sniffer_egg[hatch=2]
+E tadpole#1 minecraft:tadpole pos=22.799999997019768,-60.495,0.20000000298023224 delta=0.0,-4.999999999999996E-4,0.0 rot=177.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tadpole#2 minecraft:tadpole pos=22.200000002980232,-60.495,0.29247127606785295 delta=0.0,-4.999999999999996E-4,0.0 rot=25.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tadpole#3 minecraft:tadpole pos=22.296847493352544,-60.495,0.7642336791118468 delta=0.0,-4.999999999999996E-4,0.0 rot=4.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=22,-60,0 data=35441 global=0
+EV sound at=22.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.frogspawn.hatch source=block vol=1.0 pitch=1.0
+B 28 -60 0 minecraft:sniffer_egg[hatch=0]
+B 30 -60 0 minecraft:sniffer_egg[hatch=2]
+B 32 -60 0 minecraft:sniffer_egg[hatch=2]
+B 28 -60 0 minecraft:sniffer_egg[hatch=0]
+B 30 -60 0 minecraft:sniffer_egg[hatch=2]
+E sniffer#1 minecraft:sniffer pos=32.5,-59.5,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-117.687836,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sniffer_egg.hatch source=block vol=0.7 pitch=1.0587152
+EV level_event r=64.0 ex=0 type=2001 pos=32,-60,0 data=18461 global=0
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.sniffer.scenting source=neutral vol=1.0 pitch=1.3
+B 28 -60 0 minecraft:sniffer_egg[hatch=0]
+B 30 -60 0 minecraft:sniffer_egg[hatch=2]
+B 28 -60 0 minecraft:sniffer_egg[hatch=1]
+B 30 -60 0 minecraft:sniffer_egg[hatch=2]
+EV sound at=28.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sniffer_egg.crack source=block vol=0.7 pitch=0.93268263
+EV level_event r=64.0 ex=0 type=3009 pos=28,-60,0 data=0 global=0
+TICK block 28 -60 0 minecraft:sniffer_egg delay=4140 prio=0
+B 20 -60 0 minecraft:frogspawn
+B 22 -60 2 minecraft:frogspawn
+B 26 -60 0 minecraft:frogspawn
+B 22 -60 2 minecraft:frogspawn
+B 26 -60 0 minecraft:frogspawn
+E tadpole#4 minecraft:tadpole pos=20.799999997019768,-60.495,0.32300832992903195 delta=0.11845662542593109,-4.999999999999996E-4,0.0015348487774071943 rot=314.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tadpole#5 minecraft:tadpole pos=20.251942246728312,-60.495,0.6129691361163936 delta=-0.053128207290808235,-4.999999999999996E-4,0.1337723055596353 rot=25.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tadpole#6 minecraft:tadpole pos=20.402916518838303,-60.495,0.20000000298023224 delta=-0.019596817851221582,-4.999999999999996E-4,-0.06342203736833234 rot=172.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tadpole#7 minecraft:tadpole pos=20.200000002980232,-60.495,0.21829832079817532 delta=-0.0799918568668981,-4.999999999999996E-4,-0.089921402187574 rot=360.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tadpole#8 minecraft:tadpole pos=20.49870314082035,-60.495,0.43182570771686096 delta=0.05999237299493544,-4.999999999999996E-4,0.058536502722273766 rot=171.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=20,-60,0 data=35441 global=0
+EV sound at=20.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.frogspawn.hatch source=block vol=1.0 pitch=1.0
+B 22 -60 2 minecraft:frogspawn
+B 26 -60 0 minecraft:frogspawn
+B 22 -60 2 minecraft:frogspawn
+EV level_event r=64.0 ex=0 type=2001 pos=26,-60,0 data=35441 global=0
+B 22 -60 2 minecraft:frogspawn
+E tadpole#9 minecraft:tadpole pos=22.200000002980232,-60.495,2.65288022830008 delta=0.0,-4.999999999999996E-4,0.0 rot=185.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tadpole#10 minecraft:tadpole pos=22.459415361609476,-60.495,2.2000000029802322 delta=0.0,-4.999999999999996E-4,0.0 rot=237.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=22,-60,2 data=35441 global=0
+EV sound at=22.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.frogspawn.hatch source=block vol=1.0 pitch=1.0
+B 28 -60 0 minecraft:sniffer_egg[hatch=1]
+B 30 -60 0 minecraft:sniffer_egg[hatch=2]
+B 28 -60 0 minecraft:sniffer_egg[hatch=1]
+E sniffer#2 minecraft:sniffer pos=30.5,-59.5,0.5 delta=0.0,-0.0784000015258789,0.0 rot=35.30124,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sniffer_egg.hatch source=block vol=0.7 pitch=0.9482259
+EV level_event r=64.0 ex=0 type=2001 pos=30,-60,0 data=18461 global=0
+B 28 -60 0 minecraft:sniffer_egg[hatch=1]
+B 28 -60 0 minecraft:sniffer_egg[hatch=2]
+EV sound at=28.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sniffer_egg.crack source=block vol=0.7 pitch=0.9327265
+EV level_event r=64.0 ex=0 type=3009 pos=28,-60,0 data=0 global=0
+TICK block 28 -60 0 minecraft:sniffer_egg delay=4200 prio=0
+B 28 -60 0 minecraft:sniffer_egg[hatch=2]
+E sniffer#3 minecraft:sniffer pos=28.5,-59.5,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-81.51172,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=28.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sniffer_egg.hatch source=block vol=0.7 pitch=1.0384473
+EV level_event r=64.0 ex=0 type=2001 pos=28,-60,0 data=18461 global=0

@@ -31,6 +31,7 @@ mod blocks_pots_segments_golden;
 mod blocks_redstone_devices_golden;
 mod blocks_redstone_golden;
 mod blocks_scaffolding_golden;
+mod blocks_sculk_eggs_golden;
 mod blocks_signs_golden;
 mod blocks_spawners_golden;
 mod blocks_speleothem_copper_golden;

@@ -1,0 +1,67 @@
+# SculkSpreader / ChargeCursor driven by a sculk catalyst on a grass floor: cursor movement, vein spreading, sculk placement, the
+# growth of sensors and shriekers, merging, discharge, plus sculk vein placement/support and sculk replaceable blocks.
+# The cursors are injected with be_nbt (the catalyst's saved `cursors`), which the mob-death trigger would add the same way.
+level flat
+preload 2
+level_seed 4242
+fill 11 -61 5 13 -61 7 minecraft:water
+block 6 -61 12 minecraft:stone
+block 6 -60 12 minecraft:stone
+block 4 -61 10 minecraft:dirt
+block 5 -61 10 minecraft:coarse_dirt
+block 3 -60 10 minecraft:oak_log
+block 2 -60 2 minecraft:sculk_catalyst
+fill 0 -61 14 12 -61 15 minecraft:sculk
+note a player places sculk veins (the item adds faces to an existing vein), the support goes away, veins in water
+spawn_player Steve survival 18.5 -60 -8.5 0 0
+give Steve hotbar0 minecraft:sculk_vein 16
+select Steve 0
+fill 15 -61 -12 20 -61 -6 minecraft:sculk
+block 17 -60 -10 minecraft:stone
+block 15 -60 -8 minecraft:water
+block 16 -60 -8 minecraft:water
+use_on Steve 17 -61 -9 up main
+use_on Steve 17 -60 -9 north main
+use_on Steve 17 -60 -9 east main
+use_on Steve 17 -60 -10 south main
+use_on Steve 16 -61 -8 up main
+use_on Steve 18 -61 -7 up main
+dump blocks:15,-61,-12,20,-59,-6 inventory:Steve events
+block 18 -61 -7 minecraft:air
+block 17 -61 -9 minecraft:air
+dump blocks:15,-61,-12,20,-59,-6 events
+note breaking a vein
+destroy 16 -60 -8
+dump blocks:15,-61,-12,20,-59,-6 entities events
+note two cursors at the same spot (merge), one next to the pond, one inside a vein with explicit facings
+block 9 -60 3 minecraft:sculk_vein[down=true]
+be_nbt 2 -60 2 {cursors:[{pos:[I;8,-60,8],charge:300},{pos:[I;8,-60,8],charge:100},{pos:[I;11,-60,6],charge:150},{pos:[I;9,-60,3],charge:60,facings:["down"]},{pos:[I;6,-61,14],charge:200},{pos:[I;3,-61,15],charge:30}]}
+dump be:2,-60,2 blocks:0,-61,0,14,-59,16 events
+tick 1
+dump be:2,-60,2 blocks:0,-61,0,14,-59,16 events ticks
+tick 9
+dump be:2,-60,2 blocks:0,-61,0,14,-59,16 events
+tick 20
+dump be:2,-60,2 blocks:0,-61,0,14,-59,16 events
+tick 40
+dump be:2,-60,2 blocks:0,-61,0,14,-59,16 events
+tick 80
+dump be:2,-60,2 blocks:0,-61,0,14,-59,16 events
+tick 100
+dump be:2,-60,2 blocks:0,-61,0,14,-59,16 events
+note a zombie dies next to the catalyst: its experience becomes a cursor and the catalyst blooms
+spawn z1 minecraft:zombie 4.5 -60 4.5 0 0 {NoAI:1b,Silent:1b}
+entity_seed z1 5
+hurt z1 minecraft:generic 100
+dump be:2,-60,2 blocks:2,-60,2,2,-60,2 entities events ticks:2,-60,2,2,-60,2
+tick 1
+dump be:2,-60,2 blocks:2,-60,2,2,-60,2 entities events
+tick 8
+dump be:2,-60,2 blocks:2,-60,2,2,-60,2 entities events
+tick 40
+dump be:2,-60,2 blocks:0,-61,0,14,-59,16 entities events
+note breaking the catalyst drops 5 experience, its cursors go with it
+destroy 2 -60 2
+dump be:2,-60,2 blocks:2,-60,2,2,-60,2 entities events
+tick 5
+dump entities

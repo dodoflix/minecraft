@@ -1,0 +1,53 @@
+# Shrieker: tryShriek through stepOn of an item thrown by a player (the item rests on the shrieker and steps on it every fourth
+# tick), the warden warning tracker and its 200 tick cooldown, the scheduled tick that ends the shriek and the delayed response
+# (warden reply sound, darkness), breaking a shrieking shrieker, XP, silk touch. The fourth warning would summon a warden: the
+# scenario stops at warning level 3.
+level flat
+preload 2
+level_seed 4242
+gamerule spawn_wardens true
+spawn_player Steve survival 2.5 -60 2.5 0 0
+give Steve hotbar0 minecraft:diamond_pickaxe 1
+give Steve hotbar1 minecraft:diamond_pickaxe[enchantments={"minecraft:silk_touch":1}] 1
+select Steve 0
+block 0 -60 0 minecraft:sculk_shrieker[can_summon=true]
+block 3 -60 0 minecraft:sculk_shrieker
+dump blocks:0,-60,0,3,-60,0 be:0,-60,0 be:3,-60,0
+note an item thrown by the player lands on the shrieker: warning level 1, shriek, tick after 90 ticks, reply
+entity_counter 100
+spawn_item i1 minecraft:stone 0.5 -58.5 0.5 0 0 0
+nbt i1 {Thrower:[I;1445453208,-423740383,-1196889821,1142437441]}
+note the same on a shrieker that cannot summon: it shrieks again every time, without warnings or replies
+entity_counter 200
+spawn_item i2 minecraft:stone 3.5 -58.5 0.5 0 0 0
+nbt i2 {Thrower:[I;1445453208,-423740383,-1196889821,1142437441]}
+tick 8
+dump blocks:0,-60,0,3,-60,0 be:0,-60,0 ticks:0,-60,0,0,-60,0 events player:Steve
+tick 90
+dump blocks:0,-60,0,3,-60,0 be:0,-60,0 ticks:0,-60,0,0,-60,0 events player:Steve
+note on cooldown: no warning, no shriek
+tick 100
+dump blocks:0,-60,0,3,-60,0 be:0,-60,0 events player:Steve
+note the cooldown is over: warning level 2
+tick 20
+dump blocks:0,-60,0,3,-60,0 be:0,-60,0 events player:Steve
+tick 90
+dump blocks:0,-60,0,3,-60,0 be:0,-60,0 events player:Steve
+tick 100
+dump blocks:0,-60,0,3,-60,0 be:0,-60,0 events player:Steve
+tick 20
+dump blocks:0,-60,0,3,-60,0 be:0,-60,0 events player:Steve
+kill i1
+kill i2
+note breaking a shrieking shrieker responds first (warning level 3: the closest reply) and drops 5 experience; silk touch keeps it
+destroy 0 -60 0
+dump blocks:0,-60,0,3,-60,0 entities events player:Steve
+tick 2
+dump entities
+select Steve 1
+dig Steve 3 -60 0 60
+dump blocks:0,-60,0,3,-60,0 entities events inventory:Steve
+block 4 -60 0 minecraft:sculk_shrieker
+select Steve 0
+dig Steve 4 -60 0 60
+dump blocks:3,-60,0,4,-60,0 entities events inventory:Steve

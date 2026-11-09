@@ -1,0 +1,162 @@
+# Turtle eggs (random tick hatch chance from the day timeline, place level event, eggs on sand only, stepping, breaking), frogspawn
+# (scheduled hatch, support), sniffer eggs (scheduled stages, moss boost) and infested blocks (host/infested states, silverfish).
+level flat
+preload 2
+level_seed 4242
+rand_value 99
+fill 0 -61 0 6 -61 3 minecraft:sand
+note the default chance 0.002 almost never hatches in the day
+time 6000
+block 0 -60 0 minecraft:turtle_egg
+block 2 -60 0 minecraft:turtle_egg[eggs=3,hatch=1]
+block 4 -60 0 minecraft:turtle_egg[eggs=4,hatch=2]
+block 6 -60 3 minecraft:turtle_egg[eggs=2]
+block 8 -60 0 minecraft:turtle_egg[eggs=2]
+dump blocks:0,-61,0,9,-60,3 events
+random_tick 0 -60 0
+random_tick 2 -60 0
+random_tick 4 -60 0
+random_tick 6 -60 3
+random_tick 8 -60 0
+dump blocks:0,-60,0,9,-60,3 events
+note the hatch chance is 1.0 between day time 21062 and 21905
+time 21100
+tick 1
+random_tick 0 -60 0
+random_tick 2 -60 0
+random_tick 4 -60 0
+random_tick 6 -60 3
+random_tick 8 -60 0
+dump blocks:0,-60,0,9,-60,3 events entities
+random_tick 0 -60 0
+random_tick 2 -60 0
+random_tick 4 -60 0
+random_tick 6 -60 3
+random_tick 8 -60 0
+dump blocks:0,-60,0,9,-60,3 events entities
+random_tick 0 -60 0
+random_tick 2 -60 0
+random_tick 6 -60 3
+dump blocks:0,-60,0,9,-60,3 events entities
+note the baby turtles are placeholders for the mob scope: removed
+kill turtle#1
+kill turtle#2
+kill turtle#3
+kill turtle#4
+kill turtle#5
+kill turtle#6
+kill turtle#7
+kill turtle#8
+kill turtle#9
+kill turtle#10
+note a player adds eggs to a clutch (canBeReplaced + getStateForPlacement) and breaks eggs one at a time (playerDestroy puts the block back)
+spawn_player Steve survival 12.5 -60 1.5 0 0
+give Steve hotbar0 minecraft:turtle_egg 8
+give Steve hotbar1 minecraft:diamond_pickaxe 1
+give Steve hotbar2 minecraft:diamond_pickaxe[enchantments={"minecraft:silk_touch":1}] 1
+select Steve 0
+block 12 -60 0 minecraft:turtle_egg[eggs=3,hatch=1]
+block 11 -60 0 minecraft:turtle_egg
+fill 11 -61 0 13 -61 2 minecraft:sand
+dump blocks:11,-61,0,13,-59,2 inventory:Steve events
+use_on Steve 12 -60 0 up main
+dump blocks:11,-61,0,13,-59,2 inventory:Steve events
+use_on Steve 12 -60 0 up main
+use_on Steve 12 -60 0 up main
+dump blocks:11,-61,0,13,-59,2 inventory:Steve events
+use_on Steve 11 -60 0 east main
+dump blocks:11,-61,0,13,-59,2 inventory:Steve events
+select Steve 1
+dig Steve 12 -60 0 30
+dump blocks:11,-61,0,13,-59,2 entities events inventory:Steve
+select Steve 2
+dig Steve 12 -60 0 30
+dump blocks:11,-61,0,13,-59,2 entities events inventory:Steve
+dig Steve 11 -60 0 30
+dump blocks:11,-61,0,13,-59,2 entities events inventory:Steve
+note infested blocks: breaking one releases a silverfish (not with silk touch), the host state keeps its properties
+block 14 -60 3 minecraft:infested_stone
+block 15 -60 3 minecraft:infested_deepslate[axis=x]
+block 16 -60 3 minecraft:infested_stone
+block 13 -60 3 minecraft:infested_cobblestone
+select Steve 1
+dig Steve 14 -60 3 40
+dump blocks:13,-60,3,16,-60,3 entities events inventory:Steve
+kill silverfish#1
+select Steve 2
+dig Steve 16 -60 3 40
+dump blocks:13,-60,3,16,-60,3 entities events inventory:Steve
+destroy 15 -60 3
+dump blocks:13,-60,3,16,-60,3 entities events
+kill silverfish#2
+kill item#1
+kill item#2
+kill item#3
+reseed 11
+note frogspawn on water (scheduled hatch, tadpoles) and without support, sniffer eggs (boosted by moss, scheduled stages)
+fill 20 -61 0 24 -61 3 minecraft:water
+block 20 -60 0 minecraft:frogspawn
+block 22 -60 0 minecraft:frogspawn
+block 22 -60 2 minecraft:frogspawn
+block 26 -60 0 minecraft:frogspawn
+block 28 -61 0 minecraft:moss_block
+block 28 -60 0 minecraft:sniffer_egg
+block 30 -60 0 minecraft:sniffer_egg[hatch=2]
+block 32 -61 0 minecraft:moss_block
+block 32 -60 0 minecraft:sniffer_egg[hatch=2]
+dump ticks:20,-60,0,32,-60,3 events
+tick 3927
+dump blocks:20,-60,0,32,-60,3 entities
+tick 1
+dump blocks:20,-60,0,32,-60,3 entities events
+kill tadpole#1
+kill tadpole#2
+kill tadpole#3
+level_seed 101
+tick 201
+dump blocks:28,-60,0,32,-60,0 entities
+tick 1
+dump blocks:28,-60,0,32,-60,0 entities events
+kill sniffer#1
+level_seed 102
+tick 30
+dump blocks:28,-60,0,32,-60,0 entities
+tick 1
+dump blocks:28,-60,0,32,-60,0 entities events ticks:28,-60,0,28,-60,0
+tick 369
+dump blocks:20,-60,0,26,-60,3 entities
+tick 1
+dump blocks:20,-60,0,26,-60,3 entities events
+kill tadpole#4
+kill tadpole#5
+kill tadpole#6
+kill tadpole#7
+kill tadpole#8
+level_seed 103
+tick 1287
+dump blocks:20,-60,0,26,-60,3 entities
+tick 1
+dump blocks:20,-60,0,26,-60,3 entities events
+tick 994
+dump blocks:20,-60,0,26,-60,3 entities
+tick 1
+dump blocks:20,-60,0,26,-60,3 entities events
+kill tadpole#9
+kill tadpole#10
+level_seed 104
+tick 1332
+dump blocks:28,-60,0,32,-60,0 entities
+tick 1
+dump blocks:28,-60,0,32,-60,0 entities events
+kill sniffer#2
+level_seed 105
+tick 153
+dump blocks:28,-60,0,32,-60,0 entities
+tick 1
+dump blocks:28,-60,0,32,-60,0 entities events ticks:28,-60,0,28,-60,0
+tick 4199
+dump blocks:28,-60,0,32,-60,0 entities
+tick 1
+dump blocks:28,-60,0,32,-60,0 entities events
+kill sniffer#3
+level_seed 106
