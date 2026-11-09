@@ -480,6 +480,15 @@ impl<C: SpeleothemClass> BlockBehaviour for Speleothem<C> {
     ) -> VoxelShape {
         speleothem_shape(state, pos)
     }
+    /// `getBlockSupportShape` defaults to the collision shape at the position.
+    fn get_block_support_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+    ) -> VoxelShape {
+        speleothem_shape(state, pos)
+    }
     fn is_pathfindable(
         &self,
         _state: BlockState,

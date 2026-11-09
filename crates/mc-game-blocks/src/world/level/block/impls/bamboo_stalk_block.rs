@@ -117,6 +117,15 @@ impl BlockBehaviour for BambooStalkBlock {
     ) -> VoxelShape {
         SHAPE_COLLISION.move_vec(state.get_offset(pos))
     }
+    /// `getBlockSupportShape` defaults to the collision shape at the position.
+    fn get_block_support_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+    ) -> VoxelShape {
+        SHAPE_COLLISION.move_vec(state.get_offset(pos))
+    }
     fn get_state_for_placement(
         &self,
         block: Block,

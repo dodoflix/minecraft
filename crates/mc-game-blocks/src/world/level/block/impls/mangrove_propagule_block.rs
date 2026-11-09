@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.MangrovePropaguleBlock` (extends `SaplingBlock`).
 use super::sapling_block;
+use mc_core::phys::shapes::VoxelShape;
 use mc_data::fluid::Fluid;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::BlockPlaceContext;
@@ -7,9 +8,17 @@ use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_game_core::world::level::block::grower::TreeGrower;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::impls::vegetation_block::{self, MayPlaceOn};
+use mc_game_core::world::level::collision::CollisionContext;
+use mc_game_core::world::level::shapes::column;
 use mc_game_core::{register_block_class, update_shape};
+use std::sync::LazyLock;
 
 pub struct MangrovePropaguleBlock;
+
+const SHAPE_MIN_Y: [f64; 5] = [13.0, 10.0, 7.0, 3.0, 0.0];
+
+static SHAPE_PER_AGE: LazyLock<[VoxelShape; 5]> =
+    LazyLock::new(|| SHAPE_MIN_Y.map(|min_y| column(2.0, min_y, 16.0)));
 
 impl MayPlaceOn for MangrovePropaguleBlock {
     fn may_place_on(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> bool {
@@ -31,6 +40,20 @@ fn is_fully_grown(state: BlockState) -> bool {
 
 impl BlockBehaviour for MangrovePropaguleBlock {
     mc_game_core::simple_waterlogged!();
+    fn get_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+        _context: &CollisionContext,
+    ) -> VoxelShape {
+        let age = if state.get(props::HANGING) {
+            state.get(props::AGE_4) as usize
+        } else {
+            4
+        };
+        SHAPE_PER_AGE[age].move_vec(state.get_offset(pos))
+    }
     fn get_state_for_placement(
         &self,
         block: Block,

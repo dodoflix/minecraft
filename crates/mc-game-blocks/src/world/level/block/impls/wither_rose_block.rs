@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.WitherRoseBlock` (extends `FlowerBlock`).
 use super::flower_block::FlowerBlock;
+use mc_core::phys::shapes::VoxelShape;
 use mc_data::MobEffect;
 use mc_game_core::register_block_class;
 use mc_game_core::world::entity::effect::MobEffectInstance;
@@ -7,6 +8,7 @@ use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::impls::vegetation_block::{
     MayPlaceOn, vegetation_behaviour_methods,
 };
+use mc_game_core::world::level::collision::CollisionContext;
 use mc_protocol::components::SuspiciousStewEffects;
 
 pub struct WitherRoseBlock(FlowerBlock);
@@ -19,6 +21,15 @@ impl MayPlaceOn for WitherRoseBlock {
 
 impl BlockBehaviour for WitherRoseBlock {
     vegetation_behaviour_methods!();
+    fn get_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+        _context: &CollisionContext,
+    ) -> VoxelShape {
+        super::flower_block::get_shape(state, pos)
+    }
     fn get_suspicious_effects(&self) -> Option<SuspiciousStewEffects> {
         self.0.get_suspicious_effects()
     }

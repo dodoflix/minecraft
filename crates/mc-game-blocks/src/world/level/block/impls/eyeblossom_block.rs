@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.block.EyeblossomBlock` (extends `FlowerBlock`): opens and closes with the
 //! `gameplay/eyeblossom_open` attribute.
 use mc_core::phys::Vec3;
+use mc_core::phys::shapes::VoxelShape;
 use mc_data::{GameEvent, MobEffect, SoundEvent};
 use mc_game_core::register_block;
 use mc_game_core::server::level::ServerLevel;
@@ -8,6 +9,7 @@ use mc_game_core::world::entity::effect::MobEffectInstance;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::impls::vegetation_block::vegetation_behaviour_methods;
 use mc_game_core::world::level::blockscan;
+use mc_game_core::world::level::collision::CollisionContext;
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_protocol::components::SuspiciousStewEffects;
 use mc_protocol::packets::play::ParticleOptions;
@@ -147,6 +149,15 @@ impl mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn for 
 
 impl BlockBehaviour for EyeblossomBlock {
     vegetation_behaviour_methods!();
+    fn get_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+        _context: &CollisionContext,
+    ) -> VoxelShape {
+        super::flower_block::get_shape(state, pos)
+    }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if self.try_changing_state(state, level, pos) {
             level.play_sound(

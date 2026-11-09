@@ -1,10 +1,12 @@
 //! Golden test of the block behaviour classes (`can_survive`, `update_shape`, `rotate`, `mirror`,
-//! `get_post_process_pos`, `get_visual_shape`) against the vanilla block classes: for every state of every block, 16 pseudo-random
+//! `get_post_process_pos`, `get_visual_shape`, `get_shape`, `get_collision_shape`, `get_block_support_shape`,
+//! `get_interaction_shape`) against the vanilla block classes: for every state of every block, 16 pseudo-random
 //! worlds over a stub `LevelReader` (see `tests/oracle/BlockBehaviourOracle.java`, which mirrors the world function,
 //! the pools and the hashing). One 64-bit hash per block is compared with `tests/fixtures/block_behaviour.txt`.
 //! Debugging a mismatch: `BLOCK_BEHAVIOUR_VERBOSE=<block> cargo test ... -- --nocapture` prints the per-state detail in
 //! the format of `scripts/golden-block-behaviour.sh verbose <block>`.
 use mc_core::mirror::Mirror;
+use mc_core::phys::shapes::VoxelShape;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_core::rotation::Rotation;
@@ -188,6 +190,17 @@ fn capped(block: Block, cap: usize) -> Vec<BlockState> {
     block.states().take(cap).collect()
 }
 
+fn hash_shape(mut h: u64, shape: &VoxelShape) -> u64 {
+    let boxes = shape.to_aabbs();
+    h = mix(h ^ boxes.len() as u64);
+    for b in &boxes {
+        for c in [b.min_x, b.min_y, b.min_z, b.max_x, b.max_y, b.max_z] {
+            h = mix(h ^ c.to_bits());
+        }
+    }
+    h
+}
+
 fn eval_state(stub: &mut Stub, s: BlockState, verbose: &mut Option<String>) -> u64 {
     use std::fmt::Write;
     let mut h = 0x1234567u64;
@@ -212,15 +225,14 @@ fn eval_state(stub: &mut Stub, s: BlockState, verbose: &mut Option<String>) -> u
                     + i64::from(p.z() - ORIGIN.z())) as u64
             }
         });
-        let visual = s
-            .get_visual_shape(&*stub, ORIGIN, &CollisionContext::empty())
-            .to_aabbs();
-        h = mix(h ^ visual.len() as u64);
-        for b in &visual {
-            for c in [b.min_x, b.min_y, b.min_z, b.max_x, b.max_y, b.max_z] {
-                h = mix(h ^ c.to_bits());
-            }
-        }
+        h = hash_shape(
+            h,
+            &s.get_visual_shape(&*stub, ORIGIN, &CollisionContext::empty()),
+        );
+        h = hash_shape(h, &s.get_shape(&*stub, ORIGIN));
+        h = hash_shape(h, &s.get_collision_shape(&*stub, ORIGIN));
+        h = hash_shape(h, &s.get_block_support_shape(&*stub, ORIGIN));
+        h = hash_shape(h, &s.get_interaction_shape(&*stub, ORIGIN));
         if let Some(v) = verbose {
             let _ = write!(
                 v,

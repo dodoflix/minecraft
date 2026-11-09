@@ -1,11 +1,22 @@
 //! `net.minecraft.world.level.block.FlowerBlock` (extends `VegetationBlock`, `SuspiciousEffectHolder`); the effect of
 //! every flower is the constructor argument in `Blocks.java`.
 use mc_core::math::mth;
+use mc_core::phys::shapes::VoxelShape;
 use mc_data::MobEffect;
 use mc_game_core::register_block_class;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::impls::vegetation_block::vegetation_behaviour_methods;
+use mc_game_core::world::level::collision::CollisionContext;
+use mc_game_core::world::level::shapes::column;
 use mc_protocol::components::{SuspiciousStewEffects, SuspiciousStewEffectsEntry};
+use std::sync::LazyLock;
+
+static SHAPE: LazyLock<VoxelShape> = LazyLock::new(|| column(6.0, 0.0, 10.0));
+
+/// `FlowerBlock.getShape`: the shape moved by the position offset (the extracted state shape is the one at the origin).
+pub fn get_shape(state: BlockState, pos: BlockPos) -> VoxelShape {
+    SHAPE.move_vec(state.get_offset(pos))
+}
 
 pub struct FlowerBlock {
     effects: SuspiciousStewEffects,
@@ -70,6 +81,15 @@ impl mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn for 
 
 impl BlockBehaviour for FlowerBlock {
     vegetation_behaviour_methods!();
+    fn get_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+        _context: &CollisionContext,
+    ) -> VoxelShape {
+        get_shape(state, pos)
+    }
     fn get_suspicious_effects(&self) -> Option<SuspiciousStewEffects> {
         Some(self.effects.clone())
     }

@@ -1,5 +1,5 @@
 // Golden generator for the block behaviour classes: for every block state it evaluates canSurvive / updateShape (6
-// directions) / rotate (4) / mirror (3) / getPostProcessPos / getVisualShape in K pseudo-random worlds over a stub
+// directions) / rotate (4) / mirror (3) / getPostProcessPos / getVisualShape / getShape / getCollisionShape / getBlockSupportShape / getInteractionShape in K pseudo-random worlds over a stub
 // LevelReader and prints one 64-bit hash per block (or the detail per state with `verbose <block>`).
 // Usage: scripts/golden-block-behaviour.sh   (`verbose <block>` prints the per-state detail instead)
 // Output: crates/mc-game/tests/fixtures/block_behaviour.txt
@@ -125,6 +125,15 @@ public class BlockBehaviourOracle {
 
    static StringBuilder verbose;
 
+   static long hashShape(long h, net.minecraft.world.phys.shapes.VoxelShape shape) {
+      java.util.List<net.minecraft.world.phys.AABB> boxes = shape.toAabbs();
+      h = mix(h ^ boxes.size());
+      for (net.minecraft.world.phys.AABB box : boxes) {
+         for (double c : new double[]{box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ}) h = mix(h ^ Double.doubleToLongBits(c));
+      }
+      return h;
+   }
+
    static long evalState(BlockState s) throws Exception {
       long h = 0x1234567L;
       int sid = Block.getId(s);
@@ -140,11 +149,11 @@ public class BlockBehaviourOracle {
          h = mix(h ^ (surv ? 1 : 2));
          BlockPos pp = s.getPostProcessPos(level, ORIGIN);
          h = mix(h ^ (pp == null ? 7 : ((long)(pp.getX() - ORIGIN.getX()) * 31 + (pp.getY() - ORIGIN.getY()) * 5 + (pp.getZ() - ORIGIN.getZ()))));
-         java.util.List<net.minecraft.world.phys.AABB> visual = s.getVisualShape(level, ORIGIN, net.minecraft.world.phys.shapes.CollisionContext.empty()).toAabbs();
-         h = mix(h ^ visual.size());
-         for (net.minecraft.world.phys.AABB box : visual) {
-            for (double c : new double[]{box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ}) h = mix(h ^ Double.doubleToLongBits(c));
-         }
+         h = hashShape(h, s.getVisualShape(level, ORIGIN, net.minecraft.world.phys.shapes.CollisionContext.empty()));
+         h = hashShape(h, s.getShape(level, ORIGIN));
+         h = hashShape(h, s.getCollisionShape(level, ORIGIN));
+         h = hashShape(h, s.getBlockSupportShape(level, ORIGIN));
+         h = hashShape(h, s.getInteractionShape(level, ORIGIN));
          if (verbose != null) verbose.append("S").append(sid).append(" w").append(w).append(" surv=").append(surv).append(" pp=").append(pp == null ? "null" : pp.toString());
          for (int di = 0; di < 6; di++) {
             Direction d = UPDATE_ORDER[di];

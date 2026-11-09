@@ -1,12 +1,18 @@
 //! `net.minecraft.world.level.block.BambooSaplingBlock`.
+use mc_core::phys::shapes::VoxelShape;
 use mc_data::enums::BambooLeaves;
 use mc_data::item::Item;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::collision::CollisionContext;
+use mc_game_core::world::level::shapes::column;
 use mc_game_core::{register_block_class, update_shape};
+use std::sync::LazyLock;
 
 pub struct BambooSaplingBlock;
+
+static SHAPE: LazyLock<VoxelShape> = LazyLock::new(|| column(8.0, 0.0, 12.0));
 
 /// `growBamboo(level, pos)`.
 fn grow_bamboo(level: &mut ServerLevel, pos: BlockPos) {
@@ -19,6 +25,15 @@ fn grow_bamboo(level: &mut ServerLevel, pos: BlockPos) {
 }
 
 impl BlockBehaviour for BambooSaplingBlock {
+    fn get_shape(
+        &self,
+        state: BlockState,
+        _level: &dyn BlockGetter,
+        pos: BlockPos,
+        _context: &CollisionContext,
+    ) -> VoxelShape {
+        SHAPE.move_vec(state.get_offset(pos))
+    }
     fn random_tick(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if level.random().next_int_bounded(3) == 0
             && level.is_empty_block(pos.above())
