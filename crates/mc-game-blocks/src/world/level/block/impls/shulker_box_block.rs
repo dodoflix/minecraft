@@ -104,10 +104,18 @@ impl BlockBehaviour for ShulkerBoxBlock {
         pos: BlockPos,
         player: &mut ServerPlayer,
     ) -> BlockState {
-        if let Some(shulker) = level
+        if level
             .get_block_entity(pos)
-            .and_then(|be| be.as_any().downcast_ref::<ShulkerBoxBlockEntity>())
+            .is_some_and(|be| be.as_any().is::<ShulkerBoxBlockEntity>())
         {
+            if player.is_creative() {
+                // `isEmpty()` unpacks the loot table first (no player)
+                level.with_block_entity(pos, |level, be| be.unpack_loot_table(level, None));
+            }
+            let shulker = level
+                .get_block_entity(pos)
+                .and_then(|be| be.as_any().downcast_ref::<ShulkerBoxBlockEntity>())
+                .expect("shulker box block entity");
             if player.is_creative() && !mc_game_core::world::container::Container::is_empty(shulker)
             {
                 let mut stack = ItemStack::new(state.block().item().expect("shulker box item"));
@@ -166,10 +174,8 @@ impl BlockBehaviour for ShulkerBoxBlock {
             .and_then(|be| be.as_any().downcast_ref::<ShulkerBoxBlockEntity>())
             .is_some_and(|s| can_open(level, state, pos, s));
         if openable && let Some(provider) = self.get_menu_provider(state, level, pos) {
-            if player.open_menu(level, provider.as_ref()).is_some() {
-                player
-                    .award_stat_once(&*level, mc_game_core::stats::stats::Stats::OPEN_SHULKER_BOX);
-            }
+            player.open_menu(level, provider.as_ref());
+            player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::OPEN_SHULKER_BOX);
             mc_game_core::server::level::block_break::anger_nearby_piglins(level, &*player, true);
         }
         mc_game_core::world::item::InteractionResult::SUCCESS

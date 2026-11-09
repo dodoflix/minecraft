@@ -205,7 +205,7 @@ impl BeaconBlockEntity {
         let bb = AABB::from_block_pos(&self.get_block_pos())
             .inflate_scalar(range)
             .expand_towards(0.0, f64::from(level.get_height()), 0.0);
-        let players = level.get_entities_of_class(&bb, |e| e.is_player(), |_| true);
+        let players = level.get_entities_of_class(&bb, |e| e.is_player(), |e| !e.is_spectator());
         for &id in &players {
             level.with_entity(id, |level, player| {
                 player.add_effect(
@@ -414,7 +414,8 @@ impl BlockEntity for BeaconBlockEntity {
                 let (fx, fy, fz) = (f64::from(x), f64::from(y), f64::from(z));
                 let bb = AABB::new(fx, fy, fz, fx, fy - 4.0, fz).inflate(10.0, 5.0, 10.0);
                 let levels = self.levels;
-                for id in level.get_entities_of_class(&bb, |e| e.is_player(), |_| true) {
+                for id in level.get_entities_of_class(&bb, |e| e.is_player(), |e| !e.is_spectator())
+                {
                     level.with_player(id, |level, player| {
                         CriteriaTriggers::CONSTRUCT_BEACON.trigger(level, player, levels);
                     });

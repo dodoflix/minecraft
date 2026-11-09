@@ -1,0 +1,10 @@
+# audit probe: beacon effects and CONSTRUCT_BEACON skip spectators (A joins last: the spectator's join message to A would not be replayed)
+level flat
+preload 2
+spawn_player Sp spectator 2.5 -60 -2.5 0 0
+spawn_player A survival 2.5 -60 2.5 0 0
+fill -1 -61 -1 1 -61 1 minecraft:iron_block
+block 0 -60 0 minecraft:beacon
+be_nbt 0 -60 0 {primary_effect:"minecraft:speed"}
+tick 100
+dump all_players packets:A:system_chat be:0,-60,0

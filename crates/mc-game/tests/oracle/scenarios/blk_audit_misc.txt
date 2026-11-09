@@ -1,0 +1,33 @@
+# audit probe: shulker lid animation with a torch on top and a comparator beside; bell ring; ender chest and double chest open
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B survival 8.5 -60 3.5 180 0
+spawn_player C survival 16.5 -60 3.5 180 0
+spawn_player D survival 24.5 -60 3.5 180 0
+block 0 -60 0 minecraft:shulker_box[facing=up]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+block 0 -59 0 minecraft:redstone_torch[lit=true]
+block 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp[lit=false]
+tick 2
+dump blocks:-1,-61,-1,3,-58,1 be:0,-60,0
+note open shulker
+use_on A 0 -60 0 south main
+tick 25
+dump blocks:-1,-61,-1,3,-58,1 events ticks
+block 8 -60 0 minecraft:bell[attachment=floor,facing=north,powered=false]
+tick 2
+use_on B 8 -60 0 south main
+tick 8
+dump blocks:7,-60,-1,9,-60,1 events ticks
+block 16 -60 0 minecraft:ender_chest[facing=south,waterlogged=false]
+use_on C 16 -60 0 south main
+tick 6
+dump events ticks
+block 24 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
+block 25 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+tick 2
+use_on D 25 -60 0 south main
+tick 6
+dump events ticks

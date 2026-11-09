@@ -49,9 +49,8 @@ impl BlockBehaviour for BarrelBlock {
         _hit: &mc_core::phys::BlockHitResult,
     ) -> mc_game_core::world::item::InteractionResult {
         if let Some(provider) = self.get_menu_provider(state, level, pos) {
-            if player.open_menu(level, provider.as_ref()).is_some() {
-                player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::OPEN_BARREL);
-            }
+            player.open_menu(level, provider.as_ref());
+            player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::OPEN_BARREL);
             mc_game_core::server::level::block_break::anger_nearby_piglins(level, &*player, true);
         }
         mc_game_core::world::item::InteractionResult::SUCCESS

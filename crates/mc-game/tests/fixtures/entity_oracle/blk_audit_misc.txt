@@ -1,0 +1,55 @@
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:shulker_box[facing=up]
+B 0 -59 0 minecraft:redstone_torch[lit=true]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+BE 0 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:stone"}],components:{},id:"minecraft:shulker_box",x:0,y:-60,z:0}
+# open shulker
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:shulker_box[facing=up]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shulker_box.open source=block vol=0.5 pitch=0.91976106
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:shulker_box b0=1 b1=1
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,0 data=8555 global=0
+B 8 -60 0 minecraft:bell[attachment=floor,facing=north,powered=false]
+EV sound at=8.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=8,-60,0 block=minecraft:bell b0=1 b1=3
+EV sound at=16.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.open source=block vol=0.5 pitch=0.97671956
+EV block_event r=64.0 ex=0 pos=16,-60,0 block=minecraft:ender_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=16,-60,0 block=minecraft:ender_chest b0=1 b1=1
+TICK block 16 -60 0 minecraft:ender_chest delay=4 prio=0
+EV sound at=26.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.9387487
+EV block_event r=64.0 ex=0 pos=25,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=16,-60,0 block=minecraft:ender_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=25,-60,0 block=minecraft:chest b0=1 b1=1
+TICK block 16 -60 0 minecraft:ender_chest delay=1 prio=0
+TICK block 25 -60 0 minecraft:chest delay=4 prio=0

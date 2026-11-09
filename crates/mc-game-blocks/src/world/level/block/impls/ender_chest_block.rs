@@ -68,9 +68,8 @@ impl BlockBehaviour for EnderChestBlock {
                         >)
                 },
             );
-            if player.open_menu(level, &provider).is_some() {
-                player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::OPEN_ENDERCHEST);
-            }
+            player.open_menu(level, &provider);
+            player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::OPEN_ENDERCHEST);
             mc_game_core::server::level::block_break::anger_nearby_piglins(level, &*player, true);
         }
         mc_game_core::world::item::InteractionResult::SUCCESS

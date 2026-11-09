@@ -68,12 +68,15 @@ impl OpenersHost for ChestHost {
                 Some(state.get(props::HORIZONTAL_FACING).get_opposite()),
                 Some(Direction::Up),
             );
-            level.update_neighbors_at_with_orientation_impl(pos, state.block(), orientation);
-            level.update_neighbors_at_with_orientation_impl(
-                pos.below(),
-                state.block(),
-                orientation,
-            );
+            // the neighbours read `getOpenCount` through this block entity, which is out of its chunk while it runs
+            super::deferred::push(move |level| {
+                level.update_neighbors_at_with_orientation_impl(pos, state.block(), orientation);
+                level.update_neighbors_at_with_orientation_impl(
+                    pos.below(),
+                    state.block(),
+                    orientation,
+                );
+            });
         }
     }
     fn is_own_container(&self, player: &dyn Entity, pos: BlockPos) -> bool {

@@ -1,0 +1,10 @@
+# audit probe: a creative player breaks an unopened loot-table shulker box
+level flat
+preload 2
+spawn_player Cr creative 0.5 -60 3.5 180 0
+block 0 -60 0 minecraft:shulker_box[facing=up]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+tick 2
+dig Cr 0 -60 0
+tick 4
+dump entities blocks:0,-60,0,0,-60,0 events

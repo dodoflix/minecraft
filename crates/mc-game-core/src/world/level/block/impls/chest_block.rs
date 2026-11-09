@@ -372,14 +372,13 @@ impl BlockBehaviour for ChestBlock {
         _hit: &mc_core::phys::BlockHitResult,
     ) -> crate::world::item::InteractionResult {
         if let Some(provider) = self.get_menu_provider(state, level, pos) {
-            if player.open_menu(level, provider.as_ref()).is_some() {
-                let stat = if self.kind == ChestKind::Trapped {
-                    crate::stats::stats::Stats::TRIGGER_TRAPPED_CHEST
-                } else {
-                    crate::stats::stats::Stats::OPEN_CHEST
-                };
-                player.award_stat_once(&*level, stat);
-            }
+            player.open_menu(level, provider.as_ref());
+            let stat = if self.kind == ChestKind::Trapped {
+                crate::stats::stats::Stats::TRIGGER_TRAPPED_CHEST
+            } else {
+                crate::stats::stats::Stats::OPEN_CHEST
+            };
+            player.award_stat_once(&*level, stat);
             crate::server::level::block_break::anger_nearby_piglins(level, &*player, true);
         }
         crate::world::item::InteractionResult::SUCCESS

@@ -18,7 +18,8 @@ use mc_data::{BlockEntityType, GameEvent, SoundEvent, props};
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{
-    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, deferred,
+    read_codec, set_changed,
 };
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::entity::spawn_util::{self, Strategy};
@@ -88,7 +89,10 @@ impl CreakingHeartBlockEntity {
         let computed_output_signal = self.compute_analog_output_signal(level);
         if self.output_signal != computed_output_signal {
             self.output_signal = computed_output_signal;
-            level.update_neighbour_for_output_signal(pos, Block::CREAKING_HEART);
+            // the comparators read this block entity, which is out of its chunk while it ticks
+            deferred::push(move |level| {
+                level.update_neighbour_for_output_signal(pos, Block::CREAKING_HEART);
+            });
         }
         if self.emitter > 0 {
             if self.emitter > 50 {
@@ -219,12 +223,20 @@ impl CreakingHeartBlockEntity {
     fn clear_creaking_info(&mut self) {
         self.creaking_info = None;
         self.creaking_resolved = false;
+        self.set_changed_deferred();
+    }
+
+    /// `setChanged()`, queued until the block entity is back in its chunk.
+    fn set_changed_deferred(&self) {
+        let (pos, state) = (self.base.pos, self.base.block_state);
+        deferred::push(move |level| set_changed(level, pos, state));
     }
 
     /// `setCreakingInfo(creaking)`.
     pub fn set_creaking_info_entity(&mut self, level: &ServerLevel, creaking: EntityId) {
         self.creaking_info = level.entity_uuid_by_id(creaking);
         self.creaking_resolved = self.creaking_info.is_some();
+        self.set_changed_deferred();
     }
 
     /// `setCreakingInfo(uuid)`.
@@ -232,6 +244,7 @@ impl CreakingHeartBlockEntity {
         self.creaking_info = Some(uuid);
         self.creaking_resolved = false;
         self.ticks_existed = 0;
+        self.set_changed_deferred();
     }
 
     /// `getCreakingProtector()`.
@@ -483,8 +496,16 @@ impl BlockEntity for CreakingHeartBlockEntity {
 
     fn load_additional(&mut self, tag: &CompoundTag) {
         match read_codec(tag, "creaking", &uuid_codec()) {
-            Some(uuid) => self.set_creaking_info(uuid),
-            None => self.clear_creaking_info(),
+            // vanilla's `setChanged()` does nothing here: the block entity has no level while it loads
+            Some(uuid) => {
+                self.creaking_info = Some(uuid);
+                self.creaking_resolved = false;
+                self.ticks_existed = 0;
+            }
+            None => {
+                self.creaking_info = None;
+                self.creaking_resolved = false;
+            }
         }
     }
 

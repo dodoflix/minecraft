@@ -67,10 +67,11 @@ impl BlockBehaviour for BeaconBlock {
             if let Some(provider) = self.get_menu_provider(state, level, pos) {
                 player.open_menu(level, provider.as_ref());
             }
-            player.award_stat_once(level, Stats::INTERACT_WITH_BEACON);
         } else {
             send_chest_locked_notifications(level, Vec3::at_center_of(&pos), player, &name);
         }
+        // vanilla awards it whether or not `createMenu` returned a menu
+        player.award_stat_once(level, Stats::INTERACT_WITH_BEACON);
         InteractionResult::SUCCESS
     }
 }

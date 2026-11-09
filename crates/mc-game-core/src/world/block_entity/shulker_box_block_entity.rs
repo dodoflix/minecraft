@@ -9,9 +9,10 @@ use super::{
 };
 use crate::server::level::ServerLevel;
 use crate::world::container::{Container, WorldlyContainer, helper};
-use crate::world::entity::{Entity, MoverType};
+use crate::world::entity::MoverType;
 use crate::world::item::ItemStack;
 use crate::world::level::block::BlockStateExt;
+use crate::world::level::block::piston::entity_push_reaction;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
@@ -20,6 +21,7 @@ use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
+use mc_data::enums::PushReaction;
 use mc_data::{BlockEntityType, GameEvent, SoundEvent, props};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::map::DataComponentMapBuilder;
@@ -88,19 +90,6 @@ pub fn get_progress_aabb(
     get_progress_delta_aabb(size, direction, -1.0, progress_to, position)
 }
 
-/// `Entity.getPistonPushReaction() == IGNORE_ENTITY` for the entity types that override it.
-fn ignores_piston_push(entity: &dyn Entity) -> bool {
-    use mc_data::EntityType;
-    let ty = entity.get_type();
-    ty == EntityType::AREA_EFFECT_CLOUD
-        || ty == EntityType::BLOCK_DISPLAY
-        || ty == EntityType::ITEM_DISPLAY
-        || ty == EntityType::TEXT_DISPLAY
-        || ty == EntityType::INTERACTION
-        || ty == EntityType::MARKER
-        || ty == EntityType::OMINOUS_ITEM_SPAWNER
-}
-
 impl ShulkerBoxBlockEntity {
     pub const CONTAINER_SIZE: usize = 27;
 
@@ -165,64 +154,61 @@ impl ShulkerBoxBlockEntity {
     }
 
     /// `updateAnimation(level, pos, blockState)`.
-    fn update_animation(&mut self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+    fn update_animation(&mut self, pos: BlockPos, state: BlockState) {
         self.progress_old = self.progress;
         match self.animation_status {
             AnimationStatus::Closed => self.progress = 0.0,
             AnimationStatus::Opening => {
                 self.progress += 0.1;
                 if self.progress_old == 0.0 {
-                    do_neighbor_updates(level, pos, state);
+                    do_neighbor_updates(pos, state);
                 }
                 if self.progress >= 1.0 {
                     self.animation_status = AnimationStatus::Opened;
                     self.progress = 1.0;
-                    do_neighbor_updates(level, pos, state);
+                    do_neighbor_updates(pos, state);
                 }
-                self.move_collided_entities(level, pos, state);
+                self.move_collided_entities(pos, state);
             }
             AnimationStatus::Opened => self.progress = 1.0,
             AnimationStatus::Closing => {
                 self.progress -= 0.1;
                 if self.progress_old == 1.0 {
-                    do_neighbor_updates(level, pos, state);
+                    do_neighbor_updates(pos, state);
                 }
                 if self.progress <= 0.0 {
                     self.animation_status = AnimationStatus::Closed;
                     self.progress = 0.0;
-                    do_neighbor_updates(level, pos, state);
+                    do_neighbor_updates(pos, state);
                 }
             }
         }
     }
 
-    /// `moveCollidedEntities(level, pos, state)`. The pushes are deferred until the entity is back in its chunk: the
-    /// entities collide with this box's own (animated) shape.
-    fn move_collided_entities(&self, level: &ServerLevel, pos: BlockPos, state: BlockState) {
+    /// `moveCollidedEntities(level, pos, state)`. Runs once the entity is back in its chunk (after the neighbour updates
+    /// queued before it): the entities collide with this box's own (animated) shape.
+    fn move_collided_entities(&self, pos: BlockPos, state: BlockState) {
         if !state.block().data().classes.contains(&"ShulkerBoxBlock") {
             return;
         }
-        let direction = state.get(props::FACING);
-        let aabb = get_progress_delta_aabb(
-            1.0,
-            direction,
-            self.progress_old,
-            self.progress,
-            Vec3::at_bottom_center_of(&pos),
-        );
-        let entities = level.get_entities(None, &aabb, |e| !e.is_spectator());
-        if entities.is_empty() {
-            return;
-        }
-        let delta = Vec3::new(
-            (aabb.get_xsize() + 0.01) * f64::from(direction.get_step_x()),
-            (aabb.get_ysize() + 0.01) * f64::from(direction.get_step_y()),
-            (aabb.get_zsize() + 0.01) * f64::from(direction.get_step_z()),
-        );
+        let (progress_old, progress) = (self.progress_old, self.progress);
         super::deferred::push(move |level| {
-            for id in entities {
+            let direction = state.get(props::FACING);
+            let aabb = get_progress_delta_aabb(
+                1.0,
+                direction,
+                progress_old,
+                progress,
+                Vec3::at_bottom_center_of(&pos),
+            );
+            let delta = Vec3::new(
+                (aabb.get_xsize() + 0.01) * f64::from(direction.get_step_x()),
+                (aabb.get_ysize() + 0.01) * f64::from(direction.get_step_y()),
+                (aabb.get_zsize() + 0.01) * f64::from(direction.get_step_z()),
+            );
+            for id in level.get_entities(None, &aabb, |e| !e.is_spectator()) {
                 level.with_entity(id, |level, entity| {
-                    if !ignores_piston_push(&*entity) {
+                    if entity_push_reaction(&*entity) != PushReaction::IgnoreEntity {
                         entity.r#move(level, MoverType::ShulkerBox, delta);
                     }
                 });
@@ -231,10 +217,13 @@ impl ShulkerBoxBlockEntity {
     }
 }
 
-/// `doNeighborUpdates(level, pos, blockState)`.
-fn do_neighbor_updates(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
-    state.update_neighbour_shapes(level, pos, 3, 512);
-    level.update_neighbors_at(pos, state.block());
+/// `doNeighborUpdates(level, pos, blockState)`. Queued: the neighbours read this block entity (support shape, comparator
+/// signal), which is out of its chunk while it runs.
+fn do_neighbor_updates(pos: BlockPos, state: BlockState) {
+    super::deferred::push(move |level| {
+        state.update_neighbour_shapes(level, pos, 3, 512);
+        level.update_neighbors_at(pos, state.block());
+    });
 }
 
 impl_items_container!(ShulkerBoxBlockEntity, item_stacks {
@@ -335,9 +324,9 @@ impl BlockEntity for ShulkerBoxBlockEntity {
         true
     }
 
-    fn server_tick(&mut self, level: &mut ServerLevel) {
+    fn server_tick(&mut self, _level: &mut ServerLevel) {
         let (pos, state) = (self.base.pos, self.base.block_state);
-        self.update_animation(level, pos, state);
+        self.update_animation(pos, state);
     }
 
     fn trigger_event(&mut self, _level: &mut ServerLevel, b0: i32, b1: i32) -> bool {
