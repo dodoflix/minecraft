@@ -21,6 +21,11 @@ golden!(
     daylight,
     lever_button,
     clicks,
+    dust_click,
+    dust_click_exp,
+    target,
+    rod,
+    analog_sources,
     tripwire
 );
 

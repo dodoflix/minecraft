@@ -18,6 +18,7 @@ scenario!(
     torch_clock,
     torch_misc,
     ore,
+    ore_use,
     exp_line,
     exp_terrain,
     exp_clock

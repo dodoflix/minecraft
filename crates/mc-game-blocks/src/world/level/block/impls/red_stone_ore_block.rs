@@ -2,6 +2,7 @@
 //! but `spawnParticles` consumes the level random on the server too.
 use mc_core::phys::BlockHitResult;
 use mc_game_core::register_block_class;
+use mc_game_core::registry::typed::int_provider::IntProvider;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::{Entity, ServerPlayer};
 use mc_game_core::world::item::{
@@ -83,6 +84,22 @@ impl BlockBehaviour for RedStoneOreBlock {
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if state.get(props::LIT) {
             level.set_block_and_update(pos, state.set(props::LIT, false));
+        }
+    }
+    fn spawn_after_break(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        tool: &ItemStack,
+        drop_experience: bool,
+    ) {
+        if drop_experience {
+            let xp_range = IntProvider::Uniform {
+                min_inclusive: 1,
+                max_inclusive: 5,
+            };
+            helpers::try_drop_experience(level, pos, tool, &xp_range);
         }
     }
 }

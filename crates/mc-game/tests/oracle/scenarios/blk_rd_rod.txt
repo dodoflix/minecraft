@@ -1,0 +1,81 @@
+# LightningRodBlock: a bolt powers the rod for 8 ticks (own signal on every side, direct signal only towards its facing, neighbours
+# updated at the block behind), removing a powered rod updates the neighbours, a powered rod placed without a
+# tick schedules one, waterlogging, and the bolt's copper clean-up around a struck rod.
+level flat
+preload 2
+level_seed 4
+difficulty easy
+watch events
+note a rod facing up with a lamp under it and next to it
+block 1 -60 0 minecraft:lightning_rod[facing=up]
+block 1 -61 0 minecraft:redstone_lamp
+block 2 -60 0 minecraft:redstone_lamp
+tick 2
+spawn b1 minecraft:lightning_bolt 1.5 -59 0.5
+entity_seed b1 1
+tick 1
+dump blocks:0,-61,0,2,-60,0 ticks
+tick 6
+dump blocks:0,-61,0,2,-60,0 ticks
+tick 1
+dump blocks:0,-61,0,2,-60,0 ticks
+tick 1
+dump blocks:0,-61,0,2,-60,0 ticks
+tick 6
+note a rod facing north: lamps on every side see its own signal
+block 5 -60 4 minecraft:lightning_rod[facing=north]
+block 5 -60 5 minecraft:redstone_lamp
+block 5 -60 3 minecraft:redstone_lamp
+block 4 -60 4 minecraft:redstone_lamp
+tick 2
+spawn b2 minecraft:lightning_bolt 5.5 -59.5 4.5
+entity_seed b2 2
+tick 1
+dump blocks:4,-60,3,6,-60,5 ticks
+tick 8
+dump blocks:4,-60,3,6,-60,5 ticks
+tick 4
+note a waterlogged rod keeps its water
+block 8 -60 4 minecraft:lightning_rod[facing=east,waterlogged=true]
+spawn b3 minecraft:lightning_bolt 8.5 -59.5 4.5
+entity_seed b3 3
+tick 1
+dump blocks:7,-60,3,9,-60,5 ticks
+tick 12
+dump blocks:7,-60,3,9,-60,5 ticks
+note a powered rod is removed: the neighbours are updated at once, the pending tick is a no-op
+block 1 -60 8 minecraft:lightning_rod[facing=up]
+block 1 -61 8 minecraft:redstone_lamp
+tick 2
+spawn b4 minecraft:lightning_bolt 1.5 -59 8.5
+entity_seed b4 4
+tick 1
+block 1 -60 8 minecraft:air
+tick 10
+dump blocks:0,-61,8,2,-60,8 ticks events
+note a powered rod placed without a scheduled tick gets one
+block 4 -60 8 minecraft:lightning_rod[facing=up,powered=true]
+block 4 -61 8 minecraft:redstone_lamp
+dump blocks:3,-61,8,5,-60,8 ticks
+tick 10
+dump blocks:3,-61,8,5,-60,8 ticks
+note a struck rod cleans the copper it is attached to and around it
+block 8 -61 8 minecraft:oxidized_copper
+block 9 -61 8 minecraft:weathered_copper
+block 7 -61 8 minecraft:waxed_exposed_copper
+block 8 -61 9 minecraft:exposed_copper
+block 8 -60 8 minecraft:lightning_rod[facing=up]
+block 11 -60 12 minecraft:oxidized_lightning_rod[facing=up]
+block 11 -61 12 minecraft:weathered_copper
+level_seed 41
+spawn b5 minecraft:lightning_bolt 8.5 -59 8.5
+entity_seed b5 5
+tick 1
+dump blocks:7,-61,7,9,-60,10 ticks
+tick 12
+spawn b6 minecraft:lightning_bolt 11.5 -59 12.5
+entity_seed b6 6
+tick 1
+dump blocks:10,-61,11,12,-60,13 ticks
+tick 12
+dump blocks:10,-61,11,12,-60,13 ticks

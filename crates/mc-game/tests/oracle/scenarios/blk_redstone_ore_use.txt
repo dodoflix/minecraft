@@ -1,0 +1,68 @@
+# RedStoneOreBlock: useItemOn lights the ore (PASS for a block item that can be placed, SUCCESS otherwise), attack lights it
+# when the dig starts, spawnAfterBreak drops UniformInt(1,5) experience (zero with silk touch, Fortune does not matter).
+level flat
+preload 2
+level_seed 7
+spawn_player Alice survival 4.5 -60 4.5 0 0
+give Alice mainhand minecraft:iron_pickaxe
+note an empty-handed-like use with a non-block item lights the ore, a second use leaves it lit
+block 3 -60 2 minecraft:redstone_ore
+use_on Alice 3 -60 2 up main
+dump blocks:3,-60,2,3,-60,2 inventory:Alice
+use_on Alice 3 -60 2 up main
+dump blocks:3,-60,2,3,-60,2
+note a placeable block item: the ore lights and the stone is placed against the clicked face
+give Alice mainhand minecraft:stone 8
+block 5 -60 2 minecraft:deepslate_redstone_ore
+use_on Alice 5 -60 2 up main
+dump blocks:5,-60,2,5,-59,2 inventory:Alice
+note the cell in front is occupied: the block item cannot be placed so the use succeeds without placing
+use_on Alice 5 -60 2 up main
+dump blocks:5,-60,2,5,-59,2 inventory:Alice
+note a side face click places next to the ore
+block 7 -60 2 minecraft:redstone_ore
+use_on Alice 7 -60 2 east main
+dump blocks:7,-60,2,8,-60,2 inventory:Alice
+note random ticks turn lit ores off again
+rand_value 12345
+random_tick 3 -60 2
+random_tick 5 -60 2
+random_tick 7 -60 2
+dump blocks:3,-60,2,7,-60,2
+note attack lights the ore when the dig starts but too few ticks leave it standing
+give Alice mainhand minecraft:iron_pickaxe
+block 3 -60 3 minecraft:redstone_ore
+dig Alice 3 -60 3 1
+dump blocks:3,-60,3,3,-60,3
+note breaking drops dust and experience (a nearby player collects orbs in reach); the level seed pins the orb split
+entity_counter 100
+level_seed 31
+dig Alice 3 -60 3
+dump blocks:3,-60,3,3,-60,3 entities
+level_seed 32
+block 5 -60 3 minecraft:deepslate_redstone_ore[lit=true]
+dig Alice 5 -60 3
+dump blocks:5,-60,3,5,-60,3 entities
+note silk touch drops the ore and no experience
+give Alice mainhand minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+level_seed 33
+block 7 -60 3 minecraft:redstone_ore
+dig Alice 7 -60 3
+dump blocks:7,-60,3,7,-60,3 entities
+note fortune
+give Alice mainhand minecraft:iron_pickaxe[enchantments={"minecraft:fortune":3}]
+level_seed 34
+block 3 -60 4 minecraft:redstone_ore
+dig Alice 3 -60 4
+dump blocks:3,-60,4,3,-60,4 entities
+note destroy without a tool still drops experience
+level_seed 35
+block 1 -60 5 minecraft:redstone_ore
+destroy 1 -60 5
+level_seed 36
+block 1 -60 6 minecraft:redstone_ore[lit=true]
+destroy 1 -60 6
+level_seed 37
+block 1 -60 7 minecraft:deepslate_redstone_ore
+destroy 1 -60 7
+dump blocks:1,-60,5,1,-60,7 entities

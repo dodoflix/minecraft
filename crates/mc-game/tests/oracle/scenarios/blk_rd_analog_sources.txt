@@ -1,0 +1,576 @@
+# A comparator next to every block that has an analog output signal (hasAnalogOutputSignal): composter, cauldrons, cake,
+# candle cake, jukebox, lectern, end portal frame, respawn anchor, beehive, brewing stand, chiseled bookshelf, decorated pot,
+# containers, command blocks, copper bulbs, hopper/dropper/dispenser, sculk sensors, furnaces, shelf, copper golem statue,
+# crafter and a comparator itself. After every change of the source the comparator output signal (its block entity) and the
+# lamp behind it are dumped. The sculk sensors stand far from everything else so no vibration reaches them.
+level flat
+preload 6
+level_seed 8
+
+note composter: level 0, 1, 4, 7, 8
+block 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp
+block 0 -60 0 minecraft:composter[level=0]
+tick 4
+dump be:1,-60,0 blocks:0,-60,0,2,-60,0
+block 0 -60 0 minecraft:composter[level=1]
+tick 4
+dump be:1,-60,0 blocks:0,-60,0,2,-60,0
+block 0 -60 0 minecraft:composter[level=4]
+tick 4
+dump be:1,-60,0 blocks:0,-60,0,2,-60,0
+block 0 -60 0 minecraft:composter[level=7]
+tick 4
+dump be:1,-60,0 blocks:0,-60,0,2,-60,0
+block 0 -60 0 minecraft:composter[level=8]
+tick 4
+dump be:1,-60,0 blocks:0,-60,0,2,-60,0
+note cauldrons: empty, water 1 and 3, powder snow 2, lava
+block 1 -60 3 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 3 minecraft:redstone_lamp
+block 0 -60 3 minecraft:cauldron
+tick 4
+dump be:1,-60,3 blocks:0,-60,3,2,-60,3
+block 0 -60 3 minecraft:water_cauldron[level=1]
+tick 4
+dump be:1,-60,3 blocks:0,-60,3,2,-60,3
+block 0 -60 3 minecraft:water_cauldron[level=3]
+tick 4
+dump be:1,-60,3 blocks:0,-60,3,2,-60,3
+block 0 -60 3 minecraft:powder_snow_cauldron[level=2]
+tick 4
+dump be:1,-60,3 blocks:0,-60,3,2,-60,3
+block 0 -60 3 minecraft:lava_cauldron
+tick 4
+dump be:1,-60,3 blocks:0,-60,3,2,-60,3
+note cake: bites 0, 1, 3, 6
+block 1 -60 6 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 6 minecraft:redstone_lamp
+block 0 -60 6 minecraft:cake[bites=0]
+tick 4
+dump be:1,-60,6 blocks:0,-60,6,2,-60,6
+block 0 -60 6 minecraft:cake[bites=1]
+tick 4
+dump be:1,-60,6 blocks:0,-60,6,2,-60,6
+block 0 -60 6 minecraft:cake[bites=3]
+tick 4
+dump be:1,-60,6 blocks:0,-60,6,2,-60,6
+block 0 -60 6 minecraft:cake[bites=6]
+tick 4
+dump be:1,-60,6 blocks:0,-60,6,2,-60,6
+note candle cakes: plain, lit and a coloured one
+block 1 -60 9 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 9 minecraft:redstone_lamp
+block 0 -60 9 minecraft:candle_cake[lit=false]
+tick 4
+dump be:1,-60,9 blocks:0,-60,9,2,-60,9
+block 0 -60 9 minecraft:candle_cake[lit=true]
+tick 4
+dump be:1,-60,9 blocks:0,-60,9,2,-60,9
+block 0 -60 9 minecraft:red_candle_cake[lit=false]
+tick 4
+dump be:1,-60,9 blocks:0,-60,9,2,-60,9
+note jukebox: empty, several discs, a non-disc item
+block 1 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 12 minecraft:redstone_lamp
+block 0 -60 12 minecraft:jukebox[has_record=false]
+tick 4
+dump be:1,-60,12 blocks:0,-60,12,2,-60,12
+block 0 -60 12 minecraft:jukebox[has_record=true]
+be_nbt 0 -60 12 {RecordItem:{id:"minecraft:music_disc_13",count:1}}
+tick 4
+dump be:1,-60,12 blocks:0,-60,12,2,-60,12
+block 0 -60 12 minecraft:jukebox[has_record=true]
+be_nbt 0 -60 12 {RecordItem:{id:"minecraft:music_disc_cat",count:1}}
+tick 4
+dump be:1,-60,12 blocks:0,-60,12,2,-60,12
+block 0 -60 12 minecraft:jukebox[has_record=true]
+be_nbt 0 -60 12 {RecordItem:{id:"minecraft:music_disc_otherside",count:1}}
+tick 4
+dump be:1,-60,12 blocks:0,-60,12,2,-60,12
+block 0 -60 12 minecraft:jukebox[has_record=true]
+be_nbt 0 -60 12 {RecordItem:{id:"minecraft:music_disc_5",count:1}}
+tick 4
+dump be:1,-60,12 blocks:0,-60,12,2,-60,12
+block 0 -60 12 minecraft:jukebox[has_record=true]
+be_nbt 0 -60 12 {RecordItem:{id:"minecraft:music_disc_pigstep",count:1}}
+tick 4
+dump be:1,-60,12 blocks:0,-60,12,2,-60,12
+block 0 -60 12 minecraft:jukebox[has_record=true]
+be_nbt 0 -60 12 {RecordItem:{id:"minecraft:music_disc_relic",count:1}}
+tick 4
+dump be:1,-60,12 blocks:0,-60,12,2,-60,12
+be_nbt 0 -60 12 {RecordItem:{id:"minecraft:stick",count:1}}
+tick 4
+dump be:1,-60,12 blocks:0,-60,12,2,-60,12
+note lectern: no book, a five page book on several pages, a single page book, book removed
+block 1 -60 15 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 15 minecraft:redstone_lamp
+block 0 -60 15 minecraft:lectern[facing=north,has_book=false,powered=false]
+tick 4
+dump be:1,-60,15 blocks:0,-60,15,2,-60,15
+block 0 -60 15 minecraft:lectern[facing=north,has_book=true,powered=false]
+be_nbt 0 -60 15 {Book:{id:"minecraft:writable_book",count:1,components:{"minecraft:writable_book_content":{pages:["a","b","c","d","e"]}}},Page:0}
+tick 4
+dump be:1,-60,15 blocks:0,-60,15,2,-60,15
+be_nbt 0 -60 15 {Page:2}
+tick 4
+dump be:1,-60,15 blocks:0,-60,15,2,-60,15
+be_nbt 0 -60 15 {Page:3}
+tick 4
+dump be:1,-60,15 blocks:0,-60,15,2,-60,15
+be_nbt 0 -60 15 {Page:4}
+tick 4
+dump be:1,-60,15 blocks:0,-60,15,2,-60,15
+be_nbt 0 -60 15 {Book:{id:"minecraft:writable_book",count:1,components:{"minecraft:writable_book_content":{pages:["only"]}}},Page:0}
+tick 4
+dump be:1,-60,15 blocks:0,-60,15,2,-60,15
+block 0 -60 15 minecraft:lectern[facing=north,has_book=false,powered=false]
+tick 4
+dump be:1,-60,15 blocks:0,-60,15,2,-60,15
+note end portal frame: eye and no eye
+block 1 -60 18 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 18 minecraft:redstone_lamp
+block 0 -60 18 minecraft:end_portal_frame[eye=false,facing=north]
+tick 4
+dump be:1,-60,18 blocks:0,-60,18,2,-60,18
+block 0 -60 18 minecraft:end_portal_frame[eye=true,facing=north]
+tick 4
+dump be:1,-60,18 blocks:0,-60,18,2,-60,18
+note respawn anchor: charges 0 to 4
+block 1 -60 21 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 21 minecraft:redstone_lamp
+block 0 -60 21 minecraft:respawn_anchor[charges=0]
+tick 4
+dump be:1,-60,21 blocks:0,-60,21,2,-60,21
+block 0 -60 21 minecraft:respawn_anchor[charges=1]
+tick 4
+dump be:1,-60,21 blocks:0,-60,21,2,-60,21
+block 0 -60 21 minecraft:respawn_anchor[charges=2]
+tick 4
+dump be:1,-60,21 blocks:0,-60,21,2,-60,21
+block 0 -60 21 minecraft:respawn_anchor[charges=3]
+tick 4
+dump be:1,-60,21 blocks:0,-60,21,2,-60,21
+block 0 -60 21 minecraft:respawn_anchor[charges=4]
+tick 4
+dump be:1,-60,21 blocks:0,-60,21,2,-60,21
+note beehive and bee nest: honey levels
+block 1 -60 24 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 24 minecraft:redstone_lamp
+block 0 -60 24 minecraft:beehive[honey_level=0,facing=north]
+tick 4
+dump be:1,-60,24 blocks:0,-60,24,2,-60,24
+block 0 -60 24 minecraft:beehive[honey_level=3,facing=north]
+tick 4
+dump be:1,-60,24 blocks:0,-60,24,2,-60,24
+block 0 -60 24 minecraft:bee_nest[honey_level=5,facing=north]
+tick 4
+dump be:1,-60,24 blocks:0,-60,24,2,-60,24
+block 0 -60 24 minecraft:bee_nest[honey_level=1,facing=north]
+tick 4
+dump be:1,-60,24 blocks:0,-60,24,2,-60,24
+note brewing stand: empty, one bottle, three bottles, fuel and ingredient
+block 1 -60 27 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 27 minecraft:redstone_lamp
+block 0 -60 27 minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]
+tick 4
+dump be:1,-60,27 blocks:0,-60,27,2,-60,27
+be_nbt 0 -60 27 {Items:[{Slot:0b,id:"minecraft:potion",count:1}]}
+tick 4
+dump be:1,-60,27 blocks:0,-60,27,2,-60,27
+be_nbt 0 -60 27 {Items:[{Slot:0b,id:"minecraft:potion",count:1},{Slot:1b,id:"minecraft:potion",count:1},{Slot:2b,id:"minecraft:potion",count:1}]}
+tick 4
+dump be:1,-60,27 blocks:0,-60,27,2,-60,27
+be_nbt 0 -60 27 {Items:[{Slot:3b,id:"minecraft:nether_wart",count:64},{Slot:4b,id:"minecraft:blaze_powder",count:32}]}
+tick 4
+dump be:1,-60,27 blocks:0,-60,27,2,-60,27
+be_nbt 0 -60 27 {Items:[{Slot:0b,id:"minecraft:potion",count:1},{Slot:1b,id:"minecraft:potion",count:1},{Slot:2b,id:"minecraft:potion",count:1},{Slot:3b,id:"minecraft:nether_wart",count:64},{Slot:4b,id:"minecraft:blaze_powder",count:64}]}
+tick 4
+dump be:1,-60,27 blocks:0,-60,27,2,-60,27
+note chiseled bookshelf: the signal is the last interacted slot + 1
+block 1 -60 30 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 30 minecraft:redstone_lamp
+block 0 -60 30 minecraft:chiseled_bookshelf[facing=north]
+tick 4
+dump be:1,-60,30 blocks:0,-60,30,2,-60,30
+be_nbt 0 -60 30 {last_interacted_slot:0}
+tick 4
+dump be:1,-60,30 blocks:0,-60,30,2,-60,30
+be_nbt 0 -60 30 {last_interacted_slot:5,Items:[{Slot:5b,id:"minecraft:book",count:1}]}
+tick 4
+dump be:1,-60,30 blocks:0,-60,30,2,-60,30
+be_nbt 0 -60 30 {last_interacted_slot:-1}
+tick 4
+dump be:1,-60,30 blocks:0,-60,30,2,-60,30
+be_nbt 0 -60 30 {last_interacted_slot:3,Items:[]}
+tick 4
+dump be:1,-60,30 blocks:0,-60,30,2,-60,30
+note decorated pot: stack fill level
+block 1 -60 33 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 33 minecraft:redstone_lamp
+block 0 -60 33 minecraft:decorated_pot[facing=north,cracked=false,waterlogged=false]
+tick 4
+dump be:1,-60,33 blocks:0,-60,33,2,-60,33
+be_nbt 0 -60 33 {item:{id:"minecraft:stone",count:1}}
+tick 4
+dump be:1,-60,33 blocks:0,-60,33,2,-60,33
+be_nbt 0 -60 33 {item:{id:"minecraft:stone",count:32}}
+tick 4
+dump be:1,-60,33 blocks:0,-60,33,2,-60,33
+be_nbt 0 -60 33 {item:{id:"minecraft:stone",count:64}}
+tick 4
+dump be:1,-60,33 blocks:0,-60,33,2,-60,33
+be_nbt 0 -60 33 {item:{id:"minecraft:ender_pearl",count:8}}
+tick 4
+dump be:1,-60,33 blocks:0,-60,33,2,-60,33
+be_nbt 0 -60 33 {item:{id:"minecraft:diamond_pickaxe",count:1}}
+tick 4
+dump be:1,-60,33 blocks:0,-60,33,2,-60,33
+note chest: empty, one stack, a few stacks, items that stack to 16 and 1
+block 1 -60 36 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 36 minecraft:redstone_lamp
+block 0 -60 36 minecraft:chest[facing=north,type=single,waterlogged=false]
+tick 4
+dump be:1,-60,36 blocks:0,-60,36,2,-60,36
+be_nbt 0 -60 36 {Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+tick 4
+dump be:1,-60,36 blocks:0,-60,36,2,-60,36
+be_nbt 0 -60 36 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:5b,id:"minecraft:stone",count:30}]}
+tick 4
+dump be:1,-60,36 blocks:0,-60,36,2,-60,36
+be_nbt 0 -60 36 {Items:[{Slot:0b,id:"minecraft:ender_pearl",count:16},{Slot:1b,id:"minecraft:diamond_pickaxe",count:1}]}
+tick 4
+dump be:1,-60,36 blocks:0,-60,36,2,-60,36
+be_nbt 0 -60 36 {Items:[]}
+tick 4
+dump be:1,-60,36 blocks:0,-60,36,2,-60,36
+note trapped chest: empty, one stack, a few stacks, items that stack to 16 and 1
+block 1 -60 39 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 39 minecraft:redstone_lamp
+block 0 -60 39 minecraft:trapped_chest[facing=north,type=single,waterlogged=false]
+tick 4
+dump be:1,-60,39 blocks:0,-60,39,2,-60,39
+be_nbt 0 -60 39 {Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+tick 4
+dump be:1,-60,39 blocks:0,-60,39,2,-60,39
+be_nbt 0 -60 39 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:5b,id:"minecraft:stone",count:30}]}
+tick 4
+dump be:1,-60,39 blocks:0,-60,39,2,-60,39
+be_nbt 0 -60 39 {Items:[{Slot:0b,id:"minecraft:ender_pearl",count:16},{Slot:1b,id:"minecraft:diamond_pickaxe",count:1}]}
+tick 4
+dump be:1,-60,39 blocks:0,-60,39,2,-60,39
+be_nbt 0 -60 39 {Items:[]}
+tick 4
+dump be:1,-60,39 blocks:0,-60,39,2,-60,39
+note barrel: empty, one stack, a few stacks, items that stack to 16 and 1
+block 1 -60 42 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 42 minecraft:redstone_lamp
+block 0 -60 42 minecraft:barrel[facing=up,open=false]
+tick 4
+dump be:1,-60,42 blocks:0,-60,42,2,-60,42
+be_nbt 0 -60 42 {Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+tick 4
+dump be:1,-60,42 blocks:0,-60,42,2,-60,42
+be_nbt 0 -60 42 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:5b,id:"minecraft:stone",count:30}]}
+tick 4
+dump be:1,-60,42 blocks:0,-60,42,2,-60,42
+be_nbt 0 -60 42 {Items:[{Slot:0b,id:"minecraft:ender_pearl",count:16},{Slot:1b,id:"minecraft:diamond_pickaxe",count:1}]}
+tick 4
+dump be:1,-60,42 blocks:0,-60,42,2,-60,42
+be_nbt 0 -60 42 {Items:[]}
+tick 4
+dump be:1,-60,42 blocks:0,-60,42,2,-60,42
+note shulker box: empty, one stack, a few stacks, items that stack to 16 and 1
+block 1 -60 45 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 45 minecraft:redstone_lamp
+block 0 -60 45 minecraft:shulker_box[facing=up]
+tick 4
+dump be:1,-60,45 blocks:0,-60,45,2,-60,45
+be_nbt 0 -60 45 {Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+tick 4
+dump be:1,-60,45 blocks:0,-60,45,2,-60,45
+be_nbt 0 -60 45 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:5b,id:"minecraft:stone",count:30}]}
+tick 4
+dump be:1,-60,45 blocks:0,-60,45,2,-60,45
+be_nbt 0 -60 45 {Items:[{Slot:0b,id:"minecraft:ender_pearl",count:16},{Slot:1b,id:"minecraft:diamond_pickaxe",count:1}]}
+tick 4
+dump be:1,-60,45 blocks:0,-60,45,2,-60,45
+be_nbt 0 -60 45 {Items:[]}
+tick 4
+dump be:1,-60,45 blocks:0,-60,45,2,-60,45
+note blue shulker box: empty, one stack, a few stacks, items that stack to 16 and 1
+block 1 -60 48 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 48 minecraft:redstone_lamp
+block 0 -60 48 minecraft:blue_shulker_box[facing=up]
+tick 4
+dump be:1,-60,48 blocks:0,-60,48,2,-60,48
+be_nbt 0 -60 48 {Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+tick 4
+dump be:1,-60,48 blocks:0,-60,48,2,-60,48
+be_nbt 0 -60 48 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:5b,id:"minecraft:stone",count:30}]}
+tick 4
+dump be:1,-60,48 blocks:0,-60,48,2,-60,48
+be_nbt 0 -60 48 {Items:[{Slot:0b,id:"minecraft:ender_pearl",count:16},{Slot:1b,id:"minecraft:diamond_pickaxe",count:1}]}
+tick 4
+dump be:1,-60,48 blocks:0,-60,48,2,-60,48
+be_nbt 0 -60 48 {Items:[]}
+tick 4
+dump be:1,-60,48 blocks:0,-60,48,2,-60,48
+note double chest: both halves count (the comparator touches the right half)
+block 1 -60 51 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 51 minecraft:redstone_lamp
+block 0 -60 52 minecraft:chest[facing=east,type=left,waterlogged=false]
+block 0 -60 51 minecraft:chest[facing=east,type=right,waterlogged=false]
+tick 4
+dump be:1,-60,51 blocks:0,-60,51,2,-60,51
+be_nbt 0 -60 51 {Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+tick 4
+dump be:1,-60,51 blocks:0,-60,51,2,-60,51
+be_nbt 0 -60 52 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:26b,id:"minecraft:stone",count:64}]}
+tick 4
+dump be:1,-60,51 blocks:0,-60,51,2,-60,51
+block 0 -60 52 minecraft:air
+tick 4
+dump be:1,-60,51 blocks:0,-60,51,2,-60,51
+note command_block: success count
+block 1 -60 57 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 57 minecraft:redstone_lamp
+block 0 -60 57 minecraft:command_block[conditional=false,facing=up]
+tick 4
+dump be:1,-60,57 blocks:0,-60,57,2,-60,57
+be_nbt 0 -60 57 {SuccessCount:3}
+tick 4
+dump be:1,-60,57 blocks:0,-60,57,2,-60,57
+be_nbt 0 -60 57 {SuccessCount:15}
+tick 4
+dump be:1,-60,57 blocks:0,-60,57,2,-60,57
+be_nbt 0 -60 57 {SuccessCount:40}
+tick 4
+dump be:1,-60,57 blocks:0,-60,57,2,-60,57
+be_nbt 0 -60 57 {SuccessCount:0}
+tick 4
+dump be:1,-60,57 blocks:0,-60,57,2,-60,57
+note chain_command_block: success count
+block 1 -60 60 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 60 minecraft:redstone_lamp
+block 0 -60 60 minecraft:chain_command_block[conditional=false,facing=up]
+tick 4
+dump be:1,-60,60 blocks:0,-60,60,2,-60,60
+be_nbt 0 -60 60 {SuccessCount:3}
+tick 4
+dump be:1,-60,60 blocks:0,-60,60,2,-60,60
+be_nbt 0 -60 60 {SuccessCount:15}
+tick 4
+dump be:1,-60,60 blocks:0,-60,60,2,-60,60
+be_nbt 0 -60 60 {SuccessCount:40}
+tick 4
+dump be:1,-60,60 blocks:0,-60,60,2,-60,60
+be_nbt 0 -60 60 {SuccessCount:0}
+tick 4
+dump be:1,-60,60 blocks:0,-60,60,2,-60,60
+note repeating_command_block: success count
+block 1 -60 63 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 63 minecraft:redstone_lamp
+block 0 -60 63 minecraft:repeating_command_block[conditional=false,facing=up]
+tick 4
+dump be:1,-60,63 blocks:0,-60,63,2,-60,63
+be_nbt 0 -60 63 {SuccessCount:3}
+tick 4
+dump be:1,-60,63 blocks:0,-60,63,2,-60,63
+be_nbt 0 -60 63 {SuccessCount:15}
+tick 4
+dump be:1,-60,63 blocks:0,-60,63,2,-60,63
+be_nbt 0 -60 63 {SuccessCount:40}
+tick 4
+dump be:1,-60,63 blocks:0,-60,63,2,-60,63
+be_nbt 0 -60 63 {SuccessCount:0}
+tick 4
+dump be:1,-60,63 blocks:0,-60,63,2,-60,63
+note copper bulbs: lit and unlit, oxidised and waxed
+block 1 -60 66 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 66 minecraft:redstone_lamp
+block 0 -60 66 minecraft:copper_bulb[lit=false,powered=false]
+tick 4
+dump be:1,-60,66 blocks:0,-60,66,2,-60,66
+block 0 -60 66 minecraft:copper_bulb[lit=true,powered=false]
+tick 4
+dump be:1,-60,66 blocks:0,-60,66,2,-60,66
+block 0 -60 66 minecraft:exposed_copper_bulb[lit=true,powered=false]
+tick 4
+dump be:1,-60,66 blocks:0,-60,66,2,-60,66
+block 0 -60 66 minecraft:waxed_oxidized_copper_bulb[lit=true,powered=false]
+tick 4
+dump be:1,-60,66 blocks:0,-60,66,2,-60,66
+block 0 -60 66 minecraft:weathered_copper_bulb[lit=false,powered=false]
+tick 4
+dump be:1,-60,66 blocks:0,-60,66,2,-60,66
+note hopper: a locked hopper keeps its items
+block 1 -60 69 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 69 minecraft:redstone_lamp
+block 0 -59 69 minecraft:redstone_block
+block 0 -60 69 minecraft:hopper[enabled=false,facing=down]
+tick 4
+dump be:1,-60,69 blocks:0,-60,69,2,-60,69
+be_nbt 0 -60 69 {Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
+tick 4
+dump be:1,-60,69 blocks:0,-60,69,2,-60,69
+be_nbt 0 -60 69 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:2b,id:"minecraft:ender_pearl",count:5},{Slot:4b,id:"minecraft:cobblestone",count:1}]}
+tick 4
+dump be:1,-60,69 blocks:0,-60,69,2,-60,69
+note dropper (not triggered)
+block 1 -60 72 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 72 minecraft:redstone_lamp
+block 0 -60 72 minecraft:dropper[facing=up,triggered=false]
+tick 4
+dump be:1,-60,72 blocks:0,-60,72,2,-60,72
+be_nbt 0 -60 72 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:8b,id:"minecraft:stone",count:32}]}
+tick 4
+dump be:1,-60,72 blocks:0,-60,72,2,-60,72
+be_nbt 0 -60 72 {Items:[{Slot:0b,id:"minecraft:arrow",count:64},{Slot:3b,id:"minecraft:stone",count:1}]}
+tick 4
+dump be:1,-60,72 blocks:0,-60,72,2,-60,72
+note dispenser (not triggered)
+block 1 -60 75 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 75 minecraft:redstone_lamp
+block 0 -60 75 minecraft:dispenser[facing=up,triggered=false]
+tick 4
+dump be:1,-60,75 blocks:0,-60,75,2,-60,75
+be_nbt 0 -60 75 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:8b,id:"minecraft:stone",count:32}]}
+tick 4
+dump be:1,-60,75 blocks:0,-60,75,2,-60,75
+be_nbt 0 -60 75 {Items:[{Slot:0b,id:"minecraft:arrow",count:64},{Slot:3b,id:"minecraft:stone",count:1}]}
+tick 4
+dump be:1,-60,75 blocks:0,-60,75,2,-60,75
+note furnace: slots
+block 1 -60 78 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 78 minecraft:redstone_lamp
+block 0 -60 78 minecraft:furnace[facing=north,lit=false]
+tick 4
+dump be:1,-60,78 blocks:0,-60,78,2,-60,78
+be_nbt 0 -60 78 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:64}]}
+tick 4
+dump be:1,-60,78 blocks:0,-60,78,2,-60,78
+be_nbt 0 -60 78 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:64},{Slot:1b,id:"minecraft:coal",count:64},{Slot:2b,id:"minecraft:iron_ingot",count:64}]}
+tick 4
+dump be:1,-60,78 blocks:0,-60,78,2,-60,78
+block 0 -60 78 minecraft:furnace[facing=north,lit=true]
+tick 4
+dump be:1,-60,78 blocks:0,-60,78,2,-60,78
+note smoker: slots
+block 1 -60 81 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 81 minecraft:redstone_lamp
+block 0 -60 81 minecraft:smoker[facing=north,lit=false]
+tick 4
+dump be:1,-60,81 blocks:0,-60,81,2,-60,81
+be_nbt 0 -60 81 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:64}]}
+tick 4
+dump be:1,-60,81 blocks:0,-60,81,2,-60,81
+be_nbt 0 -60 81 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:64},{Slot:1b,id:"minecraft:coal",count:64},{Slot:2b,id:"minecraft:iron_ingot",count:64}]}
+tick 4
+dump be:1,-60,81 blocks:0,-60,81,2,-60,81
+block 0 -60 81 minecraft:smoker[facing=north,lit=true]
+tick 4
+dump be:1,-60,81 blocks:0,-60,81,2,-60,81
+note blast_furnace: slots
+block 1 -60 84 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 84 minecraft:redstone_lamp
+block 0 -60 84 minecraft:blast_furnace[facing=north,lit=false]
+tick 4
+dump be:1,-60,84 blocks:0,-60,84,2,-60,84
+be_nbt 0 -60 84 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:64}]}
+tick 4
+dump be:1,-60,84 blocks:0,-60,84,2,-60,84
+be_nbt 0 -60 84 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:64},{Slot:1b,id:"minecraft:coal",count:64},{Slot:2b,id:"minecraft:iron_ingot",count:64}]}
+tick 4
+dump be:1,-60,84 blocks:0,-60,84,2,-60,84
+block 0 -60 84 minecraft:blast_furnace[facing=north,lit=true]
+tick 4
+dump be:1,-60,84 blocks:0,-60,84,2,-60,84
+note a comparator reads the output signal of another comparator
+block 1 -60 87 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 87 minecraft:redstone_lamp
+block 0 -60 87 minecraft:comparator[facing=west,mode=compare,powered=false]
+tick 4
+dump be:1,-60,87 blocks:0,-60,87,2,-60,87
+be_nbt 0 -60 87 {OutputSignal:9}
+tick 4
+dump be:1,-60,87 blocks:0,-60,87,2,-60,87
+be_nbt 0 -60 87 {OutputSignal:0}
+tick 4
+dump be:1,-60,87 blocks:0,-60,87,2,-60,87
+note shelf (a comparator behind it reads the slots)
+block 0 -60 91 minecraft:comparator[facing=north,mode=compare,powered=false]
+block 0 -60 92 minecraft:redstone_lamp
+block 0 -60 90 minecraft:oak_shelf[facing=north]
+tick 4
+dump be:0,-60,91 blocks:0,-60,90,0,-60,92
+be_nbt 0 -60 90 {Items:[{Slot:0b,id:"minecraft:apple",count:3}]}
+tick 4
+dump be:0,-60,91 blocks:0,-60,90,0,-60,92
+be_nbt 0 -60 90 {Items:[{Slot:0b,id:"minecraft:apple",count:3},{Slot:1b,id:"minecraft:stick",count:1},{Slot:2b,id:"minecraft:stick",count:1}]}
+tick 4
+dump be:0,-60,91 blocks:0,-60,90,0,-60,92
+be_nbt 0 -60 90 {Items:[{Slot:2b,id:"minecraft:stick",count:1}]}
+tick 4
+dump be:0,-60,91 blocks:0,-60,90,0,-60,92
+note copper golem statue: the pose decides the signal
+block 1 -60 93 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 93 minecraft:redstone_lamp
+block 0 -60 93 minecraft:copper_golem_statue[facing=south,copper_golem_pose=standing,waterlogged=false]
+tick 4
+dump be:1,-60,93 blocks:0,-60,93,2,-60,93
+block 0 -60 93 minecraft:copper_golem_statue[facing=south,copper_golem_pose=sitting,waterlogged=false]
+tick 4
+dump be:1,-60,93 blocks:0,-60,93,2,-60,93
+block 0 -60 93 minecraft:exposed_copper_golem_statue[facing=south,copper_golem_pose=running,waterlogged=false]
+tick 4
+dump be:1,-60,93 blocks:0,-60,93,2,-60,93
+block 0 -60 93 minecraft:waxed_oxidized_copper_golem_statue[facing=south,copper_golem_pose=star,waterlogged=false]
+tick 4
+dump be:1,-60,93 blocks:0,-60,93,2,-60,93
+note crafter: filled and disabled slots
+block 1 -60 96 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 96 minecraft:redstone_lamp
+block 0 -60 96 minecraft:crafter[crafting=false,orientation=north_up,triggered=false]
+tick 4
+dump be:1,-60,96 blocks:0,-60,96,2,-60,96
+be_nbt 0 -60 96 {Items:[{Slot:0b,id:"minecraft:stone",count:1},{Slot:4b,id:"minecraft:stick",count:2}]}
+tick 4
+dump be:1,-60,96 blocks:0,-60,96,2,-60,96
+be_nbt 0 -60 96 {disabled_slots:[I;1,2,8]}
+tick 4
+dump be:1,-60,96 blocks:0,-60,96,2,-60,96
+be_nbt 0 -60 96 {Items:[],disabled_slots:[I;]}
+tick 4
+dump be:1,-60,96 blocks:0,-60,96,2,-60,96
+note sculk sensor: the last vibration frequency while active
+block 71 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 72 -60 0 minecraft:redstone_lamp
+block 70 -60 0 minecraft:sculk_sensor[sculk_sensor_phase=inactive,power=0,waterlogged=false]
+tick 4
+dump be:71,-60,0 blocks:70,-60,0,72,-60,0
+be_nbt 70 -60 0 {last_vibration_frequency:7}
+tick 4
+dump be:71,-60,0 blocks:70,-60,0,72,-60,0
+block 70 -60 0 minecraft:sculk_sensor[sculk_sensor_phase=active,power=10,waterlogged=false]
+tick 4
+dump be:71,-60,0 blocks:70,-60,0,72,-60,0
+be_nbt 70 -60 0 {last_vibration_frequency:12}
+tick 4
+dump be:71,-60,0 blocks:70,-60,0,72,-60,0
+block 70 -60 0 minecraft:sculk_sensor[sculk_sensor_phase=cooldown,power=0,waterlogged=false]
+tick 4
+dump be:71,-60,0 blocks:70,-60,0,72,-60,0
+note calibrated sculk sensor
+block 71 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 72 -60 12 minecraft:redstone_lamp
+block 70 -60 12 minecraft:calibrated_sculk_sensor[facing=north,sculk_sensor_phase=inactive,power=0,waterlogged=false]
+tick 4
+dump be:71,-60,12 blocks:70,-60,12,72,-60,12
+be_nbt 70 -60 12 {last_vibration_frequency:4}
+tick 4
+dump be:71,-60,12 blocks:70,-60,12,72,-60,12
+block 70 -60 12 minecraft:calibrated_sculk_sensor[facing=north,sculk_sensor_phase=active,power=10,waterlogged=false]
+tick 4
+dump be:71,-60,12 blocks:70,-60,12,72,-60,12

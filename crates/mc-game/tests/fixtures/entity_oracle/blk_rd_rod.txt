@@ -1,0 +1,219 @@
+C The difficulty has been set to Easy
+# a rod facing up with a lamp under it and next to it
+T 1
+T 2
+T 3
+EV level_event r=64.0 ex=0 type=3002 pos=1,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=1,-60,0 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=1,-60,0 data=-1 global=0
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 0 minecraft:lightning_rod delay=8 prio=0
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 0 minecraft:lightning_rod delay=2 prio=0
+T 10
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 0 minecraft:lightning_rod delay=1 prio=0
+T 11
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:lightning_rod[facing=up,powered=false,waterlogged=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=4 prio=0
+TICK block 1 -61 0 minecraft:redstone_lamp delay=4 prio=0
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+# a rod facing north: lamps on every side see its own signal
+T 18
+T 19
+T 20
+EV level_event r=64.0 ex=0 type=3002 pos=5,-60,4 data=2 global=0
+B 4 -60 4 minecraft:redstone_lamp[lit=true]
+B 5 -60 3 minecraft:redstone_lamp[lit=true]
+B 5 -60 4 minecraft:lightning_rod[facing=north,powered=true,waterlogged=false]
+B 5 -60 5 minecraft:redstone_lamp[lit=true]
+TICK block 5 -60 4 minecraft:lightning_rod delay=8 prio=0
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+B 4 -60 4 minecraft:redstone_lamp[lit=true]
+B 5 -60 3 minecraft:redstone_lamp[lit=true]
+B 5 -60 4 minecraft:lightning_rod[facing=north,powered=false,waterlogged=false]
+B 5 -60 5 minecraft:redstone_lamp[lit=true]
+TICK block 4 -60 4 minecraft:redstone_lamp delay=4 prio=0
+TICK block 5 -60 3 minecraft:redstone_lamp delay=4 prio=0
+TICK block 5 -60 5 minecraft:redstone_lamp delay=4 prio=0
+T 29
+T 30
+T 31
+T 32
+# a waterlogged rod keeps its water
+T 33
+EV level_event r=64.0 ex=0 type=3002 pos=8,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-60,4 data=-1 global=0
+B 8 -60 4 minecraft:lightning_rod[facing=east,powered=true,waterlogged=true]
+TICK block 8 -60 4 minecraft:lightning_rod delay=8 prio=0
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+T 43
+T 44
+T 45
+B 8 -60 4 minecraft:lightning_rod[facing=east,powered=false,waterlogged=true]
+# a powered rod is removed: the neighbours are updated at once, the pending tick is a no-op
+T 46
+T 47
+T 48
+EV level_event r=64.0 ex=0 type=3002 pos=1,-60,8 data=1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=1,-60,8 data=-1 global=0
+T 49
+T 50
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+T 57
+T 58
+B 0 -61 8 minecraft:grass_block[snowy=false]
+B 1 -61 8 minecraft:redstone_lamp[lit=false]
+B 2 -61 8 minecraft:grass_block[snowy=false]
+# a powered rod placed without a scheduled tick gets one
+B 3 -61 8 minecraft:grass_block[snowy=false]
+B 4 -61 8 minecraft:redstone_lamp[lit=false]
+B 4 -60 8 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B 5 -61 8 minecraft:grass_block[snowy=false]
+TICK block 4 -60 8 minecraft:lightning_rod delay=8 prio=0
+T 59
+T 60
+T 61
+T 62
+T 63
+T 64
+T 65
+T 66
+T 67
+T 68
+B 3 -61 8 minecraft:grass_block[snowy=false]
+B 4 -61 8 minecraft:redstone_lamp[lit=false]
+B 4 -60 8 minecraft:lightning_rod[facing=up,powered=false,waterlogged=false]
+B 5 -61 8 minecraft:grass_block[snowy=false]
+# a struck rod cleans the copper it is attached to and around it
+T 69
+EV level_event r=64.0 ex=0 type=3002 pos=8,-60,8 data=1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-60,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=9,-61,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=9,-61,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,9 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,9 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,9 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=9,-61,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,9 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,9 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-60,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-60,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,9 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=8,-61,8 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=9,-61,8 data=-1 global=0
+B 7 -61 7 minecraft:grass_block[snowy=false]
+B 7 -61 8 minecraft:waxed_exposed_copper
+B 7 -61 9 minecraft:grass_block[snowy=false]
+B 7 -61 10 minecraft:grass_block[snowy=false]
+B 8 -61 7 minecraft:grass_block[snowy=false]
+B 8 -61 8 minecraft:copper_block
+B 8 -61 9 minecraft:copper_block
+B 8 -61 10 minecraft:grass_block[snowy=false]
+B 8 -60 8 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B 9 -61 7 minecraft:grass_block[snowy=false]
+B 9 -61 8 minecraft:copper_block
+B 9 -61 9 minecraft:grass_block[snowy=false]
+B 9 -61 10 minecraft:grass_block[snowy=false]
+TICK block 8 -60 8 minecraft:lightning_rod delay=8 prio=0
+T 70
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+EV level_event r=64.0 ex=0 type=3002 pos=11,-60,12 data=1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=11,-61,12 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=11,-60,12 data=-1 global=0
+EV level_event r=64.0 ex=0 type=3002 pos=11,-61,12 data=-1 global=0
+B 10 -61 11 minecraft:grass_block[snowy=false]
+B 10 -61 12 minecraft:grass_block[snowy=false]
+B 10 -61 13 minecraft:grass_block[snowy=false]
+B 11 -61 11 minecraft:grass_block[snowy=false]
+B 11 -61 12 minecraft:copper_block
+B 11 -61 13 minecraft:grass_block[snowy=false]
+B 11 -60 12 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B 12 -61 11 minecraft:grass_block[snowy=false]
+B 12 -61 12 minecraft:grass_block[snowy=false]
+B 12 -61 13 minecraft:grass_block[snowy=false]
+TICK block 11 -60 12 minecraft:oxidized_lightning_rod delay=8 prio=0
+TICK block 11 -60 12 minecraft:lightning_rod delay=8 prio=0
+T 83
+T 84
+T 85
+T 86
+T 87
+T 88
+T 89
+T 90
+T 91
+T 92
+T 93
+T 94
+B 10 -61 11 minecraft:grass_block[snowy=false]
+B 10 -61 12 minecraft:grass_block[snowy=false]
+B 10 -61 13 minecraft:grass_block[snowy=false]
+B 11 -61 11 minecraft:grass_block[snowy=false]
+B 11 -61 12 minecraft:copper_block
+B 11 -61 13 minecraft:grass_block[snowy=false]
+B 11 -60 12 minecraft:lightning_rod[facing=up,powered=false,waterlogged=false]
+B 12 -61 11 minecraft:grass_block[snowy=false]
+B 12 -61 12 minecraft:grass_block[snowy=false]
+B 12 -61 13 minecraft:grass_block[snowy=false]
