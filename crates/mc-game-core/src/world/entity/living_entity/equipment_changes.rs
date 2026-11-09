@@ -2,6 +2,7 @@
 //! old equipment), `handleHandSwap`, `handleEquipmentChanges` (`ClientboundSetEquipmentPacket`),
 //! `stopLocationBasedEffects` / `onEquippedItemBroken`, and `ItemStack.forEachModifier`.
 
+use crate::registry::RegistryAccess;
 use crate::server::level::ServerLevel;
 use crate::server::level::level_events::encode_packet;
 use crate::world::entity::Entity;
@@ -34,6 +35,7 @@ pub fn equipment_slot_group_test(group: EquipmentSlotGroup, slot: EquipmentSlot)
 /// `ItemStack.forEachModifier(slot, consumer)`: the `attribute_modifiers` component, then the enchantments'
 /// `attributes` effects.
 pub fn for_each_modifier(
+    registries: &RegistryAccess,
     stack: &ItemStack,
     slot: EquipmentSlot,
     mut consumer: impl FnMut(Attribute, &AttributeModifier),
@@ -45,11 +47,22 @@ pub fn for_each_modifier(
             }
         }
     }
+    crate::world::item::enchantment_helper::for_each_modifier(
+        registries,
+        stack,
+        slot,
+        |attribute, modifier| consumer(attribute, &modifier),
+    );
 }
 
 /// `stopLocationBasedEffects(previous, inSlot, attributes)` (the attribute part).
-fn remove_item_modifiers(attributes: &mut AttributeMap, previous: &ItemStack, slot: EquipmentSlot) {
-    for_each_modifier(previous, slot, |attribute, modifier| {
+fn remove_item_modifiers(
+    attributes: &mut AttributeMap,
+    registries: &RegistryAccess,
+    previous: &ItemStack,
+    slot: EquipmentSlot,
+) {
+    for_each_modifier(registries, previous, slot, |attribute, modifier| {
         if let Some(instance) = attributes.get_instance(attribute) {
             instance.remove_modifier(&modifier.id);
         }
@@ -59,11 +72,12 @@ fn remove_item_modifiers(attributes: &mut AttributeMap, previous: &ItemStack, sl
 /// `LivingEntity.onEquippedItemBroken(brokenItem, inSlot)` without the entity event (sent by the caller's level).
 pub fn stop_location_based_effects(
     entity: &mut dyn Entity,
+    registries: &RegistryAccess,
     previous: &ItemStack,
     slot: EquipmentSlot,
 ) {
     if let Some(living) = entity.living_mut() {
-        remove_item_modifiers(&mut living.attributes, previous, slot);
+        remove_item_modifiers(&mut living.attributes, registries, previous, slot);
     }
 }
 
@@ -73,7 +87,7 @@ pub fn detect_equipment_updates(entity: &mut dyn Entity, level: &mut ServerLevel
         entity.collect_equipment_changes_pre(level, &last);
     }
     let previous_items = entity.living().map(|l| l.last_equipment_items.clone());
-    let Some(mut changed) = collect_equipment_changes(entity) else {
+    let Some(mut changed) = collect_equipment_changes(entity, &level.registries) else {
         return;
     };
     // `collectEquipmentChanges`: the enchantments' location based effects (`attributes`: sweeping edge, ...) of the old/new stacks
@@ -109,7 +123,10 @@ pub fn detect_equipment_updates(entity: &mut dyn Entity, level: &mut ServerLevel
 }
 
 /// `collectEquipmentChanges(lastEquipmentItems)`: the changed slots in `EquipmentSlot` order.
-fn collect_equipment_changes(entity: &mut dyn Entity) -> Option<Vec<(EquipmentSlot, ItemStack)>> {
+fn collect_equipment_changes(
+    entity: &mut dyn Entity,
+    registries: &RegistryAccess,
+) -> Option<Vec<(EquipmentSlot, ItemStack)>> {
     let mut changed: Option<Vec<(EquipmentSlot, ItemStack)>> = None;
     for slot in EquipmentSlot::VALUES {
         let previous = entity.living()?.last_equipment_items[slot as usize].clone();
@@ -118,7 +135,7 @@ fn collect_equipment_changes(entity: &mut dyn Entity) -> Option<Vec<(EquipmentSl
         if !ItemStack::matches(&current, &previous) {
             changed.get_or_insert_with(Vec::new).push((slot, current));
             if !previous.is_empty() {
-                stop_location_based_effects(entity, &previous, slot);
+                stop_location_based_effects(entity, registries, &previous, slot);
             }
         }
     }
@@ -128,7 +145,7 @@ fn collect_equipment_changes(entity: &mut dyn Entity) -> Option<Vec<(EquipmentSl
                 && !current.is_broken()
                 && let Some(living) = entity.living_mut()
             {
-                for_each_modifier(current, *slot, |attribute, modifier| {
+                for_each_modifier(registries, current, *slot, |attribute, modifier| {
                     if let Some(instance) = living.attributes.get_instance(attribute) {
                         instance.remove_modifier(&modifier.id);
                         instance.add_transient_modifier(modifier.clone());
