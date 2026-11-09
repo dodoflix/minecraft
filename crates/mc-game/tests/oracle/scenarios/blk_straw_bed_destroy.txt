@@ -1,0 +1,69 @@
+# StrawBedBlock.spawnDestroyParticles: Level.destroyBlock sends level event 2014 for a straw bed (2001 for a bed), which includes the other
+# half going away (Block.updateOrDestroy); the player break path (Block.playerWillDestroy) still sends 2001 for the half that is broken.
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Bob creative 6.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+watch events
+level_seed 61
+note Level.destroyBlock on the foot: event 2014, the head follows through updateShape and Block.updateOrDestroy (event 2014 too)
+block 1 -60 2 minecraft:straw_bed[facing=south,part=foot,occupied=false]
+block 1 -60 3 minecraft:straw_bed[facing=south,part=head,occupied=false]
+destroy 1 -60 2
+tick 1
+dump blocks:1,-60,2,1,-60,3 entities events
+note Level.destroyBlock on the head
+block 2 -60 2 minecraft:straw_bed[facing=south,part=foot,occupied=false]
+block 2 -60 3 minecraft:straw_bed[facing=south,part=head,occupied=false]
+destroy 2 -60 3
+tick 1
+dump blocks:2,-60,2,2,-60,3 entities events
+note the same on a bed for comparison (event 2001)
+block 3 -60 2 minecraft:white_bed[facing=south,part=foot,occupied=false]
+block 3 -60 3 minecraft:white_bed[facing=south,part=head,occupied=false]
+destroy 3 -60 2
+tick 1
+dump blocks:3,-60,2,3,-60,3 entities events
+note a bed facing another way and an occupied one
+block 4 -60 2 minecraft:straw_bed[facing=east,part=foot,occupied=true]
+block 5 -60 2 minecraft:straw_bed[facing=east,part=head,occupied=true]
+destroy 4 -60 2
+tick 1
+dump blocks:4,-60,2,5,-60,2 entities events
+note nothing there: no event, no drop
+destroy 4 -60 2
+dump blocks:4,-60,2,5,-60,2 events
+note survival player break: playerWillDestroy sends 2001 for the broken half, the other half is destroyed with 2014
+snap Steve 1.5 -60 3.5 0 0
+snap Bob 3.5 -60 3.5 0 0
+level_seed 62
+block 1 -60 5 minecraft:straw_bed[facing=south,part=foot,occupied=false]
+block 1 -60 6 minecraft:straw_bed[facing=south,part=head,occupied=false]
+dig Steve 1 -60 5
+tick 1
+dump blocks:1,-60,5,1,-60,6 entities events
+block 2 -60 5 minecraft:straw_bed[facing=south,part=foot,occupied=false]
+block 2 -60 6 minecraft:straw_bed[facing=south,part=head,occupied=false]
+dig Steve 2 -60 6
+tick 1
+dump blocks:2,-60,5,2,-60,6 entities events
+note creative player: the other half goes too, nothing drops
+block 3 -60 5 minecraft:straw_bed[facing=south,part=foot,occupied=false]
+block 3 -60 6 minecraft:straw_bed[facing=south,part=head,occupied=false]
+dig Bob 3 -60 5
+tick 1
+dump blocks:3,-60,5,3,-60,6 entities events
+block 4 -60 5 minecraft:straw_bed[facing=south,part=foot,occupied=false]
+block 4 -60 6 minecraft:straw_bed[facing=south,part=head,occupied=false]
+dig Bob 4 -60 6
+tick 1
+dump blocks:4,-60,5,4,-60,6 entities events
+note an explosion removes the foot silently, the head is destroyed by updateOrDestroy (2014)
+level_seed 63
+block 8 -60 8 minecraft:straw_bed[facing=south,part=foot,occupied=false]
+block 8 -60 9 minecraft:straw_bed[facing=south,part=head,occupied=false]
+explode 8.5 -60.5 7.5 2 none block
+tick 1
+dump blocks:8,-60,8,8,-60,9 entities events

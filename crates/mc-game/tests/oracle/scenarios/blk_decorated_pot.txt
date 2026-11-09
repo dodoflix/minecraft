@@ -1,0 +1,127 @@
+# DecoratedPotBlock + DecoratedPotBlockEntity: placement (components, facing, waterlogged), inserting items (wobble block event, insert
+# sound, game event, same-item stacking, full stack, other item), the empty-hand failure wobble, a loot table that unpacks when the item
+# is read, breaking with and without tools (shatter, silk touch, creative) and the drops (sherds, pot, contents).
+level flat
+preload 3
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Bob creative 6.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+level_seed 51
+watch events
+note place a pot item carrying sherds and contents
+give Steve mainhand minecraft:decorated_pot[pot_decorations={back:{id:"minecraft:angler_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"}},container=[{slot:0,item:{id:"minecraft:diamond",count:3}}]] 4
+use_on Steve 1 -61 2 up
+tick 1
+dump blocks:1,-61,2,1,-59,2 be:1,-60,2 beu:1,-60,2 inventory:Steve events
+note place it again, the player looks west
+snap Steve 0.5 -60 0.5 90 0
+use_on Steve 2 -61 2 up
+dump blocks:2,-61,2,2,-59,2 be:2,-60,2 events
+snap Steve 0.5 -60 0.5 0 0
+note insert: empty pot takes one item, the same item stacks, another item is refused (failure wobble)
+give Steve mainhand minecraft:diamond 5
+use_on Steve 2 -60 2 up
+tick 1
+dump be:2,-60,2 inventory:Steve events
+use_on Steve 2 -60 2 up
+use_on Steve 2 -60 2 up
+tick 1
+dump be:2,-60,2 inventory:Steve events
+give Steve mainhand minecraft:stone 5
+use_on Steve 2 -60 2 up
+tick 1
+dump be:2,-60,2 inventory:Steve events
+note a full stack refuses more
+block 3 -60 2 minecraft:decorated_pot[facing=east]
+be_nbt 3 -60 2 {item:{id:"minecraft:ender_pearl",count:15}}
+give Steve mainhand minecraft:ender_pearl 4
+use_on Steve 3 -60 2 up
+use_on Steve 3 -60 2 up
+tick 1
+dump be:3,-60,2 inventory:Steve events
+note an item with different components is not the same item
+give Steve mainhand minecraft:diamond[custom_name="x"] 2
+use_on Steve 2 -60 2 up
+tick 1
+dump be:2,-60,2 inventory:Steve events
+note empty hand: failure wobble
+give Steve mainhand minecraft:air
+use_on Steve 2 -60 2 up
+tick 1
+dump events
+note creative player inserts without consuming
+give Bob mainhand minecraft:gold_ingot 1
+use_on Bob 3 -60 2 up
+tick 1
+dump be:3,-60,2 inventory:Bob events
+note a pot with a loot table unpacks when the item is read
+block 4 -60 2 minecraft:decorated_pot
+be_nbt 4 -60 2 {LootTable:"minecraft:archaeology/desert_well",LootTableSeed:7L}
+give Steve mainhand minecraft:diamond 2
+use_on Steve 4 -60 2 up
+tick 1
+dump be:4,-60,2 inventory:Steve events
+note waterlogged placement (far from the drops of the later cases: items splash in flowing water)
+snap Steve 18.5 -60 0.5 0 0
+block 20 -60 2 minecraft:water
+give Steve mainhand minecraft:decorated_pot 1
+use_on Steve 20 -61 2 up
+dump blocks:20,-61,2,20,-59,2 ticks events
+tick 3
+dump blocks:20,-61,2,20,-59,2 ticks events
+note neighbour change: the pot stays
+block 20 -61 2 minecraft:air
+tick 1
+dump blocks:20,-61,2,20,-59,2
+level_seed 52
+note break by hand: the pot and its contents drop, no shatter
+block 1 -60 4 minecraft:decorated_pot
+be_nbt 1 -60 4 {sherds:{back:{id:"minecraft:angler_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"}},item:{id:"minecraft:diamond",count:3}}
+give Steve mainhand minecraft:air
+dig Steve 1 -60 4
+dump blocks:1,-60,4,1,-60,4 entities events
+note break with a pickaxe: the pot shatters into its sherds, the contents drop
+block 2 -60 4 minecraft:decorated_pot[facing=west]
+be_nbt 2 -60 4 {sherds:{back:{id:"minecraft:angler_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"}},item:{id:"minecraft:diamond",count:3}}
+give Steve mainhand minecraft:iron_pickaxe
+dig Steve 2 -60 4
+dump blocks:2,-60,4,2,-60,4 entities events
+note silk touch keeps the pot whole
+block 3 -60 4 minecraft:decorated_pot
+be_nbt 3 -60 4 {sherds:{back:{id:"minecraft:angler_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"}},item:{id:"minecraft:diamond",count:3}}
+give Steve mainhand minecraft:iron_pickaxe[enchantments={"minecraft:silk_touch":1}]
+dig Steve 3 -60 4
+dump blocks:3,-60,4,3,-60,4 entities events
+note other tools: axe and shovel shatter, a stick does not
+block 4 -60 4 minecraft:decorated_pot
+be_nbt 4 -60 4 {sherds:{left:{id:"minecraft:brick"}}}
+give Steve mainhand minecraft:wooden_axe
+dig Steve 4 -60 4
+dump blocks:4,-60,4,4,-60,4 entities events
+block 5 -60 4 minecraft:decorated_pot
+be_nbt 5 -60 4 {sherds:{left:{id:"minecraft:brick"}}}
+give Steve mainhand minecraft:stick
+dig Steve 5 -60 4
+dump blocks:5,-60,4,5,-60,4 entities events
+note creative break: nothing drops, the pot is cracked first
+block 6 -60 4 minecraft:decorated_pot
+be_nbt 6 -60 4 {sherds:{left:{id:"minecraft:brick"}},item:{id:"minecraft:diamond",count:2}}
+give Bob mainhand minecraft:iron_pickaxe
+dig Bob 6 -60 4
+dump blocks:6,-60,4,6,-60,4 entities events
+note break a pot that has a loot table with a pickaxe
+block 7 -60 4 minecraft:decorated_pot
+be_nbt 7 -60 4 {LootTable:"minecraft:archaeology/desert_well",LootTableSeed:9L}
+give Steve mainhand minecraft:iron_pickaxe
+dig Steve 7 -60 4
+dump blocks:7,-60,4,7,-60,4 entities events
+note an arrow hits the pot: it is cracked and destroyed with its sherds
+block 9 -60 6 minecraft:decorated_pot
+be_nbt 9 -60 6 {sherds:{left:{id:"minecraft:brick"},back:{id:"minecraft:prize_pottery_sherd"}},item:{id:"minecraft:diamond",count:2}}
+spawn shot minecraft:arrow 9.5 -59.5 9.5
+velocity shot 0 0 -1.5
+level_seed 53
+tick 6
+kill shot
+dump blocks:9,-60,6,9,-60,6 entities events

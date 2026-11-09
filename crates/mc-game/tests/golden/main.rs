@@ -27,6 +27,7 @@ mod blocks_infra_golden;
 mod blocks_misc_golden;
 mod blocks_plain_hooks_golden;
 mod blocks_plants_vines_golden;
+mod blocks_pots_segments_golden;
 mod blocks_redstone_devices_golden;
 mod blocks_redstone_golden;
 mod blocks_scaffolding_golden;

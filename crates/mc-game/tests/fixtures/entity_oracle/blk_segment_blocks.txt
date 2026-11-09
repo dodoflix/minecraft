@@ -1,0 +1,132 @@
+# pink petals: one segment per click on the ground, facing opposite the player (south)
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -60 2 minecraft:pink_petals[facing=north,flower_amount=1]
+I Alice 0 minecraft:pink_petals*15
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -60 2 minecraft:pink_petals[facing=north,flower_amount=2]
+I Alice 0 minecraft:pink_petals*14
+# clicking the petals themselves also adds a segment
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -60 2 minecraft:pink_petals[facing=north,flower_amount=4]
+I Alice 0 minecraft:pink_petals*12
+# a fifth segment is refused, the stack is not consumed
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -60 2 minecraft:pink_petals[facing=north,flower_amount=4]
+I Alice 0 minecraft:pink_petals*12
+# another facing: the player looks west
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -60 2 minecraft:pink_petals[facing=east,flower_amount=2]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -60 2 minecraft:pink_petals[facing=south,flower_amount=1]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -60 2 minecraft:pink_petals[facing=west,flower_amount=1]
+# pink petals on a block that cannot support it
+B 5 -61 2 minecraft:stone
+I Alice 0 minecraft:pink_petals*8
+# wildflowers
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -60 3 minecraft:wildflowers[facing=north,flower_amount=3]
+I Alice 0 minecraft:wildflowers*5
+# another item on petals: wildflowers onto pink petals, stone onto wildflowers
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -60 2 minecraft:pink_petals[facing=north,flower_amount=4]
+B 1 -60 3 minecraft:wildflowers[facing=north,flower_amount=3]
+I Alice 0 minecraft:wildflowers*5
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -60 2 minecraft:pink_petals[facing=north,flower_amount=4]
+B 1 -60 3 minecraft:wildflowers[facing=north,flower_amount=3]
+B 1 -59 3 minecraft:stone
+I Alice 0 minecraft:stone*7
+# empty hand on petals
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -60 2 minecraft:pink_petals[facing=east,flower_amount=2]
+# leaf litter
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -60 4 minecraft:leaf_litter[facing=north,segment_amount=4]
+I Alice 0 minecraft:leaf_litter*4
+# leaf litter on glass, on a bottom slab (top face not sturdy) and on a top slab
+B 2 -61 4 minecraft:glass
+B 2 -60 4 minecraft:leaf_litter[facing=north,segment_amount=1]
+B 3 -61 4 minecraft:oak_slab[type=bottom,waterlogged=false]
+B 4 -61 4 minecraft:oak_slab[type=top,waterlogged=false]
+B 4 -60 4 minecraft:leaf_litter[facing=north,segment_amount=1]
+I Alice 0 minecraft:leaf_litter*2
+# survival: the ground goes away, the neighbour update breaks the segments, drops are not exercised here
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -60 5 minecraft:pink_petals[facing=north,flower_amount=3]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -60 5 minecraft:wildflowers[facing=east,flower_amount=2]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -60 5 minecraft:leaf_litter[facing=south,segment_amount=4]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -60 5 minecraft:leaf_litter[facing=west,segment_amount=1]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -60 5 minecraft:pink_petals[facing=west,flower_amount=1]
+B 1 -61 5 minecraft:dirt
+B 1 -60 5 minecraft:pink_petals[facing=north,flower_amount=3]
+B 2 -61 5 minecraft:stone
+B 3 -61 5 minecraft:stone
+B 3 -60 5 minecraft:leaf_litter[facing=south,segment_amount=4]
+B 4 -61 5 minecraft:oak_slab[type=bottom,waterlogged=false]
+EV sound at=1.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=3.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=4.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.pink_petals.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-58.5,3.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:block.leaf_litter.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:block.leaf_litter.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:block.leaf_litter.place source=block vol=1.0 pitch=0.8
+EV sound at=1.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:block.leaf_litter.place source=block vol=1.0 pitch=0.8
+EV sound at=2.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:block.leaf_litter.place source=block vol=1.0 pitch=0.8
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:block.leaf_litter.place source=block vol=1.0 pitch=0.8
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,5 data=33693 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,5 data=33704 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=5,-60,5 data=33672 global=0
+# bone meal: +1 segment up to four, then the item pops
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL false
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -60 6 minecraft:pink_petals[facing=north,flower_amount=3]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 2 -60 6 minecraft:wildflowers[facing=east,flower_amount=4]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 3 -60 6 minecraft:pink_petals[facing=south,flower_amount=4]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 4 -60 6 minecraft:wildflowers[facing=west,flower_amount=4]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 5 -60 6 minecraft:leaf_litter[facing=north,segment_amount=2]
+E item#1 minecraft:item pos=2.6078558904291023,-59.401792778664294,5.537803815594383 delta=-0.003808596154605974,0.11446400521850592,-0.051008567293011134 rot=68.308395,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wildflowers*2 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.604082619457367,-59.2249539147652,5.87111297480428 delta=0.01676538643202153,0.11446400521850592,0.06633101358440947 rot=288.298,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leaf_litter*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=5.528933371664121,-59.493338870655336,5.366558686239044 delta=0.015826150638402287,0.11446400521850592,-0.07421349615188286 rot=336.99097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pink_petals*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=3.6136474748087073,-59.77907166293842,6.259805851605743 delta=-0.024970942943885716,0.2,0.0900679446773647 rot=308.31644,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pink_petals*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=4.561959298948143,-59.486909576662335,6.7110343139703375 delta=-0.07345183021598477,0.2,-0.045991578054677795 rot=85.35252,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wildflowers*1 age=0 pickup=10 health=5 owner=- thrower=-
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -60 6 minecraft:pink_petals[facing=north,flower_amount=3]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 2 -60 6 minecraft:wildflowers[facing=east,flower_amount=4]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 3 -60 6 minecraft:pink_petals[facing=south,flower_amount=4]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 4 -60 6 minecraft:wildflowers[facing=west,flower_amount=4]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 5 -60 6 minecraft:leaf_litter[facing=north,segment_amount=2]
+E item#1 minecraft:item pos=2.6040472942744963,-59.327328773445785,5.486795248301372 delta=-0.003732424304157061,0.07297472653442398,-0.04998839692006212 rot=68.308395,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wildflowers*2 age=3 pickup=7 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.620848005889389,-59.15048990954669,5.937443988388689 delta=0.016430079023155467,0.07297472653442398,0.06500439457788497 rot=288.298,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leaf_litter*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=5.544759522302523,-59.41887486543683,5.292345190087161 delta=0.015509627927494109,0.07297472653442398,-0.0727292276443553 rot=336.99097,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pink_petals*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=3.5886765318648215,-59.619071662938424,6.349873796283108 delta=-0.02447152456129094,0.1568000030517578,0.08826658750172713 rot=308.31644,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pink_petals*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=4.488507468732158,-59.32690957666234,6.66504273591566 delta=-0.07198279501264755,0.1568000030517578,-0.04507174737080397 rot=85.35252,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wildflowers*1 age=1 pickup=9 health=5 owner=- thrower=-
