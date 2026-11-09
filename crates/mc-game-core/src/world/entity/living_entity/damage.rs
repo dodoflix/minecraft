@@ -196,6 +196,10 @@ pub fn hurt_server(
             entity.die(level, source);
         }
     } else if took_full_damage {
+        // `Mob.playHurtSound` resets the ambient sound timer before the living hurt sound
+        if entity.mob().is_some() {
+            crate::world::entity::mob::tick::reset_ambient_before_hurt_sound(entity);
+        }
         if let Some(sound) = entity.get_hurt_sound_in(level, source) {
             make_sound(entity, level, sound);
         }
