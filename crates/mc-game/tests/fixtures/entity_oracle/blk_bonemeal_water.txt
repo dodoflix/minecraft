@@ -1,0 +1,3991 @@
+BONEMEAL true
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL true
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+BONEMEAL false
+B -2 -61 -1 minecraft:sand
+B -2 -61 0 minecraft:sand
+B -2 -61 1 minecraft:sand
+B -2 -61 2 minecraft:sand
+B -2 -61 3 minecraft:sand
+B -2 -61 4 minecraft:dirt
+B -2 -61 5 minecraft:sand
+B -2 -60 -1 minecraft:water[level=0]
+B -2 -60 0 minecraft:water[level=0]
+B -2 -60 1 minecraft:water[level=0]
+B -2 -59 -1 minecraft:water[level=0]
+B -2 -59 0 minecraft:water[level=0]
+B -2 -59 1 minecraft:water[level=0]
+B -2 -58 -1 minecraft:water[level=0]
+B -2 -58 0 minecraft:water[level=0]
+B -2 -58 1 minecraft:water[level=0]
+B -2 -57 -1 minecraft:water[level=0]
+B -2 -57 0 minecraft:water[level=0]
+B -2 -57 1 minecraft:water[level=0]
+B -2 -56 -1 minecraft:water[level=0]
+B -2 -56 0 minecraft:water[level=0]
+B -2 -56 1 minecraft:water[level=0]
+B -2 -55 -1 minecraft:water[level=0]
+B -2 -55 0 minecraft:water[level=0]
+B -2 -55 1 minecraft:water[level=0]
+B -2 -54 -1 minecraft:water[level=0]
+B -2 -54 0 minecraft:water[level=0]
+B -2 -54 1 minecraft:water[level=0]
+B -1 -61 -1 minecraft:sand
+B -1 -61 0 minecraft:sand
+B -1 -61 1 minecraft:sand
+B -1 -61 2 minecraft:sand
+B -1 -61 3 minecraft:sand
+B -1 -61 4 minecraft:dirt
+B -1 -61 5 minecraft:sand
+B -1 -60 -1 minecraft:water[level=0]
+B -1 -60 0 minecraft:water[level=0]
+B -1 -60 1 minecraft:water[level=0]
+B -1 -59 -1 minecraft:water[level=0]
+B -1 -59 0 minecraft:water[level=0]
+B -1 -59 1 minecraft:water[level=0]
+B -1 -58 -1 minecraft:water[level=0]
+B -1 -58 0 minecraft:water[level=0]
+B -1 -58 1 minecraft:water[level=0]
+B -1 -57 -1 minecraft:water[level=0]
+B -1 -57 0 minecraft:water[level=0]
+B -1 -57 1 minecraft:water[level=0]
+B -1 -56 -1 minecraft:water[level=0]
+B -1 -56 0 minecraft:water[level=0]
+B -1 -56 1 minecraft:water[level=0]
+B -1 -55 -1 minecraft:water[level=0]
+B -1 -55 0 minecraft:water[level=0]
+B -1 -55 1 minecraft:water[level=0]
+B -1 -54 -1 minecraft:water[level=0]
+B -1 -54 0 minecraft:water[level=0]
+B -1 -54 1 minecraft:water[level=0]
+B 0 -61 -1 minecraft:sand
+B 0 -61 0 minecraft:sand
+B 0 -61 1 minecraft:sand
+B 0 -61 2 minecraft:sand
+B 0 -61 3 minecraft:sand
+B 0 -61 4 minecraft:dirt
+B 0 -61 5 minecraft:sand
+B 0 -60 -1 minecraft:water[level=0]
+B 0 -60 0 minecraft:tall_seagrass[half=lower]
+B 0 -60 1 minecraft:water[level=0]
+B 0 -59 -1 minecraft:water[level=0]
+B 0 -59 0 minecraft:tall_seagrass[half=upper]
+B 0 -59 1 minecraft:water[level=0]
+B 0 -58 -1 minecraft:water[level=0]
+B 0 -58 0 minecraft:water[level=0]
+B 0 -58 1 minecraft:water[level=0]
+B 0 -57 -1 minecraft:water[level=0]
+B 0 -57 0 minecraft:water[level=0]
+B 0 -57 1 minecraft:water[level=0]
+B 0 -56 -1 minecraft:water[level=0]
+B 0 -56 0 minecraft:water[level=0]
+B 0 -56 1 minecraft:water[level=0]
+B 0 -55 -1 minecraft:water[level=0]
+B 0 -55 0 minecraft:water[level=0]
+B 0 -55 1 minecraft:water[level=0]
+B 0 -54 -1 minecraft:water[level=0]
+B 0 -54 0 minecraft:water[level=0]
+B 0 -54 1 minecraft:water[level=0]
+B 1 -61 -1 minecraft:sand
+B 1 -61 0 minecraft:sand
+B 1 -61 1 minecraft:sand
+B 1 -61 2 minecraft:sand
+B 1 -61 3 minecraft:sand
+B 1 -61 4 minecraft:dirt
+B 1 -61 5 minecraft:sand
+B 1 -60 -1 minecraft:water[level=0]
+B 1 -60 0 minecraft:water[level=0]
+B 1 -60 1 minecraft:water[level=0]
+B 1 -59 -1 minecraft:water[level=0]
+B 1 -59 0 minecraft:water[level=0]
+B 1 -59 1 minecraft:water[level=0]
+B 1 -58 -1 minecraft:water[level=0]
+B 1 -58 0 minecraft:water[level=0]
+B 1 -58 1 minecraft:water[level=0]
+B 1 -57 -1 minecraft:water[level=0]
+B 1 -57 0 minecraft:water[level=0]
+B 1 -57 1 minecraft:water[level=0]
+B 1 -56 -1 minecraft:water[level=0]
+B 1 -56 0 minecraft:water[level=0]
+B 1 -56 1 minecraft:water[level=0]
+B 1 -55 -1 minecraft:water[level=0]
+B 1 -55 0 minecraft:water[level=0]
+B 1 -55 1 minecraft:water[level=0]
+B 1 -54 -1 minecraft:water[level=0]
+B 1 -54 0 minecraft:water[level=0]
+B 1 -54 1 minecraft:water[level=0]
+B 2 -61 -1 minecraft:sand
+B 2 -61 0 minecraft:sand
+B 2 -61 1 minecraft:sand
+B 2 -61 2 minecraft:sand
+B 2 -61 3 minecraft:sand
+B 2 -61 4 minecraft:dirt
+B 2 -61 5 minecraft:sand
+B 2 -60 -1 minecraft:water[level=0]
+B 2 -60 0 minecraft:water[level=0]
+B 2 -60 1 minecraft:water[level=0]
+B 2 -59 -1 minecraft:water[level=0]
+B 2 -59 0 minecraft:water[level=0]
+B 2 -59 1 minecraft:water[level=0]
+B 2 -58 -1 minecraft:water[level=0]
+B 2 -58 0 minecraft:water[level=0]
+B 2 -58 1 minecraft:water[level=0]
+B 2 -57 -1 minecraft:water[level=0]
+B 2 -57 0 minecraft:water[level=0]
+B 2 -57 1 minecraft:water[level=0]
+B 2 -56 -1 minecraft:water[level=0]
+B 2 -56 0 minecraft:water[level=0]
+B 2 -56 1 minecraft:water[level=0]
+B 2 -55 -1 minecraft:water[level=0]
+B 2 -55 0 minecraft:water[level=0]
+B 2 -55 1 minecraft:water[level=0]
+B 2 -54 -1 minecraft:water[level=0]
+B 2 -54 0 minecraft:water[level=0]
+B 2 -54 1 minecraft:water[level=0]
+B 3 -61 -1 minecraft:sand
+B 3 -61 0 minecraft:sand
+B 3 -61 1 minecraft:sand
+B 3 -61 2 minecraft:sand
+B 3 -61 3 minecraft:sand
+B 3 -61 4 minecraft:dirt
+B 3 -61 5 minecraft:sand
+B 3 -60 -1 minecraft:water[level=0]
+B 3 -60 0 minecraft:water[level=0]
+B 3 -60 1 minecraft:water[level=0]
+B 3 -59 -1 minecraft:water[level=0]
+B 3 -59 0 minecraft:water[level=0]
+B 3 -59 1 minecraft:water[level=0]
+B 3 -58 -1 minecraft:water[level=0]
+B 3 -58 0 minecraft:water[level=0]
+B 3 -58 1 minecraft:water[level=0]
+B 3 -57 -1 minecraft:water[level=0]
+B 3 -57 0 minecraft:water[level=0]
+B 3 -57 1 minecraft:water[level=0]
+B 3 -56 -1 minecraft:water[level=0]
+B 3 -56 0 minecraft:water[level=0]
+B 3 -56 1 minecraft:water[level=0]
+B 3 -55 -1 minecraft:water[level=0]
+B 3 -55 0 minecraft:water[level=0]
+B 3 -55 1 minecraft:water[level=0]
+B 3 -54 -1 minecraft:water[level=0]
+B 3 -54 0 minecraft:water[level=0]
+B 3 -54 1 minecraft:water[level=0]
+B 4 -61 -1 minecraft:sand
+B 4 -61 0 minecraft:sand
+B 4 -61 1 minecraft:sand
+B 4 -61 2 minecraft:sand
+B 4 -61 3 minecraft:sand
+B 4 -61 4 minecraft:dirt
+B 4 -61 5 minecraft:sand
+B 4 -60 -1 minecraft:water[level=0]
+B 4 -60 0 minecraft:tall_seagrass[half=lower]
+B 4 -60 1 minecraft:water[level=0]
+B 4 -59 -1 minecraft:water[level=0]
+B 4 -59 0 minecraft:tall_seagrass[half=upper]
+B 4 -59 1 minecraft:water[level=0]
+B 4 -58 -1 minecraft:water[level=0]
+B 4 -58 0 minecraft:water[level=0]
+B 4 -58 1 minecraft:water[level=0]
+B 4 -57 -1 minecraft:water[level=0]
+B 4 -57 0 minecraft:water[level=0]
+B 4 -57 1 minecraft:water[level=0]
+B 4 -56 -1 minecraft:water[level=0]
+B 4 -56 0 minecraft:water[level=0]
+B 4 -56 1 minecraft:water[level=0]
+B 4 -55 -1 minecraft:water[level=0]
+B 4 -55 0 minecraft:water[level=0]
+B 4 -55 1 minecraft:water[level=0]
+B 4 -54 -1 minecraft:water[level=0]
+B 4 -54 0 minecraft:water[level=0]
+B 4 -54 1 minecraft:water[level=0]
+B 5 -61 -1 minecraft:sand
+B 5 -61 0 minecraft:sand
+B 5 -61 1 minecraft:sand
+B 5 -61 2 minecraft:sand
+B 5 -61 3 minecraft:sand
+B 5 -61 4 minecraft:dirt
+B 5 -61 5 minecraft:sand
+B 5 -60 -1 minecraft:water[level=0]
+B 5 -60 0 minecraft:water[level=0]
+B 5 -60 1 minecraft:water[level=0]
+B 5 -59 -1 minecraft:water[level=0]
+B 5 -59 0 minecraft:water[level=0]
+B 5 -59 1 minecraft:water[level=0]
+B 5 -58 -1 minecraft:water[level=0]
+B 5 -58 0 minecraft:water[level=0]
+B 5 -58 1 minecraft:water[level=0]
+B 5 -57 -1 minecraft:water[level=0]
+B 5 -57 0 minecraft:water[level=0]
+B 5 -57 1 minecraft:water[level=0]
+B 5 -56 -1 minecraft:water[level=0]
+B 5 -56 0 minecraft:water[level=0]
+B 5 -56 1 minecraft:water[level=0]
+B 5 -55 -1 minecraft:water[level=0]
+B 5 -55 0 minecraft:water[level=0]
+B 5 -55 1 minecraft:water[level=0]
+B 5 -54 -1 minecraft:water[level=0]
+B 5 -54 0 minecraft:water[level=0]
+B 5 -54 1 minecraft:water[level=0]
+B 6 -61 -1 minecraft:sand
+B 6 -61 0 minecraft:sand
+B 6 -61 1 minecraft:sand
+B 6 -61 2 minecraft:sand
+B 6 -61 3 minecraft:sand
+B 6 -61 4 minecraft:dirt
+B 6 -61 5 minecraft:sand
+B 6 -60 -1 minecraft:water[level=0]
+B 6 -60 0 minecraft:water[level=0]
+B 6 -60 1 minecraft:water[level=0]
+B 6 -59 -1 minecraft:water[level=0]
+B 6 -59 0 minecraft:water[level=0]
+B 6 -59 1 minecraft:water[level=0]
+B 6 -58 -1 minecraft:water[level=0]
+B 6 -58 0 minecraft:water[level=0]
+B 6 -58 1 minecraft:water[level=0]
+B 6 -57 -1 minecraft:water[level=0]
+B 6 -57 0 minecraft:water[level=0]
+B 6 -57 1 minecraft:water[level=0]
+B 6 -56 -1 minecraft:water[level=0]
+B 6 -56 0 minecraft:water[level=0]
+B 6 -56 1 minecraft:water[level=0]
+B 6 -55 -1 minecraft:water[level=0]
+B 6 -55 0 minecraft:water[level=0]
+B 6 -55 1 minecraft:water[level=0]
+B 6 -54 -1 minecraft:water[level=0]
+B 6 -54 0 minecraft:water[level=0]
+B 6 -54 1 minecraft:water[level=0]
+B 7 -61 -1 minecraft:sand
+B 7 -61 0 minecraft:sand
+B 7 -61 1 minecraft:sand
+B 7 -61 2 minecraft:sand
+B 7 -61 3 minecraft:sand
+B 7 -61 4 minecraft:dirt
+B 7 -61 5 minecraft:sand
+B 7 -60 -1 minecraft:water[level=0]
+B 7 -60 0 minecraft:water[level=0]
+B 7 -60 1 minecraft:water[level=0]
+B 7 -59 -1 minecraft:water[level=0]
+B 7 -59 0 minecraft:water[level=0]
+B 7 -59 1 minecraft:water[level=0]
+B 7 -58 -1 minecraft:water[level=0]
+B 7 -58 0 minecraft:water[level=0]
+B 7 -58 1 minecraft:water[level=0]
+B 7 -57 -1 minecraft:water[level=0]
+B 7 -57 0 minecraft:water[level=0]
+B 7 -57 1 minecraft:water[level=0]
+B 7 -56 -1 minecraft:water[level=0]
+B 7 -56 0 minecraft:water[level=0]
+B 7 -56 1 minecraft:water[level=0]
+B 7 -55 -1 minecraft:water[level=0]
+B 7 -55 0 minecraft:water[level=0]
+B 7 -55 1 minecraft:water[level=0]
+B 7 -54 -1 minecraft:water[level=0]
+B 7 -54 0 minecraft:water[level=0]
+B 7 -54 1 minecraft:water[level=0]
+B 8 -61 -1 minecraft:sand
+B 8 -61 0 minecraft:sand
+B 8 -61 1 minecraft:sand
+B 8 -61 2 minecraft:sand
+B 8 -61 3 minecraft:sand
+B 8 -61 4 minecraft:dirt
+B 8 -61 5 minecraft:sand
+B 8 -60 -1 minecraft:water[level=0]
+B 8 -60 0 minecraft:kelp_plant
+B 8 -60 1 minecraft:water[level=0]
+B 8 -59 -1 minecraft:water[level=0]
+B 8 -59 0 minecraft:kelp_plant
+B 8 -59 1 minecraft:water[level=0]
+B 8 -58 -1 minecraft:water[level=0]
+B 8 -58 0 minecraft:kelp_plant
+B 8 -58 1 minecraft:water[level=0]
+B 8 -57 -1 minecraft:water[level=0]
+B 8 -57 0 minecraft:kelp_plant
+B 8 -57 1 minecraft:water[level=0]
+B 8 -56 -1 minecraft:water[level=0]
+B 8 -56 0 minecraft:kelp_plant
+B 8 -56 1 minecraft:water[level=0]
+B 8 -55 -1 minecraft:water[level=0]
+B 8 -55 0 minecraft:kelp_plant
+B 8 -55 1 minecraft:water[level=0]
+B 8 -54 -1 minecraft:water[level=0]
+B 8 -54 0 minecraft:kelp[age=6]
+B 8 -54 1 minecraft:water[level=0]
+B 9 -61 -1 minecraft:sand
+B 9 -61 0 minecraft:sand
+B 9 -61 1 minecraft:sand
+B 9 -61 2 minecraft:sand
+B 9 -61 3 minecraft:sand
+B 9 -61 4 minecraft:dirt
+B 9 -61 5 minecraft:sand
+B 9 -60 -1 minecraft:water[level=0]
+B 9 -60 0 minecraft:water[level=0]
+B 9 -60 1 minecraft:water[level=0]
+B 9 -59 -1 minecraft:water[level=0]
+B 9 -59 0 minecraft:water[level=0]
+B 9 -59 1 minecraft:water[level=0]
+B 9 -58 -1 minecraft:water[level=0]
+B 9 -58 0 minecraft:water[level=0]
+B 9 -58 1 minecraft:water[level=0]
+B 9 -57 -1 minecraft:water[level=0]
+B 9 -57 0 minecraft:water[level=0]
+B 9 -57 1 minecraft:water[level=0]
+B 9 -56 -1 minecraft:water[level=0]
+B 9 -56 0 minecraft:water[level=0]
+B 9 -56 1 minecraft:water[level=0]
+B 9 -55 -1 minecraft:water[level=0]
+B 9 -55 0 minecraft:water[level=0]
+B 9 -55 1 minecraft:water[level=0]
+B 9 -54 -1 minecraft:water[level=0]
+B 9 -54 0 minecraft:water[level=0]
+B 9 -54 1 minecraft:water[level=0]
+B 10 -61 -1 minecraft:sand
+B 10 -61 0 minecraft:sand
+B 10 -61 1 minecraft:sand
+B 10 -61 2 minecraft:sand
+B 10 -61 3 minecraft:sand
+B 10 -61 4 minecraft:dirt
+B 10 -61 5 minecraft:sand
+B 10 -60 -1 minecraft:water[level=0]
+B 10 -60 0 minecraft:water[level=0]
+B 10 -60 1 minecraft:water[level=0]
+B 10 -59 -1 minecraft:water[level=0]
+B 10 -59 0 minecraft:water[level=0]
+B 10 -59 1 minecraft:water[level=0]
+B 10 -58 -1 minecraft:water[level=0]
+B 10 -58 0 minecraft:water[level=0]
+B 10 -58 1 minecraft:water[level=0]
+B 10 -57 -1 minecraft:water[level=0]
+B 10 -57 0 minecraft:water[level=0]
+B 10 -57 1 minecraft:water[level=0]
+B 10 -56 -1 minecraft:water[level=0]
+B 10 -56 0 minecraft:water[level=0]
+B 10 -56 1 minecraft:water[level=0]
+B 10 -55 -1 minecraft:water[level=0]
+B 10 -55 0 minecraft:water[level=0]
+B 10 -55 1 minecraft:water[level=0]
+B 10 -54 -1 minecraft:water[level=0]
+B 10 -54 0 minecraft:water[level=0]
+B 10 -54 1 minecraft:water[level=0]
+B 11 -61 -1 minecraft:sand
+B 11 -61 0 minecraft:sand
+B 11 -61 1 minecraft:sand
+B 11 -61 2 minecraft:sand
+B 11 -61 3 minecraft:sand
+B 11 -61 4 minecraft:dirt
+B 11 -61 5 minecraft:sand
+B 11 -60 -1 minecraft:water[level=0]
+B 11 -60 0 minecraft:water[level=0]
+B 11 -60 1 minecraft:water[level=0]
+B 11 -59 -1 minecraft:water[level=0]
+B 11 -59 0 minecraft:water[level=0]
+B 11 -59 1 minecraft:water[level=0]
+B 11 -58 -1 minecraft:water[level=0]
+B 11 -58 0 minecraft:water[level=0]
+B 11 -58 1 minecraft:water[level=0]
+B 11 -57 -1 minecraft:water[level=0]
+B 11 -57 0 minecraft:water[level=0]
+B 11 -57 1 minecraft:water[level=0]
+B 11 -56 -1 minecraft:water[level=0]
+B 11 -56 0 minecraft:water[level=0]
+B 11 -56 1 minecraft:water[level=0]
+B 11 -55 -1 minecraft:water[level=0]
+B 11 -55 0 minecraft:water[level=0]
+B 11 -55 1 minecraft:water[level=0]
+B 11 -54 -1 minecraft:water[level=0]
+B 11 -54 0 minecraft:water[level=0]
+B 11 -54 1 minecraft:water[level=0]
+B 12 -61 -1 minecraft:sand
+B 12 -61 0 minecraft:sand
+B 12 -61 1 minecraft:sand
+B 12 -61 2 minecraft:sand
+B 12 -61 3 minecraft:sand
+B 12 -61 4 minecraft:dirt
+B 12 -61 5 minecraft:sand
+B 12 -60 -1 minecraft:water[level=0]
+B 12 -60 0 minecraft:kelp_plant
+B 12 -60 1 minecraft:water[level=0]
+B 12 -59 -1 minecraft:water[level=0]
+B 12 -59 0 minecraft:kelp_plant
+B 12 -59 1 minecraft:water[level=0]
+B 12 -58 -1 minecraft:water[level=0]
+B 12 -58 0 minecraft:kelp[age=25]
+B 12 -58 1 minecraft:water[level=0]
+B 12 -57 -1 minecraft:water[level=0]
+B 12 -57 0 minecraft:water[level=0]
+B 12 -57 1 minecraft:water[level=0]
+B 12 -56 -1 minecraft:water[level=0]
+B 12 -56 0 minecraft:water[level=0]
+B 12 -56 1 minecraft:water[level=0]
+B 12 -55 -1 minecraft:water[level=0]
+B 12 -55 0 minecraft:water[level=0]
+B 12 -55 1 minecraft:water[level=0]
+B 12 -54 -1 minecraft:water[level=0]
+B 12 -54 0 minecraft:water[level=0]
+B 12 -54 1 minecraft:water[level=0]
+B 13 -61 -1 minecraft:sand
+B 13 -61 0 minecraft:sand
+B 13 -61 1 minecraft:sand
+B 13 -61 2 minecraft:sand
+B 13 -61 3 minecraft:sand
+B 13 -61 4 minecraft:dirt
+B 13 -61 5 minecraft:sand
+B 13 -60 -1 minecraft:water[level=0]
+B 13 -60 0 minecraft:water[level=0]
+B 13 -60 1 minecraft:water[level=0]
+B 13 -59 -1 minecraft:water[level=0]
+B 13 -59 0 minecraft:water[level=0]
+B 13 -59 1 minecraft:water[level=0]
+B 13 -58 -1 minecraft:water[level=0]
+B 13 -58 0 minecraft:water[level=0]
+B 13 -58 1 minecraft:water[level=0]
+B 13 -57 -1 minecraft:water[level=0]
+B 13 -57 0 minecraft:water[level=0]
+B 13 -57 1 minecraft:water[level=0]
+B 13 -56 -1 minecraft:water[level=0]
+B 13 -56 0 minecraft:water[level=0]
+B 13 -56 1 minecraft:water[level=0]
+B 13 -55 -1 minecraft:water[level=0]
+B 13 -55 0 minecraft:water[level=0]
+B 13 -55 1 minecraft:water[level=0]
+B 13 -54 -1 minecraft:water[level=0]
+B 13 -54 0 minecraft:water[level=0]
+B 13 -54 1 minecraft:water[level=0]
+B 14 -61 -1 minecraft:sand
+B 14 -61 0 minecraft:sand
+B 14 -61 1 minecraft:sand
+B 14 -61 2 minecraft:sand
+B 14 -61 3 minecraft:sand
+B 14 -61 4 minecraft:dirt
+B 14 -61 5 minecraft:sand
+B 14 -60 -1 minecraft:water[level=0]
+B 14 -60 0 minecraft:water[level=0]
+B 14 -60 1 minecraft:water[level=0]
+B 14 -59 -1 minecraft:water[level=0]
+B 14 -59 0 minecraft:water[level=0]
+B 14 -59 1 minecraft:water[level=0]
+B 14 -58 -1 minecraft:water[level=0]
+B 14 -58 0 minecraft:water[level=0]
+B 14 -58 1 minecraft:water[level=0]
+B 14 -57 -1 minecraft:water[level=0]
+B 14 -57 0 minecraft:water[level=0]
+B 14 -57 1 minecraft:water[level=0]
+B 14 -56 -1 minecraft:water[level=0]
+B 14 -56 0 minecraft:water[level=0]
+B 14 -56 1 minecraft:water[level=0]
+B 14 -55 -1 minecraft:water[level=0]
+B 14 -55 0 minecraft:water[level=0]
+B 14 -55 1 minecraft:water[level=0]
+B 14 -54 -1 minecraft:water[level=0]
+B 14 -54 0 minecraft:water[level=0]
+B 14 -54 1 minecraft:water[level=0]
+B 15 -61 -1 minecraft:sand
+B 15 -61 0 minecraft:sand
+B 15 -61 1 minecraft:sand
+B 15 -61 2 minecraft:sand
+B 15 -61 3 minecraft:sand
+B 15 -61 4 minecraft:dirt
+B 15 -61 5 minecraft:sand
+B 15 -60 -1 minecraft:water[level=0]
+B 15 -60 0 minecraft:water[level=0]
+B 15 -60 1 minecraft:water[level=0]
+B 15 -59 -1 minecraft:water[level=0]
+B 15 -59 0 minecraft:water[level=0]
+B 15 -59 1 minecraft:water[level=0]
+B 15 -58 -1 minecraft:water[level=0]
+B 15 -58 0 minecraft:water[level=0]
+B 15 -58 1 minecraft:water[level=0]
+B 15 -57 -1 minecraft:water[level=0]
+B 15 -57 0 minecraft:water[level=0]
+B 15 -57 1 minecraft:water[level=0]
+B 15 -56 -1 minecraft:water[level=0]
+B 15 -56 0 minecraft:water[level=0]
+B 15 -56 1 minecraft:water[level=0]
+B 15 -55 -1 minecraft:water[level=0]
+B 15 -55 0 minecraft:water[level=0]
+B 15 -55 1 minecraft:water[level=0]
+B 15 -54 -1 minecraft:water[level=0]
+B 15 -54 0 minecraft:water[level=0]
+B 15 -54 1 minecraft:water[level=0]
+B 16 -61 -1 minecraft:sand
+B 16 -61 0 minecraft:sand
+B 16 -61 1 minecraft:sand
+B 16 -61 2 minecraft:sand
+B 16 -61 3 minecraft:sand
+B 16 -61 4 minecraft:dirt
+B 16 -61 5 minecraft:sand
+B 16 -60 -1 minecraft:water[level=0]
+B 16 -60 0 minecraft:kelp_plant
+B 16 -60 1 minecraft:water[level=0]
+B 16 -59 -1 minecraft:water[level=0]
+B 16 -59 0 minecraft:kelp_plant
+B 16 -59 1 minecraft:water[level=0]
+B 16 -58 -1 minecraft:water[level=0]
+B 16 -58 0 minecraft:kelp_plant
+B 16 -58 1 minecraft:water[level=0]
+B 16 -57 -1 minecraft:water[level=0]
+B 16 -57 0 minecraft:kelp_plant
+B 16 -57 1 minecraft:water[level=0]
+B 16 -56 -1 minecraft:water[level=0]
+B 16 -56 0 minecraft:kelp[age=6]
+B 16 -56 1 minecraft:water[level=0]
+B 16 -55 -1 minecraft:water[level=0]
+B 16 -55 0 minecraft:water[level=0]
+B 16 -55 1 minecraft:water[level=0]
+B 16 -54 -1 minecraft:water[level=0]
+B 16 -54 0 minecraft:water[level=0]
+B 16 -54 1 minecraft:water[level=0]
+B 17 -61 -1 minecraft:sand
+B 17 -61 0 minecraft:sand
+B 17 -61 1 minecraft:sand
+B 17 -61 2 minecraft:sand
+B 17 -61 3 minecraft:sand
+B 17 -61 4 minecraft:dirt
+B 17 -61 5 minecraft:sand
+B 17 -60 -1 minecraft:water[level=0]
+B 17 -60 0 minecraft:water[level=0]
+B 17 -60 1 minecraft:water[level=0]
+B 17 -59 -1 minecraft:water[level=0]
+B 17 -59 0 minecraft:water[level=0]
+B 17 -59 1 minecraft:water[level=0]
+B 17 -58 -1 minecraft:water[level=0]
+B 17 -58 0 minecraft:water[level=0]
+B 17 -58 1 minecraft:water[level=0]
+B 17 -57 -1 minecraft:water[level=0]
+B 17 -57 0 minecraft:water[level=0]
+B 17 -57 1 minecraft:water[level=0]
+B 17 -56 -1 minecraft:water[level=0]
+B 17 -56 0 minecraft:water[level=0]
+B 17 -56 1 minecraft:water[level=0]
+B 17 -55 -1 minecraft:water[level=0]
+B 17 -55 0 minecraft:water[level=0]
+B 17 -55 1 minecraft:water[level=0]
+B 17 -54 -1 minecraft:water[level=0]
+B 17 -54 0 minecraft:water[level=0]
+B 17 -54 1 minecraft:water[level=0]
+B 18 -61 -1 minecraft:sand
+B 18 -61 0 minecraft:sand
+B 18 -61 1 minecraft:sand
+B 18 -61 2 minecraft:sand
+B 18 -61 3 minecraft:sand
+B 18 -61 4 minecraft:dirt
+B 18 -61 5 minecraft:sand
+B 18 -60 -1 minecraft:water[level=0]
+B 18 -60 0 minecraft:water[level=0]
+B 18 -60 1 minecraft:water[level=0]
+B 18 -59 -1 minecraft:water[level=0]
+B 18 -59 0 minecraft:water[level=0]
+B 18 -59 1 minecraft:water[level=0]
+B 18 -58 -1 minecraft:water[level=0]
+B 18 -58 0 minecraft:water[level=0]
+B 18 -58 1 minecraft:water[level=0]
+B 18 -57 -1 minecraft:water[level=0]
+B 18 -57 0 minecraft:water[level=0]
+B 18 -57 1 minecraft:water[level=0]
+B 18 -56 -1 minecraft:water[level=0]
+B 18 -56 0 minecraft:water[level=0]
+B 18 -56 1 minecraft:water[level=0]
+B 18 -55 -1 minecraft:water[level=0]
+B 18 -55 0 minecraft:water[level=0]
+B 18 -55 1 minecraft:water[level=0]
+B 18 -54 -1 minecraft:water[level=0]
+B 18 -54 0 minecraft:water[level=0]
+B 18 -54 1 minecraft:water[level=0]
+B 19 -61 -1 minecraft:sand
+B 19 -61 0 minecraft:sand
+B 19 -61 1 minecraft:sand
+B 19 -61 2 minecraft:sand
+B 19 -61 3 minecraft:sand
+B 19 -61 4 minecraft:dirt
+B 19 -61 5 minecraft:sand
+B 19 -60 -1 minecraft:water[level=0]
+B 19 -60 0 minecraft:water[level=0]
+B 19 -60 1 minecraft:water[level=0]
+B 19 -59 -1 minecraft:water[level=0]
+B 19 -59 0 minecraft:water[level=0]
+B 19 -59 1 minecraft:water[level=0]
+B 19 -58 -1 minecraft:water[level=0]
+B 19 -58 0 minecraft:water[level=0]
+B 19 -58 1 minecraft:water[level=0]
+B 19 -57 -1 minecraft:water[level=0]
+B 19 -57 0 minecraft:water[level=0]
+B 19 -57 1 minecraft:water[level=0]
+B 19 -56 -1 minecraft:water[level=0]
+B 19 -56 0 minecraft:water[level=0]
+B 19 -56 1 minecraft:water[level=0]
+B 19 -55 -1 minecraft:water[level=0]
+B 19 -55 0 minecraft:water[level=0]
+B 19 -55 1 minecraft:water[level=0]
+B 19 -54 -1 minecraft:water[level=0]
+B 19 -54 0 minecraft:water[level=0]
+B 19 -54 1 minecraft:water[level=0]
+B 20 -61 -1 minecraft:sand
+B 20 -61 0 minecraft:brain_coral_block
+B 20 -61 1 minecraft:sand
+B 20 -61 2 minecraft:sand
+B 20 -61 3 minecraft:sand
+B 20 -61 4 minecraft:dirt
+B 20 -61 5 minecraft:sand
+B 20 -60 -1 minecraft:water[level=0]
+B 20 -60 0 minecraft:sea_pickle[pickles=4,waterlogged=true]
+B 20 -60 1 minecraft:water[level=0]
+B 20 -59 -1 minecraft:water[level=0]
+B 20 -59 0 minecraft:water[level=0]
+B 20 -59 1 minecraft:water[level=0]
+B 20 -58 -1 minecraft:water[level=0]
+B 20 -58 0 minecraft:water[level=0]
+B 20 -58 1 minecraft:water[level=0]
+B 20 -57 -1 minecraft:water[level=0]
+B 20 -57 0 minecraft:water[level=0]
+B 20 -57 1 minecraft:water[level=0]
+B 20 -56 -1 minecraft:water[level=0]
+B 20 -56 0 minecraft:water[level=0]
+B 20 -56 1 minecraft:water[level=0]
+B 20 -55 -1 minecraft:water[level=0]
+B 20 -55 0 minecraft:water[level=0]
+B 20 -55 1 minecraft:water[level=0]
+B 20 -54 -1 minecraft:water[level=0]
+B 20 -54 0 minecraft:water[level=0]
+B 20 -54 1 minecraft:water[level=0]
+B 21 -61 -1 minecraft:sand
+B 21 -61 0 minecraft:sand
+B 21 -61 1 minecraft:sand
+B 21 -61 2 minecraft:sand
+B 21 -61 3 minecraft:sand
+B 21 -61 4 minecraft:dirt
+B 21 -61 5 minecraft:sand
+B 21 -60 -1 minecraft:water[level=0]
+B 21 -60 0 minecraft:water[level=0]
+B 21 -60 1 minecraft:water[level=0]
+B 21 -59 -1 minecraft:water[level=0]
+B 21 -59 0 minecraft:water[level=0]
+B 21 -59 1 minecraft:water[level=0]
+B 21 -58 -1 minecraft:water[level=0]
+B 21 -58 0 minecraft:water[level=0]
+B 21 -58 1 minecraft:water[level=0]
+B 21 -57 -1 minecraft:water[level=0]
+B 21 -57 0 minecraft:water[level=0]
+B 21 -57 1 minecraft:water[level=0]
+B 21 -56 -1 minecraft:water[level=0]
+B 21 -56 0 minecraft:water[level=0]
+B 21 -56 1 minecraft:water[level=0]
+B 21 -55 -1 minecraft:water[level=0]
+B 21 -55 0 minecraft:water[level=0]
+B 21 -55 1 minecraft:water[level=0]
+B 21 -54 -1 minecraft:water[level=0]
+B 21 -54 0 minecraft:water[level=0]
+B 21 -54 1 minecraft:water[level=0]
+B 22 -61 -1 minecraft:sand
+B 22 -61 0 minecraft:sand
+B 22 -61 1 minecraft:sand
+B 22 -61 2 minecraft:sand
+B 22 -61 3 minecraft:sand
+B 22 -61 4 minecraft:dirt
+B 22 -61 5 minecraft:sand
+B 22 -60 -1 minecraft:water[level=0]
+B 22 -60 0 minecraft:water[level=0]
+B 22 -60 1 minecraft:water[level=0]
+B 22 -59 -1 minecraft:water[level=0]
+B 22 -59 0 minecraft:water[level=0]
+B 22 -59 1 minecraft:water[level=0]
+B 22 -58 -1 minecraft:water[level=0]
+B 22 -58 0 minecraft:water[level=0]
+B 22 -58 1 minecraft:water[level=0]
+B 22 -57 -1 minecraft:water[level=0]
+B 22 -57 0 minecraft:water[level=0]
+B 22 -57 1 minecraft:water[level=0]
+B 22 -56 -1 minecraft:water[level=0]
+B 22 -56 0 minecraft:water[level=0]
+B 22 -56 1 minecraft:water[level=0]
+B 22 -55 -1 minecraft:water[level=0]
+B 22 -55 0 minecraft:water[level=0]
+B 22 -55 1 minecraft:water[level=0]
+B 22 -54 -1 minecraft:water[level=0]
+B 22 -54 0 minecraft:water[level=0]
+B 22 -54 1 minecraft:water[level=0]
+B 23 -61 -1 minecraft:sand
+B 23 -61 0 minecraft:sand
+B 23 -61 1 minecraft:sand
+B 23 -61 2 minecraft:sand
+B 23 -61 3 minecraft:sand
+B 23 -61 4 minecraft:dirt
+B 23 -61 5 minecraft:sand
+B 23 -60 -1 minecraft:water[level=0]
+B 23 -60 0 minecraft:water[level=0]
+B 23 -60 1 minecraft:water[level=0]
+B 23 -59 -1 minecraft:water[level=0]
+B 23 -59 0 minecraft:water[level=0]
+B 23 -59 1 minecraft:water[level=0]
+B 23 -58 -1 minecraft:water[level=0]
+B 23 -58 0 minecraft:water[level=0]
+B 23 -58 1 minecraft:water[level=0]
+B 23 -57 -1 minecraft:water[level=0]
+B 23 -57 0 minecraft:water[level=0]
+B 23 -57 1 minecraft:water[level=0]
+B 23 -56 -1 minecraft:water[level=0]
+B 23 -56 0 minecraft:water[level=0]
+B 23 -56 1 minecraft:water[level=0]
+B 23 -55 -1 minecraft:water[level=0]
+B 23 -55 0 minecraft:water[level=0]
+B 23 -55 1 minecraft:water[level=0]
+B 23 -54 -1 minecraft:water[level=0]
+B 23 -54 0 minecraft:water[level=0]
+B 23 -54 1 minecraft:water[level=0]
+B 24 -61 -1 minecraft:sand
+B 24 -61 0 minecraft:brain_coral_block
+B 24 -61 1 minecraft:sand
+B 24 -61 2 minecraft:sand
+B 24 -61 3 minecraft:sand
+B 24 -61 4 minecraft:dirt
+B 24 -61 5 minecraft:sand
+B 24 -60 -1 minecraft:water[level=0]
+B 24 -60 0 minecraft:sea_pickle[pickles=4,waterlogged=true]
+B 24 -60 1 minecraft:water[level=0]
+B 24 -59 -1 minecraft:water[level=0]
+B 24 -59 0 minecraft:water[level=0]
+B 24 -59 1 minecraft:water[level=0]
+B 24 -58 -1 minecraft:water[level=0]
+B 24 -58 0 minecraft:water[level=0]
+B 24 -58 1 minecraft:water[level=0]
+B 24 -57 -1 minecraft:water[level=0]
+B 24 -57 0 minecraft:water[level=0]
+B 24 -57 1 minecraft:water[level=0]
+B 24 -56 -1 minecraft:water[level=0]
+B 24 -56 0 minecraft:water[level=0]
+B 24 -56 1 minecraft:water[level=0]
+B 24 -55 -1 minecraft:water[level=0]
+B 24 -55 0 minecraft:water[level=0]
+B 24 -55 1 minecraft:water[level=0]
+B 24 -54 -1 minecraft:water[level=0]
+B 24 -54 0 minecraft:water[level=0]
+B 24 -54 1 minecraft:water[level=0]
+B 25 -61 -1 minecraft:sand
+B 25 -61 0 minecraft:sand
+B 25 -61 1 minecraft:sand
+B 25 -61 2 minecraft:sand
+B 25 -61 3 minecraft:sand
+B 25 -61 4 minecraft:dirt
+B 25 -61 5 minecraft:sand
+B 25 -60 -1 minecraft:water[level=0]
+B 25 -60 0 minecraft:water[level=0]
+B 25 -60 1 minecraft:water[level=0]
+B 25 -59 -1 minecraft:water[level=0]
+B 25 -59 0 minecraft:water[level=0]
+B 25 -59 1 minecraft:water[level=0]
+B 25 -58 -1 minecraft:water[level=0]
+B 25 -58 0 minecraft:water[level=0]
+B 25 -58 1 minecraft:water[level=0]
+B 25 -57 -1 minecraft:water[level=0]
+B 25 -57 0 minecraft:water[level=0]
+B 25 -57 1 minecraft:water[level=0]
+B 25 -56 -1 minecraft:water[level=0]
+B 25 -56 0 minecraft:water[level=0]
+B 25 -56 1 minecraft:water[level=0]
+B 25 -55 -1 minecraft:water[level=0]
+B 25 -55 0 minecraft:water[level=0]
+B 25 -55 1 minecraft:water[level=0]
+B 25 -54 -1 minecraft:water[level=0]
+B 25 -54 0 minecraft:water[level=0]
+B 25 -54 1 minecraft:water[level=0]
+B 26 -61 -1 minecraft:sand
+B 26 -61 0 minecraft:sand
+B 26 -61 1 minecraft:sand
+B 26 -61 2 minecraft:sand
+B 26 -61 3 minecraft:sand
+B 26 -61 4 minecraft:dirt
+B 26 -61 5 minecraft:sand
+B 26 -60 -1 minecraft:water[level=0]
+B 26 -60 0 minecraft:water[level=0]
+B 26 -60 1 minecraft:water[level=0]
+B 26 -59 -1 minecraft:water[level=0]
+B 26 -59 0 minecraft:water[level=0]
+B 26 -59 1 minecraft:water[level=0]
+B 26 -58 -1 minecraft:water[level=0]
+B 26 -58 0 minecraft:water[level=0]
+B 26 -58 1 minecraft:water[level=0]
+B 26 -57 -1 minecraft:water[level=0]
+B 26 -57 0 minecraft:water[level=0]
+B 26 -57 1 minecraft:water[level=0]
+B 26 -56 -1 minecraft:water[level=0]
+B 26 -56 0 minecraft:water[level=0]
+B 26 -56 1 minecraft:water[level=0]
+B 26 -55 -1 minecraft:water[level=0]
+B 26 -55 0 minecraft:water[level=0]
+B 26 -55 1 minecraft:water[level=0]
+B 26 -54 -1 minecraft:water[level=0]
+B 26 -54 0 minecraft:water[level=0]
+B 26 -54 1 minecraft:water[level=0]
+B 27 -61 -1 minecraft:sand
+B 27 -61 0 minecraft:sand
+B 27 -61 1 minecraft:sand
+B 27 -61 2 minecraft:sand
+B 27 -61 3 minecraft:sand
+B 27 -61 4 minecraft:dirt
+B 27 -61 5 minecraft:sand
+B 27 -60 -1 minecraft:water[level=0]
+B 27 -60 0 minecraft:water[level=0]
+B 27 -60 1 minecraft:water[level=0]
+B 27 -59 -1 minecraft:water[level=0]
+B 27 -59 0 minecraft:water[level=0]
+B 27 -59 1 minecraft:water[level=0]
+B 27 -58 -1 minecraft:water[level=0]
+B 27 -58 0 minecraft:water[level=0]
+B 27 -58 1 minecraft:water[level=0]
+B 27 -57 -1 minecraft:water[level=0]
+B 27 -57 0 minecraft:water[level=0]
+B 27 -57 1 minecraft:water[level=0]
+B 27 -56 -1 minecraft:water[level=0]
+B 27 -56 0 minecraft:water[level=0]
+B 27 -56 1 minecraft:water[level=0]
+B 27 -55 -1 minecraft:water[level=0]
+B 27 -55 0 minecraft:water[level=0]
+B 27 -55 1 minecraft:water[level=0]
+B 27 -54 -1 minecraft:water[level=0]
+B 27 -54 0 minecraft:water[level=0]
+B 27 -54 1 minecraft:water[level=0]
+B 28 -61 -1 minecraft:sand
+B 28 -61 0 minecraft:dirt
+B 28 -61 1 minecraft:sand
+B 28 -61 2 minecraft:sand
+B 28 -61 3 minecraft:sand
+B 28 -61 4 minecraft:dirt
+B 28 -61 5 minecraft:sand
+B 28 -60 -1 minecraft:water[level=0]
+B 28 -60 0 minecraft:sea_pickle[pickles=2,waterlogged=true]
+B 28 -60 1 minecraft:water[level=0]
+B 28 -59 -1 minecraft:water[level=0]
+B 28 -59 0 minecraft:water[level=0]
+B 28 -59 1 minecraft:water[level=0]
+B 28 -58 -1 minecraft:water[level=0]
+B 28 -58 0 minecraft:water[level=0]
+B 28 -58 1 minecraft:water[level=0]
+B 28 -57 -1 minecraft:water[level=0]
+B 28 -57 0 minecraft:water[level=0]
+B 28 -57 1 minecraft:water[level=0]
+B 28 -56 -1 minecraft:water[level=0]
+B 28 -56 0 minecraft:water[level=0]
+B 28 -56 1 minecraft:water[level=0]
+B 28 -55 -1 minecraft:water[level=0]
+B 28 -55 0 minecraft:water[level=0]
+B 28 -55 1 minecraft:water[level=0]
+B 28 -54 -1 minecraft:water[level=0]
+B 28 -54 0 minecraft:water[level=0]
+B 28 -54 1 minecraft:water[level=0]
+B 29 -61 -1 minecraft:sand
+B 29 -61 0 minecraft:sand
+B 29 -61 1 minecraft:sand
+B 29 -61 2 minecraft:sand
+B 29 -61 3 minecraft:sand
+B 29 -61 4 minecraft:dirt
+B 29 -61 5 minecraft:sand
+B 29 -60 -1 minecraft:water[level=0]
+B 29 -60 0 minecraft:water[level=0]
+B 29 -60 1 minecraft:water[level=0]
+B 29 -59 -1 minecraft:water[level=0]
+B 29 -59 0 minecraft:water[level=0]
+B 29 -59 1 minecraft:water[level=0]
+B 29 -58 -1 minecraft:water[level=0]
+B 29 -58 0 minecraft:water[level=0]
+B 29 -58 1 minecraft:water[level=0]
+B 29 -57 -1 minecraft:water[level=0]
+B 29 -57 0 minecraft:water[level=0]
+B 29 -57 1 minecraft:water[level=0]
+B 29 -56 -1 minecraft:water[level=0]
+B 29 -56 0 minecraft:water[level=0]
+B 29 -56 1 minecraft:water[level=0]
+B 29 -55 -1 minecraft:water[level=0]
+B 29 -55 0 minecraft:water[level=0]
+B 29 -55 1 minecraft:water[level=0]
+B 29 -54 -1 minecraft:water[level=0]
+B 29 -54 0 minecraft:water[level=0]
+B 29 -54 1 minecraft:water[level=0]
+B 30 -61 -1 minecraft:sand
+B 30 -61 0 minecraft:sand
+B 30 -61 1 minecraft:sand
+B 30 -61 2 minecraft:sand
+B 30 -61 3 minecraft:sand
+B 30 -61 4 minecraft:dirt
+B 30 -61 5 minecraft:sand
+B 30 -60 -1 minecraft:water[level=0]
+B 30 -60 0 minecraft:water[level=0]
+B 30 -60 1 minecraft:water[level=0]
+B 30 -59 -1 minecraft:water[level=0]
+B 30 -59 0 minecraft:water[level=0]
+B 30 -59 1 minecraft:water[level=0]
+B 30 -58 -1 minecraft:water[level=0]
+B 30 -58 0 minecraft:water[level=0]
+B 30 -58 1 minecraft:water[level=0]
+B 30 -57 -1 minecraft:water[level=0]
+B 30 -57 0 minecraft:water[level=0]
+B 30 -57 1 minecraft:water[level=0]
+B 30 -56 -1 minecraft:water[level=0]
+B 30 -56 0 minecraft:water[level=0]
+B 30 -56 1 minecraft:water[level=0]
+B 30 -55 -1 minecraft:water[level=0]
+B 30 -55 0 minecraft:water[level=0]
+B 30 -55 1 minecraft:water[level=0]
+B 30 -54 -1 minecraft:water[level=0]
+B 30 -54 0 minecraft:water[level=0]
+B 30 -54 1 minecraft:water[level=0]
+B 31 -61 -1 minecraft:sand
+B 31 -61 0 minecraft:sand
+B 31 -61 1 minecraft:sand
+B 31 -61 2 minecraft:sand
+B 31 -61 3 minecraft:sand
+B 31 -61 4 minecraft:dirt
+B 31 -61 5 minecraft:sand
+B 31 -60 -1 minecraft:water[level=0]
+B 31 -60 0 minecraft:water[level=0]
+B 31 -60 1 minecraft:water[level=0]
+B 31 -59 -1 minecraft:water[level=0]
+B 31 -59 0 minecraft:water[level=0]
+B 31 -59 1 minecraft:water[level=0]
+B 31 -58 -1 minecraft:water[level=0]
+B 31 -58 0 minecraft:water[level=0]
+B 31 -58 1 minecraft:water[level=0]
+B 31 -57 -1 minecraft:water[level=0]
+B 31 -57 0 minecraft:water[level=0]
+B 31 -57 1 minecraft:water[level=0]
+B 31 -56 -1 minecraft:water[level=0]
+B 31 -56 0 minecraft:water[level=0]
+B 31 -56 1 minecraft:water[level=0]
+B 31 -55 -1 minecraft:water[level=0]
+B 31 -55 0 minecraft:water[level=0]
+B 31 -55 1 minecraft:water[level=0]
+B 31 -54 -1 minecraft:water[level=0]
+B 31 -54 0 minecraft:water[level=0]
+B 31 -54 1 minecraft:water[level=0]
+B 32 -61 -1 minecraft:sand
+B 32 -61 0 minecraft:sand
+B 32 -61 1 minecraft:sand
+B 32 -61 2 minecraft:sand
+B 32 -61 3 minecraft:sand
+B 32 -61 4 minecraft:dirt
+B 32 -61 5 minecraft:sand
+B 32 -60 -1 minecraft:water[level=0]
+B 32 -60 0 minecraft:water[level=0]
+B 32 -60 1 minecraft:water[level=0]
+B 32 -60 4 minecraft:leaf_litter[facing=north,segment_amount=1]
+B 32 -59 -1 minecraft:water[level=0]
+B 32 -59 0 minecraft:water[level=0]
+B 32 -59 1 minecraft:water[level=0]
+B 32 -58 -1 minecraft:water[level=0]
+B 32 -58 0 minecraft:water[level=0]
+B 32 -58 1 minecraft:water[level=0]
+B 32 -57 -1 minecraft:water[level=0]
+B 32 -57 0 minecraft:water[level=0]
+B 32 -57 1 minecraft:water[level=0]
+B 32 -56 -1 minecraft:water[level=0]
+B 32 -56 0 minecraft:water[level=0]
+B 32 -56 1 minecraft:water[level=0]
+B 32 -55 -1 minecraft:water[level=0]
+B 32 -55 0 minecraft:water[level=0]
+B 32 -55 1 minecraft:water[level=0]
+B 32 -54 -1 minecraft:water[level=0]
+B 32 -54 0 minecraft:water[level=0]
+B 32 -54 1 minecraft:water[level=0]
+B 33 -61 -1 minecraft:sand
+B 33 -61 0 minecraft:sand
+B 33 -61 1 minecraft:sand
+B 33 -61 2 minecraft:sand
+B 33 -61 3 minecraft:sand
+B 33 -61 4 minecraft:dirt
+B 33 -61 5 minecraft:sand
+B 33 -60 -1 minecraft:water[level=0]
+B 33 -60 0 minecraft:water[level=0]
+B 33 -60 1 minecraft:water[level=0]
+B 33 -59 -1 minecraft:water[level=0]
+B 33 -59 0 minecraft:water[level=0]
+B 33 -59 1 minecraft:water[level=0]
+B 33 -58 -1 minecraft:water[level=0]
+B 33 -58 0 minecraft:water[level=0]
+B 33 -58 1 minecraft:water[level=0]
+B 33 -57 -1 minecraft:water[level=0]
+B 33 -57 0 minecraft:water[level=0]
+B 33 -57 1 minecraft:water[level=0]
+B 33 -56 -1 minecraft:water[level=0]
+B 33 -56 0 minecraft:water[level=0]
+B 33 -56 1 minecraft:water[level=0]
+B 33 -55 -1 minecraft:water[level=0]
+B 33 -55 0 minecraft:water[level=0]
+B 33 -55 1 minecraft:water[level=0]
+B 33 -54 -1 minecraft:water[level=0]
+B 33 -54 0 minecraft:water[level=0]
+B 33 -54 1 minecraft:water[level=0]
+B 34 -61 -1 minecraft:sand
+B 34 -61 0 minecraft:sand
+B 34 -61 1 minecraft:sand
+B 34 -61 2 minecraft:sand
+B 34 -61 3 minecraft:sand
+B 34 -61 4 minecraft:dirt
+B 34 -61 5 minecraft:sand
+B 34 -60 -1 minecraft:water[level=0]
+B 34 -60 0 minecraft:water[level=0]
+B 34 -60 1 minecraft:water[level=0]
+B 34 -59 -1 minecraft:water[level=0]
+B 34 -59 0 minecraft:water[level=0]
+B 34 -59 1 minecraft:water[level=0]
+B 34 -58 -1 minecraft:water[level=0]
+B 34 -58 0 minecraft:water[level=0]
+B 34 -58 1 minecraft:water[level=0]
+B 34 -57 -1 minecraft:water[level=0]
+B 34 -57 0 minecraft:water[level=0]
+B 34 -57 1 minecraft:water[level=0]
+B 34 -56 -1 minecraft:water[level=0]
+B 34 -56 0 minecraft:water[level=0]
+B 34 -56 1 minecraft:water[level=0]
+B 34 -55 -1 minecraft:water[level=0]
+B 34 -55 0 minecraft:water[level=0]
+B 34 -55 1 minecraft:water[level=0]
+B 34 -54 -1 minecraft:water[level=0]
+B 34 -54 0 minecraft:water[level=0]
+B 34 -54 1 minecraft:water[level=0]
+B 35 -61 -1 minecraft:sand
+B 35 -61 0 minecraft:sand
+B 35 -61 1 minecraft:sand
+B 35 -61 2 minecraft:sand
+B 35 -61 3 minecraft:sand
+B 35 -61 4 minecraft:dirt
+B 35 -61 5 minecraft:sand
+B 35 -60 -1 minecraft:water[level=0]
+B 35 -60 0 minecraft:water[level=0]
+B 35 -60 1 minecraft:water[level=0]
+B 35 -59 -1 minecraft:water[level=0]
+B 35 -59 0 minecraft:water[level=0]
+B 35 -59 1 minecraft:water[level=0]
+B 35 -58 -1 minecraft:water[level=0]
+B 35 -58 0 minecraft:water[level=0]
+B 35 -58 1 minecraft:water[level=0]
+B 35 -57 -1 minecraft:water[level=0]
+B 35 -57 0 minecraft:water[level=0]
+B 35 -57 1 minecraft:water[level=0]
+B 35 -56 -1 minecraft:water[level=0]
+B 35 -56 0 minecraft:water[level=0]
+B 35 -56 1 minecraft:water[level=0]
+B 35 -55 -1 minecraft:water[level=0]
+B 35 -55 0 minecraft:water[level=0]
+B 35 -55 1 minecraft:water[level=0]
+B 35 -54 -1 minecraft:water[level=0]
+B 35 -54 0 minecraft:water[level=0]
+B 35 -54 1 minecraft:water[level=0]
+B 36 -61 -1 minecraft:sand
+B 36 -61 0 minecraft:sand
+B 36 -61 1 minecraft:sand
+B 36 -61 2 minecraft:sand
+B 36 -61 3 minecraft:sand
+B 36 -61 4 minecraft:dirt
+B 36 -61 5 minecraft:sand
+B 36 -60 -1 minecraft:water[level=0]
+B 36 -60 0 minecraft:water[level=0]
+B 36 -60 1 minecraft:water[level=0]
+B 36 -60 4 minecraft:leaf_litter[facing=east,segment_amount=4]
+B 36 -59 -1 minecraft:water[level=0]
+B 36 -59 0 minecraft:water[level=0]
+B 36 -59 1 minecraft:water[level=0]
+B 36 -58 -1 minecraft:water[level=0]
+B 36 -58 0 minecraft:water[level=0]
+B 36 -58 1 minecraft:water[level=0]
+B 36 -57 -1 minecraft:water[level=0]
+B 36 -57 0 minecraft:water[level=0]
+B 36 -57 1 minecraft:water[level=0]
+B 36 -56 -1 minecraft:water[level=0]
+B 36 -56 0 minecraft:water[level=0]
+B 36 -56 1 minecraft:water[level=0]
+B 36 -55 -1 minecraft:water[level=0]
+B 36 -55 0 minecraft:water[level=0]
+B 36 -55 1 minecraft:water[level=0]
+B 36 -54 -1 minecraft:water[level=0]
+B 36 -54 0 minecraft:water[level=0]
+B 36 -54 1 minecraft:water[level=0]
+B 37 -61 -1 minecraft:sand
+B 37 -61 0 minecraft:sand
+B 37 -61 1 minecraft:sand
+B 37 -61 2 minecraft:sand
+B 37 -61 3 minecraft:sand
+B 37 -61 4 minecraft:dirt
+B 37 -61 5 minecraft:sand
+B 37 -60 -1 minecraft:water[level=0]
+B 37 -60 0 minecraft:water[level=0]
+B 37 -60 1 minecraft:water[level=0]
+B 37 -59 -1 minecraft:water[level=0]
+B 37 -59 0 minecraft:water[level=0]
+B 37 -59 1 minecraft:water[level=0]
+B 37 -58 -1 minecraft:water[level=0]
+B 37 -58 0 minecraft:water[level=0]
+B 37 -58 1 minecraft:water[level=0]
+B 37 -57 -1 minecraft:water[level=0]
+B 37 -57 0 minecraft:water[level=0]
+B 37 -57 1 minecraft:water[level=0]
+B 37 -56 -1 minecraft:water[level=0]
+B 37 -56 0 minecraft:water[level=0]
+B 37 -56 1 minecraft:water[level=0]
+B 37 -55 -1 minecraft:water[level=0]
+B 37 -55 0 minecraft:water[level=0]
+B 37 -55 1 minecraft:water[level=0]
+B 37 -54 -1 minecraft:water[level=0]
+B 37 -54 0 minecraft:water[level=0]
+B 37 -54 1 minecraft:water[level=0]
+B 38 -61 -1 minecraft:sand
+B 38 -61 0 minecraft:sand
+B 38 -61 1 minecraft:sand
+B 38 -61 2 minecraft:sand
+B 38 -61 3 minecraft:sand
+B 38 -61 4 minecraft:dirt
+B 38 -61 5 minecraft:sand
+B 38 -60 -1 minecraft:water[level=0]
+B 38 -60 0 minecraft:water[level=0]
+B 38 -60 1 minecraft:water[level=0]
+B 38 -59 -1 minecraft:water[level=0]
+B 38 -59 0 minecraft:water[level=0]
+B 38 -59 1 minecraft:water[level=0]
+B 38 -58 -1 minecraft:water[level=0]
+B 38 -58 0 minecraft:water[level=0]
+B 38 -58 1 minecraft:water[level=0]
+B 38 -57 -1 minecraft:water[level=0]
+B 38 -57 0 minecraft:water[level=0]
+B 38 -57 1 minecraft:water[level=0]
+B 38 -56 -1 minecraft:water[level=0]
+B 38 -56 0 minecraft:water[level=0]
+B 38 -56 1 minecraft:water[level=0]
+B 38 -55 -1 minecraft:water[level=0]
+B 38 -55 0 minecraft:water[level=0]
+B 38 -55 1 minecraft:water[level=0]
+B 38 -54 -1 minecraft:water[level=0]
+B 38 -54 0 minecraft:water[level=0]
+B 38 -54 1 minecraft:water[level=0]
+TICK block -2 -61 -2 minecraft:sand delay=2 prio=0
+TICK block -2 -61 -1 minecraft:sand delay=2 prio=0
+TICK block -2 -61 0 minecraft:sand delay=2 prio=0
+TICK block -2 -61 1 minecraft:sand delay=2 prio=0
+TICK block -2 -61 2 minecraft:sand delay=2 prio=0
+TICK block -2 -61 3 minecraft:sand delay=2 prio=0
+TICK block -2 -61 4 minecraft:sand delay=2 prio=0
+TICK block -2 -61 5 minecraft:sand delay=2 prio=0
+TICK block -2 -61 6 minecraft:sand delay=2 prio=0
+TICK block -1 -61 -2 minecraft:sand delay=2 prio=0
+TICK block -1 -61 -1 minecraft:sand delay=2 prio=0
+TICK block -1 -61 0 minecraft:sand delay=2 prio=0
+TICK block -1 -61 1 minecraft:sand delay=2 prio=0
+TICK block -1 -61 2 minecraft:sand delay=2 prio=0
+TICK block -1 -61 3 minecraft:sand delay=2 prio=0
+TICK block -1 -61 4 minecraft:sand delay=2 prio=0
+TICK block -1 -61 5 minecraft:sand delay=2 prio=0
+TICK block -1 -61 6 minecraft:sand delay=2 prio=0
+TICK block 0 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 0 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 0 -61 0 minecraft:sand delay=2 prio=0
+TICK block 0 -61 1 minecraft:sand delay=2 prio=0
+TICK block 0 -61 2 minecraft:sand delay=2 prio=0
+TICK block 0 -61 3 minecraft:sand delay=2 prio=0
+TICK block 0 -61 4 minecraft:sand delay=2 prio=0
+TICK block 0 -61 5 minecraft:sand delay=2 prio=0
+TICK block 0 -61 6 minecraft:sand delay=2 prio=0
+TICK block 1 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 1 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 1 -61 0 minecraft:sand delay=2 prio=0
+TICK block 1 -61 1 minecraft:sand delay=2 prio=0
+TICK block 1 -61 2 minecraft:sand delay=2 prio=0
+TICK block 1 -61 3 minecraft:sand delay=2 prio=0
+TICK block 1 -61 4 minecraft:sand delay=2 prio=0
+TICK block 1 -61 5 minecraft:sand delay=2 prio=0
+TICK block 1 -61 6 minecraft:sand delay=2 prio=0
+TICK block 2 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 2 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 2 -61 0 minecraft:sand delay=2 prio=0
+TICK block 2 -61 1 minecraft:sand delay=2 prio=0
+TICK block 2 -61 2 minecraft:sand delay=2 prio=0
+TICK block 2 -61 3 minecraft:sand delay=2 prio=0
+TICK block 2 -61 4 minecraft:sand delay=2 prio=0
+TICK block 2 -61 5 minecraft:sand delay=2 prio=0
+TICK block 2 -61 6 minecraft:sand delay=2 prio=0
+TICK block 3 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 3 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 3 -61 0 minecraft:sand delay=2 prio=0
+TICK block 3 -61 1 minecraft:sand delay=2 prio=0
+TICK block 3 -61 2 minecraft:sand delay=2 prio=0
+TICK block 3 -61 3 minecraft:sand delay=2 prio=0
+TICK block 3 -61 4 minecraft:sand delay=2 prio=0
+TICK block 3 -61 5 minecraft:sand delay=2 prio=0
+TICK block 3 -61 6 minecraft:sand delay=2 prio=0
+TICK block 4 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 4 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 4 -61 0 minecraft:sand delay=2 prio=0
+TICK block 4 -61 1 minecraft:sand delay=2 prio=0
+TICK block 4 -61 2 minecraft:sand delay=2 prio=0
+TICK block 4 -61 3 minecraft:sand delay=2 prio=0
+TICK block 4 -61 4 minecraft:sand delay=2 prio=0
+TICK block 4 -61 5 minecraft:sand delay=2 prio=0
+TICK block 4 -61 6 minecraft:sand delay=2 prio=0
+TICK block 5 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 5 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 5 -61 0 minecraft:sand delay=2 prio=0
+TICK block 5 -61 1 minecraft:sand delay=2 prio=0
+TICK block 5 -61 2 minecraft:sand delay=2 prio=0
+TICK block 5 -61 3 minecraft:sand delay=2 prio=0
+TICK block 5 -61 4 minecraft:sand delay=2 prio=0
+TICK block 5 -61 5 minecraft:sand delay=2 prio=0
+TICK block 5 -61 6 minecraft:sand delay=2 prio=0
+TICK block 6 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 6 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 6 -61 0 minecraft:sand delay=2 prio=0
+TICK block 6 -61 1 minecraft:sand delay=2 prio=0
+TICK block 6 -61 2 minecraft:sand delay=2 prio=0
+TICK block 6 -61 3 minecraft:sand delay=2 prio=0
+TICK block 6 -61 4 minecraft:sand delay=2 prio=0
+TICK block 6 -61 5 minecraft:sand delay=2 prio=0
+TICK block 6 -61 6 minecraft:sand delay=2 prio=0
+TICK block 7 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 7 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 7 -61 0 minecraft:sand delay=2 prio=0
+TICK block 7 -61 1 minecraft:sand delay=2 prio=0
+TICK block 7 -61 2 minecraft:sand delay=2 prio=0
+TICK block 7 -61 3 minecraft:sand delay=2 prio=0
+TICK block 7 -61 4 minecraft:sand delay=2 prio=0
+TICK block 7 -61 5 minecraft:sand delay=2 prio=0
+TICK block 7 -61 6 minecraft:sand delay=2 prio=0
+TICK block 8 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 8 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 8 -61 0 minecraft:sand delay=2 prio=0
+TICK block 8 -61 1 minecraft:sand delay=2 prio=0
+TICK block 8 -61 2 minecraft:sand delay=2 prio=0
+TICK block 8 -61 3 minecraft:sand delay=2 prio=0
+TICK block 8 -61 4 minecraft:sand delay=2 prio=0
+TICK block 8 -61 5 minecraft:sand delay=2 prio=0
+TICK block 8 -61 6 minecraft:sand delay=2 prio=0
+TICK block 9 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 9 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 9 -61 0 minecraft:sand delay=2 prio=0
+TICK block 9 -61 1 minecraft:sand delay=2 prio=0
+TICK block 9 -61 2 minecraft:sand delay=2 prio=0
+TICK block 9 -61 3 minecraft:sand delay=2 prio=0
+TICK block 9 -61 4 minecraft:sand delay=2 prio=0
+TICK block 9 -61 5 minecraft:sand delay=2 prio=0
+TICK block 9 -61 6 minecraft:sand delay=2 prio=0
+TICK block 10 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 10 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 10 -61 0 minecraft:sand delay=2 prio=0
+TICK block 10 -61 1 minecraft:sand delay=2 prio=0
+TICK block 10 -61 2 minecraft:sand delay=2 prio=0
+TICK block 10 -61 3 minecraft:sand delay=2 prio=0
+TICK block 10 -61 4 minecraft:sand delay=2 prio=0
+TICK block 10 -61 5 minecraft:sand delay=2 prio=0
+TICK block 10 -61 6 minecraft:sand delay=2 prio=0
+TICK block 11 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 11 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 11 -61 0 minecraft:sand delay=2 prio=0
+TICK block 11 -61 1 minecraft:sand delay=2 prio=0
+TICK block 11 -61 2 minecraft:sand delay=2 prio=0
+TICK block 11 -61 3 minecraft:sand delay=2 prio=0
+TICK block 11 -61 4 minecraft:sand delay=2 prio=0
+TICK block 11 -61 5 minecraft:sand delay=2 prio=0
+TICK block 11 -61 6 minecraft:sand delay=2 prio=0
+TICK block 12 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 12 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 12 -61 0 minecraft:sand delay=2 prio=0
+TICK block 12 -61 1 minecraft:sand delay=2 prio=0
+TICK block 12 -61 2 minecraft:sand delay=2 prio=0
+TICK block 12 -61 3 minecraft:sand delay=2 prio=0
+TICK block 12 -61 4 minecraft:sand delay=2 prio=0
+TICK block 12 -61 5 minecraft:sand delay=2 prio=0
+TICK block 12 -61 6 minecraft:sand delay=2 prio=0
+TICK block 13 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 13 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 13 -61 0 minecraft:sand delay=2 prio=0
+TICK block 13 -61 1 minecraft:sand delay=2 prio=0
+TICK block 13 -61 2 minecraft:sand delay=2 prio=0
+TICK block 13 -61 3 minecraft:sand delay=2 prio=0
+TICK block 13 -61 4 minecraft:sand delay=2 prio=0
+TICK block 13 -61 5 minecraft:sand delay=2 prio=0
+TICK block 13 -61 6 minecraft:sand delay=2 prio=0
+TICK block 14 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 14 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 14 -61 0 minecraft:sand delay=2 prio=0
+TICK block 14 -61 1 minecraft:sand delay=2 prio=0
+TICK block 14 -61 2 minecraft:sand delay=2 prio=0
+TICK block 14 -61 3 minecraft:sand delay=2 prio=0
+TICK block 14 -61 4 minecraft:sand delay=2 prio=0
+TICK block 14 -61 5 minecraft:sand delay=2 prio=0
+TICK block 14 -61 6 minecraft:sand delay=2 prio=0
+TICK block 15 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 15 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 15 -61 0 minecraft:sand delay=2 prio=0
+TICK block 15 -61 1 minecraft:sand delay=2 prio=0
+TICK block 15 -61 2 minecraft:sand delay=2 prio=0
+TICK block 15 -61 3 minecraft:sand delay=2 prio=0
+TICK block 15 -61 4 minecraft:sand delay=2 prio=0
+TICK block 15 -61 5 minecraft:sand delay=2 prio=0
+TICK block 15 -61 6 minecraft:sand delay=2 prio=0
+TICK block 16 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 16 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 16 -61 0 minecraft:sand delay=2 prio=0
+TICK block 16 -61 1 minecraft:sand delay=2 prio=0
+TICK block 16 -61 2 minecraft:sand delay=2 prio=0
+TICK block 16 -61 3 minecraft:sand delay=2 prio=0
+TICK block 16 -61 4 minecraft:sand delay=2 prio=0
+TICK block 16 -61 5 minecraft:sand delay=2 prio=0
+TICK block 16 -61 6 minecraft:sand delay=2 prio=0
+TICK block 17 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 17 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 17 -61 0 minecraft:sand delay=2 prio=0
+TICK block 17 -61 1 minecraft:sand delay=2 prio=0
+TICK block 17 -61 2 minecraft:sand delay=2 prio=0
+TICK block 17 -61 3 minecraft:sand delay=2 prio=0
+TICK block 17 -61 4 minecraft:sand delay=2 prio=0
+TICK block 17 -61 5 minecraft:sand delay=2 prio=0
+TICK block 17 -61 6 minecraft:sand delay=2 prio=0
+TICK block 18 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 18 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 18 -61 0 minecraft:sand delay=2 prio=0
+TICK block 18 -61 1 minecraft:sand delay=2 prio=0
+TICK block 18 -61 2 minecraft:sand delay=2 prio=0
+TICK block 18 -61 3 minecraft:sand delay=2 prio=0
+TICK block 18 -61 4 minecraft:sand delay=2 prio=0
+TICK block 18 -61 5 minecraft:sand delay=2 prio=0
+TICK block 18 -61 6 minecraft:sand delay=2 prio=0
+TICK block 19 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 19 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 19 -61 0 minecraft:sand delay=2 prio=0
+TICK block 19 -61 1 minecraft:sand delay=2 prio=0
+TICK block 19 -61 2 minecraft:sand delay=2 prio=0
+TICK block 19 -61 3 minecraft:sand delay=2 prio=0
+TICK block 19 -61 4 minecraft:sand delay=2 prio=0
+TICK block 19 -61 5 minecraft:sand delay=2 prio=0
+TICK block 19 -61 6 minecraft:sand delay=2 prio=0
+TICK block 20 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 20 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 20 -61 0 minecraft:sand delay=2 prio=0
+TICK block 20 -61 1 minecraft:sand delay=2 prio=0
+TICK block 20 -61 2 minecraft:sand delay=2 prio=0
+TICK block 20 -61 3 minecraft:sand delay=2 prio=0
+TICK block 20 -61 4 minecraft:sand delay=2 prio=0
+TICK block 20 -61 5 minecraft:sand delay=2 prio=0
+TICK block 20 -61 6 minecraft:sand delay=2 prio=0
+TICK block 21 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 21 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 21 -61 0 minecraft:sand delay=2 prio=0
+TICK block 21 -61 1 minecraft:sand delay=2 prio=0
+TICK block 21 -61 2 minecraft:sand delay=2 prio=0
+TICK block 21 -61 3 minecraft:sand delay=2 prio=0
+TICK block 21 -61 4 minecraft:sand delay=2 prio=0
+TICK block 21 -61 5 minecraft:sand delay=2 prio=0
+TICK block 21 -61 6 minecraft:sand delay=2 prio=0
+TICK block 22 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 22 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 22 -61 0 minecraft:sand delay=2 prio=0
+TICK block 22 -61 1 minecraft:sand delay=2 prio=0
+TICK block 22 -61 2 minecraft:sand delay=2 prio=0
+TICK block 22 -61 3 minecraft:sand delay=2 prio=0
+TICK block 22 -61 4 minecraft:sand delay=2 prio=0
+TICK block 22 -61 5 minecraft:sand delay=2 prio=0
+TICK block 22 -61 6 minecraft:sand delay=2 prio=0
+TICK block 23 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 23 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 23 -61 0 minecraft:sand delay=2 prio=0
+TICK block 23 -61 1 minecraft:sand delay=2 prio=0
+TICK block 23 -61 2 minecraft:sand delay=2 prio=0
+TICK block 23 -61 3 minecraft:sand delay=2 prio=0
+TICK block 23 -61 4 minecraft:sand delay=2 prio=0
+TICK block 23 -61 5 minecraft:sand delay=2 prio=0
+TICK block 23 -61 6 minecraft:sand delay=2 prio=0
+TICK block 24 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 24 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 24 -61 0 minecraft:sand delay=2 prio=0
+TICK block 24 -61 1 minecraft:sand delay=2 prio=0
+TICK block 24 -61 2 minecraft:sand delay=2 prio=0
+TICK block 24 -61 3 minecraft:sand delay=2 prio=0
+TICK block 24 -61 4 minecraft:sand delay=2 prio=0
+TICK block 24 -61 5 minecraft:sand delay=2 prio=0
+TICK block 24 -61 6 minecraft:sand delay=2 prio=0
+TICK block 25 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 25 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 25 -61 0 minecraft:sand delay=2 prio=0
+TICK block 25 -61 1 minecraft:sand delay=2 prio=0
+TICK block 25 -61 2 minecraft:sand delay=2 prio=0
+TICK block 25 -61 3 minecraft:sand delay=2 prio=0
+TICK block 25 -61 4 minecraft:sand delay=2 prio=0
+TICK block 25 -61 5 minecraft:sand delay=2 prio=0
+TICK block 25 -61 6 minecraft:sand delay=2 prio=0
+TICK block 26 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 26 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 26 -61 0 minecraft:sand delay=2 prio=0
+TICK block 26 -61 1 minecraft:sand delay=2 prio=0
+TICK block 26 -61 2 minecraft:sand delay=2 prio=0
+TICK block 26 -61 3 minecraft:sand delay=2 prio=0
+TICK block 26 -61 4 minecraft:sand delay=2 prio=0
+TICK block 26 -61 5 minecraft:sand delay=2 prio=0
+TICK block 26 -61 6 minecraft:sand delay=2 prio=0
+TICK block 27 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 27 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 27 -61 0 minecraft:sand delay=2 prio=0
+TICK block 27 -61 1 minecraft:sand delay=2 prio=0
+TICK block 27 -61 2 minecraft:sand delay=2 prio=0
+TICK block 27 -61 3 minecraft:sand delay=2 prio=0
+TICK block 27 -61 4 minecraft:sand delay=2 prio=0
+TICK block 27 -61 5 minecraft:sand delay=2 prio=0
+TICK block 27 -61 6 minecraft:sand delay=2 prio=0
+TICK block 28 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 28 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 28 -61 0 minecraft:sand delay=2 prio=0
+TICK block 28 -61 1 minecraft:sand delay=2 prio=0
+TICK block 28 -61 2 minecraft:sand delay=2 prio=0
+TICK block 28 -61 3 minecraft:sand delay=2 prio=0
+TICK block 28 -61 4 minecraft:sand delay=2 prio=0
+TICK block 28 -61 5 minecraft:sand delay=2 prio=0
+TICK block 28 -61 6 minecraft:sand delay=2 prio=0
+TICK block 29 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 29 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 29 -61 0 minecraft:sand delay=2 prio=0
+TICK block 29 -61 1 minecraft:sand delay=2 prio=0
+TICK block 29 -61 2 minecraft:sand delay=2 prio=0
+TICK block 29 -61 3 minecraft:sand delay=2 prio=0
+TICK block 29 -61 4 minecraft:sand delay=2 prio=0
+TICK block 29 -61 5 minecraft:sand delay=2 prio=0
+TICK block 29 -61 6 minecraft:sand delay=2 prio=0
+TICK block 30 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 30 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 30 -61 0 minecraft:sand delay=2 prio=0
+TICK block 30 -61 1 minecraft:sand delay=2 prio=0
+TICK block 30 -61 2 minecraft:sand delay=2 prio=0
+TICK block 30 -61 3 minecraft:sand delay=2 prio=0
+TICK block 30 -61 4 minecraft:sand delay=2 prio=0
+TICK block 30 -61 5 minecraft:sand delay=2 prio=0
+TICK block 30 -61 6 minecraft:sand delay=2 prio=0
+TICK block 31 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 31 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 31 -61 0 minecraft:sand delay=2 prio=0
+TICK block 31 -61 1 minecraft:sand delay=2 prio=0
+TICK block 31 -61 2 minecraft:sand delay=2 prio=0
+TICK block 31 -61 3 minecraft:sand delay=2 prio=0
+TICK block 31 -61 4 minecraft:sand delay=2 prio=0
+TICK block 31 -61 5 minecraft:sand delay=2 prio=0
+TICK block 31 -61 6 minecraft:sand delay=2 prio=0
+TICK block 32 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 32 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 32 -61 0 minecraft:sand delay=2 prio=0
+TICK block 32 -61 1 minecraft:sand delay=2 prio=0
+TICK block 32 -61 2 minecraft:sand delay=2 prio=0
+TICK block 32 -61 3 minecraft:sand delay=2 prio=0
+TICK block 32 -61 4 minecraft:sand delay=2 prio=0
+TICK block 32 -61 5 minecraft:sand delay=2 prio=0
+TICK block 32 -61 6 minecraft:sand delay=2 prio=0
+TICK block 33 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 33 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 33 -61 0 minecraft:sand delay=2 prio=0
+TICK block 33 -61 1 minecraft:sand delay=2 prio=0
+TICK block 33 -61 2 minecraft:sand delay=2 prio=0
+TICK block 33 -61 3 minecraft:sand delay=2 prio=0
+TICK block 33 -61 4 minecraft:sand delay=2 prio=0
+TICK block 33 -61 5 minecraft:sand delay=2 prio=0
+TICK block 33 -61 6 minecraft:sand delay=2 prio=0
+TICK block 34 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 34 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 34 -61 0 minecraft:sand delay=2 prio=0
+TICK block 34 -61 1 minecraft:sand delay=2 prio=0
+TICK block 34 -61 2 minecraft:sand delay=2 prio=0
+TICK block 34 -61 3 minecraft:sand delay=2 prio=0
+TICK block 34 -61 4 minecraft:sand delay=2 prio=0
+TICK block 34 -61 5 minecraft:sand delay=2 prio=0
+TICK block 34 -61 6 minecraft:sand delay=2 prio=0
+TICK block 35 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 35 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 35 -61 0 minecraft:sand delay=2 prio=0
+TICK block 35 -61 1 minecraft:sand delay=2 prio=0
+TICK block 35 -61 2 minecraft:sand delay=2 prio=0
+TICK block 35 -61 3 minecraft:sand delay=2 prio=0
+TICK block 35 -61 4 minecraft:sand delay=2 prio=0
+TICK block 35 -61 5 minecraft:sand delay=2 prio=0
+TICK block 35 -61 6 minecraft:sand delay=2 prio=0
+TICK block 36 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 36 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 36 -61 0 minecraft:sand delay=2 prio=0
+TICK block 36 -61 1 minecraft:sand delay=2 prio=0
+TICK block 36 -61 2 minecraft:sand delay=2 prio=0
+TICK block 36 -61 3 minecraft:sand delay=2 prio=0
+TICK block 36 -61 4 minecraft:sand delay=2 prio=0
+TICK block 36 -61 5 minecraft:sand delay=2 prio=0
+TICK block 36 -61 6 minecraft:sand delay=2 prio=0
+TICK block 37 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 37 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 37 -61 0 minecraft:sand delay=2 prio=0
+TICK block 37 -61 1 minecraft:sand delay=2 prio=0
+TICK block 37 -61 2 minecraft:sand delay=2 prio=0
+TICK block 37 -61 3 minecraft:sand delay=2 prio=0
+TICK block 37 -61 4 minecraft:sand delay=2 prio=0
+TICK block 37 -61 5 minecraft:sand delay=2 prio=0
+TICK block 37 -61 6 minecraft:sand delay=2 prio=0
+TICK block 38 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 38 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 38 -61 0 minecraft:sand delay=2 prio=0
+TICK block 38 -61 1 minecraft:sand delay=2 prio=0
+TICK block 38 -61 2 minecraft:sand delay=2 prio=0
+TICK block 38 -61 3 minecraft:sand delay=2 prio=0
+TICK block 38 -61 4 minecraft:sand delay=2 prio=0
+TICK block 38 -61 5 minecraft:sand delay=2 prio=0
+TICK block 38 -61 6 minecraft:sand delay=2 prio=0
+TICK block 39 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 39 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 39 -61 0 minecraft:sand delay=2 prio=0
+TICK block 39 -61 1 minecraft:sand delay=2 prio=0
+TICK block 39 -61 2 minecraft:sand delay=2 prio=0
+TICK block 39 -61 3 minecraft:sand delay=2 prio=0
+TICK block 39 -61 4 minecraft:sand delay=2 prio=0
+TICK block 39 -61 5 minecraft:sand delay=2 prio=0
+TICK block 39 -61 6 minecraft:sand delay=2 prio=0
+TICK block 40 -61 -2 minecraft:sand delay=2 prio=0
+TICK block 40 -61 -1 minecraft:sand delay=2 prio=0
+TICK block 40 -61 0 minecraft:sand delay=2 prio=0
+TICK block 40 -61 1 minecraft:sand delay=2 prio=0
+TICK block 40 -61 2 minecraft:sand delay=2 prio=0
+TICK block 40 -61 3 minecraft:sand delay=2 prio=0
+TICK block 40 -61 4 minecraft:sand delay=2 prio=0
+TICK block 40 -61 5 minecraft:sand delay=2 prio=0
+TICK block 40 -61 6 minecraft:sand delay=2 prio=0
+TICK fluid -2 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid -2 -60 0 minecraft:water delay=5 prio=0
+TICK fluid -2 -60 1 minecraft:water delay=5 prio=0
+TICK fluid -2 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid -2 -59 0 minecraft:water delay=5 prio=0
+TICK fluid -2 -59 1 minecraft:water delay=5 prio=0
+TICK fluid -2 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid -2 -58 0 minecraft:water delay=5 prio=0
+TICK fluid -2 -58 1 minecraft:water delay=5 prio=0
+TICK fluid -2 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid -2 -57 0 minecraft:water delay=5 prio=0
+TICK fluid -2 -57 1 minecraft:water delay=5 prio=0
+TICK fluid -2 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid -2 -56 0 minecraft:water delay=5 prio=0
+TICK fluid -2 -56 1 minecraft:water delay=5 prio=0
+TICK fluid -2 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid -2 -55 0 minecraft:water delay=5 prio=0
+TICK fluid -2 -55 1 minecraft:water delay=5 prio=0
+TICK fluid -2 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid -2 -54 0 minecraft:water delay=5 prio=0
+TICK fluid -2 -54 1 minecraft:water delay=5 prio=0
+TICK fluid -1 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid -1 -60 0 minecraft:water delay=5 prio=0
+TICK fluid -1 -60 1 minecraft:water delay=5 prio=0
+TICK fluid -1 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid -1 -59 0 minecraft:water delay=5 prio=0
+TICK fluid -1 -59 1 minecraft:water delay=5 prio=0
+TICK fluid -1 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid -1 -58 0 minecraft:water delay=5 prio=0
+TICK fluid -1 -58 1 minecraft:water delay=5 prio=0
+TICK fluid -1 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid -1 -57 0 minecraft:water delay=5 prio=0
+TICK fluid -1 -57 1 minecraft:water delay=5 prio=0
+TICK fluid -1 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid -1 -56 0 minecraft:water delay=5 prio=0
+TICK fluid -1 -56 1 minecraft:water delay=5 prio=0
+TICK fluid -1 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid -1 -55 0 minecraft:water delay=5 prio=0
+TICK fluid -1 -55 1 minecraft:water delay=5 prio=0
+TICK fluid -1 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid -1 -54 0 minecraft:water delay=5 prio=0
+TICK fluid -1 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 0 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 0 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 0 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 0 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 0 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 0 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 0 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 0 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 0 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 0 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 0 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 0 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 0 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 0 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 0 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 0 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 0 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 0 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 0 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 0 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 0 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 1 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 1 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 1 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 1 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 1 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 1 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 1 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 1 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 1 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 1 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 1 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 1 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 1 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 1 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 1 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 1 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 1 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 1 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 1 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 1 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 1 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 2 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 2 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 2 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 2 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 2 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 2 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 2 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 2 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 2 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 2 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 2 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 2 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 2 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 2 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 2 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 2 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 2 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 2 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 2 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 2 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 2 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 3 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 3 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 3 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 3 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 3 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 3 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 3 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 3 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 3 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 3 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 3 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 3 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 3 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 3 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 3 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 3 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 3 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 3 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 3 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 3 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 3 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 4 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 4 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 4 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 4 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 4 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 4 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 4 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 4 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 4 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 4 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 4 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 4 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 4 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 4 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 4 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 4 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 4 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 4 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 4 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 4 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 4 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 5 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 5 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 5 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 5 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 5 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 5 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 5 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 5 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 5 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 5 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 5 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 5 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 5 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 5 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 5 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 5 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 5 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 5 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 5 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 5 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 5 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 6 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 6 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 6 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 6 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 6 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 6 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 6 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 6 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 6 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 6 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 6 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 6 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 6 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 6 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 6 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 6 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 6 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 6 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 6 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 6 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 6 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 7 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 7 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 7 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 7 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 7 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 7 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 7 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 7 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 7 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 7 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 7 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 7 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 7 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 7 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 7 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 7 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 7 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 7 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 7 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 7 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 7 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 8 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 8 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 8 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 8 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 8 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 8 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 8 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 8 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 8 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 8 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 8 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 8 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 8 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 8 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 8 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 8 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 8 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 8 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 8 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 8 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 8 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 9 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 9 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 9 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 9 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 9 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 9 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 9 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 9 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 9 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 9 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 9 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 9 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 9 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 9 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 9 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 9 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 9 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 9 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 9 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 9 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 9 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 10 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 10 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 10 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 10 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 10 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 10 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 10 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 10 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 10 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 10 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 10 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 10 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 10 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 10 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 10 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 10 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 10 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 10 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 10 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 10 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 10 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 11 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 11 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 11 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 11 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 11 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 11 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 11 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 11 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 11 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 11 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 11 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 11 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 11 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 11 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 11 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 11 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 11 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 11 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 11 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 11 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 11 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 12 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 12 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 12 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 12 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 12 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 12 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 12 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 12 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 12 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 12 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 12 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 12 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 12 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 12 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 12 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 12 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 12 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 12 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 12 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 12 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 12 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 13 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 13 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 13 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 13 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 13 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 13 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 13 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 13 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 13 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 13 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 13 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 13 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 13 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 13 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 13 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 13 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 13 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 13 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 13 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 13 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 13 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 14 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 14 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 14 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 14 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 14 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 14 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 14 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 14 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 14 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 14 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 14 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 14 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 14 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 14 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 14 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 14 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 14 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 14 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 14 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 14 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 14 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 15 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 15 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 15 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 15 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 15 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 15 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 15 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 15 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 15 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 15 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 15 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 15 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 15 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 15 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 15 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 15 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 15 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 15 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 15 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 15 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 15 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 16 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 16 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 16 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 16 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 16 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 16 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 16 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 16 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 16 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 16 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 16 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 16 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 16 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 16 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 16 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 16 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 16 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 16 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 16 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 16 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 16 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 17 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 17 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 17 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 17 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 17 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 17 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 17 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 17 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 17 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 17 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 17 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 17 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 17 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 17 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 17 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 17 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 17 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 17 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 17 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 17 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 17 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 18 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 18 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 18 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 18 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 18 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 18 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 18 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 18 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 18 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 18 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 18 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 18 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 18 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 18 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 18 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 18 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 18 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 18 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 18 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 18 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 18 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 19 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 19 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 19 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 19 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 19 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 19 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 19 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 19 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 19 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 19 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 19 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 19 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 19 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 19 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 19 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 19 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 19 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 19 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 19 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 19 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 19 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 20 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 20 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 20 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 20 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 20 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 20 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 20 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 20 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 20 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 20 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 20 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 20 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 20 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 20 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 20 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 20 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 20 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 20 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 20 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 20 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 20 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 21 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 21 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 21 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 21 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 21 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 21 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 21 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 21 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 21 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 21 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 21 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 21 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 21 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 21 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 21 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 21 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 21 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 21 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 21 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 21 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 21 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 22 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 22 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 22 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 22 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 22 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 22 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 22 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 22 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 22 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 22 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 22 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 22 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 22 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 22 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 22 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 22 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 22 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 22 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 22 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 22 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 22 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 23 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 23 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 23 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 23 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 23 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 23 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 23 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 23 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 23 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 23 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 23 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 23 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 23 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 23 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 23 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 23 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 23 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 23 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 23 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 23 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 23 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 24 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 24 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 24 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 24 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 24 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 24 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 24 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 24 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 24 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 24 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 24 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 24 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 24 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 24 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 24 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 24 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 24 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 24 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 24 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 24 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 24 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 25 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 25 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 25 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 25 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 25 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 25 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 25 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 25 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 25 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 25 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 25 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 25 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 25 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 25 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 25 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 25 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 25 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 25 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 25 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 25 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 25 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 26 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 26 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 26 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 26 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 26 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 26 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 26 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 26 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 26 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 26 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 26 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 26 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 26 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 26 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 26 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 26 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 26 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 26 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 26 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 26 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 26 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 27 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 27 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 27 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 27 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 27 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 27 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 27 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 27 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 27 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 27 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 27 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 27 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 27 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 27 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 27 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 27 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 27 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 27 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 27 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 27 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 27 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 28 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 28 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 28 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 28 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 28 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 28 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 28 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 28 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 28 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 28 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 28 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 28 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 28 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 28 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 28 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 28 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 28 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 28 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 28 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 28 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 28 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 29 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 29 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 29 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 29 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 29 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 29 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 29 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 29 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 29 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 29 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 29 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 29 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 29 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 29 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 29 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 29 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 29 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 29 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 29 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 29 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 29 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 30 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 30 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 30 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 30 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 30 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 30 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 30 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 30 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 30 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 30 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 30 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 30 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 30 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 30 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 30 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 30 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 30 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 30 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 30 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 30 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 30 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 31 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 31 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 31 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 31 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 31 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 31 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 31 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 31 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 31 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 31 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 31 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 31 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 31 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 31 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 31 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 31 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 31 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 31 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 31 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 31 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 31 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 32 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 32 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 32 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 32 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 32 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 32 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 32 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 32 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 32 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 32 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 32 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 32 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 32 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 32 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 32 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 32 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 32 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 32 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 32 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 32 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 32 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 33 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 33 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 33 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 33 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 33 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 33 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 33 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 33 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 33 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 33 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 33 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 33 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 33 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 33 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 33 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 33 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 33 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 33 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 33 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 33 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 33 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 34 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 34 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 34 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 34 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 34 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 34 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 34 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 34 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 34 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 34 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 34 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 34 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 34 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 34 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 34 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 34 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 34 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 34 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 34 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 34 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 34 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 35 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 35 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 35 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 35 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 35 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 35 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 35 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 35 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 35 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 35 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 35 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 35 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 35 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 35 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 35 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 35 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 35 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 35 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 35 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 35 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 35 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 36 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 36 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 36 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 36 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 36 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 36 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 36 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 36 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 36 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 36 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 36 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 36 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 36 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 36 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 36 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 36 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 36 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 36 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 36 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 36 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 36 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 37 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 37 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 37 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 37 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 37 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 37 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 37 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 37 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 37 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 37 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 37 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 37 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 37 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 37 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 37 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 37 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 37 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 37 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 37 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 37 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 37 -54 1 minecraft:water delay=5 prio=0
+TICK fluid 38 -60 -1 minecraft:water delay=5 prio=0
+TICK fluid 38 -60 0 minecraft:water delay=5 prio=0
+TICK fluid 38 -60 1 minecraft:water delay=5 prio=0
+TICK fluid 38 -59 -1 minecraft:water delay=5 prio=0
+TICK fluid 38 -59 0 minecraft:water delay=5 prio=0
+TICK fluid 38 -59 1 minecraft:water delay=5 prio=0
+TICK fluid 38 -58 -1 minecraft:water delay=5 prio=0
+TICK fluid 38 -58 0 minecraft:water delay=5 prio=0
+TICK fluid 38 -58 1 minecraft:water delay=5 prio=0
+TICK fluid 38 -57 -1 minecraft:water delay=5 prio=0
+TICK fluid 38 -57 0 minecraft:water delay=5 prio=0
+TICK fluid 38 -57 1 minecraft:water delay=5 prio=0
+TICK fluid 38 -56 -1 minecraft:water delay=5 prio=0
+TICK fluid 38 -56 0 minecraft:water delay=5 prio=0
+TICK fluid 38 -56 1 minecraft:water delay=5 prio=0
+TICK fluid 38 -55 -1 minecraft:water delay=5 prio=0
+TICK fluid 38 -55 0 minecraft:water delay=5 prio=0
+TICK fluid 38 -55 1 minecraft:water delay=5 prio=0
+TICK fluid 38 -54 -1 minecraft:water delay=5 prio=0
+TICK fluid 38 -54 0 minecraft:water delay=5 prio=0
+TICK fluid 38 -54 1 minecraft:water delay=5 prio=0
+B -2 -61 -1 minecraft:sand
+B -2 -61 0 minecraft:sand
+B -2 -61 1 minecraft:sand
+B -2 -61 2 minecraft:sand
+B -2 -61 3 minecraft:sand
+B -2 -61 4 minecraft:dirt
+B -2 -61 5 minecraft:sand
+B -2 -60 -1 minecraft:water[level=0]
+B -2 -60 0 minecraft:water[level=0]
+B -2 -60 1 minecraft:water[level=0]
+B -2 -60 2 minecraft:water[level=8]
+B -2 -60 3 minecraft:water[level=1]
+B -2 -60 4 minecraft:water[level=2]
+B -2 -60 5 minecraft:water[level=3]
+B -2 -59 -1 minecraft:water[level=0]
+B -2 -59 0 minecraft:water[level=0]
+B -2 -59 1 minecraft:water[level=0]
+B -2 -59 2 minecraft:water[level=8]
+B -2 -58 -1 minecraft:water[level=0]
+B -2 -58 0 minecraft:water[level=0]
+B -2 -58 1 minecraft:water[level=0]
+B -2 -58 2 minecraft:water[level=8]
+B -2 -57 -1 minecraft:water[level=0]
+B -2 -57 0 minecraft:water[level=0]
+B -2 -57 1 minecraft:water[level=0]
+B -2 -57 2 minecraft:water[level=8]
+B -2 -56 -1 minecraft:water[level=0]
+B -2 -56 0 minecraft:water[level=0]
+B -2 -56 1 minecraft:water[level=0]
+B -2 -56 2 minecraft:water[level=8]
+B -2 -55 -1 minecraft:water[level=0]
+B -2 -55 0 minecraft:water[level=0]
+B -2 -55 1 minecraft:water[level=0]
+B -2 -55 2 minecraft:water[level=8]
+B -2 -54 -1 minecraft:water[level=0]
+B -2 -54 0 minecraft:water[level=0]
+B -2 -54 1 minecraft:water[level=0]
+B -2 -54 2 minecraft:water[level=1]
+B -1 -61 -1 minecraft:sand
+B -1 -61 0 minecraft:sand
+B -1 -61 1 minecraft:sand
+B -1 -61 2 minecraft:sand
+B -1 -61 3 minecraft:sand
+B -1 -61 4 minecraft:dirt
+B -1 -61 5 minecraft:sand
+B -1 -60 -1 minecraft:water[level=0]
+B -1 -60 0 minecraft:water[level=0]
+B -1 -60 1 minecraft:water[level=0]
+B -1 -60 2 minecraft:water[level=8]
+B -1 -60 3 minecraft:water[level=1]
+B -1 -60 4 minecraft:water[level=2]
+B -1 -60 5 minecraft:water[level=3]
+B -1 -59 -1 minecraft:water[level=0]
+B -1 -59 0 minecraft:water[level=0]
+B -1 -59 1 minecraft:water[level=0]
+B -1 -59 2 minecraft:water[level=8]
+B -1 -58 -1 minecraft:water[level=0]
+B -1 -58 0 minecraft:water[level=0]
+B -1 -58 1 minecraft:water[level=0]
+B -1 -58 2 minecraft:water[level=8]
+B -1 -57 -1 minecraft:water[level=0]
+B -1 -57 0 minecraft:water[level=0]
+B -1 -57 1 minecraft:water[level=0]
+B -1 -57 2 minecraft:water[level=8]
+B -1 -56 -1 minecraft:water[level=0]
+B -1 -56 0 minecraft:water[level=0]
+B -1 -56 1 minecraft:water[level=0]
+B -1 -56 2 minecraft:water[level=8]
+B -1 -55 -1 minecraft:water[level=0]
+B -1 -55 0 minecraft:water[level=0]
+B -1 -55 1 minecraft:water[level=0]
+B -1 -55 2 minecraft:water[level=8]
+B -1 -54 -1 minecraft:water[level=0]
+B -1 -54 0 minecraft:water[level=0]
+B -1 -54 1 minecraft:water[level=0]
+B -1 -54 2 minecraft:water[level=1]
+B 0 -61 -1 minecraft:sand
+B 0 -61 0 minecraft:sand
+B 0 -61 1 minecraft:sand
+B 0 -61 2 minecraft:sand
+B 0 -61 3 minecraft:sand
+B 0 -61 4 minecraft:dirt
+B 0 -61 5 minecraft:sand
+B 0 -60 -1 minecraft:water[level=0]
+B 0 -60 0 minecraft:tall_seagrass[half=lower]
+B 0 -60 1 minecraft:water[level=0]
+B 0 -60 2 minecraft:water[level=8]
+B 0 -60 3 minecraft:water[level=1]
+B 0 -60 4 minecraft:water[level=2]
+B 0 -60 5 minecraft:water[level=3]
+B 0 -59 -1 minecraft:water[level=0]
+B 0 -59 0 minecraft:tall_seagrass[half=upper]
+B 0 -59 1 minecraft:water[level=0]
+B 0 -59 2 minecraft:water[level=8]
+B 0 -58 -1 minecraft:water[level=0]
+B 0 -58 0 minecraft:water[level=0]
+B 0 -58 1 minecraft:water[level=0]
+B 0 -58 2 minecraft:water[level=8]
+B 0 -57 -1 minecraft:water[level=0]
+B 0 -57 0 minecraft:water[level=0]
+B 0 -57 1 minecraft:water[level=0]
+B 0 -57 2 minecraft:water[level=8]
+B 0 -56 -1 minecraft:water[level=0]
+B 0 -56 0 minecraft:water[level=0]
+B 0 -56 1 minecraft:water[level=0]
+B 0 -56 2 minecraft:water[level=8]
+B 0 -55 -1 minecraft:water[level=0]
+B 0 -55 0 minecraft:water[level=0]
+B 0 -55 1 minecraft:water[level=0]
+B 0 -55 2 minecraft:water[level=8]
+B 0 -54 -1 minecraft:water[level=0]
+B 0 -54 0 minecraft:water[level=0]
+B 0 -54 1 minecraft:water[level=0]
+B 0 -54 2 minecraft:water[level=1]
+B 1 -61 -1 minecraft:sand
+B 1 -61 0 minecraft:sand
+B 1 -61 1 minecraft:sand
+B 1 -61 2 minecraft:sand
+B 1 -61 3 minecraft:sand
+B 1 -61 4 minecraft:dirt
+B 1 -61 5 minecraft:sand
+B 1 -60 -1 minecraft:water[level=0]
+B 1 -60 0 minecraft:water[level=0]
+B 1 -60 1 minecraft:water[level=0]
+B 1 -60 2 minecraft:water[level=8]
+B 1 -60 3 minecraft:water[level=1]
+B 1 -60 4 minecraft:water[level=2]
+B 1 -60 5 minecraft:water[level=3]
+B 1 -59 -1 minecraft:water[level=0]
+B 1 -59 0 minecraft:water[level=0]
+B 1 -59 1 minecraft:water[level=0]
+B 1 -59 2 minecraft:water[level=8]
+B 1 -58 -1 minecraft:water[level=0]
+B 1 -58 0 minecraft:water[level=0]
+B 1 -58 1 minecraft:water[level=0]
+B 1 -58 2 minecraft:water[level=8]
+B 1 -57 -1 minecraft:water[level=0]
+B 1 -57 0 minecraft:water[level=0]
+B 1 -57 1 minecraft:water[level=0]
+B 1 -57 2 minecraft:water[level=8]
+B 1 -56 -1 minecraft:water[level=0]
+B 1 -56 0 minecraft:water[level=0]
+B 1 -56 1 minecraft:water[level=0]
+B 1 -56 2 minecraft:water[level=8]
+B 1 -55 -1 minecraft:water[level=0]
+B 1 -55 0 minecraft:water[level=0]
+B 1 -55 1 minecraft:water[level=0]
+B 1 -55 2 minecraft:water[level=8]
+B 1 -54 -1 minecraft:water[level=0]
+B 1 -54 0 minecraft:water[level=0]
+B 1 -54 1 minecraft:water[level=0]
+B 1 -54 2 minecraft:water[level=1]
+B 2 -61 -1 minecraft:sand
+B 2 -61 0 minecraft:sand
+B 2 -61 1 minecraft:sand
+B 2 -61 2 minecraft:sand
+B 2 -61 3 minecraft:sand
+B 2 -61 4 minecraft:dirt
+B 2 -61 5 minecraft:sand
+B 2 -60 -1 minecraft:water[level=0]
+B 2 -60 0 minecraft:water[level=0]
+B 2 -60 1 minecraft:water[level=0]
+B 2 -60 2 minecraft:water[level=8]
+B 2 -60 3 minecraft:water[level=1]
+B 2 -60 4 minecraft:water[level=2]
+B 2 -60 5 minecraft:water[level=3]
+B 2 -59 -1 minecraft:water[level=0]
+B 2 -59 0 minecraft:water[level=0]
+B 2 -59 1 minecraft:water[level=0]
+B 2 -59 2 minecraft:water[level=8]
+B 2 -58 -1 minecraft:water[level=0]
+B 2 -58 0 minecraft:water[level=0]
+B 2 -58 1 minecraft:water[level=0]
+B 2 -58 2 minecraft:water[level=8]
+B 2 -57 -1 minecraft:water[level=0]
+B 2 -57 0 minecraft:water[level=0]
+B 2 -57 1 minecraft:water[level=0]
+B 2 -57 2 minecraft:water[level=8]
+B 2 -56 -1 minecraft:water[level=0]
+B 2 -56 0 minecraft:water[level=0]
+B 2 -56 1 minecraft:water[level=0]
+B 2 -56 2 minecraft:water[level=8]
+B 2 -55 -1 minecraft:water[level=0]
+B 2 -55 0 minecraft:water[level=0]
+B 2 -55 1 minecraft:water[level=0]
+B 2 -55 2 minecraft:water[level=8]
+B 2 -54 -1 minecraft:water[level=0]
+B 2 -54 0 minecraft:water[level=0]
+B 2 -54 1 minecraft:water[level=0]
+B 2 -54 2 minecraft:water[level=1]
+B 3 -61 -1 minecraft:sand
+B 3 -61 0 minecraft:sand
+B 3 -61 1 minecraft:sand
+B 3 -61 2 minecraft:sand
+B 3 -61 3 minecraft:sand
+B 3 -61 4 minecraft:dirt
+B 3 -61 5 minecraft:sand
+B 3 -60 -1 minecraft:water[level=0]
+B 3 -60 0 minecraft:water[level=0]
+B 3 -60 1 minecraft:water[level=0]
+B 3 -60 2 minecraft:water[level=8]
+B 3 -60 3 minecraft:water[level=1]
+B 3 -60 4 minecraft:water[level=2]
+B 3 -60 5 minecraft:water[level=3]
+B 3 -59 -1 minecraft:water[level=0]
+B 3 -59 0 minecraft:water[level=0]
+B 3 -59 1 minecraft:water[level=0]
+B 3 -59 2 minecraft:water[level=8]
+B 3 -58 -1 minecraft:water[level=0]
+B 3 -58 0 minecraft:water[level=0]
+B 3 -58 1 minecraft:water[level=0]
+B 3 -58 2 minecraft:water[level=8]
+B 3 -57 -1 minecraft:water[level=0]
+B 3 -57 0 minecraft:water[level=0]
+B 3 -57 1 minecraft:water[level=0]
+B 3 -57 2 minecraft:water[level=8]
+B 3 -56 -1 minecraft:water[level=0]
+B 3 -56 0 minecraft:water[level=0]
+B 3 -56 1 minecraft:water[level=0]
+B 3 -56 2 minecraft:water[level=8]
+B 3 -55 -1 minecraft:water[level=0]
+B 3 -55 0 minecraft:water[level=0]
+B 3 -55 1 minecraft:water[level=0]
+B 3 -55 2 minecraft:water[level=8]
+B 3 -54 -1 minecraft:water[level=0]
+B 3 -54 0 minecraft:water[level=0]
+B 3 -54 1 minecraft:water[level=0]
+B 3 -54 2 minecraft:water[level=1]
+B 4 -61 -1 minecraft:sand
+B 4 -61 0 minecraft:sand
+B 4 -61 1 minecraft:sand
+B 4 -61 2 minecraft:sand
+B 4 -61 3 minecraft:sand
+B 4 -61 4 minecraft:dirt
+B 4 -61 5 minecraft:sand
+B 4 -60 -1 minecraft:water[level=0]
+B 4 -60 0 minecraft:tall_seagrass[half=lower]
+B 4 -60 1 minecraft:water[level=0]
+B 4 -60 2 minecraft:water[level=8]
+B 4 -60 3 minecraft:water[level=1]
+B 4 -60 4 minecraft:water[level=2]
+B 4 -60 5 minecraft:water[level=3]
+B 4 -59 -1 minecraft:water[level=0]
+B 4 -59 0 minecraft:tall_seagrass[half=upper]
+B 4 -59 1 minecraft:water[level=0]
+B 4 -59 2 minecraft:water[level=8]
+B 4 -58 -1 minecraft:water[level=0]
+B 4 -58 0 minecraft:water[level=0]
+B 4 -58 1 minecraft:water[level=0]
+B 4 -58 2 minecraft:water[level=8]
+B 4 -57 -1 minecraft:water[level=0]
+B 4 -57 0 minecraft:water[level=0]
+B 4 -57 1 minecraft:water[level=0]
+B 4 -57 2 minecraft:water[level=8]
+B 4 -56 -1 minecraft:water[level=0]
+B 4 -56 0 minecraft:water[level=0]
+B 4 -56 1 minecraft:water[level=0]
+B 4 -56 2 minecraft:water[level=8]
+B 4 -55 -1 minecraft:water[level=0]
+B 4 -55 0 minecraft:water[level=0]
+B 4 -55 1 minecraft:water[level=0]
+B 4 -55 2 minecraft:water[level=8]
+B 4 -54 -1 minecraft:water[level=0]
+B 4 -54 0 minecraft:water[level=0]
+B 4 -54 1 minecraft:water[level=0]
+B 4 -54 2 minecraft:water[level=1]
+B 5 -61 -1 minecraft:sand
+B 5 -61 0 minecraft:sand
+B 5 -61 1 minecraft:sand
+B 5 -61 2 minecraft:sand
+B 5 -61 3 minecraft:sand
+B 5 -61 4 minecraft:dirt
+B 5 -61 5 minecraft:sand
+B 5 -60 -1 minecraft:water[level=0]
+B 5 -60 0 minecraft:water[level=0]
+B 5 -60 1 minecraft:water[level=0]
+B 5 -60 2 minecraft:water[level=8]
+B 5 -60 3 minecraft:water[level=1]
+B 5 -60 4 minecraft:water[level=2]
+B 5 -60 5 minecraft:water[level=3]
+B 5 -59 -1 minecraft:water[level=0]
+B 5 -59 0 minecraft:water[level=0]
+B 5 -59 1 minecraft:water[level=0]
+B 5 -59 2 minecraft:water[level=8]
+B 5 -58 -1 minecraft:water[level=0]
+B 5 -58 0 minecraft:water[level=0]
+B 5 -58 1 minecraft:water[level=0]
+B 5 -58 2 minecraft:water[level=8]
+B 5 -57 -1 minecraft:water[level=0]
+B 5 -57 0 minecraft:water[level=0]
+B 5 -57 1 minecraft:water[level=0]
+B 5 -57 2 minecraft:water[level=8]
+B 5 -56 -1 minecraft:water[level=0]
+B 5 -56 0 minecraft:water[level=0]
+B 5 -56 1 minecraft:water[level=0]
+B 5 -56 2 minecraft:water[level=8]
+B 5 -55 -1 minecraft:water[level=0]
+B 5 -55 0 minecraft:water[level=0]
+B 5 -55 1 minecraft:water[level=0]
+B 5 -55 2 minecraft:water[level=8]
+B 5 -54 -1 minecraft:water[level=0]
+B 5 -54 0 minecraft:water[level=0]
+B 5 -54 1 minecraft:water[level=0]
+B 5 -54 2 minecraft:water[level=1]
+B 6 -61 -1 minecraft:sand
+B 6 -61 0 minecraft:sand
+B 6 -61 1 minecraft:sand
+B 6 -61 2 minecraft:sand
+B 6 -61 3 minecraft:sand
+B 6 -61 4 minecraft:dirt
+B 6 -61 5 minecraft:sand
+B 6 -60 -1 minecraft:water[level=0]
+B 6 -60 0 minecraft:water[level=0]
+B 6 -60 1 minecraft:water[level=0]
+B 6 -60 2 minecraft:water[level=8]
+B 6 -60 3 minecraft:water[level=1]
+B 6 -60 4 minecraft:water[level=2]
+B 6 -60 5 minecraft:water[level=3]
+B 6 -59 -1 minecraft:water[level=0]
+B 6 -59 0 minecraft:water[level=0]
+B 6 -59 1 minecraft:water[level=0]
+B 6 -59 2 minecraft:water[level=8]
+B 6 -58 -1 minecraft:water[level=0]
+B 6 -58 0 minecraft:water[level=0]
+B 6 -58 1 minecraft:water[level=0]
+B 6 -58 2 minecraft:water[level=8]
+B 6 -57 -1 minecraft:water[level=0]
+B 6 -57 0 minecraft:water[level=0]
+B 6 -57 1 minecraft:water[level=0]
+B 6 -57 2 minecraft:water[level=8]
+B 6 -56 -1 minecraft:water[level=0]
+B 6 -56 0 minecraft:water[level=0]
+B 6 -56 1 minecraft:water[level=0]
+B 6 -56 2 minecraft:water[level=8]
+B 6 -55 -1 minecraft:water[level=0]
+B 6 -55 0 minecraft:water[level=0]
+B 6 -55 1 minecraft:water[level=0]
+B 6 -55 2 minecraft:water[level=8]
+B 6 -54 -1 minecraft:water[level=0]
+B 6 -54 0 minecraft:water[level=0]
+B 6 -54 1 minecraft:water[level=0]
+B 6 -54 2 minecraft:water[level=1]
+B 7 -61 -1 minecraft:sand
+B 7 -61 0 minecraft:sand
+B 7 -61 1 minecraft:sand
+B 7 -61 2 minecraft:sand
+B 7 -61 3 minecraft:sand
+B 7 -61 4 minecraft:dirt
+B 7 -61 5 minecraft:sand
+B 7 -60 -1 minecraft:water[level=0]
+B 7 -60 0 minecraft:water[level=0]
+B 7 -60 1 minecraft:water[level=0]
+B 7 -60 2 minecraft:water[level=8]
+B 7 -60 3 minecraft:water[level=1]
+B 7 -60 4 minecraft:water[level=2]
+B 7 -60 5 minecraft:water[level=3]
+B 7 -59 -1 minecraft:water[level=0]
+B 7 -59 0 minecraft:water[level=0]
+B 7 -59 1 minecraft:water[level=0]
+B 7 -59 2 minecraft:water[level=8]
+B 7 -58 -1 minecraft:water[level=0]
+B 7 -58 0 minecraft:water[level=0]
+B 7 -58 1 minecraft:water[level=0]
+B 7 -58 2 minecraft:water[level=8]
+B 7 -57 -1 minecraft:water[level=0]
+B 7 -57 0 minecraft:water[level=0]
+B 7 -57 1 minecraft:water[level=0]
+B 7 -57 2 minecraft:water[level=8]
+B 7 -56 -1 minecraft:water[level=0]
+B 7 -56 0 minecraft:water[level=0]
+B 7 -56 1 minecraft:water[level=0]
+B 7 -56 2 minecraft:water[level=8]
+B 7 -55 -1 minecraft:water[level=0]
+B 7 -55 0 minecraft:water[level=0]
+B 7 -55 1 minecraft:water[level=0]
+B 7 -55 2 minecraft:water[level=8]
+B 7 -54 -1 minecraft:water[level=0]
+B 7 -54 0 minecraft:water[level=0]
+B 7 -54 1 minecraft:water[level=0]
+B 7 -54 2 minecraft:water[level=1]
+B 8 -61 -1 minecraft:sand
+B 8 -61 0 minecraft:sand
+B 8 -61 1 minecraft:sand
+B 8 -61 2 minecraft:sand
+B 8 -61 3 minecraft:sand
+B 8 -61 4 minecraft:dirt
+B 8 -61 5 minecraft:sand
+B 8 -60 -1 minecraft:water[level=0]
+B 8 -60 0 minecraft:kelp_plant
+B 8 -60 1 minecraft:water[level=0]
+B 8 -60 2 minecraft:water[level=8]
+B 8 -60 3 minecraft:water[level=1]
+B 8 -60 4 minecraft:water[level=2]
+B 8 -60 5 minecraft:water[level=3]
+B 8 -59 -1 minecraft:water[level=0]
+B 8 -59 0 minecraft:kelp_plant
+B 8 -59 1 minecraft:water[level=0]
+B 8 -59 2 minecraft:water[level=8]
+B 8 -58 -1 minecraft:water[level=0]
+B 8 -58 0 minecraft:kelp_plant
+B 8 -58 1 minecraft:water[level=0]
+B 8 -58 2 minecraft:water[level=8]
+B 8 -57 -1 minecraft:water[level=0]
+B 8 -57 0 minecraft:kelp_plant
+B 8 -57 1 minecraft:water[level=0]
+B 8 -57 2 minecraft:water[level=8]
+B 8 -56 -1 minecraft:water[level=0]
+B 8 -56 0 minecraft:kelp_plant
+B 8 -56 1 minecraft:water[level=0]
+B 8 -56 2 minecraft:water[level=8]
+B 8 -55 -1 minecraft:water[level=0]
+B 8 -55 0 minecraft:kelp_plant
+B 8 -55 1 minecraft:water[level=0]
+B 8 -55 2 minecraft:water[level=8]
+B 8 -54 -1 minecraft:water[level=0]
+B 8 -54 0 minecraft:kelp[age=6]
+B 8 -54 1 minecraft:water[level=0]
+B 8 -54 2 minecraft:water[level=1]
+B 9 -61 -1 minecraft:sand
+B 9 -61 0 minecraft:sand
+B 9 -61 1 minecraft:sand
+B 9 -61 2 minecraft:sand
+B 9 -61 3 minecraft:sand
+B 9 -61 4 minecraft:dirt
+B 9 -61 5 minecraft:sand
+B 9 -60 -1 minecraft:water[level=0]
+B 9 -60 0 minecraft:water[level=0]
+B 9 -60 1 minecraft:water[level=0]
+B 9 -60 2 minecraft:water[level=8]
+B 9 -60 3 minecraft:water[level=1]
+B 9 -60 4 minecraft:water[level=2]
+B 9 -60 5 minecraft:water[level=3]
+B 9 -59 -1 minecraft:water[level=0]
+B 9 -59 0 minecraft:water[level=0]
+B 9 -59 1 minecraft:water[level=0]
+B 9 -59 2 minecraft:water[level=8]
+B 9 -58 -1 minecraft:water[level=0]
+B 9 -58 0 minecraft:water[level=0]
+B 9 -58 1 minecraft:water[level=0]
+B 9 -58 2 minecraft:water[level=8]
+B 9 -57 -1 minecraft:water[level=0]
+B 9 -57 0 minecraft:water[level=0]
+B 9 -57 1 minecraft:water[level=0]
+B 9 -57 2 minecraft:water[level=8]
+B 9 -56 -1 minecraft:water[level=0]
+B 9 -56 0 minecraft:water[level=0]
+B 9 -56 1 minecraft:water[level=0]
+B 9 -56 2 minecraft:water[level=8]
+B 9 -55 -1 minecraft:water[level=0]
+B 9 -55 0 minecraft:water[level=0]
+B 9 -55 1 minecraft:water[level=0]
+B 9 -55 2 minecraft:water[level=8]
+B 9 -54 -1 minecraft:water[level=0]
+B 9 -54 0 minecraft:water[level=0]
+B 9 -54 1 minecraft:water[level=0]
+B 9 -54 2 minecraft:water[level=1]
+B 10 -61 -1 minecraft:sand
+B 10 -61 0 minecraft:sand
+B 10 -61 1 minecraft:sand
+B 10 -61 2 minecraft:sand
+B 10 -61 3 minecraft:sand
+B 10 -61 4 minecraft:dirt
+B 10 -61 5 minecraft:sand
+B 10 -60 -1 minecraft:water[level=0]
+B 10 -60 0 minecraft:water[level=0]
+B 10 -60 1 minecraft:water[level=0]
+B 10 -60 2 minecraft:water[level=8]
+B 10 -60 3 minecraft:water[level=1]
+B 10 -60 4 minecraft:water[level=2]
+B 10 -60 5 minecraft:water[level=3]
+B 10 -59 -1 minecraft:water[level=0]
+B 10 -59 0 minecraft:water[level=0]
+B 10 -59 1 minecraft:water[level=0]
+B 10 -59 2 minecraft:water[level=8]
+B 10 -58 -1 minecraft:water[level=0]
+B 10 -58 0 minecraft:water[level=0]
+B 10 -58 1 minecraft:water[level=0]
+B 10 -58 2 minecraft:water[level=8]
+B 10 -57 -1 minecraft:water[level=0]
+B 10 -57 0 minecraft:water[level=0]
+B 10 -57 1 minecraft:water[level=0]
+B 10 -57 2 minecraft:water[level=8]
+B 10 -56 -1 minecraft:water[level=0]
+B 10 -56 0 minecraft:water[level=0]
+B 10 -56 1 minecraft:water[level=0]
+B 10 -56 2 minecraft:water[level=8]
+B 10 -55 -1 minecraft:water[level=0]
+B 10 -55 0 minecraft:water[level=0]
+B 10 -55 1 minecraft:water[level=0]
+B 10 -55 2 minecraft:water[level=8]
+B 10 -54 -1 minecraft:water[level=0]
+B 10 -54 0 minecraft:water[level=0]
+B 10 -54 1 minecraft:water[level=0]
+B 10 -54 2 minecraft:water[level=1]
+B 11 -61 -1 minecraft:sand
+B 11 -61 0 minecraft:sand
+B 11 -61 1 minecraft:sand
+B 11 -61 2 minecraft:sand
+B 11 -61 3 minecraft:sand
+B 11 -61 4 minecraft:dirt
+B 11 -61 5 minecraft:sand
+B 11 -60 -1 minecraft:water[level=0]
+B 11 -60 0 minecraft:water[level=0]
+B 11 -60 1 minecraft:water[level=0]
+B 11 -60 2 minecraft:water[level=8]
+B 11 -60 3 minecraft:water[level=1]
+B 11 -60 4 minecraft:water[level=2]
+B 11 -60 5 minecraft:water[level=3]
+B 11 -59 -1 minecraft:water[level=0]
+B 11 -59 0 minecraft:water[level=0]
+B 11 -59 1 minecraft:water[level=0]
+B 11 -59 2 minecraft:water[level=8]
+B 11 -58 -1 minecraft:water[level=0]
+B 11 -58 0 minecraft:water[level=0]
+B 11 -58 1 minecraft:water[level=0]
+B 11 -58 2 minecraft:water[level=8]
+B 11 -57 -1 minecraft:water[level=0]
+B 11 -57 0 minecraft:water[level=0]
+B 11 -57 1 minecraft:water[level=0]
+B 11 -57 2 minecraft:water[level=8]
+B 11 -56 -1 minecraft:water[level=0]
+B 11 -56 0 minecraft:water[level=0]
+B 11 -56 1 minecraft:water[level=0]
+B 11 -56 2 minecraft:water[level=8]
+B 11 -55 -1 minecraft:water[level=0]
+B 11 -55 0 minecraft:water[level=0]
+B 11 -55 1 minecraft:water[level=0]
+B 11 -55 2 minecraft:water[level=8]
+B 11 -54 -1 minecraft:water[level=0]
+B 11 -54 0 minecraft:water[level=0]
+B 11 -54 1 minecraft:water[level=0]
+B 11 -54 2 minecraft:water[level=1]
+B 12 -61 -1 minecraft:sand
+B 12 -61 0 minecraft:sand
+B 12 -61 1 minecraft:sand
+B 12 -61 2 minecraft:sand
+B 12 -61 3 minecraft:sand
+B 12 -61 4 minecraft:dirt
+B 12 -61 5 minecraft:sand
+B 12 -60 -1 minecraft:water[level=0]
+B 12 -60 0 minecraft:kelp_plant
+B 12 -60 1 minecraft:water[level=0]
+B 12 -60 2 minecraft:water[level=8]
+B 12 -60 3 minecraft:water[level=1]
+B 12 -60 4 minecraft:water[level=2]
+B 12 -60 5 minecraft:water[level=3]
+B 12 -59 -1 minecraft:water[level=0]
+B 12 -59 0 minecraft:kelp_plant
+B 12 -59 1 minecraft:water[level=0]
+B 12 -59 2 minecraft:water[level=8]
+B 12 -58 -1 minecraft:water[level=0]
+B 12 -58 0 minecraft:kelp[age=25]
+B 12 -58 1 minecraft:water[level=0]
+B 12 -58 2 minecraft:water[level=8]
+B 12 -57 -1 minecraft:water[level=0]
+B 12 -57 0 minecraft:water[level=0]
+B 12 -57 1 minecraft:water[level=0]
+B 12 -57 2 minecraft:water[level=8]
+B 12 -56 -1 minecraft:water[level=0]
+B 12 -56 0 minecraft:water[level=0]
+B 12 -56 1 minecraft:water[level=0]
+B 12 -56 2 minecraft:water[level=8]
+B 12 -55 -1 minecraft:water[level=0]
+B 12 -55 0 minecraft:water[level=0]
+B 12 -55 1 minecraft:water[level=0]
+B 12 -55 2 minecraft:water[level=8]
+B 12 -54 -1 minecraft:water[level=0]
+B 12 -54 0 minecraft:water[level=0]
+B 12 -54 1 minecraft:water[level=0]
+B 12 -54 2 minecraft:water[level=1]
+B 13 -61 -1 minecraft:sand
+B 13 -61 0 minecraft:sand
+B 13 -61 1 minecraft:sand
+B 13 -61 2 minecraft:sand
+B 13 -61 3 minecraft:sand
+B 13 -61 4 minecraft:dirt
+B 13 -61 5 minecraft:sand
+B 13 -60 -1 minecraft:water[level=0]
+B 13 -60 0 minecraft:water[level=0]
+B 13 -60 1 minecraft:water[level=0]
+B 13 -60 2 minecraft:water[level=8]
+B 13 -60 3 minecraft:water[level=1]
+B 13 -60 4 minecraft:water[level=2]
+B 13 -60 5 minecraft:water[level=3]
+B 13 -59 -1 minecraft:water[level=0]
+B 13 -59 0 minecraft:water[level=0]
+B 13 -59 1 minecraft:water[level=0]
+B 13 -59 2 minecraft:water[level=8]
+B 13 -58 -1 minecraft:water[level=0]
+B 13 -58 0 minecraft:water[level=0]
+B 13 -58 1 minecraft:water[level=0]
+B 13 -58 2 minecraft:water[level=8]
+B 13 -57 -1 minecraft:water[level=0]
+B 13 -57 0 minecraft:water[level=0]
+B 13 -57 1 minecraft:water[level=0]
+B 13 -57 2 minecraft:water[level=8]
+B 13 -56 -1 minecraft:water[level=0]
+B 13 -56 0 minecraft:water[level=0]
+B 13 -56 1 minecraft:water[level=0]
+B 13 -56 2 minecraft:water[level=8]
+B 13 -55 -1 minecraft:water[level=0]
+B 13 -55 0 minecraft:water[level=0]
+B 13 -55 1 minecraft:water[level=0]
+B 13 -55 2 minecraft:water[level=8]
+B 13 -54 -1 minecraft:water[level=0]
+B 13 -54 0 minecraft:water[level=0]
+B 13 -54 1 minecraft:water[level=0]
+B 13 -54 2 minecraft:water[level=1]
+B 14 -61 -1 minecraft:sand
+B 14 -61 0 minecraft:sand
+B 14 -61 1 minecraft:sand
+B 14 -61 2 minecraft:sand
+B 14 -61 3 minecraft:sand
+B 14 -61 4 minecraft:dirt
+B 14 -61 5 minecraft:sand
+B 14 -60 -1 minecraft:water[level=0]
+B 14 -60 0 minecraft:water[level=0]
+B 14 -60 1 minecraft:water[level=0]
+B 14 -60 2 minecraft:water[level=8]
+B 14 -60 3 minecraft:water[level=1]
+B 14 -60 4 minecraft:water[level=2]
+B 14 -60 5 minecraft:water[level=3]
+B 14 -59 -1 minecraft:water[level=0]
+B 14 -59 0 minecraft:water[level=0]
+B 14 -59 1 minecraft:water[level=0]
+B 14 -59 2 minecraft:water[level=8]
+B 14 -58 -1 minecraft:water[level=0]
+B 14 -58 0 minecraft:water[level=0]
+B 14 -58 1 minecraft:water[level=0]
+B 14 -58 2 minecraft:water[level=8]
+B 14 -57 -1 minecraft:water[level=0]
+B 14 -57 0 minecraft:water[level=0]
+B 14 -57 1 minecraft:water[level=0]
+B 14 -57 2 minecraft:water[level=8]
+B 14 -56 -1 minecraft:water[level=0]
+B 14 -56 0 minecraft:water[level=0]
+B 14 -56 1 minecraft:water[level=0]
+B 14 -56 2 minecraft:water[level=8]
+B 14 -55 -1 minecraft:water[level=0]
+B 14 -55 0 minecraft:water[level=0]
+B 14 -55 1 minecraft:water[level=0]
+B 14 -55 2 minecraft:water[level=8]
+B 14 -54 -1 minecraft:water[level=0]
+B 14 -54 0 minecraft:water[level=0]
+B 14 -54 1 minecraft:water[level=0]
+B 14 -54 2 minecraft:water[level=1]
+B 15 -61 -1 minecraft:sand
+B 15 -61 0 minecraft:sand
+B 15 -61 1 minecraft:sand
+B 15 -61 2 minecraft:sand
+B 15 -61 3 minecraft:sand
+B 15 -61 4 minecraft:dirt
+B 15 -61 5 minecraft:sand
+B 15 -60 -1 minecraft:water[level=0]
+B 15 -60 0 minecraft:water[level=0]
+B 15 -60 1 minecraft:water[level=0]
+B 15 -60 2 minecraft:water[level=8]
+B 15 -60 3 minecraft:water[level=1]
+B 15 -60 4 minecraft:water[level=2]
+B 15 -60 5 minecraft:water[level=3]
+B 15 -59 -1 minecraft:water[level=0]
+B 15 -59 0 minecraft:water[level=0]
+B 15 -59 1 minecraft:water[level=0]
+B 15 -59 2 minecraft:water[level=8]
+B 15 -58 -1 minecraft:water[level=0]
+B 15 -58 0 minecraft:water[level=0]
+B 15 -58 1 minecraft:water[level=0]
+B 15 -58 2 minecraft:water[level=8]
+B 15 -57 -1 minecraft:water[level=0]
+B 15 -57 0 minecraft:water[level=0]
+B 15 -57 1 minecraft:water[level=0]
+B 15 -57 2 minecraft:water[level=8]
+B 15 -56 -1 minecraft:water[level=0]
+B 15 -56 0 minecraft:water[level=0]
+B 15 -56 1 minecraft:water[level=0]
+B 15 -56 2 minecraft:water[level=8]
+B 15 -55 -1 minecraft:water[level=0]
+B 15 -55 0 minecraft:water[level=0]
+B 15 -55 1 minecraft:water[level=0]
+B 15 -55 2 minecraft:water[level=8]
+B 15 -54 -1 minecraft:water[level=0]
+B 15 -54 0 minecraft:water[level=0]
+B 15 -54 1 minecraft:water[level=0]
+B 15 -54 2 minecraft:water[level=1]
+B 16 -61 -1 minecraft:sand
+B 16 -61 0 minecraft:sand
+B 16 -61 1 minecraft:sand
+B 16 -61 2 minecraft:sand
+B 16 -61 3 minecraft:sand
+B 16 -61 4 minecraft:dirt
+B 16 -61 5 minecraft:sand
+B 16 -60 -1 minecraft:water[level=0]
+B 16 -60 0 minecraft:kelp_plant
+B 16 -60 1 minecraft:water[level=0]
+B 16 -60 2 minecraft:water[level=8]
+B 16 -60 3 minecraft:water[level=1]
+B 16 -60 4 minecraft:water[level=2]
+B 16 -60 5 minecraft:water[level=3]
+B 16 -59 -1 minecraft:water[level=0]
+B 16 -59 0 minecraft:kelp_plant
+B 16 -59 1 minecraft:water[level=0]
+B 16 -59 2 minecraft:water[level=8]
+B 16 -58 -1 minecraft:water[level=0]
+B 16 -58 0 minecraft:kelp_plant
+B 16 -58 1 minecraft:water[level=0]
+B 16 -58 2 minecraft:water[level=8]
+B 16 -57 -1 minecraft:water[level=0]
+B 16 -57 0 minecraft:kelp_plant
+B 16 -57 1 minecraft:water[level=0]
+B 16 -57 2 minecraft:water[level=8]
+B 16 -56 -1 minecraft:water[level=0]
+B 16 -56 0 minecraft:kelp[age=6]
+B 16 -56 1 minecraft:water[level=0]
+B 16 -56 2 minecraft:water[level=8]
+B 16 -55 -1 minecraft:water[level=0]
+B 16 -55 0 minecraft:water[level=0]
+B 16 -55 1 minecraft:water[level=0]
+B 16 -55 2 minecraft:water[level=8]
+B 16 -54 -1 minecraft:water[level=0]
+B 16 -54 0 minecraft:water[level=0]
+B 16 -54 1 minecraft:water[level=0]
+B 16 -54 2 minecraft:water[level=1]
+B 17 -61 -1 minecraft:sand
+B 17 -61 0 minecraft:sand
+B 17 -61 1 minecraft:sand
+B 17 -61 2 minecraft:sand
+B 17 -61 3 minecraft:sand
+B 17 -61 4 minecraft:dirt
+B 17 -61 5 minecraft:sand
+B 17 -60 -1 minecraft:water[level=0]
+B 17 -60 0 minecraft:water[level=0]
+B 17 -60 1 minecraft:water[level=0]
+B 17 -60 2 minecraft:water[level=8]
+B 17 -60 3 minecraft:water[level=1]
+B 17 -60 4 minecraft:water[level=2]
+B 17 -60 5 minecraft:water[level=3]
+B 17 -59 -1 minecraft:water[level=0]
+B 17 -59 0 minecraft:water[level=0]
+B 17 -59 1 minecraft:water[level=0]
+B 17 -59 2 minecraft:water[level=8]
+B 17 -58 -1 minecraft:water[level=0]
+B 17 -58 0 minecraft:water[level=0]
+B 17 -58 1 minecraft:water[level=0]
+B 17 -58 2 minecraft:water[level=8]
+B 17 -57 -1 minecraft:water[level=0]
+B 17 -57 0 minecraft:water[level=0]
+B 17 -57 1 minecraft:water[level=0]
+B 17 -57 2 minecraft:water[level=8]
+B 17 -56 -1 minecraft:water[level=0]
+B 17 -56 0 minecraft:water[level=0]
+B 17 -56 1 minecraft:water[level=0]
+B 17 -56 2 minecraft:water[level=8]
+B 17 -55 -1 minecraft:water[level=0]
+B 17 -55 0 minecraft:water[level=0]
+B 17 -55 1 minecraft:water[level=0]
+B 17 -55 2 minecraft:water[level=8]
+B 17 -54 -1 minecraft:water[level=0]
+B 17 -54 0 minecraft:water[level=0]
+B 17 -54 1 minecraft:water[level=0]
+B 17 -54 2 minecraft:water[level=1]
+B 18 -61 -1 minecraft:sand
+B 18 -61 0 minecraft:sand
+B 18 -61 1 minecraft:sand
+B 18 -61 2 minecraft:sand
+B 18 -61 3 minecraft:sand
+B 18 -61 4 minecraft:dirt
+B 18 -61 5 minecraft:sand
+B 18 -60 -1 minecraft:water[level=0]
+B 18 -60 0 minecraft:water[level=0]
+B 18 -60 1 minecraft:water[level=0]
+B 18 -60 2 minecraft:water[level=8]
+B 18 -60 3 minecraft:water[level=1]
+B 18 -60 4 minecraft:water[level=2]
+B 18 -60 5 minecraft:water[level=3]
+B 18 -59 -1 minecraft:water[level=0]
+B 18 -59 0 minecraft:water[level=0]
+B 18 -59 1 minecraft:water[level=0]
+B 18 -59 2 minecraft:water[level=8]
+B 18 -58 -1 minecraft:water[level=0]
+B 18 -58 0 minecraft:water[level=0]
+B 18 -58 1 minecraft:water[level=0]
+B 18 -58 2 minecraft:water[level=8]
+B 18 -57 -1 minecraft:water[level=0]
+B 18 -57 0 minecraft:water[level=0]
+B 18 -57 1 minecraft:water[level=0]
+B 18 -57 2 minecraft:water[level=8]
+B 18 -56 -1 minecraft:water[level=0]
+B 18 -56 0 minecraft:water[level=0]
+B 18 -56 1 minecraft:water[level=0]
+B 18 -56 2 minecraft:water[level=8]
+B 18 -55 -1 minecraft:water[level=0]
+B 18 -55 0 minecraft:water[level=0]
+B 18 -55 1 minecraft:water[level=0]
+B 18 -55 2 minecraft:water[level=8]
+B 18 -54 -1 minecraft:water[level=0]
+B 18 -54 0 minecraft:water[level=0]
+B 18 -54 1 minecraft:water[level=0]
+B 18 -54 2 minecraft:water[level=1]
+B 19 -61 -1 minecraft:sand
+B 19 -61 0 minecraft:sand
+B 19 -61 1 minecraft:sand
+B 19 -61 2 minecraft:sand
+B 19 -61 3 minecraft:sand
+B 19 -61 4 minecraft:dirt
+B 19 -61 5 minecraft:sand
+B 19 -60 -1 minecraft:water[level=0]
+B 19 -60 0 minecraft:water[level=0]
+B 19 -60 1 minecraft:water[level=0]
+B 19 -60 2 minecraft:water[level=8]
+B 19 -60 3 minecraft:water[level=1]
+B 19 -60 4 minecraft:water[level=2]
+B 19 -60 5 minecraft:water[level=3]
+B 19 -59 -1 minecraft:water[level=0]
+B 19 -59 0 minecraft:water[level=0]
+B 19 -59 1 minecraft:water[level=0]
+B 19 -59 2 minecraft:water[level=8]
+B 19 -58 -1 minecraft:water[level=0]
+B 19 -58 0 minecraft:water[level=0]
+B 19 -58 1 minecraft:water[level=0]
+B 19 -58 2 minecraft:water[level=8]
+B 19 -57 -1 minecraft:water[level=0]
+B 19 -57 0 minecraft:water[level=0]
+B 19 -57 1 minecraft:water[level=0]
+B 19 -57 2 minecraft:water[level=8]
+B 19 -56 -1 minecraft:water[level=0]
+B 19 -56 0 minecraft:water[level=0]
+B 19 -56 1 minecraft:water[level=0]
+B 19 -56 2 minecraft:water[level=8]
+B 19 -55 -1 minecraft:water[level=0]
+B 19 -55 0 minecraft:water[level=0]
+B 19 -55 1 minecraft:water[level=0]
+B 19 -55 2 minecraft:water[level=8]
+B 19 -54 -1 minecraft:water[level=0]
+B 19 -54 0 minecraft:water[level=0]
+B 19 -54 1 minecraft:water[level=0]
+B 19 -54 2 minecraft:water[level=1]
+B 20 -61 -1 minecraft:sand
+B 20 -61 0 minecraft:brain_coral_block
+B 20 -61 1 minecraft:sand
+B 20 -61 2 minecraft:sand
+B 20 -61 3 minecraft:sand
+B 20 -61 4 minecraft:dirt
+B 20 -61 5 minecraft:sand
+B 20 -60 -1 minecraft:water[level=0]
+B 20 -60 0 minecraft:sea_pickle[pickles=4,waterlogged=true]
+B 20 -60 1 minecraft:water[level=0]
+B 20 -60 2 minecraft:water[level=8]
+B 20 -60 3 minecraft:water[level=1]
+B 20 -60 4 minecraft:water[level=2]
+B 20 -60 5 minecraft:water[level=3]
+B 20 -59 -1 minecraft:water[level=0]
+B 20 -59 0 minecraft:water[level=0]
+B 20 -59 1 minecraft:water[level=0]
+B 20 -59 2 minecraft:water[level=8]
+B 20 -58 -1 minecraft:water[level=0]
+B 20 -58 0 minecraft:water[level=0]
+B 20 -58 1 minecraft:water[level=0]
+B 20 -58 2 minecraft:water[level=8]
+B 20 -57 -1 minecraft:water[level=0]
+B 20 -57 0 minecraft:water[level=0]
+B 20 -57 1 minecraft:water[level=0]
+B 20 -57 2 minecraft:water[level=8]
+B 20 -56 -1 minecraft:water[level=0]
+B 20 -56 0 minecraft:water[level=0]
+B 20 -56 1 minecraft:water[level=0]
+B 20 -56 2 minecraft:water[level=8]
+B 20 -55 -1 minecraft:water[level=0]
+B 20 -55 0 minecraft:water[level=0]
+B 20 -55 1 minecraft:water[level=0]
+B 20 -55 2 minecraft:water[level=8]
+B 20 -54 -1 minecraft:water[level=0]
+B 20 -54 0 minecraft:water[level=0]
+B 20 -54 1 minecraft:water[level=0]
+B 20 -54 2 minecraft:water[level=1]
+B 21 -61 -1 minecraft:sand
+B 21 -61 0 minecraft:sand
+B 21 -61 1 minecraft:sand
+B 21 -61 2 minecraft:sand
+B 21 -61 3 minecraft:sand
+B 21 -61 4 minecraft:dirt
+B 21 -61 5 minecraft:sand
+B 21 -60 -1 minecraft:water[level=0]
+B 21 -60 0 minecraft:water[level=0]
+B 21 -60 1 minecraft:water[level=0]
+B 21 -60 2 minecraft:water[level=8]
+B 21 -60 3 minecraft:water[level=1]
+B 21 -60 4 minecraft:water[level=2]
+B 21 -60 5 minecraft:water[level=3]
+B 21 -59 -1 minecraft:water[level=0]
+B 21 -59 0 minecraft:water[level=0]
+B 21 -59 1 minecraft:water[level=0]
+B 21 -59 2 minecraft:water[level=8]
+B 21 -58 -1 minecraft:water[level=0]
+B 21 -58 0 minecraft:water[level=0]
+B 21 -58 1 minecraft:water[level=0]
+B 21 -58 2 minecraft:water[level=8]
+B 21 -57 -1 minecraft:water[level=0]
+B 21 -57 0 minecraft:water[level=0]
+B 21 -57 1 minecraft:water[level=0]
+B 21 -57 2 minecraft:water[level=8]
+B 21 -56 -1 minecraft:water[level=0]
+B 21 -56 0 minecraft:water[level=0]
+B 21 -56 1 minecraft:water[level=0]
+B 21 -56 2 minecraft:water[level=8]
+B 21 -55 -1 minecraft:water[level=0]
+B 21 -55 0 minecraft:water[level=0]
+B 21 -55 1 minecraft:water[level=0]
+B 21 -55 2 minecraft:water[level=8]
+B 21 -54 -1 minecraft:water[level=0]
+B 21 -54 0 minecraft:water[level=0]
+B 21 -54 1 minecraft:water[level=0]
+B 21 -54 2 minecraft:water[level=1]
+B 22 -61 -1 minecraft:sand
+B 22 -61 0 minecraft:sand
+B 22 -61 1 minecraft:sand
+B 22 -61 2 minecraft:sand
+B 22 -61 3 minecraft:sand
+B 22 -61 4 minecraft:dirt
+B 22 -61 5 minecraft:sand
+B 22 -60 -1 minecraft:water[level=0]
+B 22 -60 0 minecraft:water[level=0]
+B 22 -60 1 minecraft:water[level=0]
+B 22 -60 2 minecraft:water[level=8]
+B 22 -60 3 minecraft:water[level=1]
+B 22 -60 4 minecraft:water[level=2]
+B 22 -60 5 minecraft:water[level=3]
+B 22 -59 -1 minecraft:water[level=0]
+B 22 -59 0 minecraft:water[level=0]
+B 22 -59 1 minecraft:water[level=0]
+B 22 -59 2 minecraft:water[level=8]
+B 22 -58 -1 minecraft:water[level=0]
+B 22 -58 0 minecraft:water[level=0]
+B 22 -58 1 minecraft:water[level=0]
+B 22 -58 2 minecraft:water[level=8]
+B 22 -57 -1 minecraft:water[level=0]
+B 22 -57 0 minecraft:water[level=0]
+B 22 -57 1 minecraft:water[level=0]
+B 22 -57 2 minecraft:water[level=8]
+B 22 -56 -1 minecraft:water[level=0]
+B 22 -56 0 minecraft:water[level=0]
+B 22 -56 1 minecraft:water[level=0]
+B 22 -56 2 minecraft:water[level=8]
+B 22 -55 -1 minecraft:water[level=0]
+B 22 -55 0 minecraft:water[level=0]
+B 22 -55 1 minecraft:water[level=0]
+B 22 -55 2 minecraft:water[level=8]
+B 22 -54 -1 minecraft:water[level=0]
+B 22 -54 0 minecraft:water[level=0]
+B 22 -54 1 minecraft:water[level=0]
+B 22 -54 2 minecraft:water[level=1]
+B 23 -61 -1 minecraft:sand
+B 23 -61 0 minecraft:sand
+B 23 -61 1 minecraft:sand
+B 23 -61 2 minecraft:sand
+B 23 -61 3 minecraft:sand
+B 23 -61 4 minecraft:dirt
+B 23 -61 5 minecraft:sand
+B 23 -60 -1 minecraft:water[level=0]
+B 23 -60 0 minecraft:water[level=0]
+B 23 -60 1 minecraft:water[level=0]
+B 23 -60 2 minecraft:water[level=8]
+B 23 -60 3 minecraft:water[level=1]
+B 23 -60 4 minecraft:water[level=2]
+B 23 -60 5 minecraft:water[level=3]
+B 23 -59 -1 minecraft:water[level=0]
+B 23 -59 0 minecraft:water[level=0]
+B 23 -59 1 minecraft:water[level=0]
+B 23 -59 2 minecraft:water[level=8]
+B 23 -58 -1 minecraft:water[level=0]
+B 23 -58 0 minecraft:water[level=0]
+B 23 -58 1 minecraft:water[level=0]
+B 23 -58 2 minecraft:water[level=8]
+B 23 -57 -1 minecraft:water[level=0]
+B 23 -57 0 minecraft:water[level=0]
+B 23 -57 1 minecraft:water[level=0]
+B 23 -57 2 minecraft:water[level=8]
+B 23 -56 -1 minecraft:water[level=0]
+B 23 -56 0 minecraft:water[level=0]
+B 23 -56 1 minecraft:water[level=0]
+B 23 -56 2 minecraft:water[level=8]
+B 23 -55 -1 minecraft:water[level=0]
+B 23 -55 0 minecraft:water[level=0]
+B 23 -55 1 minecraft:water[level=0]
+B 23 -55 2 minecraft:water[level=8]
+B 23 -54 -1 minecraft:water[level=0]
+B 23 -54 0 minecraft:water[level=0]
+B 23 -54 1 minecraft:water[level=0]
+B 23 -54 2 minecraft:water[level=1]
+B 24 -61 -1 minecraft:sand
+B 24 -61 0 minecraft:brain_coral_block
+B 24 -61 1 minecraft:sand
+B 24 -61 2 minecraft:sand
+B 24 -61 3 minecraft:sand
+B 24 -61 4 minecraft:dirt
+B 24 -61 5 minecraft:sand
+B 24 -60 -1 minecraft:water[level=0]
+B 24 -60 0 minecraft:sea_pickle[pickles=4,waterlogged=true]
+B 24 -60 1 minecraft:water[level=0]
+B 24 -60 2 minecraft:water[level=8]
+B 24 -60 3 minecraft:water[level=1]
+B 24 -60 4 minecraft:water[level=2]
+B 24 -60 5 minecraft:water[level=3]
+B 24 -59 -1 minecraft:water[level=0]
+B 24 -59 0 minecraft:water[level=0]
+B 24 -59 1 minecraft:water[level=0]
+B 24 -59 2 minecraft:water[level=8]
+B 24 -58 -1 minecraft:water[level=0]
+B 24 -58 0 minecraft:water[level=0]
+B 24 -58 1 minecraft:water[level=0]
+B 24 -58 2 minecraft:water[level=8]
+B 24 -57 -1 minecraft:water[level=0]
+B 24 -57 0 minecraft:water[level=0]
+B 24 -57 1 minecraft:water[level=0]
+B 24 -57 2 minecraft:water[level=8]
+B 24 -56 -1 minecraft:water[level=0]
+B 24 -56 0 minecraft:water[level=0]
+B 24 -56 1 minecraft:water[level=0]
+B 24 -56 2 minecraft:water[level=8]
+B 24 -55 -1 minecraft:water[level=0]
+B 24 -55 0 minecraft:water[level=0]
+B 24 -55 1 minecraft:water[level=0]
+B 24 -55 2 minecraft:water[level=8]
+B 24 -54 -1 minecraft:water[level=0]
+B 24 -54 0 minecraft:water[level=0]
+B 24 -54 1 minecraft:water[level=0]
+B 24 -54 2 minecraft:water[level=1]
+B 25 -61 -1 minecraft:sand
+B 25 -61 0 minecraft:sand
+B 25 -61 1 minecraft:sand
+B 25 -61 2 minecraft:sand
+B 25 -61 3 minecraft:sand
+B 25 -61 4 minecraft:dirt
+B 25 -61 5 minecraft:sand
+B 25 -60 -1 minecraft:water[level=0]
+B 25 -60 0 minecraft:water[level=0]
+B 25 -60 1 minecraft:water[level=0]
+B 25 -60 2 minecraft:water[level=8]
+B 25 -60 3 minecraft:water[level=1]
+B 25 -60 4 minecraft:water[level=2]
+B 25 -60 5 minecraft:water[level=3]
+B 25 -59 -1 minecraft:water[level=0]
+B 25 -59 0 minecraft:water[level=0]
+B 25 -59 1 minecraft:water[level=0]
+B 25 -59 2 minecraft:water[level=8]
+B 25 -58 -1 minecraft:water[level=0]
+B 25 -58 0 minecraft:water[level=0]
+B 25 -58 1 minecraft:water[level=0]
+B 25 -58 2 minecraft:water[level=8]
+B 25 -57 -1 minecraft:water[level=0]
+B 25 -57 0 minecraft:water[level=0]
+B 25 -57 1 minecraft:water[level=0]
+B 25 -57 2 minecraft:water[level=8]
+B 25 -56 -1 minecraft:water[level=0]
+B 25 -56 0 minecraft:water[level=0]
+B 25 -56 1 minecraft:water[level=0]
+B 25 -56 2 minecraft:water[level=8]
+B 25 -55 -1 minecraft:water[level=0]
+B 25 -55 0 minecraft:water[level=0]
+B 25 -55 1 minecraft:water[level=0]
+B 25 -55 2 minecraft:water[level=8]
+B 25 -54 -1 minecraft:water[level=0]
+B 25 -54 0 minecraft:water[level=0]
+B 25 -54 1 minecraft:water[level=0]
+B 25 -54 2 minecraft:water[level=1]
+B 26 -61 -1 minecraft:sand
+B 26 -61 0 minecraft:sand
+B 26 -61 1 minecraft:sand
+B 26 -61 2 minecraft:sand
+B 26 -61 3 minecraft:sand
+B 26 -61 4 minecraft:dirt
+B 26 -61 5 minecraft:sand
+B 26 -60 -1 minecraft:water[level=0]
+B 26 -60 0 minecraft:water[level=0]
+B 26 -60 1 minecraft:water[level=0]
+B 26 -60 2 minecraft:water[level=8]
+B 26 -60 3 minecraft:water[level=1]
+B 26 -60 4 minecraft:water[level=2]
+B 26 -60 5 minecraft:water[level=3]
+B 26 -59 -1 minecraft:water[level=0]
+B 26 -59 0 minecraft:water[level=0]
+B 26 -59 1 minecraft:water[level=0]
+B 26 -59 2 minecraft:water[level=8]
+B 26 -58 -1 minecraft:water[level=0]
+B 26 -58 0 minecraft:water[level=0]
+B 26 -58 1 minecraft:water[level=0]
+B 26 -58 2 minecraft:water[level=8]
+B 26 -57 -1 minecraft:water[level=0]
+B 26 -57 0 minecraft:water[level=0]
+B 26 -57 1 minecraft:water[level=0]
+B 26 -57 2 minecraft:water[level=8]
+B 26 -56 -1 minecraft:water[level=0]
+B 26 -56 0 minecraft:water[level=0]
+B 26 -56 1 minecraft:water[level=0]
+B 26 -56 2 minecraft:water[level=8]
+B 26 -55 -1 minecraft:water[level=0]
+B 26 -55 0 minecraft:water[level=0]
+B 26 -55 1 minecraft:water[level=0]
+B 26 -55 2 minecraft:water[level=8]
+B 26 -54 -1 minecraft:water[level=0]
+B 26 -54 0 minecraft:water[level=0]
+B 26 -54 1 minecraft:water[level=0]
+B 26 -54 2 minecraft:water[level=1]
+B 27 -61 -1 minecraft:sand
+B 27 -61 0 minecraft:sand
+B 27 -61 1 minecraft:sand
+B 27 -61 2 minecraft:sand
+B 27 -61 3 minecraft:sand
+B 27 -61 4 minecraft:dirt
+B 27 -61 5 minecraft:sand
+B 27 -60 -1 minecraft:water[level=0]
+B 27 -60 0 minecraft:water[level=0]
+B 27 -60 1 minecraft:water[level=0]
+B 27 -60 2 minecraft:water[level=8]
+B 27 -60 3 minecraft:water[level=1]
+B 27 -60 4 minecraft:water[level=2]
+B 27 -60 5 minecraft:water[level=3]
+B 27 -59 -1 minecraft:water[level=0]
+B 27 -59 0 minecraft:water[level=0]
+B 27 -59 1 minecraft:water[level=0]
+B 27 -59 2 minecraft:water[level=8]
+B 27 -58 -1 minecraft:water[level=0]
+B 27 -58 0 minecraft:water[level=0]
+B 27 -58 1 minecraft:water[level=0]
+B 27 -58 2 minecraft:water[level=8]
+B 27 -57 -1 minecraft:water[level=0]
+B 27 -57 0 minecraft:water[level=0]
+B 27 -57 1 minecraft:water[level=0]
+B 27 -57 2 minecraft:water[level=8]
+B 27 -56 -1 minecraft:water[level=0]
+B 27 -56 0 minecraft:water[level=0]
+B 27 -56 1 minecraft:water[level=0]
+B 27 -56 2 minecraft:water[level=8]
+B 27 -55 -1 minecraft:water[level=0]
+B 27 -55 0 minecraft:water[level=0]
+B 27 -55 1 minecraft:water[level=0]
+B 27 -55 2 minecraft:water[level=8]
+B 27 -54 -1 minecraft:water[level=0]
+B 27 -54 0 minecraft:water[level=0]
+B 27 -54 1 minecraft:water[level=0]
+B 27 -54 2 minecraft:water[level=1]
+B 28 -61 -1 minecraft:sand
+B 28 -61 0 minecraft:dirt
+B 28 -61 1 minecraft:sand
+B 28 -61 2 minecraft:sand
+B 28 -61 3 minecraft:sand
+B 28 -61 4 minecraft:dirt
+B 28 -61 5 minecraft:sand
+B 28 -60 -1 minecraft:water[level=0]
+B 28 -60 0 minecraft:sea_pickle[pickles=2,waterlogged=true]
+B 28 -60 1 minecraft:water[level=0]
+B 28 -60 2 minecraft:water[level=8]
+B 28 -60 3 minecraft:water[level=1]
+B 28 -60 4 minecraft:water[level=2]
+B 28 -60 5 minecraft:water[level=3]
+B 28 -59 -1 minecraft:water[level=0]
+B 28 -59 0 minecraft:water[level=0]
+B 28 -59 1 minecraft:water[level=0]
+B 28 -59 2 minecraft:water[level=8]
+B 28 -58 -1 minecraft:water[level=0]
+B 28 -58 0 minecraft:water[level=0]
+B 28 -58 1 minecraft:water[level=0]
+B 28 -58 2 minecraft:water[level=8]
+B 28 -57 -1 minecraft:water[level=0]
+B 28 -57 0 minecraft:water[level=0]
+B 28 -57 1 minecraft:water[level=0]
+B 28 -57 2 minecraft:water[level=8]
+B 28 -56 -1 minecraft:water[level=0]
+B 28 -56 0 minecraft:water[level=0]
+B 28 -56 1 minecraft:water[level=0]
+B 28 -56 2 minecraft:water[level=8]
+B 28 -55 -1 minecraft:water[level=0]
+B 28 -55 0 minecraft:water[level=0]
+B 28 -55 1 minecraft:water[level=0]
+B 28 -55 2 minecraft:water[level=8]
+B 28 -54 -1 minecraft:water[level=0]
+B 28 -54 0 minecraft:water[level=0]
+B 28 -54 1 minecraft:water[level=0]
+B 28 -54 2 minecraft:water[level=1]
+B 29 -61 -1 minecraft:sand
+B 29 -61 0 minecraft:sand
+B 29 -61 1 minecraft:sand
+B 29 -61 2 minecraft:sand
+B 29 -61 3 minecraft:sand
+B 29 -61 4 minecraft:dirt
+B 29 -61 5 minecraft:sand
+B 29 -60 -1 minecraft:water[level=0]
+B 29 -60 0 minecraft:water[level=0]
+B 29 -60 1 minecraft:water[level=0]
+B 29 -60 2 minecraft:water[level=8]
+B 29 -60 3 minecraft:water[level=1]
+B 29 -60 4 minecraft:water[level=2]
+B 29 -60 5 minecraft:water[level=3]
+B 29 -59 -1 minecraft:water[level=0]
+B 29 -59 0 minecraft:water[level=0]
+B 29 -59 1 minecraft:water[level=0]
+B 29 -59 2 minecraft:water[level=8]
+B 29 -58 -1 minecraft:water[level=0]
+B 29 -58 0 minecraft:water[level=0]
+B 29 -58 1 minecraft:water[level=0]
+B 29 -58 2 minecraft:water[level=8]
+B 29 -57 -1 minecraft:water[level=0]
+B 29 -57 0 minecraft:water[level=0]
+B 29 -57 1 minecraft:water[level=0]
+B 29 -57 2 minecraft:water[level=8]
+B 29 -56 -1 minecraft:water[level=0]
+B 29 -56 0 minecraft:water[level=0]
+B 29 -56 1 minecraft:water[level=0]
+B 29 -56 2 minecraft:water[level=8]
+B 29 -55 -1 minecraft:water[level=0]
+B 29 -55 0 minecraft:water[level=0]
+B 29 -55 1 minecraft:water[level=0]
+B 29 -55 2 minecraft:water[level=8]
+B 29 -54 -1 minecraft:water[level=0]
+B 29 -54 0 minecraft:water[level=0]
+B 29 -54 1 minecraft:water[level=0]
+B 29 -54 2 minecraft:water[level=1]
+B 30 -61 -1 minecraft:sand
+B 30 -61 0 minecraft:sand
+B 30 -61 1 minecraft:sand
+B 30 -61 2 minecraft:sand
+B 30 -61 3 minecraft:sand
+B 30 -61 4 minecraft:dirt
+B 30 -61 5 minecraft:sand
+B 30 -60 -1 minecraft:water[level=0]
+B 30 -60 0 minecraft:water[level=0]
+B 30 -60 1 minecraft:water[level=0]
+B 30 -60 2 minecraft:water[level=8]
+B 30 -60 3 minecraft:water[level=1]
+B 30 -60 4 minecraft:water[level=2]
+B 30 -60 5 minecraft:water[level=3]
+B 30 -59 -1 minecraft:water[level=0]
+B 30 -59 0 minecraft:water[level=0]
+B 30 -59 1 minecraft:water[level=0]
+B 30 -59 2 minecraft:water[level=8]
+B 30 -58 -1 minecraft:water[level=0]
+B 30 -58 0 minecraft:water[level=0]
+B 30 -58 1 minecraft:water[level=0]
+B 30 -58 2 minecraft:water[level=8]
+B 30 -57 -1 minecraft:water[level=0]
+B 30 -57 0 minecraft:water[level=0]
+B 30 -57 1 minecraft:water[level=0]
+B 30 -57 2 minecraft:water[level=8]
+B 30 -56 -1 minecraft:water[level=0]
+B 30 -56 0 minecraft:water[level=0]
+B 30 -56 1 minecraft:water[level=0]
+B 30 -56 2 minecraft:water[level=8]
+B 30 -55 -1 minecraft:water[level=0]
+B 30 -55 0 minecraft:water[level=0]
+B 30 -55 1 minecraft:water[level=0]
+B 30 -55 2 minecraft:water[level=8]
+B 30 -54 -1 minecraft:water[level=0]
+B 30 -54 0 minecraft:water[level=0]
+B 30 -54 1 minecraft:water[level=0]
+B 30 -54 2 minecraft:water[level=1]
+B 31 -61 -1 minecraft:sand
+B 31 -61 0 minecraft:sand
+B 31 -61 1 minecraft:sand
+B 31 -61 2 minecraft:sand
+B 31 -61 3 minecraft:sand
+B 31 -61 4 minecraft:dirt
+B 31 -61 5 minecraft:sand
+B 31 -60 -1 minecraft:water[level=0]
+B 31 -60 0 minecraft:water[level=0]
+B 31 -60 1 minecraft:water[level=0]
+B 31 -60 2 minecraft:water[level=8]
+B 31 -60 3 minecraft:water[level=1]
+B 31 -60 4 minecraft:water[level=2]
+B 31 -60 5 minecraft:water[level=3]
+B 31 -59 -1 minecraft:water[level=0]
+B 31 -59 0 minecraft:water[level=0]
+B 31 -59 1 minecraft:water[level=0]
+B 31 -59 2 minecraft:water[level=8]
+B 31 -58 -1 minecraft:water[level=0]
+B 31 -58 0 minecraft:water[level=0]
+B 31 -58 1 minecraft:water[level=0]
+B 31 -58 2 minecraft:water[level=8]
+B 31 -57 -1 minecraft:water[level=0]
+B 31 -57 0 minecraft:water[level=0]
+B 31 -57 1 minecraft:water[level=0]
+B 31 -57 2 minecraft:water[level=8]
+B 31 -56 -1 minecraft:water[level=0]
+B 31 -56 0 minecraft:water[level=0]
+B 31 -56 1 minecraft:water[level=0]
+B 31 -56 2 minecraft:water[level=8]
+B 31 -55 -1 minecraft:water[level=0]
+B 31 -55 0 minecraft:water[level=0]
+B 31 -55 1 minecraft:water[level=0]
+B 31 -55 2 minecraft:water[level=8]
+B 31 -54 -1 minecraft:water[level=0]
+B 31 -54 0 minecraft:water[level=0]
+B 31 -54 1 minecraft:water[level=0]
+B 31 -54 2 minecraft:water[level=1]
+B 32 -61 -1 minecraft:sand
+B 32 -61 0 minecraft:sand
+B 32 -61 1 minecraft:sand
+B 32 -61 2 minecraft:sand
+B 32 -61 3 minecraft:sand
+B 32 -61 4 minecraft:dirt
+B 32 -61 5 minecraft:sand
+B 32 -60 -1 minecraft:water[level=0]
+B 32 -60 0 minecraft:water[level=0]
+B 32 -60 1 minecraft:water[level=0]
+B 32 -60 2 minecraft:water[level=8]
+B 32 -60 3 minecraft:water[level=1]
+B 32 -60 4 minecraft:water[level=2]
+B 32 -60 5 minecraft:water[level=3]
+B 32 -59 -1 minecraft:water[level=0]
+B 32 -59 0 minecraft:water[level=0]
+B 32 -59 1 minecraft:water[level=0]
+B 32 -59 2 minecraft:water[level=8]
+B 32 -58 -1 minecraft:water[level=0]
+B 32 -58 0 minecraft:water[level=0]
+B 32 -58 1 minecraft:water[level=0]
+B 32 -58 2 minecraft:water[level=8]
+B 32 -57 -1 minecraft:water[level=0]
+B 32 -57 0 minecraft:water[level=0]
+B 32 -57 1 minecraft:water[level=0]
+B 32 -57 2 minecraft:water[level=8]
+B 32 -56 -1 minecraft:water[level=0]
+B 32 -56 0 minecraft:water[level=0]
+B 32 -56 1 minecraft:water[level=0]
+B 32 -56 2 minecraft:water[level=8]
+B 32 -55 -1 minecraft:water[level=0]
+B 32 -55 0 minecraft:water[level=0]
+B 32 -55 1 minecraft:water[level=0]
+B 32 -55 2 minecraft:water[level=8]
+B 32 -54 -1 minecraft:water[level=0]
+B 32 -54 0 minecraft:water[level=0]
+B 32 -54 1 minecraft:water[level=0]
+B 32 -54 2 minecraft:water[level=1]
+B 33 -61 -1 minecraft:sand
+B 33 -61 0 minecraft:sand
+B 33 -61 1 minecraft:sand
+B 33 -61 2 minecraft:sand
+B 33 -61 3 minecraft:sand
+B 33 -61 4 minecraft:dirt
+B 33 -61 5 minecraft:sand
+B 33 -60 -1 minecraft:water[level=0]
+B 33 -60 0 minecraft:water[level=0]
+B 33 -60 1 minecraft:water[level=0]
+B 33 -60 2 minecraft:water[level=8]
+B 33 -60 3 minecraft:water[level=1]
+B 33 -60 4 minecraft:water[level=2]
+B 33 -60 5 minecraft:water[level=3]
+B 33 -59 -1 minecraft:water[level=0]
+B 33 -59 0 minecraft:water[level=0]
+B 33 -59 1 minecraft:water[level=0]
+B 33 -59 2 minecraft:water[level=8]
+B 33 -58 -1 minecraft:water[level=0]
+B 33 -58 0 minecraft:water[level=0]
+B 33 -58 1 minecraft:water[level=0]
+B 33 -58 2 minecraft:water[level=8]
+B 33 -57 -1 minecraft:water[level=0]
+B 33 -57 0 minecraft:water[level=0]
+B 33 -57 1 minecraft:water[level=0]
+B 33 -57 2 minecraft:water[level=8]
+B 33 -56 -1 minecraft:water[level=0]
+B 33 -56 0 minecraft:water[level=0]
+B 33 -56 1 minecraft:water[level=0]
+B 33 -56 2 minecraft:water[level=8]
+B 33 -55 -1 minecraft:water[level=0]
+B 33 -55 0 minecraft:water[level=0]
+B 33 -55 1 minecraft:water[level=0]
+B 33 -55 2 minecraft:water[level=8]
+B 33 -54 -1 minecraft:water[level=0]
+B 33 -54 0 minecraft:water[level=0]
+B 33 -54 1 minecraft:water[level=0]
+B 33 -54 2 minecraft:water[level=1]
+B 34 -61 -1 minecraft:sand
+B 34 -61 0 minecraft:sand
+B 34 -61 1 minecraft:sand
+B 34 -61 2 minecraft:sand
+B 34 -61 3 minecraft:sand
+B 34 -61 4 minecraft:dirt
+B 34 -61 5 minecraft:sand
+B 34 -60 -1 minecraft:water[level=0]
+B 34 -60 0 minecraft:water[level=0]
+B 34 -60 1 minecraft:water[level=0]
+B 34 -60 2 minecraft:water[level=8]
+B 34 -60 3 minecraft:water[level=1]
+B 34 -60 4 minecraft:water[level=2]
+B 34 -60 5 minecraft:water[level=3]
+B 34 -59 -1 minecraft:water[level=0]
+B 34 -59 0 minecraft:water[level=0]
+B 34 -59 1 minecraft:water[level=0]
+B 34 -59 2 minecraft:water[level=8]
+B 34 -58 -1 minecraft:water[level=0]
+B 34 -58 0 minecraft:water[level=0]
+B 34 -58 1 minecraft:water[level=0]
+B 34 -58 2 minecraft:water[level=8]
+B 34 -57 -1 minecraft:water[level=0]
+B 34 -57 0 minecraft:water[level=0]
+B 34 -57 1 minecraft:water[level=0]
+B 34 -57 2 minecraft:water[level=8]
+B 34 -56 -1 minecraft:water[level=0]
+B 34 -56 0 minecraft:water[level=0]
+B 34 -56 1 minecraft:water[level=0]
+B 34 -56 2 minecraft:water[level=8]
+B 34 -55 -1 minecraft:water[level=0]
+B 34 -55 0 minecraft:water[level=0]
+B 34 -55 1 minecraft:water[level=0]
+B 34 -55 2 minecraft:water[level=8]
+B 34 -54 -1 minecraft:water[level=0]
+B 34 -54 0 minecraft:water[level=0]
+B 34 -54 1 minecraft:water[level=0]
+B 34 -54 2 minecraft:water[level=1]
+B 35 -61 -1 minecraft:sand
+B 35 -61 0 minecraft:sand
+B 35 -61 1 minecraft:sand
+B 35 -61 2 minecraft:sand
+B 35 -61 3 minecraft:sand
+B 35 -61 4 minecraft:dirt
+B 35 -61 5 minecraft:sand
+B 35 -60 -1 minecraft:water[level=0]
+B 35 -60 0 minecraft:water[level=0]
+B 35 -60 1 minecraft:water[level=0]
+B 35 -60 2 minecraft:water[level=8]
+B 35 -60 3 minecraft:water[level=1]
+B 35 -60 4 minecraft:water[level=2]
+B 35 -60 5 minecraft:water[level=3]
+B 35 -59 -1 minecraft:water[level=0]
+B 35 -59 0 minecraft:water[level=0]
+B 35 -59 1 minecraft:water[level=0]
+B 35 -59 2 minecraft:water[level=8]
+B 35 -58 -1 minecraft:water[level=0]
+B 35 -58 0 minecraft:water[level=0]
+B 35 -58 1 minecraft:water[level=0]
+B 35 -58 2 minecraft:water[level=8]
+B 35 -57 -1 minecraft:water[level=0]
+B 35 -57 0 minecraft:water[level=0]
+B 35 -57 1 minecraft:water[level=0]
+B 35 -57 2 minecraft:water[level=8]
+B 35 -56 -1 minecraft:water[level=0]
+B 35 -56 0 minecraft:water[level=0]
+B 35 -56 1 minecraft:water[level=0]
+B 35 -56 2 minecraft:water[level=8]
+B 35 -55 -1 minecraft:water[level=0]
+B 35 -55 0 minecraft:water[level=0]
+B 35 -55 1 minecraft:water[level=0]
+B 35 -55 2 minecraft:water[level=8]
+B 35 -54 -1 minecraft:water[level=0]
+B 35 -54 0 minecraft:water[level=0]
+B 35 -54 1 minecraft:water[level=0]
+B 35 -54 2 minecraft:water[level=1]
+B 36 -61 -1 minecraft:sand
+B 36 -61 0 minecraft:sand
+B 36 -61 1 minecraft:sand
+B 36 -61 2 minecraft:sand
+B 36 -61 3 minecraft:sand
+B 36 -61 4 minecraft:dirt
+B 36 -61 5 minecraft:sand
+B 36 -60 -1 minecraft:water[level=0]
+B 36 -60 0 minecraft:water[level=0]
+B 36 -60 1 minecraft:water[level=0]
+B 36 -60 2 minecraft:water[level=8]
+B 36 -60 3 minecraft:water[level=1]
+B 36 -60 4 minecraft:water[level=2]
+B 36 -60 5 minecraft:water[level=3]
+B 36 -59 -1 minecraft:water[level=0]
+B 36 -59 0 minecraft:water[level=0]
+B 36 -59 1 minecraft:water[level=0]
+B 36 -59 2 minecraft:water[level=8]
+B 36 -58 -1 minecraft:water[level=0]
+B 36 -58 0 minecraft:water[level=0]
+B 36 -58 1 minecraft:water[level=0]
+B 36 -58 2 minecraft:water[level=8]
+B 36 -57 -1 minecraft:water[level=0]
+B 36 -57 0 minecraft:water[level=0]
+B 36 -57 1 minecraft:water[level=0]
+B 36 -57 2 minecraft:water[level=8]
+B 36 -56 -1 minecraft:water[level=0]
+B 36 -56 0 minecraft:water[level=0]
+B 36 -56 1 minecraft:water[level=0]
+B 36 -56 2 minecraft:water[level=8]
+B 36 -55 -1 minecraft:water[level=0]
+B 36 -55 0 minecraft:water[level=0]
+B 36 -55 1 minecraft:water[level=0]
+B 36 -55 2 minecraft:water[level=8]
+B 36 -54 -1 minecraft:water[level=0]
+B 36 -54 0 minecraft:water[level=0]
+B 36 -54 1 minecraft:water[level=0]
+B 36 -54 2 minecraft:water[level=1]
+B 37 -61 -1 minecraft:sand
+B 37 -61 0 minecraft:sand
+B 37 -61 1 minecraft:sand
+B 37 -61 2 minecraft:sand
+B 37 -61 3 minecraft:sand
+B 37 -61 4 minecraft:dirt
+B 37 -61 5 minecraft:sand
+B 37 -60 -1 minecraft:water[level=0]
+B 37 -60 0 minecraft:water[level=0]
+B 37 -60 1 minecraft:water[level=0]
+B 37 -60 2 minecraft:water[level=8]
+B 37 -60 3 minecraft:water[level=1]
+B 37 -60 4 minecraft:water[level=2]
+B 37 -60 5 minecraft:water[level=3]
+B 37 -59 -1 minecraft:water[level=0]
+B 37 -59 0 minecraft:water[level=0]
+B 37 -59 1 minecraft:water[level=0]
+B 37 -59 2 minecraft:water[level=8]
+B 37 -58 -1 minecraft:water[level=0]
+B 37 -58 0 minecraft:water[level=0]
+B 37 -58 1 minecraft:water[level=0]
+B 37 -58 2 minecraft:water[level=8]
+B 37 -57 -1 minecraft:water[level=0]
+B 37 -57 0 minecraft:water[level=0]
+B 37 -57 1 minecraft:water[level=0]
+B 37 -57 2 minecraft:water[level=8]
+B 37 -56 -1 minecraft:water[level=0]
+B 37 -56 0 minecraft:water[level=0]
+B 37 -56 1 minecraft:water[level=0]
+B 37 -56 2 minecraft:water[level=8]
+B 37 -55 -1 minecraft:water[level=0]
+B 37 -55 0 minecraft:water[level=0]
+B 37 -55 1 minecraft:water[level=0]
+B 37 -55 2 minecraft:water[level=8]
+B 37 -54 -1 minecraft:water[level=0]
+B 37 -54 0 minecraft:water[level=0]
+B 37 -54 1 minecraft:water[level=0]
+B 37 -54 2 minecraft:water[level=1]
+B 38 -61 -1 minecraft:sand
+B 38 -61 0 minecraft:sand
+B 38 -61 1 minecraft:sand
+B 38 -61 2 minecraft:sand
+B 38 -61 3 minecraft:sand
+B 38 -61 4 minecraft:dirt
+B 38 -61 5 minecraft:sand
+B 38 -60 -1 minecraft:water[level=0]
+B 38 -60 0 minecraft:water[level=0]
+B 38 -60 1 minecraft:water[level=0]
+B 38 -60 2 minecraft:water[level=8]
+B 38 -60 3 minecraft:water[level=1]
+B 38 -60 4 minecraft:water[level=2]
+B 38 -60 5 minecraft:water[level=3]
+B 38 -59 -1 minecraft:water[level=0]
+B 38 -59 0 minecraft:water[level=0]
+B 38 -59 1 minecraft:water[level=0]
+B 38 -59 2 minecraft:water[level=8]
+B 38 -58 -1 minecraft:water[level=0]
+B 38 -58 0 minecraft:water[level=0]
+B 38 -58 1 minecraft:water[level=0]
+B 38 -58 2 minecraft:water[level=8]
+B 38 -57 -1 minecraft:water[level=0]
+B 38 -57 0 minecraft:water[level=0]
+B 38 -57 1 minecraft:water[level=0]
+B 38 -57 2 minecraft:water[level=8]
+B 38 -56 -1 minecraft:water[level=0]
+B 38 -56 0 minecraft:water[level=0]
+B 38 -56 1 minecraft:water[level=0]
+B 38 -56 2 minecraft:water[level=8]
+B 38 -55 -1 minecraft:water[level=0]
+B 38 -55 0 minecraft:water[level=0]
+B 38 -55 1 minecraft:water[level=0]
+B 38 -55 2 minecraft:water[level=8]
+B 38 -54 -1 minecraft:water[level=0]
+B 38 -54 0 minecraft:water[level=0]
+B 38 -54 1 minecraft:water[level=0]
+B 38 -54 2 minecraft:water[level=1]

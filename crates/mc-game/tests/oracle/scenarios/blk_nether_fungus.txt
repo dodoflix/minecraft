@@ -1,0 +1,33 @@
+# Nether fungus: bone meal on the matching nylium plants a huge fungus (success chance 0.4); wrong ground is not valid.
+level flat
+preload 3
+level_seed 555
+block 0 -61 0 minecraft:crimson_nylium
+block 0 -60 0 minecraft:crimson_fungus
+bonemeal 0 -60 0
+bonemeal 0 -60 0
+bonemeal 0 -60 0
+bonemeal 0 -60 0
+bonemeal 0 -60 0
+block 16 -61 0 minecraft:warped_nylium
+block 16 -60 0 minecraft:warped_fungus
+bonemeal 16 -60 0
+bonemeal 16 -60 0
+bonemeal 16 -60 0
+bonemeal 16 -60 0
+bonemeal 16 -60 0
+block 32 -61 0 minecraft:warped_nylium
+block 32 -60 0 minecraft:crimson_fungus
+bonemeal 32 -60 0
+bonemeal 32 -60 0
+bonemeal 32 -60 0
+bonemeal 32 -60 0
+bonemeal 32 -60 0
+block 48 -61 0 minecraft:crimson_nylium
+block 48 -60 0 minecraft:warped_fungus
+bonemeal 48 -60 0
+bonemeal 48 -60 0
+bonemeal 48 -60 0
+bonemeal 48 -60 0
+bonemeal 48 -60 0
+dump blocks:-8,-61,-8,70,-45,8

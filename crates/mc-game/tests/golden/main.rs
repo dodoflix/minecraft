@@ -18,6 +18,7 @@ mod block_behaviour_golden;
 mod block_scenario_golden;
 mod blocks_beehive_golden;
 mod blocks_containers_golden;
+mod blocks_crops_golden;
 mod blocks_furnaces_golden;
 mod blocks_hopper_golden;
 mod blocks_infra_golden;

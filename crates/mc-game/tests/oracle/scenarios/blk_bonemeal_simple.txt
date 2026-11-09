@@ -1,0 +1,143 @@
+# Bone meal on every simple bonemealable block: BONEMEAL true/false (valid target), then the resulting blocks.
+level flat
+preload 2
+level_seed 99
+block 0 -61 0 minecraft:farmland[moisture=7]
+block 0 -60 0 minecraft:wheat[age=0]
+block 3 -61 0 minecraft:farmland[moisture=7]
+block 3 -60 0 minecraft:carrots[age=0]
+block 6 -61 0 minecraft:farmland[moisture=7]
+block 6 -60 0 minecraft:potatoes[age=1]
+block 9 -61 0 minecraft:farmland[moisture=7]
+block 9 -60 0 minecraft:beetroots[age=0]
+block 12 -61 0 minecraft:farmland[moisture=7]
+block 12 -60 0 minecraft:torchflower_crop[age=0]
+block 15 -61 0 minecraft:farmland[moisture=7]
+block 15 -60 0 minecraft:wheat[age=7]
+block 18 -61 0 minecraft:farmland[moisture=7]
+block 18 -60 0 minecraft:pumpkin_stem[age=0]
+block 21 -61 0 minecraft:farmland[moisture=7]
+block 21 -60 0 minecraft:melon_stem[age=5]
+block 24 -61 0 minecraft:grass_block
+block 24 -60 0 minecraft:sweet_berry_bush[age=0]
+block 27 -61 0 minecraft:grass_block
+block 27 -60 0 minecraft:pink_petals[facing=north,flower_amount=1]
+block 30 -61 0 minecraft:grass_block
+block 30 -60 0 minecraft:pink_petals[facing=north,flower_amount=4]
+block 33 -61 0 minecraft:grass_block
+block 33 -60 0 minecraft:wildflowers[facing=east,flower_amount=3]
+block 36 -61 0 minecraft:grass_block
+block 36 -60 0 minecraft:short_grass
+block 39 -61 0 minecraft:grass_block
+block 39 -60 0 minecraft:fern
+block 42 -61 0 minecraft:grass_block
+block 42 -60 0 minecraft:bush
+block 45 -61 0 minecraft:grass_block
+block 45 -60 0 minecraft:firefly_bush
+block 48 -61 0 minecraft:sand
+block 48 -60 0 minecraft:dead_bush
+block 51 -61 0 minecraft:sand
+block 51 -60 0 minecraft:short_dry_grass
+block 54 -61 0 minecraft:sand
+block 54 -60 0 minecraft:tall_dry_grass
+block 57 -61 0 minecraft:grass_block
+block 57 -60 0 minecraft:stone
+block 57 -60 1 minecraft:shelf_mushroom[age=0,facing=north]
+block 60 -61 0 minecraft:soul_sand
+block 60 -60 0 minecraft:nether_wart[age=0]
+bonemeal 0 -60 0
+bonemeal 3 -60 0
+bonemeal 6 -60 0
+bonemeal 9 -60 0
+bonemeal 12 -60 0
+bonemeal 15 -60 0
+bonemeal 18 -60 0
+bonemeal 21 -60 0
+bonemeal 24 -60 0
+bonemeal 27 -60 0
+bonemeal 30 -60 0
+bonemeal 33 -60 0
+bonemeal 36 -60 0
+bonemeal 39 -60 0
+bonemeal 42 -60 0
+bonemeal 45 -60 0
+bonemeal 48 -60 0
+bonemeal 51 -60 0
+bonemeal 54 -60 0
+bonemeal 57 -60 1
+bonemeal 60 -60 0
+bonemeal 0 -60 0
+bonemeal 3 -60 0
+bonemeal 6 -60 0
+bonemeal 9 -60 0
+bonemeal 12 -60 0
+bonemeal 15 -60 0
+bonemeal 18 -60 0
+bonemeal 21 -60 0
+bonemeal 24 -60 0
+bonemeal 27 -60 0
+bonemeal 30 -60 0
+bonemeal 33 -60 0
+bonemeal 36 -60 0
+bonemeal 39 -60 0
+bonemeal 42 -60 0
+bonemeal 45 -60 0
+bonemeal 48 -60 0
+bonemeal 51 -60 0
+bonemeal 54 -60 0
+bonemeal 57 -60 1
+bonemeal 60 -60 0
+bonemeal 0 -60 0
+bonemeal 3 -60 0
+bonemeal 6 -60 0
+bonemeal 9 -60 0
+bonemeal 12 -60 0
+bonemeal 15 -60 0
+bonemeal 18 -60 0
+bonemeal 21 -60 0
+bonemeal 24 -60 0
+bonemeal 27 -60 0
+bonemeal 30 -60 0
+bonemeal 33 -60 0
+bonemeal 36 -60 0
+bonemeal 39 -60 0
+bonemeal 42 -60 0
+bonemeal 45 -60 0
+bonemeal 48 -60 0
+bonemeal 51 -60 0
+bonemeal 54 -60 0
+bonemeal 57 -60 1
+bonemeal 60 -60 0
+block 0 -61 5 minecraft:grass_block
+block 0 -60 5 minecraft:rose_bush[half=lower]
+block 0 -59 5 minecraft:rose_bush[half=upper]
+bonemeal 0 -60 5
+bonemeal 0 -59 5
+block 4 -61 5 minecraft:grass_block
+block 4 -60 5 minecraft:sunflower[half=lower]
+block 4 -59 5 minecraft:sunflower[half=upper]
+bonemeal 4 -60 5
+block 8 -61 5 minecraft:rooted_dirt
+bonemeal 8 -61 5
+bonemeal 8 -61 5
+block 12 -61 5 minecraft:rooted_dirt
+block 12 -62 5 minecraft:stone
+bonemeal 12 -61 5
+block 16 -61 5 minecraft:farmland[moisture=7]
+block 16 -60 5 minecraft:pitcher_crop[age=0,half=lower]
+bonemeal 16 -60 5
+bonemeal 16 -60 5
+bonemeal 16 -60 5
+block 20 -60 5 minecraft:jungle_log
+block 21 -60 5 minecraft:cocoa[age=0,facing=west]
+bonemeal 21 -60 5
+bonemeal 21 -60 5
+bonemeal 21 -60 5
+block 24 -61 5 minecraft:grass_block
+block 24 -60 5 minecraft:short_grass
+block 24 -59 5 minecraft:stone
+bonemeal 24 -60 5
+block 28 -61 5 minecraft:grass_block
+block 28 -60 5 minecraft:fern
+bonemeal 28 -60 5
+dump blocks:0,-62,-1,64,-58,6

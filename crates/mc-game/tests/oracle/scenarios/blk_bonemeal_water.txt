@@ -1,0 +1,95 @@
+# Bone meal on water plants (seagrass, tall seagrass, kelp, sea pickle on coral) and leaf litter; every roll with its own level random seed.
+level flat
+preload 3
+difficulty peaceful
+fill -2 -61 -2 40 -61 6 minecraft:sand
+fill -2 -61 4 40 -61 4 minecraft:dirt
+fill -2 -60 -1 38 -54 1 minecraft:water
+block 0 -60 0 minecraft:seagrass
+level_seed 1
+bonemeal 0 -60 0
+level_seed 2
+bonemeal 0 -60 0
+level_seed 3
+bonemeal 0 -60 0
+level_seed 4
+bonemeal 0 -60 0
+level_seed 5
+bonemeal 0 -60 0
+level_seed 6
+bonemeal 0 -60 0
+block 4 -60 0 minecraft:tall_seagrass[half=lower]
+block 4 -59 0 minecraft:tall_seagrass[half=upper]
+level_seed 7
+bonemeal 4 -60 0
+level_seed 8
+bonemeal 4 -60 0
+level_seed 9
+bonemeal 4 -60 0
+block 8 -60 0 minecraft:kelp[age=0]
+level_seed 10
+bonemeal 8 -60 0
+level_seed 11
+bonemeal 8 -60 0
+level_seed 12
+bonemeal 8 -60 0
+level_seed 13
+bonemeal 8 -60 0
+level_seed 14
+bonemeal 8 -60 0
+level_seed 15
+bonemeal 8 -60 0
+block 12 -60 0 minecraft:kelp[age=24]
+level_seed 16
+bonemeal 12 -60 0
+level_seed 17
+bonemeal 12 -60 0
+block 16 -60 0 minecraft:kelp_plant
+block 16 -59 0 minecraft:kelp[age=3]
+level_seed 18
+bonemeal 16 -60 0
+level_seed 19
+bonemeal 16 -60 0
+level_seed 20
+bonemeal 16 -60 0
+block 20 -61 0 minecraft:brain_coral_block
+block 20 -60 0 minecraft:sea_pickle[pickles=1,waterlogged=true]
+level_seed 21
+bonemeal 20 -60 0
+level_seed 22
+bonemeal 20 -60 0
+level_seed 23
+bonemeal 20 -60 0
+level_seed 24
+bonemeal 20 -60 0
+level_seed 25
+bonemeal 20 -60 0
+level_seed 26
+bonemeal 20 -60 0
+block 24 -61 0 minecraft:brain_coral_block
+block 24 -60 0 minecraft:sea_pickle[pickles=4,waterlogged=true]
+level_seed 27
+bonemeal 24 -60 0
+level_seed 28
+bonemeal 24 -60 0
+block 28 -61 0 minecraft:dirt
+block 28 -60 0 minecraft:sea_pickle[pickles=2,waterlogged=true]
+level_seed 29
+bonemeal 28 -60 0
+level_seed 30
+bonemeal 28 -60 0
+block 32 -60 4 minecraft:leaf_litter[facing=north,segment_amount=1]
+level_seed 31
+bonemeal 32 -60 4
+level_seed 32
+bonemeal 32 -60 4
+level_seed 33
+bonemeal 32 -60 4
+block 36 -60 4 minecraft:leaf_litter[facing=east,segment_amount=4]
+level_seed 34
+bonemeal 36 -60 4
+level_seed 35
+bonemeal 36 -60 4
+dump blocks:-2,-61,-1,38,-54,5 ticks events
+tick 40
+dump blocks:-2,-61,-1,38,-54,5

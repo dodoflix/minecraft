@@ -1,0 +1,769 @@
+# Mushrooms spread by random ticks; bone meal grows huge mushrooms (feature placement, light requirement via podzol/mycelium).
+level flat
+preload 3
+level_seed 4711
+block -4 -61 -4 minecraft:podzol
+block -4 -61 -3 minecraft:podzol
+block -4 -61 -2 minecraft:podzol
+block -4 -61 -1 minecraft:podzol
+block -4 -61 0 minecraft:podzol
+block -4 -61 1 minecraft:podzol
+block -4 -61 2 minecraft:podzol
+block -4 -61 3 minecraft:podzol
+block -4 -61 4 minecraft:podzol
+block -3 -61 -4 minecraft:podzol
+block -3 -61 -3 minecraft:podzol
+block -3 -61 -2 minecraft:podzol
+block -3 -61 -1 minecraft:podzol
+block -3 -61 0 minecraft:podzol
+block -3 -61 1 minecraft:podzol
+block -3 -61 2 minecraft:podzol
+block -3 -61 3 minecraft:podzol
+block -3 -61 4 minecraft:podzol
+block -2 -61 -4 minecraft:podzol
+block -2 -61 -3 minecraft:podzol
+block -2 -61 -2 minecraft:podzol
+block -2 -61 -1 minecraft:podzol
+block -2 -61 0 minecraft:podzol
+block -2 -61 1 minecraft:podzol
+block -2 -61 2 minecraft:podzol
+block -2 -61 3 minecraft:podzol
+block -2 -61 4 minecraft:podzol
+block -1 -61 -4 minecraft:podzol
+block -1 -61 -3 minecraft:podzol
+block -1 -61 -2 minecraft:podzol
+block -1 -61 -1 minecraft:podzol
+block -1 -61 0 minecraft:podzol
+block -1 -61 1 minecraft:podzol
+block -1 -61 2 minecraft:podzol
+block -1 -61 3 minecraft:podzol
+block -1 -61 4 minecraft:podzol
+block 0 -61 -4 minecraft:podzol
+block 0 -61 -3 minecraft:podzol
+block 0 -61 -2 minecraft:podzol
+block 0 -61 -1 minecraft:podzol
+block 0 -61 0 minecraft:podzol
+block 0 -61 1 minecraft:podzol
+block 0 -61 2 minecraft:podzol
+block 0 -61 3 minecraft:podzol
+block 0 -61 4 minecraft:podzol
+block 1 -61 -4 minecraft:podzol
+block 1 -61 -3 minecraft:podzol
+block 1 -61 -2 minecraft:podzol
+block 1 -61 -1 minecraft:podzol
+block 1 -61 0 minecraft:podzol
+block 1 -61 1 minecraft:podzol
+block 1 -61 2 minecraft:podzol
+block 1 -61 3 minecraft:podzol
+block 1 -61 4 minecraft:podzol
+block 2 -61 -4 minecraft:podzol
+block 2 -61 -3 minecraft:podzol
+block 2 -61 -2 minecraft:podzol
+block 2 -61 -1 minecraft:podzol
+block 2 -61 0 minecraft:podzol
+block 2 -61 1 minecraft:podzol
+block 2 -61 2 minecraft:podzol
+block 2 -61 3 minecraft:podzol
+block 2 -61 4 minecraft:podzol
+block 3 -61 -4 minecraft:podzol
+block 3 -61 -3 minecraft:podzol
+block 3 -61 -2 minecraft:podzol
+block 3 -61 -1 minecraft:podzol
+block 3 -61 0 minecraft:podzol
+block 3 -61 1 minecraft:podzol
+block 3 -61 2 minecraft:podzol
+block 3 -61 3 minecraft:podzol
+block 3 -61 4 minecraft:podzol
+block 4 -61 -4 minecraft:podzol
+block 4 -61 -3 minecraft:podzol
+block 4 -61 -2 minecraft:podzol
+block 4 -61 -1 minecraft:podzol
+block 4 -61 0 minecraft:podzol
+block 4 -61 1 minecraft:podzol
+block 4 -61 2 minecraft:podzol
+block 4 -61 3 minecraft:podzol
+block 4 -61 4 minecraft:podzol
+block 0 -60 0 minecraft:brown_mushroom
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+block -4 -61 16 minecraft:podzol
+block -4 -61 17 minecraft:podzol
+block -4 -61 18 minecraft:podzol
+block -4 -61 19 minecraft:podzol
+block -4 -61 20 minecraft:podzol
+block -4 -61 21 minecraft:podzol
+block -4 -61 22 minecraft:podzol
+block -4 -61 23 minecraft:podzol
+block -4 -61 24 minecraft:podzol
+block -3 -61 16 minecraft:podzol
+block -3 -61 17 minecraft:podzol
+block -3 -61 18 minecraft:podzol
+block -3 -61 19 minecraft:podzol
+block -3 -61 20 minecraft:podzol
+block -3 -61 21 minecraft:podzol
+block -3 -61 22 minecraft:podzol
+block -3 -61 23 minecraft:podzol
+block -3 -61 24 minecraft:podzol
+block -2 -61 16 minecraft:podzol
+block -2 -61 17 minecraft:podzol
+block -2 -61 18 minecraft:podzol
+block -2 -61 19 minecraft:podzol
+block -2 -61 20 minecraft:podzol
+block -2 -61 21 minecraft:podzol
+block -2 -61 22 minecraft:podzol
+block -2 -61 23 minecraft:podzol
+block -2 -61 24 minecraft:podzol
+block -1 -61 16 minecraft:podzol
+block -1 -61 17 minecraft:podzol
+block -1 -61 18 minecraft:podzol
+block -1 -61 19 minecraft:podzol
+block -1 -61 20 minecraft:podzol
+block -1 -61 21 minecraft:podzol
+block -1 -61 22 minecraft:podzol
+block -1 -61 23 minecraft:podzol
+block -1 -61 24 minecraft:podzol
+block 0 -61 16 minecraft:podzol
+block 0 -61 17 minecraft:podzol
+block 0 -61 18 minecraft:podzol
+block 0 -61 19 minecraft:podzol
+block 0 -61 20 minecraft:podzol
+block 0 -61 21 minecraft:podzol
+block 0 -61 22 minecraft:podzol
+block 0 -61 23 minecraft:podzol
+block 0 -61 24 minecraft:podzol
+block 1 -61 16 minecraft:podzol
+block 1 -61 17 minecraft:podzol
+block 1 -61 18 minecraft:podzol
+block 1 -61 19 minecraft:podzol
+block 1 -61 20 minecraft:podzol
+block 1 -61 21 minecraft:podzol
+block 1 -61 22 minecraft:podzol
+block 1 -61 23 minecraft:podzol
+block 1 -61 24 minecraft:podzol
+block 2 -61 16 minecraft:podzol
+block 2 -61 17 minecraft:podzol
+block 2 -61 18 minecraft:podzol
+block 2 -61 19 minecraft:podzol
+block 2 -61 20 minecraft:podzol
+block 2 -61 21 minecraft:podzol
+block 2 -61 22 minecraft:podzol
+block 2 -61 23 minecraft:podzol
+block 2 -61 24 minecraft:podzol
+block 3 -61 16 minecraft:podzol
+block 3 -61 17 minecraft:podzol
+block 3 -61 18 minecraft:podzol
+block 3 -61 19 minecraft:podzol
+block 3 -61 20 minecraft:podzol
+block 3 -61 21 minecraft:podzol
+block 3 -61 22 minecraft:podzol
+block 3 -61 23 minecraft:podzol
+block 3 -61 24 minecraft:podzol
+block 4 -61 16 minecraft:podzol
+block 4 -61 17 minecraft:podzol
+block 4 -61 18 minecraft:podzol
+block 4 -61 19 minecraft:podzol
+block 4 -61 20 minecraft:podzol
+block 4 -61 21 minecraft:podzol
+block 4 -61 22 minecraft:podzol
+block 4 -61 23 minecraft:podzol
+block 4 -61 24 minecraft:podzol
+block 0 -60 20 minecraft:red_mushroom
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+random_tick 0 -60 20
+dump blocks:-5,-60,-5,5,-60,25

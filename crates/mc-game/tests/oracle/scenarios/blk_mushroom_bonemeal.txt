@@ -1,0 +1,41 @@
+# Bone meal on mushrooms: huge mushroom features (success chance 0.4).
+level flat
+preload 3
+level_seed 2024
+block 0 -61 0 minecraft:mycelium
+block 0 -60 0 minecraft:brown_mushroom
+bonemeal 0 -60 0
+bonemeal 0 -60 0
+bonemeal 0 -60 0
+bonemeal 0 -60 0
+block 14 -61 0 minecraft:mycelium
+block 14 -60 0 minecraft:red_mushroom
+bonemeal 14 -60 0
+bonemeal 14 -60 0
+bonemeal 14 -60 0
+bonemeal 14 -60 0
+block 28 -61 0 minecraft:mycelium
+block 28 -60 0 minecraft:brown_mushroom
+bonemeal 28 -60 0
+bonemeal 28 -60 0
+bonemeal 28 -60 0
+bonemeal 28 -60 0
+block 42 -61 0 minecraft:mycelium
+block 42 -60 0 minecraft:red_mushroom
+bonemeal 42 -60 0
+bonemeal 42 -60 0
+bonemeal 42 -60 0
+bonemeal 42 -60 0
+block 56 -61 0 minecraft:mycelium
+block 56 -60 0 minecraft:brown_mushroom
+bonemeal 56 -60 0
+bonemeal 56 -60 0
+bonemeal 56 -60 0
+bonemeal 56 -60 0
+block 70 -61 0 minecraft:mycelium
+block 70 -60 0 minecraft:red_mushroom
+bonemeal 70 -60 0
+bonemeal 70 -60 0
+bonemeal 70 -60 0
+bonemeal 70 -60 0
+dump blocks:-8,-60,-8,90,-30,8

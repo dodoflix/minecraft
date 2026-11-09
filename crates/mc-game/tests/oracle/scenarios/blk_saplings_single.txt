@@ -1,0 +1,134 @@
+# Sapling bone meal: stage 0 -> 1, then the tree feature of each TreeGrower (single saplings).
+level flat
+preload 7
+level_seed 100
+block -44 -61 0 minecraft:grass_block
+block -44 -60 0 minecraft:oak_sapling[stage=0]
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+block -28 -61 0 minecraft:grass_block
+block -28 -60 0 minecraft:birch_sapling[stage=0]
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+block -12 -61 0 minecraft:grass_block
+block -12 -60 0 minecraft:spruce_sapling[stage=0]
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+block 4 -61 0 minecraft:grass_block
+block 4 -60 0 minecraft:jungle_sapling[stage=0]
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+block 20 -61 0 minecraft:grass_block
+block 20 -60 0 minecraft:acacia_sapling[stage=0]
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+block 36 -61 0 minecraft:grass_block
+block 36 -60 0 minecraft:cherry_sapling[stage=0]
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+block 52 -61 0 minecraft:grass_block
+block 52 -60 0 minecraft:dark_oak_sapling[stage=0]
+bonemeal 52 -60 0
+bonemeal 52 -60 0
+bonemeal 52 -60 0
+bonemeal 52 -60 0
+bonemeal 52 -60 0
+bonemeal 52 -60 0
+bonemeal 52 -60 0
+bonemeal 52 -60 0
+bonemeal 52 -60 0
+bonemeal 52 -60 0
+block 68 -61 0 minecraft:grass_block
+block 68 -60 0 minecraft:poplar_sapling[stage=0]
+bonemeal 68 -60 0
+bonemeal 68 -60 0
+bonemeal 68 -60 0
+bonemeal 68 -60 0
+bonemeal 68 -60 0
+bonemeal 68 -60 0
+bonemeal 68 -60 0
+bonemeal 68 -60 0
+bonemeal 68 -60 0
+bonemeal 68 -60 0
+block 84 -61 0 minecraft:dirt
+block 84 -60 0 minecraft:azalea
+bonemeal 84 -60 0
+bonemeal 84 -60 0
+bonemeal 84 -60 0
+bonemeal 84 -60 0
+bonemeal 84 -60 0
+bonemeal 84 -60 0
+bonemeal 84 -60 0
+bonemeal 84 -60 0
+bonemeal 84 -60 0
+bonemeal 84 -60 0
+block 100 -61 0 minecraft:dirt
+block 100 -60 0 minecraft:mangrove_propagule[age=4,hanging=false,stage=0,waterlogged=false]
+bonemeal 100 -60 0
+bonemeal 100 -60 0
+bonemeal 100 -60 0
+bonemeal 100 -60 0
+bonemeal 100 -60 0
+bonemeal 100 -60 0
+bonemeal 100 -60 0
+bonemeal 100 -60 0
+bonemeal 100 -60 0
+bonemeal 100 -60 0
+dump blocks:-53,-61,-9,-35,-30,9
+dump blocks:-37,-61,-9,-19,-30,9
+dump blocks:-21,-61,-9,-3,-30,9
+dump blocks:-5,-61,-9,13,-30,9
+dump blocks:11,-61,-9,29,-30,9
+dump blocks:27,-61,-9,45,-30,9
+dump blocks:43,-61,-9,61,-30,9
+dump blocks:59,-61,-9,77,-30,9
+dump blocks:75,-61,-9,93,-30,9
+dump blocks:91,-61,-9,109,-30,9

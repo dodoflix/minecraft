@@ -1,0 +1,130 @@
+# Two-by-two saplings: mega spruce/pine, mega jungle, dark oak, pale oak; oak with flowers nearby (bee nest variant).
+level flat
+preload 7
+level_seed 200
+block -44 -61 0 minecraft:grass_block
+block -44 -60 0 minecraft:spruce_sapling[stage=0]
+block -43 -61 0 minecraft:grass_block
+block -43 -60 0 minecraft:spruce_sapling[stage=0]
+block -44 -61 1 minecraft:grass_block
+block -44 -60 1 minecraft:spruce_sapling[stage=0]
+block -43 -61 1 minecraft:grass_block
+block -43 -60 1 minecraft:spruce_sapling[stage=0]
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+block -28 -61 0 minecraft:grass_block
+block -28 -60 0 minecraft:spruce_sapling[stage=0]
+block -27 -61 0 minecraft:grass_block
+block -27 -60 0 minecraft:spruce_sapling[stage=0]
+block -28 -61 1 minecraft:grass_block
+block -28 -60 1 minecraft:spruce_sapling[stage=0]
+block -27 -61 1 minecraft:grass_block
+block -27 -60 1 minecraft:spruce_sapling[stage=0]
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+block -12 -61 0 minecraft:grass_block
+block -12 -60 0 minecraft:jungle_sapling[stage=0]
+block -11 -61 0 minecraft:grass_block
+block -11 -60 0 minecraft:jungle_sapling[stage=0]
+block -12 -61 1 minecraft:grass_block
+block -12 -60 1 minecraft:jungle_sapling[stage=0]
+block -11 -61 1 minecraft:grass_block
+block -11 -60 1 minecraft:jungle_sapling[stage=0]
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+block 4 -61 0 minecraft:grass_block
+block 4 -60 0 minecraft:dark_oak_sapling[stage=0]
+block 5 -61 0 minecraft:grass_block
+block 5 -60 0 minecraft:dark_oak_sapling[stage=0]
+block 4 -61 1 minecraft:grass_block
+block 4 -60 1 minecraft:dark_oak_sapling[stage=0]
+block 5 -61 1 minecraft:grass_block
+block 5 -60 1 minecraft:dark_oak_sapling[stage=0]
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+block 20 -61 0 minecraft:grass_block
+block 20 -60 0 minecraft:pale_oak_sapling[stage=0]
+block 21 -61 0 minecraft:grass_block
+block 21 -60 0 minecraft:pale_oak_sapling[stage=0]
+block 20 -61 1 minecraft:grass_block
+block 20 -60 1 minecraft:pale_oak_sapling[stage=0]
+block 21 -61 1 minecraft:grass_block
+block 21 -60 1 minecraft:pale_oak_sapling[stage=0]
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+bonemeal 20 -60 0
+block 36 -61 0 minecraft:grass_block
+block 36 -60 0 minecraft:dark_oak_sapling[stage=0]
+block 37 -61 0 minecraft:grass_block
+block 37 -60 0 minecraft:dark_oak_sapling[stage=0]
+block 36 -61 1 minecraft:grass_block
+block 36 -60 1 minecraft:dark_oak_sapling[stage=0]
+block 37 -61 1 minecraft:grass_block
+block 37 -60 1 minecraft:dark_oak_sapling[stage=0]
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+bonemeal 36 -60 0
+dump blocks:-53,-61,-9,-35,-30,9
+dump blocks:-37,-61,-9,-19,-30,9
+dump blocks:-21,-61,-9,-3,-30,9
+dump blocks:-5,-61,-9,13,-30,9
+dump blocks:11,-61,-9,29,-30,9
+dump blocks:27,-61,-9,45,-30,9

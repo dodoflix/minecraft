@@ -1,0 +1,36 @@
+# Eyeblossom opens at night and closes in the day (random tick + scheduled ticks of its neighbours, sounds, game event).
+level flat
+preload 2
+level_seed 8
+watch events
+block 0 -60 0 minecraft:closed_eyeblossom
+block 0 -60 2 minecraft:open_eyeblossom
+block 1 -60 0 minecraft:closed_eyeblossom
+block 1 -60 2 minecraft:open_eyeblossom
+block 2 -60 0 minecraft:closed_eyeblossom
+block 2 -60 2 minecraft:open_eyeblossom
+block 3 -60 0 minecraft:closed_eyeblossom
+block 3 -60 2 minecraft:open_eyeblossom
+block 5 -60 0 minecraft:potted_closed_eyeblossom
+block 5 -60 2 minecraft:potted_open_eyeblossom
+time 6000
+tick 1
+random_tick 0 -60 0
+random_tick 0 -60 2
+random_tick 5 -60 0
+random_tick 5 -60 2
+dump blocks:0,-60,0,6,-60,2
+time 14000
+tick 1
+random_tick 0 -60 0
+random_tick 0 -60 2
+random_tick 5 -60 0
+random_tick 5 -60 2
+dump blocks:0,-60,0,6,-60,2 ticks events
+tick 80
+dump blocks:0,-60,0,6,-60,2 events
+time 2000
+tick 1
+random_tick 1 -60 2
+tick 120
+dump blocks:0,-60,0,6,-60,2 ticks events

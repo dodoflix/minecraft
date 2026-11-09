@@ -1,0 +1,113 @@
+# Plants, doubles, farmland: support loss, double plant halves, farmland moisture decay and turning to dirt.
+level flat
+preload 2
+level_seed 5
+watch events
+block 0 -60 0 minecraft:poppy
+block 2 -60 0 minecraft:tall_grass[half=lower]
+block 2 -59 0 minecraft:tall_grass[half=upper]
+block 4 -60 0 minecraft:sunflower[half=lower]
+block 4 -59 0 minecraft:sunflower[half=upper]
+block 6 -60 0 minecraft:pitcher_crop[age=4,half=lower]
+block 6 -59 0 minecraft:pitcher_crop[age=4,half=upper]
+block 8 -60 0 minecraft:wheat[age=3]
+block 8 -61 0 minecraft:farmland[moisture=7]
+block 10 -60 0 minecraft:cocoa[age=1,facing=west]
+block 9 -60 0 minecraft:jungle_log
+block 12 -60 0 minecraft:brown_mushroom
+block 14 -60 0 minecraft:nether_wart[age=2]
+block 16 -60 0 minecraft:sweet_berry_bush[age=2]
+block 18 -60 0 minecraft:pink_petals[facing=north,flower_amount=2]
+block 20 -60 0 minecraft:oak_sapling[stage=0]
+block 22 -60 0 minecraft:mangrove_propagule[age=2,hanging=true,stage=0,waterlogged=false]
+dump blocks:0,-61,0,22,-59,0
+tick 2
+block 0 -61 0 minecraft:stone
+block 2 -61 0 minecraft:stone
+block 4 -61 0 minecraft:glass
+block 6 -61 0 minecraft:stone
+block 8 -61 0 minecraft:stone
+block 9 -60 0 minecraft:air
+block 12 -61 0 minecraft:dirt
+block 14 -61 0 minecraft:dirt
+block 18 -61 0 minecraft:stone
+block 20 -61 0 minecraft:stone
+dump blocks:0,-61,0,22,-59,0 events
+tick 3
+dump blocks:0,-61,0,22,-59,0 ticks events
+fill 0 -61 5 6 -61 5 minecraft:farmland[moisture=7]
+block 1 -60 5 minecraft:stone
+block 3 -60 5 minecraft:oak_slab[type=top]
+block 5 -60 5 minecraft:oak_fence_gate[facing=north,in_wall=false,open=false,powered=false]
+tick 1 
+tick 3
+dump blocks:0,-61,5,6,-60,5 ticks events
+block 10 -61 5 minecraft:farmland[moisture=7]
+block 12 -61 5 minecraft:farmland[moisture=2]
+block 14 -61 5 minecraft:farmland[moisture=0]
+block 16 -61 5 minecraft:farmland[moisture=0]
+block 16 -60 5 minecraft:wheat
+block 18 -61 5 minecraft:farmland[moisture=0]
+block 18 -62 5 minecraft:water
+block 19 -61 5 minecraft:water
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 10 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 12 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 14 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 16 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+random_tick 18 -61 5
+dump blocks:9,-62,5,20,-60,5 events

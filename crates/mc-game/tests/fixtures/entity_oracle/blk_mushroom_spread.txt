@@ -1,0 +1,9 @@
+B -3 -60 20 minecraft:red_mushroom
+B -1 -60 17 minecraft:red_mushroom
+B 0 -60 -1 minecraft:brown_mushroom
+B 0 -60 0 minecraft:brown_mushroom
+B 0 -60 20 minecraft:red_mushroom
+B 1 -60 -3 minecraft:brown_mushroom
+B 1 -60 1 minecraft:brown_mushroom
+B 1 -60 19 minecraft:red_mushroom
+B 1 -60 21 minecraft:red_mushroom

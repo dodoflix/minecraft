@@ -1,0 +1,68 @@
+# Saplings with flowers within 2 blocks use the bees variant (RNG: flowerTrees).
+level flat
+preload 7
+level_seed 300
+block -44 -61 0 minecraft:grass_block
+block -44 -60 0 minecraft:oak_sapling[stage=0]
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+bonemeal -44 -60 0
+block -28 -61 0 minecraft:grass_block
+block -28 -60 0 minecraft:birch_sapling[stage=0]
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+bonemeal -28 -60 0
+block -12 -61 0 minecraft:grass_block
+block -12 -60 0 minecraft:cherry_sapling[stage=0]
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+bonemeal -12 -60 0
+block 4 -61 0 minecraft:grass_block
+block 4 -60 0 minecraft:oak_sapling[stage=0]
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+bonemeal 4 -60 0
+block -42 -60 1 minecraft:poppy
+block -22 -60 1 minecraft:dandelion
+block -2 -60 1 minecraft:azure_bluet
+block 18 -60 -1 minecraft:cornflower
+dump blocks:-53,-61,-9,-35,-30,9
+dump blocks:-37,-61,-9,-19,-30,9
+dump blocks:-21,-61,-9,-3,-30,9
+dump blocks:-5,-61,-9,13,-30,9
