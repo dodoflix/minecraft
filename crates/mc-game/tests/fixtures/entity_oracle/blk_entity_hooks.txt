@@ -1,0 +1,413 @@
+# sweet berry bush: a player harvests an age 3 and an age 2 bush with the empty hand, a bush of age 0 is not harvested
+T 33
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sweet_berry_bush.pick_berries source=block vol=1.0 pitch=1.0472133
+T 34
+T 35
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sweet_berry_bush.pick_berries source=block vol=1.0 pitch=0.8974808
+T 36
+T 37
+T 38
+T 39
+B 0 -60 0 minecraft:sweet_berry_bush[age=1]
+B 2 -60 0 minecraft:sweet_berry_bush[age=1]
+B 4 -60 0 minecraft:sweet_berry_bush[age=0]
+E item#1 minecraft:item pos=0.8314548129650382,-59.43244354853757,-0.3599805675269334 delta=0.014932519696067965,-0.08484884424859764,-0.08322865521565607 rot=294.67004,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=7 pickup=3 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.147294036492826,-59.279408977155526,-0.3980473380570859 delta=-0.07961037465854695,-0.08484884424859764,-0.08576224560410578 rot=214.7778,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=7 pickup=3 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.8468671164896104,-59.03034718546577,-0.12850495315124474 delta=0.05497026678916196,-0.0075310721665503766,-0.07821216730782399 rot=289.46902,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=5 pickup=5 health=5 owner=- thrower=-
+# a pig walking through bushes of age 3 and 0: slowed, hurt only when it moved inside an age>0 bush
+T 43
+E p_berry minecraft:armor_stand pos=8.5,-60.0,1.0 delta=0.0,-0.0784000015258789,-0.1638000190258026 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,9.0 delta=0.0,-0.0784000015258789,-0.1638000190258026 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 44
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 45
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 46
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 47
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 48
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 49
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 50
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 51
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 52
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 53
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 54
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+# wither rose: a pig inside gets the wither effect, wither does not damage until the effect ticks
+T 55
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:wither/0/40
+T 56
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:wither/0/40
+T 57
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:wither/0/40
+T 58
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:wither/0/40
+T 59
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=7/17 death=0 fx=minecraft:wither/0/40
+T 60
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=6/16 death=0 fx=minecraft:wither/0/40
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0595126
+# fire and soul fire (on netherrack) and a lit and an unlit campfire: damage and ignition
+T 61
+E item#1 minecraft:item pos=0.9093064113466776,-60.0,-0.7938982164954042 delta=6.943605622801021E-5,-0.12,-3.870123529693195E-4 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=29 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.562347560015788,-60.0,-0.845174014396678 delta=-3.701873872350836E-4,0.0,-3.987935210676587E-4 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=29 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.2778295509625743,-60.0,-0.7416820031675319 delta=4.0914823057983167E-4,-0.12,-5.82139613521381E-4 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=27 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:wither/0/40
+E p_fire minecraft:pig pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_camp minecraft:pig pos=32.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=-
+E p_soulcamp minecraft:pig pos=36.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=10/20 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 62
+E item#1 minecraft:item pos=0.9093758474029056,-60.0,-0.7942852288483735 delta=4.0828405167671775E-5,0.0,-2.2756328642915182E-4 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=30 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.562347560015788,-60.0,-0.845174014396678 delta=-3.701873872350836E-4,-0.04,-3.987935210676587E-4 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=30 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.278238699193154,-60.0,-0.7422641427810532 delta=2.405791837729789E-4,0.0,-3.422981271712111E-4 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=28 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:wither/0/40
+E p_fire minecraft:pig pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_camp minecraft:pig pos=32.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=-
+E p_soulcamp minecraft:pig pos=36.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=9/19 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 63
+E item#1 minecraft:item pos=0.9093758474029056,-60.0,-0.7942852288483735 delta=4.0828405167671775E-5,-0.04,-2.2756328642915182E-4 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=31 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.562347560015788,-60.0,-0.845174014396678 delta=-3.701873872350836E-4,-0.08,-3.987935210676587E-4 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=31 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.278238699193154,-60.0,-0.7422641427810532 delta=2.405791837729789E-4,-0.04,-3.422981271712111E-4 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=29 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=3/13 death=0 fx=minecraft:wither/0/40
+E p_fire minecraft:pig pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_camp minecraft:pig pos=32.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=-
+E p_soulcamp minecraft:pig pos=36.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=8/18 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 64
+E item#1 minecraft:item pos=0.9093758474029056,-60.0,-0.7942852288483735 delta=4.0828405167671775E-5,-0.08,-2.2756328642915182E-4 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=32 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.562347560015788,-60.0,-0.845174014396678 delta=-3.701873872350836E-4,-0.12,-3.987935210676587E-4 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=32 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.278238699193154,-60.0,-0.7422641427810532 delta=2.405791837729789E-4,-0.08,-3.422981271712111E-4 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=30 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:wither/0/40
+E p_fire minecraft:pig pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=7/17 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_camp minecraft:pig pos=32.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=7/17 death=0 fx=-
+E p_soulcamp minecraft:pig pos=36.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=7/17 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 65
+E item#1 minecraft:item pos=0.9093758474029056,-60.0,-0.7942852288483735 delta=4.0828405167671775E-5,-0.12,-2.2756328642915182E-4 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=33 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.562717747403023,-60.0,-0.8455728079177457 delta=-2.1767020558259776E-4,0.0,-2.3449061396756989E-4 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=33 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.278238699193154,-60.0,-0.7422641427810532 delta=2.405791837729789E-4,-0.12,-3.422981271712111E-4 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=31 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=1/11 death=0 fx=minecraft:wither/0/40
+E p_fire minecraft:pig pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=6/16 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_camp minecraft:pig pos=32.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=6/16 death=0 fx=-
+E p_soulcamp minecraft:pig pos=36.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=6/16 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 66
+E item#1 minecraft:item pos=0.9093758474029056,-60.0,-0.7942852288483735 delta=2.400710465268509E-5,0.0,-1.338072258756595E-4 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=34 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.562717747403023,-60.0,-0.8455728079177457 delta=-2.1767020558259776E-4,-0.04,-2.3449061396756989E-4 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=34 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.278479278376927,-60.0,-0.7426064409082245 delta=1.414605742834313E-4,0.0,-2.0127131901600994E-4 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=32 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:wither/0/40
+E p_fire minecraft:pig pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=5/15 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_camp minecraft:pig pos=32.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=5/15 death=0 fx=-
+E p_soulcamp minecraft:pig pos=36.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=5/15 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 67
+E item#1 minecraft:item pos=0.9093758474029056,-60.0,-0.7942852288483735 delta=2.400710465268509E-5,-0.04,-1.338072258756595E-4 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=35 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.562717747403023,-60.0,-0.8455728079177457 delta=-2.1767020558259776E-4,-0.08,-2.3449061396756989E-4 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=35 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.278479278376927,-60.0,-0.7426064409082245 delta=1.414605742834313E-4,-0.04,-2.0127131901600994E-4 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=33 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:wither/0/40
+E p_fire minecraft:pig pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_camp minecraft:pig pos=32.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=-
+E p_soulcamp minecraft:pig pos=36.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=4/14 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 68
+E item#1 minecraft:item pos=0.9093758474029056,-60.0,-0.7942852288483735 delta=2.400710465268509E-5,-0.08,-1.338072258756595E-4 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=36 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.562717747403023,-60.0,-0.8455728079177457 delta=-2.1767020558259776E-4,-0.12,-2.3449061396756989E-4 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=36 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.278479278376927,-60.0,-0.7426064409082245 delta=1.414605742834313E-4,-0.08,-2.0127131901600994E-4 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=34 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:wither/0/40
+E p_fire minecraft:pig pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=3/13 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_camp minecraft:pig pos=32.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=3/13 death=0 fx=-
+E p_soulcamp minecraft:pig pos=36.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=3/13 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+B 23 -61 -1 minecraft:grass_block[snowy=false]
+B 23 -61 0 minecraft:grass_block[snowy=false]
+B 23 -61 1 minecraft:grass_block[snowy=false]
+B 24 -61 -1 minecraft:grass_block[snowy=false]
+B 24 -61 0 minecraft:netherrack
+B 24 -61 1 minecraft:grass_block[snowy=false]
+B 24 -60 0 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 25 -61 -1 minecraft:grass_block[snowy=false]
+B 25 -61 0 minecraft:grass_block[snowy=false]
+B 25 -61 1 minecraft:grass_block[snowy=false]
+B 26 -61 -1 minecraft:grass_block[snowy=false]
+B 26 -61 0 minecraft:grass_block[snowy=false]
+B 26 -61 1 minecraft:grass_block[snowy=false]
+B 27 -61 -1 minecraft:grass_block[snowy=false]
+B 27 -61 0 minecraft:grass_block[snowy=false]
+B 27 -61 1 minecraft:grass_block[snowy=false]
+B 28 -61 -1 minecraft:grass_block[snowy=false]
+B 28 -61 0 minecraft:netherrack
+B 28 -61 1 minecraft:grass_block[snowy=false]
+B 29 -61 -1 minecraft:grass_block[snowy=false]
+B 29 -61 0 minecraft:grass_block[snowy=false]
+B 29 -61 1 minecraft:grass_block[snowy=false]
+B 30 -61 -1 minecraft:grass_block[snowy=false]
+B 30 -61 0 minecraft:grass_block[snowy=false]
+B 30 -61 1 minecraft:grass_block[snowy=false]
+B 31 -61 -1 minecraft:grass_block[snowy=false]
+B 31 -61 0 minecraft:grass_block[snowy=false]
+B 31 -61 1 minecraft:grass_block[snowy=false]
+B 32 -61 -1 minecraft:grass_block[snowy=false]
+B 32 -61 0 minecraft:grass_block[snowy=false]
+B 32 -61 1 minecraft:grass_block[snowy=false]
+B 32 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 33 -61 -1 minecraft:grass_block[snowy=false]
+B 33 -61 0 minecraft:grass_block[snowy=false]
+B 33 -61 1 minecraft:grass_block[snowy=false]
+B 34 -61 -1 minecraft:grass_block[snowy=false]
+B 34 -61 0 minecraft:grass_block[snowy=false]
+B 34 -61 1 minecraft:grass_block[snowy=false]
+B 35 -61 -1 minecraft:grass_block[snowy=false]
+B 35 -61 0 minecraft:grass_block[snowy=false]
+B 35 -61 1 minecraft:grass_block[snowy=false]
+B 36 -61 -1 minecraft:grass_block[snowy=false]
+B 36 -61 0 minecraft:grass_block[snowy=false]
+B 36 -61 1 minecraft:grass_block[snowy=false]
+B 36 -60 0 minecraft:soul_campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 37 -61 -1 minecraft:grass_block[snowy=false]
+B 37 -61 0 minecraft:grass_block[snowy=false]
+B 37 -61 1 minecraft:grass_block[snowy=false]
+B 38 -61 -1 minecraft:grass_block[snowy=false]
+B 38 -61 0 minecraft:grass_block[snowy=false]
+B 38 -61 1 minecraft:grass_block[snowy=false]
+B 39 -61 -1 minecraft:grass_block[snowy=false]
+B 39 -61 0 minecraft:grass_block[snowy=false]
+B 39 -61 1 minecraft:grass_block[snowy=false]
+B 40 -61 -1 minecraft:grass_block[snowy=false]
+B 40 -61 0 minecraft:grass_block[snowy=false]
+B 40 -61 1 minecraft:grass_block[snowy=false]
+B 40 -60 0 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+B 41 -61 -1 minecraft:grass_block[snowy=false]
+B 41 -61 0 minecraft:grass_block[snowy=false]
+B 41 -61 1 minecraft:grass_block[snowy=false]
+B 42 -61 -1 minecraft:grass_block[snowy=false]
+B 42 -61 0 minecraft:grass_block[snowy=false]
+B 42 -61 1 minecraft:grass_block[snowy=false]
+B 43 -61 -1 minecraft:grass_block[snowy=false]
+B 43 -61 0 minecraft:grass_block[snowy=false]
+B 43 -61 1 minecraft:grass_block[snowy=false]
+B 44 -61 -1 minecraft:grass_block[snowy=false]
+B 44 -61 0 minecraft:grass_block[snowy=false]
+B 44 -61 1 minecraft:grass_block[snowy=false]
+B 44 -60 0 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+B 45 -61 -1 minecraft:grass_block[snowy=false]
+B 45 -61 0 minecraft:grass_block[snowy=false]
+B 45 -61 1 minecraft:grass_block[snowy=false]
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9590004
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.91920525
+EV sound at=36.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9391028
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.98769087
+EV sound at=44.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=0.8943506
+TICK block 24 -60 0 minecraft:fire delay=27 prio=0
+# flaming arrow into the unlit campfire, a plain arrow into the lit one
+T 69
+T 70
+T 71
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9792093
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.942602
+EV sound at=36.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0609057
+EV sound at=40.5,-59.51249999925494,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1469564
+T 72
+T 73
+T 74
+B 39 -61 -1 minecraft:grass_block[snowy=false]
+B 39 -61 0 minecraft:grass_block[snowy=false]
+B 39 -61 1 minecraft:grass_block[snowy=false]
+B 40 -61 -1 minecraft:grass_block[snowy=false]
+B 40 -61 0 minecraft:grass_block[snowy=false]
+B 40 -61 1 minecraft:grass_block[snowy=false]
+B 40 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 41 -61 -1 minecraft:grass_block[snowy=false]
+B 41 -61 0 minecraft:grass_block[snowy=false]
+B 41 -61 1 minecraft:grass_block[snowy=false]
+TICK block 24 -60 0 minecraft:fire delay=21 prio=0
+# farmland trampling: pigs falling 3, 1.5 and 0.6 blocks, the first onto farmland with wheat
+T 75
+T 76
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.8668733
+T 77
+T 78
+T 79
+T 80
+EV sound at=56.5,-60.96847620241299,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9332934
+T 81
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0474557
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9752227
+EV sound at=36.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0113392
+T 82
+B 47 -61 -1 minecraft:grass_block[snowy=false]
+B 47 -61 0 minecraft:grass_block[snowy=false]
+B 47 -61 1 minecraft:grass_block[snowy=false]
+B 48 -61 -1 minecraft:grass_block[snowy=false]
+B 48 -61 0 minecraft:farmland[moisture=7]
+B 48 -61 1 minecraft:grass_block[snowy=false]
+B 48 -60 0 minecraft:wheat[age=7]
+B 49 -61 -1 minecraft:grass_block[snowy=false]
+B 49 -61 0 minecraft:grass_block[snowy=false]
+B 49 -61 1 minecraft:grass_block[snowy=false]
+B 50 -61 -1 minecraft:grass_block[snowy=false]
+B 50 -61 0 minecraft:grass_block[snowy=false]
+B 50 -61 1 minecraft:grass_block[snowy=false]
+B 51 -61 -1 minecraft:grass_block[snowy=false]
+B 51 -61 0 minecraft:grass_block[snowy=false]
+B 51 -61 1 minecraft:grass_block[snowy=false]
+B 52 -61 -1 minecraft:grass_block[snowy=false]
+B 52 -61 0 minecraft:farmland[moisture=7]
+B 52 -61 1 minecraft:grass_block[snowy=false]
+B 53 -61 -1 minecraft:grass_block[snowy=false]
+B 53 -61 0 minecraft:grass_block[snowy=false]
+B 53 -61 1 minecraft:grass_block[snowy=false]
+B 54 -61 -1 minecraft:grass_block[snowy=false]
+B 54 -61 0 minecraft:grass_block[snowy=false]
+B 54 -61 1 minecraft:grass_block[snowy=false]
+B 55 -61 -1 minecraft:grass_block[snowy=false]
+B 55 -61 0 minecraft:grass_block[snowy=false]
+B 55 -61 1 minecraft:grass_block[snowy=false]
+B 56 -61 -1 minecraft:grass_block[snowy=false]
+B 56 -61 0 minecraft:farmland[moisture=7]
+B 56 -61 1 minecraft:grass_block[snowy=false]
+B 57 -61 -1 minecraft:grass_block[snowy=false]
+B 57 -61 0 minecraft:grass_block[snowy=false]
+B 57 -61 1 minecraft:grass_block[snowy=false]
+E item#1 minecraft:item pos=0.9093758474029056,-60.0,-0.7942852288483735 delta=2.8697843616400528E-6,0.0,-1.5995176838180582E-5 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=50 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.5629354176086057,-60.0,-0.8458072985317132 delta=-2.602007035055134E-5,-0.04,-2.803076450288401E-5 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=50 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.278479278376927,-60.0,-0.7426064409082245 delta=1.691005015974749E-5,0.0,-2.405976447868773E-5 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=48 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_rose minecraft:pig pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:wither/0/40
+E p_fire minecraft:pig pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_camp minecraft:pig pos=32.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=-
+E p_soulcamp minecraft:pig pos=36.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=9/19 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a_fire minecraft:arrow pos=40.5,-59.51249999925494,0.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0
+E p_farm1 minecraft:pig pos=48.5,-59.109552546740034,0.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_farm2 minecraft:pig pos=52.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_farm3 minecraft:pig pos=56.5,-61.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=7/17 death=0 fx=-
+TICK block 24 -60 0 minecraft:fire delay=13 prio=0
+# big dripleaf hit by an arrow
+T 83
+EV sound at=52.5,-60.0625,0.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=1.0842062
+T 84
+EV level_event r=64.0 ex=0 type=2001 pos=48,-60,0 data=6874 global=0
+T 85
+EV sound at=64.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=1.1608061
+EV sound at=64.5,-59.01249999925494,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.147605
+T 86
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0091758
+T 87
+T 88
+B 64 -61 0 minecraft:clay
+B 64 -60 0 minecraft:big_dripleaf[facing=north,tilt=full,waterlogged=false]
+TICK block 24 -60 0 minecraft:fire delay=7 prio=0
+TICK block 64 -60 0 minecraft:big_dripleaf delay=97 prio=0
+B 64 -61 0 minecraft:clay
+B 64 -60 0 minecraft:big_dripleaf[facing=north,tilt=full,waterlogged=false]
+EV sound at=56.5,-61.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9705274
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.85477084
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.1565329
+EV sound at=36.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0056518
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.8231988
+EV sound at=56.5,-61.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0193641
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0122697
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.85664135
+EV sound at=36.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=1.1344556
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.022352
+EV sound at=56.5,-61.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.96077526
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.043333
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0749407
+EV sound at=28.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=1.1126026
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.054601
+EV sound at=56.5,-61.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.96778804
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.99829936
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.98082
+EV sound at=47.62105098229692,-60.0,1.9548088918094535 r=16.0 ex=0 event=minecraft:entity.pig.step source=neutral vol=0.15 pitch=1.0
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.1174763
+EV sound at=56.5,-61.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9430211
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0004436
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0072567
+EV sound at=46.753079995793016,-60.0,3.318196093271304 r=16.0 ex=0 event=minecraft:entity.pig.step source=neutral vol=0.15 pitch=1.0
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0951514
+EV sound at=46.64829835931625,-60.0,3.7129592530406255 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=0.84985745
+EV sound at=56.5,-61.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.9712274
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0151315
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0071394
+EV sound at=46.51640700751527,-60.0,4.939601409002074 r=16.0 ex=0 event=minecraft:entity.pig.step source=neutral vol=0.15 pitch=1.0
+EV sound at=16.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=0.84215355
+EV sound at=56.5,-61.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.8792654
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=0.868853
+EV sound at=32.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=1.0981731
+EV sound at=46.25604120289452,-60.0,6.639622352098599 r=16.0 ex=0 event=minecraft:entity.pig.step source=neutral vol=0.15 pitch=1.0
+TICK block 64 -60 0 minecraft:big_dripleaf delay=17 prio=0
+TICK block 24 -60 0 minecraft:fire delay=28 prio=0
+# redstone ore stepped on by a cat, then by a pig
+T 169
+T 170
+T 171
+T 172
+T 173
+T 174
+B 72 -61 0 minecraft:redstone_ore[lit=false]
+E item#1 minecraft:item pos=0.9093758474029056,-60.0,-0.7942852288483735 delta=1.424061577246814E-11,0.0,-7.937222413290901E-11 rot=294.67004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*1 age=142 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-0.5629354176086057,-60.0,-0.8458072985317132 delta=-1.29118350907394E-10,-0.04,-1.3909593780976121E-10 rot=214.7778,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=142 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.278479278376927,-60.0,-0.7426064409082245 delta=8.39120633023825E-11,0.0,-1.1939080374710172E-10 rot=289.46902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sweet_berries*2 age=140 pickup=0 health=5 owner=- thrower=-
+E p_berry minecraft:armor_stand pos=8.5,-60.0,0.8689599828267095 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_berry0 minecraft:armor_stand pos=8.5,-60.0,8.86895998282671 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_soul minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_unlit minecraft:pig pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a_fire minecraft:arrow pos=40.5,-59.51249999925494,0.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=103 dmg=2.0
+E p_farm1 minecraft:pig pos=45.79780026493806,-60.0,7.174752420254436 delta=0.0,-0.0784000015258789,0.0 rot=42.059982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_farm2 minecraft:pig pos=52.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_farm3 minecraft:pig pos=57.79152677996807,-60.0,0.9092089063352667 delta=0.05859561023855527,-0.0784000015258789,0.04621606518242908 rot=309.6231,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a_leaf minecraft:arrow pos=64.5,-59.01249999925494,0.5 delta=0.0,0.0,0.0 rot=0.0,-1.3019105E-7 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E item#4 minecraft:item pos=49.26270047412456,-60.0,0.17212525183779057 delta=8.557781499050815E-8,0.0,-2.9408947718189302E-8 rot=146.92255,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wheat*1 age=90 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=49.20683622679686,-60.0,0.08431388941621458 delta=7.517094503373475E-8,-0.04,-7.33748267233936E-8 rot=67.284454,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wheat_seeds*1 age=90 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=36.60839866409203,-60.0,-1.2782657580594816 delta=2.7179388591008884E-8,-0.04,-7.099488052305727E-7 rot=192.69608,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=73 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=16.245300705037057,-60.0,1.423519349185718 delta=-1.1249364492616992E-4,-0.04,4.07892993048372E-4 rot=166.68268,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=28 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=32.4628179221059,-60.0,-1.0211561362711137 delta=-1.579875722734235E-5,-0.08,-9.82553126958079E-4 rot=245.70903,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*1 age=23 pickup=0 health=5 owner=- thrower=-
+E cat1 minecraft:cat pos=72.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+TICK block 64 -60 0 minecraft:big_dripleaf delay=11 prio=0
+TICK block 24 -60 0 minecraft:fire delay=22 prio=0

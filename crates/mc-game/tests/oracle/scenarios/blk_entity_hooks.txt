@@ -1,0 +1,111 @@
+# entity-driven block hooks with no-AI mobs, projectiles and a survival player: sweet berry bush (harvest, slow and damage), wither rose, fire and soul fire, lit and unlit campfire (damage, flaming arrow),
+# farmland trampling, big dripleaf hit by an arrow, redstone ore stepped on by a cat.
+level flat
+difficulty normal
+preload 6
+level_seed 6
+spawn_player Steve survival 2.5 -60 2.5 180 0
+tick 30
+note sweet berry bush: a player harvests an age 3 and an age 2 bush with the empty hand, a bush of age 0 is not harvested
+block 0 -60 0 minecraft:sweet_berry_bush[age=3]
+block 2 -60 0 minecraft:sweet_berry_bush[age=2]
+block 4 -60 0 minecraft:sweet_berry_bush[age=0]
+tick 2
+watch events
+use_on Steve 0 -60 0 south
+tick 2
+use_on Steve 2 -60 0 south
+tick 2
+use_on Steve 4 -60 0 south
+tick 3
+watch off
+dump blocks:0,-60,0,4,-60,0 entities inventory:Steve events
+note a pig walking through bushes of age 3 and 0: slowed, hurt only when it moved inside an age>0 bush
+block 8 -60 0 minecraft:sweet_berry_bush[age=3]
+block 8 -60 8 minecraft:sweet_berry_bush[age=0]
+spawn p_berry minecraft:armor_stand 8.5 -60 1.3 0 0 {}
+entity_seed p_berry 21
+spawn p_berry0 minecraft:armor_stand 8.5 -60 9.3 0 0 {}
+entity_seed p_berry0 22
+tick 3
+velocity p_berry 0 0 -0.3
+velocity p_berry0 0 0 -0.3
+watch entity:p_berry entity:p_berry0
+tick 12
+watch off
+dump events
+note wither rose: a pig inside gets the wither effect, wither does not damage until the effect ticks
+block 16 -60 0 minecraft:wither_rose
+spawn p_rose minecraft:pig 16.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed p_rose 23
+watch entity:p_rose
+tick 6
+watch off
+dump events
+note fire and soul fire (on netherrack) and a lit and an unlit campfire: damage and ignition
+block 24 -61 0 minecraft:netherrack
+block 24 -60 0 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+block 28 -61 0 minecraft:netherrack
+block 28 -60 0 minecraft:soul_fire
+block 32 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+block 36 -60 0 minecraft:soul_campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+block 40 -60 0 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+block 44 -60 0 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+spawn p_fire minecraft:pig 24.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed p_fire 24
+spawn p_soul minecraft:pig 28.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed p_soul 25
+spawn p_camp minecraft:pig 32.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed p_camp 26
+spawn p_soulcamp minecraft:pig 36.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed p_soulcamp 27
+spawn p_unlit minecraft:pig 44.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed p_unlit 28
+watch entities
+tick 8
+watch off
+dump blocks:23,-61,-1,45,-60,1 events ticks
+note flaming arrow into the unlit campfire, a plain arrow into the lit one
+spawn a_fire minecraft:arrow 40.5 -57 0.5 0 0 {NoGravity:1b}
+entity_seed a_fire 29
+set a_fire fire 100
+velocity a_fire 0 -1.0 0
+watch events
+tick 6
+watch off
+dump blocks:39,-61,-1,41,-60,1 events ticks
+note farmland trampling: pigs falling 3, 1.5 and 0.6 blocks, the first onto farmland with wheat
+block 48 -61 0 minecraft:farmland[moisture=7]
+block 48 -60 0 minecraft:wheat[age=7]
+block 52 -61 0 minecraft:farmland[moisture=7]
+block 56 -61 0 minecraft:farmland[moisture=7]
+spawn p_farm1 minecraft:pig 48.5 -57 0.5 0 0 {}
+entity_seed p_farm1 31
+spawn p_farm2 minecraft:pig 52.5 -59.4 0.5 0 0 {}
+entity_seed p_farm2 32
+spawn p_farm3 minecraft:pig 56.5 -60.2 0.5 0 0 {}
+entity_seed p_farm3 33
+watch events
+tick 8
+watch off
+dump blocks:47,-61,-1,57,-60,1 entities events ticks
+note big dripleaf hit by an arrow
+block 64 -61 0 minecraft:clay
+block 64 -60 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
+spawn a_leaf minecraft:arrow 64.5 -57 0.5 0 0 {NoGravity:1b}
+entity_seed a_leaf 34
+velocity a_leaf 0 -1.0 0
+watch events
+tick 6
+watch off
+dump blocks:64,-61,0,64,-60,0 events ticks
+tick 80
+dump blocks:64,-61,0,64,-60,0 events ticks
+note redstone ore stepped on by a cat, then by a pig
+block 72 -61 0 minecraft:redstone_ore[lit=false]
+spawn cat1 minecraft:cat 72.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed cat1 35
+watch events
+tick 6
+watch off
+dump blocks:72,-61,0,72,-60,0 entities events ticks

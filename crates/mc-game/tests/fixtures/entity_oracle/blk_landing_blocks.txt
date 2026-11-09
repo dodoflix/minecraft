@@ -1,0 +1,376 @@
+T 31
+E p_slime minecraft:armor_stand pos=0.5,-50.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-50.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-50.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-50.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 32
+E p_slime minecraft:armor_stand pos=0.5,-50.07840000152588,0.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-50.07840000152588,0.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-50.07840000152588,0.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-50.07840000152588,0.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 33
+E p_slime minecraft:armor_stand pos=0.5,-50.23363200604248,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-50.23363200604248,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-50.23363200604248,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-50.23363200604248,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 34
+E p_slime minecraft:armor_stand pos=0.5,-50.46415937495544,0.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-50.46415937495544,0.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-50.46415937495544,0.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-50.46415937495544,0.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 35
+E p_slime minecraft:armor_stand pos=0.5,-50.768476202412984,0.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-50.768476202412984,0.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-50.768476202412984,0.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-50.768476202412984,0.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 36
+E p_slime minecraft:armor_stand pos=0.5,-51.14510670065164,0.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-51.14510670065164,0.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-51.14510670065164,0.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-51.14510670065164,0.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 37
+E p_slime minecraft:armor_stand pos=0.5,-51.59260459763506,0.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-51.59260459763506,0.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-51.59260459763506,0.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-51.59260459763506,0.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 38
+E p_slime minecraft:armor_stand pos=0.5,-52.109552546740034,0.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-52.109552546740034,0.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-52.109552546740034,0.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-52.109552546740034,0.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 39
+E p_slime minecraft:armor_stand pos=0.5,-52.694561548248785,0.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-52.694561548248785,0.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-52.694561548248785,0.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-52.694561548248785,0.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 40
+E p_slime minecraft:armor_stand pos=0.5,-53.346270382411404,0.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-53.346270382411404,0.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-53.346270382411404,0.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-53.346270382411404,0.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 41
+E p_slime minecraft:armor_stand pos=0.5,-54.06334505384701,0.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-54.06334505384701,0.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-54.06334505384701,0.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-54.06334505384701,0.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 42
+E p_slime minecraft:armor_stand pos=0.5,-54.84447824705689,0.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-54.84447824705689,0.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-54.84447824705689,0.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-54.84447824705689,0.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 43
+E p_slime minecraft:armor_stand pos=0.5,-55.68838879282739,0.5 delta=0.0,-0.9054323524772837,0.0 rot=0.0,0.0 og=0 fall=5.688388764858246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-55.68838879282739,0.5 delta=0.0,-0.9054323524772837,0.0 rot=0.0,0.0 og=0 fall=5.688388764858246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-55.68838879282739,0.5 delta=0.0,-0.9054323524772837,0.0 rot=0.0,0.0 og=0 fall=5.688388764858246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-55.68838879282739,0.5 delta=0.0,-0.9054323524772837,0.0 rot=0.0,0.0 og=0 fall=5.688388764858246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 44
+E p_slime minecraft:armor_stand pos=0.5,-56.59382114530467,0.5 delta=0.0,-0.9657237242233685,0.0 rot=0.0,0.0 og=0 fall=6.593821108341217 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-56.59382114530467,0.5 delta=0.0,-0.9657237242233685,0.0 rot=0.0,0.0 og=0 fall=6.593821108341217 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-56.59382114530467,0.5 delta=0.0,-0.9657237242233685,0.0 rot=0.0,0.0 og=0 fall=6.593821108341217 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-56.59382114530467,0.5 delta=0.0,-0.9657237242233685,0.0 rot=0.0,0.0 og=0 fall=6.593821108341217 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 45
+E p_slime minecraft:armor_stand pos=0.5,-57.55954486952804,0.5 delta=0.0,-1.0248092696844984,0.0 rot=0.0,0.0 og=0 fall=7.559544861316681 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-57.55954486952804,0.5 delta=0.0,-1.0248092696844984,0.0 rot=0.0,0.0 og=0 fall=7.559544861316681 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-57.55954486952804,0.5 delta=0.0,-1.0248092696844984,0.0 rot=0.0,0.0 og=0 fall=7.559544861316681 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-57.55954486952804,0.5 delta=0.0,-1.0248092696844984,0.0 rot=0.0,0.0 og=0 fall=7.559544861316681 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 46
+E p_slime minecraft:armor_stand pos=0.5,-58.584354139212536,0.5 delta=0.0,-1.082713105363373,0.0 rot=0.0,0.0 og=0 fall=8.584354102611542 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-58.584354139212536,0.5 delta=0.0,-1.082713105363373,0.0 rot=0.0,0.0 og=0 fall=8.584354102611542 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-58.584354139212536,0.5 delta=0.0,-1.082713105363373,0.0 rot=0.0,0.0 og=0 fall=8.584354102611542 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-58.584354139212536,0.5 delta=0.0,-1.082713105363373,0.0 rot=0.0,0.0 og=0 fall=8.584354102611542 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 47
+E p_slime minecraft:armor_stand pos=0.5,-59.66706724457591,0.5 delta=0.0,-1.1394588654330982,0.0 rot=0.0,0.0 og=0 fall=9.667067229747772 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-59.66706724457591,0.5 delta=0.0,-1.1394588654330982,0.0 rot=0.0,0.0 og=0 fall=9.667067229747772 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-59.66706724457591,0.5 delta=0.0,-1.1394588654330982,0.0 rot=0.0,0.0 og=0 fall=9.667067229747772 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-59.66706724457591,0.5 delta=0.0,-1.1394588654330982,0.0 rot=0.0,0.0 og=0 fall=9.667067229747772 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 48
+E p_slime minecraft:armor_stand pos=0.5,-60.0,0.5 delta=0.0,1.0545176713246465,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 49
+E p_slime minecraft:armor_stand pos=0.5,-58.945482328675354,0.5 delta=0.0,0.955027336485603,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 50
+E p_slime minecraft:armor_stand pos=0.5,-57.990454992189754,0.5 delta=0.0,0.8575268064457129,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 51
+E p_slime minecraft:armor_stand pos=0.5,-57.13292818574404,0.5 delta=0.0,0.7619762851469456,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 52
+E p_slime minecraft:armor_stand pos=0.5,-56.3709519005971,0.5 delta=0.0,0.6683367724516721,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 53
+E p_slime minecraft:armor_stand pos=0.5,-55.702615128145425,0.5 delta=0.0,0.576570048224272,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 54
+E p_slime minecraft:armor_stand pos=0.5,-55.126045079921155,0.5 delta=0.0,0.4866386567311086,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 55
+E p_slime minecraft:armor_stand pos=0.5,-54.639406423190046,0.5 delta=0.0,0.3985058913525033,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 56
+E p_slime minecraft:armor_stand pos=0.5,-54.24090053183754,0.5 delta=0.0,0.312135779600471,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 57
+E p_slime minecraft:armor_stand pos=0.5,-53.928764752237065,0.5 delta=0.0,0.2274930684361002,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 58
+E p_slime minecraft:armor_stand pos=0.5,-53.70127168380097,0.5 delta=0.0,0.14454320988058525,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 59
+E p_slime minecraft:armor_stand pos=0.5,-53.55672847392038,0.5 delta=0.0,0.06325234691403757,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 60
+E p_slime minecraft:armor_stand pos=0.5,-53.49347612700634,0.5 delta=0.0,-0.016412700343679316,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 61
+E p_slime minecraft:armor_stand pos=0.5,-53.50988882735002,0.5 delta=0.0,-0.09448444817573207,0.0 rot=0.0,0.0 og=0 fall=0.016412699595093727 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 62
+E p_slime minecraft:armor_stand pos=0.5,-53.60437327552575,0.5 delta=0.0,-0.17099476254024415,0.0 rot=0.0,0.0 og=0 fall=0.11089714802801609 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 63
+E p_slime minecraft:armor_stand pos=0.5,-53.775368038066,0.5 delta=0.0,-0.24597487207678445,0.0 rot=0.0,0.0 og=0 fall=0.2818919066339731 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 64
+E p_slime minecraft:armor_stand pos=0.5,-54.021342910142785,0.5 delta=0.0,-0.319455380852726,0.0 rot=0.0,0.0 og=0 fall=0.5278667751699686 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 65
+E p_slime minecraft:armor_stand pos=0.5,-54.34079829099551,0.5 delta=0.0,-0.3914662808546783,0.0 rot=0.0,0.0 og=0 fall=0.8473221603780985 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 66
+E p_slime minecraft:armor_stand pos=0.5,-54.73226457185019,0.5 delta=0.0,-0.4620369642300904,0.0 rot=0.0,0.0 og=0 fall=1.2387884501367807 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 67
+E p_slime minecraft:armor_stand pos=0.5,-55.194301536080275,0.5 delta=0.0,-0.5311962352840233,0.0 rot=0.0,0.0 og=0 fall=1.7008254174143076 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 68
+E p_slime minecraft:armor_stand pos=0.5,-55.725497771364296,0.5 delta=0.0,-0.5989723222359858,0.0 rot=0.0,0.0 og=0 fall=2.23202165402472 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 69
+E p_slime minecraft:armor_stand pos=0.5,-56.32447009360028,0.5 delta=0.0,-0.6653928887416354,0.0 rot=0.0,0.0 og=0 fall=2.830993974581361 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 70
+E p_slime minecraft:armor_stand pos=0.5,-56.98986298234192,0.5 delta=0.0,-0.7304850451840437,0.0 rot=0.0,0.0 og=0 fall=3.4963868502527475 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_slime minecraft:armor_stand pos=0.5,-56.98986298234192,0.5 delta=0.0,-0.7304850451840437,0.0 rot=0.0,0.0 og=0 fall=3.4963868502527475 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=4.5,-60.0625,0.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-60.0625,0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.fall source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-60.0625,0.5 r=16.0 ex=0 event=minecraft:block.honey_block.fall source=neutral vol=0.5 pitch=0.75
+EV sound at=4.5,-60.0625,0.5 r=16.0 ex=0 event=minecraft:block.honey_block.fall source=neutral vol=0.5 pitch=0.75
+EV sound at=8.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.fall source=neutral vol=1.0 pitch=1.0
+EV sound at=8.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.grass.fall source=neutral vol=0.5 pitch=0.75
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.fall source=neutral vol=1.0 pitch=1.0
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.stone.fall source=neutral vol=0.5 pitch=0.75
+# a honey column: an armor stand falling along its side slides
+T 71
+E p_wall minecraft:armor_stand pos=21.4,-48.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 72
+E p_wall minecraft:armor_stand pos=21.4,-48.07840000152588,0.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 73
+E p_wall minecraft:armor_stand pos=21.4,-48.23363200604248,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 74
+E p_wall minecraft:armor_stand pos=21.4,-48.46415937495544,0.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 75
+E p_wall minecraft:armor_stand pos=21.4,-48.768476202412984,0.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 76
+E p_wall minecraft:armor_stand pos=21.4,-49.14510670065164,0.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 77
+E p_wall minecraft:armor_stand pos=21.4,-49.59260459763506,0.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 78
+E p_wall minecraft:armor_stand pos=21.4,-50.109552546740034,0.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 79
+E p_wall minecraft:armor_stand pos=21.4,-50.694561548248785,0.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 80
+E p_wall minecraft:armor_stand pos=21.4,-51.346270382411404,0.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 81
+E p_wall minecraft:armor_stand pos=21.4,-52.06334505384701,0.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 82
+E p_wall minecraft:armor_stand pos=21.4,-52.84447824705689,0.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 83
+E p_wall minecraft:armor_stand pos=21.4,-53.68838879282739,0.5 delta=0.0,-0.9054323524772837,0.0 rot=0.0,0.0 og=0 fall=5.688388764858246 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 84
+E p_wall minecraft:armor_stand pos=21.4,-54.59382114530467,0.5 delta=0.0,-0.9657237242233685,0.0 rot=0.0,0.0 og=0 fall=6.593821108341217 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 85
+E p_wall minecraft:armor_stand pos=21.4,-55.55954486952804,0.5 delta=0.0,-1.0248092696844984,0.0 rot=0.0,0.0 og=0 fall=7.559544861316681 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 86
+E p_wall minecraft:armor_stand pos=21.4,-56.584354139212536,0.5 delta=0.0,-1.082713105363373,0.0 rot=0.0,0.0 og=0 fall=8.584354102611542 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 87
+E p_wall minecraft:armor_stand pos=21.4,-57.66706724457591,0.5 delta=0.0,-1.1394588654330982,0.0 rot=0.0,0.0 og=0 fall=9.667067229747772 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 88
+E p_wall minecraft:armor_stand pos=21.4,-58.80652611000901,0.5 delta=0.0,-1.1950697113837683,0.0 rot=0.0,0.0 og=0 fall=10.806526124477386 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 89
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 90
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 91
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 92
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 93
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 94
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 95
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 96
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 97
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 98
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 99
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 100
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 101
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 102
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 103
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 104
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 105
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 106
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 107
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 108
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 109
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 110
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_slime minecraft:armor_stand pos=0.5,-57.67109275271701,0.5 delta=0.0,-0.41980747420939274,0.0 rot=0.0,0.0 og=0 fall=0.9979437217116356 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=21.4,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.fall source=neutral vol=1.0 pitch=1.0
+EV sound at=21.4,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.grass.fall source=neutral vol=0.5 pitch=0.75
+# an armor stand pushed over slime
+T 113
+E p_step minecraft:armor_stand pos=30.9,-60.0,4.5 delta=0.2912000179290772,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 114
+E p_step minecraft:armor_stand pos=31.191200017929077,-60.0,4.5 delta=0.11015188459743797,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 115
+E p_step minecraft:armor_stand pos=31.301351902526516,-60.0,4.5 delta=0.033333619040339865,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 116
+E p_step minecraft:armor_stand pos=31.334685521566858,-60.0,4.5 delta=0.01008725508771143,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 117
+E p_step minecraft:armor_stand pos=31.34477277665457,-60.0,4.5 delta=0.0030525552920437605,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 118
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=9.237491993571102E-4,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 119
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 120
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 121
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 122
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 123
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 124
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 125
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 126
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 127
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_slime minecraft:armor_stand pos=0.5,-58.15800201684643,0.5 delta=0.0,-0.35646066112787655,0.0 rot=0.0,0.0 og=0 fall=0.6835956946015358 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+# the same on honey
+T 130
+E p_honey_walk minecraft:armor_stand pos=30.9,-60.0625,8.5 delta=0.08736001144886033,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 131
+E p_honey_walk minecraft:armor_stand pos=30.98736001144886,-60.0625,8.5 delta=0.03179904555767085,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 132
+E p_honey_walk minecraft:armor_stand pos=31.01915905700653,-60.0625,8.5 delta=0.006944912459952391,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 133
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.001516769080031934,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 134
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 135
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 136
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 137
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 138
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 139
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 140
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 141
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 142
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 143
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 144
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_slime minecraft:armor_stand pos=0.5,-59.435992253869316,0.5 delta=0.0,-0.48909471775187485,0.0 rot=0.0,0.0 og=0 fall=1.4131337217986584 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey minecraft:armor_stand pos=4.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_hay minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_stone minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_wall minecraft:armor_stand pos=21.4,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_step minecraft:armor_stand pos=31.347825331946613,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p_honey_walk minecraft:armor_stand pos=31.026103969466483,-60.0625,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=30.5,-60.0625,8.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0

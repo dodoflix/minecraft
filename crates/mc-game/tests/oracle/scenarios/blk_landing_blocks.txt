@@ -1,0 +1,50 @@
+# fall behaviour of the cushioning blocks with armor stands falling 10 blocks: slime (no damage, bounce), honey (slide sound, event 54, 0.2 damage factor), hay (0.2 factor), stone (control);
+# an armor stand sliding down the side of a honey column (slide movement, events 53, fall distance reset); an armor stand sliding over slime (stepOn slows it).
+level flat
+preload 3
+level_seed 3
+tick 30
+block 0 -61 0 minecraft:slime_block
+block 4 -61 0 minecraft:honey_block
+block 8 -61 0 minecraft:hay_block[axis=y]
+block 12 -61 0 minecraft:stone
+spawn p_slime minecraft:armor_stand 0.5 -50 0.5 0 0 {}
+entity_seed p_slime 11
+spawn p_honey minecraft:armor_stand 4.5 -50 0.5 0 0 {}
+entity_seed p_honey 12
+spawn p_hay minecraft:armor_stand 8.5 -50 0.5 0 0 {}
+entity_seed p_hay 13
+spawn p_stone minecraft:armor_stand 12.5 -50 0.5 0 0 {}
+entity_seed p_stone 14
+watch entities
+tick 40
+watch off
+dump entities events
+note a honey column: an armor stand falling along its side slides
+fill 20 -61 0 20 -56 0 minecraft:honey_block
+spawn p_wall minecraft:armor_stand 21.4 -48 0.5 0 0 {}
+entity_seed p_wall 15
+watch entity:p_wall
+tick 40
+watch off
+dump entities events
+note an armor stand pushed over slime
+fill 30 -61 4 36 -61 4 minecraft:slime_block
+spawn p_step minecraft:armor_stand 30.5 -60 4.5 0 0 {}
+entity_seed p_step 16
+tick 2
+velocity p_step 0.4 0 0
+watch entity:p_step
+tick 15
+watch off
+dump entities events
+note the same on honey
+fill 30 -61 8 36 -61 8 minecraft:honey_block
+spawn p_honey_walk minecraft:armor_stand 30.5 -60 8.5 0 0 {}
+entity_seed p_honey_walk 17
+tick 2
+velocity p_honey_walk 0.4 0 0
+watch entity:p_honey_walk
+tick 15
+watch off
+dump entities events

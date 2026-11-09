@@ -1,0 +1,96 @@
+T 3
+B 0 64 0 minecraft:end_gateway
+B 8 64 0 minecraft:end_gateway
+BE 0 64 0 {Age:1L,components:{},id:"minecraft:end_gateway",x:0,y:64,z:0}
+BE 8 64 0 {Age:199L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:8,y:64,z:0}
+BEU 0 64 0 minecraft:end_gateway {Age:1L}
+BEU 8 64 0 minecraft:end_gateway {Age:199L,ExactTeleport:1b,exit_portal:[I;20,70,5]}
+BES 0 0
+BEM 0 64 0 minecraft:end_gateway
+BEM 8 64 0 minecraft:end_gateway
+BET 0 64 0
+BET 8 64 0
+T 4
+BE 0 64 0 {Age:2L,components:{},id:"minecraft:end_gateway",x:0,y:64,z:0}
+BE 8 64 0 {Age:200L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:8,y:64,z:0}
+BEU 8 64 0 minecraft:end_gateway {Age:200L,ExactTeleport:1b,exit_portal:[I;20,70,5]}
+T 5
+T 6
+T 7
+BE 0 64 0 {Age:5L,components:{},id:"minecraft:end_gateway",x:0,y:64,z:0}
+BE 8 64 0 {Age:203L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:8,y:64,z:0}
+BEU 8 64 0 minecraft:end_gateway {Age:203L,ExactTeleport:1b,exit_portal:[I;20,70,5]}
+# the periodic cooldown: age % 2400 == 0 triggers it
+T 8
+T 9
+BE 0 64 0 {Age:2399L,components:{},id:"minecraft:end_gateway",x:0,y:64,z:0}
+BEU 0 64 0 minecraft:end_gateway {Age:2399L}
+T 10
+BE 0 64 0 {Age:2400L,components:{},id:"minecraft:end_gateway",x:0,y:64,z:0}
+BEU 0 64 0 minecraft:end_gateway {Age:2400L}
+T 11
+EV block_event r=64.0 ex=0 pos=0,64,0 block=minecraft:end_gateway b0=1 b1=0
+BE 0 64 0 {Age:2401L,components:{},id:"minecraft:end_gateway",x:0,y:64,z:0}
+BEU 0 64 0 minecraft:end_gateway {Age:2401L}
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+T 43
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+BE 0 64 0 {Age:2439L,components:{},id:"minecraft:end_gateway",x:0,y:64,z:0}
+BEU 0 64 0 minecraft:end_gateway {Age:2439L}
+T 50
+BE 0 64 0 {Age:2440L,components:{},id:"minecraft:end_gateway",x:0,y:64,z:0}
+BEU 0 64 0 minecraft:end_gateway {Age:2440L}
+T 51
+T 52
+T 53
+BE 0 64 0 {Age:2443L,components:{},id:"minecraft:end_gateway",x:0,y:64,z:0}
+BEU 0 64 0 minecraft:end_gateway {Age:2443L}
+# an item inside the gateway triggers the cooldown
+T 54
+BE 8 64 0 {Age:250L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:8,y:64,z:0}
+BEU 8 64 0 minecraft:end_gateway {Age:250L,ExactTeleport:1b,exit_portal:[I;20,70,5]}
+T 55
+EV block_event r=64.0 ex=0 pos=8,64,0 block=minecraft:end_gateway b0=1 b1=0
+T 56
+BE 8 64 0 {Age:252L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:8,y:64,z:0}
+BEU 8 64 0 minecraft:end_gateway {Age:252L,ExactTeleport:1b,exit_portal:[I;20,70,5]}
+T 57
+T 58
+T 59
+BE 8 64 0 {Age:255L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:8,y:64,z:0}
+BEU 8 64 0 minecraft:end_gateway {Age:255L,ExactTeleport:1b,exit_portal:[I;20,70,5]}

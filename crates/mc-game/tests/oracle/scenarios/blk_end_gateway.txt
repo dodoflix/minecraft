@@ -1,0 +1,39 @@
+# end gateway: block entity age and spawn beam, the periodic cooldown every 2400 ticks (block event 1), an entity inside triggers the cooldown (the exit portal is exact), update tag and
+# saved data, and no cooldown while cooling down. Entities are not dumped: the teleport of the item happens only in the vanilla server.
+level void
+dimension the_end
+preload 2
+tick 2
+watch events
+block 0 64 0 minecraft:end_gateway
+block 8 64 0 minecraft:end_gateway
+be_nbt 8 64 0 {Age:198L,exit_portal:[I;20,70,5],ExactTeleport:1b}
+tick 1
+dump blocks:-1,63,-1,9,65,1 be:0,64,0 be:8,64,0 beu:0,64,0 beu:8,64,0 bes:0,0 events ticks
+tick 1
+dump be:0,64,0 be:8,64,0 beu:8,64,0 events
+tick 3
+dump be:0,64,0 be:8,64,0 beu:8,64,0 events
+note the periodic cooldown: age % 2400 == 0 triggers it
+be_nbt 0 64 0 {Age:2397L}
+tick 2
+dump be:0,64,0 beu:0,64,0 events ticks
+tick 1
+dump be:0,64,0 beu:0,64,0 events ticks
+tick 1
+dump be:0,64,0 beu:0,64,0 events
+tick 38
+dump be:0,64,0 beu:0,64,0 events
+tick 1
+dump be:0,64,0 beu:0,64,0 events
+tick 3
+dump be:0,64,0 beu:0,64,0 events
+note an item inside the gateway triggers the cooldown
+spawn_item i1 minecraft:stick 8.5 64.1 0.5 0 0 0
+tick 1
+dump be:8,64,0 beu:8,64,0 events
+tick 2
+dump be:8,64,0 beu:8,64,0 events
+spawn_item i2 minecraft:stick 8.5 64.1 0.5 0 0 0
+tick 3
+dump be:8,64,0 beu:8,64,0 events

@@ -1,0 +1,645 @@
+# day: the heart gets its logs and becomes dormant
+C Set minecraft:overworld to 6000 tick(s)
+T 31
+T 32
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:pale_oak_log[axis=y]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=false]
+B 0 -59 0 minecraft:pale_oak_log[axis=y]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+BE 0 -60 0 {components:{},id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+BEU 0 -60 0 minecraft:creaking_heart {}
+T 33
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+T 43
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+T 57
+T 58
+T 59
+T 60
+T 61
+T 62
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:pale_oak_log[axis=y]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=false]
+B 0 -59 0 minecraft:pale_oak_log[axis=y]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+BE 0 -60 0 {components:{},id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+# night: the ticker wakes it
+C Set minecraft:overworld to 15000 tick(s)
+T 63
+T 64
+T 65
+T 66
+T 67
+T 68
+T 69
+T 70
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+T 83
+T 84
+T 85
+T 86
+T 87
+T 88
+T 89
+T 90
+T 91
+T 92
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:pale_oak_log[axis=y]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=awake,natural=false]
+B 0 -59 0 minecraft:pale_oak_log[axis=y]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+BE 0 -60 0 {components:{},id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+# a log removed (the axis log below): the ticker uproots it, restoring the log wakes it again
+T 93
+T 94
+T 95
+T 96
+T 97
+T 98
+T 99
+T 100
+T 101
+T 102
+T 103
+T 104
+T 105
+T 106
+T 107
+T 108
+T 109
+T 110
+T 111
+T 112
+T 113
+T 114
+T 115
+T 116
+T 117
+T 118
+T 119
+T 120
+T 121
+T 122
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=uprooted,natural=false]
+B 0 -59 0 minecraft:pale_oak_log[axis=y]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+BE 0 -60 0 {components:{},id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+T 123
+T 124
+T 125
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:pale_oak_log[axis=y]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=awake,natural=false]
+B 0 -59 0 minecraft:pale_oak_log[axis=y]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+BE 0 -60 0 {components:{},id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+# wrong log axis does not count
+T 126
+T 127
+T 128
+T 129
+T 130
+T 131
+T 132
+T 133
+T 134
+T 135
+T 136
+T 137
+T 138
+T 139
+T 140
+T 141
+T 142
+T 143
+T 144
+T 145
+T 146
+T 147
+T 148
+T 149
+T 150
+T 151
+T 152
+T 153
+T 154
+T 155
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:pale_oak_log[axis=y]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=uprooted,natural=false]
+B 0 -59 0 minecraft:pale_oak_log[axis=x]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+BE 0 -60 0 {components:{},id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+# back to day
+C Set minecraft:overworld to 6000 tick(s)
+T 156
+T 157
+T 158
+T 159
+T 160
+T 161
+T 162
+T 163
+T 164
+T 165
+T 166
+T 167
+T 168
+T 169
+T 170
+T 171
+T 172
+T 173
+T 174
+T 175
+T 176
+T 177
+T 178
+T 179
+T 180
+T 181
+T 182
+T 183
+T 184
+T 185
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:pale_oak_log[axis=y]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=false]
+B 0 -59 0 minecraft:pale_oak_log[axis=y]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+BE 0 -60 0 {components:{},id:"minecraft:creaking_heart",x:0,y:-60,z:0}
+# placed by a player against a log at night, and against stone
+C Set minecraft:overworld to 15000 tick(s)
+T 186
+EV sound at=8.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.creaking_heart.place source=block vol=1.0 pitch=0.8
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.creaking_heart.place source=block vol=1.0 pitch=0.8
+EV sound at=14.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.creaking_heart.place source=block vol=1.0 pitch=0.8
+T 187
+T 188
+B 7 -61 -2 minecraft:grass_block[snowy=false]
+B 7 -61 -1 minecraft:grass_block[snowy=false]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=false]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -61 4 minecraft:grass_block[snowy=false]
+B 8 -61 -2 minecraft:grass_block[snowy=false]
+B 8 -61 -1 minecraft:grass_block[snowy=false]
+B 8 -61 0 minecraft:pale_oak_log[axis=y]
+B 8 -61 1 minecraft:grass_block[snowy=false]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -61 4 minecraft:grass_block[snowy=false]
+B 8 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=awake,natural=false]
+B 8 -59 0 minecraft:pale_oak_log[axis=y]
+B 9 -61 -2 minecraft:grass_block[snowy=false]
+B 9 -61 -1 minecraft:grass_block[snowy=false]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 9 -61 4 minecraft:grass_block[snowy=false]
+B 10 -61 -2 minecraft:grass_block[snowy=false]
+B 10 -61 -1 minecraft:grass_block[snowy=false]
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 1 minecraft:grass_block[snowy=false]
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 4 minecraft:grass_block[snowy=false]
+B 11 -61 -2 minecraft:grass_block[snowy=false]
+B 11 -61 -1 minecraft:grass_block[snowy=false]
+B 11 -61 0 minecraft:grass_block[snowy=false]
+B 11 -61 1 minecraft:grass_block[snowy=false]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 3 minecraft:grass_block[snowy=false]
+B 11 -61 4 minecraft:grass_block[snowy=false]
+B 12 -61 -2 minecraft:grass_block[snowy=false]
+B 12 -61 -1 minecraft:grass_block[snowy=false]
+B 12 -61 0 minecraft:grass_block[snowy=false]
+B 12 -61 1 minecraft:grass_block[snowy=false]
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 3 minecraft:grass_block[snowy=false]
+B 12 -61 4 minecraft:grass_block[snowy=false]
+B 12 -60 -1 minecraft:pale_oak_log[axis=z]
+B 12 -60 0 minecraft:creaking_heart[axis=z,creaking_heart_state=awake,natural=false]
+B 12 -60 1 minecraft:pale_oak_log[axis=z]
+B 13 -61 -2 minecraft:grass_block[snowy=false]
+B 13 -61 -1 minecraft:grass_block[snowy=false]
+B 13 -61 0 minecraft:grass_block[snowy=false]
+B 13 -61 1 minecraft:grass_block[snowy=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 13 -61 4 minecraft:grass_block[snowy=false]
+B 14 -61 -2 minecraft:grass_block[snowy=false]
+B 14 -61 -1 minecraft:grass_block[snowy=false]
+B 14 -61 0 minecraft:grass_block[snowy=false]
+B 14 -61 1 minecraft:grass_block[snowy=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 14 -61 4 minecraft:grass_block[snowy=false]
+B 14 -60 3 minecraft:creaking_heart[axis=y,creaking_heart_state=uprooted,natural=false]
+B 15 -61 -2 minecraft:grass_block[snowy=false]
+B 15 -61 -1 minecraft:grass_block[snowy=false]
+B 15 -61 0 minecraft:grass_block[snowy=false]
+B 15 -61 1 minecraft:grass_block[snowy=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 15 -61 4 minecraft:grass_block[snowy=false]
+BE 8 -60 0 {components:{},id:"minecraft:creaking_heart",x:8,y:-60,z:0}
+BE 12 -60 0 {components:{},id:"minecraft:creaking_heart",x:12,y:-60,z:0}
+BE 14 -60 3 {components:{},id:"minecraft:creaking_heart",x:14,y:-60,z:3}
+T 189
+T 190
+T 191
+T 192
+T 193
+T 194
+T 195
+T 196
+T 197
+T 198
+T 199
+T 200
+T 201
+T 202
+T 203
+T 204
+T 205
+T 206
+T 207
+T 208
+T 209
+T 210
+T 211
+T 212
+T 213
+T 214
+T 215
+T 216
+T 217
+T 218
+B 7 -61 -2 minecraft:grass_block[snowy=false]
+B 7 -61 -1 minecraft:grass_block[snowy=false]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=false]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -61 4 minecraft:grass_block[snowy=false]
+B 8 -61 -2 minecraft:grass_block[snowy=false]
+B 8 -61 -1 minecraft:grass_block[snowy=false]
+B 8 -61 0 minecraft:pale_oak_log[axis=y]
+B 8 -61 1 minecraft:grass_block[snowy=false]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -61 4 minecraft:grass_block[snowy=false]
+B 8 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=awake,natural=false]
+B 8 -59 0 minecraft:pale_oak_log[axis=y]
+B 9 -61 -2 minecraft:grass_block[snowy=false]
+B 9 -61 -1 minecraft:grass_block[snowy=false]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 9 -61 4 minecraft:grass_block[snowy=false]
+B 10 -61 -2 minecraft:grass_block[snowy=false]
+B 10 -61 -1 minecraft:grass_block[snowy=false]
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 1 minecraft:grass_block[snowy=false]
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 4 minecraft:grass_block[snowy=false]
+B 11 -61 -2 minecraft:grass_block[snowy=false]
+B 11 -61 -1 minecraft:grass_block[snowy=false]
+B 11 -61 0 minecraft:grass_block[snowy=false]
+B 11 -61 1 minecraft:grass_block[snowy=false]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 3 minecraft:grass_block[snowy=false]
+B 11 -61 4 minecraft:grass_block[snowy=false]
+B 12 -61 -2 minecraft:grass_block[snowy=false]
+B 12 -61 -1 minecraft:grass_block[snowy=false]
+B 12 -61 0 minecraft:grass_block[snowy=false]
+B 12 -61 1 minecraft:grass_block[snowy=false]
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 3 minecraft:grass_block[snowy=false]
+B 12 -61 4 minecraft:grass_block[snowy=false]
+B 12 -60 -1 minecraft:pale_oak_log[axis=z]
+B 12 -60 0 minecraft:creaking_heart[axis=z,creaking_heart_state=awake,natural=false]
+B 12 -60 1 minecraft:pale_oak_log[axis=z]
+B 13 -61 -2 minecraft:grass_block[snowy=false]
+B 13 -61 -1 minecraft:grass_block[snowy=false]
+B 13 -61 0 minecraft:grass_block[snowy=false]
+B 13 -61 1 minecraft:grass_block[snowy=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 13 -61 4 minecraft:grass_block[snowy=false]
+B 14 -61 -2 minecraft:grass_block[snowy=false]
+B 14 -61 -1 minecraft:grass_block[snowy=false]
+B 14 -61 0 minecraft:grass_block[snowy=false]
+B 14 -61 1 minecraft:grass_block[snowy=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 14 -61 4 minecraft:grass_block[snowy=false]
+B 14 -60 3 minecraft:creaking_heart[axis=y,creaking_heart_state=uprooted,natural=false]
+B 15 -61 -2 minecraft:grass_block[snowy=false]
+B 15 -61 -1 minecraft:grass_block[snowy=false]
+B 15 -61 0 minecraft:grass_block[snowy=false]
+B 15 -61 1 minecraft:grass_block[snowy=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 15 -61 4 minecraft:grass_block[snowy=false]
+BE 8 -60 0 {components:{},id:"minecraft:creaking_heart",x:8,y:-60,z:0}
+BE 12 -60 0 {components:{},id:"minecraft:creaking_heart",x:12,y:-60,z:0}
+BE 14 -60 3 {components:{},id:"minecraft:creaking_heart",x:14,y:-60,z:3}
+# natural hearts: a survival player breaks one (experience), a creative player breaks one (none)
+T 219
+T 220
+T 221
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 222
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 223
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 224
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 225
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 226
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 227
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 228
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 229
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 230
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 231
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 232
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 233
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 234
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 235
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 236
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 237
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 238
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 239
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 240
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 241
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 242
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 243
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 244
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 245
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 246
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 247
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 248
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 249
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 250
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 251
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 252
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 253
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 254
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 255
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 256
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 257
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 258
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 259
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 260
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 261
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 262
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 263
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 264
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 265
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 266
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 267
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 268
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 269
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 270
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 271
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 272
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 273
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 274
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 275
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 276
+EV level_event r=64.0 ex=0 type=2020 pos=16,-60,16 data=1 global=0
+T 277
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 278
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 279
+EV level_event r=64.0 ex=0 type=2019 pos=16,-60,16 data=1 global=0
+T 280
+EV level_event r=64.0 ex=1 type=2001 pos=16,-60,16 data=5455 global=0
+DIG Miner ticks=60 broken=true
+T 281
+T 282
+T 283
+T 284
+T 285
+B 15 -61 15 minecraft:grass_block[snowy=false]
+B 15 -61 16 minecraft:grass_block[snowy=false]
+B 15 -61 17 minecraft:grass_block[snowy=false]
+B 16 -61 15 minecraft:grass_block[snowy=false]
+B 16 -61 16 minecraft:pale_oak_log[axis=y]
+B 16 -61 17 minecraft:grass_block[snowy=false]
+B 16 -59 16 minecraft:pale_oak_log[axis=y]
+B 17 -61 15 minecraft:grass_block[snowy=false]
+B 17 -61 16 minecraft:grass_block[snowy=false]
+B 17 -61 17 minecraft:grass_block[snowy=false]
+E experience_orb#2 minecraft:experience_orb pos=15.598714824335744,-59.82028757417542,16.416898318598722 delta=-0.10899897708825297,-0.10050946662476086,0.10227364107681783 rot=110.77478,0.0 og=0 fall=0.3202875703573227 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=6 health=5
+E item#1 minecraft:item pos=16.23936841448244,-59.64207968747772,16.05583203312371 delta=-0.048501575236216746,-0.15215841372877212,-0.08484432030194035 rot=219.27908,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:resin_clump*2 age=6 pickup=4 health=5 owner=- thrower=-
+DIG Op ticks=0 broken=true
+T 286
+EV level_event r=64.0 ex=1 type=2001 pos=16,-60,8 data=5455 global=0
+T 287
+T 288
+B 15 -61 7 minecraft:grass_block[snowy=false]
+B 15 -61 8 minecraft:grass_block[snowy=false]
+B 15 -61 9 minecraft:grass_block[snowy=false]
+B 16 -61 7 minecraft:grass_block[snowy=false]
+B 16 -61 8 minecraft:pale_oak_log[axis=y]
+B 16 -61 9 minecraft:grass_block[snowy=false]
+B 16 -59 8 minecraft:pale_oak_log[axis=y]
+B 17 -61 7 minecraft:grass_block[snowy=false]
+B 17 -61 8 minecraft:grass_block[snowy=false]
+B 17 -61 9 minecraft:grass_block[snowy=false]
+E experience_orb#2 minecraft:experience_orb pos=15.42877192941563,-59.95930350755217,16.900552184322823 delta=-0.013432008082270975,0.03988256337509517,0.1482339183958006 rot=110.77478,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=9 health=5
+E item#1 minecraft:item pos=16.115386743521128,-60.0,15.83894958030893 delta=-0.016433749680819794,0.0,-0.028747732726013303 rot=219.27908,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:resin_clump*2 age=9 pickup=1 health=5 owner=- thrower=-

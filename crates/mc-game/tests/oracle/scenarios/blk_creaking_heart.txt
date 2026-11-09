@@ -1,0 +1,72 @@
+# creaking heart without a creaking: uprooted -> dormant/awake from the logs around it and the creaking_active attribute (night), the 20..24 tick block entity ticker, the
+# comparator output (0 without a creaking), placement by a player, and the experience of a natural heart broken by a survival player. The creaking mob is not involved.
+level flat
+difficulty peaceful
+preload 2
+level_seed 5
+spawn_player Op creative 11.5 -60 2.5 0 0
+spawn_player Miner survival 16.5 -60 18.5 0 0
+tick 30
+watch events
+note day: the heart gets its logs and becomes dormant
+time 6000
+block 0 -60 0 minecraft:creaking_heart[axis=y,creaking_heart_state=uprooted,natural=false]
+fill 0 -61 0 0 -61 0 minecraft:pale_oak_log[axis=y]
+block 0 -59 0 minecraft:pale_oak_log[axis=y]
+block 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp[lit=false]
+tick 2
+dump blocks:-1,-61,-1,3,-58,1 be:0,-60,0 beu:0,-60,0 events ticks
+tick 30
+dump blocks:-1,-61,-1,3,-58,1 be:0,-60,0 be:1,-60,0 events ticks
+note night: the ticker wakes it
+time 15000
+tick 30
+dump blocks:-1,-61,-1,3,-58,1 be:0,-60,0 be:1,-60,0 events ticks
+note a log removed (the axis log below): the ticker uproots it, restoring the log wakes it again
+block 0 -61 0 minecraft:air
+tick 30
+dump blocks:-1,-61,-1,3,-58,1 be:0,-60,0 events ticks
+block 0 -61 0 minecraft:pale_oak_log[axis=y]
+tick 3
+dump blocks:-1,-61,-1,3,-58,1 be:0,-60,0 events ticks
+note wrong log axis does not count
+block 0 -59 0 minecraft:pale_oak_log[axis=x]
+tick 30
+dump blocks:-1,-61,-1,3,-58,1 be:0,-60,0 events ticks
+note back to day
+block 0 -59 0 minecraft:pale_oak_log[axis=y]
+time 6000
+tick 30
+dump blocks:-1,-61,-1,3,-58,1 be:0,-60,0 events ticks
+note placed by a player against a log at night, and against stone
+time 15000
+block 8 -61 0 minecraft:pale_oak_log[axis=y]
+block 8 -59 0 minecraft:pale_oak_log[axis=y]
+block 12 -60 1 minecraft:pale_oak_log[axis=z]
+block 12 -60 -1 minecraft:pale_oak_log[axis=z]
+give Op hotbar0 minecraft:creaking_heart 8
+select Op 0
+use_on Op 8 -61 0 up
+use_on Op 12 -60 1 north
+use_on Op 14 -61 3 up
+tick 3
+dump blocks:7,-61,-2,15,-59,4 be:8,-60,0 be:12,-60,0 be:14,-60,3 events ticks
+tick 30
+dump blocks:7,-61,-2,15,-59,4 be:8,-60,0 be:12,-60,0 be:14,-60,3 events ticks
+note natural hearts: a survival player breaks one (experience), a creative player breaks one (none)
+block 16 -61 16 minecraft:pale_oak_log[axis=y]
+block 16 -60 16 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=true]
+block 16 -59 16 minecraft:pale_oak_log[axis=y]
+block 16 -61 8 minecraft:pale_oak_log[axis=y]
+block 16 -60 8 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=true]
+block 16 -59 8 minecraft:pale_oak_log[axis=y]
+give Miner mainhand minecraft:diamond_axe
+tick 2
+dig Miner 16 -60 16 60
+tick 5
+dump blocks:15,-61,15,17,-59,17 entities events
+tp Op 16.5 -60 10.5
+dig Op 16 -60 8
+tick 3
+dump blocks:15,-61,7,17,-59,9 entities events
