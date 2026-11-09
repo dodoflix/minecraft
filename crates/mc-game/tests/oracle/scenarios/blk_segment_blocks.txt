@@ -99,3 +99,20 @@ bonemeal 5 -60 6
 dump blocks:1,-61,6,5,-59,6 entities events
 tick 1
 dump blocks:1,-61,6,5,-59,6 entities
+note sneaking: the first click places a segment on empty ground, further clicks add none (isSecondaryUseActive); without sneaking the segment is added
+spawn_player Sneaky survival 10.5 -60 0.5 0 0 sim
+tick 1
+give Sneaky mainhand minecraft:pink_petals 8
+input Sneaky sneak
+tick 1
+use_on Sneaky 11 -61 2 up
+use_on Sneaky 11 -61 2 up
+dump blocks:11,-61,2,11,-59,2 inventory:Sneaky
+input Sneaky none
+tick 1
+use_on Sneaky 11 -61 2 up
+input Sneaky sneak
+tick 1
+use_on Sneaky 11 -60 2 up
+use_on Sneaky 11 -61 2 up
+dump blocks:11,-61,2,11,-59,2 inventory:Sneaky

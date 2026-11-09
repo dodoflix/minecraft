@@ -1,0 +1,34 @@
+# the op places every mode
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -60 2 minecraft:test_block[mode=start]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -60 2 minecraft:test_block[mode=fail]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -60 2 minecraft:test_block[mode=log]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -60 2 minecraft:test_block[mode=accept]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+BE 1 -60 2 {components:{},id:"minecraft:test_block",message:"",mode:"start",powered:0b,x:1,y:-60,z:2}
+BE 2 -60 2 {components:{},id:"minecraft:test_block",message:"",mode:"fail",powered:0b,x:2,y:-60,z:2}
+I Admin 0 minecraft:test_block*4
+I Admin 1 minecraft:test_block*4
+I Admin 2 minecraft:test_block*4
+I Admin 3 minecraft:test_block*4
+# without the permission nothing is placed
+T 31
+EV sound at=1.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=3.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=4.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+I Plain 0 minecraft:test_block*4
+I Survivor 0 minecraft:test_block*4

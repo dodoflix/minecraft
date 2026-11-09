@@ -32,6 +32,11 @@ fn segmentable_blocks_match_vanilla() {
     common::block_scenario::check("blk_segment_blocks");
 }
 
+#[test]
+fn test_block_placement_matches_vanilla() {
+    common::block_scenario::check("blk_test_block_place");
+}
+
 /// `TestBlock.getStateForPlacement`: the `mode` of the item's `block_state` component, the default state when it is absent or
 /// not a mode. Placing the item needs the game master permission, which the block oracle's players do not have, so the
 /// expectation comes from reading the vanilla class instead of a recording.
