@@ -1021,18 +1021,6 @@ const ACCEPTED_HOOKS: &[(&str, &str)] = &[
         "minecart detection needs minecart entities",
     ),
     (
-        "getLocalTransition@NetherPortalBlock -> NetherPortalBlock (registered as NetherPortalBlock)",
-        "portal travel is not implemented yet",
-    ),
-    (
-        "getPortalDestination@NetherPortalBlock -> NetherPortalBlock (registered as NetherPortalBlock)",
-        "portal travel is not implemented yet",
-    ),
-    (
-        "getPortalTransitionTime@NetherPortalBlock -> NetherPortalBlock (registered as NetherPortalBlock)",
-        "portal travel is not implemented yet",
-    ),
-    (
         "getMenuProvider@CartographyTableBlock -> PlainBlock (registered as none)",
         "menus are not implemented yet",
     ),

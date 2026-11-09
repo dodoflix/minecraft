@@ -168,9 +168,22 @@ impl ItemSystems for ItemPlayerSystems {
         };
         // block use code resolves components (written books on a lectern) through the installed server
         let (player, level) = (&mut *ctx.player, &mut *ctx.level);
-        crate::commands::server_access::enter_server(&mut *ctx.server, || {
+        let result = crate::commands::server_access::enter_server(&mut *ctx.server, || {
             player.use_item_on(level, hand, &hit)
-        })
+        });
+        // A spectator's PASS means the block is enabled and has no menu: vanilla's `Portal` branch comes next.
+        if result == InteractionResult::Pass
+            && ctx.player.game_mode.game_mode_for_player == mc_data::enums::GameType::Spectator
+            && let Some(portal) = crate::server::players::dimension_change::spectator_portal_use(
+                ctx.server,
+                ctx.level,
+                ctx.player,
+                hit.block_pos,
+            )
+        {
+            return portal;
+        }
+        result
     }
 
     fn use_item(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> InteractionResult {

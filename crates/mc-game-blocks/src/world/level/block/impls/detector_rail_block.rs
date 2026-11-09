@@ -121,6 +121,7 @@ fn on_place(
     }
 }
 
+// Not implemented: `getAnalogOutputSignal` (comparators read command-block and container minecarts; needs the minecart entities).
 #[rustfmt::skip]
 rail_behaviour!(DetectorRailBlock, |_state, _level, _pos, _block| {}, on_place,
     fn own_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {

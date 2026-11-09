@@ -23,6 +23,9 @@ pub struct NetherPortalBlock {
 pub static NETHER_PORTAL: NetherPortalBlock = NetherPortalBlock { _marker: 0 };
 
 impl BlockBehaviour for NetherPortalBlock {
+    fn as_portal(&self) -> Option<&'static dyn Portal> {
+        Some(&NETHER_PORTAL)
+    }
     update_shape!(
         |self, state, level, pos, direction, neighbour_pos, neighbour_state| {
             let update_axis = direction.get_axis();

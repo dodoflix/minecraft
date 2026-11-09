@@ -79,6 +79,7 @@ pub fn check_spawn(level: &mut ServerLevel, pos: BlockPos) {
     let Some(mut found) = wither_full().find(&*level, pos) else {
         return;
     };
+    // Not implemented: the `WitherBoss` entity has no factory yet, so the summoned wither is an inert `PlainEntity`.
     let Some(mut wither) = pattern_blocks::create_triggered(level, EntityType::WITHER) else {
         return;
     };

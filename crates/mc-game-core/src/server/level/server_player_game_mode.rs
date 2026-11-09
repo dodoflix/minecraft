@@ -509,7 +509,7 @@ impl ServerPlayer {
             return InteractionResult::FAIL;
         }
         if self.game_mode.game_mode_for_player == GameType::Spectator {
-            // Not implemented: the `Portal` spectator teleport (`teleportToPortalDestination`).
+            // The `Portal` branch (a PASS here) is handled by `ItemPlayerSystems::use_item_on`, which holds the server.
             let provider = block_behaviour(state.block()).get_menu_provider(state, level, pos);
             return match provider {
                 Some(provider) => {

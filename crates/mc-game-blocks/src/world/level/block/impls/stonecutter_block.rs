@@ -1,4 +1,5 @@
 //! `net.minecraft.world.level.block.StonecutterBlock`: placement, `rotate` / `mirror` of the `facing` property.
+//! Not implemented: `useWithoutItem` / `getMenuProvider` (the `StonecutterMenu` does not exist yet), so using the block does nothing.
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::item::BlockPlaceContext;

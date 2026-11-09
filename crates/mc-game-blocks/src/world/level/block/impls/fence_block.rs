@@ -28,6 +28,8 @@ fn connects_to(
 
 impl BlockBehaviour for FenceBlock {
     mc_game_core::simple_waterlogged!();
+    // Not implemented: `useWithoutItem` (`LeadItem.bindPlayerMobs` ties leashed mobs to a `LeashFenceKnotEntity`, which
+    // has no entity yet); the trait default is `PASS`.
     fn get_visual_shape(
         &self,
         state: BlockState,
