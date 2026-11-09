@@ -9,6 +9,8 @@ use mc_data::{BlockEntityType, MobEffect, SoundEvent};
 use mc_game_core::advancements::triggers::CriteriaTriggers;
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::ComponentReader;
+use mc_game_core::world::block_entity::base_container::is_locked;
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
 };
@@ -18,7 +20,8 @@ use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::block::BlockStateExt;
 use mc_game_core::world::level::{BlockGetter, LevelReader};
 use mc_nbt::CompoundTag;
-use mc_protocol::components::{LockCode, component_codec};
+use mc_protocol::components::map::DataComponentMapBuilder;
+use mc_protocol::components::{CUSTOM_NAME, LOCK, LockCode, component_codec};
 use mc_protocol::packets::play::SoundSource;
 use mc_text::Component;
 use mc_world::heightmap::HeightmapType;
@@ -264,6 +267,26 @@ impl BlockEntity for BeaconBlockEntity {
         {
             tag.put("lock", encoded);
         }
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        self.name = components.get(&CUSTOM_NAME).cloned();
+        self.lock_key = components.get(&LOCK).cloned();
+    }
+
+    fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
+        let mut b = std::mem::take(builder).set_opt(CUSTOM_NAME, self.name.clone());
+        if is_locked(&self.lock_key)
+            && let Some(lock) = &self.lock_key
+        {
+            b = b.set(LOCK, lock.clone());
+        }
+        *builder = b;
+    }
+
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("CustomName");
+        tag.remove("lock");
     }
 
     fn container_data(&self) -> Option<&dyn ContainerData> {

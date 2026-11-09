@@ -8,10 +8,10 @@ use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
 use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::ComponentReader;
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
 };
-use mc_game_core::world::item::ItemStack;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{CUSTOM_NAME, component_codec, map::DataComponentMapBuilder};
 use mc_text::Component;
@@ -56,14 +56,17 @@ impl BlockEntity for EnchantingTableBlockEntity {
         self.name.clone()
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        self.name = stack.get(&CUSTOM_NAME).cloned();
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("CustomName");
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        self.name = components.get(&CUSTOM_NAME).cloned();
     }
 
     fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
-        if let Some(name) = &self.name {
-            *builder = std::mem::take(builder).set(CUSTOM_NAME, name.clone());
-        }
+        *builder = std::mem::take(builder).set_opt(CUSTOM_NAME, self.name.clone());
     }
 }
 

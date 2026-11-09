@@ -16,7 +16,7 @@ use mc_game_core::world::container::{Container, empty_stack, still_valid_block_e
 use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::inventory::MenuPlayer;
 use mc_game_core::world::item::{
-    ItemStack, JukeboxSongPlayer, jukebox_song_from_stack, jukebox_song_value,
+    ItemStack, JukeboxSongPlayer, jukebox_song_from_stack, jukebox_song_value, with_item_registries,
 };
 use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::gameevent::GameEventContext;
@@ -146,10 +146,9 @@ impl BlockEntity for JukeboxBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        let new_item = tag
-            .get("RecordItem")
-            .and_then(|t| ItemStack::from_tag(t).into_result().ok())
-            .unwrap_or_else(ItemStack::empty);
+        let new_item =
+            mc_game_core::world::block_entity::read_codec(tag, "RecordItem", &ItemStack::codec())
+                .unwrap_or_else(ItemStack::empty);
         if !self.item.is_empty() && !ItemStack::is_same_item_same_components(&new_item, &self.item)
         {
             // vanilla stops the player with the level; there is none here, so the song just ends
@@ -160,6 +159,16 @@ impl BlockEntity for JukeboxBlockEntity {
             .get_long("ticks_since_song_started")
             .zip(jukebox_song_from_stack(&self.item))
             .map(|(ticks, song)| (song, ticks));
+        // vanilla's holder resolves right here; with the server's registries installed so does ours
+        if let Some((song, ticks)) = self.pending_song.take()
+            && with_item_registries(|registries| {
+                self.song_player
+                    .set_song_without_playing(registries, song.clone(), ticks);
+            })
+            .is_none()
+        {
+            self.pending_song = Some((song, ticks));
+        }
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {

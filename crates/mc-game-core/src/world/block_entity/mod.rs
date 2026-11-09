@@ -119,6 +119,7 @@ pub use the_end_gateway_block_entity::TheEndGatewayBlockEntity;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
+use mc_data::DataComponentType;
 use mc_data::block::BlockState;
 use mc_nbt::CompoundTag;
 use std::any::Any;
@@ -182,6 +183,46 @@ pub struct ContainerUser {
     pub spectator: bool,
     /// `getContainerInteractionRange()` (`BLOCK_INTERACTION_RANGE` attribute value).
     pub interaction_range: f64,
+}
+
+/// The `DataComponentGetter` `BlockEntity.applyComponents` hands to `applyImplicitComponents`: the full view of the stack
+/// (prototype plus patch) that remembers which component types were asked for, present or not.
+pub struct ComponentReader {
+    full: mc_protocol::components::map::PatchedDataComponentMap,
+    read: std::cell::RefCell<Vec<DataComponentType>>,
+}
+
+impl ComponentReader {
+    fn new(
+        prototype: mc_protocol::components::DataComponentMap,
+        patch: &mc_protocol::components::DataComponentPatch,
+    ) -> Self {
+        Self {
+            full: mc_protocol::components::map::PatchedDataComponentMap::from_patch(
+                prototype, patch,
+            ),
+            read: Default::default(),
+        }
+    }
+
+    fn into_read(self) -> Vec<DataComponentType> {
+        self.read.into_inner()
+    }
+
+    /// `get(type)`.
+    pub fn get<T: 'static>(&self, key: &mc_protocol::components::ComponentKey<T>) -> Option<&T> {
+        self.read.borrow_mut().push(key.id());
+        mc_protocol::components::map::DataComponentGetter::get(&self.full, key)
+    }
+
+    /// `getOrDefault(type, default)`.
+    pub fn get_or_default<'a, T: 'static>(
+        &'a self,
+        key: &mc_protocol::components::ComponentKey<T>,
+        default: &'a T,
+    ) -> &'a T {
+        self.get(key).unwrap_or(default)
+    }
 }
 
 pub trait BlockEntity: Any {
@@ -256,6 +297,9 @@ pub trait BlockEntity: Any {
         self.collect_implicit_components(&mut builder);
         builder.build()
     }
+    /// `removeComponentsFromTag(output)`: drops from the `saveCustomOnly` NBT the keys that `collectComponents` carries as
+    /// components instead (pick block with data).
+    fn remove_components_from_tag(&self, _tag: &mut CompoundTag) {}
     /// `Nameable.getCustomName()` (block entities that have one).
     fn get_custom_name(&self) -> Option<mc_text::Component> {
         None
@@ -264,9 +308,31 @@ pub trait BlockEntity: Any {
     fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
         None
     }
-    /// `applyComponentsFromItemStack(stack)`: block entities that read item components (custom name, container
-    /// contents, ...) override this; the default ignores them.
-    fn apply_components_from_item_stack(&mut self, _stack: &crate::world::item::ItemStack) {}
+    /// `applyImplicitComponents(components)`: block entities that derive state from item components (custom name,
+    /// container contents, ...) override this. Every component read through `components` is consumed: it does not
+    /// stay in the stored `components` map ([`BlockEntity::apply_components`]).
+    fn apply_implicit_components(&mut self, _components: &ComponentReader) {}
+    /// `applyComponents(prototype, patch)` (do not override): `applyImplicitComponents`, then every patch entry that was
+    /// not read there (and is not `block_entity_data`/`block_state`) is kept in the stored `components`; removals are dropped.
+    fn apply_components(
+        &mut self,
+        prototype: mc_protocol::components::DataComponentMap,
+        patch: &mc_protocol::components::DataComponentPatch,
+    ) {
+        let reader = ComponentReader::new(prototype, patch);
+        self.apply_implicit_components(&reader);
+        let implicit = reader.into_read();
+        let kept = patch.forget(|ty| {
+            ty == DataComponentType::BLOCK_ENTITY_DATA
+                || ty == DataComponentType::BLOCK_STATE
+                || implicit.contains(&ty)
+        });
+        self.base_mut().components = kept.split().0;
+    }
+    /// `applyComponentsFromItemStack(stack)` (do not override).
+    fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
+        self.apply_components(stack.get_prototype(), &stack.get_components_patch());
+    }
     /// `getUpdateTag`: the NBT sent to clients in chunk packets / block entity data packets (default empty).
     fn get_update_tag(&self) -> CompoundTag {
         CompoundTag::new()

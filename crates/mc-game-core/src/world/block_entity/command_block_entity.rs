@@ -3,6 +3,7 @@
 //! Vanilla's methods that read `this.level` take the level as a parameter here; the block entity is out of its chunk while
 //! they run (see `ServerLevel::with_typed_block_entity`), so they never look themselves up.
 
+use super::ComponentReader;
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
 use crate::commands::CommandSourceStack;
 use crate::server::level::ServerLevel;
@@ -231,10 +232,30 @@ impl BlockEntity for CommandBlockEntity {
         tag.put_boolean("auto", self.is_automatic());
     }
 
+    fn collect_implicit_components(
+        &self,
+        builder: &mut mc_protocol::components::map::DataComponentMapBuilder,
+    ) {
+        *builder = std::mem::take(builder).set_opt(
+            mc_protocol::components::CUSTOM_NAME,
+            self.command_block.get_custom_name().cloned(),
+        );
+    }
+
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("CustomName");
+        tag.remove("conditionMet");
+        tag.remove("powered");
+    }
+
     /// `applyImplicitComponents`: the custom name.
-    fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
-        self.command_block
-            .set_custom_name(stack.get(&mc_protocol::components::CUSTOM_NAME).cloned());
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        self.command_block.set_custom_name(
+            components
+                .get(&mc_protocol::components::CUSTOM_NAME)
+                .cloned(),
+        );
     }
 }
 

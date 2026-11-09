@@ -18,6 +18,7 @@ use mc_data::block::BlockState;
 use mc_data::props;
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::ComponentReader;
 use mc_game_core::world::block_entity::base_container::BaseContainer;
 use mc_game_core::world::block_entity::randomizable_container::{
     RandomizableContainerData, unpack_loot_table,
@@ -165,10 +166,28 @@ impl BlockEntity for HopperBlockEntity {
         self.loot.set_loot_table(table, seed);
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
+    fn collect_implicit_components(
+        &self,
+        builder: &mut mc_protocol::components::map::DataComponentMapBuilder,
+    ) {
+        *builder = self
+            .container
+            .collect_implicit_components(std::mem::take(builder), &self.items);
+        *builder = self
+            .loot
+            .collect_implicit_components(std::mem::take(builder));
+    }
+
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        self.container.remove_components_from_tag(tag);
+        self.loot.remove_components_from_tag(tag);
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
         self.container
-            .apply_implicit_components(stack, &mut self.items);
-        self.loot.apply_implicit_components(stack);
+            .apply_implicit_components(components, &mut self.items);
+        self.loot.apply_implicit_components(components);
     }
 
     /// Menu operations (`ContainerKey::BlockEntity`) replay the recorded `setChanged()` calls right after the operation.

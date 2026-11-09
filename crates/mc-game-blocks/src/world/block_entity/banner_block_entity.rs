@@ -5,6 +5,7 @@ use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
 use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::ComponentReader;
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
 };
@@ -131,21 +132,28 @@ impl BlockEntity for BannerBlockEntity {
         &self,
         builder: &mut mc_protocol::components::map::DataComponentMapBuilder,
     ) {
-        let mut b = std::mem::take(builder).set(BANNER_PATTERNS, self.patterns.clone());
-        if let Some(name) = &self.name {
-            b = b.set(CUSTOM_NAME, name.clone());
-        }
-        *builder = b;
+        *builder = std::mem::take(builder)
+            .set(BANNER_PATTERNS, self.patterns.clone())
+            .set_opt(CUSTOM_NAME, self.name.clone());
     }
 
     fn get_custom_name(&self) -> Option<Component> {
         self.name.clone()
     }
 
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("patterns");
+        tag.remove("CustomName");
+    }
+
     /// `applyImplicitComponents`.
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        self.patterns = stack.get(&BANNER_PATTERNS).cloned().unwrap_or_default();
-        self.name = stack.get(&CUSTOM_NAME).cloned();
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        self.patterns = components
+            .get(&BANNER_PATTERNS)
+            .cloned()
+            .unwrap_or_default();
+        self.name = components.get(&CUSTOM_NAME).cloned();
     }
 }
 

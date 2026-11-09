@@ -1,5 +1,6 @@
 //! `ChestBlockEntity` (chests, trapped chests, copper chests) and `TrappedChestBlockEntity`.
 
+use super::ComponentReader;
 use super::base_container::BaseContainer;
 use super::container_openers::{
     ChestLidController, ContainerOpenersCounter, OpenersHost, player_has_chest_menu_open_on,
@@ -214,12 +215,16 @@ impl BlockEntity for ChestBlockEntity {
         }
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        self.container.remove_components_from_tag(tag);
+        self.loot.remove_components_from_tag(tag);
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
         self.container
-            .apply_implicit_components(stack, &mut self.items);
-        if let Some(loot) = stack.get(&mc_protocol::components::CONTAINER_LOOT) {
-            self.loot.set_loot_table(loot.loot_table.clone(), loot.seed);
-        }
+            .apply_implicit_components(components, &mut self.items);
+        self.loot.apply_implicit_components(components);
     }
 
     fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {

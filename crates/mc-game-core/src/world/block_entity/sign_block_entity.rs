@@ -4,6 +4,7 @@
 //! Vanilla block entities keep their `Level`; here they are taken out of the chunk while they run, so every method
 //! that touches the level (`markUpdated`, `setText`, ...) takes it as an argument.
 
+use super::ComponentReader;
 use super::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
 };
@@ -344,19 +345,6 @@ impl SignBlockEntity {
         }
         has_any_click_command
     }
-
-    /// `applyImplicitComponents(components)`.
-    fn apply_implicit_components(&mut self, stack: &crate::world::item::ItemStack) {
-        self.front_text = stack
-            .get(&SIGN_TEXT_FRONT)
-            .cloned()
-            .unwrap_or_else(empty_sign_text);
-        self.back_text = stack
-            .get(&SIGN_TEXT_BACK)
-            .cloned()
-            .unwrap_or_else(empty_sign_text);
-        self.is_waxed = stack.get(&WAXED).is_some();
-    }
 }
 
 /// `SignBlockEntity.updateMessages(newLines, originalText, shouldFilter)`.
@@ -471,11 +459,17 @@ impl BlockEntity for SignBlockEntity {
     fn load_additional(&mut self, tag: &CompoundTag) {
         self.allow_op_features = tag.get_boolean_or("allow_op_features", false);
         // `resolveLines` needs the block entity's level, which does not exist yet while a chunk loads (vanilla: `this.level`
-        // is still null then, so the lines stay unresolved)
-        self.front_text =
-            read_codec(tag, "front_text", &SignText::codec()).unwrap_or_else(empty_sign_text);
-        self.back_text =
-            read_codec(tag, "back_text", &SignText::codec()).unwrap_or_else(empty_sign_text);
+        // is still null then, so the lines stay unresolved); its `asMutable()` copy still drops the filtered lines
+        let resolve_lines = |text: Option<SignText>| match text {
+            Some(mut text) if self.allow_op_features => {
+                text.filtered_messages = text.messages.clone();
+                text
+            }
+            Some(text) => text,
+            None => empty_sign_text(),
+        };
+        self.front_text = resolve_lines(read_codec(tag, "front_text", &SignText::codec()));
+        self.back_text = resolve_lines(read_codec(tag, "back_text", &SignText::codec()));
         self.is_waxed = tag.get_boolean_or("is_waxed", false);
     }
 
@@ -506,8 +500,24 @@ impl BlockEntity for SignBlockEntity {
         }
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
-        self.apply_implicit_components(stack);
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("front_text");
+        tag.remove("back_text");
+        tag.remove("is_waxed");
+    }
+
+    /// `applyImplicitComponents(components)`.
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        self.front_text = components
+            .get(&SIGN_TEXT_FRONT)
+            .cloned()
+            .unwrap_or_else(empty_sign_text);
+        self.back_text = components
+            .get(&SIGN_TEXT_BACK)
+            .cloned()
+            .unwrap_or_else(empty_sign_text);
+        self.is_waxed = components.get(&WAXED).is_some();
     }
 
     /// `collectImplicitComponents(components)`.

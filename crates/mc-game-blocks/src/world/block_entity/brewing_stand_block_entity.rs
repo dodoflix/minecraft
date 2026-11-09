@@ -8,6 +8,7 @@ use mc_data::block::{Block, BlockState};
 use mc_data::{BlockEntityType, Item, RecipeType, props};
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::ComponentReader;
 use mc_game_core::world::block_entity::base_container::{
     BaseContainer, send_chest_locked_notifications,
 };
@@ -355,9 +356,23 @@ impl BlockEntity for BrewingStandBlockEntity {
         }
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
+    fn collect_implicit_components(
+        &self,
+        builder: &mut mc_protocol::components::map::DataComponentMapBuilder,
+    ) {
+        *builder = self
+            .container
+            .collect_implicit_components(std::mem::take(builder), &self.items);
+    }
+
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        self.container.remove_components_from_tag(tag);
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
         self.container
-            .apply_implicit_components(stack, &mut self.items);
+            .apply_implicit_components(components, &mut self.items);
     }
 
     /// Menu operations replay the recorded `setChanged()` calls right after the operation.

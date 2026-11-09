@@ -155,9 +155,8 @@ impl ItemStackExt for ItemStack {
     }
 }
 
-/// Decodes the `MAP_CODEC` fields of `tag` (`None` = undecodable entry: unknown item, count outside 1..=99, ...).
+/// Decodes the `MAP_CODEC` fields of `tag` like `ValueInput.read(key, ItemStack.CODEC)`: the partial value of a failed
+/// decode counts (a count outside 1..=99 reads as 1); `None` = nothing recoverable (unknown item, no `id`, ...).
 pub fn load_item_stack(tag: &CompoundTag) -> Option<ItemStack> {
-    ItemStack::from_tag(&Tag::Compound(tag.clone()))
-        .into_result()
-        .ok()
+    ItemStack::from_tag(&Tag::Compound(tag.clone())).result_or_partial()
 }

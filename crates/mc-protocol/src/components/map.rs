@@ -122,6 +122,15 @@ impl DataComponentMapBuilder {
         self.set_value(key.id(), Some(Value::new(value)));
         self
     }
+    /// `set(type, @Nullable value)`: `None` removes the component.
+    pub fn set_opt<T: super::ComponentValue>(
+        mut self,
+        key: ComponentKey<T>,
+        value: Option<T>,
+    ) -> Self {
+        self.set_value(key.id(), value.map(Value::new));
+        self
+    }
     /// `setUnchecked`: `None` removes.
     pub fn set_value(&mut self, id: DataComponentType, value: Option<Value>) -> &mut Self {
         match (self.entries.iter().position(|(k, _)| *k == id), value) {

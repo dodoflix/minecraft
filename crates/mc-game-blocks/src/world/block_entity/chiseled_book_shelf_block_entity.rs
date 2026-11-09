@@ -6,6 +6,7 @@ use mc_data::block::BlockState;
 use mc_data::{BlockEntityType, GameEvent, Item, props};
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::ComponentReader;
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
 };
@@ -195,8 +196,13 @@ impl BlockEntity for ChiseledBookShelfBlockEntity {
         tag.put_int("last_interacted_slot", self.last_interacted_slot);
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        match stack.get(&CONTAINER) {
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("Items");
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        match components.get(&CONTAINER) {
             Some(c) => c.copy_into(&mut self.items),
             None => ItemContainerContents::default().copy_into(&mut self.items),
         }

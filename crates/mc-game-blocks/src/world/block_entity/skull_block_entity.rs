@@ -8,10 +8,10 @@ use mc_data::block::BlockState;
 use mc_data::props;
 use mc_dfu::extra::IDENTIFIER;
 use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::ComponentReader;
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
 };
-use mc_game_core::world::item::ItemStack;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::map::DataComponentMapBuilder;
 use mc_protocol::components::{
@@ -114,28 +114,28 @@ impl BlockEntity for SkullBlockEntity {
 
     /// `collectImplicitComponents(components)`.
     fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
-        let mut b = std::mem::take(builder);
-        if let Some(owner) = &self.owner {
-            b = b.set(PROFILE, owner.clone());
-        }
-        if let Some(sound) = &self.note_block_sound {
-            b = b.set(NOTE_BLOCK_SOUND, sound.clone());
-        }
-        if let Some(name) = &self.custom_name {
-            b = b.set(CUSTOM_NAME, name.clone());
-        }
-        *builder = b;
+        *builder = std::mem::take(builder)
+            .set_opt(PROFILE, self.owner.clone())
+            .set_opt(NOTE_BLOCK_SOUND, self.note_block_sound.clone())
+            .set_opt(CUSTOM_NAME, self.custom_name.clone());
     }
 
     fn get_custom_name(&self) -> Option<Component> {
         self.custom_name.clone()
     }
 
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("profile");
+        tag.remove("note_block_sound");
+        tag.remove("custom_name");
+    }
+
     /// `applyImplicitComponents`.
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        self.owner = stack.get(&PROFILE).cloned();
-        self.note_block_sound = stack.get(&NOTE_BLOCK_SOUND).cloned();
-        self.custom_name = stack.get(&CUSTOM_NAME).cloned();
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        self.owner = components.get(&PROFILE).cloned();
+        self.note_block_sound = components.get(&NOTE_BLOCK_SOUND).cloned();
+        self.custom_name = components.get(&CUSTOM_NAME).cloned();
     }
 }
 

@@ -5,6 +5,7 @@
 //! block entity they replace) and `removeComponentsFromTag` (creative pick block with data keeps `Items`); the
 //! particle ticker is client only.
 
+use super::ComponentReader;
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
 use crate::server::level::ServerLevel;
 use crate::world::container::helper;
@@ -184,8 +185,13 @@ impl BlockEntity for CampfireBlockEntity {
         })
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        match stack.get(&CONTAINER) {
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("Items");
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        match components.get(&CONTAINER) {
             Some(contents) => contents.copy_into(&mut self.items),
             None => ItemContainerContents::default().copy_into(&mut self.items),
         }

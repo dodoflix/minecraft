@@ -205,7 +205,9 @@ pub fn vec3i_codec() -> Codec<Vec3i> {
     INT_STREAM.comap_flat_map(
         |list| match mc_dfu::extra::fixed_size(list, 3) {
             DataResult::Success(l) => DataResult::success(Vec3i::new(l[0], l[1], l[2])),
-            DataResult::Error { message, .. } => DataResult::error_msg(message, None),
+            DataResult::Error { message, partial } => {
+                DataResult::error_msg(message, partial.map(|l| Vec3i::new(l[0], l[1], l[2])))
+            }
         },
         |v: &Vec3i| vec![v.x(), v.y(), v.z()],
     )

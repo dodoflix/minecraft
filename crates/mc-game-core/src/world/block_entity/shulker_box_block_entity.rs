@@ -1,6 +1,7 @@
 //! `ShulkerBoxBlockEntity`: contents, open counter and the lid animation state machine (ticked on the server: the lid
 //! progress decides the collision shape, entity pushing and the neighbor updates at the ends of the animation).
 
+use super::ComponentReader;
 use super::base_container::BaseContainer;
 use super::randomizable_container::{self, RandomizableContainerData};
 use super::{
@@ -299,12 +300,16 @@ impl BlockEntity for ShulkerBoxBlockEntity {
         }
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        self.container.remove_components_from_tag(tag);
+        self.loot.remove_components_from_tag(tag);
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
         self.container
-            .apply_implicit_components(stack, &mut self.item_stacks);
-        if let Some(loot) = stack.get(&mc_protocol::components::CONTAINER_LOOT) {
-            self.loot.set_loot_table(loot.loot_table.clone(), loot.seed);
-        }
+            .apply_implicit_components(components, &mut self.item_stacks);
+        self.loot.apply_implicit_components(components);
     }
 
     fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {

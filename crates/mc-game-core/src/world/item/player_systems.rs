@@ -16,6 +16,7 @@ use crate::world::level::block::{BlockStateExt, behaviour as block_behaviour};
 use crate::world::level::{BlockGetter, LevelReader};
 use linkme::distributed_slice;
 use mc_core::phys::BlockHitResult;
+use mc_data::DataComponentType;
 use mc_protocol::components::{
     ATTACK_ANIMATION, BLOCK_ENTITY_DATA, INTERACT_ANIMATION, TypedEntityData,
 };
@@ -284,12 +285,19 @@ impl PlayHandlers for MenuHandlers {
             return;
         }
         if include_data && state.has_block_entity() {
-            // `addBlockDataToItem`: the block entity's custom data as `block_entity_data`
+            // `addBlockDataToItem`: the custom data as `block_entity_data` (what the components do not carry) and the
+            // collected components
             if let Some(be) = ctx.level.get_block_entity_immediate(pos) {
                 let mut tag = mc_nbt::CompoundTag::new();
                 be.save_additional(&mut tag);
-                if !tag.is_empty() {
+                be.remove_components_from_tag(&mut tag);
+                if tag.is_empty() {
+                    stack.remove(DataComponentType::BLOCK_ENTITY_DATA);
+                } else {
                     stack.set(BLOCK_ENTITY_DATA, TypedEntityData::of(be.get_type(), tag));
+                }
+                for (ty, value) in be.collect_components().iter() {
+                    stack.set_value(ty, Some(value.clone()));
                 }
             }
         }

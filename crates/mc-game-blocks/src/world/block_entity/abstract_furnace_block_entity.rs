@@ -15,6 +15,7 @@ use mc_data::block::BlockState;
 use mc_data::{BlockEntityType, Item, RecipeType, props};
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::ComponentReader;
 use mc_game_core::world::block_entity::base_container::BaseContainer;
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log,
@@ -557,9 +558,14 @@ impl BlockEntity for AbstractFurnaceBlockEntity {
         tag.put("RecipesUsed", used);
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        self.container.remove_components_from_tag(tag);
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
         self.container
-            .apply_implicit_components(stack, &mut self.items);
+            .apply_implicit_components(components, &mut self.items);
     }
 
     fn collect_implicit_components(

@@ -97,15 +97,6 @@ impl BlockEntity for CopperGolemStatueBlockEntity {
             tag: self.get_update_tag(),
         })
     }
-
-    /// `applyComponents(prototype, patch)` with no implicit components: everything but the block entity data and
-    /// block state the placed item carries stays in the entity's components.
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        let remaining = stack.get_components_patch().forget(|ty| {
-            ty == DataComponentType::BLOCK_ENTITY_DATA || ty == DataComponentType::BLOCK_STATE
-        });
-        self.base.components = remaining.split().0;
-    }
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]

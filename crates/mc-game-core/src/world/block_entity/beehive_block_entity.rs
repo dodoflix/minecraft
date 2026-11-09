@@ -1,6 +1,7 @@
 //! `BeehiveBlockEntity`: the bees inside a hive / nest (`BeeData` = occupant + ticks in hive), `flower_pos`, the per-tick
 //! release logic and the NBT / `bees` component forms.
 
+use super::ComponentReader;
 use super::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
     set_changed,
@@ -325,8 +326,13 @@ impl BlockEntity for BeehiveBlockEntity {
         );
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
-        let bees = stack
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("bees");
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        let bees = components
             .get(&mc_protocol::components::BEES)
             .cloned()
             .unwrap_or_default();

@@ -32,6 +32,13 @@ fn no_lock_predicate() -> mc_protocol::components::ItemPredicate {
     .expect("empty item predicate")
 }
 
+/// `!lockKey.equals(LockCode.NO_LOCK)` (`None` is the shared `NO_LOCK` instance).
+pub fn is_locked(lock_key: &Option<LockCode>) -> bool {
+    lock_key
+        .as_ref()
+        .is_some_and(|l| l.predicate != no_lock_predicate())
+}
+
 impl BaseContainer {
     /// `loadAdditional`: `LockCode.fromTag(input)` and `parseCustomNameSafe(input, "CustomName")`.
     pub fn load(&mut self, tag: &CompoundTag) {
@@ -53,6 +60,13 @@ impl BaseContainer {
         }
     }
 
+    /// `removeComponentsFromTag(output)`: the keys the implicit components carry.
+    pub fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("CustomName");
+        tag.remove("lock");
+        tag.remove("Items");
+    }
+
     /// `getName()`.
     pub fn get_name(&self, default_name: Component) -> Component {
         self.name.clone().unwrap_or(default_name)
@@ -65,9 +79,7 @@ impl BaseContainer {
 
     /// `isLocked()`: `!lockKey.equals(NO_LOCK)`.
     pub fn is_locked(&self) -> bool {
-        self.lock_key
-            .as_ref()
-            .is_some_and(|l| l.predicate != no_lock_predicate())
+        is_locked(&self.lock_key)
     }
 
     /// `canOpen(player)`: `lockKey.canUnlock(player)` = `player.isSpectator() || unlocksWith(mainHandItem)`.
@@ -81,10 +93,14 @@ impl BaseContainer {
     }
 
     /// `applyImplicitComponents(components)`: `custom_name`, `lock`, `container` (copied into `items`).
-    pub fn apply_implicit_components(&mut self, stack: &ItemStack, items: &mut [ItemStack]) {
-        self.name = stack.get(&CUSTOM_NAME).cloned();
-        self.lock_key = stack.get(&LOCK).cloned();
-        match stack.get(&CONTAINER) {
+    pub fn apply_implicit_components(
+        &mut self,
+        components: &super::ComponentReader,
+        items: &mut [ItemStack],
+    ) {
+        self.name = components.get(&CUSTOM_NAME).cloned();
+        self.lock_key = components.get(&LOCK).cloned();
+        match components.get(&CONTAINER) {
             Some(contents) => contents.copy_into(items),
             None => ItemContainerContents::default().copy_into(items),
         }
@@ -96,9 +112,7 @@ impl BaseContainer {
         mut components: DataComponentMapBuilder,
         items: &[ItemStack],
     ) -> DataComponentMapBuilder {
-        if let Some(name) = &self.name {
-            components = components.set(CUSTOM_NAME, name.clone());
-        }
+        components = components.set_opt(CUSTOM_NAME, self.name.clone());
         if self.is_locked()
             && let Some(lock) = &self.lock_key
         {

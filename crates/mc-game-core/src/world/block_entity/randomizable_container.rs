@@ -46,6 +46,12 @@ impl RandomizableContainerData {
         true
     }
 
+    /// `removeComponentsFromTag(output)` (the `LootTable` part).
+    pub fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("LootTable");
+        tag.remove("LootTableSeed");
+    }
+
     /// `setLootTable(table, seed)`.
     pub fn set_loot_table(&mut self, table: Identifier, seed: i64) {
         self.loot_table = Some(table);
@@ -53,8 +59,8 @@ impl RandomizableContainerData {
     }
 
     /// `RandomizableContainerBlockEntity.applyImplicitComponents`: the `container_loot` component.
-    pub fn apply_implicit_components(&mut self, stack: &crate::world::item::ItemStack) {
-        if let Some(loot) = stack.get(&CONTAINER_LOOT) {
+    pub fn apply_implicit_components(&mut self, components: &super::ComponentReader) {
+        if let Some(loot) = components.get(&CONTAINER_LOOT) {
             self.loot_table = Some(loot.loot_table.clone());
             self.loot_table_seed = loot.seed;
         }

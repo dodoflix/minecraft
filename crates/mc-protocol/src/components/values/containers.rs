@@ -812,8 +812,14 @@ pub fn recipes_codec() -> Codec<Vec<Identifier>> {
 pub fn block_pos_codec() -> Codec<BlockPos> {
     INT_STREAM.comap_flat_map(
         |v: Vec<i32>| {
+            // `Util.fixedSize`: a longer list keeps its first three ints as the partial result
             if v.len() == 3 {
                 DataResult::success(BlockPos::new(v[0], v[1], v[2]))
+            } else if v.len() > 3 {
+                DataResult::error_partial(
+                    || "Input is not a list of 3 ints".to_string(),
+                    BlockPos::new(v[0], v[1], v[2]),
+                )
             } else {
                 DataResult::error_str("Input is not a list of 3 ints")
             }

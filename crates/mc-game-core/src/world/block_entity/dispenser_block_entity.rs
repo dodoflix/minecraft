@@ -1,5 +1,6 @@
 //! `DispenserBlockEntity` (the dropper is the same class with another type/name, see `dropper_block_entity`).
 
+use super::ComponentReader;
 use super::base_container::BaseContainer;
 use super::randomizable_container::{RandomizableContainerData, unpack_loot_table};
 use super::{
@@ -130,10 +131,28 @@ impl BlockEntity for DispenserBlockEntity {
         self.loot.set_loot_table(table, seed);
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
+    fn collect_implicit_components(
+        &self,
+        builder: &mut mc_protocol::components::map::DataComponentMapBuilder,
+    ) {
+        *builder = self
+            .container
+            .collect_implicit_components(std::mem::take(builder), &self.items);
+        *builder = self
+            .loot
+            .collect_implicit_components(std::mem::take(builder));
+    }
+
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        self.container.remove_components_from_tag(tag);
+        self.loot.remove_components_from_tag(tag);
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
         self.container
-            .apply_implicit_components(stack, &mut self.items);
-        self.loot.apply_implicit_components(stack);
+            .apply_implicit_components(components, &mut self.items);
+        self.loot.apply_implicit_components(components);
     }
 
     /// Menu operations (`ContainerKey::BlockEntity`) replay the recorded `setChanged()` calls right after the operation.

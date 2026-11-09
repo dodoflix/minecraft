@@ -6,6 +6,7 @@ use mc_data::block::BlockState;
 use mc_data::{BlockEntityType, Item};
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::ComponentReader;
 use mc_game_core::world::block_entity::randomizable_container::{self, RandomizableContainerData};
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
@@ -166,10 +167,9 @@ impl BlockEntity for DecoratedPotBlockEntity {
             mc_game_core::world::block_entity::read_codec(tag, "sherds", &PotDecorations::codec())
                 .unwrap_or_default();
         if !self.loot.try_load_loot_table(tag) {
-            self.item = tag
-                .get("item")
-                .and_then(|t| ItemStack::from_tag(t).into_result().ok())
-                .unwrap_or_else(ItemStack::empty);
+            self.item =
+                mc_game_core::world::block_entity::read_codec(tag, "item", &ItemStack::codec())
+                    .unwrap_or_else(ItemStack::empty);
         } else {
             self.item = ItemStack::empty();
         }
@@ -204,9 +204,18 @@ impl BlockEntity for DecoratedPotBlockEntity {
         })
     }
 
-    fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
-        self.decorations = stack.get(&POT_DECORATIONS).cloned().unwrap_or_default();
-        self.item = stack
+    /// `removeComponentsFromTag(output)`.
+    fn remove_components_from_tag(&self, tag: &mut CompoundTag) {
+        tag.remove("sherds");
+        tag.remove("item");
+    }
+
+    fn apply_implicit_components(&mut self, components: &ComponentReader) {
+        self.decorations = components
+            .get(&POT_DECORATIONS)
+            .cloned()
+            .unwrap_or_default();
+        self.item = components
             .get(&CONTAINER)
             .map(|c| {
                 let mut one = [ItemStack::empty()];

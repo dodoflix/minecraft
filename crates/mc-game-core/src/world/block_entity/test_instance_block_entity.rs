@@ -2,12 +2,15 @@
 //! of one game test). Vanilla's methods that need the level or registries are free functions here taking the server
 //! (the level is a separate object that is taken out of its chunk while the block entity runs).
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
+use super::{
+    BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
+};
 use crate::gametest::game_test_instance::{TestHolder, lookup_test};
 use crate::gametest::structure_utils;
 use crate::registry::RegistryAccess;
 use crate::server::MinecraftServer;
 use crate::translatable;
+use crate::world::item::enchantment::codecs::vec3i_codec;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::{BlockGetter, DimensionKey, LevelAccessor};
 use linkme::distributed_slice;
@@ -18,11 +21,14 @@ use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::rotation::Rotation;
 use mc_data::BlockEntityType;
 use mc_data::block::{Block, BlockState};
+use mc_dfu::{Codec, DataResult};
 use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_protocol::components::{block_pos_codec, component_codec};
 use mc_protocol::packets::play::{
     ClientboundBlockEntityDataPacket, TestInstanceBlockEntityData, TestInstanceBlockEntityStatus,
 };
 use mc_text::{ChatFormatting, Component};
+use std::sync::LazyLock;
 
 pub type Data = TestInstanceBlockEntityData;
 pub type Status = TestInstanceBlockEntityStatus;
@@ -105,57 +111,66 @@ impl TestInstanceBlockEntity {
         }
         Tag::Compound(tag)
     }
+}
 
-    /// `Data.CODEC` decode (`None` when a required field is missing or malformed).
-    fn decode_data(tag: &CompoundTag) -> Option<Data> {
-        let test = match tag.get_string("test") {
-            Some(s) => Some(Identifier::try_parse(s)?),
-            None => None,
-        };
-        let size = tag
-            .get_int_array("size")
-            .filter(|a| a.len() == 3)
-            .map(|a| Vec3i::new(a[0], a[1], a[2]))?;
-        let rotation = Rotation::by_name(tag.get_string("rotation")?)?;
-        let ignore_entities = tag.get_boolean("ignore_entities")?;
-        let status = match tag.get_string("status")? {
-            "cleared" => Status::Cleared,
-            "running" => Status::Running,
-            "finished" => Status::Finished,
-            _ => return None,
-        };
-        let error_message = tag
-            .get("error_message")
-            .and_then(|t| Component::from_nbt(t).ok());
-        Some(Data {
-            test,
-            size,
-            rotation,
-            ignore_entities,
-            status,
-            error_message,
+/// `Rotation.CODEC` / `Status.CODEC` (`StringRepresentable.fromEnum`): the serialized name.
+fn named_codec<T: Copy + Send + Sync + 'static>(
+    by_name: fn(&str) -> Option<T>,
+    name: fn(T) -> &'static str,
+) -> Codec<T> {
+    mc_dfu::STRING.comap_flat_map(
+        move |s| match by_name(&s) {
+            Some(v) => DataResult::success(v),
+            None => DataResult::error(move || format!("Unknown element name: {s}")),
+        },
+        move |v: &T| name(*v).to_string(),
+    )
+}
+
+/// `TestInstanceBlockEntity.Data.CODEC`.
+fn data_codec() -> &'static Codec<Data> {
+    static C: LazyLock<Codec<Data>> = LazyLock::new(|| {
+        mc_dfu::record!(Data {
+            test: mc_dfu::extra::IDENTIFIER.optional_field_of("test"),
+            size: vec3i_codec().field_of("size"),
+            rotation: named_codec(Rotation::by_name, Rotation::get_serialized_name)
+                .field_of("rotation"),
+            ignore_entities: mc_dfu::BOOL.field_of("ignore_entities"),
+            status: named_codec(status_by_name, status_name).field_of("status"),
+            error_message: component_codec().optional_field_of("error_message"),
         })
-    }
+        .codec()
+    });
+    &C
+}
+
+fn status_by_name(name: &str) -> Option<Status> {
+    [Status::Cleared, Status::Running, Status::Finished]
+        .into_iter()
+        .find(|s| status_name(*s) == name)
+}
+
+/// `ErrorMarker.LIST_CODEC`.
+fn error_markers_codec() -> &'static Codec<Vec<ErrorMarker>> {
+    static C: LazyLock<Codec<Vec<ErrorMarker>>> = LazyLock::new(|| {
+        mc_dfu::record!(ErrorMarker {
+            pos: block_pos_codec().field_of("pos"),
+            text: component_codec().field_of("text"),
+        })
+        .codec()
+        .list_of()
+    });
+    &C
 }
 
 impl BlockEntity for TestInstanceBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        if let Some(data) = tag.get_compound("data").and_then(Self::decode_data) {
+        if let Some(data) = read_codec(tag, "data", data_codec()) {
             self.data = data;
         }
-        self.error_markers.clear();
-        for marker in tag.get_list_or_empty("errors").compounds() {
-            let pos = marker
-                .get_int_array("pos")
-                .filter(|a| a.len() == 3)
-                .map(|a| BlockPos::new(a[0], a[1], a[2]));
-            let text = marker.get("text").and_then(|t| Component::from_nbt(t).ok());
-            if let (Some(pos), Some(text)) = (pos, text) {
-                self.error_markers.push(ErrorMarker { pos, text });
-            }
-        }
+        self.error_markers = read_codec(tag, "errors", error_markers_codec()).unwrap_or_default();
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {

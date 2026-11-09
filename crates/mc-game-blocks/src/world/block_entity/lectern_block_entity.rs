@@ -173,9 +173,7 @@ impl BlockEntity for LecternBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        self.book = tag
-            .get("Book")
-            .and_then(|t| ItemStack::from_tag(t).result())
+        self.book = mc_game_core::world::block_entity::read_codec(tag, "Book", &ItemStack::codec())
             .unwrap_or_default();
         self.page_count = get_page_count(&self.book);
         self.page = mth::clamp_i32(tag.get_int_or("Page", 0), 0, self.page_count - 1);
