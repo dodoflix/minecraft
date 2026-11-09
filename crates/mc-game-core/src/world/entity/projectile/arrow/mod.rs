@@ -1077,6 +1077,9 @@ macro_rules! impl_abstract_arrow_projectile {
 macro_rules! impl_abstract_arrow_entity {
     () => {
         $crate::impl_projectile_entity!(arrow);
+        fn tracking_kind(&self) -> $crate::world::entity::TrackingKind {
+            $crate::world::entity::TrackingKind::Arrow
+        }
         fn is_pickable(&self) -> bool {
             $crate::world::entity::projectile::is_pickable(self.get_type())
                 && !$crate::world::entity::projectile::arrow::AbstractArrow::is_in_ground(self)
