@@ -37,7 +37,7 @@ bullet links to the `parity` issue that tracks the category, and known differenc
 
 - **Entity types without behaviour:** wither, ender dragon, illagers, minecarts, display entities, projectiles such as ender pearls and potions, and several animals. They can be summoned and loaded as inert placeholder entities that keep their NBT, but they have no AI, physics, interaction or drops. ([#13](https://github.com/dodoflix/minecraft/issues/13))
 - **Mob AI and spawning:** skeletons never shoot, zombies do not use spears or cure villagers, block spawners skip the mob hooks, and leads, dolphin treasure and piglin anger are missing. ([#14](https://github.com/dodoflix/minecraft/issues/14))
-- **Items:** several items do nothing when used (ender pearl, egg, fishing rod, flint and steel, minecarts, brush, dyes on signs, carrot on a stick boost, and more). ([#15](https://github.com/dodoflix/minecraft/issues/15))
+- **Items:** several items do nothing when used (ender pearl, egg, fishing rod, flint and steel, minecarts, brush, carrot on a stick boost, and more). ([#15](https://github.com/dodoflix/minecraft/issues/15))
 - **Dispensers:** only five dispense behaviours exist; every other item is dropped. ([#16](https://github.com/dodoflix/minecraft/issues/16))
 - **Workstations and menus:** the crafting table, furnaces, stonecutter, loom, smithing table, cartography table and the crafter open no menu, and the recipe book cannot place recipes. ([#17](https://github.com/dodoflix/minecraft/issues/17))
 - **Redstone and blocks:** carved pumpkins build no golems, copper golem statues cannot turn back into golems, and sign commands and some statistics are incomplete. ([#18](https://github.com/dodoflix/minecraft/issues/18))

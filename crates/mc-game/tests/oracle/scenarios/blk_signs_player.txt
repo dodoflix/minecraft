@@ -8,67 +8,71 @@ give p hotbar2 minecraft:skeleton_skull 64
 give p hotbar3 minecraft:oak_hanging_sign 64
 give p hotbar4 minecraft:white_banner 64
 tick 1
-tp p 0.5 -60 8.5 0.0 0
+dump packets:p:none
+snap p 0.5 -60 8.5 0.0 0
 select p 0
 use_on p 0 -61 4 up
+sign_update p 0 -60 4 front hello world "" §ax
+sign_update p 0 -60 4 front again no no no
 tick 1
-tp p 2.5 -60 8.5 22.5 0
+snap p 2.5 -60 8.5 22.5 0
 select p 0
 use_on p 2 -61 4 up
+sign_update p 2 -60 4 back back1 back2 back3 back4
 tick 1
-tp p 4.5 -60 8.5 45.0 0
+snap p 4.5 -60 8.5 45.0 0
 select p 0
 use_on p 4 -61 4 up
 tick 1
-tp p 6.5 -60 8.5 67.5 0
+snap p 6.5 -60 8.5 67.5 0
 select p 0
 use_on p 6 -61 4 up
 tick 1
-tp p 8.5 -60 8.5 90.0 0
+snap p 8.5 -60 8.5 90.0 0
 select p 0
 use_on p 8 -61 4 up
 tick 1
-tp p 10.5 -60 8.5 112.5 0
+snap p 10.5 -60 8.5 112.5 0
 select p 0
 use_on p 10 -61 4 up
 tick 1
-tp p 12.5 -60 8.5 135.0 0
+snap p 12.5 -60 8.5 135.0 0
 select p 0
 use_on p 12 -61 4 up
 tick 1
-tp p 14.5 -60 8.5 157.5 0
+snap p 14.5 -60 8.5 157.5 0
 select p 0
 use_on p 14 -61 4 up
 tick 1
-tp p 16.5 -60 8.5 180.0 0
+snap p 16.5 -60 8.5 180.0 0
 select p 0
 use_on p 16 -61 4 up
 tick 1
-tp p 18.5 -60 8.5 202.5 0
+snap p 18.5 -60 8.5 202.5 0
 select p 0
 use_on p 18 -61 4 up
 tick 1
-tp p 20.5 -60 8.5 225.0 0
+snap p 20.5 -60 8.5 225.0 0
 select p 0
 use_on p 20 -61 4 up
 tick 1
-tp p 22.5 -60 8.5 247.5 0
+snap p 22.5 -60 8.5 247.5 0
 select p 0
 use_on p 22 -61 4 up
 tick 1
-tp p 24.5 -60 8.5 270.0 0
+snap p 24.5 -60 8.5 270.0 0
 select p 0
 use_on p 24 -61 4 up
 tick 1
-tp p 26.5 -60 8.5 292.5 0
+snap p 26.5 -60 8.5 292.5 0
 select p 0
 use_on p 26 -61 4 up
 tick 1
-tp p 28.5 -60 8.5 315.0 0
+snap p 28.5 -60 8.5 315.0 0
 select p 0
 use_on p 28 -61 4 up
 tick 1
-tp p 30.5 -60 8.5 337.5 0
+snap p 30.5 -60 8.5 337.5 0
 select p 0
 use_on p 30 -61 4 up
 tick 1
@@ -89,68 +93,68 @@ be_nbt 24 -60 4 {is_waxed:0b}
 be_nbt 26 -60 4 {is_waxed:0b}
 be_nbt 28 -60 4 {is_waxed:0b}
 be_nbt 30 -60 4 {is_waxed:0b}
-dump be:0,-60,4 be:6,-60,4 packets:p
-tp p 0.5 -60 8.5 11.25 0
+dump be:0,-60,4 be:2,-60,4 be:6,-60,4 beu:0,-60,4 packets:p:open_sign_editor,set_action_bar_text
+snap p 0.5 -60 8.5 11.25 0
 select p 2
 use_on p 0 -61 0 up
 tick 1
-tp p 2.5 -60 8.5 33.75 0
+snap p 2.5 -60 8.5 33.75 0
 select p 2
 use_on p 2 -61 0 up
 tick 1
-tp p 4.5 -60 8.5 56.25 0
+snap p 4.5 -60 8.5 56.25 0
 select p 2
 use_on p 4 -61 0 up
 tick 1
-tp p 6.5 -60 8.5 78.75 0
+snap p 6.5 -60 8.5 78.75 0
 select p 2
 use_on p 6 -61 0 up
 tick 1
-tp p 8.5 -60 8.5 101.25 0
+snap p 8.5 -60 8.5 101.25 0
 select p 2
 use_on p 8 -61 0 up
 tick 1
-tp p 10.5 -60 8.5 123.75 0
+snap p 10.5 -60 8.5 123.75 0
 select p 2
 use_on p 10 -61 0 up
 tick 1
-tp p 12.5 -60 8.5 146.25 0
+snap p 12.5 -60 8.5 146.25 0
 select p 2
 use_on p 12 -61 0 up
 tick 1
-tp p 14.5 -60 8.5 168.75 0
+snap p 14.5 -60 8.5 168.75 0
 select p 2
 use_on p 14 -61 0 up
 tick 1
-tp p 16.5 -60 8.5 191.25 0
+snap p 16.5 -60 8.5 191.25 0
 select p 2
 use_on p 16 -61 0 up
 tick 1
-tp p 18.5 -60 8.5 213.75 0
+snap p 18.5 -60 8.5 213.75 0
 select p 2
 use_on p 18 -61 0 up
 tick 1
-tp p 20.5 -60 8.5 236.25 0
+snap p 20.5 -60 8.5 236.25 0
 select p 2
 use_on p 20 -61 0 up
 tick 1
-tp p 22.5 -60 8.5 258.75 0
+snap p 22.5 -60 8.5 258.75 0
 select p 2
 use_on p 22 -61 0 up
 tick 1
-tp p 24.5 -60 8.5 281.25 0
+snap p 24.5 -60 8.5 281.25 0
 select p 2
 use_on p 24 -61 0 up
 tick 1
-tp p 26.5 -60 8.5 303.75 0
+snap p 26.5 -60 8.5 303.75 0
 select p 2
 use_on p 26 -61 0 up
 tick 1
-tp p 28.5 -60 8.5 326.25 0
+snap p 28.5 -60 8.5 326.25 0
 select p 2
 use_on p 28 -61 0 up
 tick 1
-tp p 30.5 -60 8.5 348.75 0
+snap p 30.5 -60 8.5 348.75 0
 select p 2
 use_on p 30 -61 0 up
 tick 1

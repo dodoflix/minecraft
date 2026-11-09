@@ -1,0 +1,31 @@
+BE 0 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:0,y:-60,z:0}
+BEU 0 -60 0 minecraft:sign {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},is_waxed:0b}
+BE 2 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:2,y:-60,z:0}
+BE 4 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:hanging_sign",is_waxed:0b,x:4,y:-60,z:0}
+BEU 4 -60 0 minecraft:hanging_sign {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},is_waxed:0b}
+BE 6 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:hanging_sign",is_waxed:0b,x:6,y:-60,z:0}
+BE 0 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"red",has_glowing_text:1b,messages:["hello",{bold:1b,color:"red",text:"world"},"",{click_event:{action:"run_command",command:"/say hi"},text:"x"}]},id:"minecraft:sign",is_waxed:1b,x:0,y:-60,z:0}
+BEU 0 -60 0 minecraft:sign {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},front_text:{color:"red",has_glowing_text:1b,messages:["hello",{bold:1b,color:"red",text:"world"},"",{click_event:{action:"run_command",command:"/say hi"},text:"x"}]},is_waxed:1b}
+BE 0 -60 0 {back_text:{color:"lime",filtered_messages:["a","B","c","D"],has_glowing_text:0b,messages:["a","b","c","d"]},components:{},front_text:{color:"red",has_glowing_text:1b,messages:["hello",{bold:1b,color:"red",text:"world"},"",{click_event:{action:"run_command",command:"/say hi"},text:"x"}]},id:"minecraft:sign",is_waxed:1b,x:0,y:-60,z:0}
+BEU 0 -60 0 minecraft:sign {back_text:{color:"lime",filtered_messages:["a","B","c","D"],has_glowing_text:0b,messages:["a","b","c","d"]},front_text:{color:"red",has_glowing_text:1b,messages:["hello",{bold:1b,color:"red",text:"world"},"",{click_event:{action:"run_command",command:"/say hi"},text:"x"}]},is_waxed:1b}
+BE 4 -60 0 {allow_op_features:1b,back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"blue",has_glowing_text:0b,messages:["h1","h2","h3","h4"]},id:"minecraft:hanging_sign",is_waxed:0b,x:4,y:-60,z:0}
+BEU 4 -60 0 minecraft:hanging_sign {allow_op_features:1b,back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},front_text:{color:"blue",has_glowing_text:0b,messages:["h1","h2","h3","h4"]},is_waxed:0b}
+BE 2 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:2,y:-60,z:0}
+BE 8 -60 0 {components:{},id:"minecraft:banner",x:8,y:-60,z:0}
+BEU 8 -60 0 minecraft:banner {components:{}}
+BE 10 -60 0 {components:{},id:"minecraft:banner",x:10,y:-60,z:0}
+BE 8 -60 0 {CustomName:'{"text":"Flag","italic":false}',components:{},id:"minecraft:banner",patterns:[{color:"white",pattern:"minecraft:stripe_top"},{color:"black",pattern:"minecraft:creeper"}],x:8,y:-60,z:0}
+BEU 8 -60 0 minecraft:banner {CustomName:'{"text":"Flag","italic":false}',components:{},patterns:[{color:"white",pattern:"minecraft:stripe_top"},{color:"black",pattern:"minecraft:creeper"}]}
+BE 10 -60 0 {components:{},id:"minecraft:banner",patterns:[{color:"cyan",pattern:"minecraft:globe"}],x:10,y:-60,z:0}
+BEU 10 -60 0 minecraft:banner {components:{},patterns:[{color:"cyan",pattern:"minecraft:globe"}]}
+BE 12 -60 0 {components:{},id:"minecraft:skull",x:12,y:-60,z:0}
+BEU 12 -60 0 minecraft:skull {}
+BE 14 -60 0 {components:{},id:"minecraft:skull",x:14,y:-60,z:0}
+BE 16 -60 0 {components:{},id:"minecraft:skull",x:16,y:-60,z:0}
+BE 18 -60 0 {components:{},id:"minecraft:skull",x:18,y:-60,z:0}
+BE 20 -60 0 {components:{},id:"minecraft:skull",x:20,y:-60,z:0}
+BE 14 -60 0 {components:{},custom_name:'{"text":"Head"}',id:"minecraft:skull",note_block_sound:"minecraft:entity.pig.ambient",profile:{name:"Notch"},x:14,y:-60,z:0}
+BEU 14 -60 0 minecraft:skull {custom_name:'{"text":"Head"}',note_block_sound:"minecraft:entity.pig.ambient",profile:{name:"Notch"}}
+BE 14 -60 0 {components:{},custom_name:'{"text":"Head"}',id:"minecraft:skull",note_block_sound:"minecraft:entity.pig.ambient",profile:{id:[I;1,2,3,4],name:"Notch",properties:[{name:"textures",value:"abc"}]},x:14,y:-60,z:0}
+BEU 14 -60 0 minecraft:skull {custom_name:'{"text":"Head"}',note_block_sound:"minecraft:entity.pig.ambient",profile:{id:[I;1,2,3,4],name:"Notch",properties:[{name:"textures",value:"abc"}]}}
+BE 12 -60 0 {components:{},id:"minecraft:skull",note_block_sound:"zzz:bad",profile:{name:"minecraft:pig"},x:12,y:-60,z:0}

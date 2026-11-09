@@ -302,6 +302,11 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     fn as_projectile_item(&self) -> Option<&dyn super::ProjectileItem> {
         None
     }
+
+    /// `item instanceof SignApplicator` (`DyeItem`, `HoneycombItem`, `InkSacItem`, `GlowInkSacItem`).
+    fn as_sign_applicator(&self) -> Option<&dyn super::SignApplicator> {
+        None
+    }
 }
 
 /// Vanilla's base `Item` (every method default).

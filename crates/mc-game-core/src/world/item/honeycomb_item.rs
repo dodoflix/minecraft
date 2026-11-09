@@ -1,8 +1,10 @@
-//! `HoneycombItem`: waxing copper blocks (`useOn`). Waxing signs is not implemented.
+//! `HoneycombItem`: waxing copper blocks (`useOn`) and signs (`SignApplicator`).
 
-use super::{InteractionResult, ItemBehaviour, UseOnContext};
+use super::{InteractionResult, ItemBehaviour, ItemStack, SignApplicator, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::block_entity::BlockEntity;
+use crate::world::block_entity::sign_block_entity::{SignBlockEntity, SignText, SignTextSlot};
 use crate::world::entity::ServerPlayer;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::chest_block;
@@ -85,6 +87,9 @@ pub fn waxable_pairs() -> impl Iterator<Item = (Block, Block)> {
 pub struct HoneycombItem;
 
 impl ItemBehaviour for HoneycombItem {
+    fn as_sign_applicator(&self) -> Option<&dyn SignApplicator> {
+        Some(self)
+    }
     fn use_on(
         &self,
         context: &mut UseOnContext,
@@ -140,6 +145,42 @@ impl ItemBehaviour for HoneycombItem {
             );
         }
         InteractionResult::SUCCESS
+    }
+}
+
+impl SignApplicator for HoneycombItem {
+    fn can_apply_to_sign(
+        &self,
+        _text: &SignText,
+        _item: &ItemStack,
+        _player: &ServerPlayer,
+    ) -> bool {
+        true
+    }
+
+    fn try_apply_to_sign(
+        &self,
+        level: &mut ServerLevel,
+        sign: &mut SignBlockEntity,
+        _slot: SignTextSlot,
+        _item: &ItemStack,
+        _player: &ServerPlayer,
+    ) -> bool {
+        if sign.set_waxed(level, true) {
+            let pos = sign.get_block_pos();
+            level.level_event(None, 3003, pos, 0);
+            level.play_sound(
+                None,
+                pos,
+                SoundEvent::ITEM_HONEYCOMB_WAX_ON,
+                SoundSource::Blocks,
+                1.0,
+                1.0,
+            );
+            true
+        } else {
+            false
+        }
     }
 }
 

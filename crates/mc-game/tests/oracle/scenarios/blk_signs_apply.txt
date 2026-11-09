@@ -1,0 +1,153 @@
+# SignBlock.useItemOn: dye, glow ink sac, ink sac and honeycomb on standing, wall and hanging signs (both text sides, empty text,
+# waxed signs, creative / adventure players, another player editing, click-action overlay on waxing).
+level flat
+preload 3
+spawn_player p survival 0.5 -60 8.5 0 0
+spawn_player c creative 6.5 -60 8.5 0 0
+spawn_player a adventure 12.5 -60 8.5 0 0
+give p hotbar0 minecraft:red_dye 8
+give p hotbar1 minecraft:glow_ink_sac 8
+give p hotbar2 minecraft:ink_sac 8
+give p hotbar3 minecraft:honeycomb 8
+give p hotbar4 minecraft:black_dye 8
+give p hotbar5 minecraft:stick 1
+give p hotbar6 minecraft:oak_hanging_sign 8
+give c hotbar0 minecraft:blue_dye 8
+give c hotbar1 minecraft:honeycomb 8
+give a hotbar0 minecraft:green_dye 8
+give a hotbar1 minecraft:honeycomb 8
+tick 1
+dump packets:p:none packets:c:none packets:a:none
+block 0 -60 4 minecraft:oak_sign[rotation=0]
+block 2 -60 4 minecraft:oak_sign[rotation=0]
+block 4 -60 4 minecraft:oak_sign[rotation=0]
+block 6 -60 4 minecraft:oak_sign[rotation=0]
+block 8 -60 4 minecraft:oak_sign[rotation=0]
+block 10 -60 4 minecraft:oak_sign[rotation=0]
+block 12 -60 4 minecraft:oak_sign[rotation=0]
+be_nbt 0 -60 4 {front_text:{messages:["hello","","",""]},back_text:{messages:["back","","",""]}}
+be_nbt 2 -60 4 {front_text:{messages:["","","",""]}}
+be_nbt 4 -60 4 {front_text:{messages:["wax me","","",""],color:"lime"}}
+be_nbt 6 -60 4 {front_text:{messages:["creative","","",""]}}
+be_nbt 8 -60 4 {front_text:{messages:["click",{text:"me",click_event:{action:"run_command",command:"/say hi"}},"",""]}}
+be_nbt 10 -60 4 {front_text:{messages:["filtered","","",""],filtered_messages:["","","",""]}}
+be_nbt 12 -60 4 {front_text:{messages:["adventure","","",""]}}
+dump be:0,-60,4 be:2,-60,4 be:4,-60,4 be:6,-60,4 be:8,-60,4 be:10,-60,4 be:12,-60,4
+# dye: colours the front text, consumes one, plays the sound, game event; the same colour again changes nothing and opens the editor
+select p 0
+use_on p 0 -60 4 south
+dump be:0,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+use_on p 0 -60 4 south
+dump be:0,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+select p 4
+use_on p 0 -60 4 south
+dump be:0,-60,4 inventory:p events
+# glow ink sac then ink sac
+select p 1
+use_on p 0 -60 4 south
+dump be:0,-60,4 inventory:p events
+use_on p 0 -60 4 south
+dump be:0,-60,4 inventory:p events
+select p 2
+use_on p 0 -60 4 south
+dump be:0,-60,4 inventory:p events
+use_on p 0 -60 4 south
+dump be:0,-60,4 inventory:p events
+# back side: the player stands north of the sign
+snap p 0.5 -60 -0.5 180 0
+select p 0
+use_on p 0 -60 4 north
+dump be:0,-60,4 inventory:p events
+select p 1
+use_on p 0 -60 4 north
+dump be:0,-60,4 inventory:p events
+snap p 0.5 -60 8.5 0 0
+# empty text (no message): not applied, the stack stays
+select p 0
+use_on p 2 -60 4 south
+dump be:2,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+# honeycomb waxes an empty sign too (canApplyToSign is always true)
+select p 3
+use_on p 2 -60 4 south
+dump be:2,-60,4 inventory:p events
+select p 0
+# filtered (empty) text of a text-filtering player: hasMessage reads the filtered lines
+snap p 10.5 -60 8.5 0 0
+use_on p 10 -60 4 south
+dump be:10,-60,4 inventory:p events
+# honeycomb: waxes (level event 3003), consumes one; dye, glow ink and a second honeycomb on a waxed sign fail
+snap p 4.5 -60 8.5 0 0
+select p 3
+use_on p 4 -60 4 south
+dump be:4,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+use_on p 4 -60 4 south
+dump be:4,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+select p 0
+use_on p 4 -60 4 south
+dump be:4,-60,4 inventory:p events
+select p 1
+use_on p 4 -60 4 south
+dump be:4,-60,4 inventory:p events
+# honeycomb on a sign with a click event (allow_op_features false): applies, then the click-actions-disabled overlay
+snap p 8.5 -60 8.5 0 0
+select p 3
+use_on p 8 -60 4 south
+dump be:8,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+# another player is editing: the applicator is refused and the other player gets no editor
+select p 5
+use_on p 0 -60 4 south
+select p 0
+snap p 0.5 -60 8.5 0 0
+snap c 0.5 -60 8.5 0 0
+select c 0
+use_on c 0 -60 4 south
+dump be:0,-60,4 inventory:p inventory:c packets:c:open_sign_editor,set_action_bar_text events
+snap c 6.5 -60 8.5 0 0
+# creative player: nothing is consumed
+use_on c 6 -60 4 south
+dump be:6,-60,4 inventory:c events
+select c 1
+use_on c 6 -60 4 south
+dump be:6,-60,4 inventory:c events
+# adventure player: mayBuild is false, the applicator is refused
+use_on a 12 -60 4 south
+dump be:12,-60,4 inventory:a events
+select a 1
+use_on a 12 -60 4 south
+dump be:12,-60,4 inventory:a events
+# wall sign, ceiling hanging sign and wall hanging signs
+block 14 -60 4 minecraft:stone
+block 14 -60 5 minecraft:oak_wall_sign[facing=south]
+block 16 -59 4 minecraft:stone
+block 16 -60 4 minecraft:oak_hanging_sign[rotation=0,attached=false]
+block 18 -60 4 minecraft:stone
+block 18 -60 5 minecraft:oak_wall_hanging_sign[facing=south]
+block 20 -60 5 minecraft:oak_wall_hanging_sign[facing=south]
+block 20 -60 4 minecraft:stone
+block 20 -60 6 minecraft:stone
+be_nbt 14 -60 5 {front_text:{messages:["wall","","",""]}}
+be_nbt 16 -60 4 {front_text:{messages:["ceiling","","",""]}}
+be_nbt 18 -60 5 {front_text:{messages:["wall hang","","",""]}}
+be_nbt 20 -60 5 {front_text:{messages:["side","","",""]}}
+snap p 14.5 -60 8.5 0 0
+select p 0
+use_on p 14 -60 5 south
+dump be:14,-60,5 inventory:p events
+snap p 16.5 -60 8.5 0 0
+use_on p 16 -60 4 south
+dump be:16,-60,4 inventory:p events
+select p 3
+use_on p 16 -60 4 south
+dump be:16,-60,4 inventory:p events
+snap p 18.5 -60 8.5 0 0
+select p 1
+use_on p 18 -60 5 south
+dump be:18,-60,5 inventory:p events
+# a wall hanging sign clicked on a side face with a hanging sign in hand: chains instead of applying; a dye on that side applies
+snap p 22.5 -60 5.5 0 0
+select p 0
+use_on p 20 -60 5 east
+dump be:20,-60,5 inventory:p events
+select p 6
+use_on p 20 -60 5 east
+dump blocks:19,-61,3,22,-59,7 inventory:p events
