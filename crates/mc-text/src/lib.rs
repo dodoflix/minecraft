@@ -23,7 +23,7 @@ pub mod value;
 
 pub use chat_formatting::ChatFormatting;
 pub use codec::{
-    CodecError, PayloadHooks, PayloadKind, Validators, set_payload_hooks, set_validators,
+    CodecError, Partial, PayloadHooks, PayloadKind, Validators, set_payload_hooks, set_validators,
 };
 pub use component::{
     Component, ComponentContents, DataSource, NbtContents, ObjectContents, ObjectInfo,
@@ -52,6 +52,12 @@ impl Component {
         codec::decode_component(json)
     }
 
+    /// `ComponentSerialization.CODEC.parse(JsonOps.INSTANCE, json).resultOrPartial(..)`: on failure the error carries
+    /// the partial component, when vanilla's codec produces one.
+    pub fn from_json_partial(json: &Value) -> codec::P<Component> {
+        codec::decode_component_partial(json)
+    }
+
     /// `ComponentSerialization.CODEC.encodeStart(JsonOps.INSTANCE, self)`. Fails like vanilla for
     /// components that cannot be serialised (e.g. `open_file` click events, sprite fonts).
     pub fn to_json(&self) -> Result<Value, CodecError> {
@@ -61,6 +67,11 @@ impl Component {
     /// `ComponentSerialization.CODEC.parse(NbtOps.INSTANCE, tag)` (the network format).
     pub fn from_nbt(tag: &Tag) -> Result<Component, CodecError> {
         codec::decode_component(tag)
+    }
+
+    /// Like [`Component::from_json_partial`] for NBT input.
+    pub fn from_nbt_partial(tag: &Tag) -> codec::P<Component> {
+        codec::decode_component_partial(tag)
     }
 
     /// `ComponentSerialization.CODEC.encodeStart(NbtOps.INSTANCE, self)`.

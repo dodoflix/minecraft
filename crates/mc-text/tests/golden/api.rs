@@ -121,3 +121,40 @@ fn component_is_reasonably_small() {
         std::mem::size_of::<Component>()
     );
 }
+
+/// `resultOrPartial`: an invalid optional field is dropped, nested through lists, `extra` and hover events; a failure
+/// without any partial value (a required field, a non-component) stays an error.
+#[test]
+fn malformed_fields_decode_to_partial_components() {
+    let partial = |v: serde_json::Value| Component::from_json_partial(&v).expect_err("malformed");
+
+    let p = partial(json!({"text": "x", "color": "nope", "bold": true}));
+    assert_eq!(
+        p.value.unwrap().to_json().unwrap(),
+        json!({"text": "x", "bold": true})
+    );
+
+    let p = partial(json!([{"text": "a", "color": "nope"}, "b", 5]));
+    assert_eq!(
+        p.value.unwrap().to_json().unwrap(),
+        json!({"text": "a", "extra": ["b"]})
+    );
+
+    let p = partial(json!({"text": "a", "extra": [{"text": "b", "italic": 1}]}));
+    assert_eq!(
+        p.value.unwrap().to_json().unwrap(),
+        json!({"text": "a", "extra": ["b"]})
+    );
+
+    let p = partial(
+        json!({"text": "a", "hover_event": {"action": "show_text", "value": {"text": "h", "color": "nope"}}}),
+    );
+    assert_eq!(
+        p.value.unwrap().to_json().unwrap(),
+        json!({"text": "a", "hover_event": {"action": "show_text", "value": "h"}})
+    );
+
+    assert!(partial(json!({"color": "nope"})).value.is_none());
+    assert!(partial(json!(5)).value.is_none());
+    assert!(partial(json!({"text": "a", "extra": []})).value.is_some());
+}

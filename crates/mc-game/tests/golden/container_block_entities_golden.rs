@@ -193,7 +193,7 @@ fn install_registries() {
 }
 
 /// Cases whose component carries a malformed style (`color:"nope"`): vanilla keeps the partial component with the style field
-/// dropped (`resultOrPartial`), the component codec of mc-text rejects the whole component.
+/// dropped (`resultOrPartial`).
 const PARTIAL_COMPONENT_DEVIATIONS: &[&str] = &[
     "a_chest_name_compound_bad_color",
     "b_sign_text_bad_color",
@@ -213,7 +213,6 @@ fn block_entities_match_vanilla() {
 }
 
 #[test]
-#[ignore = "deviation: a component with a malformed style field is rejected whole instead of decoding to its partial result (#23)"]
 fn block_entities_with_malformed_component_styles_match_vanilla() {
     check(|name| PARTIAL_COMPONENT_DEVIATIONS.contains(&name));
 }

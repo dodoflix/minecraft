@@ -194,19 +194,23 @@ pub fn component_codec() -> Codec<Component> {
             }
         },
         |ops, input| {
-            let r: Result<Component, String> = match ops.kind() {
-                OpsKind::Json => {
-                    Component::from_json(&dyn_to_serde(input)).map_err(|e| e.to_string())
-                }
+            let r: mc_text::codec::P<Component> = match ops.kind() {
+                OpsKind::Json => Component::from_json_partial(&dyn_to_serde(input)),
                 OpsKind::Nbt => match input.to_tag() {
-                    Ok(t) => Component::from_nbt(&t).map_err(|e| e.to_string()),
-                    Err(e) => Err(e),
+                    Ok(t) => Component::from_nbt_partial(&t),
+                    Err(e) => Err(mc_text::CodecError(e).into()),
                 },
-                OpsKind::Hash => Err("Unsupported operation".into()),
+                OpsKind::Hash => Err(mc_text::CodecError("Unsupported operation".into()).into()),
             };
             match r {
                 Ok(c) => DataResult::success((c, ops.empty())),
-                Err(e) => DataResult::error(move || e.clone()),
+                Err(p) => {
+                    let e = p.error.to_string();
+                    match p.value {
+                        Some(c) => DataResult::error_partial(move || e.clone(), (c, ops.empty())),
+                        None => DataResult::error(move || e.clone()),
+                    }
+                }
             }
         },
     )

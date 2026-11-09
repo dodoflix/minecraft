@@ -24,9 +24,12 @@ pub(crate) fn put_component(tag: &mut CompoundTag, key: &str, component: &Compon
     }
 }
 
-/// `BlockEntity.parseCustomNameSafe(input, key)`: the decoded component, `None` when absent or malformed.
+/// `BlockEntity.parseCustomNameSafe(input, key)` (`ValueInput.read`, so `resultOrPartial`): the decoded component or the
+/// partial component of a malformed one, `None` when absent or unrecoverable.
 pub(crate) fn parse_custom_name_safe(tag: &CompoundTag, key: &str) -> Option<Component> {
-    mc_text::codec::decode_component::<Tag>(tag.get(key)?).ok()
+    mc_text::codec::decode_component_partial::<Tag>(tag.get(key)?)
+        .or_else(|p| p.value.ok_or(()))
+        .ok()
 }
 
 /// The fields a running command changes.

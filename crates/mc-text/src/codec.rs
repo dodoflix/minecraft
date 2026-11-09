@@ -37,6 +37,124 @@ impl From<String> for CodecError {
 
 pub(crate) type R<T> = Result<T, CodecError>;
 
+/// A `DataResult.error` that may carry a partial value (`DataResult.Error.partialValue`); `Ok` is a success.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Partial<T> {
+    pub error: CodecError,
+    pub value: Option<T>,
+}
+
+/// `DataResult<T>`: a success, or an error with an optional partial value.
+pub type P<T> = Result<T, Box<Partial<T>>>;
+
+impl<T> From<CodecError> for Box<Partial<T>> {
+    fn from(error: CodecError) -> Self {
+        Box::new(Partial { error, value: None })
+    }
+}
+
+impl<T> From<Box<Partial<T>>> for CodecError {
+    fn from(p: Box<Partial<T>>) -> Self {
+        p.error
+    }
+}
+
+/// `DataResult.map`.
+fn map_p<T, U>(r: P<T>, f: impl FnOnce(T) -> U) -> P<U> {
+    match r {
+        Ok(v) => Ok(f(v)),
+        Err(p) => Err(Box::new(Partial {
+            error: p.error,
+            value: p.value.map(f),
+        })),
+    }
+}
+
+/// Results the field helpers accept: a plain [`R`] (no partial value) or a [`P`].
+pub(crate) trait IntoP {
+    type T;
+    fn into_p(self) -> P<Self::T>;
+}
+
+impl<T> IntoP for R<T> {
+    type T = T;
+    fn into_p(self) -> P<T> {
+        self.map_err(Into::into)
+    }
+}
+
+impl<T> IntoP for P<T> {
+    type T = T;
+    fn into_p(self) -> P<T> {
+        self
+    }
+}
+
+/// `DataResult.ap` over the fields of a record: errors are joined, and the result keeps a partial value only
+/// when every field has a value or a partial value.
+#[derive(Default)]
+struct Record {
+    error: Option<String>,
+    lost: bool,
+}
+
+impl Record {
+    fn take<X: IntoP>(&mut self, r: X) -> Option<X::T> {
+        match r.into_p() {
+            Ok(v) => Some(v),
+            Err(p) => {
+                self.error = Some(match self.error.take() {
+                    Some(e) => format!("{e}; {}", p.error.0),
+                    None => p.error.0,
+                });
+                self.lost |= p.value.is_none();
+                p.value
+            }
+        }
+    }
+
+    /// `make` builds the record from the taken fields; it returns `None` when a field has no value.
+    fn finish<T>(self, make: impl FnOnce() -> Option<T>) -> P<T> {
+        match self.error {
+            None => Ok(make().expect("every field of a successful record has a value")),
+            Some(error) => Err(Box::new(Partial {
+                error: CodecError(error),
+                value: if self.lost { None } else { make() },
+            })),
+        }
+    }
+}
+
+/// `ListCodec.decode`: elements that fail without a partial value are dropped, the others (including partial
+/// ones) are kept, and any failure makes the whole list a partial result.
+fn decode_list_partial<O: Ops, E>(v: &O, f: impl Fn(&O) -> P<E>) -> P<Vec<E>> {
+    let items = v
+        .get_list()
+        .ok_or_else(|| CodecError("Not a list".into()))?;
+    let mut elements = Vec::with_capacity(items.len());
+    let mut error: Option<String> = None;
+    for item in &items {
+        let value = match f(item.as_ref()) {
+            Ok(e) => Some(e),
+            Err(p) => {
+                error = Some(match error.take() {
+                    Some(e) => format!("{e}; {}", p.error.0),
+                    None => p.error.0,
+                });
+                p.value
+            }
+        };
+        elements.extend(value);
+    }
+    match error {
+        None => Ok(elements),
+        Some(error) => Err(Box::new(Partial {
+            error: CodecError(error),
+            value: Some(elements),
+        })),
+    }
+}
+
 pub(crate) fn err<T>(msg: impl Into<String>) -> R<T> {
     Err(CodecError(msg.into()))
 }
@@ -150,6 +268,25 @@ pub(crate) fn opt<'a, O: Ops, T>(
     }
 }
 
+/// `OptionalFieldCodec.decode`: like [`opt`], but a present, invalid field is an error whose partial value is the
+/// field's partial value (`Optional.empty` when it has none).
+fn opt_p<'a, O: Ops, X: IntoP>(
+    map: &MapView<'a, O>,
+    key: &str,
+    f: impl FnOnce(&'a O) -> X,
+) -> P<Option<X::T>> {
+    match map_get(map, key) {
+        None => Ok(None),
+        Some(v) => match f(v).into_p() {
+            Ok(t) => Ok(Some(t)),
+            Err(p) => Err(Box::new(Partial {
+                error: p.error,
+                value: Some(p.value),
+            })),
+        },
+    }
+}
+
 /// `lenientOptionalFieldOf`: absent or invalid -> `None`.
 fn lenient<'a, O: Ops, T>(
     map: &MapView<'a, O>,
@@ -183,19 +320,35 @@ pub(crate) fn map_of<O: Ops>(v: &O) -> R<MapView<'_, O>> {
 
 /// `ComponentSerialization.CODEC.parse`.
 pub fn decode_component<O: Ops>(v: &O) -> R<Component> {
+    Ok(decode_component_partial(v)?)
+}
+
+/// `ComponentSerialization.CODEC.parse(..).resultOrPartial(..)`: the component, or the error with the partial component.
+pub fn decode_component_partial<O: Ops>(v: &O) -> P<Component> {
     // Either<Either<String, nonEmptyList<Component>>, fullCodec>
     if let Some(s) = v.get_string() {
         return Ok(Component::literal(s));
     }
-    if let Some(items) = v.get_list().filter(|items| !items.is_empty())
-        && let Ok(list) = items
-            .iter()
-            .map(|i| decode_component(i.as_ref()))
-            .collect::<R<Vec<Component>>>()
-    {
+    let list = v.get_list().is_some().then(|| decode_component_list(v));
+    if let Some(Ok(list)) = list {
         return Ok(create_from_list(list));
     }
-    decode_full(v)
+    decode_full(v).map_err(|full| match list {
+        Some(Err(p)) if p.value.is_some() => Box::new(Partial {
+            error: p.error,
+            value: p.value.map(create_from_list),
+        }),
+        _ => full,
+    })
+}
+
+/// `ExtraCodecs.nonEmptyList(topSerializer.listOf())`.
+fn decode_component_list<O: Ops>(v: &O) -> P<Vec<Component>> {
+    match decode_list_partial(v, decode_component_partial) {
+        Ok(list) if list.is_empty() => Err(CodecError("List must have contents".into()).into()),
+        Err(p) if p.value.as_ref().is_some_and(Vec::is_empty) => Err(p.error.into()),
+        r => r,
+    }
 }
 
 /// `createFromList`: the first component with the rest appended as siblings.
@@ -208,29 +361,20 @@ fn create_from_list(list: Vec<Component>) -> Component {
     result
 }
 
-fn decode_full<O: Ops>(v: &O) -> R<Component> {
+fn decode_full<O: Ops>(v: &O) -> P<Component> {
     let map = v.get_map().ok_or_else(|| CodecError("Not a map".into()))?;
-    let contents = decode_contents(&map)?;
-    let siblings = match map_get(&map, "extra") {
-        None => Vec::new(),
-        Some(extra) => {
-            let items = extra
-                .get_list()
-                .ok_or_else(|| CodecError("Not a list".into()))?;
-            if items.is_empty() {
-                return err("List must have contents");
-            }
-            items
-                .iter()
-                .map(|i| decode_component(i.as_ref()))
-                .collect::<R<Vec<_>>>()?
-        }
-    };
-    let style = decode_style(&map)?;
-    Ok(Component {
-        contents,
-        siblings,
-        style,
+    let mut record = Record::default();
+    let contents = record.take(decode_contents(&map));
+    let siblings = record
+        .take(opt_p(&map, "extra", decode_component_list))
+        .flatten();
+    let style = record.take(decode_style(&map));
+    record.finish(|| {
+        Some(Component {
+            contents: contents?,
+            siblings: siblings.unwrap_or_default(),
+            style: style?,
+        })
     })
 }
 
@@ -273,58 +417,58 @@ const CONTENT_TYPES: [&str; 7] = [
     "object",
 ];
 
-fn decode_contents_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> R<ComponentContents> {
-    match ty {
-        "text" => Ok(ComponentContents::Literal(string(req(map, "text")?)?)),
-        "translatable" => decode_translatable(map),
-        "keybind" => Ok(ComponentContents::Keybind(string(req(map, "keybind")?)?)),
-        "score" => decode_score(map),
-        "selector" => decode_selector(map),
-        "nbt" => decode_nbt(map),
-        "object" => decode_object(map),
-        _ => err(format!("Unknown element id: {ty}")),
-    }
+fn decode_contents_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> P<ComponentContents> {
+    Ok(match ty {
+        "text" => ComponentContents::Literal(string(req(map, "text")?)?),
+        "translatable" => return decode_translatable(map),
+        "keybind" => ComponentContents::Keybind(string(req(map, "keybind")?)?),
+        "score" => decode_score(map)?,
+        "selector" => return decode_selector(map),
+        "nbt" => decode_nbt(map)?,
+        "object" => return decode_object(map),
+        _ => return Err(CodecError(format!("Unknown element id: {ty}")).into()),
+    })
 }
 
-/// `createLegacyComponentMatcher(types, ComponentContents::codec, "type")` decode direction.
-fn decode_contents<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
+/// `createLegacyComponentMatcher(types, ComponentContents::codec, "type")` decode direction. Without a `type` field
+/// the fuzzy matcher only accepts a full success, so a partial result is dropped there.
+fn decode_contents<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
     if let Some(ty) = map_get(map, "type") {
         return decode_contents_of_type(&string(ty)?, map);
     }
-    for ty in CONTENT_TYPES {
-        if let Ok(c) = decode_contents_of_type(ty, map) {
-            return Ok(c);
-        }
-    }
-    err("No matching codec found")
+    CONTENT_TYPES
+        .into_iter()
+        .find_map(|ty| decode_contents_of_type(ty, map).ok())
+        .ok_or_else(|| CodecError("No matching codec found".into()).into())
 }
 
-fn decode_translatable<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
+fn decode_translatable<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
     let key = string(req(map, "translate")?)?;
     let fallback = lenient(map, "fallback", string);
-    let args = opt(map, "with", |w| -> R<Vec<TranslatableArg>> {
-        let items = w
-            .get_list()
-            .ok_or_else(|| CodecError("Not a list".into()))?;
-        items.iter().map(|i| decode_arg(i.as_ref())).collect()
-    })?
-    .unwrap_or_default();
-    Ok(ComponentContents::Translatable(TranslatableContents {
-        key,
-        fallback,
-        args,
-    }))
+    let mut record = Record::default();
+    let args = record
+        .take(opt_p(map, "with", |w| decode_list_partial(w, decode_arg)))
+        .flatten()
+        .unwrap_or_default();
+    record.finish(|| {
+        Some(ComponentContents::Translatable(TranslatableContents {
+            key,
+            fallback,
+            args,
+        }))
+    })
 }
 
 /// `TranslatableContents.ARG_CODEC`.
-fn decode_arg<O: Ops>(v: &O) -> R<TranslatableArg> {
+fn decode_arg<O: Ops>(v: &O) -> P<TranslatableArg> {
     if let Some(p) = v.get_primitive_arg() {
         return Ok(p);
     }
-    let c = decode_component(v)?;
-    Ok(match c.try_collapse_to_string() {
-        Some(s) => TranslatableArg::String(s.to_owned()),
-        None => TranslatableArg::Component(c),
+    map_p(decode_component_partial(v), |c| {
+        match c.try_collapse_to_string() {
+            Some(s) => TranslatableArg::String(s.to_owned()),
+            None => TranslatableArg::Component(c),
+        }
     })
 }
 
@@ -345,13 +489,19 @@ fn decode_score<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
     Ok(ComponentContents::Score(ScoreContents { name, objective }))
 }
 
-fn decode_selector<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
+fn decode_selector<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
     let selector = decode_selector_string(string(req(map, "selector")?)?)?;
-    let separator = opt(map, "separator", |v| decode_component(v))?.map(Box::new);
-    Ok(ComponentContents::Selector(SelectorContents {
-        selector,
-        separator,
-    }))
+    let mut record = Record::default();
+    let separator = record
+        .take(opt_p(map, "separator", decode_component_partial))
+        .flatten()
+        .map(Box::new);
+    record.finish(|| {
+        Some(ComponentContents::Selector(SelectorContents {
+            selector,
+            separator,
+        }))
+    })
 }
 
 fn decode_data_source_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> R<DataSource> {
@@ -400,41 +550,55 @@ fn decode_nbt<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
     }))
 }
 
-fn decode_object_info_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> R<ObjectInfo> {
+fn decode_object_info_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> P<ObjectInfo> {
+    let mut record = Record::default();
     match ty {
         "atlas" => {
-            let atlas =
-                opt(map, "atlas", |v| identifier(v))?.unwrap_or_else(ObjectInfo::default_atlas);
+            let atlas = record
+                .take(opt_p(map, "atlas", |v| identifier(v)))
+                .flatten();
             let sprite = identifier(req(map, "sprite")?)?;
-            Ok(ObjectInfo::AtlasSprite { atlas, sprite })
+            record.finish(|| {
+                Some(ObjectInfo::AtlasSprite {
+                    atlas: atlas.unwrap_or_else(ObjectInfo::default_atlas),
+                    sprite,
+                })
+            })
         }
         "player" => {
             let player = Box::new(crate::profile::decode_profile(req(map, "player")?)?);
-            let hat = opt(map, "hat", boolean)?.unwrap_or(true);
-            Ok(ObjectInfo::PlayerSprite { player, hat })
+            let hat = record.take(opt_p(map, "hat", boolean)).flatten();
+            record.finish(|| {
+                Some(ObjectInfo::PlayerSprite {
+                    player,
+                    hat: hat.unwrap_or(true),
+                })
+            })
         }
-        _ => err(format!("Unknown element id: {ty}")),
+        _ => Err(CodecError(format!("Unknown element id: {ty}")).into()),
     }
 }
 
-fn decode_object<O: Ops>(map: &MapView<'_, O>) -> R<ComponentContents> {
+fn decode_object<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
+    let mut record = Record::default();
     let contents = if let Some(ty) = map_get(map, "object") {
-        decode_object_info_of_type(&string(ty)?, map)?
+        record.take(decode_object_info_of_type(&string(ty)?, map))
     } else {
-        let mut found = None;
-        for ty in ["atlas", "player"] {
-            if let Ok(i) = decode_object_info_of_type(ty, map) {
-                found = Some(i);
-                break;
-            }
-        }
-        found.ok_or_else(|| CodecError("No matching codec found".into()))?
+        let found = ["atlas", "player"]
+            .into_iter()
+            .find_map(|ty| decode_object_info_of_type(ty, map).ok());
+        Some(found.ok_or_else(|| CodecError("No matching codec found".into()))?)
     };
-    let fallback = opt(map, "fallback", |v| decode_component(v))?.map(Box::new);
-    Ok(ComponentContents::Object(ObjectContents {
-        contents,
-        fallback,
-    }))
+    let fallback = record
+        .take(opt_p(map, "fallback", decode_component_partial))
+        .flatten()
+        .map(Box::new);
+    record.finish(|| {
+        Some(ComponentContents::Object(ObjectContents {
+            contents: contents?,
+            fallback,
+        }))
+    })
 }
 
 fn encode_contents<O: Ops>(c: &ComponentContents, f: &mut Fields<O>) -> R<()> {
@@ -553,40 +717,53 @@ fn mc_floor(v: f32) -> i32 {
     if v < i as f32 { i.wrapping_sub(1) } else { i }
 }
 
-pub(crate) fn decode_style<O: Ops>(map: &MapView<'_, O>) -> R<Style> {
-    let color = opt(map, "color", |v| {
-        TextColor::parse_color(&string(v)?).map_err(CodecError)
-    })?;
-    let shadow_color = opt(map, "shadow_color", |v| decode_argb(v))?;
-    let bold = opt(map, "bold", boolean)?;
-    let italic = opt(map, "italic", boolean)?;
-    let underlined = opt(map, "underlined", boolean)?;
-    let strikethrough = opt(map, "strikethrough", boolean)?;
-    let obfuscated = opt(map, "obfuscated", boolean)?;
-    let click_event = opt(map, "click_event", |v| decode_click_event(v))?;
-    let hover_event = opt(map, "hover_event", |v| decode_hover_event(v))?;
-    let insertion = opt(map, "insertion", string)?;
-    let font = opt(map, "font", |v| {
-        identifier(v).map(FontDescription::Resource)
-    })?;
-    Ok(Style::create(
-        color,
-        shadow_color,
-        bold,
-        italic,
-        underlined,
-        strikethrough,
-        obfuscated,
-        click_event,
-        hover_event,
-        insertion,
-        font,
-    ))
+pub(crate) fn decode_style<O: Ops>(map: &MapView<'_, O>) -> P<Style> {
+    let mut record = Record::default();
+    let color = record
+        .take(opt_p(map, "color", |v| {
+            TextColor::parse_color(&string(v)?).map_err(CodecError)
+        }))
+        .flatten();
+    let shadow_color = record
+        .take(opt_p(map, "shadow_color", |v| decode_argb(v)))
+        .flatten();
+    let bold = record.take(opt_p(map, "bold", boolean)).flatten();
+    let italic = record.take(opt_p(map, "italic", boolean)).flatten();
+    let underlined = record.take(opt_p(map, "underlined", boolean)).flatten();
+    let strikethrough = record.take(opt_p(map, "strikethrough", boolean)).flatten();
+    let obfuscated = record.take(opt_p(map, "obfuscated", boolean)).flatten();
+    let click_event = record
+        .take(opt_p(map, "click_event", |v| decode_click_event(v)))
+        .flatten();
+    let hover_event = record
+        .take(opt_p(map, "hover_event", |v| decode_hover_event(v)))
+        .flatten();
+    let insertion = record.take(opt_p(map, "insertion", string)).flatten();
+    let font = record
+        .take(opt_p(map, "font", |v| {
+            identifier(v).map(FontDescription::Resource)
+        }))
+        .flatten();
+    record.finish(|| {
+        Some(Style::create(
+            color,
+            shadow_color,
+            bold,
+            italic,
+            underlined,
+            strikethrough,
+            obfuscated,
+            click_event,
+            hover_event,
+            insertion,
+            font,
+        ))
+    })
 }
 
 /// `Style.Serializer.CODEC` decode (a map of style fields).
 pub fn decode_style_value<O: Ops>(v: &O) -> R<Style> {
-    decode_style(&map_of(v)?)
+    Ok(decode_style(&map_of(v)?)?)
 }
 
 /// `Style.Serializer.CODEC` encode.
@@ -682,7 +859,7 @@ pub(crate) fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
         ClickAction::CopyToClipboard => ClickEvent::CopyToClipboard(string(req(&map, "value")?)?),
         ClickAction::Custom => {
             let id = identifier(req(&map, "id")?)?;
-            let payload = opt(&map, "payload", |p| Ok(p.to_tag()))?;
+            let payload = opt(&map, "payload", |p| Ok::<_, CodecError>(p.to_tag()))?;
             ClickEvent::Custom { id, payload }
         }
     })
@@ -739,55 +916,71 @@ fn decode_uuid<O: Ops>(v: &O) -> R<u128> {
     java_uuid_from_string(&s).ok_or_else(|| CodecError(format!("Invalid UUID {s}")))
 }
 
-fn decode_hover_event<O: Ops>(v: &O) -> R<HoverEvent> {
+fn decode_hover_event<O: Ops>(v: &O) -> P<HoverEvent> {
     let map = map_of(v)?;
     let name = action_name(&map)?;
     match name.as_str() {
-        "show_text" => Ok(HoverEvent::ShowText(Box::new(decode_component(req(
-            &map, "value",
-        )?)?))),
+        "show_text" => map_p(decode_component_partial(req(&map, "value")?), |c| {
+            HoverEvent::ShowText(Box::new(c))
+        }),
         "show_item" => {
             let id = identifier(req(&map, "id")?)?;
             if !(validators().item_exists)(&id) {
-                return err(format!(
+                return Err(CodecError(format!(
                     "Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: {id}"
-                ));
+                ))
+                .into());
             }
-            let count = match opt(&map, "count", int)? {
-                None => 1,
-                Some(c) if (1..=99).contains(&c) => c,
-                Some(c) => return err(format!("Value must be within range [1;99]: {c}")),
-            };
-            let components = opt(&map, "components", |c| {
-                if c.get_map().is_none() {
-                    return err("Not a map");
-                }
-                c.normalize_payload(PayloadKind::ItemComponents)
-                    .map_err(CodecError)
-            })?
-            .filter(|t| !matches!(t, Tag::Compound(c) if c.is_empty()));
-            Ok(HoverEvent::ShowItem(ItemStackTemplate {
-                id,
-                count,
-                components,
-            }))
+            let mut record = Record::default();
+            let count = record
+                .take(opt_p(&map, "count", |v| match int(v)? {
+                    c if (1..=99).contains(&c) => Ok(c),
+                    c => err(format!("Value must be within range [1;99]: {c}")),
+                }))
+                .flatten()
+                .unwrap_or(1);
+            // shortcut: the component patch payload is taken to have no partial result, upgrade with DataComponentPatch.CODEC
+            let components = record
+                .take(opt_p(&map, "components", |c| {
+                    if c.get_map().is_none() {
+                        return err("Not a map");
+                    }
+                    c.normalize_payload(PayloadKind::ItemComponents)
+                        .map_err(CodecError)
+                }))
+                .flatten()
+                .filter(|t| !matches!(t, Tag::Compound(c) if c.is_empty()));
+            record.finish(|| {
+                Some(HoverEvent::ShowItem(ItemStackTemplate {
+                    id,
+                    count,
+                    components,
+                }))
+            })
         }
         "show_entity" => {
             let entity_type = identifier(req(&map, "id")?)?;
             if !(validators().entity_type_exists)(&entity_type) {
-                return err(format!(
+                return Err(CodecError(format!(
                     "Unknown registry key in ResourceKey[minecraft:root / minecraft:entity_type]: {entity_type}"
-                ));
+                ))
+                .into());
             }
             let uuid = decode_uuid(req(&map, "uuid")?)?;
-            let name = opt(&map, "name", |n| decode_component(n))?.map(Box::new);
-            Ok(HoverEvent::ShowEntity(EntityTooltipInfo {
-                entity_type,
-                uuid,
-                name,
-            }))
+            let mut record = Record::default();
+            let name = record
+                .take(opt_p(&map, "name", decode_component_partial))
+                .flatten()
+                .map(Box::new);
+            record.finish(|| {
+                Some(HoverEvent::ShowEntity(EntityTooltipInfo {
+                    entity_type,
+                    uuid,
+                    name,
+                }))
+            })
         }
-        _ => err(format!("Unknown element name:{name}")),
+        _ => Err(CodecError(format!("Unknown element name:{name}")).into()),
     }
 }
 
