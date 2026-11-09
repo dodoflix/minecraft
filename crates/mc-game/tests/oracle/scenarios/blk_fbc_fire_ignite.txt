@@ -1,0 +1,60 @@
+# BaseFireBlock.onPlace / FireBlock placement: fire on netherrack, soul fire on soul sand/soil, fire above water or without
+# support, portal creation by a fire placed inside an empty obsidian frame (both axes, soul fire too, too small frame,
+# occupied frame). Fire placed through setBlock, so FlintAndSteelItem/FireChargeItem are not involved.
+level flat
+preload 3
+level_seed 21
+watch events
+block 4 -61 4 minecraft:netherrack
+block 4 -60 4 minecraft:fire
+dump blocks:3,-61,3,5,-59,5 ticks events
+block 6 -61 4 minecraft:soul_sand
+block 6 -60 4 minecraft:soul_fire
+block 8 -61 4 minecraft:soul_soil
+block 8 -60 4 minecraft:fire
+dump blocks:5,-61,3,9,-59,5 ticks events
+block 10 -60 4 minecraft:oak_planks
+block 11 -60 4 minecraft:fire
+block 14 -61 4 minecraft:water
+block 14 -60 4 minecraft:glass
+block 14 -59 4 minecraft:fire
+dump blocks:9,-61,3,15,-58,5 ticks events
+# fire above air with nothing to burn is removed by its own tick
+block 20 -59 4 minecraft:fire
+dump blocks:19,-61,3,21,-58,5 ticks events
+tick 5
+dump blocks:3,-61,3,21,-58,5 ticks events
+# portal frames (x axis and z axis), fire inside lights them in the overworld
+fill 2 -60 10 5 -56 10 minecraft:obsidian
+fill 3 -59 10 4 -57 10 minecraft:air
+block 3 -59 10 minecraft:fire
+dump blocks:1,-61,9,6,-55,11 ticks events
+fill 10 -60 10 10 -56 13 minecraft:obsidian
+fill 10 -59 11 10 -57 12 minecraft:air
+block 10 -59 11 minecraft:fire
+dump blocks:9,-61,9,11,-55,14 ticks events
+# soul fire in a frame
+fill 2 -60 16 5 -56 16 minecraft:obsidian
+fill 3 -59 16 4 -57 16 minecraft:air
+block 3 -59 16 minecraft:soul_fire
+dump blocks:1,-61,15,6,-55,17 ticks events
+# too small frame: the fire stays
+fill 10 -60 20 12 -58 20 minecraft:obsidian
+block 11 -59 20 minecraft:fire
+dump blocks:9,-61,19,13,-57,21 ticks events
+# a frame with a block inside: not an empty portal
+fill 2 -60 24 5 -56 24 minecraft:obsidian
+fill 3 -59 24 4 -57 24 minecraft:air
+block 4 -58 24 minecraft:dirt
+block 3 -59 24 minecraft:fire
+dump blocks:1,-61,23,6,-55,25 ticks events
+tick 5
+dump blocks:1,-61,23,6,-55,25 ticks events
+# breaking fire: Level.destroyBlock and a player punching it send no destroy particle event (the player's: only 1009)
+block 30 -60 4 minecraft:fire
+destroy 30 -60 4
+dump blocks:29,-61,3,31,-59,5 ticks events
+spawn_player Alice creative 32.5 -60 8.5 0 0
+block 32 -60 10 minecraft:fire
+dig Alice 32 -60 10
+dump blocks:31,-61,9,33,-59,11 ticks events

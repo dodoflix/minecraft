@@ -1,6 +1,6 @@
 # Snow layers (melt by block light), ice (melt by light -> water, neighbor update, game event), frosted ice cycle.
 level flat
-preload 2
+preload 4
 level_seed 31337
 rand_value 5
 gamerule block_drops false

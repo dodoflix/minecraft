@@ -5,7 +5,7 @@ preload 3
 difficulty normal
 watch events
 level_seed 777
-cmd weather rain
+cmd weather rain 24000
 fill 0 -60 0 4 -60 4 minecraft:oak_planks
 fill 0 -59 0 4 -59 0 minecraft:oak_planks
 block 2 -59 2 minecraft:fire[age=5]

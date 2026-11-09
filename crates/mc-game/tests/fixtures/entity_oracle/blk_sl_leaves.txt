@@ -1,0 +1,1212 @@
+C Game rule block_drops is now set to false
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 2 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -55 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -55 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -55 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -54 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -54 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -54 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 3 -60 3 minecraft:oak_log[axis=y]
+B 3 -59 3 minecraft:oak_log[axis=y]
+B 3 -58 3 minecraft:oak_log[axis=y]
+B 3 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -57 3 minecraft:oak_log[axis=y]
+B 3 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 3 minecraft:oak_log[axis=y]
+B 3 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -55 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -55 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -55 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -54 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -54 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -54 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 4 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -55 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -55 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -55 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -54 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -54 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -54 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 5 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+TICK block 1 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 4 minecraft:oak_leaves delay=1 prio=0
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -57 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 1 -57 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 1 -57 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 1 -57 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 1 -57 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 1 -56 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 1 -56 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 1 -56 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 1 -56 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 1 -56 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 2 -57 1 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -57 2 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 2 -57 3 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 2 -57 4 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 2 -57 5 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -56 1 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -56 2 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 2 -56 3 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 2 -56 4 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 2 -56 5 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -55 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -55 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 2 -55 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -54 2 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 2 -54 3 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -54 4 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 3 -60 3 minecraft:oak_log[axis=y]
+B 3 -59 3 minecraft:oak_log[axis=y]
+B 3 -58 3 minecraft:oak_log[axis=y]
+B 3 -57 1 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -57 2 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 3 -57 3 minecraft:oak_log[axis=y]
+B 3 -57 4 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 3 -57 5 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -56 1 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -56 2 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 3 -56 3 minecraft:oak_log[axis=y]
+B 3 -56 4 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 3 -56 5 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -55 2 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -55 3 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 3 -55 4 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -54 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 3 -54 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -54 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 4 -57 1 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -57 2 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 4 -57 3 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 4 -57 4 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 4 -57 5 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -56 1 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -56 2 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 4 -56 3 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 4 -56 4 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 4 -56 5 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -55 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -55 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 4 -55 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -54 2 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 4 -54 3 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -54 4 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 5 -57 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -57 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 5 -57 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 5 -57 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 5 -57 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -56 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -56 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 5 -56 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 5 -56 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 5 -56 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+B 10 -60 3 minecraft:oak_leaves[distance=1,persistent=true,waterlogged=true]
+B 11 -60 3 minecraft:birch_leaves[distance=7,persistent=false,waterlogged=true]
+B 12 -60 3 minecraft:mangrove_leaves[distance=7,persistent=false,waterlogged=false]
+B 13 -60 3 minecraft:azalea_leaves[distance=7,persistent=false,waterlogged=false]
+B 14 -60 3 minecraft:cherry_leaves[distance=7,persistent=false,waterlogged=false]
+TICK block 10 -60 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 11 -60 3 minecraft:birch_leaves delay=1 prio=0
+TICK block 12 -60 3 minecraft:mangrove_leaves delay=1 prio=0
+TICK block 13 -60 3 minecraft:azalea_leaves delay=1 prio=0
+TICK fluid 10 -60 3 minecraft:water delay=5 prio=0
+TICK fluid 11 -60 3 minecraft:water delay=5 prio=0
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 9 -61 4 minecraft:grass_block[snowy=false]
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 4 minecraft:grass_block[snowy=false]
+B 10 -60 3 minecraft:oak_leaves[distance=7,persistent=true,waterlogged=true]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 3 minecraft:grass_block[snowy=false]
+B 11 -61 4 minecraft:grass_block[snowy=false]
+B 11 -60 3 minecraft:birch_leaves[distance=7,persistent=false,waterlogged=true]
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 3 minecraft:grass_block[snowy=false]
+B 12 -61 4 minecraft:grass_block[snowy=false]
+B 12 -60 3 minecraft:mangrove_leaves[distance=7,persistent=false,waterlogged=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 13 -61 4 minecraft:grass_block[snowy=false]
+B 13 -60 3 minecraft:azalea_leaves[distance=7,persistent=false,waterlogged=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 14 -61 4 minecraft:grass_block[snowy=false]
+B 14 -60 3 minecraft:cherry_leaves[distance=7,persistent=false,waterlogged=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 15 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 10 -60 3 minecraft:water delay=2 prio=0
+TICK fluid 11 -60 3 minecraft:water delay=2 prio=0
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -57 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 1 -57 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 1 -57 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 1 -57 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 1 -57 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 1 -56 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 1 -56 2 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 1 -56 3 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 1 -56 4 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 1 -56 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 2 -57 1 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -57 2 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 2 -57 3 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 2 -57 4 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 2 -57 5 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -56 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 2 -56 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -56 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 2 -56 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -56 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 2 -55 2 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 2 -55 3 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 2 -55 4 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 2 -54 2 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 2 -54 3 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 2 -54 4 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 3 -60 3 minecraft:oak_log[axis=y]
+B 3 -59 3 minecraft:oak_log[axis=y]
+B 3 -58 3 minecraft:oak_log[axis=y]
+B 3 -57 1 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -57 2 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 3 -57 3 minecraft:oak_log[axis=y]
+B 3 -57 4 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 3 -57 5 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -56 1 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 3 -56 2 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -56 4 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 3 -56 5 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 3 -55 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 3 -55 3 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 3 -55 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 3 -54 2 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 3 -54 3 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 3 -54 4 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 4 -57 1 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -57 2 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 4 -57 3 minecraft:oak_leaves[distance=1,persistent=false,waterlogged=false]
+B 4 -57 4 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 4 -57 5 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -56 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 4 -56 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -56 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 4 -56 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -56 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 4 -55 2 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 4 -55 3 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 4 -55 4 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 4 -54 2 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 4 -54 3 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 4 -54 4 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 5 -57 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -57 2 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 5 -57 3 minecraft:oak_leaves[distance=2,persistent=false,waterlogged=false]
+B 5 -57 4 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 5 -57 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -56 1 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -56 2 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -56 3 minecraft:oak_leaves[distance=3,persistent=false,waterlogged=false]
+B 5 -56 4 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 5 -56 5 minecraft:oak_leaves[distance=4,persistent=false,waterlogged=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+TICK block 2 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 4 minecraft:oak_leaves delay=1 prio=0
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 2 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -55 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -55 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -55 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -54 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -54 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -54 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 3 -60 3 minecraft:oak_log[axis=y]
+B 3 -59 3 minecraft:oak_log[axis=y]
+B 3 -58 3 minecraft:oak_log[axis=y]
+B 3 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -55 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -55 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -55 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -54 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -54 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -54 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 4 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -55 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -55 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -55 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -54 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -54 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -54 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 5 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 1 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 2 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -55 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -55 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -55 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -54 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -54 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 2 -54 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 3 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -55 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -55 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -55 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -54 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -54 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 3 -54 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 4 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -55 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -55 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -55 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -54 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -54 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 4 -54 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 5 -57 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -57 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 1 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 2 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 3 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 4 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 5 -56 5 minecraft:oak_leaves[distance=7,persistent=false,waterlogged=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+TICK block 2 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 4 minecraft:oak_leaves delay=1 prio=0
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+TICK block 2 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 4 minecraft:oak_leaves delay=1 prio=0
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+TICK block 2 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 4 minecraft:oak_leaves delay=1 prio=0
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 5 minecraft:grass_block[snowy=false]
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 5 minecraft:grass_block[snowy=false]
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+TICK block 2 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 1 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -57 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 1 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 5 -56 5 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -55 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -55 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 2 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 3 -54 4 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 2 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 3 minecraft:oak_leaves delay=1 prio=0
+TICK block 4 -54 4 minecraft:oak_leaves delay=1 prio=0
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 9 -61 4 minecraft:grass_block[snowy=false]
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 4 minecraft:grass_block[snowy=false]
+B 10 -60 3 minecraft:oak_leaves[distance=7,persistent=true,waterlogged=true]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 3 minecraft:grass_block[snowy=false]
+B 11 -61 4 minecraft:grass_block[snowy=false]
+B 11 -60 3 minecraft:water[level=0]
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 3 minecraft:grass_block[snowy=false]
+B 12 -61 4 minecraft:grass_block[snowy=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 13 -61 4 minecraft:grass_block[snowy=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 14 -61 4 minecraft:grass_block[snowy=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 15 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 11 -60 3 minecraft:water delay=3 prio=0
+TICK fluid 10 -60 3 minecraft:water delay=3 prio=0
+BONEMEAL false
+B 12 -61 3 minecraft:grass_block[snowy=false]
+TICK fluid 11 -60 3 minecraft:water delay=3 prio=0
+TICK fluid 10 -60 3 minecraft:water delay=3 prio=0

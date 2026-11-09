@@ -32,6 +32,7 @@ mod blocks_scaffolding_golden;
 mod blocks_signs_golden;
 mod blocks_spawners_golden;
 mod blocks_speleothem_copper_golden;
+mod blocks_spread_fire_golden;
 mod blocks_workstations_golden;
 mod boat_golden;
 mod books_golden;

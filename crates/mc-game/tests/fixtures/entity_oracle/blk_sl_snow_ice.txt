@@ -1,0 +1,1154 @@
+C Game rule block_drops is now set to false
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -60 1 minecraft:snow[layers=1]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=true]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -60 1 minecraft:snow[layers=2]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=true]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -60 1 minecraft:snow[layers=3]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=true]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -60 1 minecraft:snow[layers=4]
+B 4 -60 2 minecraft:torch
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=true]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -60 1 minecraft:snow[layers=5]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=true]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -60 1 minecraft:snow[layers=6]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=true]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -60 1 minecraft:snow[layers=7]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=true]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -60 1 minecraft:snow[layers=8]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 1 minecraft:glass
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -60 1 minecraft:snow[layers=3]
+B 11 -61 0 minecraft:grass_block[snowy=false]
+B 11 -61 1 minecraft:grass_block[snowy=false]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 3 minecraft:grass_block[snowy=false]
+B 12 -61 0 minecraft:grass_block[snowy=false]
+B 12 -61 1 minecraft:ice
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 3 minecraft:grass_block[snowy=false]
+B 12 -60 1 minecraft:snow[layers=2]
+B 13 -61 0 minecraft:grass_block[snowy=false]
+B 13 -61 1 minecraft:grass_block[snowy=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 14 -61 0 minecraft:grass_block[snowy=false]
+B 14 -61 1 minecraft:barrier[waterlogged=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 14 -60 1 minecraft:snow[layers=1]
+B 15 -61 0 minecraft:grass_block[snowy=false]
+B 15 -61 1 minecraft:grass_block[snowy=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 16 -61 0 minecraft:grass_block[snowy=false]
+B 16 -61 1 minecraft:honey_block
+B 16 -61 2 minecraft:grass_block[snowy=false]
+B 16 -61 3 minecraft:grass_block[snowy=false]
+B 16 -60 1 minecraft:snow[layers=1]
+B 17 -61 0 minecraft:grass_block[snowy=false]
+B 17 -61 1 minecraft:grass_block[snowy=false]
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -60 1 minecraft:snow[layers=1]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=true]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -60 1 minecraft:snow[layers=2]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=true]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -60 1 minecraft:snow[layers=3]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=true]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -60 1 minecraft:snow[layers=4]
+B 4 -60 2 minecraft:torch
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=true]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -60 1 minecraft:snow[layers=5]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=true]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -60 1 minecraft:snow[layers=6]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=true]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -60 1 minecraft:snow[layers=7]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=true]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -60 1 minecraft:snow[layers=8]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 1 minecraft:glass
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -60 1 minecraft:snow[layers=3]
+B 11 -61 0 minecraft:grass_block[snowy=false]
+B 11 -61 1 minecraft:grass_block[snowy=false]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 3 minecraft:grass_block[snowy=false]
+B 12 -61 0 minecraft:grass_block[snowy=false]
+B 12 -61 1 minecraft:ice
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 3 minecraft:grass_block[snowy=false]
+B 12 -60 1 minecraft:snow[layers=2]
+B 13 -61 0 minecraft:grass_block[snowy=false]
+B 13 -61 1 minecraft:grass_block[snowy=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 14 -61 0 minecraft:grass_block[snowy=false]
+B 14 -61 1 minecraft:barrier[waterlogged=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 14 -60 1 minecraft:snow[layers=1]
+B 15 -61 0 minecraft:grass_block[snowy=false]
+B 15 -61 1 minecraft:grass_block[snowy=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 16 -61 0 minecraft:grass_block[snowy=false]
+B 16 -61 1 minecraft:honey_block
+B 16 -61 2 minecraft:grass_block[snowy=false]
+B 16 -61 3 minecraft:grass_block[snowy=false]
+B 16 -60 1 minecraft:snow[layers=1]
+B 17 -61 0 minecraft:grass_block[snowy=false]
+B 17 -61 1 minecraft:grass_block[snowy=false]
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -60 1 minecraft:snow[layers=1]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=true]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -60 1 minecraft:snow[layers=2]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=true]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -60 1 minecraft:snow[layers=3]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=true]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -60 1 minecraft:snow[layers=4]
+B 4 -60 2 minecraft:torch
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=true]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -60 1 minecraft:snow[layers=5]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=true]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -60 1 minecraft:snow[layers=6]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=true]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -60 1 minecraft:snow[layers=7]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=true]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -60 1 minecraft:snow[layers=8]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 1 minecraft:glass
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -60 1 minecraft:snow[layers=3]
+B 11 -61 0 minecraft:grass_block[snowy=false]
+B 11 -61 1 minecraft:grass_block[snowy=false]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 3 minecraft:grass_block[snowy=false]
+B 12 -61 0 minecraft:grass_block[snowy=false]
+B 12 -61 1 minecraft:ice
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 3 minecraft:grass_block[snowy=false]
+B 12 -60 1 minecraft:snow[layers=2]
+B 13 -61 0 minecraft:grass_block[snowy=false]
+B 13 -61 1 minecraft:grass_block[snowy=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 14 -61 0 minecraft:grass_block[snowy=false]
+B 14 -61 1 minecraft:barrier[waterlogged=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 14 -60 1 minecraft:snow[layers=1]
+B 15 -61 0 minecraft:grass_block[snowy=false]
+B 15 -61 1 minecraft:grass_block[snowy=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 16 -61 0 minecraft:grass_block[snowy=false]
+B 16 -61 1 minecraft:honey_block
+B 16 -61 2 minecraft:grass_block[snowy=false]
+B 16 -61 3 minecraft:grass_block[snowy=false]
+B 16 -60 1 minecraft:snow[layers=1]
+B 17 -61 0 minecraft:grass_block[snowy=false]
+B 17 -61 1 minecraft:grass_block[snowy=false]
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -60 1 minecraft:snow[layers=1]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=true]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -60 1 minecraft:snow[layers=2]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=true]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -60 1 minecraft:snow[layers=3]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=true]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -60 1 minecraft:snow[layers=4]
+B 4 -60 2 minecraft:torch
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=true]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -60 1 minecraft:snow[layers=5]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=true]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -60 1 minecraft:snow[layers=6]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=true]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -60 1 minecraft:snow[layers=7]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=true]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -60 1 minecraft:snow[layers=8]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 1 minecraft:glass
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -60 1 minecraft:snow[layers=3]
+B 11 -61 0 minecraft:grass_block[snowy=false]
+B 11 -61 1 minecraft:grass_block[snowy=false]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 3 minecraft:grass_block[snowy=false]
+B 12 -61 0 minecraft:grass_block[snowy=false]
+B 12 -61 1 minecraft:ice
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 3 minecraft:grass_block[snowy=false]
+B 12 -60 1 minecraft:snow[layers=2]
+B 13 -61 0 minecraft:grass_block[snowy=false]
+B 13 -61 1 minecraft:grass_block[snowy=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 14 -61 0 minecraft:grass_block[snowy=false]
+B 14 -61 1 minecraft:barrier[waterlogged=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 14 -60 1 minecraft:snow[layers=1]
+B 15 -61 0 minecraft:grass_block[snowy=false]
+B 15 -61 1 minecraft:grass_block[snowy=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 16 -61 0 minecraft:grass_block[snowy=false]
+B 16 -61 1 minecraft:honey_block
+B 16 -61 2 minecraft:grass_block[snowy=false]
+B 16 -61 3 minecraft:grass_block[snowy=false]
+B 16 -60 1 minecraft:snow[layers=1]
+B 17 -61 0 minecraft:grass_block[snowy=false]
+B 17 -61 1 minecraft:grass_block[snowy=false]
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 0 minecraft:grass_block[snowy=false]
+B 19 -61 1 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 0 minecraft:grass_block[snowy=false]
+B 20 -61 1 minecraft:ice
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 0 minecraft:grass_block[snowy=false]
+B 21 -61 1 minecraft:ice
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -60 1 minecraft:torch
+B 22 -61 0 minecraft:grass_block[snowy=false]
+B 22 -61 1 minecraft:ice
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 0 minecraft:grass_block[snowy=false]
+B 23 -61 1 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 24 -61 0 minecraft:grass_block[snowy=false]
+B 24 -61 1 minecraft:ice
+B 24 -61 2 minecraft:grass_block[snowy=false]
+B 24 -61 3 minecraft:grass_block[snowy=false]
+B 24 -60 2 minecraft:torch
+B 25 -61 0 minecraft:grass_block[snowy=false]
+B 25 -61 1 minecraft:grass_block[snowy=false]
+B 25 -61 2 minecraft:grass_block[snowy=false]
+B 25 -61 3 minecraft:grass_block[snowy=false]
+B 26 -61 0 minecraft:grass_block[snowy=false]
+B 26 -61 1 minecraft:grass_block[snowy=false]
+B 26 -61 2 minecraft:grass_block[snowy=false]
+B 26 -61 3 minecraft:grass_block[snowy=false]
+B 27 -61 0 minecraft:grass_block[snowy=false]
+B 27 -61 1 minecraft:grass_block[snowy=false]
+B 27 -61 2 minecraft:grass_block[snowy=false]
+B 27 -61 3 minecraft:grass_block[snowy=false]
+B 28 -61 0 minecraft:grass_block[snowy=false]
+B 28 -61 1 minecraft:grass_block[snowy=false]
+B 28 -61 2 minecraft:grass_block[snowy=false]
+B 28 -61 3 minecraft:grass_block[snowy=false]
+B 29 -61 0 minecraft:grass_block[snowy=false]
+B 29 -61 1 minecraft:grass_block[snowy=false]
+B 29 -61 2 minecraft:grass_block[snowy=false]
+B 29 -61 3 minecraft:grass_block[snowy=false]
+B 30 -61 0 minecraft:grass_block[snowy=false]
+B 30 -61 1 minecraft:ice
+B 30 -61 2 minecraft:grass_block[snowy=false]
+B 30 -61 3 minecraft:grass_block[snowy=false]
+B 30 -60 1 minecraft:torch
+B 31 -61 0 minecraft:grass_block[snowy=false]
+B 31 -61 1 minecraft:grass_block[snowy=false]
+B 31 -61 2 minecraft:grass_block[snowy=false]
+B 31 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 0 minecraft:grass_block[snowy=false]
+B 19 -61 1 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 0 minecraft:grass_block[snowy=false]
+B 20 -61 1 minecraft:ice
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 0 minecraft:grass_block[snowy=false]
+B 21 -61 1 minecraft:ice
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -60 1 minecraft:torch
+B 22 -61 0 minecraft:grass_block[snowy=false]
+B 22 -61 1 minecraft:ice
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 0 minecraft:grass_block[snowy=false]
+B 23 -61 1 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 24 -61 0 minecraft:grass_block[snowy=false]
+B 24 -61 1 minecraft:ice
+B 24 -61 2 minecraft:grass_block[snowy=false]
+B 24 -61 3 minecraft:grass_block[snowy=false]
+B 24 -60 2 minecraft:torch
+B 25 -61 0 minecraft:grass_block[snowy=false]
+B 25 -61 1 minecraft:grass_block[snowy=false]
+B 25 -61 2 minecraft:grass_block[snowy=false]
+B 25 -61 3 minecraft:grass_block[snowy=false]
+B 26 -61 0 minecraft:grass_block[snowy=false]
+B 26 -61 1 minecraft:grass_block[snowy=false]
+B 26 -61 2 minecraft:grass_block[snowy=false]
+B 26 -61 3 minecraft:grass_block[snowy=false]
+B 27 -61 0 minecraft:grass_block[snowy=false]
+B 27 -61 1 minecraft:grass_block[snowy=false]
+B 27 -61 2 minecraft:grass_block[snowy=false]
+B 27 -61 3 minecraft:grass_block[snowy=false]
+B 28 -61 0 minecraft:grass_block[snowy=false]
+B 28 -61 1 minecraft:grass_block[snowy=false]
+B 28 -61 2 minecraft:grass_block[snowy=false]
+B 28 -61 3 minecraft:grass_block[snowy=false]
+B 29 -61 0 minecraft:grass_block[snowy=false]
+B 29 -61 1 minecraft:grass_block[snowy=false]
+B 29 -61 2 minecraft:grass_block[snowy=false]
+B 29 -61 3 minecraft:grass_block[snowy=false]
+B 30 -61 0 minecraft:grass_block[snowy=false]
+B 30 -61 1 minecraft:ice
+B 30 -61 2 minecraft:grass_block[snowy=false]
+B 30 -61 3 minecraft:grass_block[snowy=false]
+B 30 -60 1 minecraft:torch
+B 31 -61 0 minecraft:grass_block[snowy=false]
+B 31 -61 1 minecraft:grass_block[snowy=false]
+B 31 -61 2 minecraft:grass_block[snowy=false]
+B 31 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 0 minecraft:grass_block[snowy=false]
+B 19 -61 1 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 0 minecraft:grass_block[snowy=false]
+B 20 -61 1 minecraft:ice
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 0 minecraft:grass_block[snowy=false]
+B 21 -61 1 minecraft:ice
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -60 1 minecraft:torch
+B 22 -61 0 minecraft:grass_block[snowy=false]
+B 22 -61 1 minecraft:ice
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 0 minecraft:grass_block[snowy=false]
+B 23 -61 1 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 24 -61 0 minecraft:grass_block[snowy=false]
+B 24 -61 1 minecraft:ice
+B 24 -61 2 minecraft:grass_block[snowy=false]
+B 24 -61 3 minecraft:grass_block[snowy=false]
+B 24 -60 2 minecraft:torch
+B 25 -61 0 minecraft:grass_block[snowy=false]
+B 25 -61 1 minecraft:grass_block[snowy=false]
+B 25 -61 2 minecraft:grass_block[snowy=false]
+B 25 -61 3 minecraft:grass_block[snowy=false]
+B 26 -61 0 minecraft:grass_block[snowy=false]
+B 26 -61 1 minecraft:grass_block[snowy=false]
+B 26 -61 2 minecraft:grass_block[snowy=false]
+B 26 -61 3 minecraft:grass_block[snowy=false]
+B 27 -61 0 minecraft:grass_block[snowy=false]
+B 27 -61 1 minecraft:grass_block[snowy=false]
+B 27 -61 2 minecraft:grass_block[snowy=false]
+B 27 -61 3 minecraft:grass_block[snowy=false]
+B 28 -61 0 minecraft:grass_block[snowy=false]
+B 28 -61 1 minecraft:grass_block[snowy=false]
+B 28 -61 2 minecraft:grass_block[snowy=false]
+B 28 -61 3 minecraft:grass_block[snowy=false]
+B 29 -61 0 minecraft:grass_block[snowy=false]
+B 29 -61 1 minecraft:grass_block[snowy=false]
+B 29 -61 2 minecraft:grass_block[snowy=false]
+B 29 -61 3 minecraft:grass_block[snowy=false]
+B 30 -61 0 minecraft:grass_block[snowy=false]
+B 30 -61 1 minecraft:ice
+B 30 -61 2 minecraft:grass_block[snowy=false]
+B 30 -61 3 minecraft:grass_block[snowy=false]
+B 30 -60 1 minecraft:torch
+B 31 -61 0 minecraft:grass_block[snowy=false]
+B 31 -61 1 minecraft:grass_block[snowy=false]
+B 31 -61 2 minecraft:grass_block[snowy=false]
+B 31 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 0 minecraft:grass_block[snowy=false]
+B 19 -61 1 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 0 minecraft:grass_block[snowy=false]
+B 20 -61 1 minecraft:ice
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 0 minecraft:grass_block[snowy=false]
+B 21 -61 1 minecraft:ice
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -60 1 minecraft:torch
+B 22 -61 0 minecraft:grass_block[snowy=false]
+B 22 -61 1 minecraft:ice
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 0 minecraft:grass_block[snowy=false]
+B 23 -61 1 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 24 -61 0 minecraft:grass_block[snowy=false]
+B 24 -61 1 minecraft:ice
+B 24 -61 2 minecraft:grass_block[snowy=false]
+B 24 -61 3 minecraft:grass_block[snowy=false]
+B 24 -60 2 minecraft:torch
+B 25 -61 0 minecraft:grass_block[snowy=false]
+B 25 -61 1 minecraft:grass_block[snowy=false]
+B 25 -61 2 minecraft:grass_block[snowy=false]
+B 25 -61 3 minecraft:grass_block[snowy=false]
+B 26 -61 0 minecraft:grass_block[snowy=false]
+B 26 -61 1 minecraft:grass_block[snowy=false]
+B 26 -61 2 minecraft:grass_block[snowy=false]
+B 26 -61 3 minecraft:grass_block[snowy=false]
+B 27 -61 0 minecraft:grass_block[snowy=false]
+B 27 -61 1 minecraft:grass_block[snowy=false]
+B 27 -61 2 minecraft:grass_block[snowy=false]
+B 27 -61 3 minecraft:grass_block[snowy=false]
+B 28 -61 0 minecraft:grass_block[snowy=false]
+B 28 -61 1 minecraft:grass_block[snowy=false]
+B 28 -61 2 minecraft:grass_block[snowy=false]
+B 28 -61 3 minecraft:grass_block[snowy=false]
+B 29 -61 0 minecraft:grass_block[snowy=false]
+B 29 -61 1 minecraft:grass_block[snowy=false]
+B 29 -61 2 minecraft:grass_block[snowy=false]
+B 29 -61 3 minecraft:grass_block[snowy=false]
+B 30 -61 0 minecraft:grass_block[snowy=false]
+B 30 -61 1 minecraft:ice
+B 30 -61 2 minecraft:grass_block[snowy=false]
+B 30 -61 3 minecraft:grass_block[snowy=false]
+B 30 -60 1 minecraft:torch
+B 31 -61 0 minecraft:grass_block[snowy=false]
+B 31 -61 1 minecraft:grass_block[snowy=false]
+B 31 -61 2 minecraft:grass_block[snowy=false]
+B 31 -61 3 minecraft:grass_block[snowy=false]
+B 39 -62 39 minecraft:dirt
+B 39 -62 40 minecraft:dirt
+B 39 -62 41 minecraft:dirt
+B 39 -62 42 minecraft:dirt
+B 39 -62 43 minecraft:dirt
+B 39 -62 44 minecraft:dirt
+B 39 -62 45 minecraft:dirt
+B 39 -61 39 minecraft:grass_block[snowy=false]
+B 39 -61 40 minecraft:grass_block[snowy=false]
+B 39 -61 41 minecraft:grass_block[snowy=false]
+B 39 -61 42 minecraft:grass_block[snowy=false]
+B 39 -61 43 minecraft:grass_block[snowy=false]
+B 39 -61 44 minecraft:grass_block[snowy=false]
+B 39 -61 45 minecraft:grass_block[snowy=false]
+B 40 -62 39 minecraft:dirt
+B 40 -62 40 minecraft:dirt
+B 40 -62 41 minecraft:dirt
+B 40 -62 42 minecraft:dirt
+B 40 -62 43 minecraft:dirt
+B 40 -62 44 minecraft:dirt
+B 40 -62 45 minecraft:dirt
+B 40 -61 39 minecraft:grass_block[snowy=false]
+B 40 -61 40 minecraft:frosted_ice[age=0]
+B 40 -61 41 minecraft:frosted_ice[age=0]
+B 40 -61 42 minecraft:frosted_ice[age=0]
+B 40 -61 43 minecraft:frosted_ice[age=0]
+B 40 -61 44 minecraft:frosted_ice[age=0]
+B 40 -61 45 minecraft:grass_block[snowy=false]
+B 41 -62 39 minecraft:dirt
+B 41 -62 40 minecraft:dirt
+B 41 -62 41 minecraft:dirt
+B 41 -62 42 minecraft:dirt
+B 41 -62 43 minecraft:dirt
+B 41 -62 44 minecraft:dirt
+B 41 -62 45 minecraft:dirt
+B 41 -61 39 minecraft:grass_block[snowy=false]
+B 41 -61 40 minecraft:frosted_ice[age=0]
+B 41 -61 41 minecraft:frosted_ice[age=0]
+B 41 -61 42 minecraft:frosted_ice[age=0]
+B 41 -61 43 minecraft:frosted_ice[age=0]
+B 41 -61 44 minecraft:frosted_ice[age=0]
+B 41 -61 45 minecraft:grass_block[snowy=false]
+B 42 -62 39 minecraft:dirt
+B 42 -62 40 minecraft:dirt
+B 42 -62 41 minecraft:dirt
+B 42 -62 42 minecraft:dirt
+B 42 -62 43 minecraft:dirt
+B 42 -62 44 minecraft:dirt
+B 42 -62 45 minecraft:dirt
+B 42 -61 39 minecraft:grass_block[snowy=false]
+B 42 -61 40 minecraft:frosted_ice[age=0]
+B 42 -61 41 minecraft:frosted_ice[age=0]
+B 42 -61 42 minecraft:frosted_ice[age=0]
+B 42 -61 43 minecraft:frosted_ice[age=0]
+B 42 -61 44 minecraft:frosted_ice[age=0]
+B 42 -61 45 minecraft:grass_block[snowy=false]
+B 43 -62 39 minecraft:dirt
+B 43 -62 40 minecraft:dirt
+B 43 -62 41 minecraft:dirt
+B 43 -62 42 minecraft:dirt
+B 43 -62 43 minecraft:dirt
+B 43 -62 44 minecraft:dirt
+B 43 -62 45 minecraft:dirt
+B 43 -61 39 minecraft:grass_block[snowy=false]
+B 43 -61 40 minecraft:frosted_ice[age=0]
+B 43 -61 41 minecraft:frosted_ice[age=0]
+B 43 -61 42 minecraft:frosted_ice[age=0]
+B 43 -61 43 minecraft:frosted_ice[age=0]
+B 43 -61 44 minecraft:frosted_ice[age=0]
+B 43 -61 45 minecraft:grass_block[snowy=false]
+B 44 -62 39 minecraft:dirt
+B 44 -62 40 minecraft:dirt
+B 44 -62 41 minecraft:dirt
+B 44 -62 42 minecraft:dirt
+B 44 -62 43 minecraft:dirt
+B 44 -62 44 minecraft:dirt
+B 44 -62 45 minecraft:dirt
+B 44 -61 39 minecraft:grass_block[snowy=false]
+B 44 -61 40 minecraft:frosted_ice[age=0]
+B 44 -61 41 minecraft:frosted_ice[age=0]
+B 44 -61 42 minecraft:frosted_ice[age=0]
+B 44 -61 43 minecraft:frosted_ice[age=0]
+B 44 -61 44 minecraft:frosted_ice[age=0]
+B 44 -61 45 minecraft:grass_block[snowy=false]
+B 45 -62 39 minecraft:dirt
+B 45 -62 40 minecraft:dirt
+B 45 -62 41 minecraft:dirt
+B 45 -62 42 minecraft:dirt
+B 45 -62 43 minecraft:dirt
+B 45 -62 44 minecraft:dirt
+B 45 -62 45 minecraft:dirt
+B 45 -61 39 minecraft:grass_block[snowy=false]
+B 45 -61 40 minecraft:grass_block[snowy=false]
+B 45 -61 41 minecraft:grass_block[snowy=false]
+B 45 -61 42 minecraft:grass_block[snowy=false]
+B 45 -61 43 minecraft:grass_block[snowy=false]
+B 45 -61 44 minecraft:grass_block[snowy=false]
+B 45 -61 45 minecraft:grass_block[snowy=false]
+TICK block 43 -61 43 minecraft:frosted_ice delay=60 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=65 prio=0
+TICK block 44 -61 41 minecraft:frosted_ice delay=66 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=67 prio=0
+TICK block 40 -61 43 minecraft:frosted_ice delay=71 prio=0
+TICK block 43 -61 44 minecraft:frosted_ice delay=72 prio=0
+TICK block 44 -61 42 minecraft:frosted_ice delay=75 prio=0
+TICK block 44 -61 44 minecraft:frosted_ice delay=76 prio=0
+TICK block 40 -61 44 minecraft:frosted_ice delay=83 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=85 prio=0
+TICK block 42 -61 44 minecraft:frosted_ice delay=85 prio=0
+TICK block 44 -61 43 minecraft:frosted_ice delay=86 prio=0
+TICK block 41 -61 44 minecraft:frosted_ice delay=88 prio=0
+TICK block 42 -61 40 minecraft:frosted_ice delay=92 prio=0
+TICK block 42 -61 41 minecraft:frosted_ice delay=92 prio=0
+TICK block 40 -61 42 minecraft:frosted_ice delay=96 prio=0
+TICK block 42 -61 42 minecraft:frosted_ice delay=96 prio=0
+TICK block 43 -61 41 minecraft:frosted_ice delay=97 prio=0
+TICK block 41 -61 43 minecraft:frosted_ice delay=107 prio=0
+TICK block 43 -61 40 minecraft:frosted_ice delay=108 prio=0
+TICK block 44 -61 40 minecraft:frosted_ice delay=110 prio=0
+TICK block 40 -61 41 minecraft:frosted_ice delay=111 prio=0
+TICK block 41 -61 40 minecraft:frosted_ice delay=114 prio=0
+TICK block 40 -61 40 minecraft:frosted_ice delay=116 prio=0
+TICK block 41 -61 41 minecraft:frosted_ice delay=119 prio=0
+B 39 -62 39 minecraft:dirt
+B 39 -62 40 minecraft:dirt
+B 39 -62 41 minecraft:dirt
+B 39 -62 42 minecraft:dirt
+B 39 -62 43 minecraft:dirt
+B 39 -62 44 minecraft:dirt
+B 39 -62 45 minecraft:dirt
+B 39 -61 39 minecraft:grass_block[snowy=false]
+B 39 -61 40 minecraft:grass_block[snowy=false]
+B 39 -61 41 minecraft:grass_block[snowy=false]
+B 39 -61 42 minecraft:grass_block[snowy=false]
+B 39 -61 43 minecraft:grass_block[snowy=false]
+B 39 -61 44 minecraft:grass_block[snowy=false]
+B 39 -61 45 minecraft:grass_block[snowy=false]
+B 40 -62 39 minecraft:dirt
+B 40 -62 40 minecraft:dirt
+B 40 -62 41 minecraft:dirt
+B 40 -62 42 minecraft:dirt
+B 40 -62 43 minecraft:dirt
+B 40 -62 44 minecraft:dirt
+B 40 -62 45 minecraft:dirt
+B 40 -61 39 minecraft:grass_block[snowy=false]
+B 40 -61 40 minecraft:frosted_ice[age=0]
+B 40 -61 41 minecraft:frosted_ice[age=0]
+B 40 -61 42 minecraft:frosted_ice[age=0]
+B 40 -61 43 minecraft:frosted_ice[age=0]
+B 40 -61 44 minecraft:frosted_ice[age=0]
+B 40 -61 45 minecraft:grass_block[snowy=false]
+B 41 -62 39 minecraft:dirt
+B 41 -62 40 minecraft:dirt
+B 41 -62 41 minecraft:dirt
+B 41 -62 42 minecraft:dirt
+B 41 -62 43 minecraft:dirt
+B 41 -62 44 minecraft:dirt
+B 41 -62 45 minecraft:dirt
+B 41 -61 39 minecraft:grass_block[snowy=false]
+B 41 -61 40 minecraft:frosted_ice[age=0]
+B 41 -61 41 minecraft:frosted_ice[age=0]
+B 41 -61 42 minecraft:frosted_ice[age=0]
+B 41 -61 43 minecraft:frosted_ice[age=0]
+B 41 -61 44 minecraft:frosted_ice[age=0]
+B 41 -61 45 minecraft:grass_block[snowy=false]
+B 42 -62 39 minecraft:dirt
+B 42 -62 40 minecraft:dirt
+B 42 -62 41 minecraft:dirt
+B 42 -62 42 minecraft:dirt
+B 42 -62 43 minecraft:dirt
+B 42 -62 44 minecraft:dirt
+B 42 -62 45 minecraft:dirt
+B 42 -61 39 minecraft:grass_block[snowy=false]
+B 42 -61 40 minecraft:frosted_ice[age=0]
+B 42 -61 41 minecraft:frosted_ice[age=0]
+B 42 -61 42 minecraft:frosted_ice[age=0]
+B 42 -61 43 minecraft:frosted_ice[age=0]
+B 42 -61 44 minecraft:frosted_ice[age=0]
+B 42 -61 45 minecraft:grass_block[snowy=false]
+B 43 -62 39 minecraft:dirt
+B 43 -62 40 minecraft:dirt
+B 43 -62 41 minecraft:dirt
+B 43 -62 42 minecraft:dirt
+B 43 -62 43 minecraft:dirt
+B 43 -62 44 minecraft:dirt
+B 43 -62 45 minecraft:dirt
+B 43 -61 39 minecraft:grass_block[snowy=false]
+B 43 -61 40 minecraft:frosted_ice[age=0]
+B 43 -61 41 minecraft:frosted_ice[age=0]
+B 43 -61 42 minecraft:frosted_ice[age=0]
+B 43 -61 43 minecraft:frosted_ice[age=0]
+B 43 -61 44 minecraft:frosted_ice[age=0]
+B 43 -61 45 minecraft:grass_block[snowy=false]
+B 44 -62 39 minecraft:dirt
+B 44 -62 40 minecraft:dirt
+B 44 -62 41 minecraft:dirt
+B 44 -62 42 minecraft:dirt
+B 44 -62 43 minecraft:dirt
+B 44 -62 44 minecraft:dirt
+B 44 -62 45 minecraft:dirt
+B 44 -61 39 minecraft:grass_block[snowy=false]
+B 44 -61 40 minecraft:frosted_ice[age=0]
+B 44 -61 41 minecraft:frosted_ice[age=0]
+B 44 -61 42 minecraft:frosted_ice[age=0]
+B 44 -61 43 minecraft:frosted_ice[age=0]
+B 44 -61 44 minecraft:frosted_ice[age=0]
+B 44 -61 45 minecraft:grass_block[snowy=false]
+B 45 -62 39 minecraft:dirt
+B 45 -62 40 minecraft:dirt
+B 45 -62 41 minecraft:dirt
+B 45 -62 42 minecraft:dirt
+B 45 -62 43 minecraft:dirt
+B 45 -62 44 minecraft:dirt
+B 45 -62 45 minecraft:dirt
+B 45 -61 39 minecraft:grass_block[snowy=false]
+B 45 -61 40 minecraft:grass_block[snowy=false]
+B 45 -61 41 minecraft:grass_block[snowy=false]
+B 45 -61 42 minecraft:grass_block[snowy=false]
+B 45 -61 43 minecraft:grass_block[snowy=false]
+B 45 -61 44 minecraft:grass_block[snowy=false]
+B 45 -61 45 minecraft:grass_block[snowy=false]
+TICK block 40 -61 43 minecraft:frosted_ice delay=1 prio=0
+TICK block 43 -61 44 minecraft:frosted_ice delay=2 prio=0
+TICK block 44 -61 42 minecraft:frosted_ice delay=5 prio=0
+TICK block 44 -61 44 minecraft:frosted_ice delay=6 prio=0
+TICK block 40 -61 44 minecraft:frosted_ice delay=13 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=15 prio=0
+TICK block 42 -61 44 minecraft:frosted_ice delay=15 prio=0
+TICK block 44 -61 43 minecraft:frosted_ice delay=16 prio=0
+TICK block 41 -61 44 minecraft:frosted_ice delay=18 prio=0
+TICK block 42 -61 40 minecraft:frosted_ice delay=22 prio=0
+TICK block 42 -61 41 minecraft:frosted_ice delay=22 prio=0
+TICK block 44 -61 41 minecraft:frosted_ice delay=25 prio=0
+TICK block 40 -61 42 minecraft:frosted_ice delay=26 prio=0
+TICK block 42 -61 42 minecraft:frosted_ice delay=26 prio=0
+TICK block 43 -61 41 minecraft:frosted_ice delay=27 prio=0
+TICK block 43 -61 43 minecraft:frosted_ice delay=28 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=31 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=35 prio=0
+TICK block 41 -61 43 minecraft:frosted_ice delay=37 prio=0
+TICK block 43 -61 40 minecraft:frosted_ice delay=38 prio=0
+TICK block 44 -61 40 minecraft:frosted_ice delay=40 prio=0
+TICK block 40 -61 41 minecraft:frosted_ice delay=41 prio=0
+TICK block 41 -61 40 minecraft:frosted_ice delay=44 prio=0
+TICK block 40 -61 40 minecraft:frosted_ice delay=46 prio=0
+TICK block 41 -61 41 minecraft:frosted_ice delay=49 prio=0
+B 39 -62 39 minecraft:dirt
+B 39 -62 40 minecraft:dirt
+B 39 -62 41 minecraft:dirt
+B 39 -62 42 minecraft:dirt
+B 39 -62 43 minecraft:dirt
+B 39 -62 44 minecraft:dirt
+B 39 -62 45 minecraft:dirt
+B 39 -61 39 minecraft:grass_block[snowy=false]
+B 39 -61 40 minecraft:grass_block[snowy=false]
+B 39 -61 41 minecraft:grass_block[snowy=false]
+B 39 -61 42 minecraft:grass_block[snowy=false]
+B 39 -61 43 minecraft:grass_block[snowy=false]
+B 39 -61 44 minecraft:grass_block[snowy=false]
+B 39 -61 45 minecraft:grass_block[snowy=false]
+B 40 -62 39 minecraft:dirt
+B 40 -62 40 minecraft:dirt
+B 40 -62 41 minecraft:dirt
+B 40 -62 42 minecraft:dirt
+B 40 -62 43 minecraft:dirt
+B 40 -62 44 minecraft:dirt
+B 40 -62 45 minecraft:dirt
+B 40 -61 39 minecraft:grass_block[snowy=false]
+B 40 -61 40 minecraft:frosted_ice[age=0]
+B 40 -61 41 minecraft:frosted_ice[age=0]
+B 40 -61 42 minecraft:frosted_ice[age=0]
+B 40 -61 43 minecraft:frosted_ice[age=0]
+B 40 -61 44 minecraft:frosted_ice[age=0]
+B 40 -61 45 minecraft:grass_block[snowy=false]
+B 41 -62 39 minecraft:dirt
+B 41 -62 40 minecraft:dirt
+B 41 -62 41 minecraft:dirt
+B 41 -62 42 minecraft:dirt
+B 41 -62 43 minecraft:dirt
+B 41 -62 44 minecraft:dirt
+B 41 -62 45 minecraft:dirt
+B 41 -61 39 minecraft:grass_block[snowy=false]
+B 41 -61 40 minecraft:frosted_ice[age=0]
+B 41 -61 41 minecraft:frosted_ice[age=0]
+B 41 -61 42 minecraft:frosted_ice[age=0]
+B 41 -61 43 minecraft:frosted_ice[age=0]
+B 41 -61 44 minecraft:frosted_ice[age=0]
+B 41 -61 45 minecraft:grass_block[snowy=false]
+B 42 -62 39 minecraft:dirt
+B 42 -62 40 minecraft:dirt
+B 42 -62 41 minecraft:dirt
+B 42 -62 42 minecraft:dirt
+B 42 -62 43 minecraft:dirt
+B 42 -62 44 minecraft:dirt
+B 42 -62 45 minecraft:dirt
+B 42 -61 39 minecraft:grass_block[snowy=false]
+B 42 -61 40 minecraft:frosted_ice[age=0]
+B 42 -61 41 minecraft:frosted_ice[age=0]
+B 42 -61 42 minecraft:frosted_ice[age=0]
+B 42 -61 43 minecraft:frosted_ice[age=0]
+B 42 -61 44 minecraft:frosted_ice[age=0]
+B 42 -61 45 minecraft:grass_block[snowy=false]
+B 43 -62 39 minecraft:dirt
+B 43 -62 40 minecraft:dirt
+B 43 -62 41 minecraft:dirt
+B 43 -62 42 minecraft:dirt
+B 43 -62 43 minecraft:dirt
+B 43 -62 44 minecraft:dirt
+B 43 -62 45 minecraft:dirt
+B 43 -61 39 minecraft:grass_block[snowy=false]
+B 43 -61 40 minecraft:frosted_ice[age=0]
+B 43 -61 41 minecraft:frosted_ice[age=0]
+B 43 -61 42 minecraft:frosted_ice[age=0]
+B 43 -61 43 minecraft:frosted_ice[age=0]
+B 43 -61 44 minecraft:frosted_ice[age=0]
+B 43 -61 45 minecraft:grass_block[snowy=false]
+B 44 -62 39 minecraft:dirt
+B 44 -62 40 minecraft:dirt
+B 44 -62 41 minecraft:dirt
+B 44 -62 42 minecraft:dirt
+B 44 -62 43 minecraft:dirt
+B 44 -62 44 minecraft:dirt
+B 44 -62 45 minecraft:dirt
+B 44 -61 39 minecraft:grass_block[snowy=false]
+B 44 -61 40 minecraft:frosted_ice[age=0]
+B 44 -61 41 minecraft:frosted_ice[age=0]
+B 44 -61 42 minecraft:frosted_ice[age=0]
+B 44 -61 43 minecraft:frosted_ice[age=0]
+B 44 -61 44 minecraft:frosted_ice[age=0]
+B 44 -61 45 minecraft:grass_block[snowy=false]
+B 45 -62 39 minecraft:dirt
+B 45 -62 40 minecraft:dirt
+B 45 -62 41 minecraft:dirt
+B 45 -62 42 minecraft:dirt
+B 45 -62 43 minecraft:dirt
+B 45 -62 44 minecraft:dirt
+B 45 -62 45 minecraft:dirt
+B 45 -61 39 minecraft:grass_block[snowy=false]
+B 45 -61 40 minecraft:grass_block[snowy=false]
+B 45 -61 41 minecraft:grass_block[snowy=false]
+B 45 -61 42 minecraft:grass_block[snowy=false]
+B 45 -61 43 minecraft:grass_block[snowy=false]
+B 45 -61 44 minecraft:grass_block[snowy=false]
+B 45 -61 45 minecraft:grass_block[snowy=false]
+TICK block 42 -61 41 minecraft:frosted_ice delay=1 prio=0
+TICK block 43 -61 43 minecraft:frosted_ice delay=1 prio=0
+TICK block 42 -61 42 minecraft:frosted_ice delay=4 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=5 prio=0
+TICK block 42 -61 40 minecraft:frosted_ice delay=8 prio=0
+TICK block 44 -61 40 minecraft:frosted_ice delay=8 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=9 prio=0
+TICK block 43 -61 40 minecraft:frosted_ice delay=9 prio=0
+TICK block 40 -61 41 minecraft:frosted_ice delay=10 prio=0
+TICK block 43 -61 44 minecraft:frosted_ice delay=12 prio=0
+TICK block 42 -61 44 minecraft:frosted_ice delay=16 prio=0
+TICK block 41 -61 41 minecraft:frosted_ice delay=16 prio=0
+TICK block 44 -61 41 minecraft:frosted_ice delay=16 prio=0
+TICK block 40 -61 44 minecraft:frosted_ice delay=17 prio=0
+TICK block 44 -61 44 minecraft:frosted_ice delay=19 prio=0
+TICK block 40 -61 40 minecraft:frosted_ice delay=19 prio=0
+TICK block 40 -61 43 minecraft:frosted_ice delay=19 prio=0
+TICK block 44 -61 43 minecraft:frosted_ice delay=23 prio=0
+TICK block 44 -61 42 minecraft:frosted_ice delay=25 prio=0
+TICK block 41 -61 44 minecraft:frosted_ice delay=25 prio=0
+TICK block 40 -61 42 minecraft:frosted_ice delay=28 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=29 prio=0
+TICK block 43 -61 41 minecraft:frosted_ice delay=29 prio=0
+TICK block 41 -61 40 minecraft:frosted_ice delay=30 prio=0
+TICK block 41 -61 43 minecraft:frosted_ice delay=31 prio=0
+B 39 -62 39 minecraft:dirt
+B 39 -62 40 minecraft:dirt
+B 39 -62 41 minecraft:dirt
+B 39 -62 42 minecraft:dirt
+B 39 -62 43 minecraft:dirt
+B 39 -62 44 minecraft:dirt
+B 39 -62 45 minecraft:dirt
+B 39 -61 39 minecraft:grass_block[snowy=false]
+B 39 -61 40 minecraft:grass_block[snowy=false]
+B 39 -61 41 minecraft:grass_block[snowy=false]
+B 39 -61 42 minecraft:grass_block[snowy=false]
+B 39 -61 43 minecraft:grass_block[snowy=false]
+B 39 -61 44 minecraft:grass_block[snowy=false]
+B 39 -61 45 minecraft:grass_block[snowy=false]
+B 40 -62 39 minecraft:dirt
+B 40 -62 40 minecraft:dirt
+B 40 -62 41 minecraft:dirt
+B 40 -62 42 minecraft:dirt
+B 40 -62 43 minecraft:dirt
+B 40 -62 44 minecraft:dirt
+B 40 -62 45 minecraft:dirt
+B 40 -61 39 minecraft:grass_block[snowy=false]
+B 40 -61 40 minecraft:frosted_ice[age=0]
+B 40 -61 41 minecraft:frosted_ice[age=0]
+B 40 -61 42 minecraft:frosted_ice[age=0]
+B 40 -61 43 minecraft:frosted_ice[age=0]
+B 40 -61 44 minecraft:frosted_ice[age=0]
+B 40 -61 45 minecraft:grass_block[snowy=false]
+B 41 -62 39 minecraft:dirt
+B 41 -62 40 minecraft:dirt
+B 41 -62 41 minecraft:dirt
+B 41 -62 42 minecraft:dirt
+B 41 -62 43 minecraft:dirt
+B 41 -62 44 minecraft:dirt
+B 41 -62 45 minecraft:dirt
+B 41 -61 39 minecraft:grass_block[snowy=false]
+B 41 -61 40 minecraft:frosted_ice[age=0]
+B 41 -61 41 minecraft:frosted_ice[age=0]
+B 41 -61 42 minecraft:frosted_ice[age=0]
+B 41 -61 43 minecraft:frosted_ice[age=0]
+B 41 -61 44 minecraft:frosted_ice[age=0]
+B 41 -61 45 minecraft:grass_block[snowy=false]
+B 42 -62 39 minecraft:dirt
+B 42 -62 40 minecraft:dirt
+B 42 -62 41 minecraft:dirt
+B 42 -62 42 minecraft:dirt
+B 42 -62 43 minecraft:dirt
+B 42 -62 44 minecraft:dirt
+B 42 -62 45 minecraft:dirt
+B 42 -61 39 minecraft:grass_block[snowy=false]
+B 42 -61 40 minecraft:frosted_ice[age=0]
+B 42 -61 41 minecraft:frosted_ice[age=0]
+B 42 -61 42 minecraft:frosted_ice[age=0]
+B 42 -61 43 minecraft:frosted_ice[age=0]
+B 42 -61 44 minecraft:frosted_ice[age=0]
+B 42 -61 45 minecraft:grass_block[snowy=false]
+B 43 -62 39 minecraft:dirt
+B 43 -62 40 minecraft:dirt
+B 43 -62 41 minecraft:dirt
+B 43 -62 42 minecraft:dirt
+B 43 -62 43 minecraft:dirt
+B 43 -62 44 minecraft:dirt
+B 43 -62 45 minecraft:dirt
+B 43 -61 39 minecraft:grass_block[snowy=false]
+B 43 -61 40 minecraft:frosted_ice[age=0]
+B 43 -61 41 minecraft:frosted_ice[age=0]
+B 43 -61 42 minecraft:frosted_ice[age=0]
+B 43 -61 43 minecraft:frosted_ice[age=0]
+B 43 -61 44 minecraft:frosted_ice[age=0]
+B 43 -61 45 minecraft:grass_block[snowy=false]
+B 44 -62 39 minecraft:dirt
+B 44 -62 40 minecraft:dirt
+B 44 -62 41 minecraft:dirt
+B 44 -62 42 minecraft:dirt
+B 44 -62 43 minecraft:dirt
+B 44 -62 44 minecraft:dirt
+B 44 -62 45 minecraft:dirt
+B 44 -61 39 minecraft:grass_block[snowy=false]
+B 44 -61 40 minecraft:frosted_ice[age=0]
+B 44 -61 41 minecraft:frosted_ice[age=0]
+B 44 -61 42 minecraft:frosted_ice[age=0]
+B 44 -61 43 minecraft:frosted_ice[age=0]
+B 44 -61 44 minecraft:frosted_ice[age=0]
+B 44 -61 45 minecraft:grass_block[snowy=false]
+B 45 -62 39 minecraft:dirt
+B 45 -62 40 minecraft:dirt
+B 45 -62 41 minecraft:dirt
+B 45 -62 42 minecraft:dirt
+B 45 -62 43 minecraft:dirt
+B 45 -62 44 minecraft:dirt
+B 45 -62 45 minecraft:dirt
+B 45 -61 39 minecraft:grass_block[snowy=false]
+B 45 -61 40 minecraft:grass_block[snowy=false]
+B 45 -61 41 minecraft:grass_block[snowy=false]
+B 45 -61 42 minecraft:grass_block[snowy=false]
+B 45 -61 43 minecraft:grass_block[snowy=false]
+B 45 -61 44 minecraft:grass_block[snowy=false]
+B 45 -61 45 minecraft:grass_block[snowy=false]
+TICK block 43 -61 43 minecraft:frosted_ice delay=1 prio=0
+TICK block 40 -61 42 minecraft:frosted_ice delay=1 prio=0
+TICK block 44 -61 41 minecraft:frosted_ice delay=2 prio=0
+TICK block 42 -61 41 minecraft:frosted_ice delay=2 prio=0
+TICK block 44 -61 40 minecraft:frosted_ice delay=2 prio=0
+TICK block 40 -61 43 minecraft:frosted_ice delay=3 prio=0
+TICK block 41 -61 41 minecraft:frosted_ice delay=3 prio=0
+TICK block 44 -61 42 minecraft:frosted_ice delay=5 prio=0
+TICK block 42 -61 40 minecraft:frosted_ice delay=9 prio=0
+TICK block 40 -61 41 minecraft:frosted_ice delay=10 prio=0
+TICK block 40 -61 44 minecraft:frosted_ice delay=11 prio=0
+TICK block 43 -61 40 minecraft:frosted_ice delay=11 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=16 prio=0
+TICK block 40 -61 40 minecraft:frosted_ice delay=21 prio=0
+TICK block 41 -61 43 minecraft:frosted_ice delay=21 prio=0
+TICK block 43 -61 41 minecraft:frosted_ice delay=22 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=23 prio=0
+TICK block 41 -61 40 minecraft:frosted_ice delay=25 prio=0
+TICK block 42 -61 42 minecraft:frosted_ice delay=26 prio=0
+TICK block 42 -61 44 minecraft:frosted_ice delay=27 prio=0
+TICK block 44 -61 44 minecraft:frosted_ice delay=28 prio=0
+TICK block 44 -61 43 minecraft:frosted_ice delay=28 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=28 prio=0
+TICK block 41 -61 44 minecraft:frosted_ice delay=29 prio=0
+TICK block 43 -61 44 minecraft:frosted_ice delay=30 prio=0
+B 49 -62 49 minecraft:dirt
+B 49 -62 50 minecraft:dirt
+B 49 -62 51 minecraft:dirt
+B 49 -61 49 minecraft:grass_block[snowy=false]
+B 49 -61 50 minecraft:grass_block[snowy=false]
+B 49 -61 51 minecraft:grass_block[snowy=false]
+B 50 -62 49 minecraft:dirt
+B 50 -62 50 minecraft:dirt
+B 50 -62 51 minecraft:dirt
+B 50 -61 49 minecraft:grass_block[snowy=false]
+B 50 -61 50 minecraft:water[level=0]
+B 50 -61 51 minecraft:grass_block[snowy=false]
+B 51 -62 49 minecraft:dirt
+B 51 -62 50 minecraft:dirt
+B 51 -62 51 minecraft:dirt
+B 51 -61 49 minecraft:grass_block[snowy=false]
+B 51 -61 51 minecraft:grass_block[snowy=false]
+B 52 -62 49 minecraft:dirt
+B 52 -62 50 minecraft:dirt
+B 52 -62 51 minecraft:dirt
+B 52 -61 49 minecraft:grass_block[snowy=false]
+B 52 -61 50 minecraft:grass_block[snowy=false]
+B 52 -61 51 minecraft:grass_block[snowy=false]
+TICK block 44 -61 41 minecraft:frosted_ice delay=1 prio=0
+TICK block 42 -61 41 minecraft:frosted_ice delay=1 prio=0
+TICK block 44 -61 40 minecraft:frosted_ice delay=1 prio=0
+TICK block 40 -61 43 minecraft:frosted_ice delay=2 prio=0
+TICK block 41 -61 41 minecraft:frosted_ice delay=2 prio=0
+TICK block 44 -61 42 minecraft:frosted_ice delay=4 prio=0
+TICK fluid 50 -61 50 minecraft:water delay=5 prio=0
+TICK block 42 -61 40 minecraft:frosted_ice delay=8 prio=0
+TICK block 40 -61 41 minecraft:frosted_ice delay=9 prio=0
+TICK block 40 -61 44 minecraft:frosted_ice delay=10 prio=0
+TICK block 43 -61 40 minecraft:frosted_ice delay=10 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=15 prio=0
+TICK block 40 -61 40 minecraft:frosted_ice delay=20 prio=0
+TICK block 41 -61 43 minecraft:frosted_ice delay=20 prio=0
+TICK block 43 -61 41 minecraft:frosted_ice delay=21 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=22 prio=0
+TICK block 40 -61 42 minecraft:frosted_ice delay=22 prio=0
+TICK block 41 -61 40 minecraft:frosted_ice delay=24 prio=0
+TICK block 42 -61 42 minecraft:frosted_ice delay=25 prio=0
+TICK block 42 -61 44 minecraft:frosted_ice delay=26 prio=0
+TICK block 43 -61 43 minecraft:frosted_ice delay=26 prio=0
+TICK block 44 -61 44 minecraft:frosted_ice delay=27 prio=0
+TICK block 44 -61 43 minecraft:frosted_ice delay=27 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=27 prio=0
+TICK block 41 -61 44 minecraft:frosted_ice delay=28 prio=0
+TICK block 43 -61 44 minecraft:frosted_ice delay=29 prio=0
+TICK block 51 -61 50 minecraft:frosted_ice delay=69 prio=0
+TICK block 50 -61 50 minecraft:frosted_ice delay=110 prio=0
+B 49 -62 49 minecraft:dirt
+B 49 -62 50 minecraft:dirt
+B 49 -62 51 minecraft:dirt
+B 49 -61 49 minecraft:grass_block[snowy=false]
+B 49 -61 50 minecraft:grass_block[snowy=false]
+B 49 -61 51 minecraft:grass_block[snowy=false]
+B 50 -62 49 minecraft:dirt
+B 50 -62 50 minecraft:dirt
+B 50 -62 51 minecraft:dirt
+B 50 -61 49 minecraft:grass_block[snowy=false]
+B 50 -61 50 minecraft:water[level=0]
+B 50 -61 51 minecraft:grass_block[snowy=false]
+B 51 -62 49 minecraft:dirt
+B 51 -62 50 minecraft:dirt
+B 51 -62 51 minecraft:dirt
+B 51 -61 49 minecraft:grass_block[snowy=false]
+B 51 -61 50 minecraft:water[level=1]
+B 51 -61 51 minecraft:grass_block[snowy=false]
+B 52 -62 49 minecraft:dirt
+B 52 -62 50 minecraft:dirt
+B 52 -62 51 minecraft:dirt
+B 52 -61 49 minecraft:grass_block[snowy=false]
+B 52 -61 50 minecraft:grass_block[snowy=false]
+B 52 -61 51 minecraft:grass_block[snowy=false]
+TICK block 41 -61 41 minecraft:frosted_ice delay=2 prio=0
+TICK block 44 -61 40 minecraft:frosted_ice delay=2 prio=0
+TICK block 44 -61 42 minecraft:frosted_ice delay=3 prio=0
+TICK block 42 -61 41 minecraft:frosted_ice delay=5 prio=0
+TICK block 40 -61 41 minecraft:frosted_ice delay=6 prio=0
+TICK block 43 -61 44 minecraft:frosted_ice delay=6 prio=0
+TICK block 50 -61 50 minecraft:frosted_ice delay=10 prio=0
+TICK block 41 -61 44 minecraft:frosted_ice delay=10 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=10 prio=0
+TICK block 42 -61 40 minecraft:frosted_ice delay=11 prio=0
+TICK block 44 -61 41 minecraft:frosted_ice delay=12 prio=0
+TICK block 42 -61 44 minecraft:frosted_ice delay=13 prio=0
+TICK block 44 -61 44 minecraft:frosted_ice delay=17 prio=0
+TICK block 40 -61 40 minecraft:frosted_ice delay=18 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=19 prio=0
+TICK block 43 -61 41 minecraft:frosted_ice delay=20 prio=0
+TICK block 40 -61 44 minecraft:frosted_ice delay=21 prio=0
+TICK block 41 -61 40 minecraft:frosted_ice delay=21 prio=0
+TICK block 44 -61 43 minecraft:frosted_ice delay=24 prio=0
+TICK block 40 -61 42 minecraft:frosted_ice delay=25 prio=0
+TICK block 43 -61 43 minecraft:frosted_ice delay=25 prio=0
+TICK block 42 -61 42 minecraft:frosted_ice delay=28 prio=0
+TICK block 41 -61 43 minecraft:frosted_ice delay=29 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=30 prio=0
+TICK block 40 -61 43 minecraft:frosted_ice delay=31 prio=0
+TICK block 43 -61 40 minecraft:frosted_ice delay=33 prio=0
