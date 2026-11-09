@@ -1,0 +1,30 @@
+# Long survival digs: the block breaks after many server ticks of player action packets; loot with level-random draws (gravel flint,
+# leaves sapling/stick/apple) and a deep obsidian dig must leave the level random in the same state in both servers.
+level flat
+preload 3
+level_seed 12
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve hotbar0 minecraft:diamond_pickaxe
+give Steve hotbar1 minecraft:iron_shovel
+give Steve hotbar2 minecraft:wooden_axe
+block 2 -60 0 minecraft:obsidian
+block 2 -60 2 minecraft:gravel
+block 0 -60 2 minecraft:oak_leaves[persistent=true]
+block 3 -60 3 minecraft:obsidian
+block 3 -60 2 minecraft:oak_log[axis=y]
+select Steve 0
+dig Steve 2 -60 0
+dump blocks:0,-61,0,4,-59,3 entities
+select Steve 1
+dig Steve 2 -60 2
+dump entities
+select Steve 2
+dig Steve 0 -60 2
+dump entities
+select Steve 0
+dig Steve 3 -60 3
+select Steve 2
+dig Steve 3 -60 2
+dump blocks:0,-61,0,4,-59,3 entities inventory:Steve
+tick 10
+dump entities inventory:Steve

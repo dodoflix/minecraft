@@ -65,3 +65,8 @@ fn block_entity_map_order_with_many_block_entities() {
 fn op_input_pick_block_and_arrow_verbs() {
     check("blk_harness_verbs");
 }
+
+#[test]
+fn long_digs_leave_the_level_random_in_step() {
+    check("blk_dig_long");
+}

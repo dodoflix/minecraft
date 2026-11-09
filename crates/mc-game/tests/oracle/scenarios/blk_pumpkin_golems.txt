@@ -152,6 +152,8 @@ dump blocks:123,-60,-1,125,-60,1 entities events inventory:Steve
 snap Steve 128.5 -60 4.5 0 0
 use_on Steve 128 -60 0 west main 0.0 0.5 0.5
 dump blocks:127,-60,-1,129,-60,1 entities events inventory:Steve
+tick 20
+dump entities events
 note carving a pumpkin on two snow blocks builds the golem (setBlock flags 11 runs onPlace)
 snap Steve 136.5 -60 4.5 0 0
 fill 136 -60 0 136 -59 0 minecraft:snow_block

@@ -156,6 +156,14 @@ impl ChunkMap {
         }
     }
 
+    /// The live `player.position()` that `playerIsCloseEnoughForSpawning` reads; `move_player` only runs when a move packet
+    /// or a camera change reaches the chunk source, a snap or teleport in between must still count.
+    pub fn set_player_position(&mut self, id: EntityId, position: Vec3) {
+        if let Some(player) = self.players.get_mut(&id) {
+            player.info.position = position;
+        }
+    }
+
     /// `updateChunkTracking(player)`.
     pub fn update_chunk_tracking(&mut self, id: EntityId) {
         let Some(player) = self.players.get(&id) else {

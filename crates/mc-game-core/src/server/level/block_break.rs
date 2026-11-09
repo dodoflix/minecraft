@@ -29,8 +29,9 @@ pub fn anger_nearby_piglins(
     }
 }
 
-/// `Block.playerWillDestroy(level, pos, state, player)`: destroy particles (level event 2001 for everyone but the
-/// player), `PiglinAi.angerNearbyPiglins` for blocks guarded by piglins, the `BLOCK_DESTROY` game event; returns `state`.
+/// `Block.playerWillDestroy(level, pos, state, player)`: `spawnDestroyByEntityParticles` (the block's
+/// `spawn_destroy_by_entity_particles` hook: level event 2001 for everyone but the player, none for fire), `PiglinAi.angerNearbyPiglins`
+/// for blocks guarded by piglins, the `BLOCK_DESTROY` game event; returns `state`.
 pub fn player_will_destroy(
     level: &mut ServerLevel,
     pos: BlockPos,

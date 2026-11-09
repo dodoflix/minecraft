@@ -566,6 +566,13 @@ impl ServerLevel {
                 .distance_manager
                 .get_natural_spawn_chunk_count();
             let do_mob_spawning = self.spawn_mobs();
+            for id in self.players().to_vec() {
+                if let Some(position) = self.get_entity(id).map(|p| p.position()) {
+                    self.chunk_source
+                        .chunk_map
+                        .set_player_position(id, position);
+                }
+            }
             let tick_speed = self.random_tick_speed();
             let spawn_enemies = self.chunk_source.spawn_enemies();
             let spawn_persistent = self.game_time() % 400 == 0;
