@@ -25,7 +25,9 @@ use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
+use mc_game::world::entity::player::menu_ctx::PlayerCtx;
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game::world::inventory::{PlayerMenus, handle_container_button_click};
 use mc_game::world::item::{InteractionHand, InteractionResult, ItemStack, SwingSource};
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
@@ -452,6 +454,33 @@ impl Scenario {
                     mc_game::world::item::pick_item_from_block(p, level, &packet)
                 });
             }
+            "jigsaw_generate" => {
+                self.world();
+                self.load_registries();
+                // `handleJigsawGenerate` through the registered play handlers; it needs the command environment (`command_env`)
+                let packet = mc_protocol::packets::play::ServerboundJigsawGeneratePacket {
+                    pos: BlockPos::new(
+                        a[2].parse().unwrap(),
+                        a[3].parse().unwrap(),
+                        a[4].parse().unwrap(),
+                    ),
+                    levels: a[5].parse().unwrap(),
+                    keep_jigsaws: a[6].parse().unwrap(),
+                };
+                self.with_player_named(&a[1], |level, player| {
+                    mc_game::commands::server_access::with_server(|server| {
+                        let mut ctx = mc_game::server::network::game_packets::PlayCtx {
+                            server,
+                            level,
+                            player,
+                        };
+                        for h in mc_game::server::network::game_packets::hooks::PLAY_HANDLERS.iter()
+                        {
+                            h.handle_jigsaw_generate(&mut ctx, &packet);
+                        }
+                    })
+                });
+            }
             "nbt" => {
                 self.world();
                 let id = self.entity_id(&a[1]);
@@ -625,6 +654,24 @@ impl Scenario {
             "use_on" => {
                 self.world();
                 self.use_on(a);
+            }
+            "menu_button" => {
+                self.world();
+                // `handleContainerButtonClick` without the packet: the menu's own handler on the player's open menu
+                let button: i32 = a[2].parse().unwrap();
+                self.with_player_named(&a[1], |level, p| {
+                    let container_id = p.player.menus.current_container_id();
+                    let mut ctx = PlayerCtx { player: p, level };
+                    PlayerMenus::with_current(
+                        &mut ctx,
+                        |c| &mut c.player.player.menus,
+                        |menu, c| handle_container_button_click(menu, c, container_id, button),
+                    );
+                });
+            }
+            "close_menu" => {
+                self.world();
+                self.with_player_named(&a[1], |level, p| p.do_close_container(level));
             }
             "brush" => {
                 self.world();
@@ -1087,6 +1134,29 @@ impl Scenario {
                 let id = self.entity_id(name);
                 let line = self.describe(name, id);
                 self.out.push(line);
+            }
+            // BRAIN REF .. / BM / BR lines (`mc_game::world::entity::scenario_dump`, shared with the entity replay)
+            "brain" => {
+                use mc_game::world::entity::scenario_dump as sd;
+                let name = arg.expect("brain:REF");
+                let id = self.entity_id(name);
+                let names: std::collections::BTreeMap<EntityId, String> = self
+                    .actors
+                    .refs
+                    .iter()
+                    .map(|(n, id)| (*id, n.clone()))
+                    .collect();
+                let uuids = std::collections::BTreeMap::new();
+                let ctx = sd::ScenarioDumpCtx {
+                    names: &names,
+                    uuids: &uuids,
+                };
+                let level = self.level();
+                let e = level
+                    .get_entity(id)
+                    .unwrap_or_else(|| panic!("entity {name} is gone"));
+                let lines = sd::brain_lines(name, e, level, &ctx);
+                self.out.extend(lines);
             }
             // N REF {canonical sorted SNBT of saveWithoutId, UUID removed}
             "nbt" => {

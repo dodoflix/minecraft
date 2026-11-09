@@ -12,6 +12,7 @@
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
+//! `command_env` (a real command environment around the whole scenario), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`,
 //! `note`, `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
@@ -101,6 +102,13 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
             || l.starts_with("biome ")
             || l.contains("minecraft:bone_meal")
     });
+    s.gen_env = text.contains("minecraft:structure_block") || text.contains("jigsaw_generate");
+    // `command_env`: the vanilla server always has its command environment (lecterns resolve written book pages through it);
+    // the replay installs a real `MinecraftServer` (nothing started) around every command of the scenario
+    let mut server = text
+        .lines()
+        .any(|l| l.trim() == "command_env")
+        .then(crate::command_common::test_server);
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();
         if line.is_empty() || line.starts_with('#') {
@@ -108,7 +116,12 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         }
         s.line_no = i + 1;
         s.line = line.to_string();
-        s.run(&tokens(line));
+        match server.as_mut() {
+            Some((server, _keep)) => {
+                mc_game::commands::server_access::enter_server(server, || s.run(&tokens(line)))
+            }
+            None => s.run(&tokens(line)),
+        }
     }
     s.out
 }
@@ -264,16 +277,30 @@ impl LevelTickEnv for Env {
     fn set_game_time(&mut self, _game_time: i64) {}
     fn perform_prefixed_command(
         &mut self,
-        _level: &mut ServerLevel,
-        _source: mc_game::commands::CommandSourceStack,
+        level: &mut ServerLevel,
+        source: mc_game::commands::CommandSourceStack,
         command: &str,
     ) {
-        panic!(
-            "block_scenario: command execution from a ticking level (command blocks) is not wired: `{command}`"
+        // `command_env` scenarios run the command through the installed server like `LevelTickEnv` does
+        assert!(
+            mc_game::commands::server_access::has_server(),
+            "block_scenario: command execution from a ticking level (command blocks) needs the `command_env` verb: `{command}`"
         );
+        mc_game::commands::server_access::with_server(|server| {
+            let commands = server.commands.clone();
+            server.with_lent_level(level, |server| {
+                commands.perform_prefixed_command(server, source, command)
+            });
+        });
     }
     fn command_rules(&self) -> mc_game::server::level::level_commands::CommandRules {
-        Default::default()
+        let rules = &self.game_rules;
+        mc_game::server::level::level_commands::CommandRules {
+            command_blocks_work: rules.get(GameRules::COMMAND_BLOCKS_WORK),
+            command_block_output: rules.get(GameRules::COMMAND_BLOCK_OUTPUT),
+            send_command_feedback: rules.get(GameRules::SEND_COMMAND_FEEDBACK),
+            max_command_sequence_length: rules.get(GameRules::MAX_COMMAND_SEQUENCE_LENGTH),
+        }
     }
     fn teleport_through_portal(&mut self, _level: &mut ServerLevel, _entity: &mut dyn Entity) {}
 }
@@ -333,6 +360,8 @@ pub struct Scenario {
     watches: Vec<Vec<String>>,
     opts: Options_,
     real_biomes: bool,
+    /// Structure blocks and jigsaw generation read the generation environment (template manager, pool registries).
+    gen_env: bool,
     log: Arc<Mutex<Vec<BroadcastRecord>>>,
     actors: actors::Actors,
     line_no: usize,
@@ -355,6 +384,8 @@ impl Scenario {
             "spawn_wandering_traders",
             "spawn_wardens",
             "raids",
+            "log_admin_commands",
+            "send_command_feedback",
         ] {
             set_rule(&mut game_rules, rule, "false");
         }
@@ -380,6 +411,7 @@ impl Scenario {
                 seed: 4242,
             },
             real_biomes: false,
+            gen_env: false,
             log: Arc::new(Mutex::new(Vec::new())),
             line_no: 0,
             actors: Default::default(),
@@ -503,6 +535,8 @@ impl Scenario {
             level.tick_state.biome_zoom_seed =
                 mc_worldgen::biome::BiomeManager::obfuscate_seed(4242);
             // the generation environment bone meal reads (feature lists, biome tags); the grown features never consult the generator
+            level.gen_env = Some(super::feature_harness::gen_env(4242));
+        } else if self.gen_env {
             level.gen_env = Some(super::feature_harness::gen_env(4242));
         }
         // `Level.canHaveWeather()`
@@ -752,6 +786,7 @@ impl Scenario {
                 self.world();
                 self.random_tick(pos(a, 1));
             }
+            "command_env" => {}
             "be_nbt" => {
                 self.world();
                 let snbt = self.line[self.line.find(a[4].as_str()).expect("snbt")..].to_string();

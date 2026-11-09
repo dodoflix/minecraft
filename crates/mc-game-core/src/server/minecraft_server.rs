@@ -387,7 +387,7 @@ impl MinecraftServer {
     /// Runs `f` with `level` (which the caller took out of the server to tick it) reachable through
     /// `level`/`level_mut`/`with_level` again. Vanilla's `ServerLevel.tickTime` runs scheduled functions that act on their own
     /// level; the caller must not use `level` while `f` runs.
-    pub(super) fn with_lent_level<R>(
+    pub fn with_lent_level<R>(
         &mut self,
         level: &mut ServerLevel,
         f: impl FnOnce(&mut MinecraftServer) -> R,

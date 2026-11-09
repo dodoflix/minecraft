@@ -110,6 +110,8 @@ import net.minecraft.util.RandomSource;
  * random_tick X Y Z           randomTick of that block (+ its fluid) as tickChunk's inner loop does for one chosen position
  * bonemeal X Y Z            BoneMealItem.growCrop without a player; prints `BONEMEAL true|false` (true = the block was a valid target)
  * destroy X Y Z              Level.destroyBlock(pos, true) (no breaker: destroy particles event, drops, BLOCK_DESTROY); prints `DESTROY true|false`
+ * command_env               (before the first world command) no-op here, the Rust replay installs a command environment (server access) for the scenario
+ * jigsaw_generate PLAYER X Y Z LEVELS KEEP   ServerboundJigsawGeneratePacket from an operator in creative mode (`op PLAYER`): JigsawBlockEntity.generate(level, LEVELS, KEEP=true|false)
  * be_nbt X Y Z SNBT           merge SNBT into the block entity (`/data merge block`: saveWithFullMetadata.merge, loadWithComponents, setChanged)
  * -- entities --
  * spawn REF TYPE X Y Z [yaw pitch] [SNBT]        real vanilla entity (EntityType.create + addFreshEntity), random seeded from REF
@@ -137,6 +139,8 @@ import net.minecraft.util.RandomSource;
  *                             client would send it (or after TICKS ticks); prints "DIG ticks=N broken=B"; ticks the server
  * use PLAYER [main|off]       ServerboundUseItemPacket              release PLAYER   RELEASE_USE_ITEM
  * use_on PLAYER X Y Z FACE [main|off] [cx cy cz]  ServerboundUseItemOnPacket (FACE: down up north south west east)
+ * menu_button PLAYER N       ServerboundContainerButtonClickPacket for the player's open menu (lectern: 1 previous page, 2 next page, 3 take the book, 100+N page N)
+ * close_menu PLAYER           ServerboundContainerClosePacket for the player's open menu
  * sign_update PLAYER X Y Z front|back L1 L2 L3 L4   ServerboundSignUpdatePacket (each line one token: "quote" it to keep spaces; missing = "")
  * brush X Y Z PLAYER DIR    BrushableBlockEntity.brush(gameTime, level, PLAYER, DIR, main hand item) called directly; prints "BRUSH x y z result"
  * attack PLAYER REF           ServerboundAttackPacket               swing PLAYER   ServerboundPunchPacket (main hand)
@@ -421,6 +425,15 @@ public final class EntityOracleDriver {
             BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
             out.println("BONEMEAL " + net.minecraft.world.item.BoneMealItem.growCrop(new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 64), v.level, pos));
          }
+         case "command_env" -> {
+            // the real server always has its command environment; the Rust replay installs one for the whole scenario
+         }
+         case "jigsaw_generate" -> {
+            world();
+            ServerPlayer p = player(a.get(1));
+            BlockPos pos = new BlockPos(Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)), Integer.parseInt(a.get(4)));
+            p.connection.handleJigsawGenerate(new ServerboundJigsawGeneratePacket(pos, Integer.parseInt(a.get(5)), Boolean.parseBoolean(a.get(6))));
+         }
          case "destroy" -> {
             world();
             BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
@@ -619,6 +632,16 @@ public final class EntityOracleDriver {
                : Vec3.atCenterOf(pos).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
             int handIdx = a.size() > 6 && (a.get(6).equals("main") || a.get(6).equals("off")) ? 6 : -1;
             p.connection.handleUseItemOn(new ServerboundUseItemOnPacket(handIdx > 0 ? hand(a, 6) : InteractionHand.MAIN_HAND, new BlockHitResult(hit, face, pos, false), seq(a.get(1))));
+         }
+         case "menu_button" -> {
+            world();
+            ServerPlayer p = player(a.get(1));
+            p.connection.handleContainerButtonClick(new ServerboundContainerButtonClickPacket(p.containerMenu.containerId, Integer.parseInt(a.get(2))));
+         }
+         case "close_menu" -> {
+            world();
+            ServerPlayer p = player(a.get(1));
+            p.connection.handleContainerClose(new ServerboundContainerClosePacket(p.containerMenu.containerId));
          }
          case "sign_update" -> {
             world();
