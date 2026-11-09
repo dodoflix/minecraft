@@ -72,8 +72,14 @@ impl BlockBehaviour for FarmlandBlock {
             let (width, height) = (entity.base().get_bb_width(), entity.base().get_bb_height());
             if can_trample && width * width * height > 0.512 {
                 // `turnToBaseBlock`: the base block of every farmland is dirt
-                let new_state =
-                    helpers::push_entities_up(level, state, Block::DIRT.default_state(), pos);
+                // the falling entity is out of the level: `pushEntitiesUp` would not find it
+                let new_state = helpers::push_entities_up_with(
+                    level,
+                    state,
+                    Block::DIRT.default_state(),
+                    pos,
+                    Some(&mut *entity),
+                );
                 level.set_block(pos, new_state, 3, 512);
                 level.game_event_at_block(
                     mc_data::GameEvent::BLOCK_CHANGE,
