@@ -175,7 +175,9 @@ import net.minecraft.util.RandomSource;
  *                             `time N` (day time, `/time set`; the sky darkens on the next tick), `gamerule`.
  * -- time --
  * tick [N]                    N real server ticks (default 1); each prints the `watch` dumps after the tick
- * watch WHAT...               dump after every tick: player:REF entity:REF entities inventory:REF packets:REF[:type,..]   (watch off clears)
+ * watch WHAT...               dump after every tick: player:REF entity:REF entities inventory:REF packets:REF[:type,..|:!type,..]   (watch off clears;
+ *                             `packets` drains the player's packets; `:type,..` keeps only those, `:!type,..` drops those; `:none` drains silently;
+ *                             runs of chunk change packets are sorted by chunk, see chunkOrder)
  * dump WHAT...                same WHATs immediately, plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
  *                             block oracle extras: be:X,Y,Z -> `BE x y z SNBT` (saveWithFullMetadata, sorted keys; `-` = none),
  *                             beu:X,Y,Z -> `BEU x y z TYPE SNBT` (getUpdatePacket tag; `-` = none),
@@ -873,6 +875,70 @@ public final class EntityOracleDriver {
       }
    }
 
+   /**
+    * ServerChunkCache.broadcastChangedChunks walks an identity-hashed set, so the chunks of one tick send their block changes in an
+    * order that differs per JVM run: every run of consecutive chunk change packets (block_update, section_blocks_update,
+    * block_entity_data, light_update) is stably sorted by chunk. The Rust replay (`packet_chunk` in block_scenario_actors.rs) does the same.
+    */
+   static List<VanillaLevel.Sent> chunkOrder(List<VanillaLevel.Sent> sent) {
+      List<VanillaLevel.Sent> result = new ArrayList<>();
+      List<VanillaLevel.Sent> run = new ArrayList<>();
+      for (VanillaLevel.Sent s : sent) {
+         if (packetChunk(s) != null) {
+            run.add(s);
+         } else {
+            flushRun(run, result);
+            result.add(s);
+         }
+      }
+      flushRun(run, result);
+      return result;
+   }
+
+   private static void flushRun(List<VanillaLevel.Sent> run, List<VanillaLevel.Sent> result) {
+      run.sort(Comparator.<VanillaLevel.Sent>comparingLong(s -> packetChunk(s)[0]).thenComparingLong(s -> packetChunk(s)[1]));
+      result.addAll(run);
+      run.clear();
+   }
+
+   /** The chunk (x, z) a chunk change packet belongs to, read from its wire form; null for other packets. */
+   private static long[] packetChunk(VanillaLevel.Sent s) {
+      String type = s.type();
+      if (!type.equals("minecraft:block_update") && !type.equals("minecraft:block_entity_data")
+         && !type.equals("minecraft:section_blocks_update") && !type.equals("minecraft:light_update")) {
+         return null;
+      }
+      java.nio.ByteBuffer b = java.nio.ByteBuffer.wrap(HexFormat.of().parseHex(s.hex()));
+      skipVarInt(b);
+      return switch (type) {
+         case "minecraft:section_blocks_update" -> {
+            long v = b.getLong();
+            yield new long[] {v >> 42, (v << 22) >> 42};
+         }
+         case "minecraft:light_update" -> new long[] {readVarInt(b), readVarInt(b)};
+         default -> {
+            long v = b.getLong();
+            yield new long[] {(v >> 38) >> 4, ((v << 26) >> 38) >> 4};
+         }
+      };
+   }
+
+   private static int readVarInt(java.nio.ByteBuffer b) {
+      int value = 0;
+      int shift = 0;
+      byte next;
+      do {
+         next = b.get();
+         value |= (next & 0x7F) << shift;
+         shift += 7;
+      } while ((next & 0x80) != 0);
+      return value;
+   }
+
+   private static void skipVarInt(java.nio.ByteBuffer b) {
+      readVarInt(b);
+   }
+
    void tickOnce() {
       v.tick();
       nameNewEntities();
@@ -1547,10 +1613,11 @@ public final class EntityOracleDriver {
             case "packets" -> {
                // packets:NAME[:type,type] -- the optional filter (bare type names, e.g. open_sign_editor) drops the other packets
                String[] pa = arg.split(":", 2);
-               Set<String> only = pa.length > 1 ? new HashSet<>(Arrays.asList(pa[1].split(","))) : null;
+               boolean except = pa.length > 1 && pa[1].startsWith("!"); // packets:NAME:!type,type = everything but those types
+               Set<String> only = pa.length > 1 ? new HashSet<>(Arrays.asList(pa[1].substring(except ? 1 : 0).split(","))) : null;
                VanillaLevel.FakePlayer p = v.player(pa[0]);
-               for (VanillaLevel.Sent s : p.drain()) {
-                  if (only == null || only.contains(s.type().replace("minecraft:", ""))) {
+               for (VanillaLevel.Sent s : chunkOrder(p.drain())) {
+                  if (only == null || only.contains(s.type().replace("minecraft:", "")) != except) {
                      out.println("PKT " + pa[0] + " " + s.type() + " " + s.hex());
                   }
                }

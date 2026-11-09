@@ -76,7 +76,7 @@ snap p 30.5 -60 8.5 337.5 0
 select p 0
 use_on p 30 -61 4 up
 tick 1
-dump blocks:0,-61,3,32,-59,5
+dump blocks:0,-61,3,32,-59,5 packets:p
 be_nbt 0 -60 4 {is_waxed:0b}
 be_nbt 2 -60 4 {is_waxed:0b}
 be_nbt 4 -60 4 {is_waxed:0b}
@@ -93,7 +93,7 @@ be_nbt 24 -60 4 {is_waxed:0b}
 be_nbt 26 -60 4 {is_waxed:0b}
 be_nbt 28 -60 4 {is_waxed:0b}
 be_nbt 30 -60 4 {is_waxed:0b}
-dump be:0,-60,4 be:2,-60,4 be:6,-60,4 beu:0,-60,4 packets:p:open_sign_editor,set_action_bar_text
+dump be:0,-60,4 be:2,-60,4 be:6,-60,4 beu:0,-60,4 packets:p
 snap p 0.5 -60 8.5 11.25 0
 select p 2
 use_on p 0 -61 0 up
@@ -158,4 +158,4 @@ snap p 30.5 -60 8.5 348.75 0
 select p 2
 use_on p 30 -61 0 up
 tick 1
-dump blocks:0,-61,-1,32,-59,1 be:0,-60,0
+dump blocks:0,-61,-1,32,-59,1 be:0,-60,0 packets:p

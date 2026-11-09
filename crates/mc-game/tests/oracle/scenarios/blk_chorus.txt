@@ -1,13 +1,16 @@
 level flat
 seed 4242
 difficulty peaceful
+preload 3
+spawn_player Steve creative 0.5 -40 0.5 0 0
+# the join and chunk packets are only sent by the vanilla server on its next tick: settle before the world is built
+tick 30
+dump packets:Steve:none
 note chorus flowers: growth, branching, dead flowers (level events 1033/1034), survival
 fill -12 -61 -12 12 -61 12 minecraft:end_stone
 block 0 -60 0 minecraft:chorus_flower[age=0]
 block 6 -60 0 minecraft:chorus_flower[age=0]
 block -6 -60 5 minecraft:chorus_flower[age=1]
-spawn_player Steve creative 0.5 -40 0.5 0 0
-watch packets:Steve
 level_seed 202
 rand_value 3
 note round 0
@@ -1481,7 +1484,7 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note round 1
 random_tick -3 -60 -3
 random_tick -3 -59 -3
@@ -2953,7 +2956,7 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note round 2
 random_tick -3 -60 -3
 random_tick -3 -59 -3
@@ -4425,7 +4428,7 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note round 3
 random_tick -3 -60 -3
 random_tick -3 -59 -3
@@ -5897,7 +5900,7 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note round 4
 random_tick -3 -60 -3
 random_tick -3 -59 -3
@@ -7369,7 +7372,7 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note round 5
 random_tick -3 -60 -3
 random_tick -3 -59 -3
@@ -8841,7 +8844,7 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note round 6
 random_tick -3 -60 -3
 random_tick -3 -59 -3
@@ -10313,7 +10316,7 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note round 7
 random_tick -3 -60 -3
 random_tick -3 -59 -3
@@ -11785,7 +11788,7 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note round 8
 random_tick -3 -60 -3
 random_tick -3 -59 -3
@@ -13257,7 +13260,7 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note round 9
 random_tick -3 -60 -3
 random_tick -3 -59 -3
@@ -14729,10 +14732,9 @@ random_tick -3 -59 8
 random_tick -3 -58 8
 random_tick -3 -57 8
 random_tick -3 -56 8
-dump blocks:-12,-61,-9,12,-53,9
-watch off
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 note break the base of a plant: the whole chorus tree falls apart one block at a time
 block 0 -61 0 minecraft:air
 tick 20
-dump blocks:-12,-61,-9,12,-53,9
+dump blocks:-12,-61,-9,12,-53,9 packets:Steve
 dump entities

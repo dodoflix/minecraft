@@ -802,6 +802,7 @@ impl Scenario {
         mc_core::random::reseed_uniquifier(
             8682522807148012i64 ^ ((self.ticks + 1).wrapping_mul(0x9E3779B97F4A7C15u64 as i64)),
         );
+        self.force_game_time_synchronization();
         let mut level = self.level.take().expect("world");
         level.tick(&mut self.env, &mut || true);
         self.level = Some(level);

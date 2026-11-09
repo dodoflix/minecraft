@@ -1,141 +1,147 @@
 # big dripleaf tilt state machine (items on the leaf), stem growth, small dripleaf
-T 1
+T 31
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:add_entity 0102e602261305c44853acd0eb5367adb5f648400c000000000000c04d0000000000003fe000000000000000002f0000
+PKT Steve minecraft:set_entity_data 6502080701a4080000ff
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:add_entity 0103560d9f5a06624599a02a95231d194929483fe0000000000000c04c8000000000003fe00000000000000000540000
+PKT Steve minecraft:set_entity_data 6503080701a4080000ff
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:section_blocks_update 56fffffffffffffffc10c399ea10d39bea10c39bea10d39dea10e39fea10d399ea10e39bea10e39dea10f39fea10e399ea10f39bea10f39dea10c39fea10f399ea10c39dea10d39fea10
+PKT Steve minecraft:section_blocks_update 56fffffc00000ffffc16839aea10939cea10a39eea10b398ea10c39aea1093dac519a39cea10b39eea10c398ea108398ea10a39aea10b39cea10c39eea109398ea1084daf041c39cea10839cea10939eea10839eea10a4fabd10a398ea10b39aea10
+PKT Steve minecraft:section_blocks_update 56000003fffffffffc14e389ea10c385ea10d387ea10d389ea10e381ea10f383ea10d385ea10e387ea10f389ea10f381ea10c383ea10e385ea10f387ea10c381ea10d383ea10c387ea10c389ea10d381ea10e383ea10f385ea10
+PKT Steve minecraft:section_blocks_update 5600000000000ffffc1c9388ea1084c0f4418386ea10a388ea1084c6f2418384ea10c380ea109386ea10b388ea109382ea109384ea108388ea109380ea10b386ea10a380ea10b382ea10b384ea10c386ea10b380ea10c382ea10c384ea108380ea108382ea10a386ea1085c0ec41a382ea10a384ea10c388ea10
+PKT Steve minecraft:move_entity_pos 360200000000000000
+PKT Steve minecraft:set_entity_data 6502080701a4080000ff
+PKT Steve minecraft:move_entity_pos 360300000000000000
+PKT Steve minecraft:set_entity_data 6503080701a4080000ff
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
-T 2
+T 32
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
-T 3
+T 33
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
-T 4
+T 34
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
-T 5
+T 35
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
-T 6
+T 36
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
-T 7
+T 37
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
-T 8
+T 38
+PKT Steve minecraft:section_blocks_update 5600000000000ffffc028486f3418580ed41
+PKT Steve minecraft:entity_position_sync 230200400c000000000000c04d8800000000003fe00000000000004284ead00000000001
+PKT Steve minecraft:entity_position_sync 2303003fe0000000000000c04d0800000000003fe000000000000042ed60040000000001
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
-T 9
+T 39
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
-T 10
+T 40
+PKT Steve minecraft:set_time 73000000000000002700
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
-T 11
+T 41
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
-T 12
+T 42
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
-T 13
+T 43
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
-T 14
+T 44
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
-T 15
+T 45
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
-T 16
+T 46
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=unstable,waterlogged=false]
 B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=unstable,waterlogged=false]
 # the leaf resets, the item rolls on the leaf again
-T 17
-EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=0.8971615
-EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=0.9040499
-T 18
-T 19
-T 20
-T 21
-T 22
-T 23
-T 24
-T 25
-T 26
-T 27
-EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=0.8662692
-EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=1.0787737
-T 28
-T 29
-T 30
-T 31
-T 32
-T 33
-T 34
-T 35
-T 36
-T 37
-T 38
-T 39
-T 40
-T 41
-T 42
-T 43
-T 44
-T 45
-T 46
 T 47
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=0.81638485
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=1.1783044
+PKT Steve minecraft:sound 77b504040000001cfffffe24000000043f8000003f50fe99e32d4fcf84a7860e
+PKT Steve minecraft:sound 77b5040400000004fffffe2c000000043f8000003f96d2ae3dace6703e05bff8
+PKT Steve minecraft:section_blocks_update 5600000000000ffffc0284c6f34185c0ed41
 T 48
+PKT Steve minecraft:move_entity_pos 3603010000fe000000
 T 49
+PKT Steve minecraft:move_entity_pos 3602010000fe000000
 T 50
 T 51
+PKT Steve minecraft:set_entity_motion 6702f9ff7ffeeb81
+PKT Steve minecraft:set_entity_motion 6703f9ff7ffee145
 T 52
+PKT Steve minecraft:set_entity_motion 670300
 T 53
+PKT Steve minecraft:set_entity_motion 670200
 T 54
 T 55
 T 56
 T 57
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=1.1989517
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_down source=block vol=1.0 pitch=1.0089258
+PKT Steve minecraft:sound 77b504040000001cfffffe24000000043f8000003f9977406fd465a290351d3c
+PKT Steve minecraft:sound 77b5040400000004fffffe2c000000043f8000003f81247b4b970fd5e0db99e1
+PKT Steve minecraft:section_blocks_update 5600000000000ffffc028486f4418580ee41
 T 58
 T 59
 T 60
+PKT Steve minecraft:set_time 73000000000000003b00
 T 61
 T 62
 T 63
 T 64
+PKT Steve minecraft:move_entity_pos 3602010000f3000000
 T 65
 T 66
+PKT Steve minecraft:move_entity_pos 3603010000e3000000
 T 67
 T 68
 T 69
 T 70
 T 71
+PKT Steve minecraft:set_entity_motion 6702f9ff7ffeeb81
+PKT Steve minecraft:set_entity_motion 6703f9ff7ffee145
 T 72
+PKT Steve minecraft:set_entity_motion 670300
 T 73
+PKT Steve minecraft:set_entity_motion 670200
 T 74
 T 75
 T 76
-B -3 -60 0 minecraft:big_dripleaf[facing=west,tilt=none,waterlogged=false]
-B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
-B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=full,waterlogged=false]
-B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=full,waterlogged=false]
 T 77
 T 78
 T 79
 T 80
+PKT Steve minecraft:set_time 73000000000000004f00
 T 81
 T 82
 T 83
@@ -147,8 +153,14 @@ T 88
 T 89
 T 90
 T 91
+PKT Steve minecraft:set_entity_motion 6702f9ff7ffeeb81
+PKT Steve minecraft:move_entity_pos 360201000000000000
+PKT Steve minecraft:set_entity_motion 6703f9ff7ffee145
+PKT Steve minecraft:move_entity_pos 360301000000000000
 T 92
+PKT Steve minecraft:set_entity_motion 670300
 T 93
+PKT Steve minecraft:set_entity_motion 670200
 T 94
 T 95
 T 96
@@ -156,19 +168,28 @@ T 97
 T 98
 T 99
 T 100
+PKT Steve minecraft:set_time 73000000000000006300
 T 101
 T 102
 T 103
 T 104
 T 105
 T 106
+B -3 -60 0 minecraft:big_dripleaf[facing=west,tilt=none,waterlogged=false]
+B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
+B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=full,waterlogged=false]
+B 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=full,waterlogged=false]
 T 107
 T 108
 T 109
 T 110
 T 111
+PKT Steve minecraft:set_entity_motion 6702f9ff7ffeeb81
+PKT Steve minecraft:set_entity_motion 6703f9ff7ffee145
 T 112
+PKT Steve minecraft:set_entity_motion 670300
 T 113
+PKT Steve minecraft:set_entity_motion 670200
 T 114
 T 115
 T 116
@@ -176,6 +197,7 @@ T 117
 T 118
 T 119
 T 120
+PKT Steve minecraft:set_time 73000000000000007700
 T 121
 T 122
 T 123
@@ -183,17 +205,62 @@ T 124
 T 125
 T 126
 T 127
-EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_up source=block vol=1.0 pitch=1.0747784
-EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_up source=block vol=1.0 pitch=0.8872125
 T 128
 T 129
 T 130
 T 131
+PKT Steve minecraft:set_entity_motion 6702f9ff7ffeeb81
+PKT Steve minecraft:set_entity_motion 6703f9ff7ffee145
 T 132
+PKT Steve minecraft:set_entity_motion 670300
 T 133
+PKT Steve minecraft:set_entity_motion 670200
 T 134
 T 135
 T 136
+T 137
+T 138
+T 139
+T 140
+PKT Steve minecraft:set_time 73000000000000008b00
+T 141
+T 142
+T 143
+T 144
+T 145
+T 146
+T 147
+T 148
+T 149
+T 150
+T 151
+PKT Steve minecraft:set_entity_motion 6702f9ff7ffeeb81
+PKT Steve minecraft:move_entity_pos 360201000000000000
+PKT Steve minecraft:set_entity_motion 6703f9ff7ffee145
+PKT Steve minecraft:move_entity_pos 360301000000000000
+T 152
+PKT Steve minecraft:set_entity_motion 670300
+T 153
+PKT Steve minecraft:set_entity_motion 670200
+T 154
+T 155
+T 156
+T 157
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_up source=block vol=1.0 pitch=0.97438586
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.big_dripleaf.tilt_up source=block vol=1.0 pitch=1.0911539
+PKT Steve minecraft:sound 77b604040000001cfffffe24000000043f8000003f79715ae8168c54d2216418
+PKT Steve minecraft:sound 77b6040400000004fffffe2c000000043f8000003f8baaeea3981763e0103683
+PKT Steve minecraft:section_blocks_update 5600000000000ffffc0284c6f24185c0ec41
+T 158
+T 159
+T 160
+PKT Steve minecraft:set_time 73000000000000009f00
+T 161
+T 162
+T 163
+T 164
+T 165
+T 166
 B -3 -60 0 minecraft:big_dripleaf[facing=west,tilt=none,waterlogged=false]
 B 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 0 -59 0 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
@@ -221,9 +288,43 @@ B 2 -58 2 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 2 -57 2 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
 B 2 -56 2 minecraft:big_dripleaf[facing=north,tilt=none,waterlogged=false]
 # remove the support of the stem
+PKT Steve minecraft:level_event 2f000007d10000000000000fc4000083d200
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:add_entity 01044fd5f656bfe84bb0a8f53eae20358d3e483fdec7b8769dfcc3c04dd1b93f2dfdb33fdd3d80e34c82a9411f8af9333200920000
+PKT Steve minecraft:set_entity_data 6504080701d2020000ff
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:section_blocks_update 5600000000000ffffc0f04b384ec4186c0f441a6c4f441a8c4ec4103b484f54187c0ec41a7c4f44185c0f441a5c4f441a4c4f441b7c4ee41b584f541b684f541
+PKT Steve minecraft:move_entity_pos 360400000000000000
+PKT Steve minecraft:set_entity_data 6504080701d2020000ff
+PKT Steve minecraft:level_event 2f000007d10000000000000fc5000083d200
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:add_entity 01051c650164e2d8430da3f14c8add35fb21483fdad89553dbce81c04d6bad986249633fd34a4ac309d59659137af9333200c30000
+PKT Steve minecraft:set_entity_data 6505080701d2020000ff
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:block_update 080000000000000fc500
+PKT Steve minecraft:move_entity_pos 360500000000000000
+PKT Steve minecraft:set_entity_data 6505080701d2020000ff
+PKT Steve minecraft:level_event 2f000007d10000000000000fc6000083d200
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:add_entity 0106a868ce52888d4aebbf88eb5a00654613483fe305258d52401ec04cd858738812d93fe6e9559e35888459cf8b71333100830000
+PKT Steve minecraft:set_entity_data 6506080701d2020000ff
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:level_event 2f000007d10000000000000fc7000083b200
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:add_entity 010719149b2b27bc437aaed2baca8b72f8ac483fd3be4e986efce4c04c58f633e77c663fe7c4053e55610ac12c7f193332001e0000
+PKT Steve minecraft:set_entity_data 6507080701d2020000ff
+PKT Steve minecraft:bundle_delimiter 00
+PKT Steve minecraft:section_blocks_update 5600000000000ffffc020607
+PKT Steve minecraft:move_entity_pos 360600000000000000
+PKT Steve minecraft:set_entity_data 6506080701d2020000ff
+PKT Steve minecraft:move_entity_pos 360700000000000000
+PKT Steve minecraft:set_entity_data 6507080701d2020000ff
+PKT Steve minecraft:set_entity_motion 6702f9ff7ffeeb81
+PKT Steve minecraft:set_entity_motion 6703f9ff7ffebcb5
+PKT Steve minecraft:entity_position_sync 2303003fe0000000000000c04e6dceb55c11223fe000000000000042ed60040000000000
 E i1 minecraft:item pos=3.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=66.45862,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=141 pickup=0 health=5 owner=- thrower=-
 E i2 minecraft:item pos=0.5,-61.0,0.5 delta=0.0,0.0,0.0 rot=118.68753,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=141 pickup=0 health=5 owner=- thrower=-
-E item#1 minecraft:item pos=0.5370381196197662,-59.261911816117234,0.10109055448920799 delta=0.010555516775401376,-0.0075310721665503766,-0.06694570092197906 rot=46.04917,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=5 pickup=5 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=0.02438434084960521,-58.32862150380886,0.8232247519013415 delta=-0.057712655982723834,0.0323152326326785,0.050362911917531505 rot=251.7561,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=4 pickup=6 health=5 owner=- thrower=-
-E item#3 minecraft:item pos=0.6551281671793399,-57.327017432427034,0.48357621830084546 delta=0.03975108591580198,0.07297472653442398,0.009158066831659874 rot=32.190865,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=3 pickup=7 health=5 owner=- thrower=-
-E item#4 minecraft:item pos=0.4413099244897026,-56.19238743690233,0.43404058642556925 delta=0.005065929579972874,0.07297472653442398,0.025483736942066012 rot=127.862854,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.7743586455178505,-59.261911816117234,0.868723162033466 delta=0.05521012764145828,-0.0075310721665503766,0.07749328196105233 rot=205.92175,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=5 pickup=5 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.5662957925201247,-58.45699647179124,0.14901412225528293 delta=0.03488985553519887,0.0323152326326785,-0.03621312672304148 rot=274.7034,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.31516485538554334,-57.338935311037254,0.97900843576549 delta=-0.08937336107812449,0.07297472653442398,0.0841916913523883 rot=185.28003,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.5657224641418908,-56.34374950341629,0.7221257130468223 delta=0.08233735314111623,0.07297472653442398,-0.00657866746164401 rot=43.574482,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:big_dripleaf*1 age=3 pickup=7 health=5 owner=- thrower=-

@@ -98,10 +98,51 @@ B 17 -61 1 minecraft:stone
 B 17 -61 2 minecraft:stone
 BE 0 -59 1 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["line one","red","","four"]},id:"minecraft:sign",is_waxed:0b,x:0,y:-59,z:1}
 BE 3 -59 -1 {back_text:{color:"black",has_glowing_text:0b,messages:["b1","b2","b3","b4"]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:0b,x:3,y:-59,z:-1}
+PKT p minecraft:block_update 080000000000001fc5fa39
 PKT p minecraft:open_sign_editor 3d0000000000001fc501
+PKT p minecraft:section_blocks_update 56fffffffffffffffc04e33fe33df33ff33d
+PKT p minecraft:section_blocks_update 56fffffc00000ffffc06933ca33ea33c833c933e833e
+PKT p minecraft:section_blocks_update 56000003fffffffffc20e321f323e335f337e331f321e333f335e325e339f331f333f32fe323e337e329e33fe32bf32de33be327f329e33df32bf33fe32ff327f33bf33df339f325e32d
+PKT p minecraft:block_update 080000000000000fc501
+PKT p minecraft:block_update 080000000000001fc5fa39
+PKT p minecraft:section_blocks_update 5600000000000ffffc43833a933ca33e8438933aa33c852c862c8338862693389336833c9334833ea32083309332842c86388538832e93308334932e8336a326863285328332932aa322932ca32484329328a32a86bea50184208326a32883249326842685bea501832a9322832c9324a33083289320a32ca32e95c0be0e8526a33484bea501a3368620a332a33a832083228520933ea338
+PKT p minecraft:block_entity_data 060000000000001fc5070a0a00096261636b5f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400000000000000000001000869735f7761786564000a000a66726f6e745f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400086c696e65206f6e65000372656400000004666f75720000
+PKT p minecraft:section_blocks_update 56000007fffffffffc1fe321f323e335f337e331f321e333f335e325e339f331f333f32fe323e337e329e32bf32de33be327f329e33df32be32ff327f33bf33df339f6e503f325e32d
+PKT p minecraft:section_blocks_update 5600000400000ffffc2f9328933ca32a933a8326a328a33c832483389326833c9322832a832c93249338a330933483289320a32c9336a32e93328330a320a334a33686e403a33296e403832e9330a33a8336832083348322a326932e8332932aa322932ca324a338833a
+PKT p minecraft:container_set_slot 14000700243fce080000
+PKT p minecraft:block_changed_ack 0401
+PKT p minecraft:block_update 08000000ffffffffc5f839
 PKT p minecraft:open_sign_editor 3d000000ffffffffc501
+PKT p minecraft:block_update 08000000ffffffffc5f839
+PKT p minecraft:block_update 08000000ffffffffc5f839
+PKT p minecraft:block_entity_data 06000000ffffffffc5070a0a00096261636b5f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d657373616765730800000004000262310002623200026233000262340001000869735f7761786564000a000a66726f6e745f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400000000000000000000
+PKT p minecraft:block_update 08000000c000000fc501
+PKT p minecraft:set_chunk_cache_center 6000ffffffff0f
+PKT p minecraft:update_attributes entity=1;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT p minecraft:container_set_slot 14000800243ece080000
+PKT p minecraft:block_changed_ack 0402
+PKT p minecraft:set_chunk_cache_center 60ffffffff0f00
+PKT p minecraft:block_changed_ack 0403
+PKT p minecraft:block_update 080000028000000fc5fe39
 PKT p minecraft:open_sign_editor 3d0000028000000fc501
+PKT p minecraft:block_update 080000024000000fc501
+PKT p minecraft:block_update 080000028000000fc5fe39
+PKT p minecraft:block_update 080000028000000fc5fe39
+PKT p minecraft:block_entity_data 060000028000000fc5070a0a00096261636b5f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400000000000000000001000869735f7761786564000a000a66726f6e745f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400000000000000000000
+PKT p minecraft:set_chunk_cache_center 600000
+PKT p minecraft:container_set_slot 14000900243dce080000
+PKT p minecraft:block_changed_ack 0404
+PKT p minecraft:block_update 080000040000000fc5fe39
 PKT p minecraft:open_sign_editor 3d0000040000000fc501
+PKT p minecraft:block_update 08000003c000000fc59505
+PKT p minecraft:block_update 080000040000000fc5fe39
+PKT p minecraft:block_update 080000040000000fc5fe39
+PKT p minecraft:block_entity_data 060000040000000fc5070a0a00096261636b5f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400000000000000000001000869735f7761786564000a000a66726f6e745f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400000000000000000000
+PKT p minecraft:container_set_slot 14000a00243cce080000
+PKT p minecraft:block_changed_ack 0405
+PKT p minecraft:block_update 080000030000000fc501
+PKT p minecraft:block_update 080000030000000fc401
+PKT p minecraft:block_changed_ack 0406
 B -1 -61 -1 minecraft:stone
 B -1 -61 0 minecraft:stone
 B -1 -61 1 minecraft:stone
@@ -213,6 +254,26 @@ EV sound at=0.5,-57.5,1.5 r=16.0 ex=1 event=minecraft:block.wood.place source=bl
 EV sound at=3.5,-57.5,-0.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
 EV sound at=0.5,-59.5,1.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
 EV sound at=3.5,-59.5,-0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+PKT p minecraft:block_update 08000000ffffffffc6ee75
+PKT p minecraft:block_update 08000000ffffffffc6ee75
+PKT p minecraft:block_entity_data 06000000ffffffffc6140a0a000a636f6d706f6e656e74730000
+PKT p minecraft:block_update 080000000000000fc601
+PKT p minecraft:block_update 080000000000001fc6ef75
+PKT p minecraft:block_update 08000000c000000fc601
+PKT p minecraft:block_update 080000000000001fc6ef75
+PKT p minecraft:block_entity_data 060000000000001fc6140a0a000a636f6d706f6e656e74730000
+PKT p minecraft:container_set_slot 14000b00253e970b0000
+PKT p minecraft:block_changed_ack 040a
+PKT p minecraft:block_update 08000000ffffffffc4ab63
+PKT p minecraft:block_update 08000000ffffffffc4ab63
+PKT p minecraft:block_entity_data 06000000ffffffffc4100a00
+PKT p minecraft:block_update 080000000000000fc401
+PKT p minecraft:block_update 080000000000001fc4ad63
+PKT p minecraft:block_update 08000000c000000fc401
+PKT p minecraft:block_update 080000000000001fc4ad63
+PKT p minecraft:block_entity_data 060000000000001fc4100a00
+PKT p minecraft:container_set_slot 14000c00263ee80a0000
+PKT p minecraft:block_changed_ack 040d
 B 15 -61 -1 minecraft:stone
 B 15 -61 0 minecraft:stone
 B 15 -61 1 minecraft:stone
@@ -258,3 +319,21 @@ BE 18 -59 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]
 BE 18 -60 0 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:hanging_sign",is_waxed:0b,x:18,y:-60,z:0}
 EV sound at=18.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.hanging_sign.place source=block vol=1.0 pitch=0.8
 EV sound at=18.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.hanging_sign.place source=block vol=1.0 pitch=0.8
+PKT p minecraft:block_update 080000048000000fc5803b
+PKT p minecraft:open_sign_editor 3d0000048000000fc501
+PKT p minecraft:block_update 080000048000000fc60f
+PKT p minecraft:block_update 080000048000000fc5803b
+PKT p minecraft:block_update 080000048000000fc5803b
+PKT p minecraft:block_entity_data 060000048000000fc5080a0a00096261636b5f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400000000000000000001000869735f7761786564000a000a66726f6e745f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400046365696c000468616e670003696e6700047369676e0000
+PKT p minecraft:set_chunk_cache_center 600100
+PKT p minecraft:container_set_slot 14000d00273fdb080000
+PKT p minecraft:block_changed_ack 040e
+PKT p minecraft:block_update 080000048000000fc4803b
+PKT p minecraft:open_sign_editor 3d0000048000000fc401
+PKT p minecraft:block_update 080000048000000fc5803b
+PKT p minecraft:block_update 080000048000000fc4803b
+PKT p minecraft:block_update 080000048000000fc4803b
+PKT p minecraft:block_entity_data 060000048000000fc4080a0a00096261636b5f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400000000000000000001000869735f7761786564000a000a66726f6e745f746578740100106861735f676c6f77696e675f7465787400080005636f6c6f720005626c61636b0900086d65737361676573080000000400000000000000000000
+PKT p minecraft:container_set_slot 14000e00273edb080000
+PKT p minecraft:block_changed_ack 040f
+PKT p minecraft:block_changed_ack 0410

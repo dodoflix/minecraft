@@ -1,8 +1,9 @@
 //! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `input` (sneak: the shift key), `op`, `pick_block`, `tp`, `snap`, `velocity`, `set`,
 //! `spawn_player`, `give`, `select`, `use_on`, `use`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|entity:REF|player:NAME|inventory:NAME|packets:NAME`).
 //! Included by `block_scenario.rs` (private state of `Scenario`). Differences from the Java driver, all caused by the Rust level having no
-//! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` (no packet handler: no acks, no
-//! build-limit messages), entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
+//! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` and the replay re-does what the packet
+//! handlers around them add (the listener's sequence number and block change ack, the swing and block updates sent back), but no
+//! serverbound packet is decoded and the build-limit messages are not replayed. Entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
 //! reproduce: always call `entity_seed` right after `spawn`/`spawn_item` when the entity's randomness matters, and give `spawn_item` an
 //! explicit velocity), `explode` takes `source=REF`, `attack/swing/drop/respawn/effect/attribute/move_packet` are not replayed.
 use super::Scenario;
@@ -28,8 +29,11 @@ use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::item::{InteractionHand, InteractionResult, ItemStack, SwingSource};
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_protocol::codec::read_varint;
-use mc_protocol::packets::play::ClientboundBlockUpdatePacket;
+use mc_protocol::codec::{Decode, read_varint};
+use mc_protocol::packets::play::{
+    AttributeModifierOperation, ClientboundBlockUpdatePacket, ClientboundSetTimePacket,
+    ClientboundUpdateAttributesPacket,
+};
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
 
@@ -108,6 +112,96 @@ fn vec3(a: f64, b: f64, c: f64) -> String {
 fn num(s: &str) -> f64 {
     s.parse().unwrap_or_else(|_| panic!("not a number: {s}"))
 }
+/// `VanillaLevel.record`: the advancement update carries timestamps of obtained criteria; the attribute snapshots are a `HashSet` in
+/// Java (identity hash order), so they are dumped sorted by attribute and modifier id; anything else is its hex wire form.
+fn packet_text(ty: &str, wire: &[u8]) -> String {
+    match ty {
+        "minecraft:update_advancements" => "-".into(),
+        "minecraft:update_attributes" => {
+            let mut body = wire;
+            read_varint(&mut body).expect("packet id");
+            let p =
+                ClientboundUpdateAttributesPacket::decode(&mut body).expect("update_attributes");
+            let mut entries: Vec<String> = p
+                .attributes
+                .iter()
+                .map(|s| {
+                    let mut mods: Vec<String> = s
+                        .modifiers
+                        .iter()
+                        .map(|m| {
+                            let op = match m.operation {
+                                AttributeModifierOperation::AddValue => "add_value",
+                                AttributeModifierOperation::AddMultipliedBase => {
+                                    "add_multiplied_base"
+                                }
+                                AttributeModifierOperation::AddMultipliedTotal => {
+                                    "add_multiplied_total"
+                                }
+                            };
+                            format!("{}/{}/{op}", m.id, dbl(m.amount))
+                        })
+                        .collect();
+                    mods.sort();
+                    format!("{}={}[{}]", s.attribute.name(), dbl(s.base), mods.join(","))
+                })
+                .collect();
+            entries.sort();
+            format!("entity={};{}", p.entity_id, entries.join(";"))
+        }
+        _ => wire.iter().map(|b| format!("{b:02x}")).collect(),
+    }
+}
+
+/// `ServerChunkCache.broadcastChangedChunks` walks an identity-hashed set in vanilla, so the chunks of one tick send their block
+/// changes in an order that differs per JVM run: the oracle driver (`EntityOracleDriver.chunkOrder`) and this replay stably sort every
+/// run of consecutive chunk change packets by chunk.
+fn chunk_order(sent: Vec<(&'static str, Vec<u8>)>) -> Vec<(&'static str, Vec<u8>)> {
+    type Sent = (&'static str, Vec<u8>);
+    fn flush(run: &mut Vec<((i64, i64), Sent)>, result: &mut Vec<Sent>) {
+        run.sort_by_key(|(chunk, _)| *chunk);
+        result.extend(run.drain(..).map(|(_, p)| p));
+    }
+    let mut result = Vec::with_capacity(sent.len());
+    let mut run = Vec::new();
+    for (ty, wire) in sent {
+        if let Some(chunk) = packet_chunk(ty, &wire) {
+            run.push((chunk, (ty, wire)));
+        } else {
+            flush(&mut run, &mut result);
+            result.push((ty, wire));
+        }
+    }
+    flush(&mut run, &mut result);
+    result
+}
+
+/// The chunk (x, z) a chunk change packet belongs to, read from its wire form; `None` for other packets.
+fn packet_chunk(ty: &str, wire: &[u8]) -> Option<(i64, i64)> {
+    if !matches!(
+        ty,
+        "minecraft:block_update"
+            | "minecraft:block_entity_data"
+            | "minecraft:section_blocks_update"
+            | "minecraft:light_update"
+    ) {
+        return None;
+    }
+    let mut body = wire;
+    read_varint(&mut body).expect("packet id");
+    if ty == "minecraft:light_update" {
+        let x = read_varint(&mut body).expect("chunk x");
+        let z = read_varint(&mut body).expect("chunk z");
+        return Some((i64::from(x), i64::from(z)));
+    }
+    let v = i64::from_be_bytes(body[..8].try_into().expect("position"));
+    Some(if ty == "minecraft:section_blocks_update" {
+        (v >> 42, (v << 22) >> 42)
+    } else {
+        ((v >> 38) >> 4, ((v << 26) >> 38) >> 4)
+    })
+}
+
 fn item_name(stack: &ItemStack) -> String {
     if stack.is_empty() {
         return "empty".into();
@@ -937,6 +1031,22 @@ impl Scenario {
         });
     }
 
+    /// `MinecraftServer.tickChildren`: every 20th server tick (the tick counter is the replayed tick number, as in the oracle, whose
+    /// server ticks only through `VanillaLevel.tick`) all players get the game time, before the level ticks.
+    pub(super) fn force_game_time_synchronization(&mut self) {
+        if (self.ticks + 1) % 20 != 0 {
+            return;
+        }
+        for name in self.actors.players.clone() {
+            self.with_player_named(&name, |level, p| {
+                p.send(&ClientboundSetTimePacket {
+                    game_time: level.game_time(),
+                    clock_updates: Vec::new(),
+                });
+            });
+        }
+    }
+
     /// The player half of a tick, after `ServerLevel::tick` (which ticked the player entity): `ServerGamePacketListenerImpl.tick` -> `doTick`.
     pub(super) fn tick_players(&mut self) {
         for name in self.actors.players.clone() {
@@ -1031,12 +1141,15 @@ impl Scenario {
                 let (name, only) = arg
                     .split_once(':')
                     .map_or((arg, None), |(n, f)| (n, Some(f)));
-                let only: Option<Vec<&str>> = only.map(|f| f.split(',').collect());
+                let except = only.is_some_and(|f| f.starts_with('!'));
+                let only: Option<Vec<&str>> =
+                    only.map(|f| f.trim_start_matches('!').split(',').collect());
                 let rx = self
                     .actors
                     .rx
                     .get_mut(name)
                     .unwrap_or_else(|| panic!("no player {name}"));
+                let mut sent: Vec<(&'static str, Vec<u8>)> = Vec::new();
                 while let Ok(msg) = rx.try_recv() {
                     let (Outbound::Payload(p) | Outbound::Write(p)) = msg else {
                         continue;
@@ -1049,16 +1162,14 @@ impl Scenario {
                         id,
                     )
                     .unwrap_or("?");
+                    sent.push((ty, p.to_vec()));
+                }
+                for (ty, p) in chunk_order(sent) {
                     if only
                         .as_ref()
-                        .is_none_or(|o| o.contains(&ty.trim_start_matches("minecraft:")))
+                        .is_none_or(|o| o.contains(&ty.trim_start_matches("minecraft:")) != except)
                     {
-                        // `VanillaLevel.record`: the advancement update carries timestamps of obtained criteria
-                        let hex: String = if ty == "minecraft:update_advancements" {
-                            "-".into()
-                        } else {
-                            p.iter().map(|b| format!("{b:02x}")).collect()
-                        };
+                        let hex = packet_text(ty, &p);
                         self.out.push(format!("PKT {name} {ty} {hex}"));
                     }
                 }

@@ -40,7 +40,7 @@ use_on p 15 -59 0 east
 tick 1
 use_on p 12 -59 0 down
 tick 1
-dump blocks:-1,-61,-1,17,-57,2 be:0,-59,1 be:3,-59,-1 packets:p:open_sign_editor,set_action_bar_text
+dump blocks:-1,-61,-1,17,-57,2 be:0,-59,1 be:3,-59,-1 packets:p
 # wall banners
 snap p 0.5 -60 3.5 180 0
 select p 1
@@ -55,7 +55,7 @@ use_on p 0 -60 0 south
 use_on p 3 -60 0 north
 use_on p 12 -60 0 east
 tick 1
-dump blocks:-1,-61,-1,17,-57,2 be:0,-60,1 events
+dump blocks:-1,-61,-1,17,-57,2 be:0,-60,1 events packets:p
 # hanging signs: ceiling, wall hanging between supports, chain under a hanging sign
 select p 3
 snap p 19.5 -60 0.5 0 0
@@ -67,4 +67,4 @@ tick 1
 snap p 19.5 -60 5.5 180 0
 use_on p 3 -59 0 east
 tick 1
-dump blocks:15,-61,-1,22,-57,2 be:18,-59,0 be:18,-60,0 events
+dump blocks:15,-61,-1,22,-57,2 be:18,-59,0 be:18,-60,0 events packets:p

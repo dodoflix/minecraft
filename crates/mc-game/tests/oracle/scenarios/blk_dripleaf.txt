@@ -1,6 +1,11 @@
 level flat
 seed 4242
 difficulty peaceful
+preload 3
+spawn_player Steve creative 0.5 -50 8.5 0 0
+# the join and chunk packets are only sent by the vanilla server on its next tick: settle before the world is built
+tick 30
+dump packets:Steve:none
 note big dripleaf tilt state machine (items on the leaf), stem growth, small dripleaf
 fill -4 -61 -4 4 -61 4 minecraft:clay
 block 0 -60 0 minecraft:big_dripleaf_stem[facing=north,waterlogged=false]
@@ -9,8 +14,7 @@ block 3 -60 0 minecraft:big_dripleaf[facing=east,tilt=none,waterlogged=false]
 block -3 -60 0 minecraft:big_dripleaf[facing=west,tilt=none,waterlogged=false]
 block -3 -60 2 minecraft:lever[face=floor,facing=north,powered=true]
 block -3 -61 1 minecraft:redstone_block
-spawn_player Steve creative 0.5 -50 8.5 0 0
-watch events
+watch events packets:Steve
 level_seed 9
 spawn_item i1 minecraft:stick 3.5 -58 0.5 0 0 0
 spawn_item i2 minecraft:stick 0.5 -57 0.5 0 0 0
@@ -55,21 +59,21 @@ watch off
 note bonemeal: leaf -> stem + leaf; small dripleaf -> big dripleaf of random height
 bonemeal 0 -59 0
 bonemeal 0 -60 0
-dump blocks:0,-61,0,0,-50,0
+dump blocks:0,-61,0,0,-50,0 packets:Steve
 block 2 -60 3 minecraft:small_dripleaf[half=lower,facing=south,waterlogged=false]
 block 2 -59 3 minecraft:small_dripleaf[half=upper,facing=south,waterlogged=false]
 block 2 -61 3 minecraft:moss_block
 level_seed 55
 bonemeal 2 -60 3
-dump blocks:2,-61,3,2,-50,3
+dump blocks:2,-61,3,2,-50,3 packets:Steve
 block 2 -61 2 minecraft:clay
 bonemeal 2 -58 2
 block 2 -60 2 minecraft:small_dripleaf[half=lower,facing=north,waterlogged=false]
 block 2 -59 2 minecraft:small_dripleaf[half=upper,facing=north,waterlogged=false]
 bonemeal 2 -59 2
-dump blocks:2,-61,2,2,-50,2
+dump blocks:2,-61,2,2,-50,2 packets:Steve
 note remove the support of the stem
 block 0 -61 0 minecraft:air
 tick 5
-dump blocks:0,-61,0,0,-50,0
+dump blocks:0,-61,0,0,-50,0 packets:Steve
 dump entities
