@@ -13,6 +13,9 @@ I p 3 minecraft:honeycomb*8
 I p 4 minecraft:black_dye*8
 I p 5 minecraft:stick*1
 I p 6 minecraft:oak_hanging_sign*8
+PKT p minecraft:sound 77c0040400000004fffffe24000000243f8000003f800000e32d4fcf84a7860e
+PKT p minecraft:block_update 080000000000004fc4ec35
+PKT p minecraft:block_update 080000000000005fc400
 EV sound at=0.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.dye.use source=block vol=1.0 pitch=1.0
 BE 0 -60 4 {back_text:{color:"black",has_glowing_text:0b,messages:["back","","",""]},components:{},front_text:{color:"red",has_glowing_text:0b,messages:["hello","","",""]},id:"minecraft:sign",is_waxed:0b,x:0,y:-60,z:4}
 I p 0 minecraft:red_dye*7
@@ -22,7 +25,12 @@ I p 3 minecraft:honeycomb*8
 I p 4 minecraft:black_dye*8
 I p 5 minecraft:stick*1
 I p 6 minecraft:oak_hanging_sign*8
+PKT p minecraft:block_update 080000000000004fc4ec35
 PKT p minecraft:open_sign_editor 3d0000000000004fc401
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:block_update 080000000000004fc4ec35
+PKT p minecraft:block_update 080000000000005fc400
 BE 0 -60 4 {back_text:{color:"black",has_glowing_text:0b,messages:["back","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["hello","","",""]},id:"minecraft:sign",is_waxed:0b,x:0,y:-60,z:4}
 I p 0 minecraft:red_dye*7
 I p 1 minecraft:glow_ink_sac*8
@@ -92,9 +100,40 @@ I p 3 minecraft:honeycomb*8
 I p 4 minecraft:black_dye*7
 I p 5 minecraft:stick*1
 I p 6 minecraft:oak_hanging_sign*8
+PKT p minecraft:sound 77c0040400000004fffffe24000000243f8000003f8000003dace6703e05bff8
+PKT p minecraft:block_update 080000000000004fc4ec35
+PKT p minecraft:block_update 080000000000005fc400
+PKT p minecraft:sound 77da050400000004fffffe24000000243f8000003f8000006fd465a290351d3c
+PKT p minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20702000080009696e73657274696f6e000170080004746578740001700a000b686f7665725f6576656e740800046e616d65000170080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b0e8710887a43f28a15cd59806ae10630000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650033616476616e63656d656e74732e68757362616e6472792e6d616b655f615f7369676e5f676c6f772e6465736372697074696f6e000800097472616e736c617465002d616476616e63656d656e74732e68757362616e6472792e6d616b655f615f7369676e5f676c6f772e7469746c6500000800097472616e736c617465002d616476616e63656d656e74732e68757362616e6472792e6d616b655f615f7369676e5f676c6f772e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT p minecraft:block_update 080000000000004fc4ec35
+PKT p minecraft:block_update 080000000000005fc400
+PKT p minecraft:block_update 080000000000004fc4ec35
 PKT p minecraft:open_sign_editor 3d0000000000004fc401
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:block_update 080000000000004fc4ec35
+PKT p minecraft:block_update 080000000000005fc400
+PKT p minecraft:sound 77fe060400000004fffffe24000000243f8000003f8000004b970fd5e0db99e1
+PKT p minecraft:block_update 080000000000004fc4ec35
+PKT p minecraft:block_update 080000000000005fc400
+PKT p minecraft:block_update 080000000000004fc4ec35
 PKT p minecraft:open_sign_editor 3d0000000000004fc401
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:block_update 080000000000004fc4ec35
+PKT p minecraft:block_update 080000000000005fc400
+PKT p minecraft:sound 77c0040400000004fffffe24000000243f8000003f800000e8168c54d2216418
+PKT p minecraft:block_update 080000000000004fc4ec35
+PKT p minecraft:block_update 080000000000003fc400
+PKT p minecraft:sound 77da050400000004fffffe24000000243f8000003f800000a3981763e0103683
+PKT p minecraft:block_update 080000000000004fc4ec35
+PKT p minecraft:block_update 080000000000003fc400
+PKT p minecraft:block_update 080000008000004fc4ec35
 PKT p minecraft:open_sign_editor 3d0000008000004fc401
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:block_update 080000008000004fc4ec35
+PKT p minecraft:block_update 080000008000005fc400
 BE 2 -60 4 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},id:"minecraft:sign",is_waxed:1b,x:2,y:-60,z:4}
 I p 0 minecraft:red_dye*6
 I p 1 minecraft:glow_ink_sac*6
@@ -122,6 +161,17 @@ I p 3 minecraft:honeycomb*6
 I p 4 minecraft:black_dye*7
 I p 5 minecraft:stick*1
 I p 6 minecraft:oak_hanging_sign*8
+PKT p minecraft:level_event 2f00000bbb0000008000004fc40000000000
+PKT p minecraft:sound 77cc060400000014fffffe24000000243f8000003f800000a1a24ca263725fe3
+PKT p minecraft:block_update 080000008000004fc4ec35
+PKT p minecraft:block_update 080000008000005fc400
+PKT p minecraft:sound 77c0040400000054fffffe24000000243f8000003f80000029a8e9b76b35b192
+PKT p minecraft:block_update 080000028000004fc4ec35
+PKT p minecraft:block_update 080000028000005fc400
+PKT p minecraft:level_event 2f00000bbb0000010000004fc40000000000
+PKT p minecraft:sound 77cc060400000024fffffe24000000243f8000003f800000ec866a92984bf066
+PKT p minecraft:block_update 080000010000004fc4ec35
+PKT p minecraft:block_update 080000010000005fc400
 EV level_event r=64.0 ex=0 type=3003 pos=4,-60,4 data=0 global=0
 EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.honeycomb.wax_on source=block vol=1.0 pitch=1.0
 BE 4 -60 4 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"lime",has_glowing_text:0b,messages:["wax me","","",""]},id:"minecraft:sign",is_waxed:1b,x:4,y:-60,z:4}
@@ -132,6 +182,11 @@ I p 3 minecraft:honeycomb*6
 I p 4 minecraft:black_dye*7
 I p 5 minecraft:stick*1
 I p 6 minecraft:oak_hanging_sign*8
+PKT p minecraft:sound 77e10d0400000024fffffe24000000243f8000003f8000005ac3b5cd447e2ff6
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:block_update 080000010000004fc4ec35
+PKT p minecraft:block_update 080000010000005fc400
 EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.sign.waxed_interact_fail source=block vol=1.0 pitch=1.0
 BE 4 -60 4 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"lime",has_glowing_text:0b,messages:["wax me","","",""]},id:"minecraft:sign",is_waxed:1b,x:4,y:-60,z:4}
 I p 0 minecraft:red_dye*5
@@ -159,6 +214,21 @@ I p 3 minecraft:honeycomb*5
 I p 4 minecraft:black_dye*7
 I p 5 minecraft:stick*1
 I p 6 minecraft:oak_hanging_sign*8
+PKT p minecraft:sound 77e10d0400000024fffffe24000000243f8000003f8000005ae586ec5969c658
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:block_update 080000010000004fc4ec35
+PKT p minecraft:block_update 080000010000005fc400
+PKT p minecraft:sound 77e10d0400000024fffffe24000000243f8000003f800000d55fad91ece1d6ce
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:swing_animation 7b01000106
+PKT p minecraft:block_update 080000010000004fc4ec35
+PKT p minecraft:block_update 080000010000005fc400
+PKT p minecraft:level_event 2f00000bbb0000020000004fc40000000000
+PKT p minecraft:sound 77cc060400000044fffffe24000000243f8000003f800000d8bde3e82cd7dc02
+PKT p minecraft:system_chat 7c0a080005636f6c6f7200037265640800097472616e736c617465001b7369676e2e636c69636b5f616374696f6e735f64697361626c65640001
+PKT p minecraft:block_update 080000020000004fc4ec35
+PKT p minecraft:block_update 080000020000005fc400
 EV level_event r=64.0 ex=0 type=3003 pos=8,-60,4 data=0 global=0
 EV sound at=8.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.honeycomb.wax_on source=block vol=1.0 pitch=1.0
 BE 0 -60 4 {back_text:{color:"red",has_glowing_text:1b,messages:["back","","",""]},components:{},front_text:{color:"black",has_glowing_text:0b,messages:["hello","","",""]},id:"minecraft:sign",is_waxed:0b,x:0,y:-60,z:4}
@@ -171,6 +241,31 @@ I p 5 minecraft:stick*1
 I p 6 minecraft:oak_hanging_sign*8
 I c 0 minecraft:blue_dye*8
 I c 1 minecraft:honeycomb*8
+PKT c minecraft:sound 77c0040400000004fffffe24000000243f8000003f800000e32d4fcf84a7860e
+PKT c minecraft:sound 77c0040400000004fffffe24000000243f8000003f8000003dace6703e05bff8
+PKT c minecraft:sound 77da050400000004fffffe24000000243f8000003f8000006fd465a290351d3c
+PKT c minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20702000080009696e73657274696f6e000170080004746578740001700a000b686f7665725f6576656e740800046e616d65000170080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b0e8710887a43f28a15cd59806ae10630000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650033616476616e63656d656e74732e68757362616e6472792e6d616b655f615f7369676e5f676c6f772e6465736372697074696f6e000800097472616e736c617465002d616476616e63656d656e74732e68757362616e6472792e6d616b655f615f7369676e5f676c6f772e7469746c6500000800097472616e736c617465002d616476616e63656d656e74732e68757362616e6472792e6d616b655f615f7369676e5f676c6f772e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT c minecraft:sound 77fe060400000004fffffe24000000243f8000003f8000004b970fd5e0db99e1
+PKT c minecraft:waypoint 8d010001b0e8710887a43f28a15cd59806ae1063116d696e6563726166743a64656661756c74000100c4ffffff0fffffffff0f
+PKT c minecraft:sound 77c0040400000004fffffe24000000243f8000003f800000e8168c54d2216418
+PKT c minecraft:sound 77da050400000004fffffe24000000243f8000003f800000a3981763e0103683
+PKT c minecraft:waypoint 8d010001b0e8710887a43f28a15cd59806ae1063116d696e6563726166743a64656661756c74000100c4ffffff0f08
+PKT c minecraft:level_event 2f00000bbb0000008000004fc40000000000
+PKT c minecraft:sound 77cc060400000014fffffe24000000243f8000003f800000a1a24ca263725fe3
+PKT c minecraft:waypoint 8d010001b0e8710887a43f28a15cd59806ae1063116d696e6563726166743a64656661756c7400010ac4ffffff0f08
+PKT c minecraft:sound 77c0040400000054fffffe24000000243f8000003f80000029a8e9b76b35b192
+PKT c minecraft:waypoint 8d010001b0e8710887a43f28a15cd59806ae1063116d696e6563726166743a64656661756c74000104c4ffffff0f08
+PKT c minecraft:level_event 2f00000bbb0000010000004fc40000000000
+PKT c minecraft:sound 77cc060400000024fffffe24000000243f8000003f800000ec866a92984bf066
+PKT c minecraft:sound 77e10d0400000024fffffe24000000243f8000003f8000005ac3b5cd447e2ff6
+PKT c minecraft:sound 77e10d0400000024fffffe24000000243f8000003f8000005ae586ec5969c658
+PKT c minecraft:sound 77e10d0400000024fffffe24000000243f8000003f800000d55fad91ece1d6ce
+PKT c minecraft:waypoint 8d010001b0e8710887a43f28a15cd59806ae1063116d696e6563726166743a64656661756c74000108c4ffffff0f08
+PKT c minecraft:level_event 2f00000bbb0000020000004fc40000000000
+PKT c minecraft:sound 77cc060400000044fffffe24000000243f8000003f800000d8bde3e82cd7dc02
+PKT c minecraft:waypoint 8d010001b0e8710887a43f28a15cd59806ae1063116d696e6563726166743a64656661756c74000100c4ffffff0f08
+PKT c minecraft:block_update 080000000000004fc4ec35
+PKT c minecraft:block_update 080000000000005fc400
 BE 6 -60 4 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"blue",has_glowing_text:0b,messages:["creative","","",""]},id:"minecraft:sign",is_waxed:0b,x:6,y:-60,z:4}
 I c 0 minecraft:blue_dye*8
 I c 1 minecraft:honeycomb*8

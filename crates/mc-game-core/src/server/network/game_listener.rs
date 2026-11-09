@@ -18,7 +18,8 @@ use crate::world::entity::{Entity, ServerPlayer};
 use mc_core::phys::Vec3;
 use mc_protocol::packet::Packet;
 use mc_protocol::packets::play::{
-    ClientboundPlayerPositionPacket, PositionMoveRotation, Relatives,
+    ClientboundBlockChangedAckPacket, ClientboundPlayerPositionPacket, PositionMoveRotation,
+    Relatives,
 };
 use mc_text::Component;
 use parking_lot::Mutex;
@@ -213,6 +214,26 @@ impl ServerGamePacketListenerImpl {
         }
         self.ack_block_changes_up_to = packet_sequence_nr.max(self.ack_block_changes_up_to);
         Ok(())
+    }
+
+    /// The start of `tick()`: the pending `ClientboundBlockChangedAckPacket`.
+    pub fn send_block_changed_ack(&mut self) {
+        if self.ack_block_changes_up_to > -1 {
+            self.send(&ClientboundBlockChangedAckPacket {
+                sequence: self.ack_block_changes_up_to,
+            });
+            self.ack_block_changes_up_to = NO_BLOCK_UPDATES_TO_ACK;
+        }
+    }
+
+    /// `awaitingPositionFromClient != null`: a teleport the client has not confirmed yet.
+    pub fn is_awaiting_position_from_client(&self) -> bool {
+        self.awaiting_position_from_client.is_some()
+    }
+
+    /// The listener half of `handleAcceptTeleportPacket`: the client confirmed the pending teleport.
+    pub fn confirm_teleport(&mut self) {
+        self.awaiting_position_from_client = None;
     }
 
     /// `resetFlyingTicks()`.

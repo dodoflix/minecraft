@@ -1,0 +1,8 @@
+# a player in chunk x <= -2 once shifted the level random: the chunk map's natural spawning and chunk shuffles read the live player position
+level flat
+preload 6
+spawn_player P survival -23.5 -60 8.5 0 0
+tick 40
+fill 40 -61 40 52 -57 52 minecraft:stone
+explode 46 -58 46 6 block
+dump blocks:40,-61,40,52,-57,52

@@ -55,3 +55,21 @@
     }
  
     public record Seed128bit(long seedLo, long seedHi) {
+--- a/resources/ResourceKey.java
++++ b/resources/ResourceKey.java
+@@ -42,7 +42,15 @@
+       this.identifier = identifier;
+    }
+ 
++   // ORACLE SHADOW (tests/oracle/shadow.patch): vanilla uses the identity hash, so every HashMap keyed by resource keys iterates in a
++   // different order per JVM run (the order the server creates the nether and the end in, hence their level seeds). A name based hash
++   // makes the order reproducible.
+    @Override
++   public int hashCode() {
++      return this.registryName.hashCode() * 31 + this.identifier.hashCode();
++   }
++
++   @Override
+    public String toString() {
+       return "ResourceKey[" + this.registryName + " / " + this.identifier + "]";
+    }

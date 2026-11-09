@@ -16,15 +16,20 @@ use mc_data::{EntityType, Item};
 use mc_game::server::level::chunk_send_sink::ChunkSendSink;
 use mc_game::server::level::level_explode::Explode;
 use mc_game::server::level::{PlayerTrackingInfo, ServerLevel};
+use mc_game::server::network::common_listener::CommonListenerCookie;
+use mc_game::server::network::game_listener::{
+    CLIENT_LOADED_TIMEOUT_TIME, ListenerSettings, ServerGamePacketListenerImpl,
+};
 use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
-use mc_game::world::item::{InteractionHand, ItemStack};
+use mc_game::world::item::{InteractionHand, InteractionResult, ItemStack, SwingSource};
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_protocol::codec::read_varint;
+use mc_protocol::packets::play::ClientboundBlockUpdatePacket;
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
 
@@ -53,6 +58,10 @@ pub struct Actors {
     known: HashSet<EntityId>,
     auto: HashMap<String, i32>,
     rx: HashMap<String, UnboundedReceiver<Outbound>>,
+    /// The driver's `seq(player)`: the sequence number of the player's next `use_on` packet.
+    sequence: HashMap<String, i32>,
+    /// Keeps the inbound queue of every replayed listener open.
+    _inbound: Vec<std::sync::mpsc::Sender<mc_game::server::network::InboundPacket>>,
     pub registries_loaded: bool,
 }
 
@@ -392,6 +401,21 @@ impl Scenario {
                 let id = self.entity_id(&a[1]);
                 self.level().with_entity(id, |level, e| {
                     let (yr, xr) = (e.base().y_rot(), e.base().x_rot());
+                    if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
+                        // the driver calls `teleportTo(level, x, y, z, Set.of(), yRot, xRot, false)`: a client teleport that the client
+                        // has to confirm (`awaitingPositionFromClient`), which also wakes the player
+                        if p.is_sleeping() {
+                            p.stop_sleep_in_bed(level, true, true);
+                        }
+                        let rot = |i: usize, old: f32| a.get(i).map_or(old, |v| num(v) as f32);
+                        let (y_rot, x_rot) = (rot(5, yr), rot(6, xr));
+                        p.connection_teleport(num(&a[2]), num(&a[3]), num(&a[4]), y_rot, x_rot);
+                        p.set_y_head_rot(y_rot);
+                        if let Some(l) = p.listener.as_mut() {
+                            l.reset_flying_ticks();
+                        }
+                        return;
+                    }
                     e.teleport_to(level, num(&a[2]), num(&a[3]), num(&a[4]));
                     if a.len() > 5 {
                         e.set_rot(
@@ -661,13 +685,42 @@ impl Scenario {
         // the player list's roster: `PlayerList.broadcastSystemMessage` (advancement announcements) reaches the players
         let handle = mc_game::server::players::PlayerHandle::new(
             id,
-            profile,
+            profile.clone(),
             sender.clone(),
             "<unknown>".to_owned(),
             level.dimension.clone(),
         );
         level.server_state.roster.add(handle.clone());
+        // `PlayerList.placeNewPlayer`: the packet listener (teleports, block change acks), the join teleport and the client's
+        // "loaded" report (`VanillaLevel.connect`: the driver accepts the teleport and sends `PlayerLoaded`)
+        let (inbound_tx, inbound_rx) = std::sync::mpsc::channel();
+        let mut listener = ServerGamePacketListenerImpl::new(
+            sender.clone(),
+            inbound_rx,
+            &CommonListenerCookie {
+                profile,
+                latency: 0,
+                client_information: Default::default(),
+                transferred: false,
+            },
+            handle.chat_out.clone(),
+            ListenerSettings {
+                command_spam_threshold_seconds: 10,
+                chat_spam_threshold_seconds: 10,
+                memory_connection: true,
+                enforce_secure_profile: std::sync::Arc::new(|| false),
+            },
+            0,
+        );
+        for _ in 0..CLIENT_LOADED_TIMEOUT_TIME {
+            listener.tick_client_load_timeout();
+        }
+        p.listener = Some(listener);
         p.handle = Some(handle);
+        p.connection_teleport(num(&a[3]), num(&a[4]), num(&a[5]), yaw, pitch);
+        if let Some(l) = p.listener.as_mut() {
+            l.confirm_teleport();
+        }
         let tracking = PlayerTrackingInfo {
             entity_id: id,
             uuid: p.uuid(),
@@ -679,6 +732,7 @@ impl Scenario {
             alive: true,
         };
         level.add_player(Box::new(p));
+        level.with_player(id, |level, p| p.init_inventory_menu(level));
         // `PlayerList.placeNewPlayer` registers the player with the chunk map: the spawning chunks it creates are shuffled
         // with the level random on every tick (`ServerChunkCache.tickChunks`), which every later spawner draw depends on.
         level.chunk_source.chunk_map.add_player(tracking);
@@ -691,6 +745,10 @@ impl Scenario {
         self.actors.known.insert(id);
         self.actors.refs.push((name.clone(), id));
         self.actors.players.push(name.clone());
+        self.actors._inbound.push(inbound_tx);
+        // the join burst is not compared: `packets:NAME` dumps start after the join
+        let mut rx = rx;
+        while rx.try_recv().is_ok() {}
         self.actors.rx.insert(name, rx);
     }
 
@@ -732,7 +790,17 @@ impl Scenario {
             inside: false,
             world_border_hit: false,
         };
+        let sequence = self.actors.sequence.entry(a[1].clone()).or_insert(0);
+        *sequence += 1;
+        let sequence = *sequence;
         self.with_player_named(&a[1], |level, p| {
+            let listener = p
+                .listener
+                .as_mut()
+                .expect("replayed players have a listener");
+            listener
+                .ack_block_changes_up_to(sequence)
+                .expect("positive sequence");
             if !p.is_within_block_interaction_range(pos, 1.0) {
                 return;
             }
@@ -740,7 +808,41 @@ impl Scenario {
             if !(d.x.abs() < 1.0000001 && d.y.abs() < 1.0000001 && d.z.abs() < 1.0000001) {
                 return;
             }
-            p.use_item_on(level, hand, &result);
+            // `handleUseItemOn`: nothing happens while a teleport waits for the client's confirmation
+            if p.listener
+                .as_ref()
+                .is_some_and(|l| l.is_awaiting_position_from_client())
+            {
+                return;
+            }
+            let animation = p
+                .get_item_in_hand(hand)
+                .get(&mc_protocol::components::INTERACT_ANIMATION)
+                .copied()
+                .unwrap_or(mc_game::world::entity::player::item_use::SWING_ANIMATION_DEFAULT);
+            let outcome = p.use_item_on(level, hand, &result);
+            // a successful use swings (the decompiled handler swings in two branches, both reach the client)
+            if let InteractionResult::Success(s) = &outcome
+                && s.should_swing()
+            {
+                for _ in 0..2 {
+                    if p.swing(
+                        level,
+                        hand,
+                        animation,
+                        s.swing_source != SwingSource::Predicted,
+                    ) {
+                        p.reset_attack_strength_ticker();
+                    }
+                }
+            }
+            // ... and the client gets the clicked and the adjacent block back
+            for at in [pos, pos.relative(face)] {
+                p.send(&ClientboundBlockUpdatePacket {
+                    pos: at,
+                    block_state: level.get_block_state(at),
+                });
+            }
         });
     }
 
@@ -841,6 +943,9 @@ impl Scenario {
             // `tickPlayer`: `resetPosition`, `xo/yo/zo`, `doTick`, then `absSnapTo(firstGood)`: a client-authoritative player
             // keeps the position it had, whatever the server-side tick did to it
             self.with_player_named(&name, |level, p| {
+                if let Some(listener) = p.listener.as_mut() {
+                    listener.send_block_changed_ack();
+                }
                 let pos = p.position();
                 p.player.living.entity.set_old_pos(pos);
                 p.do_tick(level);

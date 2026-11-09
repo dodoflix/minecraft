@@ -75,3 +75,23 @@ fn long_digs_leave_the_level_random_in_step() {
 fn nether_level_has_the_vanilla_sound_seed_generator() {
     check("blk_harness_sound_nether");
 }
+
+#[test]
+fn end_level_has_the_vanilla_sound_seed_generator() {
+    check("blk_harness_sound_end");
+}
+
+#[test]
+fn enchanted_tools_mine_with_their_efficiency() {
+    check("blk_harness_efficiency");
+}
+
+#[test]
+fn snap_leaves_the_head_rotation_stale() {
+    check("blk_harness_snap_view");
+}
+
+#[test]
+fn player_in_a_west_chunk_leaves_the_level_random_in_step() {
+    check("blk_harness_player_west");
+}

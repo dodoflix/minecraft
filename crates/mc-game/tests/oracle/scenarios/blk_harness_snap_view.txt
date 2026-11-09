@@ -1,0 +1,23 @@
+# snap leaves yHeadRot stale (Entity.snapTo): placement directions read the head rotation, which a player copies from yRot on its tick
+level flat
+preload 2
+spawn_player Steve creative 0.5 -60 0.5 0 0
+tick 3
+give Steve mainhand minecraft:piston
+snap Steve 0.5 -60 0.5 90 0
+use_on Steve 3 -61 0 up
+dump blocks:3,-60,0,3,-60,0 player:Steve
+snap Steve 0.5 -60 0.5 -90 0
+use_on Steve 3 -61 2 up
+dump blocks:3,-60,2,3,-60,2 player:Steve
+snap Steve 0.5 -60 0.5 180 0
+use_on Steve 5 -61 0 up
+dump blocks:5,-60,0,5,-60,0 player:Steve
+tick 1
+snap Steve 0.5 -60 0.5 90 0
+tick 1
+use_on Steve 5 -61 2 up
+dump blocks:5,-60,2,5,-60,2 player:Steve
+snap Steve 0.5 -60 0.5 -90 0
+use_on Steve 7 -61 0 up
+dump blocks:7,-60,0,7,-60,0 player:Steve

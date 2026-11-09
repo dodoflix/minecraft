@@ -36,9 +36,9 @@ dump be:0,-60,4 be:2,-60,4 be:4,-60,4 be:6,-60,4 be:8,-60,4 be:10,-60,4 be:12,-6
 # dye: colours the front text, consumes one, plays the sound, game event; the same colour again changes nothing and opens the editor
 select p 0
 use_on p 0 -60 4 south
-dump be:0,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+dump be:0,-60,4 inventory:p packets:p events
 use_on p 0 -60 4 south
-dump be:0,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+dump be:0,-60,4 inventory:p packets:p events
 select p 4
 use_on p 0 -60 4 south
 dump be:0,-60,4 inventory:p events
@@ -65,7 +65,7 @@ snap p 0.5 -60 8.5 0 0
 # empty text (no message): not applied, the stack stays
 select p 0
 use_on p 2 -60 4 south
-dump be:2,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+dump be:2,-60,4 inventory:p packets:p events
 # honeycomb waxes an empty sign too (canApplyToSign is always true)
 select p 3
 use_on p 2 -60 4 south
@@ -79,9 +79,9 @@ dump be:10,-60,4 inventory:p events
 snap p 4.5 -60 8.5 0 0
 select p 3
 use_on p 4 -60 4 south
-dump be:4,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+dump be:4,-60,4 inventory:p packets:p events
 use_on p 4 -60 4 south
-dump be:4,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+dump be:4,-60,4 inventory:p packets:p events
 select p 0
 use_on p 4 -60 4 south
 dump be:4,-60,4 inventory:p events
@@ -92,7 +92,7 @@ dump be:4,-60,4 inventory:p events
 snap p 8.5 -60 8.5 0 0
 select p 3
 use_on p 8 -60 4 south
-dump be:8,-60,4 inventory:p packets:p:open_sign_editor,set_action_bar_text events
+dump be:8,-60,4 inventory:p packets:p events
 # another player is editing: the applicator is refused and the other player gets no editor
 select p 5
 use_on p 0 -60 4 south
@@ -101,7 +101,7 @@ snap p 0.5 -60 8.5 0 0
 snap c 0.5 -60 8.5 0 0
 select c 0
 use_on c 0 -60 4 south
-dump be:0,-60,4 inventory:p inventory:c packets:c:open_sign_editor,set_action_bar_text events
+dump be:0,-60,4 inventory:p inventory:c packets:c events
 snap c 6.5 -60 8.5 0 0
 # creative player: nothing is consumed
 use_on c 6 -60 4 south

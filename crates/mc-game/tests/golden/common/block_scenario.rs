@@ -436,15 +436,16 @@ impl Scenario {
                 Arc::new(FlatGenerator { layers: Vec::new() })
             };
         // `VanillaLevel.boot` reseeds the uniquifier before the server exists: the level's sound seed generator is deterministic.
-        // The vanilla server creates the overworld, the nether and the end in turn, every `Level` constructor drawing unique seeds
-        // (`random`, the sound seed generator, ...): measured against the first sound seed of each dimension in the oracle, the
-        // sound seed generator is the 5th (overworld) and 9th (nether) draw; the end's is the 9th or the 12th depending on the run
-        // (the oracle itself is not deterministic there, so the end is not asserted). `ServerLevel::new` draws the level's `random`
-        // itself before the sound seed generator.
+        // The vanilla server creates the overworld first, then the other dimensions in the iteration order of its resource key
+        // keyed registry map (the oracle's shadow `ResourceKey.hashCode` fixes it to the end, then the nether; a real server's
+        // order changes per run). Every `Level` constructor draws unique seeds (`random`, the sound seed generator, ...): measured
+        // against the first sound seed of each dimension in the oracle, the sound seed generator is the 5th (overworld), 9th (end)
+        // and 12th (nether) draw. `ServerLevel::new` draws the level's `random` itself before the sound seed generator.
         mc_core::random::reseed_uniquifier(8682522807148012);
         let draws_before_level = match self.opts.dimension {
             "overworld" => 3,
-            _ => 7,
+            "the_end" => 7,
+            _ => 10,
         };
         for _ in 0..draws_before_level {
             mc_core::random::generate_unique_seed();

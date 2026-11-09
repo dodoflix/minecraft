@@ -1,0 +1,2 @@
+PKT Alice minecraft:sound 77ac0704000000d400000324000000d43e99999a3f19999ae7fc858e01e839eb
+EV sound at=26.5,100.5,26.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.6

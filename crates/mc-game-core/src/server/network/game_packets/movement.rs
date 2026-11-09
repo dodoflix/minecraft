@@ -10,8 +10,8 @@ use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_protocol::packets::play::{
-    ClientboundBlockChangedAckPacket, ClientboundBlockUpdatePacket, ClientboundMoveVehiclePacket,
-    PositionAndRotation, ServerboundAcceptTeleportationPacket, ServerboundMovePlayerPosPacket,
+    ClientboundBlockUpdatePacket, ClientboundMoveVehiclePacket, PositionAndRotation,
+    ServerboundAcceptTeleportationPacket, ServerboundMovePlayerPosPacket,
     ServerboundMovePlayerPosRotPacket, ServerboundMovePlayerRotPacket,
     ServerboundMovePlayerStatusOnlyPacket, ServerboundMoveVehiclePacket,
     ServerboundPlayerLoadedPacket,
@@ -120,11 +120,7 @@ fn invalid_player_movement() -> Component {
 impl PlayCtx<'_> {
     /// `tick()`.
     pub fn tick(&mut self) {
-        if self.lis().ack_block_changes_up_to > -1 {
-            let sequence = self.lis().ack_block_changes_up_to;
-            self.send(&ClientboundBlockChangedAckPacket { sequence });
-            self.lis().ack_block_changes_up_to = -1;
-        }
+        self.lis().send_block_changed_ack();
 
         if self.server.is_paused() || !self.tick_player() {
             let now = self.now_ms();

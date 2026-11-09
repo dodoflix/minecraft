@@ -1,0 +1,11 @@
+level flat
+preload 3
+level_seed 12
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve hotbar0 minecraft:diamond_pickaxe[enchantments={"minecraft:efficiency":5}]
+block 2 -60 0 minecraft:obsidian
+select Steve 0
+tick 1
+dump player:Steve
+dig Steve 2 -60 0
+dump blocks:2,-60,0,2,-60,0
