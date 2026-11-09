@@ -1,5 +1,5 @@
 # WetSpongeBlock.onPlace in the nether (WATER_EVAPORATES): dries into a sponge at once (level event 2009 + sound with the
-# level random), also when placed several times; a normal sponge placed in the nether next to a source does nothing special.
+# level random), also when placed several times; a normal sponge placed next to a source absorbs it, turns wet and dries again at once.
 dimension the_nether
 level void
 preload 2

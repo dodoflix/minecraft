@@ -1397,7 +1397,7 @@ EV level_event r=64.0 ex=0 type=1501 pos=23,-60,2 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=37,-60,0 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=37,-60,-1 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=37,-60,1 data=0 global=0
-# a water source over a source of its own type via a vertical neighbour, rule off again: sources stay flowing
+# both rules off again: the gaps stay flowing
 C Game rule water_source_conversion is now set to false
 C Game rule lava_source_conversion is now set to false
 B 46 -62 -2 minecraft:dirt

@@ -9520,7 +9520,7 @@ TICK fluid 7 -60 3 minecraft:water delay=4 prio=0
 TICK fluid 6 -60 2 minecraft:water delay=4 prio=0
 TICK fluid 7 -60 2 minecraft:water delay=4 prio=0
 TICK block 9 -60 2 minecraft:water delay=14 prio=0
-# draining the pool: seagrass and tall seagrass need full water around
+# draining the pool: seagrass and tall seagrass only check their floor, sea pickles die without water
 T 7
 T 8
 T 9

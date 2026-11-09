@@ -4549,7 +4549,7 @@ B 9 -46 4 minecraft:water[level=0]
 B 9 -45 2 minecraft:stone
 B 9 -45 3 minecraft:stone
 B 9 -45 4 minecraft:stone
-# flowing water above a source does not form a column
+# a flowing cell above the source stops the column until it becomes a source
 T 111
 T 112
 T 113

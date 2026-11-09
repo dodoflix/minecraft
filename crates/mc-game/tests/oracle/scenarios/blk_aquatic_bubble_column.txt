@@ -28,7 +28,7 @@ block 7 -60 3 minecraft:soul_sand
 block 8 -60 3 minecraft:magma_block
 tick 25
 dump blocks:6,-61,2,9,-45,4 ticks events
-note flowing water above a source does not form a column
+note a flowing cell above the source stops the column until it becomes a source
 block 12 -60 3 minecraft:soul_sand
 block 12 -55 3 minecraft:water[level=3]
 tick 25

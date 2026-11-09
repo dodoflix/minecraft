@@ -1,4 +1,4 @@
-# SpongeBlock: a sponge in air next to a basin; water arriving next to it triggers neighborChanged; the 65 block limit in
+# SpongeBlock: a sponge placed inside a big pool; water arriving next to it triggers neighborChanged; the 65 block limit in
 # a big pool; a wet sponge in the overworld does not dry.
 level flat
 preload 3

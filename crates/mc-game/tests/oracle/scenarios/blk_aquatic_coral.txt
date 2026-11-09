@@ -69,7 +69,6 @@ block 7 -58 25 minecraft:fire_coral_wall_fan[facing=south,waterlogged=true]
 block 9 -60 31 minecraft:horn_coral_block
 block 9 -60 27 minecraft:horn_coral_fan[waterlogged=true]
 block 9 -58 25 minecraft:horn_coral_wall_fan[facing=south,waterlogged=true]
-fill 1 -60 25 11 -53 35 minecraft:air
 dump blocks:0,-60,24,12,-52,36 ticks events
 tick 150
 dump blocks:0,-60,24,12,-52,36 ticks events

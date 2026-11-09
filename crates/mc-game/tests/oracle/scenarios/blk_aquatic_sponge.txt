@@ -1,5 +1,5 @@
 # SpongeBlock.removeWaterBreadthFirstSearch: BFS order/limits in a closed pool, with kelp/seagrass/waterlogged blocks, a
-# bubble column, placing the sponge into water, and water flowing next to a placed sponge (neighborChanged).
+# bubble column (formed by the magma block), and placing the sponge into water.
 level flat
 preload 3
 level_seed 11
@@ -22,6 +22,7 @@ block 10 -59 9 minecraft:tube_coral_fan[waterlogged=true]
 block 10 -59 8 minecraft:conduit[waterlogged=true]
 block 8 -59 10 minecraft:oak_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=true]
 block 6 -59 6 minecraft:magma_block
+tick 25
 dump blocks:0,-60,0,12,-48,12
 note sponge in the middle of the water
 block 6 -55 6 minecraft:sponge
