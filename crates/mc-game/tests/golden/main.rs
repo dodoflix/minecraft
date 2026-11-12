@@ -88,6 +88,7 @@ mod goals_combat_golden;
 mod gossip_golden;
 mod instrument_jukebox;
 mod item_blocks_golden;
+mod item_buckets_golden;
 mod item_commands_tree;
 mod item_display_name_golden;
 mod item_fire_golden;
