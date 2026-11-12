@@ -259,6 +259,13 @@ pub fn take_old_player(
         );
         dummy.remove(reason);
         let mut old = std::mem::replace(player, dummy);
+        // `Player.remove`: the player is removed before its menus are closed, so a removed player drops the cursor stack
+        if matches!(reason, RemovalReason::Killed | RemovalReason::Discarded) {
+            crate::world::entity::living_entity::effects::trigger_on_death_mob_effects(
+                &mut old, level, reason,
+            );
+        }
+        old.remove(reason);
         old.close_menus_on_removal(level);
         old
     })

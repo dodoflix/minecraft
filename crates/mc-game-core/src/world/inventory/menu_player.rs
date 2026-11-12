@@ -74,8 +74,8 @@ pub trait MenuPlayer {
             _ => EquipmentSlot::MainHand,
         }
     }
-    /// `LivingEntity.isEquippableInSlot` (`Equippable.canBeEquippedBy` for the player entity type is not modelled:
-    /// the vanilla equippables a player can hold all allow players).
+    /// `LivingEntity.isEquippableInSlot` without `Equippable.canBeEquippedBy` (`allowed_entities`): the real player
+    /// (`PlayerCtx`) overrides it with the entity type check.
     fn is_equippable_in_slot(&self, stack: &ItemStack, slot: EquipmentSlot) -> bool {
         match equippable_slot(stack) {
             None => slot == EquipmentSlot::MainHand && self.can_use_slot(EquipmentSlot::MainHand),

@@ -2,7 +2,7 @@
 
 use super::util::{self, FluidKind, has_effect, is_eye_in_fluid, l, lm};
 use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, RemovalReason};
+use crate::world::entity::{Entity, RemovalReason, ServerPlayer};
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::level::BlockGetter;
 use mc_core::math::mth;
@@ -46,6 +46,10 @@ pub fn tick_death(entity: &mut dyn Entity, level: &mut ServerLevel) {
         super::effects::trigger_on_death_mob_effects(entity, level, RemovalReason::Killed);
         entity.before_remove(level, RemovalReason::Killed);
         entity.remove(RemovalReason::Killed);
+        // `Player.remove`: the removed player's menus are closed (the cursor stack is dropped)
+        if let Some(player) = entity.as_any_mut().downcast_mut::<ServerPlayer>() {
+            player.close_menus_on_removal(level);
+        }
     }
 }
 

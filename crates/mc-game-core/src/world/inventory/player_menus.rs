@@ -206,12 +206,13 @@ pub fn handle_container_click(
     } else {
         let full_resync_needed = packet.state_id != menu.base().get_state_id();
         menu.base_mut().suppress_remote_updates();
-        let result = menu.clicked(
+        // `clicked` throwing leaves `suppressRemoteUpdates` on and skips the hashed slot/carried bookkeeping
+        menu.clicked(
             slot_index,
             packet.button_num as i32,
             packet.container_input,
             player,
-        );
+        )?;
         for (slot, stack) in &packet.changed_slots {
             menu.base_mut()
                 .set_remote_slot_unsafe(*slot as i32, stack.clone());
@@ -219,7 +220,6 @@ pub fn handle_container_click(
         menu.base_mut()
             .set_remote_carried(packet.carried_item.clone());
         menu.base_mut().resume_remote_updates();
-        result?;
         if full_resync_needed {
             menu.broadcast_full_state(player);
         } else {

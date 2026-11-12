@@ -66,6 +66,10 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn on_equip_item(&mut self, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
         crate::world::entity::Entity::on_equip_item(self.player, self.level, slot, old, new);
     }
+    /// Includes `Equippable.canBeEquippedBy(player type)` (`allowed_entities`).
+    fn is_equippable_in_slot(&self, stack: &ItemStack, slot: EquipmentSlot) -> bool {
+        crate::world::entity::Entity::is_equippable_in_slot(&*self.player, stack, slot)
+    }
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool {
         self.player.is_within_block_interaction_range(pos, buffer)
     }
