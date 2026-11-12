@@ -399,7 +399,7 @@ pub fn interact_living_entity(
             return result;
         }
     }
-    behaviour(stack.item()).interact_living_entity(stack, player, target, hand)
+    behaviour(stack.item()).interact_living_entity(level, stack, player, target, hand)
 }
 
 /// `Equippable.equipOnTarget(player, target, itemStack)`.

@@ -1,12 +1,11 @@
-//! `DyeItem`: dyes a sign's text (`SignApplicator`).
-//! Not implemented: `interactLivingEntity` (dyeing a sheep; needs `Sheep.setColor` through an `Entity` hook).
+//! `DyeItem`: dyes a sign's text (`SignApplicator`) and a sheep's wool (`interactLivingEntity`).
 
-use super::{ItemBehaviour, ItemStack, SignApplicator};
+use super::{InteractionHand, InteractionResult, ItemBehaviour, ItemStack, SignApplicator};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::BlockEntity;
 use crate::world::block_entity::sign_block_entity::{SignBlockEntity, SignTextExt, SignTextSlot};
-use crate::world::entity::ServerPlayer;
+use crate::world::entity::{Entity, ServerPlayer, mob};
 use mc_data::SoundEvent;
 use mc_protocol::components::DYE;
 use mc_protocol::packets::play::SoundSource;
@@ -14,6 +13,35 @@ use mc_protocol::packets::play::SoundSource;
 pub struct DyeItem;
 
 impl ItemBehaviour for DyeItem {
+    fn interact_living_entity(
+        &self,
+        level: &mut ServerLevel,
+        stack: &mut ItemStack,
+        player: &mut ServerPlayer,
+        target: &mut dyn Entity,
+        _hand: InteractionHand,
+    ) -> InteractionResult {
+        if target.is_alive()
+            && target.sheep_sheared() == Some(false)
+            && let Some(dye) = stack.get(&DYE).copied()
+            && target.sheep_color() != Some(dye)
+        {
+            mob::ext::play_sound_from_entity(
+                level,
+                Some(player.id()),
+                target.id(),
+                SoundEvent::ITEM_DYE_USE,
+                SoundSource::Players,
+                1.0,
+                1.0,
+            );
+            target.set_sheep_color(dye);
+            stack.shrink(1);
+            return InteractionResult::SUCCESS;
+        }
+        InteractionResult::PASS
+    }
+
     fn as_sign_applicator(&self) -> Option<&dyn SignApplicator> {
         Some(self)
     }

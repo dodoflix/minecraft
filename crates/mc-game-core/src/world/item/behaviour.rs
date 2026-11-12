@@ -152,6 +152,7 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     /// `Item.interactLivingEntity(stack, player, target, hand)`.
     fn interact_living_entity(
         &self,
+        _level: &mut ServerLevel,
         _stack: &mut ItemStack,
         _player: &mut ServerPlayer,
         _target: &mut dyn Entity,

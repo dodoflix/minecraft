@@ -103,6 +103,7 @@ mod items_consumable_golden;
 mod items_oracle;
 mod items_use_golden;
 mod itm_brush_golden;
+mod itm_dye_sheep_golden;
 mod itm_ender_eye_golden;
 mod itm_misc_golden;
 mod itm_spawn_egg_golden;

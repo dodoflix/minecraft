@@ -3389,6 +3389,12 @@ pub trait Entity: Any {
     fn sheep_sheared(&self) -> Option<bool> {
         None
     }
+    /// `Sheep.getColor()`; `None` when the entity is not a `Sheep`.
+    fn sheep_color(&self) -> Option<mc_protocol::components::DyeColor> {
+        None
+    }
+    /// `Sheep.setColor(color)`; ignored by every other entity.
+    fn set_sheep_color(&mut self, _color: mc_protocol::components::DyeColor) {}
     /// `this instanceof Shearable` (`Sheep`, `MushroomCow`, `SnowGolem`, `Bogged`).
     fn is_shearable(&self) -> bool {
         false

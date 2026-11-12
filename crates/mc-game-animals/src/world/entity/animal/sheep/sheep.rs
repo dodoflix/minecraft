@@ -305,6 +305,14 @@ impl Entity for Sheep {
         Some(self.is_sheared())
     }
 
+    fn sheep_color(&self) -> Option<DyeColor> {
+        Some(self.get_color())
+    }
+
+    fn set_sheep_color(&mut self, color: DyeColor) {
+        self.set_color(color);
+    }
+
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
         out.put_boolean("Sheared", self.is_sheared());

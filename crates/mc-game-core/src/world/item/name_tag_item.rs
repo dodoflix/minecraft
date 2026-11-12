@@ -2,6 +2,7 @@
 
 use super::{InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt};
 use crate::register_item_class;
+use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, ServerPlayer};
 use mc_protocol::components::CUSTOM_NAME;
 
@@ -10,6 +11,7 @@ pub struct NameTagItem;
 impl ItemBehaviour for NameTagItem {
     fn interact_living_entity(
         &self,
+        _level: &mut ServerLevel,
         stack: &mut ItemStack,
         _player: &mut ServerPlayer,
         target: &mut dyn Entity,
