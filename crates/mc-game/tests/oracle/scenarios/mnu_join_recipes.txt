@@ -1,0 +1,16 @@
+# The recipe packets of a new player's join for each game mode: the recipe property sets (compared as sets), the recipe book settings,
+# the initial (empty) recipe book and the inventory menu content, then the first ticks, in which the `tick` trigger of the
+# crafting table advancement grants its recipe reward.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0 joinburst
+spawn_player B creative 4.5 -60 3.5 180 0 joinburst
+dump packets:A:update_recipes,recipe_book_settings,recipe_book_add,recipe_book_remove,container_set_content recipes:A
+dump packets:B:update_recipes,recipe_book_settings,recipe_book_add,recipe_book_remove,container_set_content recipes:B
+note the first ticks: the crafting table recipe is granted by the tick trigger
+tick 1
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings advancements:A recipes:A
+dump packets:B:recipe_book_add,recipe_book_remove,recipe_book_settings advancements:B recipes:B
+tick 2
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings advancements:A recipes:A

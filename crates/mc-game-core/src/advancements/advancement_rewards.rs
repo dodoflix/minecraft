@@ -59,7 +59,7 @@ impl AdvancementRewards {
     }
 
     /// `grant(player)`.
-    /// Not implemented: only the experience and loot rewards are given; the `recipes` and `function` rewards are skipped.
+    /// Not implemented: the `function` reward is skipped.
     pub fn grant(&self, level: &mut ServerLevel, player: &mut ServerPlayer) {
         player.give_experience_points(level, self.experience);
         let tables: Vec<Arc<LootTable>> = self.loot.values(&level.registries);
@@ -113,6 +113,9 @@ impl AdvancementRewards {
         }
         if changes {
             player.broadcast_menu_changes(level);
+        }
+        if !self.recipes.is_empty() {
+            player.award_recipes_by_key(level, &self.recipes);
         }
     }
 }

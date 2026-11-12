@@ -157,10 +157,8 @@ const EXPECTED: &[&str] = &[
     ".foodSaturationLevel",
     ".foodExhaustionLevel",
     ".warden_spawn_tracker.ticks_since_last_warning",
-    // known gaps, remove the entry when fixed: fresh player `Fire` is -20 in vanilla (`applyEffectsFromBlocks`),
-    // `recipeBook` needs the recipe manager (vanilla unlocks `crafting_table` on join)
+    // known gap, remove the entry when fixed: fresh player `Fire` is -20 in vanilla (`applyEffectsFromBlocks`)
     ".Fire:",
-    ".recipeBook.",
 ];
 
 /// `attributes` is written in `Object2ObjectOpenHashMap<Holder<Attribute>, _>` order; `Holder.Reference` hashes by

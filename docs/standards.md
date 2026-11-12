@@ -246,7 +246,7 @@ These are open. CI does not enforce them; everything else in this document that 
   Java's `charAt`; the command dispatcher contains it.
 - Some generated fixtures do not reproduce byte for byte:
   - the chat goldens embed freshly generated RSA keys;
-  - the component hash-order, registry line-order, POI, recipe-book and recipe (update packet) goldens depend on the JVM run;
+  - the component hash-order, registry line-order, POI and recipe (update packet) goldens depend on the JVM run;
   - `trades_golden.txt` differs on JDK 27;
   - `model_golden.tsv` and `binary_golden.tsv.gz` (`ModelOracle.java`, `BinaryOracle.java`) were generated from an older
     `snbt_golden.tsv.gz`; regenerating them against the current corpus adds the missing `Z` records;

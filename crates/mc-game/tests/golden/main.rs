@@ -133,6 +133,7 @@ mod menu_golden;
 mod menu_registration_guards;
 mod mineshaft_golden;
 mod mnu_harness_golden;
+mod mnu_recipe_golden;
 mod mob_spine_golden;
 mod net_common;
 mod nether_fortress_golden;

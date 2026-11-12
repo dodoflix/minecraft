@@ -40,6 +40,7 @@ import java.util.concurrent.Executor;
 public class RecipeBookGolden {
    static final StringBuilder OUT = new StringBuilder();
    static final List<String> events = new ArrayList<>();
+   static boolean sortAdds;
    static net.minecraft.core.RegistryAccess.Frozen access;
    static void op(String s) { OUT.append("OP ").append(s).append('\n'); }
    static void out(String s) { OUT.append("OUT ").append(s).append('\n'); }
@@ -71,7 +72,12 @@ public class RecipeBookGolden {
    public static class RecListener extends ServerGamePacketListenerImpl {
       public RecListener() { super(null, null, null, null); }
       @Override public void send(Packet<?> p) {
-         if (p instanceof net.minecraft.network.protocol.game.ClientboundRecipeBookAddPacket x) events.add("PKT add " + hex(net.minecraft.network.protocol.game.ClientboundRecipeBookAddPacket.STREAM_CODEC, x));
+         if (p instanceof net.minecraft.network.protocol.game.ClientboundRecipeBookAddPacket x) {
+            // the initial book iterates an identity hash set: order its entries by display id
+            List<net.minecraft.network.protocol.game.ClientboundRecipeBookAddPacket.Entry> sorted = new ArrayList<>(x.entries());
+            if (sortAdds) sorted.sort(Comparator.comparingInt(e -> e.contents().id().index()));
+            events.add("PKT add " + hex(net.minecraft.network.protocol.game.ClientboundRecipeBookAddPacket.STREAM_CODEC, new net.minecraft.network.protocol.game.ClientboundRecipeBookAddPacket(sorted, x.replace())));
+         }
          else if (p instanceof net.minecraft.network.protocol.game.ClientboundRecipeBookRemovePacket x) events.add("PKT remove " + hexB(net.minecraft.network.protocol.game.ClientboundRecipeBookRemovePacket.STREAM_CODEC, x));
          else if (p instanceof net.minecraft.network.protocol.game.ClientboundRecipeBookSettingsPacket x) events.add("PKT settings " + hexF(net.minecraft.network.protocol.game.ClientboundRecipeBookSettingsPacket.STREAM_CODEC, x));
          else events.add("PKT other");
@@ -122,8 +128,12 @@ public class RecipeBookGolden {
       Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe"); uf.setAccessible(true); U = (sun.misc.Unsafe) uf.get(null);
 
       access = loaded.layers().compositeAccess();
+      // `RecipeManager` keeps its recipes in an identity-hash map; sort by id so the seeded picks are reproducible
+      Comparator<RecipeHolder<?>> byId = Comparator.comparing(h -> h.id().identifier().toString());
       List<RecipeHolder<?>> learnable = new ArrayList<>(rm.getLearnableRecipes());
+      learnable.sort(byId);
       List<RecipeHolder<?>> all = new ArrayList<>(rm.getRecipes());
+      all.sort(byId);
       for (int scenario = 0; scenario < 5; scenario++) {
          Random r = new Random(5 + scenario);
          FakePlayer p = (FakePlayer) U.allocateInstance(FakePlayer.class);
@@ -144,6 +154,7 @@ public class RecipeBookGolden {
                List<RecipeHolder<?>> pick = new ArrayList<>();
                int n = 1 + r.nextInt(3);
                List<net.minecraft.resources.ResourceKey<Recipe<?>>> known = new ArrayList<>(book.pack().known());
+               known.sort(Comparator.comparing(k -> k.identifier().toString()));
                for (int i = 0; i < n; i++) pick.add(!known.isEmpty() && r.nextInt(3) > 0 ? rm.byKey(known.get(r.nextInt(known.size()))).get() : learnable.get(r.nextInt(learnable.size())));
                op("remove " + pick.stream().map(h -> h.id().identifier().toString()).collect(java.util.stream.Collectors.joining(",")));
                int c = book.removeRecipes(pick, p);
@@ -160,7 +171,9 @@ public class RecipeBookGolden {
                book.setBookSetting(t, open, filt);
             } else {
                op("initial");
+               sortAdds = true;
                book.sendInitialRecipeBook(p);
+               sortAdds = false;
             }
             out("known " + idList(book.pack().known()));
             out("highlight " + idList(book.pack().highlight()));

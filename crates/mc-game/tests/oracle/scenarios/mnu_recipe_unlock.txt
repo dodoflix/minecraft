@@ -1,0 +1,38 @@
+# Recipe unlocks: advancement rewards (the `tick` trigger of the crafting table, `inventory_changed` of the item recipes, the
+# `recipe_unlocked` criterion that follows), `/recipe give|take`, the seen and settings packets of the recipe book.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+tick 2
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings advancements:A recipes:A
+note an oak log in the inventory unlocks the planks recipe
+give A hotbar0 minecraft:oak_log 1
+tick 1
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings advancements:A recipes:A
+note cobblestone unlocks the recipes made of it
+give A hotbar1 minecraft:cobblestone 1
+tick 1
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings advancements:A recipes:A
+note seeing a recipe clears its highlight, the book settings are stored
+recipe_seen A minecraft:crafting_table
+recipe_seen A minecraft:oak_planks
+recipe_settings A crafting true true
+recipe_settings A smoker true false
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:A
+note /recipe give: one known, one unknown, everything
+cmd recipe give A minecraft:oak_planks
+cmd recipe give A minecraft:stick
+cmd recipe give A minecraft:furnace
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings advancements:A recipes:A
+cmd recipe give A *
+dump packets:A:recipe_book_remove,recipe_book_settings advancements:A recipes:A
+note /recipe take
+cmd recipe take A minecraft:stick
+cmd recipe take A minecraft:stick
+cmd recipe take A *
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings advancements:A recipes:A
+note the item recipes are granted again by the next inventory change
+give A hotbar2 minecraft:oak_log 1
+tick 1
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings advancements:A recipes:A
