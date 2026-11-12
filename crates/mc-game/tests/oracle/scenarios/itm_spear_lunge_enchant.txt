@@ -1,0 +1,63 @@
+# The lunge enchantment: PiercingWeapon.attack runs postPiercingAttack after a stab: one durability point, exhaustion 4 per level, an impulse along the view
+# (horizontal part only) of 0.458 per level, a lunge sound. The effect needs food >= 7 (or creative), no vehicle, no gliding and no water around the player.
+level flat
+preload 3
+level_seed 3
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob creative 20.5 -60 0.5 90 30
+spawn_player Carol survival 40.5 -60 0.5 0 0
+give Alice mainhand minecraft:iron_spear[enchantments={"minecraft:lunge":1}]
+give Bob mainhand minecraft:iron_spear[enchantments={"minecraft:lunge":3}]
+give Carol mainhand minecraft:iron_spear[enchantments={"minecraft:lunge":2}]
+tick 40
+dump packets:Alice:none packets:Bob:none packets:Carol:none events
+note lunge 1 along +z
+stab Alice
+dump events player:Alice inventory:Alice
+tick 1
+dump player:Alice
+tick 25
+note lunge 3 of a creative player looking east and 30 degrees down: only the horizontal part, no exhaustion
+stab Bob
+dump events player:Bob inventory:Bob
+tick 1
+dump player:Bob
+note lunge 2 with a food level of 6: no effect at all
+set Carol food 6
+stab Carol
+dump events player:Carol inventory:Carol
+tick 1
+dump player:Carol
+note lunge 2 with food level 7 and then in water
+set Carol food 7
+tick 30
+stab Carol
+dump events player:Carol inventory:Carol
+tick 1
+dump player:Carol
+fill 38 -62 -2 42 -60 2 minecraft:water
+snap Carol 40.5 -61 0.5 0 0
+tick 30
+stab Carol
+dump events player:Carol inventory:Carol
+tick 1
+dump player:Carol
+note lunge 1 two stabs in a row: the second is refused, the third comes after the attack strength is back
+tick 30
+stab Alice
+tick 1
+stab Alice
+dump events player:Alice inventory:Alice
+tick 25
+stab Alice
+dump events player:Alice inventory:Alice
+tick 1
+dump player:Alice
+note a spear with a single durability point left breaks with the lunge
+give Alice mainhand minecraft:iron_spear[damage=249,enchantments={"minecraft:lunge":1}]
+tick 40
+stab Alice
+dump events player:Alice inventory:Alice
+tick 1
+dump player:Alice

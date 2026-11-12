@@ -1,0 +1,81 @@
+# The STAB player action of a spear (PiercingWeapon.attack, Player.stabAttack): the entities along the view line are all hit
+# (cow, armor stand, husk, a survival player; a creative player is invulnerable to it), knockback, durability, exhaustion, the
+# attack and hit sounds, the swing and the attack strength reset. A stab before the attack strength is back is refused, the
+# sharpness bonus follows the attack strength. Alice stands at z=0.5 looking along +z, tilted 10 degrees down so that the line also meets a cow; every target has NoAI and plenty of health.
+level flat
+preload 3
+level_seed 5
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 10
+spawn_player Bob survival 8.5 -60 4.0 0 0
+give Alice mainhand minecraft:iron_spear
+tick 40
+dump packets:Alice:none packets:Bob:none events
+note stab at nothing: swing, attack sound, post piercing attack
+stab Alice
+dump events player:Alice inventory:Alice stats:Alice
+note the next stab is refused while the attack strength is below the item's minimum charge
+stab Alice
+dump events player:Alice
+tick 40
+spawn Cow minecraft:cow 0.5 -60 3.0 180 0 {NoAI:1b}
+entity_seed Cow 11
+attribute Cow minecraft:max_health 1000
+set Cow health 1000
+spawn Stand minecraft:armor_stand 0.5 -60 4.0 180 0 {NoAI:1b}
+entity_seed Stand 12
+spawn Husk minecraft:husk 0.5 -60 4.2 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Husk 13
+attribute Husk minecraft:max_health 1000
+set Husk health 1000
+tick 2
+dump entities
+note one stab pierces cow, armor stand and husk
+stab Alice
+dump events entities player:Alice inventory:Alice stats:Alice
+tick 40
+note a target closer than the minimum reach is missed, the others are still hit
+snap Cow 0.5 -60 1.2 180 0
+velocity Cow 0 0 0
+tick 40
+stab Alice
+dump events entities player:Alice
+note a survival player is hurt and knocked back, a creative one is invulnerable to the stab
+snap Alice 0.5 -60 0.5 0 10
+snap Bob 0.5 -60 3.0 0 0
+kill Cow
+kill Stand
+kill Husk
+tick 40
+stab Alice
+dump events player:Bob player:Alice
+tick 20
+dump player:Bob
+spawn_player Carol creative 0.5 -60 3.5 0 0
+tick 40
+stab Alice
+dump events player:Carol player:Bob player:Alice
+note a sharpened spear: the bonus and the base damage scale with the attack strength when the stab comes early (14 ticks after the last one, 12 is refused)
+give Alice mainhand minecraft:iron_spear[enchantments={"minecraft:sharpness":4}]
+tick 40
+snap Bob 30.5 -60 4.0 0 0
+snap Carol 32.5 -60 4.0 0 0
+spawn Cow2 minecraft:cow 0.5 -60 3.0 180 0 {NoAI:1b}
+entity_seed Cow2 14
+attribute Cow2 minecraft:max_health 1000
+set Cow2 health 1000
+tick 2
+stab Alice
+dump events entity:Cow2 player:Alice inventory:Alice
+tick 14
+stab Alice
+dump events entity:Cow2 player:Alice inventory:Alice
+tick 12
+stab Alice
+dump events entity:Cow2 player:Alice inventory:Alice
+note a spectator cannot stab
+spawn_player Dave spectator 20.5 -60 0.5 0 0
+give Dave mainhand minecraft:iron_spear
+tick 40
+stab Dave
+dump events player:Dave

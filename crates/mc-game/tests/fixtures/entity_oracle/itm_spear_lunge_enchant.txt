@@ -1,0 +1,48 @@
+C The difficulty did not change; it is already set to Normal
+# lunge 1 along +z
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.lunge_1 source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.4580000042915344 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=4.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+I Alice 0 minecraft:iron_spear*1/dmg=1
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.2500680313892367 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=4.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+# lunge 3 of a creative player looking east and 30 degrees down: only the horizontal part, no exhaustion
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.lunge_3 source=player vol=1.0 pitch=1.0
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=-1.189919028108534,-0.0784000015258789,0.0 rot=90.0,30.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+I Bob 0 minecraft:iron_spear*1
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=-0.6496958648111414,-0.0784000015258789,0.0 rot=90.0,30.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+# lunge 2 with a food level of 6: no effect at all
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=6 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+I Carol 0 minecraft:iron_spear*1
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=6 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+# lunge 2 with food level 7 and then in water
+EV sound at=19.850304135188857,-60.0,0.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.lunge_2 source=player vol=1.0 pitch=1.0
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.9160000085830688 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=7 sat=5.0 exh=8.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+I Carol 0 minecraft:iron_spear*1/dmg=1
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.5001360627784734 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=7 sat=4.0 exh=4.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+EV sound at=40.5,-61.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.splash source=player vol=0.047402017 pitch=0.82207626
+EV sound at=40.5,-61.067720002155305,0.9001088561848652 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.06696207 pitch=1.0119634
+EV sound at=40.5,-61.02687884738087,0.5175969772610717 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.009802519 pitch=1.0489563
+EV sound at=40.5,-61.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
+P Carol minecraft:player pos=40.5,-61.0,0.5 delta=0.0,-0.025066107517810018,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=270 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=7 sat=4.0 exh=4.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+I Carol 0 minecraft:iron_spear*1/dmg=1
+P Carol minecraft:player pos=40.5,-61.0,0.5 delta=0.0,-0.0250528863130593,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=269 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=7 sat=4.0 exh=4.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+# lunge 1 two stabs in a row: the second is refused, the third comes after the attack strength is back
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.lunge_1 source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.2500680313892367 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=4.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+I Alice 0 minecraft:iron_spear*1/dmg=2
+EV sound at=0.5,-60.0,0.7500680313892367 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.lunge_1 source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.4580000042915344 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=8.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+I Alice 0 minecraft:iron_spear*1/dmg=3
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.2500680313892367 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+# a spear with a single durability point left breaks with the lunge
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.lunge_1 source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.4580000042915344 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=8.0 xp=0/0/0.0 sel=0 main=empty
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.2500680313892367 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty

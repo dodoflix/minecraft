@@ -1,0 +1,57 @@
+# The charge of a spear in use (the sim players report their movement as a client does, `track_movement`): KineticWeapon.damageEntities every tick of the use (after the delay, while the conditions on the attacker speed and the
+# relative speed hold): Alice sprints along +z with the spear raised past targets at different distances; damage grows with the relative speed, the
+# knockback and dismount conditions need more speed, a stabbed entity is remembered for the contact cooldown (`kinetic=` of `dump use:`), the spear wears.
+# Bob charges with a raised movement speed, fast enough to dismount the husk riding the horse.
+level flat
+preload 4
+level_seed 8
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 10 sim
+spawn_player Bob survival 20.5 -60 0.5 0 10 sim
+give Alice mainhand minecraft:iron_spear
+give Bob mainhand minecraft:iron_spear
+attribute Bob minecraft:movement_speed 0.4
+track_movement Alice
+track_movement Bob
+spawn CowA minecraft:cow 0.5 -60 7.0 180 0 {NoAI:1b}
+entity_seed CowA 21
+attribute CowA minecraft:max_health 1000
+set CowA health 1000
+spawn StandA minecraft:armor_stand 0.5 -60 13.0 180 0 {NoAI:1b}
+entity_seed StandA 22
+spawn HuskA minecraft:husk 0.5 -60 20.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed HuskA 23
+attribute HuskA minecraft:max_health 1000
+set HuskA health 1000
+spawn Horse minecraft:horse 20.5 -60 22.0 180 0 {NoAI:1b,Tame:1b}
+entity_seed Horse 24
+attribute Horse minecraft:max_health 1000
+set Horse health 1000
+spawn Rider minecraft:husk 20.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Rider 25
+attribute Rider minecraft:max_health 1000
+set Rider health 1000
+ride Rider Horse
+tick 40
+dump entities
+note Alice raises the spear and sprints
+input Alice forward,sprint
+use Alice
+dump use:Alice packets:Alice:none
+watch player:Alice use:Alice entities
+tick 70
+watch off
+input Alice none
+release Alice
+dump use:Alice player:Alice inventory:Alice stats:Alice entities events
+tick 1
+dump use:Alice entities
+note Bob with the raised movement speed
+input Bob forward,sprint
+use Bob
+watch player:Bob use:Bob entities
+tick 25
+watch off
+input Bob none
+release Bob
+dump use:Bob player:Bob inventory:Bob entities events

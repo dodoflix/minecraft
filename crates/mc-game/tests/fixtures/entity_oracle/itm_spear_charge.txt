@@ -1,0 +1,840 @@
+C The difficulty did not change; it is already set to Normal
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+# Alice raises the spear and sprints
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=72000 ticks=0 kinetic=0
+T 41
+P Alice minecraft:player pos=0.5,-60.0,0.6300000101327896 delta=0.0,-0.0784000015258789,0.07098001377701824 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71999 ticks=1 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 42
+P Alice minecraft:player pos=0.5,-60.0,0.8309800340425975 delta=0.0,-0.0784000015258789,0.10973510580077596 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71998 ticks=2 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 43
+P Alice minecraft:player pos=0.5,-60.0,1.070715149976163 delta=0.0,-0.0784000015258789,0.1308953885035701 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71997 ticks=3 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 44
+P Alice minecraft:player pos=0.5,-60.0,1.3316105486125225 delta=0.0,-0.0784000015258789,0.1424489042012669 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71996 ticks=4 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 45
+P Alice minecraft:player pos=0.5,-60.0,1.604059462946579 delta=0.0,-0.0784000015258789,0.14875712450492573 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71995 ticks=5 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 46
+P Alice minecraft:player pos=0.5,-60.0,1.8828165975842943 delta=0.0,-0.0784000015258789,0.15220141319078664 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71994 ticks=6 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 47
+P Alice minecraft:player pos=0.5,-60.0,2.1650180209078704 delta=0.0,-0.0784000015258789,0.15408199503170122 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71993 ticks=7 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 48
+P Alice minecraft:player pos=0.5,-60.0,2.449100026072361 delta=0.0,-0.0784000015258789,0.15510879283610585 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71992 ticks=8 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 49
+P Alice minecraft:player pos=0.5,-60.0,2.7342088290412567 delta=0.0,-0.0784000015258789,0.15566942450242963 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71991 ticks=9 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 50
+P Alice minecraft:player pos=0.5,-60.0,3.019878263676476 delta=0.0,-0.0784000015258789,0.15597552942779727 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71990 ticks=10 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 51
+P Alice minecraft:player pos=0.5,-60.0,3.305853803237063 delta=0.0,-0.0784000015258789,0.156142662736461 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71989 ticks=11 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 52
+P Alice minecraft:player pos=0.5,-60.0,3.5919964761063135 delta=0.0,-0.0784000015258789,0.15623391753359087 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Alice hand=main item=minecraft:iron_spear*1 remaining=71988 ticks=12 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 53
+P Alice minecraft:player pos=0.5,-60.0,3.8157368367592577 delta=0.0,-0.0784000015258789,0.12216225110597395 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71987 ticks=13 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=10/20 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 54
+P Alice minecraft:player pos=0.5,-60.0,4.067899097998021 delta=0.0,-0.0784000015258789,0.1376806106283296 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71986 ticks=14 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=9/19 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 55
+P Alice minecraft:player pos=0.5,-60.0,4.33557971875914 delta=0.0,-0.0784000015258789,0.14615363591169994 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71985 ticks=15 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=8/18 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 56
+P Alice minecraft:player pos=0.5,-60.0,4.61173336480363 delta=0.0,-0.0784000015258789,0.15077990825377383 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71984 ticks=16 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=7/17 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 57
+P Alice minecraft:player pos=0.5,-60.0,4.892513283190193 delta=0.0,-0.0784000015258789,0.15330585324594134 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71983 ticks=17 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=6/16 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 58
+P Alice minecraft:player pos=0.5,-60.0,5.175819146568924 delta=0.0,-0.0784000015258789,0.15468501937185858 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71982 ticks=18 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=5/15 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 59
+P Alice minecraft:player pos=0.5,-60.0,5.460504176073572 delta=0.0,-0.0784000015258789,0.15543804416407517 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71981 ticks=19 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=4/14 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 60
+P Alice minecraft:player pos=0.5,-60.0,5.745942230370437 delta=0.0,-0.0784000015258789,0.15584919574838174 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71980 ticks=20 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=3/13 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 61
+P Alice minecraft:player pos=0.5,-60.0,6.031791436251608 delta=0.0,-0.0784000015258789,0.1560736845394881 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71979 ticks=21 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=2/12 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 62
+P Alice minecraft:player pos=0.5,-60.0,6.317865130923886 delta=0.0,-0.0784000015258789,0.11490052655629862 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71978 ticks=22 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.441295734837835 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=1/11 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 63
+P Alice minecraft:player pos=0.5,-60.0,6.521469938735604 delta=0.0,-0.0784000015258789,0.07658030382696493 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71977 ticks=23 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.5171793978659215 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/10 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 64
+P Alice minecraft:player pos=0.5,-60.0,6.6934623185446425 delta=0.0,-0.0784000015258789,0.06622492727157894 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71976 ticks=24 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.5794502550284372 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/9 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 65
+P Alice minecraft:player pos=0.5,-60.0,6.862004332937211 delta=0.0,-0.0784000015258789,0.07345006624854816 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71975 ticks=25 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.625707062338855 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/8 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 66
+P Alice minecraft:player pos=0.5,-60.0,7.0468805250199305 delta=0.0,-0.0784000015258789,0.11176836826606709 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71974 ticks=26 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.6334549909732974 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/7 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 67
+P Alice minecraft:player pos=0.5,-60.0,7.299474859082963 delta=0.0,-0.0784000015258789,0.16527867090835255 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71973 ticks=27 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.5952668868185513 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/6 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 68
+P Alice minecraft:player pos=0.5,-60.0,7.6221156886146755 delta=0.0,-0.0784000015258789,0.2155990693165013 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71972 ticks=28 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.5284675823974638 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/5 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 69
+P Alice minecraft:player pos=0.5,-60.0,8.007151923994483 delta=0.0,-0.0784000015258789,0.2102298089361199 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=1 remaining=71971 ticks=29 kinetic=1
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/4 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 70
+P Alice minecraft:player pos=0.5,-60.0,8.263289819488945 delta=0.0,-0.0784000015258789,0.1398513071840728 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71970 ticks=30 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/3 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,13.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 71
+P Alice minecraft:player pos=0.5,-60.0,8.533141136805806 delta=0.0,-0.0784000015258789,0.14733883636879985 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71969 ticks=31 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/2 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.639199994802475,13.400000005960464 delta=0.0,0.2751840104494096,0.2184000286221508 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 72
+P Alice minecraft:player pos=0.5,-60.0,8.810479983307395 delta=0.0,-0.0784000015258789,0.15142702777851502 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71968 ticks=32 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/1 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.36401598435307,13.618400034582615 delta=0.0,0.19128033396326094,0.1987440317739259 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 73
+P Alice minecraft:player pos=0.5,-60.0,9.0919070212187 delta=0.0,-0.0784000015258789,0.15365918054748992 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71967 ticks=33 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.172735650389804,13.81714406635654 delta=0.0,0.10905472940649964,0.18085707412654226 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 74
+P Alice minecraft:player pos=0.5,-60.0,9.37556621189898 delta=0.0,-0.0784000015258789,0.15487793610091188 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71966 ticks=34 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.0636809209833,13.998001140483083 delta=0.0,0.02847363537254463,0.16457994219831898 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 75
+P Alice minecraft:player pos=0.5,-60.0,9.66044415813268 delta=0.0,-0.0784000015258789,0.15554337671037294 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71965 ticks=35 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.03520728561076,14.162581082681402 delta=0.0,-0.05049583831769367,0.14976775171675102 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 76
+P Alice minecraft:player pos=0.5,-60.0,9.945987544975843 delta=0.0,-0.0784000015258789,0.15590670732534048 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71964 ticks=36 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.085703123928454,14.312348834398154 delta=0.0,-0.1278859240403504,0.13628865799005904 rot=180.0,0.0 og=0 fall=0.05049583688378334 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 77
+P Alice minecraft:player pos=0.5,-60.0,10.231894262433974 delta=0.0,-0.0784000015258789,0.15610508586415495 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71963 ticks=37 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.2135890479688,14.448637492388213 delta=0.0,-0.2037282095246527,0.12402268234526603 rot=180.0,0.0 og=0 fall=0.178381759673357 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 78
+P Alice minecraft:player pos=0.5,-60.0,10.517999358430918 delta=0.0,-0.0784000015258789,0.15621340055892868 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71962 ticks=38 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.41731725749346,14.57266017473348 delta=0.0,-0.2780536507458458,0.11286064418681638 rot=180.0,0.0 og=0 fall=0.38210997357964516 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 79
+P Alice minecraft:player pos=0.5,-60.0,10.804212769122637 delta=0.0,-0.0784000015258789,0.15627254038914437 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71961 ticks=39 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.695370908239305,14.685520818920297 delta=0.0,-0.35089258456026035,0.10270318916989109 rot=180.0,0.0 og=0 fall=0.6601636148989201 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 80
+P Alice minecraft:player pos=0.5,-60.0,11.027976303488913 delta=0.0,-0.0784000015258789,0.12217490395492293 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71960 ticks=40 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,14.788224008090188 delta=0.0,0.36080000519752503,0.44672995837951407 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 81
+P Alice minecraft:player pos=0.5,-60.0,11.280151217576625 delta=0.0,-0.0784000015258789,0.13768751908465818 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71959 ticks=41 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.639199994802475,15.234953966469702 delta=0.0,0.2751840104494096,0.2439145856065347 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 82
+P Alice minecraft:player pos=0.5,-60.0,11.547838746794072 delta=0.0,-0.0784000015258789,0.14615740792929346 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71958 ticks=42 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.36401598435307,15.478868552076236 delta=0.0,0.19128033396326094,0.22196227929886117 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 83
+P Alice minecraft:player pos=0.5,-60.0,11.823996164856155 delta=0.0,-0.0784000015258789,0.15078196777561909 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71957 ticks=43 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.172735650389804,15.700830831375097 delta=0.0,0.10905472940649964,0.2019856799831561 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 84
+P Alice minecraft:player pos=0.5,-60.0,12.104778142764564 delta=0.0,-0.0784000015258789,0.15330697774499943 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71956 ticks=44 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.0636809209833,15.902816511358253 delta=0.0,0.02847363537254463,0.18380697408195734 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 85
+P Alice minecraft:player pos=0.5,-60.0,12.388085130642354 delta=0.0,-0.0784000015258789,0.1546856333484156 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71955 ticks=45 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.03520728561076,16.08662348544021 delta=0.0,-0.05049583831769367,0.1672643512351109 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 86
+P Alice minecraft:player pos=0.5,-60.0,12.67277077412356 delta=0.0,-0.0784000015258789,0.1554383793953142 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71954 ticks=46 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.085703123928454,16.25388783667532 delta=0.0,-0.1278859240403504,0.1522105640106331 rot=180.0,0.0 og=0 fall=0.05049583688378334 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 87
+P Alice minecraft:player pos=0.5,-60.0,12.958209163651663 delta=0.0,-0.0784000015258789,0.15584937878465957 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71953 ticks=47 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.2135890479688,16.406098400685956 delta=0.0,-0.2037282095246527,0.13851161724155703 rot=180.0,0.0 og=0 fall=0.178381759673357 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 88
+P Alice minecraft:player pos=0.5,-60.0,13.244058552569111 delta=0.0,-0.0784000015258789,0.1560737844773074 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71952 ticks=48 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.41731725749346,16.544610017927514 delta=0.0,-0.2780536507458458,0.12604557532242863 rot=180.0,0.0 og=0 fall=0.38210997357964516 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 89
+P Alice minecraft:player pos=0.5,-60.0,13.530132347179208 delta=0.0,-0.0784000015258789,0.1561963099997248 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=3 remaining=71951 ticks=49 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.695370908239305,16.670655593249943 delta=0.0,-0.35089258456026035,0.11470147684908683 rot=180.0,0.0 og=0 fall=0.6601636148989201 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 90
+P Alice minecraft:player pos=0.5,-60.0,13.753850143311833 delta=0.0,-0.0784000015258789,0.1221499308764484 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=4
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=4 remaining=71950 ticks=50 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,16.78535707009903 delta=0.0,0.36080000519752503,0.45218917943088194 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 91
+P Alice minecraft:player pos=0.5,-60.0,14.006000084321071 delta=0.0,-0.0784000015258789,0.13767388378222734 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=4
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=4 remaining=71949 ticks=51 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.639199994802475,17.237546249529913 delta=0.0,0.2751840104494096,0.24689532064680178 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 92
+P Alice minecraft:player pos=0.5,-60.0,14.273673978236088 delta=0.0,-0.0784000015258789,0.1461499630533015 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=4
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=4 remaining=71948 ticks=52 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.36401598435307,17.484441570176713 delta=0.0,0.19128033396326094,0.2246747482636771 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 93
+P Alice minecraft:player pos=0.5,-60.0,14.54982395142218 delta=0.0,-0.0784000015258789,0.15077790287285536 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=4
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=4 remaining=71947 ticks=53 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.172735650389804,17.70911631844039 delta=0.0,0.10905472940649964,0.20445402681227592 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 94
+P Alice minecraft:player pos=0.5,-60.0,14.830601864427825 delta=0.0,-0.0784000015258789,0.15330475830783266 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=4
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=4 remaining=71946 ticks=54 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.0636809209833,17.913570345252666 delta=0.0,0.02847363537254463,0.18605316976119132 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 95
+P Alice minecraft:player pos=0.5,-60.0,15.113906632868447 delta=0.0,-0.0784000015258789,0.15468442153558176 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=4
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=4 remaining=71945 ticks=55 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.03520728561076,18.099623515013857 delta=0.0,-0.05049583831769367,0.16930838936212267 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 96
+P Alice minecraft:player pos=0.5,-60.0,15.336717295922586 delta=0.0,-0.0784000015258789,0.12165463615806536 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.5 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=5
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=5 remaining=71944 ticks=56 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.085703123928454,18.26893190437598 delta=0.0,-0.1278859240403504,0.15407063875982085 rot=180.0,0.0 og=0 fall=0.05049583688378334 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=10/20 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 97
+P Alice minecraft:player pos=0.5,-60.0,15.588371942213442 delta=0.0,-0.0784000015258789,0.13740345283457892 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.5 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=5
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=5 remaining=71943 ticks=57 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.2135890479688,18.423002543135798 delta=0.0,-0.2037282095246527,0.14020428531210027 rot=180.0,0.0 og=0 fall=0.178381759673357 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=9/19 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 98
+P Alice minecraft:player pos=0.5,-60.0,15.855775405180811 delta=0.0,-0.0784000015258789,0.14600230773873488 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.5 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=5
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=5 remaining=71942 ticks=58 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.41731725749346,18.5632068284479 delta=0.0,-0.2780536507458458,0.12758590331101496 rot=180.0,0.0 og=0 fall=0.38210997357964516 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=8/18 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 99
+P Alice minecraft:player pos=0.5,-60.0,16.131777723052334 delta=0.0,-0.0784000015258789,0.1506972830617378 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.5 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=5
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=5 remaining=71941 ticks=59 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.695370908239305,18.690792731758915 delta=0.0,-0.35089258456026035,0.11610317535909709 rot=180.0,0.0 og=0 fall=0.6601636148989201 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=7/17 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 100
+P Alice minecraft:player pos=0.5,-60.0,16.352196103022166 delta=0.0,-0.0784000015258789,0.12034844944231705 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=6
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=6 remaining=71940 ticks=60 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,18.80689590711801 delta=0.0,0.36080000519752503,0.45282695227131714 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=6/16 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 101
+P Alice minecraft:player pos=0.5,-60.0,16.602544562597274 delta=0.0,-0.0784000015258789,0.1366902748049428 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=6
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=6 remaining=71939 ticks=61 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.639199994802475,19.259722859389328 delta=0.0,0.2751840104494096,0.24724354465812654 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=5/15 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 102
+P Alice minecraft:player pos=0.5,-60.0,16.869234847535004 delta=0.0,-0.0784000015258789,0.1456129124893243 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=6
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=6 remaining=71938 ticks=62 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.36401598435307,19.506966404047454 delta=0.0,0.19128033396326094,0.22499163212311515 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=4/14 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 103
+P Alice minecraft:player pos=0.5,-60.0,17.144847770157117 delta=0.0,-0.0784000015258789,0.1504846732308644 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=6
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=6 remaining=71937 ticks=63 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.172735650389804,19.731958036170568 delta=0.0,0.10905472940649964,0.20474239113267517 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=3/13 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 104
+P Alice minecraft:player pos=0.5,-60.0,17.42533245352077 delta=0.0,-0.0784000015258789,0.15314465490470916 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=6
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=6 remaining=71936 ticks=64 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.0636809209833,19.936700427303244 delta=0.0,0.02847363537254463,0.1863155813003173 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=2/12 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 105
+P Alice minecraft:player pos=0.5,-60.0,17.708477118558267 delta=0.0,-0.0784000015258789,0.1545970050673227 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=6
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=6 remaining=71935 ticks=65 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.03520728561076,20.12301600860356 delta=0.0,-0.05049583831769367,0.16954718386960932 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.096 abs=0.0 hurt=1/11 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 106
+P Alice minecraft:player pos=0.5,-60.0,17.93123533173145 delta=0.0,-0.0784000015258789,0.12162599851973735 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.70000005 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=7
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=7 remaining=71934 ticks=66 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.085703123928454,20.29256319247317 delta=0.0,-0.1278859240403504,0.15428794176789634 rot=180.0,0.0 og=0 fall=0.05049583688378334 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=10/20 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 107
+P Alice minecraft:player pos=0.5,-60.0,18.182861340383976 delta=0.0,-0.0784000015258789,0.13738781668223563 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.70000005 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=7
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=7 remaining=71933 ticks=67 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.2135890479688,20.44685113424107 delta=0.0,-0.2037282095246527,0.14040203105514798 rot=180.0,0.0 og=0 fall=0.178381759673357 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=9/19 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 108
+P Alice minecraft:player pos=0.5,-60.0,18.450249167199 delta=0.0,-0.0784000015258789,0.14599377039856384 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.70000005 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=7
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=7 remaining=71932 ticks=68 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.41731725749346,20.587253165296218 delta=0.0,-0.2780536507458458,0.12776585194237447 rot=180.0,0.0 og=0 fall=0.38210997357964516 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=8/18 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 109
+P Alice minecraft:player pos=0.5,-60.0,18.726242947730356 delta=0.0,-0.0784000015258789,0.15069262167346298 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.70000005 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=7
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=7 remaining=71931 ticks=69 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.695370908239305,20.715019017238593 delta=0.0,-0.35089258456026035,0.11626692861835358 rot=180.0,0.0 og=0 fall=0.6601636148989201 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=7/17 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 110
+P Alice minecraft:player pos=0.5,-60.0,18.94665853086722 delta=0.0,-0.0784000015258789,0.12034692237134084 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.8000001 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=8
+USE Alice hand=main item=minecraft:iron_spear*1/dmg=8 remaining=71930 ticks=70 kinetic=3
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,20.831285945856948 delta=0.0,0.36080000519752503,0.4529014600064261 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=6/16 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+USE Alice hand=main item=empty remaining=0 ticks=0 kinetic=0
+P Alice minecraft:player pos=0.5,-60.0,18.94665853086722 delta=0.0,-0.0784000015258789,0.12034692237134084 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.8000001 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=8
+I Alice 0 minecraft:iron_spear*1/dmg=8
+STAT Alice minecraft.custom:minecraft.damage_dealt 178
+STAT Alice minecraft.custom:minecraft.play_time 110
+STAT Alice minecraft.custom:minecraft.time_since_death 110
+STAT Alice minecraft.custom:minecraft.time_since_rest 110
+STAT Alice minecraft.custom:minecraft.total_world_time 110
+STAT Alice minecraft.used:minecraft.iron_spear 8
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,20.831285945856948 delta=0.0,0.36080000519752503,0.4529014600064261 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=6/16 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=20.5,-60.0,22.0 r=16.0 ex=0 event=minecraft:entity.horse.ambient source=neutral vol=0.8 pitch=1.0854889
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.use source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,7.0 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=0.89182925
+EV sound at=0.5,-60.0,2.449100026072361 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-59.25624996423721,22.0 r=16.0 ex=0 event=minecraft:entity.husk.ambient source=hostile vol=1.0 pitch=1.1126026
+EV sound at=0.5,-60.0,7.0 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.9680815
+EV sound at=0.5,-60.0,4.067899097998021 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,5.745942230370437 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,7.299474859082963 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,9.0919070212187 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,10.517999358430918 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,20.0 r=16.0 ex=0 event=minecraft:entity.husk.ambient source=hostile vol=1.0 pitch=0.9565108
+EV sound at=0.5,-60.0,14.788224008090188 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,12.388085130642354 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,16.78535707009903 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,14.006000084321071 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,20.0 r=16.0 ex=0 event=minecraft:entity.husk.hurt source=hostile vol=1.0 pitch=1.0155823
+EV sound at=0.5,-60.0,15.588371942213442 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,18.80689590711801 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,17.42533245352077 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,20.0 r=16.0 ex=0 event=minecraft:entity.husk.hurt source=hostile vol=1.0 pitch=1.1802351
+EV sound at=0.5,-60.0,20.831285945856948 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,18.94665853086722 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+USE Alice hand=main item=empty remaining=0 ticks=0 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.639199994802475,21.284187405863374 delta=0.0,0.2751840104494096,0.24728422588622126 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=5/15 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+# Bob with the raised movement speed
+T 112
+P Bob minecraft:player pos=20.5,-60.0,1.0199999809265137 delta=0.0,-0.0784000015258789,0.2839200225639331 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71999 ticks=1 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.36401598435307,21.531471631749596 delta=0.0,0.19128033396326094,0.22502865204174827 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=4/14 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 113
+P Bob minecraft:player pos=20.5,-60.0,1.8239199844169605 delta=0.0,-0.0784000015258789,0.4389403728898616 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71998 ticks=2 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.172735650389804,21.756500283791343 delta=0.0,0.10905472940649964,0.20477607925960217 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=3/13 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 114
+P Bob minecraft:player pos=20.5,-60.0,2.782860338233336 delta=0.0,-0.0784000015258789,0.5235814939991071 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71997 ticks=3 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.0636809209833,21.961276363050946 delta=0.0,0.02847363537254463,0.18634623749670437 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=2/12 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 115
+P Bob minecraft:player pos=20.5,-60.0,3.8264418131589566 delta=0.0,-0.0784000015258789,0.5697955514926394 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71996 ticks=4 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.03520728561076,22.14762260054765 delta=0.0,-0.05049583831769367,0.16957508100912555 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=1/11 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 116
+P Bob minecraft:player pos=20.5,-60.0,4.91623734557811 delta=0.0,-0.0784000015258789,0.5950284298149732 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71995 ticks=5 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.085703123928454,22.317197681556774 delta=0.0,-0.1278859240403504,0.15431332816558774 rot=180.0,0.0 og=0 fall=0.05049583688378334 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/10 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 117
+P Bob minecraft:player pos=20.5,-60.0,6.031265756319597 delta=0.0,-0.0784000015258789,0.6088055829792199 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71994 ticks=6 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.2135890479688,22.471511009722363 delta=0.0,-0.2037282095246527,0.14042513267771292 rot=180.0,0.0 og=0 fall=0.178381759673357 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/9 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 118
+P Bob minecraft:player pos=20.5,-60.0,7.16007132022533 delta=0.0,-0.0784000015258789,0.6163279094806366 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71993 ticks=7 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.41731725749346,22.611936142400076 delta=0.0,-0.2780536507458458,0.12778687441951442 rot=180.0,0.0 og=0 fall=0.38210997357964516 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/8 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 119
+P Bob minecraft:player pos=20.5,-60.0,8.29639921063248 delta=0.0,-0.0784000015258789,0.6204351002274713 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71992 ticks=8 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-59.695370908239305,22.73972301681959 delta=0.0,-0.35089258456026035,0.11628605907310227 rot=180.0,0.0 og=0 fall=0.6601636148989201 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/7 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 120
+P Bob minecraft:player pos=20.5,-60.0,9.436834291786464 delta=0.0,-0.0784000015258789,0.6226776266357182 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71991 ticks=9 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,22.85600907589269 delta=0.0,-0.0784000015258789,0.10582031680624633 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/6 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 121
+P Bob minecraft:player pos=20.5,-60.0,10.579511899348697 delta=0.0,-0.0784000015258789,0.6239020461968408 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71990 ticks=10 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,22.961829392698935 delta=0.0,-0.0784000015258789,0.05777789968726536 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/5 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 122
+P Bob minecraft:player pos=20.5,-60.0,11.723413926472052 delta=0.0,-0.0784000015258789,0.6245705793548655 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71989 ticks=11 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.0196072923862 delta=0.0,-0.0784000015258789,0.03154673689348327 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/4 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 123
+P Bob minecraft:player pos=20.5,-60.0,12.86798448675343 delta=0.0,-0.0784000015258789,0.6249355985015449 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71988 ticks=12 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.051154029279683 delta=0.0,-0.0784000015258789,0.017224520344515163 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/3 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 124
+P Bob minecraft:player pos=20.5,-60.0,14.01292006618149 delta=0.0,-0.0784000015258789,0.6251348989787812 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71987 ticks=13 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.0683785496242 delta=0.0,-0.0784000015258789,0.009404589200473027 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/2 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 125
+P Bob minecraft:player pos=20.5,-60.0,15.158054946086786 delta=0.0,-0.0784000015258789,0.6252437170519917 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71986 ticks=14 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.07778313882467 delta=0.0,-0.0784000015258789,0.005134906299891132 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/1 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 126
+P Bob minecraft:player pos=20.5,-60.0,16.30329864406529 delta=0.0,-0.0784000015258789,0.6253031317268658 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1
+USE Bob hand=main item=minecraft:iron_spear*1 remaining=71985 ticks=15 kinetic=0
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0028036591653929368 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Rider minecraft:husk pos=20.5,-59.25624996423721,22.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 127
+P Bob minecraft:player pos=20.5,-60.0,17.048407752413475 delta=0.0,-0.0784000015258789,0.4068296204124386 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71984 ticks=16 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=10/20 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=10/20 death=0 fx=-
+T 128
+P Bob minecraft:player pos=20.5,-60.0,17.975237353752426 delta=0.0,-0.0784000015258789,0.5060490211099915 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71983 ticks=17 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=9/19 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=9/19 death=0 fx=-
+T 129
+P Bob minecraft:player pos=20.5,-60.0,19.00128635578893 delta=0.0,-0.0784000015258789,0.5602228201832844 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71982 ticks=18 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=8/18 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=8/18 death=0 fx=-
+T 130
+P Bob minecraft:player pos=20.5,-60.0,20.08150915689873 delta=0.0,-0.0784000015258789,0.5898017179129691 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71981 ticks=19 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=7/17 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=7/17 death=0 fx=-
+T 131
+P Bob minecraft:player pos=20.5,-60.0,21.191310855738212 delta=0.0,-0.0784000015258789,0.5609882246825889 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71980 ticks=20 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.44496357922712676 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=6/16 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=6/16 death=0 fx=-
+T 132
+P Bob minecraft:player pos=20.5,-60.0,22.22733548808065 delta=0.0,-0.0784000015258789,0.5895093710267046 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71979 ticks=21 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4660872964300574 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=5/15 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=5/15 death=0 fx=-
+T 133
+P Bob minecraft:player pos=20.5,-60.0,23.3606846960976 delta=0.0,-0.0784000015258789,0.6188087394535157 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71978 ticks=22 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4422474403663258 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=4/14 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=4/14 death=0 fx=-
+T 134
+P Bob minecraft:player pos=20.5,-60.0,24.49949341647763 delta=0.0,-0.0784000015258789,0.6217896335499958 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71977 ticks=23 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4422474403663258 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=3/13 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=3/13 death=0 fx=-
+T 135
+P Bob minecraft:player pos=20.5,-60.0,25.64128303095414 delta=0.0,-0.0784000015258789,0.6234172019157203 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71976 ticks=24 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4422474403663258 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=2/12 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=2/12 death=0 fx=-
+T 136
+P Bob minecraft:player pos=20.5,-60.0,26.784700213796373 delta=0.0,-0.0784000015258789,0.6243058543466251 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+USE Bob hand=main item=minecraft:iron_spear*1/dmg=2 remaining=71975 ticks=25 kinetic=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4422474403663258 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=1/11 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=1/11 death=0 fx=-
+USE Bob hand=main item=empty remaining=0 ticks=0 kinetic=0
+P Bob minecraft:player pos=20.5,-60.0,26.784700213796373 delta=0.0,-0.0784000015258789,0.6243058543466251 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
+I Bob 0 minecraft:iron_spear*1/dmg=2
+E CowA minecraft:cow pos=0.5,-60.0,7.0 delta=0.0,0.0,0.4890304264669467 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.0 abs=0.0 hurt=0/0 death=0 fx=-
+E StandA minecraft:armor_stand pos=0.5,-60.0,23.08291804512456 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E HuskA minecraft:husk pos=0.5,-60.0,20.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=0/0 death=0 fx=-
+E Horse minecraft:horse pos=20.5,-60.0,22.0 delta=0.0,0.0,0.4422474403663258 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.0 abs=0.0 hurt=1/11 death=0 fx=-
+E Rider minecraft:husk pos=21.498247199420803,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=978.352 abs=0.0 hurt=1/11 death=0 fx=-
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.use source=player vol=1.0 pitch=1.0
+EV sound at=20.5,-60.0,2.782860338233336 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,4.91623734557811 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,6.031265756319597 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,8.29639921063248 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,22.85600907589269 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,9.436834291786464 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,10.579511899348697 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=0.5,-60.0,23.0196072923862 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,12.86798448675343 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,14.01292006618149 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,16.30329864406529 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,22.0 r=16.0 ex=0 event=minecraft:entity.horse.hurt source=neutral vol=0.8 pitch=1.0081125
+EV sound at=20.5,-59.25624996423721,22.0 r=16.0 ex=0 event=minecraft:entity.husk.hurt source=hostile vol=1.0 pitch=0.9126831
+EV sound at=20.5,-60.0,17.975237353752426 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,19.00128635578893 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,21.191310855738212 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,22.22733548808065 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,24.49949341647763 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,25.64128303095414 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0

@@ -16,10 +16,12 @@ use mc_game::world::container::Container as _;
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::player::item_use::SWING_ANIMATION_DEFAULT;
 use mc_game::world::entity::{Entity as _, EntityId, ServerPlayer};
-use mc_game::world::item::{InteractionHand, InteractionResult, ItemStack, SwingSource};
+use mc_game::world::item::{
+    InteractionHand, InteractionResult, ItemStack, SwingSource, piercing_weapon,
+};
 use mc_game::world::level::block::BlockStateExt;
 use mc_game::world::level::{BlockGetter, LevelReader};
-use mc_protocol::components::{ATTACK_ANIMATION, INTERACT_ANIMATION};
+use mc_protocol::components::{ATTACK_ANIMATION, INTERACT_ANIMATION, PIERCING_WEAPON};
 use mc_protocol::packets::play::{ClientboundBlockUpdatePacket, SwingAnimation};
 use std::collections::HashMap;
 
@@ -363,6 +365,20 @@ fn swap(level: &mut ServerLevel, p: &mut ServerPlayer) {
     p.stop_using_item(level);
 }
 
+/// `STAB` of `handlePlayerAction`: the spear in the main hand attacks along the view line.
+fn stab(level: &mut ServerLevel, p: &mut ServerPlayer) {
+    if p.is_spectator() {
+        return;
+    }
+    let item = p.get_item_in_hand(InteractionHand::MainHand);
+    if p.cannot_attack_with_item(&item, 5) {
+        return;
+    }
+    if let Some(piercing) = item.get(&PIERCING_WEAPON) {
+        piercing_weapon::attack(piercing, level, p, EquipmentSlot::MainHand);
+    }
+}
+
 /// `handleSetCarriedItem`: a different hotbar slot ends the use of a main hand item.
 fn select(level: &mut ServerLevel, p: &mut ServerPlayer, slot: i32) {
     assert!((0..9).contains(&slot), "hotbar slot {slot}");
@@ -435,9 +451,10 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
             h.boot();
             with_player(h, &a[1], swap);
         }
-        "stab" => panic!(
-            "scenario command `stab` is not replayed: Not implemented: PiercingWeapon.attack / Player.stabAttack for the STAB action"
-        ),
+        "stab" => {
+            h.boot();
+            with_player(h, &a[1], stab);
+        }
         // dispense X Y Z   BlockStateBase.tick of the block there: a dispenser or dropper dispenses once
         "dispense" => {
             h.boot();
@@ -471,8 +488,11 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             super::entity_scenario::item_text(p.get_use_item()),
             p.get_use_item_remaining_ticks(),
             p.get_ticks_using_item(),
-            // Not implemented: `recentKineticEnemies` (spear lunge bookkeeping), always empty here
-            0
+            p.player
+                .living
+                .recent_kinetic_enemies
+                .as_ref()
+                .map_or(0, |m| m.len())
         )],
         // CD REF group=ID remaining=endTime-tickCount
         "cooldowns" => p
