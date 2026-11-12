@@ -2,8 +2,8 @@
 //!
 //! Not implemented: the `bootStrap()` entries other than armor stands, boats, chests, projectiles that are
 //! `ProjectileItem`s, water bottles, shulker boxes, TNT and flint and steel (eggs, thrown potions, buckets, bone meal,
-//! minecarts, glass bottles, honeycomb, shears and more) have no behavior, so those items are dropped like any other
-//! item. Equipment, spawn eggs and sulfur cube swallowing come from the component-based defaults.
+//! minecarts, honeycomb and more) have no behavior, so those items are dropped like any other item. Equipment, spawn
+//! eggs and sulfur cube swallowing come from the component-based defaults.
 
 mod armor_stand;
 mod boat;
