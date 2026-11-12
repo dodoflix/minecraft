@@ -5,7 +5,7 @@ preload 2
 tick 2
 watch events
 block 0 -60 0 minecraft:structure_block[mode=save]
-be_nbt 0 -60 0 {name:"audit:probe",posX:1,posY:0,posZ:1,sizeX:3,sizeY:2,sizeZ:3,mode:"SAVE",showboundingbox:1b}
+be_nbt 0 -60 0 {name:"test:template",posX:1,posY:0,posZ:1,sizeX:3,sizeY:2,sizeZ:3,mode:"SAVE",showboundingbox:1b}
 tick 2
 dump blocks:-1,-61,-1,5,-58,5 be:0,-60,0 beu:0,-60,0 events ticks
 note save mode with the area built: powering it saves (the template stays in the structure manager, the block entity keeps the name)
@@ -18,24 +18,24 @@ tick 2
 dump be:0,-60,0 events
 note corner and data modes
 block 10 -60 0 minecraft:structure_block[mode=corner]
-be_nbt 10 -60 0 {name:"audit:probe",mode:"CORNER"}
+be_nbt 10 -60 0 {name:"test:template",mode:"CORNER"}
 block 14 -60 0 minecraft:structure_block[mode=data]
-be_nbt 14 -60 0 {name:"audit:probe",mode:"DATA",metadata:"chest"}
+be_nbt 14 -60 0 {name:"test:template",mode:"DATA",metadata:"chest"}
 tick 2
 dump blocks:9,-61,-1,15,-59,1 be:10,-60,0 be:14,-60,0 beu:10,-60,0 beu:14,-60,0 events ticks
 note load mode: the saved structure is placed above the block (size matches), with rotation, mirror and integrity, and a missing structure only reports
 block 20 -60 0 minecraft:structure_block[mode=load]
-be_nbt 20 -60 0 {name:"audit:probe",mode:"LOAD",posX:0,posY:1,posZ:0,sizeX:3,sizeY:2,sizeZ:3,ignoreEntities:1b,showair:0b}
+be_nbt 20 -60 0 {name:"test:template",mode:"LOAD",posX:0,posY:1,posZ:0,sizeX:3,sizeY:2,sizeZ:3,ignoreEntities:1b,showair:0b}
 block 20 -60 -1 minecraft:redstone_block
 tick 3
 dump blocks:19,-61,-2,24,-57,5 be:20,-60,0 beu:20,-60,0 events ticks
 block 30 -60 0 minecraft:structure_block[mode=load]
-be_nbt 30 -60 0 {name:"audit:probe",mode:"LOAD",posX:0,posY:1,posZ:0,sizeX:3,sizeY:2,sizeZ:3,rotation:"CLOCKWISE_90",mirror:"LEFT_RIGHT",integrity:0.5f,seed:12345L,ignoreEntities:1b}
+be_nbt 30 -60 0 {name:"test:template",mode:"LOAD",posX:0,posY:1,posZ:0,sizeX:3,sizeY:2,sizeZ:3,rotation:"CLOCKWISE_90",mirror:"LEFT_RIGHT",integrity:0.5f,seed:12345L,ignoreEntities:1b}
 block 30 -60 -1 minecraft:redstone_block
 tick 3
 dump blocks:29,-61,-2,34,-57,5 be:30,-60,0 events ticks
 block 40 -60 0 minecraft:structure_block[mode=load]
-be_nbt 40 -60 0 {name:"audit:missing",mode:"LOAD",posX:0,posY:1,posZ:0}
+be_nbt 40 -60 0 {name:"test:missing",mode:"LOAD",posX:0,posY:1,posZ:0}
 block 40 -60 -1 minecraft:redstone_block
 tick 3
 dump blocks:39,-61,-2,41,-57,2 be:40,-60,0 beu:40,-60,0 events ticks

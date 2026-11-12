@@ -1,4 +1,4 @@
-# re-audit probe (frames are loaded from NBT, which does not notify neighbours: a stone placed next to each comparator makes it re-read its input): ComparatorBlock.getInputSignal with an item frame behind a conductor block (getItemFrame: exactly one frame in the cell whose direction equals the comparator facing), frame rotation, empty frame, two frames, wrong-facing frame, subtract mode.
+# Frames are loaded from NBT, which does not notify neighbours: a stone placed next to each comparator makes it re-read its input. ComparatorBlock.getInputSignal with an item frame behind a conductor block (getItemFrame: exactly one frame in the cell whose direction equals the comparator facing), frame rotation, empty frame, two frames, wrong-facing frame, subtract mode.
 level flat
 preload 2
 level_seed 5

@@ -50,17 +50,17 @@ B 5 -61 2 minecraft:grass_block[snowy=false]
 B 5 -61 3 minecraft:grass_block[snowy=false]
 B 5 -61 4 minecraft:grass_block[snowy=false]
 B 5 -61 5 minecraft:grass_block[snowy=false]
-BE 0 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"audit:probe",posX:1,posY:0,posZ:1,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:0,y:-60,z:0}
-BEU 0 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"audit:probe",posX:1,posY:0,posZ:1,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b}
+BE 0 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"test:template",posX:1,posY:0,posZ:1,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:0,y:-60,z:0}
+BEU 0 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"test:template",posX:1,posY:0,posZ:1,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b}
 # save mode with the area built: powering it saves (the template stays in the structure manager, the block entity keeps the name)
 T 5
 T 6
 T 7
-BE 0 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"audit:probe",posX:1,posY:0,posZ:1,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:0,y:-60,z:0}
-BEU 0 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"audit:probe",posX:1,posY:0,posZ:1,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b}
+BE 0 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"test:template",posX:1,posY:0,posZ:1,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:0,y:-60,z:0}
+BEU 0 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"test:template",posX:1,posY:0,posZ:1,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b}
 T 8
 T 9
-BE 0 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"audit:probe",posX:1,posY:0,posZ:1,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:0,y:-60,z:0}
+BE 0 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"SAVE",name:"test:template",posX:1,posY:0,posZ:1,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:0,y:-60,z:0}
 # corner and data modes
 T 10
 T 11
@@ -87,10 +87,10 @@ B 14 -60 0 minecraft:structure_block[mode=data]
 B 15 -61 -1 minecraft:grass_block[snowy=false]
 B 15 -61 0 minecraft:grass_block[snowy=false]
 B 15 -61 1 minecraft:grass_block[snowy=false]
-BE 10 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"CORNER",name:"audit:probe",posX:0,posY:1,posZ:0,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b,x:10,y:-60,z:0}
-BE 14 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"chest",mirror:"NONE",mode:"DATA",name:"audit:probe",posX:0,posY:1,posZ:0,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b,x:14,y:-60,z:0}
-BEU 10 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"CORNER",name:"audit:probe",posX:0,posY:1,posZ:0,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b}
-BEU 14 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"chest",mirror:"NONE",mode:"DATA",name:"audit:probe",posX:0,posY:1,posZ:0,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b}
+BE 10 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"CORNER",name:"test:template",posX:0,posY:1,posZ:0,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b,x:10,y:-60,z:0}
+BE 14 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"chest",mirror:"NONE",mode:"DATA",name:"test:template",posX:0,posY:1,posZ:0,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b,x:14,y:-60,z:0}
+BEU 10 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"CORNER",name:"test:template",posX:0,posY:1,posZ:0,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b}
+BEU 14 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"chest",mirror:"NONE",mode:"DATA",name:"test:template",posX:0,posY:1,posZ:0,powered:0b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b}
 # load mode: the saved structure is placed above the block (size matches), with rotation, mirror and integrity, and a missing structure only reports
 T 12
 T 13
@@ -163,8 +163,8 @@ B 24 -61 2 minecraft:grass_block[snowy=false]
 B 24 -61 3 minecraft:grass_block[snowy=false]
 B 24 -61 4 minecraft:grass_block[snowy=false]
 B 24 -61 5 minecraft:grass_block[snowy=false]
-BE 20 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"LOAD",name:"audit:probe",posX:0,posY:1,posZ:0,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:20,y:-60,z:0}
-BEU 20 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"LOAD",name:"audit:probe",posX:0,posY:1,posZ:0,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b}
+BE 20 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"LOAD",name:"test:template",posX:0,posY:1,posZ:0,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:20,y:-60,z:0}
+BEU 20 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"LOAD",name:"test:template",posX:0,posY:1,posZ:0,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b}
 T 15
 T 16
 T 17
@@ -227,7 +227,7 @@ B 34 -61 2 minecraft:grass_block[snowy=false]
 B 34 -61 3 minecraft:grass_block[snowy=false]
 B 34 -61 4 minecraft:grass_block[snowy=false]
 B 34 -61 5 minecraft:grass_block[snowy=false]
-BE 30 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:0.5f,metadata:"",mirror:"LEFT_RIGHT",mode:"LOAD",name:"audit:probe",posX:0,posY:1,posZ:0,powered:1b,rotation:"CLOCKWISE_90",seed:12345L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:30,y:-60,z:0}
+BE 30 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:0.5f,metadata:"",mirror:"LEFT_RIGHT",mode:"LOAD",name:"test:template",posX:0,posY:1,posZ:0,powered:1b,rotation:"CLOCKWISE_90",seed:12345L,showair:0b,showboundingbox:1b,sizeX:3,sizeY:2,sizeZ:3,strict:0b,x:30,y:-60,z:0}
 T 18
 T 19
 T 20
@@ -248,5 +248,5 @@ B 41 -61 -1 minecraft:grass_block[snowy=false]
 B 41 -61 0 minecraft:grass_block[snowy=false]
 B 41 -61 1 minecraft:grass_block[snowy=false]
 B 41 -61 2 minecraft:grass_block[snowy=false]
-BE 40 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"LOAD",name:"audit:missing",posX:0,posY:1,posZ:0,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b,x:40,y:-60,z:0}
-BEU 40 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"LOAD",name:"audit:missing",posX:0,posY:1,posZ:0,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b}
+BE 40 -60 0 {author:"",components:{},id:"minecraft:structure_block",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"LOAD",name:"test:missing",posX:0,posY:1,posZ:0,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b,x:40,y:-60,z:0}
+BEU 40 -60 0 minecraft:structure_block {author:"",ignoreEntities:1b,integrity:1.0f,metadata:"",mirror:"NONE",mode:"LOAD",name:"test:missing",posX:0,posY:1,posZ:0,powered:1b,rotation:"NONE",seed:0L,showair:0b,showboundingbox:1b,sizeX:0,sizeY:0,sizeZ:0,strict:0b}
