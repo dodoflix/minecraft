@@ -1,0 +1,177 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c1 beehive honey 4: not full, the bottle is dropped (1001)
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+BE 1 -60 0 {bees:[{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:1,y:-60,z:0}
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:beehive[facing=north,honey_level=4]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+# c2 beehive honey 5 with a pig occupant: honey level reset, honey bottle in the slot (1000)
+BE 0 -60 6 {Items:[{Slot:0b,count:1,id:"minecraft:honey_bottle"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:6}
+BE 1 -60 6 {bees:[{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:1,y:-60,z:6}
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 0 -61 7 minecraft:grass_block[snowy=false]
+B 0 -60 6 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 7 minecraft:grass_block[snowy=false]
+B 1 -60 6 minecraft:beehive[facing=north,honey_level=0]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,6 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,6 data=5 global=0
+# c3 bee nest honey 5 smoked by a lit campfire (bees stay inside)
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:honey_bottle"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+BE 1 -60 12 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:0},{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:1,y:-60,z:12}
+B 0 -61 11 minecraft:grass_block[snowy=false]
+B 0 -61 12 minecraft:grass_block[snowy=false]
+B 0 -61 13 minecraft:grass_block[snowy=false]
+B 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 11 minecraft:grass_block[snowy=false]
+B 1 -61 12 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 -61 13 minecraft:grass_block[snowy=false]
+B 1 -60 12 minecraft:bee_nest[facing=east,honey_level=0]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0
+# c4 water source in front: water bottle, the water stays
+BE 0 -60 18 {Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:18}
+B 0 -61 17 minecraft:grass_block[snowy=false]
+B 0 -61 18 minecraft:grass_block[snowy=false]
+B 0 -61 19 minecraft:grass_block[snowy=false]
+B 0 -60 18 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 17 minecraft:grass_block[snowy=false]
+B 1 -61 18 minecraft:grass_block[snowy=false]
+B 1 -61 19 minecraft:grass_block[snowy=false]
+B 1 -60 18 minecraft:water[level=0]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,18 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,18 data=5 global=0
+# c5 flowing water in front
+BE 0 -60 24 {Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:24}
+B 0 -61 23 minecraft:grass_block[snowy=false]
+B 0 -61 24 minecraft:grass_block[snowy=false]
+B 0 -61 25 minecraft:grass_block[snowy=false]
+B 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 23 minecraft:grass_block[snowy=false]
+B 1 -61 24 minecraft:grass_block[snowy=false]
+B 1 -61 25 minecraft:grass_block[snowy=false]
+B 1 -60 24 minecraft:water[level=3]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,24 data=5 global=0
+# c6 waterlogged slab in front (its fluid state is water)
+BE 0 -60 30 {Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:30}
+B 0 -61 29 minecraft:grass_block[snowy=false]
+B 0 -61 30 minecraft:grass_block[snowy=false]
+B 0 -61 31 minecraft:grass_block[snowy=false]
+B 0 -60 30 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 29 minecraft:grass_block[snowy=false]
+B 1 -61 30 minecraft:grass_block[snowy=false]
+B 1 -61 31 minecraft:grass_block[snowy=false]
+B 1 -60 30 minecraft:oak_slab[type=bottom,waterlogged=true]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,30 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,30 data=5 global=0
+# c7 a stack of 2 bottles on a honey-full hive: the honey bottle goes into the first free slot
+BE 0 -60 36 {Items:[{Slot:0b,count:1,id:"minecraft:glass_bottle"},{Slot:1b,count:1,id:"minecraft:honey_bottle"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:36}
+BE 1 -60 36 {bees:[],components:{},id:"minecraft:beehive",x:1,y:-60,z:36}
+B 0 -61 35 minecraft:grass_block[snowy=false]
+B 0 -61 36 minecraft:grass_block[snowy=false]
+B 0 -61 37 minecraft:grass_block[snowy=false]
+B 0 -60 36 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 35 minecraft:grass_block[snowy=false]
+B 1 -61 36 minecraft:grass_block[snowy=false]
+B 1 -61 37 minecraft:grass_block[snowy=false]
+B 1 -60 36 minecraft:beehive[facing=north,honey_level=0]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,36 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,36 data=5 global=0
+# c8 a full dispenser of bottle stacks (every slot is a candidate) on water: the water bottle fits nowhere and is dropped (default events twice)
+BE 0 -60 42 {Items:[{Slot:0b,count:2,id:"minecraft:glass_bottle"},{Slot:1b,count:2,id:"minecraft:glass_bottle"},{Slot:2b,count:2,id:"minecraft:glass_bottle"},{Slot:3b,count:1,id:"minecraft:glass_bottle"},{Slot:4b,count:2,id:"minecraft:glass_bottle"},{Slot:5b,count:2,id:"minecraft:glass_bottle"},{Slot:6b,count:2,id:"minecraft:glass_bottle"},{Slot:7b,count:2,id:"minecraft:glass_bottle"},{Slot:8b,count:2,id:"minecraft:glass_bottle"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:42}
+B 0 -61 41 minecraft:grass_block[snowy=false]
+B 0 -61 42 minecraft:grass_block[snowy=false]
+B 0 -61 43 minecraft:grass_block[snowy=false]
+B 0 -60 42 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 41 minecraft:grass_block[snowy=false]
+B 1 -61 42 minecraft:grass_block[snowy=false]
+B 1 -61 43 minecraft:grass_block[snowy=false]
+B 1 -60 42 minecraft:water[level=0]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.2,-59.65625,42.5 delta=0.1664324196291807,0.2441173100239947,0.056200604064638 rot=305.9008,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,42 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,42 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,42 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,42 data=5 global=0
+# c9 nothing in front: dropped (1001 click)
+BE 0 -60 48 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:48}
+B 0 -61 47 minecraft:grass_block[snowy=false]
+B 0 -61 48 minecraft:grass_block[snowy=false]
+B 0 -61 49 minecraft:grass_block[snowy=false]
+B 0 -60 48 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 47 minecraft:grass_block[snowy=false]
+B 1 -61 48 minecraft:grass_block[snowy=false]
+B 1 -61 49 minecraft:grass_block[snowy=false]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.2,-59.65625,42.5 delta=0.1664324196291807,0.2441173100239947,0.056200604064638 rot=305.9008,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,48.5 delta=0.22139510442242147,0.2877954053318633,-0.01855402042683997 rot=349.7242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,48 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,48 data=5 global=0
+# c10 lava in front is not water: dropped
+BE 0 -60 54 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:54}
+B 0 -61 53 minecraft:grass_block[snowy=false]
+B 0 -61 54 minecraft:grass_block[snowy=false]
+B 0 -61 55 minecraft:grass_block[snowy=false]
+B 0 -60 54 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 53 minecraft:grass_block[snowy=false]
+B 1 -61 54 minecraft:grass_block[snowy=false]
+B 1 -61 55 minecraft:grass_block[snowy=false]
+B 1 -60 54 minecraft:lava[level=0]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.2,-59.65625,42.5 delta=0.1664324196291807,0.2441173100239947,0.056200604064638 rot=305.9008,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,48.5 delta=0.22139510442242147,0.2877954053318633,-0.01855402042683997 rot=349.7242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=1.2,-59.65625,54.5 delta=0.2177663871307151,0.20117895615373518,-0.024782091006408716 rot=7.30211,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,54 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,54 data=5 global=0
+# c11 a solid block in front: dropped
+BE 0 -60 60 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:60}
+B 0 -61 59 minecraft:grass_block[snowy=false]
+B 0 -61 60 minecraft:grass_block[snowy=false]
+B 0 -61 61 minecraft:grass_block[snowy=false]
+B 0 -60 60 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 59 minecraft:grass_block[snowy=false]
+B 1 -61 60 minecraft:grass_block[snowy=false]
+B 1 -61 61 minecraft:grass_block[snowy=false]
+B 1 -60 60 minecraft:stone
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.2,-59.65625,42.5 delta=0.1664324196291807,0.2441173100239947,0.056200604064638 rot=305.9008,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,48.5 delta=0.22139510442242147,0.2877954053318633,-0.01855402042683997 rot=349.7242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=1.2,-59.65625,54.5 delta=0.2177663871307151,0.20117895615373518,-0.024782091006408716 rot=7.30211,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=1.2,-59.65625,60.5 delta=0.2523092964718397,0.2645061043395194,0.011748931493275185 rot=314.54236,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,60 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,60 data=5 global=0
+# c12 beehive honey 5 without occupants
+BE 0 -60 66 {Items:[{Slot:0b,count:1,id:"minecraft:honey_bottle"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:66}
+BE 1 -60 66 {bees:[],components:{},id:"minecraft:beehive",x:1,y:-60,z:66}
+B 0 -61 65 minecraft:grass_block[snowy=false]
+B 0 -61 66 minecraft:grass_block[snowy=false]
+B 0 -61 67 minecraft:grass_block[snowy=false]
+B 0 -60 66 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 65 minecraft:grass_block[snowy=false]
+B 1 -61 66 minecraft:grass_block[snowy=false]
+B 1 -61 67 minecraft:grass_block[snowy=false]
+B 1 -60 66 minecraft:beehive[facing=north,honey_level=0]
+E item#1 minecraft:item pos=1.2,-59.65625,0.5 delta=0.24841686640891775,0.19463821060403863,-7.072081256037795E-4 rot=294.20853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.2,-59.65625,42.5 delta=0.1664324196291807,0.2441173100239947,0.056200604064638 rot=305.9008,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,48.5 delta=0.22139510442242147,0.2877954053318633,-0.01855402042683997 rot=349.7242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=1.2,-59.65625,54.5 delta=0.2177663871307151,0.20117895615373518,-0.024782091006408716 rot=7.30211,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=1.2,-59.65625,60.5 delta=0.2523092964718397,0.2645061043395194,0.011748931493275185 rot=314.54236,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,66 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,66 data=5 global=0

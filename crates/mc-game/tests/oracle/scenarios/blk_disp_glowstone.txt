@@ -1,0 +1,75 @@
+# Dispenser glowstone (OptionalDispenseItemBehavior): a respawn anchor in front below 4 charges takes one glowstone (RespawnAnchorBlock.charge: block change,
+# charge sound); a full anchor refuses (1001, nothing dropped, the stack stays); any other block or nothing in front drops the glowstone.
+# Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 3
+time 18000
+note c1 respawn anchor with 0 charges: charged to 1
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:glowstone",count:4}]}
+block 1 -60 0 minecraft:respawn_anchor[charges=0]
+level_seed 1
+dispense 0 -60 0 c1
+dump be:0,-60,0 blocks:0,-61,-1,1,-60,1 entities events
+note c2 respawn anchor with 1 charges: charged to 2
+block 0 -60 6 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 6 {Items:[{Slot:0b,id:"minecraft:glowstone",count:4}]}
+block 1 -60 6 minecraft:respawn_anchor[charges=1]
+level_seed 2
+dispense 0 -60 6 c2
+dump be:0,-60,6 blocks:0,-61,5,1,-60,7 entities events
+note c3 respawn anchor with 2 charges: charged to 3
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:glowstone",count:4}]}
+block 1 -60 12 minecraft:respawn_anchor[charges=2]
+level_seed 3
+dispense 0 -60 12 c3
+dump be:0,-60,12 blocks:0,-61,11,1,-60,13 entities events
+note c4 respawn anchor with 3 charges: charged to 4
+block 0 -60 18 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 18 {Items:[{Slot:0b,id:"minecraft:glowstone",count:4}]}
+block 1 -60 18 minecraft:respawn_anchor[charges=3]
+level_seed 4
+dispense 0 -60 18 c4
+dump be:0,-60,18 blocks:0,-61,17,1,-60,19 entities events
+note c5 respawn anchor with 4 charges: full, refused (1001), the glowstone stays
+block 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 24 {Items:[{Slot:0b,id:"minecraft:glowstone",count:4}]}
+block 1 -60 24 minecraft:respawn_anchor[charges=4]
+level_seed 5
+dispense 0 -60 24 c5
+dump be:0,-60,24 blocks:0,-61,23,1,-60,25 entities events
+note c6 a stack of 1 glowstone is used up
+block 0 -60 30 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 30 {Items:[{Slot:0b,id:"minecraft:glowstone",count:1}]}
+block 1 -60 30 minecraft:respawn_anchor[charges=0]
+level_seed 6
+dispense 0 -60 30 c6
+dump be:0,-60,30 blocks:0,-61,29,1,-60,31 entities events
+note c7 a solid block in front: dropped
+block 0 -60 36 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 36 {Items:[{Slot:0b,id:"minecraft:glowstone",count:4}]}
+block 1 -60 36 minecraft:stone
+level_seed 7
+dispense 0 -60 36 c7
+dump be:0,-60,36 blocks:0,-61,35,1,-60,37 entities events
+note c8 nothing in front: dropped
+block 0 -60 42 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 42 {Items:[{Slot:0b,id:"minecraft:glowstone",count:4}]}
+level_seed 8
+dispense 0 -60 42 c8
+dump be:0,-60,42 blocks:0,-61,41,1,-60,43 entities events
+note c9 a glowstone block in front is not an anchor: dropped
+block 0 -60 48 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 48 {Items:[{Slot:0b,id:"minecraft:glowstone",count:4}]}
+block 1 -60 48 minecraft:glowstone
+level_seed 9
+dispense 0 -60 48 c9
+dump be:0,-60,48 blocks:0,-61,47,1,-60,49 entities events
+note c10 anchor above a dispenser facing up
+block 0 -60 54 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 0 -60 54 {Items:[{Slot:0b,id:"minecraft:glowstone",count:4}]}
+block 0 -59 54 minecraft:respawn_anchor[charges=2]
+level_seed 10
+dispense 0 -60 54 c10
+dump be:0,-60,54 blocks:0,-61,53,1,-58,55 entities events

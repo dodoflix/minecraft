@@ -1,0 +1,145 @@
+# ShearsDispenseItemBehavior (OptionalDispenseItemBehavior): a beehive with honey_level >= 5 in front drops honeycombs, releases its occupants and resets;
+# otherwise the first non-spectator entity in the block in front that is alive and ready to shear (adult sheep, adult mooshroom, snow golem with a pumpkin) is sheared; success damages the shears by 1 (1 durability left breaks them), a
+# failure leaves the item in place with the failure click (1001) and drops nothing.
+# Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 9
+time 18000
+note c1 sheep in front: wool is dropped, the shears lose 1 durability
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn sh1 minecraft:sheep 1.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,Color:3b}
+level_seed 1
+dispense 0 -60 0 c1
+dump be:0,-60,0 nbt:sh1 entities events
+note c2 already sheared sheep: nothing to shear (1001), shears untouched
+block 0 -60 6 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 6 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn sh2 minecraft:sheep 1.5 -60 6.5 0 0 {NoAI:1b,Silent:1b,Sheared:1b}
+level_seed 2
+dispense 0 -60 6 c2
+dump be:0,-60,6 nbt:sh2 entities events
+note c3 baby sheep is not ready for shearing
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn sh3 minecraft:sheep 1.5 -60 12.5 0 0 {NoAI:1b,Silent:1b,Age:-24000}
+level_seed 3
+dispense 0 -60 12 c3
+dump be:0,-60,12 nbt:sh3 entities events
+note c4 red mooshroom in front: becomes a cow, 5 red mushrooms drop
+block 0 -60 18 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 18 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn mo1 minecraft:mooshroom 1.5 -60 18.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 4
+dispense 0 -60 18 c4
+dump be:0,-60,18 entities events
+note c5 brown mooshroom in front
+block 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 24 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn mo2 minecraft:mooshroom 1.5 -60 24.5 0 0 {NoAI:1b,Silent:1b,Type:"brown"}
+level_seed 5
+dispense 0 -60 24 c5
+dump be:0,-60,24 entities events
+note c6 baby mooshroom: not shearable
+block 0 -60 30 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 30 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn mo3 minecraft:mooshroom 1.5 -60 30.5 0 0 {NoAI:1b,Silent:1b,Age:-24000}
+level_seed 6
+dispense 0 -60 30 c6
+dump be:0,-60,30 nbt:mo3 entities events
+note c7 snow golem with a pumpkin: the carved pumpkin drops
+block 0 -60 36 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 36 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn sg1 minecraft:snow_golem 1.5 -60 36.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 7
+dispense 0 -60 36 c7
+dump be:0,-60,36 nbt:sg1 entities events
+note c8 snow golem without a pumpkin
+block 0 -60 42 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 42 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn sg2 minecraft:snow_golem 1.5 -60 42.5 0 0 {NoAI:1b,Silent:1b,Pumpkin:0b}
+level_seed 8
+dispense 0 -60 42 c8
+dump be:0,-60,42 nbt:sg2 entities events
+note c9 beehive honey 5 with a pig occupant: honeycombs drop, honey level reset
+block 0 -60 48 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 48 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+block 1 -60 48 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 1 -60 48 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 9
+dispense 0 -60 48 c9
+dump be:0,-60,48 be:1,-60,48 blocks:0,-61,47,1,-60,49 entities events
+note c10 bee nest honey 5 smoked by a lit campfire
+block 0 -60 54 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 54 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+block 1 -61 54 minecraft:campfire[lit=true]
+block 1 -60 54 minecraft:bee_nest[honey_level=5,facing=east]
+be_nbt 1 -60 54 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 10
+dispense 0 -60 54 c10
+dump be:0,-60,54 be:1,-60,54 blocks:0,-61,53,1,-60,55 entities events
+note c11 beehive honey 4: not ready (1001)
+block 0 -60 60 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 60 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+block 1 -60 60 minecraft:beehive[honey_level=4,facing=north]
+be_nbt 1 -60 60 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 11
+dispense 0 -60 60 c11
+dump be:0,-60,60 be:1,-60,60 blocks:0,-61,59,1,-60,61 entities events
+note c12 shears with 1 durability left break on use
+block 0 -60 90 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 90 {Items:[{Slot:0b,id:"minecraft:shears",count:1,components:{"minecraft:damage":237}}]}
+spawn sh5 minecraft:sheep 1.5 -60 90.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 15
+dispense 0 -60 90 c12
+dump be:0,-60,90 nbt:sh5 entities events
+note c13 damaged shears lose one more point
+block 0 -60 96 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 96 {Items:[{Slot:0b,id:"minecraft:shears",count:1,components:{"minecraft:damage":100}}]}
+spawn sh6 minecraft:sheep 1.5 -60 96.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 16
+dispense 0 -60 96 c13
+dump be:0,-60,96 nbt:sh6 entities events
+note c14 a spectator is skipped, the sheep behind it is sheared
+block 0 -60 102 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 102 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn_player Spec spectator 1.5 -60 102.5 0 0
+spawn sh7 minecraft:sheep 1.5 -60 102.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 17
+dispense 0 -60 102 c14
+dump be:0,-60,102 nbt:sh7 player:Spec entities events
+note c15 a spectator alone: nothing to shear (1001)
+block 0 -60 108 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 108 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn_player Spec2 spectator 1.5 -60 108.5 0 0
+level_seed 18
+dispense 0 -60 108 c15
+dump be:0,-60,108 player:Spec2 entities events
+note c16 a pig in front is not shearable (1001)
+block 0 -60 114 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 114 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn pg4 minecraft:pig 1.5 -60 114.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 19
+dispense 0 -60 114 c16
+dump be:0,-60,114 nbt:pg4 entities events
+note c17 nothing in front (1001)
+block 0 -60 120 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 120 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+level_seed 20
+dispense 0 -60 120 c17
+dump be:0,-60,120 blocks:0,-61,119,1,-60,121 entities events
+note c18 two sheep in front: only the first one is sheared
+block 0 -60 126 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 126 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn sh8 minecraft:sheep 1.5 -60 126.5 0 0 {NoAI:1b,Silent:1b}
+spawn sh9 minecraft:sheep 1.5 -60 126.5 0 0 {NoAI:1b,Silent:1b,Color:5b}
+level_seed 21
+dispense 0 -60 126 c18
+dump be:0,-60,126 nbt:sh8 nbt:sh9 entities events
+note c19 a stack of 2 shears: damage is applied to the stack
+block 0 -60 132 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 132 {Items:[{Slot:0b,id:"minecraft:shears",count:2}]}
+spawn sh10 minecraft:sheep 1.5 -60 132.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 22
+dispense 0 -60 132 c19
+dump be:0,-60,132 nbt:sh10 entities events

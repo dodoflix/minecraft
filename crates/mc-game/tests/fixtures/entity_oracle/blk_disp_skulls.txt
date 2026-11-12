@@ -1,0 +1,587 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c1 soul sand T below the target: the skull is placed (east: rotation 12), one of 2 used
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+BE 1 -60 0 {components:{},id:"minecraft:skull",x:1,y:-60,z:0}
+B -1 -62 -2 minecraft:dirt
+B -1 -62 -1 minecraft:dirt
+B -1 -62 0 minecraft:dirt
+B -1 -62 1 minecraft:dirt
+B -1 -62 2 minecraft:dirt
+B -1 -61 -2 minecraft:grass_block[snowy=false]
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B 0 -62 -2 minecraft:dirt
+B 0 -62 -1 minecraft:dirt
+B 0 -62 0 minecraft:dirt
+B 0 -62 1 minecraft:dirt
+B 0 -62 2 minecraft:dirt
+B 0 -61 -2 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+B 1 -62 -2 minecraft:dirt
+B 1 -62 0 minecraft:soul_sand
+B 1 -62 2 minecraft:dirt
+B 1 -61 -2 minecraft:grass_block[snowy=false]
+B 1 -61 -1 minecraft:soul_sand
+B 1 -61 0 minecraft:soul_sand
+B 1 -61 1 minecraft:soul_sand
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:wither_skeleton_skull[powered=false,rotation=12]
+B 2 -62 -2 minecraft:dirt
+B 2 -62 -1 minecraft:dirt
+B 2 -62 0 minecraft:dirt
+B 2 -62 1 minecraft:dirt
+B 2 -62 2 minecraft:dirt
+B 2 -61 -2 minecraft:grass_block[snowy=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 3 -62 -2 minecraft:dirt
+B 3 -62 -1 minecraft:dirt
+B 3 -62 0 minecraft:dirt
+B 3 -62 1 minecraft:dirt
+B 3 -62 2 minecraft:dirt
+B 3 -61 -2 minecraft:grass_block[snowy=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+# c2 no wither base: not placed, no entity to equip -> failure click, the stack stays
+BE 0 -60 8 {Items:[{Slot:0b,count:2,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+B -1 -62 6 minecraft:dirt
+B -1 -62 7 minecraft:dirt
+B -1 -62 8 minecraft:dirt
+B -1 -62 9 minecraft:dirt
+B -1 -62 10 minecraft:dirt
+B -1 -61 6 minecraft:grass_block[snowy=false]
+B -1 -61 7 minecraft:grass_block[snowy=false]
+B -1 -61 8 minecraft:grass_block[snowy=false]
+B -1 -61 9 minecraft:grass_block[snowy=false]
+B -1 -61 10 minecraft:grass_block[snowy=false]
+B 0 -62 6 minecraft:dirt
+B 0 -62 7 minecraft:dirt
+B 0 -62 8 minecraft:dirt
+B 0 -62 9 minecraft:dirt
+B 0 -62 10 minecraft:dirt
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 0 -61 7 minecraft:grass_block[snowy=false]
+B 0 -61 8 minecraft:grass_block[snowy=false]
+B 0 -61 9 minecraft:grass_block[snowy=false]
+B 0 -61 10 minecraft:grass_block[snowy=false]
+B 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+B 1 -62 6 minecraft:dirt
+B 1 -62 7 minecraft:dirt
+B 1 -62 8 minecraft:dirt
+B 1 -62 9 minecraft:dirt
+B 1 -62 10 minecraft:dirt
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 7 minecraft:grass_block[snowy=false]
+B 1 -61 8 minecraft:grass_block[snowy=false]
+B 1 -61 9 minecraft:grass_block[snowy=false]
+B 1 -61 10 minecraft:grass_block[snowy=false]
+B 2 -62 6 minecraft:dirt
+B 2 -62 7 minecraft:dirt
+B 2 -62 8 minecraft:dirt
+B 2 -62 9 minecraft:dirt
+B 2 -62 10 minecraft:dirt
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 2 -61 7 minecraft:grass_block[snowy=false]
+B 2 -61 8 minecraft:grass_block[snowy=false]
+B 2 -61 9 minecraft:grass_block[snowy=false]
+B 2 -61 10 minecraft:grass_block[snowy=false]
+B 3 -62 6 minecraft:dirt
+B 3 -62 7 minecraft:dirt
+B 3 -62 8 minecraft:dirt
+B 3 -62 9 minecraft:dirt
+B 3 -62 10 minecraft:dirt
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 3 -61 7 minecraft:grass_block[snowy=false]
+B 3 -61 8 minecraft:grass_block[snowy=false]
+B 3 -61 9 minecraft:grass_block[snowy=false]
+B 3 -61 10 minecraft:grass_block[snowy=false]
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+# c3 no wither base, a zombie that can pick up loot in front: the skull is equipped on its head
+BE 0 -60 16 {Items:[{Slot:0b,count:1,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:16}
+N zk1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,16.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{head:2.0f},equipment:{head:{count:1,id:"minecraft:wither_skeleton_skull"}},fall_distance:0.0d}
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,16 data=5 global=0
+# c4 wither base and a zombie inside the target block: the skull block is placed anyway
+BE 0 -60 24 {Items:[{Slot:0b,count:1,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:24}
+BE 1 -60 24 {components:{},id:"minecraft:skull",x:1,y:-60,z:24}
+N zk2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,24.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+B -1 -62 22 minecraft:dirt
+B -1 -62 23 minecraft:dirt
+B -1 -62 24 minecraft:dirt
+B -1 -62 25 minecraft:dirt
+B -1 -62 26 minecraft:dirt
+B -1 -61 22 minecraft:grass_block[snowy=false]
+B -1 -61 23 minecraft:grass_block[snowy=false]
+B -1 -61 24 minecraft:grass_block[snowy=false]
+B -1 -61 25 minecraft:grass_block[snowy=false]
+B -1 -61 26 minecraft:grass_block[snowy=false]
+B 0 -62 22 minecraft:dirt
+B 0 -62 23 minecraft:dirt
+B 0 -62 24 minecraft:dirt
+B 0 -62 25 minecraft:dirt
+B 0 -62 26 minecraft:dirt
+B 0 -61 22 minecraft:grass_block[snowy=false]
+B 0 -61 23 minecraft:grass_block[snowy=false]
+B 0 -61 24 minecraft:grass_block[snowy=false]
+B 0 -61 25 minecraft:grass_block[snowy=false]
+B 0 -61 26 minecraft:grass_block[snowy=false]
+B 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+B 1 -62 22 minecraft:dirt
+B 1 -62 24 minecraft:soul_sand
+B 1 -62 26 minecraft:dirt
+B 1 -61 22 minecraft:grass_block[snowy=false]
+B 1 -61 23 minecraft:soul_sand
+B 1 -61 24 minecraft:soul_sand
+B 1 -61 25 minecraft:soul_sand
+B 1 -61 26 minecraft:grass_block[snowy=false]
+B 1 -60 24 minecraft:wither_skeleton_skull[powered=false,rotation=12]
+B 2 -62 22 minecraft:dirt
+B 2 -62 23 minecraft:dirt
+B 2 -62 24 minecraft:dirt
+B 2 -62 25 minecraft:dirt
+B 2 -62 26 minecraft:dirt
+B 2 -61 22 minecraft:grass_block[snowy=false]
+B 2 -61 23 minecraft:grass_block[snowy=false]
+B 2 -61 24 minecraft:grass_block[snowy=false]
+B 2 -61 25 minecraft:grass_block[snowy=false]
+B 2 -61 26 minecraft:grass_block[snowy=false]
+B 3 -62 22 minecraft:dirt
+B 3 -62 23 minecraft:dirt
+B 3 -62 24 minecraft:dirt
+B 3 -62 25 minecraft:dirt
+B 3 -62 26 minecraft:dirt
+B 3 -61 22 minecraft:grass_block[snowy=false]
+B 3 -61 23 minecraft:grass_block[snowy=false]
+B 3 -61 24 minecraft:grass_block[snowy=false]
+B 3 -61 25 minecraft:grass_block[snowy=false]
+B 3 -61 26 minecraft:grass_block[snowy=false]
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,24 data=5 global=0
+# c5 wither base but the target block is solid: equipment branch, nothing in front accepts it
+BE 0 -60 32 {Items:[{Slot:0b,count:2,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:32}
+B -1 -62 30 minecraft:dirt
+B -1 -62 31 minecraft:dirt
+B -1 -62 32 minecraft:dirt
+B -1 -62 33 minecraft:dirt
+B -1 -62 34 minecraft:dirt
+B -1 -61 30 minecraft:grass_block[snowy=false]
+B -1 -61 31 minecraft:grass_block[snowy=false]
+B -1 -61 32 minecraft:grass_block[snowy=false]
+B -1 -61 33 minecraft:grass_block[snowy=false]
+B -1 -61 34 minecraft:grass_block[snowy=false]
+B 0 -62 30 minecraft:dirt
+B 0 -62 31 minecraft:dirt
+B 0 -62 32 minecraft:dirt
+B 0 -62 33 minecraft:dirt
+B 0 -62 34 minecraft:dirt
+B 0 -61 30 minecraft:grass_block[snowy=false]
+B 0 -61 31 minecraft:grass_block[snowy=false]
+B 0 -61 32 minecraft:grass_block[snowy=false]
+B 0 -61 33 minecraft:grass_block[snowy=false]
+B 0 -61 34 minecraft:grass_block[snowy=false]
+B 0 -60 32 minecraft:dispenser[facing=east,triggered=false]
+B 1 -62 30 minecraft:dirt
+B 1 -62 32 minecraft:soul_sand
+B 1 -62 34 minecraft:dirt
+B 1 -61 30 minecraft:grass_block[snowy=false]
+B 1 -61 31 minecraft:soul_sand
+B 1 -61 32 minecraft:soul_sand
+B 1 -61 33 minecraft:soul_sand
+B 1 -61 34 minecraft:grass_block[snowy=false]
+B 1 -60 32 minecraft:stone
+B 2 -62 30 minecraft:dirt
+B 2 -62 31 minecraft:dirt
+B 2 -62 32 minecraft:dirt
+B 2 -62 33 minecraft:dirt
+B 2 -62 34 minecraft:dirt
+B 2 -61 30 minecraft:grass_block[snowy=false]
+B 2 -61 31 minecraft:grass_block[snowy=false]
+B 2 -61 32 minecraft:grass_block[snowy=false]
+B 2 -61 33 minecraft:grass_block[snowy=false]
+B 2 -61 34 minecraft:grass_block[snowy=false]
+B 3 -62 30 minecraft:dirt
+B 3 -62 31 minecraft:dirt
+B 3 -62 32 minecraft:dirt
+B 3 -62 33 minecraft:dirt
+B 3 -62 34 minecraft:dirt
+B 3 -61 30 minecraft:grass_block[snowy=false]
+B 3 -61 31 minecraft:grass_block[snowy=false]
+B 3 -61 32 minecraft:grass_block[snowy=false]
+B 3 -61 33 minecraft:grass_block[snowy=false]
+B 3 -61 34 minecraft:grass_block[snowy=false]
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,32 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,32 data=5 global=0
+# c6 wither base, zombie that cannot pick up loot in the target block: placed (the entity is irrelevant)
+BE 0 -60 40 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:40}
+BE 1 -60 40 {components:{},id:"minecraft:skull",x:1,y:-60,z:40}
+N zk3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,40.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+B -1 -62 38 minecraft:dirt
+B -1 -62 39 minecraft:dirt
+B -1 -62 40 minecraft:dirt
+B -1 -62 41 minecraft:dirt
+B -1 -62 42 minecraft:dirt
+B -1 -61 38 minecraft:grass_block[snowy=false]
+B -1 -61 39 minecraft:grass_block[snowy=false]
+B -1 -61 40 minecraft:grass_block[snowy=false]
+B -1 -61 41 minecraft:grass_block[snowy=false]
+B -1 -61 42 minecraft:grass_block[snowy=false]
+B 0 -62 38 minecraft:dirt
+B 0 -62 39 minecraft:dirt
+B 0 -62 40 minecraft:dirt
+B 0 -62 41 minecraft:dirt
+B 0 -62 42 minecraft:dirt
+B 0 -61 38 minecraft:grass_block[snowy=false]
+B 0 -61 39 minecraft:grass_block[snowy=false]
+B 0 -61 40 minecraft:grass_block[snowy=false]
+B 0 -61 41 minecraft:grass_block[snowy=false]
+B 0 -61 42 minecraft:grass_block[snowy=false]
+B 0 -60 40 minecraft:dispenser[facing=east,triggered=false]
+B 1 -62 38 minecraft:dirt
+B 1 -62 40 minecraft:soul_sand
+B 1 -62 42 minecraft:dirt
+B 1 -61 38 minecraft:grass_block[snowy=false]
+B 1 -61 39 minecraft:soul_sand
+B 1 -61 40 minecraft:soul_sand
+B 1 -61 41 minecraft:soul_sand
+B 1 -61 42 minecraft:grass_block[snowy=false]
+B 1 -60 40 minecraft:wither_skeleton_skull[powered=false,rotation=12]
+B 2 -62 38 minecraft:dirt
+B 2 -62 39 minecraft:dirt
+B 2 -62 40 minecraft:dirt
+B 2 -62 41 minecraft:dirt
+B 2 -62 42 minecraft:dirt
+B 2 -61 38 minecraft:grass_block[snowy=false]
+B 2 -61 39 minecraft:grass_block[snowy=false]
+B 2 -61 40 minecraft:grass_block[snowy=false]
+B 2 -61 41 minecraft:grass_block[snowy=false]
+B 2 -61 42 minecraft:grass_block[snowy=false]
+B 3 -62 38 minecraft:dirt
+B 3 -62 39 minecraft:dirt
+B 3 -62 40 minecraft:dirt
+B 3 -62 41 minecraft:dirt
+B 3 -62 42 minecraft:dirt
+B 3 -61 38 minecraft:grass_block[snowy=false]
+B 3 -61 39 minecraft:grass_block[snowy=false]
+B 3 -61 40 minecraft:grass_block[snowy=false]
+B 3 -61 41 minecraft:grass_block[snowy=false]
+B 3 -61 42 minecraft:grass_block[snowy=false]
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk3 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,40 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,40 data=5 global=0
+# c7 a last skull of the stack is used up
+BE 0 -60 48 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:48}
+BE 1 -60 48 {components:{},id:"minecraft:skull",x:1,y:-60,z:48}
+B -1 -62 46 minecraft:dirt
+B -1 -62 47 minecraft:dirt
+B -1 -62 48 minecraft:dirt
+B -1 -62 49 minecraft:dirt
+B -1 -62 50 minecraft:dirt
+B -1 -61 46 minecraft:grass_block[snowy=false]
+B -1 -61 47 minecraft:grass_block[snowy=false]
+B -1 -61 48 minecraft:grass_block[snowy=false]
+B -1 -61 49 minecraft:grass_block[snowy=false]
+B -1 -61 50 minecraft:grass_block[snowy=false]
+B 0 -62 46 minecraft:dirt
+B 0 -62 47 minecraft:dirt
+B 0 -62 48 minecraft:dirt
+B 0 -62 49 minecraft:dirt
+B 0 -62 50 minecraft:dirt
+B 0 -61 46 minecraft:grass_block[snowy=false]
+B 0 -61 47 minecraft:grass_block[snowy=false]
+B 0 -61 48 minecraft:grass_block[snowy=false]
+B 0 -61 49 minecraft:grass_block[snowy=false]
+B 0 -61 50 minecraft:grass_block[snowy=false]
+B 0 -60 48 minecraft:dispenser[facing=east,triggered=false]
+B 1 -62 46 minecraft:dirt
+B 1 -62 48 minecraft:soul_sand
+B 1 -62 50 minecraft:dirt
+B 1 -61 46 minecraft:grass_block[snowy=false]
+B 1 -61 47 minecraft:soul_sand
+B 1 -61 48 minecraft:soul_sand
+B 1 -61 49 minecraft:soul_sand
+B 1 -61 50 minecraft:grass_block[snowy=false]
+B 1 -60 48 minecraft:wither_skeleton_skull[powered=false,rotation=12]
+B 2 -62 46 minecraft:dirt
+B 2 -62 47 minecraft:dirt
+B 2 -62 48 minecraft:dirt
+B 2 -62 49 minecraft:dirt
+B 2 -62 50 minecraft:dirt
+B 2 -61 46 minecraft:grass_block[snowy=false]
+B 2 -61 47 minecraft:grass_block[snowy=false]
+B 2 -61 48 minecraft:grass_block[snowy=false]
+B 2 -61 49 minecraft:grass_block[snowy=false]
+B 2 -61 50 minecraft:grass_block[snowy=false]
+B 3 -62 46 minecraft:dirt
+B 3 -62 47 minecraft:dirt
+B 3 -62 48 minecraft:dirt
+B 3 -62 49 minecraft:dirt
+B 3 -62 50 minecraft:dirt
+B 3 -61 46 minecraft:grass_block[snowy=false]
+B 3 -61 47 minecraft:grass_block[snowy=false]
+B 3 -61 48 minecraft:grass_block[snowy=false]
+B 3 -61 49 minecraft:grass_block[snowy=false]
+B 3 -61 50 minecraft:grass_block[snowy=false]
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk3 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,48 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,48 data=5 global=0
+# c8 soul sand T along x, dispenser facing south: rotation 0
+BE 0 -60 56 {Items:[{Slot:0b,count:1,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:56}
+BE 0 -60 57 {components:{},id:"minecraft:skull",x:0,y:-60,z:57}
+B -2 -62 55 minecraft:dirt
+B -2 -62 56 minecraft:dirt
+B -2 -62 57 minecraft:dirt
+B -2 -62 58 minecraft:dirt
+B -2 -62 59 minecraft:dirt
+B -2 -61 55 minecraft:grass_block[snowy=false]
+B -2 -61 56 minecraft:grass_block[snowy=false]
+B -2 -61 57 minecraft:grass_block[snowy=false]
+B -2 -61 58 minecraft:grass_block[snowy=false]
+B -2 -61 59 minecraft:grass_block[snowy=false]
+B -1 -62 55 minecraft:dirt
+B -1 -62 56 minecraft:dirt
+B -1 -62 58 minecraft:dirt
+B -1 -62 59 minecraft:dirt
+B -1 -61 55 minecraft:grass_block[snowy=false]
+B -1 -61 56 minecraft:grass_block[snowy=false]
+B -1 -61 57 minecraft:soul_sand
+B -1 -61 58 minecraft:grass_block[snowy=false]
+B -1 -61 59 minecraft:grass_block[snowy=false]
+B 0 -62 55 minecraft:dirt
+B 0 -62 56 minecraft:dirt
+B 0 -62 57 minecraft:soul_sand
+B 0 -62 58 minecraft:dirt
+B 0 -62 59 minecraft:dirt
+B 0 -61 55 minecraft:grass_block[snowy=false]
+B 0 -61 56 minecraft:grass_block[snowy=false]
+B 0 -61 57 minecraft:soul_sand
+B 0 -61 58 minecraft:grass_block[snowy=false]
+B 0 -61 59 minecraft:grass_block[snowy=false]
+B 0 -60 56 minecraft:dispenser[facing=south,triggered=false]
+B 0 -60 57 minecraft:wither_skeleton_skull[powered=false,rotation=0]
+B 1 -62 55 minecraft:dirt
+B 1 -62 56 minecraft:dirt
+B 1 -62 58 minecraft:dirt
+B 1 -62 59 minecraft:dirt
+B 1 -61 55 minecraft:grass_block[snowy=false]
+B 1 -61 56 minecraft:grass_block[snowy=false]
+B 1 -61 57 minecraft:soul_sand
+B 1 -61 58 minecraft:grass_block[snowy=false]
+B 1 -61 59 minecraft:grass_block[snowy=false]
+B 2 -62 55 minecraft:dirt
+B 2 -62 56 minecraft:dirt
+B 2 -62 57 minecraft:dirt
+B 2 -62 58 minecraft:dirt
+B 2 -62 59 minecraft:dirt
+B 2 -61 55 minecraft:grass_block[snowy=false]
+B 2 -61 56 minecraft:grass_block[snowy=false]
+B 2 -61 57 minecraft:grass_block[snowy=false]
+B 2 -61 58 minecraft:grass_block[snowy=false]
+B 2 -61 59 minecraft:grass_block[snowy=false]
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk3 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,56 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,56 data=3 global=0
+# c9 same facing north: rotation 8
+BE 0 -60 64 {Items:[{Slot:0b,count:1,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:64}
+BE 0 -60 63 {components:{},id:"minecraft:skull",x:0,y:-60,z:63}
+B -2 -62 61 minecraft:dirt
+B -2 -62 62 minecraft:dirt
+B -2 -62 63 minecraft:dirt
+B -2 -62 64 minecraft:dirt
+B -2 -62 65 minecraft:dirt
+B -2 -61 61 minecraft:grass_block[snowy=false]
+B -2 -61 62 minecraft:grass_block[snowy=false]
+B -2 -61 63 minecraft:grass_block[snowy=false]
+B -2 -61 64 minecraft:grass_block[snowy=false]
+B -2 -61 65 minecraft:grass_block[snowy=false]
+B -1 -62 61 minecraft:dirt
+B -1 -62 62 minecraft:dirt
+B -1 -62 64 minecraft:dirt
+B -1 -62 65 minecraft:dirt
+B -1 -61 61 minecraft:grass_block[snowy=false]
+B -1 -61 62 minecraft:grass_block[snowy=false]
+B -1 -61 63 minecraft:soul_sand
+B -1 -61 64 minecraft:grass_block[snowy=false]
+B -1 -61 65 minecraft:grass_block[snowy=false]
+B 0 -62 61 minecraft:dirt
+B 0 -62 62 minecraft:dirt
+B 0 -62 63 minecraft:soul_sand
+B 0 -62 64 minecraft:dirt
+B 0 -62 65 minecraft:dirt
+B 0 -61 61 minecraft:grass_block[snowy=false]
+B 0 -61 62 minecraft:grass_block[snowy=false]
+B 0 -61 63 minecraft:soul_sand
+B 0 -61 64 minecraft:grass_block[snowy=false]
+B 0 -61 65 minecraft:grass_block[snowy=false]
+B 0 -60 63 minecraft:wither_skeleton_skull[powered=false,rotation=8]
+B 0 -60 64 minecraft:dispenser[facing=north,triggered=false]
+B 1 -62 61 minecraft:dirt
+B 1 -62 62 minecraft:dirt
+B 1 -62 64 minecraft:dirt
+B 1 -62 65 minecraft:dirt
+B 1 -61 61 minecraft:grass_block[snowy=false]
+B 1 -61 62 minecraft:grass_block[snowy=false]
+B 1 -61 63 minecraft:soul_sand
+B 1 -61 64 minecraft:grass_block[snowy=false]
+B 1 -61 65 minecraft:grass_block[snowy=false]
+B 2 -62 61 minecraft:dirt
+B 2 -62 62 minecraft:dirt
+B 2 -62 63 minecraft:dirt
+B 2 -62 64 minecraft:dirt
+B 2 -62 65 minecraft:dirt
+B 2 -61 61 minecraft:grass_block[snowy=false]
+B 2 -61 62 minecraft:grass_block[snowy=false]
+B 2 -61 63 minecraft:grass_block[snowy=false]
+B 2 -61 64 minecraft:grass_block[snowy=false]
+B 2 -61 65 minecraft:grass_block[snowy=false]
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk3 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,64 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,64 data=2 global=0
+# c10 same facing west: rotation 4
+BE 0 -60 72 {Items:[{Slot:0b,count:1,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:72}
+BE -1 -60 72 {components:{},id:"minecraft:skull",x:-1,y:-60,z:72}
+B -1 -62 70 minecraft:dirt
+B -1 -62 72 minecraft:soul_sand
+B -1 -62 74 minecraft:dirt
+B -1 -61 70 minecraft:grass_block[snowy=false]
+B -1 -61 71 minecraft:soul_sand
+B -1 -61 72 minecraft:soul_sand
+B -1 -61 73 minecraft:soul_sand
+B -1 -61 74 minecraft:grass_block[snowy=false]
+B -1 -60 72 minecraft:wither_skeleton_skull[powered=false,rotation=4]
+B 0 -62 70 minecraft:dirt
+B 0 -62 71 minecraft:dirt
+B 0 -62 72 minecraft:dirt
+B 0 -62 73 minecraft:dirt
+B 0 -62 74 minecraft:dirt
+B 0 -61 70 minecraft:grass_block[snowy=false]
+B 0 -61 71 minecraft:grass_block[snowy=false]
+B 0 -61 72 minecraft:grass_block[snowy=false]
+B 0 -61 73 minecraft:grass_block[snowy=false]
+B 0 -61 74 minecraft:grass_block[snowy=false]
+B 0 -60 72 minecraft:dispenser[facing=west,triggered=false]
+B 1 -62 70 minecraft:dirt
+B 1 -62 71 minecraft:dirt
+B 1 -62 72 minecraft:dirt
+B 1 -62 73 minecraft:dirt
+B 1 -62 74 minecraft:dirt
+B 1 -61 70 minecraft:grass_block[snowy=false]
+B 1 -61 71 minecraft:grass_block[snowy=false]
+B 1 -61 72 minecraft:grass_block[snowy=false]
+B 1 -61 73 minecraft:grass_block[snowy=false]
+B 1 -61 74 minecraft:grass_block[snowy=false]
+B 2 -62 70 minecraft:dirt
+B 2 -62 71 minecraft:dirt
+B 2 -62 72 minecraft:dirt
+B 2 -62 73 minecraft:dirt
+B 2 -62 74 minecraft:dirt
+B 2 -61 70 minecraft:grass_block[snowy=false]
+B 2 -61 71 minecraft:grass_block[snowy=false]
+B 2 -61 72 minecraft:grass_block[snowy=false]
+B 2 -61 73 minecraft:grass_block[snowy=false]
+B 2 -61 74 minecraft:grass_block[snowy=false]
+B 3 -62 70 minecraft:dirt
+B 3 -62 71 minecraft:dirt
+B 3 -62 72 minecraft:dirt
+B 3 -62 73 minecraft:dirt
+B 3 -62 74 minecraft:dirt
+B 3 -61 70 minecraft:grass_block[snowy=false]
+B 3 -61 71 minecraft:grass_block[snowy=false]
+B 3 -61 72 minecraft:grass_block[snowy=false]
+B 3 -61 73 minecraft:grass_block[snowy=false]
+B 3 -61 74 minecraft:grass_block[snowy=false]
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk3 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,72 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,72 data=4 global=0
+# c11 a base of netherrack is no wither base: no placement
+BE 0 -60 80 {Items:[{Slot:0b,count:2,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:80}
+B -1 -62 78 minecraft:dirt
+B -1 -62 79 minecraft:dirt
+B -1 -62 80 minecraft:dirt
+B -1 -62 81 minecraft:dirt
+B -1 -62 82 minecraft:dirt
+B -1 -61 78 minecraft:grass_block[snowy=false]
+B -1 -61 79 minecraft:grass_block[snowy=false]
+B -1 -61 80 minecraft:grass_block[snowy=false]
+B -1 -61 81 minecraft:grass_block[snowy=false]
+B -1 -61 82 minecraft:grass_block[snowy=false]
+B 0 -62 78 minecraft:dirt
+B 0 -62 79 minecraft:dirt
+B 0 -62 80 minecraft:dirt
+B 0 -62 81 minecraft:dirt
+B 0 -62 82 minecraft:dirt
+B 0 -61 78 minecraft:grass_block[snowy=false]
+B 0 -61 79 minecraft:grass_block[snowy=false]
+B 0 -61 80 minecraft:grass_block[snowy=false]
+B 0 -61 81 minecraft:grass_block[snowy=false]
+B 0 -61 82 minecraft:grass_block[snowy=false]
+B 0 -60 80 minecraft:dispenser[facing=east,triggered=false]
+B 1 -62 78 minecraft:dirt
+B 1 -62 80 minecraft:netherrack
+B 1 -62 82 minecraft:dirt
+B 1 -61 78 minecraft:grass_block[snowy=false]
+B 1 -61 79 minecraft:netherrack
+B 1 -61 80 minecraft:netherrack
+B 1 -61 81 minecraft:netherrack
+B 1 -61 82 minecraft:grass_block[snowy=false]
+B 2 -62 78 minecraft:dirt
+B 2 -62 79 minecraft:dirt
+B 2 -62 80 minecraft:dirt
+B 2 -62 81 minecraft:dirt
+B 2 -62 82 minecraft:dirt
+B 2 -61 78 minecraft:grass_block[snowy=false]
+B 2 -61 79 minecraft:grass_block[snowy=false]
+B 2 -61 80 minecraft:grass_block[snowy=false]
+B 2 -61 81 minecraft:grass_block[snowy=false]
+B 2 -61 82 minecraft:grass_block[snowy=false]
+B 3 -62 78 minecraft:dirt
+B 3 -62 79 minecraft:dirt
+B 3 -62 80 minecraft:dirt
+B 3 -62 81 minecraft:dirt
+B 3 -62 82 minecraft:dirt
+B 3 -61 78 minecraft:grass_block[snowy=false]
+B 3 -61 79 minecraft:grass_block[snowy=false]
+B 3 -61 80 minecraft:grass_block[snowy=false]
+B 3 -61 81 minecraft:grass_block[snowy=false]
+B 3 -61 82 minecraft:grass_block[snowy=false]
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk3 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,80 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,80 data=5 global=0
+# c12 a skull on an armor stand in front (no base): equipped
+BE 0 -60 88 {Items:[{Slot:0b,count:1,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:88}
+N as1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,88.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,attributes:[],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:wither_skeleton_skull"}},fall_distance:0.0d}
+E zk1 minecraft:zombie pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk2 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zk3 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E as1 minecraft:armor_stand pos=1.5,-60.0,88.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,88 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,88 data=5 global=0

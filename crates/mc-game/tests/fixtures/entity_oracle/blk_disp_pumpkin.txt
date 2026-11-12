@@ -1,0 +1,631 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c1 two snow blocks below the target: the pumpkin completes a snow golem
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+B -1 -63 -2 minecraft:dirt
+B -1 -63 -1 minecraft:dirt
+B -1 -63 0 minecraft:dirt
+B -1 -63 1 minecraft:dirt
+B -1 -63 2 minecraft:dirt
+B -1 -62 -2 minecraft:dirt
+B -1 -62 -1 minecraft:dirt
+B -1 -62 0 minecraft:dirt
+B -1 -62 1 minecraft:dirt
+B -1 -62 2 minecraft:dirt
+B -1 -61 -2 minecraft:grass_block[snowy=false]
+B -1 -61 -1 minecraft:grass_block[snowy=false]
+B -1 -61 0 minecraft:grass_block[snowy=false]
+B -1 -61 1 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B 0 -63 -2 minecraft:dirt
+B 0 -63 -1 minecraft:dirt
+B 0 -63 0 minecraft:dirt
+B 0 -63 1 minecraft:dirt
+B 0 -63 2 minecraft:dirt
+B 0 -62 -2 minecraft:dirt
+B 0 -62 -1 minecraft:dirt
+B 0 -62 0 minecraft:dirt
+B 0 -62 1 minecraft:dirt
+B 0 -62 2 minecraft:dirt
+B 0 -61 -2 minecraft:grass_block[snowy=false]
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+B 1 -63 -2 minecraft:dirt
+B 1 -63 -1 minecraft:dirt
+B 1 -63 0 minecraft:dirt
+B 1 -63 1 minecraft:dirt
+B 1 -63 2 minecraft:dirt
+B 1 -62 -2 minecraft:dirt
+B 1 -62 -1 minecraft:dirt
+B 1 -62 1 minecraft:dirt
+B 1 -62 2 minecraft:dirt
+B 1 -61 -2 minecraft:grass_block[snowy=false]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 2 -63 -2 minecraft:dirt
+B 2 -63 -1 minecraft:dirt
+B 2 -63 0 minecraft:dirt
+B 2 -63 1 minecraft:dirt
+B 2 -63 2 minecraft:dirt
+B 2 -62 -2 minecraft:dirt
+B 2 -62 -1 minecraft:dirt
+B 2 -62 0 minecraft:dirt
+B 2 -62 1 minecraft:dirt
+B 2 -62 2 minecraft:dirt
+B 2 -61 -2 minecraft:grass_block[snowy=false]
+B 2 -61 -1 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 3 -63 -2 minecraft:dirt
+B 3 -63 -1 minecraft:dirt
+B 3 -63 0 minecraft:dirt
+B 3 -63 1 minecraft:dirt
+B 3 -63 2 minecraft:dirt
+B 3 -62 -2 minecraft:dirt
+B 3 -62 -1 minecraft:dirt
+B 3 -62 0 minecraft:dirt
+B 3 -62 1 minecraft:dirt
+B 3 -62 2 minecraft:dirt
+B 3 -61 -2 minecraft:grass_block[snowy=false]
+B 3 -61 -1 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,0 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,0 data=8598 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-62,0 data=8598 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+# c2 iron blocks in a T below the target: iron golem
+BE 0 -60 8 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+B -1 -63 6 minecraft:dirt
+B -1 -63 7 minecraft:dirt
+B -1 -63 8 minecraft:dirt
+B -1 -63 9 minecraft:dirt
+B -1 -63 10 minecraft:dirt
+B -1 -62 6 minecraft:dirt
+B -1 -62 7 minecraft:dirt
+B -1 -62 8 minecraft:dirt
+B -1 -62 9 minecraft:dirt
+B -1 -62 10 minecraft:dirt
+B -1 -61 6 minecraft:grass_block[snowy=false]
+B -1 -61 7 minecraft:grass_block[snowy=false]
+B -1 -61 8 minecraft:grass_block[snowy=false]
+B -1 -61 9 minecraft:grass_block[snowy=false]
+B -1 -61 10 minecraft:grass_block[snowy=false]
+B 0 -63 6 minecraft:dirt
+B 0 -63 7 minecraft:dirt
+B 0 -63 8 minecraft:dirt
+B 0 -63 9 minecraft:dirt
+B 0 -63 10 minecraft:dirt
+B 0 -62 6 minecraft:dirt
+B 0 -62 7 minecraft:dirt
+B 0 -62 8 minecraft:dirt
+B 0 -62 9 minecraft:dirt
+B 0 -62 10 minecraft:dirt
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 0 -61 7 minecraft:grass_block[snowy=false]
+B 0 -61 8 minecraft:grass_block[snowy=false]
+B 0 -61 9 minecraft:grass_block[snowy=false]
+B 0 -61 10 minecraft:grass_block[snowy=false]
+B 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+B 1 -63 6 minecraft:dirt
+B 1 -63 7 minecraft:dirt
+B 1 -63 8 minecraft:dirt
+B 1 -63 9 minecraft:dirt
+B 1 -63 10 minecraft:dirt
+B 1 -62 6 minecraft:dirt
+B 1 -62 10 minecraft:dirt
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 10 minecraft:grass_block[snowy=false]
+B 2 -63 6 minecraft:dirt
+B 2 -63 7 minecraft:dirt
+B 2 -63 8 minecraft:dirt
+B 2 -63 9 minecraft:dirt
+B 2 -63 10 minecraft:dirt
+B 2 -62 6 minecraft:dirt
+B 2 -62 7 minecraft:dirt
+B 2 -62 8 minecraft:dirt
+B 2 -62 9 minecraft:dirt
+B 2 -62 10 minecraft:dirt
+B 2 -61 6 minecraft:grass_block[snowy=false]
+B 2 -61 7 minecraft:grass_block[snowy=false]
+B 2 -61 8 minecraft:grass_block[snowy=false]
+B 2 -61 9 minecraft:grass_block[snowy=false]
+B 2 -61 10 minecraft:grass_block[snowy=false]
+B 3 -63 6 minecraft:dirt
+B 3 -63 7 minecraft:dirt
+B 3 -63 8 minecraft:dirt
+B 3 -63 9 minecraft:dirt
+B 3 -63 10 minecraft:dirt
+B 3 -62 6 minecraft:dirt
+B 3 -62 7 minecraft:dirt
+B 3 -62 8 minecraft:dirt
+B 3 -62 9 minecraft:dirt
+B 3 -62 10 minecraft:dirt
+B 3 -61 6 minecraft:grass_block[snowy=false]
+B 3 -61 7 minecraft:grass_block[snowy=false]
+B 3 -61 8 minecraft:grass_block[snowy=false]
+B 3 -61 9 minecraft:grass_block[snowy=false]
+B 3 -61 10 minecraft:grass_block[snowy=false]
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,9 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,9 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-62,9 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,8 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,8 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-62,8 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,7 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,7 data=3831 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-62,7 data=0 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+# c3 a single snow block: no pattern, nothing to equip -> failure click, the stack stays
+BE 0 -60 32 {Items:[{Slot:0b,count:2,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:32}
+B -1 -63 30 minecraft:dirt
+B -1 -63 31 minecraft:dirt
+B -1 -63 32 minecraft:dirt
+B -1 -63 33 minecraft:dirt
+B -1 -63 34 minecraft:dirt
+B -1 -62 30 minecraft:dirt
+B -1 -62 31 minecraft:dirt
+B -1 -62 32 minecraft:dirt
+B -1 -62 33 minecraft:dirt
+B -1 -62 34 minecraft:dirt
+B -1 -61 30 minecraft:grass_block[snowy=false]
+B -1 -61 31 minecraft:grass_block[snowy=false]
+B -1 -61 32 minecraft:grass_block[snowy=false]
+B -1 -61 33 minecraft:grass_block[snowy=false]
+B -1 -61 34 minecraft:grass_block[snowy=false]
+B 0 -63 30 minecraft:dirt
+B 0 -63 31 minecraft:dirt
+B 0 -63 32 minecraft:dirt
+B 0 -63 33 minecraft:dirt
+B 0 -63 34 minecraft:dirt
+B 0 -62 30 minecraft:dirt
+B 0 -62 31 minecraft:dirt
+B 0 -62 32 minecraft:dirt
+B 0 -62 33 minecraft:dirt
+B 0 -62 34 minecraft:dirt
+B 0 -61 30 minecraft:grass_block[snowy=false]
+B 0 -61 31 minecraft:grass_block[snowy=false]
+B 0 -61 32 minecraft:grass_block[snowy=false]
+B 0 -61 33 minecraft:grass_block[snowy=false]
+B 0 -61 34 minecraft:grass_block[snowy=false]
+B 0 -60 32 minecraft:dispenser[facing=east,triggered=false]
+B 1 -63 30 minecraft:dirt
+B 1 -63 31 minecraft:dirt
+B 1 -63 32 minecraft:dirt
+B 1 -63 33 minecraft:dirt
+B 1 -63 34 minecraft:dirt
+B 1 -62 30 minecraft:dirt
+B 1 -62 31 minecraft:dirt
+B 1 -62 32 minecraft:snow_block
+B 1 -62 33 minecraft:dirt
+B 1 -62 34 minecraft:dirt
+B 1 -61 30 minecraft:grass_block[snowy=false]
+B 1 -61 31 minecraft:grass_block[snowy=false]
+B 1 -61 32 minecraft:snow[layers=1]
+B 1 -61 33 minecraft:grass_block[snowy=false]
+B 1 -61 34 minecraft:grass_block[snowy=false]
+B 2 -63 30 minecraft:dirt
+B 2 -63 31 minecraft:dirt
+B 2 -63 32 minecraft:dirt
+B 2 -63 33 minecraft:dirt
+B 2 -63 34 minecraft:dirt
+B 2 -62 30 minecraft:dirt
+B 2 -62 31 minecraft:dirt
+B 2 -62 32 minecraft:dirt
+B 2 -62 33 minecraft:dirt
+B 2 -62 34 minecraft:dirt
+B 2 -61 30 minecraft:grass_block[snowy=false]
+B 2 -61 31 minecraft:grass_block[snowy=false]
+B 2 -61 32 minecraft:grass_block[snowy=false]
+B 2 -61 33 minecraft:grass_block[snowy=false]
+B 2 -61 34 minecraft:grass_block[snowy=false]
+B 3 -63 30 minecraft:dirt
+B 3 -63 31 minecraft:dirt
+B 3 -63 32 minecraft:dirt
+B 3 -63 33 minecraft:dirt
+B 3 -63 34 minecraft:dirt
+B 3 -62 30 minecraft:dirt
+B 3 -62 31 minecraft:dirt
+B 3 -62 32 minecraft:dirt
+B 3 -62 33 minecraft:dirt
+B 3 -62 34 minecraft:dirt
+B 3 -61 30 minecraft:grass_block[snowy=false]
+B 3 -61 31 minecraft:grass_block[snowy=false]
+B 3 -61 32 minecraft:grass_block[snowy=false]
+B 3 -61 33 minecraft:grass_block[snowy=false]
+B 3 -61 34 minecraft:grass_block[snowy=false]
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,32 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,32 data=5 global=0
+# c4 no pattern, a zombie that can pick up loot in front: the pumpkin is equipped
+BE 0 -60 40 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:40}
+N pz1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,40.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{head:2.0f},equipment:{head:{count:1,id:"minecraft:carved_pumpkin"}},fall_distance:0.0d}
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,40 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,40 data=5 global=0
+# c5 no pattern, zombie that cannot pick up loot: not equipped, failure click
+BE 0 -60 48 {Items:[{Slot:0b,count:2,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:48}
+N pz2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,48.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz2 minecraft:zombie pos=1.5,-60.0,48.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,48 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,48 data=5 global=0
+# c6 snow golem pattern and a zombie in the target block: the pumpkin is still placed
+BE 0 -60 56 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:56}
+N pz3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,56.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+B -1 -63 54 minecraft:dirt
+B -1 -63 55 minecraft:dirt
+B -1 -63 56 minecraft:dirt
+B -1 -63 57 minecraft:dirt
+B -1 -63 58 minecraft:dirt
+B -1 -62 54 minecraft:dirt
+B -1 -62 55 minecraft:dirt
+B -1 -62 56 minecraft:dirt
+B -1 -62 57 minecraft:dirt
+B -1 -62 58 minecraft:dirt
+B -1 -61 54 minecraft:grass_block[snowy=false]
+B -1 -61 55 minecraft:grass_block[snowy=false]
+B -1 -61 56 minecraft:grass_block[snowy=false]
+B -1 -61 57 minecraft:grass_block[snowy=false]
+B -1 -61 58 minecraft:grass_block[snowy=false]
+B 0 -63 54 minecraft:dirt
+B 0 -63 55 minecraft:dirt
+B 0 -63 56 minecraft:dirt
+B 0 -63 57 minecraft:dirt
+B 0 -63 58 minecraft:dirt
+B 0 -62 54 minecraft:dirt
+B 0 -62 55 minecraft:dirt
+B 0 -62 56 minecraft:dirt
+B 0 -62 57 minecraft:dirt
+B 0 -62 58 minecraft:dirt
+B 0 -61 54 minecraft:grass_block[snowy=false]
+B 0 -61 55 minecraft:grass_block[snowy=false]
+B 0 -61 56 minecraft:grass_block[snowy=false]
+B 0 -61 57 minecraft:grass_block[snowy=false]
+B 0 -61 58 minecraft:grass_block[snowy=false]
+B 0 -60 56 minecraft:dispenser[facing=east,triggered=false]
+B 1 -63 54 minecraft:dirt
+B 1 -63 55 minecraft:dirt
+B 1 -63 56 minecraft:dirt
+B 1 -63 57 minecraft:dirt
+B 1 -63 58 minecraft:dirt
+B 1 -62 54 minecraft:dirt
+B 1 -62 55 minecraft:dirt
+B 1 -62 57 minecraft:dirt
+B 1 -62 58 minecraft:dirt
+B 1 -61 54 minecraft:grass_block[snowy=false]
+B 1 -61 55 minecraft:grass_block[snowy=false]
+B 1 -61 57 minecraft:grass_block[snowy=false]
+B 1 -61 58 minecraft:grass_block[snowy=false]
+B 2 -63 54 minecraft:dirt
+B 2 -63 55 minecraft:dirt
+B 2 -63 56 minecraft:dirt
+B 2 -63 57 minecraft:dirt
+B 2 -63 58 minecraft:dirt
+B 2 -62 54 minecraft:dirt
+B 2 -62 55 minecraft:dirt
+B 2 -62 56 minecraft:dirt
+B 2 -62 57 minecraft:dirt
+B 2 -62 58 minecraft:dirt
+B 2 -61 54 minecraft:grass_block[snowy=false]
+B 2 -61 55 minecraft:grass_block[snowy=false]
+B 2 -61 56 minecraft:grass_block[snowy=false]
+B 2 -61 57 minecraft:grass_block[snowy=false]
+B 2 -61 58 minecraft:grass_block[snowy=false]
+B 3 -63 54 minecraft:dirt
+B 3 -63 55 minecraft:dirt
+B 3 -63 56 minecraft:dirt
+B 3 -63 57 minecraft:dirt
+B 3 -63 58 minecraft:dirt
+B 3 -62 54 minecraft:dirt
+B 3 -62 55 minecraft:dirt
+B 3 -62 56 minecraft:dirt
+B 3 -62 57 minecraft:dirt
+B 3 -62 58 minecraft:dirt
+B 3 -61 54 minecraft:grass_block[snowy=false]
+B 3 -61 55 minecraft:grass_block[snowy=false]
+B 3 -61 56 minecraft:grass_block[snowy=false]
+B 3 -61 57 minecraft:grass_block[snowy=false]
+B 3 -61 58 minecraft:grass_block[snowy=false]
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz2 minecraft:zombie pos=1.5,-60.0,48.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz3 minecraft:zombie pos=1.5,-60.0,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=1.5,-61.95,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,56 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,56 data=8598 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-62,56 data=8598 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,56 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,56 data=5 global=0
+# c7 snow golem pattern but the target block is solid: equipment branch, failure click
+BE 0 -60 64 {Items:[{Slot:0b,count:2,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:64}
+B -1 -63 62 minecraft:dirt
+B -1 -63 63 minecraft:dirt
+B -1 -63 64 minecraft:dirt
+B -1 -63 65 minecraft:dirt
+B -1 -63 66 minecraft:dirt
+B -1 -62 62 minecraft:dirt
+B -1 -62 63 minecraft:dirt
+B -1 -62 64 minecraft:dirt
+B -1 -62 65 minecraft:dirt
+B -1 -62 66 minecraft:dirt
+B -1 -61 62 minecraft:grass_block[snowy=false]
+B -1 -61 63 minecraft:grass_block[snowy=false]
+B -1 -61 64 minecraft:grass_block[snowy=false]
+B -1 -61 65 minecraft:grass_block[snowy=false]
+B -1 -61 66 minecraft:grass_block[snowy=false]
+B 0 -63 62 minecraft:dirt
+B 0 -63 63 minecraft:dirt
+B 0 -63 64 minecraft:dirt
+B 0 -63 65 minecraft:dirt
+B 0 -63 66 minecraft:dirt
+B 0 -62 62 minecraft:dirt
+B 0 -62 63 minecraft:dirt
+B 0 -62 64 minecraft:dirt
+B 0 -62 65 minecraft:dirt
+B 0 -62 66 minecraft:dirt
+B 0 -61 62 minecraft:grass_block[snowy=false]
+B 0 -61 63 minecraft:grass_block[snowy=false]
+B 0 -61 64 minecraft:grass_block[snowy=false]
+B 0 -61 65 minecraft:grass_block[snowy=false]
+B 0 -61 66 minecraft:grass_block[snowy=false]
+B 0 -60 64 minecraft:dispenser[facing=east,triggered=false]
+B 1 -63 62 minecraft:dirt
+B 1 -63 63 minecraft:dirt
+B 1 -63 64 minecraft:dirt
+B 1 -63 65 minecraft:dirt
+B 1 -63 66 minecraft:dirt
+B 1 -62 62 minecraft:dirt
+B 1 -62 63 minecraft:dirt
+B 1 -62 64 minecraft:snow_block
+B 1 -62 65 minecraft:dirt
+B 1 -62 66 minecraft:dirt
+B 1 -61 62 minecraft:grass_block[snowy=false]
+B 1 -61 63 minecraft:grass_block[snowy=false]
+B 1 -61 64 minecraft:snow_block
+B 1 -61 65 minecraft:grass_block[snowy=false]
+B 1 -61 66 minecraft:grass_block[snowy=false]
+B 1 -60 64 minecraft:stone
+B 2 -63 62 minecraft:dirt
+B 2 -63 63 minecraft:dirt
+B 2 -63 64 minecraft:dirt
+B 2 -63 65 minecraft:dirt
+B 2 -63 66 minecraft:dirt
+B 2 -62 62 minecraft:dirt
+B 2 -62 63 minecraft:dirt
+B 2 -62 64 minecraft:dirt
+B 2 -62 65 minecraft:dirt
+B 2 -62 66 minecraft:dirt
+B 2 -61 62 minecraft:grass_block[snowy=false]
+B 2 -61 63 minecraft:grass_block[snowy=false]
+B 2 -61 64 minecraft:grass_block[snowy=false]
+B 2 -61 65 minecraft:grass_block[snowy=false]
+B 2 -61 66 minecraft:grass_block[snowy=false]
+B 3 -63 62 minecraft:dirt
+B 3 -63 63 minecraft:dirt
+B 3 -63 64 minecraft:dirt
+B 3 -63 65 minecraft:dirt
+B 3 -63 66 minecraft:dirt
+B 3 -62 62 minecraft:dirt
+B 3 -62 63 minecraft:dirt
+B 3 -62 64 minecraft:dirt
+B 3 -62 65 minecraft:dirt
+B 3 -62 66 minecraft:dirt
+B 3 -61 62 minecraft:grass_block[snowy=false]
+B 3 -61 63 minecraft:grass_block[snowy=false]
+B 3 -61 64 minecraft:grass_block[snowy=false]
+B 3 -61 65 minecraft:grass_block[snowy=false]
+B 3 -61 66 minecraft:grass_block[snowy=false]
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz2 minecraft:zombie pos=1.5,-60.0,48.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz3 minecraft:zombie pos=1.5,-60.0,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=1.5,-61.95,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,64 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,64 data=5 global=0
+# c8 a last pumpkin of the stack builds a snow golem
+BE 0 -60 72 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:72}
+B -1 -63 70 minecraft:dirt
+B -1 -63 71 minecraft:dirt
+B -1 -63 72 minecraft:dirt
+B -1 -63 73 minecraft:dirt
+B -1 -63 74 minecraft:dirt
+B -1 -62 70 minecraft:dirt
+B -1 -62 71 minecraft:dirt
+B -1 -62 72 minecraft:dirt
+B -1 -62 73 minecraft:dirt
+B -1 -62 74 minecraft:dirt
+B -1 -61 70 minecraft:grass_block[snowy=false]
+B -1 -61 71 minecraft:grass_block[snowy=false]
+B -1 -61 72 minecraft:grass_block[snowy=false]
+B -1 -61 73 minecraft:grass_block[snowy=false]
+B -1 -61 74 minecraft:grass_block[snowy=false]
+B 0 -63 70 minecraft:dirt
+B 0 -63 71 minecraft:dirt
+B 0 -63 72 minecraft:dirt
+B 0 -63 73 minecraft:dirt
+B 0 -63 74 minecraft:dirt
+B 0 -62 70 minecraft:dirt
+B 0 -62 71 minecraft:dirt
+B 0 -62 72 minecraft:dirt
+B 0 -62 73 minecraft:dirt
+B 0 -62 74 minecraft:dirt
+B 0 -61 70 minecraft:grass_block[snowy=false]
+B 0 -61 71 minecraft:grass_block[snowy=false]
+B 0 -61 72 minecraft:grass_block[snowy=false]
+B 0 -61 73 minecraft:grass_block[snowy=false]
+B 0 -61 74 minecraft:grass_block[snowy=false]
+B 0 -60 72 minecraft:dispenser[facing=east,triggered=false]
+B 1 -63 70 minecraft:dirt
+B 1 -63 71 minecraft:dirt
+B 1 -63 72 minecraft:dirt
+B 1 -63 73 minecraft:dirt
+B 1 -63 74 minecraft:dirt
+B 1 -62 70 minecraft:dirt
+B 1 -62 71 minecraft:dirt
+B 1 -62 73 minecraft:dirt
+B 1 -62 74 minecraft:dirt
+B 1 -61 70 minecraft:grass_block[snowy=false]
+B 1 -61 71 minecraft:grass_block[snowy=false]
+B 1 -61 73 minecraft:grass_block[snowy=false]
+B 1 -61 74 minecraft:grass_block[snowy=false]
+B 2 -63 70 minecraft:dirt
+B 2 -63 71 minecraft:dirt
+B 2 -63 72 minecraft:dirt
+B 2 -63 73 minecraft:dirt
+B 2 -63 74 minecraft:dirt
+B 2 -62 70 minecraft:dirt
+B 2 -62 71 minecraft:dirt
+B 2 -62 72 minecraft:dirt
+B 2 -62 73 minecraft:dirt
+B 2 -62 74 minecraft:dirt
+B 2 -61 70 minecraft:grass_block[snowy=false]
+B 2 -61 71 minecraft:grass_block[snowy=false]
+B 2 -61 72 minecraft:grass_block[snowy=false]
+B 2 -61 73 minecraft:grass_block[snowy=false]
+B 2 -61 74 minecraft:grass_block[snowy=false]
+B 3 -63 70 minecraft:dirt
+B 3 -63 71 minecraft:dirt
+B 3 -63 72 minecraft:dirt
+B 3 -63 73 minecraft:dirt
+B 3 -63 74 minecraft:dirt
+B 3 -62 70 minecraft:dirt
+B 3 -62 71 minecraft:dirt
+B 3 -62 72 minecraft:dirt
+B 3 -62 73 minecraft:dirt
+B 3 -62 74 minecraft:dirt
+B 3 -61 70 minecraft:grass_block[snowy=false]
+B 3 -61 71 minecraft:grass_block[snowy=false]
+B 3 -61 72 minecraft:grass_block[snowy=false]
+B 3 -61 73 minecraft:grass_block[snowy=false]
+B 3 -61 74 minecraft:grass_block[snowy=false]
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz2 minecraft:zombie pos=1.5,-60.0,48.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz3 minecraft:zombie pos=1.5,-60.0,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=1.5,-61.95,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#3 minecraft:snow_golem pos=1.5,-61.95,72.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=1,-60,72 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-61,72 data=8598 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-62,72 data=8598 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,72 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,72 data=5 global=0
+# c9 a pumpkin on an armor stand in front (no pattern): equipped on its head
+BE 0 -60 80 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:80}
+N pa1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,80.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,attributes:[],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:carved_pumpkin"}},fall_distance:0.0d}
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz2 minecraft:zombie pos=1.5,-60.0,48.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz3 minecraft:zombie pos=1.5,-60.0,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=1.5,-61.95,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#3 minecraft:snow_golem pos=1.5,-61.95,72.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pa1 minecraft:armor_stand pos=1.5,-60.0,80.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,80 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,80 data=5 global=0
+# c10 a pumpkin on a survival player in front (no pattern)
+BE 0 -60 88 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:88}
+P PP minecraft:player pos=1.5,-60.0,88.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I PP 39 minecraft:carved_pumpkin*1
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz2 minecraft:zombie pos=1.5,-60.0,48.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz3 minecraft:zombie pos=1.5,-60.0,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=1.5,-61.95,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#3 minecraft:snow_golem pos=1.5,-61.95,72.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pa1 minecraft:armor_stand pos=1.5,-60.0,80.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,88 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,88 data=5 global=0
+# c11 snow golem pattern below a target dispensed downwards (pumpkin placed in the dug-out ground block)
+BE 0 -60 96 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:96}
+B -1 -64 94 minecraft:bedrock
+B -1 -64 95 minecraft:bedrock
+B -1 -64 96 minecraft:bedrock
+B -1 -64 97 minecraft:bedrock
+B -1 -64 98 minecraft:bedrock
+B -1 -63 94 minecraft:dirt
+B -1 -63 95 minecraft:dirt
+B -1 -63 96 minecraft:dirt
+B -1 -63 97 minecraft:dirt
+B -1 -63 98 minecraft:dirt
+B -1 -62 94 minecraft:dirt
+B -1 -62 95 minecraft:dirt
+B -1 -62 96 minecraft:dirt
+B -1 -62 97 minecraft:dirt
+B -1 -62 98 minecraft:dirt
+B -1 -61 94 minecraft:grass_block[snowy=false]
+B -1 -61 95 minecraft:grass_block[snowy=false]
+B -1 -61 96 minecraft:grass_block[snowy=false]
+B -1 -61 97 minecraft:grass_block[snowy=false]
+B -1 -61 98 minecraft:grass_block[snowy=false]
+B 0 -64 94 minecraft:bedrock
+B 0 -64 95 minecraft:bedrock
+B 0 -64 96 minecraft:bedrock
+B 0 -64 97 minecraft:bedrock
+B 0 -64 98 minecraft:bedrock
+B 0 -63 94 minecraft:dirt
+B 0 -63 95 minecraft:dirt
+B 0 -63 97 minecraft:dirt
+B 0 -63 98 minecraft:dirt
+B 0 -62 94 minecraft:dirt
+B 0 -62 95 minecraft:dirt
+B 0 -62 97 minecraft:dirt
+B 0 -62 98 minecraft:dirt
+B 0 -61 94 minecraft:grass_block[snowy=false]
+B 0 -61 95 minecraft:grass_block[snowy=false]
+B 0 -61 97 minecraft:grass_block[snowy=false]
+B 0 -61 98 minecraft:grass_block[snowy=false]
+B 0 -60 96 minecraft:dispenser[facing=down,triggered=false]
+B 1 -64 94 minecraft:bedrock
+B 1 -64 95 minecraft:bedrock
+B 1 -64 96 minecraft:bedrock
+B 1 -64 97 minecraft:bedrock
+B 1 -64 98 minecraft:bedrock
+B 1 -63 94 minecraft:dirt
+B 1 -63 95 minecraft:dirt
+B 1 -63 96 minecraft:dirt
+B 1 -63 97 minecraft:dirt
+B 1 -63 98 minecraft:dirt
+B 1 -62 94 minecraft:dirt
+B 1 -62 95 minecraft:dirt
+B 1 -62 96 minecraft:dirt
+B 1 -62 97 minecraft:dirt
+B 1 -62 98 minecraft:dirt
+B 1 -61 94 minecraft:grass_block[snowy=false]
+B 1 -61 95 minecraft:grass_block[snowy=false]
+B 1 -61 96 minecraft:grass_block[snowy=false]
+B 1 -61 97 minecraft:grass_block[snowy=false]
+B 1 -61 98 minecraft:grass_block[snowy=false]
+E snow_golem#1 minecraft:snow_golem pos=1.5,-61.95,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E iron_golem#1 minecraft:iron_golem pos=1.5,-61.95,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz1 minecraft:zombie pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz2 minecraft:zombie pos=1.5,-60.0,48.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pz3 minecraft:zombie pos=1.5,-60.0,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#2 minecraft:snow_golem pos=1.5,-61.95,56.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#3 minecraft:snow_golem pos=1.5,-61.95,72.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pa1 minecraft:armor_stand pos=1.5,-60.0,80.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E snow_golem#4 minecraft:snow_golem pos=0.5,-62.95,96.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2001 pos=0,-61,96 data=8689 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-62,96 data=8598 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-63,96 data=8598 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,96 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,96 data=0 global=0

@@ -1,0 +1,140 @@
+# Dispenser wither skeleton skull (OptionalDispenseItemBehavior): into an empty block in front when `WitherSkullBlock.canSpawnMob` holds (the wither
+# base, a soul sand T, matches around the position; difficulty is not peaceful) the skull block is placed with the dispenser direction as its rotation segment (BLOCK_PLACE
+# event, WitherSkullBlock.checkSpawn finds no complete pattern here) and one skull is used; otherwise the skull is equipped on the first living entity in front that
+# accepts it (EquipmentDispenseItemBehavior.dispenseEquipment), else nothing happens (failure click 1001, no drop).
+# The wither spawned by a complete pattern is not covered.
+# Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 3
+time 18000
+note c1 soul sand T below the target: the skull is placed (east: rotation 12), one of 2 used
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+block 1 -61 -1 minecraft:soul_sand
+block 1 -61 0 minecraft:soul_sand
+block 1 -61 1 minecraft:soul_sand
+block 1 -62 0 minecraft:soul_sand
+block 1 -62 -1 minecraft:air
+block 1 -62 1 minecraft:air
+level_seed 1
+dispense 0 -60 0 c1
+dump be:0,-60,0 be:1,-60,0 blocks:-1,-62,-2,3,-59,2 entities events
+note c2 no wither base: not placed, no entity to equip -> failure click, the stack stays
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+level_seed 2
+dispense 0 -60 8 c2
+dump be:0,-60,8 blocks:-1,-62,6,3,-59,10 entities events
+note c3 no wither base, a zombie that can pick up loot in front: the skull is equipped on its head
+block 0 -60 16 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 16 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+spawn zk1 minecraft:zombie 1.5 -60 16.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:1b}
+level_seed 3
+dispense 0 -60 16 c3
+dump be:0,-60,16 nbt:zk1 entities events
+note c4 wither base and a zombie inside the target block: the skull block is placed anyway
+block 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 24 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+block 1 -61 23 minecraft:soul_sand
+block 1 -61 24 minecraft:soul_sand
+block 1 -61 25 minecraft:soul_sand
+block 1 -62 24 minecraft:soul_sand
+block 1 -62 23 minecraft:air
+block 1 -62 25 minecraft:air
+spawn zk2 minecraft:zombie 1.5 -60 24.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:1b}
+level_seed 4
+dispense 0 -60 24 c4
+dump be:0,-60,24 be:1,-60,24 nbt:zk2 blocks:-1,-62,22,3,-59,26 entities events
+note c5 wither base but the target block is solid: equipment branch, nothing in front accepts it
+block 0 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 32 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+block 1 -61 31 minecraft:soul_sand
+block 1 -61 32 minecraft:soul_sand
+block 1 -61 33 minecraft:soul_sand
+block 1 -62 32 minecraft:soul_sand
+block 1 -62 31 minecraft:air
+block 1 -62 33 minecraft:air
+block 1 -60 32 minecraft:stone
+level_seed 5
+dispense 0 -60 32 c5
+dump be:0,-60,32 blocks:-1,-62,30,3,-59,34 entities events
+note c6 wither base, zombie that cannot pick up loot in the target block: placed (the entity is irrelevant)
+block 0 -60 40 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 40 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:1}]}
+block 1 -61 39 minecraft:soul_sand
+block 1 -61 40 minecraft:soul_sand
+block 1 -61 41 minecraft:soul_sand
+block 1 -62 40 minecraft:soul_sand
+block 1 -62 39 minecraft:air
+block 1 -62 41 minecraft:air
+spawn zk3 minecraft:zombie 1.5 -60 40.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:0b}
+level_seed 6
+dispense 0 -60 40 c6
+dump be:0,-60,40 be:1,-60,40 nbt:zk3 blocks:-1,-62,38,3,-59,42 entities events
+note c7 a last skull of the stack is used up
+block 0 -60 48 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 48 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:1}]}
+block 1 -61 47 minecraft:soul_sand
+block 1 -61 48 minecraft:soul_sand
+block 1 -61 49 minecraft:soul_sand
+block 1 -62 48 minecraft:soul_sand
+block 1 -62 47 minecraft:air
+block 1 -62 49 minecraft:air
+level_seed 7
+dispense 0 -60 48 c7
+dump be:0,-60,48 be:1,-60,48 blocks:-1,-62,46,3,-59,50 entities events
+note c8 soul sand T along x, dispenser facing south: rotation 0
+block 0 -60 56 minecraft:dispenser[facing=south,triggered=false]
+be_nbt 0 -60 56 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+block -1 -61 57 minecraft:soul_sand
+block 0 -61 57 minecraft:soul_sand
+block 1 -61 57 minecraft:soul_sand
+block 0 -62 57 minecraft:soul_sand
+block -1 -62 57 minecraft:air
+block 1 -62 57 minecraft:air
+level_seed 8
+dispense 0 -60 56 c8
+dump be:0,-60,56 be:0,-60,57 blocks:-2,-62,55,2,-59,59 entities events
+note c9 same facing north: rotation 8
+block 0 -60 64 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 0 -60 64 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+block -1 -61 63 minecraft:soul_sand
+block 0 -61 63 minecraft:soul_sand
+block 1 -61 63 minecraft:soul_sand
+block 0 -62 63 minecraft:soul_sand
+block -1 -62 63 minecraft:air
+block 1 -62 63 minecraft:air
+level_seed 9
+dispense 0 -60 64 c9
+dump be:0,-60,64 be:0,-60,63 blocks:-2,-62,61,2,-59,65 entities events
+note c10 same facing west: rotation 4
+block 0 -60 72 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 0 -60 72 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+block -1 -61 71 minecraft:soul_sand
+block -1 -61 72 minecraft:soul_sand
+block -1 -61 73 minecraft:soul_sand
+block -1 -62 72 minecraft:soul_sand
+block -1 -62 71 minecraft:air
+block -1 -62 73 minecraft:air
+level_seed 10
+dispense 0 -60 72 c10
+dump be:0,-60,72 be:-1,-60,72 blocks:-1,-62,70,3,-59,74 entities events
+note c11 a base of netherrack is no wither base: no placement
+block 0 -60 80 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 80 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+block 1 -61 79 minecraft:netherrack
+block 1 -61 80 minecraft:netherrack
+block 1 -61 81 minecraft:netherrack
+block 1 -62 80 minecraft:netherrack
+block 1 -62 79 minecraft:air
+block 1 -62 81 minecraft:air
+level_seed 11
+dispense 0 -60 80 c11
+dump be:0,-60,80 blocks:-1,-62,78,3,-59,82 entities events
+note c12 a skull on an armor stand in front (no base): equipped
+block 0 -60 88 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 88 {Items:[{Slot:0b,id:"minecraft:wither_skeleton_skull",count:2}]}
+spawn as1 minecraft:armor_stand 1.5 -60 88.5 0 0 {}
+level_seed 12
+dispense 0 -60 88 c12
+dump be:0,-60,88 nbt:as1 entities events

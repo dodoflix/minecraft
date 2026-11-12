@@ -1,0 +1,97 @@
+# Dispenser glass bottle (DispenseItemBehavior: OptionalDispenseItemBehavior): a beehive with honey_level >= 5 releases its occupants,
+# resets to 0 and the bottle becomes a honey bottle (FLUID_PICKUP game event); water fluid in front (source, flowing, waterlogged) turns it into a water
+# bottle without removing the water; otherwise the bottle is dropped with the failure click. A stack of 2 puts the filled bottle into the first free
+# slot of the dispenser, or drops it when the dispenser is full. Pigs in a hive never leave it; bees stay inside while a lit campfire is below.
+# Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 3
+time 18000
+note c1 beehive honey 4: not full, the bottle is dropped (1001)
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -60 0 minecraft:beehive[honey_level=4,facing=north]
+be_nbt 1 -60 0 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 1
+dispense 0 -60 0 c1
+dump be:0,-60,0 be:1,-60,0 blocks:0,-61,-1,1,-60,1 entities events
+note c2 beehive honey 5 with a pig occupant: honey level reset, honey bottle in the slot (1000)
+block 0 -60 6 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 6 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -60 6 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 1 -60 6 {bees:[{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 2
+dispense 0 -60 6 c2
+dump be:0,-60,6 be:1,-60,6 blocks:0,-61,5,1,-60,7 entities events
+note c3 bee nest honey 5 smoked by a lit campfire (bees stay inside)
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -61 12 minecraft:campfire[lit=true]
+block 1 -60 12 minecraft:bee_nest[honey_level=5,facing=east]
+be_nbt 1 -60 12 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:pig"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+level_seed 3
+dispense 0 -60 12 c3
+dump be:0,-60,12 be:1,-60,12 blocks:0,-61,11,1,-60,13 entities events
+note c4 water source in front: water bottle, the water stays
+block 0 -60 18 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 18 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -60 18 minecraft:water[level=0]
+level_seed 4
+dispense 0 -60 18 c4
+dump be:0,-60,18 blocks:0,-61,17,1,-60,19 entities events
+note c5 flowing water in front
+block 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 24 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -60 24 minecraft:water[level=3]
+level_seed 5
+dispense 0 -60 24 c5
+dump be:0,-60,24 blocks:0,-61,23,1,-60,25 entities events
+note c6 waterlogged slab in front (its fluid state is water)
+block 0 -60 30 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 30 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -60 30 minecraft:oak_slab[type=bottom,waterlogged=true]
+level_seed 6
+dispense 0 -60 30 c6
+dump be:0,-60,30 blocks:0,-61,29,1,-60,31 entities events
+note c7 a stack of 2 bottles on a honey-full hive: the honey bottle goes into the first free slot
+block 0 -60 36 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 36 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:2}]}
+block 1 -60 36 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 1 -60 36 {bees:[]}
+level_seed 7
+dispense 0 -60 36 c7
+dump be:0,-60,36 be:1,-60,36 blocks:0,-61,35,1,-60,37 entities events
+note c8 a full dispenser of bottle stacks (every slot is a candidate) on water: the water bottle fits nowhere and is dropped (default events twice)
+block 0 -60 42 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 42 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:2},{Slot:1b,id:"minecraft:glass_bottle",count:2},{Slot:2b,id:"minecraft:glass_bottle",count:2},{Slot:3b,id:"minecraft:glass_bottle",count:2},{Slot:4b,id:"minecraft:glass_bottle",count:2},{Slot:5b,id:"minecraft:glass_bottle",count:2},{Slot:6b,id:"minecraft:glass_bottle",count:2},{Slot:7b,id:"minecraft:glass_bottle",count:2},{Slot:8b,id:"minecraft:glass_bottle",count:2}]}
+block 1 -60 42 minecraft:water[level=0]
+level_seed 8
+dispense 0 -60 42 c8
+dump be:0,-60,42 blocks:0,-61,41,1,-60,43 entities events
+note c9 nothing in front: dropped (1001 click)
+block 0 -60 48 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 48 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+level_seed 9
+dispense 0 -60 48 c9
+dump be:0,-60,48 blocks:0,-61,47,1,-60,49 entities events
+note c10 lava in front is not water: dropped
+block 0 -60 54 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 54 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -60 54 minecraft:lava[level=0]
+level_seed 10
+dispense 0 -60 54 c10
+dump be:0,-60,54 blocks:0,-61,53,1,-60,55 entities events
+note c11 a solid block in front: dropped
+block 0 -60 60 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 60 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -60 60 minecraft:stone
+level_seed 11
+dispense 0 -60 60 c11
+dump be:0,-60,60 blocks:0,-61,59,1,-60,61 entities events
+note c12 beehive honey 5 without occupants
+block 0 -60 66 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 66 {Items:[{Slot:0b,id:"minecraft:glass_bottle",count:1}]}
+block 1 -60 66 minecraft:beehive[honey_level=5,facing=north]
+be_nbt 1 -60 66 {bees:[]}
+level_seed 12
+dispense 0 -60 66 c12
+dump be:0,-60,66 be:1,-60,66 blocks:0,-61,65,1,-60,67 entities events

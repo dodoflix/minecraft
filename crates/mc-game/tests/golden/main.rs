@@ -31,6 +31,7 @@ mod blocks_crops_golden;
 mod blocks_dispenser_chest_horse_golden;
 mod blocks_dispenser_existing_golden;
 mod blocks_dispenser_fire_golden;
+mod blocks_dispenser_group_golden;
 mod blocks_dispenser_spine_golden;
 mod blocks_furnaces_golden;
 mod blocks_gamemaster_gateway_golden;

@@ -1,0 +1,135 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c1 respawn anchor with 0 charges: charged to 1
+BE 0 -60 0 {Items:[{Slot:0b,count:3,id:"minecraft:glowstone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+B 0 -61 -1 minecraft:grass_block[snowy=false]
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 -1 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -60 0 minecraft:respawn_anchor[charges=1]
+EV sound at=1.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.respawn_anchor.charge source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+# c2 respawn anchor with 1 charges: charged to 2
+BE 0 -60 6 {Items:[{Slot:0b,count:3,id:"minecraft:glowstone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:6}
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 0 -61 7 minecraft:grass_block[snowy=false]
+B 0 -60 6 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 7 minecraft:grass_block[snowy=false]
+B 1 -60 6 minecraft:respawn_anchor[charges=2]
+EV sound at=1.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.respawn_anchor.charge source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,6 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,6 data=5 global=0
+# c3 respawn anchor with 2 charges: charged to 3
+BE 0 -60 12 {Items:[{Slot:0b,count:3,id:"minecraft:glowstone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+B 0 -61 11 minecraft:grass_block[snowy=false]
+B 0 -61 12 minecraft:grass_block[snowy=false]
+B 0 -61 13 minecraft:grass_block[snowy=false]
+B 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 11 minecraft:grass_block[snowy=false]
+B 1 -61 12 minecraft:grass_block[snowy=false]
+B 1 -61 13 minecraft:grass_block[snowy=false]
+B 1 -60 12 minecraft:respawn_anchor[charges=3]
+EV sound at=1.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.respawn_anchor.charge source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0
+# c4 respawn anchor with 3 charges: charged to 4
+BE 0 -60 18 {Items:[{Slot:0b,count:3,id:"minecraft:glowstone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:18}
+B 0 -61 17 minecraft:grass_block[snowy=false]
+B 0 -61 18 minecraft:grass_block[snowy=false]
+B 0 -61 19 minecraft:grass_block[snowy=false]
+B 0 -60 18 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 17 minecraft:grass_block[snowy=false]
+B 1 -61 18 minecraft:grass_block[snowy=false]
+B 1 -61 19 minecraft:grass_block[snowy=false]
+B 1 -60 18 minecraft:respawn_anchor[charges=4]
+EV sound at=1.5,-59.5,18.5 r=16.0 ex=0 event=minecraft:block.respawn_anchor.charge source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,18 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,18 data=5 global=0
+# c5 respawn anchor with 4 charges: full, refused (1001), the glowstone stays
+BE 0 -60 24 {Items:[{Slot:0b,count:4,id:"minecraft:glowstone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:24}
+B 0 -61 23 minecraft:grass_block[snowy=false]
+B 0 -61 24 minecraft:grass_block[snowy=false]
+B 0 -61 25 minecraft:grass_block[snowy=false]
+B 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 23 minecraft:grass_block[snowy=false]
+B 1 -61 24 minecraft:grass_block[snowy=false]
+B 1 -61 25 minecraft:grass_block[snowy=false]
+B 1 -60 24 minecraft:respawn_anchor[charges=4]
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,24 data=5 global=0
+# c6 a stack of 1 glowstone is used up
+BE 0 -60 30 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:30}
+B 0 -61 29 minecraft:grass_block[snowy=false]
+B 0 -61 30 minecraft:grass_block[snowy=false]
+B 0 -61 31 minecraft:grass_block[snowy=false]
+B 0 -60 30 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 29 minecraft:grass_block[snowy=false]
+B 1 -61 30 minecraft:grass_block[snowy=false]
+B 1 -61 31 minecraft:grass_block[snowy=false]
+B 1 -60 30 minecraft:respawn_anchor[charges=1]
+EV sound at=1.5,-59.5,30.5 r=16.0 ex=0 event=minecraft:block.respawn_anchor.charge source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,30 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,30 data=5 global=0
+# c7 a solid block in front: dropped
+BE 0 -60 36 {Items:[{Slot:0b,count:3,id:"minecraft:glowstone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:36}
+B 0 -61 35 minecraft:grass_block[snowy=false]
+B 0 -61 36 minecraft:grass_block[snowy=false]
+B 0 -61 37 minecraft:grass_block[snowy=false]
+B 0 -60 36 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 35 minecraft:grass_block[snowy=false]
+B 1 -61 36 minecraft:grass_block[snowy=false]
+B 1 -61 37 minecraft:grass_block[snowy=false]
+B 1 -60 36 minecraft:stone
+E item#1 minecraft:item pos=1.2,-59.65625,36.5 delta=0.21413767435949954,0.21792750851586554,0.07235483687376403 rot=226.19269,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glowstone*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,36 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,36 data=5 global=0
+# c8 nothing in front: dropped
+BE 0 -60 42 {Items:[{Slot:0b,count:3,id:"minecraft:glowstone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:42}
+B 0 -61 41 minecraft:grass_block[snowy=false]
+B 0 -61 42 minecraft:grass_block[snowy=false]
+B 0 -61 43 minecraft:grass_block[snowy=false]
+B 0 -60 42 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 41 minecraft:grass_block[snowy=false]
+B 1 -61 42 minecraft:grass_block[snowy=false]
+B 1 -61 43 minecraft:grass_block[snowy=false]
+E item#1 minecraft:item pos=1.2,-59.65625,36.5 delta=0.21413767435949954,0.21792750851586554,0.07235483687376403 rot=226.19269,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glowstone*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.2,-59.65625,42.5 delta=0.286852198161814,0.22446825406556206,-0.0550850444667824 rot=305.9008,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glowstone*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,42 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,42 data=5 global=0
+# c9 a glowstone block in front is not an anchor: dropped
+BE 0 -60 48 {Items:[{Slot:0b,count:3,id:"minecraft:glowstone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:48}
+B 0 -61 47 minecraft:grass_block[snowy=false]
+B 0 -61 48 minecraft:grass_block[snowy=false]
+B 0 -61 49 minecraft:grass_block[snowy=false]
+B 0 -60 48 minecraft:dispenser[facing=east,triggered=false]
+B 1 -61 47 minecraft:grass_block[snowy=false]
+B 1 -61 48 minecraft:grass_block[snowy=false]
+B 1 -61 49 minecraft:grass_block[snowy=false]
+B 1 -60 48 minecraft:glowstone
+E item#1 minecraft:item pos=1.2,-59.65625,36.5 delta=0.21413767435949954,0.21792750851586554,0.07235483687376403 rot=226.19269,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glowstone*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.2,-59.65625,42.5 delta=0.286852198161814,0.22446825406556206,-0.0550850444667824 rot=305.9008,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glowstone*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,48.5 delta=0.22139510442242147,0.2877954053318633,-0.01855402042683997 rot=349.7242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glowstone*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,48 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,48 data=5 global=0
+# c10 anchor above a dispenser facing up
+BE 0 -60 54 {Items:[{Slot:0b,count:3,id:"minecraft:glowstone"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:54}
+B 0 -61 53 minecraft:grass_block[snowy=false]
+B 0 -61 54 minecraft:grass_block[snowy=false]
+B 0 -61 55 minecraft:grass_block[snowy=false]
+B 0 -60 54 minecraft:dispenser[facing=up,triggered=false]
+B 0 -59 54 minecraft:respawn_anchor[charges=3]
+B 1 -61 53 minecraft:grass_block[snowy=false]
+B 1 -61 54 minecraft:grass_block[snowy=false]
+B 1 -61 55 minecraft:grass_block[snowy=false]
+E item#1 minecraft:item pos=1.2,-59.65625,36.5 delta=0.21413767435949954,0.21792750851586554,0.07235483687376403 rot=226.19269,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glowstone*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.2,-59.65625,42.5 delta=0.286852198161814,0.22446825406556206,-0.0550850444667824 rot=305.9008,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glowstone*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,48.5 delta=0.22139510442242147,0.2877954053318633,-0.01855402042683997 rot=349.7242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glowstone*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV sound at=0.5,-58.5,54.5 r=16.0 ex=0 event=minecraft:block.respawn_anchor.charge source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,54 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,54 data=1 global=0
