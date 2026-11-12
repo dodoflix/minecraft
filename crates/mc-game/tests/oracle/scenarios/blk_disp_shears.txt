@@ -1,9 +1,10 @@
 # ShearsDispenseItemBehavior (OptionalDispenseItemBehavior): a beehive with honey_level >= 5 in front drops honeycombs, releases its occupants and resets;
-# otherwise the first non-spectator entity in the block in front that is alive and ready to shear (adult sheep, adult mooshroom, snow golem with a pumpkin) is sheared; success damages the shears by 1 (1 durability left breaks them), a
+# otherwise the first non-spectator entity in the block in front whose leashes are cut (it holds one or is the holder of one) or that is alive and
+# ready to shear (adult sheep, adult mooshroom, snow golem with a pumpkin) is sheared; success damages the shears by 1 (1 durability left breaks them), a
 # failure leaves the item in place with the failure click (1001) and drops nothing.
 # Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
 level flat
-preload 9
+preload 11
 time 18000
 note c1 sheep in front: wool is dropped, the shears lose 1 durability
 block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
@@ -143,3 +144,30 @@ spawn sh10 minecraft:sheep 1.5 -60 132.5 0 0 {NoAI:1b,Silent:1b}
 level_seed 22
 dispense 0 -60 132 c19
 dump be:0,-60,132 nbt:sh10 entities events
+note c20 a leashed cow in front: the leash is cut and the lead drops, the shears are damaged
+block 0 -60 140 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 140 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn lp1 minecraft:pig 1.5 -60 144.5 0 0 {NoAI:1b,Silent:1b}
+spawn lc1 minecraft:cow 1.5 -60 140.5 0 0 {NoAI:1b,Silent:1b}
+leash lc1 lp1
+level_seed 30
+dispense 0 -60 140 c20
+dump be:0,-60,140 nbt:lc1 nbt:lp1 entities events
+note c21 the leash holder in front: the cow leashed to it is released
+block 0 -60 148 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 148 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn lp2 minecraft:pig 1.5 -60 148.5 0 0 {NoAI:1b,Silent:1b}
+spawn lc2 minecraft:cow 1.5 -60 152.5 0 0 {NoAI:1b,Silent:1b}
+leash lc2 lp2
+level_seed 31
+dispense 0 -60 148 c21
+dump be:0,-60,148 nbt:lc2 nbt:lp2 entities events
+note c22 a leashed sheep ready for shearing: the leash is cut first, the wool stays
+block 0 -60 156 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 156 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn lp3 minecraft:pig 1.5 -60 160.5 0 0 {NoAI:1b,Silent:1b}
+spawn ls1 minecraft:sheep 1.5 -60 156.5 0 0 {NoAI:1b,Silent:1b}
+leash ls1 lp3
+level_seed 32
+dispense 0 -60 156 c22
+dump be:0,-60,156 nbt:ls1 nbt:lp3 entities events
