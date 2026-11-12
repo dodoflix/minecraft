@@ -148,7 +148,7 @@ pub fn push_entities_up_with(
     state: BlockState,
     new_state: BlockState,
     pos: BlockPos,
-    mut taken_out: Option<&mut dyn crate::world::entity::Entity>,
+    taken_out: Option<&mut dyn crate::world::entity::Entity>,
 ) -> BlockState {
     use mc_core::phys::shapes::{BooleanOp, Shapes};
     let offset_shape = Shapes::join_unoptimized(
@@ -174,7 +174,7 @@ pub fn push_entities_up_with(
     for id in level.get_entities(None, &bounds, |_| true) {
         level.with_entity(id, |level, entity| lift(level, entity));
     }
-    if let Some(entity) = taken_out.as_deref_mut()
+    if let Some(entity) = taken_out
         && entity.get_bounding_box().intersects_aabb(&bounds)
     {
         lift(level, entity);
