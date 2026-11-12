@@ -232,12 +232,37 @@ pub fn lines_match(expected: &str, actual: &str, opts: &Options) -> bool {
             .all(|(x, y)| token_eq(x, y, opts.float_tolerance))
 }
 
+/// The differing middle of two lines (common prefix and suffix cut away, 40 characters of context kept).
+fn first_difference(x: &str, y: &str) -> String {
+    let (xb, yb) = (x.as_bytes(), y.as_bytes());
+    let prefix = xb.iter().zip(yb).take_while(|(p, q)| p == q).count();
+    let max_suffix = xb.len().min(yb.len()) - prefix;
+    let suffix = xb
+        .iter()
+        .rev()
+        .zip(yb.iter().rev())
+        .take(max_suffix)
+        .take_while(|(p, q)| p == q)
+        .count();
+    let from = x.floor_char_boundary(prefix.saturating_sub(40));
+    let cut = |s: &str, end: usize| {
+        let end = s.ceil_char_boundary((s.len() - end + 40).min(s.len()));
+        s[from.min(s.len())..end].to_string()
+    };
+    format!("exp `{}` act `{}`", cut(x, suffix), cut(y, suffix))
+}
+
 /// Compare two line lists; `Err` carries a readable report of the first differences with the surrounding lines.
 pub fn compare(expected: &[String], actual: &[String], opts: &Options) -> Result<(), String> {
     let e: Vec<&String> = expected.iter().filter(|l| keep(l, opts)).collect();
     let a: Vec<&String> = actual.iter().filter(|l| keep(l, opts)).collect();
     let mut report = String::new();
     let mut shown = 0;
+    // `MC_ORACLE_MAX_DIFFS=N` lists more than the first five differing lines
+    let max_shown = std::env::var("MC_ORACLE_MAX_DIFFS")
+        .ok()
+        .and_then(|v| v.parse().ok())
+        .unwrap_or(5);
     for i in 0..e.len().max(a.len()) {
         let ok = match (e.get(i), a.get(i)) {
             (Some(x), Some(y)) => lines_match(x, y, opts),
@@ -257,8 +282,11 @@ pub fn compare(expected: &[String], actual: &[String], opts: &Options) -> Result
                 "  act {i:>5}: {}\n",
                 a.get(i).map_or("<missing>", |s| s.as_str())
             ));
+            if let (Some(x), Some(y)) = (e.get(i), a.get(i)) {
+                report.push_str(&format!("  where {i:>5}: {}\n", first_difference(x, y)));
+            }
             shown += 1;
-            if shown >= 5 {
+            if shown >= max_shown {
                 report.push_str("  ... (more differences)\n");
                 break;
             }

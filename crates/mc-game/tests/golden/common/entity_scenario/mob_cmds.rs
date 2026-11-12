@@ -56,16 +56,24 @@ pub(super) fn run(h: &mut Harness, a: &[String]) -> bool {
                 e.spawn_child_from_breeding(level, partner)
             });
         }
-        // tame REF PLAYER              TamableAnimal.tame(player)
+        // tame REF PLAYER              TamableAnimal.tame(player) / AbstractHorse.tameWithName(player)
         "tame" => {
             h.world();
-            with_other(h, &a[1], &a[2], |level, e, player| {
-                let player = player
-                    .as_any()
-                    .downcast_ref::<ServerPlayer>()
-                    .expect("tame needs a player");
-                tamable::tame(e, level, player);
+            let player_id = h.entity_ref(&a[2]);
+            let horse = h.with_entity(&a[1], |level, e| {
+                e.as_abstract_horse_mut()
+                    .map(|horse| horse.tame_with_name(level, player_id))
+                    .is_some()
             });
+            if !horse {
+                with_other(h, &a[1], &a[2], |level, e, player| {
+                    let player = player
+                        .as_any()
+                        .downcast_ref::<ServerPlayer>()
+                        .expect("tame needs a player");
+                    tamable::tame(e, level, player);
+                });
+            }
         }
         // leash REF HOLDER|-           Leashable.setLeashedTo(holder, true) / removeLeash()
         "leash" => {

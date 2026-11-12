@@ -1,5 +1,5 @@
 //! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `input` (sneak: the shift key), `op`, `pick_block`, `tp`, `snap`, `velocity`, `set`,
-//! `spawn_player`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|entity:REF|player:NAME|packets:NAME`). The player actions (`give select use use_on release interact drop swing swap dispense`
+//! `leash`, `spawn_player`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|entity:REF|player:NAME|packets:NAME`). The player actions (`give select use use_on release interact drop swing swap dispense`
 //! and the dumps `use cooldowns stats inventory`) are shared with the entity replay: `player_actions.rs`.
 //! Included by `block_scenario.rs` (private state of `Scenario`). Differences from the Java driver, all caused by the Rust level having no
 //! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` and the replay re-does what the packet
@@ -25,6 +25,7 @@ use mc_game::server::network::game_listener::{
 use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
+use mc_game::world::entity::mob::leashable;
 use mc_game::world::entity::player::menu_ctx::PlayerCtx;
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::inventory::{PlayerMenus, handle_container_button_click};
@@ -331,6 +332,30 @@ impl Scenario {
                 self.load_registries();
                 reseed_for(&a[1]);
                 self.spawn(a);
+            }
+            // leash REF HOLDER|-          Leashable.setLeashedTo(holder, true) / removeLeash()
+            "leash" => {
+                self.world();
+                let id = self.entity_id(&a[1]);
+                if a[2] == "-" {
+                    self.level()
+                        .with_entity(id, |level, e| leashable::remove_leash(e, level));
+                } else {
+                    let holder_id = self.entity_id(&a[2]);
+                    let holder = self
+                        .level()
+                        .take_entity(holder_id)
+                        .unwrap_or_else(|| panic!("leash holder {} is not in the level", a[2]));
+                    self.level().with_entity(id, |level, e| {
+                        leashable::set_leashed_to(
+                            e,
+                            level,
+                            leashable::LeashHolder::of(&*holder),
+                            true,
+                        )
+                    });
+                    self.level().put_back_entity(holder_id, holder);
+                }
             }
             "spawn_item" => {
                 self.world();
