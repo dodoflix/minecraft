@@ -7,7 +7,7 @@ use super::{
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
-use crate::world::entity::spawn_config::{apply_default_stack_config, create_at};
+use crate::world::entity::spawn_config::{apply_default_stack_config, spawn_at};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::gameevent::GameEventContext;
@@ -48,7 +48,7 @@ fn spawn_mob(
     moved_up: bool,
 ) -> InteractionResult {
     let config_stack = stack.clone();
-    let created = create_at(
+    let spawned = spawn_at(
         level,
         ty,
         Some(&mut |level: &mut ServerLevel, entity: &mut dyn Entity| {
@@ -59,17 +59,9 @@ fn spawn_mob(
         try_move_down,
         moved_up,
     );
-    let Some(entity) = created else {
+    if spawned.is_none() {
         return InteractionResult::FAIL;
-    };
-    let id = entity.id();
-    level.add_fresh_entity_with_passengers(vec![entity]);
-    // `EntityType.spawn`: `mob.playAmbientSound()`
-    level.with_entity(id, |level, entity| {
-        if entity.is_mob() {
-            entity.play_ambient_sound(level);
-        }
-    });
+    }
     stack.consume(1, user.player.abilities.instabuild);
     level.game_event(
         GameEvent::ENTITY_PLACE,

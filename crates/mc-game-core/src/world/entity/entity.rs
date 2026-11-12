@@ -3844,6 +3844,47 @@ pub trait Entity: Any {
     fn can_use_slot(&self, _slot: super::equipment::EquipmentSlot) -> bool {
         true
     }
+    /// `LivingEntity.canDispenserEquipIntoSlot(slot)`: every mob accepts what it can pick up (`Mob`), non-mobs always.
+    /// Overriding classes (`Dolphin`, `Fox`, `Panda`, `Pig`, `Strider`, `SulfurCube`, `AbstractHorse`, ...) call
+    /// [`super::mob::equipment::can_dispenser_equip_into_slot`] for their `super` part.
+    fn can_dispenser_equip_into_slot(&self, _slot: super::equipment::EquipmentSlot) -> bool {
+        super::mob::equipment::can_dispenser_equip_into_slot(self.as_dyn())
+    }
+    /// `SulfurCube.equipItem(stack)` as the dispenser calls it (`false` for every other entity). The caller shrinks the
+    /// dispensed stack on success.
+    fn dispenser_swallow_item(
+        &mut self,
+        _level: &mut ServerLevel,
+        _stack: &crate::world::item::ItemStack,
+    ) -> bool {
+        false
+    }
+    /// `SulfurCube.canExplode()` (`false` for every other entity).
+    fn sulfur_cube_can_explode(&self) -> bool {
+        false
+    }
+    /// `SulfurCube.primeTime(imminent)` (`false` for every other entity).
+    fn sulfur_cube_prime_time(&mut self, _level: &mut ServerLevel, _imminent: bool) -> bool {
+        false
+    }
+    /// `Armadillo.brushOffScute(interactingEntity, tool)` (`false` for every other entity).
+    fn brush_off_scute(
+        &mut self,
+        _level: &mut ServerLevel,
+        _interacting: Option<EntityId>,
+        _tool: &crate::world::item::ItemStack,
+    ) -> bool {
+        false
+    }
+    /// `AbstractChestedHorse.hasChest()` (`None` when the entity is not an `AbstractChestedHorse`).
+    fn chested_horse_has_chest(&self) -> Option<bool> {
+        None
+    }
+    /// `AbstractChestedHorse.getSlot(499).set(stack)`: the chest slot setter (`false` when the stack is refused or the
+    /// entity has no such slot).
+    fn chested_horse_set_chest_slot(&mut self, _stack: &crate::world::item::ItemStack) -> bool {
+        false
+    }
     /// `getEquipmentSlotForItem(stack)`.
     fn get_equipment_slot_for_item(
         &self,

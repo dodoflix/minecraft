@@ -148,3 +148,33 @@ pub fn create_at(
     }
     Some(entity)
 }
+
+/// `EntityType.spawn(level, postSpawnConfig, spawnPos, reason, tryMoveDown, movedUp)`: [`create_at`], then
+/// `addFreshEntityWithPassengers` and, for a mob, `playAmbientSound()`. The spawned entity's id.
+pub fn spawn_at(
+    level: &mut ServerLevel,
+    ty: EntityType,
+    config: Option<SpawnConfig<'_>>,
+    spawn_pos: BlockPos,
+    reason: EntitySpawnReason,
+    try_move_down: bool,
+    moved_up: bool,
+) -> Option<super::EntityId> {
+    let entity = create_at(
+        level,
+        ty,
+        config,
+        spawn_pos,
+        reason,
+        try_move_down,
+        moved_up,
+    )?;
+    let id = entity.id();
+    level.add_fresh_entity_with_passengers(vec![entity]);
+    level.with_entity(id, |level, entity| {
+        if entity.is_mob() {
+            entity.play_ambient_sound(level);
+        }
+    });
+    Some(id)
+}
