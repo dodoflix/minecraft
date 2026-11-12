@@ -344,7 +344,7 @@ impl ItemBehaviour for BucketItem {
             player.award_stat_once(level, Stat::Used(stack.item()));
             let replacement = bucket_empty_success_item(&stack, player);
             let empty_result =
-                create_filled_result(stack, &mut PlayerCtx { player, level }, replacement, false);
+                create_filled_result(stack, &mut PlayerCtx { player, level }, replacement, true);
             return InteractionResult::SUCCESS.held_item_transformed_to(empty_result);
         }
         if self.content == Fluid::EMPTY {
@@ -366,7 +366,7 @@ impl ItemBehaviour for BucketItem {
                         stack,
                         &mut PlayerCtx { player, level },
                         taken.clone(),
-                        false,
+                        true,
                     );
                     crate::advancements::triggers::CriteriaTriggers::FILLED_BUCKET
                         .trigger(level, player, &taken);

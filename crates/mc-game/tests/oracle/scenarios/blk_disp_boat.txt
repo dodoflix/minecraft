@@ -1,0 +1,98 @@
+# BoatDispenseItemBehavior: the boat spawns just outside the dispenser (0.5625 + width / 2 in front, 1.125 for up and down), one block
+# higher when the block in front holds water; air above a water block (yOffset 0) also works; anything else drops the item (default
+# behaviour, then the outer sound and animation events play again). The yaw is the facing, the components of the stack are applied
+# (custom_name), the stack shrinks by one. Chest boats, rafts and the poplar boat share the behaviour with their own entity type.
+level flat
+preload 2
+note oak boat facing east into a water source enclosed by stone, a stack of three with a custom name
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:oak_boat",count:3,components:{"minecraft:custom_name":"Boaty"}}]}
+block 1 -60 0 minecraft:water
+block 2 -60 0 minecraft:stone
+block 1 -60 -1 minecraft:stone
+block 1 -60 1 minecraft:stone
+level_seed 21
+dispense 0 -60 0
+dump be:0,-60,0 entities events nbt:oak_boat#1
+tick 3
+dump entities
+
+note air in front with water below it: the boat spawns at the dispenser height
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:spruce_boat",count:1}]}
+block 1 -61 4 minecraft:water
+level_seed 22
+dispense 0 -60 4
+tick 3
+dump be:0,-60,4 entities events
+
+note land in front: the item is dropped like any other item
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:birch_boat",count:2}]}
+level_seed 23
+dispense 0 -60 8
+tick 3
+dump be:0,-60,8 entities events
+
+note chest boat facing south into water
+block 10 -60 0 minecraft:dispenser[facing=south,triggered=false]
+be_nbt 10 -60 0 {Items:[{Slot:0b,id:"minecraft:oak_chest_boat",count:1}]}
+block 10 -60 1 minecraft:water
+block 10 -60 2 minecraft:stone
+block 9 -60 1 minecraft:stone
+block 11 -60 1 minecraft:stone
+level_seed 24
+dispense 10 -60 0
+tick 3
+dump be:10,-60,0 entities events
+
+note bamboo raft facing west with air above water
+block 20 -60 0 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 20 -60 0 {Items:[{Slot:0b,id:"minecraft:bamboo_raft",count:1}]}
+block 19 -61 0 minecraft:water
+level_seed 25
+dispense 20 -60 0
+tick 3
+dump be:20,-60,0 entities events
+
+note poplar boat facing north into water
+block 30 -60 0 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 30 -60 0 {Items:[{Slot:0b,id:"minecraft:poplar_boat",count:1}]}
+block 30 -60 -1 minecraft:water
+block 30 -60 -2 minecraft:stone
+block 29 -60 -1 minecraft:stone
+block 31 -60 -1 minecraft:stone
+level_seed 26
+dispense 30 -60 0
+tick 3
+dump be:30,-60,0 entities events
+
+note bamboo chest raft facing down into a water pit
+block 40 -58 0 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 40 -58 0 {Items:[{Slot:0b,id:"minecraft:bamboo_chest_raft",count:1}]}
+fill 39 -59 -1 41 -59 1 minecraft:stone
+block 40 -60 0 minecraft:stone
+block 40 -59 0 minecraft:water
+level_seed 27
+dispense 40 -58 0
+tick 3
+dump be:40,-58,0 entities events
+
+note pale oak boat facing up into water
+block 50 -60 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 50 -60 0 {Items:[{Slot:0b,id:"minecraft:pale_oak_boat",count:1}]}
+fill 49 -59 -1 51 -59 1 minecraft:stone
+block 50 -59 0 minecraft:water
+level_seed 28
+dispense 50 -60 0
+tick 3
+dump be:50,-60,0 entities events
+
+note a solid block in front: dropped as an item
+block 60 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 60 -60 0 {Items:[{Slot:0b,id:"minecraft:jungle_boat",count:1}]}
+block 61 -60 0 minecraft:stone
+level_seed 29
+dispense 60 -60 0
+tick 2
+dump be:60,-60,0 entities events

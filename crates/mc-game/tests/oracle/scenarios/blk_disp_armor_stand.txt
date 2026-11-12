@@ -1,0 +1,58 @@
+# Dispenser armor stand (DispenseItemBehavior.bootStrap): EntityTypes.ARMOR_STAND.spawn at the block in front (not aligned,
+# EntitySpawnReason.DISPENSER), the yaw of the dispenser direction (up and down give 0), appendDefaultStackConfig applying the
+# entity_data and custom_name components, one item consumed, the level events 1000/2000 of the default sound and animation.
+# Every dispense line is unique: the replay seeds the entity UUIDs from the command line.
+level flat
+preload 2
+note a stack of two facing east: one item is consumed and one stand stands in front
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:4b,id:"minecraft:armor_stand",count:2}]}
+level_seed 11
+dispense 0 -60 0
+dump be:0,-60,0 entities events nbt:armor_stand#1
+tick 3
+dump entities
+note every other facing, the yaw follows the direction
+block 10 -60 0 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 10 -60 0 {Items:[{Slot:0b,id:"minecraft:armor_stand",count:1}]}
+block 14 -60 0 minecraft:dispenser[facing=south,triggered=false]
+be_nbt 14 -60 0 {Items:[{Slot:0b,id:"minecraft:armor_stand",count:1}]}
+block 18 -60 0 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 18 -60 0 {Items:[{Slot:0b,id:"minecraft:armor_stand",count:1}]}
+block 22 -60 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 22 -60 0 {Items:[{Slot:0b,id:"minecraft:armor_stand",count:1}]}
+block 26 -58 0 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 26 -58 0 {Items:[{Slot:0b,id:"minecraft:armor_stand",count:1}]}
+level_seed 13
+dispense 10 -60 0
+dispense 14 -60 0
+dispense 18 -60 0
+dispense 22 -60 0
+dispense 26 -58 0
+dump be:10,-60,0 be:14,-60,0 be:18,-60,0 be:22,-60,0 be:26,-58,0 entities events
+tick 5
+dump entities
+note components of the stack are applied to the stand: entity_data (invisible, arms, pose) and custom_name
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:armor_stand",count:1,components:{"minecraft:custom_name":"Dummy","minecraft:entity_data":{id:"minecraft:armor_stand",Invisible:1b,ShowArms:1b,NoBasePlate:1b,Pose:{Head:[10f,20f,30f]}}}}]}
+level_seed 14
+dispense 0 -60 4
+dump be:0,-60,4 entities events nbt:armor_stand#7
+note the block in front is solid: the stand is still spawned inside it
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:armor_stand",count:1}]}
+block 1 -60 8 minecraft:stone
+level_seed 15
+dispense 0 -60 8
+tick 2
+dump be:0,-60,8 entities events
+note spawned on top of another stand in front of a second dispenser
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:armor_stand",count:1}]}
+block 2 -60 12 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 2 -60 12 {Items:[{Slot:0b,id:"minecraft:armor_stand",count:1}]}
+level_seed 16
+dispense 0 -60 12
+dispense 2 -60 12
+tick 2
+dump be:0,-60,12 be:2,-60,12 entities events

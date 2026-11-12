@@ -1,0 +1,73 @@
+# ShulkerBoxDispenseBehavior (OptionalDispenseItemBehavior): BlockItem.place with a DirectionalPlaceContext at the block in front; the
+# clicked face is the dispenser facing when the block below the target is air, else UP (the box then keeps facing UP). Placement fails
+# (stack kept, failure click 1001) when the target is occupied; the item state (dyed boxes, a shulker box with contents) is carried into
+# the placed block entity. The success flag is shared by all shulker box items, and a failed attempt does not leak into the next.
+level flat
+preload 2
+note facing east on solid ground: the box is placed upright on the grass (solid below the target: clicked face up)
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:shulker_box",count:2}]}
+level_seed 51
+dispense 0 -60 0
+dump blocks:0,-60,0,1,-60,0 be:0,-60,0 be:1,-60,0 entities events
+
+note the target is now occupied by the first box: placement fails, failure click, stack kept
+level_seed 52
+dispense 0 -60 0
+dump blocks:0,-60,0,1,-60,0 be:0,-60,0 entities events
+
+note a hole below the target: the clicked face is the facing, the box faces the way the dispenser faces
+block 10 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 0 {Items:[{Slot:0b,id:"minecraft:red_shulker_box",count:1}]}
+block 11 -61 0 minecraft:air
+level_seed 53
+dispense 10 -60 0
+dump blocks:10,-61,0,11,-60,0 be:10,-60,0 be:11,-60,0 entities events
+
+note north, south, west, up (against a ceiling stone, then free) and down
+block 20 -60 0 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 20 -60 0 {Items:[{Slot:0b,id:"minecraft:lime_shulker_box",count:1}]}
+block 24 -60 0 minecraft:dispenser[facing=south,triggered=false]
+be_nbt 24 -60 0 {Items:[{Slot:0b,id:"minecraft:blue_shulker_box",count:1}]}
+block 28 -60 0 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 28 -60 0 {Items:[{Slot:0b,id:"minecraft:black_shulker_box",count:1}]}
+block 32 -60 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 32 -60 0 {Items:[{Slot:0b,id:"minecraft:white_shulker_box",count:1}]}
+block 36 -58 0 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 36 -58 0 {Items:[{Slot:0b,id:"minecraft:pink_shulker_box",count:1}]}
+level_seed 54
+dispense 20 -60 0
+dispense 24 -60 0
+dispense 28 -60 0
+dispense 32 -60 0
+dispense 36 -58 0
+dump blocks:19,-61,-1,37,-57,1 be:20,-60,-1 be:24,-60,1 be:27,-60,0 be:32,-59,0 be:36,-59,0 entities events
+
+note a shulker box with contents and a custom name keeps them (the stack's components move into the block entity)
+block 40 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 40 -60 0 {Items:[{Slot:0b,id:"minecraft:shulker_box",count:1,components:{"minecraft:custom_name":"Loot","minecraft:container":[{slot:0,item:{id:"minecraft:diamond",count:3}},{slot:5,item:{id:"minecraft:stick",count:7}}]}}]}
+level_seed 55
+dispense 40 -60 0
+dump blocks:41,-60,0,41,-60,0 be:41,-60,0 be:40,-60,0 events
+
+note an entity in the way blocks the placement (a stand): stack kept, failure click
+block 50 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 0 {Items:[{Slot:0b,id:"minecraft:cyan_shulker_box",count:1}]}
+spawn stand minecraft:armor_stand 51.5 -60 0.5
+tick 1
+level_seed 56
+dispense 50 -60 0
+dump blocks:50,-60,0,51,-60,0 be:50,-60,0 entities events
+
+note a water source in front is replaced by the box
+block 60 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 60 -60 0 {Items:[{Slot:0b,id:"minecraft:yellow_shulker_box",count:1}]}
+block 61 -60 0 minecraft:water
+block 61 -60 -1 minecraft:stone
+block 61 -60 1 minecraft:stone
+block 62 -60 0 minecraft:stone
+level_seed 57
+dispense 60 -60 0
+dump blocks:60,-60,-1,62,-60,1 be:60,-60,0 be:61,-60,0 events
+tick 3
+dump blocks:60,-60,-1,62,-60,1 events
