@@ -1,5 +1,6 @@
 //! Guards the linkme distributed-slice registrations: every crate that contributes registrations must stay linked into
-//! the final binary (an unreferenced crate's `#[distributed_slice]` statics are silently dropped by the linker).
+//! the final binary (an unreferenced crate's `#[distributed_slice]` statics are silently dropped by the linker). The
+//! recorded counts are floors: a dropped crate lowers a count, while new registrations may raise it.
 
 use mc_game::advancements::triggers::TRIGGER_TYPES;
 use mc_game::commands::COMMANDS;
@@ -37,7 +38,7 @@ macro_rules! counts {
 }
 
 #[test]
-fn linkme_registration_counts_are_stable() {
+fn linkme_registration_counts_do_not_drop() {
     let actual = counts![
         TRIGGER_TYPES,
         COMMANDS,
@@ -77,9 +78,27 @@ fn linkme_registration_counts_are_stable() {
         FLUIDS,
         CUSTOM_SPAWNERS,
     ];
-    let rendered: String = actual.iter().map(|(n, c)| format!("{n}={c}\n")).collect();
-    print!("{rendered}");
-    assert_eq!(rendered, EXPECTED);
+    let expected: Vec<(&str, usize)> = EXPECTED
+        .lines()
+        .map(|l| {
+            let (n, c) = l.split_once('=').expect("NAME=count");
+            (n, c.parse().expect("count"))
+        })
+        .collect();
+    assert_eq!(
+        actual.iter().map(|(n, _)| *n).collect::<Vec<_>>(),
+        expected.iter().map(|(n, _)| *n).collect::<Vec<_>>()
+    );
+    let dropped: Vec<String> = actual
+        .iter()
+        .zip(&expected)
+        .filter(|((_, a), (_, e))| a < e)
+        .map(|((n, a), (_, e))| format!("{n}: {a} < {e}"))
+        .collect();
+    assert!(
+        dropped.is_empty(),
+        "registrations dropped (a crate is no longer linked?): {dropped:?}"
+    );
 }
 
 const EXPECTED: &str = "\
