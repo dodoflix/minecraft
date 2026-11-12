@@ -12,7 +12,7 @@ use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_data::EntityType;
 use mc_data::enums::Pose;
-use mc_nbt::{CompoundTag, Tag};
+use mc_nbt::CompoundTag;
 use mc_protocol::components::PotionContents;
 use mc_protocol::packets::play::ParticleOptions;
 use std::any::Any;
@@ -418,7 +418,11 @@ impl Entity for AreaEffectCloud {
         out.put_float("RadiusOnUse", self.radius_on_use);
         out.put_float("RadiusPerTick", self.radius_per_tick);
         out.put_float("Radius", self.get_radius());
-        if let Some(tag) = self.custom_particle.as_ref().and_then(particle_to_nbt) {
+        if let Some(tag) = self.custom_particle.as_ref().and_then(|p| {
+            mc_dfu::encode_nbt(&ParticleOptions::codec(), p)
+                .into_result()
+                .ok()
+        }) {
             out.put("custom_particle", tag);
         }
         if let Some(owner) = self.owner {
@@ -448,7 +452,11 @@ impl Entity for AreaEffectCloud {
         self.radius_per_tick = input.get_float_or("RadiusPerTick", 0.0);
         self.set_radius(input.get_float_or("Radius", 3.0));
         self.owner = entity::read_uuid(input.get("Owner"));
-        self.set_custom_particle(input.get("custom_particle").and_then(particle_from_nbt));
+        self.set_custom_particle(input.get("custom_particle").and_then(|t| {
+            mc_dfu::parse_nbt(&ParticleOptions::codec(), t)
+                .into_result()
+                .ok()
+        }));
         let contents = input
             .get("potion_contents")
             .and_then(|t| {
@@ -460,66 +468,6 @@ impl Entity for AreaEffectCloud {
         self.set_potion_contents(contents);
         self.potion_duration_scale = input.get_float_or("potion_duration_scale", 1.0);
     }
-}
-
-/// `ParticleTypes.CODEC` encode for the option kinds without item/vector payload (`{type, ...fields}`); other kinds
-/// (dust, trails, vibrations, ...) are not saved.
-fn particle_to_nbt(particle: &ParticleOptions) -> Option<Tag> {
-    let mut tag = CompoundTag::new();
-    match particle {
-        ParticleOptions::Simple(t) => tag.put_string("type", t.name()),
-        ParticleOptions::Color {
-            particle_type,
-            color,
-        } => {
-            tag.put_string("type", particle_type.name());
-            tag.put_int("color", *color);
-        }
-        ParticleOptions::Power {
-            particle_type,
-            power,
-        } => {
-            tag.put_string("type", particle_type.name());
-            tag.put_float("power", *power);
-        }
-        ParticleOptions::Block {
-            particle_type,
-            state,
-        } => {
-            tag.put_string("type", particle_type.name());
-            tag.put("block_state", Tag::Compound(crate::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(*state)));
-        }
-        _ => {
-            log::warn!("AreaEffectCloud: custom particle kind not saved");
-            return None;
-        }
-    }
-    Some(Tag::Compound(tag))
-}
-
-fn particle_from_nbt(tag: &Tag) -> Option<ParticleOptions> {
-    let tag = tag.as_compound()?;
-    let ty = mc_data::ParticleType::by_name(tag.get_string("type")?)?;
-    if let Some(color) = tag.get("color").and_then(|t| t.as_number()) {
-        return Some(ParticleOptions::Color {
-            particle_type: ty,
-            color: color.int_value(),
-        });
-    }
-    if ty == mc_data::ParticleType::DRAGON_BREATH {
-        return Some(ParticleOptions::Power {
-            particle_type: ty,
-            power: tag.get_float_or("power", 1.0),
-        });
-    }
-    if let Some(state) = tag.get_compound("block_state") {
-        let state = crate::world::level::levelgen::structure::templatesystem::structure_template::read_block_state(state);
-        return Some(ParticleOptions::Block {
-            particle_type: ty,
-            state,
-        });
-    }
-    Some(ParticleOptions::Simple(ty))
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]

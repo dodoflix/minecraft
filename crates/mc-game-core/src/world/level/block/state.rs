@@ -595,3 +595,17 @@ pub fn is_supporting(
         }
     }
 }
+
+/// Encode with `BlockState.CODEC`: the default state is the bare block id, any other `{id, properties}`.
+pub fn encode_block_state(state: BlockState) -> mc_nbt::Tag {
+    mc_dfu::encode_nbt(&mc_protocol::packets::play::block_state_codec(), &state)
+        .into_result()
+        .expect("BlockState.CODEC encodes every state")
+}
+
+/// Decode with `BlockState.CODEC` (a bare block id or `{id, properties}`); `None` when it does not parse.
+pub fn decode_block_state(tag: &mc_nbt::Tag) -> Option<BlockState> {
+    mc_dfu::parse_nbt(&mc_protocol::packets::play::block_state_codec(), tag)
+        .into_result()
+        .ok()
+}

@@ -31,6 +31,7 @@ use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::block::helpers::update_from_neighbour_shapes;
+use mc_game_core::world::level::block::state::{decode_block_state, encode_block_state};
 use mc_game_core::world::level::collision::{
     BlockGetterExt as _, ClipBlock, ClipContext, ClipFluid,
 };
@@ -307,7 +308,7 @@ impl Entity for Enderman {
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
         if let Some(state) = self.get_carried_block() {
-            out.put("carriedBlockState", mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(state));
+            out.put("carriedBlockState", encode_block_state(state));
         }
         neutral::add_persistent_anger_save_data(self, out);
     }
@@ -315,8 +316,8 @@ impl Entity for Enderman {
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
         let carried = input
-            .get_compound("carriedBlockState")
-            .map(mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::read_block_state)
+            .get("carriedBlockState")
+            .and_then(decode_block_state)
             .filter(|s| !s.is_air());
         self.set_carried_block(carried);
         neutral::read_persistent_anger_save_data(self, None, input);

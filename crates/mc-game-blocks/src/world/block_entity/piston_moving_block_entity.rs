@@ -18,6 +18,7 @@ use mc_game_core::world::block_entity::{
 };
 use mc_game_core::world::entity::{Entity, MoverType};
 use mc_game_core::world::level::block::piston::{entity_push_reaction, get_movement_area};
+use mc_game_core::world::level::block::state::{decode_block_state, encode_block_state};
 use mc_game_core::world::level::block::{BlockStateExt, helpers};
 use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_nbt::CompoundTag;
@@ -469,24 +470,14 @@ fn fix_entity_within_piston_base(
     }
 }
 
-/// `input.read("blockState", BlockState.CODEC).orElse(AIR)`: bare block id or `{id, properties}`.
-fn read_moved_state(tag: &CompoundTag) -> BlockState {
-    use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::read_block_state;
-    if let Some(name) = tag.get_string("blockState") {
-        let mut compound = CompoundTag::new();
-        compound.put_string("id", name);
-        return read_block_state(&compound);
-    }
-    tag.get_compound("blockState")
-        .map(read_block_state)
-        .unwrap_or_else(helpers::air)
-}
-
 impl BlockEntity for PistonMovingBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        self.moved_state = read_moved_state(tag);
+        self.moved_state = tag
+            .get("blockState")
+            .and_then(decode_block_state)
+            .unwrap_or_else(helpers::air);
         self.direction = tag.get_byte("facing").map_or(Direction::Down, |facing| {
             Direction::from_3d_data_value(i32::from(facing))
         });
@@ -497,12 +488,7 @@ impl BlockEntity for PistonMovingBlockEntity {
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {
-        // `BlockState.CODEC`: the default state is written as the bare block id
-        if self.moved_state == self.moved_state.block().default_state() {
-            tag.put_string("blockState", self.moved_state.block().name());
-        } else {
-            tag.put("blockState", mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(self.moved_state));
-        }
+        tag.put("blockState", encode_block_state(self.moved_state));
         tag.put_byte("facing", self.direction.get_3d_data_value() as i8);
         tag.put_float("progress", self.progress_o);
         tag.put_boolean("extending", self.extending);

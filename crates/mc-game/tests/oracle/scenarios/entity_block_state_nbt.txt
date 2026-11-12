@@ -1,0 +1,24 @@
+# Block states saved and loaded with BlockState.CODEC by entities (a default state is a bare block id, any other state {id, properties}; a value that does not parse falls back to the entity default): primed TNT block_state and area effect cloud block particle.
+level flat
+difficulty normal
+preload 2
+note primed TNT: bare id, full form of the default state, a state with properties, unknown block, unknown property value, non-string property, bad type
+spawn t1 minecraft:tnt 0.5 -60 0.5 0 0 {block_state:"minecraft:stone"}
+spawn t2 minecraft:tnt 2.5 -60 0.5 0 0 {block_state:{id:"minecraft:tnt",properties:{unstable:"false"}}}
+spawn t3 minecraft:tnt 4.5 -60 0.5 0 0 {block_state:{id:"minecraft:oak_log",properties:{axis:"x"}}}
+spawn t4 minecraft:tnt 6.5 -60 0.5 0 0 {block_state:"minecraft:no_such_block"}
+spawn t5 minecraft:tnt 8.5 -60 0.5 0 0 {block_state:{id:"minecraft:oak_log",properties:{axis:"w"}}}
+spawn t6 minecraft:tnt 10.5 -60 0.5 0 0 {block_state:{id:"minecraft:oak_log",properties:{axis:1}}}
+spawn t7 minecraft:tnt 12.5 -60 0.5 0 0 {block_state:5}
+spawn t8 minecraft:tnt 14.5 -60 0.5 0 0 {block_state:{id:"minecraft:no_such_block",properties:{axis:"x"}}}
+spawn t9 minecraft:tnt 16.5 -60 0.5 0 0 {block_state:{id:"minecraft:stone"}}
+dump nbt:t1 nbt:t2 nbt:t3 nbt:t4 nbt:t5 nbt:t6 nbt:t7 nbt:t8 nbt:t9
+note area effect cloud custom particle: bare id, full default, properties, falling dust, dust (colour and scale), simple, unknown block
+spawn c1 minecraft:area_effect_cloud 0.5 -60 10.5 0 0 {Duration:100,custom_particle:{type:"minecraft:block",block_state:"minecraft:stone"}}
+spawn c2 minecraft:area_effect_cloud 2.5 -60 10.5 0 0 {Duration:100,custom_particle:{type:"minecraft:block",block_state:{id:"minecraft:oak_log",properties:{axis:"x"}}}}
+spawn c3 minecraft:area_effect_cloud 4.5 -60 10.5 0 0 {Duration:100,custom_particle:{type:"minecraft:falling_dust",block_state:{id:"minecraft:grass_block",properties:{snowy:"false"}}}}
+spawn c4 minecraft:area_effect_cloud 6.5 -60 10.5 0 0 {Duration:100,custom_particle:{type:"minecraft:dust",color:16711680,scale:2.0f}}
+spawn c5 minecraft:area_effect_cloud 8.5 -60 10.5 0 0 {Duration:100,custom_particle:{type:"minecraft:flame"}}
+spawn c6 minecraft:area_effect_cloud 10.5 -60 10.5 0 0 {Duration:100,custom_particle:{type:"minecraft:block",block_state:"minecraft:no_such_block"}}
+spawn c7 minecraft:area_effect_cloud 12.5 -60 10.5 0 0 {Duration:100,custom_particle:{type:"minecraft:block_marker",block_state:{id:"minecraft:oak_log",properties:{axis:"y"}}}}
+dump nbt:c1 nbt:c2 nbt:c3 nbt:c4 nbt:c5 nbt:c6 nbt:c7

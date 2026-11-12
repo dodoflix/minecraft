@@ -9,6 +9,7 @@ use crate::world::entity::{
 };
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor;
+use crate::world::level::block::state::{decode_block_state, encode_block_state};
 use crate::world::level::explosion::{
     Explosion, ExplosionDamageCalculator, ExplosionInteraction, default_block_explosion_resistance,
 };
@@ -19,7 +20,7 @@ use mc_core::random::RandomSource;
 use mc_data::EntityType;
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::FluidState;
-use mc_nbt::{CompoundTag, Tag};
+use mc_nbt::CompoundTag;
 use std::any::Any;
 use uuid::Uuid;
 
@@ -244,7 +245,7 @@ impl Entity for PrimedTnt {
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         out.put_short("fuse", self.get_fuse() as i16);
-        out.put("block_state", Tag::Compound(crate::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(self.get_block_state())));
+        out.put("block_state", encode_block_state(self.get_block_state()));
         if self.explosion_power != DEFAULT_EXPLOSION_POWER {
             out.put_float("explosion_power", self.explosion_power);
         }
@@ -258,12 +259,12 @@ impl Entity for PrimedTnt {
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         self.set_fuse(i32::from(input.get_short_or("fuse", DEFAULT_FUSE_TIME)));
-        let state = input
-            .get_compound("block_state")
-            .filter(|t| t.get_string("id").and_then(|s| mc_core::ident::Identifier::read(s).ok()).and_then(|id| Block::by_name(&id.to_string())).is_some())
-            .map(crate::world::level::levelgen::structure::templatesystem::structure_template::read_block_state)
-            .unwrap_or_else(|| Block::TNT.default_state());
-        self.set_block_state(state);
+        self.set_block_state(
+            input
+                .get("block_state")
+                .and_then(decode_block_state)
+                .unwrap_or_else(|| Block::TNT.default_state()),
+        );
         self.explosion_power = mth::clamp_f32(
             input.get_float_or("explosion_power", DEFAULT_EXPLOSION_POWER),
             0.0,

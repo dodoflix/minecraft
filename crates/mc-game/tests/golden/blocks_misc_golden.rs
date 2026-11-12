@@ -32,4 +32,5 @@ golden!(
     spawner_break => "blk_spawner_break",
     lectern_hopper => "blk_lectern_not_container",
     daylight_nether => "blk_daylight_nether",
+    entity_block_state_nbt => "entity_block_state_nbt",
 );
