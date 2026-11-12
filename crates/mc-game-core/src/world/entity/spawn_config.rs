@@ -12,11 +12,17 @@ use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
-use mc_protocol::components::{CUSTOM_DATA, CUSTOM_NAME, ENTITY_DATA};
+use mc_protocol::components::{CAN_BREAK, CUSTOM_DATA, CUSTOM_NAME, ENTITY_DATA};
 
 /// `entity.applyComponentsFromItemStack(stack)` for the components every entity understands (`Entity.applyImplicitComponents`):
-/// `custom_name` and `custom_data`. Entity classes with more implicit components call this from their override.
+/// `custom_name`, `custom_data` and, for projectiles, `can_break`. Entity classes with more implicit components call this
+/// from their override.
 pub fn apply_base_implicit_components(entity: &mut dyn Entity, stack: &ItemStack) {
+    if let Some(projectile) = entity.as_projectile_mut()
+        && let Some(can_break) = stack.get(&CAN_BREAK)
+    {
+        projectile.projectile_data_mut().can_break = Some(can_break.clone());
+    }
     if let Some(name) = stack.get(&CUSTOM_NAME) {
         entity.base_mut().set_custom_name(Some(name.clone()));
     }
@@ -63,6 +69,9 @@ pub fn only_op_can_set_nbt(ty: EntityType) -> bool {
 }
 
 /// `EntityType.createDefaultStackConfig(level, stack, user)` applied to `entity`.
+///
+/// Not implemented: the `villager_variant` component of `Villager` and `ZombieVillager` and the potion components of
+/// `AreaEffectCloud` are not applied from the stack.
 pub fn apply_default_stack_config(
     level: &ServerLevel,
     entity: &mut dyn Entity,

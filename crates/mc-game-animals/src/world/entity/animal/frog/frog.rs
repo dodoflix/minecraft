@@ -44,6 +44,7 @@ use mc_game_core::world::level::pathfinder::node_evaluator::{
 use mc_game_core::world::level::pathfinder::{NodeId, PathFinder, PathType};
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
+use mc_protocol::components::{FROG_VARIANT, Holder};
 
 define_accessor!(pub DATA_VARIANT_ID: FrogVariant = Frog);
 define_accessor!(pub DATA_TONGUE_TARGET_ID: OptionalUnsignedInt = Frog);
@@ -70,6 +71,8 @@ pub struct Frog {
     variant_key: Identifier,
     /// `variant` read from NBT, resolved to a registry id by [`Entity::resolve_registry_refs`].
     pending_variant: Option<Identifier>,
+    /// Registries the variant components of a spawn egg resolve against.
+    registries: RegistryAccess,
 }
 
 impl Frog {
@@ -94,6 +97,7 @@ impl Frog {
         let mut frog = Frog {
             mob,
             variant_key,
+            registries: registries.clone(),
             pending_variant: None,
         };
         // `LivingEntity.<init>`: `this.brain = this.makeBrain(Brain.Packed.EMPTY)`
@@ -430,6 +434,18 @@ impl Entity for Frog {
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
         self.pending_variant = variant::read_variant_key(input);
+    }
+
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        let registries = self.registries.clone();
+        if let Some(Holder::Reference(key)) = stack.get(&FROG_VARIANT)
+            && let Some(id) = registries
+                .registry(keys::FROG_VARIANT)
+                .and_then(|r| r.id_of(key))
+        {
+            self.set_variant(&registries, id);
+        }
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {

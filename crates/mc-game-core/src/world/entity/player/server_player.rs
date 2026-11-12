@@ -598,6 +598,35 @@ impl Entity for ServerPlayer {
         self.starting_to_fall_position = None;
         self.base_mut().fall_distance = 0.0;
     }
+    /// `ServerPlayer.checkFallDamage`: a mace smash makes the landing throw a block particle burst once.
+    fn check_fall_damage(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        ya: f64,
+        on_ground: bool,
+        on_state: mc_data::block::BlockState,
+        pos: BlockPos,
+    ) {
+        let fall_distance = self.base().fall_distance;
+        if self.spawn_extra_particles_on_fall && on_ground && fall_distance > 0.0 {
+            level.send_particles(
+                mc_protocol::packets::play::ParticleOptions::Block {
+                    particle_type: mc_data::ParticleType::BLOCK,
+                    state: on_state,
+                },
+                f64::from(pos.x()) + 0.5,
+                f64::from(pos.y()) + 1.0,
+                f64::from(pos.z()) + 0.5,
+                (50.0 * fall_distance).clamp(0.0, 200.0) as i32,
+                f64::from(0.3f32),
+                f64::from(0.3f32),
+                f64::from(0.3f32),
+                f64::from(0.15f32),
+            );
+            self.spawn_extra_particles_on_fall = false;
+        }
+        entity::check_fall_damage_base(self, level, ya, on_ground, on_state, pos);
+    }
     /// `ServerPlayer.onExplosionHit(explosionCausedBy)`.
     fn on_explosion_hit(&mut self, explosion_caused_by: Option<&dyn Entity>) {
         let position = self.position();

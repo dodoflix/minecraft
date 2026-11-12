@@ -16,6 +16,7 @@ use mc_game_core::world::entity::projectile::arrow::Arrow;
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::projectile_weapon_item::{get_mob_arrow, get_weapon_holding_hand};
 use mc_game_core::world::item::{InteractionHand, ItemStack};
+use mc_protocol::packets::play::SoundSource;
 use mc_world::level_storage::Difficulty;
 
 /// `ItemStack.is(tag)` for an item tag.
@@ -260,7 +261,28 @@ fn add_arrow_effect(arrow: &mut dyn Entity, effect: MobEffect, duration: i32) {
     }
 }
 
-/// `Bogged.shear(level, soundSource, tool)` + the `mobInteract` part around it.
+/// `Bogged.shear(level, soundSource, tool)`.
+pub fn shear(
+    skeleton: &mut AbstractSkeleton,
+    level: &mut ServerLevel,
+    sound_source: SoundSource,
+    tool: &ItemStack,
+) {
+    // the entity may be out of the level while it is being sheared: its position goes with the packet
+    level.play_sound_from_entity_at(
+        None,
+        skeleton.id(),
+        skeleton.position(),
+        SoundEvent::ENTITY_BOGGED_SHEAR,
+        sound_source,
+        1.0,
+        1.0,
+    );
+    drop_from_shearing_loot_table(skeleton, level, tool);
+    skeleton.set_sheared(true);
+}
+
+/// `Bogged.mobInteract` around [`shear`].
 pub fn shear_bogged(
     skeleton: &mut AbstractSkeleton,
     level: &mut ServerLevel,
@@ -268,10 +290,7 @@ pub fn shear_bogged(
     hand: InteractionHand,
 ) {
     let tool = player.get_item_in_hand(hand);
-    // level.playSound(null, this, BOGGED_SHEAR, soundSource, 1.0F, 1.0F)
-    skeleton.play_sound(level, SoundEvent::ENTITY_BOGGED_SHEAR, 1.0, 1.0);
-    drop_from_shearing_loot_table(skeleton, level, &tool);
-    skeleton.set_sheared(true);
+    shear(skeleton, level, SoundSource::Players, &tool);
     level.game_event_from_entity_ref(&*player, mc_data::GameEvent::SHEAR, skeleton.position());
     let slot = if hand == InteractionHand::MainHand {
         EquipmentSlot::MainHand

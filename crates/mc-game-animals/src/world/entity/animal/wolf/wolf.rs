@@ -51,7 +51,9 @@ use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, I
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
-use mc_protocol::components::{DYE, DyeColor};
+use mc_protocol::components::{
+    DYE, DyeColor, Holder, WOLF_COLLAR, WOLF_SOUND_VARIANT, WOLF_VARIANT,
+};
 use std::sync::Arc;
 
 define_accessor!(pub DATA_INTERESTED_ID: Boolean = Wolf);
@@ -194,6 +196,8 @@ pub struct Wolf {
     /// `variant` / `sound_variant` read from NBT, resolved to registry ids by [`Entity::resolve_registry_refs`].
     pending_variant: Option<Identifier>,
     pending_sound_variant: Option<Identifier>,
+    /// Registries the variant components of a spawn egg resolve against.
+    registries: RegistryAccess,
 }
 
 impl Wolf {
@@ -235,6 +239,7 @@ impl Wolf {
             shake_anim_o: 0.0,
             variant_key,
             sound_variant_key,
+            registries: registries.clone(),
             sound_variant,
             pending_variant: None,
             pending_sound_variant: None,
@@ -505,6 +510,28 @@ impl Entity for Wolf {
         self.pending_sound_variant = input
             .get_string("sound_variant")
             .and_then(Identifier::try_parse);
+    }
+
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        let registries = self.registries.clone();
+        if let Some(Holder::Reference(key)) = stack.get(&WOLF_VARIANT)
+            && let Some(id) = registries
+                .registry(keys::WOLF_VARIANT)
+                .and_then(|r| r.id_of(key))
+        {
+            self.set_variant(&registries, id);
+        }
+        if let Some(Holder::Reference(key)) = stack.get(&WOLF_SOUND_VARIANT)
+            && let Some(id) = registries
+                .registry(keys::WOLF_SOUND_VARIANT)
+                .and_then(|r| r.id_of(key))
+        {
+            self.set_sound_variant(&registries, id);
+        }
+        if let Some(color) = stack.get(&WOLF_COLLAR).copied() {
+            self.set_collar_color(color);
+        }
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {

@@ -80,38 +80,33 @@ impl ServerLevel {
         };
         let mut result = 0;
         for &id in &self.players {
-            let Some(entity) = self.get_entity(id) else {
+            // a player that is running (taken out of the level: its own movement code) still gets its own particles
+            let target = match self.get_entity(id) {
+                Some(entity) => entity
+                    .as_any()
+                    .downcast_ref::<ServerPlayer>()
+                    .map(|p| (p.base().block_position(), p.connection.as_ref())),
+                None => self.taken_out_players.get(&id).map(|p| {
+                    (
+                        mc_core::pos::BlockPos::containing_position(&p.position),
+                        p.connection.as_ref(),
+                    )
+                }),
+            };
+            let Some((pos, connection)) = target else {
                 continue;
             };
-            let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else {
-                continue;
-            };
-            if self.send_particles_to(player, override_limiter, x, y, z, &packet) {
+            // `sendParticles(player, overrideLimiter, x, y, z, packet)`
+            if pos.closer_to_center_than(
+                &Vec3::new(x, y, z),
+                if override_limiter { 512.0 } else { 32.0 },
+            ) {
+                if let Some(connection) = connection {
+                    connection.send(&packet);
+                }
                 result += 1;
             }
         }
         result
-    }
-
-    /// `sendParticles(player, overrideLimiter, x, y, z, packet)`.
-    fn send_particles_to(
-        &self,
-        player: &ServerPlayer,
-        override_limiter: bool,
-        x: f64,
-        y: f64,
-        z: f64,
-        packet: &ClientboundLevelParticlesPacket,
-    ) -> bool {
-        let pos = player.base().block_position();
-        if pos.closer_to_center_than(
-            &Vec3::new(x, y, z),
-            if override_limiter { 512.0 } else { 32.0 },
-        ) {
-            player.send(packet);
-            true
-        } else {
-            false
-        }
     }
 }

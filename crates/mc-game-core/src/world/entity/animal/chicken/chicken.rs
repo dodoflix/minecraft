@@ -31,6 +31,7 @@ use mc_core::random::RandomSource;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{EntityType, GameEvent, Item, SoundEvent};
 use mc_nbt::CompoundTag;
+use mc_protocol::components::{CHICKEN_SOUND_VARIANT, CHICKEN_VARIANT, Holder};
 use std::sync::Arc;
 
 define_accessor!(pub DATA_VARIANT_ID: ChickenVariant = Chicken);
@@ -55,6 +56,8 @@ pub struct Chicken {
     /// `variant` / `sound_variant` read from NBT, resolved to registry ids by [`Entity::resolve_registry_refs`].
     pending_variant: Option<Identifier>,
     pending_sound_variant: Option<Identifier>,
+    /// Registries the variant components of a spawn egg resolve against.
+    registries: RegistryAccess,
 }
 
 /// `BABY_DIMENSIONS`.
@@ -107,6 +110,7 @@ impl Chicken {
             is_chicken_jockey: false,
             variant_key,
             sound_variant_key,
+            registries: registries.clone(),
             sound_variant,
             pending_variant: None,
             pending_sound_variant: None,
@@ -417,6 +421,21 @@ impl Entity for Chicken {
         self.pending_sound_variant = input
             .get_string("sound_variant")
             .and_then(Identifier::try_parse);
+    }
+
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        let registries = self.registries.clone();
+        if let Some(Holder::Reference(key)) = stack.get(&CHICKEN_VARIANT)
+            && let Some(id) = id_of(&registries, keys::CHICKEN_VARIANT, key)
+        {
+            self.set_variant(&registries, id as u32);
+        }
+        if let Some(Holder::Reference(key)) = stack.get(&CHICKEN_SOUND_VARIANT)
+            && let Some(id) = id_of(&registries, keys::CHICKEN_SOUND_VARIANT, key)
+        {
+            self.set_sound_variant(&registries, id as u32);
+        }
+        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {

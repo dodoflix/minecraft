@@ -7,7 +7,6 @@ use crate::world::item::ItemStack;
 use mc_core::random::RandomSource;
 use mc_data::{GameEvent, SoundEvent};
 use mc_protocol::components::EQUIPPABLE;
-use mc_protocol::packets::play::SoundSource;
 
 /// `LivingEntity.onEquipItem(slot, oldStack, stack)` (server side): equip sound + `EQUIP`/`UNEQUIP` game event when the
 /// stack really changed.
@@ -34,11 +33,7 @@ pub fn on_equip_item(
             if let Some(sound) = entity.get_equip_sound_override(slot).or(own) {
                 let seed = entity.base_mut().random.next_long();
                 let p = entity.base().position();
-                let source = if entity.is_player() {
-                    SoundSource::Players
-                } else {
-                    SoundSource::Neutral
-                };
+                let source = entity.get_sound_source();
                 level.play_seeded_sound(None, p.x, p.y, p.z, sound, source, 1.0, 1.0, seed);
             }
         }

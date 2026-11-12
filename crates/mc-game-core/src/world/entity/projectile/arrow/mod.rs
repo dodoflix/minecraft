@@ -255,16 +255,6 @@ pub trait AbstractArrow: Projectile {
     }
 }
 
-/// `Entity.applyComponentsFromItemStack(stack)`: the custom name and custom data components.
-pub fn apply_components_from_item_stack(entity: &mut dyn Entity, stack: &ItemStack) {
-    if let Some(name) = stack.get(&mc_protocol::components::CUSTOM_NAME) {
-        entity.base_mut().set_custom_name(Some(name.clone()));
-    }
-    if let Some(data) = stack.get(&mc_protocol::components::CUSTOM_DATA) {
-        entity.base_mut().custom_data = data.copy_tag();
-    }
-}
-
 /// The constructors' shared tail: `AbstractArrow(type, x, y, z, level, pickupItemStack, firedFromWeapon)`.
 pub fn init_at(
     arrow: &mut dyn AbstractArrow,
@@ -276,7 +266,7 @@ pub fn init_at(
     fired_from_weapon: Option<&ItemStack>,
 ) {
     arrow.arrow_data_mut().pickup_item_stack = pickup_item_stack.copy();
-    apply_components_from_item_stack(arrow, &pickup_item_stack);
+    crate::world::entity::spawn_config::apply_base_implicit_components(arrow, &pickup_item_stack);
     if pickup_item_stack
         .remove(mc_data::DataComponentType::INTANGIBLE_PROJECTILE)
         .is_some()

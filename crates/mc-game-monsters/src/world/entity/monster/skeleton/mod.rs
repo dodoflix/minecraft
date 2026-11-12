@@ -396,6 +396,23 @@ impl Entity for AbstractSkeleton {
         self.reassess_weapon_goal(difficulty);
     }
 
+    fn is_shearable(&self) -> bool {
+        matches!(self.kind, SkeletonKind::Bogged)
+    }
+
+    fn ready_for_shearing(&self) -> bool {
+        matches!(self.kind, SkeletonKind::Bogged) && !self.is_sheared()
+    }
+
+    fn shear(
+        &mut self,
+        level: &mut ServerLevel,
+        sound_source: mc_protocol::packets::play::SoundSource,
+        tool: &ItemStack,
+    ) {
+        goals::shear(self, level, sound_source, tool);
+    }
+
     fn mob_interact(
         &mut self,
         level: &mut ServerLevel,

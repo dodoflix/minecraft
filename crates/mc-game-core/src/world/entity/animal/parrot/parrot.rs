@@ -624,6 +624,13 @@ impl Entity for Parrot {
         }
     }
 
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        if let Some(variant) = stack.get(&mc_protocol::components::PARROT_VARIANT) {
+            self.set_variant(ParrotVariant::by_id(variant.id()));
+        }
+        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+    }
+
     fn is_food(&self, _stack: &ItemStack) -> bool {
         false
     }

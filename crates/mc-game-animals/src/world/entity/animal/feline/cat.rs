@@ -48,7 +48,7 @@ use mc_game_core::world::level::level_access::LevelAccessor as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use mc_nbt::CompoundTag;
-use mc_protocol::components::{DYE, DyeColor};
+use mc_protocol::components::{CAT_COLLAR, CAT_SOUND_VARIANT, CAT_VARIANT, DYE, DyeColor, Holder};
 use std::any::Any;
 use std::sync::Arc;
 
@@ -544,6 +544,8 @@ pub struct Cat {
     sound_variant: CatSoundVariant,
     pending_variant: Option<Identifier>,
     pending_sound_variant: Option<Identifier>,
+    /// Registries the variant components of a spawn egg resolve against.
+    registries: RegistryAccess,
 }
 
 impl Cat {
@@ -585,6 +587,7 @@ impl Cat {
             relax_state_one_amount_o: 0.0,
             variant_key,
             sound_variant_key,
+            registries: registries.clone(),
             sound_variant,
             pending_variant: None,
             pending_sound_variant: None,
@@ -836,6 +839,28 @@ impl Entity for Cat {
             DEFAULT_COLLAR_COLOR
         };
         self.set_collar_color(collar);
+    }
+
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        let registries = self.registries.clone();
+        if let Some(Holder::Reference(key)) = stack.get(&CAT_VARIANT)
+            && let Some(id) = registries
+                .registry(keys::CAT_VARIANT)
+                .and_then(|r| r.id_of(key))
+        {
+            self.set_variant(&registries, id);
+        }
+        if let Some(Holder::Reference(key)) = stack.get(&CAT_SOUND_VARIANT)
+            && let Some(id) = registries
+                .registry(keys::CAT_SOUND_VARIANT)
+                .and_then(|r| r.id_of(key))
+        {
+            self.set_sound_variant(&registries, id);
+        }
+        if let Some(color) = stack.get(&CAT_COLLAR).copied() {
+            self.set_collar_color(color);
+        }
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {

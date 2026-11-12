@@ -300,8 +300,8 @@ impl SulfurCube {
         true
     }
 
-    /// `shear(level, soundSource, tool)`.
-    fn shear(&mut self, level: &mut ServerLevel) {
+    /// `shear(level, soundSource, tool)`: the eject sound ignores the sound source.
+    fn eject_body_item(&mut self, level: &mut ServerLevel) {
         let offset = self
             .get_attachments()
             .get_average(EntityAttachment::Passenger);
@@ -731,6 +731,20 @@ impl Entity for SulfurCube {
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:sulfur_cube")
     }
+    fn is_shearable(&self) -> bool {
+        true
+    }
+    fn ready_for_shearing(&self) -> bool {
+        self.has_body_item()
+    }
+    fn shear(
+        &mut self,
+        level: &mut ServerLevel,
+        _sound_source: mc_protocol::packets::play::SoundSource,
+        _tool: &ItemStack,
+    ) {
+        self.eject_body_item(level);
+    }
     fn as_cube_mob(&self) -> Option<&dyn CubeMob> {
         Some(self)
     }
@@ -957,7 +971,7 @@ impl Entity for SulfurCube {
         {
             if held.is(Item::SHEARS) && self.has_body_item() {
                 let sheared = self.get_item_by_slot(EquipmentSlot::Body);
-                self.shear(level);
+                self.eject_body_item(level);
                 level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, self.position());
                 mob::interact::with_hand_stack(player, hand, |s, p| {
                     mc_game_core::world::item::hurt_and_break(
