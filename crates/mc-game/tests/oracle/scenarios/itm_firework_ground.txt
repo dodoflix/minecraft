@@ -1,0 +1,50 @@
+# FireworkRocketItem.useOn: the rocket appears at the click location + face step * 0.15 (owner = the player), the stack shrinks one
+# (creative: the stack comes back), the launch sound plays on the rocket's first tick. A rocket with explosions that touches a block
+# explodes when it hits a block (a stone ceiling above its column) and hurts the living entities within 5 blocks that it can see (the
+# owner and a cow), a rocket without explosions keeps flying until its lifetime ends. `use` without gliding passes. The `nbt:` dumps
+# carry life, lifetime, item and shot flag.
+level flat
+preload 2
+difficulty normal
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 14.5 -60 0.5 0 0
+spawn V minecraft:cow 4.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+give P hotbar0 minecraft:firework_rocket[fireworks={flight_duration:1,explosions:[{shape:"large_ball",colors:[I;16711680],fade_colors:[I;255],has_trail:true},{shape:"star",colors:[I;65280],has_twinkle:true}]}] 6
+give P hotbar1 minecraft:firework_rocket[fireworks={flight_duration:1}] 3
+give P offhand minecraft:firework_rocket[fireworks={flight_duration:2,explosions:[{shape:"creeper",colors:[I;255]}]}] 2
+give C hotbar0 minecraft:firework_rocket[fireworks={flight_duration:1,explosions:[{shape:"burst",colors:[I;16711680]}]}] 4
+block 2 -60 2 minecraft:stone
+block 3 -58 2 minecraft:stone
+tick 3
+dump packets:P:none packets:C:none events
+note an explosive rocket clicked on the east face of the stone block: it starts 0.15 east of the face, rises under the ceiling block and explodes on it
+level_seed 31
+use_on P 2 -60 2 east main
+dump entities nbt:firework_rocket#1 inventory:P stats:P events
+watch entities player:P entity:V events
+tick 8
+watch off
+dump inventory:P stats:P
+note a plain rocket on the north face: it starts 0.15 north of the face and flies until its lifetime is over
+select P 1
+level_seed 32
+use_on P 2 -60 2 north main
+dump entities nbt:firework_rocket#2 inventory:P stats:P events
+tick 1
+dump entities events
+note the offhand stack
+level_seed 33
+use_on P 2 -60 2 up off 0.2 1 0.8
+dump entities nbt:firework_rocket#3 inventory:P stats:P events
+note creative keeps the stack
+level_seed 34
+use_on C 15 -61 0 up main
+dump entities nbt:firework_rocket#4 inventory:C stats:C events
+note a firework in the hand without gliding: use passes
+select P 0
+use P main 1
+dump entities inventory:P stats:P events
+watch entities events
+tick 40
+watch off
+dump inventory:P stats:P player:P entity:V events

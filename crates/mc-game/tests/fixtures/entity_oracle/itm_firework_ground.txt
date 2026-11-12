@@ -1,0 +1,297 @@
+# an explosive rocket clicked on the east face of the stone block: it starts 0.15 east of the face, rises under the ceiling block and explodes on it
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#1 minecraft:firework_rocket pos=3.15,-59.5,2.5 delta=0.0012607484762348685,0.05,-2.1413988608984117E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N firework_rocket#1 {Air:300s,Fire:0s,FireworksItem:{components:{minecraft:fireworks:{explosions:[{colors:[16711680],fade_colors:[255],has_trail:1b,shape:"large_ball"},{colors:[65280],has_twinkle:1b,shape:"star"}],flight_duration:1b}},count:6,id:"minecraft:firework_rocket"},HasBeenShot:0b,Invulnerable:0b,Life:0,LifeTime:25,Motion:[0.0012607484762348685d,0.05d,-2.1413988608984117E-4d],OnGround:0b,Owner:[I;336025415,-515491831,-1587444821,-451798754],PortalCooldown:0,Pos:[3.15d,-59.5d,2.5d],Rotation:[0.0f,0.0f],ShotAtAngle:0b,fall_distance:0.0d}
+I P 0 minecraft:firework_rocket*5
+I P 1 minecraft:firework_rocket*3
+I P 40 minecraft:firework_rocket*2
+STAT P minecraft.custom:minecraft.play_time 3
+STAT P minecraft.custom:minecraft.time_since_death 3
+STAT P minecraft.custom:minecraft.time_since_rest 3
+STAT P minecraft.custom:minecraft.total_world_time 3
+STAT P minecraft.used:minecraft.firework_rocket 1
+T 4
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#1 minecraft:firework_rocket pos=3.15144986074767,-59.41,2.4997537391309965 delta=0.0014498607476700987,0.09,-2.462608690033173E-4 rot=19.927961,17.812773 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:firework_rocket*5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=3.15144986074767,-59.41,2.4997537391309965 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+T 5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#1 minecraft:firework_rocket pos=3.1531172006074906,-59.279999999999994,2.4994705391316425 delta=0.0016673398598206132,0.13,-2.831999993538149E-4 rot=35.870327,32.101154 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:firework_rocket*5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=4.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=0.99109995
+T 6
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#1 minecraft:firework_rocket pos=3.155034641446284,-59.10999999999999,2.4991448591323855 delta=0.0019174408387937051,0.17,-3.2567999925688714E-4 rot=48.624226,43.549828 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:firework_rocket*5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 7
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#1 minecraft:firework_rocket pos=3.157239698410897,-58.89999999999999,2.49877032713324 delta=0.0022050569646127607,0.21000000000000002,-3.745319991454202E-4 rot=58.827335,52.7178 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:firework_rocket*5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 8
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#1 minecraft:firework_rocket pos=3.1597755139202013,-58.64999999999999,2.4983396153342228 delta=0.0025358155093046747,0.25,-4.307117990172332E-4 rot=66.98983,60.056316 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:firework_rocket*5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 9
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#1 minecraft:firework_rocket pos=3.1626917017559015,-58.35999999999999,2.497844296765353 delta=0.002916187835700376,0.29,-4.953185688698181E-4 rot=73.51982,65.92816 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:firework_rocket*5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 10
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#1 minecraft:firework_rocket pos=3.1660453177669567,-58.25,2.4972746804111527 delta=0.003353616011055432,0.32999999999999996,-5.696163542002908E-4 rot=78.74381,70.62439 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:firework_rocket*5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+T 11
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0010165769647591729 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=10/20 death=0 fx=-
+P P minecraft:player pos=0.5,-60.0,0.5 delta=-0.17490244589083878,0.2751840104494096,-0.13079643314539777 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.527596 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:firework_rocket*5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0010165769647591729 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=10/20 death=0 fx=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=4.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.9042587
+I P 0 minecraft:firework_rocket*5
+I P 1 minecraft:firework_rocket*3
+I P 40 minecraft:firework_rocket*2
+STAT P minecraft.custom:minecraft.damage_taken 45
+STAT P minecraft.custom:minecraft.play_time 11
+STAT P minecraft.custom:minecraft.time_since_death 11
+STAT P minecraft.custom:minecraft.time_since_rest 11
+STAT P minecraft.custom:minecraft.total_world_time 11
+STAT P minecraft.used:minecraft.firework_rocket 1
+# a plain rocket on the north face: it starts 0.15 north of the face and flies until its lifetime is over
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0010165769647591729 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=10/20 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5,-59.5,1.85 delta=5.284425412556992E-4,0.05,4.0153101540699816E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N firework_rocket#2 {Air:300s,Fire:0s,FireworksItem:{count:3,id:"minecraft:firework_rocket"},HasBeenShot:0b,Invulnerable:0b,Life:0,LifeTime:21,Motion:[5.284425412556992E-4d,0.05d,4.0153101540699816E-4d],OnGround:0b,Owner:[I;336025415,-515491831,-1587444821,-451798754],PortalCooldown:0,Pos:[2.5d,-59.5d,1.85d],Rotation:[0.0f,0.0f],ShotAtAngle:0b,fall_distance:0.0d}
+I P 0 minecraft:firework_rocket*5
+I P 1 minecraft:firework_rocket*2
+I P 40 minecraft:firework_rocket*2
+STAT P minecraft.custom:minecraft.damage_taken 45
+STAT P minecraft.custom:minecraft.play_time 11
+STAT P minecraft.custom:minecraft.time_since_death 11
+STAT P minecraft.custom:minecraft.time_since_rest 11
+STAT P minecraft.custom:minecraft.total_world_time 11
+STAT P minecraft.used:minecraft.firework_rocket 2
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=9/19 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.500607708922444,-59.41,1.850461760667718 delta=6.07708922444054E-4,0.09,4.6176066771804787E-4 rot=10.554194,17.902826 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=2.500607708922444,-59.41,1.850461760667718 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+# the offhand stack
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=9/19 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.500607708922444,-59.41,1.850461760667718 delta=6.07708922444054E-4,0.09,4.6176066771804787E-4 rot=10.554194,17.902826 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.2,-58.85,2.8 delta=-8.141474505442246E-4,0.05,-4.2775952125199954E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N firework_rocket#3 {Air:300s,Fire:0s,FireworksItem:{components:{minecraft:fireworks:{explosions:[{colors:[255],shape:"creeper"}],flight_duration:2b}},count:2,id:"minecraft:firework_rocket"},HasBeenShot:0b,Invulnerable:0b,Life:0,LifeTime:41,Motion:[-8.141474505442246E-4d,0.05d,-4.2775952125199954E-5d],OnGround:0b,Owner:[I;336025415,-515491831,-1587444821,-451798754],PortalCooldown:0,Pos:[2.2d,-58.85d,2.8d],Rotation:[0.0f,0.0f],ShotAtAngle:0b,fall_distance:0.0d}
+I P 0 minecraft:firework_rocket*5
+I P 1 minecraft:firework_rocket*2
+I P 40 minecraft:firework_rocket*1
+STAT P minecraft.custom:minecraft.damage_taken 45
+STAT P minecraft.custom:minecraft.play_time 12
+STAT P minecraft.custom:minecraft.time_since_death 12
+STAT P minecraft.custom:minecraft.time_since_rest 12
+STAT P minecraft.custom:minecraft.total_world_time 12
+STAT P minecraft.used:minecraft.firework_rocket 3
+# creative keeps the stack
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=9/19 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.500607708922444,-59.41,1.850461760667718 delta=6.07708922444054E-4,0.09,4.6176066771804787E-4 rot=10.554194,17.902826 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.2,-58.85,2.8 delta=-8.141474505442246E-4,0.05,-4.2775952125199954E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.5,-59.85,0.5 delta=4.3431818683132347E-4,0.05,7.995407418573205E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N firework_rocket#4 {Air:300s,Fire:0s,FireworksItem:{components:{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"burst"}],flight_duration:1b}},count:4,id:"minecraft:firework_rocket"},HasBeenShot:0b,Invulnerable:0b,Life:0,LifeTime:24,Motion:[4.3431818683132347E-4d,0.05d,7.995407418573205E-5d],OnGround:0b,Owner:[I;407689464,1828073685,-2048753337,-1664646821],PortalCooldown:0,Pos:[15.5d,-59.85d,0.5d],Rotation:[0.0f,0.0f],ShotAtAngle:0b,fall_distance:0.0d}
+I C 0 minecraft:firework_rocket*4
+STAT C minecraft.custom:minecraft.play_time 12
+STAT C minecraft.custom:minecraft.time_since_death 12
+STAT C minecraft.custom:minecraft.time_since_rest 12
+STAT C minecraft.custom:minecraft.total_world_time 12
+STAT C minecraft.used:minecraft.firework_rocket 1
+# a firework in the hand without gliding: use passes
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=9/19 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.500607708922444,-59.41,1.850461760667718 delta=6.07708922444054E-4,0.09,4.6176066771804787E-4 rot=10.554194,17.902826 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.2,-58.85,2.8 delta=-8.141474505442246E-4,0.05,-4.2775952125199954E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.5,-59.85,0.5 delta=4.3431818683132347E-4,0.05,7.995407418573205E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I P 0 minecraft:firework_rocket*5
+I P 1 minecraft:firework_rocket*2
+I P 40 minecraft:firework_rocket*1
+STAT P minecraft.custom:minecraft.damage_taken 45
+STAT P minecraft.custom:minecraft.play_time 12
+STAT P minecraft.custom:minecraft.time_since_death 12
+STAT P minecraft.custom:minecraft.time_since_rest 12
+STAT P minecraft.custom:minecraft.total_world_time 12
+STAT P minecraft.used:minecraft.firework_rocket 3
+T 13
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=8/18 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5013065741832547,-59.279999999999994,1.8509927854355939 delta=6.98865260810662E-4,0.13,5.31024767875755E-4 rot=18.99756,32.24489 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1990637304318743,-58.76,2.7999508076550557 delta=-9.362695681258583E-4,0.09,-4.919234494397994E-5 rot=-18.601494,17.880621 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.500499465914857,-59.76,0.5000919471853136 delta=4.994659148560219E-4,0.09,9.194718531359184E-5 rot=15.913836,17.935347 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=2.1990637304318743,-58.76,2.7999508076550557 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+EV sound at=15.500499465914857,-59.76,0.5000919471853136 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+T 14
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=7/17 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.502110269233187,-59.10999999999999,1.851603463918651 delta=8.036950499322612E-4,0.17,6.106784830571182E-4 rot=25.75225,43.72785 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1979870204285294,-58.629999999999995,2.79989423645837 delta=-0.001076710003344737,0.13,-5.657119668557693E-5 rot=-33.48271,32.20946 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.50107385171694,-59.629999999999995,0.5001976864484242 delta=5.743858020844252E-4,0.13,1.0573926311063061E-4 rot=28.644915,32.2968 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 15
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=6/16 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.503034518540609,-58.89999999999999,1.8523057441741666 delta=9.242493074221003E-4,0.21000000000000002,7.022802555156859E-4 rot=31.155998,52.91897 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.196748803924683,-58.459999999999994,2.7998291795821815 delta=-0.0012382165038464475,0.17,-6.505687618841346E-5 rot=-45.387657,43.683983 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.501734395389338,-59.459999999999994,0.5003192866010014 delta=6.605436723970889E-4,0.17,1.2160015257722519E-4 rot=38.829773,43.792168 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 16
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=5/15 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5040974052441447,-58.64999999999999,1.8531133664680097 delta=0.0010628867035354153,0.25,8.076222938430387E-4 rot=35.478996,60.274014 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1953248549452598,-58.24999999999999,2.799754364174565 delta=-0.0014239489794234145,0.21000000000000002,-7.481540761667547E-5 rot=-54.91163,52.86936 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.502494020612595,-59.24999999999999,0.5004591267764652 delta=7.596252232566522E-4,0.21000000000000002,1.3984017546380894E-4 rot=46.977676,52.99158 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 17
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=4/14 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5053197249532104,-58.35999999999999,1.8540421321059293 delta=0.0012223197090657275,0.29,9.287656379194944E-4 rot=38.93739,66.15856 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.193687313618923,-57.99999999999999,2.7996683264558055 delta=-0.0016375413263369266,0.25,-8.603771875917679E-5 rot=-62.530792,60.220303 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.503367589619339,-58.99999999999999,0.5006199429782486 delta=8.735690067451499E-4,0.25,1.6081620178338027E-4 rot=53.49597,60.352543 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 18
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=3/13 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.506725392618636,-58.029999999999994,1.8551102125895367 delta=0.0014056676654255866,0.32999999999999996,0.0010680804836074185 rot=41.704117,70.86557 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1918041410936357,-57.709999999999994,2.7995693830792323 delta=-0.0018831725252874654,0.29,-9.89433765730533E-5 rot=-68.62612,66.101715 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.504372193977096,-58.709999999999994,0.5008048816102996 delta=0.0010046043577569223,0.29,1.849386320508873E-4 rot=58.71061,66.24167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 19
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=2/12 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5083419104338756,-57.66,1.856338505145685 delta=0.0016165178152394244,0.36999999999999994,0.0012282925561485313 rot=43.917496,74.62959 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1896384926895553,-57.379999999999995,2.7994555981961735 delta=-0.002165648404080585,0.32999999999999996,-1.1378488305901128E-4 rot=-73.50241,70.806046 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.505527488988516,-58.379999999999995,0.5010175610371581 delta=0.0011552950114204605,0.32999999999999996,2.1267942685852036E-4 rot=62.882336,70.95254 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 20
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=1/11 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5102009059214008,-57.25,1.8577510415852558 delta=0.0018589954875253378,0.4099999999999999,0.0014125364395708108 rot=45.688194,77.63845 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1871479970248626,-57.01,2.799324745580656 delta=-0.0024904956646926726,0.36999999999999994,-1.3085261551786296E-4 rot=-77.40342,74.56759 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.50685607825165,-58.01,0.5012621423780454 delta=0.0013285892631335295,0.36999999999999994,2.445813408872984E-4 rot=66.2197,74.720184 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 21
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/10 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.512338750732055,-56.8,1.8593754584907622 delta=0.0021378448106541383,0.4499999999999999,0.0016244169055064323 rot=47.104755,80.04238 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.184283927010466,-56.6,2.79917426507281 delta=-0.002864070014396573,0.4099999999999999,-1.5048050784554238E-4 rot=-80.52424,77.5739 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.508383955904254,-57.6,0.5015434109200658 delta=0.0015278776526035588,0.4099999999999999,2.8126854202039313E-4 rot=68.88962,77.73273 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 22
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/9 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5147972722643073,-56.309999999999995,1.8612435379320946 delta=0.0024585215322522587,0.4899999999999999,0.001868079441332397 rot=48.238,81.96167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1809902464939097,-56.15,2.799001212488788 delta=-0.003293680516556059,0.4499999999999999,-1.730525840223737E-4 rot=-83.02088,79.97513 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.510141015204749,-57.15,0.5018668697433892 delta=0.0017570593004940926,0.4499999999999999,3.2345882332345205E-4 rot=71.02552,80.140686 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 23
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/8 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5176245720263974,-55.779999999999994,1.863391829289627 delta=0.0028272997620900973,0.5299999999999999,0.0021482913575322565 rot=49.144604,83.49256 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.17720251389987,-55.66,2.7988022020171623 delta=-0.0037877325940394676,0.4899999999999999,-1.9901047162572974E-4 rot=-85.01819,81.8914 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.512161633400316,-56.66,0.5022388473902112 delta=0.0020206181955682062,0.4899999999999999,3.7197764682196985E-4 rot=72.734245,82.06451 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 24
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/7 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.520875966752801,-55.209999999999994,1.865862364350789 delta=0.0032513947264036116,0.57,0.0024705350611620948 rot=49.869884,84.71195 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1728466214167246,-55.129999999999995,2.798573339974793 delta=-0.0043558924831453875,0.5299999999999999,-2.2886204236958918E-4 rot=-86.616066,83.418816 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.51448534432522,-56.129999999999995,0.5026666216840564 delta=0.002323710924903437,0.5299999999999999,4.277742938452653E-4 rot=74.10124,83.60052 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 25
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/6 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5246150706881654,-54.599999999999994,1.8687034796711255 delta=0.003739103935364153,0.61,0.002841115320336409 rot=50.450104,85.68134 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1678373450611073,-54.559999999999995,2.7983101486260678 delta=-0.005009276355617195,0.57,-2.6319134872502755E-4 rot=-87.89434,84.63422 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.517157611888859,-55.559999999999995,0.5031585621219784 delta=0.0026722675636389522,0.57,4.91940437922055E-4 rot=75.19483,84.82579 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 26
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/5 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.528915040213834,-53.949999999999996,1.8719707622895123 delta=0.004299969525668776,0.65,0.0032672826183868697 rot=50.914284,86.449875 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1620766772521476,-53.949999999999996,2.798007478575034 delta=-0.005760667808959774,0.61,-3.0267005103378164E-4 rot=-88.91698,85.59904 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.520230719587044,-54.949999999999996,0.5037242936255888 delta=0.003073107698184795,0.61,5.657315036103632E-4 rot=76.069725,85.80195 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 27
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/4 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.533860005168353,-53.26,1.8757281373006571 delta=0.004944964954519092,0.6900000000000001,0.0037573750111449 rot=51.28562,87.05677 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.155451909271844,-53.3,2.797659408016345 delta=-0.006624767980303739,0.65,-3.4807055868884884E-4 rot=-89.73508,86.36225 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.523764793439957,-54.3,0.5043748848547407 delta=0.003534073852912514,0.65,6.505912291519177E-4 rot=76.76961,86.57824 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 28
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/3 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.53954671486605,-52.53,1.8800491185634738 delta=0.005686709697696955,0.7300000000000001,0.0043209812628166346 rot=51.582703,87.53329 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1478334260944947,-52.61,2.7972591268738527 delta=-0.0076184831773493,0.6900000000000001,-4.0028114249217615E-4 rot=-90.38955,86.963104 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.527828978370806,-53.61,0.5051230647682654 delta=0.004064184930849391,0.6900000000000001,7.481799135247053E-4 rot=77.32951,87.19395 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 29
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/2 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5460864310184017,-51.76,1.8850182470157129 delta=0.006539716152351498,0.7700000000000001,0.0049691284522391296 rot=51.820366,87.90438 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.139072170440543,-51.88,2.796798803559987 delta=-0.008761255653951694,0.7300000000000001,-4.6032331386600253E-4 rot=-90.913155,87.43277 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.532502791041283,-52.88,0.5059834716688189 delta=0.004673812670476799,0.7300000000000001,8.60406900553411E-4 rot=77.77746,87.68055 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 30
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/1 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5536071045936057,-50.949999999999996,1.8907327447357878 delta=0.007520673575204222,0.8100000000000002,0.0057144977200749986 rot=52.01049,88.18988 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1289967264384986,-51.11,2.796269431749041 delta=-0.010075444002044447,0.7700000000000001,-5.293718109459028E-4 rot=-91.332016,87.7961 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.537877675612332,-52.11,0.5069729396044552 delta=0.005374884571048319,0.7700000000000001,9.894679356364227E-4 rot=78.1358,88.063095 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 31
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.5622558792050905,-50.099999999999994,1.897304417113874 delta=0.008648774611484856,0.8500000000000002,0.006571672378086248 rot=52.162594,88.40549 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1174099658361474,-50.3,2.7956606541664533 delta=-0.011586760602351113,0.8100000000000002,-6.087775825877882E-4 rot=-91.667114,88.072716 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.544058792869038,-51.3,0.5081108277304371 delta=0.006181117256705566,0.8100000000000002,0.001137888125981886 rot=78.4225,88.361565 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 32
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#2 minecraft:firework_rocket pos=2.572201970008298,-49.209999999999994,1.9048618403486732 delta=0.009946090803207583,0.8900000000000002,0.007557423234799184 rot=52.284267,88.56356 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=2.1040851911434437,-49.449999999999996,2.7949605599464773 delta=-0.013324774692703779,0.8500000000000002,-7.000942199759565E-4 rot=-91.93519,88.278305 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.551167077714249,-50.449999999999996,0.5094193990753163 delta=0.007108284845211401,0.8500000000000002,0.0013085713448791688 rot=78.65183,88.59182 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 33
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=2.088761700246834,-48.559999999999995,2.7941554515935048 delta=-0.015323490896609344,0.8900000000000002,-8.051083529723498E-4 rot=-92.149635,88.4251 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.559341605286242,-49.559999999999995,0.5109242561219274 delta=0.00817452757199311,0.8900000000000002,0.0015048570466110439 rot=78.8353,88.76644 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 34
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=2.0711396857157336,-47.629999999999995,2.7932295769875863 delta=-0.017622014531100745,0.9300000000000003,-9.258746059182023E-4 rot=-92.32122,88.522675 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.568742311994034,-48.629999999999995,0.5126548417255301 delta=0.009400706707792075,0.9300000000000003,0.0017305856036027004 rot=78.982086,88.89538 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 35
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=2.050874369004968,-46.66,2.7921648211907804 delta=-0.020265316710765854,0.9700000000000003,-0.0010647557968059326 rot=-92.458466,88.57847 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.579553124707996,-47.66,0.5146450151696732 delta=0.010810812713960885,0.9700000000000003,0.001990173444143105 rot=79.0995,88.98644 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 36
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=2.027569254787587,-45.65,2.7909403520244536 delta=-0.02330511421738073,1.0100000000000002,-0.0012244691663268223 rot=-92.56827,88.59804 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#4 minecraft:firework_rocket pos=15.59198555932905,-46.65,0.5169337146304378 delta=0.012432434621055016,1.0100000000000002,0.0022886994607645705 rot=79.19346,89.045746 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 37
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=2.0007683734375994,-44.6,2.7895322124831776 delta=-0.026800881349987836,1.0500000000000003,-0.0014081395412758454 rot=-92.65611,88.585594 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 38
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.9699473598851134,-43.51,2.7879128520107104 delta=-0.03082101355248601,1.0900000000000003,-0.001619360472467222 rot=-92.72638,88.54409 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 39
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.9345031942997544,-42.379999999999995,2.786050587467373 delta=-0.03544416558535891,1.1300000000000003,-0.0018622645433373052 rot=-92.782616,88.475464 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 40
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.8937424038765915,-41.209999999999994,2.7839089832425348 delta=-0.04076079042316274,1.1700000000000004,-0.002141604224837901 rot=-92.82758,88.38076 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 41
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.8468674948899544,-39.99999999999999,2.7814461383839713 delta=-0.04687490898663715,1.2100000000000004,-0.0024628448585635857 rot=-92.86356,88.26029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 42
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.7929613495553216,-38.74999999999999,2.778613866796623 delta=-0.05390614533463271,1.2500000000000004,-0.002832271587348123 rot=-92.89235,88.113686 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 43
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.730969282420494,-37.459999999999994,2.7753567544711726 delta=-0.06199206713482761,1.2900000000000005,-0.0032571123254503415 rot=-92.91537,87.93996 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 44
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.6596784052154423,-36.129999999999995,2.7716110752969048 delta=-0.07129087720505174,1.3300000000000005,-0.0037456791742678927 rot=-92.93381,87.73746 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 45
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.5776938964296328,-34.76,2.767303544246497 delta=-0.0819845087858095,1.3700000000000006,-0.004307531050408076 rot=-92.94854,87.504105 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 46
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.4834117113259517,-33.349999999999994,2.7623498835385276 delta=-0.09428218510368092,1.4100000000000006,-0.004953660707969287 rot=-92.96033,87.23714 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 47
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.3749871984567186,-31.899999999999995,2.756653173724363 delta=-0.10842451286923305,1.4500000000000006,-0.00569670981416468 rot=-92.969765,86.933266 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 48
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.2502990086571006,-30.409999999999993,2.7501019574380736 delta=-0.124688189799618,1.4900000000000007,-0.006551216286289381 rot=-92.977295,86.58861 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 49
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=1.1069075903875398,-28.879999999999992,2.742568058708841 delta=-0.1433914182695607,1.5300000000000007,-0.007533898729232788 rot=-92.983345,86.198586 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 50
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=0.942007459377545,-27.30999999999999,2.7339040751702233 delta=-0.1649001310099948,1.5700000000000007,-0.008663983538617704 rot=-92.98817,85.758026 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 51
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=0.752372308716051,-25.699999999999992,2.723940494100813 delta=-0.189635150661494,1.6100000000000008,-0.009963581069410359 rot=-92.99203,85.26105 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 52
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
+E firework_rocket#3 minecraft:firework_rocket pos=0.5342918854553329,-24.04999999999999,2.712482375870991 delta=-0.21808042326071808,1.6500000000000008,-0.011458118229821911 rot=-92.995125,84.70093 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I P 0 minecraft:firework_rocket*5
+I P 1 minecraft:firework_rocket*2
+I P 40 minecraft:firework_rocket*1
+STAT P minecraft.custom:minecraft.damage_taken 45
+STAT P minecraft.custom:minecraft.play_time 52
+STAT P minecraft.custom:minecraft.time_since_death 52
+STAT P minecraft.custom:minecraft.time_since_rest 52
+STAT P minecraft.custom:minecraft.total_world_time 52
+STAT P minecraft.used:minecraft.firework_rocket 3
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.86093 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.1 xp=0/0/0.0 sel=0 main=minecraft:firework_rocket*5
+E V minecraft:cow pos=4.5,-60.0,2.5 delta=0.3999987141724912,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.2627401 abs=0.0 hurt=0/0 death=0 fx=-
