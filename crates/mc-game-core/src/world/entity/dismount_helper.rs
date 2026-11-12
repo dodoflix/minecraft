@@ -118,7 +118,8 @@ pub fn get_collision_horizontal_escape_vector(
     passenger_width: f32,
     y_rot: f32,
 ) -> Vec3 {
-    let distance = f64::from(vehicle_width + passenger_width + 1.0E-5f32) / 2.0;
+    let distance =
+        (f64::from(vehicle_width) + f64::from(passenger_width) + f64::from(1.0E-5f32)) / 2.0;
     let x_dir = -mc_core::math::mth::sin(f64::from(y_rot * (std::f32::consts::PI / 180.0)));
     let z_dir = mc_core::math::mth::cos(f64::from(y_rot * (std::f32::consts::PI / 180.0)));
     let max = x_dir.abs().max(z_dir.abs());

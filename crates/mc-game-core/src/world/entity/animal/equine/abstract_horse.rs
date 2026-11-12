@@ -1383,7 +1383,7 @@ fn get_collision_horizontal_escape_vector(
     passenger_width: f32,
     y_rot: f32,
 ) -> Vec3 {
-    let span = f64::from(vehicle_width + passenger_width + 1.0E-5f32) / 2.0;
+    let span = (f64::from(vehicle_width) + f64::from(passenger_width) + f64::from(1.0E-5f32)) / 2.0;
     let rad = (std::f64::consts::PI / 180.0) as f32;
     let x_dir = -mth::sin(f64::from(y_rot * rad));
     let z_dir = mth::cos(f64::from(y_rot * rad));
