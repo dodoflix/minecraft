@@ -2,6 +2,7 @@
 I Steve 0 minecraft:map*2
 I Steve 1 minecraft:filled_map*1
 I Steve 40 minecraft:map*1
+STAT Steve minecraft.used:minecraft.map 1
 EV packet at=0.5,-60.0,0.5 r=16.0 ex=0 id=minecraft:sound_entity
 PKT Steve minecraft:sound_entity 768c0d07013f8000003f800000e32d4fcf84a7860e
 PKT Steve minecraft:container_set_content 1200022e00000000000000000000000000000000000000000000000000000000000000000000000002e60a000001d609010030000000000000000001e60a000000
@@ -9,12 +10,14 @@ PKT Steve minecraft:container_set_content 1200022e000000000000000000000000000000
 I Steve 0 minecraft:map*2
 I Steve 1 minecraft:filled_map*1
 I Steve 40 minecraft:filled_map*1
+STAT Steve minecraft.used:minecraft.map 2
 EV packet at=0.5,-60.0,0.5 r=16.0 ex=0 id=minecraft:sound_entity
 PKT Steve minecraft:sound_entity 768c0d07013f8000003f8000003dace6703e05bff8
 PKT Steve minecraft:container_set_content 1200032e00000000000000000000000000000000000000000000000000000000000000000000000002e60a000001d609010030000000000000000001d6090100300100
 # creative keeps its stack of empty maps
 I Cre 0 minecraft:map*2
 I Cre 1 minecraft:filled_map*1
+STAT Cre minecraft.used:minecraft.map 1
 EV packet at=20.5,-60.0,0.5 r=16.0 ex=0 id=minecraft:sound_entity
 PKT Cre minecraft:sound_entity 768c0d07023f8000003f8000006fd465a290351d3c
 # full inventory: the filled map is dropped

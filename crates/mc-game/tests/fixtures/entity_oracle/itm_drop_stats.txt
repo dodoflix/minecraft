@@ -1,0 +1,39 @@
+I P 0 minecraft:cobblestone*5
+STAT P minecraft.custom:minecraft.drop 1
+STAT P minecraft.dropped:minecraft.cobblestone 1
+I P 0 minecraft:cobblestone*4
+E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=0.01534914646806713,0.06878767907619476,0.2996005462130223 rot=40.082138,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=P
+STAT P minecraft.custom:minecraft.drop 2
+STAT P minecraft.dropped:minecraft.cobblestone 2
+I P 0 minecraft:cobblestone*3
+E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=0.01534914646806713,0.06878767907619476,0.2996005462130223 rot=40.082138,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=P
+E item#2 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.009268237683231853,0.07597826421260834,0.29431990786258305 rot=11.713078,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=P
+STAT P minecraft.custom:minecraft.drop 3
+STAT P minecraft.dropped:minecraft.cobblestone 5
+E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=0.01534914646806713,0.06878767907619476,0.2996005462130223 rot=40.082138,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=P
+E item#2 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.009268237683231853,0.07597826421260834,0.29431990786258305 rot=11.713078,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=P
+E item#3 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-8.559604662548535E-4,0.08453693240880966,0.30106968222257025 rot=203.21169,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*3 age=0 pickup=40 health=5 owner=- thrower=P
+STAT P minecraft.custom:minecraft.drop 3
+STAT P minecraft.dropped:minecraft.cobblestone 5
+STAT Q minecraft.custom:minecraft.drop 3
+STAT Q minecraft.dropped:minecraft.cobblestone 1
+STAT Q minecraft.dropped:minecraft.iron_sword 1
+STAT Q minecraft.dropped:minecraft.stick 1
+I Q 0 minecraft:stick*2
+I Q 2 minecraft:cobblestone*1
+E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=0.01534914646806713,0.06878767907619476,0.2996005462130223 rot=40.082138,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=P
+E item#2 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.009268237683231853,0.07597826421260834,0.29431990786258305 rot=11.713078,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=P
+E item#3 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-8.559604662548535E-4,0.08453693240880966,0.30106968222257025 rot=203.21169,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*3 age=0 pickup=40 health=5 owner=- thrower=P
+E item#4 minecraft:item pos=3.5,-58.68000000715256,0.5 delta=-0.012721136834359941,0.10538795590400696,0.31040159169314 rot=160.15932,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=40 health=5 owner=- thrower=Q
+E item#5 minecraft:item pos=3.5,-58.68000000715256,0.5 delta=0.01467225032789359,0.12024000287055969,0.28989813534544717 rot=310.68884,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=0 pickup=40 health=5 owner=- thrower=Q
+E item#6 minecraft:item pos=3.5,-58.68000000715256,0.5 delta=0.014663441447703403,0.1278896927833557,0.3023981671216463 rot=249.32605,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=Q
+STAT C minecraft.custom:minecraft.drop 2
+STAT C minecraft.dropped:minecraft.cobblestone 5
+E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=0.01534914646806713,0.06878767907619476,0.2996005462130223 rot=40.082138,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=P
+E item#2 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.009268237683231853,0.07597826421260834,0.29431990786258305 rot=11.713078,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=P
+E item#3 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-8.559604662548535E-4,0.08453693240880966,0.30106968222257025 rot=203.21169,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*3 age=0 pickup=40 health=5 owner=- thrower=P
+E item#4 minecraft:item pos=3.5,-58.68000000715256,0.5 delta=-0.012721136834359941,0.10538795590400696,0.31040159169314 rot=160.15932,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=40 health=5 owner=- thrower=Q
+E item#5 minecraft:item pos=3.5,-58.68000000715256,0.5 delta=0.01467225032789359,0.12024000287055969,0.28989813534544717 rot=310.68884,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=0 pickup=40 health=5 owner=- thrower=Q
+E item#6 minecraft:item pos=3.5,-58.68000000715256,0.5 delta=0.014663441447703403,0.1278896927833557,0.3023981671216463 rot=249.32605,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=Q
+E item#7 minecraft:item pos=6.5,-58.68000000715256,0.5 delta=0.0018423033234390947,0.027306944131851196,0.3195016552718609 rot=312.03342,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=0 pickup=40 health=5 owner=- thrower=C
+E item#8 minecraft:item pos=6.5,-58.68000000715256,0.5 delta=-0.00857882100733707,0.10792892426252365,0.3132006927455236 rot=54.77781,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*4 age=0 pickup=40 health=5 owner=- thrower=C

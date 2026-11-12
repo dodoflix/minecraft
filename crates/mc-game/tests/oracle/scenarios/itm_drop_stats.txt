@@ -1,0 +1,37 @@
+# Dropping from the hand: the `dropped` statistic of the item counts the thrown items and `drop` counts every throw; nothing is counted
+# when the hand is empty, and a creative player counts too.
+# An entity's UUID comes from its random, which is seeded from the command line: a repeated `drop` line would create an item with an existing UUID
+# (vanilla discards it), so the lines differ by a counter or a player (any word other than `all` drops one item).
+level flat
+preload 2
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player Q survival 3.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 0.5 0 0
+give P hotbar0 minecraft:cobblestone 5
+give Q hotbar0 minecraft:stick 3
+give Q hotbar1 minecraft:iron_sword
+give Q hotbar2 minecraft:cobblestone 2
+give C hotbar0 minecraft:cobblestone 5
+dump stats:P inventory:P
+# one item from the stack, twice: the counter adds up
+drop P 1
+dump stats:P inventory:P entities
+drop P 2
+dump stats:P inventory:P entities
+# the whole rest of the stack
+drop P all
+dump stats:P inventory:P entities
+# nothing in the hand
+drop P 3
+dump stats:P inventory:P
+# another item type, single and whole; a tool counts as one
+drop Q 1
+select Q 1
+drop Q all
+select Q 2
+drop Q 2
+dump stats:Q inventory:Q entities
+# creative
+drop C 4
+drop C all
+dump stats:C inventory:C entities

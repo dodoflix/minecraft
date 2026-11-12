@@ -17,3 +17,8 @@ fn cooldowns_match_vanilla() {
 fn cooldowns_match_vanilla_in_the_entity_replay() {
     crate::common::entity_scenario::run_scenario_test("itm_cooldown");
 }
+
+#[test]
+fn drop_stats_match_vanilla() {
+    crate::common::entity_scenario::run_scenario_test("itm_drop_stats");
+}

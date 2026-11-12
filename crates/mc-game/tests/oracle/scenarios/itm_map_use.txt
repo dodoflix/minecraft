@@ -17,13 +17,13 @@ select Steve 0
 select Cre 0
 note empty map in the main hand: one is consumed, the filled map (map id 0) goes into the first free slot
 use Steve main
-dump inventory:Steve events packets:Steve
+dump inventory:Steve stats:Steve events packets:Steve
 note the last empty map in the off hand: the filled map replaces the stack in the hand
 use Steve off
-dump inventory:Steve events packets:Steve
+dump inventory:Steve stats:Steve events packets:Steve
 note creative keeps its stack of empty maps
 use Cre main
-dump inventory:Cre events packets:Cre
+dump inventory:Cre stats:Cre events packets:Cre
 note full inventory: the filled map is dropped
 give Full hotbar0 minecraft:map 2
 give Full hotbar1 minecraft:cobblestone 64

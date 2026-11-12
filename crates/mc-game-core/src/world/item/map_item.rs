@@ -537,8 +537,9 @@ impl ItemBehaviour for EmptyMapItem {
     ) -> InteractionResult {
         let mut stack = player.get_item_in_hand(hand);
         let infinite = player.player.abilities.instabuild;
+        let item = stack.item();
         stack.consume(1, infinite);
-        // `player.awardStat(Stats.ITEM_USED.get(this))`: not implemented (statistics)
+        player.award_stat_once(level, crate::stats::Stat::Used(item));
         let position = player.position();
         level.play_sound_from_entity_at(
             None,

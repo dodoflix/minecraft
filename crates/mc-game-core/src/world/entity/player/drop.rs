@@ -76,11 +76,15 @@ impl ServerPlayer {
             super::item_use::SWING_ANIMATION_DEFAULT,
             prediction != Prediction::Predicted,
         );
+        let (item, count) = (stack.item(), stack.count());
         let Some(entity) = self.create_item_stack_to_drop(level, stack, false, thrown_from_hand)
         else {
             return false;
         };
-        // `awardStat(ITEM_DROPPED, DROP)`: not implemented (statistics)
+        if thrown_from_hand {
+            self.award_stat(level, crate::stats::Stat::Dropped(item), count);
+            self.award_stat_once(level, crate::stats::stats::Stats::DROP);
+        }
         level.add_fresh_entity(Box::new(entity))
     }
 
