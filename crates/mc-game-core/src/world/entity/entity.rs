@@ -4077,8 +4077,7 @@ pub trait Entity: Any {
         level: &mut ServerLevel,
         player: Option<EntityId>,
     ) -> bool {
-        self.mob().is_some()
-            && super::mob::interact::drop_all_leash_connections(self.as_dyn_mut(), level, player)
+        super::mob::interact::drop_all_leash_connections(self.as_dyn_mut(), level, player)
     }
     /// `canShearEquipment(player)`.
     fn can_shear_equipment(&self, _player: &super::ServerPlayer) -> bool {

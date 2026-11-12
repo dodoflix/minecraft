@@ -11,7 +11,7 @@ use crate::world::entity::projectile::spawn::spawn_projectile_plain;
 use crate::world::entity::{Entity, ServerPlayer};
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
-use mc_data::SoundEvent;
+use mc_data::{Item, SoundEvent};
 use mc_protocol::packets::play::{SoundSource, Stat};
 
 /// `ROCKET_PLACEMENT_OFFSET`.
@@ -73,7 +73,8 @@ impl ItemBehaviour for FireworkRocketItem {
         let infinite = player.player.abilities.instabuild;
         item_stack.consume(1, infinite);
         player.set_item_in_hand(hand, item_stack.clone());
-        player.award_stat_once(level, Stat::Used(item_stack.item()));
+        // `this`, not the stack's item: the consumed last rocket leaves an empty stack
+        player.award_stat_once(level, Stat::Used(Item::FIREWORK_ROCKET));
         InteractionResult::SUCCESS
     }
 
