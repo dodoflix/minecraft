@@ -23,6 +23,7 @@ use super::decoders::{DecodedEntry, decoder_for};
 use super::keys::{self, RegistryData, RegistryValidator};
 use super::tags::{ElementRef, TagLoader};
 use crate::server::packs::{FileToIdConverter, ResourceManager, throwable};
+use crate::world::item::crafting::{CustomRecipe, Recipe, RecipeKind};
 
 /// A load failure of one element or registry (a Java `Exception`: class, message and optional cause).
 #[derive(Clone, Debug)]
@@ -73,6 +74,8 @@ pub type ErrorKey = (String, Identifier);
 #[derive(Debug)]
 pub struct RegistryLoadFailure {
     pub errors: BTreeMap<ErrorKey, LoadingError>,
+    /// An exception thrown out of the load itself (a registry refusing a value it already holds), which replaces the report.
+    pub thrown: Option<LoadingError>,
 }
 
 impl RegistryLoadFailure {
@@ -110,7 +113,10 @@ impl RegistryLoadFailure {
 
 impl fmt::Display for RegistryLoadFailure {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Failed to load registries due to errors{}", self.brief())
+        match &self.thrown {
+            Some(thrown) => f.write_str(&thrown.print()),
+            None => write!(f, "Failed to load registries due to errors{}", self.brief()),
+        }
     }
 }
 
@@ -288,6 +294,7 @@ pub fn load(
     for (data, elements) in registries_to_load.iter().zip(parsed) {
         let decoder = decoder_for(data.key);
         let mut entries = Vec::with_capacity(elements.len());
+        let mut has_repair_item = false;
         for element in elements {
             let mut ctx = RegistryDecodeContext::new(&lookup);
             ctx.worldgen = Some(&worldgen);
@@ -311,6 +318,23 @@ pub fn load(
             unbound_tags.extend(ctx.unbound_tags.take());
             match decoded {
                 Ok(decoded) => {
+                    // `RepairItemRecipe.INSTANCE` is the value of every `crafting_special_repairitem` recipe: the registry
+                    // refuses the second one (`MappedRegistry.register`) and the exception aborts the whole load
+                    let repair_item = decoded
+                        .as_ref()
+                        .and_then(|d| d.value.downcast_ref::<Recipe>())
+                        .is_some_and(|r| {
+                            matches!(&r.kind, RecipeKind::Custom(CustomRecipe::RepairItem(_)))
+                        });
+                    if repair_item && std::mem::replace(&mut has_repair_item, true) {
+                        return Err(RegistryLoadFailure {
+                            errors: BTreeMap::new(),
+                            // the identity hash code of the shared instance is not reproducible
+                            thrown: Some(LoadingError::state(
+                                "Adding duplicate value 'net.minecraft.world.item.crafting.RepairItemRecipe@0' to registry".to_owned(),
+                            )),
+                        });
+                    }
                     let (value, network) = match decoded {
                         Some(d) if d.value.is::<()>() => (None, d.network),
                         Some(d) => (Some(d.value), d.network),
@@ -422,7 +446,10 @@ pub fn load(
         }
     }
     if !errors.is_empty() {
-        let failure = RegistryLoadFailure { errors };
+        let failure = RegistryLoadFailure {
+            errors,
+            thrown: None,
+        };
         failure.log();
         return Err(failure);
     }
@@ -443,7 +470,10 @@ pub fn load(
         }
     }
     if !errors.is_empty() {
-        let failure = RegistryLoadFailure { errors };
+        let failure = RegistryLoadFailure {
+            errors,
+            thrown: None,
+        };
         failure.log();
         return Err(failure);
     }
@@ -509,6 +539,7 @@ fn validate_feature_layer(stage: &RegistryAccess) -> Result<(), RegistryLoadFail
     };
     let failure = RegistryLoadFailure {
         errors: BTreeMap::from([(key, failure)]),
+        thrown: None,
     };
     failure.log();
     Err(failure)

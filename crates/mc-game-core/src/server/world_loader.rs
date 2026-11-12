@@ -97,14 +97,21 @@ impl WorldLoadError {
             "Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode\n{}",
             crate::server::packs::throwable(
                 "java.util.concurrent.ExecutionException",
-                &format!(
-                    "net.minecraft.ReportedException: Failed to load registries due to errors{}",
-                    match self {
-                        WorldLoadError::Registries(e)
-                        | WorldLoadError::Reload(ReloadError::Registries(e)) => e.brief(),
-                        WorldLoadError::Reload(e) => format!(": {e}"),
-                    }
-                )
+                &match self {
+                    // an exception thrown out of the load replaces the report
+                    WorldLoadError::Registries(e)
+                    | WorldLoadError::Reload(ReloadError::Registries(e))
+                        if e.thrown.is_some() =>
+                        e.to_string(),
+                    WorldLoadError::Registries(e)
+                    | WorldLoadError::Reload(ReloadError::Registries(e)) => format!(
+                        "net.minecraft.ReportedException: Failed to load registries due to errors{}",
+                        e.brief()
+                    ),
+                    WorldLoadError::Reload(e) => format!(
+                        "net.minecraft.ReportedException: Failed to load registries due to errors: {e}"
+                    ),
+                }
             )
         );
     }
