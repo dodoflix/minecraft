@@ -1,0 +1,168 @@
+# Dispenser honeycomb (OptionalDispenseItemBehavior in DispenseItemBehavior.bootStrap): HoneycombItem.getWaxed(front state) present -> the waxed
+# block replaces it (setBlockAndUpdate, properties kept), level event 3003, honeycomb wax-on sound, one honeycomb consumed, success true;
+# otherwise the default behaviour drops one honeycomb. `success` is never reset by the drop branch, so the click follows the last value.
+# Every dispense line carries a case token: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 3
+time 18000
+note c1 copper block: waxed
+block 3 -60 2 minecraft:copper_block
+block 2 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 2 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 101
+dispense 2 -60 2 c1
+dump be:2,-60,2 blocks:1,-61,1,4,-59,3 ticks:1,-61,1,4,-59,3 entities events
+note c2 exposed copper: waxed_exposed_copper
+block 3 -60 8 minecraft:exposed_copper
+block 2 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 8 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 102
+dispense 2 -60 8 c2
+dump be:2,-60,8 blocks:1,-61,7,4,-59,9 ticks:1,-61,7,4,-59,9 entities events
+note c3 weathered copper
+block 3 -60 14 minecraft:weathered_copper
+block 2 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 14 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 103
+dispense 2 -60 14 c3
+dump be:2,-60,14 blocks:1,-61,13,4,-59,15 ticks:1,-61,13,4,-59,15 entities events
+note c4 oxidized copper
+block 3 -60 20 minecraft:oxidized_copper
+block 2 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 20 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 104
+dispense 2 -60 20 c4
+dump be:2,-60,20 blocks:1,-61,19,4,-59,21 ticks:1,-61,19,4,-59,21 entities events
+note c5 already waxed copper: not waxable, the honeycomb is dropped
+block 3 -60 26 minecraft:waxed_copper_block
+block 2 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 26 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 105
+dispense 2 -60 26 c5
+dump be:2,-60,26 blocks:1,-61,25,4,-59,27 ticks:1,-61,25,4,-59,27 entities events
+note c6 oak log: dropped
+block 3 -60 32 minecraft:oak_log[axis=y]
+block 2 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 32 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 106
+dispense 2 -60 32 c6
+dump be:2,-60,32 blocks:1,-61,31,4,-59,33 ticks:1,-61,31,4,-59,33 entities events
+note c7 stone: dropped
+block 3 -60 38 minecraft:stone
+block 2 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 38 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 107
+dispense 2 -60 38 c7
+dump be:2,-60,38 blocks:1,-61,37,4,-59,39 ticks:1,-61,37,4,-59,39 entities events
+note c8 air in front: dropped
+block 2 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 44 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 108
+dispense 2 -60 44 c8
+dump be:2,-60,44 blocks:1,-61,43,4,-59,45 ticks:1,-61,43,4,-59,45 entities events
+note c9 a stack of 3 honeycombs on copper: one is consumed
+block 3 -60 50 minecraft:cut_copper
+block 2 -60 50 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 50 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:3}]}
+level_seed 109
+dispense 2 -60 50 c9
+dump be:2,-60,50 blocks:1,-61,49,4,-59,51 ticks:1,-61,49,4,-59,51 entities events
+note c10 weathered cut copper stairs keep their properties
+block 3 -60 56 minecraft:weathered_cut_copper_stairs[facing=north,half=top,shape=outer_left,waterlogged=true]
+block 2 -60 56 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 56 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 110
+dispense 2 -60 56 c10
+dump be:2,-60,56 blocks:1,-61,55,4,-59,57 ticks:1,-61,55,4,-59,57 entities events
+note c11 exposed cut copper slab
+block 15 -60 2 minecraft:exposed_cut_copper_slab[type=double,waterlogged=false]
+block 14 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 2 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 111
+dispense 14 -60 2 c11
+dump be:14,-60,2 blocks:13,-61,1,16,-59,3 ticks:13,-61,1,16,-59,3 entities events
+note c12 copper door (lower half; the upper half is a separate block)
+block 15 -60 8 minecraft:copper_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+block 14 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 8 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 112
+dispense 14 -60 8 c12
+dump be:14,-60,8 blocks:13,-61,7,16,-59,9 ticks:13,-61,7,16,-59,9 entities events
+note c13 copper trapdoor
+block 15 -60 14 minecraft:copper_trapdoor[facing=east,half=top,open=true,powered=false,waterlogged=false]
+block 14 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 14 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 113
+dispense 14 -60 14 c13
+dump be:14,-60,14 blocks:13,-61,13,16,-59,15 ticks:13,-61,13,16,-59,15 entities events
+note c14 copper bulb
+block 15 -60 20 minecraft:oxidized_copper_bulb[lit=true,powered=true]
+block 14 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 20 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 114
+dispense 14 -60 20 c14
+dump be:14,-60,20 blocks:13,-61,19,16,-59,21 ticks:13,-61,19,16,-59,21 entities events
+note c15 lightning rod
+block 15 -60 26 minecraft:lightning_rod[facing=up,powered=false,waterlogged=false]
+block 14 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 26 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 115
+dispense 14 -60 26 c15
+dump be:14,-60,26 blocks:13,-61,25,16,-59,27 ticks:13,-61,25,16,-59,27 entities events
+note c16 copper chest: the block entity stays
+block 15 -60 32 minecraft:copper_chest[facing=north,type=single,waterlogged=false]
+block 14 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 32 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+be_nbt 15 -60 32 {Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+level_seed 116
+dispense 14 -60 32 c16
+dump be:14,-60,32 blocks:13,-61,31,16,-59,33 ticks:13,-61,31,16,-59,33 entities events be:15,-60,32
+note c17 copper bars
+block 15 -60 38 minecraft:copper_bars[north=true,south=false,east=false,west=false,waterlogged=false]
+block 14 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 38 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 117
+dispense 14 -60 38 c17
+dump be:14,-60,38 blocks:13,-61,37,16,-59,39 ticks:13,-61,37,16,-59,39 entities events
+note c18 chiseled copper
+block 15 -60 44 minecraft:exposed_chiseled_copper
+block 14 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 44 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 118
+dispense 14 -60 44 c18
+dump be:14,-60,44 blocks:13,-61,43,16,-59,45 ticks:13,-61,43,16,-59,45 entities events
+note c19 oak sign: signs are not waxed by the dispenser, dropped
+block 15 -60 50 minecraft:oak_sign[rotation=0,waterlogged=false]
+block 14 -60 50 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 50 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 119
+dispense 14 -60 50 c19
+dump be:14,-60,50 blocks:13,-61,49,16,-59,51 ticks:13,-61,49,16,-59,51 entities events
+note c20 honeycomb block: dropped
+block 15 -60 56 minecraft:honeycomb_block
+block 14 -60 56 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 56 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 120
+dispense 14 -60 56 c20
+dump be:14,-60,56 blocks:13,-61,55,16,-59,57 ticks:13,-61,55,16,-59,57 entities events
+note c21 facing up onto copper
+block 26 -59 2 minecraft:copper_block
+block 26 -60 2 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 26 -60 2 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 121
+dispense 26 -60 2 c21
+dump be:26,-60,2 blocks:25,-61,1,27,-58,3 ticks:25,-61,1,27,-58,3 entities events
+note c22 facing down onto exposed copper
+block 26 -60 8 minecraft:exposed_copper
+block 26 -59 8 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 26 -59 8 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 122
+dispense 26 -59 8 c22
+dump be:26,-59,8 blocks:25,-61,7,27,-58,9 ticks:25,-61,7,27,-58,9 entities events
+note c23 facing north onto copper
+block 26 -60 13 minecraft:copper_block
+block 26 -60 14 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 26 -60 14 {Items:[{Slot:0b,id:"minecraft:honeycomb",count:1}]}
+level_seed 123
+dispense 26 -60 14 c23
+dump be:26,-60,14 blocks:25,-61,12,27,-59,15 ticks:25,-61,12,27,-59,15 entities events

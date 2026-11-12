@@ -1,0 +1,256 @@
+# Dispenser bone meal (OptionalDispenseItemBehavior in DispenseItemBehavior.bootStrap): BoneMealItem.growCrop(stack, level, front) then
+# growWaterPlant(stack, level, front, null) (no clicked face); a success consumes one bone meal and sends level event 1505 (15) at the target,
+# the click is 1000; no growth -> success false -> click 1001 and the stack is kept. The behaviour instance keeps `success` between dispenses.
+# Growth draws from the level random: every case sets level_seed first. Every dispense line carries a case token.
+level flat
+preload 5
+time 18000
+note c1 wheat age 0 on farmland: grows by a random number of stages
+block 3 -61 2 minecraft:farmland[moisture=7]
+block 3 -60 2 minecraft:wheat[age=0]
+block 2 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 2 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 101
+dispense 2 -60 2 c1
+dump be:2,-60,2 blocks:1,-61,1,4,-59,3 ticks:1,-61,1,4,-59,3 entities events
+note c2 fully grown wheat: not a valid target, success false, click 1001, the stack is kept
+block 3 -61 8 minecraft:farmland[moisture=7]
+block 3 -60 8 minecraft:wheat[age=7]
+block 2 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 8 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 102
+dispense 2 -60 8 c2
+dump be:2,-60,8 blocks:1,-61,7,4,-59,9 ticks:1,-61,7,4,-59,9 entities events
+note c3 a stack of 3 bone meal on wheat: one is consumed
+block 3 -61 14 minecraft:farmland[moisture=7]
+block 3 -60 14 minecraft:wheat[age=1]
+block 2 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 14 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:3}]}
+level_seed 103
+dispense 2 -60 14 c3
+dump be:2,-60,14 blocks:1,-61,13,4,-59,15 ticks:1,-61,13,4,-59,15 entities events
+note c4 melon stem age 0
+block 3 -61 20 minecraft:farmland[moisture=7]
+block 3 -60 20 minecraft:melon_stem[age=0]
+block 2 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 20 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 104
+dispense 2 -60 20 c4
+dump be:2,-60,20 blocks:1,-61,19,4,-59,21 ticks:1,-61,19,4,-59,21 entities events
+note c5 beetroots age 0
+block 3 -61 26 minecraft:farmland[moisture=7]
+block 3 -60 26 minecraft:beetroots[age=0]
+block 2 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 26 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 105
+dispense 2 -60 26 c5
+dump be:2,-60,26 blocks:1,-61,25,4,-59,27 ticks:1,-61,25,4,-59,27 entities events
+note c6 carrots age 2
+block 3 -61 32 minecraft:farmland[moisture=7]
+block 3 -60 32 minecraft:carrots[age=2]
+block 2 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 32 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 106
+dispense 2 -60 32 c6
+dump be:2,-60,32 blocks:1,-61,31,4,-59,33 ticks:1,-61,31,4,-59,33 entities events
+note c7 torchflower crop age 0
+block 3 -61 38 minecraft:farmland[moisture=7]
+block 3 -60 38 minecraft:torchflower_crop[age=0]
+block 2 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 38 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 107
+dispense 2 -60 38 c7
+dump be:2,-60,38 blocks:1,-61,37,4,-59,39 ticks:1,-61,37,4,-59,39 entities events
+note c8 sweet berry bush age 0
+block 3 -60 44 minecraft:sweet_berry_bush[age=0]
+block 2 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 44 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 108
+dispense 2 -60 44 c8
+dump be:2,-60,44 blocks:1,-61,43,4,-59,45 ticks:1,-61,43,4,-59,45 entities events
+note c9 grass block with air above: grass and flowers grow around the block
+block 3 -60 50 minecraft:grass_block[snowy=false]
+block 2 -60 50 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 50 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 109
+dispense 2 -60 50 c9
+dump be:2,-60,50 blocks:3,-61,46,10,-58,54 ticks:3,-61,46,10,-58,54 entities events
+note c10 grass block covered by stone: not a valid target
+block 3 -59 56 minecraft:stone
+block 3 -60 56 minecraft:grass_block[snowy=false]
+block 2 -60 56 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 56 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 110
+dispense 2 -60 56 c10
+dump be:2,-60,56 blocks:1,-61,55,4,-59,57 ticks:1,-61,55,4,-59,57 entities events
+note c11 short grass: a tall grass grows from it
+block 15 -60 2 minecraft:short_grass
+block 14 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 2 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 111
+dispense 14 -60 2 c11
+dump be:14,-60,2 blocks:13,-61,1,16,-59,3 ticks:13,-61,1,16,-59,3 entities events
+note c12 short grass under a block: no room, not a target
+block 15 -59 8 minecraft:stone
+block 15 -60 8 minecraft:short_grass
+block 14 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 8 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 112
+dispense 14 -60 8 c12
+dump be:14,-60,8 blocks:13,-61,7,16,-59,9 ticks:13,-61,7,16,-59,9 entities events
+note c13 oak sapling stage 0: the stage advances (random 0.45)
+block 15 -60 14 minecraft:oak_sapling[stage=0]
+block 14 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 14 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 113
+dispense 14 -60 14 c13
+dump be:14,-60,14 blocks:13,-61,13,16,-59,15 ticks:13,-61,13,16,-59,15 entities events
+note c14 oak sapling stage 1: grows into a tree or fails the roll
+block 15 -60 20 minecraft:oak_sapling[stage=1]
+block 14 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 20 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 114
+dispense 14 -60 20 c14
+dump be:14,-60,20 blocks:10,-61,16,22,-50,24 ticks:10,-61,16,22,-50,24 entities events
+note c15 birch sapling stage 1
+block 15 -60 26 minecraft:birch_sapling[stage=1]
+block 14 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 26 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 115
+dispense 14 -60 26 c15
+dump be:14,-60,26 blocks:10,-61,22,22,-50,30 ticks:10,-61,22,22,-50,30 entities events
+note c16 moss block with air above: moss vegetation grows
+block 15 -60 32 minecraft:moss_block
+block 14 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 32 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 116
+dispense 14 -60 32 c16
+dump be:14,-60,32 blocks:15,-61,28,22,-57,36 ticks:15,-61,28,22,-57,36 entities events
+note c17 pink petals
+block 15 -60 38 minecraft:pink_petals[flower_amount=1,facing=north]
+block 14 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 38 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 117
+dispense 14 -60 38 c17
+dump be:14,-60,38 blocks:13,-61,37,16,-59,39 ticks:13,-61,37,16,-59,39 entities events
+note c18 bamboo sapling
+block 15 -60 44 minecraft:bamboo_sapling
+block 14 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 44 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 118
+dispense 14 -60 44 c18
+dump be:14,-60,44 blocks:13,-61,43,16,-59,45 ticks:13,-61,43,16,-59,45 entities events
+note c19 bamboo
+block 15 -60 50 minecraft:bamboo[age=0,leaves=none,stage=0]
+block 14 -60 50 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 50 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 119
+dispense 14 -60 50 c19
+dump be:14,-60,50 blocks:13,-61,49,16,-59,51 ticks:13,-61,49,16,-59,51 entities events
+note c20 stone: not a target
+block 15 -60 56 minecraft:stone
+block 14 -60 56 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 56 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 120
+dispense 14 -60 56 c20
+dump be:14,-60,56 blocks:13,-61,55,16,-59,57 ticks:13,-61,55,16,-59,57 entities events
+note c21 dirt: not a target
+block 27 -60 2 minecraft:dirt
+block 26 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 2 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 121
+dispense 26 -60 2 c21
+dump be:26,-60,2 blocks:25,-61,1,28,-59,3 ticks:25,-61,1,28,-59,3 entities events
+note c22 air in front: nothing to grow
+block 26 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 8 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 122
+dispense 26 -60 8 c22
+dump be:26,-60,8 blocks:25,-61,7,28,-59,9 ticks:25,-61,7,28,-59,9 entities events
+note c23 a stack of 2 bone meal on stone: kept
+block 27 -60 14 minecraft:stone
+block 26 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 14 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:2}]}
+level_seed 123
+dispense 26 -60 14 c23
+dump be:26,-60,14 blocks:25,-61,13,28,-59,15 ticks:25,-61,13,28,-59,15 entities events
+note c24 wheat age 0 below the dispenser
+block 26 -61 20 minecraft:farmland[moisture=7]
+block 26 -60 20 minecraft:wheat[age=0]
+block 26 -59 20 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 26 -59 20 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 124
+dispense 26 -59 20 c24
+dump be:26,-59,20 blocks:25,-61,19,27,-58,21 ticks:25,-61,19,27,-58,21 entities events
+note c25 a failing bone meal after a success keeps reporting failure: stone
+block 27 -60 26 minecraft:stone
+block 26 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 26 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 125
+dispense 26 -60 26 c25
+dump be:26,-60,26 blocks:25,-61,25,28,-59,27 ticks:25,-61,25,28,-59,27 entities events
+note c26 kelp age 0 with water above: the kelp grows upward
+block 27 -61 32 minecraft:sand
+fill 27 -59 32 27 -57 32 minecraft:water[level=0]
+block 27 -60 32 minecraft:kelp[age=0]
+block 26 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 32 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 126
+dispense 26 -60 32 c26
+dump be:26,-60,32 blocks:25,-61,31,28,-59,33 ticks:25,-61,31,28,-59,33 entities events
+note c27 seagrass with water above: tall seagrass
+block 27 -61 38 minecraft:sand
+block 27 -59 38 minecraft:water[level=0]
+block 27 -60 38 minecraft:seagrass
+block 26 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 38 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 127
+dispense 26 -60 38 c27
+dump be:26,-60,38 blocks:25,-61,37,28,-59,39 ticks:25,-61,37,28,-59,39 entities events
+note c28 a water source in a pool over sand (plains): seagrass is scattered around
+fill 3 -61 59 8 -61 65 minecraft:sand
+fill 3 -60 59 8 -58 65 minecraft:water[level=0]
+block 2 -60 62 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 62 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 128
+dispense 2 -60 62 c28
+dump be:2,-60,62 blocks:3,-61,59,9,-58,65 ticks:3,-61,59,9,-58,65 entities events
+note c29 the same pool in a warm ocean biome: corals can be placed
+fill 15 -61 59 20 -61 65 minecraft:sand
+fill 15 -60 59 20 -58 65 minecraft:water[level=0]
+biome 15 -61 59 20 -58 65 minecraft:warm_ocean
+block 14 -60 62 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 62 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 129
+dispense 14 -60 62 c29
+dump be:14,-60,62 blocks:15,-61,59,21,-58,65 ticks:15,-61,59,21,-58,65 entities events
+note c30 a stack of 2 bone meal in the warm ocean pool: one is consumed
+fill 27 -61 59 32 -61 65 minecraft:sand
+fill 27 -60 59 32 -58 65 minecraft:water[level=0]
+biome 27 -61 59 32 -58 65 minecraft:warm_ocean
+block 26 -60 62 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 62 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:2}]}
+level_seed 130
+dispense 26 -60 62 c30
+dump be:26,-60,62 blocks:27,-61,59,33,-58,65 ticks:27,-61,59,33,-58,65 entities events
+note c31 a pool without a sand floor: grass floor cannot hold seagrass, the bone meal is still consumed
+fill 39 -60 59 44 -58 65 minecraft:water[level=0]
+block 38 -60 62 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 62 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 131
+dispense 38 -60 62 c31
+dump be:38,-60,62 blocks:39,-61,59,45,-58,65 ticks:39,-61,59,45,-58,65 entities events
+note c32 a flowing water block in front: not a full source, not a target
+block 39 -60 8 minecraft:water[level=1]
+block 38 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 8 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 132
+dispense 38 -60 8 c32
+dump be:38,-60,8 blocks:37,-61,7,40,-59,9 ticks:37,-61,7,40,-59,9 entities events
+note c33 a waterlogged slab in front: not water, not a target
+block 39 -60 14 minecraft:oak_slab[type=bottom,waterlogged=true]
+block 38 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 14 {Items:[{Slot:0b,id:"minecraft:bone_meal",count:1}]}
+level_seed 133
+dispense 38 -60 14 c33
+dump be:38,-60,14 blocks:37,-61,13,40,-59,15 ticks:37,-61,13,40,-59,15 entities events

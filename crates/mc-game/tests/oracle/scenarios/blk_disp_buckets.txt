@@ -1,0 +1,425 @@
+# Dispenser buckets (DispenseItemBehavior.bootStrap): filledBucketBehavior for the water, lava, powder snow and mob buckets
+# (DispensibleContainerItem.emptyContents(null, level, front, null) then checkExtraContent, the dispenser keeps an empty bucket through
+# consumeWithRemainder; when emptyContents fails a second DefaultDispenseItemBehavior drops the bucket, so the default click and smoke
+# events fire twice) and the empty bucket (BucketPickup.pickupBlock at the front block, FLUID_PICKUP game event, the filled bucket
+# through consumeWithRemainder; no pickup -> the bucket is dropped).
+# Every dispense line carries a case token: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 5
+time 18000
+note c1 water bucket into air: a water source is placed, the dispenser keeps an empty bucket
+block 2 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 2 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 101
+dispense 2 -60 2 c1
+dump be:2,-60,2 blocks:1,-61,1,4,-59,3 ticks:1,-61,1,4,-59,3 entities events
+note c2 lava bucket into air
+block 2 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 8 {Items:[{Slot:0b,id:"minecraft:lava_bucket",count:1}]}
+level_seed 102
+dispense 2 -60 8 c2
+dump be:2,-60,8 blocks:1,-61,7,4,-59,9 ticks:1,-61,7,4,-59,9 entities events
+note c3 water bucket into a water source
+block 3 -60 14 minecraft:water[level=0]
+block 2 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 14 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 103
+dispense 2 -60 14 c3
+dump be:2,-60,14 blocks:1,-61,13,4,-59,15 ticks:1,-61,13,4,-59,15 entities events
+note c4 lava bucket into a water source
+block 3 -60 20 minecraft:water[level=0]
+block 2 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 20 {Items:[{Slot:0b,id:"minecraft:lava_bucket",count:1}]}
+level_seed 104
+dispense 2 -60 20 c4
+dump be:2,-60,20 blocks:1,-61,19,4,-59,21 ticks:1,-61,19,4,-59,21 entities events
+note c5 water bucket into a lava source
+block 3 -60 26 minecraft:lava[level=0]
+block 2 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 26 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 105
+dispense 2 -60 26 c5
+dump be:2,-60,26 blocks:1,-61,25,4,-59,27 ticks:1,-61,25,4,-59,27 entities events
+note c6 water bucket into flowing water
+block 3 -60 32 minecraft:water[level=3]
+block 2 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 32 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 106
+dispense 2 -60 32 c6
+dump be:2,-60,32 blocks:1,-61,31,4,-59,33 ticks:1,-61,31,4,-59,33 entities events
+note c7 water bucket into an empty cauldron: not a fluid container, dropped with the double events
+block 3 -60 38 minecraft:cauldron
+block 2 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 38 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 107
+dispense 2 -60 38 c7
+dump be:2,-60,38 blocks:1,-61,37,4,-59,39 ticks:1,-61,37,4,-59,39 entities events
+note c8 water bucket into a lava cauldron: dropped with the double events
+block 3 -60 44 minecraft:lava_cauldron
+block 2 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 44 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 108
+dispense 2 -60 44 c8
+dump be:2,-60,44 blocks:1,-61,43,4,-59,45 ticks:1,-61,43,4,-59,45 entities events
+note c9 lava bucket into a water cauldron: dropped with the double events
+block 3 -60 50 minecraft:water_cauldron[level=3]
+block 2 -60 50 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 50 {Items:[{Slot:0b,id:"minecraft:lava_bucket",count:1}]}
+level_seed 109
+dispense 2 -60 50 c9
+dump be:2,-60,50 blocks:1,-61,49,4,-59,51 ticks:1,-61,49,4,-59,51 entities events
+note c10 water bucket against stone: dropped with the double events
+block 3 -60 56 minecraft:stone
+block 2 -60 56 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 56 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 110
+dispense 2 -60 56 c10
+dump be:2,-60,56 blocks:1,-61,55,4,-59,57 ticks:1,-61,55,4,-59,57 entities events
+note c11 lava bucket against stone
+block 15 -60 2 minecraft:stone
+block 14 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 2 {Items:[{Slot:0b,id:"minecraft:lava_bucket",count:1}]}
+level_seed 111
+dispense 14 -60 2 c11
+dump be:14,-60,2 blocks:13,-61,1,16,-59,3 ticks:13,-61,1,16,-59,3 entities events
+note c12 water bucket into short grass (a replaceable plant)
+block 15 -60 8 minecraft:short_grass
+block 14 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 8 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 112
+dispense 14 -60 8 c12
+dump be:14,-60,8 blocks:13,-61,7,16,-59,9 ticks:13,-61,7,16,-59,9 entities events
+note c13 water bucket into a waterloggable slab
+block 15 -60 14 minecraft:oak_slab[type=bottom,waterlogged=false]
+block 14 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 14 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 113
+dispense 14 -60 14 c13
+dump be:14,-60,14 blocks:13,-61,13,16,-59,15 ticks:13,-61,13,16,-59,15 entities events
+note c14 water bucket into an already waterlogged slab
+block 15 -60 20 minecraft:oak_slab[type=bottom,waterlogged=true]
+block 14 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 20 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 114
+dispense 14 -60 20 c14
+dump be:14,-60,20 blocks:13,-61,19,16,-59,21 ticks:13,-61,19,16,-59,21 entities events
+note c15 lava bucket into a waterloggable slab: only water fills it
+block 15 -60 26 minecraft:oak_slab[type=bottom,waterlogged=false]
+block 14 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 26 {Items:[{Slot:0b,id:"minecraft:lava_bucket",count:1}]}
+level_seed 115
+dispense 14 -60 26 c15
+dump be:14,-60,26 blocks:13,-61,25,16,-59,27 ticks:13,-61,25,16,-59,27 entities events
+note c16 water bucket into a snow layer
+block 15 -60 32 minecraft:snow[layers=1]
+block 14 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 32 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 116
+dispense 14 -60 32 c16
+dump be:14,-60,32 blocks:13,-61,31,16,-59,33 ticks:13,-61,31,16,-59,33 entities events
+note c17 water bucket into a torch
+block 15 -60 38 minecraft:torch
+block 14 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 38 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 117
+dispense 14 -60 38 c17
+dump be:14,-60,38 blocks:13,-61,37,16,-59,39 ticks:13,-61,37,16,-59,39 entities events
+note c18 water bucket into a seagrass block
+block 15 -60 44 minecraft:seagrass
+block 14 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 14 -60 44 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 118
+dispense 14 -60 44 c18
+dump be:14,-60,44 blocks:13,-61,43,16,-59,45 ticks:13,-61,43,16,-59,45 entities events
+note c19 water bucket facing up into air
+block 14 -60 50 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 14 -60 50 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 119
+dispense 14 -60 50 c19
+dump be:14,-60,50 blocks:13,-61,49,15,-58,51 ticks:13,-61,49,15,-58,51 entities events
+note c20 lava bucket facing down into air
+block 14 -59 56 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 14 -59 56 {Items:[{Slot:0b,id:"minecraft:lava_bucket",count:1}]}
+level_seed 120
+dispense 14 -59 56 c20
+dump be:14,-59,56 blocks:13,-61,55,15,-58,57 ticks:13,-61,55,15,-58,57 entities events
+note c21 water bucket facing north
+block 26 -60 2 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 26 -60 2 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:1}]}
+level_seed 121
+dispense 26 -60 2 c21
+dump be:26,-60,2 blocks:25,-61,0,27,-59,3 ticks:25,-61,0,27,-59,3 entities events
+note c22 a stack of 2 water buckets: one is emptied, the empty bucket goes to a free slot
+block 26 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 8 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:2}]}
+level_seed 122
+dispense 26 -60 8 c22
+dump be:26,-60,8 blocks:25,-61,7,28,-59,9 ticks:25,-61,7,28,-59,9 entities events
+note c23 a full dispenser with 2 water buckets: the empty bucket has no slot and is dispensed as an item with the extra events
+block 26 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 14 {Items:[{Slot:0b,id:"minecraft:water_bucket",count:2},{Slot:1b,id:"minecraft:dirt",count:64},{Slot:2b,id:"minecraft:dirt",count:64},{Slot:3b,id:"minecraft:dirt",count:64},{Slot:4b,id:"minecraft:dirt",count:64},{Slot:5b,id:"minecraft:dirt",count:64},{Slot:6b,id:"minecraft:dirt",count:64},{Slot:7b,id:"minecraft:dirt",count:64},{Slot:8b,id:"minecraft:dirt",count:64}]}
+level_seed 123
+dispense 26 -60 14 c23
+dump be:26,-60,14 blocks:25,-61,13,28,-59,15 ticks:25,-61,13,28,-59,15 entities events
+note c24 powder snow bucket into air: powder snow is placed
+block 26 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 20 {Items:[{Slot:0b,id:"minecraft:powder_snow_bucket",count:1}]}
+level_seed 124
+dispense 26 -60 20 c24
+dump be:26,-60,20 blocks:25,-61,19,28,-59,21 ticks:25,-61,19,28,-59,21 entities events
+note c25 powder snow bucket into a water source
+block 27 -60 26 minecraft:water[level=0]
+block 26 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 26 {Items:[{Slot:0b,id:"minecraft:powder_snow_bucket",count:1}]}
+level_seed 125
+dispense 26 -60 26 c25
+dump be:26,-60,26 blocks:25,-61,25,28,-59,27 ticks:25,-61,25,28,-59,27 entities events
+note c26 powder snow bucket against stone
+block 27 -60 32 minecraft:stone
+block 26 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 32 {Items:[{Slot:0b,id:"minecraft:powder_snow_bucket",count:1}]}
+level_seed 126
+dispense 26 -60 32 c26
+dump be:26,-60,32 blocks:25,-61,31,28,-59,33 ticks:25,-61,31,28,-59,33 entities events
+note c27 powder snow bucket into short grass (not an empty block)
+block 27 -60 38 minecraft:short_grass
+block 26 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 38 {Items:[{Slot:0b,id:"minecraft:powder_snow_bucket",count:1}]}
+level_seed 127
+dispense 26 -60 38 c27
+dump be:26,-60,38 blocks:25,-61,37,28,-59,39 ticks:25,-61,37,28,-59,39 entities events
+note c28 powder snow bucket facing up
+block 26 -60 44 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 26 -60 44 {Items:[{Slot:0b,id:"minecraft:powder_snow_bucket",count:1}]}
+level_seed 128
+dispense 26 -60 44 c28
+dump be:26,-60,44 blocks:25,-61,43,27,-58,45 ticks:25,-61,43,27,-58,45 entities events
+note c29 salmon bucket into air
+block 26 -60 50 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 50 {Items:[{Slot:0b,id:"minecraft:salmon_bucket",count:1}]}
+level_seed 129
+dispense 26 -60 50 c29
+dump be:26,-60,50 blocks:25,-61,49,28,-59,51 ticks:25,-61,49,28,-59,51 entities events nbt:salmon#1
+note c30 cod bucket into air
+block 26 -60 56 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 26 -60 56 {Items:[{Slot:0b,id:"minecraft:cod_bucket",count:1}]}
+level_seed 130
+dispense 26 -60 56 c30
+dump be:26,-60,56 blocks:25,-61,55,28,-59,57 ticks:25,-61,55,28,-59,57 entities events nbt:cod#1
+note c31 pufferfish bucket into air
+block 38 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 2 {Items:[{Slot:0b,id:"minecraft:pufferfish_bucket",count:1}]}
+level_seed 131
+dispense 38 -60 2 c31
+dump be:38,-60,2 blocks:37,-61,1,40,-59,3 ticks:37,-61,1,40,-59,3 entities events nbt:pufferfish#1
+note c32 tropical_fish bucket into air
+block 38 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 8 {Items:[{Slot:0b,id:"minecraft:tropical_fish_bucket",count:1}]}
+level_seed 132
+dispense 38 -60 8 c32
+dump be:38,-60,8 blocks:37,-61,7,40,-59,9 ticks:37,-61,7,40,-59,9 entities events nbt:tropical_fish#1
+note c33 axolotl bucket into air
+block 38 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 14 {Items:[{Slot:0b,id:"minecraft:axolotl_bucket",count:1}]}
+level_seed 133
+dispense 38 -60 14 c33
+dump be:38,-60,14 blocks:37,-61,13,40,-59,15 ticks:37,-61,13,40,-59,15 entities events nbt:axolotl#1
+note c34 tadpole bucket into air
+block 38 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 20 {Items:[{Slot:0b,id:"minecraft:tadpole_bucket",count:1}]}
+level_seed 134
+dispense 38 -60 20 c34
+dump be:38,-60,20 blocks:37,-61,19,40,-59,21 ticks:37,-61,19,40,-59,21 entities events nbt:tadpole#1
+note c35 sulfur_cube bucket into air
+block 38 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 26 {Items:[{Slot:0b,id:"minecraft:sulfur_cube_bucket",count:1}]}
+level_seed 135
+dispense 38 -60 26 c35
+dump be:38,-60,26 blocks:37,-61,25,40,-59,27 ticks:37,-61,25,40,-59,27 entities events nbt:sulfur_cube#1
+note c36 salmon bucket into water
+block 39 -60 32 minecraft:water[level=0]
+block 38 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 32 {Items:[{Slot:0b,id:"minecraft:salmon_bucket",count:1}]}
+level_seed 136
+dispense 38 -60 32 c36
+dump be:38,-60,32 blocks:37,-61,31,40,-59,33 ticks:37,-61,31,40,-59,33 entities events nbt:salmon#2
+note c37 axolotl bucket into water
+block 39 -60 38 minecraft:water[level=0]
+block 38 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 38 {Items:[{Slot:0b,id:"minecraft:axolotl_bucket",count:1}]}
+level_seed 137
+dispense 38 -60 38 c37
+dump be:38,-60,38 blocks:37,-61,37,40,-59,39 ticks:37,-61,37,40,-59,39 entities events nbt:axolotl#2
+note c38 sulfur_cube bucket into water
+block 39 -60 44 minecraft:water[level=0]
+block 38 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 44 {Items:[{Slot:0b,id:"minecraft:sulfur_cube_bucket",count:1}]}
+level_seed 138
+dispense 38 -60 44 c38
+dump be:38,-60,44 blocks:37,-61,43,40,-59,45 ticks:37,-61,43,40,-59,45 entities events nbt:sulfur_cube#2
+note c39 cod bucket against stone: dropped with the double events, no entity
+block 39 -60 50 minecraft:stone
+block 38 -60 50 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 50 {Items:[{Slot:0b,id:"minecraft:cod_bucket",count:1}]}
+level_seed 139
+dispense 38 -60 50 c39
+dump be:38,-60,50 blocks:37,-61,49,40,-59,51 ticks:37,-61,49,40,-59,51 entities events
+note c40 tadpole bucket against stone: dropped with the double events, no entity
+block 39 -60 56 minecraft:stone
+block 38 -60 56 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 38 -60 56 {Items:[{Slot:0b,id:"minecraft:tadpole_bucket",count:1}]}
+level_seed 140
+dispense 38 -60 56 c40
+dump be:38,-60,56 blocks:37,-61,55,40,-59,57 ticks:37,-61,55,40,-59,57 entities events
+note c41 sulfur_cube bucket against stone
+block 51 -60 2 minecraft:stone
+block 50 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 2 {Items:[{Slot:0b,id:"minecraft:sulfur_cube_bucket",count:1}]}
+level_seed 141
+dispense 50 -60 2 c41
+dump be:50,-60,2 blocks:49,-61,1,52,-59,3 ticks:49,-61,1,52,-59,3 entities events nbt:sulfur_cube#3
+note c42 pufferfish bucket into a waterloggable slab
+block 51 -60 8 minecraft:oak_slab[type=bottom,waterlogged=false]
+block 50 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 8 {Items:[{Slot:0b,id:"minecraft:pufferfish_bucket",count:1}]}
+level_seed 142
+dispense 50 -60 8 c42
+dump be:50,-60,8 blocks:49,-61,7,52,-59,9 ticks:49,-61,7,52,-59,9 entities events
+note c43 a stack of 2 tropical fish buckets: one is emptied
+block 50 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 14 {Items:[{Slot:0b,id:"minecraft:tropical_fish_bucket",count:2}]}
+level_seed 143
+dispense 50 -60 14 c43
+dump be:50,-60,14 blocks:49,-61,13,52,-59,15 ticks:49,-61,13,52,-59,15 entities events
+note c44 empty bucket in front of a water source: the filled water bucket replaces the stack
+block 51 -60 20 minecraft:water[level=0]
+block 50 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 20 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 144
+dispense 50 -60 20 c44
+dump be:50,-60,20 blocks:49,-61,19,52,-59,21 ticks:49,-61,19,52,-59,21 entities events
+note c45 empty bucket in front of a lava source
+block 51 -60 26 minecraft:lava[level=0]
+block 50 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 26 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 145
+dispense 50 -60 26 c45
+dump be:50,-60,26 blocks:49,-61,25,52,-59,27 ticks:49,-61,25,52,-59,27 entities events
+note c46 empty bucket in front of powder snow
+block 51 -60 32 minecraft:powder_snow
+block 50 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 32 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 146
+dispense 50 -60 32 c46
+dump be:50,-60,32 blocks:49,-61,31,52,-59,33 ticks:49,-61,31,52,-59,33 entities events
+note c47 empty bucket in front of a bubble column
+block 51 -60 38 minecraft:bubble_column[drag=true]
+block 50 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 38 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 147
+dispense 50 -60 38 c47
+dump be:50,-60,38 blocks:49,-61,37,52,-59,39 ticks:49,-61,37,52,-59,39 entities events
+note c48 empty bucket in front of an empty cauldron (not a BucketPickup)
+block 51 -60 44 minecraft:cauldron
+block 50 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 44 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 148
+dispense 50 -60 44 c48
+dump be:50,-60,44 blocks:49,-61,43,52,-59,45 ticks:49,-61,43,52,-59,45 entities events
+note c49 empty bucket in front of a water cauldron
+block 51 -60 50 minecraft:water_cauldron[level=3]
+block 50 -60 50 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 50 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 149
+dispense 50 -60 50 c49
+dump be:50,-60,50 blocks:49,-61,49,52,-59,51 ticks:49,-61,49,52,-59,51 entities events
+note c50 empty bucket in front of a lava cauldron
+block 51 -60 56 minecraft:lava_cauldron
+block 50 -60 56 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 50 -60 56 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 150
+dispense 50 -60 56 c50
+dump be:50,-60,56 blocks:49,-61,55,52,-59,57 ticks:49,-61,55,52,-59,57 entities events
+note c51 empty bucket in front of a waterlogged slab
+block 63 -60 2 minecraft:oak_slab[type=bottom,waterlogged=true]
+block 62 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 2 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 151
+dispense 62 -60 2 c51
+dump be:62,-60,2 blocks:61,-61,1,64,-59,3 ticks:61,-61,1,64,-59,3 entities events
+note c52 empty bucket in front of a dry slab
+block 63 -60 8 minecraft:oak_slab[type=bottom,waterlogged=false]
+block 62 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 8 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 152
+dispense 62 -60 8 c52
+dump be:62,-60,8 blocks:61,-61,7,64,-59,9 ticks:61,-61,7,64,-59,9 entities events
+note c53 empty bucket in front of flowing water
+block 63 -60 14 minecraft:water[level=3]
+block 62 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 14 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 153
+dispense 62 -60 14 c53
+dump be:62,-60,14 blocks:61,-61,13,64,-59,15 ticks:61,-61,13,64,-59,15 entities events
+note c54 empty bucket in front of air
+block 62 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 20 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 154
+dispense 62 -60 20 c54
+dump be:62,-60,20 blocks:61,-61,19,64,-59,21 ticks:61,-61,19,64,-59,21 entities events
+note c55 empty bucket in front of a waterlogged seagrass-like block (stone stairs waterlogged)
+block 63 -60 26 minecraft:stone_stairs[waterlogged=true,facing=east,half=bottom,shape=straight]
+block 62 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 26 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 155
+dispense 62 -60 26 c55
+dump be:62,-60,26 blocks:61,-61,25,64,-59,27 ticks:61,-61,25,64,-59,27 entities events
+note c56 empty bucket in front of a waterlogged barrier
+block 63 -60 32 minecraft:barrier[waterlogged=true]
+block 62 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 32 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 156
+dispense 62 -60 32 c56
+dump be:62,-60,32 blocks:61,-61,31,64,-59,33 ticks:61,-61,31,64,-59,33 entities events
+note c57 empty bucket in front of a dried ghast (waterlogged)
+block 63 -60 38 minecraft:dried_ghast[waterlogged=true,hydration=0,facing=east]
+block 62 -60 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 38 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 157
+dispense 62 -60 38 c57
+dump be:62,-60,38 blocks:61,-61,37,64,-59,39 ticks:61,-61,37,64,-59,39 entities events
+note c58 empty bucket in front of a dried ghast without water
+block 63 -60 44 minecraft:dried_ghast[waterlogged=false,hydration=0,facing=east]
+block 62 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 44 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 158
+dispense 62 -60 44 c58
+dump be:62,-60,44 blocks:61,-61,43,64,-59,45 ticks:61,-61,43,64,-59,45 entities events
+note c59 a stack of 2 empty buckets over a water source: one filled bucket goes to a free slot
+block 63 -60 50 minecraft:water[level=0]
+block 62 -60 50 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 50 {Items:[{Slot:0b,id:"minecraft:bucket",count:2}]}
+level_seed 159
+dispense 62 -60 50 c59
+dump be:62,-60,50 blocks:61,-61,49,64,-59,51 ticks:61,-61,49,64,-59,51 entities events
+note c60 a full dispenser with 2 empty buckets over lava: the lava bucket has no slot and is dispensed with the extra events
+block 63 -60 56 minecraft:lava[level=0]
+block 62 -60 56 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 62 -60 56 {Items:[{Slot:0b,id:"minecraft:bucket",count:2},{Slot:1b,id:"minecraft:dirt",count:64},{Slot:2b,id:"minecraft:dirt",count:64},{Slot:3b,id:"minecraft:dirt",count:64},{Slot:4b,id:"minecraft:dirt",count:64},{Slot:5b,id:"minecraft:dirt",count:64},{Slot:6b,id:"minecraft:dirt",count:64},{Slot:7b,id:"minecraft:dirt",count:64},{Slot:8b,id:"minecraft:dirt",count:64}]}
+level_seed 160
+dispense 62 -60 56 c60
+dump be:62,-60,56 blocks:61,-61,55,64,-59,57 ticks:61,-61,55,64,-59,57 entities events
+note c61 empty bucket facing up in front of water
+block 74 -59 2 minecraft:water[level=0]
+block 74 -60 2 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 74 -60 2 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 161
+dispense 74 -60 2 c61
+dump be:74,-60,2 blocks:73,-61,1,75,-58,3 ticks:73,-61,1,75,-58,3 entities events
+note c62 empty bucket facing down onto powder snow
+block 74 -60 8 minecraft:powder_snow
+block 74 -59 8 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 74 -59 8 {Items:[{Slot:0b,id:"minecraft:bucket",count:1}]}
+level_seed 162
+dispense 74 -59 8 c62
+dump be:74,-59,8 blocks:73,-61,7,75,-58,9 ticks:73,-61,7,75,-58,9 entities events
