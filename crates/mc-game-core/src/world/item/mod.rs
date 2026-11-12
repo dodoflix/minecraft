@@ -27,6 +27,7 @@ pub mod entity_items;
 mod fire_charge_item;
 mod firework_rocket_item;
 mod flint_and_steel_item;
+mod food_on_a_stick_item;
 pub mod honeycomb_item;
 mod ink_sac_item;
 mod instrument;

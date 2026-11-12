@@ -31,10 +31,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "use casts a FishingHook or reels it in and damages the rod (no fishing hook entity yet)",
     ),
     (
-        "FoodOnAStickItem",
-        "use boosts the ridden pig or strider and damages the item",
-    ),
-    (
         "LeadItem",
         "useOn on a fence attaches the leashed mobs nearby to a LeashFenceKnotEntity (no leash knot entity yet)",
     ),

@@ -1,0 +1,74 @@
+# FoodOnAStickItem.use: a rider who steers the pig (carrot on a stick) or the strider (warped fungus on a stick) boosts it and the stick
+# loses 7 (carrot) or 1 (warped fungus) durability; the stick that breaks is replaced by a fishing rod with the components of the stick
+# and fresh durability. No statistic is counted for the boost. A stick without a matching steered vehicle (no vehicle, the wrong kind
+# of vehicle, a boost still running) only counts the item-used statistic and keeps its durability. Creative players boost for free.
+# A and D are simulated riders with a forward input (the boost shows in the speed of their mounts; their movement statistics are not
+# dumped). The other riders are client-authoritative: their mounts are not dumped.
+level flat
+difficulty normal
+preload 2
+spawn_player A survival 0.5 -60 0.5 0 0 sim
+spawn_player B survival 10.5 -60 0.5 0 0
+spawn_player C survival 20.5 -60 0.5 0 0
+spawn_player D survival 30.5 -60 0.5 0 0 sim
+spawn_player E survival 40.5 -60 0.5 0 0
+spawn_player F survival 50.5 -60 0.5 0 0
+spawn_player G survival 60.5 -60 0.5 0 0
+spawn_player H creative 70.5 -60 0.5 0 0
+spawn_player I survival 80.5 -60 0.5 0 0
+give A mainhand minecraft:carrot_on_a_stick
+give B mainhand minecraft:carrot_on_a_stick[damage=17]
+give C mainhand minecraft:carrot_on_a_stick[damage=18]
+give D mainhand minecraft:warped_fungus_on_a_stick
+give E mainhand minecraft:warped_fungus_on_a_stick[damage=99]
+give F mainhand minecraft:carrot_on_a_stick
+give F offhand minecraft:warped_fungus_on_a_stick
+give G mainhand minecraft:carrot_on_a_stick
+give H mainhand minecraft:carrot_on_a_stick[damage=18]
+give I mainhand minecraft:carrot_on_a_stick
+mobspawn VA minecraft:pig 1.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn VB minecraft:pig 11.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn VC minecraft:pig 21.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn VD minecraft:strider 31.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn VE minecraft:strider 41.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn VF minecraft:pig 51.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn VG minecraft:pig 61.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn VH minecraft:pig 71.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+tick 3
+entity_seed VA 4065
+entity_seed VB 4066
+entity_seed VC 4067
+entity_seed VD 4068
+entity_seed VE 4069
+entity_seed VF 4070
+entity_seed VG 4071
+entity_seed VH 4072
+interact A VA
+interact B VB
+interact C VC
+interact D VD
+interact E VE
+interact F VF
+interact G VG
+interact H VH
+tick 2
+input A forward
+input D forward
+note I has no vehicle: the item-used statistic only
+use I
+note the strider is not steered by a carrot on a stick, a pig is not steered by the offhand warped fungus on a stick: the offhand use is the wrong vehicle
+use F off
+use A
+use B
+use C
+use D
+use E
+use G
+use H
+dump inventory:A inventory:B inventory:C inventory:D inventory:E inventory:F inventory:G inventory:H inventory:I stats:B stats:C stats:E stats:F stats:G stats:H stats:I mob:VA mob:VD
+tick 1
+note G uses the stick again while its pig still boosts: no second boost, no damage, item-used statistic
+use G main
+dump inventory:G stats:G mob:VA mob:VD
+tick 40
+dump inventory:A inventory:B inventory:C inventory:D inventory:E inventory:F inventory:G inventory:H inventory:I mob:VA mob:VD

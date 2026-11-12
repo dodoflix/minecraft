@@ -108,6 +108,7 @@ mod itm_brush_golden;
 mod itm_dye_sheep_golden;
 mod itm_ender_eye_golden;
 mod itm_firework_golden;
+mod itm_food_on_a_stick_golden;
 mod itm_misc_golden;
 mod itm_spawn_egg_golden;
 mod itm_spear_golden;
