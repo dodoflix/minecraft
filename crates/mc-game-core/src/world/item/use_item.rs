@@ -8,8 +8,10 @@
 
 use super::{InteractionHand, InteractionResult, ItemStack, ItemStackExt, UseOnContext, behaviour};
 use crate::server::level::ServerLevel;
+use crate::stats::Stat;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
+use crate::world::inventory::MenuPlayer;
 use crate::world::level::BlockGetter;
 use mc_core::pos::BlockPos;
 use mc_data::Item;
@@ -35,6 +37,15 @@ pub fn item_is_enabled(item: Item, enabled_features: FeatureFlagSet) -> bool {
 /// `ItemStack.isItemEnabled(enabledFeatures)`.
 pub fn is_item_enabled(stack: &ItemStack, enabled_features: FeatureFlagSet) -> bool {
     stack.is_empty() || item_is_enabled(stack.item(), enabled_features)
+}
+
+/// `ItemStack.onCraftedBy(player, craftCount)`: the `ITEM_CRAFTED` stat, then `Item.onCraftedBy`.
+pub fn on_crafted_by(stack: &mut ItemStack, player: &mut dyn MenuPlayer, craft_count: i32) {
+    let item = stack.item();
+    player.with_server_player(&mut |level, server_player| {
+        server_player.award_stat(&*level, Stat::Crafted(item), craft_count);
+    });
+    behaviour(item).on_crafted_by(stack, player);
 }
 
 /// `ItemStack.applyAfterUseComponentSideEffects(user, stackBeforeUsing)`: `use_remainder` conversion and

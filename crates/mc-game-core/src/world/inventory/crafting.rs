@@ -1,82 +1,30 @@
-//! `CraftingContainer`/`TransientCraftingContainer`, `ResultContainer`, `ResultSlot` and `CraftingInput`. No crafting
-//! recipe is ever matched: the result slot stays empty, exactly like a server with zero crafting recipes.
+//! `TransientCraftingContainer`, `ResultContainer`, `ResultSlot` and the crafting grid recompute shared by the menus
+//! with a crafting result (`CraftingMenu.slotChangedCraftingGrid`).
 
-use super::{ContainerKey, MenuPlayer, Prediction, Slot, SlotBehavior, SlotEnv};
+use super::{
+    ContainerKey, MenuBase, MenuPlayer, Prediction, RecipeCraftingHolder, Slot, SlotBehavior,
+    SlotEnv,
+};
 use crate::world::container::{Container, empty_stack, helper};
-use crate::world::item::ItemStack;
+use crate::world::item::crafting::stacked_contents::StackedItemContents;
+use crate::world::item::crafting::{
+    CraftingInput, PositionedCraftingInput, RecipeHolder, default_crafting_reminder,
+};
+use crate::world::item::{ItemStack, behaviour, is_item_enabled, on_crafted_by};
+use crate::world::level::level_access::LevelReader;
+use mc_data::RecipeType;
 use std::any::Any;
-
-/// `CraftingInput` (already trimmed to its bounding box by [`CraftingInput::of_positioned`]).
-#[derive(Clone, Debug, Default)]
-pub struct CraftingInput {
-    pub width: usize,
-    pub height: usize,
-    pub items: Vec<ItemStack>,
-}
-
-/// `CraftingInput.Positioned`.
-#[derive(Clone, Debug, Default)]
-pub struct PositionedCraftingInput {
-    pub input: CraftingInput,
-    pub left: usize,
-    pub top: usize,
-}
-
-impl CraftingInput {
-    pub fn is_empty(&self) -> bool {
-        self.items.iter().all(ItemStack::is_empty)
-    }
-
-    pub fn of_positioned(
-        width: usize,
-        height: usize,
-        items: &[ItemStack],
-    ) -> PositionedCraftingInput {
-        if width == 0 || height == 0 {
-            return PositionedCraftingInput::default();
-        }
-        let (mut left, mut right, mut top, mut bottom) = (width - 1, 0usize, height - 1, 0usize);
-        for y in 0..height {
-            let mut row_empty = true;
-            for x in 0..width {
-                if !items[x + y * width].is_empty() {
-                    left = left.min(x);
-                    right = right.max(x);
-                    row_empty = false;
-                }
-            }
-            if !row_empty {
-                top = top.min(y);
-                bottom = bottom.max(y);
-            }
-        }
-        if right < left || bottom < top {
-            return PositionedCraftingInput::default();
-        }
-        let (nw, nh) = (right - left + 1, bottom - top + 1);
-        let new_items = (0..nh)
-            .flat_map(|y| (0..nw).map(move |x| (x, y)))
-            .map(|(x, y)| items[x + left + (y + top) * width].clone())
-            .collect();
-        PositionedCraftingInput {
-            input: CraftingInput {
-                width: nw,
-                height: nh,
-                items: new_items,
-            },
-            left,
-            top,
-        }
-    }
-}
+use std::collections::VecDeque;
 
 /// `TransientCraftingContainer` (width x height grid owned by a menu). Every `setItem`/successful `removeItem` owes the
-/// menu one `slotsChanged` notification (vanilla calls `menu.slotsChanged(this)` synchronously).
+/// menu one `slotsChanged` notification; vanilla calls `menu.slotsChanged(this)` synchronously, so the grid as it was
+/// right after that mutation is kept for the menu's replay (`take_snapshot`).
 pub struct TransientCraftingContainer {
     items: Vec<ItemStack>,
     width: usize,
     height: usize,
-    pending: u32,
+    unannounced: u32,
+    snapshots: VecDeque<Vec<ItemStack>>,
 }
 
 impl TransientCraftingContainer {
@@ -85,7 +33,8 @@ impl TransientCraftingContainer {
             items: vec![ItemStack::empty(); width * height],
             width,
             height,
-            pending: 0,
+            unannounced: 0,
+            snapshots: VecDeque::new(),
         }
     }
     pub fn get_width(&self) -> usize {
@@ -97,9 +46,30 @@ impl TransientCraftingContainer {
     pub fn get_items(&self) -> &[ItemStack] {
         &self.items
     }
+    /// `asCraftInput()`.
+    pub fn as_craft_input(&self) -> CraftingInput {
+        CraftingInput::of(self.width, self.height, &self.items)
+    }
     /// `asPositionedCraftInput()`.
     pub fn as_positioned_craft_input(&self) -> PositionedCraftingInput {
         CraftingInput::of_positioned(self.width, self.height, &self.items)
+    }
+    /// `fillStackedContents(contents)`.
+    pub fn fill_stacked_contents(&self, contents: &mut StackedItemContents) {
+        for stack in &self.items {
+            contents.account_simple_stack(stack);
+        }
+    }
+    /// The grid as it was at the oldest mutation whose `slotsChanged` the menu has not replayed yet (the current grid
+    /// when none is queued).
+    pub fn take_snapshot(&mut self) -> Vec<ItemStack> {
+        self.snapshots
+            .pop_front()
+            .unwrap_or_else(|| self.items.clone())
+    }
+    fn changed(&mut self) {
+        self.unannounced += 1;
+        self.snapshots.push_back(self.items.clone());
     }
 }
 
@@ -125,7 +95,7 @@ impl Container for TransientCraftingContainer {
     fn remove_item(&mut self, slot: usize, count: i32) -> ItemStack {
         let result = helper::remove_item(&mut self.items, slot, count);
         if !result.is_empty() {
-            self.pending += 1;
+            self.changed();
         }
         result
     }
@@ -136,7 +106,7 @@ impl Container for TransientCraftingContainer {
         if let Some(s) = self.items.get_mut(slot) {
             *s = stack;
         }
-        self.pending += 1;
+        self.changed();
     }
     fn clear_content(&mut self) {
         self.items.fill(ItemStack::empty());
@@ -146,19 +116,29 @@ impl Container for TransientCraftingContainer {
         true
     }
     fn take_menu_notifications(&mut self) -> u32 {
-        std::mem::take(&mut self.pending)
+        std::mem::take(&mut self.unannounced)
     }
 }
 
-/// `ResultContainer` (one slot; the `recipeUsed` bookkeeping is not implemented).
+/// `ResultContainer` (one slot; every index addresses it).
 #[derive(Default)]
 pub struct ResultContainer {
     item: ItemStack,
+    recipe_used: Option<RecipeHolder>,
 }
 
 impl ResultContainer {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+
+impl RecipeCraftingHolder for ResultContainer {
+    fn set_recipe_used(&mut self, recipe: Option<RecipeHolder>) {
+        self.recipe_used = recipe;
+    }
+    fn get_recipe_used(&self) -> Option<&RecipeHolder> {
+        self.recipe_used.as_ref()
     }
 }
 
@@ -178,8 +158,8 @@ impl Container for ResultContainer {
     fn get_item(&self, _slot: usize) -> &ItemStack {
         &self.item
     }
-    fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
-        (slot == 0).then_some(&mut self.item)
+    fn get_item_mut(&mut self, _slot: usize) -> Option<&mut ItemStack> {
+        Some(&mut self.item)
     }
     fn remove_item(&mut self, _slot: usize, _count: i32) -> ItemStack {
         std::mem::take(&mut self.item)
@@ -199,6 +179,58 @@ impl Container for ResultContainer {
     }
 }
 
+/// `CraftingMenu.slotChangedCraftingGrid(menu, level, player, craftSlots, resultSlots, recipeHint)` for a grid held in
+/// `base.locals[craft_local]` and its `ResultContainer` in `base.locals[result_local]`; `items` is the grid contents to
+/// match (the current ones, or the snapshot of the mutation being replayed).
+pub fn slot_changed_crafting_grid(
+    base: &mut MenuBase,
+    player: &mut dyn MenuPlayer,
+    craft_local: usize,
+    result_local: usize,
+    items: &[ItemStack],
+    recipe_hint: Option<&RecipeHolder>,
+) {
+    let craft = base.locals[craft_local]
+        .as_any()
+        .downcast_ref::<TransientCraftingContainer>()
+        .expect("crafting grid");
+    let input = CraftingInput::of(craft.get_width(), craft.get_height(), items);
+    let results = base.locals[result_local]
+        .as_any_mut()
+        .downcast_mut::<ResultContainer>()
+        .expect("result container");
+    let mut result = ItemStack::empty();
+    if let Some(level) = player.level_ref() {
+        let hint = recipe_hint.map(|recipe| &recipe.id);
+        if let Some(recipe) =
+            level
+                .recipe_access()
+                .get_recipe_for(RecipeType::CRAFTING, &input, level, hint)
+            && results.set_recipe_used_by(&*player, &recipe)
+        {
+            let assembled = recipe.value.assemble_crafting(&input);
+            if is_item_enabled(&assembled, level.enabled_features()) {
+                result = assembled;
+            }
+        }
+    }
+    base.locals[result_local].set_item(0, result.clone());
+    base.set_remote_slot(0, &result);
+    base.send_slot_change_now(0, result);
+}
+
+/// `ResultSlot.getRemainingItems(input, level)`; `None` when no recipe matches: vanilla then hands back the grid's own
+/// stacks (`copyAllInputItems`), which `on_take` models by reading the live grid slot.
+fn remaining_items(player: &mut dyn MenuPlayer, input: &CraftingInput) -> Option<Vec<ItemStack>> {
+    let Some(level) = player.level() else {
+        return Some(default_crafting_reminder(input));
+    };
+    level
+        .recipe_access()
+        .get_recipe_for(RecipeType::CRAFTING, input, level, None)
+        .map(|recipe| recipe.value.get_remaining_items(input))
+}
+
 /// `ResultSlot` behavior; `craft_slots` is the menu-local index of the `TransientCraftingContainer`.
 pub struct ResultSlot {
     craft_slots: usize,
@@ -213,9 +245,28 @@ impl ResultSlot {
         }
     }
 
-    fn check_take_achievements(&self) {
-        // `carried.onCraftedBy(player, removeCount)` (item behaviour `on_crafted`, crafting stats/advancements) and
-        // `awardUsedRecipes`: not implemented.
+    fn check_take_achievements(&self, slot: &Slot, env: &mut SlotEnv, carried: &ItemStack) {
+        let count = self.remove_count.get();
+        if count > 0 {
+            // Not implemented: `Item.onCraftedBy` edits of the taken stack itself (`MapItem` post-processing of a
+            // crafted map): `SlotBehavior::on_take` only borrows it, so the post-processed copy is dropped. No vanilla
+            // recipe of the 2x2 grid produces such a stack.
+            let mut crafted = carried.clone();
+            on_crafted_by(&mut crafted, &mut *env.player, count);
+        }
+        let items = env.locals[self.craft_slots]
+            .as_any()
+            .downcast_ref::<TransientCraftingContainer>()
+            .expect("ResultSlot craft container")
+            .get_items()
+            .to_vec();
+        if let ContainerKey::Local(index) = slot.container
+            && let Some(holder) = env.locals[index]
+                .as_any_mut()
+                .downcast_mut::<ResultContainer>()
+        {
+            holder.award_used_recipes(&mut *env.player, &items);
+        }
         self.remove_count.set(0);
     }
 }
@@ -231,19 +282,20 @@ impl SlotBehavior for ResultSlot {
         }
         slot.base_remove(env, amount)
     }
-    fn on_quick_craft(&self, _slot: &Slot, _env: &mut SlotEnv, _picked: &ItemStack, count: i32) {
+    fn on_quick_craft(&self, slot: &Slot, env: &mut SlotEnv, picked: &ItemStack, count: i32) {
         self.remove_count.set(self.remove_count.get() + count);
-        self.check_take_achievements();
+        self.check_take_achievements(slot, env, picked);
     }
     fn on_swap_craft(&self, _slot: &Slot, count: i32) {
         self.remove_count.set(self.remove_count.get() + count);
     }
     fn safe_clone(&self, slot: &Slot, env: &mut SlotEnv) -> ItemStack {
-        // `result.getItem().onCraftedBy(result, player)`: item behaviour hook (no-op for every vanilla item but maps/books).
-        slot.base_safe_clone(env)
+        let mut result = slot.base_safe_clone(env);
+        behaviour(result.item()).on_crafted_by(&mut result, &mut *env.player);
+        result
     }
-    fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
-        self.check_take_achievements();
+    fn on_take(&self, slot: &Slot, env: &mut SlotEnv, carried: &ItemStack) {
+        self.check_take_achievements(slot, env, carried);
         let (positioned, craft_width) = {
             let craft = env.locals[self.craft_slots]
                 .as_any()
@@ -252,23 +304,25 @@ impl SlotBehavior for ResultSlot {
             (craft.as_positioned_craft_input(), craft.get_width())
         };
         let input = &positioned.input;
-        let mut remaining = input.items.clone();
+        let remaining = remaining_items(&mut *env.player, input);
         for y in 0..input.height {
             for x in 0..input.width {
-                let slot = x + positioned.left + (y + positioned.top) * craft_width;
-                let replacement = std::mem::take(&mut remaining[x + y * input.width]);
+                let grid_slot = x + positioned.left + (y + positioned.top) * craft_width;
                 let craft = env.locals[self.craft_slots].as_mut();
-                if !craft.get_item(slot).is_empty() {
-                    craft.remove_item(slot, 1);
+                if !craft.get_item(grid_slot).is_empty() {
+                    craft.remove_item(grid_slot, 1);
                 }
-                let mut replacement = replacement;
+                let mut replacement = match &remaining {
+                    Some(remaining) => remaining[x + y * input.width].clone(),
+                    None => craft.get_item(grid_slot).clone(),
+                };
                 if !replacement.is_empty() {
-                    let in_slot = craft.get_item(slot).clone();
+                    let in_slot = craft.get_item(grid_slot).clone();
                     if in_slot.is_empty() {
-                        craft.set_item(slot, replacement);
+                        craft.set_item(grid_slot, replacement);
                     } else if ItemStack::is_same_item_same_components(&in_slot, &replacement) {
                         replacement.grow(in_slot.count());
-                        craft.set_item(slot, replacement);
+                        craft.set_item(grid_slot, replacement);
                     } else {
                         let infinite = env.player.has_infinite_materials();
                         if !env.player.inventory_mut().add(&mut replacement, infinite) {

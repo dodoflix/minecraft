@@ -5,6 +5,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::player::inventory::Inventory;
 use crate::world::item::ItemStack;
+use crate::world::item::crafting::RecipeHolder;
 use mc_core::pos::BlockPos;
 use mc_protocol::components::EQUIPPABLE;
 
@@ -144,6 +145,22 @@ pub trait MenuPlayer {
     }
     /// `serverPlayer.getTextFilter().processStreamMessage(text)`.
     fn process_stream_message(&mut self, _text: &str) {}
+    /// `getRecipeBook().contains(recipeId)` (test players know no recipe).
+    fn recipe_book_contains(&self, _recipe_id: &mc_core::ident::Identifier) -> bool {
+        false
+    }
+    /// `ServerPlayer.awardRecipes(recipes)`.
+    fn award_recipes(&mut self, recipes: &[RecipeHolder]) {
+        self.with_server_player(&mut |level, player| {
+            player.award_recipes(level, recipes);
+        });
+    }
+    /// `ServerPlayer.triggerRecipeCrafted(recipe, itemStacks)`.
+    fn trigger_recipe_crafted(&mut self, recipe: &RecipeHolder, items: &[ItemStack]) {
+        self.with_server_player(&mut |level, player| {
+            player.trigger_recipe_crafted(level, recipe, items);
+        });
+    }
 }
 
 /// `Inventory.placeItemBackInInventory(stack, shouldSendSetSlotPacket, prediction)`.
