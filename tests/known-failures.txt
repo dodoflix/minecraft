@@ -11,13 +11,10 @@ mc-game tests/golden/main.rs commands_entity::swing_starts_the_swing_of_living_e
 mc-game tests/golden/main.rs entity_items_orbs_golden::falling_anvil_and_concrete_match_vanilla
 mc-game tests/golden/main.rs entity_scenarios::item_collide
 mc-game tests/golden/main.rs entity_scenarios::item_motion
-mc-game tests/golden/main.rs entity_scenarios::mob_trades_villagers
 mc-game tests/golden/main.rs goals_combat_golden::creeper_target_swell_melee
 mc-game tests/golden/main.rs gossip_golden::gossip_container_matches_vanilla
 mc-game tests/golden/main.rs lightning_golden::lightning_matches_vanilla
-mc-game tests/golden/main.rs mob_spine_golden::chicken_breed_matches_vanilla
 mc-game tests/golden/main.rs mob_spine_golden::chicken_egg_matches_vanilla
-mc-game tests/golden/main.rs mob_spine_golden::chicken_tempt_matches_vanilla
 mc-game tests/golden/main.rs network_login_config::invalid_usernames_and_protocol_errors_disconnect_with_vanilla_text
 mc-game tests/golden/main.rs packs::disabled_missing_and_feature_packs
 mc-game tests/golden/main.rs poi_golden::poi_manager_matches_vanilla

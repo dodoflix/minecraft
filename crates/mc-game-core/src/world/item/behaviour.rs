@@ -371,8 +371,12 @@ fn build(item: Item) -> Box<dyn ItemBehaviour> {
             return (r.create)(item);
         }
     }
-    // Not implemented: the item-specific behaviour of every item without a registration (see the README's item gaps).
     // Vanilla uses the item's own class; these items behave like a plain item (no use action).
+    // Not implemented: `EggItem` (use plays the throw sound and spawns a `ThrownEgg`).
+    // Not implemented: `EnderpearlItem` (use spawns a `ThrownEnderpearl` and starts the item cooldown).
+    // Not implemented: `FishingRodItem` (use casts a `FishingHook` or reels it in and damages the rod).
+    // Not implemented: `MinecartItem` (useOn on a rail places the minecart entity of the item).
+    // Not implemented: `EndCrystalItem` (useOn on obsidian or bedrock places an `EndCrystal` and respawns the dragon).
     Box::new(PlainItem)
 }
 

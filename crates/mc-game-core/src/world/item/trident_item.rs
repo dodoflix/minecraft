@@ -28,7 +28,10 @@ pub struct TridentItem {
     item: mc_data::Item,
 }
 
-/// `LivingEntity.startAutoSpinAttack(ticks, dmg, itemStack)`.
+/// `Player.startAutoSpinAttack(ticks, dmg, itemStack)`.
+///
+/// Not implemented: `Player.removeEntitiesOnShoulder`, so a parrot sitting on the player's shoulder is not dropped when
+/// a riptide throw starts.
 pub fn start_auto_spin_attack(
     entity: &mut dyn Entity,
     ticks: i32,
