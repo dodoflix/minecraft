@@ -37,6 +37,7 @@ pub fn generate(level: &mut ServerLevel, pos: BlockPos, levels: i32, keep_jigsaw
         log::error!("Failed to generate jigsaw at {pos:?}: unknown template pool {pool_id}");
         return;
     };
+    // `level.getRandom()` is advanced in place by vanilla: work on a copy (the level is borrowed) and write it back
     let mut random = level.tick_state.random.clone();
     generate_jigsaw(
         level,
@@ -47,6 +48,7 @@ pub fn generate(level: &mut ServerLevel, pos: BlockPos, levels: i32, keep_jigsaw
         position,
         keep_jigsaws,
     );
+    level.tick_state.random = random;
 }
 
 struct JigsawGenerateHandler;

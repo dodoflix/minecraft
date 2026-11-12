@@ -1,0 +1,19 @@
+# JigsawBlockEntity.generate (the Generate button): JigsawPlacement.generateJigsaw places the pool's feature piece (an oak tree) with the
+# level's own random, so the next draw of level.getRandom() (an item drop's offset) differs from a level that
+# did not generate.
+level flat
+preload 6
+command_env
+level_seed 77
+spawn_player Op creative 0.5 -60 30.5 0 0
+op Op
+block 0 -60 0 minecraft:jigsaw[orientation=up_north]
+be_nbt 0 -60 0 {pool:"minecraft:pillager_outpost/base_plates",name:"minecraft:empty",target:"minecraft:plate_entry",joint:"rollable",final_state:"minecraft:air"}
+tick 1
+jigsaw_generate Op 0 -60 0 1 false
+tick 1
+dump blocks:-8,-61,-8,24,-55,24
+block 40 -60 40 minecraft:stone
+entity_counter 100
+destroy 40 -60 40
+dump entities

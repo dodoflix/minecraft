@@ -1,0 +1,15 @@
+# LecternBlockEntity.setBook(book) = setBook(book, null): a written book placed on a lectern resolves its page components
+# with a "Lectern" source that has no entity (@s selects nothing), whoever placed it; /data merge block resolves the saved
+# book the same way (loadAdditional of an entity with a level).
+level flat
+preload 2
+command_env
+spawn_player Alice survival 4.5 -60 4.5 0 0
+give Alice mainhand minecraft:written_book[written_book_content={title:"T",author:"A",pages:[{selector:"@s"},{text:"plain"}]}] 1
+block 3 -60 2 minecraft:lectern[facing=south,has_book=false,powered=false]
+tick 1
+use_on Alice 3 -60 2 up main
+dump blocks:3,-60,2,3,-60,2 be:3,-60,2 inventory:Alice events
+block 6 -60 2 minecraft:lectern[facing=south,has_book=true,powered=false]
+be_nbt 6 -60 2 {Book:{id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"T",author:"A",pages:[{selector:"@s"}]}}},Page:0}
+dump blocks:6,-60,2,6,-60,2 be:6,-60,2

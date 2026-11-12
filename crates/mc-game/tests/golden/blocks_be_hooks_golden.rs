@@ -32,3 +32,13 @@ fn jukebox_data_merge_with_another_record_stops_the_song() {
 fn loom_stonecutter_and_tables_consume_the_use() {
     common::block_scenario::check("blk_workstation_use");
 }
+
+#[test]
+fn lectern_resolves_a_placed_written_book_without_a_player() {
+    common::block_scenario::check("blk_lectern_book_resolve");
+}
+
+#[test]
+fn jigsaw_generate_advances_the_level_random() {
+    common::block_scenario::check("blk_jigsaw_generate_random");
+}

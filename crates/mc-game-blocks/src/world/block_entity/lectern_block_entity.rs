@@ -79,61 +79,37 @@ impl LecternBlockEntity {
             || self.book.get(&WRITTEN_BOOK_CONTENT).is_some()
     }
 
-    /// `setBook(book)` (the caller resolves written-book components first, see `LecternBlock::place_book`).
-    pub fn set_book(&mut self, level: &mut ServerLevel, book: ItemStack) {
+    /// `setBook(book)` = `setBook(book, null)`: resolves a written book with the "Lectern" source, then installs it.
+    pub fn set_book(&mut self, level: &mut ServerLevel, mut book: ItemStack) {
+        self.resolve_book(level, &mut book);
         self.book = book;
         self.page = 0;
         self.page_count = get_page_count(&self.book);
         set_changed(level, self.base.pos, self.base.block_state);
     }
 
-    /// `resolveBook(book, player)`: resolves the components of a written book (`WrittenBookContent.resolveForItem`) with
-    /// a game-master source at the lectern. Vanilla only does it for a block entity that has a level; here the server
-    /// must be installed (`enter_server`), which block use from a player packet guarantees, while chunk loading (no
-    /// level yet in vanilla either) does not resolve.
-    pub fn resolve_book(
-        &self,
-        level: &ServerLevel,
-        player: Option<&mc_game_core::world::entity::ServerPlayer>,
-        book: &mut ItemStack,
-    ) {
+    /// `resolveBook(book, null)`: resolves the components of a written book (`WrittenBookContent.resolveForItem`) with
+    /// a game-master "Lectern" source at the lectern. Vanilla only does it for a block entity that has a level; here the
+    /// server must be installed (`enter_server`), which block use from a player packet guarantees, while chunk loading
+    /// (no level yet in vanilla either) does not resolve.
+    fn resolve_book(&self, level: &ServerLevel, book: &mut ItemStack) {
         use mc_core::phys::{Vec2, Vec3};
         use mc_game_core::commands::command_source::null_source;
-        use mc_game_core::commands::command_source_stack::{CommandEntity, CommandSourceStack};
+        use mc_game_core::commands::command_source_stack::CommandSourceStack;
         use mc_game_core::commands::component_utils::ResolutionContext;
         use mc_game_core::server::permissions::{LevelBasedPermissionSet, PermissionSet};
-        use mc_game_core::world::entity::Entity;
         if !mc_game_core::commands::server_access::has_server() {
             return;
         }
         let permissions: PermissionSet = LevelBasedPermissionSet::GAMEMASTER.into();
-        let position = Vec3::at_center_of(&self.base.pos);
-        let source = match player {
-            Some(player) => CommandSourceStack::for_entity(
-                null_source(),
-                position,
-                Vec2::ZERO,
-                level.dimension.clone(),
-                permissions,
-                CommandEntity {
-                    id: player.id(),
-                    uuid: player.uuid(),
-                    is_player: true,
-                    display_name: player.get_display_name(),
-                    plain_text_name: player.get_plain_text_name(),
-                    eye_height: player.player.living.entity.eye_height,
-                    player: player.handle.clone(),
-                },
-            ),
-            None => CommandSourceStack::named(
-                null_source(),
-                position,
-                Vec2::ZERO,
-                level.dimension.clone(),
-                permissions,
-                mc_text::Component::literal("Lectern"),
-            ),
-        };
+        let source = CommandSourceStack::named(
+            null_source(),
+            Vec3::at_center_of(&self.base.pos),
+            Vec2::ZERO,
+            level.dimension.clone(),
+            permissions,
+            mc_text::Component::literal("Lectern"),
+        );
         mc_game_core::world::item::resolve_for_item(book, &ResolutionContext::create(&source));
     }
 
@@ -177,6 +153,20 @@ impl BlockEntity for LecternBlockEntity {
             .unwrap_or_default();
         self.page_count = get_page_count(&self.book);
         self.page = mth::clamp_i32(tag.get_int_or("Page", 0), 0, self.page_count - 1);
+    }
+
+    fn load_additional_in_level(
+        &mut self,
+        level: &mut ServerLevel,
+        tag: &CompoundTag,
+    ) -> Option<BlockState> {
+        self.load_additional(tag);
+        let mut book = std::mem::take(&mut self.book);
+        self.resolve_book(level, &mut book);
+        self.book = book;
+        self.page_count = get_page_count(&self.book);
+        self.page = mth::clamp_i32(tag.get_int_or("Page", 0), 0, self.page_count - 1);
+        None
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {
