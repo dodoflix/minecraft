@@ -1,4 +1,4 @@
-//! Menu verbs of the scenario DSL: `click`, `creative_slot`, `rename`, `select_trade`, `set_beacon`, `slot_state`, `place_recipe`,
+//! Menu verbs of the scenario DSL: `click`, `creative_slot`, `pick_entity`, `rename`, `select_trade`, `set_beacon`, `slot_state`, `place_recipe`,
 //! `recipe_seen`, `recipe_settings` and the dump kinds `menu:REF`, `recipes:REF` (the grammar of the Java driver's `MenuVerbs.java`, which lists
 //! every verb and option).
 //!
@@ -18,8 +18,8 @@ use mc_protocol::components::HashedStack;
 use mc_protocol::components::hashed::component_hash;
 use mc_protocol::packets::play::{
     ContainerInput, RecipeBookType, ServerboundContainerClickPacket,
-    ServerboundContainerSlotStateChangedPacket, ServerboundPlaceRecipePacket,
-    ServerboundPlayPacket, ServerboundRecipeBookChangeSettingsPacket,
+    ServerboundContainerSlotStateChangedPacket, ServerboundPickItemFromEntityPacket,
+    ServerboundPlaceRecipePacket, ServerboundPlayPacket, ServerboundRecipeBookChangeSettingsPacket,
     ServerboundRecipeBookSeenRecipePacket, ServerboundRenameItemPacket,
     ServerboundSelectTradePacket, ServerboundSetBeaconPacket, ServerboundSetCreativeModeSlotPacket,
 };
@@ -169,6 +169,15 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
                 item_stack: stack,
             })
         }),
+        "pick_entity" => {
+            let id = h.action_ref(&a[2]);
+            deliver(h, &a[1], |_, _| {
+                P::PickItemFromEntity(ServerboundPickItemFromEntityPacket {
+                    id,
+                    include_data: a.iter().skip(3).any(|t| t == "data"),
+                })
+            });
+        }
         "rename" => deliver(h, &a[1], |_, _| {
             let text = &a[2];
             P::RenameItem(ServerboundRenameItemPacket {

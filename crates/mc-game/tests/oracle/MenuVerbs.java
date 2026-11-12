@@ -32,6 +32,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayId;
  *                             `state` its state id (`stale` = the previous one), `changed` none, `carried` the stack on the menu's cursor before the click
  *                             (what the client believes). STACK = ITEM[components][*COUNT] (`-` = empty); a wrong hash makes the server resend the slot.
  * creative_slot PLAYER SLOT STACK [count]   ServerboundSetCreativeModeSlotPacket (a negative SLOT drops the stack)
+ * pick_entity PLAYER REF [data]   ServerboundPickItemFromEntityPacket (`data` = include the profile print)
  * rename PLAYER TEXT          ServerboundRenameItemPacket                     select_trade PLAYER N   ServerboundSelectTradePacket (= trade_select)
  * set_beacon PLAYER EFFECT1|- EFFECT2|-   ServerboundSetBeaconPacket
  * slot_state PLAYER SLOT true|false [cid=N]   ServerboundContainerSlotStateChangedPacket
@@ -58,6 +59,10 @@ final class MenuVerbs {
                stack.setCount(Integer.parseInt(a.get(4)));
             }
             p.connection.handleSetCreativeModeSlot(new ServerboundSetCreativeModeSlotPacket(Short.parseShort(a.get(2)), stack));
+         }
+         case "pick_entity" -> {
+            d.world();
+            d.player(a.get(1)).connection.handlePickItemFromEntity(new ServerboundPickItemFromEntityPacket(d.ref(a.get(2)).getId(), a.contains("data")));
          }
          case "rename" -> {
             d.world();
