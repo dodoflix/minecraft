@@ -7,7 +7,7 @@ use crate::common::entity_oracle::{Fixture, Options, compare};
 
 /// Compares with the `attributes` lists of `nbt:` dumps sorted (vanilla saves them in identity hash order, which changes
 /// between JVM runs).
-fn check(name: &str) {
+pub(crate) fn check(name: &str) {
     let normalize = |lines: &[String]| -> Vec<String> {
         lines.iter().map(|l| with_sorted_attributes(l)).collect()
     };

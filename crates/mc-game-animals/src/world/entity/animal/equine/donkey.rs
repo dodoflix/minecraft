@@ -105,6 +105,14 @@ impl Entity for Donkey {
         abstract_chested_horse::drop_equipment(self, level);
     }
 
+    fn chested_horse_has_chest(&self) -> Option<bool> {
+        Some(abstract_chested_horse::has_chest(self))
+    }
+
+    fn chested_horse_set_chest_slot(&mut self, stack: &ItemStack) -> bool {
+        abstract_chested_horse::chest_slot_set(self, stack)
+    }
+
     fn can_use_slot(&self, slot: EquipmentSlot) -> bool {
         abstract_horse::can_use_slot(self, slot)
     }

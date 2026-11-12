@@ -1,0 +1,91 @@
+# Dispenser chest (Items.CHEST, an OptionalDispenseItemBehavior): the first alive chest-less AbstractChestedHorse in the block in front that is tamed
+# takes the chest through getSlot(499).set(stack) (ChestedHorse flag, a new inventory), one item is consumed; otherwise the default behaviour drops it.
+# The success flag is never set to false by this behaviour, so the click is always 1000.
+# Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 2
+time 18000
+note c1 tamed donkey: the chest is equipped (ChestedHorse, Items inventory), the chest is consumed, click 1000
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+spawn h1a minecraft:donkey 1.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 501
+dispense 0 -60 0 c1
+dump be:0,-60,0 entities events nbt:h1a
+note c2 untamed donkey: not tamed, the chest is dropped
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+spawn h2a minecraft:donkey 1.5 -60 4.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 502
+dispense 0 -60 4 c2
+dump be:0,-60,4 entities events nbt:h2a
+note c3 tamed donkey that already has a chest: filtered out, the chest is dropped
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+spawn h3a minecraft:donkey 1.5 -60 8.5 0 0 {NoAI:1b,Silent:1b,Tame:1b,ChestedHorse:1b}
+level_seed 503
+dispense 0 -60 8 c3
+dump be:0,-60,8 entities events nbt:h3a
+note c4 tamed mule
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+spawn h4a minecraft:mule 1.5 -60 12.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 504
+dispense 0 -60 12 c4
+dump be:0,-60,12 entities events nbt:h4a
+note c5 tamed llama
+block 0 -60 16 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 16 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+spawn h5a minecraft:llama 1.5 -60 16.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 505
+dispense 0 -60 16 c5
+dump be:0,-60,16 entities events nbt:h5a
+note c6 tamed trader llama
+block 0 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 20 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+spawn h6a minecraft:trader_llama 1.5 -60 20.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 506
+dispense 0 -60 20 c6
+dump be:0,-60,20 entities events nbt:h6a
+note c7 tamed horse: not a chested horse, the chest is dropped
+block 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 24 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+spawn h7a minecraft:horse 1.5 -60 24.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 507
+dispense 0 -60 24 c7
+dump be:0,-60,24 entities events nbt:h7a
+note c8 tamed baby donkey: age does not matter
+block 0 -60 28 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 28 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+spawn h8a minecraft:donkey 1.5 -60 28.5 0 0 {NoAI:1b,Silent:1b,Tame:1b,Age:-100}
+level_seed 508
+dispense 0 -60 28 c8
+dump be:0,-60,28 entities events nbt:h8a
+note c9 two donkeys in front, the untamed one first: the tamed one takes the chest
+block 0 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 32 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+spawn h9a minecraft:donkey 1.5 -60 32.5 0 0 {NoAI:1b,Silent:1b}
+spawn h9b minecraft:donkey 1.5 -60 32.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 509
+dispense 0 -60 32 c9
+dump be:0,-60,32 entities events nbt:h9a nbt:h9b
+note c10 a stack of 3 chests: one is equipped, two remain
+block 0 -60 36 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 36 {Items:[{Slot:0b,id:"minecraft:chest",count:3}]}
+spawn h10a minecraft:mule 1.5 -60 36.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 510
+dispense 0 -60 36 c10
+dump be:0,-60,36 entities events nbt:h10a
+note c11 no horse at all: dropped
+block 0 -60 40 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 40 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+level_seed 511
+dispense 0 -60 40 c11
+dump be:0,-60,40 entities events 
+note c12 the donkey of c1 again with another chest: it has one now, filtered out, the chest is dropped
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:chest",count:1}]}
+level_seed 520
+dispense 0 -60 0 c12
+dump be:0,-60,0 entities events nbt:h1a
+tick 2
+dump entities
