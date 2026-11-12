@@ -12,14 +12,14 @@ use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::player::server_player::ServerPlayer;
 use crate::world::item::behaviour;
 use crate::world::item::{
-    ContextPlayer, InteractionHand, InteractionResult, ItemStack, UseOnContext,
+    ContextPlayer, InteractionHand, InteractionResult, ItemStack, UseOnContext, block_is_enabled,
 };
 use crate::world::level::block::behaviour as block_behaviour;
 use crate::world::level::block::helpers as block_helpers;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
-use mc_data::block::{Block, BlockState};
+use mc_data::block::BlockState;
 use mc_data::enums::GameType;
 use mc_data::{Attribute, MobEffect};
 use mc_protocol::packets::common::ChatVisibility;
@@ -28,18 +28,7 @@ use mc_protocol::packets::play::{
     ServerboundPlayerActionAction as Action,
 };
 use mc_text::{ChatFormatting, Component};
-use mc_world::level_storage::FeatureFlagSet;
 
-/// `Block.isEnabled(enabledFeatures)`.
-fn block_is_enabled(block: Block, enabled_features: FeatureFlagSet) -> bool {
-    let required: Vec<mc_core::ident::Identifier> = block
-        .data()
-        .required_features
-        .iter()
-        .filter_map(|n| mc_core::ident::Identifier::try_parse(n))
-        .collect();
-    FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(enabled_features)
-}
 impl ServerPlayer {
     /// `MobEffectUtil.getDigSpeedAmplification` (haste / conduit power), `None` when neither is active.
     fn dig_speed_amplification(&self) -> Option<i32> {
@@ -630,6 +619,7 @@ mod tests {
     use super::*;
     use crate::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
     use crate::server::players::player_handle::test_support::handle;
+    use mc_data::block::Block;
 
     fn creative_player(permissions: Option<PermissionLevel>) -> ServerPlayer {
         let mut player = ServerPlayer::new(

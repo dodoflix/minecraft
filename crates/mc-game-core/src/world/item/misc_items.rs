@@ -1,35 +1,15 @@
 //! `SpyglassItem`, `ShieldItem` (the item classes of the books/instruments/banners/misc items that only need the item API).
 
-use super::{InteractionHand, InteractionResult, ItemBehaviour, ItemStack, PlainItem};
+use super::{
+    InteractionHand, InteractionResult, ItemBehaviour, ItemStack, PlainItem, player_play_sound,
+};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::stats::Stat;
 use crate::world::entity::{Entity, ServerPlayer};
 use mc_data::SoundEvent;
 use mc_protocol::components::{BASE_COLOR, ItemUseAnimation};
-use mc_protocol::packets::play::SoundSource;
 use mc_text::Component;
-
-/// `Player.playSound(sound, volume, pitch)`: heard by everybody except the player itself.
-pub fn player_play_sound(
-    level: &mut ServerLevel,
-    player: &dyn Entity,
-    sound: SoundEvent,
-    volume: f32,
-    pitch: f32,
-) {
-    let p = player.position();
-    level.play_sound_at(
-        Some(player.id()),
-        p.x,
-        p.y,
-        p.z,
-        sound,
-        SoundSource::Players,
-        volume,
-        pitch,
-    );
-}
 
 /// `Entity.playSound(sound, volume, pitch)` / `Player.playSound` of a `LivingEntity` that stops using its item.
 fn entity_stop_sound(level: &mut ServerLevel, entity: &dyn Entity, sound: SoundEvent) {

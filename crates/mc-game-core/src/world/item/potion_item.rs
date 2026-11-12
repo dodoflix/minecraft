@@ -5,7 +5,7 @@
 use super::throwable::{ThrowKind, throw_item};
 use super::{
     InteractionHand, InteractionResult, ItemBehaviour, ItemStack, PlainItem, UseOnContext,
-    create_filled_result, player_pov_hit_result,
+    create_filled_result, may_interact, player_pov_hit_result,
 };
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
@@ -177,14 +177,6 @@ impl ItemBehaviour for TippedArrowItem {
 register_item_class!("TippedArrowItem", |item| Box::new(TippedArrowItem {
     description_id: item.data().description_id
 }));
-
-/// `Level.mayInteract(player, pos)`.
-fn may_interact(level: &ServerLevel, player: &ServerPlayer, pos: mc_core::pos::BlockPos) -> bool {
-    !level.is_under_spawn_protection(player, pos)
-        && level
-            .world_border_ref()
-            .is_none_or(|b| b.is_within_bounds_block(&pos))
-}
 
 /// `BottleItem`.
 pub struct BottleItem;

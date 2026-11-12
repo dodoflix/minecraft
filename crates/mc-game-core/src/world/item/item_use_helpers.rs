@@ -31,14 +31,14 @@ pub fn may_use_item_at(
 /// `Player.playSound(sound, volume, pitch)`: heard by everyone but the player (the client plays it itself).
 pub fn player_play_sound(
     level: &mut ServerLevel,
-    player: &ServerPlayer,
+    player: &dyn Entity,
     sound: SoundEvent,
     volume: f32,
     pitch: f32,
 ) {
     let p = player.position();
     level.play_sound_at(
-        Some(player.base_id()),
+        Some(player.id()),
         p.x,
         p.y,
         p.z,

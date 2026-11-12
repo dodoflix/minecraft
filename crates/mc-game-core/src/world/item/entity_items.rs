@@ -1,7 +1,9 @@
 //! Items that place decoration entities: `ArmorStandItem`, `HangingEntityItem` / `ItemFrameItem` (paintings and item frames) and
 //! `CushionItem`.
 
-use super::{BlockPlaceContext, InteractionResult, ItemBehaviour, ItemStack, UseOnContext};
+use super::{
+    BlockPlaceContext, InteractionResult, ItemBehaviour, ItemStack, UseOnContext, may_use_item_at,
+};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::decoration::cushion::Cushion;
@@ -21,22 +23,6 @@ use mc_core::pos::BlockPos;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{EntityType, GameEvent, Item, SoundEvent};
 use mc_protocol::packets::play::SoundSource;
-
-/// `Player.mayUseItemAt(pos, direction, itemStack)`.
-pub fn may_use_item_at(
-    player: &ServerPlayer,
-    level: &ServerLevel,
-    pos: BlockPos,
-    direction: Direction,
-    stack: &ItemStack,
-) -> bool {
-    player.player.abilities.may_build
-        || super::can_place_on_block_in_adventure_mode(
-            stack,
-            level,
-            pos.relative(direction.get_opposite()),
-        )
-}
 
 /// `ArmorStandItem`.
 struct ArmorStandItem;
@@ -123,10 +109,10 @@ impl HangingEntityItem {
     ) -> bool {
         if self.item_frame_item {
             !level.is_outside_build_height(block_pos.y())
-                && may_use_item_at(player, level, block_pos, direction, stack)
+                && may_use_item_at(level, player, block_pos, direction, stack)
         } else {
             !direction.get_axis().is_vertical()
-                && may_use_item_at(player, level, block_pos, direction, stack)
+                && may_use_item_at(level, player, block_pos, direction, stack)
         }
     }
 }
