@@ -3,11 +3,11 @@
 use super::{InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, PlainItem, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::entity::ai::village::poi::PoiTypes;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::inventory::Prediction;
-use crate::world::level::{BlockGetter, LevelReader};
-use mc_core::pos::BlockPos;
+use crate::world::level::BlockGetter;
 use mc_data::block::Block;
 use mc_data::{Item, SoundEvent};
 use mc_protocol::codec::GlobalPos;
@@ -19,13 +19,6 @@ pub struct CompassItem;
 
 register_item_class!("CompassItem", |_| Box::new(CompassItem));
 
-/// `level.getPoiManager().existsAtPosition(PoiTypes.LODESTONE, pos)`: a lodestone POI exists exactly where a lodestone
-/// block stands. An unloaded chunk counts as present (vanilla reads the POI storage, which this check cannot).
-fn lodestone_poi_exists(level: &ServerLevel, pos: BlockPos) -> bool {
-    !level.has_chunk(pos.x() >> 4, pos.z() >> 4)
-        || level.get_block_state(pos).block() == Block::LODESTONE
-}
-
 /// `LodestoneTracker.tick(level)`: the tracker with a vanished lodestone cleared, `None` when it stays as it is.
 pub fn tick_lodestone_tracker(
     tracker: &LodestoneTracker,
@@ -36,7 +29,11 @@ pub fn tick_lodestone_tracker(
         return None;
     }
     let pos = target.pos;
-    if level.is_in_world_bounds(pos) && lodestone_poi_exists(level, pos) {
+    if level.is_in_world_bounds(pos)
+        && level
+            .poi_manager()
+            .exists_at_position(PoiTypes::LODESTONE, pos)
+    {
         None
     } else {
         Some(LodestoneTracker {
