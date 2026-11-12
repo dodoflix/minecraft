@@ -1,0 +1,20 @@
+# an arrow, a wind charge, a firework rocket and a plain item, all due on tick 5
+E arrow#1 minecraft:arrow pos=0.5,-55.0,0.5 delta=0.05360950215977303,-1.0879844832586694,-0.0510483062378965 rot=133.59796,-86.10759 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wind_charge#1 minecraft:wind_charge pos=4.5,-55.0,0.5 delta=0.10492577560882974,-1.0307519686014295,-0.05640414056874235 rot=118.26075,-83.40753 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#1 minecraft:firework_rocket pos=8.5,-55.0,0.5 delta=-0.0037277006151017955,-0.49728529530260623,-0.004354468163150666 rot=-139.43448,-89.33957 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=12.5,-55.0,0.5 delta=-0.019107741666257144,0.2,0.015449101799692652 rot=299.42035,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=3021 pos=0,-55,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=1051 pos=4,-55,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3021 pos=4,-55,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=1004 pos=8,-55,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3021 pos=8,-55,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=3021 pos=12,-55,0 data=1 global=0
+E arrow#1 minecraft:arrow pos=0.553609502159773,-56.08798448325867,0.4489516937621035 delta=0.053073407649435356,-1.1271046488019112,-0.05053782366235212 rot=133.59796,-86.10759 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wind_charge#1 minecraft:wind_charge pos=4.604925775608829,-56.03075196860143,0.4435958594312577 delta=0.10492577560882974,-1.0307519686014295,-0.05640414056874235 rot=106.95645,-50.044518 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#1 minecraft:firework_rocket pos=8.496272299384898,-55.4972852953026,0.49564553183684934 delta=-0.0037277006151017955,-0.49728529530260623,-0.004354468163150666 rot=-139.43448,-89.33957 og=0 fall=0.49728530645370483 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=12.480892258333743,-54.84,0.5154491017996926 delta=-0.01872558719738325,0.1568000030517578,0.015140120058367032 rot=299.42035,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+EV sound at=8.496272299384898,-55.4972852953026,0.49564553183684934 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+N arrow#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.053073407649435356d,-1.1271046488019112d,-0.05053782366235212d],OnGround:0b,Owner:[I;-877557335,263406455,-2071407574,1115186202],PierceLevel:0b,PortalCooldown:0,Pos:[0.553609502159773d,-56.08798448325867d,0.4489516937621035d],Rotation:[133.59796f,-86.10759f],SoundEvent:"minecraft:entity.arrow.hit",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:arrow"},life:0s,pickup:0b,shake:0b}
+E arrow#1 minecraft:arrow pos=0.6784440716354101,-59.94999999925494,0.33246985225841685 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0
+E firework_rocket#1 minecraft:firework_rocket pos=8.458995293233883,-60.0,0.45210085020534274 delta=-0.0037277006151017955,-0.49728529530260623,-0.004354468163150666 rot=-139.43448,-89.33957 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=12.309621288618647,-55.478985848334496,0.653926096762065 delta=-0.015300171069815816,-0.23042029216924012,0.012370582800358652 rot=299.42035,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=11 pickup=0 health=5 owner=- thrower=-

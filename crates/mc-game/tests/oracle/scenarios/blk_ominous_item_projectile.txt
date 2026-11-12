@@ -1,0 +1,17 @@
+# OminousItemSpawner.spawnItem: a ProjectileItem (arrow, wind charge, firework rocket) becomes its projectile entity shot straight down
+# from the spawner with the item's dispense power and uncertainty, owned by the spawner, with the item's own dispense event (1051 for
+# wind charges, 1004 for fireworks) at the spawner; any other item drops as an item entity. Then the spawn event 3021.
+level flat
+preload 2
+note an arrow, a wind charge, a firework rocket and a plain item, all due on tick 5
+spawn s1 minecraft:ominous_item_spawner 0.5 -55 0.5 0 0 {item:{id:"minecraft:arrow",count:1},spawn_item_after_ticks:5L}
+spawn s2 minecraft:ominous_item_spawner 4.5 -55 0.5 0 0 {item:{id:"minecraft:wind_charge",count:1},spawn_item_after_ticks:5L}
+spawn s3 minecraft:ominous_item_spawner 8.5 -55 0.5 0 0 {item:{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:1}}},spawn_item_after_ticks:5L}
+spawn s4 minecraft:ominous_item_spawner 12.5 -55 0.5 0 0 {item:{id:"minecraft:stick",count:1},spawn_item_after_ticks:5L}
+level_seed 81
+tick 5
+dump entities events
+tick 1
+dump entities events nbt:arrow#1
+tick 10
+dump entities

@@ -1,0 +1,158 @@
+# arrow, spectral arrow, tipped arrow with potion_contents, snowball, experience bottle and wind charge, each facing east
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:arrow"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E arrow#1 minecraft:arrow pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+N arrow#1 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[1.055224571632522d,0.031699803845020955d,-0.03773711095696074d],OnGround:0b,PierceLevel:0b,PortalCooldown:0,Pos:[1.2d,-59.4d,0.5d],Rotation:[92.04814f,1.719606f],SoundEvent:"minecraft:entity.arrow.hit",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:arrow"},life:0s,pickup:1b,shake:0b}
+BE 0 -60 4 {Items:[{Slot:0b,count:1,id:"minecraft:spectral_arrow"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+E arrow#1 minecraft:arrow pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=1.2,-59.4,4.5 delta=1.0476496555583072,0.046981378829465285,-0.07148957805457981 rot=93.90367,2.5617127 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=5 global=0
+BE 0 -60 8 {Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:swiftness"}},count:1,id:"minecraft:tipped_arrow"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+E arrow#1 minecraft:arrow pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=1.2,-59.4,4.5 delta=1.0476496555583072,0.046981378829465285,-0.07148957805457981 rot=93.90367,2.5617127 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E arrow#2 minecraft:arrow pos=1.2,-59.4,8.5 delta=0.9968078152190852,-0.046885012269237594,-0.0379771811735095 rot=92.18194,-2.6909745 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+BE 0 -60 12 {Items:[{Slot:0b,count:1,id:"minecraft:snowball"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+E arrow#1 minecraft:arrow pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=1.2,-59.4,4.5 delta=1.0476496555583072,0.046981378829465285,-0.07148957805457981 rot=93.90367,2.5617127 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E arrow#2 minecraft:arrow pos=1.2,-59.4,8.5 delta=0.9968078152190852,-0.046885012269237594,-0.0379771811735095 rot=92.18194,-2.6909745 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=1.2,-59.4,12.5 delta=1.1156488522249726,0.04760854607585787,-0.013555897163353064 rot=90.69614,2.4433467 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0
+BE 0 -60 16 {Items:[{Slot:0b,count:1,id:"minecraft:experience_bottle"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:16}
+E arrow#1 minecraft:arrow pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=1.2,-59.4,4.5 delta=1.0476496555583072,0.046981378829465285,-0.07148957805457981 rot=93.90367,2.5617127 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E arrow#2 minecraft:arrow pos=1.2,-59.4,8.5 delta=0.9968078152190852,-0.046885012269237594,-0.0379771811735095 rot=92.18194,-2.6909745 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=1.2,-59.4,12.5 delta=1.1156488522249726,0.04760854607585787,-0.013555897163353064 rot=90.69614,2.4433467 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E experience_bottle#1 minecraft:experience_bottle pos=1.2,-59.4,16.5 delta=1.3457384485612962,0.017107769122264155,-0.026700736679845054 rot=91.13663,0.72812855 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,16 data=5 global=0
+BE 0 -60 20 {Items:[{Slot:0b,count:1,id:"minecraft:wind_charge"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:20}
+E arrow#1 minecraft:arrow pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=1.2,-59.4,4.5 delta=1.0476496555583072,0.046981378829465285,-0.07148957805457981 rot=93.90367,2.5617127 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E arrow#2 minecraft:arrow pos=1.2,-59.4,8.5 delta=0.9968078152190852,-0.046885012269237594,-0.0379771811735095 rot=92.18194,-2.6909745 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=1.2,-59.4,12.5 delta=1.1156488522249726,0.04760854607585787,-0.013555897163353064 rot=90.69614,2.4433467 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E experience_bottle#1 minecraft:experience_bottle pos=1.2,-59.4,16.5 delta=1.3457384485612962,0.017107769122264155,-0.026700736679845054 rot=91.13663,0.72812855 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=1.5,-59.5,20.5 delta=1.0192080945604842,-0.07378785640450618,-0.004112963698397257 rot=90.2312,-4.1407056 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1051 pos=0,-60,20 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,20 data=5 global=0
+E arrow#1 minecraft:arrow pos=2.255224571632522,-59.368300196154976,0.46226288904303925 delta=1.0446723359796024,-0.018617193891116372,-0.037359740207280265 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=2.247649655558307,-59.353018621170534,4.42851042194542 delta=1.03717316899389,-0.003488434510780028,-0.07077468295581175 rot=93.90367,2.5617127 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E arrow#2 minecraft:arrow pos=2.1968078152190853,-59.446885012269234,8.46202281882649 delta=0.9868397465731945,-0.09641616259367554,-0.03759740972395303 rot=92.18194,-2.6909745 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=2.304492374342379,-59.38256753921697,12.486579661679002 delta=1.1044923743423793,0.017432460783027473,-0.013420338320998643 rot=90.69614,2.1355114 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E experience_bottle#1 minecraft:experience_bottle pos=2.532281076909645,-59.45236330907338,16.473566270432315 delta=1.3322810769096451,-0.05236330907337812,-0.026433729567684673 rot=91.13663,0.13244104 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=2.5192080945604842,-59.57378785640451,20.495887036301603 delta=1.0192080945604842,-0.07378785640450618,-0.004112963698397257 rot=90.13872,-2.484424 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E arrow#1 minecraft:arrow pos=7.496936930510973,-59.94999999925494,0.32301982074309826 delta=0.0,0.0,0.0 rot=92.04811,-6.684919 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=13 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=7.816398660992854,-59.94999999925494,4.095097901610321 delta=0.0,0.0,0.0 rot=93.903595,-5.9070354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=13 dmg=2.0
+E arrow#2 minecraft:arrow pos=5.541634809537515,-59.94999999925494,8.382683986272061 delta=0.0,0.0,0.0 rot=92.18193,-7.405152 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=15 dmg=2.0
+E experience_orb#1 minecraft:experience_orb pos=7.238411449826374,-60.0,15.372214333404061 delta=8.099306393470631E-4,0.0,-9.372477778228751E-4 rot=80.83983,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=16 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.746637714581693,-58.91752736643623,14.570287987348445 delta=-0.13655744922726853,-0.1685127666826267,-0.09577994807791204 rot=299.71518,0.0 og=0 fall=0.6147397893946618 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=16 health=5
+E experience_orb#3 minecraft:experience_orb pos=9.020813328135405,-59.782602893533266,18.56168078068728 delta=0.13986582712336648,-0.21385198725700375,0.11341177286169996 rot=314.88007,0.0 og=0 fall=0.9826115127652884 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=16 health=5
+EV level_event r=64.0 ex=0 type=2002 pos=6,-60,16 data=-13083194 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=6,-60,16 data=0 global=0
+EV sound at=5.541634809537515,-59.94999999925494,8.382683986272061 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1272864
+EV sound at=7.496936930510973,-59.94999999925494,0.32301982074309826 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.184536
+EV sound at=7.816398660992854,-59.94999999925494,4.095097901610321 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1911203
+# fireworks facing up, east and down: positioned just outside the block, shot with power 0.5 (the rocket flies on its own motion)
+BE 30 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:30,y:-60,z:0}
+E arrow#1 minecraft:arrow pos=7.496936930510973,-59.94999999925494,0.32301982074309826 delta=0.0,0.0,0.0 rot=92.04811,-6.684919 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=13 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=7.816398660992854,-59.94999999925494,4.095097901610321 delta=0.0,0.0,0.0 rot=93.903595,-5.9070354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=13 dmg=2.0
+E arrow#2 minecraft:arrow pos=5.541634809537515,-59.94999999925494,8.382683986272061 delta=0.0,0.0,0.0 rot=92.18193,-7.405152 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=15 dmg=2.0
+E experience_orb#1 minecraft:experience_orb pos=7.238411449826374,-60.0,15.372214333404061 delta=8.099306393470631E-4,0.0,-9.372477778228751E-4 rot=80.83983,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=16 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.746637714581693,-58.91752736643623,14.570287987348445 delta=-0.13655744922726853,-0.1685127666826267,-0.09577994807791204 rot=299.71518,0.0 og=0 fall=0.6147397893946618 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=16 health=5
+E experience_orb#3 minecraft:experience_orb pos=9.020813328135405,-59.782602893533266,18.56168078068728 delta=0.13986582712336648,-0.21385198725700375,0.11341177286169996 rot=314.88007,0.0 og=0 fall=0.9826115127652884 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=16 health=5
+E firework_rocket#1 minecraft:firework_rocket pos=30.5,-58.99999000000025,0.5 delta=0.006226893873919245,0.5003379556200886,-0.0017611080780698858 rot=105.79224,89.25912 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1004 pos=30,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=30,-60,0 data=1 global=0
+N firework_rocket#1 {Air:300s,Fire:0s,FireworksItem:{components:{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"small_ball"}],flight_duration:1b}},count:1,id:"minecraft:firework_rocket"},HasBeenShot:0b,Invulnerable:0b,Life:0,LifeTime:24,Motion:[0.006226893873919245d,0.5003379556200886d,-0.0017611080780698858d],OnGround:0b,PortalCooldown:0,Pos:[30.5d,-58.99999000000025d,0.5d],Rotation:[105.79224f,89.25912f],ShotAtAngle:1b,fall_distance:0.0d}
+BE 30 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:30,y:-60,z:4}
+E arrow#1 minecraft:arrow pos=7.496936930510973,-59.94999999925494,0.32301982074309826 delta=0.0,0.0,0.0 rot=92.04811,-6.684919 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=13 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=7.816398660992854,-59.94999999925494,4.095097901610321 delta=0.0,0.0,0.0 rot=93.903595,-5.9070354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=13 dmg=2.0
+E arrow#2 minecraft:arrow pos=5.541634809537515,-59.94999999925494,8.382683986272061 delta=0.0,0.0,0.0 rot=92.18193,-7.405152 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=15 dmg=2.0
+E experience_orb#1 minecraft:experience_orb pos=7.238411449826374,-60.0,15.372214333404061 delta=8.099306393470631E-4,0.0,-9.372477778228751E-4 rot=80.83983,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=16 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.746637714581693,-58.91752736643623,14.570287987348445 delta=-0.13655744922726853,-0.1685127666826267,-0.09577994807791204 rot=299.71518,0.0 og=0 fall=0.6147397893946618 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=16 health=5
+E experience_orb#3 minecraft:experience_orb pos=9.020813328135405,-59.782602893533266,18.56168078068728 delta=0.13986582712336648,-0.21385198725700375,0.11341177286169996 rot=314.88007,0.0 og=0 fall=0.9826115127652884 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=16 health=5
+E firework_rocket#1 minecraft:firework_rocket pos=30.5,-58.99999000000025,0.5 delta=0.006226893873919245,0.5003379556200886,-0.0017611080780698858 rot=105.79224,89.25912 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#2 minecraft:firework_rocket pos=31.000009999999747,-59.5,4.5 delta=0.5037956846839244,0.001458445323395601,0.004561854246368773 rot=89.48129,0.16593789 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1004 pos=30,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=30,-60,4 data=5 global=0
+BE 30 -58 8 {Items:[],components:{},id:"minecraft:dispenser",x:30,y:-58,z:8}
+E arrow#1 minecraft:arrow pos=7.496936930510973,-59.94999999925494,0.32301982074309826 delta=0.0,0.0,0.0 rot=92.04811,-6.684919 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=13 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=7.816398660992854,-59.94999999925494,4.095097901610321 delta=0.0,0.0,0.0 rot=93.903595,-5.9070354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=13 dmg=2.0
+E arrow#2 minecraft:arrow pos=5.541634809537515,-59.94999999925494,8.382683986272061 delta=0.0,0.0,0.0 rot=92.18193,-7.405152 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=15 dmg=2.0
+E experience_orb#1 minecraft:experience_orb pos=7.238411449826374,-60.0,15.372214333404061 delta=8.099306393470631E-4,0.0,-9.372477778228751E-4 rot=80.83983,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=16 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.746637714581693,-58.91752736643623,14.570287987348445 delta=-0.13655744922726853,-0.1685127666826267,-0.09577994807791204 rot=299.71518,0.0 og=0 fall=0.6147397893946618 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=16 health=5
+E experience_orb#3 minecraft:experience_orb pos=9.020813328135405,-59.782602893533266,18.56168078068728 delta=0.13986582712336648,-0.21385198725700375,0.11341177286169996 rot=314.88007,0.0 og=0 fall=0.9826115127652884 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=16 health=5
+E firework_rocket#1 minecraft:firework_rocket pos=30.5,-58.99999000000025,0.5 delta=0.006226893873919245,0.5003379556200886,-0.0017611080780698858 rot=105.79224,89.25912 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#2 minecraft:firework_rocket pos=31.000009999999747,-59.5,4.5 delta=0.5037956846839244,0.001458445323395601,0.004561854246368773 rot=89.48129,0.16593789 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=30.5,-58.00000999999975,8.5 delta=8.214873956948795E-4,-0.5020243038163438,0.006631196262627032 rot=7.06183,-89.23758 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1004 pos=30,-58,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=30,-58,8 data=0 global=0
+E arrow#1 minecraft:arrow pos=7.496936930510973,-59.94999999925494,0.32301982074309826 delta=0.0,0.0,0.0 rot=92.04811,-6.684919 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=14 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=7.816398660992854,-59.94999999925494,4.095097901610321 delta=0.0,0.0,0.0 rot=93.903595,-5.9070354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=14 dmg=2.0
+E arrow#2 minecraft:arrow pos=5.541634809537515,-59.94999999925494,8.382683986272061 delta=0.0,0.0,0.0 rot=92.18193,-7.405152 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=16 dmg=2.0
+E experience_orb#1 minecraft:experience_orb pos=7.239221380465721,-60.0,15.371277085626238 delta=4.762392638254961E-4,0.0,-5.511017487772569E-4 rot=80.83983,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=17 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.6100802653544246,-59.11604013311886,14.474508039270534 delta=-0.1338263028473498,-0.1945425151353047,-0.09386435094321133 rot=299.71518,0.0 og=0 fall=0.8132525521796197 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=17 health=5
+E experience_orb#3 minecraft:experience_orb pos=9.160679155258771,-60.0,18.67509255354898 delta=0.08224111461849921,0.0975407949028015,0.06668612914846907 rot=314.88007,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=17 health=5
+E firework_rocket#1 minecraft:firework_rocket pos=30.50622689387392,-58.49965204438016,0.4982388919219301 delta=0.006226893873919245,0.5003379556200886,-0.0017611080780698858 rot=105.79224,89.25912 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#2 minecraft:firework_rocket pos=31.503805684683673,-59.498541554676606,4.504561854246369 delta=0.5037956846839244,0.001458445323395601,0.004561854246368773 rot=89.48129,0.16593789 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E firework_rocket#3 minecraft:firework_rocket pos=30.500821487395694,-58.50203430381609,8.506631196262626 delta=8.214873956948795E-4,-0.5020243038163438,0.006631196262627032 rot=7.06183,-89.23758 og=0 fall=0.5020242929458618 fire=0 air=300 alive=1 pose=standing
+E arrow#1 minecraft:arrow pos=7.496936930510973,-59.94999999925494,0.32301982074309826 delta=0.0,0.0,0.0 rot=92.04811,-6.684919 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=43 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=7.816398660992854,-59.94999999925494,4.095097901610321 delta=0.0,0.0,0.0 rot=93.903595,-5.9070354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=43 dmg=2.0
+E arrow#2 minecraft:arrow pos=5.541634809537515,-59.94999999925494,8.382683986272061 delta=0.0,0.0,0.0 rot=92.18193,-7.405152 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=45 dmg=2.0
+E experience_orb#1 minecraft:experience_orb pos=7.239977648444834,-60.0,15.370401936016593 delta=9.767173915568912E-11,0.0,-1.1302525924141295E-10 rot=80.83983,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=46 health=5
+E experience_orb#2 minecraft:experience_orb pos=2.472389656134401,-60.0,13.676543899661642 delta=-4.5391271330579366E-6,0.0,-3.1836956796093705E-6 rot=299.71518,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=46 health=5
+E experience_orb#3 minecraft:experience_orb pos=9.77727381809054,-60.0,19.175065243712478 delta=3.6151389704789306E-7,0.0,2.9313759351796683E-7 rot=314.88007,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=46 health=5
+E firework_rocket#2 minecraft:firework_rocket pos=46.11388054051742,-59.45624664029819,4.636855627391057 delta=0.5037956846839244,0.001458445323395601,0.004561854246368773 rot=89.48129,0.16593789 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=30.50622689387392,-58.49965204438016,0.4982388919219301 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+EV sound at=31.503805684683673,-59.498541554676606,4.504561854246369 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+EV sound at=30.500821487395694,-58.50203430381609,8.506631196262626 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+# the other facings of a plain arrow and snowball: north, up, west, south and down
+BE 40 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:40,y:-60,z:0}
+BE 40 -58 16 {Items:[],components:{},id:"minecraft:dispenser",x:40,y:-58,z:16}
+E arrow#1 minecraft:arrow pos=7.496936930510973,-59.94999999925494,0.32301982074309826 delta=0.0,0.0,0.0 rot=92.04811,-6.684919 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=43 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=7.816398660992854,-59.94999999925494,4.095097901610321 delta=0.0,0.0,0.0 rot=93.903595,-5.9070354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=43 dmg=2.0
+E arrow#2 minecraft:arrow pos=5.541634809537515,-59.94999999925494,8.382683986272061 delta=0.0,0.0,0.0 rot=92.18193,-7.405152 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=45 dmg=2.0
+E experience_orb#1 minecraft:experience_orb pos=7.239977648444834,-60.0,15.370401936016593 delta=9.767173915568912E-11,0.0,-1.1302525924141295E-10 rot=80.83983,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=46 health=5
+E experience_orb#2 minecraft:experience_orb pos=2.472389656134401,-60.0,13.676543899661642 delta=-4.5391271330579366E-6,0.0,-3.1836956796093705E-6 rot=299.71518,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=46 health=5
+E experience_orb#3 minecraft:experience_orb pos=9.77727381809054,-60.0,19.175065243712478 delta=3.6151389704789306E-7,0.0,2.9313759351796683E-7 rot=314.88007,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=46 health=5
+E firework_rocket#2 minecraft:firework_rocket pos=46.11388054051742,-59.45624664029819,4.636855627391057 delta=0.5037956846839244,0.001458445323395601,0.004561854246368773 rot=89.48129,0.16593789 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E arrow#3 minecraft:arrow pos=40.5,-59.4,-0.19999999999999996 delta=-0.03275983152388002,-0.02550324525304003,-1.0740434035821513 rot=-178.25293,-1.3596048 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E arrow#4 minecraft:arrow pos=40.5,-58.7,4.5 delta=0.03347818480566978,1.1067948611964022,-0.05171778846457838 rot=147.08408,86.81402 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#2 minecraft:snowball pos=39.8,-59.4,8.5 delta=-1.0632477452669344,-0.0015253012023301639,-0.016478957843738016 rot=-90.88793,-0.082178205 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#3 minecraft:snowball pos=40.5,-59.4,13.2 delta=-0.05074740659277586,0.10646547058569844,1.0683758758241038 rot=-2.71948,5.6844654 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E arrow#5 minecraft:arrow pos=40.5,-58.1,16.5 delta=0.07715219007308582,-1.1915195864062351,0.03922484930282275 rot=63.050816,-85.84527 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+EV level_event r=64.0 ex=0 type=1002 pos=40,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=40,-60,0 data=2 global=0
+EV level_event r=64.0 ex=0 type=1002 pos=40,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=40,-60,4 data=1 global=0
+EV level_event r=64.0 ex=0 type=1002 pos=40,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=40,-60,8 data=4 global=0
+EV level_event r=64.0 ex=0 type=1002 pos=40,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=40,-60,12 data=3 global=0
+EV level_event r=64.0 ex=0 type=1002 pos=40,-58,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=40,-58,16 data=0 global=0
+E arrow#1 minecraft:arrow pos=7.496936930510973,-59.94999999925494,0.32301982074309826 delta=0.0,0.0,0.0 rot=92.04811,-6.684919 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=44 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=7.816398660992854,-59.94999999925494,4.095097901610321 delta=0.0,0.0,0.0 rot=93.903595,-5.9070354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=44 dmg=2.0
+E arrow#2 minecraft:arrow pos=5.541634809537515,-59.94999999925494,8.382683986272061 delta=0.0,0.0,0.0 rot=92.18193,-7.405152 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=46 dmg=2.0
+E experience_orb#1 minecraft:experience_orb pos=7.239977648444834,-60.0,15.370401936016593 delta=5.7430988398661006E-11,0.0,-6.64588591168866E-11 rot=80.83983,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=47 health=5
+E experience_orb#2 minecraft:experience_orb pos=2.472389656134401,-60.0,13.676543899661642 delta=-2.6690070226267028E-6,0.0,-1.8720132478552554E-6 rot=299.71518,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=47 health=5
+E experience_orb#3 minecraft:experience_orb pos=9.77727381809054,-60.0,19.175065243712478 delta=2.1257019283968527E-7,0.0,1.7236492232114773E-7 rot=314.88007,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=47 health=5
+E firework_rocket#2 minecraft:firework_rocket pos=46.61767622520134,-59.454788194974796,4.641417481637426 delta=0.5037956846839244,0.001458445323395601,0.004561854246368773 rot=89.48129,0.16593789 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E arrow#3 minecraft:arrow pos=40.46724016847612,-59.42550324525304,-1.2740434035821513 delta=-0.032432233521063315,-0.07524821304372753,-1.063302979789206 rot=-178.25293,-1.3596048 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E arrow#4 minecraft:arrow pos=40.533478184805666,-57.5932051388036,4.448282211535422 delta=0.03314340327688593,1.0457269231396564,-0.05120061107315187 rot=147.08408,86.81402 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#2 minecraft:snowball pos=38.74738472204581,-59.431210048490954,8.483685831577544 delta=-1.0526152779541857,-0.031210048490955565,-0.016314168422456223 rot=-90.88793,-0.40536973 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#3 minecraft:snowball pos=40.449760066989185,-59.32429918339093,14.257692127254689 delta=-0.05023993301081308,0.075700816609073,1.057692127254689 rot=-2.7194796,5.3654075 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E arrow#5 minecraft:arrow pos=40.577152190073086,-59.29151958640624,16.539224849302823 delta=0.0763806689081356,-1.229604401905389,0.038832601183871836 rot=63.050816,-85.84527 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E arrow#1 minecraft:arrow pos=7.496936930510973,-59.94999999925494,0.32301982074309826 delta=0.0,0.0,0.0 rot=92.04811,-6.684919 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=73 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=7.816398660992854,-59.94999999925494,4.095097901610321 delta=0.0,0.0,0.0 rot=93.903595,-5.9070354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=73 dmg=2.0
+E arrow#2 minecraft:arrow pos=5.541634809537515,-59.94999999925494,8.382683986272061 delta=0.0,0.0,0.0 rot=92.18193,-7.405152 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=75 dmg=2.0
+E experience_orb#1 minecraft:experience_orb pos=7.239977648444834,-60.0,15.370401936016593 delta=1.1778500733578367E-17,0.0,-1.3630023488839704E-17 rot=80.83983,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=76 health=5
+E experience_orb#2 minecraft:experience_orb pos=2.472389656134401,-60.0,13.676543899661642 delta=-5.473856893374896E-13,0.0,-3.839305230143946E-13 rot=299.71518,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=76 health=5
+E experience_orb#3 minecraft:experience_orb pos=9.77727381809054,-60.0,19.175065243712478 delta=4.3595944317014436E-14,0.0,3.5350259861628123E-14 rot=314.88007,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=76 health=5
+E arrow#3 minecraft:arrow pos=40.39228774034219,-59.94999999925494,-5.320655801505983 delta=0.0,0.0,0.0 rot=-178.25293,-5.7661552 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=25 dmg=2.0
+E arrow#4 minecraft:arrow pos=41.37143601586616,-49.74035566202494,3.1537877190597294 delta=0.02476383295766972,-0.4828014967375218,-0.03825567849365643 rot=147.08406,-61.33506 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E arrow#5 minecraft:arrow pos=40.57116163481696,-59.94999999925494,16.51159963617648 delta=0.0,0.0,0.0 rot=63.050816,-85.87895 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=28 dmg=2.0

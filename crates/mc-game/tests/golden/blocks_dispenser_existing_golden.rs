@@ -1,5 +1,6 @@
-//! The dispense behaviours of armor stands, boats, water bottles, shulker boxes and TNT against vanilla
-//! (`tests/oracle/scenarios/blk_disp_*.txt`; fixtures regenerated with `scripts/block-oracle.sh blk_disp_NAME`).
+//! The dispense behaviours of armor stands, boats, projectiles, water bottles, shulker boxes and TNT, and the projectiles
+//! of the ominous item spawner, against vanilla (`tests/oracle/scenarios/blk_disp_*.txt`, `blk_ominous_item_projectile.txt`;
+//! fixtures regenerated with `scripts/block-oracle.sh NAME`).
 
 use crate::common;
 use crate::common::entity_oracle::Options;
@@ -19,6 +20,16 @@ fn boat() {
             ..Default::default()
         },
     );
+}
+
+#[test]
+fn projectiles() {
+    common::block_scenario::check("blk_disp_projectiles");
+}
+
+#[test]
+fn ominous_item_projectiles() {
+    common::block_scenario::check("blk_ominous_item_projectile");
 }
 
 #[test]

@@ -1,17 +1,22 @@
 //! `net.minecraft.world.entity.OminousItemSpawner`: spawned above a player by an ominous trial spawner, it drops its item
 //! 60-120 ticks later.
-//! shortcut: items that are `ProjectileItem`s (lingering potions, arrows, ...) are dropped as plain `ItemEntity`s until
-//! `world::item::projectile_item` exists; wire `spawnProjectile` there.
+//!
+//! Not implemented: lingering and splash potions, fire charges and tridents are `ProjectileItem`s in vanilla but not here
+//! yet, so they drop as plain item entities.
 
 use super::EntityId;
 use super::entity::{self, Entity, EntityData};
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::item::ItemEntity;
+use super::projectile::spawn::spawn_projectile_using_shoot;
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
-use crate::world::item::{ItemStack, ItemStackExt, load_item_stack};
+use crate::world::item::{
+    ItemStack, ItemStackExt, ProjectileItem, load_item_stack, projectile_item,
+};
 use crate::world::level::LevelAccessor;
 use linkme::distributed_slice;
+use mc_core::direction::Direction;
 use mc_data::{EntityType, GameEvent, SoundEvent};
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::packets::play::level::SoundSource;
@@ -63,13 +68,51 @@ impl OminousItemSpawner {
             return;
         }
         let p = self.base.position();
-        let spawned = ItemEntity::with_stack(level, p.x, p.y, p.z, item);
-        let spawned_id = spawned.id();
-        level.add_fresh_entity(Box::new(spawned));
+        let spawned_id = if let Some(projectile) = projectile_item(item.item()) {
+            self.spawn_projectile(level, projectile, &item)
+        } else {
+            let spawned = ItemEntity::with_stack(level, p.x, p.y, p.z, item);
+            let id = spawned.id();
+            level.add_fresh_entity(Box::new(spawned));
+            id
+        };
         let block_pos = self.base.block_position();
         level.level_event(None, 3021, block_pos, 1);
         level.game_event_from_entity(Some(spawned_id), GameEvent::ENTITY_PLACE, p);
         self.set_item(ItemStack::empty());
+    }
+
+    /// `spawnProjectile(level, projectileItem, item)`: shot straight down, owned by the spawner.
+    fn spawn_projectile(
+        &self,
+        level: &mut ServerLevel,
+        item_class: &dyn ProjectileItem,
+        item: &ItemStack,
+    ) -> EntityId {
+        let config = item_class.create_dispense_config();
+        let block_pos = self.base.block_position();
+        if let Some(event) = config.override_dispense_event {
+            level.level_event(None, event, block_pos, 0);
+        }
+        let direction = Direction::Down;
+        let projectile = item_class.as_projectile(level, self.base.position(), item, direction);
+        let id = projectile.id();
+        spawn_projectile_using_shoot(
+            level,
+            projectile,
+            item,
+            f64::from(direction.get_step_x()),
+            f64::from(direction.get_step_y()),
+            f64::from(direction.get_step_z()),
+            config.power,
+            config.uncertainty,
+        );
+        level.with_entity(id, |_, e| {
+            if let Some(p) = e.as_projectile_mut() {
+                p.set_owner(Some(self));
+            }
+        });
+        id
     }
 }
 
