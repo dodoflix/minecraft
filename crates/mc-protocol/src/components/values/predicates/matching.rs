@@ -4,7 +4,7 @@ use super::block::BlockPredicate;
 use super::component_predicates::*;
 use super::matchers::{DataComponentMatchers, DataComponentPredicate};
 use super::state::{PropertyMatcher, StatePropertiesPredicate, ValueMatcher};
-use super::{AdventureModePredicate, CollectionPredicate};
+use super::{AdventureModePredicate, CollectionPredicate, LastCheckedBlock};
 use crate::components::holder::{Holder, HolderSet, NoDirect};
 use crate::components::item_stack::{ItemStack, ItemStackTemplate};
 use crate::components::map::DataComponentGetter;
@@ -20,6 +20,7 @@ use crate::components::values::effects::{
     ATTRIBUTE_MODIFIERS, ItemAttributeModifiersEntry, MobEffectInstance, POTION_CONTENTS,
 };
 use mc_core::ident::Identifier;
+use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::props::{PropertyDef, PropertyKind};
 use mc_nbt::{CompoundTag, Tag};
@@ -152,12 +153,64 @@ impl BlockPredicate {
     }
 }
 
+/// The block entities of the world a `BlockInWorld` reads (`getEntity()`).
+pub trait AdventureBlockEntities {
+    /// `saveWithFullMetadata` of the block entity at `pos`.
+    fn full_metadata(&self, pos: BlockPos) -> Option<CompoundTag>;
+    /// `saveWithId` of the block entity at `pos`.
+    fn with_id(&self, pos: BlockPos) -> Option<CompoundTag>;
+}
+
 impl AdventureModePredicate {
-    /// `test(BlockInWorld)` (without vanilla's last-checked-block cache).
-    pub fn test(&self, state: BlockState, block_entity: Option<&CompoundTag>) -> bool {
-        self.predicates
-            .iter()
-            .any(|p| p.matches_in_world(state, block_entity))
+    /// `test(BlockInWorld)` for the block at `pos`: the block checked last decides when it has the same state and, if the
+    /// check read a block entity, the same saved block entity data (vanilla's `areSameBlocks`; a failed `nbt` check does
+    /// not count as reading one, so such a verdict is kept for every block with that state).
+    pub fn test(
+        &self,
+        pos: BlockPos,
+        state: BlockState,
+        block_entities: &dyn AdventureBlockEntities,
+    ) -> bool {
+        let mut cache = self.last_checked.lock().unwrap_or_else(|e| e.into_inner());
+        if let Some(last) = cache.as_ref()
+            && last.state == state
+            && (!last.checks_block_entity || {
+                // the cached block entity is the very object read then, so it is looked up where it was
+                let cached = last.entity.as_ref().map(|saved| {
+                    block_entities
+                        .with_id(last.pos)
+                        .unwrap_or_else(|| saved.clone())
+                });
+                cached == block_entities.with_id(pos)
+            })
+        {
+            return last.result;
+        }
+        let mut full_metadata: Option<Option<CompoundTag>> = None;
+        let mut checks_block_entity = false;
+        let mut result = false;
+        for p in &self.predicates {
+            let tag = if p.nbt.is_some() {
+                full_metadata
+                    .get_or_insert_with(|| block_entities.full_metadata(pos))
+                    .as_ref()
+            } else {
+                None
+            };
+            if p.matches_in_world(state, tag) {
+                checks_block_entity |= p.requires_nbt();
+                result = true;
+                break;
+            }
+        }
+        *cache = Some(LastCheckedBlock {
+            pos,
+            state,
+            entity: full_metadata.flatten().and(block_entities.with_id(pos)),
+            checks_block_entity,
+            result,
+        });
+        result
     }
 }
 
@@ -494,6 +547,16 @@ mod tests {
         assert!(!p.test(&stack));
     }
 
+    struct NoBlockEntities;
+    impl AdventureBlockEntities for NoBlockEntities {
+        fn full_metadata(&self, _: BlockPos) -> Option<CompoundTag> {
+            None
+        }
+        fn with_id(&self, _: BlockPos) -> Option<CompoundTag> {
+            None
+        }
+    }
+
     #[test]
     fn adventure_mode_any_predicate() {
         let p = mc_dfu::parse_json(
@@ -502,13 +565,49 @@ mod tests {
         )
         .into_result()
         .unwrap();
-        assert!(p.test(
-            Block::by_name("minecraft:dirt").unwrap().default_state(),
-            None
-        ));
-        assert!(!p.test(
-            Block::by_name("minecraft:sand").unwrap().default_state(),
-            None
-        ));
+        let at = BlockPos::new(0, 0, 0);
+        let dirt = Block::by_name("minecraft:dirt").unwrap().default_state();
+        let sand = Block::by_name("minecraft:sand").unwrap().default_state();
+        assert!(p.test(at, dirt, &NoBlockEntities));
+        assert!(!p.test(at, sand, &NoBlockEntities));
+        assert!(p.test(at, dirt, &NoBlockEntities));
+    }
+
+    /// Chests with their saved data by position.
+    struct Chests(Vec<(BlockPos, CompoundTag)>);
+    impl AdventureBlockEntities for Chests {
+        fn full_metadata(&self, pos: BlockPos) -> Option<CompoundTag> {
+            self.with_id(pos)
+        }
+        fn with_id(&self, pos: BlockPos) -> Option<CompoundTag> {
+            self.0
+                .iter()
+                .find(|(p, _)| *p == pos)
+                .map(|(_, t)| t.clone())
+        }
+    }
+
+    #[test]
+    fn adventure_mode_nbt_verdict_is_kept_for_the_block_state_until_a_match() {
+        let p = mc_dfu::parse_json(
+            &AdventureModePredicate::codec(),
+            r#"{"blocks":"minecraft:chest","nbt":"{Lock:1b}"}"#,
+        )
+        .into_result()
+        .unwrap();
+        let chest = Block::by_name("minecraft:chest").unwrap().default_state();
+        let (empty, locked) = (BlockPos::new(0, 0, 0), BlockPos::new(2, 0, 0));
+        let mut locked_tag = CompoundTag::new();
+        locked_tag.put_byte("Lock", 1);
+        let world = Chests(vec![(empty, CompoundTag::new()), (locked, locked_tag)]);
+        // a failed nbt check does not read the block entity, so its verdict holds for the next chest
+        assert!(!p.test(empty, chest, &world));
+        assert!(!p.test(locked, chest, &world));
+        // a match is remembered with its block entity data: the other chest is checked again
+        let q = AdventureModePredicate::new(p.predicates.clone());
+        assert!(q.test(locked, chest, &world));
+        assert!(!q.test(empty, chest, &world));
+        // ... and that failed verdict now holds again
+        assert!(!q.test(locked, chest, &world));
     }
 }

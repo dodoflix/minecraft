@@ -14,9 +14,10 @@ use crate::world::level::BlockGetter;
 use mc_core::pos::BlockPos;
 use mc_data::Item;
 use mc_data::block::BlockState;
+use mc_nbt::CompoundTag;
 use mc_protocol::components::{
-    AdventureModePredicate, BlockPredicate, CAN_BREAK, CAN_PLACE_ON, PropertyMatcher, TOOL,
-    USE_COOLDOWN, USE_REMAINDER, ValueMatcher, WEAPON,
+    AdventureBlockEntities, AdventureModePredicate, CAN_BREAK, CAN_PLACE_ON, TOOL, USE_COOLDOWN,
+    USE_REMAINDER, WEAPON,
 };
 use mc_world::level_storage::FeatureFlagSet;
 
@@ -101,59 +102,33 @@ pub fn can_break_block_in_adventure_mode(
         .is_some_and(|p| adventure_predicate_test(p, level, pos))
 }
 
-/// `AdventureModePredicate.test(BlockInWorld)`: any predicate matches the block at `pos`.
+/// `AdventureModePredicate.test(BlockInWorld)` for the block at `pos` (the world is read when an `nbt` predicate asks).
 pub fn adventure_predicate_test(
     predicate: &AdventureModePredicate,
     level: &ServerLevel,
     pos: BlockPos,
 ) -> bool {
-    let state = level.get_block_state(pos);
-    predicate
-        .predicates
-        .iter()
-        .any(|p| block_predicate_matches(p, state))
+    predicate.test(pos, level.get_block_state(pos), &LevelBlockEntities(level))
 }
 
-/// `BlockPredicate.matches(BlockInWorld)` for the block and state parts; the `nbt`/`components` parts need the block
-/// entity and are treated as not matching (a predicate requiring them cannot be satisfied without a block entity).
-fn block_predicate_matches(p: &BlockPredicate, state: BlockState) -> bool {
-    if p.will_match_block_entity() {
-        return false;
-    }
-    if let Some(blocks) = &p.blocks
-        && !blocks.contains(state.block())
-    {
-        return false;
-    }
-    if let Some(props) = &p.properties {
-        return props.properties.iter().all(|m| property_matches(state, m));
-    }
-    true
-}
+/// `BlockInWorld.getEntity()` over a level.
+struct LevelBlockEntities<'a>(&'a ServerLevel);
 
-fn property_matches(state: BlockState, m: &PropertyMatcher) -> bool {
-    let Some((def, idx)) = state.values().find(|(d, _)| d.name == m.name) else {
-        return false;
-    };
-    match &m.value_matcher {
-        ValueMatcher::Exact(v) => def.value_index(v) == Some(idx),
-        ValueMatcher::Ranged { min, max } => {
-            let lo = match min {
-                Some(v) => match def.value_index(v) {
-                    Some(i) => Some(i),
-                    None => return false,
-                },
-                None => None,
-            };
-            let hi = match max {
-                Some(v) => match def.value_index(v) {
-                    Some(i) => Some(i),
-                    None => return false,
-                },
-                None => None,
-            };
-            lo.is_none_or(|l| idx >= l) && hi.is_none_or(|h| idx <= h)
-        }
+impl AdventureBlockEntities for LevelBlockEntities<'_> {
+    fn full_metadata(&self, pos: BlockPos) -> Option<CompoundTag> {
+        self.0
+            .get_block_entity(pos)
+            .map(|e| e.save_with_full_metadata())
+    }
+
+    /// `BlockEntity.saveWithId`: the saved data and the id, without the position.
+    fn with_id(&self, pos: BlockPos) -> Option<CompoundTag> {
+        self.0.get_block_entity(pos).map(|e| {
+            let mut tag = CompoundTag::new();
+            e.save_without_metadata(&mut tag);
+            tag.put_string("id", e.get_type().name());
+            tag
+        })
     }
 }
 
