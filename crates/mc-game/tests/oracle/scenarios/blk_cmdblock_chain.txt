@@ -1,0 +1,108 @@
+# command blocks, block-side state machine (the "Searge" command counts as a success without running the command dispatcher; an empty command resets the success count):
+# an impulse block powered by a redstone block runs its chain (unconditional, conditional on a success, on a failure), a repeating block runs every tick while powered
+# or automatic, conditional repeating blocks, a chain that is cut by max_command_sequence_length, and the disabled command_blocks_work rule.
+level flat
+preload 2
+command_env
+tick 2
+watch events
+note impulse -> chain chain(cond) chain(empty) chain(cond) chain(cond), the chain blocks are automatic
+block 0 -60 0 minecraft:command_block[facing=east,conditional=false]
+block 1 -60 0 minecraft:chain_command_block[facing=east,conditional=false]
+block 2 -60 0 minecraft:chain_command_block[facing=east,conditional=true]
+block 3 -60 0 minecraft:chain_command_block[facing=east,conditional=false]
+block 4 -60 0 minecraft:chain_command_block[facing=east,conditional=true]
+block 5 -60 0 minecraft:chain_command_block[facing=east,conditional=true]
+fill 0 -60 1 5 -60 1 minecraft:comparator[facing=south,mode=compare,powered=false]
+be_nbt 0 -60 0 {Command:"Searge"}
+be_nbt 1 -60 0 {Command:"Searge",auto:1b}
+be_nbt 2 -60 0 {Command:"Searge",auto:1b}
+be_nbt 3 -60 0 {auto:1b}
+be_nbt 4 -60 0 {Command:"Searge",auto:1b}
+be_nbt 5 -60 0 {Command:"Searge",auto:1b}
+tick 2
+dump blocks:-1,-61,-1,6,-59,2 be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 events ticks
+block 0 -60 -1 minecraft:redstone_block
+tick 1
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 events ticks
+tick 1
+dump blocks:-1,-61,-1,6,-59,2 be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 be:0,-60,1 be:1,-60,1 be:2,-60,1 be:3,-60,1 be:4,-60,1 be:5,-60,1 events ticks
+tick 2
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 events ticks
+note power off and on again: the impulse block runs once per rising edge
+block 0 -60 -1 minecraft:air
+tick 3
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:5,-60,0 events ticks
+block 0 -60 -1 minecraft:redstone_block
+tick 4
+dump be:0,-60,0 be:1,-60,0 be:2,-60,0 be:3,-60,0 be:4,-60,0 be:5,-60,0 events ticks
+note repeating block: runs every tick while powered
+block 0 -60 10 minecraft:repeating_command_block[facing=east,conditional=false]
+be_nbt 0 -60 10 {Command:"Searge"}
+tick 2
+dump be:0,-60,10 events ticks
+block 0 -60 9 minecraft:redstone_block
+tick 1
+dump be:0,-60,10 events ticks
+tick 1
+dump be:0,-60,10 events ticks
+tick 1
+dump be:0,-60,10 events ticks
+block 0 -60 9 minecraft:air
+tick 1
+dump be:0,-60,10 events ticks
+tick 3
+dump be:0,-60,10 events ticks
+note automatic repeating block with a conditional repeating block behind it, and a conditional repeating block behind stone
+block 0 -60 14 minecraft:repeating_command_block[facing=east,conditional=false]
+block 1 -60 14 minecraft:repeating_command_block[facing=east,conditional=true]
+block 1 -60 16 minecraft:repeating_command_block[facing=east,conditional=true]
+block 0 -60 16 minecraft:stone
+be_nbt 0 -60 14 {Command:"Searge",auto:1b}
+be_nbt 1 -60 14 {Command:"Searge",auto:1b}
+be_nbt 1 -60 16 {Command:"Searge",auto:1b}
+tick 1
+dump blocks:0,-60,14,1,-60,16 be:0,-60,14 be:1,-60,14 be:1,-60,16 events ticks
+tick 1
+dump be:0,-60,14 be:1,-60,14 be:1,-60,16 events ticks
+tick 2
+dump be:0,-60,14 be:1,-60,14 be:1,-60,16 events ticks
+note empty automatic repeating block resets the success count; switching the command resets it too
+be_nbt 0 -60 14 {Command:""}
+tick 3
+dump be:0,-60,14 be:1,-60,14 events ticks
+be_nbt 0 -60 14 {Command:"Searge"}
+tick 3
+dump be:0,-60,14 be:1,-60,14 events ticks
+note max_command_sequence_length 2: the chain of five stops after two blocks
+gamerule max_command_sequence_length 2
+block 0 -60 20 minecraft:command_block[facing=east,conditional=false]
+fill 1 -60 20 5 -60 20 minecraft:chain_command_block[facing=east,conditional=false]
+be_nbt 0 -60 20 {Command:"Searge"}
+be_nbt 1 -60 20 {Command:"Searge",auto:1b}
+be_nbt 2 -60 20 {Command:"Searge",auto:1b}
+be_nbt 3 -60 20 {Command:"Searge",auto:1b}
+be_nbt 4 -60 20 {Command:"Searge",auto:1b}
+be_nbt 5 -60 20 {Command:"Searge",auto:1b}
+block 0 -60 19 minecraft:redstone_block
+tick 3
+dump be:0,-60,20 be:1,-60,20 be:2,-60,20 be:3,-60,20 be:4,-60,20 be:5,-60,20 events ticks
+gamerule max_command_sequence_length 65536
+note command_blocks_work false: a real command is not run, the success count is 0 and the block counts as executed
+gamerule command_blocks_work false
+block 0 -60 24 minecraft:command_block[facing=east,conditional=false]
+block 1 -60 24 minecraft:chain_command_block[facing=east,conditional=false]
+be_nbt 0 -60 24 {Command:"say hi"}
+be_nbt 1 -60 24 {Command:"say hi",auto:1b}
+block 0 -60 23 minecraft:redstone_block
+tick 3
+dump be:0,-60,24 be:1,-60,24 events ticks
+gamerule command_blocks_work true
+note an invalid command is no success and resets the count of an automatic repeating block (running real commands = the command dispatcher on a level)
+block 0 -60 40 minecraft:repeating_command_block[facing=east,conditional=false]
+be_nbt 0 -60 40 {Command:"Searge",auto:1b,TrackOutput:0b}
+tick 4
+dump be:0,-60,40 events ticks
+be_nbt 0 -60 40 {Command:"nosuchcommand foo",auto:1b,TrackOutput:0b}
+tick 3
+dump be:0,-60,40 events ticks

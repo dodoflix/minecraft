@@ -4,6 +4,21 @@
 use crate::common::block_scenario::check;
 
 #[test]
+fn command_block_chain_matches_vanilla() {
+    check("blk_cmdblock_chain");
+}
+
+#[test]
+fn command_block_placement_and_editor_match_vanilla() {
+    check("blk_cmdblock_place");
+}
+
+#[test]
+fn structure_block_matches_vanilla() {
+    check("blk_structure_block");
+}
+
+#[test]
 fn end_gateway_matches_vanilla() {
     check("blk_end_gateway");
 }

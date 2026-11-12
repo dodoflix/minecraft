@@ -318,12 +318,23 @@ fn double_list(values: &[f64]) -> ListTag {
     list
 }
 
-#[derive(Default, Clone)]
+#[derive(Clone)]
 pub struct StructureTemplate {
     palettes: Vec<Palette>,
     entity_info_list: Vec<StructureEntityInfo>,
     size: Vec3i,
     author: String,
+}
+
+impl Default for StructureTemplate {
+    fn default() -> Self {
+        StructureTemplate {
+            palettes: Vec::new(),
+            entity_info_list: Vec::new(),
+            size: Vec3i::default(),
+            author: "?".to_owned(),
+        }
+    }
 }
 
 /// `addToLists(info, full, blockEntities, other)`.
@@ -374,13 +385,9 @@ impl StructureTemplate {
         self.author = author.to_owned();
     }
 
-    /// `getAuthor()` (`"?"` for a template that never had one set).
+    /// `getAuthor()` (`"?"` until `setAuthor`).
     pub fn get_author(&self) -> &str {
-        if self.author.is_empty() {
-            "?"
-        } else {
-            &self.author
-        }
+        &self.author
     }
 
     pub fn palettes(&self) -> &[Palette] {
