@@ -1111,3 +1111,34 @@ fn keep_inventory_rule_is_live_within_a_tick() {
         assert_eq!(kept, expect_kept, "keepInventory={keep}");
     }
 }
+
+/// `Player.remove(KILLED)` removes the player before `AbstractContainerMenu.removed`: the stack on the cursor is dropped as an
+/// item entity (a living player gets it back in the inventory), also when `keepInventory` carries the inventory over.
+#[test]
+fn respawn_drops_the_cursor_stack() {
+    let mut r = Replay::new();
+    r.run_line("gamerule keep_inventory true");
+    r.run_line("spawn_player A survival 0.5 -60 0.5 0 0");
+    r.with_player("A", |_, p| {
+        let stack = ItemStack::new(Item::by_name("minecraft:cobblestone").unwrap());
+        p.player.menus.current_mut().base_mut().set_carried(stack);
+    });
+    r.run_line("hurt A generic_kill 1000");
+    r.run_line("respawn A");
+    let cobblestone = ItemStack::new(Item::by_name("minecraft:cobblestone").unwrap());
+    assert!(
+        !r.entity("A")
+            .player()
+            .unwrap()
+            .inventory
+            .contains(&cobblestone)
+    );
+    r.run_line("dump entities");
+    assert!(
+        r.out
+            .iter()
+            .any(|l| l.contains("item=minecraft:cobblestone")),
+        "no dropped item in {:?}",
+        r.out
+    );
+}

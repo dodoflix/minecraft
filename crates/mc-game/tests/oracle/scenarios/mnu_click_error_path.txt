@@ -1,0 +1,46 @@
+# A click that throws inside the menu (SWAP with slot -1: the slot list has no index -1): the exception leaves the remote updates
+# suppressed and skips the bookkeeping of the client's claimed slots and cursor, so nothing is sent for the click, the server
+# changes made afterwards stay unsent, and the next click that works resumes the updates and sends everything at once.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:30},{Slot:1b,id:"minecraft:dirt",count:5},{Slot:2b,id:"minecraft:iron_pickaxe",count:1}]}
+give A hotbar0 minecraft:apple 10
+give A hotbar1 minecraft:stone 20
+tick 2
+dump events packets:A:none
+level_seed 71
+use_on A 0 -60 0 south main
+dump menu:A packets:A:open_screen,container_set_content
+note the throwing click: the claimed slot 1 and the claimed cursor are not recorded, nothing is sent
+click A -1 0 SWAP changed=1:minecraft:dirt*9 carried=minecraft:diamond*2
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a wrong slot index past the menu is ignored without touching the suppression
+click A 90 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a change made by the server while the updates are suppressed is not sent, not even by the tick
+give A hotbar2 minecraft:diamond 3
+tick 2
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a second throwing click
+click A -1 3 SWAP
+tick 1
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note the next click that works resumes the updates and the whole difference is sent with it
+click A 0 0 PICKUP changed=0:- carried=minecraft:stone*30
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 3 0 PICKUP changed=3:minecraft:stone*30 carried=-
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note the same in the inventory menu after the chest closes
+close_menu A
+dump menu:A packets:A:container_close,container_set_slot,container_set_content,set_cursor_item
+click A -1 1 SWAP
+give A hotbar3 minecraft:emerald 2
+tick 1
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 36 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 36 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item

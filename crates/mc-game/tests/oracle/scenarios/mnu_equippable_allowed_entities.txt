@@ -1,0 +1,67 @@
+# Armor slots accept an item only when its equippable component lets the player type wear it (allowed_entities): a zombie-only helmet,
+# a tag that does not hold the player, an empty list, a list with the player and no list at all, by click, quick move and hotbar swap.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+give A inv9 minecraft:iron_helmet[equippable={slot:"head",allowed_entities:"minecraft:zombie"}]
+give A inv10 minecraft:iron_helmet[equippable={slot:"head",allowed_entities:["minecraft:zombie","minecraft:player"]}]
+give A inv11 minecraft:iron_helmet[equippable={slot:"head",allowed_entities:"#minecraft:skeletons"}]
+give A inv12 minecraft:iron_helmet[equippable={slot:"head",allowed_entities:[]}]
+give A inv13 minecraft:iron_helmet
+give A inv14 minecraft:iron_chestplate[equippable={slot:"chest",allowed_entities:"minecraft:zombie"}]
+give A inv15 minecraft:iron_chestplate[equippable={slot:"chest",allowed_entities:"minecraft:player"}]
+give A inv16 minecraft:iron_boots[equippable={slot:"feet",allowed_entities:"#minecraft:skeletons"}]
+give A hotbar0 minecraft:iron_leggings[equippable={slot:"legs",allowed_entities:"minecraft:zombie"}]
+give A hotbar1 minecraft:iron_leggings[equippable={slot:"legs",allowed_entities:"minecraft:player"}]
+tick 2
+dump events packets:A:none
+note picking each helmet up and putting it on the head slot: only the ones that allow players stay
+click A 9 0 PICKUP
+click A 5 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 9 0 PICKUP
+click A 11 0 PICKUP
+click A 5 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 11 0 PICKUP
+click A 12 0 PICKUP
+click A 5 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 12 0 PICKUP
+click A 10 0 PICKUP
+click A 5 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 5 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note quick move from the inventory: the zombie-only and the empty-list items are not moved to the armor slots, the others are
+click A 9 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 12 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 11 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 13 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 14 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 15 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 16 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 10 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note quick move from the hotbar
+click A 36 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 37 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note hotbar swap onto the armor slots: an item that does not allow the player does not go in
+give A hotbar2 minecraft:iron_helmet[equippable={slot:"head",allowed_entities:"minecraft:zombie"}]
+give A hotbar3 minecraft:iron_helmet[equippable={slot:"head",allowed_entities:"minecraft:player"}]
+click A 5 2 SWAP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 5 3 SWAP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 5 3 SWAP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item

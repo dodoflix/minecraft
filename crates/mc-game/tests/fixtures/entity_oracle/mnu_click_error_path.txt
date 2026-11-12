@@ -1,0 +1,77 @@
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+PKT A minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1201013f1e0100000537000001970800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef070000140100000000000000000000
+# the throwing click: the claimed slot 1 and the claimed cursor are not recorded, nothing is sent
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+# a wrong slot index past the menu is ignored without touching the suppression
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+# a change made by the server while the updates are suppressed is not sent, not even by the tick
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond*3
+# a second throwing click
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond*3
+# the next click that works resumes the updates and the whole difference is sent with it
+MENU A cid=1 type=minecraft:generic_9x3 state=2 carried=minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond*3
+PKT A minecraft:container_set_slot 140102003803f4070000
+MENU A cid=1 type=minecraft:generic_9x3 state=2 carried=empty
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond*3
+# the same in the inventory menu after the chest closes
+MENU A cid=0 type=inventory state=3 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*20
+MS 38 minecraft:diamond*3
+MENU A cid=0 type=inventory state=3 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*20
+MS 38 minecraft:diamond*3
+MS 39 minecraft:emerald*2
+MENU A cid=0 type=inventory state=5 carried=minecraft:apple*10
+MS 37 minecraft:stone*20
+MS 38 minecraft:diamond*3
+MS 39 minecraft:emerald*2
+PKT A minecraft:container_set_slot 140004002400
+PKT A minecraft:container_set_slot 140005002702f5070000
+PKT A minecraft:set_cursor_item 620aef070000
+MENU A cid=0 type=inventory state=6 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*20
+MS 38 minecraft:diamond*3
+MS 39 minecraft:emerald*2
+PKT A minecraft:container_set_slot 14000600240aef070000
+PKT A minecraft:set_cursor_item 6200

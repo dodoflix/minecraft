@@ -1,0 +1,95 @@
+# open a chest and pick a stack up, then open another chest while the first is open: the first is closed (its id) before the new one opens, the cursor stack goes back into the inventory
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 54 minecraft:apple*10
+PKT A minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1201013f1e01000005370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef070000000000000000000000
+MENU A cid=1 type=minecraft:generic_9x3 state=2 carried=minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 54 minecraft:apple*10
+PKT A minecraft:container_set_slot 140102000000
+PKT A minecraft:set_cursor_item 621e010000
+MENU A cid=2 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:diamond*7
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*30
+PKT A minecraft:container_close 1101
+PKT A minecraft:open_screen 3c02020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1202013f07f407000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef0700001e0100000000000000000000
+# a locked chest declines after the open menu was closed: the counter took an id, the player is back in the inventory menu
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*30
+PKT A minecraft:container_close 1102
+# the counter keeps counting through declined opens (ids 3 to 99, the open that follows gets 100)
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*30
+MENU A cid=100 type=minecraft:generic_9x3 state=1 carried=empty
+MS 1 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*30
+PKT A minecraft:open_screen 3c64020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1264013f0005370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef0700001e0100000000000000000000
+# closing the id 100 menu and opening the next: the counter wrapped to 1
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*30
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:diamond*7
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*30
+PKT A minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1201013f07f407000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef0700001e0100000000000000000000
+# a declined open while id 1 is open closes it first and takes id 2
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*30
+PKT A minecraft:container_close 1101
+MENU A cid=3 type=minecraft:generic_9x3 state=1 carried=empty
+MS 1 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*30
+PKT A minecraft:open_screen 3c03020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1203013f0005370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef0700001e0100000000000000000000
+# the chest is out of reach: the tick closes the menu and the cursor stack goes back into the inventory
+MENU A cid=3 type=minecraft:generic_9x3 state=2 carried=minecraft:dirt*5
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*30
+PKT A minecraft:container_set_slot 140302000100
+PKT A minecraft:set_cursor_item 6205370000
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*30
+MS 38 minecraft:dirt*5
+PKT A minecraft:container_close 1103
+# a player who dies with the menu open and a stack on the cursor
+MENU B cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:emerald*9
+MS 1 minecraft:dirt*5
+MS 54 minecraft:apple*10
+PKT B minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT B minecraft:container_set_content 1201013f09f507000005370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef070000000000000000000000
+MENU B cid=1 type=minecraft:generic_9x3 state=2 carried=minecraft:emerald*9
+MS 1 minecraft:dirt*5
+MS 54 minecraft:apple*10
+PKT B minecraft:container_set_slot 140102000000
+PKT B minecraft:set_cursor_item 6209f5070000
+HURT B generic 1000 -> true
+MENU B cid=1 type=minecraft:generic_9x3 state=3 carried=minecraft:emerald*9
+MS 1 minecraft:dirt*5
+E item#1 minecraft:item pos=6.424926787614822,-58.520000004172324,3.2488810420036316 delta=-0.07357174956938195,0.15680000597238544,-0.24609658362615505 rot=154.59323,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*10 age=1 pickup=39 health=5 owner=- thrower=-
+PKT B minecraft:container_set_slot 140103003600
+MENU B cid=1 type=minecraft:generic_9x3 state=4 carried=minecraft:emerald*9
+MS 1 minecraft:dirt*5
+PKT B minecraft:container_set_content 1201043f00053700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009f5070000
+MENU B cid=1 type=minecraft:generic_9x3 state=4 carried=minecraft:emerald*9
+MS 1 minecraft:dirt*5
+E item#1 minecraft:item pos=6.208596411027333,-58.29576126077982,2.5252586336152825 delta=-0.06924514616380664,0.03231523538155001,-0.23162414926039018 rot=154.59323,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*10 age=4 pickup=36 health=5 owner=- thrower=-
+# twenty ticks after the death the player entity is removed: the menu is closed (the cursor stack drops)
+MENU B cid=0 type=inventory state=2 carried=empty
+E item#1 minecraft:item pos=5.494862068776544,-60.0,0.13782617111912518 delta=-8.249793000690639E-4,-0.12,-0.0027595454572930966 rot=154.59323,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*10 age=24 pickup=16 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=6.477745552179719,-58.6956755500361,2.3747289815985786 delta=-0.0052882412929193,-0.06271490309469006,-0.26739394809036043 rot=10.93513,0.0 og=0 fall=0.08847928233444691 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*9 age=4 pickup=36 health=5 owner=- thrower=-
+MENU B cid=0 type=inventory state=3 carried=empty
+PKT B minecraft:container_set_content 1200032e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

@@ -30,7 +30,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayId;
  * click PLAYER SLOT BUTTON INPUT [cid=N] [state=N|stale] [changed=SLOT:STACK,..] [carried=STACK|-]
  *                             ServerboundContainerClickPacket for the open menu (INPUT = ContainerInput name). Defaults: `cid` the open menu's container id,
  *                             `state` its state id (`stale` = the previous one), `changed` none, `carried` the stack on the menu's cursor before the click
- *                             (what the client believes). STACK = ITEM[components][*COUNT] (`-` = empty); a wrong hash makes the server resend the slot.
+ *                             (what the client believes). A click that throws a ReportedException is logged to stderr and the script goes on. STACK = ITEM[components][*COUNT] (`-` = empty); a wrong hash makes the server resend the slot.
  * creative_slot PLAYER SLOT STACK [count]   ServerboundSetCreativeModeSlotPacket (a negative SLOT drops the stack)
  * pick_entity PLAYER REF [data]   ServerboundPickItemFromEntityPacket (`data` = include the profile print)
  * rename PLAYER TEXT          ServerboundRenameItemPacket                     select_trade PLAYER N   ServerboundSelectTradePacket (= trade_select)
@@ -138,7 +138,13 @@ final class MenuVerbs {
             default -> throw new IllegalArgumentException("click option " + t);
          }
       }
-      p.connection.handleContainerClick(new ServerboundContainerClickPacket(cid, state, (short)slot, (byte)button, input, changed, carried));
+      try {
+         p.connection.handleContainerClick(new ServerboundContainerClickPacket(cid, state, (short)slot, (byte)button, input, changed, carried));
+      } catch (net.minecraft.ReportedException e) {
+         // a click the menu cannot handle (e.g. slot -1 with SWAP) throws out of `clicked`; the server's packet processor reports it,
+         // the script goes on (the menu is left as the exception left it)
+         VanillaLevel.ERR.println("click " + a.subList(1, 5) + ": " + e.getMessage());
+      }
    }
 
    /** `ITEM[components][*COUNT]`, `-` = empty. */

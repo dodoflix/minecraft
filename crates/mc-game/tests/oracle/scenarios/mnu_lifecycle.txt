@@ -1,0 +1,167 @@
+# The player's menu lifecycle: opening a menu while another is open (the old one is closed first, its cursor stack goes back into the inventory), the container
+# id counter (a declined open, a locked chest, still takes an id; the counter wraps from 100 to 1), a menu out of reach closed by the tick,
+# a player dying with a menu open and a stack on the cursor (the menu stays open, the dead player's clicks only resend it).
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B survival 6.5 -60 3.5 180 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:30},{Slot:1b,id:"minecraft:dirt",count:5}]}
+block -2 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt -2 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:7}]}
+block 2 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 2 -60 0 {lock:{items:"minecraft:stick"},Items:[{Slot:0b,id:"minecraft:gold_ingot",count:7}]}
+block 6 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:emerald",count:9},{Slot:1b,id:"minecraft:dirt",count:5}]}
+give A hotbar0 minecraft:apple 10
+give B hotbar0 minecraft:apple 10
+tick 2
+dump events packets:A:none packets:B:none
+level_seed 81
+note open a chest and pick a stack up, then open another chest while the first is open: the first is closed (its id) before the new one opens, the cursor stack goes back into the inventory
+use_on A 0 -60 0 south main
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+click A 0 0 PICKUP
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+use_on A -2 -60 0 south main
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item entities
+note a locked chest declines after the open menu was closed: the counter took an id, the player is back in the inventory menu
+use_on A 2 -60 0 south main
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+note the counter keeps counting through declined opens (ids 3 to 99, the open that follows gets 100)
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+use_on A 2 -60 0 south main
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+use_on A 0 -60 0 south main
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+note closing the id 100 menu and opening the next: the counter wrapped to 1
+close_menu A
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+use_on A -2 -60 0 south main
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+note a declined open while id 1 is open closes it first and takes id 2
+use_on A 2 -60 0 south main
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+use_on A 0 -60 0 south main
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+note the chest is out of reach: the tick closes the menu and the cursor stack goes back into the inventory
+click A 1 0 PICKUP
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+level_seed 82
+tp A 30.5 -60 3.5
+tick 1
+dump menu:A packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item entities
+note a player who dies with the menu open and a stack on the cursor
+use_on B 6 -60 0 south main
+dump menu:B packets:B:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+click B 0 0 PICKUP
+dump menu:B packets:B:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+level_seed 83
+hurt B generic 1000
+tick 1
+dump menu:B entities inventory:B packets:B:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+click B 1 0 PICKUP
+dump menu:B packets:B:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+tick 3
+dump menu:B entities inventory:B packets:B:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+note twenty ticks after the death the player entity is removed: the menu is closed (the cursor stack drops)
+level_seed 84
+tick 20
+dump menu:B entities inventory:B packets:B:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+click B 1 0 PICKUP
+dump menu:B packets:B:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item

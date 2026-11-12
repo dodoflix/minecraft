@@ -1,0 +1,414 @@
+# picking each helmet up and putting it on the head slot: only the ones that allow players stay
+MENU A cid=0 type=inventory state=12 carried=minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 13 minecraft:iron_helmet*1
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 13 minecraft:iron_helmet*1
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+PKT A minecraft:container_set_slot 14000c000900
+PKT A minecraft:set_cursor_item 6201b8080100200447000001029a010101010000a80b
+MENU A cid=0 type=inventory state=14 carried=minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 13 minecraft:iron_helmet*1
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 13 minecraft:iron_helmet*1
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+PKT A minecraft:container_set_slot 14000d000901b8080100200447000001029a010101010000a80b
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14000e000b00
+PKT A minecraft:set_cursor_item 6201b808010020044700000100136d696e6563726166743a736b656c65746f6e730101010000a80b
+MENU A cid=0 type=inventory state=16 carried=minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 13 minecraft:iron_helmet*1
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 13 minecraft:iron_helmet*1
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+PKT A minecraft:container_set_slot 14000f000b01b808010020044700000100136d696e6563726166743a736b656c65746f6e730101010000a80b
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140010000c00
+PKT A minecraft:set_cursor_item 6201b8080100200447000001010101010000a80b
+MENU A cid=0 type=inventory state=19 carried=empty
+MS 5 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 13 minecraft:iron_helmet*1
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 13 minecraft:iron_helmet*1
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 39 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+PKT A minecraft:container_set_slot 140011000c01b8080100200447000001010101010000a80b
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140012000a00
+PKT A minecraft:set_cursor_item 6201b8080100200447000001039a019f010101010000a80b
+PKT A minecraft:container_set_slot 140013000501b8080100200447000001039a019f010101010000a80b
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=0 type=inventory state=21 carried=empty
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 13 minecraft:iron_helmet*1
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 13 minecraft:iron_helmet*1
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+PKT A minecraft:container_set_slot 140014000500
+PKT A minecraft:container_set_slot 140015000a01b8080100200447000001039a019f010101010000a80b
+# quick move from the inventory: the zombie-only and the empty-list items are not moved to the armor slots, the others are
+MENU A cid=0 type=inventory state=21 carried=empty
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 13 minecraft:iron_helmet*1
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 13 minecraft:iron_helmet*1
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MENU A cid=0 type=inventory state=21 carried=empty
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 13 minecraft:iron_helmet*1
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 13 minecraft:iron_helmet*1
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MENU A cid=0 type=inventory state=21 carried=empty
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 13 minecraft:iron_helmet*1
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 13 minecraft:iron_helmet*1
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MENU A cid=0 type=inventory state=23 carried=empty
+MS 5 minecraft:iron_helmet*1
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 39 minecraft:iron_helmet*1
+PKT A minecraft:container_set_slot 140016000501b8080000
+PKT A minecraft:container_set_slot 140017000d00
+MENU A cid=0 type=inventory state=23 carried=empty
+MS 5 minecraft:iron_helmet*1
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 15 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 39 minecraft:iron_helmet*1
+MENU A cid=0 type=inventory state=25 carried=empty
+MS 5 minecraft:iron_helmet*1
+MS 6 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 38 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 39 minecraft:iron_helmet*1
+PKT A minecraft:container_set_slot 140018000601b9080100200347000001029f010101010000a80b
+PKT A minecraft:container_set_slot 140019000f00
+MENU A cid=0 type=inventory state=25 carried=empty
+MS 5 minecraft:iron_helmet*1
+MS 6 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 10 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 38 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 39 minecraft:iron_helmet*1
+MENU A cid=0 type=inventory state=27 carried=empty
+MS 5 minecraft:iron_helmet*1
+MS 6 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+MS 38 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 2 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 38 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 39 minecraft:iron_helmet*1
+PKT A minecraft:container_set_slot 14001a000a00
+PKT A minecraft:container_set_slot 14001b002601b8080100200447000001039a019f010101010000a80b
+# quick move from the hotbar
+MENU A cid=0 type=inventory state=27 carried=empty
+MS 5 minecraft:iron_helmet*1
+MS 6 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+MS 38 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 1 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 2 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 38 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 39 minecraft:iron_helmet*1
+MENU A cid=0 type=inventory state=29 carried=empty
+MS 5 minecraft:iron_helmet*1
+MS 6 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 7 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 38 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 2 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:["minecraft:zombie","minecraft:player"],slot:"head"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 38 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 39 minecraft:iron_helmet*1
+PKT A minecraft:container_set_slot 14001c000701ba080100200247000001029f010101010000a80b
+PKT A minecraft:container_set_slot 14001d002500
+# hotbar swap onto the armor slots: an item that does not allow the player does not go in
+MENU A cid=0 type=inventory state=31 carried=empty
+MS 5 minecraft:iron_helmet*1
+MS 6 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 7 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 38 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 39 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"head"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 2 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 3 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"head"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 38 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 39 minecraft:iron_helmet*1
+PKT A minecraft:container_set_slot 14001e002601b8080100200447000001029a010101010000a80b
+PKT A minecraft:container_set_slot 14001f002701b8080100200447000001029f010101010000a80b
+MENU A cid=0 type=inventory state=33 carried=empty
+MS 5 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"head"}}
+MS 6 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 7 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 38 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 39 minecraft:iron_helmet*1
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 2 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 3 minecraft:iron_helmet*1
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 38 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 39 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"head"}}
+PKT A minecraft:container_set_slot 140020000501b8080100200447000001029f010101010000a80b
+PKT A minecraft:container_set_slot 140021002701b8080000
+MENU A cid=0 type=inventory state=35 carried=empty
+MS 5 minecraft:iron_helmet*1
+MS 6 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+MS 7 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+MS 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+MS 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+MS 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+MS 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+MS 36 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+MS 38 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+MS 39 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"head"}}
+I A 0 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"legs"}}
+I A 2 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 3 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"head"}}
+I A 9 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"head"}}
+I A 11 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"head"}}
+I A 12 minecraft:iron_helmet*1{minecraft:equippable:{allowed_entities:[],slot:"head"}}
+I A 14 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:zombie",slot:"chest"}}
+I A 16 minecraft:iron_boots*1{minecraft:equippable:{allowed_entities:"#minecraft:skeletons",slot:"feet"}}
+I A 37 minecraft:iron_leggings*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"legs"}}
+I A 38 minecraft:iron_chestplate*1{minecraft:equippable:{allowed_entities:"minecraft:player",slot:"chest"}}
+I A 39 minecraft:iron_helmet*1
+PKT A minecraft:container_set_slot 140022000501b8080000
+PKT A minecraft:container_set_slot 140023002701b8080100200447000001029f010101010000a80b
