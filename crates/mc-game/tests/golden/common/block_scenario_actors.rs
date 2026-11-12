@@ -1204,6 +1204,28 @@ impl Scenario {
                     self.out.push(format!("STAT {name} {stat} {n}"));
                 }
             }
+            "advancements" => {
+                let name = arg.expect("advancements:PLAYER");
+                let mut lines: Vec<(String, String)> = Vec::new();
+                self.with_player_named(name, |_, p| {
+                    let progress = p.advancements.lock();
+                    for holder in ADVANCEMENTS.get_all_advancements() {
+                        let Some(progress) = progress.progress_of(holder) else {
+                            continue;
+                        };
+                        let mut done = progress.get_completed_criteria();
+                        if done.is_empty() {
+                            continue;
+                        }
+                        done.sort();
+                        lines.push((holder.id.to_string(), done.join(",")));
+                    }
+                });
+                lines.sort();
+                for (id, criteria) in lines {
+                    self.out.push(format!("ADV {name} {id} {criteria}"));
+                }
+            }
             "all_players" => {
                 for name in self.actors.players.clone() {
                     let id = self.entity_id(&name);

@@ -960,7 +960,65 @@ fn every_block_entity_type_and_block_has_an_implementation() {
     assert!(problems.is_empty(), "{problems:#?}");
 }
 
-/// (e) Every `blk_*` scenario script has a recorded fixture and a replay test that names it.
+/// Whether `quoted` occurs in `text` anywhere but inside a function carrying an `#[ignore]` attribute: an ignored golden never replays
+/// its scenario.
+fn quoted_outside_ignored_tests(text: &str, quoted: &str) -> bool {
+    text.match_indices(quoted).any(|(at, _)| {
+        let head = &text[..at];
+        let Some(fn_at) = head.rfind("fn ") else {
+            return true;
+        };
+        // the occurrence belongs to that function only while no top-level item closed in between
+        if head[fn_at..].contains("\n}\n") {
+            return true;
+        }
+        let line_start = head[..fn_at].rfind('\n').map_or(0, |i| i + 1);
+        let attributes: Vec<&str> = head[..line_start]
+            .lines()
+            .rev()
+            .take_while(|l| {
+                let l = l.trim_start();
+                l.starts_with("#[") || l.starts_with("///")
+            })
+            .collect();
+        !attributes
+            .iter()
+            .any(|l| l.trim_start().starts_with("#[ignore"))
+    })
+}
+
+#[test]
+fn a_scenario_named_only_by_an_ignored_test_is_not_replayed() {
+    let source = r#"
+#[test]
+fn replayed() {
+    check("blk_a");
+}
+
+#[test]
+#[ignore = "deviation"]
+fn skipped() {
+    check("blk_b");
+}
+
+/// docs
+#[ignore]
+#[test]
+fn skipped_too() {
+    check("blk_c");
+}
+
+#[test]
+fn replayed_too() {
+    check("blk_c");
+}
+"#;
+    assert!(quoted_outside_ignored_tests(source, "\"blk_a\""));
+    assert!(!quoted_outside_ignored_tests(source, "\"blk_b\""));
+    assert!(quoted_outside_ignored_tests(source, "\"blk_c\""));
+}
+
+/// (e) Every `blk_*` scenario script has a recorded fixture and a replay test that names it (an `#[ignore]`d test does not count).
 #[test]
 fn every_block_scenario_has_a_fixture_and_a_replay() {
     let tests = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests");
@@ -973,7 +1031,7 @@ fn every_block_scenario_has_a_fixture_and_a_replay() {
     // `concat!("blk_fluid_", stringify!(name))` macros: the prefix plus any identifier of the same file names a scenario
     let replayed = |scenario: &str| {
         sources.iter().any(|text| {
-            text.contains(&format!("\"{scenario}\""))
+            quoted_outside_ignored_tests(text, &format!("\"{scenario}\""))
                 || text.match_indices("concat!(\"blk_").any(|(at, _)| {
                     let rest = &text[at + "concat!(\"".len()..];
                     let prefix = &rest[..rest.find('"').unwrap_or(0)];

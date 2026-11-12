@@ -93,16 +93,20 @@ pub fn check_with(name: &str, opts: &Options) {
 
 pub fn run_scenario_text(text: &str) -> Vec<String> {
     let mut s = Scenario::new();
-    // precipitation, the bone meal feature lists and the coral bone meal tag read the biome: only the weather, `biome` and bone meal
-    // scenarios pay for the real biome registry
+    // precipitation, the bone meal feature lists, the coral bone meal tag and the biome criteria of advancements (adventuring time) read
+    // the biome: only the weather, `biome`, bone meal and advancement scenarios pay for the real biome registry
     s.real_biomes = text.lines().any(|l| {
         let l = l.trim_start();
         l.starts_with("cmd weather")
             || l.starts_with("bonemeal")
             || l.starts_with("biome ")
             || l.contains("minecraft:bone_meal")
+            || l.contains("advancements:")
     });
-    s.gen_env = text.contains("minecraft:structure_block") || text.contains("jigsaw_generate");
+    // the generation environment also holds the block transformer registry (axes, shovels and hoes strip, scrape, flatten and till)
+    s.gen_env = text.contains("minecraft:structure_block")
+        || text.contains("jigsaw_generate")
+        || ["_axe", "_shovel", "_hoe"].iter().any(|t| text.contains(t));
     // `command_env`: the vanilla server always has its command environment (lecterns resolve written book pages through it);
     // the replay installs a real `MinecraftServer` (nothing started) around every command of the scenario
     let mut server = text

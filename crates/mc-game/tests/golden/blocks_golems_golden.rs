@@ -4,6 +4,7 @@
 //!
 //! The wither and the copper golem have no behaviour yet (they are inert placeholders), so for them only what the block
 //! code decides is compared: the entity exists at the right position and rotation, and the copper golem's weather state.
+//! Not implemented: the wither and copper golem entity behaviour (health, motion, sounds, effects); those fields are not compared.
 
 use crate::common;
 use crate::common::block_scenario::run_scenario;

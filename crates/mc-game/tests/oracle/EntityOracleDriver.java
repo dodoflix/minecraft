@@ -182,7 +182,7 @@ import net.minecraft.util.RandomSource;
  * watch WHAT...               dump after every tick: player:REF entity:REF entities inventory:REF packets:REF[:type,..|:!type,..]   (watch off clears;
  *                             `packets` drains the player's packets; `:type,..` keeps only those, `:!type,..` drops those; `:none` drains silently;
  *                             runs of chunk change packets are sorted by chunk, see chunkOrder)
- * dump WHAT...                same WHATs immediately (`stats:PLAYER` = `STAT PLAYER type.name:value.name N` per earned statistic, sorted), plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
+ * dump WHAT...                same WHATs immediately (`stats:PLAYER` = `STAT PLAYER type.name:value.name N` per earned statistic, sorted; `advancements:PLAYER` = `ADV PLAYER id criterion,..` per advancement with completed criteria, sorted), plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
  *                             block oracle extras: be:X,Y,Z -> `BE x y z SNBT` (saveWithFullMetadata, sorted keys; `-` = none),
  *                             beu:X,Y,Z -> `BEU x y z TYPE SNBT` (getUpdatePacket tag; `-` = none),
  *                             bes:CX,CZ -> `BES cx cz`, `BEM x y z type` per block entity in map iteration order, then `BET x y z` / `BETP x y z`
@@ -1640,6 +1640,20 @@ public final class EntityOracleDriver {
                TreeMap<String, Integer> sorted = new TreeMap<>();
                counter.forEach((stat, n) -> sorted.put(stat.getName(), n));
                sorted.forEach((name, n) -> out.println("STAT " + arg + " " + name + " " + n));
+            }
+            case "advancements" -> {
+               // ADV PLAYER advancement-id criterion,criterion: the completed criteria of every advancement with progress, sorted
+               @SuppressWarnings("unchecked")
+               Map<net.minecraft.advancements.AdvancementHolder, net.minecraft.advancements.AdvancementProgress> progress = (Map<net.minecraft.advancements.AdvancementHolder, net.minecraft.advancements.AdvancementProgress>)priv(((ServerPlayer)ref(arg)).getAdvancements(), net.minecraft.server.PlayerAdvancements.class, "progress");
+               TreeMap<String, String> sorted = new TreeMap<>();
+               progress.forEach((holder, p) -> {
+                  TreeSet<String> done = new TreeSet<>();
+                  p.getCompletedCriteria().forEach(done::add);
+                  if (!done.isEmpty()) {
+                     sorted.put(holder.id().toString(), String.join(",", done));
+                  }
+               });
+               sorted.forEach((id, criteria) -> out.println("ADV " + arg + " " + id + " " + criteria));
             }
             case "packets" -> {
                // packets:NAME[:type,type] -- the optional filter (bare type names, e.g. open_sign_editor) drops the other packets
