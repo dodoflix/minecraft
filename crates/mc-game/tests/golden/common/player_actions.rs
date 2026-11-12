@@ -203,12 +203,8 @@ fn use_on(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequence:
             c.z + f64::from(face.get_step_z()) * 0.5,
         )
     };
-    let hand = if a.len() > 6 && (a[6] == "main" || a[6] == "off") {
-        if a[6] == "off" {
-            InteractionHand::OffHand
-        } else {
-            InteractionHand::MainHand
-        }
+    let hand = if a.get(6).is_some_and(|t| t.as_str() == "off") {
+        InteractionHand::OffHand
     } else {
         InteractionHand::MainHand
     };
@@ -221,6 +217,9 @@ fn use_on(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequence:
         world_border_hit: false,
     };
     acknowledge(p, sequence);
+    if !mc_game::world::item::is_item_enabled(&p.get_item_in_hand(hand), level.enabled_features()) {
+        return;
+    }
     if !p.is_within_block_interaction_range(pos, 1.0) {
         return;
     }
@@ -228,18 +227,18 @@ fn use_on(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequence:
     if !(d.x.abs() < 1.0000001 && d.y.abs() < 1.0000001 && d.z.abs() < 1.0000001) {
         return;
     }
-    // `handleUseItemOn`: nothing happens while a teleport waits for the client's confirmation
-    if p.listener
+    // `handleUseItemOn`: nothing is used while a teleport waits for the client's confirmation (the block updates still go out)
+    let awaiting_teleport = p
+        .listener
         .as_ref()
-        .is_some_and(|l| l.is_awaiting_position_from_client())
-    {
-        return;
-    }
-    let animation = interact_animation(p, hand);
-    let outcome = p.use_item_on(level, hand, &result);
-    // a successful use swings (the decompiled handler swings in two branches, both reach the client)
-    for _ in 0..2 {
-        swing_on_success(level, p, hand, animation, &outcome);
+        .is_some_and(|l| l.is_awaiting_position_from_client());
+    if !awaiting_teleport {
+        let animation = interact_animation(p, hand);
+        let outcome = p.use_item_on(level, hand, &result);
+        // a successful use swings (the decompiled handler swings in two branches, both reach the client)
+        for _ in 0..2 {
+            swing_on_success(level, p, hand, animation, &outcome);
+        }
     }
     // ... and the client gets the clicked and the adjacent block back
     for at in [pos, pos.relative(face)] {

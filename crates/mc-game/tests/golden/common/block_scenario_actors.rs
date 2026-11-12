@@ -28,7 +28,7 @@ use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::player::menu_ctx::PlayerCtx;
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::inventory::{PlayerMenus, handle_container_button_click};
-use mc_game::world::item::{InteractionHand, ItemStack};
+use mc_game::world::item::InteractionHand;
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_protocol::codec::{Decode, read_varint};
@@ -201,18 +201,6 @@ fn packet_chunk(ty: &str, wire: &[u8]) -> Option<(i64, i64)> {
     } else {
         ((v >> 38) >> 4, ((v << 26) >> 38) >> 4)
     })
-}
-
-fn item_name(stack: &ItemStack) -> String {
-    if stack.is_empty() {
-        return "empty".into();
-    }
-    let dmg = if stack.is_damageable_item() && stack.get_damage_value() != 0 {
-        format!("/dmg={}", stack.get_damage_value())
-    } else {
-        String::new()
-    };
-    format!("{}*{}{dmg}", stack.item().name(), stack.count())
 }
 
 fn pose_name(pose: impl std::fmt::Debug) -> String {
@@ -1165,7 +1153,7 @@ impl Scenario {
                 pl.player.total_experience,
                 flt(pl.player.experience_progress),
                 pl.player.inventory.get_selected_slot(),
-                item_name(pl.player.inventory.get_selected_item())
+                super::super::entity_scenario::item_text(pl.player.inventory.get_selected_item())
             );
         } else if let Some(item) = e
             .as_any()
@@ -1173,7 +1161,7 @@ impl Scenario {
         {
             s += &format!(
                 " item={} age={} pickup={} health={} owner={} thrower={}",
-                item_name(&item.get_item()),
+                super::super::entity_scenario::item_text(&item.get_item()),
                 item.age,
                 item.pickup_delay,
                 item.health,

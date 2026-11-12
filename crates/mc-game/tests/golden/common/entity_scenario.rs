@@ -483,7 +483,7 @@ impl Harness {
 
     /// One scenario command. Implemented: `level seed difficulty preload note gamerule time reseed block fill cmd(effect clear)
     /// spawn spawn_item entity_seed spawn_player give effect attribute set nbt snap tp velocity kill input hurt tick watch dump
-    /// mobspawn`. Everything else panics.
+    /// mobspawn`, the families in `entity_scenario/` and the player actions of `player_actions.rs`. Everything else panics.
     pub fn run(&mut self) {
         let a = tokens(&self.line.clone());
         let cmd = a[0].clone();

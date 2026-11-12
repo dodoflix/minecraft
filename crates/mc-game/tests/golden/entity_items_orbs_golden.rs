@@ -8,7 +8,8 @@
 //! `Level.random` starts at `seed ^ 0x5DEECE66D` (`level_seed N`).
 //!
 //! Replay subset: `level seed difficulty preload note gamerule entity_counter reseed level_seed block fill spawn spawn_item snap nbt
-//! entity_seed velocity kill set spawn_player give select award hurt drop tick watch dump`.
+//! entity_seed velocity kill set spawn_player award hurt tick watch dump`, plus the player actions and dumps of `common::player_actions`
+//! (`give select use use_on release interact drop swing swap dispense`, `use: cooldowns: stats: inventory:`).
 use crate::common;
 
 use crate::common::entity_oracle::*;
@@ -20,7 +21,6 @@ use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::GameType;
 use mc_game::server::level::ServerLevel;
-use mc_game::world::container::Container;
 use mc_game::world::damagesource::DamageSource;
 use mc_game::world::entity::entity::common_tick;
 use mc_game::world::entity::experience_orb::ExperienceOrb;
@@ -306,22 +306,6 @@ impl Sim {
                         }
                     }
                 }
-                "inventory" => {
-                    let id = self.id_of(arg);
-                    let Some(p) = self
-                        .level
-                        .get_entity(id)
-                        .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
-                    else {
-                        continue;
-                    };
-                    let inv = &p.player.inventory;
-                    let lines: Vec<String> = (0..inv.get_container_size())
-                        .filter(|&i| !inv.get_item(i).is_empty())
-                        .map(|i| format!("I {arg} {i} {}", item_text(inv.get_item(i))))
-                        .collect();
-                    self.out.extend(lines);
-                }
                 "blocks" => {
                     let c: Vec<i32> = arg.split(',').map(|n| n.parse().unwrap()).collect();
                     for x in c[0].min(c[3])..=c[0].max(c[3]) {
@@ -335,7 +319,11 @@ impl Sim {
                         }
                     }
                 }
-                other => panic!("dump {other}"),
+                other => {
+                    if !common::player_actions::dump(self, other, Some(arg)) {
+                        panic!("dump {other}");
+                    }
+                }
             }
         }
     }
