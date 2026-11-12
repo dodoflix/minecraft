@@ -27,6 +27,14 @@ pub fn get_type(stack: &ItemStack) -> Option<EntityType> {
     stack.get(&ENTITY_DATA).map(|d| d.ty)
 }
 
+/// `SpawnEggItem.byId(type)`: the item whose `entity_data` component names `ty`.
+pub fn by_id(ty: EntityType) -> Option<mc_data::Item> {
+    mc_data::Item::iter().find(|item| {
+        item.data().classes.contains(&"SpawnEggItem")
+            && get_type(&ItemStack::new(*item)) == Some(ty)
+    })
+}
+
 /// `SpawnEggItem.spawnsEntity(itemStack, type)`.
 pub fn spawns_entity(stack: &ItemStack, ty: EntityType) -> bool {
     get_type(stack) == Some(ty)

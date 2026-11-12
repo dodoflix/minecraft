@@ -1,0 +1,99 @@
+# ServerboundPickItemFromEntityPacket through the player's listener: what Entity.getPickResult returns for a mob (its spawn egg), an armor stand, boats,
+# an item frame (empty: the frame, filled: the framed item), a painting and a cushion; an entity without a pick result and one out of reach do nothing;
+# the creative player adds the stack to the hotbar (or replaces the selected slot of a full hotbar, or swaps a stack of the main inventory into it), the
+# survival player only selects a stack he already carries; the profile print of an avatar needs a creative operator.
+command_env
+level flat
+preload 2
+spawn_player C creative 4.5 -60 4.5 180 0
+spawn_player A survival 4.5 -60 4.5 180 0
+spawn_player B survival 1.5 -60 4.0 180 0
+op C
+gamerule send_command_feedback true
+fill 0 -60 2 10 -58 2 minecraft:stone
+spawn COW minecraft:cow 0.5 -60 1.0 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn FR minecraft:item_frame 2.5 -59.5 1.5 0 0 {Facing:2b}
+spawn GF minecraft:glow_item_frame 4.0 -59.5 1.5 0 0 {Facing:2b,Item:{id:"minecraft:diamond",count:1}}
+spawn FRI minecraft:item_frame 5.5 -59.5 1.5 0 0 {Facing:2b,Item:{id:"minecraft:iron_sword",count:1,components:{"minecraft:damage":7}}}
+spawn AS minecraft:armor_stand 7.0 -60 1.0 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn PA minecraft:painting 8.5 -59.5 1.5 0 0 {facing:2b,variant:"minecraft:kebab"}
+spawn BO minecraft:oak_boat 2.5 -60 6.5 0 0 {}
+spawn CB minecraft:oak_chest_boat 6.5 -60 6.5 0 0 {}
+spawn RA minecraft:bamboo_raft 8.5 -60 6.5 0 0 {}
+spawn CU minecraft:cushion 0.5 -60 4.5 0 0 {color:"red"}
+spawn PI minecraft:pillager 6.5 -60 4.0 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn MQ minecraft:mannequin 8.5 -60 4.0 0 0 {}
+spawn_item IT minecraft:stone 2.0 -60 3.5 0 0 0
+spawn FAR minecraft:cow 30.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 2
+dump inventory:C inventory:A packets:C:none packets:A:none
+note creative: a mob adds its spawn egg to the empty hotbar, the same pick selects the stack, an armor stand adds a second one
+pick_entity C COW
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C COW
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C AS
+dump inventory:C packets:C:set_held_slot,container_set_slot
+note creative: frames (empty, glow with an item, with a damaged sword), a painting, boats, a cushion and a mob without its own class yet
+pick_entity C FR
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C GF
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C FRI
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C PA
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C BO
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C CB
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C RA
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C CU
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C PI
+dump inventory:C packets:C:set_held_slot,container_set_slot
+note creative: no pick result (an item entity) and out of reach change nothing
+pick_entity C IT
+pick_entity C FAR
+dump inventory:C packets:C:set_held_slot,container_set_slot
+note creative with a full hotbar: the pick replaces the selected slot; a stack of the main inventory swaps into the hotbar
+give C hotbar1 minecraft:stone
+give C hotbar2 minecraft:stone
+give C hotbar3 minecraft:stone
+give C hotbar4 minecraft:stone
+give C hotbar5 minecraft:stone
+give C hotbar6 minecraft:stone
+give C hotbar7 minecraft:stone
+give C hotbar8 minecraft:stone
+select C 3
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity C PA
+dump inventory:C packets:C:set_held_slot,container_set_slot
+give C inv20 minecraft:armor_stand 5
+pick_entity C AS
+dump inventory:C packets:C:set_held_slot,container_set_slot
+note survival: a stack he carries is selected, one in the main inventory swaps into the hotbar, anything else only resends the selected slot
+give A hotbar6 minecraft:oak_boat
+give A inv12 minecraft:armor_stand 3
+dump inventory:A packets:A:none
+pick_entity A BO
+dump inventory:A packets:A:set_held_slot,container_set_slot
+pick_entity A AS
+dump inventory:A packets:A:set_held_slot,container_set_slot
+pick_entity A COW
+pick_entity A PA data
+dump inventory:A packets:A:set_held_slot,container_set_slot,system_chat
+note the profile print: a creative operator picking a player, itself and a mannequin with data, without data, a survival player with data
+pick_entity C B data
+dump packets:C:set_held_slot,system_chat
+pick_entity C MQ data
+dump packets:C:set_held_slot,system_chat
+pick_entity C C data
+dump packets:C:set_held_slot,system_chat
+pick_entity C B
+dump packets:C:set_held_slot,system_chat
+pick_entity C COW data
+dump packets:C:set_held_slot,system_chat
+pick_entity A B data
+dump packets:A:set_held_slot,system_chat

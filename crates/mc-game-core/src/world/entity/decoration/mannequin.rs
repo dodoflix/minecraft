@@ -15,7 +15,9 @@ use mc_data::EntityType;
 use mc_data::enums::Pose;
 use mc_dfu::NBT;
 use mc_nbt::{CompoundTag, ListTag, Tag};
-use mc_protocol::components::{PROFILE, ResolvableProfile};
+use mc_protocol::components::{
+    PROFILE, PlayerSkinPatch, ResolvableProfile, ResolvableProfilePartial,
+};
 use mc_protocol::packets::common::HumanoidArm;
 use mc_text::Component;
 use std::any::Any;
@@ -51,7 +53,14 @@ fn default_description() -> Component {
 
 /// `ResolvableProfile.Static.EMPTY`.
 fn default_profile() -> ResolvableProfile {
-    ResolvableProfile::create_unresolved("")
+    ResolvableProfile {
+        contents: mc_protocol::codec::Either::Right(ResolvableProfilePartial {
+            name: None,
+            id: None,
+            properties: Vec::new(),
+        }),
+        skin_patch: PlayerSkinPatch::default(),
+    }
 }
 
 pub struct Mannequin {

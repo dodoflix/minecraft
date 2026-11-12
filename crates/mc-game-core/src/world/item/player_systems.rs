@@ -2,14 +2,16 @@
 //! `PlayHandlers`): the `ServerGamePacketListenerImpl` side of items, hands and menus.
 
 use super::{InteractionHand, InteractionResult, ItemStack, is_item_enabled};
+use crate::commands::host::entity_display_name;
+use crate::commands::profile_report::{avatar_profile, print_for_avatar};
 use crate::server::level::ServerLevel;
 use crate::server::network::game_packets::PlayCtx;
 use crate::server::network::game_packets::hooks::{
     ITEM_SYSTEMS, ItemSystems, PLAY_HANDLERS, PlayHandlers, ServerboundBlockHitResult,
     SwingAnimationRef,
 };
-use crate::world::entity::ServerPlayer;
 use crate::world::entity::player::menu_ctx::PlayerCtx;
+use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::inventory::{
     AbstractContainerMenu, CreativeSlotResult, PlayerMenus, handle_container_button_click,
     handle_container_click, handle_set_creative_mode_slot, try_pick_item,
@@ -289,10 +291,36 @@ impl PlayHandlers for MenuHandlers {
 
     fn handle_pick_item_from_entity(
         &self,
-        _ctx: &mut PlayCtx,
-        _packet: &ServerboundPickItemFromEntityPacket,
+        ctx: &mut PlayCtx,
+        packet: &ServerboundPickItemFromEntityPacket,
     ) {
-        // `Entity.getPickResult()` (spawn egg / boat / minecart item per entity type) belongs to the entity code.
+        // `level.getEntityOrPart(id)`; the player itself is taken out of the level
+        let entity: &dyn Entity = if packet.id == ctx.player.id() {
+            &*ctx.player
+        } else if let Some(entity) = ctx.level.get_entity(packet.id) {
+            entity
+        } else {
+            return;
+        };
+        if !ctx
+            .player
+            .is_within_entity_interaction_range(&entity.base().bounding_box(), 3.0)
+        {
+            return;
+        }
+        let stack = entity.get_pick_result().filter(|s| !s.is_empty());
+        let avatar = (packet.include_data && ctx.player.can_use_game_master_blocks())
+            .then(|| avatar_profile(entity))
+            .flatten()
+            .map(|profile| (profile, entity_display_name(ctx.server, entity)));
+        if let Some(stack) = stack {
+            try_pick(ctx.player, ctx.level, stack);
+        }
+        if let Some((profile, display_name)) = avatar
+            && let Some(source) = ctx.create_command_source_stack()
+        {
+            print_for_avatar(&source, display_name, &profile);
+        }
     }
 }
 

@@ -4275,9 +4275,12 @@ pub trait Entity: Any {
     fn skip_attack_interaction(&mut self, _level: &mut ServerLevel, _source: &dyn Entity) -> bool {
         false
     }
-    /// `getPickResult()`: the stack of a pick-block on the entity (`None`: nothing).
+    /// `getPickResult()`: the stack of a pick-block on the entity (`None`: nothing); `Mob`'s spawn egg by default.
+    // Not implemented: `getPickResult` of `AbstractMinecart` and its subclasses (the minecart items), `EndCrystal`,
+    // `EnderDragonPart` (its parent's) and `LeashFenceKnotEntity` (the lead).
     fn get_pick_result(&self) -> Option<crate::world::item::ItemStack> {
-        None
+        crate::world::item::spawn_egg_item::by_id(self.get_type())
+            .map(crate::world::item::ItemStack::new)
     }
     /// `getDirection()`: `Direction.fromYRot(getYRot())` (hanging entities store theirs).
     fn get_direction(&self) -> mc_core::direction::Direction {

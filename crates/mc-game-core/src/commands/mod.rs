@@ -18,6 +18,7 @@ pub mod functions;
 pub mod host;
 pub mod message;
 pub mod player_commands;
+pub mod profile_report;
 pub mod server_access;
 pub mod shared_suggestion_provider;
 pub mod synchronization;

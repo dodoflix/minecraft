@@ -53,3 +53,8 @@ fn the_anvil_renames_repairs_and_combines_through_the_packet_handlers() {
 fn the_grindstone_removes_enchantments_and_pays_out_experience() {
     common::block_scenario::check("mnu_grindstone");
 }
+
+#[test]
+fn picking_an_entity_selects_or_adds_its_pick_result_and_prints_avatar_profiles() {
+    common::block_scenario::check("mnu_pick_entity");
+}
