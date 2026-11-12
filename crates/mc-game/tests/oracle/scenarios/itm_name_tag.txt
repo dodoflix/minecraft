@@ -1,0 +1,70 @@
+# NameTagItem.interactLivingEntity through Mob.checkAndHandleImportantInteractions and Player.interactOn: a named tag names any living
+# entity of a serializable type (mobs become persistent), the stack shrinks (creative keeps it), a tag without a name, a player target and
+# a non-living entity pass; Mob.interact passes a dead mob before the tag is looked at, Player.interactOn still reaches the tag for a
+# dead one (SUCCESS, nothing consumed). The horse is named instead of being mounted.
+level flat
+preload 2
+difficulty normal
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 0.5 -60 8.5 0 0
+mobspawn Cow minecraft:cow 2.0 -60 0.5 90 0 nofinalize {NoAI:1b}
+mobspawn Zom minecraft:creeper 0.5 -60 2.0 0 0 nofinalize {NoAI:1b}
+spawn Stand minecraft:armor_stand -1.0 -60 0.5 0 0
+spawn_item Itm minecraft:diamond 0.5 -60 -1.5 0 0 0
+tick 3
+dump mob:Cow mob:Zom entity:Stand
+give P mainhand minecraft:name_tag[custom_name='"Bob"'] 3
+interact P Cow main
+tick 1
+note a named tag names a cow: persistent now, one tag used
+dump mob:Cow nbt:Cow inventory:P events
+give P mainhand minecraft:name_tag[custom_name='"Carl the cow"'] 3
+interact P Cow main sneak
+tick 1
+note the next tag renames it
+dump mob:Cow nbt:Cow inventory:P events
+give P mainhand minecraft:name_tag 3
+interact P Cow main
+tick 1
+note a tag without a name passes
+dump mob:Cow nbt:Cow inventory:P events
+give P mainhand minecraft:name_tag[custom_name='"Zed"'] 1
+interact P Zom main
+tick 1
+note a hostile mob is named and made persistent; the last tag leaves the hand empty
+dump mob:Zom nbt:Zom inventory:P events
+give C mainhand minecraft:name_tag[custom_name='"Ann"'] 2
+interact C Zom main
+tick 1
+note creative: the stack stays whole
+dump mob:Zom nbt:Zom inventory:C events
+give P offhand minecraft:name_tag[custom_name='"Off"'] 2
+interact P Cow off
+tick 1
+note the off hand works the same
+dump mob:Cow nbt:Cow inventory:P events
+give P mainhand minecraft:name_tag[custom_name='"Stand"'] 2
+interact P Stand main
+tick 1
+note an armor stand is a living entity, not a mob
+dump entity:Stand nbt:Stand inventory:P events
+give P mainhand minecraft:name_tag[custom_name='"Pat"'] 2
+interact P C main
+tick 1
+note a player cannot be serialized: pass, the second player keeps no name
+dump entity:C inventory:P events
+interact P Itm main
+tick 1
+note an item entity is not living: pass
+dump entity:Itm inventory:P events
+mobspawn Vil minecraft:horse 2.0 -60 -1.0 90 0 nofinalize {NoAI:1b}
+tick 1
+interact P Vil main
+tick 1
+note a horse is named, not mounted
+dump mob:Vil nbt:Vil inventory:P events
+hurt Cow minecraft:generic_kill 1000
+interact P Cow main
+tick 1
+note the cow is dead: Mob.interact passes, the tag item is still reached through Player.interactOn and succeeds without consuming
+dump mob:Cow inventory:P events

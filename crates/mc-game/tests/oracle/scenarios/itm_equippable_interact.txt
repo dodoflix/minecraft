@@ -1,0 +1,142 @@
+# Equippable.equipOnTarget through Player.interactOn / ItemStack.interactLivingEntity and the mobInteract of the mobs that call it
+# (Pig, Strider, AbstractHorse, Wolf): saddles, horse armor and wolf armor on the allowed and not allowed entity types, babies,
+# owned and wild animals. A successful equip splits one item off, plays the equip sound and marks the slot as a guaranteed drop (drop_chances in
+# the nbt dump); creative keeps the stack.
+level flat
+preload 2
+difficulty normal
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 0.5 -60 8.5 0 0
+tick 3
+note a saddle on a pig
+mobspawn Pig minecraft:pig 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Baby minecraft:pig 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+mobspawn Cow minecraft:cow 0.5 -60 -1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 1
+give P mainhand minecraft:saddle 1
+interact P Baby main
+tick 1
+note a baby pig cannot use the saddle slot: pass
+dump mob:Baby nbt:Baby inventory:P events
+interact P Cow main
+tick 1
+note a cow is not in the saddle tag: pass
+dump mob:Cow inventory:P events
+interact P Pig main
+tick 1
+note an adult pig takes it
+dump mob:Pig nbt:Pig inventory:P events
+give P offhand minecraft:saddle 1
+interact P Pig off
+tick 1
+note a second saddle does not fit
+dump mob:Pig inventory:P events
+kill Pig
+kill Baby
+kill Cow
+note creative keeps the saddle
+mobspawn PigC minecraft:pig 2.0 -60 8.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 1
+give C mainhand minecraft:saddle 1
+interact C PigC main
+tick 1
+dump mob:PigC nbt:PigC inventory:C events
+kill PigC
+note a harness is only for happy ghasts: a pig does not take it, a zombie neither
+mobspawn Pig2 minecraft:pig 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Zom minecraft:zombie 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 1
+give P mainhand minecraft:blue_harness 1
+interact P Pig2 main
+tick 1
+dump mob:Pig2 inventory:P events
+interact P Zom main
+tick 1
+dump mob:Zom inventory:P events
+give P mainhand minecraft:saddle 1
+interact P Zom main
+tick 1
+note a saddle and a helmet stay in the hand of the player for a zombie
+dump mob:Zom inventory:P events
+give P mainhand minecraft:iron_helmet 1
+interact P Zom main
+tick 1
+dump mob:Zom nbt:Zom inventory:P events
+kill Pig2
+kill Zom
+note a tamed horse takes a saddle and horse armor
+mobspawn Tame minecraft:horse 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 1
+tame Tame P
+give P mainhand minecraft:saddle 1
+interact P Tame main
+tick 1
+note the tamed horse takes the saddle
+dump mob:Tame nbt:Tame inventory:P events
+give P mainhand minecraft:iron_horse_armor 2
+interact P Tame main
+tick 1
+note and horse armor in the body slot
+dump mob:Tame nbt:Tame inventory:P events
+give P mainhand minecraft:diamond_horse_armor 2
+interact P Tame main
+tick 1
+note a second armor does not replace the first
+dump mob:Tame inventory:P events
+kill Tame
+note wolf armor: a wild wolf, a baby, the owner's adult wolf (twice) and another player's wolf
+mobspawn Wild minecraft:wolf 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Own minecraft:wolf 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Kid minecraft:wolf 0.5 -60 -1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+mobspawn Other minecraft:wolf -1.5 -60 0.5 270 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 1
+tame Own P
+tame Kid P
+tame Other C
+give P mainhand minecraft:wolf_armor 4
+interact P Wild main
+tick 1
+dump mob:Wild nbt:Wild inventory:P events
+interact P Kid main
+tick 1
+dump mob:Kid nbt:Kid inventory:P events
+interact P Other main
+tick 1
+dump mob:Other nbt:Other inventory:P events
+interact P Own main
+tick 1
+note the owner's wolf wears it
+dump mob:Own nbt:Own inventory:P events
+interact P Own main
+tick 1
+note a second armor: no slot left
+dump mob:Own nbt:Own inventory:P events
+kill Wild
+kill Kid
+kill Other
+kill Own
+note donkey, mule and strider take saddles, a llama a carpet
+mobspawn Don minecraft:donkey 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Mule minecraft:mule 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Str minecraft:strider 0.5 -60 -1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Lla minecraft:llama 2.0 -60 -2.0 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 1
+tame Don P
+tame Mule P
+tame Lla P
+give P mainhand minecraft:saddle 1
+interact P Don main
+tick 1
+dump mob:Don nbt:Don inventory:P events
+give P mainhand minecraft:saddle 1
+interact P Mule main
+tick 1
+dump mob:Mule nbt:Mule inventory:P events
+give P mainhand minecraft:saddle 1
+interact P Str main
+tick 1
+dump mob:Str nbt:Str inventory:P events
+give P mainhand minecraft:red_carpet 1
+interact P Lla main
+tick 1
+dump mob:Lla nbt:Lla inventory:P events

@@ -289,6 +289,8 @@ impl Harness {
             use mc_core::random::RandomSource as _;
             level.tick_state.random.set_seed(4242 ^ 0x5DEECE66D);
         }
+        // loot random sequences mix in the world seed (the oracle's default)
+        level.server_state.loot.world_seed = 4242;
         let broadcast_log = std::sync::Arc::new(parking_lot::Mutex::new(Vec::new()));
         level.tick_state.broadcast_log = Some(broadcast_log.clone());
         Harness {
@@ -371,10 +373,11 @@ impl Harness {
     // ---- entities -------------------------------------------------------------------------------------------
 
     fn entity_ref(&self, name: &str) -> EntityId {
-        *self
-            .refs
-            .get(name)
-            .unwrap_or_else(|| self.fail(&format!("unknown ref {name}")))
+        *self.refs.get(name).unwrap_or_else(|| {
+            let mut known: Vec<&str> = self.refs.keys().map(String::as_str).collect();
+            known.sort_unstable();
+            self.fail(&format!("unknown ref {name} (known: {})", known.join(" ")))
+        })
     }
 
     /// Register a created entity (its id came from the level's private counter = the oracle's `Entity.ENTITY_COUNTER`), name it, add it to the level and the tick order.
@@ -748,7 +751,9 @@ impl Harness {
             }
             "kill" => {
                 self.world();
-                self.with_entity(&a[1], |_, e| e.discard());
+                // `Entity.discard()` of a removed entity (a picked-up item) does nothing
+                let id = self.entity_ref(&a[1]);
+                self.level.with_entity(id, |_, e| e.discard());
             }
             "input" => {
                 self.world();

@@ -632,12 +632,13 @@ fn rotate_sets_and_faces() {
         ),
         ["Rotated Cow"]
     );
+    // `lookAt` multiplies atan2 by the folded constant 57.2957763671875 (bytecode), so facing +z is -7.6293945e-6, not 0
     assert_eq!(
         (
             entity(&server, cow).base().y_rot(),
             entity(&server, cow).base().x_rot()
         ),
-        (0.0, 0.0)
+        (-7.6293945e-6, 0.0)
     );
     assert_eq!(
         run(

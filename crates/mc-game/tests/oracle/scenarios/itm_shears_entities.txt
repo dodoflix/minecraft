@@ -1,0 +1,164 @@
+# ShearsItem on entities: Entity.interact shears leash connections and sheareable equipment before the mob's own mobInteract
+# (Sheep.shear, MushroomCow.shear, SnowGolem.shear); a ready mob is sheared (wool/mushroom/pumpkin drops with the level seed pinned,
+# shears damaged, sound), a baby or sheared one consumes the click, a sneaking player cannot shear equipment, binding curse blocks
+# survival players, only the owner shears a wolf's armor, creative keeps the shears.
+level flat
+preload 2
+difficulty normal
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 0.5 -60 8.5 0 0
+tick 3
+note sheep: an adult takes the shears (drops, sound, one durability), the sheared one and a baby only consume the click
+mobspawn Sheep minecraft:sheep 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:14b}
+mobspawn Sheared minecraft:sheep 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Sheared:1b}
+mobspawn Lamb minecraft:sheep 0.5 -60 -1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+tick 1
+give P mainhand minecraft:shears 1
+interact P Sheared main
+tick 1
+dump mob:Sheared nbt:Sheared inventory:P entities events
+interact P Lamb main
+tick 1
+dump mob:Lamb nbt:Lamb inventory:P entities events
+level_seed 11
+interact P Sheep main
+tick 2
+dump mob:Sheep nbt:Sheep inventory:P entities events
+kill item#1
+kill item#2
+kill item#3
+interact P Sheep main
+tick 1
+note the sheared sheep passes the second click
+dump mob:Sheep inventory:P entities events
+note a sneaking player shears a sheep as well (only equipment shearing needs no sneak)
+mobspawn Sheep2 minecraft:sheep -1.5 -60 0.5 270 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:3b}
+tick 1
+level_seed 12
+interact P Sheep2 main sneak
+tick 2
+dump mob:Sheep2 inventory:P entities events
+kill item#4
+kill item#5
+kill Sheep
+kill Sheared
+kill Lamb
+kill Sheep2
+note the last durability point: the shears break
+give P mainhand minecraft:shears[damage=237] 1
+mobspawn Sheep3 minecraft:sheep 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:1b}
+tick 1
+level_seed 13
+interact P Sheep3 main
+tick 2
+dump mob:Sheep3 inventory:P entities events
+kill item#6
+kill item#7
+kill item#8
+kill Sheep3
+note creative keeps the shears and still gets the wool
+give C mainhand minecraft:shears 1
+mobspawn Sheep4 minecraft:sheep 2.0 -60 8.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:5b}
+tick 1
+level_seed 14
+interact C Sheep4 main
+tick 2
+dump mob:Sheep4 inventory:C entities events
+kill item#9
+kill item#10
+kill item#11
+kill Sheep4
+note mooshroom: red then brown (the cow is the replacement, five mushrooms), a baby does not shear
+mobspawn Red minecraft:mooshroom 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Brown minecraft:mooshroom 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Type:"brown"}
+mobspawn Baby minecraft:mooshroom 0.5 -60 -1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+tick 1
+give P mainhand minecraft:shears 1
+interact P Baby main
+tick 1
+dump mob:Baby inventory:P entities events
+level_seed 21
+interact P Red main
+tick 2
+dump entities inventory:P events
+kill item#12
+kill item#13
+kill item#14
+kill item#15
+kill item#16
+level_seed 22
+interact P Brown main
+tick 2
+dump entities inventory:P events
+kill item#17
+kill item#18
+kill item#19
+kill item#20
+kill item#21
+note snow golem: the pumpkin comes off once
+mobspawn Snow minecraft:snow_golem 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 1
+level_seed 31
+interact P Snow main
+tick 2
+dump mob:Snow nbt:Snow inventory:P entities events
+kill item#22
+interact P Snow main
+tick 1
+dump mob:Snow inventory:P entities events
+note shears on a leashed mob cut the leash instead of the mob's own interaction
+kill Red
+kill Brown
+kill Baby
+kill Snow
+mobspawn Cow minecraft:cow 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn Wool minecraft:sheep 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+tick 1
+leash Cow P
+leash Wool Cow
+tick 1
+dump mob:Cow mob:Wool
+interact P Wool main
+tick 1
+note the sheep is leashed to the cow: its leash is cut, not the sheep sheared
+dump mob:Wool inventory:P entities events
+kill item#23
+leash Wool Cow
+interact P Cow main
+tick 1
+note the cow holds the sheep and is held by the player: both leashes are cut
+dump mob:Cow mob:Wool inventory:P entities events
+kill item#24
+kill item#25
+kill Cow
+kill Wool
+note shearing equipment: a creeper's sheareable helmet comes off, a normal one does not, a sneaking player cannot shear it
+mobspawn Creeper minecraft:creeper 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:equippable":{slot:"head",can_be_sheared:true,shearing_sound:"minecraft:entity.sheep.shear"}}}}}
+mobspawn Plain minecraft:creeper 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1}}}
+tick 1
+dump mob:Creeper nbt:Creeper mob:Plain
+interact P Plain main
+tick 1
+dump mob:Plain inventory:P entities events
+interact P Creeper main sneak
+tick 1
+dump mob:Creeper inventory:P entities events
+interact P Creeper main
+tick 2
+dump mob:Creeper nbt:Creeper inventory:P entities events
+kill item#26
+kill Creeper
+kill Plain
+note a saddle can be sheared off a pig; binding curse stops a survival player
+mobspawn Pig minecraft:pig 2.0 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn Cursed minecraft:pig 0.5 -60 2.0 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1,components:{"minecraft:enchantments":{"minecraft:binding_curse":1}}}}}
+tick 1
+dump mob:Pig mob:Cursed
+interact P Cursed main
+tick 1
+note the cursed saddle stays for a survival player
+dump mob:Cursed inventory:P entities events
+interact P Pig main
+tick 1
+dump mob:Pig nbt:Pig inventory:P entities events
+kill item#27

@@ -1,5 +1,6 @@
 # DyeItem.interactLivingEntity on sheep: a live, unsheared sheep of another colour takes the dye (the stack shrinks, not for creative);
 # the same colour, a sheared sheep and an item without a dye colour pass. Babies dye too.
+# `events` records the DYE_USE sound: it goes to everyone but the dyeing player.
 level flat
 preload 2
 difficulty normal
@@ -17,33 +18,33 @@ dump
 note a white sheep takes the red dye: one dye used
 interact P W main
 tick 1
-dump mob:W nbt:W inventory:P
+dump mob:W nbt:W inventory:P events
 note the sheep is red now: the same colour passes and the stack stays
 interact P W main sneak
 tick 1
-dump mob:W nbt:W inventory:P
+dump mob:W nbt:W inventory:P events
 note a sheared sheep passes
 interact P S main
 tick 1
-dump mob:S nbt:S inventory:P
+dump mob:S nbt:S inventory:P events
 note a baby sheep is dyed
 interact P B main
 tick 1
-dump mob:B nbt:B inventory:P
+dump mob:B nbt:B inventory:P events
 note a red sheep passes
 interact P R main
 tick 1
-dump mob:R nbt:R inventory:P
+dump mob:R nbt:R inventory:P events
 note a creative player keeps the stack
 interact C V main
 tick 1
-dump mob:V nbt:V inventory:C
+dump mob:V nbt:V inventory:C events
 note another dye changes the colour again; an item without a dye colour passes
 give P mainhand minecraft:blue_dye 2
 interact P W main
 tick 1
-dump mob:W nbt:W inventory:P
+dump mob:W nbt:W inventory:P events
 give P mainhand minecraft:stone 2
 interact P V main
 tick 1
-dump mob:V nbt:V inventory:P
+dump mob:V nbt:V inventory:P events
