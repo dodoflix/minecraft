@@ -122,6 +122,12 @@ crate can use it as a dev-dependency.
   (`crates/mc-game/tests/oracle/scenarios/`) is recorded from the vanilla server and replayed for ticks, neighbour
   and shape updates, fluids, redstone, pistons, drops, growth and the rest of the observable block behaviour. What no test
   covers is behaviour that needs entities, items or menus that are not ported yet (README, Known gaps).
+- Menu coverage: `tests/oracle/MenuOracleBase.java` opens a menu through its block for a real `ServerPlayer` of the in-process vanilla
+  level and records scripts (`crates/mc-game/tests/oracle/menu_scripts/NAME.txt`: open, set, click, drag, button, rename, close,
+  block, tick, recipe, gamerule, seed, map, seeded random sessions) with the menu, inventory, xp, drops, packets and level
+  broadcasts after every op (`scripts/menu-oracle.sh NAME`, fixtures in `fixtures/menu_oracle/`). `golden/common/menu_oracle.rs`
+  replays them on a stand-in player and names the first diverging op with both sides' state. A new menu is one entry in the kind
+  table on each side and a script.
 - A third target, `tests/it/main.rs`, holds T0/T1 tests that need a process of their own because they change
   process-wide state that every other test of the crate would see (today only `mc-text`: `Language::inject` replaces
   the translations of the whole process). A crate adds it only for that reason. Tests that capture log lines, or that

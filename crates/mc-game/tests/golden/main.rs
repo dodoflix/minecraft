@@ -130,6 +130,7 @@ mod loot_golden;
 mod loot_load;
 mod map_golden;
 mod menu_golden;
+mod menu_oracle_golden;
 mod menu_registration_guards;
 mod mineshaft_golden;
 mod mnu_harness_golden;

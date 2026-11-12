@@ -1,0 +1,494 @@
+import com.mojang.serialization.DynamicOps;
+import java.io.PrintStream;
+import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
+import net.minecraft.commands.arguments.blocks.BlockStateParser;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EnchantingTableBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.saveddata.maps.MapId;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import net.minecraft.world.phys.AABB;
+
+/**
+ * In-process menu oracle: scripted sessions through the REAL vanilla menus of a real ServerPlayer on a real ServerLevel
+ * (VanillaLevel, void world). The menu is opened the way a player does it: the block at TABLE provides it
+ * (BlockState.getMenuProvider + ServerPlayer.openMenu). The Rust twin is tests/golden/common/menu_oracle.rs.
+ * Usage: scripts/menu-oracle.sh NAME   (runs oracle/menu_scripts/NAME.txt)
+ * Output: crates/mc-game/tests/fixtures/menu_oracle/NAME.txt.gz (the wrapper compresses stdout)
+ *        other oracles (EnchantAnvilOracle) call boot(), the op methods and `script(...)` directly.
+ *
+ * Script lines (stacks are `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id]`;
+ * the printed ops carry the stack as `ItemStack.CODEC` SNBT, `-` = empty); `#` lines are copied:
+ *   OPEN kind [xp [seed [creative [pseed [lseed [shelves [blockers]]]]]]]
+ *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | chest): resets the world around TABLE,
+ *        places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
+ *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table.
+ *        Gravity blocks (anvils) fall when ticked: no support block is placed.
+ *   SET slot STACK | GIVE slot STACK    menu slot / player inventory slot (menu.broadcastChanges afterwards)
+ *   CLICK slot button INPUT             menu.clicked in sync (suppressRemoteUpdates, clicked, resumeRemoteUpdates, broadcastChanges)
+ *   DRAG type slot...                   the three CLICK groups of a quick-craft drag (type 0 charitable | 1 greedy | 2 clone)
+ *   BUTTON id | NAME text | CLOSE
+ *   BLOCK x y z id[props]               places a block (and its block entity) without resetting anything; undone by the next OPEN
+ *   TICK n                              n real server ticks (the player's own tick: broadcastChanges, close when stillValid fails);
+ *                                       ticks consume the level's random in a server dependent way: SEED level before the next draw
+ *   RECIPE give|take id                 `/recipe give|take` for the player; `*` = every recipe
+ *   GAMERULE name value | SEED player|level|enchant n | MAP id x z scale locked
+ *   EVENTS on|off                       print the EV lines of every PlayerList.broadcast since the last op (see VanillaLevel.RecordingPlayerList)
+ *   GEN kind seed n spec|spec|..        n random ops (SET/GIVE/CLICK/DRAG/BUTTON) on a fresh `kind` session, from java.util.Random(seed)
+ * Stdout: one "OP ..." line per op (replayed by Rust) followed by "OUT ..." lines, only those that changed since the last printed
+ * line of the same kind (reset by OPEN):
+ *   OUT S i=stack ..   menu slots (non-empty)   OUT D d0 d1 ..  data slots   OUT C carried   OUT I i=stack  player inventory
+ *   OUT X level seed totalXp progressBits   OUT B state of the block at TABLE   OUT ORBS n  experience of the orbs near TABLE
+ *   OUT DROPS id=n,..  dropped item entities (only when there are some)   OUT K ids  recipes the player knows (after a RECIPE op)
+ *   OUT M id=cx,cz,scale,locked,colorHash ..  maps made by MAP (only when any)   OUT R b  result of BUTTON / NAME
+ *   OUT PKT ...  container packets sent since the last op   OUT EV ...  broadcasts (EVENTS on)
+ */
+public class MenuOracleBase {
+   static final PrintStream OUT = VanillaLevel.OUT;
+   static VanillaLevel v;
+   static ServerLevel level;
+   static VanillaLevel.FakePlayer fp;
+   static ServerPlayer p;
+   static DynamicOps<Tag> ops;
+   static final BlockPos TABLE = new BlockPos(0, 70, 0);
+   static AbstractContainerMenu menu;
+   static String kind;
+   static boolean events;
+   /** Set by the first RECIPE op: the real player also unlocks recipes by itself (inventory changes), which is only compared once scripts look at recipes. */
+   static boolean recipes;
+   static final List<BlockPos> placed = new ArrayList<>();
+   static final Map<Integer, MapItemSavedData> maps = new TreeMap<>();
+
+   /** What a kind adds around TABLE besides its block (shelves/blockers of an enchanting table). */
+   interface Setup {
+      void run(int shelves, int blockers);
+   }
+
+   /** The block at TABLE that provides the menu of a kind. */
+   record Kind(Block block, Setup setup) {
+   }
+
+   static final Setup NO_SETUP = (shelves, blockers) -> { };
+   static final Map<String, Kind> KINDS = new LinkedHashMap<>();
+   /** Block registries only exist after the bootstrap: filled by boot(). */
+   static void registerKinds() {
+      KINDS.put("enchant", new Kind(Blocks.ENCHANTING_TABLE, (shelves, blockers) -> {
+         List<BlockPos> offsets = EnchantingTableBlock.BOOKSHELF_OFFSETS;
+         for (int i = 0; i < shelves && i < offsets.size(); i++) put(TABLE.offset(offsets.get(i)), Blocks.BOOKSHELF.defaultBlockState());
+         for (int i = 0; i < blockers && i < offsets.size(); i++) {
+            BlockPos o = offsets.get(i);
+            put(TABLE.offset(o.getX() / 2, o.getY(), o.getZ() / 2), Blocks.STONE.defaultBlockState());
+         }
+      }));
+      KINDS.put("anvil", new Kind(Blocks.ANVIL, NO_SETUP));
+      KINDS.put("chipped_anvil", new Kind(Blocks.CHIPPED_ANVIL, NO_SETUP));
+      KINDS.put("damaged_anvil", new Kind(Blocks.DAMAGED_ANVIL, NO_SETUP));
+      KINDS.put("grindstone", new Kind(Blocks.GRINDSTONE, NO_SETUP));
+      KINDS.put("chest", new Kind(Blocks.CHEST, NO_SETUP));
+   }
+
+   static String st(ItemStack s) {
+      if (s.isEmpty()) return "-";
+      return ItemStack.CODEC.encodeStart(ops, s).getOrThrow().toString();
+   }
+
+   static void op(String s) { OUT.println("OP " + s); }
+   static void out(String s) { OUT.println("OUT " + s); }
+   /** State lines are only printed when they differ from the last printed line of the same kind (reset by OPEN). */
+   static final Map<String, String> prev = new HashMap<>();
+   static void state(String key, String line) {
+      if (!line.equals(prev.put(key, line))) out(line);
+   }
+   /** Like {@link #state} but the `empty` line counts as already printed: a session that never uses the feature prints nothing. */
+   static void stateUnlessEmpty(String key, String line, String empty) {
+      if (!line.equals(prev.getOrDefault(key, empty))) {
+         prev.put(key, line);
+         out(line);
+      }
+   }
+
+   static Holder<Enchantment> ench(String id) {
+      return level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, Identifier.withDefaultNamespace(id)));
+   }
+
+   static Item item(String id) { return BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(id)); }
+
+   /** name[count][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id] */
+   static ItemStack mk(String spec) {
+      if (spec.equals("-")) return ItemStack.EMPTY;
+      String[] parts = spec.split(",");
+      String head = parts[0];
+      int count = 1;
+      java.util.regex.Matcher m = java.util.regex.Pattern.compile("^(.*?)x(\\d+)$").matcher(head);
+      if (m.matches()) { head = m.group(1); count = Integer.parseInt(m.group(2)); }
+      ItemStack s = new ItemStack(item(head), count);
+      if (s.isEmpty()) throw new IllegalArgumentException("unknown item " + head);
+      for (int i = 1; i < parts.length; i++) {
+         String k = parts[i].substring(0, parts[i].indexOf('=')), val = parts[i].substring(parts[i].indexOf('=') + 1);
+         switch (k) {
+            case "d" -> s.setDamageValue(Integer.parseInt(val));
+            case "rc" -> s.set(DataComponents.REPAIR_COST, Integer.parseInt(val));
+            case "n" -> s.set(DataComponents.CUSTOM_NAME, Component.literal(val));
+            case "e", "s" -> { for (String e : val.split(";")) { String[] x = e.split("@"); s.enchant(ench(x[0]), Integer.parseInt(x[1])); } }
+            case "m" -> s.set(DataComponents.MAP_ID, new MapId(Integer.parseInt(val)));
+            default -> throw new IllegalArgumentException(k);
+         }
+      }
+      return s;
+   }
+
+   static void setField(Class<?> c, Object o, String f, Object val) throws Exception {
+      Field fld = c.getDeclaredField(f);
+      fld.setAccessible(true);
+      fld.set(o, val);
+   }
+
+   static List<String> packetLines() {
+      List<String> lines = new ArrayList<>();
+      for (VanillaLevel.Sent s : fp.drain()) {
+         Object pk = s.packet();
+         if (pk instanceof ClientboundOpenScreenPacket o) lines.add("PKT open " + o.getContainerId() + " " + BuiltInRegistries.MENU.getKey(o.getType()).getPath());
+         else if (pk instanceof ClientboundContainerSetContentPacket c) {
+            StringBuilder b = new StringBuilder("PKT content " + c.containerId() + " " + c.stateId() + " carried=" + st(c.carriedItem()));
+            for (int i = 0; i < c.items().size(); i++) if (!c.items().get(i).isEmpty()) b.append(' ').append(i).append('=').append(st(c.items().get(i)));
+            lines.add(b.toString());
+         } else if (pk instanceof ClientboundContainerSetSlotPacket c) lines.add("PKT slot " + c.getContainerId() + " " + c.getStateId() + " " + c.getSlot() + " " + st(c.getItem()));
+         else if (pk instanceof ClientboundContainerSetDataPacket c) lines.add("PKT data " + c.getContainerId() + " " + c.getId() + " " + c.getValue());
+         else if (pk instanceof ClientboundSetCursorItemPacket c) lines.add("PKT cursor " + st(c.contents()));
+         else if (pk instanceof ClientboundContainerClosePacket c) lines.add("PKT close " + c.getContainerId());
+      }
+      return lines;
+   }
+
+   @SuppressWarnings("unchecked")
+   static void dump() {
+      boolean closed = menu == p.inventoryMenu;
+      StringBuilder b = new StringBuilder("S");
+      for (int i = 0; i < menu.slots.size(); i++) {
+         ItemStack s = menu.slots.get(i).getItem();
+         if (!s.isEmpty()) b.append(' ').append(i).append('=').append(st(s));
+      }
+      if (!closed) state("S", b.toString());
+      StringBuilder d = new StringBuilder("D");
+      try {
+         Field f = AbstractContainerMenu.class.getDeclaredField("dataSlots");
+         f.setAccessible(true);
+         for (DataSlot ds : (List<DataSlot>) f.get(menu)) d.append(' ').append(ds.get());
+      } catch (Exception e) { throw new RuntimeException(e); }
+      if (!closed) {
+         state("D", d.toString());
+         state("C", "C " + st(menu.getCarried()));
+      }
+      StringBuilder inv = new StringBuilder("I");
+      for (int i = 0; i < p.getInventory().getContainerSize(); i++) {
+         ItemStack s = p.getInventory().getItem(i);
+         if (!s.isEmpty()) inv.append(' ').append(i).append('=').append(st(s));
+      }
+      state("I", inv.toString());
+      state("X", "X " + p.experienceLevel + " " + p.getEnchantmentSeed() + " " + p.totalExperience + " " + Float.floatToRawIntBits(p.experienceProgress));
+      BlockState bs = level.getBlockState(TABLE);
+      state("B", "B " + bs.getBlock().builtInRegistryHolder().key().identifier().getPath() + (bs.hasProperty(HorizontalDirectionalBlock.FACING) ? " " + bs.getValue(HorizontalDirectionalBlock.FACING) : ""));
+      List<ExperienceOrb> orbs = level.getEntitiesOfClass(ExperienceOrb.class, new AABB(TABLE).inflate(3.0));
+      // orb merging depends on entity ids (not comparable across servers): compare the total experience
+      int total = 0;
+      try {
+         Field cf = ExperienceOrb.class.getDeclaredField("count");
+         cf.setAccessible(true);
+         for (ExperienceOrb orb : orbs) total += orb.getValue() * cf.getInt(orb);
+      } catch (Exception e) { throw new RuntimeException(e); }
+      state("ORBS", "ORBS " + total);
+      // item entities merge in an order that depends on entity ids: compare the totals per item
+      Map<String, Integer> drops = new TreeMap<>();
+      for (ItemEntity e : level.getEntitiesOfClass(ItemEntity.class, new AABB(TABLE).inflate(8.0))) {
+         drops.merge(BuiltInRegistries.ITEM.getKey(e.getItem().getItem()).toString(), e.getItem().getCount(), Integer::sum);
+      }
+      stateUnlessEmpty("DROPS", "DROPS" + drops.entrySet().stream().map(e -> " " + e.getKey() + "=" + e.getValue()).reduce("", String::concat), "DROPS");
+      if (recipes) {
+         TreeSet<String> known = new TreeSet<>();
+         p.getRecipeBook().pack().known().forEach(k -> known.add(k.identifier().toString()));
+         stateUnlessEmpty("K", "K" + known.stream().map(k -> " " + k).reduce("", String::concat), "K");
+      }
+      StringBuilder m = new StringBuilder("M");
+      maps.forEach((id, data) -> m.append(' ').append(id).append('=').append(data.centerX).append(',').append(data.centerZ).append(',').append(data.scale)
+         .append(',').append(data.locked ? 1 : 0).append(',').append(Arrays.hashCode(data.colors)));
+      stateUnlessEmpty("M", m.toString(), "M");
+      if (events) for (String e : VanillaLevel.EVENTS) out(e);
+      VanillaLevel.EVENTS.clear();
+      for (String l : packetLines()) out(l);
+   }
+
+   static void put(BlockPos pos, BlockState state) {
+      level.setBlock(pos, state, 3);
+      placed.add(pos);
+   }
+
+   static void clearArea() {
+      for (BlockPos pos : placed) level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+      placed.clear();
+      for (int x = -4; x <= 4; x++) for (int y = -2; y <= 3; y++) for (int z = -4; z <= 4; z++) level.setBlock(TABLE.offset(x, y, z), Blocks.AIR.defaultBlockState(), 3);
+      // removing a container drops its items: after the blocks
+      for (ExperienceOrb orb : new ArrayList<>(level.getEntitiesOfClass(ExperienceOrb.class, new AABB(TABLE).inflate(8.0)))) orb.discard();
+      for (ItemEntity e : new ArrayList<>(level.getEntitiesOfClass(ItemEntity.class, new AABB(TABLE).inflate(8.0)))) e.discard();
+   }
+
+   static void open(String k, int xp, int seed, boolean creative, long pseed, long lseed, int shelves, int blockers) throws Exception {
+      Kind spec = KINDS.get(k);
+      if (spec == null) throw new IllegalArgumentException("unknown kind " + k + " (" + KINDS.keySet() + ")");
+      kind = k;
+      prev.clear();
+      VanillaLevel.EVENTS.clear();
+      op("OPEN " + k + " " + xp + " " + seed + " " + (creative ? 1 : 0) + " " + pseed + " " + lseed + " " + shelves + " " + blockers);
+      if (p.containerMenu != p.inventoryMenu) p.doCloseContainer();
+      for (int i = 0; i < p.getInventory().getContainerSize(); i++) p.getInventory().setItem(i, ItemStack.EMPTY);
+      p.inventoryMenu.setCarried(ItemStack.EMPTY);
+      if (recipes && !p.getRecipeBook().pack().known().isEmpty()) v.command("recipe take Steve *");
+      clearArea();
+      p.experienceLevel = xp;
+      p.totalExperience = 0;
+      p.experienceProgress = 0;
+      setField(Player.class, p, "enchantmentSeed", seed);
+      p.getAbilities().instabuild = creative;
+      p.getRandom().setSeed(pseed);
+      level.getRandom().setSeed(lseed);
+      put(TABLE, spec.block().defaultBlockState());
+      spec.setup().run(shelves, blockers);
+      MenuProvider provider = level.getBlockState(TABLE).getMenuProvider(level, TABLE);
+      if (provider != null) p.openMenu(provider);
+      menu = p.containerMenu;
+      dump();
+   }
+
+   static void set(int slot, ItemStack stack) {
+      op("SET " + slot + " " + st(stack));
+      menu.getSlot(slot).set(stack);
+      menu.broadcastChanges();
+      dump();
+   }
+
+   static void give(int slot, ItemStack stack) {
+      op("GIVE " + slot + " " + st(stack));
+      p.getInventory().setItem(slot, stack);
+      menu.broadcastChanges();
+      dump();
+   }
+
+   static void click(int slot, int button, ContainerInput input) {
+      op("CLICK " + slot + " " + button + " " + input.name());
+      // ServerGamePacketListenerImpl.handleContainerClick for an in-sync client
+      menu.suppressRemoteUpdates();
+      menu.clicked(slot, button, input, p);
+      menu.resumeRemoteUpdates();
+      menu.broadcastChanges();
+      dump();
+   }
+
+   /** The three click groups of a drag over `slots` (ServerboundContainerClickPacket headers -999 / slot / -999). */
+   static void drag(int type, int... slots) {
+      click(-999, AbstractContainerMenu.getQuickcraftMask(0, type), ContainerInput.QUICK_CRAFT);
+      for (int s : slots) click(s, AbstractContainerMenu.getQuickcraftMask(1, type), ContainerInput.QUICK_CRAFT);
+      click(-999, AbstractContainerMenu.getQuickcraftMask(2, type), ContainerInput.QUICK_CRAFT);
+   }
+
+   static void button(int id) {
+      op("BUTTON " + id);
+      boolean r = menu.clickMenuButton(p, id);
+      if (r) menu.broadcastChanges();
+      out("R " + r);
+      dump();
+   }
+
+   static void name(String name) {
+      op("NAME " + name);
+      if (menu instanceof AnvilMenu anvil) {
+         boolean r = anvil.setItemName(name);
+         out("R " + r);
+      }
+      dump();
+   }
+
+   static void close() {
+      op("CLOSE");
+      p.doCloseContainer();
+      menu = p.containerMenu;
+      dump();
+   }
+
+   static void block(int x, int y, int z, String id) throws Exception {
+      String full = id.contains(":") ? id : "minecraft:" + id;
+      op("BLOCK " + x + " " + y + " " + z + " " + full);
+      put(new BlockPos(x, y, z), BlockStateParser.parseForBlock(level.holderLookup(Registries.BLOCK), full, false).blockState());
+      dump();
+   }
+
+   static void tick(int n) {
+      op("TICK " + n);
+      for (int i = 0; i < n; i++) v.tick();
+      menu = p.containerMenu;
+      dump();
+   }
+
+   static void recipe(String what, String id) {
+      op("RECIPE " + what + " " + id);
+      recipes = true;
+      v.command("recipe " + what + " Steve " + id);
+      v.commandOutput.clear();
+      dump();
+   }
+
+   static void gamerule(String name, String value) {
+      op("GAMERULE " + name + " " + value);
+      v.command("gamerule " + name + " " + value);
+      v.commandOutput.clear();
+      dump();
+   }
+
+   static void seed(String which, long value) throws Exception {
+      op("SEED " + which + " " + value);
+      switch (which) {
+         case "player" -> p.getRandom().setSeed(value);
+         case "level" -> level.getRandom().setSeed(value);
+         case "enchant" -> setField(Player.class, p, "enchantmentSeed", (int) value);
+         default -> throw new IllegalArgumentException("SEED player|level|enchant, got " + which);
+      }
+      dump();
+   }
+
+   static void map(int id, int x, int z, int scale, boolean locked) {
+      op("MAP " + id + " " + x + " " + z + " " + scale + " " + (locked ? 1 : 0));
+      MapItemSavedData data = MapItemSavedData.createFresh(x, z, (byte) scale, false, false, level.dimension());
+      if (locked) data = data.locked();
+      level.setMapData(new MapId(id), data);
+      maps.put(id, data);
+      dump();
+   }
+
+   static void events(boolean on) {
+      op("EVENTS " + (on ? "on" : "off"));
+      events = on;
+      dump();
+   }
+
+   /** A random session on a fresh `k` menu: `count` random SET/GIVE/CLICK/DRAG/BUTTON ops over the stack specs of `pool`. */
+   static void generate(String k, long seed, int count, String[] pool) throws Exception {
+      Random r = new Random(seed);
+      OUT.println("# GEN " + k + " " + seed + " " + count);
+      open(k, r.nextInt(31), r.nextInt(), r.nextInt(5) == 0, r.nextInt(1 << 24), r.nextInt(1 << 24), r.nextInt(16), 0);
+      ContainerInput[] inputs = {ContainerInput.PICKUP, ContainerInput.PICKUP, ContainerInput.PICKUP, ContainerInput.QUICK_MOVE, ContainerInput.SWAP, ContainerInput.THROW,
+         ContainerInput.CLONE, ContainerInput.PICKUP_ALL};
+      for (int i = 0; i < count; i++) {
+         int size = menu.slots.size();
+         switch (r.nextInt(14)) {
+            case 0, 1, 2 -> set(r.nextInt(size), mk(pool[r.nextInt(pool.length)]));
+            case 3, 4 -> give(r.nextInt(41), mk(pool[r.nextInt(pool.length)]));
+            case 5, 6, 7, 8, 9, 10, 11 -> {
+               boolean outside = r.nextInt(12) == 0; // only a pickup leaves the window (the other inputs index a slot)
+               ContainerInput in = outside ? ContainerInput.PICKUP : inputs[r.nextInt(inputs.length)];
+               int slot = outside ? -999 : r.nextInt(size);
+               int button = switch (in) {
+                  case SWAP -> r.nextInt(10) == 0 ? 40 : r.nextInt(9);
+                  case PICKUP_ALL, CLONE -> 0;
+                  default -> r.nextInt(2);
+               };
+               click(slot, button, in);
+            }
+            case 12 -> {
+               int type = r.nextInt(p.getAbilities().instabuild ? 3 : 2);
+               int[] slots = r.ints(1 + r.nextInt(4), 0, size).distinct().toArray();
+               drag(type, slots);
+            }
+            default -> button(r.nextInt(4));
+         }
+      }
+      close();
+   }
+
+   /** Runs script lines (see the class comment). */
+   static void script(List<String> lines) throws Exception {
+      for (String raw : lines) {
+         String line = raw.strip();
+         if (line.isEmpty()) continue;
+         if (line.startsWith("#")) { OUT.println(line); continue; }
+         String[] a = line.split(" ");
+         String rest = line.contains(" ") ? line.substring(line.indexOf(' ') + 1) : "";
+         switch (a[0]) {
+            case "OPEN" -> {
+               long[] val = {0, 0, 0, 1, 1, 0, 0};
+               for (int i = 2; i < a.length; i++) val[i - 2] = Long.parseLong(a[i]);
+               open(a[1], (int) val[0], (int) val[1], val[2] != 0, val[3], val[4], (int) val[5], (int) val[6]);
+            }
+            case "SET" -> set(Integer.parseInt(a[1]), mk(a[2]));
+            case "GIVE" -> give(Integer.parseInt(a[1]), mk(a[2]));
+            case "CLICK" -> click(Integer.parseInt(a[1]), Integer.parseInt(a[2]), ContainerInput.valueOf(a[3]));
+            case "DRAG" -> drag(Integer.parseInt(a[1]), Arrays.stream(a).skip(2).mapToInt(Integer::parseInt).toArray());
+            case "BUTTON" -> button(Integer.parseInt(a[1]));
+            case "NAME" -> name(rest);
+            case "CLOSE" -> close();
+            case "BLOCK" -> block(Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), a[4]);
+            case "TICK" -> tick(Integer.parseInt(a[1]));
+            case "RECIPE" -> recipe(a[1], a[2]);
+            case "GAMERULE" -> gamerule(a[1], a[2]);
+            case "SEED" -> seed(a[1], Long.parseLong(a[2]));
+            case "MAP" -> map(Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), a[5].equals("1"));
+            case "EVENTS" -> events(a[1].equals("on"));
+            case "GEN" -> generate(a[1], Long.parseLong(a[2]), Integer.parseInt(a[3]), a[4].split("\\|"));
+            default -> throw new IllegalArgumentException("unknown script line: " + line);
+         }
+      }
+   }
+
+   /** Boots the void world and joins the player next to TABLE (in reach of every menu block). */
+   static void boot() throws Exception {
+      VanillaLevel.Options o = new VanillaLevel.Options();
+      o.levelType = "void";
+      v = VanillaLevel.boot(o);
+      registerKinds();
+      level = v.level;
+      fp = v.connect("Steve", GameType.SURVIVAL, 0.5, 71, 0.5, 0, 0, false);
+      p = fp.player;
+      menu = p.containerMenu;
+      ops = level.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+      fp.drain();
+      VanillaLevel.EVENTS.clear();
+   }
+
+   public static void main(String[] args) throws Exception {
+      try {
+         boot();
+         script(Files.readAllLines(Path.of(args[0])));
+      } catch (Throwable t) {
+         // the bootstrap replaces System.err: the default handler would print nothing
+         OUT.flush();
+         t.printStackTrace(VanillaLevel.ERR);
+         System.exit(1);
+      }
+      OUT.flush();
+      System.exit(0);
+   }
+}

@@ -1,0 +1,40 @@
+# The ops beyond the menu clicks: BLOCK, TICK, GAMERULE, SEED, MAP, RECIPE and the EV lines of the level.
+# The level random is consumed differently by ticks of the two servers: SEED level before a draw that follows a tick.
+# Nothing here lets the player pick items up or unlock recipes by itself (the replay's player does not).
+EVENTS on
+OPEN chest 5 3 0 9 9
+SET 0 diamond_sword
+TICK 3
+SEED level 5
+CLOSE
+TICK 6
+OPEN chest 5 3 0 9 9
+BLOCK 2 70 2 minecraft:stone
+BLOCK 0 71 2 minecraft:oak_sign[rotation=3]
+TICK 2
+BLOCK 0 70 0 minecraft:air
+TICK 1
+EVENTS off
+OPEN enchant 30 5 0 11 22 15 0
+SEED enchant 123456789
+SEED player 77
+SEED level 78
+SET 1 lapis_lazulix3
+SET 0 diamond_sword
+BUTTON 1
+GAMERULE keep_inventory true
+GAMERULE random_tick_speed 0
+TICK 4
+CLOSE
+MAP 0 100 100 0 0
+MAP 1 -300 40 3 1
+OPEN anvil 20 1 0 1 1
+RECIPE take *
+RECIPE give minecraft:anvil
+RECIPE give minecraft:iron_block
+RECIPE take minecraft:anvil
+RECIPE give minecraft:smithing_table
+OPEN grindstone 0 0 0 1 1
+RECIPE give minecraft:grindstone
+SET 0 diamond_sword,e=sharpness@5
+CLICK 2 0 PICKUP
