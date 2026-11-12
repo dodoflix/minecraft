@@ -185,7 +185,10 @@ impl ServerPlayer {
         if stack != self.get_item_in_hand(hand) {
             self.set_item_in_hand(hand, stack.clone());
         }
-        self.player.living.use_item = stack.clone();
+        // the hook may have released the item (`stopUsingItem` cleared `useItem`)
+        if self.is_using_item() {
+            self.player.living.use_item = stack.clone();
+        }
         self.player.living.use_item_remaining -= 1;
         if self.player.living.use_item_remaining == 0
             && !behaviour(stack.item()).use_on_release(&stack)

@@ -171,8 +171,12 @@ fn update_using_item(e: &mut dyn Entity, level: &mut ServerLevel) {
     if stack != item_in_hand(e, hand) {
         e.set_item_slot(level, hand.as_equipment_slot(), stack.clone());
     }
+    let using = is_using_item(e);
     let living = e.living_mut().expect("living");
-    living.use_item = stack.clone();
+    // the hook may have released the item (`stopUsingItem` cleared `useItem`)
+    if using {
+        living.use_item = stack.clone();
+    }
     living.use_item_remaining -= 1;
     if living.use_item_remaining == 0 && !behaviour(stack.item()).use_on_release(&stack) {
         complete_using_item(e, level);

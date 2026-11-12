@@ -95,6 +95,7 @@ mod item_predicate_golden;
 mod item_registration_guards;
 mod item_use;
 mod items_oracle;
+mod itm_brush_golden;
 mod jigsaw_codec;
 mod jigsaw_structures_golden;
 mod levelgen_predicates_golden;

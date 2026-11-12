@@ -1,0 +1,86 @@
+# BrushItem: useOn starts the brush animation only while the view ray hits a block (CONSUME); every 10 ticks (elapsed % 10 == 5) the
+# brush plays the block's brush sound (generic for an ordinary block) and brushes a suspicious block; the brush loses one durability
+# when a block is brushed away, from the hand that holds it; looking at nothing releases the item. Players aim by their spawn yaw
+# and pitch (pitch 15 from the feet hits the north face of the block 4 ahead), pitch -90 looks at the sky.
+level flat
+preload 3
+watch events
+level_seed 5
+spawn_player A survival 4.5 -60 0.5 0 15
+spawn_player C creative 20.5 -60 0.5 0 15
+give A mainhand minecraft:brush
+give C mainhand minecraft:brush
+block 4 -60 4 minecraft:suspicious_sand
+be_nbt 4 -60 4 {LootTable:"minecraft:archaeology/desert_pyramid",LootTableSeed:12345L}
+tick 3
+note main hand: ten strokes brush the block away (sounds at elapsed 5, 15, ..., loot dropped north, brush damaged by one), the later strokes hit plain sand
+use_on A 4 -60 4 north main
+tick 20
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 inventory:A events
+tick 40
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 inventory:A events
+tick 50
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 inventory:A entities events
+note looking at the sky releases the brush
+snap A 4.5 -60 0.5 0 -90
+tick 12
+dump inventory:A events
+note a stored item, looking away mid-brush keeps the progress until the reset
+block 8 -60 4 minecraft:suspicious_gravel
+be_nbt 8 -60 4 {item:{id:"minecraft:diamond",count:3}}
+snap A 8.5 -60 0.5 0 15
+tick 2
+use_on A 8 -60 4 north main
+tick 30
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 inventory:A events
+snap A 8.5 -60 0.5 0 -90
+tick 12
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 inventory:A events
+snap A 8.5 -60 0.5 0 15
+tick 2
+use_on A 8 -60 4 north main
+tick 60
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 inventory:A events
+tick 40
+dump blocks:8,-60,4,8,-60,4 be:8,-60,4 inventory:A entities events
+snap A 8.5 -60 0.5 0 -90
+tick 12
+note an ordinary block: the generic sound only, no durability change
+block 12 -60 4 minecraft:stone
+snap A 12.5 -60 0.5 0 15
+tick 2
+use_on A 12 -60 4 north main
+tick 35
+dump blocks:12,-60,4,12,-60,4 inventory:A events
+snap A 12.5 -60 0.5 0 -90
+tick 12
+note off hand: the durability is taken from the off hand brush
+give A mainhand minecraft:stick
+give A offhand minecraft:brush
+block 16 -60 4 minecraft:suspicious_sand
+be_nbt 16 -60 4 {item:{id:"minecraft:gold_ingot",count:2}}
+snap A 16.5 -60 0.5 0 15
+tick 2
+use_on A 16 -60 4 north off
+tick 110
+dump blocks:16,-60,4,16,-60,4 be:16,-60,4 inventory:A entities events
+snap A 16.5 -60 0.5 0 -90
+tick 12
+note creative: the block is brushed away and the brush keeps its durability
+block 20 -60 4 minecraft:suspicious_sand
+be_nbt 20 -60 4 {item:{id:"minecraft:emerald",count:2}}
+tick 2
+use_on C 20 -60 4 north main
+tick 110
+dump blocks:20,-60,4,20,-60,4 be:20,-60,4 inventory:C entities events
+snap C 20.5 -60 0.5 0 -90
+tick 12
+note the last point of durability: the brush breaks when the block is brushed away
+give A mainhand minecraft:brush[damage=63]
+block 24 -60 4 minecraft:suspicious_gravel
+be_nbt 24 -60 4 {item:{id:"minecraft:iron_ingot",count:2}}
+snap A 24.5 -60 0.5 0 15
+tick 2
+use_on A 24 -60 4 north main
+tick 110
+dump blocks:24,-60,4,24,-60,4 be:24,-60,4 inventory:A entities events

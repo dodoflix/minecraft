@@ -1,0 +1,813 @@
+T 1
+T 2
+T 3
+# main hand: ten strokes brush the block away (sounds at elapsed 5, 15, ..., loot dropped north, brush damaged by one), the later strokes hit plain sand
+T 4
+T 5
+T 6
+T 7
+T 8
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 19
+T 20
+T 21
+T 22
+T 23
+B 4 -60 4 minecraft:suspicious_sand[dusted=1]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+I A 0 minecraft:brush*1
+T 24
+T 25
+T 26
+T 27
+T 28
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 29
+T 30
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+T 37
+T 38
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 39
+T 40
+T 41
+T 42
+T 43
+T 44
+T 45
+T 46
+T 47
+T 48
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 49
+T 50
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+T 57
+T 58
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 59
+T 60
+T 61
+T 62
+T 63
+B 4 -60 4 minecraft:suspicious_sand[dusted=3]
+BE 4 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:1,id:"minecraft:prize_pottery_sherd"},x:4,y:-60,z:4}
+I A 0 minecraft:brush*1
+T 64
+T 65
+T 66
+T 67
+T 68
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 69
+T 70
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 79
+T 80
+T 81
+T 82
+T 83
+T 84
+T 85
+T 86
+T 87
+T 88
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 89
+T 90
+T 91
+T 92
+T 93
+T 94
+T 95
+T 96
+T 97
+T 98
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=3008 pos=4,-60,4 data=125 global=0
+T 99
+T 100
+T 101
+T 102
+T 103
+T 104
+T 105
+T 106
+T 107
+T 108
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+T 109
+T 110
+T 111
+T 112
+T 113
+B 4 -60 4 minecraft:sand
+BE 4 -60 4 -
+I A 0 minecraft:brush*1/dmg=1
+E item#1 minecraft:item pos=4.5,-60.0,3.5 delta=0.0,-0.08,0.0 rot=112.13243,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=15 pickup=0 health=5 owner=- thrower=-
+# looking at the sky releases the brush
+T 114
+T 115
+T 116
+T 117
+T 118
+T 119
+T 120
+T 121
+T 122
+T 123
+T 124
+T 125
+I A 0 minecraft:brush*1/dmg=1
+# a stored item, looking away mid-brush keeps the progress until the reset
+T 126
+T 127
+T 128
+T 129
+T 130
+T 131
+T 132
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 133
+T 134
+T 135
+T 136
+T 137
+T 138
+T 139
+T 140
+T 141
+T 142
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 143
+T 144
+T 145
+T 146
+T 147
+T 148
+T 149
+T 150
+T 151
+T 152
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 153
+T 154
+T 155
+T 156
+T 157
+B 8 -60 4 minecraft:suspicious_gravel[dusted=2]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:3,id:"minecraft:diamond"},x:8,y:-60,z:4}
+I A 0 minecraft:brush*1/dmg=1
+T 158
+T 159
+T 160
+T 161
+T 162
+T 163
+T 164
+T 165
+T 166
+T 167
+T 168
+T 169
+B 8 -60 4 minecraft:suspicious_gravel[dusted=2]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:3,id:"minecraft:diamond"},x:8,y:-60,z:4}
+I A 0 minecraft:brush*1/dmg=1
+T 170
+T 171
+T 172
+T 173
+T 174
+T 175
+T 176
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 177
+T 178
+T 179
+T 180
+T 181
+T 182
+T 183
+T 184
+T 185
+T 186
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 187
+T 188
+T 189
+T 190
+T 191
+T 192
+T 193
+T 194
+T 195
+T 196
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 197
+T 198
+T 199
+T 200
+T 201
+T 202
+T 203
+T 204
+T 205
+T 206
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 207
+T 208
+T 209
+T 210
+T 211
+T 212
+T 213
+T 214
+T 215
+T 216
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 217
+T 218
+T 219
+T 220
+T 221
+T 222
+T 223
+T 224
+T 225
+T 226
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 227
+T 228
+T 229
+T 230
+T 231
+B 8 -60 4 minecraft:suspicious_gravel[dusted=3]
+BE 8 -60 4 {components:{},id:"minecraft:brushable_block",item:{count:3,id:"minecraft:diamond"},x:8,y:-60,z:4}
+I A 0 minecraft:brush*1/dmg=1
+T 232
+T 233
+T 234
+T 235
+T 236
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=3008 pos=8,-60,4 data=131 global=0
+T 237
+T 238
+T 239
+T 240
+T 241
+T 242
+T 243
+T 244
+T 245
+T 246
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+T 247
+T 248
+T 249
+T 250
+T 251
+T 252
+T 253
+T 254
+T 255
+T 256
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+T 257
+T 258
+T 259
+T 260
+T 261
+T 262
+T 263
+T 264
+T 265
+T 266
+EV sound at=8.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+T 267
+T 268
+T 269
+T 270
+T 271
+B 8 -60 4 minecraft:gravel
+BE 8 -60 4 -
+I A 0 minecraft:brush*1/dmg=2
+E item#1 minecraft:item pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=112.13243,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=173 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.5,-60.0,3.5 delta=0.0,-0.12,0.0 rot=156.78716,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=35 pickup=0 health=5 owner=- thrower=-
+T 272
+T 273
+T 274
+T 275
+T 276
+T 277
+T 278
+T 279
+T 280
+T 281
+T 282
+T 283
+# an ordinary block: the generic sound only, no durability change
+T 284
+T 285
+T 286
+T 287
+T 288
+T 289
+T 290
+EV sound at=12.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+T 291
+T 292
+T 293
+T 294
+T 295
+T 296
+T 297
+T 298
+T 299
+T 300
+EV sound at=12.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+T 301
+T 302
+T 303
+T 304
+T 305
+T 306
+T 307
+T 308
+T 309
+T 310
+EV sound at=12.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+T 311
+T 312
+T 313
+T 314
+T 315
+T 316
+T 317
+T 318
+T 319
+T 320
+EV sound at=12.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+B 12 -60 4 minecraft:stone
+I A 0 minecraft:brush*1/dmg=2
+T 321
+T 322
+T 323
+T 324
+T 325
+T 326
+T 327
+T 328
+T 329
+T 330
+T 331
+T 332
+# off hand: the durability is taken from the off hand brush
+T 333
+T 334
+T 335
+T 336
+T 337
+T 338
+T 339
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 340
+T 341
+T 342
+T 343
+T 344
+T 345
+T 346
+T 347
+T 348
+T 349
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 350
+T 351
+T 352
+T 353
+T 354
+T 355
+T 356
+T 357
+T 358
+T 359
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 360
+T 361
+T 362
+T 363
+T 364
+T 365
+T 366
+T 367
+T 368
+T 369
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 370
+T 371
+T 372
+T 373
+T 374
+T 375
+T 376
+T 377
+T 378
+T 379
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 380
+T 381
+T 382
+T 383
+T 384
+T 385
+T 386
+T 387
+T 388
+T 389
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 390
+T 391
+T 392
+T 393
+T 394
+T 395
+T 396
+T 397
+T 398
+T 399
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 400
+T 401
+T 402
+T 403
+T 404
+T 405
+T 406
+T 407
+T 408
+T 409
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 410
+T 411
+T 412
+T 413
+T 414
+T 415
+T 416
+T 417
+T 418
+T 419
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 420
+T 421
+T 422
+T 423
+T 424
+T 425
+T 426
+T 427
+T 428
+T 429
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=3008 pos=16,-60,4 data=125 global=0
+T 430
+T 431
+T 432
+T 433
+T 434
+T 435
+T 436
+T 437
+T 438
+T 439
+EV sound at=16.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+T 440
+T 441
+T 442
+T 443
+T 444
+B 16 -60 4 minecraft:sand
+BE 16 -60 4 -
+I A 0 minecraft:stick*1
+I A 40 minecraft:brush*1/dmg=1
+E item#1 minecraft:item pos=4.5,-60.0,3.5 delta=0.0,-0.04,0.0 rot=112.13243,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=346 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=156.78716,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=208 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=16.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=236.03102,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*2 age=15 pickup=0 health=5 owner=- thrower=-
+T 445
+T 446
+T 447
+T 448
+T 449
+T 450
+T 451
+T 452
+T 453
+T 454
+T 455
+T 456
+# creative: the block is brushed away and the brush keeps its durability
+T 457
+T 458
+T 459
+T 460
+T 461
+T 462
+T 463
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 464
+T 465
+T 466
+T 467
+T 468
+T 469
+T 470
+T 471
+T 472
+T 473
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 474
+T 475
+T 476
+T 477
+T 478
+T 479
+T 480
+T 481
+T 482
+T 483
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 484
+T 485
+T 486
+T 487
+T 488
+T 489
+T 490
+T 491
+T 492
+T 493
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 494
+T 495
+T 496
+T 497
+T 498
+T 499
+T 500
+T 501
+T 502
+T 503
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 504
+T 505
+T 506
+T 507
+T 508
+T 509
+T 510
+T 511
+T 512
+T 513
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 514
+T 515
+T 516
+T 517
+T 518
+T 519
+T 520
+T 521
+T 522
+T 523
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 524
+T 525
+T 526
+T 527
+T 528
+T 529
+T 530
+T 531
+T 532
+T 533
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 534
+T 535
+T 536
+T 537
+T 538
+T 539
+T 540
+T 541
+T 542
+T 543
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+T 544
+T 545
+T 546
+T 547
+T 548
+T 549
+T 550
+T 551
+T 552
+T 553
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.sand source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=3008 pos=20,-60,4 data=125 global=0
+T 554
+T 555
+T 556
+T 557
+T 558
+T 559
+T 560
+T 561
+T 562
+T 563
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.generic source=block vol=1.0 pitch=1.0
+T 564
+T 565
+T 566
+T 567
+T 568
+B 20 -60 4 minecraft:sand
+BE 20 -60 4 -
+I C 0 minecraft:brush*1
+E item#1 minecraft:item pos=4.5,-60.0,3.5 delta=0.0,-0.04,0.0 rot=112.13243,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=470 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=156.78716,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=332 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=16.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=236.03102,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*2 age=139 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=20.5,-60.0,3.5 delta=0.0,-0.04,0.0 rot=29.000538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*2 age=15 pickup=0 health=5 owner=- thrower=-
+T 569
+T 570
+T 571
+T 572
+T 573
+T 574
+T 575
+T 576
+T 577
+T 578
+T 579
+T 580
+# the last point of durability: the brush breaks when the block is brushed away
+T 581
+T 582
+T 583
+T 584
+T 585
+T 586
+T 587
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 588
+T 589
+T 590
+T 591
+T 592
+T 593
+T 594
+T 595
+T 596
+T 597
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 598
+T 599
+T 600
+T 601
+T 602
+T 603
+T 604
+T 605
+T 606
+T 607
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 608
+T 609
+T 610
+T 611
+T 612
+T 613
+T 614
+T 615
+T 616
+T 617
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 618
+T 619
+T 620
+T 621
+T 622
+T 623
+T 624
+T 625
+T 626
+T 627
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 628
+T 629
+T 630
+T 631
+T 632
+T 633
+T 634
+T 635
+T 636
+T 637
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 638
+T 639
+T 640
+T 641
+T 642
+T 643
+T 644
+T 645
+T 646
+T 647
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 648
+T 649
+T 650
+T 651
+T 652
+T 653
+T 654
+T 655
+T 656
+T 657
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 658
+T 659
+T 660
+T 661
+T 662
+T 663
+T 664
+T 665
+T 666
+T 667
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+T 668
+T 669
+T 670
+T 671
+T 672
+T 673
+T 674
+T 675
+T 676
+T 677
+EV sound at=24.5,-59.5,4.5 r=16.0 ex=1 event=minecraft:item.brush.brushing.gravel source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=3008 pos=24,-60,4 data=131 global=0
+T 678
+T 679
+T 680
+T 681
+T 682
+T 683
+T 684
+T 685
+T 686
+T 687
+T 688
+T 689
+T 690
+T 691
+T 692
+B 24 -60 4 minecraft:gravel
+BE 24 -60 4 -
+I A 40 minecraft:brush*1/dmg=1
+E item#1 minecraft:item pos=4.5,-60.0,3.5 delta=0.0,-0.04,0.0 rot=112.13243,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=594 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=156.78716,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=456 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=16.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=236.03102,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*2 age=263 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=20.5,-60.0,3.5 delta=0.0,-0.04,0.0 rot=29.000538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*2 age=139 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=24.5,-60.0,3.5 delta=0.0,-0.08,0.0 rot=57.422276,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*2 age=15 pickup=0 health=5 owner=- thrower=-

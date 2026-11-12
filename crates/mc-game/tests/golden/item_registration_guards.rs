@@ -64,10 +64,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
 /// the class cannot tell these from a complete one, so the entry is deleted by hand with the commit that completes it.
 const EXPECTED_INCOMPLETE: &[(&str, &str)] = &[
     (
-        "BrushItem",
-        "useOn and releaseUsing brush suspicious sand and gravel (only the use animation and duration exist)",
-    ),
-    (
         "LingeringPotionItem",
         "use spawns a ThrownLingeringPotion (no potion entity yet: the stack is consumed and nothing is thrown)",
     ),
