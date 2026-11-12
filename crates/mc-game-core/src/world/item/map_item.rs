@@ -14,12 +14,16 @@ use crate::world::level::level_access::LevelReader;
 use crate::world::level::material::map_color::{self, Brightness, get_packed_id};
 use crate::world::level::saveddata::maps::{MapItemSavedData, MapTickEnv, PlayerView};
 use crate::world::level::{BlockGetter, DimensionKey};
-use mc_core::pos::BlockPos;
+use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::Item;
 use mc_data::block::Block;
 use mc_protocol::components::{MAP_ID, MAP_POST_PROCESSING, MapPostProcessing};
 use mc_protocol::packets::play::level::SoundSource;
+use mc_world::chunk::ProtoChunk;
 use mc_world::heightmap::HeightmapType;
+use mc_world::status::ChunkStatus;
+use mc_world::upgrade_data::UpgradeData;
+use mc_worldgen::blending::Blender;
 
 pub struct MapItem;
 pub struct EmptyMapItem;
@@ -118,20 +122,44 @@ pub fn render_biome_preview_map(level: &ServerLevel, stack: &ItemStack) {
     let uncached = env
         .biome_source()
         .create_uncached_resolver(&env.random_state);
-    let noise_biome = |qx: i32, qy: i32, qz: i32| match level.chunk_now(qx >> 2, qz >> 2) {
-        Some(chunk) => chunk.data.access.get_noise_biome(qx, qy, qz),
-        None => uncached.get_noise_biome(qx, qy, qz),
+    // `level.getBiome` reads `getChunk(x, z, BIOMES, false)`: an existing chunk's stored biomes, and a chunk whose ticket
+    // level allows `BIOMES` is generated first (its biomes are filled in generation order, which matters where the biome
+    // search tree has ties); other columns use the biome source.
+    let generated: std::cell::RefCell<std::collections::HashMap<(i32, i32), ProtoChunk>> =
+        Default::default();
+    let noise_biome = |qx: i32, qy: i32, qz: i32| {
+        let source = level.chunk_source();
+        if let Some(biome) = source.get_noise_biome_now(qx, qy, qz) {
+            return biome;
+        }
+        let (cx, cz) = (qx >> 2, qz >> 2);
+        if !source.can_reach_status(cx, cz, ChunkStatus::Biomes) {
+            return uncached.get_noise_biome(qx, qy, qz);
+        }
+        generated
+            .borrow_mut()
+            .entry((cx, cz))
+            .or_insert_with(|| {
+                let context = &source.chunk_map.gen_context;
+                let mut chunk = ProtoChunk::new(
+                    ChunkPos::new(cx, cz),
+                    UpgradeData::EMPTY,
+                    context.level_height,
+                    &context.factory,
+                    None,
+                );
+                env.generator
+                    .create_biomes(&env.random_state, &Blender::empty(), &mut chunk);
+                chunk
+            })
+            .access
+            .get_noise_biome(qx, qy, qz)
     };
     let manager =
         mc_worldgen::biome::BiomeManager::new(&noise_biome, level.tick_state.biome_zoom_seed);
-    // `biome.is(BiomeTags.WATER_ON_MAP_OUTLINES)`: the level's biome registry when it has one, else the vanilla tag
-    let registry = level.registries.registry("worldgen/biome");
+    // `biome.is(BiomeTags.WATER_ON_MAP_OUTLINES)`
+    let registry = level.registries.registry(crate::registry::keys::BIOME);
     let tag = mc_core::ident::Identifier::new("minecraft", "water_on_map_outlines").expect("valid");
-    let vanilla_tag: std::collections::HashSet<String> =
-        mc_data::tags::names("worldgen/biome", "minecraft:water_on_map_outlines")
-            .unwrap_or_default()
-            .into_iter()
-            .collect();
     let mut watery_by_biome: std::collections::HashMap<u32, bool> = Default::default();
     let mut is_biome_watery = vec![false; 128 * 128];
     for row in 0..128 {
@@ -144,10 +172,7 @@ pub fn render_biome_preview_map(level: &ServerLevel, stack: &ItemStack) {
             is_biome_watery[(row * 128 + column) as usize] =
                 *watery_by_biome.entry(biome.0).or_insert_with(|| {
                     let key = biomes.key(biome);
-                    registry.map_or_else(
-                        || vanilla_tag.contains(&key.to_string()),
-                        |r| r.id_of(key).is_some_and(|id| r.is_in_tag(id, &tag)),
-                    )
+                    registry.is_some_and(|r| r.id_of(key).is_some_and(|id| r.is_in_tag(id, &tag)))
                 });
         }
     }

@@ -71,6 +71,38 @@ impl ServerChunkCache {
             .get_chunk_if_present_full()
     }
 
+    /// The stored biome of the chunk `getChunk(x, z, ChunkStatus.BIOMES, false)` returns when it already exists: a loaded
+    /// chunk or a generating one that has reached `BIOMES`.
+    pub fn get_noise_biome_now(
+        &self,
+        quart_x: i32,
+        quart_y: i32,
+        quart_z: i32,
+    ) -> Option<mc_world::palette::BiomeId> {
+        let holder = self
+            .chunk_map
+            .get_visible_chunk_if_present(ChunkPos::pack_xz(quart_x >> 2, quart_z >> 2))?;
+        if !holder.has_chunk(ChunkStatus::Biomes) {
+            return None;
+        }
+        match &holder.slot {
+            ChunkSlot::Level(chunk) => {
+                Some(chunk.data.access.get_noise_biome(quart_x, quart_y, quart_z))
+            }
+            ChunkSlot::Proto(chunk) => chunk.get_noise_biome(quart_x, quart_y, quart_z).ok(),
+            ChunkSlot::None | ChunkSlot::Loaned => None,
+        }
+    }
+
+    /// Whether the chunk's ticket level lets it reach `status`: `getChunk(x, z, status, false)` then generates it.
+    pub fn can_reach_status(&self, x: i32, z: i32, status: ChunkStatus) -> bool {
+        !Self::chunk_absent(
+            self.chunk_map
+                .get_visible_chunk_if_present(ChunkPos::pack_xz(x, z)),
+            chunk_level::by_status(status),
+        )
+    }
+
     pub fn get_chunk_now_mut(&mut self, x: i32, z: i32) -> Option<&mut LevelChunk> {
         self.chunk_map
             .holders

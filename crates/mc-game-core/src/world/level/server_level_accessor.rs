@@ -117,7 +117,7 @@ pub trait ServerLevelAccessor:
             return false;
         };
         self.registry_access()
-            .registry("worldgen/biome")
+            .registry(crate::registry::keys::BIOME)
             .is_some_and(|r| r.is_in_tag(id.0, &tag))
     }
 }
