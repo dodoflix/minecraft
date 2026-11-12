@@ -770,6 +770,18 @@ impl Entity for ServerPlayer {
         crate::world::item::hurt_and_break(&mut stack, amount, level, self, slot);
         self.player.inventory.equipment_set(slot, stack);
     }
+    /// `ServerPlayer.onEquippedItemBroken(brokenItem, inSlot)`: the equipment break handling, then the broken-item statistic.
+    fn on_equipped_item_broken(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        broken: &crate::world::item::ItemStack,
+        slot: crate::world::entity::equipment::EquipmentSlot,
+    ) {
+        crate::world::item::enchantment::broken_item::on_equipped_item_broken(
+            self, level, broken, slot,
+        );
+        self.award_stat_once(level, crate::stats::Stat::Broken(broken.item()));
+    }
     // ==== [LivingCore] end ====
     fn move_simulation_type(&self) -> crate::world::entity::MoveSimulationType {
         crate::world::entity::MoveSimulationType::AuthoritativeSideAndServer
