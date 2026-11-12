@@ -354,6 +354,32 @@ pub fn hurt_and_break(
     }
 }
 
+/// `ItemStack.hurtAndConvertOnBreak(amount, newItem, owner, slot)`: the stack itself, or (when it broke) a single `new_item`
+/// that keeps the components (`transmuteCopyIgnoreEmpty`) with the damage reset.
+pub fn hurt_and_convert_on_break(
+    stack: &mut ItemStack,
+    amount: i32,
+    new_item: Item,
+    level: &mut ServerLevel,
+    owner: &mut ServerPlayer,
+    slot: EquipmentSlot,
+) -> ItemStack {
+    let broken = hurt_and_break_stack(stack, amount, level, Some(&mut *owner));
+    if let Some(broken) = &broken {
+        owner.on_equipped_item_broken(level, broken, slot);
+    }
+    if !stack.is_empty() {
+        return stack.clone();
+    }
+    // the emptied stack no longer reports its components: take them from the broken copy
+    let patch = broken.as_ref().unwrap_or(stack).get_components_patch();
+    let mut replacement = ItemStack::with_patch(new_item, 1, &patch);
+    if replacement.is_damageable_item() {
+        replacement.set_damage_value(0);
+    }
+    replacement
+}
+
 /// `ItemStack.hurtWithoutBreaking(amount, player)`.
 pub fn hurt_without_breaking(
     stack: &mut ItemStack,
