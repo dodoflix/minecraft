@@ -105,17 +105,7 @@ impl PlayerSystems for ServerPlayerSystems {
 
     /// `Player.tryToStartFallFlying()`.
     fn try_to_start_fall_flying(&self, ctx: &mut PlayCtx) -> bool {
-        use crate::world::entity::Entity;
-        let player = &mut *ctx.player;
-        if !player.player.living.is_fall_flying() && player.can_glide() && !player.is_in_liquid() {
-            // `startFallFlying()`
-            player
-                .base_mut()
-                .set_shared_flag(crate::world::entity::entity::FLAG_FALL_FLYING, true);
-            true
-        } else {
-            false
-        }
+        ctx.player.try_to_start_fall_flying()
     }
 
     /// `LivingEntity.stopFallFlying()`.
@@ -275,3 +265,18 @@ impl PlayerSystems for ServerPlayerSystems {
 
 #[distributed_slice(PLAYER_SYSTEMS)]
 static SERVER_PLAYER_SYSTEMS: &dyn PlayerSystems = &ServerPlayerSystems;
+
+impl crate::world::entity::ServerPlayer {
+    /// `Player.tryToStartFallFlying()`: start gliding unless already gliding, unable to glide or in a liquid.
+    pub fn try_to_start_fall_flying(&mut self) -> bool {
+        use crate::world::entity::Entity;
+        if !self.player.living.is_fall_flying() && self.can_glide() && !self.is_in_liquid() {
+            // `startFallFlying()`
+            self.base_mut()
+                .set_shared_flag(crate::world::entity::entity::FLAG_FALL_FLYING, true);
+            true
+        } else {
+            false
+        }
+    }
+}

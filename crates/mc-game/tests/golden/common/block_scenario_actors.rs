@@ -601,22 +601,6 @@ impl Scenario {
                 reseed_for(&a[1]);
                 self.spawn_player(a);
             }
-            "pcommand" => {
-                self.world();
-                // `handlePlayerCommand` of the actions the scenarios use (the packet handler itself needs a connection)
-                self.with_player_named(&a[1], |level, p| {
-                    match a[2].to_ascii_lowercase().as_str() {
-                        "start_sprinting" => p.set_sprinting(true),
-                        "stop_sprinting" => p.set_sprinting(false),
-                        "stop_sleeping" => {
-                            if p.is_sleeping() {
-                                p.stop_sleep_in_bed(level, false, true);
-                            }
-                        }
-                        other => panic!("pcommand {other} is not supported by the Rust replay"),
-                    }
-                });
-            }
             "menu_button" => {
                 self.world();
                 // `handleContainerButtonClick` without the packet: the menu's own handler on the player's open menu
@@ -879,6 +863,8 @@ impl Scenario {
         let limit: i32 = a.get(5).map_or(-1, |l| l.parse().unwrap());
         let max_y = self.level().get_max_y();
         let name = a[1].clone();
+        // `handlePlayerAction` of a block action: the break handler, then `ackBlockChangesUpTo(sequence)`
+        let sequence = self.actors.sequences.next(&name);
         let creative = self.with_player_named(&name, |level, p| {
             p.handle_block_break_action(
                 level,
@@ -888,6 +874,7 @@ impl Scenario {
                 max_y,
                 false,
             );
+            crate::common::player_actions::acknowledge(p, sequence);
             p.is_creative()
         });
         // the client decides on the state the START packet left behind (air after an instant break: it then ticks once)
@@ -906,6 +893,7 @@ impl Scenario {
                 } else {
                     progress >= 1.0
                 } {
+                    let sequence = self.actors.sequences.next(&name);
                     self.with_player_named(&name, |level, p| {
                         p.handle_block_break_action(
                             level,
@@ -914,7 +902,8 @@ impl Scenario {
                             Direction::Up,
                             max_y,
                             false,
-                        )
+                        );
+                        crate::common::player_actions::acknowledge(p, sequence);
                     });
                     self.tick_once();
                     break;

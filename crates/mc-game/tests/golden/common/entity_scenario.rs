@@ -30,7 +30,7 @@
 //!   (the oracle's `Entity` counter) for entities the scenario creates.
 //! * Commands implemented: see [`Harness::run`] plus the families in `entity_scenario/` (`mob_cmds.rs`: target love age breed tame leash;
 //!   `nav_cmds.rs`: nav path_query nav_stop; `dump_cmds.rs`: goals: brain: path: attrs: nbt:) and the player actions shared with the block replay
-//!   (`player_actions.rs`: use use_on release interact drop swing swap dispense select, dumps use: cooldowns: stats: inventory:). Add a new family as a new file with
+//!   (`player_actions.rs`: use use_on release interact drop swing swap stab dispense select, dumps use: cooldowns: stats: inventory:), the `events` dump (EV lines). Add a new family as a new file with
 //!   `pub(super) fn run(&mut Harness, &[String]) -> bool` (+ a `mod` line and one `||` in the fallback arm of `run`). Entity ids come from the
 //!   level's private counter (`ServerLevel::entity_id_counter`, starts at 1 like the oracle's `Entity.ENTITY_COUNTER`), so auto-created entities
 //!   (babies, arrows, orbs) get the oracle's ids; ids matter for `(tickCount + id) % n` throttles. An unsupported command or dump kind PANICS with `scenario:line`; there is no
@@ -266,6 +266,10 @@ pub struct Harness {
     flat: bool,
     pub day_time: i64,
     sequences: super::player_actions::Sequences,
+    /// The level's recorded broadcasts (sounds, level events) since the last `dump events`.
+    broadcast_log: std::sync::Arc<
+        parking_lot::Mutex<Vec<mc_game::server::level::level_events::BroadcastRecord>>,
+    >,
 }
 
 impl Harness {
@@ -285,6 +289,8 @@ impl Harness {
             use mc_core::random::RandomSource as _;
             level.tick_state.random.set_seed(4242 ^ 0x5DEECE66D);
         }
+        let broadcast_log = std::sync::Arc::new(parking_lot::Mutex::new(Vec::new()));
+        level.tick_state.broadcast_log = Some(broadcast_log.clone());
         Harness {
             level,
             world,
@@ -305,6 +311,7 @@ impl Harness {
             flat: true,
             day_time: 0,
             sequences: Default::default(),
+            broadcast_log,
         }
     }
 
@@ -1143,6 +1150,13 @@ impl Harness {
                 ("all_players", None) => {
                     for (n, _) in self.players.clone() {
                         self.describe_ref(&n, false);
+                    }
+                }
+                // EV lines of the sounds and level events broadcast since the last dump
+                ("events", None) => {
+                    let records = std::mem::take(&mut *self.broadcast_log.lock());
+                    for r in records {
+                        self.out.push(super::block_scenario::format_broadcast(&r));
                     }
                 }
                 ("entities", None) | ("mobs", None) => {

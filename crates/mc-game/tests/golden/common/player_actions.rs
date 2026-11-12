@@ -1,6 +1,6 @@
 //! Player actions of the scenario DSL, replayed the same way by the block replay (`block_scenario_actors.rs`), the entity replay
 //! (`entity_scenario.rs`) and the item entity replay: `give`, `select`, `use`, `use_on [inside]`, `release`, `interact`, `drop [all]`,
-//! `swing`, `swap`, `stab`, `dispense X Y Z` and the dump kinds `use:REF`, `cooldowns:REF`, `stats:REF`, `inventory:REF` (the
+//! `swing`, `swap`, `stab`, `pcommand` (sprint, sleep and gliding actions), `dispense X Y Z` and the dump kinds `use:REF`, `cooldowns:REF`, `stats:REF`, `inventory:REF` (the
 //! grammar of the Java driver, `tests/oracle/EntityOracleDriver.java`).
 //!
 //! The Rust level has no server, so the verbs do what the packet handlers of `ServerGamePacketListenerImpl` do around the player
@@ -153,7 +153,7 @@ fn swing_on_success(
 }
 
 /// `ackBlockChangesUpTo(sequence)` (players without a listener have nothing to acknowledge).
-fn acknowledge(p: &mut ServerPlayer, sequence: i32) {
+pub fn acknowledge(p: &mut ServerPlayer, sequence: i32) {
     if let Some(listener) = p.listener.as_mut() {
         listener
             .ack_block_changes_up_to(sequence)
@@ -379,6 +379,26 @@ fn stab(level: &mut ServerLevel, p: &mut ServerPlayer) {
     }
 }
 
+/// `handlePlayerCommand` of the actions the scenarios use (the packet handler itself needs a connection).
+fn player_command(level: &mut ServerLevel, p: &mut ServerPlayer, action: &str) {
+    match action.to_ascii_lowercase().as_str() {
+        "start_sprinting" => p.set_sprinting(true),
+        "stop_sprinting" => p.set_sprinting(false),
+        "stop_sleeping" => {
+            if p.is_sleeping() {
+                p.stop_sleep_in_bed(level, false, true);
+            }
+        }
+        // `if (!tryToStartFallFlying()) stopFallFlying()`
+        "start_fall_flying" => {
+            if !p.try_to_start_fall_flying() {
+                mc_game::world::entity::living_entity::fall_flying::stop_fall_flying(p);
+            }
+        }
+        other => panic!("pcommand {other} is not supported by the Rust replay"),
+    }
+}
+
 /// `handleSetCarriedItem`: a different hotbar slot ends the use of a main hand item.
 fn select(level: &mut ServerLevel, p: &mut ServerPlayer, slot: i32) {
     assert!((0..9).contains(&slot), "hotbar slot {slot}");
@@ -446,6 +466,10 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
                     p.drop_selected(level, all);
                 }
             });
+        }
+        "pcommand" => {
+            h.boot();
+            with_player(h, &a[1], |level, p| player_command(level, p, &a[2]));
         }
         "swap" => {
             h.boot();
