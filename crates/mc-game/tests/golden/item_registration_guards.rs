@@ -23,10 +23,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "useOn on obsidian or bedrock places an EndCrystal and tries to respawn the dragon fight (no end crystal entity, no dragon fight respawn yet)",
     ),
     (
-        "EnderEyeItem",
-        "useOn fills an end portal frame and opens the end portal, use throws an EyeOfEnder towards the nearest stronghold (no eye of ender entity yet, no frame filling)",
-    ),
-    (
         "EnderpearlItem",
         "use spawns a ThrownEnderpearl and starts the item cooldown (no ender pearl entity yet)",
     ),
@@ -59,6 +55,10 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
 /// Classes that ARE registered but only implement part of the vanilla class (class, the missing behaviour). Registering
 /// the class cannot tell these from a complete one, so the entry is deleted by hand with the commit that completes it.
 const EXPECTED_INCOMPLETE: &[(&str, &str)] = &[
+    (
+        "EnderEyeItem",
+        "use throws an EyeOfEnder towards the nearest stronghold (no eye of ender entity yet: the eye is neither thrown nor consumed)",
+    ),
     (
         "LingeringPotionItem",
         "use spawns a ThrownLingeringPotion (no potion entity yet: the stack is consumed and nothing is thrown)",

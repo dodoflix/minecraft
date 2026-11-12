@@ -97,6 +97,7 @@ mod item_use;
 mod item_wind_charge_golden;
 mod items_oracle;
 mod itm_brush_golden;
+mod itm_ender_eye_golden;
 mod jigsaw_codec;
 mod jigsaw_structures_golden;
 mod levelgen_predicates_golden;

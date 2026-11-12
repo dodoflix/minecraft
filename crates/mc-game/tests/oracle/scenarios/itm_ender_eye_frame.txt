@@ -1,0 +1,64 @@
+# EnderEyeItem on end portal frames. useOn fills an empty frame (push entities up, comparator update, level event 1503, the eye is
+# consumed even in creative), the eye that completes the ring of twelve opens the portal (nine end_portal blocks, global level event
+# 1038); a ring with a wrongly facing frame stays closed; a frame that already holds an eye passes, and use while looking at a frame
+# passes too (nothing is launched).
+level flat
+preload 3
+spawn_player A survival 0.5 -60 -2.5 0 0
+spawn_player C creative 30.5 -60 8.5 0 0
+tick 1
+note A: one frame with a comparator and a lamp behind it, an armor stand standing on top of the frame
+block 0 -60 0 minecraft:end_portal_frame[eye=false,facing=south]
+block 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp[lit=false]
+spawn S minecraft:armor_stand 0.5 -59.1875 0.5 0 0 {NoGravity:1b,Silent:1b}
+tick 5
+give A hotbar0 minecraft:ender_eye 64
+select A 0
+dump entities blocks:0,-60,0,2,-60,0 events
+use_on A 0 -60 0 up main
+dump entities blocks:0,-60,0,2,-60,0 events packets:A:level_event inventory:A
+tick 5
+dump blocks:0,-60,0,2,-60,0 events
+note A: the frame holds an eye now, a second use_on passes
+use_on A 0 -60 0 up main
+dump blocks:0,-60,0,2,-60,0 events packets:A:level_event inventory:A
+note A: use looking at the full frame passes
+snap A 0.5 -60 -0.5 0 45
+use A main
+dump events packets:A:level_event inventory:A
+snap A 0.5 -60 -2.5 0 0
+note B: ring of twelve frames, eleven hold an eye, the last eye opens the portal
+fill 11 -60 10 13 -60 10 minecraft:end_portal_frame[eye=true,facing=south]
+fill 11 -60 14 13 -60 14 minecraft:end_portal_frame[eye=true,facing=north]
+fill 10 -60 11 10 -60 13 minecraft:end_portal_frame[eye=true,facing=east]
+fill 14 -60 11 14 -60 13 minecraft:end_portal_frame[eye=true,facing=west]
+block 12 -60 10 minecraft:end_portal_frame[eye=false,facing=south]
+tick 5
+snap A 12.5 -60 7.5 0 0
+dump blocks:10,-60,10,14,-60,14 events packets:A:level_event
+use_on A 12 -60 10 up main
+dump blocks:10,-60,10,14,-60,14 events packets:A:level_event inventory:A
+note C: the same ring completed from the other side by a creative player
+fill 31 -60 10 33 -60 10 minecraft:end_portal_frame[eye=true,facing=south]
+fill 31 -60 14 33 -60 14 minecraft:end_portal_frame[eye=true,facing=north]
+fill 30 -60 11 30 -60 13 minecraft:end_portal_frame[eye=true,facing=east]
+fill 34 -60 11 34 -60 13 minecraft:end_portal_frame[eye=true,facing=west]
+block 33 -60 14 minecraft:end_portal_frame[eye=false,facing=north]
+tick 5
+give C hotbar0 minecraft:ender_eye 3
+select C 0
+snap C 33.5 -60 16.5 180 0
+dump blocks:30,-60,10,34,-60,14 events packets:C:level_event
+use_on C 33 -60 14 up main
+dump blocks:30,-60,10,34,-60,14 events packets:C:level_event inventory:C
+note D: a complete ring whose last frame faces the wrong way stays closed
+fill 41 -60 10 43 -60 10 minecraft:end_portal_frame[eye=true,facing=south]
+fill 41 -60 14 43 -60 14 minecraft:end_portal_frame[eye=true,facing=north]
+fill 40 -60 11 40 -60 13 minecraft:end_portal_frame[eye=true,facing=east]
+fill 44 -60 11 44 -60 13 minecraft:end_portal_frame[eye=true,facing=west]
+block 42 -60 10 minecraft:end_portal_frame[eye=false,facing=north]
+tick 5
+snap A 42.5 -60 7.5 0 0
+use_on A 42 -60 10 up main
+dump blocks:40,-60,10,44,-60,14 events packets:A:level_event inventory:A
