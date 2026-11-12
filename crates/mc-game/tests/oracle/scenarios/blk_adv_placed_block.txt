@@ -1,0 +1,50 @@
+# PLACED_BLOCK advancement criteria (BlockItem.place -> ServerPlayer.awardPlacedBlock): seeds on farmland (plant seed, torchflower and
+# pitcher pod), a chiseled bookshelf placed beside a comparator (read the power), a dried ghast in water and a creaking heart between two
+# pale oak logs. The completed criteria are dumped after every placement.
+level flat
+preload 2
+spawn_player A survival 4.5 -60 4.5 0 0
+tick 1
+fill 0 -61 0 20 -61 1 minecraft:farmland[moisture=7]
+block 10 -61 0 minecraft:grass_block
+block 12 -61 0 minecraft:water
+block 14 -60 0 minecraft:pale_oak_log[axis=x]
+block 16 -60 0 minecraft:pale_oak_log[axis=x]
+block 8 -61 1 minecraft:stone
+block 8 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+tick 2
+dump advancements:A
+note seeds
+give A hotbar0 minecraft:wheat_seeds 2
+give A hotbar1 minecraft:torchflower_seeds 1
+give A hotbar2 minecraft:pitcher_pod 1
+select A 0
+snap A 0.5 -60 3.5
+use_on A 0 -61 0 up main
+dump advancements:A
+select A 1
+snap A 2.5 -60 3.5
+use_on A 2 -61 0 up main
+dump advancements:A
+select A 2
+snap A 4.5 -60 3.5
+use_on A 4 -61 0 up main
+dump advancements:A
+note a chiseled bookshelf with a comparator behind it
+give A hotbar3 minecraft:chiseled_bookshelf 1
+select A 3
+snap A 8.5 -60 3.5
+use_on A 8 -61 0 up main
+dump advancements:A blocks:8,-60,0,8,-60,1
+note a dried ghast in water
+give A hotbar4 minecraft:dried_ghast 1
+select A 4
+snap A 12.5 -60 3.5
+use_on A 12 -61 0 up main
+dump advancements:A blocks:12,-61,0,12,-60,0
+note a creaking heart on a log
+give A hotbar5 minecraft:creaking_heart 1
+select A 5
+snap A 14.5 -60 3.5
+use_on A 14 -60 0 east main
+dump advancements:A blocks:14,-60,0,16,-60,0

@@ -1,0 +1,70 @@
+# ITEM_USED_ON_BLOCK advancement criteria granted by ServerPlayerGameMode.useItemOn: wax on / wax off, lighten up (axe on a lit
+# weathered bulb), make a sign glow, safely harvest honey (hive above a campfire), charge a respawn anchor to 4, trial and ominous keys
+# on vaults, a compass on a lodestone. The completed criteria are dumped after every step (`advancements:`).
+level flat
+preload 2
+spawn_player A survival 4.5 -60 4.5 0 0
+tick 1
+block 0 -60 0 minecraft:copper_block
+block 2 -60 0 minecraft:waxed_weathered_copper_bulb[lit=true,powered=false]
+block 4 -60 0 minecraft:oak_sign[rotation=0,waterlogged=false]
+block 6 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+block 6 -59 0 minecraft:beehive[facing=north,honey_level=5]
+block 8 -60 0 minecraft:respawn_anchor[charges=3]
+block 10 -60 0 minecraft:lodestone
+block 12 -60 0 minecraft:vault[facing=north,ominous=false,vault_state=inactive]
+block 14 -60 0 minecraft:vault[facing=north,ominous=true,vault_state=inactive]
+tick 5
+dump advancements:A
+note wax on, wax off
+give A hotbar0 minecraft:honeycomb 2
+give A hotbar1 minecraft:iron_axe 1
+select A 0
+snap A 0.5 -60 2.5
+use_on A 0 -60 0 up main
+dump advancements:A
+select A 1
+use_on A 0 -60 0 up main
+dump advancements:A
+note an axe on a lit waxed weathered copper bulb
+snap A 2.5 -60 2.5
+use_on A 2 -60 0 up main
+dump advancements:A
+note glow ink on a sign
+give A hotbar2 minecraft:glow_ink_sac 1
+select A 2
+snap A 4.5 -60 2.5
+use_on A 4 -60 0 up main
+dump advancements:A
+note a bottle on a honey filled hive over a campfire
+give A hotbar3 minecraft:glass_bottle 1
+select A 3
+snap A 6.5 -60 2.5
+use_on A 6 -59 0 south main
+dump advancements:A
+note glowstone on an anchor with 3 charges
+give A hotbar4 minecraft:glowstone 1
+select A 4
+snap A 8.5 -60 2.5
+use_on A 8 -60 0 up main
+dump advancements:A
+note compass on a lodestone
+give A hotbar5 minecraft:compass 1
+select A 5
+snap A 10.5 -60 2.5
+use_on A 10 -60 0 up main
+dump advancements:A
+note keys on vaults
+tick 20
+give A hotbar6 minecraft:trial_key 1
+select A 6
+snap A 12.5 -60 2.5
+level_seed 31
+use_on A 12 -60 0 north main
+dump advancements:A
+give A hotbar7 minecraft:ominous_trial_key 1
+select A 7
+snap A 14.5 -60 2.5
+level_seed 32
+use_on A 14 -60 0 north main
+dump advancements:A

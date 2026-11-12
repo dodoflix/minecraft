@@ -1,0 +1,33 @@
+# a beacon on a level 1 pyramid
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:nether/create_beacon beacon
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+# a second beacon on a level 4 pyramid (the trigger fires when a beacon becomes active)
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:nether/create_beacon beacon
+ADV Steve minecraft:nether/create_full_beacon beacon
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+BE -16 -60 8 {Levels:4,components:{},id:"minecraft:beacon",x:-16,y:-60,z:8}
+# a bee nest with three bees broken with silk touch
+DIG Steve ticks=40 broken=true
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:husbandry/silk_touch_nest silk_touch_nest
+ADV Steve minecraft:nether/create_beacon beacon
+ADV Steve minecraft:nether/create_full_beacon beacon
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+# a crafter with the ingredients of a crafter, powered with a player in range
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/crafters_crafting_crafters crafter_crafted_crafter
+ADV Steve minecraft:husbandry/silk_touch_nest silk_touch_nest
+ADV Steve minecraft:nether/create_beacon beacon
+ADV Steve minecraft:nether/create_full_beacon beacon
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+# a power 15 arrow hit on a target 35 blocks from the shooter
+ADV Steve minecraft:adventure/adventuring_time minecraft:plains
+ADV Steve minecraft:adventure/bullseye bullseye
+ADV Steve minecraft:adventure/crafters_crafting_crafters crafter_crafted_crafter
+ADV Steve minecraft:husbandry/silk_touch_nest silk_touch_nest
+ADV Steve minecraft:nether/create_beacon beacon
+ADV Steve minecraft:nether/create_full_beacon beacon
+ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
+B 20 -60 0 minecraft:target[power=15]

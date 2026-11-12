@@ -38,3 +38,28 @@ fn spectators_open_only_blocks_with_a_menu_provider() {
 fn opening_containers_awards_the_open_statistic_even_when_the_menu_stays_closed() {
     common::block_scenario::check("blk_container_stats");
 }
+
+#[test]
+fn item_use_sites_award_their_statistics() {
+    common::block_scenario::check("blk_stats_items");
+}
+
+#[test]
+fn item_used_on_block_criteria_are_granted_per_use() {
+    common::block_scenario::check("blk_adv_item_used_on_block");
+}
+
+#[test]
+fn placed_block_criteria_are_granted_per_placement() {
+    common::block_scenario::check("blk_adv_placed_block");
+}
+
+#[test]
+fn block_events_grant_beacon_nest_crafter_and_target_criteria() {
+    common::block_scenario::check("blk_adv_block_events");
+}
+
+#[test]
+fn test_blocks_trigger_on_power_and_keep_their_mode_when_picked() {
+    common::block_scenario::check("blk_test_block");
+}

@@ -1,0 +1,42 @@
+# Block-side advancement triggers that no item use causes: CONSTRUCT_BEACON (a level 1 pyramid, then a level 4 one), BEE_NEST_DESTROYED
+# (a silk touch pickaxe on a nest with three bees), CRAFTER_RECIPE_CRAFTED (a crafter crafting a crafter), TARGET_BLOCK_HIT (bullseye: a
+# power 15 hit from 30 blocks away). Completed criteria are dumped after each step. HONEY_BLOCK_SLIDE needs a simulated player, which
+# the block replay does not support.
+level flat
+preload 3
+spawn_player Steve survival -14.5 -60 0.5 0 0
+tick 1
+note a beacon on a level 1 pyramid
+fill -17 -61 -9 -15 -61 -7 minecraft:iron_block
+block -16 -60 -8 minecraft:beacon
+tick 100
+dump advancements:Steve
+note a second beacon on a level 4 pyramid (the trigger fires when a beacon becomes active)
+fill -17 -61 7 -15 -61 9 minecraft:iron_block
+fill -18 -62 6 -14 -62 10 minecraft:iron_block
+fill -19 -63 5 -13 -63 11 minecraft:iron_block
+fill -20 -64 4 -12 -64 12 minecraft:iron_block
+block -16 -60 8 minecraft:beacon
+tick 100
+dump advancements:Steve be:-16,-60,8
+note a bee nest with three bees broken with silk touch
+block -10 -60 4 minecraft:bee_nest[honey_level=0,facing=north]
+be_nbt -10 -60 4 {bees:[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400},{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:2400}]}
+give Steve hotbar0 minecraft:diamond_pickaxe[enchantments={"minecraft:silk_touch":1}] 1
+select Steve 0
+snap Steve -10.5 -60 2.5
+dig Steve -10 -60 4 40
+dump advancements:Steve
+note a crafter with the ingredients of a crafter, powered with a player in range
+block -6 -60 0 minecraft:crafter[orientation=east_up,triggered=false,crafting=false]
+be_nbt -6 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_ingot",count:1},{Slot:1b,id:"minecraft:iron_ingot",count:1},{Slot:2b,id:"minecraft:iron_ingot",count:1},{Slot:3b,id:"minecraft:iron_ingot",count:1},{Slot:4b,id:"minecraft:crafting_table",count:1},{Slot:5b,id:"minecraft:iron_ingot",count:1},{Slot:6b,id:"minecraft:redstone",count:1},{Slot:7b,id:"minecraft:dropper",count:1},{Slot:8b,id:"minecraft:redstone",count:1}]}
+block -6 -60 -1 minecraft:redstone_block
+tick 8
+dump advancements:Steve
+note a power 15 arrow hit on a target 35 blocks from the shooter
+block 20 -60 0 minecraft:target
+spawn a1 minecraft:arrow 15.5 -59.5 0.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed a1 3
+velocity a1 1.5 0 0
+tick 4
+dump advancements:Steve blocks:20,-60,0,20,-60,0

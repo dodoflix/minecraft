@@ -1,0 +1,83 @@
+# Statistics awarded by block use sites that hand a held item to the block: ITEM_USED for composter, chiseled bookshelf, decorated pot,
+# sign (honeycomb), cake with a candle, TNT (flint and steel), pumpkin (shears) and beehive (bottle), EAT_CAKE_SLICE,
+# INTERACT_WITH_CAMPFIRE, INSPECT_HOPPER/DISPENSER/DROPPER, BLOCK_MINED, TARGET_HIT (arrow owned by the player) and a cake slice. The statistics are dumped after every group.
+level flat
+preload 2
+spawn_player Steve survival 4.5 -60 4.5 0 0
+tick 1
+block 0 -60 0 minecraft:composter[level=0]
+block 2 -60 0 minecraft:chiseled_bookshelf[facing=south,slot_0_occupied=false,slot_1_occupied=false,slot_2_occupied=false,slot_3_occupied=false,slot_4_occupied=false,slot_5_occupied=false]
+block 4 -60 0 minecraft:decorated_pot[facing=north,waterlogged=false,cracked=false]
+block 6 -60 0 minecraft:oak_sign[rotation=0,waterlogged=false]
+block 8 -60 0 minecraft:cake[bites=0]
+block 10 -60 0 minecraft:tnt[unstable=false]
+block 12 -60 0 minecraft:pumpkin
+block 14 -60 0 minecraft:beehive[facing=north,honey_level=5]
+block 16 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+block 18 -60 0 minecraft:hopper[enabled=true,facing=down]
+block 20 -60 0 minecraft:dispenser[facing=up,triggered=false]
+block 22 -60 0 minecraft:dropper[facing=up,triggered=false]
+block 24 -60 0 minecraft:stone
+block 28 -60 0 minecraft:target
+block 30 -60 0 minecraft:cake[bites=0]
+tick 1
+note composter, chiseled bookshelf, decorated pot, sign
+give Steve mainhand minecraft:wheat_seeds 4
+snap Steve 0.5 -60 2.5
+use_on Steve 0 -60 0 up main
+give Steve mainhand minecraft:book 4
+snap Steve 2.5 -60 2.5
+use_on Steve 2 -60 0 south main
+give Steve mainhand minecraft:stick 4
+snap Steve 4.5 -60 2.5
+use_on Steve 4 -60 0 north main
+give Steve mainhand minecraft:honeycomb 4
+snap Steve 6.5 -60 2.5
+use_on Steve 6 -60 0 up main
+dump stats:Steve
+note cake: a candle, then a slice
+give Steve mainhand minecraft:candle 1
+snap Steve 8.5 -60 2.5
+use_on Steve 8 -60 0 up main
+select Steve 8
+use_on Steve 8 -60 0 up main
+select Steve 0
+dump stats:Steve
+note flint and steel on tnt, shears on a pumpkin, a bottle on a honey filled hive, food on a campfire
+give Steve mainhand minecraft:flint_and_steel 1
+snap Steve 10.5 -60 2.5
+use_on Steve 10 -60 0 up main
+give Steve mainhand minecraft:shears 1
+snap Steve 12.5 -60 2.5
+use_on Steve 12 -60 0 north main
+give Steve mainhand minecraft:glass_bottle 1
+snap Steve 14.5 -60 2.5
+use_on Steve 14 -60 0 south main
+give Steve mainhand minecraft:beef 1
+snap Steve 16.5 -60 2.5
+use_on Steve 16 -60 0 up main
+dump stats:Steve
+note hopper, dispenser, dropper menus
+select Steve 8
+snap Steve 18.5 -60 2.5
+use_on Steve 18 -60 0 up main
+snap Steve 20.5 -60 2.5
+use_on Steve 20 -60 0 up main
+snap Steve 22.5 -60 2.5
+use_on Steve 22 -60 0 up main
+dump stats:Steve
+note a slice of cake, an arrow shot by the player into a target
+select Steve 8
+snap Steve 30.5 -60 2.5
+use_on Steve 30 -60 0 up main
+spawn a1 minecraft:arrow 25.5 -59.5 0.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed a1 3
+velocity a1 1.5 0 0
+tick 4
+dump stats:Steve blocks:28,-60,0,28,-60,0
+note mining a block
+give Steve hotbar1 minecraft:diamond_pickaxe 1
+select Steve 1
+snap Steve 24.5 -60 2.5
+dig Steve 24 -60 0 40
+dump stats:Steve

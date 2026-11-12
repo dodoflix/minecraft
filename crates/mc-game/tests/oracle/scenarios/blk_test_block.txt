@@ -1,0 +1,49 @@
+# TestBlock: a powered log/accept/fail block triggers its entity (powered is remembered, the trigger flag is not saved), a start block
+# ignores neighbour power and outputs a signal only while its entity is powered, game master use passes on the server, pick block
+# keeps the mode. One lamp beside every block shows the own signal.
+level flat
+preload 2
+spawn_player Op creative 6.5 -60 4.5 0 0
+spawn_player Plain survival 8.5 -60 4.5 0 0
+op Op
+tick 1
+block 0 -60 0 minecraft:test_block[mode=log]
+be_nbt 0 -60 0 {message:"log block"}
+block 4 -60 0 minecraft:test_block[mode=accept]
+be_nbt 4 -60 0 {message:"accept block"}
+block 8 -60 0 minecraft:test_block[mode=fail]
+be_nbt 8 -60 0 {message:"fail block"}
+block 12 -60 0 minecraft:test_block[mode=start]
+be_nbt 12 -60 0 {message:"start block"}
+block 16 -60 0 minecraft:test_block[mode=start]
+be_nbt 16 -60 0 {message:"powered start block",powered:1b}
+block 1 -60 0 minecraft:redstone_lamp[lit=false]
+block 5 -60 0 minecraft:redstone_lamp[lit=false]
+block 9 -60 0 minecraft:redstone_lamp[lit=false]
+block 13 -60 0 minecraft:redstone_lamp[lit=false]
+block 17 -60 0 minecraft:redstone_lamp[lit=false]
+tick 2
+dump blocks:0,-60,0,17,-60,0 be:0,-60,0 be:4,-60,0 be:8,-60,0 be:12,-60,0 be:16,-60,0
+note redstone blocks above power every block
+block 0 -59 0 minecraft:redstone_block
+block 4 -59 0 minecraft:redstone_block
+block 8 -59 0 minecraft:redstone_block
+block 12 -59 0 minecraft:redstone_block
+block 16 -59 0 minecraft:redstone_block
+tick 6
+dump blocks:0,-60,0,17,-60,0 be:0,-60,0 be:4,-60,0 be:8,-60,0 be:12,-60,0 be:16,-60,0 events ticks
+note removing the power
+block 0 -59 0 minecraft:air
+block 4 -59 0 minecraft:air
+block 8 -59 0 minecraft:air
+block 12 -59 0 minecraft:air
+block 16 -59 0 minecraft:air
+tick 6
+dump blocks:0,-60,0,17,-60,0 be:0,-60,0 be:4,-60,0 be:8,-60,0 be:12,-60,0 be:16,-60,0
+note use by a game master and by a player without permission
+use_on Op 0 -60 0 up main
+use_on Plain 0 -60 0 up main
+dump packets:Op:open_screen packets:Plain:open_screen events
+note pick block keeps the mode of the test block
+pick_block Op 4 -60 0 true
+dump inventory:Op

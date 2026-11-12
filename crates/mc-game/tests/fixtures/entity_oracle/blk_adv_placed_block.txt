@@ -1,0 +1,34 @@
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+# seeds
+ADV A minecraft:husbandry/plant_seed wheat
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:husbandry/plant_any_sniffer_seed torchflower
+ADV A minecraft:husbandry/plant_seed wheat
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:husbandry/plant_any_sniffer_seed torchflower
+ADV A minecraft:husbandry/plant_seed wheat
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+# a chiseled bookshelf with a comparator behind it
+ADV A minecraft:adventure/read_power_of_chiseled_bookshelf chiseled_bookshelf
+ADV A minecraft:husbandry/plant_any_sniffer_seed torchflower
+ADV A minecraft:husbandry/plant_seed wheat
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+B 8 -60 0 minecraft:chiseled_bookshelf[facing=north,slot_0_occupied=false,slot_1_occupied=false,slot_2_occupied=false,slot_3_occupied=false,slot_4_occupied=false,slot_5_occupied=false]
+B 8 -60 1 minecraft:comparator[facing=north,mode=compare,powered=false]
+# a dried ghast in water
+ADV A minecraft:adventure/read_power_of_chiseled_bookshelf chiseled_bookshelf
+ADV A minecraft:husbandry/place_dried_ghast_in_water place_dried_ghast_in_water
+ADV A minecraft:husbandry/plant_any_sniffer_seed torchflower
+ADV A minecraft:husbandry/plant_seed wheat
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+B 12 -61 0 minecraft:dried_ghast[facing=north,hydration=0,waterlogged=true]
+# a creaking heart on a log
+ADV A minecraft:adventure/heart_transplanter place_creaking_heart_dormant
+ADV A minecraft:adventure/read_power_of_chiseled_bookshelf chiseled_bookshelf
+ADV A minecraft:husbandry/place_dried_ghast_in_water place_dried_ghast_in_water
+ADV A minecraft:husbandry/plant_any_sniffer_seed torchflower
+ADV A minecraft:husbandry/plant_seed wheat
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+B 14 -60 0 minecraft:pale_oak_log[axis=x]
+B 15 -60 0 minecraft:creaking_heart[axis=x,creaking_heart_state=dormant,natural=false]
+B 16 -60 0 minecraft:pale_oak_log[axis=x]
