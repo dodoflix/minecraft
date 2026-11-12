@@ -1,0 +1,151 @@
+# BlockItem kinds: PlaceOnWaterBlockItem (lily pad, frogspawn: `use` on a source water surface places above it), SolidBucketItem (powder snow
+# bucket: the block is placed with the bucket's sound and the survival stack turns into an empty bucket), ScaffoldingBlockItem while the player
+# sneaks (isSecondaryUseActive, with and without BlockHitResult.inside), BlockItem.updateCustomBlockEntityTag (block_entity_data and the
+# container component on a barrel; op-only data on a command block and a spawner).
+level flat
+preload 3
+watch events
+level_seed 5
+spawn_player A survival 4.5 -60 -6.5 0 15
+spawn_player B survival 12.5 -60 -6.5 0 15
+spawn_player C creative 20.5 -60 -6.5 0 15
+spawn_player D creative 36.5 -60 -6.5 0 15
+op B
+op D
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+note lily pad and frogspawn with `use` on a source water surface, then on flowing water and on stone
+give A mainhand minecraft:lily_pad 8
+give A offhand minecraft:frogspawn 8
+give C mainhand minecraft:lily_pad 8
+block 4 -60 -3 minecraft:water[level=0]
+block 8 -60 -3 minecraft:stone
+block 20 -60 -3 minecraft:water[level=0]
+use A main
+dump blocks:3,-60,-4,5,-58,-2 inventory:A events
+block 6 -60 -3 minecraft:water[level=0]
+snap A 6.5 -60 -6.5 0 15
+use A off
+dump blocks:5,-60,-4,7,-58,-2 inventory:A events
+use C main
+dump blocks:19,-60,-4,21,-58,-2 inventory:C events
+snap A 8.5 -60 -6.5 0 15
+use A main
+dump blocks:7,-60,-4,9,-58,-2 inventory:A events
+block 12 -60 -3 minecraft:water[level=3]
+snap A 12.5 -60 -6.5 0 15
+use A main
+dump blocks:11,-60,-4,13,-58,-2 inventory:A events
+tick 2
+dump entities events
+note lily pad and frogspawn through use_on: the PlaceOnWater item passes, the block is not placed from a clicked block
+give A mainhand minecraft:lily_pad 8
+give A offhand minecraft:frogspawn 8
+use_on A 4 -61 -3 up main
+dump blocks:3,-61,-4,5,-58,-2 inventory:A events
+use_on A 4 -60 -3 up off
+dump blocks:3,-61,-4,5,-58,-2 inventory:A events
+tick 1
+note powder snow bucket: on the top of stone, into water, into an air block clicked directly and beside a fence; creative keeps the bucket
+give A mainhand minecraft:powder_snow_bucket
+give B mainhand minecraft:powder_snow_bucket
+give C mainhand minecraft:powder_snow_bucket
+block 4 -60 3 minecraft:stone
+block 8 -60 3 minecraft:water[level=0]
+block 12 -60 3 minecraft:oak_fence
+block 20 -60 3 minecraft:stone
+snap A 4.5 -60 0.5 0 15
+snap B 8.5 -60 0.5 0 15
+snap C 20.5 -60 0.5 0 15
+tick 1
+use_on A 4 -60 3 up main
+dump blocks:4,-60,3,4,-59,3 inventory:A events
+use_on B 8 -60 3 up main
+dump blocks:8,-60,3,8,-59,3 inventory:B events
+use_on C 20 -60 3 up main
+dump blocks:20,-60,3,20,-59,3 inventory:C events
+tick 1
+give A mainhand minecraft:powder_snow_bucket
+give B mainhand minecraft:powder_snow_bucket
+use_on A 6 -60 3 up main
+dump blocks:6,-60,3,6,-59,3 inventory:A events
+use_on B 12 -60 3 east main
+dump blocks:12,-60,3,13,-60,3 inventory:B events
+tick 1
+note scaffolding clicked while sneaking: the secondary use branch, with and without inside, on the top and on a side
+give A mainhand minecraft:scaffolding 64
+block 4 -60 8 minecraft:scaffolding[distance=0,bottom=false,waterlogged=false]
+block 4 -61 8 minecraft:stone
+snap A 4.5 -60 6.5 0 15
+input A sneak
+tick 1
+use_on A 4 -60 8 up main 0.5 1.0 0.5
+dump blocks:3,-60,7,6,-56,9 inventory:A events
+use_on A 4 -60 8 up main 0.5 1.0 0.5 inside
+dump blocks:3,-60,7,6,-56,9 inventory:A events
+use_on A 4 -60 8 east main 1.0 0.5 0.5
+dump blocks:3,-60,7,6,-56,9 inventory:A events
+use_on A 4 -60 8 east main 1.0 0.5 0.5 inside
+dump blocks:3,-60,7,6,-56,9 inventory:A events
+use_on A 4 -60 8 south main 0.5 0.5 1.0 inside
+dump blocks:3,-60,7,6,-56,10 inventory:A events
+input A none
+tick 1
+note a stone clicked from the inside while sneaking
+use_on A 4 -61 8 up main 0.5 1.0 0.5 inside
+dump blocks:3,-61,7,6,-56,9 inventory:A events
+tick 1
+note a barrel with block_entity_data and the container component, a plain player and an operator
+give A mainhand minecraft:barrel[block_entity_data={id:"minecraft:barrel",CustomName:'"Bar"'},container=[{slot:0,item:{id:"minecraft:stone",count:3}}]]
+give B mainhand minecraft:barrel[block_entity_data={id:"minecraft:barrel",CustomName:'"Bar"'},container=[{slot:0,item:{id:"minecraft:stone",count:3}}]]
+block 8 -61 8 minecraft:stone
+block 12 -61 8 minecraft:stone
+snap A 8.5 -60 6.5 0 15
+snap B 12.5 -60 6.5 0 15
+tick 1
+use_on A 8 -61 8 up main
+dump blocks:8,-60,8,8,-60,8 be:8,-60,8 beu:8,-60,8 inventory:A events
+use_on B 12 -61 8 up main
+dump blocks:12,-60,8,12,-60,8 be:12,-60,8 beu:12,-60,8 inventory:B events
+tick 1
+note a command block: only a creative operator can place it (canUseGameMasterBlocks), the data is applied for that player
+give A mainhand minecraft:command_block[block_entity_data={id:"minecraft:command_block",Command:"say hi",TrackOutput:0b}]
+give B mainhand minecraft:command_block[block_entity_data={id:"minecraft:command_block",Command:"say hi",TrackOutput:0b}]
+give C mainhand minecraft:command_block[block_entity_data={id:"minecraft:command_block",Command:"say hi",TrackOutput:0b}]
+give D mainhand minecraft:command_block[block_entity_data={id:"minecraft:command_block",Command:"say hi",TrackOutput:0b}]
+block 16 -61 8 minecraft:stone
+block 20 -61 8 minecraft:stone
+block 24 -61 8 minecraft:stone
+block 36 -61 8 minecraft:stone
+snap A 16.5 -60 6.5 0 15
+snap B 20.5 -60 6.5 0 15
+snap C 24.5 -60 6.5 0 15
+snap D 36.5 -60 6.5 0 15
+tick 1
+use_on A 16 -61 8 up main
+dump blocks:16,-60,8,16,-60,8 be:16,-60,8 beu:16,-60,8 inventory:A events
+use_on B 20 -61 8 up main
+dump blocks:20,-60,8,20,-60,8 be:20,-60,8 beu:20,-60,8 inventory:B events
+use_on C 24 -61 8 up main
+dump blocks:24,-60,8,24,-60,8 be:24,-60,8 beu:24,-60,8 inventory:C events
+use_on D 36 -61 8 up main
+dump blocks:36,-60,8,36,-60,8 be:36,-60,8 beu:36,-60,8 inventory:D events
+tick 1
+note a spawner: block_entity_data is applied only for a creative operator (onlyOpCanSetNbt)
+give A mainhand minecraft:spawner[block_entity_data={id:"minecraft:mob_spawner",SpawnData:{entity:{id:"minecraft:pig"}}}]
+give B mainhand minecraft:spawner[block_entity_data={id:"minecraft:mob_spawner",SpawnData:{entity:{id:"minecraft:pig"}}}]
+give D mainhand minecraft:spawner[block_entity_data={id:"minecraft:mob_spawner",SpawnData:{entity:{id:"minecraft:pig"}}}]
+block 28 -61 8 minecraft:stone
+block 32 -61 8 minecraft:stone
+block 40 -61 8 minecraft:stone
+snap A 28.5 -60 6.5 0 15
+snap B 32.5 -60 6.5 0 15
+snap D 40.5 -60 6.5 0 15
+tick 1
+use_on A 28 -61 8 up main
+dump blocks:28,-60,8,28,-60,8 be:28,-60,8 beu:28,-60,8 inventory:A events
+use_on B 32 -61 8 up main
+dump blocks:32,-60,8,32,-60,8 be:32,-60,8 beu:32,-60,8 inventory:B events
+use_on D 40 -61 8 up main
+dump blocks:40,-60,8,40,-60,8 be:40,-60,8 beu:40,-60,8 inventory:D events
+tick 1

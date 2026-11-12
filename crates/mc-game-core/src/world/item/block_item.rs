@@ -3,8 +3,9 @@
 
 use super::{
     BlockPlaceContext, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt,
-    PlainItem, UseOnContext, consumable,
+    PlainItem, UseOnContext, bucket_item::DispensibleContainerItem, consumable,
 };
+use crate::commands::arguments::coordinates::block_pos_argument::is_in_world_bounds_horizontal;
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, ServerPlayer};
@@ -16,8 +17,8 @@ use crate::world::level::collision::{
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
-use mc_core::phys::BlockHitResult;
 use mc_core::phys::shapes::{BooleanOp, Shapes};
+use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::{DataComponentType, GameEvent, Item, SoundEvent};
@@ -883,6 +884,36 @@ fn update_block_entity_components(level: &mut ServerLevel, pos: BlockPos, stack:
     }
 }
 
+/// `SolidBucketItem.emptyContents`: the only `BlockItem` that is a `DispensibleContainerItem`.
+impl DispensibleContainerItem for BlockItem {
+    fn empty_contents(
+        &self,
+        user: Option<&dyn Entity>,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        _hit: Option<&BlockHitResult>,
+    ) -> bool {
+        let Kind::SolidBucket { sound } = self.kind else {
+            return false;
+        };
+        if level.is_outside_build_height(pos.y())
+            || !is_in_world_bounds_horizontal(pos)
+            || !level.is_empty_block(pos)
+        {
+            return false;
+        }
+        level.set_block_and_update(pos, self.block.default_state());
+        let user_id = user.map(|u| u.id());
+        level.game_event(
+            GameEvent::FLUID_PLACE,
+            Vec3::at_center_of(&pos),
+            &GameEventContext::of_entity(user_id),
+        );
+        level.play_sound(user_id, pos, sound, SoundSource::Blocks, 1.0, 1.0);
+        true
+    }
+}
+
 impl ItemBehaviour for BlockItem {
     fn use_on(
         &self,
@@ -895,10 +926,8 @@ impl ItemBehaviour for BlockItem {
             Kind::SolidBucket { .. } => {
                 let place_result = self.block_use_on(context, level, player);
                 if place_result.consumes_action() {
-                    // `BucketItem.getEmptySuccessItem(stack, player)`
-                    let hand = context.hand;
-                    let replacement = bucket_empty_success_item(&context.item_stack, player);
-                    player.set_item_in_hand_slot(level, hand, replacement);
+                    // `BucketItem.getEmptySuccessItem(stack, player)`; the caller stores `context.item_stack` into the hand
+                    context.item_stack = bucket_empty_success_item(&context.item_stack, player);
                 }
                 place_result
             }
@@ -954,6 +983,10 @@ impl ItemBehaviour for BlockItem {
 
     fn can_fit_inside_container_items(&self) -> bool {
         !self.block.data().name.ends_with("shulker_box")
+    }
+
+    fn as_dispensible_container(&self) -> Option<&dyn DispensibleContainerItem> {
+        matches!(self.kind, Kind::SolidBucket { .. }).then_some(self)
     }
 
     /// `BlockItem.onDestroyed(entity)`: container contents drop out.

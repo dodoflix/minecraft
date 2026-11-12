@@ -1,0 +1,180 @@
+T 1
+T 2
+# lily pad and frogspawn with `use` on a source water surface, then on flowing water and on stone
+B 4 -60 -3 minecraft:water[level=0]
+B 4 -59 -3 minecraft:lily_pad
+I A 0 minecraft:lily_pad*7
+I A 40 minecraft:frogspawn*8
+EV sound at=4.5,-58.5,-2.5 r=16.0 ex=1 event=minecraft:block.lily_pad.place source=block vol=1.0 pitch=0.8
+B 6 -60 -3 minecraft:water[level=0]
+B 6 -59 -3 minecraft:frogspawn
+I A 0 minecraft:lily_pad*7
+I A 40 minecraft:frogspawn*7
+EV sound at=6.5,-58.5,-2.5 r=16.0 ex=1 event=minecraft:block.frogspawn.place source=block vol=1.0 pitch=0.8
+B 20 -60 -3 minecraft:water[level=0]
+B 20 -59 -3 minecraft:lily_pad
+I C 0 minecraft:lily_pad*8
+EV sound at=20.5,-58.5,-2.5 r=16.0 ex=1 event=minecraft:block.lily_pad.place source=block vol=1.0 pitch=0.8
+B 8 -60 -3 minecraft:stone
+I A 0 minecraft:lily_pad*7
+I A 40 minecraft:frogspawn*7
+B 12 -60 -3 minecraft:water[level=3]
+I A 0 minecraft:lily_pad*7
+I A 40 minecraft:frogspawn*7
+T 3
+T 4
+# lily pad and frogspawn through use_on: the PlaceOnWater item passes, the block is not placed from a clicked block
+B 3 -61 -4 minecraft:grass_block[snowy=false]
+B 3 -61 -3 minecraft:grass_block[snowy=false]
+B 3 -61 -2 minecraft:grass_block[snowy=false]
+B 4 -61 -4 minecraft:grass_block[snowy=false]
+B 4 -61 -3 minecraft:grass_block[snowy=false]
+B 4 -61 -2 minecraft:grass_block[snowy=false]
+B 4 -60 -3 minecraft:water[level=0]
+B 4 -59 -3 minecraft:lily_pad
+B 5 -61 -4 minecraft:grass_block[snowy=false]
+B 5 -61 -3 minecraft:grass_block[snowy=false]
+B 5 -61 -2 minecraft:grass_block[snowy=false]
+I A 0 minecraft:lily_pad*8
+I A 40 minecraft:frogspawn*8
+B 3 -61 -4 minecraft:grass_block[snowy=false]
+B 3 -61 -3 minecraft:grass_block[snowy=false]
+B 3 -61 -2 minecraft:grass_block[snowy=false]
+B 4 -61 -4 minecraft:grass_block[snowy=false]
+B 4 -61 -3 minecraft:grass_block[snowy=false]
+B 4 -61 -2 minecraft:grass_block[snowy=false]
+B 4 -60 -3 minecraft:water[level=0]
+B 4 -59 -3 minecraft:lily_pad
+B 5 -61 -4 minecraft:grass_block[snowy=false]
+B 5 -61 -3 minecraft:grass_block[snowy=false]
+B 5 -61 -2 minecraft:grass_block[snowy=false]
+I A 0 minecraft:lily_pad*8
+I A 40 minecraft:frogspawn*8
+T 5
+# powder snow bucket: on the top of stone, into water, into an air block clicked directly and beside a fence; creative keeps the bucket
+T 6
+B 4 -60 3 minecraft:stone
+B 4 -59 3 minecraft:powder_snow
+I A 0 minecraft:bucket*1
+I A 40 minecraft:frogspawn*8
+EV sound at=4.5,-58.5,3.5 r=16.0 ex=1 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=0.8
+B 8 -60 3 minecraft:powder_snow
+I B 0 minecraft:bucket*1
+EV sound at=8.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=0.8
+B 20 -60 3 minecraft:stone
+B 20 -59 3 minecraft:powder_snow
+I C 0 minecraft:powder_snow_bucket*1
+EV sound at=20.5,-58.5,3.5 r=16.0 ex=1 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=0.8
+T 7
+B 6 -60 3 minecraft:powder_snow
+I A 0 minecraft:bucket*1
+I A 40 minecraft:frogspawn*8
+EV sound at=6.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=0.8
+B 12 -60 3 minecraft:oak_fence[east=false,north=false,south=false,waterlogged=false,west=false]
+B 13 -60 3 minecraft:powder_snow
+I B 0 minecraft:bucket*1
+EV sound at=13.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.bucket.empty_powder_snow source=block vol=1.0 pitch=0.8
+T 8
+# scaffolding clicked while sneaking: the secondary use branch, with and without inside, on the top and on a side
+T 9
+B 4 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -59 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+I A 0 minecraft:scaffolding*63
+I A 40 minecraft:frogspawn*8
+EV sound at=4.5,-58.5,8.5 r=16.0 ex=1 event=minecraft:block.scaffolding.place source=block vol=1.0 pitch=0.8
+B 4 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -59 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+I A 0 minecraft:scaffolding*63
+I A 40 minecraft:frogspawn*8
+B 4 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -59 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 5 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+I A 0 minecraft:scaffolding*62
+I A 40 minecraft:frogspawn*8
+EV sound at=5.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.scaffolding.place source=block vol=1.0 pitch=0.8
+B 3 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -59 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 5 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+I A 0 minecraft:scaffolding*61
+I A 40 minecraft:frogspawn*8
+EV sound at=3.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.scaffolding.place source=block vol=1.0 pitch=0.8
+B 3 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -60 7 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -59 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 5 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+I A 0 minecraft:scaffolding*60
+I A 40 minecraft:frogspawn*8
+EV sound at=4.5,-59.5,7.5 r=16.0 ex=1 event=minecraft:block.scaffolding.place source=block vol=1.0 pitch=0.8
+T 10
+# a stone clicked from the inside while sneaking
+B 3 -61 7 minecraft:grass_block[snowy=false]
+B 3 -61 8 minecraft:grass_block[snowy=false]
+B 3 -61 9 minecraft:grass_block[snowy=false]
+B 3 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -61 7 minecraft:grass_block[snowy=false]
+B 4 -61 8 minecraft:stone
+B 4 -61 9 minecraft:grass_block[snowy=false]
+B 4 -60 7 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -60 9 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 4 -59 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 5 -61 7 minecraft:grass_block[snowy=false]
+B 5 -61 8 minecraft:grass_block[snowy=false]
+B 5 -61 9 minecraft:grass_block[snowy=false]
+B 5 -60 8 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+B 6 -61 7 minecraft:grass_block[snowy=false]
+B 6 -61 8 minecraft:grass_block[snowy=false]
+B 6 -61 9 minecraft:grass_block[snowy=false]
+I A 0 minecraft:scaffolding*59
+I A 40 minecraft:frogspawn*8
+EV sound at=4.5,-59.5,9.5 r=16.0 ex=1 event=minecraft:block.scaffolding.place source=block vol=1.0 pitch=0.8
+T 11
+# a barrel with block_entity_data and the container component, a plain player and an operator
+T 12
+B 8 -60 8 minecraft:barrel[facing=north,open=false]
+BE 8 -60 8 {Items:[{Slot:0b,count:3,id:"minecraft:stone"}],components:{},id:"minecraft:barrel",x:8,y:-60,z:8}
+BEU 8 -60 8 -
+I A 40 minecraft:frogspawn*8
+EV sound at=8.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+B 12 -60 8 minecraft:barrel[facing=north,open=false]
+BE 12 -60 8 {Items:[{Slot:0b,count:3,id:"minecraft:stone"}],components:{},id:"minecraft:barrel",x:12,y:-60,z:8}
+BEU 12 -60 8 -
+EV sound at=12.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
+T 13
+# a command block: only a creative operator can place it (canUseGameMasterBlocks), the data is applied for that player
+T 14
+BE 16 -60 8 -
+BEU 16 -60 8 -
+I A 0 minecraft:command_block*1
+I A 40 minecraft:frogspawn*8
+BE 20 -60 8 -
+BEU 20 -60 8 -
+I B 0 minecraft:command_block*1
+BE 24 -60 8 -
+BEU 24 -60 8 -
+I C 0 minecraft:command_block*1
+B 36 -60 8 minecraft:command_block[conditional=false,facing=north]
+BE 36 -60 8 {Command:"say hi",SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:36,y:-60,z:8}
+BEU 36 -60 8 -
+I D 0 minecraft:command_block*1
+EV sound at=36.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 15
+# a spawner: block_entity_data is applied only for a creative operator (onlyOpCanSetNbt)
+T 16
+B 28 -60 8 minecraft:spawner
+BE 28 -60 8 {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnPotentials:[],SpawnRange:4s,components:{},id:"minecraft:mob_spawner",x:28,y:-60,z:8}
+BEU 28 -60 8 minecraft:mob_spawner {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnRange:4s}
+I A 40 minecraft:frogspawn*8
+EV sound at=28.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.spawner.place source=block vol=1.0 pitch=0.8
+B 32 -60 8 minecraft:spawner
+BE 32 -60 8 {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnPotentials:[],SpawnRange:4s,components:{},id:"minecraft:mob_spawner",x:32,y:-60,z:8}
+BEU 32 -60 8 minecraft:mob_spawner {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnRange:4s}
+EV sound at=32.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.spawner.place source=block vol=1.0 pitch=0.8
+B 40 -60 8 minecraft:spawner
+BE 40 -60 8 {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnData:{entity:{id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:4s,components:{},id:"minecraft:mob_spawner",x:40,y:-60,z:8}
+BEU 40 -60 8 minecraft:mob_spawner {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnData:{entity:{id:"minecraft:pig"}},SpawnRange:4s}
+I D 0 minecraft:spawner*1
+EV sound at=40.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.spawner.place source=block vol=1.0 pitch=0.8
+T 17
