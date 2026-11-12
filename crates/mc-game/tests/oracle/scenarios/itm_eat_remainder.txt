@@ -1,0 +1,144 @@
+# Items that leave a remainder: a bowl for stews, a glass bottle for potions and honey, a bucket for milk. A stack of one is replaced by the remainder, a larger stack
+# keeps its rest and the remainder goes to the inventory, or is dropped when the inventory is full; a creative player keeps the stack.
+level flat
+preload 2
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player F survival 6.5 -60 0.5 0 0
+spawn_player C creative 12.5 -60 0.5 0 0
+give P hotbar0 minecraft:mushroom_stew 1
+give P hotbar1 minecraft:honey_bottle 3
+give P hotbar2 minecraft:milk_bucket 1
+give P hotbar3 minecraft:potion[potion_contents={potion:"minecraft:swiftness"}] 2
+give P hotbar4 minecraft:beetroot_soup 1
+give P hotbar5 minecraft:rabbit_stew 2
+give P hotbar6 minecraft:suspicious_stew[suspicious_stew_effects=[{id:"minecraft:jump_boost",duration:100}]] 1
+give C hotbar0 minecraft:honey_bottle 2
+give C hotbar1 minecraft:mushroom_stew 1
+give C hotbar2 minecraft:milk_bucket 1
+give F hotbar0 minecraft:honey_bottle 2
+give F hotbar1 minecraft:mushroom_stew 2
+give F hotbar2 minecraft:milk_bucket 1
+give F offhand minecraft:potion[potion_contents={potion:"minecraft:water"}] 1
+give F inv3 minecraft:cobblestone 64
+give F inv4 minecraft:cobblestone 64
+give F inv5 minecraft:cobblestone 64
+give F inv6 minecraft:cobblestone 64
+give F inv7 minecraft:cobblestone 64
+give F inv8 minecraft:cobblestone 64
+give F hotbar8 minecraft:cobblestone 64
+give F inv9 minecraft:cobblestone 64
+give F inv10 minecraft:cobblestone 64
+give F inv11 minecraft:cobblestone 64
+give F inv12 minecraft:cobblestone 64
+give F inv13 minecraft:cobblestone 64
+give F inv14 minecraft:cobblestone 64
+give F inv15 minecraft:cobblestone 64
+give F inv16 minecraft:cobblestone 64
+give F inv17 minecraft:cobblestone 64
+give F inv18 minecraft:cobblestone 64
+give F inv19 minecraft:cobblestone 64
+give F inv20 minecraft:cobblestone 64
+give F inv21 minecraft:cobblestone 64
+give F inv22 minecraft:cobblestone 64
+give F inv23 minecraft:cobblestone 64
+give F inv24 minecraft:cobblestone 64
+give F inv25 minecraft:cobblestone 64
+give F inv26 minecraft:cobblestone 64
+give F inv27 minecraft:cobblestone 64
+give F inv28 minecraft:cobblestone 64
+give F inv29 minecraft:cobblestone 64
+give F inv30 minecraft:cobblestone 64
+give F inv31 minecraft:cobblestone 64
+give F inv32 minecraft:cobblestone 64
+give F inv33 minecraft:cobblestone 64
+give F inv34 minecraft:cobblestone 64
+give F inv35 minecraft:cobblestone 64
+set P food 4
+set P saturation 0.0
+set F food 4
+set C food 4
+dump player:P inventory:P stats:P use:P
+# a single mushroom stew becomes a bowl
+level_seed 31
+select P 0
+use P main 1
+tick 33
+dump player:P inventory:P stats:P use:P events
+# honey bottles: the stack shrinks, the empty bottle goes to the inventory
+level_seed 32
+select P 1
+use P main 2
+tick 41
+dump player:P inventory:P stats:P use:P events
+# milk: the bucket comes back
+set P food 20
+level_seed 33
+select P 2
+use P main 3
+tick 33
+dump player:P inventory:P stats:P use:P events
+# a potion stack of 2
+level_seed 34
+select P 3
+use P main 4
+tick 33
+dump player:P inventory:P stats:P use:P events
+select P 3
+use P main 5
+tick 33
+dump player:P inventory:P stats:P use:P events
+# beetroot soup (needs food), rabbit stew stack of 2, a suspicious stew
+set P food 3
+level_seed 35
+select P 4
+use P main 6
+tick 33
+dump player:P inventory:P stats:P use:P events
+level_seed 36
+select P 5
+use P main 7
+tick 33
+dump player:P inventory:P stats:P use:P events
+set P food 3
+level_seed 37
+select P 6
+use P main 8
+tick 33
+dump player:P inventory:P stats:P use:P events
+# the inventory of F is full: the remainder of the larger stack is dropped as an item
+level_seed 38
+select F 0
+use F main 1
+tick 41
+dump player:F inventory:F stats:F use:F events entities
+# a stack of 2 stews: the bowl is dropped too
+level_seed 39
+select F 1
+use F main 2
+tick 33
+dump player:F inventory:F stats:F use:F events entities
+# a single milk bucket in a full inventory is replaced in the hand
+level_seed 40
+select F 2
+use F main 3
+tick 33
+dump player:F inventory:F stats:F use:F events entities
+# the offhand water bottle: the bottle returns to the offhand
+select F 8
+use F off 4
+tick 33
+dump player:F inventory:F stats:F use:F events entities
+# creative: nothing is consumed, no remainder
+level_seed 41
+select C 0
+use C main 1
+tick 41
+dump player:C inventory:C stats:C use:C events
+select C 1
+use C main 2
+tick 33
+dump player:C inventory:C stats:C use:C events
+select C 2
+use C main 3
+tick 33
+dump player:C inventory:C stats:C use:C events

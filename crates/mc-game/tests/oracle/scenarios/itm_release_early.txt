@@ -1,0 +1,85 @@
+# Releasing the use key before an item is finished: nothing is consumed, no effect and no cooldown, the eating sounds up to that tick stay;
+# the item can be used again from the start afterwards.
+level flat
+preload 2
+spawn_player P survival 0.5 -60 0.5 0 0
+give P hotbar0 minecraft:apple 3
+give P hotbar1 minecraft:golden_apple 2
+give P hotbar2 minecraft:honey_bottle 2
+give P hotbar3 minecraft:chorus_fruit 3
+give P hotbar4 minecraft:milk_bucket 1
+give P hotbar5 minecraft:potion[potion_contents={potion:"minecraft:swiftness"}] 2
+give P hotbar6 minecraft:ominous_bottle 1
+set P food 4
+set P saturation 0.0
+dump player:P inventory:P stats:P use:P cooldowns:P
+# an apple released after 10 of its 32 ticks
+level_seed 51
+select P 0
+use P main 1
+watch events
+tick 10
+watch off
+dump use:P
+release P
+dump player:P inventory:P stats:P use:P cooldowns:P events
+tick 5
+dump player:P inventory:P stats:P use:P events
+# released at once
+use P main 2
+release P
+dump player:P inventory:P stats:P use:P events
+# released with nothing in use
+release P
+dump use:P
+# a golden apple one tick before the end
+level_seed 52
+select P 1
+use P main 3
+tick 31
+dump use:P
+release P
+dump player:P inventory:P stats:P use:P events
+# a drink and a chorus fruit (cooldown) released early
+level_seed 53
+select P 2
+use P main 4
+tick 20
+release P
+dump player:P inventory:P stats:P use:P cooldowns:P events
+select P 3
+use P main 5
+tick 10
+release P
+dump player:P inventory:P stats:P use:P cooldowns:P events
+select P 4
+use P main 6
+tick 20
+release P
+dump player:P inventory:P stats:P use:P events
+select P 5
+use P main 7
+tick 20
+release P
+dump player:P inventory:P stats:P use:P events
+select P 6
+use P main 8
+tick 20
+release P
+dump player:P inventory:P stats:P use:P events
+# after the releases a full use still works from the start
+level_seed 54
+select P 0
+use P main 9
+dump use:P
+tick 33
+dump player:P inventory:P stats:P use:P cooldowns:P events
+# switching the hotbar slot while eating ends the use too
+level_seed 55
+select P 1
+use P main 10
+tick 8
+select P 0
+dump player:P inventory:P stats:P use:P events
+tick 40
+dump player:P inventory:P stats:P use:P events

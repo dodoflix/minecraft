@@ -1,0 +1,210 @@
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*3
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+T 1
+T 2
+T 3
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1478323
+T 10
+USE P hand=main item=minecraft:apple*3 remaining=22 ticks=10 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*3
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 10
+STAT P minecraft.custom:minecraft.time_since_death 10
+STAT P minecraft.custom:minecraft.time_since_rest 10
+STAT P minecraft.custom:minecraft.total_world_time 10
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*3
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 15
+STAT P minecraft.custom:minecraft.time_since_death 15
+STAT P minecraft.custom:minecraft.time_since_rest 15
+STAT P minecraft.custom:minecraft.total_world_time 15
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*3
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 15
+STAT P minecraft.custom:minecraft.time_since_death 15
+STAT P minecraft.custom:minecraft.time_since_rest 15
+STAT P minecraft.custom:minecraft.total_world_time 15
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE P hand=main item=minecraft:golden_apple*2 remaining=1 ticks=31 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=1 main=minecraft:golden_apple*2
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 46
+STAT P minecraft.custom:minecraft.time_since_death 46
+STAT P minecraft.custom:minecraft.time_since_rest 46
+STAT P minecraft.custom:minecraft.total_world_time 46
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0498929
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.93908244
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9815514
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.90109843
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.939858
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.91470104
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=2 main=minecraft:honey_bottle*2
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 66
+STAT P minecraft.custom:minecraft.time_since_death 66
+STAT P minecraft.custom:minecraft.time_since_rest 66
+STAT P minecraft.custom:minecraft.total_world_time 66
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.99173665
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9182189
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=3 main=minecraft:chorus_fruit*3
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 76
+STAT P minecraft.custom:minecraft.time_since_death 76
+STAT P minecraft.custom:minecraft.time_since_rest 76
+STAT P minecraft.custom:minecraft.total_world_time 76
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.89900464
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=4 main=minecraft:milk_bucket*1
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 96
+STAT P minecraft.custom:minecraft.time_since_death 96
+STAT P minecraft.custom:minecraft.time_since_rest 96
+STAT P minecraft.custom:minecraft.total_world_time 96
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.95121884
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9997595
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.90621215
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=5 main=minecraft:potion*2
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 116
+STAT P minecraft.custom:minecraft.time_since_death 116
+STAT P minecraft.custom:minecraft.time_since_rest 116
+STAT P minecraft.custom:minecraft.total_world_time 116
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.96919453
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9071237
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.95508826
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=6 main=minecraft:ominous_bottle*1
+I P 0 minecraft:apple*3
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 136
+STAT P minecraft.custom:minecraft.time_since_death 136
+STAT P minecraft.custom:minecraft.time_since_rest 136
+STAT P minecraft.custom:minecraft.total_world_time 136
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.96339965
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.90540797
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.97178483
+USE P hand=main item=minecraft:apple*3 remaining=32 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=8 sat=2.4 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*2
+I P 0 minecraft:apple*2
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 169
+STAT P minecraft.custom:minecraft.time_since_death 169
+STAT P minecraft.custom:minecraft.time_since_rest 169
+STAT P minecraft.custom:minecraft.total_world_time 169
+STAT P minecraft.used:minecraft.apple 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.00351
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.98719704
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0048023
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.8498056
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.8796334
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.145914
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9087127
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=0.8109199
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.96186775
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=8 sat=2.4 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*2
+I P 0 minecraft:apple*2
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 177
+STAT P minecraft.custom:minecraft.time_since_death 177
+STAT P minecraft.custom:minecraft.time_since_rest 177
+STAT P minecraft.custom:minecraft.total_world_time 177
+STAT P minecraft.used:minecraft.apple 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=8 sat=2.4 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*2
+I P 0 minecraft:apple*2
+I P 1 minecraft:golden_apple*2
+I P 2 minecraft:honey_bottle*2
+I P 3 minecraft:chorus_fruit*3
+I P 4 minecraft:milk_bucket*1
+I P 5 minecraft:potion*2
+I P 6 minecraft:ominous_bottle*1
+STAT P minecraft.custom:minecraft.play_time 217
+STAT P minecraft.custom:minecraft.time_since_death 217
+STAT P minecraft.custom:minecraft.time_since_rest 217
+STAT P minecraft.custom:minecraft.total_world_time 217
+STAT P minecraft.used:minecraft.apple 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0

@@ -1,0 +1,100 @@
+# Drinks and the effects of consumed items: potions (status effect list, amplifier), the ominous bottle (bad omen), a suspicious stew, milk clearing the effects,
+# a chorus fruit that teleports randomly and starts its cooldown, honey curing poison.
+level flat
+preload 2
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 20.5 -60 0.5 0 0
+give P hotbar0 minecraft:potion[potion_contents={potion:"minecraft:swiftness"}] 1
+give P hotbar1 minecraft:potion[potion_contents={potion:"minecraft:strong_healing"}] 1
+give P hotbar2 minecraft:ominous_bottle[ominous_bottle_amplifier=2] 1
+give P hotbar3 minecraft:suspicious_stew[suspicious_stew_effects=[{id:"minecraft:jump_boost",duration:100},{id:"minecraft:night_vision",duration:60}]] 1
+give P hotbar4 minecraft:milk_bucket 1
+give P hotbar5 minecraft:chorus_fruit 4
+give P hotbar6 minecraft:honey_bottle 1
+give P hotbar7 minecraft:potion[potion_contents={potion:"minecraft:poison"}] 1
+give P hotbar8 minecraft:potion[potion_contents={custom_color:255,custom_effects:[{id:"minecraft:levitation",duration:40,amplifier:1}]}] 1
+give C hotbar0 minecraft:chorus_fruit 4
+give C hotbar1 minecraft:potion[potion_contents={potion:"minecraft:night_vision"}] 1
+set P food 20
+dump player:P inventory:P stats:P use:P
+# swiftness
+level_seed 61
+select P 0
+use P main 1
+tick 33
+dump player:P inventory:P stats:P use:P events
+tick 20
+dump player:P
+# instant healing from a damaged player
+set P health 4.0
+level_seed 62
+select P 1
+use P main 2
+tick 33
+dump player:P inventory:P stats:P events
+# the ominous bottle: bad omen III
+level_seed 63
+select P 2
+use P main 3
+tick 33
+dump player:P inventory:P stats:P events
+# suspicious stew with two effects (needs hunger)
+set P food 4
+level_seed 64
+select P 3
+use P main 4
+tick 33
+dump player:P inventory:P stats:P events
+# the poison bottle, then honey takes it away; a custom effect potion; milk clears everything
+set P food 20
+select P 7
+level_seed 65
+use P main 5
+tick 33
+dump player:P inventory:P events
+select P 6
+level_seed 66
+use P main 6
+tick 41
+dump player:P inventory:P events
+select P 8
+level_seed 67
+use P main 7
+tick 33
+dump player:P inventory:P events
+select P 4
+level_seed 68
+use P main 8
+tick 33
+dump player:P inventory:P stats:P events cooldowns:P
+# chorus fruit: random teleport and the cooldown; a second one is refused while it runs
+set P food 4
+level_seed 69
+select P 5
+use P main 9
+tick 17
+dump player:P inventory:P stats:P use:P cooldowns:P events
+use P main 10
+dump player:P inventory:P use:P cooldowns:P
+tick 19
+dump player:P cooldowns:P
+use P main 11
+dump use:P cooldowns:P
+tick 1
+use P main 12
+tick 17
+dump player:P inventory:P stats:P cooldowns:P events
+tick 25
+use P main 13
+tick 17
+dump player:P inventory:P stats:P cooldowns:P events
+# creative chorus fruit: still a teleport and a cooldown, the stack stays
+level_seed 70
+select C 0
+use C main 1
+tick 17
+dump player:C inventory:C stats:C cooldowns:C events
+select C 1
+use C main 2
+tick 33
+dump player:C inventory:C stats:C events

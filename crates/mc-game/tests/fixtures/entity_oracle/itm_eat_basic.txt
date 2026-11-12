@@ -1,0 +1,339 @@
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=6 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*3
+I P 0 minecraft:apple*3
+I P 1 minecraft:bread*2
+I P 2 minecraft:golden_apple*2
+I P 3 minecraft:rotten_flesh*3
+I P 4 minecraft:enchanted_golden_apple*1
+I P 5 minecraft:dried_kelp*2
+I P 40 minecraft:cooked_beef*2
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE P hand=main item=minecraft:apple*3 remaining=32 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=6 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*3
+T 1
+T 2
+T 3
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1478323
+T 10
+T 11
+T 12
+T 13
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0498929
+T 14
+T 15
+T 16
+T 17
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.93908244
+T 18
+T 19
+T 20
+T 21
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9815514
+T 22
+T 23
+T 24
+T 25
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.90109843
+T 26
+T 27
+T 28
+T 29
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.939858
+T 30
+T 31
+T 32
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.91470104
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.0288156
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9672611
+T 33
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=10 sat=2.4 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*2
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*2
+I P 2 minecraft:golden_apple*2
+I P 3 minecraft:rotten_flesh*3
+I P 4 minecraft:enchanted_golden_apple*1
+I P 5 minecraft:dried_kelp*2
+I P 40 minecraft:cooked_beef*2
+STAT P minecraft.custom:minecraft.play_time 40
+STAT P minecraft.custom:minecraft.time_since_death 40
+STAT P minecraft.custom:minecraft.time_since_rest 40
+STAT P minecraft.custom:minecraft.total_world_time 40
+STAT P minecraft.used:minecraft.apple 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=15 sat=8.4 exh=0.0 xp=0/0/0.0 sel=1 main=minecraft:bread*1
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*1
+I P 2 minecraft:golden_apple*2
+I P 3 minecraft:rotten_flesh*3
+I P 4 minecraft:enchanted_golden_apple*1
+I P 5 minecraft:dried_kelp*2
+I P 40 minecraft:cooked_beef*2
+STAT P minecraft.custom:minecraft.play_time 73
+STAT P minecraft.custom:minecraft.time_since_death 73
+STAT P minecraft.custom:minecraft.time_since_rest 73
+STAT P minecraft.custom:minecraft.total_world_time 73
+STAT P minecraft.used:minecraft.apple 1
+STAT P minecraft.used:minecraft.bread 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.8402599
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.96564996
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9072822
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1145189
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9664436
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.93348175
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.94497824
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.1217388
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9624685
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.982978
+T 83
+T 84
+T 85
+T 86
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.8208788
+T 87
+T 88
+T 89
+T 90
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9967269
+T 91
+T 92
+T 93
+T 94
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.93547213
+T 95
+T 96
+T 97
+T 98
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0024811
+T 99
+T 100
+T 101
+T 102
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.92277026
+T 103
+T 104
+T 105
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9826159
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=0.8386959
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9743167
+T 106
+T 107
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=4.0 hurt=0/0 death=0 fx=minecraft:absorption/0/2398;minecraft:regeneration/1/98 gm=survival food=20 sat=18.0 exh=0.0 xp=0/0/0.0 sel=2 main=minecraft:golden_apple*1
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*1
+I P 2 minecraft:golden_apple*1
+I P 3 minecraft:rotten_flesh*3
+I P 4 minecraft:enchanted_golden_apple*1
+I P 5 minecraft:dried_kelp*2
+I P 40 minecraft:cooked_beef*2
+STAT P minecraft.custom:minecraft.play_time 107
+STAT P minecraft.custom:minecraft.time_since_death 107
+STAT P minecraft.custom:minecraft.time_since_rest 107
+STAT P minecraft.custom:minecraft.total_world_time 107
+STAT P minecraft.used:minecraft.apple 1
+STAT P minecraft.used:minecraft.bread 1
+STAT P minecraft.used:minecraft.golden_apple 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=4.0 hurt=0/0 death=0 fx=minecraft:absorption/0/2398;minecraft:regeneration/1/98 gm=survival food=20 sat=18.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*2
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*1
+I P 2 minecraft:golden_apple*1
+I P 3 minecraft:rotten_flesh*3
+I P 4 minecraft:enchanted_golden_apple*1
+I P 5 minecraft:dried_kelp*2
+I P 40 minecraft:cooked_beef*2
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=4.0 hurt=0/0 death=0 fx=minecraft:absorption/0/2365;minecraft:hunger/0/599;minecraft:regeneration/1/65 gm=survival food=9 sat=0.8 exh=0.005 xp=0/0/0.0 sel=3 main=minecraft:rotten_flesh*2
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*1
+I P 2 minecraft:golden_apple*1
+I P 3 minecraft:rotten_flesh*2
+I P 4 minecraft:enchanted_golden_apple*1
+I P 5 minecraft:dried_kelp*2
+I P 40 minecraft:cooked_beef*2
+STAT P minecraft.custom:minecraft.play_time 140
+STAT P minecraft.custom:minecraft.time_since_death 140
+STAT P minecraft.custom:minecraft.time_since_rest 140
+STAT P minecraft.custom:minecraft.total_world_time 140
+STAT P minecraft.used:minecraft.apple 1
+STAT P minecraft.used:minecraft.bread 1
+STAT P minecraft.used:minecraft.golden_apple 1
+STAT P minecraft.used:minecraft.rotten_flesh 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=4.0 hurt=0/0 death=0 fx=minecraft:absorption/0/2332;minecraft:hunger/0/599;minecraft:regeneration/1/32 gm=survival food=13 sat=1.6 exh=0.16999997 xp=0/0/0.0 sel=3 main=minecraft:rotten_flesh*1
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*1
+I P 2 minecraft:golden_apple*1
+I P 3 minecraft:rotten_flesh*1
+I P 4 minecraft:enchanted_golden_apple*1
+I P 5 minecraft:dried_kelp*2
+I P 40 minecraft:cooked_beef*2
+STAT P minecraft.custom:minecraft.play_time 173
+STAT P minecraft.custom:minecraft.time_since_death 173
+STAT P minecraft.custom:minecraft.time_since_rest 173
+STAT P minecraft.custom:minecraft.total_world_time 173
+STAT P minecraft.used:minecraft.apple 1
+STAT P minecraft.used:minecraft.bread 1
+STAT P minecraft.used:minecraft.golden_apple 1
+STAT P minecraft.used:minecraft.rotten_flesh 2
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.086268
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9526819
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9852351
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.98980856
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.85634714
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9584492
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9474186
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.1870365
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.99324805
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0145366
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0188351
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.88198966
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.1337986
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9681645
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9724296
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9984154
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.017458
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9495887
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=4.0 hurt=0/0 death=0 fx=minecraft:absorption/0/2299;minecraft:hunger/0/599 gm=survival food=17 sat=2.4 exh=0.33499983 xp=0/0/0.0 sel=3 main=empty
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*1
+I P 2 minecraft:golden_apple*1
+I P 4 minecraft:enchanted_golden_apple*1
+I P 5 minecraft:dried_kelp*2
+I P 40 minecraft:cooked_beef*2
+STAT P minecraft.custom:minecraft.play_time 206
+STAT P minecraft.custom:minecraft.time_since_death 206
+STAT P minecraft.custom:minecraft.time_since_rest 206
+STAT P minecraft.custom:minecraft.total_world_time 206
+STAT P minecraft.used:minecraft.apple 1
+STAT P minecraft.used:minecraft.bread 1
+STAT P minecraft.used:minecraft.golden_apple 1
+STAT P minecraft.used:minecraft.rotten_flesh 3
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9476044
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.93718153
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.168298
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.146345
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.96738267
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.8430181
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0243845
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.2826095
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9599147
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=16.0 hurt=0/0 death=0 fx=minecraft:absorption/3/2399;minecraft:fire_resistance/0/5999;minecraft:hunger/0/566;minecraft:regeneration/1/399;minecraft:resistance/0/5999 gm=survival food=20 sat=12.0 exh=0.49999967 xp=0/0/0.0 sel=4 main=empty
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*1
+I P 2 minecraft:golden_apple*1
+I P 5 minecraft:dried_kelp*2
+I P 40 minecraft:cooked_beef*2
+STAT P minecraft.custom:minecraft.play_time 239
+STAT P minecraft.custom:minecraft.time_since_death 239
+STAT P minecraft.custom:minecraft.time_since_rest 239
+STAT P minecraft.custom:minecraft.total_world_time 239
+STAT P minecraft.used:minecraft.apple 1
+STAT P minecraft.used:minecraft.bread 1
+STAT P minecraft.used:minecraft.enchanted_golden_apple 1
+STAT P minecraft.used:minecraft.golden_apple 1
+STAT P minecraft.used:minecraft.rotten_flesh 3
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9970774
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.86739403
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0484143
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0632985
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.956753
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.972654
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9733234
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=0.81841296
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.97489613
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=16.0 hurt=0/0 death=0 fx=minecraft:absorption/3/2383;minecraft:fire_resistance/0/5983;minecraft:hunger/0/550;minecraft:regeneration/1/383;minecraft:resistance/0/5983 gm=survival food=4 sat=4.0 exh=0.5799996 xp=0/0/0.0 sel=5 main=minecraft:dried_kelp*1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0822299
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0248554
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.95334667
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1520269
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.0675261
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9465816
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=16.0 hurt=0/0 death=0 fx=minecraft:absorption/3/2381;minecraft:fire_resistance/0/5981;minecraft:hunger/0/548;minecraft:regeneration/1/381;minecraft:resistance/0/5981 gm=survival food=4 sat=4.0 exh=0.5899996 xp=0/0/0.0 sel=5 main=minecraft:dried_kelp*1
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*1
+I P 2 minecraft:golden_apple*1
+I P 5 minecraft:dried_kelp*1
+I P 40 minecraft:cooked_beef*2
+STAT P minecraft.custom:minecraft.play_time 257
+STAT P minecraft.custom:minecraft.time_since_death 257
+STAT P minecraft.custom:minecraft.time_since_rest 257
+STAT P minecraft.custom:minecraft.total_world_time 257
+STAT P minecraft.used:minecraft.apple 1
+STAT P minecraft.used:minecraft.bread 1
+STAT P minecraft.used:minecraft.dried_kelp 1
+STAT P minecraft.used:minecraft.enchanted_golden_apple 1
+STAT P minecraft.used:minecraft.golden_apple 1
+STAT P minecraft.used:minecraft.rotten_flesh 3
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE P hand=off item=minecraft:cooked_beef*2 remaining=32 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=16.0 hurt=0/0 death=0 fx=minecraft:absorption/3/2348;minecraft:fire_resistance/0/5948;minecraft:hunger/0/515;minecraft:regeneration/1/348;minecraft:resistance/0/5948 gm=survival food=11 sat=11.0 exh=0.75499946 xp=0/0/0.0 sel=8 main=empty
+I P 0 minecraft:apple*2
+I P 1 minecraft:bread*1
+I P 2 minecraft:golden_apple*1
+I P 5 minecraft:dried_kelp*1
+I P 40 minecraft:cooked_beef*1
+STAT P minecraft.custom:minecraft.play_time 290
+STAT P minecraft.custom:minecraft.time_since_death 290
+STAT P minecraft.custom:minecraft.time_since_rest 290
+STAT P minecraft.custom:minecraft.total_world_time 290
+STAT P minecraft.used:minecraft.apple 1
+STAT P minecraft.used:minecraft.bread 1
+STAT P minecraft.used:minecraft.cooked_beef 1
+STAT P minecraft.used:minecraft.dried_kelp 1
+STAT P minecraft.used:minecraft.enchanted_golden_apple 1
+STAT P minecraft.used:minecraft.golden_apple 1
+STAT P minecraft.used:minecraft.rotten_flesh 3
+USE P hand=off item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1360424
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.98347706
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0215456
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.96554524
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.104623
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0919731
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0207462
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.1021011
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9917811
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=16.0 hurt=0/0 death=0 fx=minecraft:absorption/3/2328;minecraft:fire_resistance/0/5928;minecraft:hunger/0/495;minecraft:regeneration/1/328;minecraft:resistance/0/5928 gm=survival food=11 sat=11.0 exh=0.85499936 xp=0/0/0.0 sel=8 main=empty
+P C minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=7.4 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:apple*3
+I C 0 minecraft:apple*3
+STAT C minecraft.custom:minecraft.play_time 343
+STAT C minecraft.custom:minecraft.time_since_death 343
+STAT C minecraft.custom:minecraft.time_since_rest 343
+STAT C minecraft.custom:minecraft.total_world_time 343
+STAT C minecraft.used:minecraft.apple 1
+USE C hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.1432928
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9702147
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.063134
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.8184399
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0235968
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1270355
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0661107
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.1627619
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9231211

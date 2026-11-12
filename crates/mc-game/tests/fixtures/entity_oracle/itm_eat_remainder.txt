@@ -1,0 +1,500 @@
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:mushroom_stew*1
+I P 0 minecraft:mushroom_stew*1
+I P 1 minecraft:honey_bottle*3
+I P 2 minecraft:milk_bucket*1
+I P 3 minecraft:potion*2
+I P 4 minecraft:beetroot_soup*1
+I P 5 minecraft:rabbit_stew*2
+I P 6 minecraft:suspicious_stew*1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=10 sat=7.2000003 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:bowl*1
+I P 0 minecraft:bowl*1
+I P 1 minecraft:honey_bottle*3
+I P 2 minecraft:milk_bucket*1
+I P 3 minecraft:potion*2
+I P 4 minecraft:beetroot_soup*1
+I P 5 minecraft:rabbit_stew*2
+I P 6 minecraft:suspicious_stew*1
+STAT P minecraft.custom:minecraft.play_time 33
+STAT P minecraft.custom:minecraft.time_since_death 33
+STAT P minecraft.custom:minecraft.time_since_rest 33
+STAT P minecraft.custom:minecraft.total_world_time 33
+STAT P minecraft.used:minecraft.mushroom_stew 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1478323
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0498929
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.93908244
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9815514
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.90109843
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.939858
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.91470104
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.0288156
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9672611
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=16 sat=8.400001 exh=0.0 xp=0/0/0.0 sel=1 main=minecraft:honey_bottle*2
+I P 0 minecraft:bowl*1
+I P 1 minecraft:honey_bottle*2
+I P 2 minecraft:milk_bucket*1
+I P 3 minecraft:potion*2
+I P 4 minecraft:beetroot_soup*1
+I P 5 minecraft:rabbit_stew*2
+I P 6 minecraft:suspicious_stew*1
+I P 7 minecraft:glass_bottle*1
+STAT P minecraft.custom:minecraft.play_time 74
+STAT P minecraft.custom:minecraft.time_since_death 74
+STAT P minecraft.custom:minecraft.time_since_rest 74
+STAT P minecraft.custom:minecraft.total_world_time 74
+STAT P minecraft.used:minecraft.honey_bottle 1
+STAT P minecraft.used:minecraft.mushroom_stew 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9453534
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9294497
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9372135
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.97480625
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.98324966
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9398247
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9365782
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9809925
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.honey_bottle.drink source=neutral vol=1.0 pitch=1.1952752
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.959756
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=8.400001 exh=0.0 xp=0/0/0.0 sel=2 main=minecraft:bucket*1
+I P 0 minecraft:bowl*1
+I P 1 minecraft:honey_bottle*2
+I P 2 minecraft:bucket*1
+I P 3 minecraft:potion*2
+I P 4 minecraft:beetroot_soup*1
+I P 5 minecraft:rabbit_stew*2
+I P 6 minecraft:suspicious_stew*1
+I P 7 minecraft:glass_bottle*1
+STAT P minecraft.custom:minecraft.play_time 107
+STAT P minecraft.custom:minecraft.time_since_death 107
+STAT P minecraft.custom:minecraft.time_since_rest 107
+STAT P minecraft.custom:minecraft.total_world_time 107
+STAT P minecraft.used:minecraft.honey_bottle 1
+STAT P minecraft.used:minecraft.milk_bucket 1
+STAT P minecraft.used:minecraft.mushroom_stew 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9971417
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.91099745
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.92472064
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.97287285
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.92882365
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.97755414
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9405564
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/3599 gm=survival food=20 sat=8.400001 exh=0.0 xp=0/0/0.0 sel=3 main=minecraft:potion*1
+I P 0 minecraft:bowl*1
+I P 1 minecraft:honey_bottle*2
+I P 2 minecraft:bucket*1
+I P 3 minecraft:potion*1
+I P 4 minecraft:beetroot_soup*1
+I P 5 minecraft:rabbit_stew*2
+I P 6 minecraft:suspicious_stew*1
+I P 7 minecraft:glass_bottle*2
+STAT P minecraft.custom:minecraft.play_time 140
+STAT P minecraft.custom:minecraft.time_since_death 140
+STAT P minecraft.custom:minecraft.time_since_rest 140
+STAT P minecraft.custom:minecraft.total_world_time 140
+STAT P minecraft.used:minecraft.honey_bottle 1
+STAT P minecraft.used:minecraft.milk_bucket 1
+STAT P minecraft.used:minecraft.mushroom_stew 1
+STAT P minecraft.used:minecraft.potion 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.91144854
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9175984
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9379275
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9599439
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9812691
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9603927
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.90758425
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/3599 gm=survival food=20 sat=8.400001 exh=0.0 xp=0/0/0.0 sel=3 main=minecraft:glass_bottle*1
+I P 0 minecraft:bowl*1
+I P 1 minecraft:honey_bottle*2
+I P 2 minecraft:bucket*1
+I P 3 minecraft:glass_bottle*1
+I P 4 minecraft:beetroot_soup*1
+I P 5 minecraft:rabbit_stew*2
+I P 6 minecraft:suspicious_stew*1
+I P 7 minecraft:glass_bottle*2
+STAT P minecraft.custom:minecraft.play_time 173
+STAT P minecraft.custom:minecraft.time_since_death 173
+STAT P minecraft.custom:minecraft.time_since_rest 173
+STAT P minecraft.custom:minecraft.total_world_time 173
+STAT P minecraft.used:minecraft.honey_bottle 1
+STAT P minecraft.used:minecraft.milk_bucket 1
+STAT P minecraft.used:minecraft.mushroom_stew 1
+STAT P minecraft.used:minecraft.potion 2
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.91584486
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9510934
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9146116
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9248438
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.93224025
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9238056
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.91376287
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/3566 gm=survival food=9 sat=9.0 exh=0.0 xp=0/0/0.0 sel=4 main=minecraft:bowl*1
+I P 0 minecraft:bowl*1
+I P 1 minecraft:honey_bottle*2
+I P 2 minecraft:bucket*1
+I P 3 minecraft:glass_bottle*1
+I P 4 minecraft:bowl*1
+I P 5 minecraft:rabbit_stew*2
+I P 6 minecraft:suspicious_stew*1
+I P 7 minecraft:glass_bottle*2
+STAT P minecraft.custom:minecraft.play_time 206
+STAT P minecraft.custom:minecraft.time_since_death 206
+STAT P minecraft.custom:minecraft.time_since_rest 206
+STAT P minecraft.custom:minecraft.total_world_time 206
+STAT P minecraft.used:minecraft.beetroot_soup 1
+STAT P minecraft.used:minecraft.honey_bottle 1
+STAT P minecraft.used:minecraft.milk_bucket 1
+STAT P minecraft.used:minecraft.mushroom_stew 1
+STAT P minecraft.used:minecraft.potion 2
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.92116714
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9650517
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9527032
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.898573
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.982978
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.8208788
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9967269
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.2439953
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9292008
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/3533 gm=survival food=19 sat=19.0 exh=0.0 xp=0/0/0.0 sel=5 main=minecraft:rabbit_stew*1
+I P 0 minecraft:bowl*2
+I P 1 minecraft:honey_bottle*2
+I P 2 minecraft:bucket*1
+I P 3 minecraft:glass_bottle*1
+I P 4 minecraft:bowl*1
+I P 5 minecraft:rabbit_stew*1
+I P 6 minecraft:suspicious_stew*1
+I P 7 minecraft:glass_bottle*2
+STAT P minecraft.custom:minecraft.play_time 239
+STAT P minecraft.custom:minecraft.time_since_death 239
+STAT P minecraft.custom:minecraft.time_since_rest 239
+STAT P minecraft.custom:minecraft.total_world_time 239
+STAT P minecraft.used:minecraft.beetroot_soup 1
+STAT P minecraft.used:minecraft.honey_bottle 1
+STAT P minecraft.used:minecraft.milk_bucket 1
+STAT P minecraft.used:minecraft.mushroom_stew 1
+STAT P minecraft.used:minecraft.potion 2
+STAT P minecraft.used:minecraft.rabbit_stew 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1320776
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.87124246
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0771687
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0526266
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0853812
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1001819
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0634104
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=0.8753613
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9347152
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:jump_boost/0/99;minecraft:speed/0/3500 gm=survival food=9 sat=9.0 exh=0.0 xp=0/0/0.0 sel=6 main=minecraft:bowl*1
+I P 0 minecraft:bowl*2
+I P 1 minecraft:honey_bottle*2
+I P 2 minecraft:bucket*1
+I P 3 minecraft:glass_bottle*1
+I P 4 minecraft:bowl*1
+I P 5 minecraft:rabbit_stew*1
+I P 6 minecraft:bowl*1
+I P 7 minecraft:glass_bottle*2
+STAT P minecraft.custom:minecraft.play_time 272
+STAT P minecraft.custom:minecraft.time_since_death 272
+STAT P minecraft.custom:minecraft.time_since_rest 272
+STAT P minecraft.custom:minecraft.total_world_time 272
+STAT P minecraft.used:minecraft.beetroot_soup 1
+STAT P minecraft.used:minecraft.honey_bottle 1
+STAT P minecraft.used:minecraft.milk_bucket 1
+STAT P minecraft.used:minecraft.mushroom_stew 1
+STAT P minecraft.used:minecraft.potion 2
+STAT P minecraft.used:minecraft.rabbit_stew 1
+STAT P minecraft.used:minecraft.suspicious_stew 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.080179
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0456026
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.018683
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.1118001
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.84398067
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9717119
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0852318
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=0.8443804
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9078831
+P F minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=10 sat=6.2 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:honey_bottle*1
+I F 0 minecraft:honey_bottle*1
+I F 1 minecraft:mushroom_stew*2
+I F 2 minecraft:milk_bucket*1
+I F 3 minecraft:cobblestone*64
+I F 4 minecraft:cobblestone*64
+I F 5 minecraft:cobblestone*64
+I F 6 minecraft:cobblestone*64
+I F 7 minecraft:cobblestone*64
+I F 8 minecraft:cobblestone*64
+I F 9 minecraft:cobblestone*64
+I F 10 minecraft:cobblestone*64
+I F 11 minecraft:cobblestone*64
+I F 12 minecraft:cobblestone*64
+I F 13 minecraft:cobblestone*64
+I F 14 minecraft:cobblestone*64
+I F 15 minecraft:cobblestone*64
+I F 16 minecraft:cobblestone*64
+I F 17 minecraft:cobblestone*64
+I F 18 minecraft:cobblestone*64
+I F 19 minecraft:cobblestone*64
+I F 20 minecraft:cobblestone*64
+I F 21 minecraft:cobblestone*64
+I F 22 minecraft:cobblestone*64
+I F 23 minecraft:cobblestone*64
+I F 24 minecraft:cobblestone*64
+I F 25 minecraft:cobblestone*64
+I F 26 minecraft:cobblestone*64
+I F 27 minecraft:cobblestone*64
+I F 28 minecraft:cobblestone*64
+I F 29 minecraft:cobblestone*64
+I F 30 minecraft:cobblestone*64
+I F 31 minecraft:cobblestone*64
+I F 32 minecraft:cobblestone*64
+I F 33 minecraft:cobblestone*64
+I F 34 minecraft:cobblestone*64
+I F 35 minecraft:cobblestone*64
+I F 40 minecraft:potion*1
+STAT F minecraft.custom:minecraft.play_time 313
+STAT F minecraft.custom:minecraft.time_since_death 313
+STAT F minecraft.custom:minecraft.time_since_rest 313
+STAT F minecraft.custom:minecraft.total_world_time 313
+STAT F minecraft.used:minecraft.honey_bottle 1
+USE F hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.965385
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.906652
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.95232797
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.98973703
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9383156
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9904143
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9204615
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.99538296
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.honey_bottle.drink source=neutral vol=1.0 pitch=0.9714515
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9334738
+E item#1 minecraft:item pos=6.482994987071812,-58.573099710941314,0.8037115622632518 delta=-0.016664912993968474,0.10476229232597915,0.29763733681082516 rot=327.22372,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=1 pickup=39 health=5 owner=- thrower=-
+P F minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=16 sat=13.4 exh=0.0 xp=0/0/0.0 sel=1 main=minecraft:mushroom_stew*1
+I F 0 minecraft:honey_bottle*1
+I F 1 minecraft:mushroom_stew*1
+I F 2 minecraft:milk_bucket*1
+I F 3 minecraft:cobblestone*64
+I F 4 minecraft:cobblestone*64
+I F 5 minecraft:cobblestone*64
+I F 6 minecraft:cobblestone*64
+I F 7 minecraft:cobblestone*64
+I F 8 minecraft:cobblestone*64
+I F 9 minecraft:cobblestone*64
+I F 10 minecraft:cobblestone*64
+I F 11 minecraft:cobblestone*64
+I F 12 minecraft:cobblestone*64
+I F 13 minecraft:cobblestone*64
+I F 14 minecraft:cobblestone*64
+I F 15 minecraft:cobblestone*64
+I F 16 minecraft:cobblestone*64
+I F 17 minecraft:cobblestone*64
+I F 18 minecraft:cobblestone*64
+I F 19 minecraft:cobblestone*64
+I F 20 minecraft:cobblestone*64
+I F 21 minecraft:cobblestone*64
+I F 22 minecraft:cobblestone*64
+I F 23 minecraft:cobblestone*64
+I F 24 minecraft:cobblestone*64
+I F 25 minecraft:cobblestone*64
+I F 26 minecraft:cobblestone*64
+I F 27 minecraft:cobblestone*64
+I F 28 minecraft:cobblestone*64
+I F 29 minecraft:cobblestone*64
+I F 30 minecraft:cobblestone*64
+I F 31 minecraft:cobblestone*64
+I F 32 minecraft:cobblestone*64
+I F 33 minecraft:cobblestone*64
+I F 34 minecraft:cobblestone*64
+I F 35 minecraft:cobblestone*64
+I F 40 minecraft:potion*1
+STAT F minecraft.custom:minecraft.play_time 346
+STAT F minecraft.custom:minecraft.time_since_death 346
+STAT F minecraft.custom:minecraft.time_since_rest 346
+STAT F minecraft.custom:minecraft.total_world_time 346
+STAT F minecraft.used:minecraft.honey_bottle 1
+STAT F minecraft.used:minecraft.mushroom_stew 1
+USE F hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0049376
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0747088
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.93976766
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9698226
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=0.9129805
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0109627
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.1939778
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=0.8957377
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9013519
+E item#1 minecraft:item pos=6.297578500012857,-60.0,4.115272170411636 delta=-2.3259069104435707E-5,-0.08,4.154097526610997E-4 rot=327.22372,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=34 pickup=6 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=6.50501859344171,-58.54294514000416,0.7890851401987903 delta=0.004918221668597444,0.13431377241954548,0.28330344290867593 rot=148.77917,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bowl*1 age=1 pickup=39 health=5 owner=- thrower=-
+P F minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=16 sat=13.4 exh=0.0 xp=0/0/0.0 sel=2 main=minecraft:bucket*1
+I F 0 minecraft:honey_bottle*1
+I F 1 minecraft:mushroom_stew*1
+I F 2 minecraft:bucket*1
+I F 3 minecraft:cobblestone*64
+I F 4 minecraft:cobblestone*64
+I F 5 minecraft:cobblestone*64
+I F 6 minecraft:cobblestone*64
+I F 7 minecraft:cobblestone*64
+I F 8 minecraft:cobblestone*64
+I F 9 minecraft:cobblestone*64
+I F 10 minecraft:cobblestone*64
+I F 11 minecraft:cobblestone*64
+I F 12 minecraft:cobblestone*64
+I F 13 minecraft:cobblestone*64
+I F 14 minecraft:cobblestone*64
+I F 15 minecraft:cobblestone*64
+I F 16 minecraft:cobblestone*64
+I F 17 minecraft:cobblestone*64
+I F 18 minecraft:cobblestone*64
+I F 19 minecraft:cobblestone*64
+I F 20 minecraft:cobblestone*64
+I F 21 minecraft:cobblestone*64
+I F 22 minecraft:cobblestone*64
+I F 23 minecraft:cobblestone*64
+I F 24 minecraft:cobblestone*64
+I F 25 minecraft:cobblestone*64
+I F 26 minecraft:cobblestone*64
+I F 27 minecraft:cobblestone*64
+I F 28 minecraft:cobblestone*64
+I F 29 minecraft:cobblestone*64
+I F 30 minecraft:cobblestone*64
+I F 31 minecraft:cobblestone*64
+I F 32 minecraft:cobblestone*64
+I F 33 minecraft:cobblestone*64
+I F 34 minecraft:cobblestone*64
+I F 35 minecraft:cobblestone*64
+I F 40 minecraft:potion*1
+STAT F minecraft.custom:minecraft.play_time 379
+STAT F minecraft.custom:minecraft.time_since_death 379
+STAT F minecraft.custom:minecraft.time_since_rest 379
+STAT F minecraft.custom:minecraft.total_world_time 379
+STAT F minecraft.used:minecraft.honey_bottle 1
+STAT F minecraft.used:minecraft.milk_bucket 1
+STAT F minecraft.used:minecraft.mushroom_stew 1
+USE F hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.95871687
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9592869
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.926208
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9224477
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.942643
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.90816325
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.95634747
+E item#1 minecraft:item pos=6.297555240943752,-60.0,4.115687580164297 delta=-3.323619413076063E-7,-0.12,5.936023974675117E-6 rot=327.22372,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=67 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=6.567310646837873,-60.0,4.377283147958952 delta=6.5924910003260115E-6,-0.12,3.7974607969824077E-4 rot=148.77917,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bowl*1 age=34 pickup=6 health=5 owner=- thrower=-
+P F minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=16 sat=13.4 exh=0.0 xp=0/0/0.0 sel=8 main=minecraft:cobblestone*64
+I F 0 minecraft:honey_bottle*1
+I F 1 minecraft:mushroom_stew*1
+I F 2 minecraft:bucket*1
+I F 3 minecraft:cobblestone*64
+I F 4 minecraft:cobblestone*64
+I F 5 minecraft:cobblestone*64
+I F 6 minecraft:cobblestone*64
+I F 7 minecraft:cobblestone*64
+I F 8 minecraft:cobblestone*64
+I F 9 minecraft:cobblestone*64
+I F 10 minecraft:cobblestone*64
+I F 11 minecraft:cobblestone*64
+I F 12 minecraft:cobblestone*64
+I F 13 minecraft:cobblestone*64
+I F 14 minecraft:cobblestone*64
+I F 15 minecraft:cobblestone*64
+I F 16 minecraft:cobblestone*64
+I F 17 minecraft:cobblestone*64
+I F 18 minecraft:cobblestone*64
+I F 19 minecraft:cobblestone*64
+I F 20 minecraft:cobblestone*64
+I F 21 minecraft:cobblestone*64
+I F 22 minecraft:cobblestone*64
+I F 23 minecraft:cobblestone*64
+I F 24 minecraft:cobblestone*64
+I F 25 minecraft:cobblestone*64
+I F 26 minecraft:cobblestone*64
+I F 27 minecraft:cobblestone*64
+I F 28 minecraft:cobblestone*64
+I F 29 minecraft:cobblestone*64
+I F 30 minecraft:cobblestone*64
+I F 31 minecraft:cobblestone*64
+I F 32 minecraft:cobblestone*64
+I F 33 minecraft:cobblestone*64
+I F 34 minecraft:cobblestone*64
+I F 35 minecraft:cobblestone*64
+I F 40 minecraft:glass_bottle*1
+STAT F minecraft.custom:minecraft.play_time 412
+STAT F minecraft.custom:minecraft.time_since_death 412
+STAT F minecraft.custom:minecraft.time_since_rest 412
+STAT F minecraft.custom:minecraft.total_world_time 412
+STAT F minecraft.used:minecraft.honey_bottle 1
+STAT F minecraft.used:minecraft.milk_bucket 1
+STAT F minecraft.used:minecraft.mushroom_stew 1
+STAT F minecraft.used:minecraft.potion 1
+USE F hand=off item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.99976766
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9852804
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.98258907
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.97580385
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9558761
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.91766816
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9427501
+E item#1 minecraft:item pos=6.297555240943752,-60.0,4.115687580164297 delta=-2.7925928048699727E-9,0.0,4.9876041089407424E-8 rot=327.22372,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glass_bottle*1 age=100 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=6.567317239328873,-60.0,4.37766289403865 delta=5.5391850406366454E-8,0.0,3.1907268493819476E-6 rot=148.77917,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bowl*1 age=67 pickup=0 health=5 owner=- thrower=-
+P C minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=10 sat=6.2 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:honey_bottle*2
+I C 0 minecraft:honey_bottle*2
+I C 1 minecraft:mushroom_stew*1
+I C 2 minecraft:milk_bucket*1
+STAT C minecraft.custom:minecraft.play_time 453
+STAT C minecraft.custom:minecraft.time_since_death 453
+STAT C minecraft.custom:minecraft.time_since_rest 453
+STAT C minecraft.custom:minecraft.total_world_time 453
+STAT C minecraft.used:minecraft.honey_bottle 1
+USE C hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.99898905
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9383421
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.91873944
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.97953755
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.96664524
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.95806247
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9699927
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.91131264
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.honey_bottle.drink source=neutral vol=1.0 pitch=0.8924498
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.9109346
+P C minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=16 sat=13.4 exh=0.0 xp=0/0/0.0 sel=1 main=minecraft:mushroom_stew*1
+I C 0 minecraft:honey_bottle*2
+I C 1 minecraft:mushroom_stew*1
+I C 2 minecraft:milk_bucket*1
+STAT C minecraft.custom:minecraft.play_time 486
+STAT C minecraft.custom:minecraft.time_since_death 486
+STAT C minecraft.custom:minecraft.time_since_rest 486
+STAT C minecraft.custom:minecraft.total_world_time 486
+STAT C minecraft.used:minecraft.honey_bottle 1
+STAT C minecraft.used:minecraft.mushroom_stew 1
+USE C hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0434263
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.9081684
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=1.0 pitch=1.0366614
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.8368039
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0268183
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=0.82150626
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0011452
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.eat source=neutral vol=1.0 pitch=1.052195
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=player vol=0.5 pitch=0.91411567
+P C minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=16 sat=13.4 exh=0.0 xp=0/0/0.0 sel=2 main=minecraft:milk_bucket*1
+I C 0 minecraft:honey_bottle*2
+I C 1 minecraft:mushroom_stew*1
+I C 2 minecraft:milk_bucket*1
+STAT C minecraft.custom:minecraft.play_time 519
+STAT C minecraft.custom:minecraft.time_since_death 519
+STAT C minecraft.custom:minecraft.time_since_rest 519
+STAT C minecraft.custom:minecraft.total_world_time 519
+STAT C minecraft.used:minecraft.honey_bottle 1
+STAT C minecraft.used:minecraft.milk_bucket 1
+STAT C minecraft.used:minecraft.mushroom_stew 1
+USE C hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.90609646
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9402106
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9512711
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.949491
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.99123305
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.98960125
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9780036

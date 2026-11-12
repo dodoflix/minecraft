@@ -1,0 +1,95 @@
+# Eating food: an apple, bread, golden apples and rotten flesh are consumed over their use time (the consume sound every 4 ticks goes to the others, not to the eater;
+# the eat and burp sounds at the end go to everybody), feed the player, apply the food's effects and award the used statistic; a full player cannot eat plain food,
+# a creative player eats without losing the stack.
+level flat
+preload 2
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 0.5 0 0
+give P hotbar0 minecraft:apple 3
+give P hotbar1 minecraft:bread 2
+give P hotbar2 minecraft:golden_apple 2
+give P hotbar3 minecraft:rotten_flesh 3
+give P hotbar4 minecraft:enchanted_golden_apple 1
+give P hotbar5 minecraft:dried_kelp 2
+give P offhand minecraft:cooked_beef 2
+give C hotbar0 minecraft:apple 3
+set P food 6
+set P saturation 0.0
+set P exhaustion 0.0
+dump player:P inventory:P stats:P use:P cooldowns:P
+# an apple takes 32 ticks
+level_seed 21
+select P 0
+use P main 1
+dump use:P player:P
+watch events
+tick 40
+watch off
+dump player:P inventory:P stats:P use:P events
+# bread, eaten from the second slot
+level_seed 22
+select P 1
+use P main 2
+tick 33
+dump player:P inventory:P stats:P use:P events
+# a golden apple: always edible, regeneration and absorption
+set P food 20
+level_seed 23
+select P 2
+use P main 3
+watch events
+tick 34
+watch off
+dump player:P inventory:P stats:P use:P events
+# plain food is refused at full food level
+select P 0
+use P main 4
+dump player:P inventory:P use:P events
+# rotten flesh: the hunger effect is applied with its probability
+set P food 5
+set P saturation 0.0
+select P 3
+level_seed 24
+use P main 5
+tick 33
+dump player:P inventory:P stats:P use:P
+select P 3
+use P main 6
+tick 33
+dump player:P inventory:P stats:P use:P events
+select P 3
+use P main 7
+tick 33
+dump player:P inventory:P stats:P use:P events
+# the enchanted golden apple
+set P food 20
+select P 4
+level_seed 25
+use P main 8
+tick 33
+dump player:P inventory:P stats:P use:P events
+# dried kelp is eaten faster (about 17 ticks)
+set P food 3
+select P 5
+level_seed 26
+use P main 9
+tick 16
+dump player:P use:P events
+tick 2
+dump player:P inventory:P stats:P use:P events
+# the offhand
+select P 8
+set P food 3
+level_seed 27
+use P off 10
+dump use:P
+tick 33
+dump player:P inventory:P stats:P use:P events
+# eating is exhausting later on: tick on with the new saturation
+tick 20
+dump player:P
+# creative: the stack stays
+level_seed 28
+use C main 1
+tick 33
+dump player:C inventory:C stats:C use:C events

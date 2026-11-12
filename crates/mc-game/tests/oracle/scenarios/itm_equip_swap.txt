@@ -1,0 +1,127 @@
+# Using an equippable item swaps it with the worn one: elytra, helmets, the pumpkin (not swappable), stacks of one and more, the same item (FAIL), a binding
+# curse on the worn item, creative players (the hand keeps its copy), the offhand and a full inventory.
+level flat
+preload 2
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 0.5 0 0
+spawn_player F survival 12.5 -60 0.5 0 0
+give P hotbar0 minecraft:elytra 1
+give P hotbar1 minecraft:iron_helmet 1
+give P hotbar2 minecraft:carved_pumpkin 2
+give P hotbar3 minecraft:iron_helmet 3
+give P hotbar4 minecraft:diamond_helmet 1
+give P hotbar5 minecraft:leather_chestplate 2
+give P hotbar6 minecraft:iron_helmet[enchantments={"minecraft:binding_curse":1}] 1
+give P hotbar7 minecraft:golden_helmet 1
+give P offhand minecraft:diamond_chestplate 1
+give P hotbar8 minecraft:netherite_helmet 1
+give C hotbar0 minecraft:elytra 1
+give C hotbar1 minecraft:iron_helmet 2
+give C hotbar2 minecraft:diamond_helmet 1
+give C hotbar3 minecraft:iron_helmet[enchantments={"minecraft:binding_curse":1}] 1
+give C hotbar4 minecraft:golden_helmet 1
+give F hotbar0 minecraft:iron_helmet 2
+give F hotbar1 minecraft:diamond_helmet 2
+give F head minecraft:golden_helmet 1
+give F inv2 minecraft:cobblestone 64
+give F inv3 minecraft:cobblestone 64
+give F inv4 minecraft:cobblestone 64
+give F inv5 minecraft:cobblestone 64
+give F inv6 minecraft:cobblestone 64
+give F inv7 minecraft:cobblestone 64
+give F inv8 minecraft:cobblestone 64
+give F inv9 minecraft:cobblestone 64
+give F inv10 minecraft:cobblestone 64
+give F inv11 minecraft:cobblestone 64
+give F inv12 minecraft:cobblestone 64
+give F inv13 minecraft:cobblestone 64
+give F inv14 minecraft:cobblestone 64
+give F inv15 minecraft:cobblestone 64
+give F inv16 minecraft:cobblestone 64
+give F inv17 minecraft:cobblestone 64
+give F inv18 minecraft:cobblestone 64
+give F inv19 minecraft:cobblestone 64
+give F inv20 minecraft:cobblestone 64
+give F inv21 minecraft:cobblestone 64
+give F inv22 minecraft:cobblestone 64
+give F inv23 minecraft:cobblestone 64
+give F inv24 minecraft:cobblestone 64
+give F inv25 minecraft:cobblestone 64
+give F inv26 minecraft:cobblestone 64
+give F inv27 minecraft:cobblestone 64
+give F inv28 minecraft:cobblestone 64
+give F inv29 minecraft:cobblestone 64
+give F inv30 minecraft:cobblestone 64
+give F inv31 minecraft:cobblestone 64
+give F inv32 minecraft:cobblestone 64
+give F inv33 minecraft:cobblestone 64
+give F inv34 minecraft:cobblestone 64
+give F inv35 minecraft:cobblestone 64
+dump player:P inventory:P stats:P use:P
+# an elytra into the empty chest slot: stack of one, the hand is empty afterwards
+select P 0
+use P main 1
+dump player:P inventory:P stats:P use:P events
+# a helmet of one into the empty head slot
+select P 1
+use P main 2
+dump player:P inventory:P stats:P events
+# the same helmet again is refused
+give P hotbar1 minecraft:iron_helmet 1
+use P main 3
+dump player:P inventory:P stats:P events
+# the pumpkin is not swappable
+select P 2
+use P main 4
+dump player:P inventory:P stats:P events
+# a stack of 3 helmets of the same kind as the worn one
+select P 3
+use P main 5
+dump player:P inventory:P stats:P events
+# a different helmet of one replaces the worn one, which goes into the hand
+select P 4
+use P main 6
+dump player:P inventory:P stats:P events
+# a stack of 2 chestplates swaps with the elytra: the elytra goes to the inventory
+select P 5
+use P main 7
+dump player:P inventory:P stats:P events
+# the offhand
+use P off 8
+dump player:P inventory:P stats:P events
+# a cursed helmet is put on, then it cannot be swapped out in survival
+select P 6
+use P main 9
+dump player:P inventory:P stats:P events
+select P 7
+use P main 10
+dump player:P inventory:P stats:P events
+select P 8
+use P main 11
+dump player:P inventory:P stats:P events
+# creative: the hand keeps its copy, the binding curse does not matter
+select C 0
+use C main 1
+dump player:C inventory:C stats:C events
+select C 1
+use C main 2
+dump player:C inventory:C stats:C events
+select C 2
+use C main 3
+dump player:C inventory:C stats:C events
+select C 3
+use C main 4
+dump player:C inventory:C stats:C events
+select C 4
+use C main 5
+dump player:C inventory:C stats:C events
+# a stack of 2 into the head slot with a full inventory: the displaced helmet is dropped
+level_seed 81
+select F 0
+use F main 1
+dump player:F inventory:F stats:F events entities
+level_seed 82
+select F 1
+use F main 2
+tick 2
+dump player:F inventory:F stats:F events entities
