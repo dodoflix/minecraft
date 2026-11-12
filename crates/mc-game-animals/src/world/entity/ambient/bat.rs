@@ -210,8 +210,8 @@ impl Entity for Bat {
                 (signum(dz) * 0.5 - movement.z) * f64::from(0.1f32),
             );
             self.base_mut().set_delta_movement(new_movement);
-            let y_rot_d = (mth::atan2(new_movement.z, new_movement.x) * f64::from(180.0f32)
-                / f64::from(std::f32::consts::PI)) as f32
+            let y_rot_d = (mth::atan2(new_movement.z, new_movement.x)
+                * f64::from(mc_core::math::mth::RAD_TO_DEG)) as f32
                 - 90.0;
             let rot_diff = mth::wrap_degrees_f32(y_rot_d - self.base().y_rot());
             lm(self).zza = 0.5;

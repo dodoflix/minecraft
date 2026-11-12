@@ -811,8 +811,9 @@ impl Goal for FoxPounceGoal {
                     } else {
                         -biased_y
                     };
-                    let rotation = signum * (direction / len).acos() * f64::from(180.0f32)
-                        / f64::from(std::f32::consts::PI);
+                    let rotation = signum
+                        * (direction / len).acos()
+                        * f64::from(mc_core::math::mth::RAD_TO_DEG);
                     mob.set_x_rot(rotation as f32);
                 }
             }

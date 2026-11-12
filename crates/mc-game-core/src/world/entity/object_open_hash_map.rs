@@ -1,7 +1,8 @@
-//! Port of fastutil 8.5 `Object2ObjectOpenHashMap` keyed by `Identifier` (open addressing, linear probing, load
-//! factor 0.75, iteration from the last slot down). `AttributeInstance.modifiersByOperation` is one of these per
-//! operation and `calculateValue` sums/multiplies in its iteration order, which is observable in the last bits of
-//! the `double` result. Only the operations `AttributeInstance` uses are ported (`put`, `remove`, `values`, `clear`).
+//! Port of fastutil 8.5 `Object2ObjectOpenHashMap` (open addressing, linear probing, load factor 0.75, iteration from the
+//! last slot down). `AttributeInstance.modifiersByOperation` is one of these per operation (keyed by `Identifier`) and
+//! `calculateValue` sums/multiplies in its iteration order, which is observable in the last bits of the `double` result;
+//! `AttributeMap.attributes` is one keyed by attribute holder. Only the operations those use are ported (`put`, `remove`,
+//! `values`, `clear`).
 
 use mc_core::ident::Identifier;
 use mc_core::math::java::java_string_hash;
@@ -10,10 +11,21 @@ const INT_PHI: i32 = 0x9E37_79B9u32 as i32;
 const DEFAULT_INITIAL_SIZE: usize = 16;
 
 /// `Identifier.hashCode()`.
-fn identifier_hash(id: &Identifier) -> i32 {
+pub fn identifier_hash(id: &Identifier) -> i32 {
     java_string_hash(id.namespace())
         .wrapping_mul(31)
         .wrapping_add(java_string_hash(id.path()))
+}
+
+/// The `hashCode()` of a map key.
+pub trait JavaHash {
+    fn java_hash(&self) -> i32;
+}
+
+impl JavaHash for Identifier {
+    fn java_hash(&self) -> i32 {
+        identifier_hash(self)
+    }
 }
 
 /// `HashCommon.mix(int)`.
@@ -22,8 +34,8 @@ fn mix(x: i32) -> i32 {
     h ^ (((h as u32) >> 16) as i32)
 }
 
-fn slot(id: &Identifier, mask: usize) -> usize {
-    mix(identifier_hash(id)) as usize & mask
+fn slot<K: JavaHash>(k: &K, mask: usize) -> usize {
+    mix(k.java_hash()) as usize & mask
 }
 
 fn max_fill(n: usize) -> usize {
@@ -42,8 +54,8 @@ fn array_size(expected: usize) -> usize {
 }
 
 #[derive(Clone, Debug)]
-pub struct IdentifierOpenHashMap<V> {
-    key: Vec<Option<Identifier>>,
+pub struct ObjectOpenHashMap<K, V> {
+    key: Vec<Option<K>>,
     value: Vec<Option<V>>,
     mask: usize,
     n: usize,
@@ -52,13 +64,13 @@ pub struct IdentifierOpenHashMap<V> {
     min_n: usize,
 }
 
-impl<V> Default for IdentifierOpenHashMap<V> {
+impl<K: JavaHash + Eq + Clone, V> Default for ObjectOpenHashMap<K, V> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl<V> IdentifierOpenHashMap<V> {
+impl<K: JavaHash + Eq + Clone, V> ObjectOpenHashMap<K, V> {
     /// `new Object2ObjectOpenHashMap<>()`.
     pub fn new() -> Self {
         let n = array_size(DEFAULT_INITIAL_SIZE);
@@ -81,7 +93,7 @@ impl<V> IdentifierOpenHashMap<V> {
         self.size == 0
     }
 
-    fn find(&self, k: &Identifier) -> Result<usize, usize> {
+    fn find(&self, k: &K) -> Result<usize, usize> {
         let mut pos = slot(k, self.mask);
         loop {
             match &self.key[pos] {
@@ -93,7 +105,7 @@ impl<V> IdentifierOpenHashMap<V> {
     }
 
     /// `put`.
-    pub fn insert(&mut self, k: Identifier, v: V) {
+    pub fn insert(&mut self, k: K, v: V) {
         match self.find(&k) {
             Ok(pos) => self.value[pos] = Some(v),
             Err(pos) => {
@@ -109,7 +121,7 @@ impl<V> IdentifierOpenHashMap<V> {
     }
 
     /// `remove`.
-    pub fn remove(&mut self, k: &Identifier) {
+    pub fn remove(&mut self, k: &K) {
         let Ok(pos) = self.find(k) else { return };
         self.size -= 1;
         self.shift_keys(pos);
@@ -150,7 +162,7 @@ impl<V> IdentifierOpenHashMap<V> {
 
     fn rehash(&mut self, new_n: usize) {
         let mask = new_n - 1;
-        let mut new_key: Vec<Option<Identifier>> = vec![None; new_n];
+        let mut new_key: Vec<Option<K>> = vec![None; new_n];
         let mut new_value: Vec<Option<V>> = (0..new_n).map(|_| None).collect();
         let mut i = self.n;
         let mut j = self.size;
@@ -189,7 +201,7 @@ mod tests {
 
     #[test]
     fn insert_remove_keeps_all_keys() {
-        let mut m = IdentifierOpenHashMap::new();
+        let mut m = ObjectOpenHashMap::new();
         for i in 0..40 {
             m.insert(Identifier::parse(&format!("a:k{i}")).unwrap(), i);
         }

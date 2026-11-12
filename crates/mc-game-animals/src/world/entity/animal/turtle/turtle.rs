@@ -227,9 +227,8 @@ impl MoveControl for TurtleMoveControl {
                 mob.set_speed(0.0);
             } else {
                 yd /= dd;
-                let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32)
-                    / f64::from(std::f32::consts::PI)) as f32
-                    - 90.0;
+                let y_rot_d =
+                    (mth::atan2(zd, xd) * f64::from(mc_core::math::mth::RAD_TO_DEG)) as f32 - 90.0;
                 let new_y_rot = self.base.rotlerp(mob.base().y_rot(), y_rot_d, 90.0);
                 mob.set_y_rot(new_y_rot);
                 l_mut(mob).y_body_rot = new_y_rot;

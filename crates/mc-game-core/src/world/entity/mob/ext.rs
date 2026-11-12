@@ -367,10 +367,8 @@ pub fn mob_look_at(mob: &mut dyn Entity, entity: &dyn Entity, y_max: f32, x_max:
         (bb.min_y + bb.max_y) / 2.0 - mob.base().get_eye_y()
     };
     let sd = (xd * xd + zd * zd).sqrt();
-    let y_rot_d =
-        (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
-    let x_rot_d =
-        (-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI))) as f32;
+    let y_rot_d = (mth::atan2(zd, xd) * f64::from(mc_core::math::mth::RAD_TO_DEG)) as f32 - 90.0;
+    let x_rot_d = (-(mth::atan2(yd, sd) * f64::from(mc_core::math::mth::RAD_TO_DEG))) as f32;
     let x_rot = mob_rotlerp(mob.base().x_rot(), x_rot_d, x_max);
     mob.set_x_rot(x_rot);
     let y_rot = mob_rotlerp(mob.base().y_rot(), y_rot_d, y_max);

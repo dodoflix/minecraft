@@ -2,7 +2,7 @@
 //! `AttributeSupplier` of an entity type, from `mc_data`'s `DefaultAttributes` table) and the NBT form of
 //! `AttributeInstance.Packed`.
 
-use super::object_open_hash_map::IdentifierOpenHashMap;
+use super::object_open_hash_map::{JavaHash, ObjectOpenHashMap, identifier_hash};
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
 use mc_data::Attribute;
@@ -31,7 +31,7 @@ pub fn sanitize_value(attribute: Attribute, value: f64) -> f64 {
 pub struct AttributeInstance {
     attribute: Attribute,
     /// `modifiersByOperation` (per-operation open hash maps: `calculateValue` iterates them in table order).
-    modifiers_by_operation: [IdentifierOpenHashMap<AttributeModifier>; 3],
+    modifiers_by_operation: [ObjectOpenHashMap<Identifier, AttributeModifier>; 3],
     /// `modifierById` (`Object2ObjectArrayMap`: insertion order, removal shifts).
     modifier_by_id: IndexMap<Identifier, AttributeModifier>,
     permanent_modifiers: IndexMap<Identifier, AttributeModifier>,
@@ -272,7 +272,20 @@ fn parse_modifier(tag: &Tag) -> Option<AttributeModifier> {
     })
 }
 
-/// `AttributeMap`: instances are created lazily from the entity type's default supplier.
+/// `Holder.Reference.hashCode()` as the oracle pins it (registry key hash: `registry().hashCode() * 31 + identifier().hashCode()`;
+/// vanilla's identity hash gives an arbitrary order), so `AttributeMap.attributes` iterates like the recorded runs.
+impl JavaHash for Attribute {
+    fn java_hash(&self) -> i32 {
+        let registry = Identifier::parse("minecraft:attribute").expect("registry id");
+        identifier_hash(&registry)
+            .wrapping_mul(31)
+            .wrapping_add(identifier_hash(&self.identifier()))
+    }
+}
+
+/// `AttributeMap`: instances are created lazily from the entity type's default supplier. `attributes` keeps insertion order
+/// (`attributesToUpdate`/`attributesToSync` are identity-hash sets in vanilla); [`AttributeMap::in_map_order`] is the iteration
+/// order of vanilla's `Object2ObjectOpenHashMap`.
 #[derive(Clone, Debug)]
 pub struct AttributeMap {
     supplier: EntityType,
@@ -313,6 +326,16 @@ impl AttributeMap {
             self.attributes.insert(attribute, instance);
         }
         self.attributes.get_mut(&attribute)
+    }
+
+    /// `attributes.values()` in the open hash map's iteration order.
+    fn in_map_order(&self) -> impl Iterator<Item = &AttributeInstance> {
+        let mut table = ObjectOpenHashMap::new();
+        for (index, attribute) in self.attributes.keys().enumerate() {
+            table.insert(*attribute, index);
+        }
+        let order: Vec<usize> = table.values().copied().collect();
+        order.into_iter().map(|index| &self.attributes[index])
     }
 
     pub fn has_attribute(&self, attribute: Attribute) -> bool {
@@ -370,14 +393,13 @@ impl AttributeMap {
 
     /// `getSyncableAttributes()`.
     pub fn get_syncable_attributes(&self) -> Vec<&AttributeInstance> {
-        self.attributes
-            .values()
+        self.in_map_order()
             .filter(|i| i.attribute.data().syncable)
             .collect()
     }
 
     pub fn instances(&self) -> impl Iterator<Item = &AttributeInstance> {
-        self.attributes.values()
+        self.in_map_order()
     }
 
     pub fn add_transient_attribute_modifiers(
@@ -401,7 +423,7 @@ impl AttributeMap {
     }
 
     pub fn assign_all_values(&mut self, other: &AttributeMap) {
-        for other_instance in other.attributes.values() {
+        for other_instance in other.in_map_order() {
             if let Some(own) = self.get_instance(other_instance.attribute) {
                 own.replace_from(other_instance);
             }
@@ -409,7 +431,7 @@ impl AttributeMap {
     }
 
     pub fn assign_base_values(&mut self, other: &AttributeMap) {
-        for other_instance in other.attributes.values() {
+        for other_instance in other.in_map_order() {
             if let Some(own) = self.get_instance(other_instance.attribute) {
                 own.set_base_value(other_instance.base_value);
             }
@@ -417,7 +439,7 @@ impl AttributeMap {
     }
 
     pub fn assign_permanent_modifiers(&mut self, other: &AttributeMap) {
-        for other_instance in other.attributes.values() {
+        for other_instance in other.in_map_order() {
             if let Some(own) = self.get_instance(other_instance.attribute) {
                 for m in other_instance.get_permanent_modifiers() {
                     own.add_permanent_modifier(m.clone());
@@ -439,7 +461,7 @@ impl AttributeMap {
     /// `pack()` as the NBT list (`AttributeInstance.Packed.LIST_CODEC`).
     pub fn pack(&self) -> ListTag {
         let mut list = ListTag::new();
-        for i in self.attributes.values() {
+        for i in self.in_map_order() {
             list.push(Tag::Compound(i.pack()));
         }
         list

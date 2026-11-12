@@ -158,9 +158,7 @@ fn calculate_look_at_yaw(position: Vec3, look_at: BlockPos) -> f32 {
         f64::from(look_at.z()) + 0.5,
     );
     let look = target.subtract(position).normalize();
-    mth::wrap_degrees_f64(
-        mth::atan2(look.z, look.x) * 180.0f32 as f64 / std::f32::consts::PI as f64 - 90.0,
-    ) as f32
+    mth::wrap_degrees_f64(mth::atan2(look.z, look.x) * f64::from(mth::RAD_TO_DEG) - 90.0) as f32
 }
 
 #[cfg(test)]

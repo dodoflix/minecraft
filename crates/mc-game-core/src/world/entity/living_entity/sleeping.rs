@@ -125,8 +125,8 @@ pub fn stop_sleeping(entity: &mut dyn Entity, level: &mut ServerLevel) {
                 .subtract(stand_up)
                 .normalize();
             let yaw = mth::wrap_degrees_f64(
-                mth::atan2(look_direction.z, look_direction.x) * f64::from(180.0f32)
-                    / f64::from(std::f64::consts::PI as f32)
+                mth::atan2(look_direction.z, look_direction.x)
+                    * f64::from(mc_core::math::mth::RAD_TO_DEG)
                     - 90.0,
             ) as f32;
             entity.set_pos(stand_up.x, stand_up.y, stand_up.z);

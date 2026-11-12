@@ -124,8 +124,8 @@ impl Goal for DolphinJumpGoal {
             mob.set_x_rot(mth::rot_lerp_f32(0.2, x_rot, 0.0));
         } else if movement.length() > f64::from(1.0E-5f32) {
             let horizontal_distance = movement.horizontal_distance();
-            let rotation = mth::atan2(-movement.y, horizontal_distance) * f64::from(180.0f32)
-                / f64::from(std::f32::consts::PI);
+            let rotation = mth::atan2(-movement.y, horizontal_distance)
+                * f64::from(mc_core::math::mth::RAD_TO_DEG);
             mob.set_x_rot(rotation as f32);
         }
     }

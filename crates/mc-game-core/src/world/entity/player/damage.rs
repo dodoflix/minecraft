@@ -220,8 +220,8 @@ pub fn get_hurt_sound(source: &DamageSource) -> SoundEvent {
 
 /// `ServerPlayer.indicateDamage(xd, zd)`.
 pub fn indicate_damage(player: &mut ServerPlayer, xd: f64, zd: f64) {
-    player.player.hurt_dir = (mth::atan2(zd, xd) * 180.0 / f64::from(std::f32::consts::PI)) as f32
-        - player.base().y_rot();
+    player.player.hurt_dir =
+        (mth::atan2(zd, xd) * f64::from(mth::RAD_TO_DEG) - f64::from(player.base().y_rot())) as f32;
     let packet = ClientboundHurtAnimationPacket {
         id: player.id(),
         yaw: player.player.hurt_dir,

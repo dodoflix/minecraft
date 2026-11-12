@@ -5,7 +5,7 @@ use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::BlockEntity;
 use crate::world::block_entity::sign_block_entity::{SignBlockEntity, SignTextExt, SignTextSlot};
-use crate::world::entity::{Entity, ServerPlayer, mob};
+use crate::world::entity::{Entity, ServerPlayer};
 use mc_data::SoundEvent;
 use mc_protocol::components::DYE;
 use mc_protocol::packets::play::SoundSource;
@@ -26,10 +26,11 @@ impl ItemBehaviour for DyeItem {
             && let Some(dye) = stack.get(&DYE).copied()
             && target.sheep_color() != Some(dye)
         {
-            mob::ext::play_sound_from_entity(
-                level,
+            // the target is out of the level's storage while it is interacted with
+            level.play_sound_from_entity_at(
                 Some(player.id()),
                 target.id(),
+                target.position(),
                 SoundEvent::ITEM_DYE_USE,
                 SoundSource::Players,
                 1.0,

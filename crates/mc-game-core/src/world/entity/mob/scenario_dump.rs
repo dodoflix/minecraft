@@ -154,11 +154,11 @@ fn mob_fields(
         .filter_map(|s| {
             let st = e.get_item_by_slot(*s);
             (!st.is_empty()).then(|| {
-                let mut r = format!("{}*{}", st.item().name(), st.count());
-                if st.is_damageable_item() && st.get_damage_value() != 0 {
-                    r.push_str(&format!("/dmg={}", st.get_damage_value()));
-                }
-                format!("{}:{}", s.get_name(), r)
+                format!(
+                    "{}:{}",
+                    s.get_name(),
+                    crate::world::entity::scenario_dump::item_full(&st)
+                )
             })
         })
         .collect();

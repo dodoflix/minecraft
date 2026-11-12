@@ -88,6 +88,42 @@ pub static SCENARIO_FINALIZE_SPAWN: [fn(
 //
 // Used by the harness dump kinds (`goals:` `brain:` `path:`) and available to the mob spine's order-10 registration for `mem=`.
 
+/// The driver's `canon(Tag)`: sorted compound keys printed raw, everything else as the SNBT of the tag.
+pub fn canon(tag: &mc_nbt::Tag) -> String {
+    match tag {
+        mc_nbt::Tag::Compound(c) => {
+            let mut keys: Vec<&String> = c.keys().collect();
+            keys.sort();
+            let parts: Vec<String> = keys
+                .iter()
+                .map(|k| format!("{k}:{}", canon(c.get(k).expect("key exists"))))
+                .collect();
+            format!("{{{}}}", parts.join(","))
+        }
+        mc_nbt::Tag::List(l) => format!("[{}]", l.iter().map(canon).collect::<Vec<_>>().join(",")),
+        other => other.to_string(),
+    }
+}
+
+/// The driver's `itemFull(stack)`: `id*count` (`/dmg=N` when damaged) plus the canonical SNBT of the components patch.
+pub fn item_full(s: &crate::world::item::ItemStack) -> String {
+    let mut r = format!("{}*{}", s.item().name(), s.count());
+    if s.is_damageable_item() && s.get_damage_value() != 0 {
+        r.push_str(&format!("/dmg={}", s.get_damage_value()));
+    }
+    let patch = s.get_components_patch();
+    if !patch.is_empty() {
+        let tag = mc_dfu::encode_nbt(
+            &mc_protocol::components::DataComponentPatch::codec(),
+            &patch,
+        )
+        .into_result()
+        .expect("patch encodes");
+        r.push_str(&canon(&tag));
+    }
+    r
+}
+
 /// `flagsOf(flags)`: `MOVE+LOOK`, `none` for the empty set.
 pub fn goal_flags_text(flags: super::ai::goal::GoalFlags) -> String {
     let l: Vec<&str> = flags

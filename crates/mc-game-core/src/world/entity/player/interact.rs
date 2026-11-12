@@ -33,14 +33,13 @@ impl ServerPlayer {
             return InteractionResult::PASS;
         };
         if interact.consumes_action() {
-            // vanilla compares the stack object: the hand still holds the same (shrunk) stack
+            // vanilla compares the stack object: the hand still holds the same (emptied or shrunk) stack
             if self.has_infinite_materials() {
-                let mut now = self.get_item_in_hand(hand);
-                if ItemStack::is_same_item_same_components(&now, &item_stack_clone)
-                    && now.count() < item_stack_clone.count()
-                {
-                    now.set_count(item_stack_clone.count());
-                    self.set_item_in_hand(hand, now);
+                let mut restored = self.get_item_in_hand(hand);
+                let shrunk = restored.count() < item_stack_clone.count();
+                restored.set_count(item_stack_clone.count());
+                if shrunk && restored == item_stack_clone {
+                    self.set_item_in_hand(hand, restored);
                 }
             }
             return interact;

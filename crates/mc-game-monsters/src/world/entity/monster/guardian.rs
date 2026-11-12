@@ -567,8 +567,9 @@ impl MoveControl for GuardianMoveControl {
             let yd = delta.y / length;
             let zd = delta.z / length;
             let pi = std::f32::consts::PI;
-            let y_rot_d =
-                (mth::atan2(delta.z, delta.x) * f64::from(180.0f32) / f64::from(pi)) as f32 - 90.0;
+            let y_rot_d = (mth::atan2(delta.z, delta.x) * f64::from(mc_core::math::mth::RAD_TO_DEG))
+                as f32
+                - 90.0;
             let new_y_rot = self.base.rotlerp(mob.base().y_rot(), y_rot_d, 90.0);
             mob.base_mut().set_y_rot(new_y_rot);
             mob.living_mut().expect("living").y_body_rot = new_y_rot;

@@ -643,8 +643,8 @@ impl MoveControl for PhantomMoveControl {
             } else {
                 self.speed = mth::approach(self.speed, 0.2, 0.025);
             }
-            let x_rot_d = (-(mth::atan2(-tdy, sd) * f64::from(180.0f32)
-                / f64::from(std::f32::consts::PI))) as f32;
+            let x_rot_d =
+                (-(mth::atan2(-tdy, sd) * f64::from(mc_core::math::mth::RAD_TO_DEG))) as f32;
             mob.set_x_rot(x_rot_d);
             let move_angle = mob.base().y_rot() + 90.0;
             let deg_to_rad = (std::f64::consts::PI / 180.0) as f32;

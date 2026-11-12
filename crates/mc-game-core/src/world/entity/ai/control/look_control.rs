@@ -135,7 +135,7 @@ pub fn x_rot_d(b: &LookControlBase, mob: &dyn Entity) -> Option<f32> {
     if !(yd.abs() > f64::from(1.0E-5f32)) && !(sd.abs() > f64::from(1.0E-5f32)) {
         None
     } else {
-        Some((-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI))) as f32)
+        Some((-(mth::atan2(yd, sd) * f64::from(mc_core::math::mth::RAD_TO_DEG))) as f32)
     }
 }
 
@@ -146,10 +146,7 @@ pub fn y_rot_d(b: &LookControlBase, mob: &dyn Entity) -> Option<f32> {
     if !(zd.abs() > f64::from(1.0E-5f32)) && !(xd.abs() > f64::from(1.0E-5f32)) {
         None
     } else {
-        Some(
-            (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32
-                - 90.0,
-        )
+        Some((mth::atan2(zd, xd) * f64::from(mc_core::math::mth::RAD_TO_DEG)) as f32 - 90.0)
     }
 }
 

@@ -392,6 +392,8 @@ pub fn tick_leash(e: &mut dyn Entity, level: &mut ServerLevel) {
         )
     };
     e.when_leashed_to(level, holder_id);
+    // the Java local `leashData` outlives `dropLeash()`: a snapped leash still applies its momentum once
+    let momentum_before = data(e).map_or(0.0, |d| d.angular_momentum);
     if distance_to > e.leash_snap_distance() {
         level.play_sound_at(
             None,
@@ -413,7 +415,9 @@ pub fn tick_leash(e: &mut dyn Entity, level: &mut ServerLevel) {
         e.close_range_leash_behaviour(level, holder_id);
     }
     let friction = angular_friction(e, level);
-    let new_y_rot = e.base().y_rot() - data(e).map_or(0.0, |d| d.angular_momentum) as f32;
+    // `(float)(getYRot() - angularMomentum)`: the subtraction is in double
+    let angular_momentum = data(e).map_or(momentum_before, |d| d.angular_momentum);
+    let new_y_rot = (f64::from(e.base().y_rot()) - angular_momentum) as f32;
     e.set_y_rot(new_y_rot);
     if let Some(d) = data_mut(e) {
         d.angular_momentum *= f64::from(friction);

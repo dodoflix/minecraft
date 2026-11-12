@@ -71,9 +71,8 @@ impl MoveControl for SmoothSwimmingMoveControl {
             if dd < f64::from(2.5000003E-7f32) {
                 mob::set_zza(mob, 0.0);
             } else {
-                let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32)
-                    / f64::from(std::f32::consts::PI)) as f32
-                    - 90.0;
+                let y_rot_d =
+                    (mth::atan2(zd, xd) * f64::from(mc_core::math::mth::RAD_TO_DEG)) as f32 - 90.0;
                 let new_y_rot = b.rotlerp(mob.base().y_rot(), y_rot_d, self.max_turn_y as f32);
                 mob.set_y_rot(new_y_rot);
                 {
@@ -88,8 +87,8 @@ impl MoveControl for SmoothSwimmingMoveControl {
                     mob.set_speed(speed * self.in_water_speed_modifier);
                     let sqrt = (xd * xd + zd * zd).sqrt();
                     if yd.abs() > f64::from(1.0E-5f32) || sqrt.abs() > f64::from(1.0E-5f32) {
-                        let mut x_rot_d = -((mth::atan2(yd, sqrt) * f64::from(180.0f32)
-                            / f64::from(std::f32::consts::PI))
+                        let mut x_rot_d = -((mth::atan2(yd, sqrt)
+                            * f64::from(mc_core::math::mth::RAD_TO_DEG))
                             as f32);
                         x_rot_d = mth::clamp_f32(
                             mth::wrap_degrees_f32(x_rot_d),

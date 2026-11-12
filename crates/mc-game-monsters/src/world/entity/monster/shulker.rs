@@ -959,8 +959,7 @@ impl LookControl for ShulkerLookControl {
         } else {
             Some(
                 (mth::atan2(f64::from(-delta_right), f64::from(delta_forward))
-                    * f64::from(180.0f32)
-                    / f64::from(std::f32::consts::PI)) as f32,
+                    * f64::from(mc_core::math::mth::RAD_TO_DEG)) as f32,
             )
         }
     }

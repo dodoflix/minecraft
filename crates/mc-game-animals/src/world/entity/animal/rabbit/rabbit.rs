@@ -420,8 +420,8 @@ impl Rabbit {
     /// `facePoint(faceX, faceZ)`.
     fn face_point(&mut self, face_x: f64, face_z: f64) {
         let b = self.base();
-        let y_rot = (mth::atan2(face_z - b.z(), face_x - b.x()) * f64::from(180.0f32)
-            / f64::from(std::f32::consts::PI)) as f32
+        let y_rot = (mth::atan2(face_z - b.z(), face_x - b.x())
+            * f64::from(mc_core::math::mth::RAD_TO_DEG)) as f32
             - 90.0;
         self.set_y_rot(y_rot);
     }

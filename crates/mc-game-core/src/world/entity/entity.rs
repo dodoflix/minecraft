@@ -2526,12 +2526,11 @@ pub trait Entity: Any {
         let from = anchor.apply_entity(self.base().position(), self.base().eye_height);
         let (xd, yd, zd) = (pos.x - from.x, pos.y - from.y, pos.z - from.z);
         let sd = (xd * xd + zd * zd).sqrt();
-        let pi = std::f64::consts::PI as f32;
         self.set_x_rot(mth::wrap_degrees_f32(
-            (-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(pi))) as f32,
+            (-(mth::atan2(yd, sd) * f64::from(mc_core::math::mth::RAD_TO_DEG))) as f32,
         ));
         self.set_y_rot(mth::wrap_degrees_f32(
-            (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(pi)) as f32 - 90.0,
+            (mth::atan2(zd, xd) * f64::from(mc_core::math::mth::RAD_TO_DEG)) as f32 - 90.0,
         ));
         let y_rot = self.base().y_rot();
         self.set_y_head_rot(y_rot);

@@ -343,6 +343,10 @@ impl Entity for Pig {
         }
     }
 
+    fn get_equip_sound_override(&self, slot: EquipmentSlot) -> Option<SoundEvent> {
+        (slot == EquipmentSlot::Saddle).then_some(SoundEvent::ENTITY_PIG_SADDLE)
+    }
+
     fn thunder_hit(&mut self, level: &mut ServerLevel) {
         if level.difficulty() != Difficulty::Peaceful {
             let params = ConversionParams::single(self, level, false, true);
