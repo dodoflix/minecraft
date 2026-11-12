@@ -1,5 +1,7 @@
 //! `net.minecraft.world.level.block.LoomBlock` (extends `HorizontalDirectionalBlock`): placement, `rotate` / `mirror` of
-//! the `facing` property, `useWithoutItem` (stat and success; the `LoomMenu` provider does not exist yet).
+//! the `facing` property, `useWithoutItem` (stat and success).
+//!
+//! Not implemented: `get_menu_provider` returns `None` until `LoomMenu` exists, so the menu does not open.
 use mc_core::phys::BlockHitResult;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;

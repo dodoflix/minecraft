@@ -1,4 +1,4 @@
-# audit probe: a creative player breaks an unopened loot-table shulker box
+# a creative player breaks an unopened loot-table shulker box
 level flat
 preload 2
 spawn_player Cr creative 0.5 -60 3.5 180 0

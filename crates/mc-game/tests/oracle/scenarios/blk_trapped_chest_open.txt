@@ -1,4 +1,4 @@
-# audit probe: a player opens a trapped chest; dust and a lamp beside it
+# a player opens a trapped chest; dust and a lamp beside it
 level flat
 preload 2
 spawn_player Steve survival 0.5 -60 3.5 180 0

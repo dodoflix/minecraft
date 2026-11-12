@@ -1,4 +1,4 @@
-# audit probe: beacon effects and CONSTRUCT_BEACON skip spectators (A joins last: the spectator's join message to A would not be replayed)
+# beacon effects and CONSTRUCT_BEACON skip spectators (A joins last: the spectator's join message to A would not be replayed)
 level flat
 preload 2
 spawn_player Sp spectator 2.5 -60 -2.5 0 0

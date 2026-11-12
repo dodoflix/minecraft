@@ -1,5 +1,7 @@
 //! `net.minecraft.world.level.block.StonecutterBlock`: placement, `rotate` / `mirror` of the `facing` property,
-//! `useWithoutItem` (stat and success; the `StonecutterMenu` provider does not exist yet).
+//! `useWithoutItem` (stat and success).
+//!
+//! Not implemented: `get_menu_provider` returns `None` until `StonecutterMenu` exists, so the menu does not open.
 use mc_core::phys::BlockHitResult;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;

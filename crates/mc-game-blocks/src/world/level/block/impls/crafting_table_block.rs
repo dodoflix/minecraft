@@ -1,4 +1,6 @@
-//! `net.minecraft.world.level.block.CraftingTableBlock`: `useWithoutItem` (stat and success; the `CraftingMenu` provider does not exist yet).
+//! `net.minecraft.world.level.block.CraftingTableBlock`: `useWithoutItem` (stat and success).
+//!
+//! Not implemented: `get_menu_provider` returns `None` until `CraftingMenu` exists, so the menu does not open.
 use mc_core::phys::BlockHitResult;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;

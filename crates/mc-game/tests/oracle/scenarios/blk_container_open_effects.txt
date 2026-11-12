@@ -1,4 +1,4 @@
-# audit probe: shulker lid animation with a torch on top and a comparator beside; bell ring; ender chest and double chest open
+# shulker lid animation with a torch on top and a comparator beside; bell ring; ender chest and double chest open
 level flat
 preload 2
 spawn_player A survival 0.5 -60 3.5 180 0
