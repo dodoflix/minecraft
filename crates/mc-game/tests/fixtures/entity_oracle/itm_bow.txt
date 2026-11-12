@@ -1,0 +1,264 @@
+# A: draws of 5, 2, 10, 20 and 30 ticks
+USE A hand=main item=minecraft:bow*1 remaining=71995 ticks=5 kinetic=0
+E arrow#1 minecraft:arrow pos=0.5,-58.479999996721745,0.5 delta=-0.0031603520954876195,-0.0023064219847485717,0.5703829064385132 rot=-0.3174211,-0.2316754 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+USE A hand=main item=empty remaining=0 ticks=0 kinetic=0
+I A 0 minecraft:bow*1/dmg=1
+I A 1 minecraft:arrow*19
+STAT A minecraft.custom:minecraft.play_time 7
+STAT A minecraft.custom:minecraft.time_since_death 7
+STAT A minecraft.custom:minecraft.time_since_rest 7
+STAT A minecraft.custom:minecraft.total_world_time 7
+STAT A minecraft.used:minecraft.bow 1
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=0.7638335
+USE A hand=main item=empty remaining=0 ticks=0 kinetic=0
+I A 0 minecraft:bow*1/dmg=1
+I A 1 minecraft:arrow*19
+STAT A minecraft.custom:minecraft.play_time 9
+STAT A minecraft.custom:minecraft.time_since_death 9
+STAT A minecraft.custom:minecraft.time_since_rest 9
+STAT A minecraft.custom:minecraft.total_world_time 9
+STAT A minecraft.used:minecraft.bow 1
+E arrow#2 minecraft:arrow pos=0.5,-58.479999996721745,0.5 delta=0.004269311901076363,0.001221481986819693,1.237505896506173 rot=0.19770461,0.056469545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+USE A hand=main item=empty remaining=0 ticks=0 kinetic=0
+I A 0 minecraft:bow*1/dmg=2
+I A 1 minecraft:arrow*18
+STAT A minecraft.custom:minecraft.play_time 19
+STAT A minecraft.custom:minecraft.time_since_death 19
+STAT A minecraft.custom:minecraft.time_since_rest 19
+STAT A minecraft.custom:minecraft.total_world_time 19
+STAT A minecraft.used:minecraft.bow 2
+EV sound at=0.5246097878798437,-59.94999999925494,5.032446186131173 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1592039
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=0.8783846
+E arrow#3 minecraft:arrow pos=0.5,-58.479999996721745,0.5 delta=0.023097039964421653,0.001255225688072766,3.0226052626093454 rot=0.4378257,0.023763215 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+USE A hand=main item=empty remaining=0 ticks=0 kinetic=0
+I A 0 minecraft:bow*1/dmg=3
+I A 1 minecraft:arrow*17
+STAT A minecraft.custom:minecraft.play_time 39
+STAT A minecraft.custom:minecraft.time_since_death 39
+STAT A minecraft.custom:minecraft.time_since_rest 39
+STAT A minecraft.custom:minecraft.total_world_time 39
+STAT A minecraft.used:minecraft.bow 3
+EV sound at=0.4845894820236287,-59.94999999925494,10.476132986295944 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.3297983
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1701318
+E arrow#4 minecraft:arrow pos=0.5,-58.479999996721745,0.5 delta=-0.01285372999409935,0.034478268141953435,3.011548808169424 rot=-0.24452038,0.6559452 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+USE A hand=main item=empty remaining=0 ticks=0 kinetic=0
+I A 0 minecraft:bow*1/dmg=4
+I A 1 minecraft:arrow*16
+STAT A minecraft.custom:minecraft.play_time 69
+STAT A minecraft.custom:minecraft.time_since_death 69
+STAT A minecraft.custom:minecraft.time_since_rest 69
+STAT A minecraft.custom:minecraft.total_world_time 69
+STAT A minecraft.used:minecraft.bow 4
+EV sound at=0.6371447374801714,-59.94999999925494,24.94078632947596 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1413753
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1701479
+E arrow#1 minecraft:arrow pos=0.5246097878798437,-59.94999999925494,5.032446186131173 delta=0.0,0.0,0.0 rot=-0.31744477,-22.151247 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=61 dmg=2.0
+E arrow#2 minecraft:arrow pos=0.4845894820236287,-59.94999999925494,10.476132986295944 delta=0.0,0.0,0.0 rot=0.19768886,-10.895312 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=49 dmg=2.0
+E arrow#3 minecraft:arrow pos=0.6371447374801714,-59.94999999925494,24.94078632947596 delta=0.0,0.0,0.0 rot=0.43781972,-4.552656 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=29 dmg=2.0
+E arrow#4 minecraft:arrow pos=0.400698112858914,-59.58598431378953,23.76581311463642 delta=-0.011860712069705083,-0.35446189923485705,2.7788908989031444 rot=-0.24453168,-3.110531 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+# B: infinity keeps the arrows, power, punch and flame on the arrow
+E arrow#5 minecraft:arrow pos=6.5,-58.479999996721745,0.5 delta=-0.01824013464425203,0.04023067298164761,2.9937810229169095 rot=-0.3491896,0.7697753 og=0 fall=0.0 fire=2000 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+N arrow#5 {Air:300s,Fire:2000s,HasBeenShot:0b,Invulnerable:0b,Motion:[-0.01824013464425203d,0.04023067298164761d,2.9937810229169095d],OnGround:0b,Owner:[I;-196291187,2030186727,-1948358755,2017388081],PierceLevel:0b,PortalCooldown:0,Pos:[6.5d,-58.479999996721745d,0.5d],Rotation:[-0.3491896f,0.7697753f],SoundEvent:"minecraft:entity.arrow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:intangible_projectile:{}},count:1,id:"minecraft:arrow"},life:0s,pickup:2b,shake:0b,weapon:{components:{minecraft:enchantments:{minecraft:flame:1,minecraft:infinity:1,minecraft:power:3,minecraft:punch:2}},count:1,id:"minecraft:bow"}}
+USE B hand=main item=empty remaining=0 ticks=0 kinetic=0
+I B 0 minecraft:bow*1/dmg=1
+I B 1 minecraft:arrow*5
+STAT B minecraft.custom:minecraft.play_time 97
+STAT B minecraft.custom:minecraft.time_since_death 97
+STAT B minecraft.custom:minecraft.time_since_rest 97
+STAT B minecraft.custom:minecraft.total_world_time 97
+STAT B minecraft.used:minecraft.bow 1
+EV sound at=0.43709318433017036,-59.94999999925494,26.90336323035993 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1005632
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1700995
+# C: creative without any arrow, and with one in the inventory
+E arrow#6 minecraft:arrow pos=12.5,-58.479999996721745,0.5 delta=0.0018746193719581118,-0.0031846311006284446,1.5660035484833779 rot=0.068473466,-0.116694525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+USE C hand=main item=empty remaining=0 ticks=0 kinetic=0
+I C 0 minecraft:bow*1
+STAT C minecraft.custom:minecraft.play_time 109
+STAT C minecraft.custom:minecraft.time_since_death 109
+STAT C minecraft.custom:minecraft.time_since_rest 109
+STAT C minecraft.custom:minecraft.total_world_time 109
+STAT C minecraft.used:minecraft.bow 1
+EV sound at=6.387651206050846,-59.94999999925494,27.096554431468263 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.2336676
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=0.9301157
+E arrow#7 minecraft:arrow pos=12.5,-58.479999996721745,0.5 delta=0.02969926585716097,0.007884860497064394,3.0138839875483177 rot=0.56471246,0.14997801 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+USE C hand=main item=empty remaining=0 ticks=0 kinetic=0
+I C 0 minecraft:bow*1
+I C 1 minecraft:arrow*3
+STAT C minecraft.custom:minecraft.play_time 129
+STAT C minecraft.custom:minecraft.time_since_death 129
+STAT C minecraft.custom:minecraft.time_since_rest 129
+STAT C minecraft.custom:minecraft.total_world_time 129
+STAT C minecraft.used:minecraft.bow 2
+EV sound at=12.465029301201758,-59.94999999925494,13.005050124101729 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.2313887
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1701962
+# D: no arrows, only sticks: the use fails
+USE D hand=main item=empty remaining=0 ticks=0 kinetic=0
+I D 0 minecraft:bow*1
+I D 1 minecraft:stick*3
+STAT D minecraft.custom:minecraft.play_time 129
+STAT D minecraft.custom:minecraft.time_since_death 129
+STAT D minecraft.custom:minecraft.time_since_rest 129
+STAT D minecraft.custom:minecraft.total_world_time 129
+# E: the offhand tipped arrow first, then the selected slot, then the inventory in slot order: spectral, spectral, plain, tipped
+E arrow#8 minecraft:arrow pos=24.5,-58.479999996721745,0.5 delta=-0.0037585754988891037,0.013479332886131698,2.9833985200372233 rot=-0.07210674,0.25882986 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+N arrow#8 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[-0.0037585754988891037d,0.013479332886131698d,2.9833985200372233d],OnGround:0b,Owner:[I;-2139681332,24654158,-1564951457,-353865346],PierceLevel:0b,PortalCooldown:0,Pos:[24.5d,-58.479999996721745d,0.5d],Rotation:[-0.07210674f,0.25882986f],SoundEvent:"minecraft:entity.arrow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:potion_contents:{potion:"minecraft:swiftness"}},count:1,id:"minecraft:tipped_arrow"},life:0s,pickup:1b,shake:0b,weapon:{count:1,id:"minecraft:bow"}}
+I E 0 minecraft:bow*1/dmg=1
+I E 1 minecraft:spectral_arrow*2
+I E 2 minecraft:arrow*1
+I E 3 minecraft:tipped_arrow*3
+STAT E minecraft.custom:minecraft.play_time 149
+STAT E minecraft.custom:minecraft.time_since_death 149
+STAT E minecraft.custom:minecraft.time_since_rest 149
+STAT E minecraft.custom:minecraft.total_world_time 149
+STAT E minecraft.used:minecraft.bow 1
+EV sound at=12.694523718970864,-59.94999999925494,25.26428756353409 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1992419
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1702123
+E spectral_arrow#1 minecraft:spectral_arrow pos=24.5,-58.479999996721745,0.5 delta=0.015005235000406892,0.01011197951209802,2.9826727725640136 rot=0.2881735,0.19427438 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+N spectral_arrow#1 {Air:300s,Duration:200,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.015005235000406892d,0.01011197951209802d,2.9826727725640136d],OnGround:0b,Owner:[I;-2139681332,24654158,-1564951457,-353865346],PierceLevel:0b,PortalCooldown:0,Pos:[24.5d,-58.479999996721745d,0.5d],Rotation:[0.2881735f,0.19427438f],SoundEvent:"minecraft:entity.arrow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:spectral_arrow"},life:0s,pickup:1b,shake:0b,weapon:{components:{minecraft:damage:1},count:1,id:"minecraft:bow"}}
+I E 0 minecraft:bow*1/dmg=2
+I E 1 minecraft:spectral_arrow*1
+I E 2 minecraft:arrow*1
+I E 3 minecraft:tipped_arrow*3
+STAT E minecraft.custom:minecraft.play_time 169
+STAT E minecraft.custom:minecraft.time_since_death 169
+STAT E minecraft.custom:minecraft.time_since_rest 169
+STAT E minecraft.custom:minecraft.total_world_time 169
+STAT E minecraft.used:minecraft.bow 2
+EV sound at=24.518627103710756,-59.94999999925494,25.35248090168348 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.2375174
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.170164
+E spectral_arrow#2 minecraft:spectral_arrow pos=24.5,-58.479999996721745,0.5 delta=-0.017361452971729113,0.04124868179982841,3.0285462644672103 rot=-0.32831615,0.78016543 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+N spectral_arrow#2 {Air:300s,Duration:200,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[-0.017361452971729113d,0.04124868179982841d,3.0285462644672103d],OnGround:0b,Owner:[I;-2139681332,24654158,-1564951457,-353865346],PierceLevel:0b,PortalCooldown:0,Pos:[24.5d,-58.479999996721745d,0.5d],Rotation:[-0.32831615f,0.78016543f],SoundEvent:"minecraft:entity.arrow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:spectral_arrow"},life:0s,pickup:1b,shake:0b,weapon:{components:{minecraft:damage:2},count:1,id:"minecraft:bow"}}
+I E 0 minecraft:bow*1/dmg=3
+I E 2 minecraft:arrow*1
+I E 3 minecraft:tipped_arrow*3
+STAT E minecraft.custom:minecraft.play_time 189
+STAT E minecraft.custom:minecraft.time_since_death 189
+STAT E minecraft.custom:minecraft.time_since_rest 189
+STAT E minecraft.custom:minecraft.total_world_time 189
+STAT E minecraft.used:minecraft.bow 3
+EV sound at=24.574216522899818,-59.94999999925494,25.141198968686957 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.3063762
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1701801
+E arrow#9 minecraft:arrow pos=24.5,-58.479999996721745,0.5 delta=-0.0039547508268488974,0.011785512065251755,2.9769979940554396 rot=-0.07603599,0.22682138 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+N arrow#9 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[-0.0039547508268488974d,0.011785512065251755d,2.9769979940554396d],OnGround:0b,Owner:[I;-2139681332,24654158,-1564951457,-353865346],PierceLevel:0b,PortalCooldown:0,Pos:[24.5d,-58.479999996721745d,0.5d],Rotation:[-0.07603599f,0.22682138f],SoundEvent:"minecraft:entity.arrow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:arrow"},life:0s,pickup:1b,shake:0b,weapon:{components:{minecraft:damage:3},count:1,id:"minecraft:bow"}}
+I E 0 minecraft:bow*1/dmg=4
+I E 3 minecraft:tipped_arrow*3
+STAT E minecraft.custom:minecraft.play_time 209
+STAT E minecraft.custom:minecraft.time_since_death 209
+STAT E minecraft.custom:minecraft.time_since_rest 209
+STAT E minecraft.custom:minecraft.total_world_time 209
+STAT E minecraft.used:minecraft.bow 4
+EV sound at=24.395107971824576,-59.94999999925494,27.46949406733464 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.0952166
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1702605
+E arrow#10 minecraft:arrow pos=24.5,-58.479999996721745,0.5 delta=0.009055342208089113,0.039811239906850565,3.0189708737824 rot=0.17192125,0.75540954 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+N arrow#10 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.009055342208089113d,0.039811239906850565d,3.0189708737824d],OnGround:0b,Owner:[I;-2139681332,24654158,-1564951457,-353865346],PierceLevel:0b,PortalCooldown:0,Pos:[24.5d,-58.479999996721745d,0.5d],Rotation:[0.17192125f,0.75540954f],SoundEvent:"minecraft:entity.arrow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:potion_contents:{potion:"minecraft:poison"}},count:1,id:"minecraft:tipped_arrow"},life:0s,pickup:1b,shake:0b,weapon:{components:{minecraft:damage:4},count:1,id:"minecraft:bow"}}
+I E 0 minecraft:bow*1/dmg=5
+I E 3 minecraft:tipped_arrow*2
+STAT E minecraft.custom:minecraft.play_time 229
+STAT E minecraft.custom:minecraft.time_since_death 229
+STAT E minecraft.custom:minecraft.time_since_rest 229
+STAT E minecraft.custom:minecraft.total_world_time 229
+STAT E minecraft.used:minecraft.bow 5
+EV sound at=24.517127061680657,-59.94999999925494,25.19559787334331 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.0940219
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1702766
+# F: the bow in the offhand
+E arrow#11 minecraft:arrow pos=30.5,-58.479999996721745,0.5 delta=-0.02206960712358557,-0.013305883356914988,3.0053294524037186 rot=-0.42077485,-0.2536296 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+USE F hand=off item=empty remaining=0 ticks=0 kinetic=0
+I F 1 minecraft:arrow*5
+I F 40 minecraft:bow*1/dmg=1
+STAT F minecraft.custom:minecraft.play_time 249
+STAT F minecraft.custom:minecraft.time_since_death 249
+STAT F minecraft.custom:minecraft.time_since_rest 249
+STAT F minecraft.custom:minecraft.total_world_time 249
+STAT F minecraft.used:minecraft.bow 1
+EV sound at=24.53052032606319,-59.94999999925494,27.294763653176698 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.2043439
+EV sound at=30.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1702284
+# F: swapping the hands and selecting another slot while drawing stop the use without a shot
+USE F hand=off item=empty remaining=0 ticks=0 kinetic=0
+I F 0 minecraft:bow*1/dmg=1
+I F 1 minecraft:arrow*5
+I F 40 minecraft:bow*1
+STAT F minecraft.custom:minecraft.play_time 264
+STAT F minecraft.custom:minecraft.time_since_death 264
+STAT F minecraft.custom:minecraft.time_since_rest 264
+STAT F minecraft.custom:minecraft.total_world_time 264
+STAT F minecraft.used:minecraft.bow 1
+EV sound at=30.37720851075754,-59.94999999925494,23.97988664727103 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.2328088
+USE F hand=main item=empty remaining=0 ticks=0 kinetic=0
+I F 0 minecraft:bow*1/dmg=1
+I F 1 minecraft:arrow*5
+I F 40 minecraft:bow*1
+STAT F minecraft.custom:minecraft.play_time 279
+STAT F minecraft.custom:minecraft.time_since_death 279
+STAT F minecraft.custom:minecraft.time_since_rest 279
+STAT F minecraft.custom:minecraft.total_world_time 279
+STAT F minecraft.used:minecraft.bow 1
+I F 0 minecraft:bow*1/dmg=1
+I F 1 minecraft:arrow*5
+I F 40 minecraft:bow*1
+STAT F minecraft.custom:minecraft.play_time 279
+STAT F minecraft.custom:minecraft.time_since_death 279
+STAT F minecraft.custom:minecraft.time_since_rest 279
+STAT F minecraft.custom:minecraft.total_world_time 279
+STAT F minecraft.used:minecraft.bow 1
+# G: the last durability point: the bow breaks
+E arrow#12 minecraft:arrow pos=36.5,-58.479999996721745,0.5 delta=-0.02520776543676958,0.010092761132360671,3.028696978939036 rot=-0.4768227,0.19096604 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+USE G hand=main item=empty remaining=0 ticks=0 kinetic=0
+I G 1 minecraft:arrow*9
+STAT G minecraft.broken:minecraft.bow 1
+STAT G minecraft.custom:minecraft.play_time 299
+STAT G minecraft.custom:minecraft.time_since_death 299
+STAT G minecraft.custom:minecraft.time_since_rest 299
+STAT G minecraft.custom:minecraft.total_world_time 299
+STAT G minecraft.used:minecraft.bow 1
+EV sound at=36.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.16981
+PKT G minecraft:sound 775807000000c4fffffe20000000043f8000003f95c984dd1c412737275425
+PKT G minecraft:sound 775807000000c4fffffe20000000043f8000003f95c7efc80c02e739d7e31b
+PKT G minecraft:sound 775807000000c4fffffe20000000043f8000003f95c87627061872648c263b
+PKT G minecraft:sound 775807000000c4fffffe20000000043f8000003f95cb19efc355d727218d81
+PKT G minecraft:sound 775807000000c4fffffe20000000043f8000003f95cba08e6e34dc692abb6e
+PKT G minecraft:sound 775807000000f4fffffe20000000043f8000003f95ca0be37b313219d57f2d
+PKT G minecraft:sound 77580700000124fffffe20000000043f8000003f95bc566e2e33e9d033ccf7
+E arrow#1 minecraft:arrow pos=0.5246097878798437,-59.94999999925494,5.032446186131173 delta=0.0,0.0,0.0 rot=-0.31744477,-22.151247 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=286 dmg=2.0
+E arrow#2 minecraft:arrow pos=0.4845894820236287,-59.94999999925494,10.476132986295944 delta=0.0,0.0,0.0 rot=0.19768886,-10.895312 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=274 dmg=2.0
+E arrow#3 minecraft:arrow pos=0.6371447374801714,-59.94999999925494,24.94078632947596 delta=0.0,0.0,0.0 rot=0.43781972,-4.552656 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=254 dmg=2.0
+E arrow#4 minecraft:arrow pos=0.43709318433017036,-59.94999999925494,26.90336323035993 delta=0.0,0.0,0.0 rot=-0.24453159,-4.812036 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=223 dmg=2.0
+E arrow#5 minecraft:arrow pos=6.387651206050846,-59.94999999925494,27.096554431468263 delta=0.0,0.0,0.0 rot=-0.34914708,-4.731308 og=0 fall=0.0 fire=1990 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=195 dmg=2.0
+E arrow#6 minecraft:arrow pos=12.465029301201758,-59.94999999925494,13.005050124101729 delta=0.0,0.0,0.0 rot=0.06851557,-8.844765 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=184 dmg=2.0
+E arrow#7 minecraft:arrow pos=12.694523718970864,-59.94999999925494,25.26428756353409 delta=0.0,0.0,0.0 rot=0.5646511,-4.4406743 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=164 dmg=2.0
+E arrow#8 minecraft:arrow pos=24.518627103710756,-59.94999999925494,25.35248090168348 delta=0.0,0.0,0.0 rot=-0.07213693,-4.3793364 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=144 dmg=2.0
+E spectral_arrow#1 minecraft:spectral_arrow pos=24.574216522899818,-59.94999999925494,25.141198968686957 delta=0.0,0.0,0.0 rot=0.28820017,-4.4444885 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=124 dmg=2.0
+E spectral_arrow#2 minecraft:spectral_arrow pos=24.395107971824576,-59.94999999925494,27.46949406733464 delta=0.0,0.0,0.0 rot=-0.3283822,-4.6584263 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=103 dmg=2.0
+E arrow#9 minecraft:arrow pos=24.517127061680657,-59.94999999925494,25.19559787334331 delta=0.0,0.0,0.0 rot=-0.076065004,-4.421019 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=84 dmg=2.0
+E arrow#10 minecraft:arrow pos=24.53052032606319,-59.94999999925494,27.294763653176698 delta=0.0,0.0,0.0 rot=0.17189105,-4.700126 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=63 dmg=2.0
+E arrow#11 minecraft:arrow pos=30.37720851075754,-59.94999999925494,23.97988664727103 delta=0.0,0.0,0.0 rot=-0.42076033,-4.853641 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=44 dmg=2.0
+E arrow#12 minecraft:arrow pos=36.42513041515986,-58.599523487072524,9.495532983220869 delta=-0.024459070302380165,-0.13871200510399634,2.938741734894915 rot=-0.4768252,-0.3458876 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+# H: the arrows are gone before the release: no shot, no sound, nothing used
+USE H hand=main item=empty remaining=0 ticks=0 kinetic=0
+I H 0 minecraft:bow*1
+STAT H minecraft.custom:minecraft.play_time 322
+STAT H minecraft.custom:minecraft.time_since_death 322
+STAT H minecraft.custom:minecraft.time_since_rest 322
+STAT H minecraft.custom:minecraft.total_world_time 322
+EV sound at=36.3413345791157,-59.94999999925494,25.52101764590576 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.2406455
+# I: infinity with tipped arrows, unbreaking
+E arrow#13 minecraft:arrow pos=-11.5,-58.479999996721745,0.5 delta=0.030978075414277134,0.00688459904058259,2.995207344369203 rot=0.59265137,0.13179225 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+N arrow#13 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.030978075414277134d,0.00688459904058259d,2.995207344369203d],OnGround:0b,Owner:[I;-1806479048,-549963372,-1520729828,-193991957],PierceLevel:0b,PortalCooldown:0,Pos:[-11.5d,-58.479999996721745d,0.5d],Rotation:[0.59265137f,0.13179225f],SoundEvent:"minecraft:entity.arrow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:potion_contents:{potion:"minecraft:slowness"}},count:1,id:"minecraft:tipped_arrow"},life:0s,pickup:1b,shake:0b,weapon:{components:{minecraft:enchantments:{minecraft:infinity:1,minecraft:unbreaking:3}},count:1,id:"minecraft:bow"}}
+USE I hand=main item=empty remaining=0 ticks=0 kinetic=0
+I I 0 minecraft:bow*1
+I I 1 minecraft:tipped_arrow*2
+STAT I minecraft.custom:minecraft.play_time 342
+STAT I minecraft.custom:minecraft.time_since_death 342
+STAT I minecraft.custom:minecraft.time_since_rest 342
+STAT I minecraft.custom:minecraft.total_world_time 342
+STAT I minecraft.used:minecraft.bow 1
+EV sound at=-11.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.1267452
+E arrow#14 minecraft:arrow pos=-11.5,-58.479999996721745,0.5 delta=-0.0468151487177429,-0.012259151083905323,2.9645566313603946 rot=-0.90470886,-0.23688835 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+USE I hand=main item=empty remaining=0 ticks=0 kinetic=0
+I I 0 minecraft:bow*1
+I I 1 minecraft:tipped_arrow*1
+STAT I minecraft.custom:minecraft.play_time 362
+STAT I minecraft.custom:minecraft.time_since_death 362
+STAT I minecraft.custom:minecraft.time_since_rest 362
+STAT I minecraft.custom:minecraft.total_world_time 362
+STAT I minecraft.used:minecraft.bow 2
+EV sound at=-11.295567049959867,-59.94999999925494,25.0506064814157 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.2350773
+EV sound at=-11.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.shoot source=player vol=1.0 pitch=1.2673671

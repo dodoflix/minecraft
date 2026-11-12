@@ -1,0 +1,140 @@
+# TridentItem: throwing needs 10 ticks of use (`release` earlier does nothing), wear 1, the thrown trident is the stack (loyalty, channeling, foil),
+# an ominous item spawner shoots a trident, creative throws are pick-up-only-by-creative, a trident that would break with the next point cannot be used, riptide needs water or rain (use fails on dry
+# land) and launches the player instead of throwing (in water, in rain on the ground, riptide sounds, the spin attack). An entity's UUID comes from its random,
+# which is seeded from the command line: a repeated `use`/`release` line would create an entity with an existing UUID, so the lines differ by a counter.
+level flat
+preload 2
+difficulty normal
+fill 21 -61 -4 28 -58 9 minecraft:glass
+fill 22 -60 -3 27 -58 8 minecraft:air
+fill 22 -60 -3 27 -59 8 minecraft:water
+fill 45 -61 -4 52 -58 9 minecraft:glass
+fill 46 -60 -3 51 -58 8 minecraft:air
+fill 46 -60 -3 51 -59 8 minecraft:water
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+spawn_player C creative 12.5 -60 0.5 0 0
+spawn_player D survival 18.5 -60 0.5 0 0
+spawn_player E survival 24.5 -60 0.5 0 0
+spawn_player F survival 30.5 -60 0.5 0 0
+spawn_player G survival 36.5 -60 0.5 0 0
+spawn_player H survival 42.5 -60 0.5 0 0
+spawn_player I survival 48.5 -60 0.5 0 0
+give A hotbar0 minecraft:trident
+give B hotbar0 minecraft:trident[enchantments={"minecraft:loyalty":3,"minecraft:channeling":1,"minecraft:unbreaking":2}]
+give C hotbar0 minecraft:trident
+give D hotbar0 minecraft:trident[enchantments={"minecraft:riptide":3}]
+give E hotbar0 minecraft:trident[enchantments={"minecraft:riptide":2}]
+give F hotbar0 minecraft:trident[damage=248]
+give F hotbar1 minecraft:trident[damage=249]
+give G hotbar0 minecraft:trident[enchantments={"minecraft:riptide":1}]
+give H hotbar0 minecraft:trident
+give H offhand minecraft:trident[enchantments={"minecraft:loyalty":1}]
+give I hotbar0 minecraft:trident[enchantments={"minecraft:riptide":3}]
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none packets:F:none packets:G:none packets:H:none packets:I:none
+note A: released after 5 ticks nothing happens, after 10 the trident flies with power 2.5
+use A main 1
+tick 5
+level_seed 101
+release A 1
+dump use:A inventory:A stats:A cooldowns:A events
+use A main 2
+tick 10
+level_seed 102
+release A 2
+dump entity:trident#1 nbt:trident#1 use:A inventory:A stats:A cooldowns:A events
+tick 10
+dump entity:trident#1
+note B: loyalty, channeling and an unbreaking enchanted trident (foil), thrown and still in the air
+use B main 1
+tick 15
+level_seed 103
+release B 1
+dump entity:trident#2 nbt:trident#2 use:B inventory:B stats:B cooldowns:B events
+note C: creative keeps the trident, the thrown one is only picked up by creative players
+use C main 1
+tick 12
+level_seed 104
+release C 1
+dump entity:trident#3 nbt:trident#3 use:C inventory:C stats:C cooldowns:C events
+note D: riptide on dry land: use fails
+use D main 1
+dump use:D inventory:D stats:D cooldowns:D events
+note F: a trident with one point left cannot be used, the one before throws and keeps the last point
+select F 1
+use F main 1
+dump use:F inventory:F stats:F cooldowns:F events
+select F 0
+use F main 2
+tick 10
+level_seed 105
+release F 1
+dump entity:trident#4 nbt:trident#4 use:F inventory:F stats:F cooldowns:F events
+note H: the offhand trident (loyalty) is used with the off hand; the hotbar one in the main hand
+use H off 1
+tick 11
+level_seed 106
+release H 1
+dump entity:trident#5 nbt:trident#5 use:H inventory:H stats:H cooldowns:H events
+note E: riptide 2 in water: the player is thrown along the view direction, sound of the riptide, spin attack for 20 ticks
+tp E 24.5 -60 0.5 0 -30
+dump player:E
+use E main 1
+tick 12
+level_seed 107
+release E 1
+dump use:E inventory:E stats:E cooldowns:E events player:E
+tick 1
+dump player:E
+tick 1
+dump player:E
+tick 3
+dump player:E use:E
+tick 20
+dump player:E use:E
+note I: riptide 3 released in water after fewer than 10 ticks does nothing
+tp I 48.5 -60 0.5 0 -50
+use I main 1
+tick 9
+level_seed 108
+release I 1
+dump use:I inventory:I stats:I cooldowns:I events player:I
+use I main 2
+tick 10
+level_seed 109
+release I 2
+dump use:I inventory:I stats:I cooldowns:I events player:I
+tick 1
+dump player:I
+tick 8
+dump player:I use:I
+note rain: riptide works on the ground when it rains
+cmd weather rain 100000
+tick 40
+tp G 36.5 -60 0.5 0 -45
+use G main 1
+tick 10
+level_seed 110
+release G 1
+dump use:G inventory:G stats:G cooldowns:G events player:G
+tick 1
+dump player:G
+tick 3
+dump player:G use:G
+tick 25
+dump player:G use:G
+tp D 18.5 -60 0.5 90 -20
+use D main 2
+tick 12
+level_seed 111
+release D 1
+dump use:D inventory:D stats:D cooldowns:D events player:D
+tick 2
+dump player:D
+tick 30
+dump player:D use:D
+note an ominous item spawner shoots a trident through ProjectileItem.asProjectile (the stack is the weapon); setOwner(spawner) makes it pickup disallowed
+spawn Spawner minecraft:ominous_item_spawner 20.5 -58 20.5 0 0 {item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":1}}},spawn_item_after_ticks:3L}
+tick 4
+dump entity:trident#6 nbt:trident#6 events

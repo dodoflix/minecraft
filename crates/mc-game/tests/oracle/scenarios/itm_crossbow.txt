@@ -1,0 +1,206 @@
+# CrossbowItem: charging (25 ticks, quick charge, the loading sounds at 20% and 50%, `release` before it is done), the load (ammo lookup: offhand rocket or arrow,
+# selected slot, inventory, creative without arrows, infinity, multishot, ChargedProjectiles on the stack), `use` on a charged crossbow shoots (power 3.15, rockets 1.6,
+# crit arrows, piercing, wear 1 per arrow and 3 per rocket, breaking in the middle of a multishot). An entity's UUID comes from its random, which is seeded from the
+# command line: a repeated `use`/`release` line would create an entity with an existing UUID, so the lines differ by a counter.
+level flat
+preload 4
+difficulty normal
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+spawn_player C survival 12.5 -60 0.5 0 0
+spawn_player D survival 18.5 -60 0.5 0 0
+spawn_player E survival 24.5 -60 0.5 0 0
+spawn_player F creative 30.5 -60 0.5 0 0
+spawn_player G survival 36.5 -60 0.5 0 0
+spawn_player H survival 42.5 -60 0.5 0 0
+spawn_player I survival 48.5 -60 0.5 0 0
+spawn_player J survival 54.5 -60 0.5 0 0
+give A hotbar0 minecraft:crossbow
+give A hotbar1 minecraft:arrow 10
+give B hotbar0 minecraft:crossbow[enchantments={"minecraft:quick_charge":3}]
+give B hotbar1 minecraft:spectral_arrow 4
+give C hotbar0 minecraft:crossbow[enchantments={"minecraft:multishot":1}]
+give C hotbar1 minecraft:arrow 5
+give D hotbar0 minecraft:crossbow[enchantments={"minecraft:piercing":4}]
+give D hotbar1 minecraft:tipped_arrow[potion_contents={potion:"minecraft:harming"}] 3
+give E hotbar0 minecraft:crossbow
+give E hotbar1 minecraft:arrow 3
+give E offhand minecraft:firework_rocket 3
+give F hotbar0 minecraft:crossbow
+give G hotbar0 minecraft:crossbow[enchantments={"minecraft:multishot":1}]
+give G offhand minecraft:firework_rocket 3
+give H hotbar0 minecraft:crossbow[damage=464,enchantments={"minecraft:multishot":1}]
+give H hotbar1 minecraft:arrow 5
+give I hotbar0 minecraft:crossbow[enchantments={"minecraft:infinity":1,"minecraft:quick_charge":1}]
+give I hotbar1 minecraft:arrow 2
+give J hotbar0 minecraft:crossbow
+give J hotbar1 minecraft:arrow 4
+give J offhand minecraft:arrow 2
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none packets:F:none packets:G:none packets:H:none packets:I:none packets:J:none
+note A: released at 10 ticks (start sound, nothing loaded), at 13 (mid sound), the full charge and the shot
+level_seed 1
+use A main 1
+tick 10
+dump use:A
+release A 1
+dump use:A inventory:A stats:A events packets:A:container_set_slot,sound
+level_seed 2
+use A main 2
+tick 13
+release A 2
+dump use:A inventory:A events packets:A:container_set_slot,sound
+level_seed 3
+use A main 3
+tick 24
+dump use:A inventory:A events packets:A:container_set_slot,sound
+tick 1
+level_seed 4
+tick 1
+dump use:A inventory:A stats:A events packets:A:container_set_slot,sound
+release A 3
+dump use:A inventory:A stats:A events packets:A:container_set_slot,sound
+level_seed 5
+use A main 4
+tick 1
+dump entity:arrow#1 nbt:arrow#1 use:A inventory:A stats:A events packets:A:container_set_slot,sound
+note A: holding past the full charge loads once; swap stops the use and keeps the charge, the off hand shoots
+level_seed 6
+use A main 5
+tick 25
+level_seed 7
+tick 5
+dump use:A inventory:A events packets:A:container_set_slot,sound
+level_seed 8
+swap A
+dump use:A inventory:A
+use A off 6
+tick 1
+dump entity:arrow#2 use:A inventory:A stats:A events packets:A:container_set_slot,sound
+note B: quick charge 3 charges in 10 ticks
+level_seed 9
+use B main 1
+tick 10
+dump use:B inventory:B events packets:B:container_set_slot,sound
+level_seed 10
+tick 1
+dump use:B inventory:B events packets:B:container_set_slot,sound
+release B 1
+use B main 2
+tick 1
+dump entity:spectral_arrow#1 nbt:spectral_arrow#1 use:B inventory:B stats:B events
+note C: multishot loads three arrows for one and shoots them with a spread
+level_seed 11
+use C main 1
+tick 25
+level_seed 12
+tick 1
+dump use:C inventory:C events packets:C:container_set_slot
+release C 1
+use C main 2
+tick 1
+dump entity:arrow#3 entity:arrow#4 entity:arrow#5 nbt:arrow#3 nbt:arrow#4 nbt:arrow#5 use:C inventory:C stats:C events packets:C:container_set_slot,sound
+note D: piercing and a tipped arrow
+level_seed 13
+use D main 1
+tick 25
+level_seed 14
+tick 1
+release D 1
+use D main 2
+tick 1
+dump entity:arrow#6 nbt:arrow#6 use:D inventory:D stats:D events
+note E: the rocket in the offhand is loaded first and flies slower; wear 3 for the rocket, 1 for the arrow
+level_seed 15
+use E main 1
+tick 25
+level_seed 16
+tick 1
+dump use:E inventory:E events packets:E:container_set_slot
+release E 1
+use E main 2
+tick 1
+dump entity:firework_rocket#1 nbt:firework_rocket#1 use:E inventory:E stats:E events packets:E:container_set_slot,sound
+give E offhand minecraft:air
+level_seed 17
+use E main 3
+tick 25
+level_seed 18
+tick 1
+release E 2
+use E main 4
+tick 1
+dump entity:arrow#7 use:E inventory:E stats:E events
+note F: creative loads without any arrow and without ammunition, a rocket too
+level_seed 19
+use F main 1
+tick 25
+level_seed 20
+tick 1
+dump use:F inventory:F events packets:F:container_set_slot
+release F 1
+use F main 2
+tick 1
+dump entity:arrow#8 nbt:arrow#8 use:F inventory:F stats:F events
+give F offhand minecraft:firework_rocket 2
+level_seed 21
+use F main 3
+tick 25
+level_seed 22
+tick 1
+release F 2
+use F main 4
+tick 1
+dump entity:firework_rocket#2 nbt:firework_rocket#2 use:F inventory:F stats:F events
+note G: multishot with rockets: three rockets, wear 9
+level_seed 23
+use G main 1
+tick 25
+level_seed 24
+tick 1
+release G 1
+use G main 2
+tick 1
+dump entity:firework_rocket#3 entity:firework_rocket#4 entity:firework_rocket#5 use:G inventory:G stats:G events packets:G:container_set_slot
+note H: a crossbow with one point of durability left breaks on the first arrow of a multishot
+level_seed 25
+use H main 1
+tick 25
+level_seed 26
+tick 1
+release H 1
+use H main 2
+tick 1
+dump entity:arrow#9 use:H inventory:H stats:H events packets:H:container_set_slot,sound
+note I: infinity keeps the arrows
+level_seed 27
+use I main 1
+tick 20
+level_seed 28
+tick 1
+release I 1
+use I main 2
+tick 1
+dump entity:arrow#10 nbt:arrow#10 use:I inventory:I stats:I events
+note J: the off hand is emptied before the hotbar is touched
+level_seed 29
+use J main 1
+tick 25
+level_seed 30
+tick 1
+release J 1
+use J main 2
+tick 1
+dump entity:arrow#11 use:J inventory:J stats:J events
+level_seed 31
+use J main 3
+tick 25
+level_seed 32
+tick 1
+level_seed 33
+release J 2
+use J main 4
+tick 1
+dump entity:arrow#12 use:J inventory:J stats:J events
+tick 5
+dump entities

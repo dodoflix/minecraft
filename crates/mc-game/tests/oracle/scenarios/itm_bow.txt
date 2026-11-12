@@ -1,0 +1,159 @@
+# BowItem: the draw (`use` starts it, `release` after N ticks shoots with power getPowerForTime(N) * 3, a full draw crits, under 3 ticks nothing is shot),
+# the ammo lookup (offhand, selected slot, the inventory in slot order, none), infinity, power/punch/flame/multishot, creative without arrows, tipped and spectral
+# arrows, the bow in the offhand, wear and breaking, swapping or selecting while drawing. An entity's UUID comes from its random, which is seeded from the
+# command line: a repeated `use`/`release` line would create an arrow with an existing UUID, so the lines differ by a counter.
+level flat
+preload 2
+difficulty normal
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+spawn_player C creative 12.5 -60 0.5 0 0
+spawn_player D survival 18.5 -60 0.5 0 0
+spawn_player E survival 24.5 -60 0.5 0 0
+spawn_player F survival 30.5 -60 0.5 0 0
+spawn_player G survival 36.5 -60 0.5 0 0
+spawn_player H survival -5.5 -60 0.5 0 0
+spawn_player I survival -11.5 -60 0.5 0 0
+give A hotbar0 minecraft:bow
+give A hotbar1 minecraft:arrow 20
+give B hotbar0 minecraft:bow[enchantments={"minecraft:infinity":1,"minecraft:power":3,"minecraft:punch":2,"minecraft:flame":1}]
+give B hotbar1 minecraft:arrow 5
+give C hotbar0 minecraft:bow
+give D hotbar0 minecraft:bow
+give D hotbar1 minecraft:stick 3
+give E hotbar0 minecraft:bow
+give E hotbar1 minecraft:spectral_arrow 2
+give E hotbar2 minecraft:arrow 1
+give E hotbar3 minecraft:tipped_arrow[potion_contents={potion:"minecraft:poison"}] 3
+give E offhand minecraft:tipped_arrow[potion_contents={potion:"minecraft:swiftness"}] 1
+give F offhand minecraft:bow
+give F hotbar1 minecraft:arrow 6
+give G hotbar0 minecraft:bow[damage=383]
+give G hotbar1 minecraft:arrow 10
+give H hotbar0 minecraft:bow
+give H hotbar1 minecraft:arrow 3
+give I hotbar0 minecraft:bow[enchantments={"minecraft:infinity":1,"minecraft:unbreaking":3}]
+give I hotbar1 minecraft:tipped_arrow[potion_contents={potion:"minecraft:slowness"}] 3
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none packets:F:none packets:G:none packets:H:none packets:I:none
+note A: draws of 5, 2, 10, 20 and 30 ticks
+use A main 1
+tick 5
+dump use:A
+level_seed 1
+release A 1
+dump entity:arrow#1 use:A inventory:A stats:A events
+use A main 2
+tick 2
+level_seed 2
+release A 2
+dump use:A inventory:A stats:A events
+use A main 3
+tick 10
+level_seed 3
+release A 3
+dump entity:arrow#2 use:A inventory:A stats:A events
+use A main 4
+tick 20
+level_seed 4
+release A 4
+dump entity:arrow#3 use:A inventory:A stats:A events
+use A main 5
+tick 30
+level_seed 5
+release A 5
+dump entity:arrow#4 use:A inventory:A stats:A events
+tick 8
+dump entities
+note B: infinity keeps the arrows, power, punch and flame on the arrow
+use B main 1
+tick 20
+level_seed 6
+release B 1
+dump entity:arrow#5 nbt:arrow#5 use:B inventory:B stats:B events
+note C: creative without any arrow, and with one in the inventory
+use C main 1
+tick 12
+level_seed 7
+release C 1
+dump entity:arrow#6 use:C inventory:C stats:C events
+give C hotbar1 minecraft:arrow 3
+use C main 2
+tick 20
+level_seed 8
+release C 2
+dump entity:arrow#7 use:C inventory:C stats:C events
+note D: no arrows, only sticks: the use fails
+use D main 1
+dump use:D inventory:D stats:D events
+note E: the offhand tipped arrow first, then the selected slot, then the inventory in slot order: spectral, spectral, plain, tipped
+use E main 1
+tick 20
+level_seed 9
+release E 1
+dump entity:arrow#8 nbt:arrow#8 inventory:E stats:E events
+use E main 2
+tick 20
+level_seed 10
+release E 2
+dump entity:spectral_arrow#1 nbt:spectral_arrow#1 inventory:E stats:E events
+use E main 3
+tick 20
+level_seed 11
+release E 3
+dump entity:spectral_arrow#2 nbt:spectral_arrow#2 inventory:E stats:E events
+use E main 4
+tick 20
+level_seed 12
+release E 4
+dump entity:arrow#9 nbt:arrow#9 inventory:E stats:E events
+use E main 5
+tick 20
+level_seed 13
+release E 5
+dump entity:arrow#10 nbt:arrow#10 inventory:E stats:E events
+note F: the bow in the offhand
+use F off
+tick 20
+level_seed 14
+release F 1
+dump entity:arrow#11 use:F inventory:F stats:F events
+note F: swapping the hands and selecting another slot while drawing stop the use without a shot
+give F hotbar0 minecraft:bow
+use F off 2
+tick 15
+swap F
+dump use:F inventory:F stats:F events
+use F main 3
+tick 15
+select F 1
+dump use:F inventory:F stats:F events
+level_seed 15
+release F 2
+dump inventory:F stats:F events
+note G: the last durability point: the bow breaks
+use G main 1
+tick 20
+level_seed 16
+release G 1
+dump entity:arrow#12 use:G inventory:G stats:G events packets:G:container_set_slot,sound
+tick 3
+dump entities events
+note H: the arrows are gone before the release: no shot, no sound, nothing used
+use H main 1
+tick 20
+give H hotbar1 minecraft:air
+level_seed 17
+release H 1
+dump use:H inventory:H stats:H events
+note I: infinity with tipped arrows, unbreaking
+use I main 1
+tick 20
+level_seed 18
+release I 1
+dump entity:arrow#13 nbt:arrow#13 use:I inventory:I stats:I events
+use I main 2
+tick 20
+level_seed 19
+release I 2
+dump entity:arrow#14 use:I inventory:I stats:I events
