@@ -1,0 +1,41 @@
+# FireworkRocketItem.use while gliding: a rocket attached to the player (owner = the player) is spawned, every tick it pushes the
+# player's delta towards 1.5 * the look vector and rides at the hand, the stack is consumed (creative: kept) and the item-used
+# statistic counts. A cow leashed to the glider is released (the lead drops, the lead break sound follows the player). The second
+# rocket (offhand, one explosion) hurts the glider when its life is over; `use` while standing passes.
+level flat
+preload 6
+difficulty normal
+spawn_player P survival 0.5 -10 0.5 0 -15 sim
+spawn_player G creative 30.5 -10 0.5 90 10 sim
+spawn_player W survival 60.5 -60 0.5 0 0 sim
+give P chest minecraft:elytra
+give G chest minecraft:elytra
+give P hotbar0 minecraft:firework_rocket[fireworks={flight_duration:1}] 3
+give P offhand minecraft:firework_rocket[fireworks={flight_duration:2,explosions:[{shape:"large_ball",colors:[I;16711680]}]}] 1
+give G hotbar0 minecraft:firework_rocket[fireworks={flight_duration:1}] 3
+give W hotbar0 minecraft:firework_rocket[fireworks={flight_duration:1}] 3
+mobspawn Cow minecraft:cow 2.5 -10 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 2
+leash Cow P
+velocity P 0 0 0.5
+velocity G 0.5 0 0
+pcommand P START_FALL_FLYING
+pcommand G START_FALL_FLYING
+dump all_players mob:Cow events
+note a rocket used while standing passes: no entity, no statistic
+use W main 1
+dump entities inventory:W stats:W events
+note the glider uses its rocket: the lead breaks and the rocket is attached to the player
+level_seed 41
+use P main 1
+use G main 1
+dump entities nbt:firework_rocket#1 nbt:firework_rocket#2 inventory:P inventory:G stats:P stats:G mob:Cow events
+watch all_players entities events
+tick 12
+note the offhand rocket (explosion) while the first one is still burning
+use P off 2
+dump entities nbt:firework_rocket#3 inventory:P stats:P events
+note the offhand stack was the last rocket: the stack is empty and the statistic still counts the rocket
+tick 30
+watch off
+dump all_players entities events inventory:P stats:P
