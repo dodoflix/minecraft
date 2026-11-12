@@ -1,0 +1,152 @@
+# A spectator opens every block that has a menu provider (containers without a lid animation, enchanting table, grindstone, anvil, a lectern with a book)
+# and gets nothing from blocks without one (ender chest, jukebox, chiseled bookshelf, decorated pot, a lectern without a book, a chest under a block);
+# a survival player then opens the chest the spectator opened.
+level flat
+preload 6
+spawn_player S0 spectator 3.5 -60 3.5 180 0
+spawn_player S1 spectator 3.5 -60 13.5 180 0
+spawn_player S2 spectator 3.5 -60 23.5 180 0
+spawn_player S3 spectator 3.5 -60 33.5 180 0
+spawn_player S4 spectator 3.5 -60 43.5 180 0
+spawn_player S5 spectator 3.5 -60 53.5 180 0
+spawn_player Obs survival 1.5 -60 3.5 180 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
+block 2 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
+block 3 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+block 4 -60 0 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+block 6 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 6 -59 0 minecraft:stone
+block 0 -60 10 minecraft:ender_chest[facing=south,waterlogged=false]
+block 2 -60 10 minecraft:barrel[facing=up,open=false]
+block 4 -60 10 minecraft:shulker_box[facing=up]
+block 6 -60 10 minecraft:dispenser[facing=south,triggered=false]
+block 0 -60 20 minecraft:dropper[facing=south,triggered=false]
+block 2 -60 20 minecraft:hopper[enabled=true,facing=down]
+block 4 -60 20 minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]
+be_nbt 4 -60 20 {Items:[{Slot:0b,id:"minecraft:potion",count:1}]}
+block 6 -60 20 minecraft:beacon
+block 0 -60 30 minecraft:lectern[facing=south,has_book=true,powered=false]
+be_nbt 0 -60 30 {Book:{id:"minecraft:writable_book",count:1,components:{"minecraft:writable_book_content":{pages:["a","b"]}}},Page:0}
+block 2 -60 30 minecraft:lectern[facing=south,has_book=false,powered=false]
+block 4 -60 30 minecraft:jukebox[has_record=false]
+block 6 -60 30 minecraft:chiseled_bookshelf[facing=south]
+block 0 -60 40 minecraft:decorated_pot[cracked=false,facing=south,waterlogged=false]
+block 2 -60 40 minecraft:enchanting_table
+block 4 -60 40 minecraft:grindstone[face=floor,facing=north]
+block 6 -60 40 minecraft:anvil[facing=south]
+block 0 -60 50 minecraft:stone
+tick 2
+dump events packets:S0:none packets:S1:none packets:S2:none packets:S3:none packets:S4:none packets:S5:none packets:Obs:none
+level_seed 21
+note chest
+use_on S0 0 -60 0 south main
+dump events packets:S0:open_screen,container_close
+close_menu S0
+dump events packets:S0:container_close
+note double chest
+use_on S0 2 -60 0 south main
+dump events packets:S0:open_screen,container_close
+close_menu S0
+dump events packets:S0:container_close
+note trapped chest
+use_on S0 4 -60 0 south main
+dump events packets:S0:open_screen,container_close
+close_menu S0
+dump events packets:S0:container_close
+note chest under stone
+use_on S0 6 -60 0 south main
+dump events packets:S0:open_screen,container_close
+close_menu S0
+dump events packets:S0:container_close
+note ender chest
+use_on S1 0 -60 10 south main
+dump events packets:S1:open_screen,container_close
+close_menu S1
+dump events packets:S1:container_close
+note barrel
+use_on S1 2 -60 10 south main
+dump events packets:S1:open_screen,container_close
+close_menu S1
+dump events packets:S1:container_close
+note shulker box
+use_on S1 4 -60 10 south main
+dump events packets:S1:open_screen,container_close
+close_menu S1
+dump events packets:S1:container_close
+note dispenser
+use_on S1 6 -60 10 south main
+dump events packets:S1:open_screen,container_close
+close_menu S1
+dump events packets:S1:container_close
+note dropper
+use_on S2 0 -60 20 south main
+dump events packets:S2:open_screen,container_close
+close_menu S2
+dump events packets:S2:container_close
+note hopper
+use_on S2 2 -60 20 south main
+dump events packets:S2:open_screen,container_close
+close_menu S2
+dump events packets:S2:container_close
+note brewing stand
+use_on S2 4 -60 20 south main
+dump events packets:S2:open_screen,container_close
+close_menu S2
+dump events packets:S2:container_close
+note beacon
+use_on S2 6 -60 20 south main
+dump events packets:S2:open_screen,container_close
+close_menu S2
+dump events packets:S2:container_close
+note lectern with book
+use_on S3 0 -60 30 south main
+dump events packets:S3:open_screen,container_close
+close_menu S3
+dump events packets:S3:container_close
+note lectern without book
+use_on S3 2 -60 30 south main
+dump events packets:S3:open_screen,container_close
+close_menu S3
+dump events packets:S3:container_close
+note jukebox
+use_on S3 4 -60 30 south main
+dump events packets:S3:open_screen,container_close
+close_menu S3
+dump events packets:S3:container_close
+note chiseled bookshelf
+use_on S3 6 -60 30 south main
+dump events packets:S3:open_screen,container_close
+close_menu S3
+dump events packets:S3:container_close
+note decorated pot
+use_on S4 0 -60 40 south main
+dump events packets:S4:open_screen,container_close
+close_menu S4
+dump events packets:S4:container_close
+note enchanting table
+use_on S4 2 -60 40 south main
+dump events packets:S4:open_screen,container_close
+close_menu S4
+dump events packets:S4:container_close
+note grindstone
+use_on S4 4 -60 40 south main
+dump events packets:S4:open_screen,container_close
+close_menu S4
+dump events packets:S4:container_close
+note anvil
+use_on S4 6 -60 40 south main
+dump events packets:S4:open_screen,container_close
+close_menu S4
+dump events packets:S4:container_close
+note stone
+use_on S5 0 -60 50 south main
+dump events packets:S5:open_screen,container_close
+close_menu S5
+dump events packets:S5:container_close
+tick 12
+dump events ticks
+note a survival player opens the chest the spectator opened (no lid or opener state was left behind)
+use_on Obs 0 -60 0 south main
+tick 6
+dump events packets:Obs:open_screen,container_close

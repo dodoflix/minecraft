@@ -1,0 +1,115 @@
+# Chest, double chest, barrel, ender chest and shulker box: the open sound and lid block events when the first player opens the menu,
+# the recheck while it stays open, the close sound when the menu closes, a second player on a double chest, a player walking away
+# (the openers recheck closes it), a chest with a solid block on top (cannot be opened) and a waterlogged chest.
+# One area only: the level random must see the same chunks on both servers.
+level flat
+preload 2
+spawn_player A survival 3.5 -60 1.5 180 0
+spawn_player B survival 4.5 -60 1.5 180 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
+block 2 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
+block 3 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+block 5 -60 0 minecraft:barrel[facing=up,open=false]
+block 6 -60 0 minecraft:ender_chest[facing=south,waterlogged=false]
+block 7 -60 0 minecraft:shulker_box[facing=up]
+block 8 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 8 -59 0 minecraft:stone
+block -1 -60 0 minecraft:chest[facing=south,type=single,waterlogged=true]
+tick 2
+dump events packets:A:none packets:B:none
+note single chest
+level_seed 11
+use_on A 0 -60 0 south main
+dump events packets:A:open_screen,container_close blocks:0,-60,0,0,-60,0
+tick 8
+dump events ticks blocks:0,-60,0,0,-60,0
+close_menu A
+dump events
+tick 8
+dump events ticks blocks:0,-60,0,0,-60,0
+note barrel
+level_seed 12
+use_on A 5 -60 0 south main
+dump events packets:A:open_screen,container_close blocks:5,-60,0,5,-60,0
+tick 8
+dump events ticks blocks:5,-60,0,5,-60,0
+close_menu A
+dump events
+tick 8
+dump events ticks blocks:5,-60,0,5,-60,0
+note ender chest
+level_seed 13
+use_on A 6 -60 0 south main
+dump events packets:A:open_screen,container_close blocks:6,-60,0,6,-60,0
+tick 8
+dump events ticks blocks:6,-60,0,6,-60,0
+close_menu A
+dump events
+tick 8
+dump events ticks blocks:6,-60,0,6,-60,0
+note shulker box
+level_seed 14
+use_on A 7 -60 0 south main
+dump events packets:A:open_screen,container_close blocks:7,-60,0,7,-60,0
+tick 8
+dump events ticks blocks:7,-60,0,7,-60,0
+close_menu A
+dump events
+tick 8
+dump events ticks blocks:7,-60,0,7,-60,0
+note chest with a block on top (does not open)
+level_seed 15
+use_on A 8 -60 0 south main
+dump events packets:A:open_screen,container_close blocks:8,-60,0,8,-60,0
+tick 8
+dump events ticks blocks:8,-60,0,8,-60,0
+close_menu A
+dump events
+tick 8
+dump events ticks blocks:8,-60,0,8,-60,0
+note waterlogged chest
+level_seed 16
+use_on A -1 -60 0 south main
+dump events packets:A:open_screen,container_close blocks:-1,-60,0,-1,-60,0
+tick 8
+dump events ticks blocks:-1,-60,0,-1,-60,0
+close_menu A
+dump events
+tick 8
+dump events ticks blocks:-1,-60,0,-1,-60,0
+note double chest, right half
+level_seed 17
+use_on A 3 -60 0 south main
+dump events packets:A:open_screen,container_close blocks:3,-60,0,3,-60,0
+tick 8
+dump events ticks blocks:3,-60,0,3,-60,0
+close_menu A
+dump events
+tick 8
+dump events ticks blocks:3,-60,0,3,-60,0
+note double chest: A opens the right half, B opens the left half too, A closes, then B closes
+level_seed 18
+use_on A 3 -60 0 south main
+use_on B 2 -60 0 south main
+dump events packets:A:open_screen,container_close packets:B:open_screen,container_close
+tick 8
+dump events
+close_menu A
+dump events
+tick 8
+dump events
+close_menu B
+dump events
+tick 8
+dump events ticks
+note a player who opened a chest and walks away: the recheck closes it
+level_seed 19
+use_on A 0 -60 0 south main
+use_on B 5 -60 0 south main
+tick 8
+dump events
+tp A 3.5 -60 30.5
+tp B 4.5 -60 30.5
+tick 12
+dump events ticks packets:A:open_screen,container_close packets:B:open_screen,container_close blocks:5,-60,0,5,-60,0

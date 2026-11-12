@@ -1,0 +1,40 @@
+# chest
+PKT S0 minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+# double chest
+PKT S0 minecraft:open_screen 3c02020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+# trapped chest
+PKT S0 minecraft:open_screen 3c03020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+# chest under stone
+# ender chest
+# barrel
+PKT S1 minecraft:open_screen 3c01020a0800097472616e736c6174650010636f6e7461696e65722e62617272656c00
+# shulker box
+PKT S1 minecraft:open_screen 3c02140a0800097472616e736c6174650014636f6e7461696e65722e7368756c6b6572426f7800
+# dispenser
+PKT S1 minecraft:open_screen 3c03060a0800097472616e736c6174650013636f6e7461696e65722e64697370656e73657200
+# dropper
+PKT S2 minecraft:open_screen 3c01060a0800097472616e736c6174650011636f6e7461696e65722e64726f7070657200
+# hopper
+PKT S2 minecraft:open_screen 3c02100a0800097472616e736c6174650010636f6e7461696e65722e686f7070657200
+# brewing stand
+PKT S2 minecraft:open_screen 3c030b0a0800097472616e736c6174650011636f6e7461696e65722e62726577696e6700
+# beacon
+PKT S2 minecraft:open_screen 3c04090a0800097472616e736c6174650010636f6e7461696e65722e626561636f6e00
+# lectern with book
+PKT S3 minecraft:open_screen 3c01110a0800097472616e736c6174650011636f6e7461696e65722e6c65637465726e00
+# lectern without book
+# jukebox
+# chiseled bookshelf
+# decorated pot
+# enchanting table
+PKT S4 minecraft:open_screen 3c010d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400
+# grindstone
+PKT S4 minecraft:open_screen 3c020f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+# anvil
+PKT S4 minecraft:open_screen 3c03080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+# stone
+# a survival player opens the chest the spectator opened (no lid or opener state was left behind)
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.9326225
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:chest b0=1 b1=1
+PKT Obs minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400

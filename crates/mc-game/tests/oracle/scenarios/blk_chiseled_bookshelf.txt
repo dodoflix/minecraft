@@ -1,0 +1,65 @@
+# Chiseled bookshelf: books go in the hit slot, a full or unusable slot, books come out into the inventory, the comparator
+# follows the last interacted slot, enchanted books use their own sounds, a hit from the side or back does nothing.
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+block 0 -60 0 minecraft:chiseled_bookshelf[facing=south]
+block 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp[lit=false]
+tick 2
+dump blocks:-1,-61,-1,3,-59,1 events packets:A:none
+give A mainhand minecraft:book 16
+note one book in each hit position of the south face (slots 0..5 left to right for the facing, top row first)
+use_on A 0 -60 0 south main 0.8 0.75 1.0
+dump blocks:0,-60,0,1,-60,0 be:0,-60,0 events inventory:A
+use_on A 0 -60 0 south main 0.5 0.75 1.0
+dump blocks:0,-60,0,1,-60,0 be:0,-60,0 events
+use_on A 0 -60 0 south main 0.2 0.75 1.0
+dump blocks:0,-60,0,1,-60,0 be:0,-60,0 events
+use_on A 0 -60 0 south main 0.8 0.25 1.0
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 events
+note an occupied slot with a book in hand: the book is taken instead
+use_on A 0 -60 0 south main 0.8 0.25 1.0
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 events inventory:A
+use_on A 0 -60 0 south main 0.8 0.25 1.0
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 events
+note enchanted and written books
+give A mainhand minecraft:enchanted_book[stored_enchantments={"minecraft:sharpness":1}] 1
+use_on A 0 -60 0 south main 0.5 0.25 1.0
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 events
+give A mainhand minecraft:written_book[written_book_content={title:"T",author:"x",pages:["p"]}] 1
+use_on A 0 -60 0 south main 0.2 0.25 1.0
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 events
+note not a book: ignored, the empty slot is only "consumed"
+give A mainhand minecraft:apple 1
+use_on A 0 -60 0 south main 0.5 0.25 1.0
+dump blocks:0,-60,0,2,-60,0 events
+note from the back or the side
+give A mainhand minecraft:book 8
+use_on A 0 -60 0 north main 0.5 0.5 0.0
+use_on A 0 -60 0 east main 1.0 0.5 0.5
+use_on A 0 -60 0 up main 0.5 1.0 0.5
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 events inventory:A
+note taking books out with an empty hand: pickup sound, comparator output, the full inventory drops the book
+give A mainhand minecraft:air
+use_on A 0 -60 0 south main 0.5 0.75 1.0
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 events inventory:A
+use_on A 0 -60 0 south main 0.5 0.75 1.0
+dump blocks:0,-60,0,2,-60,0 events
+use_on A 0 -60 0 south main 0.5 0.25 1.0
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 events inventory:A
+use_on A 0 -60 0 south main 0.2 0.25 1.0
+use_on A 0 -60 0 south main 0.8 0.75 1.0
+use_on A 0 -60 0 south main 0.2 0.75 1.0
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0 events inventory:A
+tick 4
+dump blocks:0,-60,0,2,-60,0 events
+note destroying a filled shelf drops the books and updates the comparator
+give A mainhand minecraft:book 6
+use_on A 0 -60 0 south main 0.8 0.75 1.0
+use_on A 0 -60 0 south main 0.5 0.75 1.0
+dump blocks:0,-60,0,2,-60,0 be:0,-60,0
+give A mainhand minecraft:air
+dig A 0 -60 0
+tick 4
+dump blocks:0,-60,0,2,-60,0 entities events

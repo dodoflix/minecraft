@@ -1,0 +1,48 @@
+# Open-container statistics: chest, trapped chest, barrel, ender chest and shulker box award their stat once a menu provider exists, a
+# locked chest and a locked beacon award it although the menu does not open, and a spectator pointing at a loot chest opens nothing.
+# The statistics are dumped per player (`stats:`), the join messages of the players already in the level are replayed.
+level flat
+preload 2
+spawn_player A survival 3.5 -60 1.5 180 0
+spawn_player B survival 11.5 -60 1.5 180 0
+spawn_player S spectator 15.5 -60 1.5 180 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 2 -60 0 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
+block 4 -60 0 minecraft:barrel[facing=up,open=false]
+block 6 -60 0 minecraft:ender_chest[facing=south,waterlogged=false]
+block 8 -60 0 minecraft:shulker_box[facing=up]
+block 10 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 10 -60 0 {lock:{items:"minecraft:diamond"}}
+block 12 -60 0 minecraft:beacon
+be_nbt 12 -60 0 {lock:{items:"minecraft:diamond"}}
+block 14 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 14 -60 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:7L}
+tick 2
+dump stats:A stats:B stats:S
+level_seed 21
+note chest
+use_on A 0 -60 0 south main
+close_menu A
+note trapped chest
+use_on A 2 -60 0 south main
+close_menu A
+note barrel
+use_on A 4 -60 0 south main
+close_menu A
+note ender chest
+use_on A 6 -60 0 south main
+close_menu A
+note shulker box
+use_on A 8 -60 0 south main
+close_menu A
+tick 30
+dump stats:A packets:A:system_chat,open_screen,container_close
+note locked chest and locked beacon (no menu opens)
+use_on B 10 -60 0 south main
+use_on B 12 -60 0 south main
+tick 2
+dump stats:B packets:B:system_chat,open_screen,container_close
+note spectator on a loot chest
+use_on S 14 -60 0 south main
+tick 2
+dump stats:S packets:S:open_screen be:14,-60,0

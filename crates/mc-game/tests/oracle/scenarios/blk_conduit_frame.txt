@@ -1,0 +1,39 @@
+# ConduitBlockEntity: a prismarine frame around a water cube activates it (activate sound, ambient sounds, conduit power for a player in
+# water, hunting at 42 frame blocks, the target it hurts), and shrinking the frame deactivates it.
+level flat
+preload 2
+spawn_player A survival 0.5 -58 1.5 0 0
+spawn_player B survival 6.5 -60 6.5 0 0
+spawn Z minecraft:zombie 0.5 -59 -0.5 {NoAI:1b,Silent:1b}
+fill -2 -60 -2 2 -56 2 minecraft:prismarine
+fill -1 -59 -1 1 -57 1 minecraft:water
+block 0 -58 0 minecraft:conduit[waterlogged=true]
+tick 1
+dump events be:0,-58,0 beu:0,-58,0 all_players
+note first shape check on the next multiple of 40 game ticks, then once more
+tick 40
+dump events be:0,-58,0 beu:0,-58,0 all_players entity:Z
+tick 40
+dump events be:0,-58,0 beu:0,-58,0 all_players entity:Z
+tick 40
+dump events be:0,-58,0 beu:0,-58,0 all_players entity:Z
+note remove the top plate: 33 frame blocks, active but no longer hunting
+fill -2 -56 -2 2 -56 2 minecraft:stone
+tick 80
+dump events be:0,-58,0 beu:0,-58,0 all_players
+note a sea lantern replaces a frame block
+block 2 -58 0 minecraft:sea_lantern
+block 0 -58 2 minecraft:dark_prismarine
+tick 40
+dump events be:0,-58,0
+note break most of the frame: fewer than 16 blocks, the conduit deactivates
+fill -2 -60 -2 2 -60 2 minecraft:stone
+fill -2 -58 -2 -2 -58 2 minecraft:stone
+fill 2 -58 -2 2 -58 2 minecraft:stone
+fill -2 -59 -2 -2 -57 -2 minecraft:stone
+tick 80
+dump events be:0,-58,0 all_players
+note water removed: stays off
+block 0 -59 0 minecraft:air
+tick 80
+dump events be:0,-58,0

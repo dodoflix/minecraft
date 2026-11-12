@@ -1,0 +1,81 @@
+# Lectern: placing a book (sound, has_book, comparator, a lamp under it), opening the menu, turning pages (powered pulse of 2 ticks,
+# level event 1043, comparator signal by page, clamping), jumping to a page, taking the book, and a written book.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player W survival 8.5 -60 3.5 180 0
+block 0 -61 0 minecraft:redstone_lamp[lit=false]
+block 0 -60 0 minecraft:lectern[facing=south,has_book=false,powered=false]
+block 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 2 -60 0 minecraft:redstone_lamp[lit=false]
+block 8 -61 0 minecraft:redstone_lamp[lit=false]
+block 8 -60 0 minecraft:lectern[facing=south,has_book=false,powered=false]
+tick 2
+dump blocks:-1,-61,-1,3,-59,1 events packets:A:none packets:W:none
+note an empty lectern does nothing with an empty hand or an unrelated item
+use_on A 0 -60 0 up main
+give A mainhand minecraft:apple
+use_on A 0 -60 0 up main
+dump events packets:A:open_screen,container_close blocks:0,-60,0,0,-60,0
+note a writable book is placed
+give A mainhand minecraft:writable_book[writable_book_content={pages:["a","b","c","d","e"]}]
+use_on A 0 -60 0 up main
+dump events blocks:-1,-61,-1,3,-59,1 be:0,-60,0 inventory:A
+tick 6
+dump events blocks:-1,-61,-1,3,-59,1
+note a second book is not accepted, the empty hand opens the menu
+give A mainhand minecraft:writable_book[writable_book_content={pages:["x"]}]
+use_on A 0 -60 0 up main
+dump events packets:A:open_screen,container_close inventory:A
+give A mainhand minecraft:air
+use_on A 0 -60 0 up main
+dump events packets:A:open_screen,container_close,container_set_content,container_set_data blocks:0,-60,0,0,-60,0
+note next page: powered for two ticks, the comparator follows the page
+menu_button A 2
+dump events blocks:-1,-61,-1,3,-59,1 be:0,-60,0 ticks
+tick 1
+dump events blocks:-1,-61,-1,3,-59,1 ticks
+tick 1
+dump events blocks:-1,-61,-1,3,-59,1 ticks
+tick 6
+dump events blocks:-1,-61,-1,3,-59,1 ticks packets:A:container_set_data
+menu_button A 2
+tick 4
+menu_button A 2
+tick 4
+dump events blocks:-1,-61,-1,3,-59,1 be:0,-60,0
+note the last page clamps: no change, no pulse
+menu_button A 2
+tick 4
+dump events blocks:-1,-61,-1,3,-59,1 be:0,-60,0 ticks
+menu_button A 1
+tick 4
+menu_button A 101
+tick 4
+dump events blocks:-1,-61,-1,3,-59,1 be:0,-60,0
+menu_button A 100
+tick 4
+menu_button A 1
+tick 4
+dump events blocks:-1,-61,-1,3,-59,1 be:0,-60,0
+note taking the book clears the lectern and the menu
+menu_button A 3
+dump events blocks:-1,-61,-1,3,-59,1 be:0,-60,0 inventory:A packets:A:open_screen,container_close
+tick 6
+dump events blocks:-1,-61,-1,3,-59,1
+note a written book, one page
+give W mainhand minecraft:written_book[written_book_content={title:"T",author:"x",pages:["p1","p2","p3"]}]
+use_on W 8 -60 0 up main
+tick 6
+dump events blocks:7,-61,-1,9,-59,1 be:8,-60,0 beu:8,-60,0 inventory:W
+use_on W 8 -60 0 up main
+menu_button W 2
+tick 6
+dump events blocks:7,-61,-1,9,-59,1 be:8,-60,0 packets:W:open_screen,container_close
+close_menu W
+dump events
+note breaking a lectern with a book drops the book
+dig W 8 -60 0
+tick 4
+dump events blocks:7,-61,-1,9,-59,1 entities

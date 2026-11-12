@@ -1,0 +1,60 @@
+# BellBlock: only a hit from the correct side rings (floor, ceiling and wall attachments), redstone rings it once per rising edge, the
+# ring sound, the block event, villagers within 32 blocks hear it (HEARD_BELL_TIME) and farther ones do not.
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B survival 16.5 -60 3.5 180 0
+spawn_player C survival 24.5 -60 3.5 180 0
+spawn_player D survival 32.5 -60 3.5 180 0
+spawn_player E survival 8.5 -60 3.5 180 0
+time 100
+spawn V1 minecraft:villager 4.5 -60 6.5 {NoAI:1b,Silent:1b}
+spawn V2 minecraft:villager 20.5 -60 20.5 {NoAI:1b,Silent:1b}
+spawn V3 minecraft:villager 40.5 -60 -30.5 {NoAI:1b,Silent:1b}
+block 0 -60 0 minecraft:bell[attachment=floor,facing=north,powered=false]
+block 8 -60 0 minecraft:bell[attachment=floor,facing=east,powered=false]
+block 16 -60 0 minecraft:bell[attachment=ceiling,facing=north,powered=false]
+block 16 -59 0 minecraft:stone
+block 24 -60 0 minecraft:bell[attachment=single_wall,facing=north,powered=false]
+block 24 -60 1 minecraft:stone
+block 32 -60 0 minecraft:bell[attachment=floor,facing=north,powered=false]
+tick 2
+dump events packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none brain:V1 brain:V2 brain:V3
+note a floor bell facing north is rung from the north or south face; the side faces, the top and a high hit do nothing
+use_on A 0 -60 0 east main
+use_on A 0 -60 0 up main
+use_on A 0 -60 0 south main 0.5 0.9 1.0
+dump events be:0,-60,0
+use_on A 0 -60 0 south main
+dump events be:0,-60,0 brain:V1 brain:V2 brain:V3
+tick 3
+note a bell facing east is rung from the east face only (the facing axis)
+use_on E 8 -60 0 north main
+use_on E 8 -60 0 east main
+dump events
+tick 3
+note ceiling bell: any side face rings it
+use_on B 16 -60 0 north main
+dump events
+tick 3
+note wall bell facing north: rung from the east or west face
+use_on C 24 -60 0 south main
+use_on C 24 -60 0 west main
+dump events
+tick 20
+dump events ticks
+note redstone: a powered neighbour rings once, powered stays, then loses power
+block 33 -60 0 minecraft:redstone_block
+dump events blocks:32,-60,0,33,-60,0
+tick 3
+block 33 -60 0 minecraft:air
+dump events blocks:32,-60,0,33,-60,0
+tick 3
+block 33 -60 0 minecraft:redstone_block
+dump events blocks:32,-60,0,33,-60,0
+tick 60
+dump events brain:V1 brain:V2 brain:V3
+note ringing again after the 60 tick search interval refreshes the nearby entity list
+use_on A 0 -60 0 north main
+tick 2
+dump events brain:V1 brain:V2 brain:V3

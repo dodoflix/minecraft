@@ -14,6 +14,7 @@ mod blk_aquatic_golden;
 mod blk_cauldron_golden;
 mod blk_copper_statue_golden;
 mod blk_doors_connect_golden;
+mod blk_interactions_golden;
 mod blk_powder_golden;
 mod blk_shelf_golden;
 mod block_behaviour_golden;
