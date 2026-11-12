@@ -1,0 +1,123 @@
+# Adventure mode block predicates: an item without can_place_on cannot be used on a block, can_place_on lets it through for the matching blocks only
+# (a block list, a list of predicates, the block entity data of an nbt predicate, a components predicate that the in-world check does not test), and can_break
+# with `dig` decides which blocks an adventure player may break. The predicate checks the block entity data of the clicked block, so a chest with and a chest
+# without contents are compared.
+level flat
+preload 2
+spawn_player Adv adventure 0.5 -60 3.5 0 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 8 -60 0 minecraft:stone
+block 12 -60 0 minecraft:dirt
+block 16 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+tick 3
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+tick 1
+dump be:0,-60,0 be:4,-60,0 packets:Adv:none
+input Adv sneak
+tick 1
+watch packets:Adv:container_set_slot
+note without can_place_on the item is not used in adventure mode
+give Adv hotbar0 minecraft:stone 4
+select Adv 0
+use_on Adv 0 -60 0 east main
+tick 1
+dump inventory:Adv stats:Adv blocks:-2,-60,0,2,-59,0 events
+note can_place_on a block: allowed on a chest, not on stone
+give Adv hotbar1 minecraft:stone[can_place_on={blocks:"minecraft:chest"}] 4
+select Adv 1
+use_on Adv 0 -60 0 east main
+tick 1
+dump inventory:Adv stats:Adv blocks:-2,-60,0,2,-59,0 events
+snap Adv 8.5 -60 3.5 0 0
+use_on Adv 8 -60 0 east main
+tick 1
+dump inventory:Adv blocks:6,-60,0,10,-59,0 events
+note a list of predicates: stone or dirt
+give Adv hotbar2 minecraft:stone[can_place_on=[{blocks:"minecraft:stone"},{blocks:"minecraft:dirt"}]] 4
+select Adv 2
+use_on Adv 8 -60 0 north main
+use_on Adv 8 -60 0 south main
+tick 1
+dump inventory:Adv blocks:6,-60,0,10,-59,1 events
+snap Adv 12.5 -60 3.5 0 0
+use_on Adv 12 -60 0 east main
+tick 1
+dump inventory:Adv blocks:10,-60,0,14,-59,0 events
+use_on Adv 12 -60 0 up main
+tick 1
+dump inventory:Adv blocks:10,-60,0,14,-59,0 events
+note an nbt predicate tests the saved block entity data: a chest without contents does not match, one with a dirt stack does (a stack keeps what the predicate last decided for the block state)
+snap Adv 4.5 -60 3.5 0 0
+give Adv hotbar3 minecraft:stone[can_place_on={blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}] 4
+select Adv 3
+use_on Adv 4 -60 0 east main
+tick 1
+dump inventory:Adv blocks:2,-60,0,6,-59,0 events
+snap Adv 0.5 -60 3.5 0 0
+use_on Adv 0 -60 0 east main
+tick 1
+dump inventory:Adv blocks:-2,-60,0,2,-59,0 events
+note a new stack decides again
+give Adv hotbar4 minecraft:stone[can_place_on={blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}] 4
+select Adv 4
+use_on Adv 0 -60 0 west main
+tick 1
+dump inventory:Adv blocks:-2,-60,0,2,-59,0 events
+snap Adv 4.5 -60 3.5 0 0
+use_on Adv 4 -60 0 west main
+tick 1
+dump inventory:Adv blocks:2,-60,0,6,-59,0 events
+note the order reversed: the matching chest first, then the chest that does not match
+give Adv hotbar5 minecraft:stone[can_place_on={blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}] 4
+select Adv 5
+snap Adv 0.5 -60 3.5 0 0
+use_on Adv 0 -60 0 up main
+tick 1
+dump inventory:Adv blocks:-2,-60,0,2,-59,0 events
+snap Adv 4.5 -60 3.5 0 0
+use_on Adv 4 -60 0 up main
+tick 1
+dump inventory:Adv blocks:2,-60,0,6,-59,0 events
+note a components predicate: only the block and state parts and the nbt are tested in the world, so the chest passes
+snap Adv 16.5 -60 3.5 0 0
+give Adv hotbar6 minecraft:stone[can_place_on={blocks:"minecraft:chest",components:{"minecraft:custom_name":"Named"}}] 4
+select Adv 6
+use_on Adv 16 -60 0 east main
+tick 1
+dump inventory:Adv blocks:14,-60,0,18,-59,0 events
+note can_break decides what an adventure player breaks: a dirt only pickaxe digs no stone
+snap Adv 8.5 -60 3.5 0 0
+give Adv hotbar7 minecraft:diamond_pickaxe[can_break={blocks:"minecraft:dirt"}] 1
+select Adv 7
+dig Adv 8 -60 0
+tick 1
+dump blocks:6,-60,0,10,-60,0 packets:Adv:none
+give Adv hotbar8 minecraft:diamond_pickaxe[can_break=[{blocks:"minecraft:stone"}]] 1
+select Adv 8
+dig Adv 8 -60 0
+tick 1
+dump blocks:6,-60,0,10,-60,0 inventory:Adv events
+note an axe without can_break breaks nothing; one for a chest with contents does not break the empty chest, and then not the full one either (the stack keeps its last verdict for the block state)
+snap Adv 0.5 -60 3.5 0 0
+give Adv hotbar0 minecraft:diamond_axe 1
+select Adv 0
+dig Adv 0 -60 0
+tick 1
+dump blocks:0,-60,0,4,-60,0
+give Adv hotbar1 minecraft:diamond_axe[can_break={blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}] 1
+select Adv 1
+snap Adv 4.5 -60 3.5 0 0
+dig Adv 4 -60 0
+tick 1
+dump blocks:0,-60,0,4,-60,0
+snap Adv 0.5 -60 3.5 0 0
+dig Adv 0 -60 0
+tick 1
+dump blocks:0,-60,0,4,-60,0
+note a fresh stack breaks the chest with contents
+give Adv hotbar2 minecraft:diamond_axe[can_break={blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}] 1
+select Adv 2
+dig Adv 0 -60 0
+tick 1
+dump blocks:0,-60,0,4,-60,0 inventory:Adv events

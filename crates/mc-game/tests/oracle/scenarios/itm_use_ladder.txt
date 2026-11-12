@@ -1,0 +1,118 @@
+# The use ladder of ServerPlayerGameMode.useItemOn / useItem: spectators, cooldowns, the creative count restore, the shift key suppressing the block use, the empty-hand
+# fallback, the offhand, the inventory resync after an item use, and the ITEM_USED_ON_BLOCK trigger (both of its call sites).
+# The inventory, the cooldowns and the packets of the player are dumped after every step: `container_set_slot` / `container_set_content` show the resync.
+level flat
+preload 2
+spawn_player S survival 0.5 -60 3.5 0 0
+spawn_player C creative 12.5 -60 3.5 0 0
+spawn_player Sp spectator 24.5 -60 3.5 0 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 24 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 26 -60 0 minecraft:stone
+block 4 -60 0 minecraft:copper_block
+tick 5
+dump packets:S:none packets:C:none packets:Sp:none
+watch packets:S:container_set_slot,container_set_content,open_screen packets:C:container_set_slot,container_set_content,open_screen packets:Sp:container_set_slot,container_set_content,open_screen
+note a survival player places a block: the stack shrinks, the stat counts
+give S hotbar0 minecraft:cobblestone 8
+select S 0
+use_on S 2 -61 0 up main
+tick 1
+dump inventory:S stats:S cooldowns:S blocks:0,-60,0,6,-59,0 events
+note the item on cooldown cannot be used on a block; the cooldown group starts when the use succeeds
+give S hotbar1 minecraft:cobblestone[use_cooldown={seconds:3.0,cooldown_group:"test:blocks"}] 8
+select S 1
+use_on S 3 -61 0 up main
+dump cooldowns:S inventory:S
+tick 1
+use_on S 5 -61 0 up main
+tick 1
+dump cooldowns:S inventory:S blocks:0,-60,0,6,-59,0 events
+tick 70
+dump cooldowns:S
+use_on S 5 -61 0 up main
+tick 1
+dump cooldowns:S inventory:S blocks:0,-60,0,6,-59,0 events
+note creative keeps the count and still starts the cooldown
+give C hotbar0 minecraft:cobblestone[use_cooldown={seconds:1.0,cooldown_group:"test:blocks"}] 8
+select C 0
+use_on C 12 -61 0 up main
+tick 1
+dump inventory:C cooldowns:C stats:C blocks:10,-60,0,16,-59,0 events
+use_on C 14 -61 0 up main
+tick 1
+dump inventory:C cooldowns:C blocks:10,-60,0,16,-59,0 events
+tick 25
+use_on C 14 -61 0 up main
+tick 1
+dump inventory:C cooldowns:C blocks:10,-60,0,16,-59,0 events
+note a spectator opens the menu of a chest (consumed) and passes through every other block; nothing is placed or used
+give Sp hotbar0 minecraft:cobblestone 8
+select Sp 0
+use_on Sp 24 -60 0 south main
+tick 1
+dump inventory:Sp stats:Sp
+close_menu Sp
+use_on Sp 26 -61 0 up main
+use_on Sp 26 -60 0 south main
+use Sp main
+tick 1
+dump inventory:Sp blocks:24,-60,0,28,-59,0 events
+note the shift key with something in a hand suppresses the block use: the cobblestone is placed against the chest instead of opening it
+input S sneak
+tick 1
+give S hotbar2 minecraft:cobblestone 8
+select S 2
+use_on S 0 -60 0 east main
+tick 1
+dump inventory:S blocks:-2,-60,0,2,-59,0 events
+note the shift key with empty hands still uses the block
+select S 8
+use_on S 0 -60 0 south main
+tick 1
+dump inventory:S
+close_menu S
+input S none
+tick 1
+note the empty-hand fallback: a stick in the main hand does not use the chest by itself, the chest still opens
+give S hotbar3 minecraft:stick 3
+select S 3
+use_on S 0 -60 0 south main
+tick 1
+dump inventory:S stats:S
+close_menu S
+note the offhand: the main hand is empty, the offhand item is placed; the chest does not open for the offhand
+select S 8
+give S offhand minecraft:cobblestone 4
+use_on S 0 -60 0 west off
+tick 1
+dump inventory:S blocks:-2,-60,0,2,-59,0 events
+note the offhand again, with a use remainder
+give S offhand minecraft:cobblestone[use_remainder={id:"minecraft:stick"}] 2
+use_on S 2 -61 1 up off
+tick 1
+dump inventory:S blocks:0,-60,0,6,-59,2 events
+note the item use trigger of the item use (honeycomb on copper) and of the block use (a trial key on a vault)
+dump advancements:S
+give S hotbar4 minecraft:honeycomb 2
+select S 4
+use_on S 4 -60 0 up main
+tick 1
+dump advancements:S inventory:S events
+block 40 -60 0 minecraft:vault[facing=south,ominous=false,vault_state=inactive]
+snap S 40.5 -60 3.5 0 0
+tick 20
+give S hotbar5 minecraft:trial_key 1
+select S 5
+level_seed 31
+use_on S 40 -60 0 south main
+tick 1
+dump advancements:S inventory:S blocks:40,-60,0,40,-60,0 events
+note an item use that replaces the held stack resyncs the whole inventory (a water bucket emptied on the floor)
+give S hotbar6 minecraft:water_bucket 1
+select S 6
+snap S 50.5 -60 3.5 0 90
+tick 2
+use S main
+tick 1
+dump inventory:S blocks:50,-61,3,51,-58,4 events

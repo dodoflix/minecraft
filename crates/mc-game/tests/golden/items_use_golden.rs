@@ -27,3 +27,13 @@ fn drop_stats_match_vanilla() {
 fn tool_break_stats_match_vanilla() {
     check("itm_tool_break");
 }
+
+#[test]
+fn use_ladder_matches_vanilla() {
+    check("itm_use_ladder");
+}
+
+#[test]
+fn adventure_predicates_match_vanilla() {
+    check("itm_adventure_predicates");
+}

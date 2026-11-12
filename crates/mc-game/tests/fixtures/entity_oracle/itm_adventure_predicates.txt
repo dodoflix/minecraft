@@ -1,0 +1,237 @@
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:dirt"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 4 -60 0 {Items:[],components:{},id:"minecraft:chest",x:4,y:-60,z:0}
+# without can_place_on the item is not used in adventure mode
+T 6
+PKT Adv minecraft:container_set_slot 140002002404010000
+I Adv 0 minecraft:stone*4
+STAT Adv minecraft.custom:minecraft.play_time 6
+STAT Adv minecraft.custom:minecraft.sneak_time 2
+STAT Adv minecraft.custom:minecraft.time_since_death 6
+STAT Adv minecraft.custom:minecraft.time_since_rest 6
+STAT Adv minecraft.custom:minecraft.total_world_time 6
+B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+# can_place_on a block: allowed on a chest, not on stone
+T 7
+PKT Adv minecraft:container_set_slot 1400030025030101000e010102f50100000000
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+STAT Adv minecraft.custom:minecraft.play_time 7
+STAT Adv minecraft.custom:minecraft.sneak_time 3
+STAT Adv minecraft.custom:minecraft.time_since_death 7
+STAT Adv minecraft.custom:minecraft.time_since_rest 7
+STAT Adv minecraft.custom:minecraft.total_world_time 7
+STAT Adv minecraft.used:minecraft.stone 1
+B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+B 1 -60 0 minecraft:stone
+EV sound at=1.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 8
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+B 8 -60 0 minecraft:stone
+# a list of predicates: stone or dirt
+T 9
+PKT Adv minecraft:container_set_slot 1400040026020101000e020102010000000001020900000000
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 2 minecraft:stone*2
+B 8 -60 0 minecraft:stone
+B 8 -60 1 minecraft:stone
+EV sound at=8.5,-59.5,-0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+EV sound at=8.5,-59.5,1.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 10
+PKT Adv minecraft:container_set_slot 1400050026010101000e020102010000000001020900000000
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 2 minecraft:stone*1
+B 12 -60 0 minecraft:dirt
+B 13 -60 0 minecraft:stone
+EV sound at=13.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 11
+PKT Adv minecraft:container_set_slot 140006002600
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+B 12 -60 0 minecraft:dirt
+B 12 -59 0 minecraft:stone
+B 13 -60 0 minecraft:stone
+EV sound at=12.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+# an nbt predicate tests the saved block entity data: a chest without contents does not match, one with a dirt stack does (a stack keeps what the predicate last decided for the block state)
+T 12
+PKT Adv minecraft:container_set_slot 1400070027040101000e010102f50100010a0900054974656d730a000000010800026964000e6d696e6563726166743a6469727400000000
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 3 minecraft:stone*4
+B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+T 13
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 3 minecraft:stone*4
+B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+B 1 -60 0 minecraft:stone
+# a new stack decides again
+T 14
+PKT Adv minecraft:container_set_slot 1400080028030101000e010102f50100010a0900054974656d730a000000010800026964000e6d696e6563726166743a6469727400000000
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 3 minecraft:stone*4
+I Adv 4 minecraft:stone*3
+B -1 -60 0 minecraft:stone
+B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+B 1 -60 0 minecraft:stone
+EV sound at=-0.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 15
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 3 minecraft:stone*4
+I Adv 4 minecraft:stone*3
+B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+# the order reversed: the matching chest first, then the chest that does not match
+T 16
+PKT Adv minecraft:container_set_slot 1400090029030101000e010102f50100010a0900054974656d730a000000010800026964000e6d696e6563726166743a6469727400000000
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 3 minecraft:stone*4
+I Adv 4 minecraft:stone*3
+I Adv 5 minecraft:stone*3
+B -1 -60 0 minecraft:stone
+B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+B 0 -59 0 minecraft:stone
+B 1 -60 0 minecraft:stone
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+T 17
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 3 minecraft:stone*4
+I Adv 4 minecraft:stone*3
+I Adv 5 minecraft:stone*3
+B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+# a components predicate: only the block and state parts and the nbt are tested in the world, so the chest passes
+T 18
+PKT Adv minecraft:container_set_slot 14000a002a030101000e010102f501000001060800054e616d656400
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 3 minecraft:stone*4
+I Adv 4 minecraft:stone*3
+I Adv 5 minecraft:stone*3
+I Adv 6 minecraft:stone*3
+B 16 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+B 17 -60 0 minecraft:stone
+EV sound at=17.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
+# can_break decides what an adventure player breaks: a dirt only pickaxe digs no stone
+T 19
+PKT Adv minecraft:container_set_slot 14000b002b019c0801000f0101020900000000
+T 20
+T 21
+T 22
+T 23
+T 24
+DIG Adv ticks=6 broken=false
+T 25
+B 8 -60 0 minecraft:stone
+T 26
+PKT Adv minecraft:container_set_slot 14000c002c019c0801000f0101020100000000
+T 27
+T 28
+T 29
+T 30
+T 31
+PKT Adv minecraft:container_set_slot 14000d002c019c0802000f01010201000000000301
+DIG Adv ticks=6 broken=true
+T 32
+I Adv 0 minecraft:stone*4
+I Adv 1 minecraft:stone*3
+I Adv 3 minecraft:stone*4
+I Adv 4 minecraft:stone*3
+I Adv 5 minecraft:stone*3
+I Adv 6 minecraft:stone*3
+I Adv 7 minecraft:diamond_pickaxe*1
+I Adv 8 minecraft:diamond_pickaxe*1/dmg=1
+EV level_event r=64.0 ex=0 type=2019 pos=8,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=8,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=8,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=8,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=8,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=8,-60,0 data=1 global=0
+# an axe without can_break breaks nothing; one for a chest with contents does not break the empty chest, and then not the full one either (the stack keeps its last verdict for the block state)
+T 33
+PKT Adv minecraft:container_set_slot 14000e0024019d080000
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+DIG Adv ticks=10 broken=false
+T 43
+B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+B 1 -60 0 minecraft:stone
+B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+T 44
+PKT Adv minecraft:container_set_slot 14000f0025019d0801000f010102f50100010a0900054974656d730a000000010800026964000e6d696e6563726166743a6469727400000000
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+DIG Adv ticks=10 broken=false
+T 54
+B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+B 1 -60 0 minecraft:stone
+B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+T 55
+T 56
+T 57
+T 58
+T 59
+T 60
+T 61
+T 62
+T 63
+T 64
+DIG Adv ticks=10 broken=false
+T 65
+B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+B 1 -60 0 minecraft:stone
+B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+# a fresh stack breaks the chest with contents
+T 66
+PKT Adv minecraft:container_set_slot 1400100026019d0801000f010102f50100010a0900054974656d730a000000010800026964000e6d696e6563726166743a6469727400000000
+T 67
+T 68
+T 69
+T 70
+T 71
+T 72
+T 73
+T 74
+T 75
+PKT Adv minecraft:container_set_slot 1400110026019d0802000f010102f50100010a0900054974656d730a000000010800026964000e6d696e6563726166743a64697274000000000301
+DIG Adv ticks=10 broken=true
+T 76
+B 1 -60 0 minecraft:stone
+B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+I Adv 0 minecraft:diamond_axe*1
+I Adv 1 minecraft:diamond_axe*1
+I Adv 2 minecraft:diamond_axe*1/dmg=1
+I Adv 3 minecraft:stone*4
+I Adv 4 minecraft:stone*3
+I Adv 5 minecraft:stone*3
+I Adv 6 minecraft:stone*3
+I Adv 7 minecraft:diamond_pickaxe*1
+I Adv 8 minecraft:diamond_pickaxe*1/dmg=1
+EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=0,-60,0 data=5550 global=0
