@@ -320,10 +320,11 @@ impl Entity for MushroomCow {
     }
 
     fn shear(&mut self, level: &mut ServerLevel, sound_source: SoundSource, tool: &ItemStack) {
-        ext::play_sound_from_entity(
-            level,
+        // the entity is out of the level while it is being sheared: its position goes with the packet
+        level.play_sound_from_entity_at(
             None,
             self.id(),
+            self.position(),
             SoundEvent::ENTITY_MOOSHROOM_SHEAR,
             sound_source,
             1.0,
@@ -331,6 +332,7 @@ impl Entity for MushroomCow {
         );
         let (x, y, z) = (self.base().x(), self.base().y(), self.base().z());
         let y_half = y + f64::from(self.base().get_bb_height()) * 0.5;
+        let y_top = y + f64::from(self.base().get_bb_height());
         let table = Identifier::parse("minecraft:shearing/mooshroom").expect("valid id");
         let mut drops: Vec<ItemStack> = Vec::new();
         ext::drop_from_shearing_loot_table(level, self, &table, tool, |_, _, drop| {
@@ -359,11 +361,7 @@ impl Entity for MushroomCow {
                 );
                 for stack in drops {
                     let item = mc_game_core::world::entity::item::ItemEntity::with_stack(
-                        level,
-                        x,
-                        y + f64::from(1.0f32),
-                        z,
-                        stack,
+                        level, x, y_top, z, stack,
                     );
                     level.add_fresh_entity(Box::new(item));
                 }

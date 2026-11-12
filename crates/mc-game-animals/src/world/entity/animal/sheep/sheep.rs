@@ -266,10 +266,11 @@ impl Entity for Sheep {
     }
 
     fn shear(&mut self, level: &mut ServerLevel, sound_source: SoundSource, tool: &ItemStack) {
-        mob::ext::play_sound_from_entity(
-            level,
+        // the entity is out of the level while it is being sheared: its position goes with the packet
+        level.play_sound_from_entity_at(
             None,
             self.id(),
+            self.position(),
             SoundEvent::ENTITY_SHEEP_SHEAR,
             sound_source,
             1.0,
