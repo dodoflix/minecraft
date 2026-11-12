@@ -752,13 +752,28 @@ impl Entity for ArmorStand {
         if self.is_marker() {
             out.put_boolean("Marker", true);
         }
+        // `ArmorStandPose.CODEC`: `optionalFieldOf(name, default)` leaves out the poses that are the default
         let mut pose = CompoundTag::new();
-        pose.put("Head", rotations_to_nbt(self.get_head_pose()));
-        pose.put("Body", rotations_to_nbt(self.get_body_pose()));
-        pose.put("LeftArm", rotations_to_nbt(self.get_left_arm_pose()));
-        pose.put("RightArm", rotations_to_nbt(self.get_right_arm_pose()));
-        pose.put("LeftLeg", rotations_to_nbt(self.get_left_leg_pose()));
-        pose.put("RightLeg", rotations_to_nbt(self.get_right_leg_pose()));
+        for (name, value, default) in [
+            ("Head", self.get_head_pose(), DEFAULT_HEAD_POSE),
+            ("Body", self.get_body_pose(), DEFAULT_BODY_POSE),
+            ("LeftArm", self.get_left_arm_pose(), DEFAULT_LEFT_ARM_POSE),
+            (
+                "RightArm",
+                self.get_right_arm_pose(),
+                DEFAULT_RIGHT_ARM_POSE,
+            ),
+            ("LeftLeg", self.get_left_leg_pose(), DEFAULT_LEFT_LEG_POSE),
+            (
+                "RightLeg",
+                self.get_right_leg_pose(),
+                DEFAULT_RIGHT_LEG_POSE,
+            ),
+        ] {
+            if value != default {
+                pose.put(name, rotations_to_nbt(value));
+            }
+        }
         out.put("Pose", Tag::Compound(pose));
     }
 
