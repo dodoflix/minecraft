@@ -2,17 +2,19 @@
 
 use super::{
     APPROXIMATELY_INFINITE_USE_DURATION, InteractionHand, InteractionResult, ItemBehaviour,
-    ItemStack, ItemStackExt as _, hurt_without_breaking,
+    ItemStack, ItemStackExt as _, ProjectileItem, hurt_without_breaking,
 };
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::stats::Stat;
 use crate::world::entity::living::LIVING_ENTITY_FLAG_SPIN_ATTACK;
+use crate::world::entity::mob::ext::play_sound_from_entity;
 use crate::world::entity::player::ServerPlayer;
-use crate::world::entity::projectile::arrow::{Pickup, ThrownTrident};
+use crate::world::entity::projectile::arrow::{AbstractArrow, Pickup, ThrownTrident};
 use crate::world::entity::projectile::spawn::spawn_projectile_from_rotation;
 use crate::world::entity::{Entity, MoverType};
 use crate::world::item::enchantment_helper as helper;
+use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_data::SoundEvent;
@@ -100,22 +102,11 @@ impl ItemBehaviour for TridentItem {
                 if infinite {
                     level.with_entity(id, |_, e| {
                         if let Some(t) = e.as_any_mut().downcast_mut::<ThrownTrident>() {
-                            crate::world::entity::projectile::arrow::AbstractArrow::arrow_data_mut(t).pickup = Pickup::CreativeOnly;
+                            AbstractArrow::arrow_data_mut(t).pickup = Pickup::CreativeOnly;
                         }
                     });
                 }
-                if let Some(position) = level.get_entity(id).map(|e| e.position()) {
-                    level.play_sound_at(
-                        None,
-                        position.x,
-                        position.y,
-                        position.z,
-                        sound,
-                        SoundSource::Players,
-                        1.0,
-                        1.0,
-                    );
-                }
+                play_sound_from_entity(level, None, id, sound, SoundSource::Players, 1.0, 1.0);
             }
             return true;
         }
@@ -139,9 +130,20 @@ impl ItemBehaviour for TridentItem {
                 Vec3::new(0.0, f64::from(1.1999999f32), 0.0),
             );
         }
-        let p = player.position();
-        level.play_sound_at(None, p.x, p.y, p.z, sound, SoundSource::Players, 1.0, 1.0);
+        level.play_sound_from_entity_at(
+            None,
+            player.id(),
+            player.position(),
+            sound,
+            SoundSource::Players,
+            1.0,
+            1.0,
+        );
         true
+    }
+
+    fn as_projectile_item(&self) -> Option<&dyn ProjectileItem> {
+        Some(self)
     }
 
     fn use_item(
@@ -164,6 +166,26 @@ impl ItemBehaviour for TridentItem {
             player.start_using_item(level, hand);
             InteractionResult::CONSUME
         }
+    }
+}
+
+impl ProjectileItem for TridentItem {
+    fn as_projectile(
+        &self,
+        level: &mut ServerLevel,
+        position: Vec3,
+        item_stack: &ItemStack,
+        _direction: Direction,
+    ) -> Box<dyn Entity> {
+        let mut trident = ThrownTrident::at(
+            level,
+            position.x,
+            position.y,
+            position.z,
+            item_stack.copy_with_count(1),
+        );
+        AbstractArrow::arrow_data_mut(&mut trident).pickup = Pickup::Allowed;
+        Box::new(trident)
     }
 }
 
