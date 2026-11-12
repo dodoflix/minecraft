@@ -11,19 +11,22 @@ use crate::server::level::ServerLevel;
 use crate::world::item::map_item;
 use crate::world::level::saveddata::maps::{MapItemSavedData, decoration_type};
 
-/// The structures of `destination` (the members of a tag in registry order).
+/// The structures of `destination` (the members of a tag in registry order; the vanilla tag data when the level's registries
+/// have no structure registry).
 fn destination_ids(level: &ServerLevel, destination: &HolderSet<NoDirect>) -> Vec<Identifier> {
     match destination {
         HolderSet::Direct(entries) => entries.iter().filter_map(|h| h.name().cloned()).collect(),
-        HolderSet::Named(tag) => level
-            .registries
-            .registry("worldgen/structure")
-            .and_then(|registry| {
-                registry
-                    .tag(tag)
-                    .map(|ids| ids.iter().filter_map(|id| registry.name_of(*id)).collect())
-            })
-            .unwrap_or_default(),
+        HolderSet::Named(tag) => match level.registries.registry("worldgen/structure") {
+            Some(registry) => registry
+                .tag(tag)
+                .map(|ids| ids.iter().filter_map(|id| registry.name_of(*id)).collect())
+                .unwrap_or_default(),
+            None => mc_data::tags::names("worldgen/structure", &tag.to_string())
+                .unwrap_or_default()
+                .iter()
+                .filter_map(|name| Identifier::parse(name).ok())
+                .collect(),
+        },
     }
 }
 

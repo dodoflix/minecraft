@@ -246,6 +246,10 @@ impl ItemFrame {
         }
     }
 
+    // Not implemented: the per-tick sync of a framed map (`ServerEntity.sendChanges` for an `ItemFrame` holding a map:
+    // `MapItemSavedData.tickCarriedBy` for every player tracking the frame with the frame as `placedInFrame`, which adds
+    // the frame decoration, and the `ClientboundMapItemDataPacket` updates sent to those players). Map data therefore
+    // never gets a frame marker and a framed map is not sent to players who only see the frame.
     /// `removeFramedMap(itemStack)`: the map data forgets this frame.
     fn remove_framed_map(&self, level: &mut ServerLevel, stack: &ItemStack) {
         if let Some(map_id) = Self::get_framed_map_id(stack) {
