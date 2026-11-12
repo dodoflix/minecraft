@@ -200,7 +200,8 @@ impl MenuBase {
         }
     }
 
-    fn refresh_data_slots(&mut self, player: &dyn MenuPlayer) {
+    /// Re-reads the block-entity backed data slots (what `DataSlot.get()` reads live in vanilla).
+    pub fn refresh_data_slots(&mut self, player: &dyn MenuPlayer) {
         for d in &mut self.data_slots {
             d.refresh(player);
         }

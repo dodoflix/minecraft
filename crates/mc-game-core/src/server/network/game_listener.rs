@@ -216,6 +216,13 @@ impl ServerGamePacketListenerImpl {
         Ok(())
     }
 
+    /// The throttlers' part of `tick()`: the chat, command and drop counters fall by one.
+    pub fn tick_throttlers(&mut self) {
+        self.chat_spam_throttler.tick();
+        self.command_spam_throttler.tick();
+        self.drop_spam_throttler.tick();
+    }
+
     /// The start of `tick()`: the pending `ClientboundBlockChangedAckPacket`.
     pub fn send_block_changed_ack(&mut self) {
         if self.ack_block_changes_up_to > -1 {

@@ -393,3 +393,18 @@ fn perform_respawn(
         },
     );
 }
+
+impl PlayCtx<'_> {
+    /// Handles one serverbound packet immediately like the queue drain would at this moment: the main-thread packets of a
+    /// connection that stopped accepting messages are ignored. Used by replays that call the handlers like vanilla's
+    /// `connection.handleXxx(packet)`.
+    pub fn deliver(&mut self, packet: ServerboundPlayPacket) {
+        if !handled_on_netty_thread(&packet)
+            && (self.lis().pending_disconnect.is_some() || !self.lis().is_accepting_messages())
+        {
+            log::debug!("Ignoring packet due to disconnection: {:?}", packet.name());
+            return;
+        }
+        self.dispatch(packet, self.now_ms());
+    }
+}

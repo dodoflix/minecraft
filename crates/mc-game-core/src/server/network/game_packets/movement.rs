@@ -125,10 +125,7 @@ impl PlayCtx<'_> {
         if self.server.is_paused() || !self.tick_player() {
             let now = self.now_ms();
             self.keep_connection_alive(now);
-            let lis = self.lis();
-            lis.chat_spam_throttler.tick();
-            lis.command_spam_throttler.tick();
-            lis.drop_spam_throttler.tick();
+            self.lis().tick_throttlers();
             self.command_suggestions_tick();
             let idle_minutes = self.server.player_idle_timeout();
             let last_action_time = self.player.get_last_action_time();
