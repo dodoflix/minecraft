@@ -35,7 +35,7 @@ fn sound_source(entity: &dyn Entity) -> SoundSource {
     }
 }
 
-/// `Entity.playSound(sound, volume, pitch)`.
+/// `Entity.playSound(sound, volume, pitch)`; `Player.playSound` plays to everybody but the player and ignores `isSilent`.
 pub fn entity_play_sound(
     level: &mut ServerLevel,
     entity: &dyn Entity,
@@ -43,10 +43,11 @@ pub fn entity_play_sound(
     volume: f32,
     pitch: f32,
 ) {
-    if !entity.base().is_silent() {
+    let is_player = entity.is_player();
+    if is_player || !entity.base().is_silent() {
         let p = entity.position();
         level.play_sound_at(
-            None,
+            is_player.then(|| entity.id()),
             p.x,
             p.y,
             p.z,
@@ -293,7 +294,7 @@ fn swap_with_equipment_slot(
     {
         return InteractionResult::FAIL;
     }
-    // `player.awardStat(ITEM_USED)`
+    player.award_stat_once(level, crate::stats::Stat::Used(in_hand.item()));
     let infinite = player.player.abilities.instabuild;
     if in_hand.count() <= 1 {
         // Java aliases `swappedToHand` to the hand stack object when the slot is empty; `copyAndClear` below then
