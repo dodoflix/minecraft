@@ -27,8 +27,8 @@ programs that compile against vanilla sources (`scripts/oracle-shadow.sh`, `scri
 
 **Contract.** `cargo test --workspace` runs T0 and T1 only. After `scripts/setup-ref.sh` it reports exactly the
 failures listed in `tests/known-failures.txt` (section 8) and no others, so it does not pass cleanly while that file has
-lines. `scripts/test-known-failures.py` runs the same tests and fails only on a failure that the file does not list; CI
-runs it (section 9). `cargo nextest` may be used as a faster runner. A cold debug build of the tests takes a long time and
+lines. `scripts/test-known-failures.py` runs the same tests and fails only on a failure that the file does not list; the
+nightly CI run uses it (section 9). `cargo nextest` may be used as a faster runner. A cold debug build of the tests takes a long time and
 several GB under `target/`.
 
 **T2 ignores.** T2 tests live in a dedicated target, `crates/<crate>/tests/oracle/main.rs`, and every test in it
@@ -221,6 +221,8 @@ panic-injection test covers the containment of a handler panic (`docs/standards.
 <package> <test binary path> <test name>      e.g. mc-game tests/golden/main.rs attack_golden::game_modes_and_reach
 ```
 
+The push and pull request CI skips these tests and the nightly `full` job runs them (section 9).
+
 Rules: a change may only delete lines, never add them; a new failure is fixed, not listed. Flaky tests are not
 listed there; fix or quarantine them with an `#[ignore = "..."]` and an issue. The file must be empty, and removed
 from the tree, before 1.0. Review until the check exists; the file's presence is a release blocker.
@@ -236,19 +238,34 @@ status check and passes only when every job passed:
 - `doc`: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --workspace --locked --keep-going` (broken documentation links).
 - `hygiene`: `scripts/check.sh --fast` (shellcheck, ruff, syntactic slop and provenance checks).
 - `commits`: `scripts/check-commits.sh` on the pull request title and commits (Conventional Commits).
-- `test`: `scripts/test-known-failures.py`, which runs `cargo test --no-fail-fast` for each workspace package (T0/T1)
-  and fails only on a failure that `tests/known-failures.txt` does not list. A binary that aborts counts as a failure.
-  The script prints listed tests that now pass; delete their lines (section 8). A new failure is re-run once alone: a
-  pass is reported as flaky (a warning, not a failure). Flaky tests are fixed, never listed.
+- `test-build`: `cargo nextest archive --workspace --locked`, which builds every test binary once and uploads the
+  archive as an artifact.
+- `test`: four parallel shards (`--partition hash:N/4`) that download the archive and run
+  `cargo nextest run --archive-file ... --workspace-remap . --profile ci` (T0/T1; profile in `.config/nextest.toml`:
+  one retry, a hung test is killed after 10 minutes). The tests listed in `tests/known-failures.txt` and in
+  `tests/slow-tests.txt` are excluded with the filterset that `scripts/nextest-filter.py` prints, so any failure in
+  these jobs fails CI. A test that fails and then passes on the retry is reported as flaky (a warning annotation, not
+  a failure); flaky tests are fixed, never listed.
+- `doctest`: `cargo test --doc --workspace --locked` (nextest does not run doc-tests).
 - `ref`: builds `ref/` from Mojang's download, or restores it from the cache keyed on the scripts that produce it.
-  `clippy` and `test` need it (`mc-data`'s build script reads the extractor output).
+  `clippy`, `test-build` and `doctest` need it (`mc-data`'s build script reads the extractor output); the `test`
+  shards read it at run time.
 
 `.github/workflows/nightly.yml` runs once a day and on demand, and never blocks a pull request:
 
 - `advisories`: `cargo deny check advisories`. Advisories change without a code change; the accepted one is documented
   in `deny.toml`.
+- `full`: the whole T0/T1 suite with `scripts/test-known-failures.py`, which runs `cargo test --no-fail-fast` for
+  each workspace package including the slow goldens and the known failures that `ci.yml` skips. It fails only on a
+  failure that `tests/known-failures.txt` does not list; a binary that aborts counts as a failure. It prints listed
+  tests that now pass: delete their lines (section 8). A new failure is re-run once alone: a pass is reported as flaky
+  (a warning, not a failure).
 - `oracle`: the oracle tier, `scripts/test-known-failures.py --oracle`, which runs each package's `tests/oracle` target
   with `--ignored` and the same known-failures filter, with `MC_ACCEPT_EULA=1`. It must pass before a release is tagged.
 
-Run the filter locally with `scripts/test-known-failures.py [-p <crate>]...`. To run CI on a branch without a pull
+`tests/slow-tests.txt` lists the slow worldgen and structure goldens (20 s or more each) in the same key format; they
+run in `full` only. Like known failures they are skipped by the push and pull request run, so a change to worldgen
+shows up the next night.
+
+Run the full filter locally with `scripts/test-known-failures.py [-p <crate>]...`. To run CI on a branch without a pull
 request: `gh workflow run ci.yml --ref <branch>`.

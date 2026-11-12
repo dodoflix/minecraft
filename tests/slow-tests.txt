@@ -1,0 +1,18 @@
+# Slow worldgen and structure goldens (20 s or more each, ~10 min for the slowest alone), one per line:
+# <package> <test binary path> <test name>, the key format of tests/known-failures.txt.
+# Push and pull request CI skips them (scripts/nextest-filter.py); the nightly run executes them.
+mc-game tests/golden/main.rs feat_ores_golden::feat_ores_match_vanilla
+mc-game tests/golden/main.rs jigsaw_structures_golden::jigsaw_structures_match_vanilla
+mc-game tests/golden/main.rs mineshaft_golden::mineshaft_matches_vanilla
+mc-game tests/golden/main.rs portal_golden::portal_forcer
+mc-game tests/golden/main.rs scattered_structures_golden::nether_fossil_matches_vanilla
+mc-game tests/golden/main.rs scattered_structures_golden::ocean_ruin_matches_vanilla
+mc-game tests/golden/main.rs scattered_structures_golden::ruined_portal_matches_vanilla
+mc-game tests/golden/main.rs scattered_structures_golden::shipwreck_matches_vanilla
+mc-game tests/golden/main.rs stronghold_golden::stronghold_matches_vanilla
+mc-game tests/golden/main.rs struct_monument_mansion_golden::end_city_matches_vanilla
+mc-game tests/golden/main.rs struct_monument_mansion_golden::woodland_mansion_matches_vanilla
+mc-game tests/golden/main.rs structure_template_golden::place_in_world_matches_vanilla
+mc-game tests/golden/main.rs vegetation_features_golden::vegetation_features_match_vanilla
+mc-game tests/golden/main.rs world_generation_features::end_has_spikes_islands_and_end_cities
+mc-game tests/golden/main.rs world_generation_features::overworld_has_trees_ores_flowers_and_structure_data_round_trips

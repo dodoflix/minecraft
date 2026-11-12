@@ -1,7 +1,8 @@
 # Pull request and main checks. `ci-ok` is the single required status check: it passes only when every job passes.
 # - fmt, deny, hygiene, commits: no vanilla reference needed
 # - clippy, doc, test: need ref/ (the `ref` job builds it once per script change and caches it)
-# - test counts only failures that tests/known-failures.txt does not list (scripts/test-known-failures.py)
+# - test-build, test (4 shards), doctest: cargo-nextest from one archive of the test binaries; known failures and slow
+#   goldens are skipped here and run in nightly.yml
 # - the oracle tier (real vanilla server) and the advisory scan run in nightly.yml
 # Also runs on demand for any branch: `gh workflow run ci.yml --ref <branch>`, then `gh run watch`.
 name: ci
@@ -140,10 +141,13 @@ jobs:
           HEAD: ${{ github.event.pull_request.head.sha }}
         run: scripts/check-commits.sh --title "$TITLE" "$BASE..$HEAD"
 
-  test:
+  # The test binaries are built once and archived; `test` runs them in four shards (cargo-nextest, profile `ci` in
+  # .config/nextest.toml) and `doctest` runs the doc-tests. The slow goldens (tests/slow-tests.txt) and the known
+  # failures (tests/known-failures.txt) are left out here, nightly.yml runs them (scripts/nextest-filter.py).
+  test-build:
     needs: ref
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 90
     steps:
       - name: Free disk space
         run: |
@@ -160,12 +164,81 @@ jobs:
         with:
           shared-key: test
           save-if: ${{ github.ref == 'refs/heads/main' }}
-      - name: Test (T0/T1)
-        run: scripts/test-known-failures.py
+      - uses: taiki-e/install-action@c509219cf42fba86913069efd0ade2458c59337b # v2.90.1
+        with:
+          tool: nextest@0.9.151
+      - name: Build and archive the test binaries
+        run: cargo nextest archive --workspace --locked --archive-file nextest-archive.tar.zst
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: nextest-archive
+          path: nextest-archive.tar.zst
+          compression-level: 0
+          retention-days: 1
+          if-no-files-found: error
+
+  test:
+    needs: [ref, test-build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          sudo docker image prune --all --force
+          df -h /
+      # The tests read fixtures, ref/ and the scripts from the checkout, at the path the binaries were built in.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/ref
+      - name: Install the pinned toolchain
+        run: rustup show
+      - uses: taiki-e/install-action@c509219cf42fba86913069efd0ade2458c59337b # v2.90.1
+        with:
+          tool: nextest@0.9.151
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: nextest-archive
+      - name: Test (T0/T1, shard ${{ matrix.shard }}/4)
+        shell: bash
+        run: |
+          cargo nextest run --archive-file nextest-archive.tar.zst --workspace-remap . --profile ci \
+            --partition hash:${{ matrix.shard }}/4 --color never -E "$(scripts/nextest-filter.py)" 2>&1 | tee nextest.log
+      # A test that failed and then passed on the retry does not fail the job: annotate it so that it gets fixed.
+      - name: Report flaky tests
+        if: always()
+        run: sed -n 's/^ *FLAKY [^ ]* *\[[^]]*\] */::warning title=flaky test::/p' nextest.log
+
+  doctest:
+    needs: ref
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          sudo docker image prune --all --force
+          df -h /
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/ref
+      - name: Install the pinned toolchain
+        run: rustup show
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          shared-key: test
+          save-if: false
+      - run: cargo test --doc --workspace --locked
 
   ci-ok:
     if: always()
-    needs: [ref, fmt, clippy, doc, deny, hygiene, commits, test]
+    needs: [ref, fmt, clippy, doc, deny, hygiene, commits, test-build, test, doctest]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

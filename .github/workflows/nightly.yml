@@ -1,8 +1,10 @@
 # Checks that are too slow or too unstable for pull requests, once a day and on demand:
 # - advisories: `cargo deny check advisories` (the RustSec database changes without any commit)
+# - full: the whole T0/T1 suite with scripts/test-known-failures.py, including the slow goldens and the known failures
+#   that push CI skips (ci.yml). A new failure fails the run; listed tests that now pass are reported.
 # - oracle: the tests that start the real vanilla server (T2). They must pass before a release is tagged.
 #   Running this workflow accepts Mojang's EULA (docs/testing.md). Failures listed in tests/known-failures.txt are
-#   tolerated, like in ci.yml.
+#   tolerated, like in the full job.
 name: nightly
 
 on:
@@ -37,6 +39,28 @@ jobs:
         with:
           tool: cargo-deny
       - run: cargo deny --locked check advisories
+
+  full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          sudo docker image prune --all --force
+          df -h /
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/ref
+      - name: Install the pinned toolchain
+        run: rustup show
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          shared-key: test
+          save-if: false
+      - name: Test (full T0/T1)
+        run: scripts/test-known-failures.py
 
   oracle:
     runs-on: ubuntu-latest

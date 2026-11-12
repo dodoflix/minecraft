@@ -116,7 +116,7 @@ cargo test --workspace
 This runs the hermetic tests and the tests that read `ref/`. It currently reports the
 failures listed in [tests/known-failures.txt](tests/known-failures.txt), so it does not
 pass cleanly. `scripts/test-known-failures.py` runs the same tests and fails only on a
-failure that the file does not list; CI uses it. A cold debug test build is slow and
+failure that the file does not list; the nightly CI run uses it. A cold debug test build is slow and
 takes several GB under `target/`.
 
 The oracle tier (which

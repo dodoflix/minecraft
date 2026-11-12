@@ -1,0 +1,9 @@
+# cargo-nextest profile of the push and pull request CI (.github/workflows/ci.yml, `--profile ci`).
+[profile.ci]
+retries = 1                 # a test that passes on retry is reported as FLAKY, not as a failure
+fail-fast = false
+failure-output = "final"
+status-level = "fail"
+final-status-level = "flaky"
+# a hung test is killed after 10 minutes instead of stalling the job
+slow-timeout = { period = "60s", terminate-after = 10 }
