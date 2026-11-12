@@ -1,11 +1,11 @@
 // Golden generator for crates/mc-game/tests/golden/menu_golden.rs: scripted container clicks through the REAL vanilla
-// InventoryMenu / Inventory / AbstractContainerMenu with a constructor-less ServerPlayer subclass.
+// InventoryMenu / Inventory / AbstractContainerMenu with a constructor-less ServerPlayer subclass on a constructor-less
+// ServerLevel that serves the real RecipeManager (the 2x2 grid and its result slot are part of the clicks).
 // Usage: scripts/golden-menu.sh
 // Output: crates/mc-game/tests/fixtures/menu_golden.txt.gz
 // Format: "OP ..." lines (the script, replayed by Rust) each followed by "OUT ..." lines (state after the op).
 import java.lang.reflect.Field;
 import java.util.*;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.*;
 import net.minecraft.network.Connection;
@@ -26,6 +26,22 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import com.mojang.serialization.Codec;
+import java.util.concurrent.Executor;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.RegistryDataLoader;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.ReloadableServerRegistries;
+import net.minecraft.server.RegistryLayer;
+import net.minecraft.server.dedicated.DedicatedServer;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.ServerPacksSource;
+import net.minecraft.server.packs.resources.MultiPackResourceManager;
+import net.minecraft.stats.ServerRecipeBook;
+import net.minecraft.stats.Stat;
+import net.minecraft.tags.TagLoader;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.gamerules.GameRules;
 
 public class MenuGolden {
    static final StringBuilder OUT = new StringBuilder();
@@ -49,19 +65,34 @@ public class MenuGolden {
 
    static boolean creative = false;
 
+   /** The synchronizer lines of the running scenario (`CraftingMenu.slotChangedCraftingGrid` sends its slot packet past the synchronizer). */
+   static List<String> syncLines;
+
    public static class RecListener extends ServerGamePacketListenerImpl {
       public RecListener() { super(null, null, null, null); }
       @Override public void send(Packet<?> p) {
          if (p instanceof ClientboundSetPlayerInventoryPacket x) events.add("PKT set_player_inventory " + x.slot() + " " + st(x.contents()));
+         else if (p instanceof net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket x) syncLines.add("SYNC slot " + x.getStateId() + " " + x.getSlot() + " " + st(x.getItem()));
          else events.add("PKT other");
       }
+   }
+
+   public static class FakeServer extends DedicatedServer {
+      public FakeServer() { super(null, null, null, null, null, null, null, null, null, null); }
+      public RecipeManager recipes;
+      @Override public RecipeManager getRecipeManager() { return recipes; }
    }
 
    public static class FakeLevel extends ServerLevel {
       public FakeLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
       public net.minecraft.util.RandomSource rnd;
+      public FakeServer server;
+      public GameRules rules;
       @Override public net.minecraft.util.RandomSource getRandom() { return rnd; }
       @Override public net.minecraft.world.flag.FeatureFlagSet enabledFeatures() { return FeatureFlags.DEFAULT_FLAGS; }
+      @Override public MinecraftServer getServer() { return server; }
+      @Override public RecipeManager recipeAccess() { return server.recipes; }
+      @Override public GameRules getGameRules() { return rules; }
    }
 
    public static class FakePlayer extends ServerPlayer {
@@ -76,6 +107,27 @@ public class MenuGolden {
       }
       public ServerLevel lvl;
       @Override public ServerLevel level() { return lvl; }
+      public ServerRecipeBook book;
+      @Override public ServerRecipeBook getRecipeBook() { return book; }
+      /** `ServerRecipeBook.addRecipes` without the packet and the unlock trigger. */
+      @Override public int awardRecipes(Collection<RecipeHolder<?>> recipes) {
+         int n = 0;
+         for (RecipeHolder<?> h : recipes) {
+            if (h.value().isSpecial() || book.contains(h.id())) continue;
+            book.add(h.id());
+            events.add("AWARD " + h.id().identifier());
+            n++;
+         }
+         return n;
+      }
+      @Override public void triggerRecipeCrafted(RecipeHolder<?> recipe, List<ItemStack> items) {
+         StringBuilder b = new StringBuilder("TRIGGER " + recipe.id().identifier());
+         for (ItemStack i : items) b.append(' ').append(st(i));
+         events.add(b.toString());
+      }
+      @Override public void awardStat(Stat<?> stat, int count) {
+         events.add("STAT " + stat.getName() + " " + count);
+      }
    }
 
    static sun.misc.Unsafe U;
@@ -86,6 +138,12 @@ public class MenuGolden {
    static final String[] PALETTE = {"stone", "dirt", "cobblestone", "diamond_pickaxe", "ender_pearl", "snowball", "diamond_helmet",
       "diamond_chestplate", "diamond_leggings", "diamond_boots", "shield", "apple", "bucket", "elytra", "carved_pumpkin", "iron_helmet",
       "bundle", "bundle", "red_bundle", "bundle", "stone", "dirt"};
+   /** What the 2x2 grid crafts from (about every second stack the scripts create): planks, logs, sticks, honey bottles (remainders), shapeless mixes, dyes, repairs. */
+   static final String[] CRAFT = {"oak_planks", "oak_planks", "oak_log", "stick", "honey_bottle", "paper", "gunpowder", "coal", "red_dye", "blue_dye", "leather_helmet",
+      "diamond_pickaxe", "iron_ingot", "white_banner", "writable_book", "shield", "white_wool", "string", "wheat", "sugar", "bone_meal", "cocoa_beans", "iron_nugget", "gold_nugget"};
+   static String pick(Random r) { return r.nextInt(2) == 0 ? CRAFT[r.nextInt(CRAFT.length)] : PALETTE[r.nextInt(PALETTE.length)]; }
+   /** 2x2 recipes the scripts unlock and forget (`recipe give|take`). */
+   static final String[] RECIPES = {"stick", "oak_button", "oak_pressure_plate", "oak_planks", "crafting_table", "torch", "honey_block", "sugar_from_honey_bottle"};
 
    static ItemStack mk(String name, int count, int dmg) {
       ItemStack s = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(name)), count);
@@ -117,15 +175,36 @@ public class MenuGolden {
 
    static void run() throws Exception {
       extractor.Setup.bootstrap();
+      Executor direct = Runnable::run;
+      MultiPackResourceManager resources = new MultiPackResourceManager(PackType.SERVER_DATA, List.of(ServerPacksSource.createVanillaPackSource().fullResources()));
+      LayeredRegistryAccess<RegistryLayer> layers = RegistryLayer.createRegistryAccess();
+      List<Registry.PendingTags<?>> staticTags = TagLoader.loadTagsForExistingRegistries(resources, layers.getLayer(RegistryLayer.STATIC));
+      staticTags.forEach(Registry.PendingTags::apply);
+      var worldContext = TagLoader.buildUpdatedLookups(layers.getAccessForLoading(RegistryLayer.WORLD), staticTags);
+      var world = RegistryDataLoader.load(resources, worldContext, RegistryDataLoader.WORLD_REGISTRIES, direct).join();
+      List<HolderLookup.RegistryLookup<?>> dimContext = new ArrayList<>(worldContext);
+      world.listRegistries().forEach(dimContext::add);
+      var dims = RegistryDataLoader.load(resources, dimContext, RegistryDataLoader.DIMENSION_REGISTRIES, direct).join();
+      layers = layers.replaceFrom(RegistryLayer.WORLD, world, dims);
+      var loaded = ReloadableServerRegistries.reload(layers, staticTags, resources, direct).join();
+      var comps = BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(loaded.lookupWithUpdatedTags());
+      comps.forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
+      RecipeManager recipeManager = new RecipeManager(loaded.lookupWithUpdatedTags());
+      recipeManager.finalizeRecipeLoading(FeatureFlags.VANILLA_SET);
       Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe"); uf.setAccessible(true); U = (sun.misc.Unsafe) uf.get(null);
       long seed = 1;
-      for (int scenario = 0; scenario < 8; scenario++) {
+      for (int scenario = 0; scenario < 16; scenario++) {
          creative = scenario % 2 == 1;
          Random r = new Random(1000 + scenario);
          FakePlayer p = (FakePlayer) U.allocateInstance(FakePlayer.class);
          ServerLevel lvl = (ServerLevel) U.allocateInstance(FakeLevel.class);
          ((FakeLevel) lvl).rnd = net.minecraft.util.RandomSource.create(42L + scenario);
+         FakeServer server = (FakeServer) U.allocateInstance(FakeServer.class);
+         server.recipes = recipeManager;
+         ((FakeLevel) lvl).server = server;
+         ((FakeLevel) lvl).rules = new GameRules(FeatureFlags.DEFAULT_FLAGS);
          p.lvl = lvl;
+         p.book = new ServerRecipeBook((id, output) -> { });
          set(Entity.class, p, "type", EntityTypes.PLAYER);
          EntityEquipment eq = new PlayerEquipment(p);
          Inventory inv = new Inventory(p, eq);
@@ -135,21 +214,15 @@ public class MenuGolden {
          set(Player.class, p, "abilities", ab);
          p.connection = (RecListener) U.allocateInstance(RecListener.class);
          final List<String> sync = new ArrayList<>();
-         InventoryMenu menu = new InventoryMenu(inv, true, p) {
-            // `CraftingMenu.slotChangedCraftingGrid` needs a server/recipe manager: emulate it with zero recipes
-            @Override public void slotsChanged(Container c) {
-               resultSlots.setItem(0, ItemStack.EMPTY);
-               setRemoteSlot(0, ItemStack.EMPTY);
-               sync.add("SYNC slot " + incrementStateId() + " 0 -");
-            }
-         };
+         syncLines = sync;
+         InventoryMenu menu = new InventoryMenu(inv, true, p);
          set(Player.class, p, "inventoryMenu", menu);
          set(Player.class, p, "containerMenu", menu);
          op("scenario " + scenario + " creative=" + creative);
          // initial contents: 12 random stacks in the main inventory/armor/offhand slots
          for (int k = 0; k < 14; k++) {
             int slot = r.nextInt(43);
-            String name = PALETTE[r.nextInt(PALETTE.length)];
+            String name = pick(r);
             ItemStack probe = mk(name, 1, 0);
             int max = probe.getMaxStackSize();
             int count = 1 + r.nextInt(Math.max(1, max));
@@ -172,9 +245,10 @@ public class MenuGolden {
          op("sync");
          dump(menu, p, sync);
 
-         for (int step = 0; step < 220; step++) {
-            int kind = r.nextInt(100);
-            int slot = 5 + r.nextInt(41); // 5..45 (grid/result need the recipe manager)
+         for (int step = 0; step < 260; step++) {
+            int kind = r.nextInt(103);
+            int slot = r.nextInt(46);
+            if (r.nextInt(4) == 0) slot = r.nextInt(5); // the result slot and the grid get a quarter of the clicks
             int button = r.nextInt(2);
             if (kind < 30) {
                if (r.nextInt(10) == 0) slot = -999;
@@ -211,7 +285,7 @@ public class MenuGolden {
                op("click -999 " + AbstractContainerMenu.getQuickcraftMask(2, type) + " QUICK_CRAFT");
                menu.clicked(-999, AbstractContainerMenu.getQuickcraftMask(2, type), ContainerInput.QUICK_CRAFT, p);
             } else if (kind < 96) {
-               String name = PALETTE[r.nextInt(PALETTE.length)];
+               String name = pick(r);
                ItemStack probe = mk(name, 1, 0);
                int count = 1 + r.nextInt(Math.max(1, probe.getMaxStackSize()));
                op("add " + name + " " + count);
@@ -227,9 +301,18 @@ public class MenuGolden {
                int bi = r.nextInt(5) - 1;
                op("bundlesel " + bs + " " + bi);
                menu.setSelectedBundleItemIndex(bs, bi);
+            } else if (kind == 100 || kind == 101) {
+               String id = "minecraft:" + RECIPES[r.nextInt(RECIPES.length)];
+               var key = net.minecraft.resources.ResourceKey.create(Registries.RECIPE, Identifier.parse(id));
+               op((kind == 100 ? "learn " : "forget ") + id);
+               if (kind == 100) p.book.add(key); else p.book.remove(key);
+            } else if (kind == 102) {
+               boolean limited = r.nextBoolean();
+               op("limited " + limited);
+               ((FakeLevel) lvl).rules.set(GameRules.LIMITED_CRAFTING, limited, null);
             } else {
                // creative-mode slot set (handleSetCreativeModeSlot): only meaningful for infinite materials
-               String name = PALETTE[r.nextInt(PALETTE.length)];
+               String name = pick(r);
                ItemStack probe = mk(name, 1, 0);
                int count = 1 + r.nextInt(probe.getMaxStackSize());
                int cs = 5 + r.nextInt(41);

@@ -42,9 +42,7 @@ pub fn is_item_enabled(stack: &ItemStack, enabled_features: FeatureFlagSet) -> b
 /// `ItemStack.onCraftedBy(player, craftCount)`: the `ITEM_CRAFTED` stat, then `Item.onCraftedBy`.
 pub fn on_crafted_by(stack: &mut ItemStack, player: &mut dyn MenuPlayer, craft_count: i32) {
     let item = stack.item();
-    player.with_server_player(&mut |level, server_player| {
-        server_player.award_stat(&*level, Stat::Crafted(item), craft_count);
-    });
+    player.award_stat(Stat::Crafted(item), craft_count);
     behaviour(item).on_crafted_by(stack, player);
 }
 

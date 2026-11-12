@@ -8,6 +8,7 @@ use crate::world::item::ItemStack;
 use crate::world::item::crafting::RecipeHolder;
 use mc_core::pos::BlockPos;
 use mc_protocol::components::EQUIPPABLE;
+use mc_protocol::packets::play::Stat;
 
 /// `net.minecraft.util.Prediction`.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -159,6 +160,12 @@ pub trait MenuPlayer {
     fn trigger_recipe_crafted(&mut self, recipe: &RecipeHolder, items: &[ItemStack]) {
         self.with_server_player(&mut |level, player| {
             player.trigger_recipe_crafted(level, recipe, items);
+        });
+    }
+    /// `awardStat(stat, count)`.
+    fn award_stat(&mut self, stat: Stat, count: i32) {
+        self.with_server_player(&mut |level, player| {
+            player.award_stat(&*level, stat, count);
         });
     }
 }
