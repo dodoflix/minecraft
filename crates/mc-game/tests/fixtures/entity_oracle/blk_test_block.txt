@@ -47,4 +47,4 @@ BE 12 -60 0 {components:{},id:"minecraft:test_block",message:"start block",mode:
 BE 16 -60 0 {components:{},id:"minecraft:test_block",message:"powered start block",mode:"start",powered:1b,x:16,y:-60,z:0}
 # use by a game master and by a player without permission
 # pick block keeps the mode of the test block
-I Op 0 minecraft:test_block*1
+I Op 0 minecraft:test_block*1{minecraft:block_entity_data:{id:"minecraft:test_block",message:"accept block",mode:"accept",powered:0b},minecraft:block_state:{mode:"accept"}}

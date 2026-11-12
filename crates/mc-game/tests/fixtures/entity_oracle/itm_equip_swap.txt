@@ -5,7 +5,7 @@ I P 2 minecraft:carved_pumpkin*2
 I P 3 minecraft:iron_helmet*3
 I P 4 minecraft:diamond_helmet*1
 I P 5 minecraft:leather_chestplate*2
-I P 6 minecraft:iron_helmet*1
+I P 6 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 40 minecraft:diamond_chestplate*1
@@ -16,7 +16,7 @@ I P 2 minecraft:carved_pumpkin*2
 I P 3 minecraft:iron_helmet*3
 I P 4 minecraft:diamond_helmet*1
 I P 5 minecraft:leather_chestplate*2
-I P 6 minecraft:iron_helmet*1
+I P 6 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:elytra*1
@@ -28,7 +28,7 @@ I P 2 minecraft:carved_pumpkin*2
 I P 3 minecraft:iron_helmet*3
 I P 4 minecraft:diamond_helmet*1
 I P 5 minecraft:leather_chestplate*2
-I P 6 minecraft:iron_helmet*1
+I P 6 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:elytra*1
@@ -42,7 +42,7 @@ I P 2 minecraft:carved_pumpkin*2
 I P 3 minecraft:iron_helmet*3
 I P 4 minecraft:diamond_helmet*1
 I P 5 minecraft:leather_chestplate*2
-I P 6 minecraft:iron_helmet*1
+I P 6 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:elytra*1
@@ -56,7 +56,7 @@ I P 2 minecraft:carved_pumpkin*2
 I P 3 minecraft:iron_helmet*3
 I P 4 minecraft:diamond_helmet*1
 I P 5 minecraft:leather_chestplate*2
-I P 6 minecraft:iron_helmet*1
+I P 6 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:elytra*1
@@ -70,7 +70,7 @@ I P 2 minecraft:carved_pumpkin*2
 I P 3 minecraft:iron_helmet*3
 I P 4 minecraft:diamond_helmet*1
 I P 5 minecraft:leather_chestplate*2
-I P 6 minecraft:iron_helmet*1
+I P 6 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:elytra*1
@@ -84,7 +84,7 @@ I P 2 minecraft:carved_pumpkin*2
 I P 3 minecraft:iron_helmet*3
 I P 4 minecraft:iron_helmet*1
 I P 5 minecraft:leather_chestplate*2
-I P 6 minecraft:iron_helmet*1
+I P 6 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:elytra*1
@@ -100,7 +100,7 @@ I P 2 minecraft:carved_pumpkin*2
 I P 3 minecraft:iron_helmet*3
 I P 4 minecraft:iron_helmet*1
 I P 5 minecraft:leather_chestplate*1
-I P 6 minecraft:iron_helmet*1
+I P 6 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:leather_chestplate*1
@@ -117,7 +117,7 @@ I P 2 minecraft:carved_pumpkin*2
 I P 3 minecraft:iron_helmet*3
 I P 4 minecraft:iron_helmet*1
 I P 5 minecraft:leather_chestplate*1
-I P 6 minecraft:iron_helmet*1
+I P 6 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:diamond_chestplate*1
@@ -139,7 +139,7 @@ I P 6 minecraft:diamond_helmet*1
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:diamond_chestplate*1
-I P 39 minecraft:iron_helmet*1
+I P 39 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 40 minecraft:leather_chestplate*1
 STAT P minecraft.used:minecraft.diamond_chestplate 1
 STAT P minecraft.used:minecraft.diamond_helmet 1
@@ -157,7 +157,7 @@ I P 6 minecraft:diamond_helmet*1
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:diamond_chestplate*1
-I P 39 minecraft:iron_helmet*1
+I P 39 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 40 minecraft:leather_chestplate*1
 STAT P minecraft.used:minecraft.diamond_chestplate 1
 STAT P minecraft.used:minecraft.diamond_helmet 1
@@ -175,7 +175,7 @@ I P 6 minecraft:diamond_helmet*1
 I P 7 minecraft:golden_helmet*1
 I P 8 minecraft:netherite_helmet*1
 I P 38 minecraft:diamond_chestplate*1
-I P 39 minecraft:iron_helmet*1
+I P 39 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I P 40 minecraft:leather_chestplate*1
 STAT P minecraft.used:minecraft.diamond_chestplate 1
 STAT P minecraft.used:minecraft.diamond_helmet 1
@@ -186,7 +186,7 @@ P C minecraft:player pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0
 I C 0 minecraft:elytra*1
 I C 1 minecraft:iron_helmet*2
 I C 2 minecraft:diamond_helmet*1
-I C 3 minecraft:iron_helmet*1
+I C 3 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I C 4 minecraft:golden_helmet*1
 I C 38 minecraft:elytra*1
 STAT C minecraft.used:minecraft.elytra 1
@@ -194,7 +194,7 @@ P C minecraft:player pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0
 I C 0 minecraft:elytra*1
 I C 1 minecraft:iron_helmet*2
 I C 2 minecraft:diamond_helmet*1
-I C 3 minecraft:iron_helmet*1
+I C 3 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I C 4 minecraft:golden_helmet*1
 I C 38 minecraft:elytra*1
 I C 39 minecraft:iron_helmet*1
@@ -204,7 +204,7 @@ P C minecraft:player pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0
 I C 0 minecraft:elytra*1
 I C 1 minecraft:iron_helmet*2
 I C 2 minecraft:iron_helmet*1
-I C 3 minecraft:iron_helmet*1
+I C 3 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I C 4 minecraft:golden_helmet*1
 I C 38 minecraft:elytra*1
 I C 39 minecraft:diamond_helmet*1
@@ -218,16 +218,16 @@ I C 2 minecraft:iron_helmet*1
 I C 3 minecraft:diamond_helmet*1
 I C 4 minecraft:golden_helmet*1
 I C 38 minecraft:elytra*1
-I C 39 minecraft:iron_helmet*1
+I C 39 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 STAT C minecraft.used:minecraft.diamond_helmet 1
 STAT C minecraft.used:minecraft.elytra 1
 STAT C minecraft.used:minecraft.iron_helmet 2
-P C minecraft:player pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=4 main=minecraft:iron_helmet*1
+P C minecraft:player pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=4 main=minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I C 0 minecraft:elytra*1
 I C 1 minecraft:iron_helmet*2
 I C 2 minecraft:iron_helmet*1
 I C 3 minecraft:diamond_helmet*1
-I C 4 minecraft:iron_helmet*1
+I C 4 minecraft:iron_helmet*1{minecraft:enchantments:{minecraft:binding_curse:1}}
 I C 38 minecraft:elytra*1
 I C 39 minecraft:golden_helmet*1
 STAT C minecraft.used:minecraft.diamond_helmet 1

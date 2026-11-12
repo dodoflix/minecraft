@@ -52,3 +52,8 @@ fn frost_walker_needs_boots_ground_and_air_above() {
 fn axe_hits_disable_the_shield_and_send_its_cooldown_at_once() {
     common::block_scenario::check("itm_shield_disable");
 }
+
+#[test]
+fn mace_smash_landing_throws_block_particles_once() {
+    common::block_scenario::check("itm_mace_landing_particles");
+}

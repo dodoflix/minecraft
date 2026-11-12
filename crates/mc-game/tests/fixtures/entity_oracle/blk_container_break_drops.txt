@@ -103,7 +103,7 @@ EV level_event r=64.0 ex=0 type=2019 pos=2,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2020 pos=2,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=2,-60,10 data=5544 global=0
-I Steve 0 minecraft:netherite_axe*1/dmg=1
+I Steve 0 minecraft:netherite_axe*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:iron_ingot*7
 I Steve 2 minecraft:gold_ingot*9
 I Steve 3 minecraft:chest*1
@@ -118,7 +118,7 @@ EV level_event r=64.0 ex=0 type=2019 pos=3,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=3,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2020 pos=3,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=3,-60,10 data=24108 global=0
-I Steve 0 minecraft:netherite_axe*1/dmg=1
+I Steve 0 minecraft:netherite_axe*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:iron_ingot*7
 I Steve 2 minecraft:gold_ingot*9
 I Steve 3 minecraft:chest*1
@@ -133,13 +133,13 @@ EV level_event r=64.0 ex=0 type=2020 pos=4,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=4,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=4,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=4,-60,10 data=16849 global=0
-I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:iron_ingot*7
 I Steve 2 minecraft:gold_ingot*9
 I Steve 3 minecraft:chest*1
 I Steve 4 minecraft:coal*12
 I Steve 5 minecraft:barrel*1
-I Steve 6 minecraft:shulker_box*1
+I Steve 6 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:diamond"},slot:0}]}
 # survival player digs the hopper
 DIG Steve ticks=10 broken=true
 EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
@@ -152,13 +152,13 @@ EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2020 pos=5,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=5,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=5,-60,10 data=13080 global=0
-I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:iron_ingot*7
 I Steve 2 minecraft:gold_ingot*9
 I Steve 3 minecraft:chest*1
 I Steve 4 minecraft:coal*12
 I Steve 5 minecraft:barrel*1
-I Steve 6 minecraft:shulker_box*1
+I Steve 6 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:diamond"},slot:0}]}
 I Steve 7 minecraft:diamond*3
 I Steve 8 minecraft:apple*2
 I Steve 9 minecraft:hopper*1
@@ -176,13 +176,13 @@ EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=6,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=6,-60,10 data=674 global=0
-I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:iron_ingot*7
 I Steve 2 minecraft:gold_ingot*9
 I Steve 3 minecraft:chest*1
 I Steve 4 minecraft:coal*12
 I Steve 5 minecraft:barrel*1
-I Steve 6 minecraft:shulker_box*1
+I Steve 6 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:diamond"},slot:0}]}
 I Steve 7 minecraft:diamond*3
 I Steve 8 minecraft:apple*2
 I Steve 9 minecraft:hopper*1
@@ -202,13 +202,13 @@ EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=7,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=7,-60,10 data=13210 global=0
-I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:iron_ingot*7
 I Steve 2 minecraft:gold_ingot*9
 I Steve 3 minecraft:chest*1
 I Steve 4 minecraft:coal*12
 I Steve 5 minecraft:barrel*1
-I Steve 6 minecraft:shulker_box*1
+I Steve 6 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:diamond"},slot:0}]}
 I Steve 7 minecraft:diamond*3
 I Steve 8 minecraft:apple*2
 I Steve 9 minecraft:hopper*1
@@ -220,13 +220,13 @@ I Steve 13 minecraft:dropper*1
 DIG Steve ticks=2 broken=true
 EV level_event r=64.0 ex=0 type=2019 pos=8,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=8,-60,10 data=11193 global=0
-I Steve 0 minecraft:netherite_pickaxe*1/dmg=1
+I Steve 0 minecraft:netherite_pickaxe*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:iron_ingot*7
 I Steve 2 minecraft:gold_ingot*9
 I Steve 3 minecraft:chest*1
 I Steve 4 minecraft:coal*12
 I Steve 5 minecraft:barrel*1
-I Steve 6 minecraft:shulker_box*1
+I Steve 6 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:diamond"},slot:0}]}
 I Steve 7 minecraft:diamond*3
 I Steve 8 minecraft:apple*2
 I Steve 9 minecraft:hopper*1
@@ -247,13 +247,13 @@ EV level_event r=64.0 ex=0 type=2019 pos=9,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=9,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2020 pos=9,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=9,-60,10 data=24142 global=0
-I Steve 0 minecraft:netherite_axe*1/dmg=1
+I Steve 0 minecraft:netherite_axe*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:iron_ingot*7
 I Steve 2 minecraft:gold_ingot*9
 I Steve 3 minecraft:chest*1
 I Steve 4 minecraft:coal*12
 I Steve 5 minecraft:barrel*1
-I Steve 6 minecraft:shulker_box*1
+I Steve 6 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:diamond"},slot:0}]}
 I Steve 7 minecraft:diamond*3
 I Steve 8 minecraft:apple*2
 I Steve 9 minecraft:hopper*1
@@ -275,13 +275,13 @@ EV level_event r=64.0 ex=0 type=2019 pos=10,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=10,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=10,-60,10 data=8633 global=0
 EV level_event r=64.0 ex=0 type=1011 pos=10,-60,10 data=0 global=0
-I Steve 0 minecraft:netherite_axe*1/dmg=1
+I Steve 0 minecraft:netherite_axe*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:iron_ingot*7
 I Steve 2 minecraft:gold_ingot*9
 I Steve 3 minecraft:chest*1
 I Steve 4 minecraft:coal*12
 I Steve 5 minecraft:barrel*1
-I Steve 6 minecraft:shulker_box*1
+I Steve 6 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:diamond"},slot:0}]}
 I Steve 7 minecraft:diamond*3
 I Steve 8 minecraft:apple*2
 I Steve 9 minecraft:hopper*1
@@ -298,9 +298,9 @@ I Steve 19 minecraft:jukebox*1
 # creative player digs the shulker box (the box drops with its contents)
 DIG Alex ticks=0 broken=true
 EV level_event r=64.0 ex=1 type=2001 pos=4,-60,14 data=16849 global=0
-I Alex 0 minecraft:shulker_box*1
+I Alex 0 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:diamond"},slot:0}]}
 # creative player digs the chest
 DIG Alex ticks=0 broken=true
 EV level_event r=64.0 ex=1 type=2001 pos=2,-60,14 data=5544 global=0
-I Alex 0 minecraft:shulker_box*1
+I Alex 0 minecraft:shulker_box*1{minecraft:container:[{item:{count:3,id:"minecraft:diamond"},slot:0}]}
 I Alex 1 minecraft:iron_ingot*7

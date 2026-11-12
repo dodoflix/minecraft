@@ -20,8 +20,8 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=p
 E Cow minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.0 abs=0.0 hurt=10/20 death=0 fx=-
 E Stand minecraft:armor_stand pos=0.5,-60.0,4.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Husk minecraft:husk pos=0.5,-60.0,4.2 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.06 abs=0.0 hurt=10/20 death=0 fx=-
-P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3
-I Alice 0 minecraft:iron_spear*1/dmg=3
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=3{minecraft:damage:3}
+I Alice 0 minecraft:iron_spear*1/dmg=3{minecraft:damage:3}
 STAT Alice minecraft.custom:minecraft.damage_dealt 59
 STAT Alice minecraft.custom:minecraft.play_time 82
 STAT Alice minecraft.custom:minecraft.time_since_death 82
@@ -38,13 +38,13 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=p
 E Cow minecraft:cow pos=0.5,-60.0,1.2 delta=0.0,0.0,1.7163849425692388 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Stand minecraft:armor_stand pos=0.5,-60.0,5.988628725363441 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Husk minecraft:husk pos=0.5,-60.0,4.2 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.12 abs=0.0 hurt=10/20 death=0 fx=-
-P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,-0.03018611221426524 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=4
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,-0.03018611221426524 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=4{minecraft:damage:4}
 # a survival player is hurt and knocked back, a creative one is invulnerable to the stab
 EV sound at=0.5,-60.0,3.0 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.hit source=player vol=1.0 pitch=1.0
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
 P Bob minecraft:player pos=0.5,-60.0,3.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
-P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.5 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=5
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.5 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=5{minecraft:damage:5}
 P Bob minecraft:player pos=0.5,-60.0,3.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=5.1 xp=0/0/0.0 sel=0 main=empty
 EV sound at=0.5,-60.0,2.8747826753853203 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
 EV sound at=0.5,-60.0,3.591407086804785 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
@@ -55,7 +55,7 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.hit source=play
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
 P Carol minecraft:player pos=0.5,-60.0,3.5 delta=0.0,0.36080000519752503,0.4341849261462277 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P Bob minecraft:player pos=0.5,-60.0,3.0 delta=0.0,-0.0784000015258789,-0.09140796678953568 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.1999999 xp=0/0/0.0 sel=0 main=empty
-P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.70000005 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=7
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.70000005 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=7{minecraft:damage:7}
 # a sharpened spear: the bonus and the base damage scale with the attack strength when the stab comes early (14 ticks after the last one, 12 is refused)
 EV sound at=0.5,-60.0,3.8368379895495957 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
 EV sound at=0.5,-60.0,3.6618619040939087 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
@@ -67,16 +67,16 @@ EV sound at=0.5,-60.0,3.0 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neu
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.hit source=player vol=1.0 pitch=1.0
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
 E Cow2 minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.5 abs=0.0 hurt=10/20 death=0 fx=-
-P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.8000001 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1
-I Alice 0 minecraft:iron_spear*1/dmg=1
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.8000001 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:sharpness:4}}
+I Alice 0 minecraft:iron_spear*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:sharpness:4}}
 EV sound at=0.5,-60.0,3.0 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.1224992
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.hit source=player vol=1.0 pitch=1.0
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
 E Cow2 minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=990.5943 abs=0.0 hurt=10/20 death=0 fx=-
-P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
-I Alice 0 minecraft:iron_spear*1/dmg=2
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:sharpness:4}}
+I Alice 0 minecraft:iron_spear*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:sharpness:4}}
 E Cow2 minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.6000000089406967 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=990.5943 abs=0.0 hurt=0/8 death=0 fx=-
-P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2
-I Alice 0 minecraft:iron_spear*1/dmg=2
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:sharpness:4}}
+I Alice 0 minecraft:iron_spear*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:sharpness:4}}
 # a spectator cannot stab
 P Dave minecraft:player pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1

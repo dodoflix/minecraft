@@ -3,7 +3,7 @@ T 2
 T 3
 # writable book, main hand
 T 4
-I Alice 0 minecraft:writable_book*1
+I Alice 0 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"first"},{raw:"second"}]}}
 STAT Alice minecraft.custom:minecraft.play_time 4
 STAT Alice minecraft.custom:minecraft.time_since_death 4
 STAT Alice minecraft.custom:minecraft.time_since_rest 4
@@ -23,7 +23,7 @@ PKT Alice minecraft:container_set_slot 140003002401a4080000
 PKT Alice minecraft:container_set_slot 140004002d01db0a0000
 # written book
 T 6
-I Bob 0 minecraft:written_book*1
+I Bob 0 minecraft:written_book*1{minecraft:written_book_content:{author:"Bob",pages:[{raw:"plain page"}],resolved:1b,title:{raw:"Title"}}}
 STAT Bob minecraft.custom:minecraft.play_time 6
 STAT Bob minecraft.custom:minecraft.time_since_death 6
 STAT Bob minecraft.custom:minecraft.time_since_rest 6
@@ -33,7 +33,7 @@ PKT Bob minecraft:container_set_slot 140002002401dc0a010039055469746c650003426f6
 PKT Bob minecraft:open_book 3b00
 # a written book with a selector is resolved against the reader when it is opened
 T 7
-I Bob 0 minecraft:written_book*1
+I Bob 0 minecraft:written_book*1{minecraft:written_book_content:{author:"Bob",pages:[{raw:{selector:"@s"}},{raw:"two"}],resolved:1b,title:{raw:"Sel"}}}
 STAT Bob minecraft.custom:minecraft.play_time 7
 STAT Bob minecraft.custom:minecraft.time_since_death 7
 STAT Bob minecraft.custom:minecraft.time_since_rest 7

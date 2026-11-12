@@ -110,11 +110,7 @@ fn transformers() -> (
 }
 
 fn stack_text(stack: &ItemStack) -> String {
-    let mut s = format!("{}*{}", stack.item().name(), stack.count());
-    if stack.is_damageable_item() && stack.get_damage_value() != 0 {
-        s.push_str(&format!("/dmg={}", stack.get_damage_value()));
-    }
-    s
+    common::entity_scenario::item_full(stack)
 }
 
 #[test]

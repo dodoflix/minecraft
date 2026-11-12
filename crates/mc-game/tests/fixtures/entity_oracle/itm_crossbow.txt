@@ -24,7 +24,7 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_midd
 PKT A minecraft:sound 77e8030700000004fffffe20000000043f0000003f8000004b970fd5e0db99e1
 PKT A minecraft:sound 77e7030700000004fffffe20000000043f0000003f800000e8168c54d2216418
 USE A hand=main item=minecraft:crossbow*1 remaining=71974 ticks=26 kinetic=0
-I A 0 minecraft:crossbow*1
+I A 0 minecraft:crossbow*1{minecraft:charged_projectiles:[{id:"minecraft:arrow"}]}
 I A 1 minecraft:arrow*9
 STAT A minecraft.custom:minecraft.play_time 51
 STAT A minecraft.custom:minecraft.time_since_death 51
@@ -33,7 +33,7 @@ STAT A minecraft.custom:minecraft.total_world_time 51
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=0.9069811
 PKT A minecraft:sound 77e6030700000004fffffe20000000043f8000003f682feaa3981763e0103683
 USE A hand=main item=empty remaining=0 ticks=0 kinetic=0
-I A 0 minecraft:crossbow*1
+I A 0 minecraft:crossbow*1{minecraft:charged_projectiles:[{id:"minecraft:arrow"}]}
 I A 1 minecraft:arrow*9
 STAT A minecraft.custom:minecraft.play_time 51
 STAT A minecraft.custom:minecraft.time_since_death 51
@@ -42,7 +42,7 @@ STAT A minecraft.custom:minecraft.total_world_time 51
 E arrow#1 minecraft:arrow pos=0.49623190956386826,-58.46195401611507,3.6624251542063453 delta=-0.003730409567705717,-0.03213447902729773,3.1308009328235182 rot=-0.06815186,0.3267704 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 N arrow#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Motion:[-0.003730409567705717d,-0.03213447902729773d,3.1308009328235182d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PierceLevel:0b,PortalCooldown:0,Pos:[0.49623190956386826d,-58.46195401611507d,3.6624251542063453d],Rotation:[-0.06815186f,0.3267704f],SoundEvent:"minecraft:item.crossbow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:arrow"},life:0s,pickup:1b,shake:0b,weapon:{count:1,id:"minecraft:crossbow"}}
 USE A hand=main item=empty remaining=0 ticks=0 kinetic=0
-I A 0 minecraft:crossbow*1/dmg=1
+I A 0 minecraft:crossbow*1/dmg=1{minecraft:damage:1}
 I A 1 minecraft:arrow*9
 STAT A minecraft.custom:minecraft.play_time 52
 STAT A minecraft.custom:minecraft.time_since_death 52
@@ -53,7 +53,7 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source
 PKT A minecraft:sound 77ec030700000004fffffe20000000043f8000003f800000a1a24ca263725fe3
 # A: holding past the full charge loads once; swap stops the use and keeps the charge, the off hand shoots
 USE A hand=main item=minecraft:crossbow*1/dmg=1 remaining=71970 ticks=30 kinetic=0
-I A 0 minecraft:crossbow*1/dmg=1
+I A 0 minecraft:crossbow*1/dmg=1{minecraft:charged_projectiles:[{id:"minecraft:arrow"}],minecraft:damage:1}
 I A 1 minecraft:arrow*8
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_start source=player vol=0.5 pitch=1.0
 EV sound at=0.5181891149844221,-59.94999999925494,27.147752352113457 r=16.0 ex=0 event=minecraft:item.crossbow.hit source=neutral vol=1.0 pitch=1.3157139
@@ -66,11 +66,11 @@ PKT A minecraft:container_set_slot 140005002401d30b020003013301f107010000
 PKT A minecraft:container_set_slot 140006002508f1070000
 USE A hand=main item=empty remaining=0 ticks=0 kinetic=0
 I A 1 minecraft:arrow*8
-I A 40 minecraft:crossbow*1/dmg=1
+I A 40 minecraft:crossbow*1/dmg=1{minecraft:charged_projectiles:[{id:"minecraft:arrow"}],minecraft:damage:1}
 E arrow#2 minecraft:arrow pos=0.493991374628539,-58.43781304967603,3.642106709340993 delta=-0.005948539175049133,-0.00823492202241409,3.110685672213048 rot=-0.10938207,0.76905984 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 USE A hand=main item=empty remaining=0 ticks=0 kinetic=0
 I A 1 minecraft:arrow*8
-I A 40 minecraft:crossbow*1/dmg=2
+I A 40 minecraft:crossbow*1/dmg=2{minecraft:damage:2}
 STAT A minecraft.custom:minecraft.play_time 83
 STAT A minecraft.custom:minecraft.time_since_death 83
 STAT A minecraft.custom:minecraft.time_since_rest 83
@@ -80,7 +80,7 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source
 PKT A minecraft:sound 77ec030700000004fffffe20000000043f8000003f800000d55fad91ece1d6ce
 # B: quick charge 3 charges in 10 ticks
 USE B hand=main item=minecraft:crossbow*1 remaining=71990 ticks=10 kinetic=0
-I B 0 minecraft:crossbow*1
+I B 0 minecraft:crossbow*1{minecraft:enchantments:{minecraft:quick_charge:3}}
 I B 1 minecraft:spectral_arrow*4
 EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.quick_charge_3 source=player vol=0.5 pitch=1.0
 EV sound at=0.49627676286276157,-59.94999999925494,28.54363802156358 r=16.0 ex=0 event=minecraft:item.crossbow.hit source=neutral vol=1.0 pitch=1.2313536
@@ -97,14 +97,14 @@ PKT B minecraft:sound 77e6030700000004fffffe20000000043f8000003f85f90f5ae586ec59
 PKT B minecraft:sound 77ec030700000004fffffe20000000043f8000003f800000d55fad91ece1d6ce
 PKT B minecraft:sound 77eb030700000034fffffe20000000043f0000003f800000d8bde3e82cd7dc02
 USE B hand=main item=minecraft:crossbow*1 remaining=71989 ticks=11 kinetic=0
-I B 0 minecraft:crossbow*1
+I B 0 minecraft:crossbow*1{minecraft:charged_projectiles:[{id:"minecraft:spectral_arrow"}],minecraft:enchantments:{minecraft:quick_charge:3}}
 I B 1 minecraft:spectral_arrow*3
 EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=0.92401844
 PKT B minecraft:sound 77e6030700000034fffffe20000000043f8000003f6c8c79dd1c412737275425
 E spectral_arrow#1 minecraft:spectral_arrow pos=6.479596443878819,-58.505685895980236,3.6373861056203367 delta=-0.020199520754552416,-0.07542904051086825,3.106012274484579 rot=-0.37273517,-0.4690265 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 N spectral_arrow#1 {Air:300s,Duration:200,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Motion:[-0.020199520754552416d,-0.07542904051086825d,3.106012274484579d],OnGround:0b,Owner:[I;-196291187,2030186727,-1948358755,2017388081],PierceLevel:0b,PortalCooldown:0,Pos:[6.479596443878819d,-58.505685895980236d,3.6373861056203367d],Rotation:[-0.37273517f,-0.4690265f],SoundEvent:"minecraft:item.crossbow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:spectral_arrow"},life:0s,pickup:1b,shake:0b,weapon:{components:{minecraft:enchantments:{minecraft:quick_charge:3}},count:1,id:"minecraft:crossbow"}}
 USE B hand=main item=empty remaining=0 ticks=0 kinetic=0
-I B 0 minecraft:crossbow*1/dmg=1
+I B 0 minecraft:crossbow*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:quick_charge:3}}
 I B 1 minecraft:spectral_arrow*3
 STAT B minecraft.custom:minecraft.play_time 95
 STAT B minecraft.custom:minecraft.time_since_death 95
@@ -114,7 +114,7 @@ STAT B minecraft.used:minecraft.crossbow 1
 EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source=player vol=1.0 pitch=1.0
 # C: multishot loads three arrows for one and shoots them with a spread
 USE C hand=main item=minecraft:crossbow*1 remaining=71974 ticks=26 kinetic=0
-I C 0 minecraft:crossbow*1
+I C 0 minecraft:crossbow*1{minecraft:charged_projectiles:[{id:"minecraft:arrow"},{components:{minecraft:intangible_projectile:{}},id:"minecraft:arrow"},{components:{minecraft:intangible_projectile:{}},id:"minecraft:arrow"}],minecraft:enchantments:{minecraft:multishot:1}}
 I C 1 minecraft:arrow*4
 EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_start source=player vol=0.5 pitch=1.0
 EV sound at=6.395027785057914,-59.94999999925494,24.279555659374058 r=16.0 ex=0 event=minecraft:item.crossbow.hit source=neutral vol=1.0 pitch=1.2681481
@@ -127,7 +127,7 @@ N arrow#3 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Motion:[-0.0291119432
 N arrow#4 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Motion:[-0.5454820332256658d,-0.036347197932246764d,3.075224351774933d],OnGround:0b,Owner:[I;407689464,1828073685,-2048753337,-1664646821],PierceLevel:0b,PortalCooldown:0,Pos:[11.949008052554548d,-58.46620928769524d,3.60628719409199d],Rotation:[-10.058592f,0.2504143f],SoundEvent:"minecraft:item.crossbow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:intangible_projectile:{}},count:1,id:"minecraft:arrow"},life:0s,pickup:2b,shake:0b,weapon:{components:{minecraft:damage:1,minecraft:enchantments:{minecraft:multishot:1}},count:1,id:"minecraft:crossbow"}}
 N arrow#5 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Motion:[0.5762366606316167d,-0.0902135877530938d,3.0345308053495623d],OnGround:0b,Owner:[I;407689464,1828073685,-2048753337,-1664646821],PierceLevel:0b,PortalCooldown:0,Pos:[13.082057227354229d,-58.52061978193964d,3.565182602139094d],Rotation:[10.752148f,-0.74578977f],SoundEvent:"minecraft:item.crossbow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:intangible_projectile:{}},count:1,id:"minecraft:arrow"},life:0s,pickup:2b,shake:0b,weapon:{components:{minecraft:damage:2,minecraft:enchantments:{minecraft:multishot:1}},count:1,id:"minecraft:crossbow"}}
 USE C hand=main item=empty remaining=0 ticks=0 kinetic=0
-I C 0 minecraft:crossbow*1/dmg=3
+I C 0 minecraft:crossbow*1/dmg=3{minecraft:damage:3,minecraft:enchantments:{minecraft:multishot:1}}
 I C 1 minecraft:arrow*4
 STAT C minecraft.custom:minecraft.play_time 122
 STAT C minecraft.custom:minecraft.time_since_death 122
@@ -144,8 +144,8 @@ PKT C minecraft:sound 77ec030700000064fffffe20000000043f8000003f5de26c8e6e34dc69
 E arrow#6 minecraft:arrow pos=18.48373917197102,-58.48593639803736,3.685979495959388 delta=-0.016098219903765823,-0.05587703735907175,3.154119731383662 rot=-0.29230818,-0.10657112 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=4 pickup=1 shake=0 life=0 dmg=2.0
 N arrow#6 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Motion:[-0.016098219903765823d,-0.05587703735907175d,3.154119731383662d],OnGround:0b,Owner:[I;-571672024,-1301792035,-1920773462,-796079839],PierceLevel:4b,PortalCooldown:0,Pos:[18.48373917197102d,-58.48593639803736d,3.685979495959388d],Rotation:[-0.29230818f,-0.10657112f],SoundEvent:"minecraft:item.crossbow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:potion_contents:{potion:"minecraft:harming"}},count:1,id:"minecraft:tipped_arrow"},life:0s,pickup:1b,shake:0b,weapon:{components:{minecraft:enchantments:{minecraft:piercing:4}},count:1,id:"minecraft:crossbow"}}
 USE D hand=main item=empty remaining=0 ticks=0 kinetic=0
-I D 0 minecraft:crossbow*1/dmg=1
-I D 1 minecraft:tipped_arrow*2
+I D 0 minecraft:crossbow*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:piercing:4}}
+I D 1 minecraft:tipped_arrow*2{minecraft:potion_contents:{potion:"minecraft:harming"}}
 STAT D minecraft.custom:minecraft.play_time 149
 STAT D minecraft.custom:minecraft.time_since_death 149
 STAT D minecraft.custom:minecraft.time_since_rest 149
@@ -160,7 +160,7 @@ EV sound at=18.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end
 EV sound at=18.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source=player vol=1.0 pitch=1.0
 # E: the rocket in the offhand is loaded first and flies slower; wear 3 for the rocket, 1 for the arrow
 USE E hand=main item=minecraft:crossbow*1 remaining=71974 ticks=26 kinetic=0
-I E 0 minecraft:crossbow*1
+I E 0 minecraft:crossbow*1{minecraft:charged_projectiles:[{id:"minecraft:firework_rocket"}]}
 I E 1 minecraft:arrow*3
 I E 40 minecraft:firework_rocket*2
 EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_start source=player vol=0.5 pitch=1.0
@@ -170,7 +170,7 @@ EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end
 E firework_rocket#1 minecraft:firework_rocket pos=24.513638490459268,-58.52919127401224,2.1078075752768033 delta=0.013638490459267327,8.087271798550824E-4,1.6078075752768035 rot=0.48594195,0.02876828 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N firework_rocket#1 {Air:300s,Fire:0s,FireworksItem:{count:1,id:"minecraft:firework_rocket"},HasBeenShot:1b,Invulnerable:0b,Life:1,LifeTime:30,Motion:[0.013638490459267327d,8.087271798550824E-4d,1.6078075752768035d],OnGround:0b,Owner:[I;-2139681332,24654158,-1564951457,-353865346],PortalCooldown:0,Pos:[24.513638490459268d,-58.52919127401224d,2.1078075752768033d],Rotation:[0.48594195f,0.02876828f],ShotAtAngle:1b,fall_distance:0.0d}
 USE E hand=main item=empty remaining=0 ticks=0 kinetic=0
-I E 0 minecraft:crossbow*1/dmg=3
+I E 0 minecraft:crossbow*1/dmg=3{minecraft:damage:3}
 I E 1 minecraft:arrow*3
 I E 40 minecraft:firework_rocket*2
 STAT E minecraft.custom:minecraft.play_time 176
@@ -184,7 +184,7 @@ PKT E minecraft:sound 77ec0307000000c4fffffe20000000043f8000003f800000be93ca4a37
 PKT E minecraft:sound 77fd0408000000c4fffffe2c00000010404000003f800000f86f53c7e06d3c3d
 E arrow#7 minecraft:arrow pos=24.519592468498804,-58.51762657552077,3.6563734167786586 delta=0.019396544000663738,-0.08725031336987335,3.1248097127123944 rot=0.35580286,-0.6829478 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 USE E hand=main item=empty remaining=0 ticks=0 kinetic=0
-I E 0 minecraft:crossbow*1/dmg=4
+I E 0 minecraft:crossbow*1/dmg=4{minecraft:damage:4}
 I E 1 minecraft:arrow*2
 STAT E minecraft.custom:minecraft.play_time 203
 STAT E minecraft.custom:minecraft.time_since_death 203
@@ -197,7 +197,7 @@ EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end
 EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source=player vol=1.0 pitch=1.0
 # F: creative loads without any arrow and without ammunition, a rocket too
 USE F hand=main item=minecraft:crossbow*1 remaining=71974 ticks=26 kinetic=0
-I F 0 minecraft:crossbow*1
+I F 0 minecraft:crossbow*1{minecraft:charged_projectiles:[{components:{minecraft:intangible_projectile:{}},id:"minecraft:arrow"}]}
 EV sound at=30.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_start source=player vol=0.5 pitch=1.0
 EV sound at=24.59439216620849,-59.94999999925494,23.711775175317214 r=16.0 ex=0 event=minecraft:item.crossbow.hit source=neutral vol=1.0 pitch=1.166279
 EV sound at=30.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_middle source=player vol=0.5 pitch=1.0
@@ -233,7 +233,7 @@ E firework_rocket#3 minecraft:firework_rocket pos=36.50032709727367,-58.54479235
 E firework_rocket#4 minecraft:firework_rocket pos=36.227571935395865,-58.530183729774066,2.081722167608379 delta=-0.2724280646041342,-1.8372858197217182E-4,1.581722167608379 rot=-9.772284,-0.0065472657 og=0 fall=1.8372858176007867E-4 fire=0 air=300 alive=1 pose=standing
 E firework_rocket#5 minecraft:firework_rocket pos=36.77476635815365,-58.53949676325362,2.0855894208145314 delta=0.2747663581536505,-0.00949676206152085,1.5855894208145314 rot=9.831253,-0.3383169 og=0 fall=0.009496762417256832 fire=0 air=300 alive=1 pose=standing
 USE G hand=main item=empty remaining=0 ticks=0 kinetic=0
-I G 0 minecraft:crossbow*1/dmg=9
+I G 0 minecraft:crossbow*1/dmg=9{minecraft:damage:9,minecraft:enchantments:{minecraft:multishot:1}}
 I G 40 minecraft:firework_rocket*2
 STAT G minecraft.custom:minecraft.play_time 284
 STAT G minecraft.custom:minecraft.time_since_death 284
@@ -290,7 +290,7 @@ PKT H minecraft:sound 77ec030700000154fffffe20000000043f8000003f800000ea10b7e9c4
 E arrow#10 minecraft:arrow pos=48.52570043605173,-58.505260113294895,3.632748304539284 delta=0.025443431936311243,-0.07500751564831612,3.101420851370107 rot=0.4699953,-0.46194053 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
 N arrow#10 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Motion:[0.025443431936311243d,-0.07500751564831612d,3.101420851370107d],OnGround:0b,Owner:[I;-1806479048,-549963372,-1520729828,-193991957],PierceLevel:0b,PortalCooldown:0,Pos:[48.52570043605173d,-58.505260113294895d,3.632748304539284d],Rotation:[0.4699953f,-0.46194053f],SoundEvent:"minecraft:item.crossbow.hit",crit:1b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:intangible_projectile:{}},count:1,id:"minecraft:arrow"},life:0s,pickup:2b,shake:0b,weapon:{components:{minecraft:enchantments:{minecraft:infinity:1,minecraft:quick_charge:1}},count:1,id:"minecraft:crossbow"}}
 USE I hand=main item=empty remaining=0 ticks=0 kinetic=0
-I I 0 minecraft:crossbow*1/dmg=1
+I I 0 minecraft:crossbow*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:infinity:1,minecraft:quick_charge:1}}
 I I 1 minecraft:arrow*2
 STAT I minecraft.custom:minecraft.play_time 333
 STAT I minecraft.custom:minecraft.time_since_death 333
@@ -304,7 +304,7 @@ EV sound at=48.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot sourc
 # J: the off hand is emptied before the hotbar is touched
 E arrow#11 minecraft:arrow pos=54.528681105291795,-58.46751913002066,3.646855062830686 delta=0.02839429451239974,-0.03764394184690305,3.1153865422131277 rot=0.52206546,0.22722664 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 USE J hand=main item=empty remaining=0 ticks=0 kinetic=0
-I J 0 minecraft:crossbow*1/dmg=1
+I J 0 minecraft:crossbow*1/dmg=1{minecraft:damage:1}
 I J 1 minecraft:arrow*4
 I J 40 minecraft:arrow*1
 STAT J minecraft.custom:minecraft.play_time 360
@@ -319,7 +319,7 @@ EV sound at=54.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end
 EV sound at=54.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source=player vol=1.0 pitch=1.0
 E arrow#12 minecraft:arrow pos=54.49558188929424,-58.50700163054477,3.662873937207526 delta=-0.004373929640832688,-0.07673161774230305,3.131245227998967 rot=-0.0798971,-0.4890537 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 USE J hand=main item=empty remaining=0 ticks=0 kinetic=0
-I J 0 minecraft:crossbow*1/dmg=2
+I J 0 minecraft:crossbow*1/dmg=2{minecraft:damage:2}
 I J 1 minecraft:arrow*4
 STAT J minecraft.custom:minecraft.play_time 387
 STAT J minecraft.custom:minecraft.time_since_death 387

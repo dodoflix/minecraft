@@ -31,7 +31,7 @@ I F 0 minecraft:bamboo_raft*2
 I I 0 minecraft:bamboo_chest_raft*2
 # G: the stack carries entity data
 N oak_boat#3 {Air:300s,CustomName:'"Bo"',Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[36.5d,-60.11111110448837d,2.2311111092567444d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
-I G 0 minecraft:oak_boat*2
+I G 0 minecraft:oak_boat*2{minecraft:entity_data:{CustomName:'"Bo"',id:"minecraft:oak_boat"}}
 # H: aims at a wall: the boat would collide with it
 I H 0 minecraft:oak_boat*3
 # J: aims at the sky: nothing is hit

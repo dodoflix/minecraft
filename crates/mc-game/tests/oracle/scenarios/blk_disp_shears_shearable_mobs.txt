@@ -1,0 +1,24 @@
+# ShearsDispenseItemBehavior.tryShearEntity shears any Shearable living entity in front: a Bogged drops its mushrooms and is flagged
+# sheared, a sulfur cube that swallowed an item spits it out; the shears lose one durability each time.
+level flat
+preload 2
+time 18000
+note c1 shears in front of a Bogged: it is sheared (mushrooms drop), shears lose 1 durability
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn bg1 minecraft:bogged 1.5 -60 0.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 721
+dispense 0 -60 0 c1
+dump be:0,-60,0 entities events nbt:bg1
+note c2 a sulfur cube swallows andesite (andesite dispenser), then a shears dispenser from the other side shears it
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:andesite",count:1}]}
+block 2 -60 4 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 2 -60 4 {Items:[{Slot:0b,id:"minecraft:shears",count:1}]}
+spawn cube2 minecraft:sulfur_cube 1.5 -60 4.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 722
+dispense 0 -60 4 c2
+dump be:0,-60,4 entities events nbt:cube2
+level_seed 723
+dispense 2 -60 4 c2s
+dump be:2,-60,4 entities events nbt:cube2

@@ -14,13 +14,13 @@ EV sound at=2.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=b
 # the item on cooldown cannot be used on a block; the cooldown group starts when the use succeeds
 CD S group=test:blocks remaining=60
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*7
+I S 1 minecraft:cobblestone*7{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 T 7
 PKT S minecraft:container_set_slot 1400030025073e01001a40400000010b746573743a626c6f636b73
 T 8
 CD S group=test:blocks remaining=58
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*7
+I S 1 minecraft:cobblestone*7{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 B 2 -60 0 minecraft:cobblestone
 B 3 -60 0 minecraft:cobblestone
@@ -100,7 +100,7 @@ T 79
 PKT S minecraft:container_set_slot 1400040025063e01001a40400000010b746573743a626c6f636b73
 CD S group=test:blocks remaining=59
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*6
+I S 1 minecraft:cobblestone*6{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 B 2 -60 0 minecraft:cobblestone
 B 3 -60 0 minecraft:cobblestone
@@ -110,7 +110,7 @@ EV sound at=5.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=b
 # creative keeps the count and still starts the cooldown
 T 80
 PKT C minecraft:container_set_slot 1400020024083e01001a3f800000010b746573743a626c6f636b73
-I C 0 minecraft:cobblestone*8
+I C 0 minecraft:cobblestone*8{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:1.0f}}
 CD C group=test:blocks remaining=19
 STAT C minecraft.custom:minecraft.play_time 80
 STAT C minecraft.custom:minecraft.time_since_death 80
@@ -120,7 +120,7 @@ STAT C minecraft.used:minecraft.cobblestone 1
 B 12 -60 0 minecraft:cobblestone
 EV sound at=12.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
 T 81
-I C 0 minecraft:cobblestone*8
+I C 0 minecraft:cobblestone*8{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:1.0f}}
 CD C group=test:blocks remaining=18
 B 12 -60 0 minecraft:cobblestone
 T 82
@@ -149,7 +149,7 @@ T 104
 T 105
 T 106
 T 107
-I C 0 minecraft:cobblestone*8
+I C 0 minecraft:cobblestone*8{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:1.0f}}
 CD C group=test:blocks remaining=19
 B 12 -60 0 minecraft:cobblestone
 B 14 -60 0 minecraft:cobblestone
@@ -172,7 +172,7 @@ T 110
 T 111
 PKT S minecraft:container_set_slot 1400050026073e0000
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*6
+I S 1 minecraft:cobblestone*6{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 I S 2 minecraft:cobblestone*7
 B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 B 1 -60 0 minecraft:cobblestone
@@ -183,7 +183,7 @@ T 112
 PKT S minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
 PKT S minecraft:container_set_content 1201013f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000073e0000063e01001a40400000010b746573743a626c6f636b73073e000000000000000000
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*6
+I S 1 minecraft:cobblestone*6{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 I S 2 minecraft:cobblestone*7
 T 113
 # the empty-hand fallback: a stick in the main hand does not use the chest by itself, the chest still opens
@@ -191,7 +191,7 @@ T 114
 PKT S minecraft:open_screen 3c02020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
 PKT S minecraft:container_set_content 1202013f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000073e0000063e01001a40400000010b746573743a626c6f636b73073e000003a4080000000000000000
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*6
+I S 1 minecraft:cobblestone*6{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 I S 2 minecraft:cobblestone*7
 I S 3 minecraft:stick*3
 STAT S minecraft.custom:minecraft.open_chest 2
@@ -205,7 +205,7 @@ STAT S minecraft.used:minecraft.cobblestone 4
 T 115
 PKT S minecraft:container_set_slot 140006002d033e0000
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*6
+I S 1 minecraft:cobblestone*6{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 I S 2 minecraft:cobblestone*7
 I S 3 minecraft:stick*3
 I S 40 minecraft:cobblestone*3
@@ -227,10 +227,10 @@ T 116
 PKT S minecraft:container_set_slot 140007002704a4080000
 PKT S minecraft:container_set_slot 140008002d013e010019a408010000
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*6
+I S 1 minecraft:cobblestone*6{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 I S 2 minecraft:cobblestone*7
 I S 3 minecraft:stick*4
-I S 40 minecraft:cobblestone*1
+I S 40 minecraft:cobblestone*1{minecraft:use_remainder:{id:"minecraft:stick"}}
 B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 B 1 -60 0 minecraft:cobblestone
 B 2 -60 0 minecraft:cobblestone
@@ -300,11 +300,11 @@ ADV S minecraft:recipes/tools/wooden_pickaxe has_stick
 ADV S minecraft:recipes/tools/wooden_shovel has_stick
 ADV S minecraft:story/mine_stone get_stone
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*6
+I S 1 minecraft:cobblestone*6{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 I S 2 minecraft:cobblestone*7
 I S 3 minecraft:stick*4
 I S 4 minecraft:honeycomb*1
-I S 40 minecraft:cobblestone*1
+I S 40 minecraft:cobblestone*1{minecraft:use_remainder:{id:"minecraft:stick"}}
 EV level_event r=64.0 ex=1 type=3003 pos=4,-60,0 data=0 global=0
 EV sound at=4.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:item.honeycomb.wax_on source=block vol=1.0 pitch=1.0
 T 118
@@ -360,11 +360,11 @@ ADV S minecraft:recipes/tools/wooden_pickaxe has_stick
 ADV S minecraft:recipes/tools/wooden_shovel has_stick
 ADV S minecraft:story/mine_stone get_stone
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*6
+I S 1 minecraft:cobblestone*6{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 I S 2 minecraft:cobblestone*7
 I S 3 minecraft:stick*4
 I S 4 minecraft:honeycomb*1
-I S 40 minecraft:cobblestone*1
+I S 40 minecraft:cobblestone*1{minecraft:use_remainder:{id:"minecraft:stick"}}
 B 40 -60 0 minecraft:vault[facing=south,ominous=false,vault_state=unlocking]
 EV level_event r=64.0 ex=0 type=3015 pos=40,-60,0 data=0 global=0
 EV sound at=40.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.vault.insert_item source=block vol=1.0 pitch=1.0
@@ -375,12 +375,12 @@ T 140
 T 141
 PKT S minecraft:container_set_content 12000b2e000000000000000000000000000000000000000000000000000000000000000000000000073e0000063e01001a40400000010b746573743a626c6f636b73073e000004a408000001fa0b00000001e80800000000013e010019a40801000000
 I S 0 minecraft:cobblestone*7
-I S 1 minecraft:cobblestone*6
+I S 1 minecraft:cobblestone*6{minecraft:use_cooldown:{cooldown_group:"test:blocks",seconds:3.0f}}
 I S 2 minecraft:cobblestone*7
 I S 3 minecraft:stick*4
 I S 4 minecraft:honeycomb*1
 I S 6 minecraft:bucket*1
-I S 40 minecraft:cobblestone*1
+I S 40 minecraft:cobblestone*1{minecraft:use_remainder:{id:"minecraft:stick"}}
 B 50 -61 3 minecraft:grass_block[snowy=false]
 B 50 -61 4 minecraft:grass_block[snowy=false]
 B 50 -60 3 minecraft:water[level=0]

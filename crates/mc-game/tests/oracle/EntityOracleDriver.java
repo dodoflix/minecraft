@@ -1914,7 +1914,7 @@ public final class EntityOracleDriver {
          b.append(" exh=").append(f((Float)priv(p.getFoodData(), "exhaustionLevel")));
          b.append(" xp=").append(p.experienceLevel).append('/').append(p.totalExperience).append('/').append(f(p.experienceProgress));
          b.append(" sel=").append(p.getInventory().getSelectedSlot());
-         b.append(" main=").append(item(p.getMainHandItem()));
+         b.append(" main=").append(itemFull(p.getMainHandItem()));
       } else if (e instanceof ItemEntity ie) {
          b.append(" item=").append(item(ie.getItem()));
          b.append(" age=").append(ie.getAge());
@@ -1992,7 +1992,7 @@ public final class EntityOracleDriver {
       for (int i = 0; i < p.getInventory().getContainerSize(); i++) {
          ItemStack s = p.getInventory().getItem(i);
          if (!s.isEmpty()) {
-            out.println("I " + name + " " + i + " " + item(s));
+            out.println("I " + name + " " + i + " " + itemFull(s));
          }
       }
    }

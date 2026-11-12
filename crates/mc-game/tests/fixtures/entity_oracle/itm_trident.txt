@@ -40,15 +40,15 @@ EV sound at=6.4167718393266755,-59.94999999925494,22.316940630537953 r=16.0 ex=0
 EV packet at=12.5,-58.479999996721745,0.5 r=16.0 ex=0 id=minecraft:sound_entity
 # D: riptide on dry land: use fails
 USE D hand=main item=empty remaining=0 ticks=0 kinetic=0
-I D 0 minecraft:trident*1
+I D 0 minecraft:trident*1{minecraft:enchantments:{minecraft:riptide:3}}
 STAT D minecraft.custom:minecraft.play_time 54
 STAT D minecraft.custom:minecraft.time_since_death 54
 STAT D minecraft.custom:minecraft.time_since_rest 54
 STAT D minecraft.custom:minecraft.total_world_time 54
 # F: a trident with one point left cannot be used, the one before throws and keeps the last point
 USE F hand=main item=empty remaining=0 ticks=0 kinetic=0
-I F 0 minecraft:trident*1/dmg=248
-I F 1 minecraft:trident*1/dmg=249
+I F 0 minecraft:trident*1/dmg=248{minecraft:damage:248}
+I F 1 minecraft:trident*1/dmg=249{minecraft:damage:249}
 STAT F minecraft.custom:minecraft.play_time 54
 STAT F minecraft.custom:minecraft.time_since_death 54
 STAT F minecraft.custom:minecraft.time_since_rest 54
@@ -56,7 +56,7 @@ STAT F minecraft.custom:minecraft.total_world_time 54
 E trident#4 minecraft:trident pos=30.5,-58.479999996721745,0.5 delta=-0.018391339269654642,-0.011088236130762489,2.504441210336432 rot=-0.4207854,-0.25361788 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 N trident#4 {Air:300s,DealtDamage:0b,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[-0.018391339269654642d,-0.011088236130762489d,2.504441210336432d],OnGround:0b,Owner:[I;-531021022,-1193331076,-1990913229,-646797061],PierceLevel:0b,PortalCooldown:0,Pos:[30.5d,-58.479999996721745d,0.5d],Rotation:[-0.4207854f,-0.25361788f],SoundEvent:"minecraft:item.trident.hit_ground",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:damage:249},count:1,id:"minecraft:trident"},life:0s,pickup:1b,shake:0b}
 USE F hand=main item=empty remaining=0 ticks=0 kinetic=0
-I F 1 minecraft:trident*1/dmg=249
+I F 1 minecraft:trident*1/dmg=249{minecraft:damage:249}
 STAT F minecraft.custom:minecraft.play_time 64
 STAT F minecraft.custom:minecraft.time_since_death 64
 STAT F minecraft.custom:minecraft.time_since_rest 64
@@ -78,9 +78,9 @@ STAT H minecraft.used:minecraft.trident 1
 EV sound at=30.405263965433434,-59.94999999925494,20.159434213936112 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.2328088
 EV packet at=42.5,-58.479999996721745,0.5 r=16.0 ex=0 id=minecraft:sound_entity
 # E: riptide 2 in water: the player is thrown along the view direction, sound of the riptide, spin attack for 20 ticks
-P E minecraft:player pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,-30.0 og=1 fall=0.0 fire=-20 air=225 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1
+P E minecraft:player pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,-30.0 og=1 fall=0.0 fire=-20 air=225 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1{minecraft:enchantments:{minecraft:riptide:2}}
 USE E hand=main item=empty remaining=0 ticks=0 kinetic=0
-I E 0 minecraft:trident*1/dmg=1
+I E 0 minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:2}}
 STAT E minecraft.custom:minecraft.play_time 87
 STAT E minecraft.custom:minecraft.time_since_death 87
 STAT E minecraft.custom:minecraft.time_since_rest 87
@@ -88,16 +88,16 @@ STAT E minecraft.custom:minecraft.total_world_time 87
 STAT E minecraft.used:minecraft.trident 1
 EV sound at=42.63765728884737,-59.94999999925494,20.114274902924777 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1776017
 EV packet at=24.5,-58.800000071525574,0.5 r=16.0 ex=0 id=minecraft:sound_entity
-P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,1.119984383583069,1.948566198348999 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=213 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
-P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,0.8909875202177094,1.5588529819079184 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=217 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
-P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,0.7077900267955665,1.2470824041093105 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=216 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
-P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,0.35018850976438626,0.6385062194474184 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=213 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
+P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,1.119984383583069,1.948566198348999 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=213 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:2}}
+P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,0.8909875202177094,1.5588529819079184 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=217 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:2}}
+P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,0.7077900267955665,1.2470824041093105 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=216 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:2}}
+P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,0.35018850976438626,0.6385062194474184 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=213 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:2}}
 USE E hand=main item=empty remaining=0 ticks=0 kinetic=0
-P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,-0.02080569674011614,0.007361477706152447 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=218 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
+P E minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,-0.02080569674011614,0.007361477706152447 rot=0.0,-30.0 og=0 fall=0.0 fire=-20 air=218 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:2}}
 USE E hand=main item=empty remaining=0 ticks=0 kinetic=0
 # I: riptide 3 released in water after fewer than 10 ticks does nothing
 USE I hand=main item=empty remaining=0 ticks=0 kinetic=0
-I I 0 minecraft:trident*1
+I I 0 minecraft:trident*1{minecraft:enchantments:{minecraft:riptide:3}}
 STAT I minecraft.custom:minecraft.play_time 121
 STAT I minecraft.custom:minecraft.time_since_death 121
 STAT I minecraft.custom:minecraft.time_since_rest 121
@@ -107,23 +107,23 @@ EV sound at=24.5,-58.09221004473001,1.7470824041093105 r=16.0 ex=1 event=minecra
 EV sound at=24.5,-58.2387680416516,1.497665938153829 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.2509402 pitch=1.0805316
 EV sound at=24.5,-58.44981156176119,1.1385062194474185 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.15814812 pitch=0.876165
 EV sound at=24.5,-58.632903546666,0.8269151989713259 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.07770942 pitch=0.95205456
-P I minecraft:player pos=48.5,-60.0,0.5 delta=0.0,-0.005,0.0 rot=0.0,-50.0 og=1 fall=0.0 fire=-20 air=179 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1
+P I minecraft:player pos=48.5,-60.0,0.5 delta=0.0,-0.005,0.0 rot=0.0,-50.0 og=1 fall=0.0 fire=-20 air=179 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1{minecraft:enchantments:{minecraft:riptide:3}}
 USE I hand=main item=empty remaining=0 ticks=0 kinetic=0
-I I 0 minecraft:trident*1/dmg=1
+I I 0 minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
 STAT I minecraft.custom:minecraft.play_time 131
 STAT I minecraft.custom:minecraft.time_since_death 131
 STAT I minecraft.custom:minecraft.time_since_rest 131
 STAT I minecraft.custom:minecraft.total_world_time 131
 STAT I minecraft.used:minecraft.trident 1
 EV packet at=48.5,-58.800000071525574,0.5 r=16.0 ex=0 id=minecraft:sound_entity
-P I minecraft:player pos=48.5,-58.800000071525574,0.5 delta=0.0,2.293200845718384,1.928282618522644 rot=0.0,-50.0 og=0 fall=0.0 fire=-20 air=169 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
-P I minecraft:player pos=48.5,-58.800000071525574,0.5 delta=0.0,1.8295607039117916,1.5426261178050353 rot=0.0,-50.0 og=0 fall=0.0 fire=-20 air=173 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
-P I minecraft:player pos=48.5,-58.800000071525574,0.5 delta=0.0,0.28614369099750164,0.25880974670908924 rot=0.0,-50.0 og=0 fall=0.0 fire=-20 air=165 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
+P I minecraft:player pos=48.5,-58.800000071525574,0.5 delta=0.0,2.293200845718384,1.928282618522644 rot=0.0,-50.0 og=0 fall=0.0 fire=-20 air=169 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
+P I minecraft:player pos=48.5,-58.800000071525574,0.5 delta=0.0,1.8295607039117916,1.5426261178050353 rot=0.0,-50.0 og=0 fall=0.0 fire=-20 air=173 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
+P I minecraft:player pos=48.5,-58.800000071525574,0.5 delta=0.0,0.28614369099750164,0.25880974670908924 rot=0.0,-50.0 og=0 fall=0.0 fire=-20 air=165 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
 USE I hand=main item=empty remaining=0 ticks=0 kinetic=0
 # rain: riptide works on the ground when it rains
 C Set the weather to rain
 USE G hand=main item=empty remaining=0 ticks=0 kinetic=0
-I G 0 minecraft:trident*1/dmg=1
+I G 0 minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:1}}
 STAT G minecraft.custom:minecraft.play_time 190
 STAT G minecraft.custom:minecraft.time_since_death 190
 STAT G minecraft.custom:minecraft.time_since_rest 190
@@ -132,14 +132,14 @@ STAT G minecraft.used:minecraft.trident 1
 EV sound at=48.5,-58.065371962805706,1.1318596955147138 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.2754853 pitch=1.1131012
 EV sound at=48.5,-58.43607046320167,0.8235121785656544 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.13707171 pitch=0.8650408
 EV packet at=36.5,-58.800000071525574,0.5 r=16.0 ex=0 id=minecraft:sound_entity
-P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,0.9823110246658325,1.0606093406677246 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
-P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,0.8842648213827329,0.9651545278232163 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
-P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,0.6017356554482508,0.7273125255693316 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
+P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,0.9823110246658325,1.0606093406677246 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:1}}
+P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,0.8842648213827329,0.9651545278232163 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:1}}
+P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,0.6017356554482508,0.7273125255693316 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:1}}
 USE G hand=main item=empty remaining=0 ticks=0 kinetic=0
-P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,-1.1912921995119117,0.06882657966958217 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
+P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,-1.1912921995119117,0.06882657966958217 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:1}}
 USE G hand=main item=empty remaining=0 ticks=0 kinetic=0
 USE D hand=main item=empty remaining=0 ticks=0 kinetic=0
-I D 0 minecraft:trident*1/dmg=1
+I D 0 minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
 STAT D minecraft.custom:minecraft.play_time 231
 STAT D minecraft.custom:minecraft.time_since_death 231
 STAT D minecraft.custom:minecraft.time_since_rest 231
@@ -147,9 +147,9 @@ STAT D minecraft.custom:minecraft.total_world_time 231
 STAT D minecraft.used:minecraft.trident 1
 EV sound at=36.5,-60.0,0.5626321893043686 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
 EV packet at=18.5,-58.800000071525574,0.5 r=16.0 ex=0 id=minecraft:sound_entity
-P D minecraft:player pos=18.5,-58.800000071525574,0.5 delta=-2.8191537857055664,0.9474518442153931,3.4524679118281057E-16 rot=90.0,-20.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
-P D minecraft:player pos=18.5,-58.800000071525574,0.5 delta=-2.334541384504937,0.7547007820874335,2.858988842575982E-16 rot=90.0,-20.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
-P D minecraft:player pos=18.5,-58.800000071525574,0.5 delta=-0.08271704487010577,-0.230527368912964,1.0129917162493943E-17 rot=90.0,-20.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1
+P D minecraft:player pos=18.5,-58.800000071525574,0.5 delta=-2.8191537857055664,0.9474518442153931,3.4524679118281057E-16 rot=90.0,-20.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
+P D minecraft:player pos=18.5,-58.800000071525574,0.5 delta=-2.334541384504937,0.7547007820874335,2.858988842575982E-16 rot=90.0,-20.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
+P D minecraft:player pos=18.5,-58.800000071525574,0.5 delta=-0.08271704487010577,-0.230527368912964,1.0129917162493943E-17 rot=90.0,-20.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
 USE D hand=main item=empty remaining=0 ticks=0 kinetic=0
 # an ominous item spawner shoots a trident through ProjectileItem.asProjectile (the stack is the weapon); setOwner(spawner) makes it pickup disallowed
 E trident#6 minecraft:trident pos=20.475946114403932,-59.092677994369176,20.489732871460866 delta=-0.023813346969501603,-1.1317512248460735,-0.010164457351657354 rot=-113.11448,-88.62887 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0

@@ -38,6 +38,11 @@ interact C Zom main
 tick 1
 note creative: the stack stays whole
 dump mob:Zom nbt:Zom inventory:C events
+give C mainhand minecraft:name_tag[custom_name='"Last"'] 1
+interact C Zom main
+tick 1
+note creative: even the last tag of a stack of one stays (the count is restored after the item shrank it)
+dump mob:Zom nbt:Zom inventory:C events
 give P offhand minecraft:name_tag[custom_name='"Off"'] 2
 interact P Cow off
 tick 1

@@ -552,7 +552,7 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             });
             main.chain(worn)
                 .filter(|(_, s)| !s.is_empty())
-                .map(|(i, s)| format!("I {name} {i} {}", super::entity_scenario::item_text(s)))
+                .map(|(i, s)| format!("I {name} {i} {}", super::entity_scenario::item_full(s)))
                 .collect()
         }
     });

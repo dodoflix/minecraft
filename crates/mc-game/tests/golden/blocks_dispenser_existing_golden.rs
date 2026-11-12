@@ -28,6 +28,11 @@ fn projectiles() {
 }
 
 #[test]
+fn projectiles_take_the_can_break_component() {
+    common::block_scenario::check("blk_disp_projectile_can_break");
+}
+
+#[test]
 fn charges() {
     common::block_scenario::check("blk_disp_charges");
 }

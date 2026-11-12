@@ -147,18 +147,18 @@ T 13
 T 14
 BE 16 -60 8 -
 BEU 16 -60 8 -
-I A 0 minecraft:command_block*1
+I A 0 minecraft:command_block*1{minecraft:block_entity_data:{Command:"say hi",TrackOutput:0b,id:"minecraft:command_block"}}
 I A 40 minecraft:frogspawn*8
 BE 20 -60 8 -
 BEU 20 -60 8 -
-I B 0 minecraft:command_block*1
+I B 0 minecraft:command_block*1{minecraft:block_entity_data:{Command:"say hi",TrackOutput:0b,id:"minecraft:command_block"}}
 BE 24 -60 8 -
 BEU 24 -60 8 -
-I C 0 minecraft:command_block*1
+I C 0 minecraft:command_block*1{minecraft:block_entity_data:{Command:"say hi",TrackOutput:0b,id:"minecraft:command_block"}}
 B 36 -60 8 minecraft:command_block[conditional=false,facing=north]
 BE 36 -60 8 {Command:"say hi",SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:36,y:-60,z:8}
 BEU 36 -60 8 -
-I D 0 minecraft:command_block*1
+I D 0 minecraft:command_block*1{minecraft:block_entity_data:{Command:"say hi",TrackOutput:0b,id:"minecraft:command_block"}}
 EV sound at=36.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
 T 15
 # a spawner: block_entity_data is applied only for a creative operator (onlyOpCanSetNbt)
@@ -175,6 +175,6 @@ EV sound at=32.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.spawner.place sourc
 B 40 -60 8 minecraft:spawner
 BE 40 -60 8 {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnData:{entity:{id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:4s,components:{},id:"minecraft:mob_spawner",x:40,y:-60,z:8}
 BEU 40 -60 8 minecraft:mob_spawner {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnData:{entity:{id:"minecraft:pig"}},SpawnRange:4s}
-I D 0 minecraft:spawner*1
+I D 0 minecraft:spawner*1{minecraft:block_entity_data:{SpawnData:{entity:{id:"minecraft:pig"}},id:"minecraft:mob_spawner"}}
 EV sound at=40.5,-59.5,8.5 r=16.0 ex=1 event=minecraft:block.spawner.place source=block vol=1.0 pitch=0.8
 T 17

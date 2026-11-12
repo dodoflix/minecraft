@@ -38,3 +38,13 @@ fn spawn_egg() {
 fn sulfur_swallow() {
     check("blk_disp_sulfur_swallow");
 }
+
+#[test]
+fn equipment_sound_uses_the_entity_sound_source() {
+    check("blk_disp_equip_sound");
+}
+
+#[test]
+fn spawn_egg_variant_components() {
+    check("blk_disp_spawn_egg_variants");
+}

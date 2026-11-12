@@ -31,7 +31,7 @@ E item#2 minecraft:item pos=8.5742334117329,-58.90550278046787,0.278545069501712
 # douse a campfire that is cooking: the progress then cools down
 B 2 -60 0 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
 BE 2 -60 0 {CookingTimes:[I;12,12,12,12],CookingTotalTimes:[I;600,600,600,600],Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:beef"},{Slot:2b,count:1,id:"minecraft:beef"},{Slot:3b,count:1,id:"minecraft:beef"}],components:{},id:"minecraft:campfire",x:2,y:-60,z:0}
-I Alice 0 minecraft:iron_shovel*1/dmg=1
+I Alice 0 minecraft:iron_shovel*1/dmg=1{minecraft:damage:1}
 BE 2 -60 0 {CookingTimes:[I;8,8,8,8],CookingTotalTimes:[I;600,600,600,600],Items:[{Slot:0b,count:1,id:"minecraft:beef"},{Slot:1b,count:1,id:"minecraft:beef"},{Slot:2b,count:1,id:"minecraft:beef"},{Slot:3b,count:1,id:"minecraft:beef"}],components:{},id:"minecraft:campfire",x:2,y:-60,z:0}
 # the whole cooking time of a potato in a lit campfire, then the result drops
 BE 10 -60 0 {CookingTimes:[I;599,0,0,0],CookingTotalTimes:[I;600,0,0,0],Items:[{Slot:0b,count:1,id:"minecraft:potato"}],components:{},id:"minecraft:campfire",x:10,y:-60,z:0}

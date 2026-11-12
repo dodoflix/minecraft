@@ -46,7 +46,7 @@ STAT Alice minecraft.custom:minecraft.total_world_time 7
 STAT Alice minecraft.used:minecraft.knowledge_book 2
 # off hand and creative: the book stays
 T 8
-I Cleo 40 minecraft:knowledge_book*1
+I Cleo 40 minecraft:knowledge_book*1{minecraft:recipes:["minecraft:chest","minecraft:barrel"]}
 STAT Cleo minecraft.custom:minecraft.play_time 8
 STAT Cleo minecraft.custom:minecraft.time_since_death 8
 STAT Cleo minecraft.custom:minecraft.time_since_rest 8
@@ -59,7 +59,7 @@ PKT Cleo minecraft:recipe_book_add 4b02bb01010303090600106d696e6563726166743a706
 PKT Cleo minecraft:container_set_slot 140002002d01b20b010044090800000002000f6d696e6563726166743a636865737400106d696e6563726166743a62617272656c
 # a book with only an unknown recipe
 T 9
-I Cleo 40 minecraft:knowledge_book*1
+I Cleo 40 minecraft:knowledge_book*1{minecraft:recipes:["minecraft:no_such_recipe"]}
 STAT Cleo minecraft.custom:minecraft.play_time 9
 STAT Cleo minecraft.custom:minecraft.time_since_death 9
 STAT Cleo minecraft.custom:minecraft.time_since_rest 9

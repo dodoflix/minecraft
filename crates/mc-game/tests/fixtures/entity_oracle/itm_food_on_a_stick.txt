@@ -1,14 +1,14 @@
 # I has no vehicle: the item-used statistic only
 # the strider is not steered by a carrot on a stick, a pig is not steered by the offhand warped fungus on a stick: the offhand use is the wrong vehicle
-I A 0 minecraft:carrot_on_a_stick*1/dmg=7
-I B 0 minecraft:carrot_on_a_stick*1/dmg=24
+I A 0 minecraft:carrot_on_a_stick*1/dmg=7{minecraft:damage:7}
+I B 0 minecraft:carrot_on_a_stick*1/dmg=24{minecraft:damage:24}
 I C 0 minecraft:fishing_rod*1
-I D 0 minecraft:warped_fungus_on_a_stick*1/dmg=1
+I D 0 minecraft:warped_fungus_on_a_stick*1/dmg=1{minecraft:damage:1}
 I E 0 minecraft:fishing_rod*1
 I F 0 minecraft:carrot_on_a_stick*1
 I F 40 minecraft:warped_fungus_on_a_stick*1
-I G 0 minecraft:carrot_on_a_stick*1/dmg=7
-I H 0 minecraft:carrot_on_a_stick*1/dmg=18
+I G 0 minecraft:carrot_on_a_stick*1/dmg=7{minecraft:damage:7}
+I H 0 minecraft:carrot_on_a_stick*1/dmg=18{minecraft:damage:18}
 I I 0 minecraft:carrot_on_a_stick*1
 STAT B minecraft.custom:minecraft.play_time 5
 STAT B minecraft.custom:minecraft.time_since_death 5
@@ -45,7 +45,7 @@ STAT I minecraft.used:minecraft.carrot_on_a_stick 1
 E VA minecraft:pig pos=1.5,-60.0,0.6432124997735023 delta=0.0,-0.0784000015258789,0.04748153120504024 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.05625 zza=0.05625 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=4:TemptGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=saddle:minecraft:saddle*1 attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E VD minecraft:strider pos=31.5,-60.0,0.6029220496348857 delta=0.0,-0.0784000015258789,0.03412339369227126 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.040425 zza=0.040425 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:TemptGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=saddle:minecraft:saddle*1 attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.11549999740719796 age=0 baby=0 forcedage=0 love=0 lovecause=-
 # G uses the stick again while its pig still boosts: no second boost, no damage, item-used statistic
-I G 0 minecraft:carrot_on_a_stick*1/dmg=7
+I G 0 minecraft:carrot_on_a_stick*1/dmg=7{minecraft:damage:7}
 STAT G minecraft.custom:minecraft.play_time 6
 STAT G minecraft.custom:minecraft.time_since_death 6
 STAT G minecraft.custom:minecraft.time_since_rest 6
@@ -53,15 +53,15 @@ STAT G minecraft.custom:minecraft.total_world_time 6
 STAT G minecraft.used:minecraft.carrot_on_a_stick 1
 E VA minecraft:pig pos=1.5,-60.0,0.7472665278695643 delta=0.0,-0.0784000015258789,0.056813505939487835 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.056572497 zza=0.056572497 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=4:TemptGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=saddle:minecraft:saddle*1 attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E VD minecraft:strider pos=31.5,-60.0,0.6776665526339692 delta=0.0,-0.0784000015258789,0.040810503377746825 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.04062111 zza=0.04062111 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:TemptGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=saddle:minecraft:saddle*1 attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.11549999740719796 age=0 baby=0 forcedage=0 love=0 lovecause=-
-I A 0 minecraft:carrot_on_a_stick*1/dmg=7
-I B 0 minecraft:carrot_on_a_stick*1/dmg=24
+I A 0 minecraft:carrot_on_a_stick*1/dmg=7{minecraft:damage:7}
+I B 0 minecraft:carrot_on_a_stick*1/dmg=24{minecraft:damage:24}
 I C 0 minecraft:fishing_rod*1
-I D 0 minecraft:warped_fungus_on_a_stick*1/dmg=1
+I D 0 minecraft:warped_fungus_on_a_stick*1/dmg=1{minecraft:damage:1}
 I E 0 minecraft:fishing_rod*1
 I F 0 minecraft:carrot_on_a_stick*1
 I F 40 minecraft:warped_fungus_on_a_stick*1
-I G 0 minecraft:carrot_on_a_stick*1/dmg=7
-I H 0 minecraft:carrot_on_a_stick*1/dmg=18
+I G 0 minecraft:carrot_on_a_stick*1/dmg=7{minecraft:damage:7}
+I H 0 minecraft:carrot_on_a_stick*1/dmg=18{minecraft:damage:18}
 I I 0 minecraft:carrot_on_a_stick*1
 E VA minecraft:pig pos=1.5,-60.0,6.259667134915035 delta=0.0,-0.0784000015258789,0.08312983200471137 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.06950794 zza=0.06950794 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=4:TemptGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=saddle:minecraft:saddle*1 attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E VD minecraft:strider pos=31.5,-60.0,4.577015576283429 delta=0.0,-0.0784000015258789,0.058091753584604715 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.048539624 zza=0.048539624 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:TemptGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=saddle:minecraft:saddle*1 attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.11549999740719796 age=0 baby=0 forcedage=0 love=0 lovecause=-

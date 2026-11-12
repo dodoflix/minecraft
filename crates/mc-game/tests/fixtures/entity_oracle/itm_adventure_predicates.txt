@@ -14,7 +14,7 @@ B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 T 7
 PKT Adv minecraft:container_set_slot 1400030025030101000e010102f50100000000
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
 STAT Adv minecraft.custom:minecraft.play_time 7
 STAT Adv minecraft.custom:minecraft.sneak_time 3
 STAT Adv minecraft.custom:minecraft.time_since_death 7
@@ -26,14 +26,14 @@ B 1 -60 0 minecraft:stone
 EV sound at=1.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
 T 8
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
 B 8 -60 0 minecraft:stone
 # a list of predicates: stone or dirt
 T 9
 PKT Adv minecraft:container_set_slot 1400040026020101000e020102010000000001020900000000
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 2 minecraft:stone*2
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 2 minecraft:stone*2{minecraft:can_place_on:[{blocks:"minecraft:stone"},{blocks:"minecraft:dirt"}]}
 B 8 -60 0 minecraft:stone
 B 8 -60 1 minecraft:stone
 EV sound at=8.5,-59.5,-0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
@@ -41,15 +41,15 @@ EV sound at=8.5,-59.5,1.5 r=16.0 ex=1 event=minecraft:block.stone.place source=b
 T 10
 PKT Adv minecraft:container_set_slot 1400050026010101000e020102010000000001020900000000
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 2 minecraft:stone*1
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 2 minecraft:stone*1{minecraft:can_place_on:[{blocks:"minecraft:stone"},{blocks:"minecraft:dirt"}]}
 B 12 -60 0 minecraft:dirt
 B 13 -60 0 minecraft:stone
 EV sound at=13.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
 T 11
 PKT Adv minecraft:container_set_slot 140006002600
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
 B 12 -60 0 minecraft:dirt
 B 12 -59 0 minecraft:stone
 B 13 -60 0 minecraft:stone
@@ -58,40 +58,40 @@ EV sound at=12.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=
 T 12
 PKT Adv minecraft:container_set_slot 1400070027040101000e010102f50100010a0900054974656d730a000000010800026964000e6d696e6563726166743a6469727400000000
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 3 minecraft:stone*4
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 3 minecraft:stone*4{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
 B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 T 13
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 3 minecraft:stone*4
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 3 minecraft:stone*4{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
 B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 B 1 -60 0 minecraft:stone
 # a new stack decides again
 T 14
 PKT Adv minecraft:container_set_slot 1400080028030101000e010102f50100010a0900054974656d730a000000010800026964000e6d696e6563726166743a6469727400000000
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 3 minecraft:stone*4
-I Adv 4 minecraft:stone*3
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 3 minecraft:stone*4{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 4 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
 B -1 -60 0 minecraft:stone
 B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 B 1 -60 0 minecraft:stone
 EV sound at=-0.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
 T 15
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 3 minecraft:stone*4
-I Adv 4 minecraft:stone*3
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 3 minecraft:stone*4{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 4 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
 B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 # the order reversed: the matching chest first, then the chest that does not match
 T 16
 PKT Adv minecraft:container_set_slot 1400090029030101000e010102f50100010a0900054974656d730a000000010800026964000e6d696e6563726166743a6469727400000000
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 3 minecraft:stone*4
-I Adv 4 minecraft:stone*3
-I Adv 5 minecraft:stone*3
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 3 minecraft:stone*4{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 4 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 5 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
 B -1 -60 0 minecraft:stone
 B 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 B 0 -59 0 minecraft:stone
@@ -99,20 +99,20 @@ B 1 -60 0 minecraft:stone
 EV sound at=0.5,-58.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
 T 17
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 3 minecraft:stone*4
-I Adv 4 minecraft:stone*3
-I Adv 5 minecraft:stone*3
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 3 minecraft:stone*4{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 4 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 5 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
 B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 # a components predicate: only the block and state parts and the nbt are tested in the world, so the chest passes
 T 18
 PKT Adv minecraft:container_set_slot 14000a002a030101000e010102f501000001060800054e616d656400
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 3 minecraft:stone*4
-I Adv 4 minecraft:stone*3
-I Adv 5 minecraft:stone*3
-I Adv 6 minecraft:stone*3
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 3 minecraft:stone*4{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 4 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 5 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 6 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",components:{minecraft:custom_name:"Named"}}}
 B 16 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 B 17 -60 0 minecraft:stone
 EV sound at=17.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
@@ -138,13 +138,13 @@ PKT Adv minecraft:container_set_slot 14000d002c019c0802000f01010201000000000301
 DIG Adv ticks=6 broken=true
 T 32
 I Adv 0 minecraft:stone*4
-I Adv 1 minecraft:stone*3
-I Adv 3 minecraft:stone*4
-I Adv 4 minecraft:stone*3
-I Adv 5 minecraft:stone*3
-I Adv 6 minecraft:stone*3
-I Adv 7 minecraft:diamond_pickaxe*1
-I Adv 8 minecraft:diamond_pickaxe*1/dmg=1
+I Adv 1 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest"}}
+I Adv 3 minecraft:stone*4{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 4 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 5 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 6 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",components:{minecraft:custom_name:"Named"}}}
+I Adv 7 minecraft:diamond_pickaxe*1{minecraft:can_break:{blocks:"minecraft:dirt"}}
+I Adv 8 minecraft:diamond_pickaxe*1/dmg=1{minecraft:can_break:{blocks:"minecraft:stone"},minecraft:damage:1}
 EV level_event r=64.0 ex=0 type=2019 pos=8,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=8,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=8,-60,0 data=1 global=0
@@ -217,14 +217,14 @@ T 76
 B 1 -60 0 minecraft:stone
 B 4 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 I Adv 0 minecraft:diamond_axe*1
-I Adv 1 minecraft:diamond_axe*1
-I Adv 2 minecraft:diamond_axe*1/dmg=1
-I Adv 3 minecraft:stone*4
-I Adv 4 minecraft:stone*3
-I Adv 5 minecraft:stone*3
-I Adv 6 minecraft:stone*3
-I Adv 7 minecraft:diamond_pickaxe*1
-I Adv 8 minecraft:diamond_pickaxe*1/dmg=1
+I Adv 1 minecraft:diamond_axe*1{minecraft:can_break:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 2 minecraft:diamond_axe*1/dmg=1{minecraft:can_break:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'},minecraft:damage:1}
+I Adv 3 minecraft:stone*4{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 4 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 5 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",nbt:'{Items:[{id:"minecraft:dirt"}]}'}}
+I Adv 6 minecraft:stone*3{minecraft:can_place_on:{blocks:"minecraft:chest",components:{minecraft:custom_name:"Named"}}}
+I Adv 7 minecraft:diamond_pickaxe*1{minecraft:can_break:{blocks:"minecraft:dirt"}}
+I Adv 8 minecraft:diamond_pickaxe*1/dmg=1{minecraft:can_break:{blocks:"minecraft:stone"},minecraft:damage:1}
 EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=0,-60,0 data=1 global=0

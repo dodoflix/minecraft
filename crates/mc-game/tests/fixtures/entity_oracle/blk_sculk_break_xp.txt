@@ -25,8 +25,8 @@ EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=2,-60,0 data=31000 global=0
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=1
-I Steve 1 minecraft:diamond_pickaxe*1
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:silk_touch:1}}
 E experience_orb#2 minecraft:experience_orb pos=2.0123627108932487,-59.095239604922014,1.1285163655581543 delta=-0.16632455076890096,0.10023909256075988,0.2228468339742769 rot=152.52673,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=3 health=5
 # silk touch keeps the block and drops no experience
 DIG Steve ticks=20 broken=true
@@ -51,8 +51,8 @@ EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=4,-60,0 data=31000 global=0
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=1
-I Steve 1 minecraft:diamond_pickaxe*1/dmg=1
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:diamond_pickaxe*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:silk_touch:1}}
 E item#1 minecraft:item pos=4.723449432393932,-59.18938355914943,0.41752719838268243 delta=0.011049924130969347,0.07297472653442398,-0.07801546274743672 rot=236.83118,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sculk*1 age=3 pickup=7 health=5 owner=- thrower=-
 # the ores keep their ranges (coal 0-2, lapis 2-5, gold none)
 DESTROY true

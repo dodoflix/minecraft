@@ -1,743 +1,743 @@
 T 1
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=490
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=490
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=490{minecraft:damage:490,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=490{minecraft:damage:490,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.486715165640219,-60.0,0.5 delta=-0.007811483389054094,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=1 health=5
 E o2 minecraft:experience_orb pos=3.4764960803076232,-60.0,2.484330720205082 delta=-0.013820306168852846,0.0,-0.009213537445901896 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=1 health=5
 E o3 minecraft:experience_orb pos=0.5,-59.96395164958029,0.959229413441173 delta=0.0,0.035327384098882565,-0.03995517560528768 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=1 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=1 health=5
 T 2
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=490
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=490
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=490{minecraft:damage:490,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=490{minecraft:damage:490,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.465500777611431,-60.0,0.5 delta=-0.012474061415287573,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=2 health=5
 E o2 minecraft:experience_orb pos=3.438879029977967,-60.0,2.4592526866519777 delta=-0.022118827818051783,0.0,-0.014745885212034524 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=2 health=5
 E o3 minecraft:experience_orb pos=0.5,-59.89088444094386,0.8790803577530316 delta=0.0,0.0716058658573493,-0.07854607610310047 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=2 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=2 health=5
 T 3
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.439434232670009,-60.0,0.5 delta=-0.015327129966813534,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=3 health=5
 E o2 minecraft:experience_orb pos=3.39249196530919,-60.0,2.4283279768727932 delta=-0.027275596768006123,0.0,-0.01818373117867075 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=3 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=3 health=5
 T 4
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.410279941655423,-60.0,0.5 delta=-0.017142724840405566,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=4 health=5
 E o2 minecraft:experience_orb pos=3.3403620205788354,-60.0,2.3935746803858904 delta=-0.030652410583777802,0.0,-0.020434940389185204 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=4 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=4 health=5
 T 5
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.379045313662077,-60.0,0.5 delta=-0.018365963106922414,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=5 health=5
 E o2 minecraft:experience_orb pos=3.2841906087642045,-60.0,2.35612707250947 delta=-0.03302879346829531,0.0,-0.02201919564553021 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=5 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=5 health=5
 T 6
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.346301166658237,-60.0,0.5 delta=-0.01925356037434788,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=6 health=5
 E o2 minecraft:experience_orb pos=3.224919851910323,-60.0,2.316613234606882 delta=-0.03485120853463211,0.0,-0.023234139023088074 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=6 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=6 health=5
 T 7
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.312366373795356,-60.0,0.5 delta=-0.019953660209863527,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=7 health=5
 E o2 minecraft:experience_orb pos=3.1630566031193412,-60.0,2.2753710687462276 delta=-0.0363755939469357,0.0,-0.024250395964623802 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=7 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=7 health=5
 T 8
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.277414255458088,-60.0,0.5 delta=-0.020551847648956234,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=8 health=5
 E o2 minecraft:experience_orb pos=3.098857809429888,-60.0,2.232571872953259 delta=-0.0377488944853323,0.0,-0.0251659296568882 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=8 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=8 health=5
 T 9
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.241533865122714,-60.0,0.5 delta=-0.021097671638728215,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=9 health=5
 E o2 minecraft:experience_orb pos=3.0324365804262245,-60.0,2.1882910536174833 delta=-0.03905568658149584,0.0,-0.026037124387663892 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=9 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=9 health=5
 T 10
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.204765277267234,-60.0,0.5 delta=-0.021619931833068592,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=10 health=5
 E o2 minecraft:experience_orb pos=2.963822942061107,-60.0,2.142548628040738 delta=-0.0403448234156631,0.0,-0.026896548943775408 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=10 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=10 health=5
 T 11
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.167119892133747,-60.0,0.5 delta=-0.022135488684379652,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=11 health=5
 E o2 minecraft:experience_orb pos=2.892998732105366,-60.0,2.095332488070244 delta=-0.041644639641655844,0.0,-0.027763093094437235 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=11 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=11 health=5
 T 12
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.128592106166712,-60.0,0.5 delta=-0.02265434042667973,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=12 health=5
 E o2 minecraft:experience_orb pos=2.8199177867312017,-60.0,2.0466118578208015 delta=-0.0429716002011246,0.0,-0.02864773346741641 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=12 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=12 health=5
 T 13
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.089166007025609,-60.0,0.5 delta=-0.023182548626147347,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=13 health=5
 E o2 minecraft:experience_orb pos=2.7445178203737965,-60.0,1.9963452135825313 delta=-0.04433518467638908,0.0,-0.029556789784259394 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=13 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=13 health=5
 T 14
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.048819201480841,-60.0,0.5 delta=-0.023723924045941834,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=14 health=5
 E o2 minecraft:experience_orb pos=2.6667276934512394,-60.0,1.9444851289674931 delta=-0.04574059923002334,0.0,-0.030493732820015565 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=14 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=14 health=5
 T 15
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=5.007524990794578,-60.0,0.5 delta=-0.02428099832515844,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=15 health=5
 E o2 minecraft:experience_orb pos=2.5864722256890356,-60.0,1.8909814837926908 delta=-0.0471902197895056,0.0,-0.03146014652633707 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=15 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=15 health=5
 T 16
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.965253593168467,-60.0,0.5 delta=-0.024855584303568316,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=16 health=5
 E o2 minecraft:experience_orb pos=2.5036758505103354,-60.0,1.8357839003402239 delta=-0.04868427350064399,0.0,-0.03245618233376267 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=16 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=16 health=5
 T 17
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.92197281610142,-60.0,0.5 delta=-0.02544909947452133,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=17 health=5
 E o2 minecraft:experience_orb pos=2.4182659361202123,-60.0,1.7788439574134751 delta=-0.050221034711493355,0.0,-0.033480689807662244 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=17 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=17 health=5
 T 18
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.877648410563459,-60.0,0.5 delta=-0.026062753077125307,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=18 health=5
 E o2 minecraft:experience_orb pos=2.3301763628424013,-60.0,1.7201175752282676 delta=-0.05179667429589632,0.0,-0.034531116197264226 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=18 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=18 health=5
 T 19
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.832244240446,-60.0,0.5 delta=-0.026697654713715015,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=19 health=5
 E o2 minecraft:experience_orb pos=2.2393518570702735,-60.0,1.659567904713516 delta=-0.05340481476426489,0.0,-0.03560320984284327 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=19 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=19 health=5
 T 20
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=476
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=476{minecraft:damage:476,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.785722344069912,-60.0,0.5 delta=-0.02735487781987759,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=20 health=5
 E o2 minecraft:experience_orb pos=2.14575359560528,-60.0,1.5971690637368534 delta=-0.05503578327567628,0.0,-0.0366905221837842 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=4 age=20 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=20 health=5
 T 21
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=470
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=470
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=470{minecraft:damage:470,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=470{minecraft:damage:470,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.738042931915448,-60.0,0.5 delta=-0.028035497166004057,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=21 health=5
 E o2 minecraft:experience_orb pos=2.0493666921407376,-60.0,1.5329111280938255 delta=-0.05667550493629694,0.0,-0.03778366995753131 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=3 age=21 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=21 health=5
 T 22
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=470
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=470
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=470{minecraft:damage:470,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=470{minecraft:damage:470,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.689164345982858,-60.0,0.5 delta=-0.028740611418446436,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=22 health=5
 E o2 minecraft:experience_orb pos=1.9502103588777424,-60.0,1.4668069059184954 delta=-0.05830392982153777,0.0,-0.03886928654769187 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=3 age=22 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=22 health=5
 T 23
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=464
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=464
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=464{minecraft:damage:464,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=464{minecraft:damage:464,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.639042995425248,-60.0,0.5 delta=-0.029471357091440463,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=23 health=5
 E o2 minecraft:experience_orb pos=1.8483518090152864,-60.0,1.3989012060101915 delta=-0.05989283334179681,0.0,-0.0399285555611979 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=2 age=23 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=23 health=5
 T 24
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=464
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=464
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=464{minecraft:damage:464,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=464{minecraft:damage:464,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.587633276934593,-60.0,0.5 delta=-0.030228917512249147,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=24 health=5
 E o2 minecraft:experience_orb pos=1.7439253381709483,-60.0,1.3292835587806326 delta=-0.06140277103097911,0.0,-0.04093518068731944 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=2 age=24 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=24 health=5
 T 25
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=458
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=458
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=458{minecraft:damage:458,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=458{minecraft:damage:458,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.534887484863081,-60.0,0.5 delta=-0.03101452885679245,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=25 health=5
 E o2 minecraft:experience_orb pos=1.63715848055624,-60.0,1.2581056537041604 delta=-0.0627789185903387,0.0,-0.04185261239355917 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=25 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=25 health=5
 T 26
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=458
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=458
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=458{minecraft:damage:458,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=458{minecraft:damage:458,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.480755714108401,-60.0,0.5 delta=-0.03182948440444436,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=26 health=5
 E o2 minecraft:experience_orb pos=1.5284075896408322,-59.997254082584256,1.1856050597605552 delta=-0.10657587517135832,0.0026909991198069308,-0.07105058344757226 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=26 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=26 health=5
 T 27
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.4251857577443054,-60.0,0.5 delta=-0.032675137627818054,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=27 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=27 health=5
 T 28
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.368123000873779,-60.0,0.5 delta=-0.03355290441386502,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=28 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=28 health=5
 T 29
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.309510312019101,-60.0,0.5 delta=-0.034464264512190396,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=29 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=29 health=5
 T 30
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.249287933432454,-60.0,0.5 delta=-0.03541076216976548,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=30 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=30 health=5
 T 31
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.187393371961038,-60.0,0.5 delta=-0.03639400580488193,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=31 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=31 health=5
 T 32
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.123761292515952,-60.0,0.5 delta=-0.03741566647613624,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=32 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=32 health=5
 T 33
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=4.058323416783762,-60.0,0.5 delta=-0.03847747479972577,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=33 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=33 health=5
 T 34
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.9910084306132996,-60.0,0.5 delta=-0.03958121584841939,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=34 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=34 health=5
 T 35
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.9217419045570683,-60.0,0.5 delta=-0.04072872141664189,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=35 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=35 health=5
 T 36
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.850446233418404,-60.0,0.5 delta=-0.04192185884509131,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=36 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=36 health=5
 T 37
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.7770406024514753,-60.0,0.5 delta=-0.043162515348868,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=37 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=37 health=5
 T 38
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.7014409902173333,-60.0,0.5 delta=-0.04445257646371485,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=38 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=38 health=5
 T 39
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.6235602212011386,-60.0,0.5 delta=-0.04579389678644148,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=39 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=39 health=5
 T 40
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.5433080853976024,-60.0,0.5 delta=-0.047188260597612025,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=40 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=40 health=5
 T 41
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.4605915475234523,-60.0,0.5 delta=-0.048637329160847884,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=41 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=41 health=5
 T 42
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.375315075801971,-60.0,0.5 delta=-0.05014257041444174,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=42 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=42 health=5
 T 43
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.2873811300607967,-60.0,0.5 delta=-0.051705165295151886,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=43 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=43 health=5
 T 44
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.196690862137934,-60.0,0.5 delta=-0.053325882900959846,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=44 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=44 health=5
 T 45
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.1031450996403676,-60.0,0.5 delta=-0.055004913879725,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=45 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=45 health=5
 T 46
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=3.0066457088444913,-60.0,0.5 delta=-0.05674164749377273,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=46 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=46 health=5
 T 47
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=2.9070974666772833,-60.0,0.5 delta=-0.0585343722803877,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=47 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=47 health=5
 T 48
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=2.80441061914651,-60.0,0.5 delta=-0.06037987241974284,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=48 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=48 health=5
 T 49
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=2.698504369837194,-60.0,0.5 delta=-0.062272880855882014,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=49 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=49 health=5
 T 50
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=2.589311635040445,-60.0,0.5 delta=-0.06420533451681537,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=50 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=50 health=5
 T 51
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=2.4767855327907626,-60.0,0.5 delta=-0.06616535477623493,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=51 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=51 health=5
 T 52
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=2.3609082566538317,-60.0,0.5 delta=-0.06813584522008462,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=52 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=52 health=5
 T 53
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=2.2417032409666784,-60.0,0.5 delta=-0.07009255627237751,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=53 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=53 health=5
 T 54
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=452
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=452{minecraft:damage:452,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E o1 minecraft:experience_orb pos=2.1192518743386586,-60.0,0.5 delta=-0.0720014108175565,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=54 health=5
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=54 health=5
 T 55
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=55 health=5
 T 56
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=56 health=5
 T 57
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=57 health=5
 T 58
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=58 health=5
 T 59
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=59 health=5
 T 60
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=60 health=5
 T 61
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=61 health=5
 T 62
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=62 health=5
 T 63
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=63 health=5
 T 64
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=64 health=5
 T 65
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=65 health=5
 T 66
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=66 health=5
 T 67
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=67 health=5
 T 68
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=68 health=5
 T 69
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=69 health=5
 T 70
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378
-I Steve 0 minecraft:diamond_pickaxe*1/dmg=378
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1/dmg=378{minecraft:damage:378,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=70 health=5
 HURT o1 generic 1 -> false
 T 71
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=71 health=5
 T 72
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=72 health=5
 T 73
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=73 health=5
 T 74
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=74 health=5
 T 75
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=75 health=5
 T 76
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=76 health=5
 T 77
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=77 health=5
 T 78
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=78 health=5
 T 79
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=79 health=5
 T 80
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=80 health=5
 T 81
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=81 health=5
 T 82
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=82 health=5
 T 83
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=83 health=5
 T 84
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=84 health=5
 T 85
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=85 health=5
 T 86
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=86 health=5
 T 87
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=87 health=5
 T 88
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=88 health=5
 T 89
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=89 health=5
 T 90
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=90 health=5
 T 91
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=91 health=5
 T 92
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=92 health=5
 T 93
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=93 health=5
 T 94
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=94 health=5
 T 95
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=95 health=5
 T 96
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=96 health=5
 T 97
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=97 health=5
 T 98
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=98 health=5
 T 99
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=99 health=5
 T 100
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=100 health=5
 T 101
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=101 health=5
 T 102
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=102 health=5
 T 103
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=103 health=5
 T 104
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=104 health=5
 T 105
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=105 health=5
 T 106
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=106 health=5
 T 107
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=107 health=5
 T 108
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=108 health=5
 T 109
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=109 health=5
 T 110
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1
-I Steve 0 minecraft:diamond_pickaxe*1
-I Steve 1 minecraft:diamond_sword*1/dmg=300
-I Steve 2 minecraft:iron_axe*1/dmg=40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/2288/0.5180723 sel=0 main=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:mending:1}}
+I Steve 1 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300,minecraft:enchantments:{minecraft:mending:1}}
+I Steve 2 minecraft:iron_axe*1/dmg=40{minecraft:damage:40}
 E far minecraft:experience_orb pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=110 health=5

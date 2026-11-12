@@ -4,7 +4,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
 T 1
@@ -25,7 +25,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 10
 STAT P minecraft.custom:minecraft.time_since_death 10
@@ -38,7 +38,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 15
 STAT P minecraft.custom:minecraft.time_since_death 15
@@ -51,7 +51,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 15
 STAT P minecraft.custom:minecraft.time_since_death 15
@@ -66,7 +66,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 46
 STAT P minecraft.custom:minecraft.time_since_death 46
@@ -85,7 +85,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 66
 STAT P minecraft.custom:minecraft.time_since_death 66
@@ -100,7 +100,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 76
 STAT P minecraft.custom:minecraft.time_since_death 76
@@ -114,7 +114,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 96
 STAT P minecraft.custom:minecraft.time_since_death 96
@@ -124,13 +124,13 @@ USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.95121884
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9997595
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.90621215
-P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=5 main=minecraft:potion*2
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=4 sat=0.0 exh=0.0 xp=0/0/0.0 sel=5 main=minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 0 minecraft:apple*3
 I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 116
 STAT P minecraft.custom:minecraft.time_since_death 116
@@ -146,7 +146,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 136
 STAT P minecraft.custom:minecraft.time_since_death 136
@@ -163,7 +163,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 169
 STAT P minecraft.custom:minecraft.time_since_death 169
@@ -186,7 +186,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 177
 STAT P minecraft.custom:minecraft.time_since_death 177
@@ -200,7 +200,7 @@ I P 1 minecraft:golden_apple*2
 I P 2 minecraft:honey_bottle*2
 I P 3 minecraft:chorus_fruit*3
 I P 4 minecraft:milk_bucket*1
-I P 5 minecraft:potion*2
+I P 5 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 6 minecraft:ominous_bottle*1
 STAT P minecraft.custom:minecraft.play_time 217
 STAT P minecraft.custom:minecraft.time_since_death 217

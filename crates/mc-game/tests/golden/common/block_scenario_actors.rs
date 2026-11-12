@@ -1237,7 +1237,7 @@ impl Scenario {
                 pl.player.total_experience,
                 flt(pl.player.experience_progress),
                 pl.player.inventory.get_selected_slot(),
-                super::super::entity_scenario::item_text(pl.player.inventory.get_selected_item())
+                super::super::entity_scenario::item_full(pl.player.inventory.get_selected_item())
             );
         } else if let Some(item) = e
             .as_any()

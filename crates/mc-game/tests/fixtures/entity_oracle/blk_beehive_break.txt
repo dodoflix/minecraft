@@ -5,11 +5,11 @@ E item#1 minecraft:item pos=-3.453209994516594,-59.63991268243505,2.624220924072
 EV level_event r=64.0 ex=0 type=2019 pos=-4,-60,2 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=-4,-60,2 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=-4,-60,2 data=25152 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=1
+I Steve 0 minecraft:iron_axe*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:silk_touch:1}}
 I Steve 1 minecraft:iron_axe*1
 I Steve 2 minecraft:iron_shovel*1
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 # silk touch bee nest with a bee at honey level 5
 DIG Steve ticks=2 broken=true
 BE -3 -60 2 -
@@ -17,11 +17,11 @@ E item#1 minecraft:item pos=-3.3410223563829775,-59.44864867416479,2.44968969314
 E item#2 minecraft:item pos=-2.478005697262808,-59.45121111220728,2.4282827966444596 delta=-0.00587143961815829,0.1568000030517578,0.00942459725363079 rot=279.93356,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=1 pickup=9 health=5 owner=- thrower=-
 EV level_event r=64.0 ex=0 type=2019 pos=-3,-60,2 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=-3,-60,2 data=25130 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=2
+I Steve 0 minecraft:iron_axe*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:silk_touch:1}}
 I Steve 1 minecraft:iron_axe*1
 I Steve 2 minecraft:iron_shovel*1
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 # silk touch empty beehive
 DIG Steve ticks=3 broken=true
 BE -2 -60 2 -
@@ -31,11 +31,11 @@ E item#3 minecraft:item pos=-1.5449120659896587,-59.60377714506776,2.38795319458
 EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,2 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,2 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=-2,-60,2 data=25149 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=3
+I Steve 0 minecraft:iron_axe*1/dmg=3{minecraft:damage:3,minecraft:enchantments:{minecraft:silk_touch:1}}
 I Steve 1 minecraft:iron_axe*1
 I Steve 2 minecraft:iron_shovel*1
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 # silk touch empty bee nest at honey level 2
 DIG Steve ticks=2 broken=true
 BE -1 -60 2 -
@@ -45,11 +45,11 @@ E item#3 minecraft:item pos=-1.5659221490918,-59.41251313679749,2.49442947397656
 E item#4 minecraft:item pos=-0.7103433708351357,-59.334784711202786,2.2875313728767224 delta=0.02532328453732364,0.1568000030517578,-0.05707564044675542 rot=144.29912,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=1 pickup=9 health=5 owner=- thrower=-
 EV level_event r=64.0 ex=0 type=2019 pos=-1,-60,2 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=-1,-60,2 data=25127 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=4
+I Steve 0 minecraft:iron_axe*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:silk_touch:1}}
 I Steve 1 minecraft:iron_axe*1
 I Steve 2 minecraft:iron_shovel*1
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 # plain axe beehive: drops the item, occupants are offered for release
 DIG Steve ticks=3 broken=true
 BE 0 -60 2 -
@@ -61,11 +61,11 @@ E item#5 minecraft:item pos=0.24290593037501698,-59.399549014242844,2.3782973425
 EV level_event r=64.0 ex=0 type=2019 pos=0,-60,2 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=0,-60,2 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=0,-60,2 data=25151 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=4
-I Steve 1 minecraft:iron_axe*1/dmg=1
+I Steve 0 minecraft:iron_axe*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:silk_touch:1}}
+I Steve 1 minecraft:iron_axe*1/dmg=1{minecraft:damage:1}
 I Steve 2 minecraft:iron_shovel*1
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 # plain axe bee nest: no drops
 DIG Steve ticks=2 broken=true
 BE 1 -60 2 -
@@ -76,11 +76,11 @@ E item#4 minecraft:item pos=-0.5886913161577743,-59.165761815931965,2.0133422596
 E item#5 minecraft:item pos=0.13064572405744776,-59.20828500597258,2.2963113691452794 delta=-0.05445187136643726,0.07297472653442398,-0.03976733897793425 rot=24.853456,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=3 pickup=7 health=5 owner=- thrower=-
 EV level_event r=64.0 ex=0 type=2019 pos=1,-60,2 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=1,-60,2 data=25130 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=4
-I Steve 1 minecraft:iron_axe*1/dmg=2
+I Steve 0 minecraft:iron_axe*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:silk_touch:1}}
+I Steve 1 minecraft:iron_axe*1/dmg=2{minecraft:damage:2}
 I Steve 2 minecraft:iron_shovel*1
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 # shovel (slow) beehive
 DIG Steve ticks=18 broken=true
 BE 2 -60 2 -
@@ -107,12 +107,12 @@ EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
 EV level_event r=64.0 ex=0 type=2020 pos=2,-60,2 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=2,-60,2 data=25150 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=4
-I Steve 1 minecraft:iron_axe*1/dmg=2
-I Steve 2 minecraft:iron_shovel*1/dmg=1
-I Steve 3 minecraft:bee_nest*1
+I Steve 0 minecraft:iron_axe*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:silk_touch:1}}
+I Steve 1 minecraft:iron_axe*1/dmg=2{minecraft:damage:2}
+I Steve 2 minecraft:iron_shovel*1/dmg=1{minecraft:damage:1}
+I Steve 3 minecraft:bee_nest*1{minecraft:block_state:{honey_level:"2"}}
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 # bare hand empty beehive
 DIG Steve ticks=18 broken=true
 BE 3 -60 2 -
@@ -140,12 +140,12 @@ EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
 EV level_event r=64.0 ex=0 type=2020 pos=3,-60,2 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=3,-60,2 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=3,-60,2 data=25153 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=4
-I Steve 1 minecraft:iron_axe*1/dmg=2
-I Steve 2 minecraft:iron_shovel*1/dmg=1
-I Steve 3 minecraft:bee_nest*1
+I Steve 0 minecraft:iron_axe*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:silk_touch:1}}
+I Steve 1 minecraft:iron_axe*1/dmg=2{minecraft:damage:2}
+I Steve 2 minecraft:iron_shovel*1/dmg=1{minecraft:damage:1}
+I Steve 3 minecraft:bee_nest*1{minecraft:block_state:{honey_level:"2"}}
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 # Level.destroyBlock: beehive and bee nest with occupants
 DESTROY true
 BE -2 -60 2 -
@@ -157,12 +157,12 @@ E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.00
 E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
 E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
 EV level_event r=64.0 ex=0 type=2001 pos=-2,-60,2 data=25152 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=4
-I Steve 1 minecraft:iron_axe*1/dmg=2
-I Steve 2 minecraft:iron_shovel*1/dmg=1
-I Steve 3 minecraft:bee_nest*1
+I Steve 0 minecraft:iron_axe*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:silk_touch:1}}
+I Steve 1 minecraft:iron_axe*1/dmg=2{minecraft:damage:2}
+I Steve 2 minecraft:iron_shovel*1/dmg=1{minecraft:damage:1}
+I Steve 3 minecraft:bee_nest*1{minecraft:block_state:{honey_level:"2"}}
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 DESTROY true
 BE 2 -60 2 -
 E item#1 minecraft:item pos=-2.913756875003491,-60.0,1.7849892712789328 delta=9.842975399395512E-6,0.0,-1.5312797746534763E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
@@ -173,12 +173,12 @@ E item#6 minecraft:item pos=2.875,-60.0,2.4861167138930527 delta=0.0,-0.04,-0.00
 E item#7 minecraft:item pos=3.2600602507185057,-59.62315774601468,2.1955318359310563 delta=0.001049692778139747,0.1568000030517578,-0.06658252267204208 rot=170.33725,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=1 pickup=9 health=5 owner=- thrower=-
 E item#8 minecraft:item pos=-1.3809776486613168,-59.45173544198369,2.5419605736542508 delta=0.047119857864560966,0.2,0.08433605799285313 rot=30.368872,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
 EV level_event r=64.0 ex=0 type=2001 pos=2,-60,2 data=25128 global=0
-I Steve 0 minecraft:iron_axe*1/dmg=4
-I Steve 1 minecraft:iron_axe*1/dmg=2
-I Steve 2 minecraft:iron_shovel*1/dmg=1
-I Steve 3 minecraft:bee_nest*1
+I Steve 0 minecraft:iron_axe*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:silk_touch:1}}
+I Steve 1 minecraft:iron_axe*1/dmg=2{minecraft:damage:2}
+I Steve 2 minecraft:iron_shovel*1/dmg=1{minecraft:damage:1}
+I Steve 3 minecraft:bee_nest*1{minecraft:block_state:{honey_level:"2"}}
 I Steve 4 minecraft:beehive*8
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 # creative player breaking: the hive with bees and honey level drops; empty and dry hive does not
 # creative beehive with bees
 DIG Alex ticks=0 broken=true
@@ -351,19 +351,19 @@ E item#29 minecraft:item pos=24.362998181072566,-60.78429708446222,27.4004381943
 # placing hive items: bees and honey level of the item reach the block entity
 B 2 -60 2 minecraft:beehive[facing=north,honey_level=0]
 BE 2 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:2,y:-60,z:2}
-I Steve 0 minecraft:iron_axe*1/dmg=4
-I Steve 1 minecraft:iron_axe*1/dmg=2
-I Steve 2 minecraft:iron_shovel*1/dmg=1
-I Steve 3 minecraft:bee_nest*1
+I Steve 0 minecraft:iron_axe*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:silk_touch:1}}
+I Steve 1 minecraft:iron_axe*1/dmg=2{minecraft:damage:2}
+I Steve 2 minecraft:iron_shovel*1/dmg=1{minecraft:damage:1}
+I Steve 3 minecraft:bee_nest*1{minecraft:block_state:{honey_level:"2"}}
 I Steve 4 minecraft:beehive*7
-I Steve 5 minecraft:bee_nest*1
+I Steve 5 minecraft:bee_nest*1{minecraft:bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],minecraft:block_state:{honey_level:"3"}}
 EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
 B -2 -60 2 minecraft:bee_nest[facing=north,honey_level=3]
 BE -2 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:5}],components:{},id:"minecraft:beehive",x:-2,y:-60,z:2}
-I Steve 0 minecraft:iron_axe*1/dmg=4
-I Steve 1 minecraft:iron_axe*1/dmg=2
-I Steve 2 minecraft:iron_shovel*1/dmg=1
-I Steve 3 minecraft:bee_nest*1
+I Steve 0 minecraft:iron_axe*1/dmg=4{minecraft:damage:4,minecraft:enchantments:{minecraft:silk_touch:1}}
+I Steve 1 minecraft:iron_axe*1/dmg=2{minecraft:damage:2}
+I Steve 2 minecraft:iron_shovel*1/dmg=1{minecraft:damage:1}
+I Steve 3 minecraft:bee_nest*1{minecraft:block_state:{honey_level:"2"}}
 I Steve 4 minecraft:beehive*7
 EV sound at=-1.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
 BE -2 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:600,ticks_in_hive:8}],components:{},id:"minecraft:beehive",x:-2,y:-60,z:2}

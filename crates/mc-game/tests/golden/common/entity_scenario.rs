@@ -1260,7 +1260,7 @@ impl Harness {
                 pd.total_experience,
                 jf32(pd.experience_progress),
                 pd.inventory.get_selected_slot(),
-                item_text(pd.inventory.get_selected_item()),
+                item_full(pd.inventory.get_selected_item()),
             ));
         } else if let Some(ie) = e.as_any().downcast_ref::<ItemEntity>() {
             s.push_str(&format!(

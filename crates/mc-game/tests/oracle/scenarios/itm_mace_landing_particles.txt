@@ -1,0 +1,29 @@
+# A mace smash sets ServerPlayer.spawnExtraParticlesOnFall (MaceItem.postHurtEnemy); on landing ServerPlayer.checkFallDamage sends a BLOCK
+# particle burst (count clamp(50 * fallDistance, 0, 200), spread 0.3, speed 0.15) and clears the flag. A sim player falls, smashes a
+# zombie in mid air and lands.
+level flat
+preload 2
+difficulty normal
+time 18000
+spawn_player A survival 0.5 -50 0.5 0 0 sim
+give A mainhand minecraft:mace
+spawn Z minecraft:zombie 0.5 -52.5 1.5 180 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+entity_seed Z 801
+attribute Z minecraft:max_health 1000
+set Z health 1000
+tick 2
+set A fall_distance 5.5
+attack A Z
+dump player:A entity:Z packets:A:none
+tick 80
+dump player:A packets:A:level_particles
+note a smash on a target standing on the ground sets the flag: the landing throws the extra burst (count from the fall distance, spread 0.3) once
+spawn_player V survival 6.5 -60 0.5 0 0
+tick 2
+snap A 6.5 -57.8 0.5 0 0
+tick 1
+set A fall_distance 5.5
+attack A V
+dump player:A player:V packets:A:none
+tick 80
+dump player:A packets:A:level_particles

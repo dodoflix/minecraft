@@ -4,11 +4,11 @@ E Stand minecraft:armor_stand pos=-1.0,-60.0,0.5 delta=0.0,-0.0784000015258789,0
 # a named tag names a cow: persistent now, one tag used
 E Cow minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 N Cow {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:'"Bob"',DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
-I P 0 minecraft:name_tag*2
+I P 0 minecraft:name_tag*2{minecraft:custom_name:'"Bob"'}
 # the next tag renames it
 E Cow minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 N Cow {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:'"Carl the cow"',DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
-I P 0 minecraft:name_tag*2
+I P 0 minecraft:name_tag*2{minecraft:custom_name:'"Carl the cow"'}
 # a tag without a name passes
 E Cow minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 N Cow {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:'"Carl the cow"',DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
@@ -19,32 +19,37 @@ N Zom {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,Custo
 # creative: the stack stays whole
 E Zom minecraft:creeper pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
 N Zom {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:'"Ann"',DeathTime:0s,ExplosionRadius:3b,FallFlying:0b,Fire:0s,Fuse:30s,Health:20.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.0d],Rotation:[0.0f,0.0f],attributes:[{base:0.25d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,ignited:0b,powered:0b}
-I C 0 minecraft:name_tag*2
+I C 0 minecraft:name_tag*2{minecraft:custom_name:'"Ann"'}
+# creative: even the last tag of a stack of one stays (the count is restored after the item shrank it)
+E Zom minecraft:creeper pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
+N Zom {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:'"Last"',DeathTime:0s,ExplosionRadius:3b,FallFlying:0b,Fire:0s,Fuse:30s,Health:20.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.0d],Rotation:[0.0f,0.0f],attributes:[{base:0.25d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,ignited:0b,powered:0b}
+I C 0 minecraft:name_tag*1{minecraft:custom_name:'"Last"'}
 # the off hand works the same
 E Cow minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 N Cow {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:'"Off"',DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
-I P 40 minecraft:name_tag*1
+I P 40 minecraft:name_tag*1{minecraft:custom_name:'"Off"'}
 # an armor stand is a living entity, not a mob
 E Stand minecraft:armor_stand pos=-1.0,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N Stand {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CustomName:'"Stand"',DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[-1.0d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
-I P 0 minecraft:name_tag*1
-I P 40 minecraft:name_tag*1
+I P 0 minecraft:name_tag*1{minecraft:custom_name:'"Stand"'}
+I P 40 minecraft:name_tag*1{minecraft:custom_name:'"Off"'}
 # a player cannot be serialized: pass, the second player keeps no name
-P C minecraft:player pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:name_tag*2
-I P 0 minecraft:name_tag*2
-I P 40 minecraft:name_tag*1
+P C minecraft:player pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:name_tag*1{minecraft:custom_name:'"Last"'}
+I P 0 minecraft:name_tag*2{minecraft:custom_name:'"Pat"'}
+I P 40 minecraft:name_tag*1{minecraft:custom_name:'"Off"'}
 # an item entity is not living: pass
-E Itm minecraft:item pos=0.5,-60.0,-1.5 delta=0.0,-0.08,0.0 rot=316.50458,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12 pickup=0 health=5 owner=- thrower=-
-I P 0 minecraft:name_tag*2
-I P 40 minecraft:name_tag*1
+E Itm minecraft:item pos=0.5,-60.0,-1.5 delta=0.0,-0.12,0.0 rot=316.50458,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13 pickup=0 health=5 owner=- thrower=-
+I P 0 minecraft:name_tag*2{minecraft:custom_name:'"Pat"'}
+I P 40 minecraft:name_tag*1{minecraft:custom_name:'"Off"'}
 # a horse is named, not mounted
 E Vil minecraft:horse pos=2.0,-60.0,-1.0 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.0;minecraft:jump_strength:0.7;minecraft:max_health:53.0;minecraft:movement_speed:0.22499999403953552;minecraft:safe_fall_distance:6.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=-
 N Vil {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,CustomName:'"Pat"',DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,-1.0d],Rotation:[90.0f,0.0f],Tame:0b,Temper:0,Variant:0,attributes:[{base:0.22499999403953552d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
-I P 0 minecraft:name_tag*1
-I P 40 minecraft:name_tag*1
+I P 0 minecraft:name_tag*1{minecraft:custom_name:'"Pat"'}
+I P 40 minecraft:name_tag*1{minecraft:custom_name:'"Off"'}
+EV sound at=2.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=0.97065836
 HURT Cow minecraft:generic_kill 1000 -> true
 # the cow is dead: Mob.interact passes, the tag item is still reached through Player.interactOn and succeeds without consuming
 E Cow minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=dying hp=0.0 abs=0.0 hurt=9/19 death=1 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
-I P 0 minecraft:name_tag*1
-I P 40 minecraft:name_tag*1
-EV sound at=2.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=0.9592894
+I P 0 minecraft:name_tag*1{minecraft:custom_name:'"Pat"'}
+I P 40 minecraft:name_tag*1{minecraft:custom_name:'"Off"'}
+EV sound at=2.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=1.0583341

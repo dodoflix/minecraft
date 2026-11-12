@@ -12,9 +12,9 @@ B 5 -61 2 minecraft:grass_block[snowy=false]
 BE 1 -60 2 {components:{},id:"minecraft:test_block",message:"",mode:"start",powered:0b,x:1,y:-60,z:2}
 BE 2 -60 2 {components:{},id:"minecraft:test_block",message:"",mode:"fail",powered:0b,x:2,y:-60,z:2}
 I Admin 0 minecraft:test_block*4
-I Admin 1 minecraft:test_block*4
-I Admin 2 minecraft:test_block*4
-I Admin 3 minecraft:test_block*4
+I Admin 1 minecraft:test_block*4{minecraft:block_state:{mode:"fail"}}
+I Admin 2 minecraft:test_block*4{minecraft:block_state:{mode:"log"}}
+I Admin 3 minecraft:test_block*4{minecraft:block_state:{mode:"accept"}}
 # without the permission nothing is placed
 T 31
 EV sound at=1.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8

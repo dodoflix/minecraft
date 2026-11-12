@@ -13,7 +13,7 @@ E Sheared minecraft:sheep pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 f
 E Lamb minecraft:sheep pos=0.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Sheep minecraft:sheep pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
 N Sheep {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,Color:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,0.5d],Rotation:[90.0f,0.0f],Sheared:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
-I P 0 minecraft:shears*1/dmg=1
+I P 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
 E Sheep minecraft:sheep pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Sheared minecraft:sheep pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Lamb minecraft:sheep pos=0.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -23,13 +23,13 @@ E item#3 minecraft:item pos=1.714609499606476,-58.69912448859865,0.5975078978036
 EV packet at=2.0,-60.0,0.5 r=16.0 ex=0 id=minecraft:sound_entity
 # the sheared sheep passes the second click
 E Sheep minecraft:sheep pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
-I P 0 minecraft:shears*1/dmg=1
+I P 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
 E Sheep minecraft:sheep pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Sheared minecraft:sheep pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Lamb minecraft:sheep pos=0.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 # a sneaking player shears a sheep as well (only equipment shearing needs no sneak)
 E Sheep2 minecraft:sheep pos=-1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
-I P 0 minecraft:shears*1/dmg=2
+I P 0 minecraft:shears*1/dmg=2{minecraft:damage:2}
 E Sheep minecraft:sheep pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Sheared minecraft:sheep pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Lamb minecraft:sheep pos=0.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -64,7 +64,7 @@ E cow#1 minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall
 E item#14 minecraft:item pos=1.974391492900402,-58.323200020790104,0.6384851756300561 delta=-0.012421419666102714,0.11446400521850592,0.0671723063490052 rot=126.32046,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=2 pickup=0 health=5 owner=- thrower=-
 E item#15 minecraft:item pos=2.087851316509054,-58.323200020790104,0.461423325595945 delta=0.042612326690286154,0.11446400521850592,-0.018711635950964606 rot=116.24428,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=2 pickup=0 health=5 owner=- thrower=-
 E item#16 minecraft:item pos=2.0254991202515074,-58.323200020790104,0.49739217592851726 delta=0.01236836151863629,0.11446400521850592,-0.0012649264200083098 rot=202.06525,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=2 pickup=0 health=5 owner=- thrower=-
-I P 0 minecraft:shears*1/dmg=1
+I P 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
 I P 1 minecraft:red_mushroom*2
 EV packet at=2.0,-60.0,0.5 r=16.0 ex=0 id=minecraft:sound_entity
 E Baby minecraft:mooshroom pos=0.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -73,14 +73,14 @@ E cow#2 minecraft:cow pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=
 E item#19 minecraft:item pos=0.3066541304727759,-58.323200020790104,2.1675327614490247 delta=-0.09378251441072473,0.11446400521850592,0.08126185293371038 rot=33.957474,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brown_mushroom*1 age=2 pickup=0 health=5 owner=- thrower=-
 E item#20 minecraft:item pos=0.6783635338668956,-58.323200020790104,2.0499275284649734 delta=0.08651532471897273,0.11446400521850592,0.024217373607244096 rot=139.96689,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brown_mushroom*1 age=2 pickup=0 health=5 owner=- thrower=-
 E item#21 minecraft:item pos=0.508549899299618,-58.323200020790104,2.137843342153384 delta=0.0041471330948901946,0.11446400521850592,0.06686098468786754 rot=107.21787,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brown_mushroom*1 age=2 pickup=0 health=5 owner=- thrower=-
-I P 0 minecraft:shears*1/dmg=2
+I P 0 minecraft:shears*1/dmg=2{minecraft:damage:2}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 EV packet at=0.5,-60.0,2.0 r=16.0 ex=0 id=minecraft:sound_entity
 # snow golem: the pumpkin comes off once
 E Snow minecraft:snow_golem pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.20000000298023224
 N Snow {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,0.5d],Pumpkin:0b,Rotation:[90.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
-I P 0 minecraft:shears*1/dmg=3
+I P 0 minecraft:shears*1/dmg=3{minecraft:damage:3}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 E Baby minecraft:mooshroom pos=0.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -91,7 +91,7 @@ E item#22 minecraft:item pos=2.127966279230609,-58.02319994926453,0.511370040518
 EV packet at=2.0,-60.0,0.5 r=16.0 ex=0 id=minecraft:sound_entity
 EV sound at=0.5,-60.0,2.0 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=1.0681202
 E Snow minecraft:snow_golem pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.20000000298023224
-I P 0 minecraft:shears*1/dmg=3
+I P 0 minecraft:shears*1/dmg=3{minecraft:damage:3}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 E Baby minecraft:mooshroom pos=0.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -103,7 +103,7 @@ E Cow minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0
 E Wool minecraft:sheep pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=2,-60,0/5 leash=Cow speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
 # the sheep is leashed to the cow: its leash is cut, not the sheep sheared
 E Wool minecraft:sheep pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
-I P 0 minecraft:shears*1/dmg=4
+I P 0 minecraft:shears*1/dmg=4{minecraft:damage:4}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 E cow#1 minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -115,7 +115,7 @@ EV sound at=0.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:item.shears.snip source=pl
 # the cow holds the sheep and is held by the player: both leashes are cut
 E Cow minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E Wool minecraft:sheep pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
-I P 0 minecraft:shears*1/dmg=5
+I P 0 minecraft:shears*1/dmg=5{minecraft:damage:5}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 E cow#1 minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -130,7 +130,7 @@ E Creeper minecraft:creeper pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=
 N Creeper {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,ExplosionRadius:3b,FallFlying:0b,Fire:0s,Fuse:30s,Health:20.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.25d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{head:{components:{minecraft:equippable:{can_be_sheared:1b,shearing_sound:"minecraft:entity.sheep.shear",slot:"head"}},count:1,id:"minecraft:iron_helmet"}},fall_distance:0.0d,ignited:0b,powered:0b}
 E Plain minecraft:creeper pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=head:minecraft:iron_helmet*1 attrs=minecraft:armor:2.0;minecraft:follow_range:16.0;minecraft:movement_speed:0.25
 E Plain minecraft:creeper pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=head:minecraft:iron_helmet*1 attrs=minecraft:armor:2.0;minecraft:follow_range:16.0;minecraft:movement_speed:0.25
-I P 0 minecraft:shears*1/dmg=5
+I P 0 minecraft:shears*1/dmg=5{minecraft:damage:5}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 E cow#1 minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -138,7 +138,7 @@ E cow#2 minecraft:cow pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=
 E Creeper minecraft:creeper pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Plain minecraft:creeper pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Creeper minecraft:creeper pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=head:minecraft:iron_helmet*1{minecraft:equippable:{can_be_sheared:1b,shearing_sound:"minecraft:entity.sheep.shear",slot:"head"}} attrs=minecraft:armor:2.0;minecraft:follow_range:16.0;minecraft:movement_speed:0.25
-I P 0 minecraft:shears*1/dmg=5
+I P 0 minecraft:shears*1/dmg=5{minecraft:damage:5}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 E cow#1 minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -147,7 +147,7 @@ E Creeper minecraft:creeper pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=
 E Plain minecraft:creeper pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Creeper minecraft:creeper pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.25
 N Creeper {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,ExplosionRadius:3b,FallFlying:0b,Fire:0s,Fuse:30s,Health:20.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.25d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,ignited:0b,powered:0b}
-I P 0 minecraft:shears*1/dmg=6
+I P 0 minecraft:shears*1/dmg=6{minecraft:damage:6}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 E cow#1 minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -161,7 +161,7 @@ E Pig minecraft:pig pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0
 E Cursed minecraft:pig pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=saddle:minecraft:saddle*1{minecraft:enchantments:{minecraft:binding_curse:1}} attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 # the cursed saddle stays for a survival player
 E Cursed minecraft:pig pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=saddle:minecraft:saddle*1{minecraft:enchantments:{minecraft:binding_curse:1}} attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
-I P 0 minecraft:shears*1/dmg=6
+I P 0 minecraft:shears*1/dmg=6{minecraft:damage:6}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 E cow#1 minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -170,7 +170,7 @@ E Pig minecraft:pig pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0
 E Cursed minecraft:pig pos=0.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E Pig minecraft:pig pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 N Pig {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.0d,-60.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.25d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
-I P 0 minecraft:shears*1/dmg=7
+I P 0 minecraft:shears*1/dmg=7{minecraft:damage:7}
 I P 1 minecraft:red_mushroom*2
 I P 2 minecraft:brown_mushroom*2
 E cow#1 minecraft:cow pos=2.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-

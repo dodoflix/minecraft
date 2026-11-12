@@ -1,0 +1,22 @@
+# Dispensed projectiles take the can_break component of their item (Projectile.applyImplicitComponents, run by the AbstractArrow constructor and
+# by EntityType.spawn with the stack): the arrow and the snowball save it as can_break, an item without the component saves none.
+level flat
+preload 2
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:arrow",count:2,components:{"minecraft:can_break":{blocks:"minecraft:stone"}}}]}
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:snowball",count:2,components:{"minecraft:can_break":[{blocks:"minecraft:dirt"}]}}]}
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:arrow",count:2}]}
+note arrow with can_break
+level_seed 81
+dispense 0 -60 0 c1
+dump be:0,-60,0 entities events nbt:arrow#1
+note snowball with can_break
+level_seed 82
+dispense 0 -60 4 c2
+dump be:0,-60,4 entities events nbt:snowball#1
+note arrow without the component
+level_seed 83
+dispense 0 -60 8 c3
+dump be:0,-60,8 entities events nbt:arrow#2

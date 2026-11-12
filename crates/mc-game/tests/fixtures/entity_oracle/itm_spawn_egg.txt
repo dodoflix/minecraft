@@ -20,10 +20,10 @@ T 5
 # an egg with entity_data: a player that is not an operator only sets the id, an operator sets the whole spawn data
 BE 4 -60 4 {Delay:15s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnData:{entity:{id:"minecraft:cow"}},SpawnPotentials:[],SpawnRange:4s,components:{},id:"minecraft:mob_spawner",x:4,y:-60,z:4}
 BEU 4 -60 4 minecraft:mob_spawner {Delay:15s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnData:{entity:{id:"minecraft:cow"}},SpawnRange:4s}
-I A 0 minecraft:cow_spawn_egg*1
+I A 0 minecraft:cow_spawn_egg*1{minecraft:entity_data:{CustomName:'"Moo"',Health:5.0f,id:"minecraft:cow"}}
 BE 12 -60 4 {Delay:15s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnData:{entity:{CustomName:'"Moo"',Health:5.0f,id:"minecraft:cow"}},SpawnPotentials:[],SpawnRange:4s,components:{},id:"minecraft:mob_spawner",x:12,y:-60,z:4}
 BEU 12 -60 4 minecraft:mob_spawner {Delay:15s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnData:{entity:{CustomName:'"Moo"',Health:5.0f,id:"minecraft:cow"}},SpawnRange:4s}
-I B 0 minecraft:cow_spawn_egg*1
+I B 0 minecraft:cow_spawn_egg*1{minecraft:entity_data:{CustomName:'"Moo"',Health:5.0f,id:"minecraft:cow"}}
 T 6
 # trial spawners
 B 4 -60 -3 minecraft:trial_spawner[ominous=false,trial_spawner_state=inactive]

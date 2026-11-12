@@ -113,16 +113,9 @@ fn parse_stack(spec: &str, count: i32) -> ItemStack {
         .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"))
 }
 
-/// The driver's `item(stack)`.
+/// The driver's `itemFull(stack)`.
 fn item(s: &ItemStack) -> String {
-    if s.is_empty() {
-        return "empty".into();
-    }
-    let mut b = format!("{}*{}", s.item().name(), s.count());
-    if s.is_damageable_item() && s.get_damage_value() != 0 {
-        b.push_str(&format!("/dmg={}", s.get_damage_value()));
-    }
-    b
+    common::entity_scenario::item_full(s)
 }
 
 fn pose_name(pose: Pose) -> String {

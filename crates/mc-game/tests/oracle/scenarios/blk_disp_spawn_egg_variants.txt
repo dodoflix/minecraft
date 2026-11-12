@@ -1,0 +1,41 @@
+# Dispenser spawn eggs carrying a variant component: SpawnEggItemBehavior -> EntityType.spawn(.., stack, ..) applies the stack's implicit
+# components (Entity.applyImplicitComponents): chicken/variant, wolf/variant, cat/variant, frog/variant, parrot/variant and pig/variant.
+level flat
+preload 2
+time 18000
+note c1 chicken egg with chicken_variant cold
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:chicken_spawn_egg",count:1,components:{"minecraft:chicken/variant":"minecraft:cold"}}]}
+level_seed 711
+dispense 0 -60 0 c1
+dump be:0,-60,0 entities events nbt:chicken#1
+note c2 wolf egg with wolf_variant ashen
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:wolf_spawn_egg",count:1,components:{"minecraft:wolf/variant":"minecraft:ashen"}}]}
+level_seed 712
+dispense 0 -60 4 c2
+dump be:0,-60,4 entities events nbt:wolf#1
+note c3 cat egg with cat_variant black
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:cat_spawn_egg",count:1,components:{"minecraft:cat/variant":"minecraft:black"}}]}
+level_seed 713
+dispense 0 -60 8 c3
+dump be:0,-60,8 entities events nbt:cat#1
+note c4 frog egg with frog_variant cold
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:frog_spawn_egg",count:1,components:{"minecraft:frog/variant":"minecraft:cold"}}]}
+level_seed 714
+dispense 0 -60 12 c4
+dump be:0,-60,12 entities events nbt:frog#1
+note c5 parrot egg with parrot_variant gray
+block 0 -60 16 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 16 {Items:[{Slot:0b,id:"minecraft:parrot_spawn_egg",count:1,components:{"minecraft:parrot/variant":"minecraft:gray"}}]}
+level_seed 715
+dispense 0 -60 16 c5
+dump be:0,-60,16 entities events nbt:parrot#1
+note c6 pig egg with pig_variant cold (control: implemented)
+block 0 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 20 {Items:[{Slot:0b,id:"minecraft:pig_spawn_egg",count:1,components:{"minecraft:pig/variant":"minecraft:cold"}}]}
+level_seed 716
+dispense 0 -60 20 c6
+dump be:0,-60,20 entities events nbt:pig#1

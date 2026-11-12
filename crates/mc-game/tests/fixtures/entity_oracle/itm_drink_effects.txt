@@ -1,24 +1,24 @@
-P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:potion*1
-I P 0 minecraft:potion*1
-I P 1 minecraft:potion*1
-I P 2 minecraft:ominous_bottle*1
-I P 3 minecraft:suspicious_stew*1
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
+I P 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
+I P 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:strong_healing"}}
+I P 2 minecraft:ominous_bottle*1{minecraft:ominous_bottle_amplifier:2}
+I P 3 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"},{duration:60,id:"minecraft:night_vision"}]}
 I P 4 minecraft:milk_bucket*1
 I P 5 minecraft:chorus_fruit*4
 I P 6 minecraft:honey_bottle*1
-I P 7 minecraft:potion*1
-I P 8 minecraft:potion*1
+I P 7 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:poison"}}
+I P 8 minecraft:potion*1{minecraft:potion_contents:{custom_color:255,custom_effects:[{amplifier:1b,duration:40,id:"minecraft:levitation",show_icon:1b}]}}
 USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
 P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/3599 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:glass_bottle*1
 I P 0 minecraft:glass_bottle*1
-I P 1 minecraft:potion*1
-I P 2 minecraft:ominous_bottle*1
-I P 3 minecraft:suspicious_stew*1
+I P 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:strong_healing"}}
+I P 2 minecraft:ominous_bottle*1{minecraft:ominous_bottle_amplifier:2}
+I P 3 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"},{duration:60,id:"minecraft:night_vision"}]}
 I P 4 minecraft:milk_bucket*1
 I P 5 minecraft:chorus_fruit*4
 I P 6 minecraft:honey_bottle*1
-I P 7 minecraft:potion*1
-I P 8 minecraft:potion*1
+I P 7 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:poison"}}
+I P 8 minecraft:potion*1{minecraft:potion_contents:{custom_color:255,custom_effects:[{amplifier:1b,duration:40,id:"minecraft:levitation",show_icon:1b}]}}
 STAT P minecraft.custom:minecraft.play_time 33
 STAT P minecraft.custom:minecraft.time_since_death 33
 STAT P minecraft.custom:minecraft.time_since_rest 33
@@ -36,13 +36,13 @@ P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0
 P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/3546 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=1 main=minecraft:glass_bottle*1
 I P 0 minecraft:glass_bottle*1
 I P 1 minecraft:glass_bottle*1
-I P 2 minecraft:ominous_bottle*1
-I P 3 minecraft:suspicious_stew*1
+I P 2 minecraft:ominous_bottle*1{minecraft:ominous_bottle_amplifier:2}
+I P 3 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"},{duration:60,id:"minecraft:night_vision"}]}
 I P 4 minecraft:milk_bucket*1
 I P 5 minecraft:chorus_fruit*4
 I P 6 minecraft:honey_bottle*1
-I P 7 minecraft:potion*1
-I P 8 minecraft:potion*1
+I P 7 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:poison"}}
+I P 8 minecraft:potion*1{minecraft:potion_contents:{custom_color:255,custom_effects:[{amplifier:1b,duration:40,id:"minecraft:levitation",show_icon:1b}]}}
 STAT P minecraft.custom:minecraft.play_time 86
 STAT P minecraft.custom:minecraft.time_since_death 86
 STAT P minecraft.custom:minecraft.time_since_rest 86
@@ -58,12 +58,12 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink sourc
 P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:bad_omen/2/119999;minecraft:speed/0/3513 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=2 main=empty
 I P 0 minecraft:glass_bottle*1
 I P 1 minecraft:glass_bottle*1
-I P 3 minecraft:suspicious_stew*1
+I P 3 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"},{duration:60,id:"minecraft:night_vision"}]}
 I P 4 minecraft:milk_bucket*1
 I P 5 minecraft:chorus_fruit*4
 I P 6 minecraft:honey_bottle*1
-I P 7 minecraft:potion*1
-I P 8 minecraft:potion*1
+I P 7 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:poison"}}
+I P 8 minecraft:potion*1{minecraft:potion_contents:{custom_color:255,custom_effects:[{amplifier:1b,duration:40,id:"minecraft:levitation",show_icon:1b}]}}
 STAT P minecraft.custom:minecraft.play_time 119
 STAT P minecraft.custom:minecraft.time_since_death 119
 STAT P minecraft.custom:minecraft.time_since_rest 119
@@ -86,8 +86,8 @@ I P 3 minecraft:bowl*1
 I P 4 minecraft:milk_bucket*1
 I P 5 minecraft:chorus_fruit*4
 I P 6 minecraft:honey_bottle*1
-I P 7 minecraft:potion*1
-I P 8 minecraft:potion*1
+I P 7 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:poison"}}
+I P 8 minecraft:potion*1{minecraft:potion_contents:{custom_color:255,custom_effects:[{amplifier:1b,duration:40,id:"minecraft:levitation",show_icon:1b}]}}
 STAT P minecraft.custom:minecraft.play_time 152
 STAT P minecraft.custom:minecraft.time_since_death 152
 STAT P minecraft.custom:minecraft.time_since_rest 152
@@ -112,7 +112,7 @@ I P 4 minecraft:milk_bucket*1
 I P 5 minecraft:chorus_fruit*4
 I P 6 minecraft:honey_bottle*1
 I P 7 minecraft:glass_bottle*1
-I P 8 minecraft:potion*1
+I P 8 minecraft:potion*1{minecraft:potion_contents:{custom_color:255,custom_effects:[{amplifier:1b,duration:40,id:"minecraft:levitation",show_icon:1b}]}}
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.95841336
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.922852
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9909421
@@ -129,7 +129,7 @@ I P 4 minecraft:milk_bucket*1
 I P 5 minecraft:chorus_fruit*4
 I P 6 minecraft:glass_bottle*1
 I P 7 minecraft:glass_bottle*1
-I P 8 minecraft:potion*1
+I P 8 minecraft:potion*1{minecraft:potion_contents:{custom_color:255,custom_effects:[{amplifier:1b,duration:40,id:"minecraft:levitation",show_icon:1b}]}}
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9279963
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.97394615
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.honey_bottle.drink source=player vol=0.5 pitch=0.9190128
@@ -273,7 +273,7 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.0393398
 P C minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:chorus_fruit*4
 I C 0 minecraft:chorus_fruit*4
-I C 1 minecraft:potion*1
+I C 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:night_vision"}}
 STAT C minecraft.custom:minecraft.play_time 405
 STAT C minecraft.custom:minecraft.time_since_death 405
 STAT C minecraft.custom:minecraft.time_since_rest 405
@@ -289,9 +289,9 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.burp source=
 EV sound at=7.419686085116675,-59.109668168898764,-2.8946899871845204 r=16.0 ex=0 event=minecraft:item.chorus_fruit.teleport source=player vol=1.0 pitch=1.0
 EV level_event r=64.0 ex=0 type=2017 pos=0,-60,0 data=8814460 global=0
 EV sound at=20.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.eat source=player vol=0.5 pitch=1.063134
-P C minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:night_vision/0/3599 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=1 main=minecraft:potion*1
+P C minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:night_vision/0/3599 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=1 main=minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:night_vision"}}
 I C 0 minecraft:chorus_fruit*4
-I C 1 minecraft:potion*1
+I C 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:night_vision"}}
 STAT C minecraft.custom:minecraft.play_time 438
 STAT C minecraft.custom:minecraft.time_since_death 438
 STAT C minecraft.custom:minecraft.time_since_rest 438

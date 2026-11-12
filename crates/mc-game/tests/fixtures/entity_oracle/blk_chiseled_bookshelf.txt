@@ -69,7 +69,7 @@ B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
 B 2 -60 0 minecraft:redstone_lamp[lit=false]
 BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:book"},{Slot:1b,count:1,id:"minecraft:book"},{Slot:2b,count:1,id:"minecraft:book"},{Slot:3b,components:{"minecraft:written_book_content":{author:"x",pages:[{raw:"p"}],title:{raw:"T"}}},count:1,id:"minecraft:written_book"},{Slot:5b,count:1,id:"minecraft:book"}],components:{},id:"minecraft:chiseled_bookshelf",last_interacted_slot:4,x:0,y:-60,z:0}
 I A 0 minecraft:book*8
-I A 1 minecraft:enchanted_book*1
+I A 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:1}}
 # taking books out with an empty hand: pickup sound, comparator output, the full inventory drops the book
 B 0 -60 0 minecraft:chiseled_bookshelf[facing=south,slot_0_occupied=true,slot_1_occupied=false,slot_2_occupied=true,slot_3_occupied=true,slot_4_occupied=false,slot_5_occupied=true]
 B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
@@ -77,7 +77,7 @@ B 2 -60 0 minecraft:redstone_lamp[lit=false]
 BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:book"},{Slot:2b,count:1,id:"minecraft:book"},{Slot:3b,components:{"minecraft:written_book_content":{author:"x",pages:[{raw:"p"}],title:{raw:"T"}}},count:1,id:"minecraft:written_book"},{Slot:5b,count:1,id:"minecraft:book"}],components:{},id:"minecraft:chiseled_bookshelf",last_interacted_slot:1,x:0,y:-60,z:0}
 EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chiseled_bookshelf.pickup source=block vol=1.0 pitch=1.0
 I A 0 minecraft:book*1
-I A 1 minecraft:enchanted_book*1
+I A 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:1}}
 B 0 -60 0 minecraft:chiseled_bookshelf[facing=south,slot_0_occupied=true,slot_1_occupied=true,slot_2_occupied=true,slot_3_occupied=true,slot_4_occupied=false,slot_5_occupied=true]
 B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
 B 2 -60 0 minecraft:redstone_lamp[lit=false]
@@ -86,7 +86,7 @@ B 0 -60 0 minecraft:chiseled_bookshelf[facing=south,slot_0_occupied=true,slot_1_
 B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
 B 2 -60 0 minecraft:redstone_lamp[lit=false]
 BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:book"},{Slot:1b,count:1,id:"minecraft:book"},{Slot:2b,count:1,id:"minecraft:book"},{Slot:3b,components:{"minecraft:written_book_content":{author:"x",pages:[{raw:"p"}],title:{raw:"T"}}},count:1,id:"minecraft:written_book"},{Slot:5b,count:1,id:"minecraft:book"}],components:{},id:"minecraft:chiseled_bookshelf",last_interacted_slot:1,x:0,y:-60,z:0}
-I A 1 minecraft:enchanted_book*1
+I A 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:1}}
 B 0 -60 0 minecraft:chiseled_bookshelf[facing=south,slot_0_occupied=false,slot_1_occupied=true,slot_2_occupied=false,slot_3_occupied=false,slot_4_occupied=false,slot_5_occupied=true]
 B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
 B 2 -60 0 minecraft:redstone_lamp[lit=false]
@@ -94,8 +94,8 @@ BE 0 -60 0 {Items:[{Slot:1b,count:1,id:"minecraft:book"},{Slot:5b,count:1,id:"mi
 EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chiseled_bookshelf.pickup source=block vol=1.0 pitch=1.0
 EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chiseled_bookshelf.pickup source=block vol=1.0 pitch=1.0
 EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chiseled_bookshelf.pickup source=block vol=1.0 pitch=1.0
-I A 0 minecraft:written_book*1
-I A 1 minecraft:enchanted_book*1
+I A 0 minecraft:written_book*1{minecraft:written_book_content:{author:"x",pages:[{raw:"p"}],title:{raw:"T"}}}
+I A 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:1}}
 I A 2 minecraft:book*2
 B 0 -60 0 minecraft:chiseled_bookshelf[facing=south,slot_0_occupied=false,slot_1_occupied=true,slot_2_occupied=false,slot_3_occupied=false,slot_4_occupied=false,slot_5_occupied=true]
 B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]

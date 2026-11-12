@@ -15,4 +15,4 @@ EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=2,-60,0 data=1 global=0
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.005 xp=0/0/0.0 sel=1 main=minecraft:diamond_pickaxe*1/dmg=1
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.005 xp=0/0/0.0 sel=1 main=minecraft:diamond_pickaxe*1/dmg=1{minecraft:damage:1}

@@ -59,7 +59,7 @@ B 3 -61 0 minecraft:grass_block[snowy=false]
 B 3 -61 1 minecraft:grass_block[snowy=false]
 # a second book is not accepted, the empty hand opens the menu
 PKT A minecraft:open_screen 3c01110a0800097472616e736c6174650011636f6e7461696e65722e6c65637465726e00
-I A 0 minecraft:writable_book*1
+I A 0 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"x"}]}}
 PKT A minecraft:container_close 1101
 PKT A minecraft:open_screen 3c02110a0800097472616e736c6174650011636f6e7461696e65722e6c65637465726e00
 PKT A minecraft:container_set_content 1202010101db0a0100380501610001620001630001640001650000
@@ -248,7 +248,7 @@ B 3 -61 -1 minecraft:grass_block[snowy=false]
 B 3 -61 0 minecraft:grass_block[snowy=false]
 B 3 -61 1 minecraft:grass_block[snowy=false]
 BE 0 -60 0 {components:{},id:"minecraft:lectern",x:0,y:-60,z:0}
-I A 0 minecraft:writable_book*1
+I A 0 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"a"},{raw:"b"},{raw:"c"},{raw:"d"},{raw:"e"}]}}
 B -1 -61 -1 minecraft:grass_block[snowy=false]
 B -1 -61 0 minecraft:grass_block[snowy=false]
 B -1 -61 1 minecraft:grass_block[snowy=false]

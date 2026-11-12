@@ -1,0 +1,21 @@
+# arrow with can_break
+BE 0 -60 0 {Items:[{Slot:0b,components:{"minecraft:can_break":{blocks:"minecraft:stone"}},count:1,id:"minecraft:arrow"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E arrow#1 minecraft:arrow pos=1.2,-59.4,0.5 delta=1.125247863783991,-0.037495472095378346,0.0017935136515380814 rot=89.90869,-1.9085245 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+N arrow#1 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[1.125247863783991d,-0.037495472095378346d,0.0017935136515380814d],OnGround:0b,PierceLevel:0b,PortalCooldown:0,Pos:[1.2d,-59.4d,0.5d],Rotation:[89.90869f,-1.9085245f],SoundEvent:"minecraft:entity.arrow.hit",can_break:{blocks:"minecraft:stone"},crit:0b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:can_break:{blocks:"minecraft:stone"}},count:1,id:"minecraft:arrow"},life:0s,pickup:1b,shake:0b}
+# snowball with can_break
+BE 0 -60 4 {Items:[{Slot:0b,components:{"minecraft:can_break":{blocks:"minecraft:dirt"}},count:1,id:"minecraft:snowball"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+E arrow#1 minecraft:arrow pos=1.2,-59.4,0.5 delta=1.125247863783991,-0.037495472095378346,0.0017935136515380814 rot=89.90869,-1.9085245 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=1.2,-59.4,4.5 delta=1.1770338888782208,-0.005684470689023139,-0.003230178776600782 rot=90.15729,-0.27666047 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=5 global=0
+N snowball#1 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Item:{components:{minecraft:can_break:{blocks:"minecraft:dirt"}},count:1,id:"minecraft:snowball"},Motion:[1.1770338888782208d,-0.005684470689023139d,-0.003230178776600782d],OnGround:0b,PortalCooldown:0,Pos:[1.2d,-59.4d,4.5d],Rotation:[90.15729f,-0.27666047f],fall_distance:0.0d}
+# arrow without the component
+BE 0 -60 8 {Items:[{Slot:0b,count:1,id:"minecraft:arrow"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+E arrow#1 minecraft:arrow pos=1.2,-59.4,0.5 delta=1.125247863783991,-0.037495472095378346,0.0017935136515380814 rot=89.90869,-1.9085245 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=1.2,-59.4,4.5 delta=1.1770338888782208,-0.005684470689023139,-0.003230178776600782 rot=90.15729,-0.27666047 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E arrow#2 minecraft:arrow pos=1.2,-59.4,8.5 delta=1.149282060734552,-0.09302566724398556,0.0667708858215139 rot=86.67495,-4.619863 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+N arrow#2 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[1.149282060734552d,-0.09302566724398556d,0.0667708858215139d],OnGround:0b,PierceLevel:0b,PortalCooldown:0,Pos:[1.2d,-59.4d,8.5d],Rotation:[86.67495f,-4.619863f],SoundEvent:"minecraft:entity.arrow.hit",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:arrow"},life:0s,pickup:1b,shake:0b}

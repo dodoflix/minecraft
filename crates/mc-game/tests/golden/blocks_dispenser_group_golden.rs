@@ -15,6 +15,11 @@ fn shears() {
 }
 
 #[test]
+fn shears_on_bogged_and_sulfur_cube() {
+    check("blk_disp_shears_shearable_mobs");
+}
+
+#[test]
 fn glowstone() {
     check("blk_disp_glowstone");
 }

@@ -78,7 +78,7 @@ B 3 -61 1 minecraft:grass_block[snowy=false]
 E tnt#1 minecraft:tnt pos=5.519701269088999,-59.83999999701977,5.503443834531863 delta=0.019307244082990938,0.15680000597238544,0.0033749579069115745 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=79
 E tnt#2 minecraft:tnt pos=8.5,-60.0,9.5 delta=0.019847180840076563,0.20000000298023224,-0.002467673540259673 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
 E tnt#3 minecraft:tnt pos=2.5,-60.0,0.5 delta=0.005130976537034021,0.20000000298023224,-0.019330625436762422 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
-I Alice 0 minecraft:flint_and_steel*1/dmg=1
+I Alice 0 minecraft:flint_and_steel*1/dmg=1{minecraft:damage:1}
 I Alice 40 minecraft:fire_charge*4
 B 2 -61 -1 minecraft:grass_block[snowy=false]
 B 2 -61 0 minecraft:grass_block[snowy=false]
@@ -93,7 +93,7 @@ E tnt#1 minecraft:tnt pos=5.519701269088999,-59.83999999701977,5.503443834531863
 E tnt#2 minecraft:tnt pos=8.5,-60.0,9.5 delta=0.019847180840076563,0.20000000298023224,-0.002467673540259673 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
 E tnt#3 minecraft:tnt pos=2.5,-60.0,0.5 delta=0.005130976537034021,0.20000000298023224,-0.019330625436762422 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
 E tnt#4 minecraft:tnt pos=3.5,-60.0,0.5 delta=0.018295514100600634,0.20000000298023224,-0.008079242773597247 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
-I Alice 0 minecraft:flint_and_steel*1/dmg=1
+I Alice 0 minecraft:flint_and_steel*1/dmg=1{minecraft:damage:1}
 I Alice 40 minecraft:fire_charge*3
 T 32
 EV sound at=8.5,-60.0,9.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0

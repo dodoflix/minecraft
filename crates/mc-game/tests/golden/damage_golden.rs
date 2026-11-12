@@ -826,7 +826,10 @@ impl Replay {
                         let items = inv.get_non_equipment_items();
                         for (i, s) in items.iter().enumerate() {
                             if !s.is_empty() {
-                                v.push(format!("I {arg} {i} {}", item_string(s)));
+                                v.push(format!(
+                                    "I {arg} {i} {}",
+                                    common::entity_scenario::item_full(s)
+                                ));
                             }
                         }
                         for (slot_no, slot) in [
@@ -838,7 +841,10 @@ impl Replay {
                         ] {
                             let s = inv.equipment_get(slot);
                             if !s.is_empty() {
-                                v.push(format!("I {arg} {slot_no} {}", item_string(s)));
+                                v.push(format!(
+                                    "I {arg} {slot_no} {}",
+                                    common::entity_scenario::item_full(s)
+                                ));
                             }
                         }
                         v
@@ -938,7 +944,7 @@ impl Replay {
             s.push_str(&format!(
                 " sel={} main={}",
                 p.inventory.get_selected_slot(),
-                item_string(&e.get_item_by_slot(EquipmentSlot::MainHand))
+                common::entity_scenario::item_full(&e.get_item_by_slot(EquipmentSlot::MainHand))
             ));
         } else if let Some(i) = e
             .as_any()

@@ -293,7 +293,7 @@ E item#1 minecraft:item pos=121.15,-59.9,0.5 delta=0.05221943604849998,0.05,6.64
 EV sound at=120.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.pumpkin.carve source=block vol=1.0 pitch=1.0
 I Steve 0 minecraft:carved_pumpkin*24
 I Steve 1 minecraft:jack_o_lantern*30
-I Steve 2 minecraft:shears*1/dmg=1
+I Steve 2 minecraft:shears*1/dmg=1{minecraft:damage:1}
 I Steve 3 minecraft:pumpkin*4
 I Steve 4 minecraft:stick*1
 B 124 -60 0 minecraft:carved_pumpkin[facing=east]
@@ -309,7 +309,7 @@ E item#2 minecraft:item pos=125.15,-59.9,0.5 delta=0.05871511029930877,0.05,0.00
 EV sound at=124.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.pumpkin.carve source=block vol=1.0 pitch=1.0
 I Steve 0 minecraft:carved_pumpkin*24
 I Steve 1 minecraft:jack_o_lantern*30
-I Steve 2 minecraft:shears*1/dmg=2
+I Steve 2 minecraft:shears*1/dmg=2{minecraft:damage:2}
 I Steve 3 minecraft:pumpkin*4
 I Steve 4 minecraft:stick*1
 B 128 -60 0 minecraft:carved_pumpkin[facing=west]
@@ -326,7 +326,7 @@ E item#3 minecraft:item pos=127.85,-59.9,0.5 delta=-0.04671837327065217,0.05,0.0
 EV sound at=128.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.pumpkin.carve source=block vol=1.0 pitch=1.0
 I Steve 0 minecraft:carved_pumpkin*24
 I Steve 1 minecraft:jack_o_lantern*30
-I Steve 2 minecraft:shears*1/dmg=3
+I Steve 2 minecraft:shears*1/dmg=3{minecraft:damage:3}
 I Steve 3 minecraft:pumpkin*4
 I Steve 4 minecraft:stick*1
 E snow_golem#1 minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-

@@ -83,7 +83,7 @@ B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
 BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
 E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=1
+I Steve 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:glass_bottle*11
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*4
@@ -92,7 +92,7 @@ B 0 -61 2 minecraft:grass_block[snowy=false]
 B 0 -60 2 minecraft:beehive[facing=north,honey_level=5]
 BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
 E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
-I Steve 0 minecraft:shears*1/dmg=1
+I Steve 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:glass_bottle*11
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*4
@@ -100,7 +100,7 @@ B 0 -61 2 minecraft:grass_block[snowy=false]
 B 0 -60 2 minecraft:beehive[facing=north,honey_level=5]
 BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
 E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
-I Steve 0 minecraft:shears*1/dmg=1
+I Steve 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:glass_bottle*11
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*4
@@ -109,7 +109,7 @@ B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
 BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
 E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=1
+I Steve 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:glass_bottle*11
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*5
@@ -120,7 +120,7 @@ B 0 -60 2 minecraft:beehive[facing=north,honey_level=0]
 BE 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:0},{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
 E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=1
+I Steve 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
 I Steve 1 minecraft:glass_bottle*10
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*6
@@ -130,7 +130,7 @@ BE 0 -60 2 {bees:[{entity_data:{id:"minecraft:bee"},min_ticks_in_hive:2400,ticks
 E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=2
+I Steve 0 minecraft:shears*1/dmg=2{minecraft:damage:2}
 I Steve 1 minecraft:glass_bottle*10
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*6
@@ -141,7 +141,7 @@ BE 0 -60 2 {bees:[],components:{},id:"minecraft:beehive",x:0,y:-60,z:2}
 E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576823 delta=-0.07109918434813443,0.2,-0.05109795114054819 rot=41.315094,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=2
+I Steve 0 minecraft:shears*1/dmg=2{minecraft:damage:2}
 I Steve 1 minecraft:glass_bottle*9
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*7
@@ -152,7 +152,7 @@ E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576
 E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=3
+I Steve 0 minecraft:shears*1/dmg=3{minecraft:damage:3}
 I Steve 1 minecraft:glass_bottle*9
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*7
@@ -164,7 +164,7 @@ E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576
 E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=3
+I Steve 0 minecraft:shears*1/dmg=3{minecraft:damage:3}
 I Steve 1 minecraft:glass_bottle*8
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*8
@@ -176,7 +176,7 @@ E item#1 minecraft:item pos=0.6119006377012908,-59.47295593698389,2.380605574576
 E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.3063491293770064 delta=-0.08211326533561117,0.2,0.06705391055623752 rot=168.44438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=3
+I Steve 0 minecraft:shears*1/dmg=3{minecraft:damage:3}
 I Steve 1 minecraft:glass_bottle*7
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*9
@@ -188,7 +188,7 @@ E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.30634912937
 E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=4
+I Steve 0 minecraft:shears*1/dmg=4{minecraft:damage:4}
 I Steve 1 minecraft:glass_bottle*7
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*9
@@ -201,7 +201,7 @@ E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.30634912937
 E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=4
+I Steve 0 minecraft:shears*1/dmg=4{minecraft:damage:4}
 I Steve 1 minecraft:glass_bottle*6
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*10
@@ -213,7 +213,7 @@ E item#2 minecraft:item pos=0.6116766832707784,-59.549094947432096,2.30634912937
 E item#3 minecraft:item pos=0.6117662650429834,-59.71863935070339,2.736051705966817 delta=-0.09972113003991821,0.2,0.0388743397303101 rot=14.799892,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 E item#4 minecraft:item pos=0.6116318998352566,-59.46432274952174,2.591497844807391 delta=-0.08271836771574595,0.2,-0.07101638644655056 rot=212.90266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honeycomb*3 age=0 pickup=10 health=5 owner=- thrower=-
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bottle.fill source=block vol=1.0 pitch=1.0
-I Steve 0 minecraft:shears*1/dmg=4
+I Steve 0 minecraft:shears*1/dmg=4{minecraft:damage:4}
 I Steve 1 minecraft:glass_bottle*5
 I Steve 2 minecraft:stick*1
 I Steve 4 minecraft:honey_bottle*11

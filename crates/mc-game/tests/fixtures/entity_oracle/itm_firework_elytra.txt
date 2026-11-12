@@ -18,7 +18,7 @@ N firework_rocket#1 {Air:300s,Fire:0s,FireworksItem:{count:3,id:"minecraft:firew
 N firework_rocket#2 {Air:300s,Fire:0s,FireworksItem:{count:3,id:"minecraft:firework_rocket"},HasBeenShot:0b,Invulnerable:0b,Life:0,LifeTime:22,Motion:[-1.3802290049374518E-4d,0.05d,5.500563258770931E-5d],OnGround:0b,Owner:[I;-851257780,-1417265527,-1140629476,780022429],PortalCooldown:0,Pos:[30.5d,-10.078400001525878d,0.5d],Rotation:[0.0f,0.0f],ShotAtAngle:0b,fall_distance:0.0d}
 I P 0 minecraft:firework_rocket*2
 I P 38 minecraft:elytra*1
-I P 40 minecraft:firework_rocket*1
+I P 40 minecraft:firework_rocket*1{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"large_ball"}],flight_duration:2b}}
 I G 0 minecraft:firework_rocket*3
 I G 38 minecraft:elytra*1
 STAT P minecraft.custom:minecraft.play_time 2
@@ -393,7 +393,7 @@ E Cow minecraft:cow pos=2.5,-10.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.
 E item#1 minecraft:item pos=0.6519570234764619,-32.22947658301828,2.957714643943743 delta=-0.02766176520759388,-1.0354108923332528,0.036787415818612126 rot=155.9946,0.0 og=0 fall=22.61371533945203 fire=0 air=300 alive=1 pose=standing item=minecraft:lead*1 age=42 pickup=0 health=5 owner=- thrower=-
 E firework_rocket#3 minecraft:firework_rocket pos=0.007600754499435425,8.802756470097592,64.72767324186823 delta=0.0,0.4594510748720765,1.6110993303802204 rot=0.0,15.831258 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 I P 0 minecraft:firework_rocket*2
-I P 38 minecraft:elytra*1/dmg=2
+I P 38 minecraft:elytra*1/dmg=2{minecraft:damage:2}
 STAT P minecraft.custom:minecraft.play_time 44
 STAT P minecraft.custom:minecraft.time_since_death 44
 STAT P minecraft.custom:minecraft.time_since_rest 44

@@ -1,0 +1,58 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c1 chicken egg with chicken_variant cold
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E chicken#1 minecraft:chicken pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=59.389603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.chicken_picky.ambient source=neutral vol=1.0 pitch=0.9252651
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+N chicken#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,EggLayTime:10224,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsChickenJockey:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Rotation:[59.389603f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.055451890788344366d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:picky",variant:"minecraft:cold"}
+# c2 wolf egg with wolf_variant ashen
+BE 0 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+E chicken#1 minecraft:chicken pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=59.389603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-176.35242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.wolf_sad.pant source=neutral vol=0.4 pitch=0.95495033
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=5 global=0
+N wolf#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,4.5d],Rotation:[-176.35242f,0.0f],Sitting:0b,anger_end_time:-1L,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.048570876398388564d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:8.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:sad",variant:"minecraft:ashen"}
+# c3 cat egg with cat_variant black
+BE 0 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+E chicken#1 minecraft:chicken pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=59.389603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-176.35242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-79.500824,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.cat_royal.stray_ambient source=neutral vol=1.0 pitch=1.0796685
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+N cat#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,8.5d],Rotation:[-79.500824f,0.0f],Sitting:0b,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.05271459690266172d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:royal",variant:"minecraft:black"}
+# c4 frog egg with frog_variant cold
+BE 0 -60 12 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+E chicken#1 minecraft:chicken pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=59.389603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-176.35242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-79.500824,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E frog#1 minecraft:frog pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=-10.055634,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,12.5 r=16.0 ex=0 event=minecraft:entity.frog.ambient source=neutral vol=1.0 pitch=1.0946454
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0
+N frog#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{minecraft:long_jump_cooling_down:{value:104}}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,12.5d],Rotation:[-10.055634f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.017586717503349458d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,variant:"minecraft:cold"}
+# c5 parrot egg with parrot_variant gray
+BE 0 -60 16 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:16}
+E chicken#1 minecraft:chicken pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=59.389603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-176.35242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-79.500824,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E frog#1 minecraft:frog pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=-10.055634,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E parrot#1 minecraft:parrot pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=86.79598,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,16.5 r=16.0 ex=0 event=minecraft:entity.parrot.ambient source=neutral vol=1.0 pitch=1.1002289
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,16 data=5 global=0
+N parrot#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:6.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,16.5d],Rotation:[86.79598f,0.0f],Sitting:0b,Variant:3,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.008471528628959094d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c6 pig egg with pig_variant cold (control: implemented)
+BE 0 -60 20 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:20}
+E chicken#1 minecraft:chicken pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=59.389603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wolf#1 minecraft:wolf pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-176.35242,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cat#1 minecraft:cat pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-79.500824,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E frog#1 minecraft:frog pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=-10.055634,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E parrot#1 minecraft:parrot pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=86.79598,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=-148.94603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.pig_big.ambient source=neutral vol=1.0 pitch=0.98414516
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,20 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,20 data=5 global=0
+N pig#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,20.5d],Rotation:[-148.94603f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.06603606077906783d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:big",variant:"minecraft:cold"}

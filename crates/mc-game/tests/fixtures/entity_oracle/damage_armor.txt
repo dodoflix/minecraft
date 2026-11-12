@@ -34,10 +34,10 @@ HURT A1 out_of_world 7 -> true
 HURT A1 cactus 1 -> true
 HURT A1 explosion 5.5 -> true
 P A1 minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=8.028334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.1999999 xp=0/0/0.0 sel=0 main=empty
-I A1 36 minecraft:leather_boots*1/dmg=2
-I A1 37 minecraft:leather_leggings*1/dmg=2
-I A1 38 minecraft:leather_chestplate*1/dmg=2
-I A1 39 minecraft:leather_helmet*1/dmg=2
+I A1 36 minecraft:leather_boots*1/dmg=2{minecraft:damage:2}
+I A1 37 minecraft:leather_leggings*1/dmg=2{minecraft:damage:2}
+I A1 38 minecraft:leather_chestplate*1/dmg=2{minecraft:damage:2}
+I A1 39 minecraft:leather_helmet*1/dmg=2{minecraft:damage:2}
 PKT A1 minecraft:damage_event 190112000000
 PKT A1 minecraft:set_entity_data 6501090341880000ff
 PKT A1 minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.boots/1.0/add_value,minecraft:armor.chestplate/3.0/add_value,minecraft:armor.helmet/1.0/add_value,minecraft:armor.leggings/2.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
@@ -129,10 +129,10 @@ HURT A2 out_of_world 7 -> true
 HURT A2 cactus 1 -> true
 HURT A2 explosion 5.5 -> true
 P A2 minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=9.328334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.1999999 xp=0/0/0.0 sel=0 main=empty
-I A2 36 minecraft:chainmail_boots*1/dmg=2
-I A2 37 minecraft:chainmail_leggings*1/dmg=2
-I A2 38 minecraft:chainmail_chestplate*1/dmg=2
-I A2 39 minecraft:chainmail_helmet*1/dmg=2
+I A2 36 minecraft:chainmail_boots*1/dmg=2{minecraft:damage:2}
+I A2 37 minecraft:chainmail_leggings*1/dmg=2{minecraft:damage:2}
+I A2 38 minecraft:chainmail_chestplate*1/dmg=2{minecraft:damage:2}
+I A2 39 minecraft:chainmail_helmet*1/dmg=2{minecraft:damage:2}
 PKT A2 minecraft:damage_event 190212000000
 PKT A2 minecraft:set_entity_data 6502090341880000ff
 PKT A2 minecraft:update_attributes entity=2;minecraft:armor=0.0[minecraft:armor.boots/1.0/add_value,minecraft:armor.chestplate/5.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/4.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
@@ -225,10 +225,10 @@ HURT A3 out_of_world 7 -> true
 HURT A3 cactus 1 -> true
 HURT A3 explosion 5.5 -> true
 P A3 minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=10.108334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.1999999 xp=0/0/0.0 sel=0 main=empty
-I A3 36 minecraft:iron_boots*1/dmg=2
-I A3 37 minecraft:iron_leggings*1/dmg=2
-I A3 38 minecraft:iron_chestplate*1/dmg=2
-I A3 39 minecraft:iron_helmet*1/dmg=2
+I A3 36 minecraft:iron_boots*1/dmg=2{minecraft:damage:2}
+I A3 37 minecraft:iron_leggings*1/dmg=2{minecraft:damage:2}
+I A3 38 minecraft:iron_chestplate*1/dmg=2{minecraft:damage:2}
+I A3 39 minecraft:iron_helmet*1/dmg=2{minecraft:damage:2}
 PKT A3 minecraft:damage_event 190312000000
 PKT A3 minecraft:set_entity_data 6503090341880000ff
 PKT A3 minecraft:update_attributes entity=3;minecraft:armor=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/6.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/5.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
@@ -321,10 +321,10 @@ HURT A4 out_of_world 7 -> true
 HURT A4 cactus 1 -> true
 HURT A4 explosion 5.5 -> true
 P A4 minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=9.068335 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.1999999 xp=0/0/0.0 sel=0 main=empty
-I A4 36 minecraft:golden_boots*1/dmg=2
-I A4 37 minecraft:golden_leggings*1/dmg=2
-I A4 38 minecraft:golden_chestplate*1/dmg=2
-I A4 39 minecraft:golden_helmet*1/dmg=2
+I A4 36 minecraft:golden_boots*1/dmg=2{minecraft:damage:2}
+I A4 37 minecraft:golden_leggings*1/dmg=2{minecraft:damage:2}
+I A4 38 minecraft:golden_chestplate*1/dmg=2{minecraft:damage:2}
+I A4 39 minecraft:golden_helmet*1/dmg=2{minecraft:damage:2}
 PKT A4 minecraft:damage_event 190412000000
 PKT A4 minecraft:set_entity_data 6504090341880000ff
 PKT A4 minecraft:update_attributes entity=4;minecraft:armor=0.0[minecraft:armor.boots/1.0/add_value,minecraft:armor.chestplate/5.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/3.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/0.0/add_value,minecraft:armor.helmet/0.0/add_value,minecraft:armor.leggings/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
@@ -415,10 +415,10 @@ HURT A5 out_of_world 7 -> true
 HURT A5 cactus 1 -> true
 HURT A5 explosion 5.5 -> true
 P A5 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.720834 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.1999999 xp=0/0/0.0 sel=0 main=empty
-I A5 36 minecraft:diamond_boots*1/dmg=2
-I A5 37 minecraft:diamond_leggings*1/dmg=2
-I A5 38 minecraft:diamond_chestplate*1/dmg=2
-I A5 39 minecraft:diamond_helmet*1/dmg=2
+I A5 36 minecraft:diamond_boots*1/dmg=2{minecraft:damage:2}
+I A5 37 minecraft:diamond_leggings*1/dmg=2{minecraft:damage:2}
+I A5 38 minecraft:diamond_chestplate*1/dmg=2{minecraft:damage:2}
+I A5 39 minecraft:diamond_helmet*1/dmg=2{minecraft:damage:2}
 PKT A5 minecraft:damage_event 190512000000
 PKT A5 minecraft:set_entity_data 6505090341880000ff
 PKT A5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.boots/3.0/add_value,minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/6.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/2.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
@@ -510,10 +510,10 @@ HURT A6 out_of_world 7 -> true
 HURT A6 cactus 1 -> true
 HURT A6 explosion 5.5 -> true
 P A6 minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.219216 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.1999999 xp=0/0/0.0 sel=0 main=empty
-I A6 36 minecraft:leather_boots*1/dmg=2
-I A6 37 minecraft:netherite_leggings*1/dmg=2
-I A6 38 minecraft:netherite_chestplate*1/dmg=2
-I A6 39 minecraft:netherite_helmet*1/dmg=2
+I A6 36 minecraft:leather_boots*1/dmg=2{minecraft:damage:2}
+I A6 37 minecraft:netherite_leggings*1/dmg=2{minecraft:damage:2}
+I A6 38 minecraft:netherite_chestplate*1/dmg=2{minecraft:damage:2}
+I A6 39 minecraft:netherite_helmet*1/dmg=2{minecraft:damage:2}
 PKT A6 minecraft:damage_event 190612000000
 PKT A6 minecraft:set_entity_data 6506090341880000ff
 PKT A6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/1.0/add_value,minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/6.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/3.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/3.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
@@ -598,7 +598,7 @@ HURT A7 out_of_world 7 -> true
 HURT A7 cactus 1 -> true
 HURT A7 explosion 5.5 -> true
 P A7 minecraft:player pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=6.981334 abs=0.0 hurt=0/0 death=0 fx=minecraft:water_breathing/0/200 gm=survival food=20 sat=0.0 exh=0.1999999 xp=0/0/0.0 sel=0 main=empty
-I A7 39 minecraft:turtle_helmet*1/dmg=2
+I A7 39 minecraft:turtle_helmet*1/dmg=2{minecraft:damage:2}
 PKT A7 minecraft:damage_event 190712000000
 PKT A7 minecraft:set_entity_data 65070903418800000b0801ff
 PKT A7 minecraft:update_attributes entity=7;minecraft:armor=0.0[minecraft:armor.helmet/2.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.helmet/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]

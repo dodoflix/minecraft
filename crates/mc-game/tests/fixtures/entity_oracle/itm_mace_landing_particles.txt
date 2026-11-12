@@ -1,0 +1,10 @@
+C Set minecraft:overworld to 18000 tick(s)
+P A minecraft:player pos=0.5,-50.07840000152588,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+E Z minecraft:zombie pos=0.5,-52.5,1.5 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=982.08167 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+PKT A minecraft:level_particles 30010900003fe0000000000000c04e0000000000003fe00000000000000000000000000000000000003e19999a3e19999a3e19999a5a00
+# a smash on a target standing on the ground sets the flag: the landing throws the extra burst (count from the fall distance, spread 0.3) once
+P A minecraft:player pos=6.5,-57.878400001525875,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.1999999 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=2{minecraft:damage:2}
+P V minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.333332 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.19999981 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=2{minecraft:damage:2}
+PKT A minecraft:level_particles 3001090000401a000000000000c04e0000000000003fe00000000000003e99999a3e99999a3e99999a3e19999a3e19999a3e19999a6600

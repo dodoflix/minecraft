@@ -414,7 +414,7 @@ E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,
 E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-I C 0 minecraft:item_frame*4
+I C 0 minecraft:item_frame*4{minecraft:entity_data:{Fixed:1b,Invisible:1b,id:"minecraft:item_frame"}}
 # adventure mode: mayUseItemAt fails
 E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -668,7 +668,7 @@ E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=18
 E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N painting#4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[33.5d,-54.5d,11.96875d],Rotation:[180.0f,0.0f],block_pos:[I;33,-55,11],facing:2b,fall_distance:0.0d,variant:"minecraft:kebab"}
-I E 0 minecraft:painting*3
+I E 0 minecraft:painting*3{minecraft:painting/variant:"minecraft:kebab"}
 EV sound at=33.5,-54.5,11.96875 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
 E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -708,7 +708,7 @@ E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=18
 E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N painting#5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[41.5d,-55.5d,11.96875d],Rotation:[180.0f,0.0f],block_pos:[I;41,-56,11],facing:2b,fall_distance:0.0d,variant:"minecraft:kebab"}
-I E 0 minecraft:painting*2
+I E 0 minecraft:painting*2{minecraft:painting/variant:"minecraft:kebab"}
 EV sound at=41.5,-55.5,11.96875 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
 # cushions: ground, carpet, slab, fire, collision-shape blocks, a second cushion on the same spot, a side face, an entity in the way
 E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-

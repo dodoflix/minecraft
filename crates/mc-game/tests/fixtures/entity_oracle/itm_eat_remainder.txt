@@ -2,19 +2,19 @@ P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0
 I P 0 minecraft:mushroom_stew*1
 I P 1 minecraft:honey_bottle*3
 I P 2 minecraft:milk_bucket*1
-I P 3 minecraft:potion*2
+I P 3 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 4 minecraft:beetroot_soup*1
 I P 5 minecraft:rabbit_stew*2
-I P 6 minecraft:suspicious_stew*1
+I P 6 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"}]}
 USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
 P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=10 sat=7.2000003 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:bowl*1
 I P 0 minecraft:bowl*1
 I P 1 minecraft:honey_bottle*3
 I P 2 minecraft:milk_bucket*1
-I P 3 minecraft:potion*2
+I P 3 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 4 minecraft:beetroot_soup*1
 I P 5 minecraft:rabbit_stew*2
-I P 6 minecraft:suspicious_stew*1
+I P 6 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"}]}
 STAT P minecraft.custom:minecraft.play_time 33
 STAT P minecraft.custom:minecraft.time_since_death 33
 STAT P minecraft.custom:minecraft.time_since_rest 33
@@ -34,10 +34,10 @@ P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0
 I P 0 minecraft:bowl*1
 I P 1 minecraft:honey_bottle*2
 I P 2 minecraft:milk_bucket*1
-I P 3 minecraft:potion*2
+I P 3 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 4 minecraft:beetroot_soup*1
 I P 5 minecraft:rabbit_stew*2
-I P 6 minecraft:suspicious_stew*1
+I P 6 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"}]}
 I P 7 minecraft:glass_bottle*1
 STAT P minecraft.custom:minecraft.play_time 74
 STAT P minecraft.custom:minecraft.time_since_death 74
@@ -60,10 +60,10 @@ P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0
 I P 0 minecraft:bowl*1
 I P 1 minecraft:honey_bottle*2
 I P 2 minecraft:bucket*1
-I P 3 minecraft:potion*2
+I P 3 minecraft:potion*2{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 4 minecraft:beetroot_soup*1
 I P 5 minecraft:rabbit_stew*2
-I P 6 minecraft:suspicious_stew*1
+I P 6 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"}]}
 I P 7 minecraft:glass_bottle*1
 STAT P minecraft.custom:minecraft.play_time 107
 STAT P minecraft.custom:minecraft.time_since_death 107
@@ -80,14 +80,14 @@ EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink sourc
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.92882365
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.97755414
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.generic.drink source=player vol=0.5 pitch=0.9405564
-P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/3599 gm=survival food=20 sat=8.400001 exh=0.0 xp=0/0/0.0 sel=3 main=minecraft:potion*1
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/3599 gm=survival food=20 sat=8.400001 exh=0.0 xp=0/0/0.0 sel=3 main=minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 0 minecraft:bowl*1
 I P 1 minecraft:honey_bottle*2
 I P 2 minecraft:bucket*1
-I P 3 minecraft:potion*1
+I P 3 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:swiftness"}}
 I P 4 minecraft:beetroot_soup*1
 I P 5 minecraft:rabbit_stew*2
-I P 6 minecraft:suspicious_stew*1
+I P 6 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"}]}
 I P 7 minecraft:glass_bottle*2
 STAT P minecraft.custom:minecraft.play_time 140
 STAT P minecraft.custom:minecraft.time_since_death 140
@@ -112,7 +112,7 @@ I P 2 minecraft:bucket*1
 I P 3 minecraft:glass_bottle*1
 I P 4 minecraft:beetroot_soup*1
 I P 5 minecraft:rabbit_stew*2
-I P 6 minecraft:suspicious_stew*1
+I P 6 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"}]}
 I P 7 minecraft:glass_bottle*2
 STAT P minecraft.custom:minecraft.play_time 173
 STAT P minecraft.custom:minecraft.time_since_death 173
@@ -137,7 +137,7 @@ I P 2 minecraft:bucket*1
 I P 3 minecraft:glass_bottle*1
 I P 4 minecraft:bowl*1
 I P 5 minecraft:rabbit_stew*2
-I P 6 minecraft:suspicious_stew*1
+I P 6 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"}]}
 I P 7 minecraft:glass_bottle*2
 STAT P minecraft.custom:minecraft.play_time 206
 STAT P minecraft.custom:minecraft.time_since_death 206
@@ -165,7 +165,7 @@ I P 2 minecraft:bucket*1
 I P 3 minecraft:glass_bottle*1
 I P 4 minecraft:bowl*1
 I P 5 minecraft:rabbit_stew*1
-I P 6 minecraft:suspicious_stew*1
+I P 6 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:jump_boost"}]}
 I P 7 minecraft:glass_bottle*2
 STAT P minecraft.custom:minecraft.play_time 239
 STAT P minecraft.custom:minecraft.time_since_death 239
@@ -254,7 +254,7 @@ I F 32 minecraft:cobblestone*64
 I F 33 minecraft:cobblestone*64
 I F 34 minecraft:cobblestone*64
 I F 35 minecraft:cobblestone*64
-I F 40 minecraft:potion*1
+I F 40 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
 STAT F minecraft.custom:minecraft.play_time 313
 STAT F minecraft.custom:minecraft.time_since_death 313
 STAT F minecraft.custom:minecraft.time_since_rest 313
@@ -309,7 +309,7 @@ I F 32 minecraft:cobblestone*64
 I F 33 minecraft:cobblestone*64
 I F 34 minecraft:cobblestone*64
 I F 35 minecraft:cobblestone*64
-I F 40 minecraft:potion*1
+I F 40 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
 STAT F minecraft.custom:minecraft.play_time 346
 STAT F minecraft.custom:minecraft.time_since_death 346
 STAT F minecraft.custom:minecraft.time_since_rest 346
@@ -365,7 +365,7 @@ I F 32 minecraft:cobblestone*64
 I F 33 minecraft:cobblestone*64
 I F 34 minecraft:cobblestone*64
 I F 35 minecraft:cobblestone*64
-I F 40 minecraft:potion*1
+I F 40 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
 STAT F minecraft.custom:minecraft.play_time 379
 STAT F minecraft.custom:minecraft.time_since_death 379
 STAT F minecraft.custom:minecraft.time_since_rest 379
