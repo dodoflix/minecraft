@@ -1,8 +1,10 @@
 //! `KineticWeapon`: the lunge of a spear in use (`damageEntities`, `getMotion`, `Condition.test`) and the `recentKineticEnemies`
 //! bookkeeping of `LivingEntity` (`wasRecentlyStabbed`, `rememberStabbedEntity`, `stabbedEntities`).
 //!
-//! Not implemented: `EnderDragonPart` targets are not entities here, so the part-to-dragon redirection of the hit list has no
-//! effect; `onKineticHit` (the local hit sound of the client for entity event 2) is client-only.
+//! Not implemented: a target removed by an earlier stab of the same pass (an end crystal or a TNT minecart another one set
+//! off) is skipped, where vanilla still runs `stabAttack` on the removed object (exhaustion, post-attack effects);
+//! `EnderDragonPart` targets are not entities here, so the part-to-dragon redirection of the hit list has no effect;
+//! `onKineticHit` (the local hit sound of the client for entity event 2) is client-only.
 
 use super::piercing_weapon::{can_hit_entity, stab_attack};
 use super::{ItemStack, behaviour};
@@ -107,7 +109,12 @@ pub fn damage_entities(
     ticks_used -= kinetic.delay_ticks;
     let attacker_look = entity.get_look_angle();
     let attacker_speed_projection = attacker_look.dot(get_motion(level, &*entity));
-    let action_factor = if entity.is_player() { 1.0 } else { 0.2 };
+    // `float actionFactor` widened to double
+    let action_factor = if entity.is_player() {
+        1.0
+    } else {
+        f64::from(0.2f32)
+    };
     let attack_range = get_attack_range_with(&*entity, stack);
     let base_mob_damage = entity
         .living()
