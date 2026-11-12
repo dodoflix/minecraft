@@ -1,0 +1,48 @@
+# Player.interactOn for a spectator: an entity that is a MenuProvider (chest boats) opens its menu, whatever the hand, and the interaction passes; a chest boat with an unrolled loot table
+# cannot be opened by a spectator (system message `container.spectatorCantOpen` over the hotbar); a boat without a chest and a cow are not menu providers. A survival player
+# opens the chest boat through `AbstractChestBoat.interact`. Every interaction with the same entity differs by the hand or the sneak flag.
+level flat
+preload 2
+watch events
+level_seed 5
+spawn_player S spectator 2.5 -60 0.5 0 0
+spawn_player P survival 4.0 -60 1.5 0 0
+spawn B1 minecraft:oak_chest_boat 2.5 -60 2.5 0 0 {}
+entity_seed B1 1
+spawn B2 minecraft:birch_chest_boat 3.5 -60 -2.5 0 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:13b,id:"minecraft:stick",count:7}]}
+entity_seed B2 2
+spawn B3 minecraft:oak_chest_boat 5.5 -60 2.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:5L}
+entity_seed B3 3
+spawn B4 minecraft:oak_boat 0.5 -60 -1.5 0 0 {}
+entity_seed B4 4
+spawn C minecraft:cow 5.5 -60 -2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C 5
+tick 2
+dump packets:S:none packets:P:none
+note an empty chest boat: the menu opens for the spectator
+interact S B1
+dump packets:S:open_screen,container_set_content,container_set_slot,system_chat,game_event,sound,swing events
+close_menu S
+note a chest boat with items, another hand
+interact S B2 off
+dump packets:S:open_screen,container_set_content,container_set_slot,system_chat,game_event,sound,swing events
+close_menu S
+note a chest boat with a loot table: the spectator cannot open it
+interact S B3
+dump packets:S:open_screen,container_set_content,system_chat events
+note a boat without a chest and a cow open nothing
+interact S B4
+interact S C
+dump packets:S:open_screen,container_set_content,system_chat events
+note the menu of the same boat again, sneaking
+interact S B1 main sneak
+dump packets:S:open_screen,container_set_content,system_chat events
+close_menu S
+note a survival player opens the chest boat while sneaking (otherwise it boards the boat), the loot table one too
+interact P B1 main sneak
+dump packets:P:open_screen,container_set_content,system_chat,game_event events
+close_menu P
+interact P B3 main sneak
+dump packets:P:open_screen,container_set_content,system_chat,game_event events
+tick 2
+dump events

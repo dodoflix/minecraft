@@ -4562,6 +4562,14 @@ pub trait Entity: Any {
     ) -> Option<&mut super::vehicle::container_entity::ChestVehicleData> {
         None
     }
+    /// `entity instanceof MenuProvider`: the menu a spectator opens with `Player.interactOn` (chest boats).
+    /// Not implemented: chest and hopper minecarts.
+    fn as_menu_provider(
+        &self,
+        _level: &ServerLevel,
+    ) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
+        None
+    }
     /// `Container.startOpen/stopOpen(containerUser)` of the entity's container (chest vehicles also post the container events).
     fn container_open_close(&mut self, _level: &mut ServerLevel, user: EntityId, open: bool) {
         if let Some(c) = self.as_container_mut() {

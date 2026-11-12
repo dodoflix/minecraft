@@ -21,7 +21,7 @@ use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
-use mc_protocol::components::{CUSTOM_NAME, DyeColor};
+use mc_protocol::components::{CUSHION_COLOR, CUSTOM_NAME, DyeColor};
 use mc_protocol::packets::play::ParticleOptions;
 use std::any::Any;
 
@@ -290,6 +290,12 @@ impl Entity for Cushion {
     }
     fn get_pick_result(&self) -> Option<ItemStack> {
         Some(ItemStack::new(cushion_item(self.get_color())))
+    }
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        if let Some(color) = stack.get(&CUSHION_COLOR) {
+            self.set_color(*color);
+        }
+        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
     /// `thunderHit(level, lightningBolt)` without the bolt: unreachable (lightning calls `thunder_hit_by`).
     fn thunder_hit(&mut self, _level: &mut ServerLevel) {}

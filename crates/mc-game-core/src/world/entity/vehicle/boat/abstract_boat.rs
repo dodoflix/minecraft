@@ -17,7 +17,9 @@ use crate::world::entity::dimensions::EntityDimensions;
 use crate::world::entity::entity::MoveFunction;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::living_entity::push::pushable_entities_in;
-use crate::world::entity::vehicle::container_entity::{ChestVehicleData, ContainerEntity};
+use crate::world::entity::vehicle::container_entity::{
+    ChestVehicleData, ChestVehicleMenuProvider, ContainerEntity,
+};
 use crate::world::entity::vehicle::vehicle_entity::{self, VehicleEntity};
 use crate::world::entity::vehicle::{
     get_collision_horizontal_escape_vector, is_animal, no_collision,
@@ -1046,6 +1048,16 @@ impl Entity for AbstractBoat {
     }
     fn chest_vehicle_mut(&mut self) -> Option<&mut ChestVehicleData> {
         self.chest.as_mut()
+    }
+    fn as_menu_provider(
+        &self,
+        level: &ServerLevel,
+    ) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
+        self.chest.as_ref()?;
+        Some(Box::new(ChestVehicleMenuProvider::new(
+            Entity::id(self),
+            crate::world::damagesource::display_name::entity_display_name(level, self),
+        )))
     }
 
     /// `AbstractChestBoat.stopOpen(user)`: `CONTAINER_CLOSE` at the boat (the open event is posted by `interact`).

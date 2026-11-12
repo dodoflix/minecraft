@@ -17,7 +17,12 @@ impl ServerPlayer {
         location: Vec3,
     ) -> InteractionResult {
         if self.is_spectator() {
-            // Not implemented: `entity instanceof MenuProvider` -> `openMenu` (chest boats / chest-like minecarts)
+            let provider = level
+                .get_entity(target)
+                .and_then(|entity| entity.as_menu_provider(level));
+            if let Some(provider) = provider {
+                self.open_menu(level, &*provider);
+            }
             return InteractionResult::PASS;
         }
         let item_stack = self.get_item_in_hand(hand);

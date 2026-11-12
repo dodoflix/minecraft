@@ -1,0 +1,1217 @@
+T 1
+T 2
+# armor stand: the yaw is rounded to a step of 45 degrees, each stand in its own cell
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:armor_stand*50
+EV sound at=2.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=3.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=4.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=5.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=6.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=7.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=8.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=9.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=10.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=11.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=12.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=13.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=14.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=15.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+# a down face fails, a side face places beside the block, grass is replaced in place, an entity in the way fails
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:armor_stand*50
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:armor_stand*49
+EV sound at=25.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:armor_stand*48
+EV sound at=28.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:armor_stand*48
+# creative: the count stays
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I B 0 minecraft:armor_stand*3
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=1.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=2.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+EV sound at=3.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.place source=block vol=0.75 pitch=0.8
+# item frames on every face of a stone block, then a taken spot, then the ground
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:item_frame*63
+EV sound at=32.5,-57.5,-3.03125 r=16.0 ex=0 event=minecraft:entity.item_frame.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:item_frame*62
+EV sound at=32.5,-57.5,-1.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:item_frame*61
+EV sound at=33.03125,-57.5,-2.5 r=16.0 ex=0 event=minecraft:entity.item_frame.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:item_frame*60
+EV sound at=31.96875,-57.5,-2.5 r=16.0 ex=0 event=minecraft:entity.item_frame.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:item_frame*59
+EV sound at=32.5,-56.96875,-2.5 r=16.0 ex=0 event=minecraft:entity.item_frame.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:item_frame*58
+EV sound at=32.5,-58.03125,-2.5 r=16.0 ex=0 event=minecraft:entity.item_frame.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:item_frame*58
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:item_frame*57
+EV sound at=32.5,-59.96875,-2.5 r=16.0 ex=0 event=minecraft:entity.item_frame.place source=neutral vol=1.0 pitch=1.0
+# glow item frames and a frame carrying entity data
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:glow_item_frame*4
+EV sound at=36.5,-57.5,-3.03125 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.place source=neutral vol=1.0 pitch=1.0
+EV sound at=36.5,-57.5,-1.96875 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.place source=neutral vol=1.0 pitch=1.0
+EV sound at=37.03125,-57.5,-2.5 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.place source=neutral vol=1.0 pitch=1.0
+EV sound at=35.96875,-57.5,-2.5 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:item_frame*4
+# adventure mode: mayUseItemAt fails
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I D 0 minecraft:item_frame*8
+# paintings: a random variant of the largest area that fits, a taken spot is CONSUME, vertical faces fail, the component picks the variant
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N painting#1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[37.0d,-56.0d,11.96875d],Rotation:[180.0f,0.0f],block_pos:[I;37,-57,11],facing:2b,fall_distance:0.0d,variant:"minecraft:orb"}
+I E 0 minecraft:painting*63
+EV sound at=37.0,-56.0,11.96875 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I E 0 minecraft:painting*63
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N painting#2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[43.0d,-58.0d,11.96875d],Rotation:[180.0f,0.0f],block_pos:[I;43,-59,11],facing:2b,fall_distance:0.0d,variant:"minecraft:burning_skull"}
+I E 0 minecraft:painting*62
+EV sound at=43.0,-58.0,11.96875 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N painting#3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[31.5d,-58.0d,11.96875d],Rotation:[180.0f,0.0f],block_pos:[I;31,-59,11],facing:2b,fall_distance:0.0d,variant:"minecraft:pond"}
+I E 0 minecraft:painting*61
+EV sound at=31.5,-58.0,11.96875 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I E 0 minecraft:painting*61
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N painting#4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[33.5d,-54.5d,11.96875d],Rotation:[180.0f,0.0f],block_pos:[I;33,-55,11],facing:2b,fall_distance:0.0d,variant:"minecraft:kebab"}
+I E 0 minecraft:painting*3
+EV sound at=33.5,-54.5,11.96875 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N painting#5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[41.5d,-55.5d,11.96875d],Rotation:[180.0f,0.0f],block_pos:[I;41,-56,11],facing:2b,fall_distance:0.0d,variant:"minecraft:kebab"}
+I E 0 minecraft:painting*2
+EV sound at=41.5,-55.5,11.96875 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+# cushions: ground, carpet, slab, fire, collision-shape blocks, a second cushion on the same spot, a side face, an entity in the way
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N cushion#1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[50.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],block_pos:[I;50,-60,3],color:"red",fall_distance:0.0d}
+I F 0 minecraft:red_cushion*63
+EV sound at=50.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.cushion.place source=block vol=0.75 pitch=0.8
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I F 0 minecraft:red_cushion*63
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I F 0 minecraft:red_cushion*62
+EV sound at=52.5,-59.9375,3.5 r=16.0 ex=0 event=minecraft:entity.cushion.place source=block vol=0.75 pitch=0.8
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=54.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I F 0 minecraft:red_cushion*61
+EV sound at=54.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:entity.cushion.place source=block vol=0.75 pitch=0.8
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=54.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I F 0 minecraft:red_cushion*61
+T 3
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=54.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=54.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#4 minecraft:cushion pos=58.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I F 0 minecraft:red_cushion*60
+EV sound at=58.5,-59.0,3.5 r=16.0 ex=0 event=minecraft:entity.cushion.place source=block vol=0.75 pitch=0.8
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=54.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#4 minecraft:cushion pos=58.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I F 0 minecraft:red_cushion*60
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=54.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#4 minecraft:cushion pos=58.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I F 0 minecraft:red_cushion*60
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=54.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#4 minecraft:cushion pos=58.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I F 0 minecraft:red_cushion*60
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=54.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#4 minecraft:cushion pos=58.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cow2 minecraft:cow pos=62.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+I F 0 minecraft:red_cushion*60
+T 4
+T 5
+T 6
+T 7
+T 8
+E armor_stand#1 minecraft:armor_stand pos=2.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#2 minecraft:armor_stand pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#3 minecraft:armor_stand pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#4 minecraft:armor_stand pos=5.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#5 minecraft:armor_stand pos=6.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#6 minecraft:armor_stand pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#7 minecraft:armor_stand pos=8.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#8 minecraft:armor_stand pos=9.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-45.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#9 minecraft:armor_stand pos=10.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=45.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#10 minecraft:armor_stand pos=11.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#11 minecraft:armor_stand pos=12.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#12 minecraft:armor_stand pos=13.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#13 minecraft:armor_stand pos=14.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#14 minecraft:armor_stand pos=15.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#15 minecraft:armor_stand pos=25.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#16 minecraft:armor_stand pos=28.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow1 minecraft:cow pos=26.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#17 minecraft:armor_stand pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#18 minecraft:armor_stand pos=1.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#19 minecraft:armor_stand pos=2.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#20 minecraft:armor_stand pos=3.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item_frame#1 minecraft:item_frame pos=32.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#2 minecraft:item_frame pos=32.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#3 minecraft:item_frame pos=33.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#4 minecraft:item_frame pos=31.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#5 minecraft:item_frame pos=32.5,-56.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#6 minecraft:item_frame pos=32.5,-58.03125,-2.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item_frame#7 minecraft:item_frame pos=32.5,-59.96875,-2.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#1 minecraft:glow_item_frame pos=36.5,-57.5,-3.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#2 minecraft:glow_item_frame pos=36.5,-57.5,-1.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#3 minecraft:glow_item_frame pos=37.03125,-57.5,-2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E glow_item_frame#4 minecraft:glow_item_frame pos=35.96875,-57.5,-2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#1 minecraft:painting pos=37.0,-56.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#2 minecraft:painting pos=43.0,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#3 minecraft:painting pos=31.5,-58.0,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#4 minecraft:painting pos=33.5,-54.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E painting#5 minecraft:painting pos=41.5,-55.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#1 minecraft:cushion pos=50.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=52.5,-59.9375,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=54.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#4 minecraft:cushion pos=58.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cow2 minecraft:cow pos=62.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-

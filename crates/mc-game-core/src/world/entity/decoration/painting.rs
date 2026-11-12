@@ -22,7 +22,7 @@ use mc_core::random::RandomSource;
 use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::codec::Holder;
-use mc_protocol::components::CUSTOM_NAME;
+use mc_protocol::components::{CUSTOM_NAME, PAINTING_VARIANT};
 use std::any::Any;
 
 define_accessor!(pub DATA_PAINTING_VARIANT_ID: PaintingVariant = Painting);
@@ -38,6 +38,8 @@ pub struct Painting {
     variant_key: Option<Identifier>,
     /// `variant` read from NBT, resolved against the registry after loading ([`Entity::resolve_registry_refs`]).
     pending_variant: Option<Identifier>,
+    /// `level.registryAccess()`, to resolve the `painting/variant` component of a placing item.
+    registries: RegistryAccess,
 }
 
 fn protocol_variant(variant: &PaintingVariant) -> mc_protocol::packets::play::PaintingVariant {
@@ -63,6 +65,7 @@ impl Painting {
             variant,
             variant_key: key,
             pending_variant: None,
+            registries: registries.clone(),
         };
         painting.set_pos(0.0, 0.0, 0.0);
         painting
@@ -318,6 +321,14 @@ impl Entity for Painting {
     }
     fn get_pick_result(&self) -> Option<ItemStack> {
         Some(ItemStack::new(Item::PAINTING))
+    }
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        if let Some(mc_protocol::components::Holder::Reference(key)) = stack.get(&PAINTING_VARIANT)
+        {
+            let registries = self.registries.clone();
+            let _ = self.set_variant_key(&registries, key);
+        }
+        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
     fn resolve_registry_refs(&mut self, registries: &RegistryAccess) {
         if let Some(key) = self.pending_variant.take() {

@@ -1,0 +1,169 @@
+# ArmorStandItem, HangingEntityItem/ItemFrameItem (item frame, glow item frame, painting) and CushionItem placed with `use_on`: the armor stand's rotation step comes from
+# the player's yaw (`snap` sets it), a down face fails, an entity in the way fails; frames go on all six faces (the vertical ones of a frame included, a
+# painting fails there), a second frame or painting on a taken spot is CONSUME, a painting takes a random variant among the largest ones that fit (level_seed) or its
+# component; a cushion needs an anchor below, a collision shape block of its own and no other cushion, and burns in fire. Every use of the same stack on the same spot
+# differs by the click location: an entity's UUID comes from its random, which is seeded from the command line.
+level flat
+preload 4
+watch events
+level_seed 5
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B creative 0.5 -60 6.5 0 0
+spawn_player C survival 32.5 -60 -0.5 0 0
+spawn_player D adventure 40.5 -60 -0.5 0 0
+spawn_player E survival 37.5 -60 8.5 0 0
+spawn_player F survival 50.5 -60 0.5 0 0
+give A mainhand minecraft:armor_stand 64
+give B mainhand minecraft:armor_stand 3
+give C mainhand minecraft:item_frame 64
+give D mainhand minecraft:item_frame 8
+give E mainhand minecraft:painting 64
+give F mainhand minecraft:red_cushion 64
+block 32 -58 -3 minecraft:stone
+block 36 -58 -3 minecraft:stone
+block 40 -58 -3 minecraft:stone
+fill 30 -60 12 45 -45 12 minecraft:stone
+block 24 -60 3 minecraft:stone
+block 28 -60 3 minecraft:short_grass
+block 52 -60 3 minecraft:red_carpet
+block 54 -60 3 minecraft:oak_slab[type=bottom]
+block 56 -61 3 minecraft:netherrack
+block 56 -60 3 minecraft:fire[age=0]
+block 58 -60 3 minecraft:cauldron
+block 60 -60 3 minecraft:hopper
+block 62 -60 3 minecraft:stone
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none packets:F:none
+note armor stand: the yaw is rounded to a step of 45 degrees, each stand in its own cell
+
+snap A 2.5 -60 0.5 0 0
+use_on A 2 -61 3 up main
+snap A 3.5 -60 0.5 20 0
+use_on A 3 -61 3 up main
+snap A 4.5 -60 0.5 22.4 0
+use_on A 4 -61 3 up main
+snap A 5.5 -60 0.5 22.6 0
+use_on A 5 -61 3 up main
+snap A 6.5 -60 0.5 45 0
+use_on A 6 -61 3 up main
+snap A 7.5 -60 0.5 67.4 0
+use_on A 7 -61 3 up main
+snap A 8.5 -60 0.5 90 0
+use_on A 8 -61 3 up main
+snap A 9.5 -60 0.5 135 0
+use_on A 9 -61 3 up main
+snap A 10.5 -60 0.5 -135 0
+use_on A 10 -61 3 up main
+snap A 11.5 -60 0.5 180 0
+use_on A 11 -61 3 up main
+snap A 12.5 -60 0.5 270 0
+use_on A 12 -61 3 up main
+snap A 13.5 -60 0.5 359.9 0
+use_on A 13 -61 3 up main
+snap A 14.5 -60 0.5 -22.6 0
+use_on A 14 -61 3 up main
+snap A 15.5 -60 0.5 -67.5 0
+use_on A 15 -61 3 up main
+dump entities inventory:A events
+note a down face fails, a side face places beside the block, grass is replaced in place, an entity in the way fails
+snap A 20.5 -60 0.5 30 0
+use_on A 20 -61 3 down main
+dump entities inventory:A events
+use_on A 24 -60 3 east main
+dump entities inventory:A events
+snap A 28.5 -60 0.5 30 0
+use_on A 28 -61 3 up main
+dump entities inventory:A events
+spawn cow1 minecraft:cow 26.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow1 7
+use_on A 26 -61 3 up main
+dump entities inventory:A events
+note creative: the count stays
+use_on B 0 -61 8 up main
+use_on B 1 -61 8 up main
+use_on B 2 -61 8 up main
+use_on B 3 -61 8 up main
+dump entities inventory:B events
+note item frames on every face of a stone block, then a taken spot, then the ground
+
+use_on C 32 -58 -3 north main
+dump entities inventory:C events
+use_on C 32 -58 -3 south main
+dump entities inventory:C events
+use_on C 32 -58 -3 east main
+dump entities inventory:C events
+use_on C 32 -58 -3 west main
+dump entities inventory:C events
+use_on C 32 -58 -3 up main
+dump entities inventory:C events
+use_on C 32 -58 -3 down main
+dump entities inventory:C events
+use_on C 32 -58 -3 north main 0.3 0.3 0.0
+dump entities inventory:C events
+use_on C 32 -61 -3 up main
+dump entities inventory:C events
+note glow item frames and a frame carrying entity data
+give C mainhand minecraft:glow_item_frame 8
+use_on C 36 -58 -3 north main
+use_on C 36 -58 -3 south main
+use_on C 36 -58 -3 east main
+use_on C 36 -58 -3 west main
+dump entities inventory:C events
+give C mainhand minecraft:item_frame[entity_data={id:"minecraft:item_frame",Invisible:1b,Fixed:1b}] 4
+use_on C 40 -58 -3 north main
+dump entities inventory:C events
+note adventure mode: mayUseItemAt fails
+use_on D 40 -58 -3 south main
+dump entities inventory:D events
+note paintings: a random variant of the largest area that fits, a taken spot is CONSUME, vertical faces fail, the component picks the variant
+level_seed 51
+use_on E 37 -57 12 north main
+dump entities nbt:painting#1 inventory:E events
+use_on E 37 -57 12 north main 0.3 0.3 0.0
+dump entities inventory:E events
+snap E 43.5 -60 8.5 0 0
+level_seed 52
+use_on E 43 -59 12 north main
+dump entities nbt:painting#2 inventory:E events
+snap E 32.5 -60 8.5 0 0
+use_on E 31 -59 12 north main
+dump entities nbt:painting#3 inventory:E events
+use_on E 32 -61 12 up main
+dump entities inventory:E events
+give E mainhand minecraft:painting[painting/variant="minecraft:kebab"] 4
+level_seed 53
+use_on E 33 -55 12 north main
+dump entities nbt:painting#4 inventory:E events
+snap E 41.5 -60 8.5 0 0
+level_seed 54
+use_on E 41 -56 12 north main
+dump entities nbt:painting#5 inventory:E events
+note cushions: ground, carpet, slab, fire, collision-shape blocks, a second cushion on the same spot, a side face, an entity in the way
+level_seed 61
+use_on F 50 -61 3 up main
+dump entities nbt:cushion#1 inventory:F events
+use_on F 50 -61 3 up main 0.3 1.0 0.3
+dump entities inventory:F events
+use_on F 52 -60 3 up main 0.5 0.0625 0.5
+dump entities inventory:F events
+use_on F 54 -60 3 up main 0.5 0.5 0.5
+dump entities inventory:F events
+use_on F 56 -61 3 up main
+dump entities inventory:F events
+tick 1
+dump entities events
+snap F 58.5 -60 0.5 90 0
+use_on F 58 -60 3 up main
+dump entities inventory:F events
+use_on F 60 -60 3 up main
+dump entities inventory:F events
+use_on F 62 -61 3 north main
+dump entities inventory:F events
+use_on F 62 -61 3 down main
+dump entities inventory:F events
+spawn cow2 minecraft:cow 62.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow2 8
+use_on F 62 -61 3 up main
+dump entities inventory:F events
+tick 5
+dump entities events
