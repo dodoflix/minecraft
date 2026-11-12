@@ -1,0 +1,307 @@
+# The 2x2 crafting grid of the player's own menu through the click packets: every mutation of the grid (set, remove, the take
+# that shrinks every ingredient) recomputes the result and sends one container_set_slot of slot 0, so the intermediate results
+# are part of the comparison. Slots: 0 result, 1-4 grid, 9-35 inventory, 36-44 hotbar. Player A has limited_crafting off and its
+# recipe book is not compared (the unlock chain is); player B is the limited_crafting case and starts with an empty inventory so
+# that no advancement unlocks a recipe behind the scenario's back.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B creative 6.5 -60 3.5 180 0
+give A inv9 minecraft:oak_planks 64
+give A inv10 minecraft:oak_log 8
+tick 2
+dump menu:A packets:A:none packets:B:none stats:A
+
+note planks one by one: button, pressure plate, no recipe, crafting table (each placement recomputes the result)
+click A 9 0 PICKUP
+click A 1 1 PICKUP
+click A 2 1 PICKUP
+click A 3 1 PICKUP
+click A 4 1 PICKUP
+click A 9 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+note take the crafting table: the take shrinks all four ingredients, one recompute per mutation
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 28 0 PICKUP
+note the stick recipe in the right column, taken with a right click (half of the stack counts for the statistic)
+click A 9 0 PICKUP
+click A 2 1 PICKUP
+click A 4 1 PICKUP
+click A 9 0 PICKUP
+click A 0 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 29 0 PICKUP
+note shapeless: one log gives four planks; shift-click crafts until the grid is empty
+click A 10 0 PICKUP
+click A 3 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+note drag a stack over one grid slot and two inventory slots (one recompute); the slots of a drag are placed in the order of a Java identity hash set, so
+note a drag over several grid slots only compares its final state
+give A inv9 minecraft:oak_planks 64
+click A 9 0 PICKUP
+click A -999 0 QUICK_CRAFT
+click A 3 1 QUICK_CRAFT
+click A 30 1 QUICK_CRAFT
+click A 31 1 QUICK_CRAFT
+click A -999 2 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 9 0 PICKUP
+click A 3 0 QUICK_MOVE
+click A 30 0 QUICK_MOVE
+click A 31 0 QUICK_MOVE
+give A inv9 minecraft:oak_planks 64
+click A 9 0 PICKUP
+click A -999 0 QUICK_CRAFT
+click A 1 1 QUICK_CRAFT
+click A 2 1 QUICK_CRAFT
+click A 3 1 QUICK_CRAFT
+click A 4 1 QUICK_CRAFT
+click A -999 2 QUICK_CRAFT
+dump menu:A packets:A:none stats:A
+note swap-craft: the result into an occupied hotbar slot does nothing, into an empty one crafts
+give A hotbar2 minecraft:dirt 5
+give A hotbar5 minecraft:air
+click A 0 2 SWAP
+click A 0 5 SWAP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+note throw the whole result out
+give A inv9 minecraft:oak_planks 64
+click A 9 0 PICKUP
+click A 2 1 PICKUP
+click A 4 1 PICKUP
+click A 9 0 PICKUP
+level_seed 7
+click A 0 1 THROW
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A entities
+click A 2 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+note a honey bottle becomes three sugar and leaves a glass bottle: shift-click repeats it for the whole stack
+give A inv9 minecraft:honey_bottle 16
+click A 9 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+note four honey bottles become a honey block, the glass bottles are put back into the grid
+give A inv9 minecraft:honey_bottle 16
+click A 9 0 PICKUP
+click A 1 1 PICKUP
+click A 9 0 PICKUP
+click A 9 0 PICKUP
+click A 2 1 PICKUP
+click A 9 0 PICKUP
+click A 9 0 PICKUP
+click A 3 1 PICKUP
+click A 9 0 PICKUP
+click A 9 0 PICKUP
+click A 4 1 PICKUP
+click A 9 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+note banner duplicate: the patterned banner stays in the grid
+give A inv9 minecraft:white_banner[banner_patterns=[{pattern:"minecraft:border",color:"black"}]]
+give A inv10 minecraft:white_banner
+click A 9 0 PICKUP
+click A 1 0 PICKUP
+click A 10 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 PICKUP
+click A 9 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+note book cloning: the original stays, the copy is the result
+give A inv9 minecraft:written_book[written_book_content={title:"Old",author:"Me",pages:["hello"]}]
+give A inv10 minecraft:writable_book 3
+click A 9 0 PICKUP
+click A 1 0 PICKUP
+click A 10 0 PICKUP
+click A 2 1 PICKUP
+click A 10 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+note shield decoration
+give A inv9 minecraft:shield
+give A inv10 minecraft:blue_banner
+click A 9 0 PICKUP
+click A 1 0 PICKUP
+click A 10 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+note repairing two damaged tools
+give A inv9 minecraft:iron_pickaxe[damage=100]
+give A inv10 minecraft:iron_pickaxe[damage=200]
+click A 9 0 PICKUP
+click A 1 0 PICKUP
+click A 10 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+note firework rocket from paper, gunpowder and a star
+give A inv9 minecraft:paper 8
+give A inv10 minecraft:gunpowder 8
+give A inv11 minecraft:firework_star[firework_explosion={shape:"small_ball",colors:[I;16711680]}]
+click A 9 0 PICKUP
+click A 1 1 PICKUP
+click A 9 0 PICKUP
+click A 10 0 PICKUP
+click A 2 1 PICKUP
+click A 10 0 PICKUP
+click A 11 0 PICKUP
+click A 3 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+note dyed armor
+give A inv9 minecraft:leather_helmet
+give A inv10 minecraft:red_dye 4
+click A 9 0 PICKUP
+click A 1 0 PICKUP
+click A 10 0 PICKUP
+click A 2 1 PICKUP
+click A 10 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+note torches: coal over a stick
+give A inv9 minecraft:coal 4
+give A inv10 minecraft:stick 4
+click A 9 0 PICKUP
+click A 1 1 PICKUP
+click A 9 0 PICKUP
+click A 10 0 PICKUP
+click A 3 1 PICKUP
+click A 10 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+dump inventory:A
+
+note shift-click into a nearly full inventory: part of the result is dropped, then nothing fits and the loop ends
+give A inv9 minecraft:oak_log 3
+give A inv10 minecraft:stone 64
+give A inv11 minecraft:stone 64
+give A inv12 minecraft:stone 64
+give A inv13 minecraft:stone 64
+give A inv14 minecraft:stone 64
+give A inv15 minecraft:stone 64
+give A inv16 minecraft:stone 64
+give A inv17 minecraft:stone 64
+give A inv18 minecraft:stone 64
+give A inv19 minecraft:stone 64
+give A inv20 minecraft:stone 64
+give A inv21 minecraft:stone 64
+give A inv22 minecraft:stone 64
+give A inv23 minecraft:stone 64
+give A inv24 minecraft:stone 64
+give A inv25 minecraft:stone 64
+give A inv26 minecraft:stone 64
+give A inv27 minecraft:stone 64
+give A inv28 minecraft:stone 64
+give A inv29 minecraft:stone 64
+give A inv30 minecraft:stone 64
+give A inv31 minecraft:stone 64
+give A inv32 minecraft:stone 64
+give A inv33 minecraft:stone 64
+give A inv34 minecraft:stone 64
+give A inv35 minecraft:stone 64
+give A hotbar0 minecraft:stone 64
+give A hotbar1 minecraft:stone 64
+give A hotbar2 minecraft:stone 64
+give A hotbar3 minecraft:stone 64
+give A hotbar4 minecraft:stone 64
+give A hotbar5 minecraft:stone 64
+give A hotbar6 minecraft:stone 64
+give A hotbar7 minecraft:stone 64
+give A hotbar8 minecraft:oak_planks 62
+click A 9 0 PICKUP
+click A 1 0 PICKUP
+give A inv9 minecraft:stone 64
+level_seed 21
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A entities
+click A 1 0 QUICK_MOVE
+note limited_crafting: a recipe the player does not know gives no result, special recipes are not limited
+cmd recipe take B *
+dump packets:B:none
+gamerule limited_crafting true
+creative_slot B 2 minecraft:oak_planks 1
+creative_slot B 4 minecraft:oak_planks 1
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove stats:B
+note the recipe is learned: the result shows after the next change of the grid
+cmd recipe give B minecraft:stick
+creative_slot B 4 minecraft:oak_planks 1
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:B
+note creative clone of the result slot
+click B 0 0 CLONE
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove stats:B
+level_seed 11
+click B -999 0 PICKUP
+note the recipe is forgotten while its result is displayed: taking the displayed result still works and learns the recipe again
+cmd recipe take B minecraft:stick
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:B
+click B 0 0 PICKUP
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:B stats:B
+level_seed 12
+click B -999 0 PICKUP
+note special recipes ignore limited_crafting (a banner is copied without knowing the recipe)
+creative_slot B 1 minecraft:white_banner[banner_patterns=[{pattern:"minecraft:border",color:"black"}]]
+creative_slot B 2 minecraft:white_banner
+creative_slot B 3 -
+creative_slot B 4 -
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:B
+click B 0 0 PICKUP
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:B stats:B
+note limited_crafting off again: the next change of the grid shows the result of an unknown recipe
+level_seed 13
+click B -999 0 PICKUP
+gamerule limited_crafting false
+creative_slot B 2 -
+creative_slot B 1 minecraft:oak_log 1
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:B

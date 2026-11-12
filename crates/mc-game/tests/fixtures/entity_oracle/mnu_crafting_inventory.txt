@@ -1,0 +1,1253 @@
+MENU A cid=0 type=inventory state=3 carried=empty
+MS 9 minecraft:oak_planks*64
+MS 10 minecraft:oak_log*8
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# planks one by one: button, pressure plate, no recipe, crafting table (each placement recomputes the result)
+MENU A cid=0 type=inventory state=13 carried=empty
+MS 0 minecraft:crafting_table*1
+MS 1 minecraft:oak_planks*1
+MS 2 minecraft:oak_planks*1
+MS 3 minecraft:oak_planks*1
+MS 4 minecraft:oak_planks*1
+MS 9 minecraft:oak_planks*60
+MS 10 minecraft:oak_log*8
+PKT A minecraft:container_set_slot 140004000900
+PKT A minecraft:set_cursor_item 62403f0000
+PKT A minecraft:container_set_slot 140005000001da060000
+PKT A minecraft:container_set_slot 1400060001013f0000
+PKT A minecraft:set_cursor_item 623f3f0000
+PKT A minecraft:container_set_slot 140007000001eb060000
+PKT A minecraft:container_set_slot 1400080002013f0000
+PKT A minecraft:set_cursor_item 623e3f0000
+PKT A minecraft:container_set_slot 140009000000
+PKT A minecraft:container_set_slot 14000a0003013f0000
+PKT A minecraft:set_cursor_item 623d3f0000
+PKT A minecraft:container_set_slot 14000b00000195030000
+PKT A minecraft:container_set_slot 14000c0004013f0000
+PKT A minecraft:set_cursor_item 623c3f0000
+PKT A minecraft:container_set_slot 14000d00093c3f0000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# take the crafting table: the take shrinks all four ingredients, one recompute per mutation
+MENU A cid=0 type=inventory state=21 carried=minecraft:crafting_table*1
+MS 9 minecraft:oak_planks*60
+MS 10 minecraft:oak_log*8
+PKT A minecraft:container_set_slot 14000e000000
+PKT A minecraft:container_set_slot 14000f000001eb060000
+PKT A minecraft:container_set_slot 140010000001da060000
+PKT A minecraft:container_set_slot 140011000000
+PKT A minecraft:container_set_slot 140012000100
+PKT A minecraft:container_set_slot 140013000200
+PKT A minecraft:container_set_slot 140014000300
+PKT A minecraft:container_set_slot 140015000400
+PKT A minecraft:set_cursor_item 620195030000
+STAT A minecraft.crafted:minecraft.crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# the stick recipe in the right column, taken with a right click (half of the stack counts for the statistic)
+MENU A cid=0 type=inventory state=32 carried=minecraft:stick*4
+MS 9 minecraft:oak_planks*58
+MS 10 minecraft:oak_log*8
+MS 28 minecraft:crafting_table*1
+PKT A minecraft:container_set_slot 140016001c0195030000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140017000900
+PKT A minecraft:set_cursor_item 623c3f0000
+PKT A minecraft:container_set_slot 140018000001da060000
+PKT A minecraft:container_set_slot 1400190002013f0000
+PKT A minecraft:set_cursor_item 623b3f0000
+PKT A minecraft:container_set_slot 14001a000004a4080000
+PKT A minecraft:container_set_slot 14001b0004013f0000
+PKT A minecraft:set_cursor_item 623a3f0000
+PKT A minecraft:container_set_slot 14001c00093a3f0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14001d000001da060000
+PKT A minecraft:container_set_slot 14001e000000
+PKT A minecraft:container_set_slot 14001f000200
+PKT A minecraft:container_set_slot 140020000400
+PKT A minecraft:set_cursor_item 6204a4080000
+STAT A minecraft.crafted:minecraft.crafting_table 1
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# shapeless: one log gives four planks; shift-click crafts until the grid is empty
+MENU A cid=0 type=inventory state=36 carried=empty
+MS 0 minecraft:oak_planks*4
+MS 3 minecraft:oak_log*8
+MS 9 minecraft:oak_planks*58
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+PKT A minecraft:container_set_slot 140021001d04a4080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140022000a00
+PKT A minecraft:set_cursor_item 6208a3010000
+PKT A minecraft:container_set_slot 1400230000043f0000
+PKT A minecraft:container_set_slot 140024000308a3010000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 1
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=0 type=inventory state=47 carried=empty
+MS 9 minecraft:oak_planks*64
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 44 minecraft:oak_planks*26
+PKT A minecraft:container_set_slot 1400250000043f0000
+PKT A minecraft:container_set_slot 1400260000043f0000
+PKT A minecraft:container_set_slot 1400270000043f0000
+PKT A minecraft:container_set_slot 1400280000043f0000
+PKT A minecraft:container_set_slot 1400290000043f0000
+PKT A minecraft:container_set_slot 14002a0000043f0000
+PKT A minecraft:container_set_slot 14002b0000043f0000
+PKT A minecraft:container_set_slot 14002c000000
+PKT A minecraft:container_set_slot 14002d000300
+PKT A minecraft:container_set_slot 14002e0009403f0000
+PKT A minecraft:container_set_slot 14002f002c1a3f0000
+STAT A minecraft.crafted:minecraft.crafting_table 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# drag a stack over one grid slot and two inventory slots (one recompute); the slots of a drag are placed in the order of a Java identity hash set, so
+# a drag over several grid slots only compares its final state
+MENU A cid=0 type=inventory state=52 carried=minecraft:oak_planks*1
+MS 0 minecraft:oak_button*1
+MS 3 minecraft:oak_planks*21
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 30 minecraft:oak_planks*21
+MS 31 minecraft:oak_planks*21
+MS 44 minecraft:oak_planks*26
+PKT A minecraft:container_set_slot 140030000900
+PKT A minecraft:set_cursor_item 62403f0000
+PKT A minecraft:container_set_slot 140031000001da060000
+PKT A minecraft:container_set_slot 1400320003153f0000
+PKT A minecraft:container_set_slot 140033001e153f0000
+PKT A minecraft:container_set_slot 140034001f153f0000
+PKT A minecraft:set_cursor_item 62013f0000
+STAT A minecraft.crafted:minecraft.crafting_table 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=0 type=inventory state=70 carried=empty
+MS 0 minecraft:crafting_table*1
+MS 1 minecraft:oak_planks*16
+MS 2 minecraft:oak_planks*16
+MS 3 minecraft:oak_planks*16
+MS 4 minecraft:oak_planks*16
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 44 minecraft:oak_planks*64
+STAT A minecraft.crafted:minecraft.crafting_table 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# swap-craft: the result into an occupied hotbar slot does nothing, into an empty one crafts
+MENU A cid=0 type=inventory state=80 carried=empty
+MS 0 minecraft:crafting_table*1
+MS 1 minecraft:oak_planks*15
+MS 2 minecraft:oak_planks*15
+MS 3 minecraft:oak_planks*15
+MS 4 minecraft:oak_planks*15
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*1
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 140047002605370000
+PKT A minecraft:container_set_slot 14004800000195030000
+PKT A minecraft:container_set_slot 14004900000195030000
+PKT A minecraft:container_set_slot 14004a00000195030000
+PKT A minecraft:container_set_slot 14004b00000195030000
+PKT A minecraft:container_set_slot 14004c00010f3f0000
+PKT A minecraft:container_set_slot 14004d00020f3f0000
+PKT A minecraft:container_set_slot 14004e00030f3f0000
+PKT A minecraft:container_set_slot 14004f00040f3f0000
+PKT A minecraft:container_set_slot 14005000290195030000
+STAT A minecraft.crafted:minecraft.crafting_table 2
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=0 type=inventory state=145 carried=empty
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*16
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 14005100000195030000
+PKT A minecraft:container_set_slot 14005200000195030000
+PKT A minecraft:container_set_slot 14005300000195030000
+PKT A minecraft:container_set_slot 14005400000195030000
+PKT A minecraft:container_set_slot 14005500000195030000
+PKT A minecraft:container_set_slot 14005600000195030000
+PKT A minecraft:container_set_slot 14005700000195030000
+PKT A minecraft:container_set_slot 14005800000195030000
+PKT A minecraft:container_set_slot 14005900000195030000
+PKT A minecraft:container_set_slot 14005a00000195030000
+PKT A minecraft:container_set_slot 14005b00000195030000
+PKT A minecraft:container_set_slot 14005c00000195030000
+PKT A minecraft:container_set_slot 14005d00000195030000
+PKT A minecraft:container_set_slot 14005e00000195030000
+PKT A minecraft:container_set_slot 14005f00000195030000
+PKT A minecraft:container_set_slot 14006000000195030000
+PKT A minecraft:container_set_slot 14006100000195030000
+PKT A minecraft:container_set_slot 14006200000195030000
+PKT A minecraft:container_set_slot 14006300000195030000
+PKT A minecraft:container_set_slot 14006400000195030000
+PKT A minecraft:container_set_slot 14006500000195030000
+PKT A minecraft:container_set_slot 14006600000195030000
+PKT A minecraft:container_set_slot 14006700000195030000
+PKT A minecraft:container_set_slot 14006800000195030000
+PKT A minecraft:container_set_slot 14006900000195030000
+PKT A minecraft:container_set_slot 14006a00000195030000
+PKT A minecraft:container_set_slot 14006b00000195030000
+PKT A minecraft:container_set_slot 14006c00000195030000
+PKT A minecraft:container_set_slot 14006d00000195030000
+PKT A minecraft:container_set_slot 14006e00000195030000
+PKT A minecraft:container_set_slot 14006f00000195030000
+PKT A minecraft:container_set_slot 14007000000195030000
+PKT A minecraft:container_set_slot 14007100000195030000
+PKT A minecraft:container_set_slot 14007200000195030000
+PKT A minecraft:container_set_slot 14007300000195030000
+PKT A minecraft:container_set_slot 14007400000195030000
+PKT A minecraft:container_set_slot 14007500000195030000
+PKT A minecraft:container_set_slot 14007600000195030000
+PKT A minecraft:container_set_slot 14007700000195030000
+PKT A minecraft:container_set_slot 14007800000195030000
+PKT A minecraft:container_set_slot 14007900000195030000
+PKT A minecraft:container_set_slot 14007a00000195030000
+PKT A minecraft:container_set_slot 14007b00000195030000
+PKT A minecraft:container_set_slot 14007c00000195030000
+PKT A minecraft:container_set_slot 14007d00000195030000
+PKT A minecraft:container_set_slot 14007e00000195030000
+PKT A minecraft:container_set_slot 14007f00000195030000
+PKT A minecraft:container_set_slot 1400800100000195030000
+PKT A minecraft:container_set_slot 1400810100000195030000
+PKT A minecraft:container_set_slot 1400820100000195030000
+PKT A minecraft:container_set_slot 1400830100000195030000
+PKT A minecraft:container_set_slot 1400840100000195030000
+PKT A minecraft:container_set_slot 1400850100000195030000
+PKT A minecraft:container_set_slot 1400860100000195030000
+PKT A minecraft:container_set_slot 1400870100000195030000
+PKT A minecraft:container_set_slot 1400880100000195030000
+PKT A minecraft:container_set_slot 14008901000000
+PKT A minecraft:container_set_slot 14008a01000001eb060000
+PKT A minecraft:container_set_slot 14008b01000001da060000
+PKT A minecraft:container_set_slot 14008c01000000
+PKT A minecraft:container_set_slot 14008d01000100
+PKT A minecraft:container_set_slot 14008e01000200
+PKT A minecraft:container_set_slot 14008f01000300
+PKT A minecraft:container_set_slot 14009001000400
+PKT A minecraft:container_set_slot 1400910100291095030000
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# throw the whole result out
+MENU A cid=0 type=inventory state=154 carried=empty
+MS 9 minecraft:oak_planks*62
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*16
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:set_cursor_item 62403f0000
+PKT A minecraft:container_set_slot 14009201000001da060000
+PKT A minecraft:container_set_slot 140093010002013f0000
+PKT A minecraft:set_cursor_item 623f3f0000
+PKT A minecraft:container_set_slot 14009401000004a4080000
+PKT A minecraft:container_set_slot 140095010004013f0000
+PKT A minecraft:set_cursor_item 623e3f0000
+PKT A minecraft:container_set_slot 1400960100093e3f0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14009701000001da060000
+PKT A minecraft:container_set_slot 14009801000000
+PKT A minecraft:container_set_slot 14009901000200
+PKT A minecraft:container_set_slot 14009a01000400
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+E item#1 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.006206730228725285,0.08172237128019333,-0.28493482926845265 rot=292.3565,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=0 pickup=40 health=5 owner=- thrower=A
+# a honey bottle becomes three sugar and leaves a glass bottle: shift-click repeats it for the whole stack
+MENU A cid=0 type=inventory state=157 carried=empty
+MS 0 minecraft:sugar*3
+MS 1 minecraft:honey_bottle*16
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*16
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 14009b01000900
+PKT A minecraft:set_cursor_item 6210fd0b0000
+PKT A minecraft:container_set_slot 14009c01000003c1090000
+PKT A minecraft:container_set_slot 14009d01000110fd0b0000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+MENU A cid=0 type=inventory state=177 carried=empty
+MS 1 minecraft:glass_bottle*1
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*15
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*16
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 14009e01000003c1090000
+PKT A minecraft:container_set_slot 14009f01000003c1090000
+PKT A minecraft:container_set_slot 1400a001000003c1090000
+PKT A minecraft:container_set_slot 1400a101000003c1090000
+PKT A minecraft:container_set_slot 1400a201000003c1090000
+PKT A minecraft:container_set_slot 1400a301000003c1090000
+PKT A minecraft:container_set_slot 1400a401000003c1090000
+PKT A minecraft:container_set_slot 1400a501000003c1090000
+PKT A minecraft:container_set_slot 1400a601000003c1090000
+PKT A minecraft:container_set_slot 1400a701000003c1090000
+PKT A minecraft:container_set_slot 1400a801000003c1090000
+PKT A minecraft:container_set_slot 1400a901000003c1090000
+PKT A minecraft:container_set_slot 1400aa01000003c1090000
+PKT A minecraft:container_set_slot 1400ab01000003c1090000
+PKT A minecraft:container_set_slot 1400ac01000003c1090000
+PKT A minecraft:container_set_slot 1400ad01000000
+PKT A minecraft:container_set_slot 1400ae01000000
+PKT A minecraft:container_set_slot 1400af01000101f6090000
+PKT A minecraft:container_set_slot 1400b00100250ff6090000
+PKT A minecraft:container_set_slot 1400b101002b30c1090000
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+# four honey bottles become a honey block, the glass bottles are put back into the grid
+MENU A cid=0 type=inventory state=195 carried=empty
+MS 0 minecraft:honey_block*1
+MS 1 minecraft:honey_bottle*1
+MS 2 minecraft:honey_bottle*1
+MS 3 minecraft:honey_bottle*1
+MS 4 minecraft:honey_bottle*1
+MS 9 minecraft:honey_bottle*12
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*16
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*16
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400b201000000
+PKT A minecraft:container_set_slot 1400b301000100
+PKT A minecraft:container_set_slot 1400b401002510f6090000
+PKT A minecraft:set_cursor_item 6210fd0b0000
+PKT A minecraft:container_set_slot 1400b501000003c1090000
+PKT A minecraft:container_set_slot 1400b601000101fd0b0000
+PKT A minecraft:set_cursor_item 620ffd0b0000
+PKT A minecraft:container_set_slot 1400b70100090ffd0b0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1400b801000900
+PKT A minecraft:set_cursor_item 620ffd0b0000
+PKT A minecraft:container_set_slot 1400b901000000
+PKT A minecraft:container_set_slot 1400ba01000201fd0b0000
+PKT A minecraft:set_cursor_item 620efd0b0000
+PKT A minecraft:container_set_slot 1400bb0100090efd0b0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1400bc01000900
+PKT A minecraft:set_cursor_item 620efd0b0000
+PKT A minecraft:container_set_slot 1400bd01000000
+PKT A minecraft:container_set_slot 1400be01000301fd0b0000
+PKT A minecraft:set_cursor_item 620dfd0b0000
+PKT A minecraft:container_set_slot 1400bf0100090dfd0b0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1400c001000900
+PKT A minecraft:set_cursor_item 620dfd0b0000
+PKT A minecraft:container_set_slot 1400c101000001c0060000
+PKT A minecraft:container_set_slot 1400c201000401fd0b0000
+PKT A minecraft:set_cursor_item 620cfd0b0000
+PKT A minecraft:container_set_slot 1400c30100090cfd0b0000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+MENU A cid=0 type=inventory state=208 carried=empty
+MS 1 minecraft:glass_bottle*1
+MS 2 minecraft:glass_bottle*1
+MS 3 minecraft:glass_bottle*1
+MS 4 minecraft:glass_bottle*1
+MS 9 minecraft:honey_bottle*12
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*16
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400c401000000
+PKT A minecraft:container_set_slot 1400c501000000
+PKT A minecraft:container_set_slot 1400c601000000
+PKT A minecraft:container_set_slot 1400c701000000
+PKT A minecraft:container_set_slot 1400c801000000
+PKT A minecraft:container_set_slot 1400c901000000
+PKT A minecraft:container_set_slot 1400ca01000000
+PKT A minecraft:container_set_slot 1400cb01000000
+PKT A minecraft:container_set_slot 1400cc01000101f6090000
+PKT A minecraft:container_set_slot 1400cd01000201f6090000
+PKT A minecraft:container_set_slot 1400ce01000301f6090000
+PKT A minecraft:container_set_slot 1400cf01000401f6090000
+PKT A minecraft:container_set_slot 1400d001002a01c0060000
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+# banner duplicate: the patterned banner stays in the grid
+MENU A cid=0 type=inventory state=227 carried=empty
+MS 0 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"black",pattern:"minecraft:border"}]}
+MS 1 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"black",pattern:"minecraft:border"}]}
+MS 2 minecraft:white_banner*1
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400d101000000
+PKT A minecraft:container_set_slot 1400d201000100
+PKT A minecraft:container_set_slot 1400d301002511f6090000
+PKT A minecraft:container_set_slot 1400d401000000
+PKT A minecraft:container_set_slot 1400d501000200
+PKT A minecraft:container_set_slot 1400d601002512f6090000
+PKT A minecraft:container_set_slot 1400d701000000
+PKT A minecraft:container_set_slot 1400d801000300
+PKT A minecraft:container_set_slot 1400d901002513f6090000
+PKT A minecraft:container_set_slot 1400da01000000
+PKT A minecraft:container_set_slot 1400db01000400
+PKT A minecraft:container_set_slot 1400dc01002514f6090000
+PKT A minecraft:container_set_slot 1400dd01000900
+PKT A minecraft:container_set_slot 1400de01000a01890b0000
+PKT A minecraft:set_cursor_item 6201890b01004a01020f
+PKT A minecraft:container_set_slot 1400df01000000
+PKT A minecraft:container_set_slot 1400e001000101890b01004a01020f
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1400e101000a00
+PKT A minecraft:set_cursor_item 6201890b0000
+PKT A minecraft:container_set_slot 1400e201000001890b01004a01020f
+PKT A minecraft:container_set_slot 1400e301000201890b0000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+MENU A cid=0 type=inventory state=232 carried=empty
+MS 1 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"black",pattern:"minecraft:border"}]}
+MS 9 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"black",pattern:"minecraft:border"}]}
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400e401000000
+PKT A minecraft:container_set_slot 1400e501000001890b01004a01020f
+PKT A minecraft:container_set_slot 1400e601000000
+PKT A minecraft:container_set_slot 1400e701000200
+PKT A minecraft:set_cursor_item 6201890b01004a01020f
+PKT A minecraft:container_set_slot 1400e801000901890b01004a01020f
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+# book cloning: the original stays, the copy is the result
+MENU A cid=0 type=inventory state=243 carried=minecraft:writable_book*1
+MS 0 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 1 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 2 minecraft:writable_book*1
+MS 10 minecraft:writable_book*1
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400e901000000
+PKT A minecraft:container_set_slot 1400ea01000100
+PKT A minecraft:container_set_slot 1400eb01000902890b01004a01020f
+PKT A minecraft:container_set_slot 1400ec01000900
+PKT A minecraft:container_set_slot 1400ed01000a03db0a0000
+PKT A minecraft:set_cursor_item 6201dc0a010039034f6c6400024d65000108000568656c6c6f0000
+PKT A minecraft:container_set_slot 1400ee01000000
+PKT A minecraft:container_set_slot 1400ef01000101dc0a010039034f6c6400024d65000108000568656c6c6f0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1400f001000a00
+PKT A minecraft:set_cursor_item 6203db0a0000
+PKT A minecraft:container_set_slot 1400f101000001dc0a010039034f6c6400024d65010108000568656c6c6f0000
+PKT A minecraft:container_set_slot 1400f201000201db0a0000
+PKT A minecraft:set_cursor_item 6202db0a0000
+PKT A minecraft:container_set_slot 1400f301000a01db0a0000
+PKT A minecraft:set_cursor_item 6201db0a0000
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+MENU A cid=0 type=inventory state=248 carried=minecraft:writable_book*1
+MS 1 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 10 minecraft:writable_book*1
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400f401000000
+PKT A minecraft:container_set_slot 1400f501000001dc0a010039034f6c6400024d65010108000568656c6c6f0000
+PKT A minecraft:container_set_slot 1400f601000000
+PKT A minecraft:container_set_slot 1400f701000200
+PKT A minecraft:container_set_slot 1400f801002801dc0a010039034f6c6400024d65010108000568656c6c6f0000
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+# shield decoration
+MENU A cid=0 type=inventory state=258 carried=empty
+MS 0 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 1 minecraft:shield*1
+MS 2 minecraft:blue_banner*1
+MS 9 minecraft:writable_book*1
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400f901000000
+PKT A minecraft:container_set_slot 1400fa01000100
+PKT A minecraft:container_set_slot 1400fb01000901dc0a010039034f6c6400024d65000108000568656c6c6f0000
+PKT A minecraft:container_set_slot 1400fc01000901db0a0000
+PKT A minecraft:container_set_slot 1400fd01000a01940b0000
+PKT A minecraft:set_cursor_item 6201a60b0000
+PKT A minecraft:container_set_slot 1400fe01000000
+PKT A minecraft:container_set_slot 1400ff01000101a60b0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14008002000a00
+PKT A minecraft:set_cursor_item 6201940b0000
+PKT A minecraft:container_set_slot 14008102000001a60b01004b0b
+PKT A minecraft:container_set_slot 14008202000201940b0000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+MENU A cid=0 type=inventory state=263 carried=empty
+MS 9 minecraft:writable_book*1
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 39 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 14008302000000
+PKT A minecraft:container_set_slot 14008402000000
+PKT A minecraft:container_set_slot 14008502000100
+PKT A minecraft:container_set_slot 14008602000200
+PKT A minecraft:container_set_slot 14008702002701a60b01004b0b
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+# repairing two damaged tools
+MENU A cid=0 type=inventory state=270 carried=empty
+MS 0 minecraft:iron_pickaxe*1/dmg=38{minecraft:damage:38}
+MS 1 minecraft:iron_pickaxe*1/dmg=100{minecraft:damage:100}
+MS 2 minecraft:iron_pickaxe*1/dmg=200{minecraft:damage:200}
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 39 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 14008802000900
+PKT A minecraft:container_set_slot 14008902000a019708010003c801
+PKT A minecraft:set_cursor_item 6201970801000364
+PKT A minecraft:container_set_slot 14008a02000000
+PKT A minecraft:container_set_slot 14008b02000101970801000364
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14008c02000a00
+PKT A minecraft:set_cursor_item 62019708010003c801
+PKT A minecraft:container_set_slot 14008d02000001970801000326
+PKT A minecraft:container_set_slot 14008e020002019708010003c801
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+MENU A cid=0 type=inventory state=275 carried=empty
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 35 minecraft:iron_pickaxe*1/dmg=38{minecraft:damage:38}
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 39 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 14008f02000000
+PKT A minecraft:container_set_slot 14009002000000
+PKT A minecraft:container_set_slot 14009102000100
+PKT A minecraft:container_set_slot 14009202000200
+PKT A minecraft:container_set_slot 14009302002301970801000326
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+# firework rocket from paper, gunpowder and a star
+MENU A cid=0 type=inventory state=287 carried=empty
+MS 0 minecraft:firework_rocket*3{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"small_ball"}],flight_duration:1b}}
+MS 1 minecraft:paper*1
+MS 2 minecraft:gunpowder*1
+MS 3 minecraft:firework_star*1{minecraft:firework_explosion:{colors:[16711680],shape:"small_ball"}}
+MS 9 minecraft:paper*7
+MS 10 minecraft:gunpowder*7
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 35 minecraft:iron_pickaxe*1/dmg=38{minecraft:damage:38}
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 39 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 14009402000a08a8080000
+PKT A minecraft:container_set_slot 14009502000b01f20a010046000100ff0000000000
+PKT A minecraft:set_cursor_item 6208f9080000
+PKT A minecraft:container_set_slot 14009602000000
+PKT A minecraft:container_set_slot 14009702000101f9080000
+PKT A minecraft:set_cursor_item 6207f9080000
+PKT A minecraft:container_set_slot 14009802000907f9080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14009902000a00
+PKT A minecraft:set_cursor_item 6208a8080000
+PKT A minecraft:container_set_slot 14009a02000003f10a0000
+PKT A minecraft:container_set_slot 14009b02000201a8080000
+PKT A minecraft:set_cursor_item 6207a8080000
+PKT A minecraft:container_set_slot 14009c02000a07a8080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14009d02000b00
+PKT A minecraft:set_cursor_item 6201f20a010046000100ff0000000000
+PKT A minecraft:container_set_slot 14009e02000003f10a0100470101000100ff0000000000
+PKT A minecraft:container_set_slot 14009f02000301f20a010046000100ff0000000000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+MENU A cid=0 type=inventory state=294 carried=empty
+MS 9 minecraft:paper*7
+MS 10 minecraft:gunpowder*7
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 34 minecraft:firework_rocket*3{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"small_ball"}],flight_duration:1b}}
+MS 35 minecraft:iron_pickaxe*1/dmg=38{minecraft:damage:38}
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 39 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400a002000000
+PKT A minecraft:container_set_slot 1400a102000000
+PKT A minecraft:container_set_slot 1400a202000000
+PKT A minecraft:container_set_slot 1400a302000100
+PKT A minecraft:container_set_slot 1400a402000200
+PKT A minecraft:container_set_slot 1400a502000300
+PKT A minecraft:container_set_slot 1400a602002203f10a0100470101000100ff0000000000
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.firework_rocket 3
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+# dyed armor
+MENU A cid=0 type=inventory state=302 carried=empty
+MS 0 minecraft:leather_helmet*1{minecraft:dyed_color:11546150}
+MS 1 minecraft:leather_helmet*1
+MS 2 minecraft:red_dye*1
+MS 10 minecraft:red_dye*3
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 34 minecraft:firework_rocket*3{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"small_ball"}],flight_duration:1b}}
+MS 35 minecraft:iron_pickaxe*1/dmg=38{minecraft:damage:38}
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 39 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400a702000900
+PKT A minecraft:container_set_slot 1400a802000a04bd090000
+PKT A minecraft:set_cursor_item 6201ac080000
+PKT A minecraft:container_set_slot 1400a902000000
+PKT A minecraft:container_set_slot 1400aa02000101ac080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1400ab02000a00
+PKT A minecraft:set_cursor_item 6204bd090000
+PKT A minecraft:container_set_slot 1400ac02000001ac0801002f00b02e26
+PKT A minecraft:container_set_slot 1400ad02000201bd090000
+PKT A minecraft:set_cursor_item 6203bd090000
+PKT A minecraft:container_set_slot 1400ae02000a03bd090000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.firework_rocket 3
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+MENU A cid=0 type=inventory state=307 carried=empty
+MS 10 minecraft:red_dye*3
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 33 minecraft:leather_helmet*1{minecraft:dyed_color:11546150}
+MS 34 minecraft:firework_rocket*3{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"small_ball"}],flight_duration:1b}}
+MS 35 minecraft:iron_pickaxe*1/dmg=38{minecraft:damage:38}
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 39 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400af02000000
+PKT A minecraft:container_set_slot 1400b002000000
+PKT A minecraft:container_set_slot 1400b102000100
+PKT A minecraft:container_set_slot 1400b202000200
+PKT A minecraft:container_set_slot 1400b302002101ac0801002f00b02e26
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.firework_rocket 3
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.leather_helmet 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+# torches: coal over a stick
+MENU A cid=0 type=inventory state=315 carried=empty
+MS 0 minecraft:torch*4
+MS 1 minecraft:coal*1
+MS 3 minecraft:stick*1
+MS 9 minecraft:coal*3
+MS 10 minecraft:stick*3
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 33 minecraft:leather_helmet*1{minecraft:dyed_color:11546150}
+MS 34 minecraft:firework_rocket*3{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"small_ball"}],flight_duration:1b}}
+MS 35 minecraft:iron_pickaxe*1/dmg=38{minecraft:damage:38}
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 39 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400b402000a04a4080000
+PKT A minecraft:set_cursor_item 6204f2070000
+PKT A minecraft:container_set_slot 1400b502000000
+PKT A minecraft:container_set_slot 1400b602000101f2070000
+PKT A minecraft:set_cursor_item 6203f2070000
+PKT A minecraft:container_set_slot 1400b702000903f2070000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1400b802000a00
+PKT A minecraft:set_cursor_item 6204a4080000
+PKT A minecraft:container_set_slot 1400b9020000048b030000
+PKT A minecraft:container_set_slot 1400ba02000301a4080000
+PKT A minecraft:set_cursor_item 6203a4080000
+PKT A minecraft:container_set_slot 1400bb02000a03a4080000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.firework_rocket 3
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.leather_helmet 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+MENU A cid=0 type=inventory state=320 carried=empty
+MS 9 minecraft:coal*3
+MS 10 minecraft:stick*3
+MS 28 minecraft:crafting_table*1
+MS 29 minecraft:stick*4
+MS 32 minecraft:torch*4
+MS 33 minecraft:leather_helmet*1{minecraft:dyed_color:11546150}
+MS 34 minecraft:firework_rocket*3{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"small_ball"}],flight_duration:1b}}
+MS 35 minecraft:iron_pickaxe*1/dmg=38{minecraft:damage:38}
+MS 36 minecraft:oak_planks*4
+MS 37 minecraft:glass_bottle*20
+MS 38 minecraft:dirt*5
+MS 39 minecraft:shield*1{minecraft:base_color:"blue"}
+MS 40 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+MS 41 minecraft:crafting_table*16
+MS 42 minecraft:honey_block*1
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400bc02000000
+PKT A minecraft:container_set_slot 1400bd02000000
+PKT A minecraft:container_set_slot 1400be02000100
+PKT A minecraft:container_set_slot 1400bf02000300
+PKT A minecraft:container_set_slot 1400c0020020048b030000
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.firework_rocket 3
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.leather_helmet 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.torch 4
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+I A 0 minecraft:oak_planks*4
+I A 1 minecraft:glass_bottle*20
+I A 2 minecraft:dirt*5
+I A 3 minecraft:shield*1{minecraft:base_color:"blue"}
+I A 4 minecraft:written_book*1{minecraft:written_book_content:{author:"Me",generation:1,pages:[{raw:"hello"}],title:{raw:"Old"}}}
+I A 5 minecraft:crafting_table*16
+I A 6 minecraft:honey_block*1
+I A 7 minecraft:sugar*48
+I A 8 minecraft:oak_planks*64
+I A 9 minecraft:coal*3
+I A 10 minecraft:stick*3
+I A 28 minecraft:crafting_table*1
+I A 29 minecraft:stick*4
+I A 32 minecraft:torch*4
+I A 33 minecraft:leather_helmet*1{minecraft:dyed_color:11546150}
+I A 34 minecraft:firework_rocket*3{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"small_ball"}],flight_duration:1b}}
+I A 35 minecraft:iron_pickaxe*1/dmg=38{minecraft:damage:38}
+# shift-click into a nearly full inventory: part of the result is dropped, then nothing fits and the loop ends
+MENU A cid=0 type=inventory state=362 carried=empty
+MS 0 minecraft:oak_planks*4
+MS 1 minecraft:oak_log*2
+MS 9 minecraft:stone*64
+MS 10 minecraft:stone*64
+MS 11 minecraft:stone*64
+MS 12 minecraft:stone*64
+MS 13 minecraft:stone*64
+MS 14 minecraft:stone*64
+MS 15 minecraft:stone*64
+MS 16 minecraft:stone*64
+MS 17 minecraft:stone*64
+MS 18 minecraft:stone*64
+MS 19 minecraft:stone*64
+MS 20 minecraft:stone*64
+MS 21 minecraft:stone*64
+MS 22 minecraft:stone*64
+MS 23 minecraft:stone*64
+MS 24 minecraft:stone*64
+MS 25 minecraft:stone*64
+MS 26 minecraft:stone*64
+MS 27 minecraft:stone*64
+MS 28 minecraft:stone*64
+MS 29 minecraft:stone*64
+MS 30 minecraft:stone*64
+MS 31 minecraft:stone*64
+MS 32 minecraft:stone*64
+MS 33 minecraft:stone*64
+MS 34 minecraft:stone*64
+MS 35 minecraft:stone*64
+MS 36 minecraft:stone*64
+MS 37 minecraft:stone*64
+MS 38 minecraft:stone*64
+MS 39 minecraft:stone*64
+MS 40 minecraft:stone*64
+MS 41 minecraft:stone*64
+MS 42 minecraft:stone*64
+MS 43 minecraft:stone*64
+MS 44 minecraft:oak_planks*64
+PKT A minecraft:container_set_slot 1400c102000900
+PKT A minecraft:container_set_slot 1400c202000a40010000
+PKT A minecraft:container_set_slot 1400c302000b40010000
+PKT A minecraft:container_set_slot 1400c402000c40010000
+PKT A minecraft:container_set_slot 1400c502000d40010000
+PKT A minecraft:container_set_slot 1400c602000e40010000
+PKT A minecraft:container_set_slot 1400c702000f40010000
+PKT A minecraft:container_set_slot 1400c802001040010000
+PKT A minecraft:container_set_slot 1400c902001140010000
+PKT A minecraft:container_set_slot 1400ca02001240010000
+PKT A minecraft:container_set_slot 1400cb02001340010000
+PKT A minecraft:container_set_slot 1400cc02001440010000
+PKT A minecraft:container_set_slot 1400cd02001540010000
+PKT A minecraft:container_set_slot 1400ce02001640010000
+PKT A minecraft:container_set_slot 1400cf02001740010000
+PKT A minecraft:container_set_slot 1400d002001840010000
+PKT A minecraft:container_set_slot 1400d102001940010000
+PKT A minecraft:container_set_slot 1400d202001a40010000
+PKT A minecraft:container_set_slot 1400d302001b40010000
+PKT A minecraft:container_set_slot 1400d402001c40010000
+PKT A minecraft:container_set_slot 1400d502001d40010000
+PKT A minecraft:container_set_slot 1400d602001e40010000
+PKT A minecraft:container_set_slot 1400d702001f40010000
+PKT A minecraft:container_set_slot 1400d802002040010000
+PKT A minecraft:container_set_slot 1400d902002140010000
+PKT A minecraft:container_set_slot 1400da02002240010000
+PKT A minecraft:container_set_slot 1400db02002340010000
+PKT A minecraft:container_set_slot 1400dc02002440010000
+PKT A minecraft:container_set_slot 1400dd02002540010000
+PKT A minecraft:container_set_slot 1400de02002640010000
+PKT A minecraft:container_set_slot 1400df02002740010000
+PKT A minecraft:container_set_slot 1400e002002840010000
+PKT A minecraft:container_set_slot 1400e102002940010000
+PKT A minecraft:container_set_slot 1400e202002a40010000
+PKT A minecraft:container_set_slot 1400e302002b40010000
+PKT A minecraft:container_set_slot 1400e402002c3e3f0000
+PKT A minecraft:set_cursor_item 6203a3010000
+PKT A minecraft:container_set_slot 1400e5020000043f0000
+PKT A minecraft:container_set_slot 1400e602000103a3010000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1400e7020000043f0000
+PKT A minecraft:container_set_slot 1400e802000102a3010000
+PKT A minecraft:container_set_slot 1400e902000940010000
+PKT A minecraft:container_set_slot 1400ea02002c403f0000
+STAT A minecraft.crafted:minecraft.crafting_table 17
+STAT A minecraft.crafted:minecraft.firework_rocket 3
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.leather_helmet 1
+STAT A minecraft.crafted:minecraft.oak_planks 34
+STAT A minecraft.crafted:minecraft.shield 1
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.crafted:minecraft.torch 4
+STAT A minecraft.crafted:minecraft.white_banner 1
+STAT A minecraft.crafted:minecraft.written_book 1
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT A minecraft.dropped:minecraft.stick 4
+E item#1 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.006206730228725285,0.08172237128019333,-0.28493482926845265 rot=292.3565,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=0 pickup=40 health=5 owner=- thrower=A
+E item#2 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.010691446817025425,0.08966601639986038,-0.3080117250797178 rot=47.14759,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*2 age=0 pickup=40 health=5 owner=- thrower=-
+# limited_crafting: a recipe the player does not know gives no result, special recipes are not limited
+C Took 1 recipe(s) from B
+C Game rule limited_crafting is now set to true
+MENU B cid=0 type=inventory state=3 carried=empty
+MS 2 minecraft:oak_planks*1
+MS 4 minecraft:oak_planks*1
+PKT B minecraft:container_set_slot 140002000000
+PKT B minecraft:container_set_slot 140003000000
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+# the recipe is learned: the result shows after the next change of the grid
+C Unlocked 1 recipe(s) for B
+MENU B cid=0 type=inventory state=4 carried=empty
+MS 0 minecraft:stick*4
+MS 2 minecraft:oak_planks*1
+MS 4 minecraft:oak_planks*1
+PKT B minecraft:recipe_book_add 4b018d0b010102020600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b7305a4080400000495034a03010200106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730300
+PKT B minecraft:container_set_slot 140004000004a4080000
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:stick highlight=minecraft:stick
+# creative clone of the result slot
+MENU B cid=0 type=inventory state=4 carried=minecraft:stick*64
+MS 0 minecraft:stick*4
+MS 2 minecraft:oak_planks*1
+MS 4 minecraft:oak_planks*1
+PKT B minecraft:set_cursor_item 6240a4080000
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+# the recipe is forgotten while its result is displayed: taking the displayed result still works and learns the recipe again
+C Took 1 recipe(s) from B
+MENU B cid=0 type=inventory state=4 carried=empty
+MS 0 minecraft:stick*4
+MS 2 minecraft:oak_planks*1
+MS 4 minecraft:oak_planks*1
+PKT B minecraft:set_cursor_item 6200
+PKT B minecraft:recipe_book_remove 4c018d0b
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
+MENU B cid=0 type=inventory state=8 carried=minecraft:stick*4
+PKT B minecraft:recipe_book_add 4b018d0b010102020600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b7305a4080400000495034a03010200106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730300
+PKT B minecraft:container_set_slot 140005000000
+PKT B minecraft:container_set_slot 140006000000
+PKT B minecraft:container_set_slot 140007000200
+PKT B minecraft:container_set_slot 140008000400
+PKT B minecraft:set_cursor_item 6204a4080000
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:stick highlight=minecraft:stick
+STAT B minecraft.crafted:minecraft.stick 4
+STAT B minecraft.custom:minecraft.drop 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+STAT B minecraft.dropped:minecraft.stick 64
+# special recipes ignore limited_crafting (a banner is copied without knowing the recipe)
+MENU B cid=0 type=inventory state=12 carried=empty
+MS 0 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"black",pattern:"minecraft:border"}]}
+MS 1 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"black",pattern:"minecraft:border"}]}
+MS 2 minecraft:white_banner*1
+PKT B minecraft:set_cursor_item 6200
+PKT B minecraft:container_set_slot 140009000000
+PKT B minecraft:container_set_slot 14000a000001890b01004a01020f
+PKT B minecraft:container_set_slot 14000b000001890b01004a01020f
+PKT B minecraft:container_set_slot 14000c000001890b01004a01020f
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:stick highlight=minecraft:stick
+MENU B cid=0 type=inventory state=16 carried=minecraft:white_banner*1{minecraft:banner_patterns:[{color:"black",pattern:"minecraft:border"}]}
+MS 1 minecraft:white_banner*1{minecraft:banner_patterns:[{color:"black",pattern:"minecraft:border"}]}
+PKT B minecraft:container_set_slot 14000d000000
+PKT B minecraft:container_set_slot 14000e000001890b01004a01020f
+PKT B minecraft:container_set_slot 14000f000000
+PKT B minecraft:container_set_slot 140010000200
+PKT B minecraft:set_cursor_item 6201890b01004a01020f
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:stick highlight=minecraft:stick
+STAT B minecraft.crafted:minecraft.stick 4
+STAT B minecraft.crafted:minecraft.white_banner 1
+STAT B minecraft.custom:minecraft.drop 2
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+STAT B minecraft.dropped:minecraft.stick 68
+# limited_crafting off again: the next change of the grid shows the result of an unknown recipe
+C Game rule limited_crafting is now set to false
+MENU B cid=0 type=inventory state=18 carried=empty
+MS 0 minecraft:oak_planks*4
+MS 1 minecraft:oak_log*1
+PKT B minecraft:set_cursor_item 6200
+PKT B minecraft:container_set_slot 140011000000
+PKT B minecraft:container_set_slot 1400120000043f0000
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:stick highlight=minecraft:stick

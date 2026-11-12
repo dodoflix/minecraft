@@ -133,6 +133,7 @@ mod menu_golden;
 mod menu_oracle_golden;
 mod menu_registration_guards;
 mod mineshaft_golden;
+mod mnu_crafting_golden;
 mod mnu_harness_golden;
 mod mnu_recipe_golden;
 mod mob_spine_golden;
