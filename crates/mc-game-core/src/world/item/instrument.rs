@@ -119,6 +119,7 @@ impl ItemBehaviour for InstrumentItem {
                 .player
                 .cooldowns
                 .add_cooldown(&stack, mth::floor_f32(cooldown * 20.0));
+            player.flush_item_cooldown_packets();
         }
         let item = stack.item();
         player.award_stat_once(level, Stat::Used(item));
