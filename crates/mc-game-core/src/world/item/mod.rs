@@ -54,6 +54,7 @@ pub mod tool;
 pub mod trading;
 mod trident_item;
 mod use_item;
+mod wind_charge_item;
 
 pub use crate::world::inventory::ClickAction;
 pub use behaviour::*;

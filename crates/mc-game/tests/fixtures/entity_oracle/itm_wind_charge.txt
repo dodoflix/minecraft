@@ -1,0 +1,110 @@
+T 1
+T 2
+T 3
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+# the second use of the same stack is refused by the cooldown
+E wind_charge#1 minecraft:wind_charge pos=0.5,-58.37999999523163,0.5 delta=-0.014578891193610579,-1.5034602219253275,0.010734910411238875 rot=-53.63454,-89.31009 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#2 minecraft:wind_charge pos=10.5,-58.37999999523163,0.5 delta=-0.0013784379393902229,-0.013474882234172524,1.5028829671531239 rot=-0.052489895,-0.51362383 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I Alice 0 minecraft:wind_charge*3
+I Bob 0 minecraft:wind_charge*2
+STAT Alice minecraft.custom:minecraft.play_time 30
+STAT Alice minecraft.custom:minecraft.time_since_death 30
+STAT Alice minecraft.custom:minecraft.time_since_rest 30
+STAT Alice minecraft.custom:minecraft.total_world_time 30
+STAT Alice minecraft.used:minecraft.wind_charge 1
+STAT Bob minecraft.custom:minecraft.play_time 30
+STAT Bob minecraft.custom:minecraft.time_since_death 30
+STAT Bob minecraft.custom:minecraft.time_since_rest 30
+STAT Bob minecraft.custom:minecraft.total_world_time 30
+STAT Bob minecraft.used:minecraft.wind_charge 1
+PKT Alice minecraft:add_entity 0103a2f8a8ad2f064bb2929be669a186f6db93013fe0000000000000c04d30a3d70000003fe000000000000042fc80ae3f8dc0d90001
+PKT Alice minecraft:sound 77f20d0600000004fffffe20000000043f0000003ebc10bce32d4fcf84a7860e
+PKT Alice minecraft:cooldown 16156d696e6563726166743a77696e645f6368617267650a
+PKT Alice minecraft:add_entity 0104b289f54573ae44879cab60bcbbbf161e93014025000000000000c04d30a3d70000003fe0000000000000a2ffe02cfe45ffff0002
+PKT Alice minecraft:sound 77f20d0600000054fffffe20000000043f0000003ed645483dace6703e05bff8
+PKT Bob minecraft:add_entity 0103a2f8a8ad2f064bb2929be669a186f6db93013fe0000000000000c04d30a3d70000003fe000000000000042fc80ae3f8dc0d90001
+PKT Bob minecraft:sound 77f20d0600000004fffffe20000000043f0000003ebc10bce32d4fcf84a7860e
+PKT Bob minecraft:add_entity 0104b289f54573ae44879cab60bcbbbf161e93014025000000000000c04d30a3d70000003fe0000000000000a2ffe02cfe45ffff0002
+PKT Bob minecraft:sound 77f20d0600000054fffffe20000000043f0000003ed645483dace6703e05bff8
+PKT Bob minecraft:cooldown 16156d696e6563726166743a77696e645f6368617267650a
+PKT Bob minecraft:container_set_content 1200032e00000000000000000000000000000000000000000000000000000000000000000000000002da0a000000000000000000000000
+T 31
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.wind_charge.throw source=neutral vol=0.5 pitch=0.36731517
+EV sound at=10.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.wind_charge.throw source=neutral vol=0.5 pitch=0.41849732
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,90.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*3
+P Bob minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*2
+E wind_charge#1 minecraft:wind_charge pos=0.48542110880638945,-59.88346021715696,0.5107349104112389 delta=-0.014578891193610579,-1.5034602219253275,0.010734910411238875 rot=291.81927,-53.586052 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#2 minecraft:wind_charge pos=10.49862156206061,-58.3934748774658,2.002882967153124 delta=-0.0013784379393902229,-0.013474882234172524,1.5028829671531239 rot=323.9685,-0.30817538 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 32
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.006839261157996396,0.9153392519660203,-0.005035969802856779 rot=0.0,90.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*3
+P Bob minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*2
+E wind_charge#2 minecraft:wind_charge pos=10.49724312412122,-58.40694975969997,3.5057659343062477 delta=-0.0013784379393902229,-0.013474882234172524,1.5028829671531239 rot=295.1853,-0.1438166 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT Alice minecraft:move_entity_pos 360400000000000000
+PKT Alice minecraft:move_entity_pos 360300000000000000
+PKT Alice minecraft:explode 243fdefe9fd3697753c04de000000000003fe05ec1ccbdbfa03f99999a0000003f013f89a74b1531a3473ff17a8d010ac454bf82e3b606e5385722f10d0001
+PKT Alice minecraft:remove_entities 4e0103
+T 33
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.006223727833143482,0.8186324828595317,-0.004582732652673233 rot=0.0,90.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*3
+P Bob minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*2
+E wind_charge#2 minecraft:wind_charge pos=10.495864686181829,-58.42042464193414,5.008648901459372 delta=-0.0013784379393902229,-0.013474882234172524,1.5028829671531239 rot=272.15875,-0.012329593 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 34
+T 35
+T 36
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.004690021212446561,0.5399630198821278,-0.0034534147263880614 rot=0.0,90.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*3
+P Bob minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*2
+PKT Alice minecraft:explode 244024fc7a5c1ec7d9c04d393f54597762401f0000000000003f99999a000000400022f10d0001
+PKT Alice minecraft:remove_entities 4e0104
+PKT Bob minecraft:move_entity_pos 360400000000000000
+PKT Bob minecraft:move_entity_pos 360300000000000000
+PKT Bob minecraft:explode 243fdefe9fd3697753c04de000000000003fe05ec1ccbdbfa03f99999a0000003f0022f10d0001
+PKT Bob minecraft:remove_entities 4e0103
+PKT Bob minecraft:explode 244024fc7a5c1ec7d9c04d393f54597762401f0000000000003f99999a000000400022f10d0001
+PKT Bob minecraft:remove_entities 4e0104
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+T 43
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,90.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*3
+P Bob minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*2

@@ -54,10 +54,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "MinecartItem",
         "useOn on a rail places the minecart entity of the item (no minecart entities yet)",
     ),
-    (
-        "WindChargeItem",
-        "use spawns a WindCharge, plays the throw sound and consumes the item",
-    ),
 ];
 
 /// Classes that ARE registered but only implement part of the vanilla class (class, the missing behaviour). Registering

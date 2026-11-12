@@ -199,13 +199,19 @@ pub fn item_stack_use(
     let is_instantly_used = behaviour(stack.item()).get_use_duration(&stack) <= 0;
     let result = behaviour(stack.item()).use_item(level, player, hand);
     if is_instantly_used && let InteractionResult::Success(success) = &result {
+        let transformed = success.item_context.held_item_transformed_to.is_some();
         let transform_to = success
             .item_context
             .held_item_transformed_to
             .clone()
             .unwrap_or_else(|| player.get_item_in_hand(hand));
+        let was_empty = transform_to.is_empty();
         let result_stack =
             apply_after_use_component_side_effects(level, transform_to, player, &before);
+        // vanilla returns the very same stack object unless the use remainder replaced it: callers compare by identity
+        if !transformed && !(was_empty && !result_stack.is_empty()) {
+            return result;
+        }
         return InteractionResult::Success(success.clone().held_item_transformed_to(result_stack));
     }
     result

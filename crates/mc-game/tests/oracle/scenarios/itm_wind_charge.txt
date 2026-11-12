@@ -1,0 +1,32 @@
+# WindChargeItem.use: a WindCharge at the player's eye height flies off at 1.5 blocks per tick, throw sound after the spawn,
+# item-used statistic, stack consumed (not for creative), use cooldown blocks the second use. The creative player looks straight
+# down: the burst on the ground flings the player upwards (jump boost) and plays the wind burst sound; Bob's charge hits a wall.
+# The packet dumps keep the types of the throw: the replay neither tracks players for each other nor acknowledges block
+# interaction sequences.
+level flat
+preload 2
+difficulty normal
+watch events
+spawn_player Alice creative 0.5 -60 0.5 0 90
+spawn_player Bob survival 10.5 -60 0.5 0 0
+give Alice mainhand minecraft:wind_charge 3
+give Bob mainhand minecraft:wind_charge 3
+fill 8 -60 8 13 -55 8 minecraft:stone
+tick 30
+dump packets:Alice:none packets:Bob:none
+level_seed 99
+use Alice
+use Bob
+note the second use of the same stack is refused by the cooldown
+use Bob
+dump entities inventory:Alice inventory:Bob stats:Alice stats:Bob packets:Alice:add_entity,sound,cooldown,explode,remove_entities,container_set_content,move_entity_pos packets:Bob:add_entity,sound,cooldown,explode,remove_entities,container_set_content,move_entity_pos
+tick 1
+dump all_players entities events
+tick 1
+dump all_players entities events packets:Alice:add_entity,sound,cooldown,explode,remove_entities,container_set_content,move_entity_pos
+tick 1
+dump all_players entities events
+tick 3
+dump all_players entities events packets:Alice:add_entity,sound,cooldown,explode,remove_entities,container_set_content,move_entity_pos packets:Bob:add_entity,sound,cooldown,explode,remove_entities,container_set_content,move_entity_pos
+tick 20
+dump all_players entities events

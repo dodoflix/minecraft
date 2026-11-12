@@ -94,6 +94,7 @@ mod item_golden;
 mod item_predicate_golden;
 mod item_registration_guards;
 mod item_use;
+mod item_wind_charge_golden;
 mod items_oracle;
 mod itm_brush_golden;
 mod jigsaw_codec;
