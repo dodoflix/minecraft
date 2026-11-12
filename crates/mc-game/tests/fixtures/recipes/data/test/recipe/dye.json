@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_dye",
+  "dye": "#minecraft:dyes",
+  "target": "minecraft:leather_helmet",
+  "result": {
+    "id": "minecraft:leather_helmet"
+  },
+  "group": "test_dyed"
+}

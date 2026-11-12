@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "test_buttons",
+  "ingredients": [
+    "minecraft:stick",
+    [
+      "minecraft:apple",
+      "minecraft:carrot"
+    ],
+    "#minecraft:logs"
+  ],
+  "result": {
+    "id": "minecraft:lever",
+    "count": 3
+  }
+}

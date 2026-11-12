@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": "minecraft:dirt",
+  "result": {
+    "id": "minecraft:glass"
+  },
+  "cookingtime": 200,
+  "experience": 0.1
+}

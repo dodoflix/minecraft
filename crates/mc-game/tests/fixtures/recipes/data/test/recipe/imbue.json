@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_imbue",
+  "material": "minecraft:spectral_arrow",
+  "source": "minecraft:splash_potion",
+  "result": {
+    "id": "minecraft:tipped_arrow",
+    "count": 4
+  }
+}

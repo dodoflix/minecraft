@@ -4,15 +4,21 @@
 
 use crate::common;
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::io::Read;
+use std::path::Path;
 
 use mc_core::ident::Identifier;
 use mc_game::server::level::ServerLevel;
+use mc_game::server::packs::ServerPacksSource;
+use mc_game::server::world_loader::WorldStem;
 use mc_game::world::item::ItemStack;
 use mc_game::world::item::crafting::*;
-use mc_protocol::Encode;
-use mc_world::level_storage::WorldDataConfiguration;
+use mc_game::world::level::saveddata::maps::MapItemSavedData;
+use mc_protocol::components::MapId;
+use mc_protocol::packets::play::inventory::ClientboundUpdateRecipesPacket;
+use mc_protocol::{Decode, Encode};
+use mc_world::level_storage::{DirectoryValidator, FeatureFlagSet, WorldDataConfiguration};
 
 fn fixture() -> Vec<Vec<String>> {
     let mut text = String::new();
@@ -65,29 +71,104 @@ fn stack_to_snbt(stack: &ItemStack) -> String {
     }
 }
 
-#[test]
-fn recipes_match_vanilla() {
-    let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
-    let dir = tempfile::tempdir().unwrap();
-    let (_, stem) = common::load_world(
-        &dir.path().join("world"),
-        WorldDataConfiguration::DEFAULT,
-        true,
-    )
-    .unwrap();
-    let manager = stem
-        .data_pack_resources
-        .listener::<RecipeManager>()
-        .expect("recipe manager")
-        .clone();
-    let level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
-    let rows = fixture();
+fn row_tag(rows: &[Vec<String>], tag: &str) -> Vec<Vec<String>> {
+    rows.iter()
+        .filter(|r| r[0].starts_with(tag))
+        .map(|r| {
+            let mut r = r.clone();
+            r[0] = r[0][tag.len()..].to_owned();
+            r
+        })
+        .collect()
+}
+
+fn overworld() -> Identifier {
+    Identifier::parse("minecraft:overworld").unwrap()
+}
+
+/// A level that serves `manager` as its recipe manager and reads the scale of a map from the saved data.
+fn level_with(manager: &RecipeManager) -> ServerLevel {
+    mc_game::world::item::crafting::set_map_scale_lookup(
+        mc_game::world::item::map_item::map_scale_lookup,
+    );
+    let level = ServerLevel::detached(overworld());
+    level.shared.set_recipe_manager(manager.clone());
+    level
+}
+
+/// `MapItemSavedData.createFresh(0, 0, scale, ..)` as the saved data of map `id`.
+fn set_map_scale(level: &ServerLevel, id: i32, scale: i8) {
+    level.set_map_data(
+        MapId(id),
+        MapItemSavedData::create_fresh(0.0, 0.0, scale, false, false, level.dimension.clone()),
+    );
+}
+
+fn displays(manager: &RecipeManager) -> Vec<(String, String, String)> {
+    let mut out = Vec::new();
+    for holder in manager.recipes() {
+        manager.list_displays_for_recipe(&holder.id, |entry| {
+            let mut bytes = Vec::new();
+            entry.encode(&mut bytes).unwrap();
+            out.push((
+                entry.id.index.to_string(),
+                holder.id.to_string(),
+                hex(&bytes),
+            ));
+        });
+    }
+    out
+}
+
+/// `ClientboundUpdateRecipesPacket` with the unspecified orders removed: the sets sorted by key and item id, the stonecutter
+/// list (ordered in vanilla) as its encoded entries.
+fn normalized_update(
+    packet: &ClientboundUpdateRecipesPacket,
+) -> (BTreeMap<String, Vec<u32>>, Vec<Vec<u8>>) {
+    let sets = packet
+        .item_sets
+        .iter()
+        .map(|(key, set)| {
+            let mut ids: Vec<u32> = set.items.iter().map(|i| i.id()).collect();
+            ids.sort_unstable();
+            (key.to_string(), ids)
+        })
+        .collect();
+    let entries = packet
+        .stonecutter_recipes
+        .entries
+        .iter()
+        .map(|e| {
+            let mut bytes = Vec::new();
+            e.encode(&mut bytes).unwrap();
+            bytes
+        })
+        .collect();
+    (sets, entries)
+}
+
+/// One world of the generator: `tag` "" = the vanilla data, "P" = the world with the pack `recipes` (then the recipe lines
+/// are only those `mine` accepts). Compares metadata, placement, displays (byte-exact), property sets, the stonecutter list,
+/// the recipes left out for being unplaceable, sizes, the update packet and the scripted match/assemble inputs.
+fn check_world(
+    tag: &str,
+    manager: &RecipeManager,
+    all_rows: &[Vec<String>],
+    mine: &dyn Fn(&str) -> bool,
+) {
+    let rows = row_tag(all_rows, tag);
+    let level = level_with(manager);
 
     // ---- RECIPE: registry order, metadata, placement
     let recipe_rows: Vec<&Vec<String>> = rows.iter().filter(|r| r[0] == "RECIPE").collect();
-    assert_eq!(manager.recipes().len(), recipe_rows.len(), "recipe count");
+    let mine_holders: Vec<&RecipeHolder> = manager
+        .recipes()
+        .iter()
+        .filter(|h| mine(&h.id.to_string()))
+        .collect();
+    assert_eq!(mine_holders.len(), recipe_rows.len(), "recipe count");
     let mut errors = Vec::new();
-    for (holder, row) in manager.recipes().iter().zip(&recipe_rows) {
+    for (holder, row) in mine_holders.iter().zip(&recipe_rows) {
         let recipe = &holder.value;
         let slots = recipe.placement_info().slots_to_ingredient_index();
         let mut placement = format!(
@@ -133,16 +214,34 @@ fn recipes_match_vanilla() {
             .join("\n")
     );
 
+    // ---- SKIP / COUNT: unplaceable recipes are left out of the sets, sizes
+    let skipped: Vec<String> = manager
+        .recipes()
+        .iter()
+        .filter(|h| !h.value.is_special() && h.value.placement_info().is_impossible_to_place())
+        .map(|h| h.id.to_string())
+        .collect();
+    let vanilla_skipped: Vec<&str> = rows
+        .iter()
+        .filter(|r| r[0] == "SKIP")
+        .map(|r| r[1].as_str())
+        .collect();
+    assert_eq!(skipped, vanilla_skipped, "recipes that cannot be placed");
+    let all_displays = displays(manager);
+    let count = rows.iter().find(|r| r[0] == "COUNT").unwrap();
+    assert_eq!(
+        (
+            manager.recipes().len().to_string(),
+            all_displays.len().to_string(),
+            manager.stonecutter_recipes().entries.len().to_string()
+        ),
+        (count[1].clone(), count[2].clone(), count[3].clone()),
+        "recipes, displays, stonecutter entries"
+    );
+
     // ---- DISPLAY: byte-exact recipe book entries
     let display_rows: Vec<&Vec<String>> = rows.iter().filter(|r| r[0] == "DISPLAY").collect();
-    let mut ours = Vec::new();
-    for holder in manager.recipes() {
-        manager.list_displays_for_recipe(&holder.id, |entry| {
-            let mut out = Vec::new();
-            entry.encode(&mut out).unwrap();
-            ours.push((entry.id.index.to_string(), holder.id.to_string(), hex(&out)));
-        });
-    }
+    let ours: Vec<&(String, String, String)> = all_displays.iter().filter(|d| mine(&d.1)).collect();
     assert_eq!(ours.len(), display_rows.len(), "display count");
     for (o, r) in ours.iter().zip(&display_rows) {
         assert_eq!(
@@ -167,8 +266,14 @@ fn recipes_match_vanilla() {
 
     // ---- STONECUT
     let stonecut: Vec<&Vec<String>> = rows.iter().filter(|r| r[0] == "STONECUT").collect();
-    assert_eq!(manager.stonecutter_recipes().entries.len(), stonecut.len());
-    for (entry, row) in manager.stonecutter_recipes().entries.iter().zip(&stonecut) {
+    let entries: Vec<&SingleInputEntry> = manager
+        .stonecutter_recipes()
+        .entries
+        .iter()
+        .filter(|e| mine(&e.recipe.recipe.as_ref().unwrap().id.to_string()))
+        .collect();
+    assert_eq!(entries.len(), stonecut.len());
+    for (entry, row) in entries.iter().zip(&stonecut) {
         let (mut input, mut display) = (Vec::new(), Vec::new());
         mc_protocol::packets::play::inventory::Ingredient {
             values: entry.input.wire_set(),
@@ -182,7 +287,30 @@ fn recipes_match_vanilla() {
         );
     }
 
-    // ---- MATCH
+    // ---- UPDATE: the packet vanilla built, decoded, against the one we build
+    let vanilla_bytes = rows
+        .iter()
+        .find(|r| r[0] == "UPDATE")
+        .map(|r| {
+            (0..r[1].len())
+                .step_by(2)
+                .map(|i| u8::from_str_radix(&r[1][i..i + 2], 16).unwrap())
+                .collect::<Vec<u8>>()
+        })
+        .unwrap();
+    let mut input = &vanilla_bytes[..];
+    let vanilla_packet = ClientboundUpdateRecipesPacket::decode(&mut input).unwrap();
+    assert!(input.is_empty(), "trailing bytes in the update packet");
+    assert_eq!(
+        normalized_update(&update_recipes_packet(manager)),
+        normalized_update(&vanilla_packet),
+        "update_recipes"
+    );
+
+    // ---- MATCH: the level's map data first
+    for row in rows.iter().filter(|r| r[0] == "MAPDATA") {
+        set_map_scale(&level, row[1].parse().unwrap(), row[2].parse().unwrap());
+    }
     let mut by_type: HashMap<String, usize> = HashMap::new();
     let mut failures = Vec::new();
     for row in rows.iter().filter(|r| r[0] == "MATCH") {
@@ -210,14 +338,16 @@ fn recipes_match_vanilla() {
             "minecraft:crafting" => {
                 let (w, h) = row[2].split_once('x').unwrap();
                 run_match(
-                    &manager,
+                    manager,
+                    mine,
                     ty,
                     &CraftingInput::of(w.parse().unwrap(), h.parse().unwrap(), &stacks),
                     &level,
                 )
             }
             "minecraft:smithing" => run_match(
-                &manager,
+                manager,
+                mine,
                 ty,
                 &SmithingRecipeInput {
                     template: stacks[0].clone(),
@@ -227,7 +357,8 @@ fn recipes_match_vanilla() {
                 &level,
             ),
             "minecraft:brewing" => run_match(
-                &manager,
+                manager,
+                mine,
                 ty,
                 &BrewingInput {
                     input: stacks[0].clone(),
@@ -235,7 +366,13 @@ fn recipes_match_vanilla() {
                 },
                 &level,
             ),
-            _ => run_match(&manager, ty, &SingleRecipeInput(stacks[0].clone()), &level),
+            _ => run_match(
+                manager,
+                mine,
+                ty,
+                &SingleRecipeInput(stacks[0].clone()),
+                &level,
+            ),
         };
         let expected_result = mc_nbt::snbt::parse(&row[5]).unwrap();
         let ours_result = mc_nbt::snbt::parse(&result).unwrap();
@@ -258,13 +395,289 @@ fn recipes_match_vanilla() {
             .collect::<Vec<_>>()
             .join("\n")
     );
+}
+
+fn load_manager(dir: &Path) -> (RecipeManager, WorldStem<()>) {
+    let (_, stem) =
+        common::load_world(&dir.join("world"), WorldDataConfiguration::DEFAULT, true).unwrap();
+    let manager = stem
+        .data_pack_resources
+        .listener::<RecipeManager>()
+        .expect("recipe manager")
+        .clone();
+    (manager, stem)
+}
+
+#[test]
+fn recipes_match_vanilla() {
+    let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    let dir = tempfile::tempdir().unwrap();
+    let (manager, stem) = load_manager(dir.path());
+    check_world("", &manager, &fixture(), &|_| true);
     stem.close();
 }
 
-/// All matching recipes of `ty` (registry order, comma separated), the SNBT of the first one's assembled result and (for
-/// crafting) its remaining items joined by `@@`.
+/// `finalizeRecipeLoading` with feature sets other than vanilla's: every item requires the `vanilla` flag, so a set without
+/// it leaves no display, no property set entry and no stonecutter entry; the set with every flag equals the vanilla one.
+#[test]
+fn feature_flags_filter_recipes_like_vanilla() {
+    let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    let dir = tempfile::tempdir().unwrap();
+    let (manager, stem) = load_manager(dir.path());
+    let rows = fixture();
+    let mut sets = 0;
+    for row in rows.iter().filter(|r| r[0] == "FLAGS") {
+        let flags = match row[1].as_str() {
+            "empty" => FeatureFlagSet::EMPTY,
+            "trade_rebalance" => FeatureFlagSet::TRADE_REBALANCE,
+            "vanilla" => FeatureFlagSet::VANILLA_SET,
+            "all" => FeatureFlagSet::ALL,
+            other => panic!("unknown feature set {other}"),
+        };
+        let filtered = RecipeManager::new(manager.registries(), flags);
+        assert_eq!(
+            (
+                displays(&filtered).len().to_string(),
+                filtered.stonecutter_recipes().entries.len().to_string()
+            ),
+            (row[2].clone(), row[3].clone()),
+            "displays and stonecutter entries with {}",
+            row[1]
+        );
+        for p in rows.iter().filter(|r| r[0] == "FPROPSET" && r[1] == row[1]) {
+            assert_eq!(
+                filtered.property_set(&p[2]).items().len().to_string(),
+                p[3],
+                "{} with {}",
+                p[2],
+                row[1]
+            );
+        }
+        // the recipes themselves stay, whatever is enabled
+        assert_eq!(filtered.recipes().len(), manager.recipes().len());
+        sets += 1;
+    }
+    assert_eq!(sets, 4);
+    stem.close();
+}
+
+/// `RecipeCache` hits and misses (capacity, least recently used order, manager swap), made visible by map data the cached
+/// crafting result depends on: a hit keeps the answer of the time it was computed.
+#[test]
+fn recipe_cache_matches_vanilla() {
+    let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    let dir = tempfile::tempdir().unwrap();
+    let (manager, stem) = load_manager(dir.path());
+    let other = RecipeManager::new(manager.registries(), FeatureFlagSet::VANILLA_SET);
+    let level = level_with(&manager);
+    let mut cache = RecipeCache::new(0);
+    let mut capacity = 0;
+    let mut steps = 0;
+    for row in fixture().iter().filter(|r| r[0] == "CACHE") {
+        let cap: usize = row[1].parse().unwrap();
+        if cap != capacity {
+            capacity = cap;
+            cache = RecipeCache::new(cap);
+            level.shared.set_recipe_manager(manager.clone());
+        }
+        match row[2].as_str() {
+            "scale" => set_map_scale(&level, row[3].parse().unwrap(), row[4].parse().unwrap()),
+            "swap" => level.shared.set_recipe_manager(other.clone()),
+            "base" => level.shared.set_recipe_manager(manager.clone()),
+            "get" => {
+                let (w, h) = row[3].split_once('x').unwrap();
+                let stacks: Vec<ItemStack> = row[4].split("@@").map(stack_from_snbt).collect();
+                let input = CraftingInput::of(w.parse().unwrap(), h.parse().unwrap(), &stacks);
+                let found = cache
+                    .get(&level, &input)
+                    .map_or_else(|| "-".to_owned(), |r| r.id.to_string());
+                assert_eq!(found, row[5], "step {steps}: {row:?}");
+            }
+            other => panic!("unknown cache op {other}"),
+        }
+        steps += 1;
+    }
+    assert_eq!(steps, 40);
+    stem.close();
+}
+
+fn copy_pack(name: &str, world: &Path) {
+    let from = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures")
+        .join(name);
+    let to = world.join("datapacks").join(name);
+    let mut stack = vec![from.clone()];
+    while let Some(dir) = stack.pop() {
+        for entry in std::fs::read_dir(&dir).unwrap() {
+            let path = entry.unwrap().path();
+            let target = to.join(path.strip_prefix(&from).unwrap());
+            if path.is_dir() {
+                std::fs::create_dir_all(&target).unwrap();
+                stack.push(path);
+            } else {
+                std::fs::create_dir_all(target.parent().unwrap()).unwrap();
+                std::fs::copy(&path, &target).unwrap();
+            }
+        }
+    }
+}
+
+fn pack_recipe(id: &str) -> bool {
+    id.starts_with("test:") || id == "minecraft:stick"
+}
+
+/// A data pack with one custom recipe of every serializer, an override of a vanilla recipe and two recipes that cannot be
+/// placed: the same ids, metadata, displays, sets and match results as vanilla, both when the world loads with the pack and
+/// when `/reload` brings it in.
+#[test]
+fn custom_pack_recipes_match_vanilla() {
+    use mc_game::server::reloadable_resources::reload_resources;
+    let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    common::init_logger();
+    let rows = fixture();
+    let dir = tempfile::tempdir().unwrap();
+    let world = dir.path().join("world");
+    copy_pack("recipes", &world);
+    let _ = common::take_logs();
+    let (manager, stem) = load_manager(dir.path());
+    let logs = common::take_logs();
+    for skipped in rows.iter().filter(|r| r[0] == "PSKIP") {
+        let wanted = format!(
+            "WARN: Recipe {} can't be placed due to empty ingredients and will be ignored",
+            skipped[1]
+        );
+        assert!(
+            logs.contains(&wanted),
+            "missing log line {wanted:?} in {logs:?}"
+        );
+    }
+    check_world("P", &manager, &rows, &pack_recipe);
+    stem.close();
+
+    // `/reload`: the world started without the pack, then the pack is enabled
+    let dir = tempfile::tempdir().unwrap();
+    let (_, stem) = load_manager(dir.path());
+    copy_pack("recipes", &dir.path().join("world"));
+    let mut repo = ServerPacksSource::create_pack_repository(
+        dir.path().join("world/datapacks"),
+        DirectoryValidator::no_symlinks_allowed(),
+    );
+    repo.reload();
+    let reloaded = reload_resources(
+        &repo,
+        &["vanilla".to_owned(), "file/recipes".to_owned()],
+        &stem.registries,
+        stem.data_pack_resources.enabled_features(),
+        &mc_game::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into(),
+    )
+    .unwrap();
+    let manager = reloaded
+        .managers
+        .listener::<RecipeManager>()
+        .expect("recipe manager")
+        .clone();
+    check_world("P", &manager, &rows, &pack_recipe);
+    stem.close();
+}
+
+/// Recipes that do not decode fail the whole load with the report vanilla prints; a second `crafting_special_repairitem`
+/// is refused by the registry (the serializer is a unit codec: one shared instance).
+#[test]
+fn invalid_pack_recipes_fail_like_vanilla() {
+    use mc_game::server::reloadable_resources::{ReloadError, reload_resources};
+    use mc_game::server::world_loader::WorldLoadError;
+    let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    common::init_logger();
+    let rows = fixture();
+    let expected = |pack: &str| -> Vec<String> {
+        rows.iter()
+            .filter(|r| r[0] == "PERR" && r[1] == pack)
+            .map(|r| r[2].clone())
+            .collect()
+    };
+    let reported =
+        |brief: &str| -> Vec<String> { brief.split("\n\t\t").skip(1).map(str::to_owned).collect() };
+    let invalid = expected("recipes_invalid");
+    assert_eq!(invalid.len(), 6);
+
+    // at startup
+    let dir = tempfile::tempdir().unwrap();
+    let world = dir.path().join("world");
+    copy_pack("recipes_invalid", &world);
+    let failure = match common::load_world(&world, WorldDataConfiguration::DEFAULT, true) {
+        Err(WorldLoadError::Reload(ReloadError::Registries(failure))) => failure,
+        Err(other) => panic!("{other}"),
+        Ok(_) => panic!("vanilla refuses this world, so must we"),
+    };
+    assert_eq!(reported(&failure.brief()), invalid);
+    assert!(
+        common::take_logs()
+            .iter()
+            .any(|l| l.starts_with("ERROR: Registry loading errors:\n")),
+        "the failure is logged like vanilla's printFullDetailsToLog"
+    );
+    let dir_dup = tempfile::tempdir().unwrap();
+    copy_pack("recipes_duplicate", &dir_dup.path().join("world"));
+    let Err(WorldLoadError::Reload(ReloadError::Registries(thrown))) = common::load_world(
+        &dir_dup.path().join("world"),
+        WorldDataConfiguration::DEFAULT,
+        true,
+    ) else {
+        panic!("a second repair_item recipe must be refused at startup")
+    };
+    assert!(thrown.thrown.is_some() && thrown.errors.is_empty());
+    assert!(
+        !common::take_logs()
+            .iter()
+            .any(|l| l.starts_with("ERROR: Registry loading errors:")),
+        "an exception thrown out of the load has no report"
+    );
+
+    // by `/reload`
+    let dir = tempfile::tempdir().unwrap();
+    let (_, stem) = load_manager(dir.path());
+    for pack in ["recipes_invalid", "recipes_duplicate"] {
+        copy_pack(pack, &dir.path().join("world"));
+    }
+    let mut repo = ServerPacksSource::create_pack_repository(
+        dir.path().join("world/datapacks"),
+        DirectoryValidator::no_symlinks_allowed(),
+    );
+    repo.reload();
+    let reload = |pack: &str| {
+        reload_resources(
+            &repo,
+            &["vanilla".to_owned(), format!("file/{pack}")],
+            &stem.registries,
+            stem.data_pack_resources.enabled_features(),
+            &mc_game::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into(),
+        )
+    };
+    let Err(ReloadError::Registries(failure)) = reload("recipes_invalid") else {
+        panic!("the reload must fail")
+    };
+    assert_eq!(reported(&failure.brief()), invalid);
+    let vanilla = rows.iter().find(|r| r[0] == "PFAILURE").unwrap();
+    assert_eq!(vanilla[1], "recipes_duplicate");
+    let err = match reload("recipes_duplicate") {
+        Err(e) => e.to_string(),
+        Ok(_) => panic!("a second repair_item recipe must be refused"),
+    };
+    // the identity hash of the shared instance differs per run
+    let (head, rest) = err.split_once('@').unwrap();
+    let tail = rest.trim_start_matches(|c: char| c.is_ascii_hexdigit());
+    assert_eq!(
+        format!("{head}@{tail}"),
+        format!("{}: {}", vanilla[2], vanilla[3])
+    );
+    stem.close();
+}
+
+/// All matching recipes of `ty` (registry order, comma separated), the SNBT of the assembled result of the first one `mine`
+/// accepts and (for crafting) its remaining items joined by `@@`.
 fn run_match<I: RecipeInput + 'static>(
     manager: &RecipeManager,
+    mine: &dyn Fn(&str) -> bool,
     ty: mc_data::RecipeType,
     input: &I,
     level: &ServerLevel,
@@ -278,12 +691,13 @@ fn run_match<I: RecipeInput + 'static>(
         .map(|r| r.id.to_string())
         .collect::<Vec<_>>()
         .join(",");
-    let result = matching.first().map_or_else(
+    let chosen = matching.iter().find(|r| mine(&r.id.to_string()));
+    let result = chosen.map_or_else(
         || "{}".to_owned(),
         |r| stack_to_snbt(&input.assemble(&r.value)),
     );
     let remaining = match (
-        matching.first(),
+        chosen,
         (input as &dyn std::any::Any).downcast_ref::<CraftingInput>(),
     ) {
         (Some(r), Some(crafting)) => r

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": "minecraft:dirt"
+  },
+  "pattern": [
+    "##",
+    "#"
+  ],
+  "result": {
+    "id": "minecraft:stick"
+  }
+}

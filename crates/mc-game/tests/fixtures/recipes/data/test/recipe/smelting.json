@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 123,
+  "experience": 1.5,
+  "group": "test_cook",
+  "ingredient": [
+    "minecraft:dirt",
+    "minecraft:gravel"
+  ],
+  "result": {
+    "id": "minecraft:glass",
+    "count": 2
+  }
+}

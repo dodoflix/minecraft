@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": "#test:nothing",
+  "result": {
+    "id": "minecraft:stick"
+  },
+  "cookingtime": 200,
+  "experience": 0.0
+}

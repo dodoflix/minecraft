@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_special_bookcloning",
+  "material": "minecraft:writable_book",
+  "source": "minecraft:written_book",
+  "result": {
+    "id": "minecraft:written_book"
+  }
+}

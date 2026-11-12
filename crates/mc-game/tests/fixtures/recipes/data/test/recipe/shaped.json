@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "test_tools",
+  "show_notification": false,
+  "key": {
+    "#": "minecraft:cobblestone",
+    "s": "#minecraft:logs"
+  },
+  "pattern": [
+    "#s",
+    "s#"
+  ],
+  "result": {
+    "id": "minecraft:arrow",
+    "count": 4,
+    "components": {
+      "minecraft:custom_name": "Custom"
+    }
+  }
+}

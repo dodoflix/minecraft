@@ -1,5 +1,5 @@
 // Golden generator for crates/mc-game/tests/golden/recipe_golden.rs: the REAL vanilla RecipeManager over the vanilla data pack.
-// Usage: scripts/golden-recipes.sh
+// Usage: scripts/golden-recipes.sh (the class takes FIXTURES OUT: FIXTURES holds the recipe packs `recipes`, `recipes_invalid` and `recipes_duplicate`, OUT is the file written because the server logs share stdout)
 // Output: crates/mc-game/tests/fixtures/recipe_golden.txt.gz
 // Format (tab separated):
 //   RECIPE id type special group category notification placement          every recipe in registry order
@@ -7,9 +7,16 @@
 //   PROPSET key items...                                                  sorted item names of a synchronized property set
 //   STONECUT inputHex displayHex                                          stonecutter entries in order
 //   MATCH type shape stacks matchedIds firstResult remaining       scripted inputs (stacks joined by @@; remaining only for crafting)
+//   MAPDATA id scale                                              the saved data of the level the MATCH rows ran against (CACHE rows change it with their own `scale` ops)
+//   SKIP id / COUNT recipes displays stonecutter                  recipes that cannot be placed (logged, left out of the sets) / sizes
+//   UPDATE hex                                                    ClientboundUpdateRecipesPacket (item set order differs per JVM run: compare decoded)
+//   FLAGS set displays stonecutter / FPROPSET set key count       finalizeRecipeLoading with other feature sets
+//   CACHE capacity op a b result                                  RecipeCache script (get: shape stacks id|-; scale: map id scale; swap/base: recipe manager)
+//   P-prefixed copies of all of the above (only recipes of the pack) for a world with the pack `recipes`, ERR pack registry/id: message of the report / FAILURE pack class message of the bare exception, for `recipes_invalid` / `recipes_duplicate`
 import com.mojang.serialization.JsonOps;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.Executor;
 import net.minecraft.SharedConstants;
@@ -21,10 +28,17 @@ import net.minecraft.nbt.*;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.*;
 import net.minecraft.server.*;
+import net.minecraft.ReportedException;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.packs.PackLocationInfo;
+import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.PathPackResources;
+import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.repository.ServerPacksSource;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.tags.TagLoader;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
@@ -50,7 +64,7 @@ public class RecipeGolden {
       return b.toString();
    }
 
-   static void line(String... f) { OUT.append(String.join("\t", f)).append('\n'); }
+   static void line(String... f) { f[0] = P + f[0]; OUT.append(String.join("\t", f)).append('\n'); }
 
    static String ingredientItems(Ingredient i) {
       StringBuilder b = new StringBuilder();
@@ -63,6 +77,27 @@ public class RecipeGolden {
 
    static RecipeManager rm;
    static List<RecipeHolder<?>> all;
+   static HolderLookup.Provider lookup;
+   static boolean componentsApplied;
+   /** Tag prefix of the lines of the data pack world ("P") or empty for the vanilla data. */
+   static String P = "";
+   /** What `FakeLevel.recipeAccess()` returns. */
+   static RecipeManager levelRecipes;
+   /** Map id -> `MapItemSavedData.scale` of the fake level (absent = no saved data). */
+   static final Map<Integer, Integer> SCALES = new TreeMap<>();
+   static ServerLevel LEVEL;
+   /** Which matching recipes may supply the assembled result (the first one passing); the ids always list every match. */
+   static java.util.function.Predicate<String> resultFrom = id -> true;
+
+   /** A `ServerLevel` that only knows its recipe manager and map data, like the level the recipe code needs. */
+   public static class FakeLevel extends ServerLevel {
+      public FakeLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
+      @Override public RecipeManager recipeAccess() { return levelRecipes; }
+      @Override public net.minecraft.world.level.saveddata.maps.MapItemSavedData getMapData(net.minecraft.world.level.saveddata.maps.MapId id) {
+         Integer scale = SCALES.get(id.id());
+         return scale == null ? null : net.minecraft.world.level.saveddata.maps.MapItemSavedData.createFresh(0, 0, (byte) (int) scale, false, false, net.minecraft.world.level.Level.OVERWORLD);
+      }
+   }
 
    static String joinStacks(List<ItemStack> l) {
       StringBuilder b = new StringBuilder();
@@ -74,12 +109,12 @@ public class RecipeGolden {
       List<String> ids = new ArrayList<>();
       String result = "{}";
       String remaining = "";
+      boolean resultTaken = false;
       for (RecipeHolder<?> h : all) {
          if (h.value().getType() != type) continue;
-         boolean m;
-         try { m = ((Recipe<I>) h.value()).matches(input, null); } catch (NullPointerException e) { continue; }
-         if (m) {
-            if (ids.isEmpty()) {
+         if (((Recipe<I>) h.value()).matches(input, LEVEL)) {
+            if (!resultTaken && resultFrom.test(h.id().identifier().toString())) {
+               resultTaken = true;
                result = stack(((Recipe<I>) h.value()).assemble(input));
                if (input instanceof CraftingInput ci && h.value() instanceof CraftingRecipe cr) remaining = joinStacks(new ArrayList<>(cr.getRemainingItems(ci)));
             }
@@ -94,33 +129,63 @@ public class RecipeGolden {
       match(RecipeType.CRAFTING, w + "x" + h, grid, in);
    }
 
-   public static void main(String[] args) throws Exception {
-      SharedConstants.tryDetectVersion();
-      Bootstrap.bootStrap();
-      Executor direct = Runnable::run;
-      MultiPackResourceManager resources = new MultiPackResourceManager(PackType.SERVER_DATA, List.of(ServerPacksSource.createVanillaPackSource().fullResources()));
-      LayeredRegistryAccess<RegistryLayer> layers = RegistryLayer.createRegistryAccess();
+   static final Executor DIRECT = Runnable::run;
+
+   static LayeredRegistryAccess<RegistryLayer> worldLayers;
+
+   /** The reloadable registries (recipes included) of the vanilla data plus `extra` packs, like startup the first time and like `/reload` (world registries kept) afterwards; throws when a recipe fails to load. */
+   static ReloadableServerRegistries.LoadResult load(List<PackResources> extra) {
+      List<PackResources> packs = new ArrayList<>();
+      packs.add(ServerPacksSource.createVanillaPackSource().fullResources());
+      packs.addAll(extra);
+      MultiPackResourceManager resources = new MultiPackResourceManager(PackType.SERVER_DATA, packs);
+      LayeredRegistryAccess<RegistryLayer> layers = worldLayers != null ? worldLayers : RegistryLayer.createRegistryAccess();
       List<Registry.PendingTags<?>> staticTags = TagLoader.loadTagsForExistingRegistries(resources, layers.getLayer(RegistryLayer.STATIC));
       staticTags.forEach(Registry.PendingTags::apply);
-      var worldContext = TagLoader.buildUpdatedLookups(layers.getAccessForLoading(RegistryLayer.WORLD), staticTags);
-      var world = RegistryDataLoader.load(resources, worldContext, RegistryDataLoader.WORLD_REGISTRIES, direct).join();
-      List<HolderLookup.RegistryLookup<?>> dimContext = new ArrayList<>(worldContext);
-      world.listRegistries().forEach(dimContext::add);
-      var dims = RegistryDataLoader.load(resources, dimContext, RegistryDataLoader.DIMENSION_REGISTRIES, direct).join();
-      layers = layers.replaceFrom(RegistryLayer.WORLD, world, dims);
-      var loaded = ReloadableServerRegistries.reload(layers, staticTags, resources, direct).join();
+      if (worldLayers == null) {
+         var worldContext = TagLoader.buildUpdatedLookups(layers.getAccessForLoading(RegistryLayer.WORLD), staticTags);
+         var world = RegistryDataLoader.load(resources, worldContext, RegistryDataLoader.WORLD_REGISTRIES, DIRECT).join();
+         List<HolderLookup.RegistryLookup<?>> dimContext = new ArrayList<>(worldContext);
+         world.listRegistries().forEach(dimContext::add);
+         var dims = RegistryDataLoader.load(resources, dimContext, RegistryDataLoader.DIMENSION_REGISTRIES, DIRECT).join();
+         layers = layers.replaceFrom(RegistryLayer.WORLD, world, dims);
+         worldLayers = layers;
+      }
+      return ReloadableServerRegistries.reload(layers, staticTags, resources, DIRECT).join();
+   }
+
+   static void install(ReloadableServerRegistries.LoadResult loaded) {
       access = loaded.layers().compositeAccess();
-      var comps = BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(loaded.lookupWithUpdatedTags());
-      comps.forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
+      lookup = loaded.lookupWithUpdatedTags();
+      if (!componentsApplied) {
+         BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(lookup).forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
+         componentsApplied = true;
+      }
       nbtOps = access.createSerializationContext(NbtOps.INSTANCE);
-
-      rm = new RecipeManager(loaded.lookupWithUpdatedTags());
-      rm.finalizeRecipeLoading(FeatureFlags.VANILLA_SET);
+      rm = manager(FeatureFlags.VANILLA_SET);
+      levelRecipes = rm;
       all = new ArrayList<>(rm.getRecipes());
+   }
 
+   static RecipeManager manager(FeatureFlagSet enabled) {
+      RecipeManager m = new RecipeManager(lookup);
+      m.finalizeRecipeLoading(enabled);
+      return m;
+   }
+
+   static int displayCount(RecipeManager m) {
+      int[] n = {0};
+      for (RecipeHolder<?> h : m.getRecipes()) m.listDisplaysForRecipe(h.id(), e -> n[0]++);
+      return n[0];
+   }
+
+   /** RECIPE / DISPLAY / PROPSET / STONECUT / SKIP / COUNT / UPDATE lines of the current world, the recipe lines only for ids passing `ids`. */
+   static void dump(java.util.function.Predicate<String> ids) {
       for (RecipeHolder<?> h : all) {
          Recipe<?> r = h.value();
          PlacementInfo p = r.placementInfo();
+         if (!r.isSpecial() && p.isImpossibleToPlace()) line("SKIP", h.id().identifier().toString());
+         if (!ids.test(h.id().identifier().toString())) continue;
          StringBuilder pl = new StringBuilder();
          pl.append(p.slotsToIngredientIndex().toString()).append(';');
          for (Ingredient i : p.ingredients()) pl.append(ingredientItems(i)).append('|');
@@ -129,8 +194,10 @@ public class RecipeGolden {
       }
       int[] index = {0};
       for (RecipeHolder<?> h : all) {
-         rm.listDisplaysForRecipe(h.id(), entry -> line("DISPLAY", String.valueOf(index[0]++), h.id().identifier().toString(),
-            hex(b -> RecipeDisplayEntry.STREAM_CODEC.encode(b, entry))));
+         rm.listDisplaysForRecipe(h.id(), entry -> {
+            int i = index[0]++;
+            if (ids.test(h.id().identifier().toString())) line("DISPLAY", String.valueOf(i), h.id().identifier().toString(), hex(b -> RecipeDisplayEntry.STREAM_CODEC.encode(b, entry)));
+         });
       }
       for (var e : new TreeMap<>(rm.getSynchronizedItemProperties().entrySet().stream().collect(java.util.stream.Collectors.toMap(x -> x.getKey().identifier().toString(), x -> x.getValue()))).entrySet()) {
          List<String> names = new ArrayList<>();
@@ -138,19 +205,136 @@ public class RecipeGolden {
          Collections.sort(names);
          line("PROPSET", e.getKey(), String.join(" ", names));
       }
+      int stonecut = 0;
       for (var entry : rm.getSynchronizedStonecutterRecipes().entries()) {
-         line("STONECUT", hex(b -> Ingredient.CONTENTS_STREAM_CODEC.encode(b, entry.input())), hex(b -> SlotDisplay.STREAM_CODEC.encode(b, entry.recipe().optionDisplay())));
+         stonecut++;
+         if (ids.test(entry.recipe().recipe().get().id().identifier().toString()))
+            line("STONECUT", hex(b -> Ingredient.CONTENTS_STREAM_CODEC.encode(b, entry.input())), hex(b -> SlotDisplay.STREAM_CODEC.encode(b, entry.recipe().optionDisplay())));
       }
-      try { Cases.run(); } catch (Throwable t) { System.err.println("FAIL " + t.getClass().getName()); for (StackTraceElement e : t.getStackTrace()) System.err.println("  at " + e); Throwable c = t.getCause(); while (c != null) { System.err.println("cause " + c.getClass().getName() + " " + c.getMessage()); c = c.getCause(); } System.exit(1); }
-      System.out.print(OUT);
+      line("COUNT", String.valueOf(all.size()), String.valueOf(displayCount(rm)), String.valueOf(stonecut));
+      // the item sets (unmodifiable maps and sets: wire order differs per JVM run) and the stonecutter list as one packet
+      var packet = new net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket(rm.getSynchronizedItemProperties(), rm.getSynchronizedStonecutterRecipes());
+      line("UPDATE", hex(b -> net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket.STREAM_CODEC.encode(b, packet)));
+   }
+
+   /** `finalizeRecipeLoading` with feature sets that are not vanilla's: every item requires the `vanilla` flag. */
+   static void flags() {
+      Object[][] sets = {
+         {"empty", FeatureFlagSet.of()},
+         {"trade_rebalance", FeatureFlags.REGISTRY.subset(FeatureFlags.TRADE_REBALANCE)},
+         {"vanilla", FeatureFlags.VANILLA_SET},
+         {"all", FeatureFlags.REGISTRY.allFlags()},
+      };
+      for (Object[] s : sets) {
+         RecipeManager m = manager((FeatureFlagSet) s[1]);
+         line("FLAGS", (String) s[0], String.valueOf(displayCount(m)), String.valueOf(m.getSynchronizedStonecutterRecipes().entries().size()));
+         for (var e : new TreeMap<>(m.getSynchronizedItemProperties().entrySet().stream().collect(java.util.stream.Collectors.toMap(x -> x.getKey().identifier().toString(), x -> x.getValue()))).entrySet()) {
+            int n = 0;
+            for (Item i : BuiltInRegistries.ITEM) if (e.getValue().test(new ItemStack(i))) n++;
+            line("FPROPSET", (String) s[0], e.getKey(), String.valueOf(n));
+         }
+      }
+   }
+
+   static void cacheOp(int cap, String op, String a, String b, String result) { line("CACHE", String.valueOf(cap), op, a, b, result); }
+
+   /** `RecipeCache` hits and misses, seen through map data the cached result depends on (a hit keeps the stale answer). */
+   static void cache() {
+      RecipeManager other = manager(FeatureFlags.VANILLA_SET);
+      String map = "{id:\"minecraft:filled_map\",count:1,components:{map_id:1}}";
+      Map<String, List<ItemStack>> grids = new LinkedHashMap<>();
+      List<ItemStack> a = new ArrayList<>();
+      for (int i = 0; i < 9; i++) a.add(i == 4 ? Cases.S(map) : new ItemStack(Items.PAPER));
+      grids.put("A", a);
+      grids.put("B", List.of(new ItemStack(Items.OAK_PLANKS)));
+      grids.put("C", Collections.nCopies(4, new ItemStack(Items.OAK_PLANKS)));
+      grids.put("E", Collections.nCopies(9, ItemStack.EMPTY));
+      Map<String, String> shapes = Map.of("A", "3x3", "B", "1x1", "C", "2x2", "E", "3x3");
+      String[][] scripts = {
+         {"1", "scale 1 0", "get A", "scale 1 4", "get A", "get B", "get A", "scale 1 0", "get A", "get E", "get A", "swap", "get A", "scale 1 4", "base", "get A"},
+         {"2", "scale 1 0", "get A", "get B", "get A", "get C", "scale 1 4", "get A", "get B", "get A", "get C", "get A", "get B"},
+         {"3", "scale 1 0", "get C", "get B", "get A", "scale 1 4", "get C", "get A", "get B", "get C", "get A", "scale 1 0", "get B", "get A"},
+      };
+      for (String[] script : scripts) {
+         int cap = Integer.parseInt(script[0]);
+         RecipeCache cache = new RecipeCache(cap);
+         levelRecipes = rm;
+         for (int i = 1; i < script.length; i++) {
+            String[] w = script[i].split(" ");
+            switch (w[0]) {
+               case "scale" -> { SCALES.put(Integer.parseInt(w[1]), Integer.parseInt(w[2])); cacheOp(cap, "scale", w[1], w[2], "-"); }
+               case "swap" -> { levelRecipes = other; cacheOp(cap, "swap", "-", "-", "-"); }
+               case "base" -> { levelRecipes = rm; cacheOp(cap, "base", "-", "-", "-"); }
+               default -> {
+                  List<ItemStack> g = grids.get(w[1]);
+                  String[] sh = shapes.get(w[1]).split("x");
+                  CraftingInput in = CraftingInput.of(Integer.parseInt(sh[0]), Integer.parseInt(sh[1]), g);
+                  cacheOp(cap, "get", shapes.get(w[1]), joinStacks(g), cache.get(LEVEL, in).map(r -> r.id().identifier().toString()).orElse("-"));
+               }
+            }
+         }
+      }
+      levelRecipes = rm;
+   }
+
+   static PackResources packOf(java.nio.file.Path dir, String id) {
+      return new PathPackResources(new PackLocationInfo(id, net.minecraft.network.chat.Component.literal(id), PackSource.WORLD, Optional.empty()), dir);
+   }
+
+   /** A world with the pack `recipes` (one custom recipe per serializer plus recipes that cannot be placed) and the failures of `recipes_invalid` and `recipes_duplicate`. */
+   static void pack(java.nio.file.Path fixtures) {
+      P = "P";
+      install(load(List.of(packOf(fixtures.resolve("recipes"), "file/recipes"))));
+      java.util.function.Predicate<String> mine = id -> id.startsWith("test:") || id.equals("minecraft:stick");
+      resultFrom = mine;
+      dump(mine);
+      for (var e : SCALES.entrySet()) line("MAPDATA", String.valueOf(e.getKey()), String.valueOf(e.getValue()));
+      Cases.run(h -> mine.test(h.id().identifier().toString()));
+      resultFrom = id -> true;
+      for (String bad : new String[] {"recipes_invalid", "recipes_duplicate"}) {
+         try {
+            load(List.of(packOf(fixtures.resolve(bad), "file/" + bad)));
+            throw new IllegalStateException("the pack " + bad + " loaded");
+         } catch (java.util.concurrent.CompletionException e) {
+            if (e.getCause() instanceof ReportedException re) {
+               for (String l : re.getReport().getDetails().split("\n")) if (l.startsWith("\t\t")) line("ERR", bad, l.substring(2));
+            } else {
+               // a registry that refuses a value it already holds (the unit serializers of the special recipes): no report, the exception itself
+               line("FAILURE", bad, e.getCause().getClass().getName(), e.getCause().getMessage().replaceAll("@[0-9a-f]+", "@"));
+            }
+         }
+      }
+      P = "";
+   }
+
+   public static void main(String[] args) throws Exception {
+      SharedConstants.tryDetectVersion();
+      Bootstrap.bootStrap();
+      Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
+      uf.setAccessible(true);
+      LEVEL = (ServerLevel) ((sun.misc.Unsafe) uf.get(null)).allocateInstance(FakeLevel.class);
+      install(load(List.of()));
+      SCALES.put(1, 0);
+      SCALES.put(2, 3);
+      SCALES.put(3, 4);
+      dump(id -> true);
+      for (var e : SCALES.entrySet()) line("MAPDATA", String.valueOf(e.getKey()), String.valueOf(e.getValue()));
+      try {
+         Cases.run(h -> true);
+         flags();
+         cache();
+         pack(java.nio.file.Path.of(args[0]));
+      } catch (Throwable t) { System.err.println("FAIL " + t.getClass().getName() + " " + t.getMessage()); for (StackTraceElement e : t.getStackTrace()) System.err.println("  at " + e); Throwable c = t.getCause(); while (c != null) { System.err.println("cause " + c.getClass().getName() + " " + c.getMessage()); c = c.getCause(); } System.exit(1); }
+      java.nio.file.Files.writeString(java.nio.file.Path.of(args[1]), OUT.toString());
    }
 
    /** Scripted match inputs derived from the recipes themselves. */
    static class Cases {
-      static void run() {
+      static void run(java.util.function.Predicate<RecipeHolder<?>> derive) {
          ItemStack dirt = new ItemStack(Items.DIRT);
          ItemStack stick = new ItemStack(Items.STICK);
          for (RecipeHolder<?> h : all) {
+            if (!derive.test(h)) continue;
             Recipe<?> r = h.value();
             if (r instanceof ShapedRecipe sr) {
                List<Optional<Ingredient>> ing = sr.getIngredients();
@@ -278,6 +462,7 @@ public class RecipeGolden {
          grid(S(banner("white", p1)), S(banner("white", p2)));
          grid(S(banner("white", p1 + "," + p1 + "," + p1 + "," + p1 + "," + p1 + "," + p1 + "," + p1)), S(banner("white", null)));
          grid(S(banner("red", null)), S(banner("red", null)));
+         grid(S(banner("cyan", p1)), S(banner("cyan", null)));
          // shield decoration
          grid(S(banner("green", p1 + "," + p2)), S("{id:\"minecraft:shield\",count:1}"));
          grid(S("{id:\"minecraft:shield\",count:1}"), S(banner("green", null)));
@@ -287,6 +472,7 @@ public class RecipeGolden {
          grid(ItemStack.EMPTY, S(brick), ItemStack.EMPTY, S(sherd), ItemStack.EMPTY, S(brick), ItemStack.EMPTY, S(sherd));
          grid(ItemStack.EMPTY, S(brick), ItemStack.EMPTY, S(brick), ItemStack.EMPTY, S(brick), ItemStack.EMPTY, S(brick));
          grid(ItemStack.EMPTY, S(brick), ItemStack.EMPTY, S(brick), ItemStack.EMPTY, S(sherd), ItemStack.EMPTY, S(brick), S(brick));
+         grid(ItemStack.EMPTY, S("{id:\"minecraft:iron_ingot\",count:1}"), ItemStack.EMPTY, S(brick), ItemStack.EMPTY, S(brick), ItemStack.EMPTY, S(brick));
          // firework rocket
          String paper = "{id:\"minecraft:paper\",count:1}", gp = "{id:\"minecraft:gunpowder\",count:1}";
          grid(S(paper), S(gp));
@@ -338,9 +524,17 @@ public class RecipeGolden {
          grid(S(arrow), S(arrow), S(arrow), S(arrow), S(lp), S(arrow), S(arrow), S(arrow), S(arrow));
          grid(S(arrow), S(arrow), S(arrow), S(arrow), S("{id:\"minecraft:lingering_potion\",count:1}"), S(arrow), S(arrow), S(arrow), S(arrow));
          grid(S(arrow), S(arrow), S(arrow), S(arrow), S(lp), S(arrow), S(arrow), S(arrow));
-         // map extending: the shape matches but the map data needs a level (not available in this oracle): only the shape
-         String map = "{id:\"minecraft:filled_map\",count:1,components:{map_id:5}}";
-         grid(S(paper), S(paper), S(paper), S(paper), S(map), S(paper), S(paper), S(paper), S(paper));
+         // map extending: the map's saved data decides (scale < 4); the result keeps the map's components
+         for (int id = 1; id <= 4; id++) {
+            String m = "{id:\"minecraft:filled_map\",count:1,components:{map_id:" + id + "}}";
+            grid(S(paper), S(paper), S(paper), S(paper), S(m), S(paper), S(paper), S(paper), S(paper));
+         }
+         String named = "{id:\"minecraft:filled_map\",count:1,components:{map_id:2,custom_name:\"M\",repair_cost:3}}";
+         grid(S(paper), S(paper), S(paper), S(paper), S(named), S(paper), S(paper), S(paper), S(paper));
+         grid(S(paper), S(paper), S(paper), S(paper), S("{id:\"minecraft:filled_map\",count:1}"), S(paper), S(paper), S(paper), S(paper));
+         grid(S(paper), S(paper), S(paper), S(paper), S("{id:\"minecraft:map\",count:1}"), S(paper), S(paper), S(paper), S(paper));
+         grid(S(paper), S(paper), S(paper), S(paper), S("{id:\"minecraft:filled_map\",count:1,components:{map_id:1}}"), S(paper), S(paper), S(paper), S("{id:\"minecraft:stick\",count:1}"));
+         grid(S(paper), S(paper), S(paper), S(paper), S("{id:\"minecraft:filled_map\",count:1,components:{map_id:1}}"), S(paper), S(paper), S(paper));
          // transmute with material counts (tipped arrows share the imbue path; copper tools etc. via placement above)
          grid(S("{id:\"minecraft:white_shulker_box\",count:1}"), S("{id:\"minecraft:white_shulker_box\",count:1}"));
       }
