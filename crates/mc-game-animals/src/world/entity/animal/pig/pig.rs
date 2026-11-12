@@ -330,6 +330,11 @@ impl Entity for Pig {
         }
     }
 
+    fn can_dispenser_equip_into_slot(&self, slot: EquipmentSlot) -> bool {
+        slot == EquipmentSlot::Saddle
+            || mob::equipment::can_dispenser_equip_into_slot(self.as_dyn())
+    }
+
     fn can_use_slot(&self, slot: EquipmentSlot) -> bool {
         if slot != EquipmentSlot::Saddle {
             true

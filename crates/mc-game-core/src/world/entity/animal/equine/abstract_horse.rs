@@ -1496,6 +1496,12 @@ fn get_dismount_location_in_direction(
 #[macro_export]
 macro_rules! abstract_horse_entity {
     () => {
+        fn can_dispenser_equip_into_slot(&self, slot: $crate::world::entity::equipment::EquipmentSlot) -> bool {
+            use $crate::world::entity::equipment::EquipmentSlot;
+            ((slot == EquipmentSlot::Body || slot == EquipmentSlot::Saddle)
+                && $crate::world::entity::animal::equine::abstract_horse::is_tamed(self))
+                || $crate::world::entity::mob::equipment::can_dispenser_equip_into_slot($crate::world::entity::Entity::as_dyn(self))
+        }
         fn as_abstract_horse(&self) -> Option<&dyn $crate::world::entity::ai::goal::AbstractHorseAccess> {
             Some(self)
         }

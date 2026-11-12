@@ -602,6 +602,10 @@ impl Entity for Panda {
         self.get_variant() == Gene::Aggressive
     }
 
+    fn can_dispenser_equip_into_slot(&self, slot: EquipmentSlot) -> bool {
+        slot == EquipmentSlot::MainHand && self.can_pick_up_loot()
+    }
+
     fn can_be_leashed(&self) -> bool {
         false
     }

@@ -690,6 +690,10 @@ impl Entity for Fox {
         }
     }
 
+    fn can_dispenser_equip_into_slot(&self, slot: EquipmentSlot) -> bool {
+        slot == EquipmentSlot::MainHand && self.can_pick_up_loot()
+    }
+
     fn can_hold_item(&self, stack: &ItemStack) -> bool {
         let held = self.get_item_by_slot(EquipmentSlot::MainHand);
         held.is_empty()

@@ -1039,6 +1039,18 @@ impl Entity for SulfurCube {
     fn can_pick_up_loot(&self) -> bool {
         !self.has_body_item()
     }
+    fn can_dispenser_equip_into_slot(&self, slot: EquipmentSlot) -> bool {
+        slot == EquipmentSlot::Body
+    }
+    fn dispenser_swallow_item(&mut self, level: &mut ServerLevel, stack: &ItemStack) -> bool {
+        self.equip_item(level, stack)
+    }
+    fn sulfur_cube_can_explode(&self) -> bool {
+        self.can_explode()
+    }
+    fn sulfur_cube_prime_time(&mut self, level: &mut ServerLevel, imminent: bool) -> bool {
+        self.prime_time(level, imminent)
+    }
     fn can_hold_item(&self, stack: &ItemStack) -> bool {
         !self.has_body_item() && is_swallowable_item(stack) && !self.is_baby()
     }

@@ -252,6 +252,9 @@ impl Entity for Dolphin {
     fn is_pushed_by_fluid(&self) -> bool {
         false
     }
+    fn can_dispenser_equip_into_slot(&self, slot: EquipmentSlot) -> bool {
+        slot == EquipmentSlot::MainHand && self.can_pick_up_loot()
+    }
     fn can_be_leashed(&self) -> bool {
         true
     }

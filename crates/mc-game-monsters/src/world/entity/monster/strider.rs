@@ -268,6 +268,11 @@ fn holds_warped_fungus_on_a_stick(entity: &dyn Entity) -> bool {
 impl Entity for Strider {
     mc_game_core::mob_entity_accessors!(mob);
 
+    fn can_dispenser_equip_into_slot(&self, slot: EquipmentSlot) -> bool {
+        slot == EquipmentSlot::Saddle
+            || mob::equipment::can_dispenser_equip_into_slot(self.as_dyn())
+    }
+
     fn can_use_slot(&self, slot: EquipmentSlot) -> bool {
         if slot != EquipmentSlot::Saddle {
             true
