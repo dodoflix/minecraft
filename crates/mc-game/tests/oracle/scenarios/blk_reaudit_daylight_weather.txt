@@ -1,0 +1,35 @@
+# daylight detector power with rain, at several times, inverted, and in the nether and the end (no sky light / sun angle), updated by BE tick every 20 ticks.
+level flat
+preload 2
+watch off
+block 1 -60 0 minecraft:daylight_detector
+block 3 -60 0 minecraft:daylight_detector[inverted=true]
+time 6000
+tick 20
+dump blocks:1,-60,0,3,-60,0 be:1,-60,0
+cmd weather rain 100000
+tick 40
+dump blocks:1,-60,0,3,-60,0
+time 1000
+tick 40
+dump blocks:1,-60,0,3,-60,0
+time 13000
+tick 40
+dump blocks:1,-60,0,3,-60,0
+time 6000
+tick 40
+dump blocks:1,-60,0,3,-60,0
+time 11900
+tick 40
+dump blocks:1,-60,0,3,-60,0
+time 12100
+tick 40
+dump blocks:1,-60,0,3,-60,0
+time 22800
+tick 40
+dump blocks:1,-60,0,3,-60,0
+block 5 -60 0 minecraft:daylight_detector
+block 5 -59 0 minecraft:glass
+tick 40
+dump blocks:5,-60,0,5,-60,0
+block 7 -60 0 minecraft:daylight_detector[power=7]

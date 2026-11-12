@@ -1,0 +1,15 @@
+C Set minecraft:overworld to 6000 tick(s)
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=15]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]
+C Set the weather to rain
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=15]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=14]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=1]
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=13]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=2]
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=12]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=3]
+C Set the weather to clear
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=15]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]

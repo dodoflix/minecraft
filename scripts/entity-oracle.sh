@@ -72,19 +72,24 @@ JAVA_OPTS_ORACLE=(-Xmx2G -Dio.netty.noUnsafe=false -Dlog4j2.configurationFile="$
 scenario="$(realpath "$1")"; shift
 out=""
 if [ "${1:-}" = -o ]; then out="$(realpath -m "$2")"; shift 2; fi
-# vanilla writes banned-*.json/ops.json/whitelist.json into the working directory
-RUN="$ROOT/target/entity-oracle-run"; mkdir -p "$RUN"; cd "$RUN"
+# vanilla writes banned-*.json/ops.json/whitelist.json into the working directory: every run gets a fresh one (a leftover ops.json
+# of an earlier `op` scenario, or a parallel run sharing the directory, would change the next fixture)
+mkdir -p "$ROOT/target"
+RUN="$(mktemp -d "$ROOT/target/entity-oracle-run.XXXXXX")"
+trap 'rm -rf "$RUN"' EXIT
+cd "$RUN"
 if [[ "$scenario" == *.java ]]; then
   if [ -n "$out" ]; then
     to_file "$out" java "${JAVA_OPTS_ORACLE[@]}" -cp "$CP" "$scenario" "$@"
     wc -l "$out" >&2
     exit 0
   fi
-  exec java "${JAVA_OPTS_ORACLE[@]}" -cp "$CP" "$scenario" "$@"
+  java "${JAVA_OPTS_ORACLE[@]}" -cp "$CP" "$scenario" "$@"
+  exit $?
 fi
 if [ -n "$out" ]; then
   to_file "$out" java "${JAVA_OPTS_ORACLE[@]}" -cp "$CP" "$T/oracle/EntityOracleDriver.java" "$scenario" "$@"
   wc -l "$out" >&2
 else
-  exec java "${JAVA_OPTS_ORACLE[@]}" -cp "$CP" "$T/oracle/EntityOracleDriver.java" "$scenario" "$@"
+  java "${JAVA_OPTS_ORACLE[@]}" -cp "$CP" "$T/oracle/EntityOracleDriver.java" "$scenario" "$@"
 fi

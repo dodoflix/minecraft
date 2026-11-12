@@ -519,12 +519,12 @@ impl Scenario {
                 },
             )),
         });
-        // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`); no biome layers
+        // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`) and the weather layers; no biome layers
         level.tick_state.attributes = mc_game::world::attribute::EnvironmentAttributeSystem::build(
             &dimension_type.attributes,
             &vec![None],
             &timelines,
-            false, // shortcut: no weather layers; the scenarios keep the weather clear, so the sky does not depend on them
+            true,
             self.clocks.clone(),
         );
         // the level's own id sequence (starts at 1 like the oracle's `ENTITY_COUNTER`): parallel tests must not share ids

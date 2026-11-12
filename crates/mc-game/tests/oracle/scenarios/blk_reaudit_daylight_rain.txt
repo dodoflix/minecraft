@@ -1,0 +1,21 @@
+# rain only, no time changes: the rain level ramps 0.01 per tick, the sky light level attribute follows (weather layer), skyDarken and the detector power with it.
+level flat
+preload 2
+watch off
+block 1 -60 0 minecraft:daylight_detector
+block 3 -60 0 minecraft:daylight_detector[inverted=true]
+time 6000
+tick 20
+dump blocks:1,-60,0,3,-60,0
+cmd weather rain 100000
+tick 20
+dump blocks:1,-60,0,3,-60,0
+tick 20
+dump blocks:1,-60,0,3,-60,0
+tick 40
+dump blocks:1,-60,0,3,-60,0
+tick 60
+dump blocks:1,-60,0,3,-60,0
+cmd weather clear 100000
+tick 100
+dump blocks:1,-60,0,3,-60,0
