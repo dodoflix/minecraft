@@ -1,0 +1,260 @@
+# Dispenser flint and steel (FlintAndSteelDispenseItemBehavior, an OptionalDispenseItemBehavior) in the nether, and the TNT item behaviour:
+# tryIgniteExplosiveEntities (a sulfur cube that can explode in the block in front), else BaseFireBlock.canBePlacedAt -> fire (soul fire on soul sand,
+# a nether portal inside an obsidian frame), else lighting a campfire/candle/candle cake, else TntBlock.prime (block removed; with tnt_explodes false it
+# fails -> click 1001, no damage). The tool loses one durability whenever the behaviour did not fail (a target that takes nothing still damages it).
+# TNT items: SulfurCubeBlockDispenseItemBehavior.dispenseBlock first (a sulfur cube swallows the TNT block), else a PrimedTnt entity; tnt_explodes false -> 1001.
+# Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
+dimension the_nether
+preload 2
+difficulty normal
+# vanilla generates real nether terrain here: clear a room and give it a stone floor
+fill -2 99 -2 47 112 47 minecraft:air
+fill -2 99 -2 47 100 47 minecraft:stone
+# the replaced terrain leaves its scheduled fluid ticks behind: run them out before the first dump
+tick 3
+note c1 flint and steel on air over netherrack: fire is placed (fire tick scheduled), the tool loses 1 durability
+block 1 100 0 minecraft:netherrack
+block 0 101 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 0 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 401
+dispense 0 101 0 c1
+dump be:0,101,0 blocks:-1,101,-2,4,105,2 ticks:-1,100,-2,4,105,2 entities events
+note c2 air over stone: fire
+block 0 101 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 4 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 402
+dispense 0 101 4 c2
+dump be:0,101,4 blocks:-1,101,2,4,105,6 ticks:-1,100,2,4,105,6 entities events
+note c3 air over air with nothing flammable around: fire cannot be placed and nothing else matches, the behaviour still succeeds and damages the tool
+block 1 100 8 minecraft:air
+block 0 101 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 8 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 403
+dispense 0 101 8 c3
+dump be:0,101,8 blocks:-1,101,6,4,105,10 ticks:-1,100,6,4,105,10 entities events
+note c4 air over soul sand: soul fire
+block 1 100 12 minecraft:soul_sand
+block 0 101 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 12 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 404
+dispense 0 101 12 c4
+dump be:0,101,12 blocks:-1,101,10,4,105,14 ticks:-1,100,10,4,105,14 entities events
+note c5 unlit campfire: lit, BLOCK_CHANGE game event
+block 1 101 16 minecraft:campfire[lit=false,facing=north]
+block 0 101 16 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 16 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 405
+dispense 0 101 16 c5
+dump be:0,101,16 blocks:-1,101,14,4,105,18 ticks:-1,100,14,4,105,18 entities events
+note c6 already lit campfire: neither air nor lightable, success and damage anyway
+block 1 101 20 minecraft:campfire[lit=true,facing=north]
+block 0 101 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 20 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 406
+dispense 0 101 20 c6
+dump be:0,101,20 blocks:-1,101,18,4,105,22 ticks:-1,100,18,4,105,22 entities events
+note c7 unlit candle: lit
+block 1 101 24 minecraft:candle[lit=false,candles=2]
+block 0 101 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 24 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 407
+dispense 0 101 24 c7
+dump be:0,101,24 blocks:-1,101,22,4,105,26 ticks:-1,100,22,4,105,26 entities events
+note c8 unlit candle cake: lit
+block 1 101 28 minecraft:candle_cake[lit=false]
+block 0 101 28 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 28 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 408
+dispense 0 101 28 c8
+dump be:0,101,28 blocks:-1,101,26,4,105,30 ticks:-1,100,26,4,105,30 entities events
+note c9 TNT block in front: primed and removed (PRIME_FUSE), tool damaged
+block 1 101 32 minecraft:tnt
+block 0 101 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 32 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 409
+dispense 0 101 32 c9
+dump be:0,101,32 blocks:-1,101,30,4,105,34 ticks:-1,100,30,4,105,34 entities events
+note c10 TNT block with tnt_explodes false: prime fails, success false -> click 1001, the tool is not damaged
+block 1 101 36 minecraft:tnt
+gamerule tnt_explodes false
+block 0 101 36 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 36 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 410
+dispense 0 101 36 c10
+dump be:0,101,36 blocks:-1,101,34,4,105,38 ticks:-1,100,34,4,105,38 entities events
+gamerule tnt_explodes true
+note c11 flint and steel with 1 durability left: it breaks and the slot is emptied
+block 1 100 40 minecraft:netherrack
+block 0 101 40 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 101 40 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1,components:{"minecraft:damage":63}}]}
+level_seed 411
+dispense 0 101 40 c11
+dump be:0,101,40 blocks:-1,101,38,4,105,42 ticks:-1,100,38,4,105,42 entities events
+note c12 complete obsidian frame along z, the dispenser faces its inside: fire is placed (isPortal) and the portal blocks fill the frame
+block 13 100 0 minecraft:obsidian
+block 13 100 1 minecraft:obsidian
+block 13 101 -1 minecraft:obsidian
+block 13 101 2 minecraft:obsidian
+block 13 102 -1 minecraft:obsidian
+block 13 102 2 minecraft:obsidian
+block 13 103 -1 minecraft:obsidian
+block 13 103 2 minecraft:obsidian
+block 13 104 0 minecraft:obsidian
+block 13 104 1 minecraft:obsidian
+block 12 101 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 12 101 0 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 412
+dispense 12 101 0 c12
+dump be:12,101,0 blocks:11,100,-2,16,105,2 ticks:11,100,-2,16,105,2 entities events
+note c13 the same frame missing one side block: not a portal; fire sits on the obsidian bottom row
+block 13 100 8 minecraft:obsidian
+block 13 100 9 minecraft:obsidian
+block 13 101 7 minecraft:obsidian
+block 13 101 10 minecraft:obsidian
+block 13 102 7 minecraft:obsidian
+block 13 103 7 minecraft:obsidian
+block 13 103 10 minecraft:obsidian
+block 13 104 8 minecraft:obsidian
+block 13 104 9 minecraft:obsidian
+block 12 101 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 12 101 8 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 413
+dispense 12 101 8 c13
+dump be:12,101,8 blocks:11,100,6,16,105,10 ticks:11,100,6,16,105,10 entities events
+note c14 complete obsidian frame along x, the dispenser faces south into its inside
+block 12 100 17 minecraft:obsidian
+block 13 100 17 minecraft:obsidian
+block 11 101 17 minecraft:obsidian
+block 14 101 17 minecraft:obsidian
+block 11 102 17 minecraft:obsidian
+block 14 102 17 minecraft:obsidian
+block 11 103 17 minecraft:obsidian
+block 14 103 17 minecraft:obsidian
+block 12 104 17 minecraft:obsidian
+block 13 104 17 minecraft:obsidian
+block 12 101 16 minecraft:dispenser[facing=south,triggered=false]
+be_nbt 12 101 16 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 414
+dispense 12 101 16 c14
+dump be:12,101,16 blocks:11,100,14,16,105,18 ticks:11,100,14,16,105,18 entities events
+note c15 the dispenser one block higher: the target has no support, so only isPortal lets the fire be placed (complete frame)
+block 13 100 24 minecraft:obsidian
+block 13 100 25 minecraft:obsidian
+block 13 101 23 minecraft:obsidian
+block 13 101 26 minecraft:obsidian
+block 13 102 23 minecraft:obsidian
+block 13 102 26 minecraft:obsidian
+block 13 103 23 minecraft:obsidian
+block 13 103 26 minecraft:obsidian
+block 13 104 24 minecraft:obsidian
+block 13 104 25 minecraft:obsidian
+block 12 102 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 12 102 24 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 415
+dispense 12 102 24 c15
+dump be:12,102,24 blocks:11,100,22,16,105,26 ticks:11,100,22,16,105,26 entities events
+note c16 the same one block higher but the frame misses a side block: no support and no portal, nothing is placed, the tool is still damaged
+block 13 100 32 minecraft:obsidian
+block 13 100 33 minecraft:obsidian
+block 13 101 31 minecraft:obsidian
+block 13 101 34 minecraft:obsidian
+block 13 102 31 minecraft:obsidian
+block 13 103 31 minecraft:obsidian
+block 13 103 34 minecraft:obsidian
+block 13 104 32 minecraft:obsidian
+block 13 104 33 minecraft:obsidian
+block 12 102 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 12 102 32 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 416
+dispense 12 102 32 c16
+dump be:12,102,32 blocks:11,100,30,16,105,34 ticks:11,100,30,16,105,34 entities events
+note c17 air over air next to oak planks: the fire survives on the flammable neighbour
+block 37 100 0 minecraft:air
+block 37 101 1 minecraft:oak_planks
+block 36 101 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 0 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 417
+dispense 36 101 0 c17
+dump be:36,101,0 blocks:35,101,-2,40,105,2 ticks:35,100,-2,40,105,2 entities events
+note c18 a sulfur cube without an explosive body in front: not ignitable, fire is placed in its block
+spawn cubeN1 minecraft:sulfur_cube 37.5 101 4.5 0 0 {NoAI:1b,Silent:1b}
+block 36 101 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 4 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 418
+dispense 36 101 4 c18
+dump be:36,101,4 blocks:35,101,2,40,105,6 ticks:35,100,2,40,105,6 entities events nbt:cubeN1
+note c19 a sulfur cube holding TNT in front: primeTime(false), no fire, no block change, the tool is damaged
+spawn cubeT1 minecraft:sulfur_cube 37.5 101 8.5 0 0 {NoAI:1b,Silent:1b,equipment:{body:{id:"minecraft:tnt",count:1}}}
+block 36 101 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 8 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 419
+dispense 36 101 8 c19
+dump be:36,101,8 blocks:35,101,6,40,105,10 ticks:35,100,6,40,105,10 entities events nbt:cubeT1
+note c20 the same cube from the south (already primed, canExplode false): fire is placed in its block instead
+block 37 101 9 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 37 101 9 {Items:[{Slot:0b,id:"minecraft:flint_and_steel",count:1}]}
+level_seed 420
+dispense 37 101 9 c20
+dump be:37,101,9 blocks:36,101,7,41,105,11 ticks:36,100,7,41,105,11 entities events nbt:cubeT1
+note c21 TNT item, a sulfur cube without explosive body in front: swallowed (SulfurCube.equipItem), nothing primed
+spawn cubeS1 minecraft:sulfur_cube 37.5 101 14.5 0 0 {NoAI:1b,Silent:1b}
+block 36 101 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 14 {Items:[{Slot:0b,id:"minecraft:tnt",count:1}]}
+level_seed 421
+dispense 36 101 14 c21
+dump be:36,101,14 blocks:35,101,12,40,105,16 ticks:35,100,12,40,105,16 entities events nbt:cubeS1
+note c22 TNT item, the cube in front already holds TNT: equipItem fails, a PrimedTnt entity is spawned
+spawn cubeS2 minecraft:sulfur_cube 37.5 101 18.5 0 0 {NoAI:1b,Silent:1b,equipment:{body:{id:"minecraft:tnt",count:1}}}
+block 36 101 18 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 18 {Items:[{Slot:0b,id:"minecraft:tnt",count:1}]}
+level_seed 422
+dispense 36 101 18 c22
+dump be:36,101,18 blocks:35,101,16,40,105,20 ticks:35,100,16,40,105,20 entities events nbt:cubeS2
+note c23 TNT item with tnt_explodes false and a cube in front: failure click 1001, the TNT stays in the dispenser, the cube swallows nothing
+spawn cubeS3 minecraft:sulfur_cube 37.5 101 22.5 0 0 {NoAI:1b,Silent:1b}
+gamerule tnt_explodes false
+block 36 101 22 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 22 {Items:[{Slot:0b,id:"minecraft:tnt",count:1}]}
+level_seed 423
+dispense 36 101 22 c23
+dump be:36,101,22 blocks:35,101,20,40,105,24 ticks:35,100,20,40,105,24 entities events nbt:cubeS3
+gamerule tnt_explodes true
+note c24 TNT item and nothing in front: PrimedTnt entity, TNT_PRIMED sound, ENTITY_PLACE game event
+block 36 101 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 26 {Items:[{Slot:0b,id:"minecraft:tnt",count:1}]}
+level_seed 424
+dispense 36 101 26 c24
+dump be:36,101,26 blocks:35,101,24,40,105,28 ticks:35,100,24,40,105,28 entities events
+note c25 TNT item, a baby cube in front: it cannot swallow, TNT is primed
+spawn cubeS4 minecraft:sulfur_cube 37.5 101 30.5 0 0 {NoAI:1b,Silent:1b,age:-100}
+block 36 101 30 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 30 {Items:[{Slot:0b,id:"minecraft:tnt",count:1}]}
+level_seed 425
+dispense 36 101 30 c25
+dump be:36,101,30 blocks:35,101,28,40,105,32 ticks:35,100,28,40,105,32 entities events nbt:cubeS4
+note c26 TNT item with tnt_explodes false and nothing in front: 1001
+gamerule tnt_explodes false
+block 36 101 34 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 34 {Items:[{Slot:0b,id:"minecraft:tnt",count:1}]}
+level_seed 426
+dispense 36 101 34 c26
+dump be:36,101,34 blocks:35,101,32,40,105,36 ticks:35,100,32,40,105,36 entities events
+gamerule tnt_explodes true
+note c27 a stack of 2 TNT items and a cube in front: one is swallowed, one stays
+spawn cubeS5 minecraft:sulfur_cube 37.5 101 38.5 0 0 {NoAI:1b,Silent:1b}
+block 36 101 38 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 38 {Items:[{Slot:0b,id:"minecraft:tnt",count:2}]}
+level_seed 427
+dispense 36 101 38 c27
+dump be:36,101,38 blocks:35,101,36,40,105,40 ticks:35,100,36,40,105,40 entities events nbt:cubeS5
+note c28 two cubes in the block in front: the one holding TNT refuses, the empty one swallows
+spawn cubeS6a minecraft:sulfur_cube 37.3 101 42.3 0 0 {NoAI:1b,Silent:1b,equipment:{body:{id:"minecraft:tnt",count:1}}}
+spawn cubeS6b minecraft:sulfur_cube 37.7 101 42.7 0 0 {NoAI:1b,Silent:1b}
+block 36 101 42 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 36 101 42 {Items:[{Slot:0b,id:"minecraft:tnt",count:1}]}
+level_seed 428
+dispense 36 101 42 c28
+dump be:36,101,42 blocks:35,101,40,40,105,44 ticks:35,100,40,40,105,44 entities events nbt:cubeS6a nbt:cubeS6b
+note the cubes and primed TNT settle
+tick 2
+dump entities

@@ -1,5 +1,6 @@
 //! `Blocks.TNT` (`OptionalDispenseItemBehavior` of `DispenseItemBehavior.bootStrap`).
 
+use super::sulfur_cube::dispense_block;
 use crate::world::dispenser::{
     BlockSource, DispenseTemplate, OptionalState, Templated, play_optional_sound,
 };
@@ -19,7 +20,9 @@ impl DispenseTemplate for TntDispense {
             return dispensed;
         }
         let target = source.pos.relative(source.facing());
-        // `SulfurCubeBlockDispenseItemBehavior.dispenseBlock(level, target, dispensed)`: not implemented (TNT is always primed)
+        if dispense_block(source.level, target, &mut dispensed) {
+            return dispensed;
+        }
         let tnt = PrimedTnt::at(
             source.level,
             f64::from(target.x()) + 0.5,

@@ -118,7 +118,6 @@ const NOT_IMPLEMENTED: &[(&str, &str)] = &[
     ("minecraft:sulfur_cube_bucket", "empties the bucket contents into the block in front (DispensibleContainerItem.emptyContents) and returns an empty bucket, else drops it"),
     ("minecraft:tadpole_bucket", "empties the bucket contents into the block in front (DispensibleContainerItem.emptyContents) and returns an empty bucket, else drops it"),
     ("minecraft:bucket", "picks up the fluid block in front (BucketPickup.pickupBlock) and returns the filled bucket, else drops the bucket"),
-    ("minecraft:flint_and_steel", "FlintAndSteelDispenseItemBehavior: sets fire, lights a campfire, candle or candle cake, primes TNT or an exploding sulfur cube in front and damages the tool"),
     ("minecraft:bone_meal", "grows the crop or water plant in front (BoneMealItem.growCrop/growWaterPlant) with level event 1505, fails with the failure click"),
     ("minecraft:wither_skeleton_skull", "places the skull in front and checks the wither pattern (WitherSkullBlock.canSpawnMob/checkSpawn), else equips it on an entity in front"),
     ("minecraft:carved_pumpkin", "places the pumpkin in front when it completes a golem pattern (CarvedPumpkinBlock.canSpawnGolem), else equips it on an entity in front"),
@@ -139,7 +138,6 @@ const NOT_IMPLEMENTED: &[(&str, &str)] = &[
 /// hand with the commit that completes the behaviour.
 #[rustfmt::skip]
 const INCOMPLETE: &[(&str, &str)] = &[
-    ("minecraft:tnt", "SulfurCubeBlockDispenseItemBehavior.dispenseBlock: a sulfur cube in front swallows the TNT block instead of the TNT being primed (the TNT behaviour does not call it yet)"),
 ];
 
 fn registered() -> BTreeSet<&'static str> {

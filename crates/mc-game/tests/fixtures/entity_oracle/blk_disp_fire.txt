@@ -1,0 +1,487 @@
+# c1 flint and steel on air over netherrack: fire is placed (fire tick scheduled), the tool loses 1 durability
+BE 0 101 0 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:0}
+B 0 101 0 minecraft:dispenser[facing=east,triggered=false]
+B 1 101 0 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+TICK block 1 101 0 minecraft:fire delay=30 prio=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,0 data=5 global=0
+# c2 air over stone: fire
+BE 0 101 4 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:4}
+B 0 101 4 minecraft:dispenser[facing=east,triggered=false]
+B 1 101 4 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+TICK block 1 101 4 minecraft:fire delay=34 prio=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,4 data=5 global=0
+# c3 air over air with nothing flammable around: fire cannot be placed and nothing else matches, the behaviour still succeeds and damages the tool
+BE 0 101 8 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:8}
+B 0 101 8 minecraft:dispenser[facing=east,triggered=false]
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,8 data=5 global=0
+# c4 air over soul sand: soul fire
+BE 0 101 12 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:12}
+B 0 101 12 minecraft:dispenser[facing=east,triggered=false]
+B 1 101 12 minecraft:soul_fire
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,12 data=5 global=0
+# c5 unlit campfire: lit, BLOCK_CHANGE game event
+BE 0 101 16 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:16}
+B 0 101 16 minecraft:dispenser[facing=east,triggered=false]
+B 1 101 16 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,16 data=5 global=0
+# c6 already lit campfire: neither air nor lightable, success and damage anyway
+BE 0 101 20 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:20}
+B 0 101 20 minecraft:dispenser[facing=east,triggered=false]
+B 1 101 20 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,20 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,20 data=5 global=0
+# c7 unlit candle: lit
+BE 0 101 24 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:24}
+B 0 101 24 minecraft:dispenser[facing=east,triggered=false]
+B 1 101 24 minecraft:candle[candles=2,lit=true,waterlogged=false]
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,24 data=5 global=0
+# c8 unlit candle cake: lit
+BE 0 101 28 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:28}
+B 0 101 28 minecraft:dispenser[facing=east,triggered=false]
+B 1 101 28 minecraft:candle_cake[lit=true]
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,28 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,28 data=5 global=0
+# c9 TNT block in front: primed and removed (PRIME_FUSE), tool damaged
+BE 0 101 32 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:32}
+B 0 101 32 minecraft:dispenser[facing=east,triggered=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV sound at=1.5,101.0,32.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,32 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,32 data=5 global=0
+# c10 TNT block with tnt_explodes false: prime fails, success false -> click 1001, the tool is not damaged
+C Game rule tnt_explodes is now set to false
+BE 0 101 36 {Items:[{Slot:0b,count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:36}
+B 0 101 36 minecraft:dispenser[facing=east,triggered=false]
+B 1 101 36 minecraft:tnt[unstable=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV level_event r=64.0 ex=0 type=1001 pos=0,101,36 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,36 data=5 global=0
+C Game rule tnt_explodes is now set to true
+# c11 flint and steel with 1 durability left: it breaks and the slot is emptied
+BE 0 101 40 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:101,z:40}
+B 0 101 40 minecraft:dispenser[facing=east,triggered=false]
+B 1 101 40 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+TICK block 1 101 40 minecraft:fire delay=32 prio=0
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV level_event r=64.0 ex=0 type=1000 pos=0,101,40 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,101,40 data=5 global=0
+# c12 complete obsidian frame along z, the dispenser faces its inside: fire is placed (isPortal) and the portal blocks fill the frame
+BE 12 101 0 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:12,y:101,z:0}
+B 11 100 -2 minecraft:stone
+B 11 100 -1 minecraft:stone
+B 11 100 0 minecraft:stone
+B 11 100 1 minecraft:stone
+B 11 100 2 minecraft:stone
+B 12 100 -2 minecraft:stone
+B 12 100 -1 minecraft:stone
+B 12 100 0 minecraft:stone
+B 12 100 1 minecraft:stone
+B 12 100 2 minecraft:stone
+B 12 101 0 minecraft:dispenser[facing=east,triggered=false]
+B 13 100 -2 minecraft:stone
+B 13 100 -1 minecraft:stone
+B 13 100 0 minecraft:obsidian
+B 13 100 1 minecraft:obsidian
+B 13 100 2 minecraft:stone
+B 13 101 -1 minecraft:obsidian
+B 13 101 0 minecraft:nether_portal[axis=z]
+B 13 101 1 minecraft:nether_portal[axis=z]
+B 13 101 2 minecraft:obsidian
+B 13 102 -1 minecraft:obsidian
+B 13 102 0 minecraft:nether_portal[axis=z]
+B 13 102 1 minecraft:nether_portal[axis=z]
+B 13 102 2 minecraft:obsidian
+B 13 103 -1 minecraft:obsidian
+B 13 103 0 minecraft:nether_portal[axis=z]
+B 13 103 1 minecraft:nether_portal[axis=z]
+B 13 103 2 minecraft:obsidian
+B 13 104 0 minecraft:obsidian
+B 13 104 1 minecraft:obsidian
+B 14 100 -2 minecraft:stone
+B 14 100 -1 minecraft:stone
+B 14 100 0 minecraft:stone
+B 14 100 1 minecraft:stone
+B 14 100 2 minecraft:stone
+B 15 100 -2 minecraft:stone
+B 15 100 -1 minecraft:stone
+B 15 100 0 minecraft:stone
+B 15 100 1 minecraft:stone
+B 15 100 2 minecraft:stone
+B 16 100 -2 minecraft:stone
+B 16 100 -1 minecraft:stone
+B 16 100 0 minecraft:stone
+B 16 100 1 minecraft:stone
+B 16 100 2 minecraft:stone
+TICK block 13 101 0 minecraft:fire delay=34 prio=0
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV level_event r=64.0 ex=0 type=1000 pos=12,101,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=12,101,0 data=5 global=0
+# c13 the same frame missing one side block: not a portal; fire sits on the obsidian bottom row
+BE 12 101 8 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:12,y:101,z:8}
+B 11 100 6 minecraft:stone
+B 11 100 7 minecraft:stone
+B 11 100 8 minecraft:stone
+B 11 100 9 minecraft:stone
+B 11 100 10 minecraft:stone
+B 12 100 6 minecraft:stone
+B 12 100 7 minecraft:stone
+B 12 100 8 minecraft:stone
+B 12 100 9 minecraft:stone
+B 12 100 10 minecraft:stone
+B 12 101 8 minecraft:dispenser[facing=east,triggered=false]
+B 13 100 6 minecraft:stone
+B 13 100 7 minecraft:stone
+B 13 100 8 minecraft:obsidian
+B 13 100 9 minecraft:obsidian
+B 13 100 10 minecraft:stone
+B 13 101 7 minecraft:obsidian
+B 13 101 8 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 13 101 10 minecraft:obsidian
+B 13 102 7 minecraft:obsidian
+B 13 103 7 minecraft:obsidian
+B 13 103 10 minecraft:obsidian
+B 13 104 8 minecraft:obsidian
+B 13 104 9 minecraft:obsidian
+B 14 100 6 minecraft:stone
+B 14 100 7 minecraft:stone
+B 14 100 8 minecraft:stone
+B 14 100 9 minecraft:stone
+B 14 100 10 minecraft:stone
+B 15 100 6 minecraft:stone
+B 15 100 7 minecraft:stone
+B 15 100 8 minecraft:stone
+B 15 100 9 minecraft:stone
+B 15 100 10 minecraft:stone
+B 16 100 6 minecraft:stone
+B 16 100 7 minecraft:stone
+B 16 100 8 minecraft:stone
+B 16 100 9 minecraft:stone
+B 16 100 10 minecraft:stone
+TICK block 13 101 8 minecraft:fire delay=32 prio=0
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV level_event r=64.0 ex=0 type=1000 pos=12,101,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=12,101,8 data=5 global=0
+# c14 complete obsidian frame along x, the dispenser faces south into its inside
+BE 12 101 16 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:12,y:101,z:16}
+B 11 100 14 minecraft:stone
+B 11 100 15 minecraft:stone
+B 11 100 16 minecraft:stone
+B 11 100 17 minecraft:stone
+B 11 100 18 minecraft:stone
+B 11 101 17 minecraft:obsidian
+B 11 102 17 minecraft:obsidian
+B 11 103 17 minecraft:obsidian
+B 12 100 14 minecraft:stone
+B 12 100 15 minecraft:stone
+B 12 100 16 minecraft:stone
+B 12 100 17 minecraft:obsidian
+B 12 100 18 minecraft:stone
+B 12 101 16 minecraft:dispenser[facing=south,triggered=false]
+B 12 101 17 minecraft:nether_portal[axis=x]
+B 12 102 17 minecraft:nether_portal[axis=x]
+B 12 103 17 minecraft:nether_portal[axis=x]
+B 12 104 17 minecraft:obsidian
+B 13 100 14 minecraft:stone
+B 13 100 15 minecraft:stone
+B 13 100 16 minecraft:stone
+B 13 100 17 minecraft:obsidian
+B 13 100 18 minecraft:stone
+B 13 101 17 minecraft:nether_portal[axis=x]
+B 13 102 17 minecraft:nether_portal[axis=x]
+B 13 103 17 minecraft:nether_portal[axis=x]
+B 13 104 17 minecraft:obsidian
+B 14 100 14 minecraft:stone
+B 14 100 15 minecraft:stone
+B 14 100 16 minecraft:stone
+B 14 100 17 minecraft:stone
+B 14 100 18 minecraft:stone
+B 14 101 17 minecraft:obsidian
+B 14 102 17 minecraft:obsidian
+B 14 103 17 minecraft:obsidian
+B 15 100 14 minecraft:stone
+B 15 100 15 minecraft:stone
+B 15 100 16 minecraft:stone
+B 15 100 17 minecraft:stone
+B 15 100 18 minecraft:stone
+B 16 100 14 minecraft:stone
+B 16 100 15 minecraft:stone
+B 16 100 16 minecraft:stone
+B 16 100 17 minecraft:stone
+B 16 100 18 minecraft:stone
+TICK block 12 101 17 minecraft:fire delay=36 prio=0
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV level_event r=64.0 ex=0 type=1000 pos=12,101,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=12,101,16 data=3 global=0
+# c15 the dispenser one block higher: the target has no support, so only isPortal lets the fire be placed (complete frame)
+BE 12 102 24 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:12,y:102,z:24}
+B 11 100 22 minecraft:stone
+B 11 100 23 minecraft:stone
+B 11 100 24 minecraft:stone
+B 11 100 25 minecraft:stone
+B 11 100 26 minecraft:stone
+B 12 100 22 minecraft:stone
+B 12 100 23 minecraft:stone
+B 12 100 24 minecraft:stone
+B 12 100 25 minecraft:stone
+B 12 100 26 minecraft:stone
+B 12 102 24 minecraft:dispenser[facing=east,triggered=false]
+B 13 100 22 minecraft:stone
+B 13 100 23 minecraft:stone
+B 13 100 24 minecraft:obsidian
+B 13 100 25 minecraft:obsidian
+B 13 100 26 minecraft:stone
+B 13 101 23 minecraft:obsidian
+B 13 101 24 minecraft:nether_portal[axis=z]
+B 13 101 25 minecraft:nether_portal[axis=z]
+B 13 101 26 minecraft:obsidian
+B 13 102 23 minecraft:obsidian
+B 13 102 24 minecraft:nether_portal[axis=z]
+B 13 102 25 minecraft:nether_portal[axis=z]
+B 13 102 26 minecraft:obsidian
+B 13 103 23 minecraft:obsidian
+B 13 103 24 minecraft:nether_portal[axis=z]
+B 13 103 25 minecraft:nether_portal[axis=z]
+B 13 103 26 minecraft:obsidian
+B 13 104 24 minecraft:obsidian
+B 13 104 25 minecraft:obsidian
+B 14 100 22 minecraft:stone
+B 14 100 23 minecraft:stone
+B 14 100 24 minecraft:stone
+B 14 100 25 minecraft:stone
+B 14 100 26 minecraft:stone
+B 15 100 22 minecraft:stone
+B 15 100 23 minecraft:stone
+B 15 100 24 minecraft:stone
+B 15 100 25 minecraft:stone
+B 15 100 26 minecraft:stone
+B 16 100 22 minecraft:stone
+B 16 100 23 minecraft:stone
+B 16 100 24 minecraft:stone
+B 16 100 25 minecraft:stone
+B 16 100 26 minecraft:stone
+TICK block 13 102 24 minecraft:fire delay=36 prio=0
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV level_event r=64.0 ex=0 type=1000 pos=12,102,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=12,102,24 data=5 global=0
+# c16 the same one block higher but the frame misses a side block: no support and no portal, nothing is placed, the tool is still damaged
+BE 12 102 32 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:12,y:102,z:32}
+B 11 100 30 minecraft:stone
+B 11 100 31 minecraft:stone
+B 11 100 32 minecraft:stone
+B 11 100 33 minecraft:stone
+B 11 100 34 minecraft:stone
+B 12 100 30 minecraft:stone
+B 12 100 31 minecraft:stone
+B 12 100 32 minecraft:stone
+B 12 100 33 minecraft:stone
+B 12 100 34 minecraft:stone
+B 12 102 32 minecraft:dispenser[facing=east,triggered=false]
+B 13 100 30 minecraft:stone
+B 13 100 31 minecraft:stone
+B 13 100 32 minecraft:obsidian
+B 13 100 33 minecraft:obsidian
+B 13 100 34 minecraft:stone
+B 13 101 31 minecraft:obsidian
+B 13 101 34 minecraft:obsidian
+B 13 102 31 minecraft:obsidian
+B 13 103 31 minecraft:obsidian
+B 13 103 34 minecraft:obsidian
+B 13 104 32 minecraft:obsidian
+B 13 104 33 minecraft:obsidian
+B 14 100 30 minecraft:stone
+B 14 100 31 minecraft:stone
+B 14 100 32 minecraft:stone
+B 14 100 33 minecraft:stone
+B 14 100 34 minecraft:stone
+B 15 100 30 minecraft:stone
+B 15 100 31 minecraft:stone
+B 15 100 32 minecraft:stone
+B 15 100 33 minecraft:stone
+B 15 100 34 minecraft:stone
+B 16 100 30 minecraft:stone
+B 16 100 31 minecraft:stone
+B 16 100 32 minecraft:stone
+B 16 100 33 minecraft:stone
+B 16 100 34 minecraft:stone
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV level_event r=64.0 ex=0 type=1000 pos=12,102,32 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=12,102,32 data=5 global=0
+# c17 air over air next to oak planks: the fire survives on the flammable neighbour
+BE 36 101 0 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:36,y:101,z:0}
+B 36 101 0 minecraft:dispenser[facing=east,triggered=false]
+B 37 101 0 minecraft:fire[age=0,east=false,north=false,south=true,up=false,west=false]
+B 37 101 1 minecraft:oak_planks
+TICK block 37 101 0 minecraft:fire delay=39 prio=0
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV level_event r=64.0 ex=0 type=1000 pos=36,101,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,0 data=5 global=0
+# c18 a sulfur cube without an explosive body in front: not ignitable, fire is placed in its block
+BE 36 101 4 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:36,y:101,z:4}
+B 36 101 4 minecraft:dispenser[facing=east,triggered=false]
+B 37 101 4 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+TICK block 37 101 4 minecraft:fire delay=33 prio=0
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=36,101,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,4 data=5 global=0
+N cubeN1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,4.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c19 a sulfur cube holding TNT in front: primeTime(false), no fire, no block change, the tool is damaged
+BE 36 101 8 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:36,y:101,z:8}
+B 36 101 8 minecraft:dispenser[facing=east,triggered=false]
+B 37 101 8 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+TICK block 37 101 8 minecraft:fire delay=31 prio=0
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=36,101,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,8 data=5 global=0
+N cubeT1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,8.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c20 the same cube from the south (already primed, canExplode false): fire is placed in its block instead
+BE 37 101 9 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:37,y:101,z:9}
+B 36 101 8 minecraft:dispenser[facing=east,triggered=false]
+B 37 101 8 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 37 101 9 minecraft:dispenser[facing=north,triggered=false]
+TICK block 37 101 8 minecraft:fire delay=31 prio=0
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=37,101,9 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=37,101,9 data=2 global=0
+N cubeT1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,8.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c21 TNT item, a sulfur cube without explosive body in front: swallowed (SulfurCube.equipItem), nothing primed
+BE 36 101 14 {Items:[],components:{},id:"minecraft:dispenser",x:36,y:101,z:14}
+B 36 101 14 minecraft:dispenser[facing=east,triggered=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS1 minecraft:sulfur_cube pos=37.5,101.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=36,101,14 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,14 data=5 global=0
+N cubeS1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,14.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c22 TNT item, the cube in front already holds TNT: equipItem fails, a PrimedTnt entity is spawned
+BE 36 101 18 {Items:[],components:{},id:"minecraft:dispenser",x:36,y:101,z:18}
+B 36 101 18 minecraft:dispenser[facing=east,triggered=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS1 minecraft:sulfur_cube pos=37.5,101.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS2 minecraft:sulfur_cube pos=37.5,101.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#2 minecraft:tnt pos=37.5,101.0,18.5 delta=0.017536106182632297,0.20000000298023224,0.009616911143992405 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV sound at=37.5,101.0,18.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=36,101,18 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,18 data=5 global=0
+N cubeS2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,18.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c23 TNT item with tnt_explodes false and a cube in front: failure click 1001, the TNT stays in the dispenser, the cube swallows nothing
+C Game rule tnt_explodes is now set to false
+BE 36 101 22 {Items:[{Slot:0b,count:1,id:"minecraft:tnt"}],components:{},id:"minecraft:dispenser",x:36,y:101,z:22}
+B 36 101 22 minecraft:dispenser[facing=east,triggered=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS1 minecraft:sulfur_cube pos=37.5,101.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS2 minecraft:sulfur_cube pos=37.5,101.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#2 minecraft:tnt pos=37.5,101.0,18.5 delta=0.017536106182632297,0.20000000298023224,0.009616911143992405 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS3 minecraft:sulfur_cube pos=37.5,101.0,22.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=36,101,22 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,22 data=5 global=0
+N cubeS3 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,22.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+C Game rule tnt_explodes is now set to true
+# c24 TNT item and nothing in front: PrimedTnt entity, TNT_PRIMED sound, ENTITY_PLACE game event
+BE 36 101 26 {Items:[],components:{},id:"minecraft:dispenser",x:36,y:101,z:26}
+B 36 101 26 minecraft:dispenser[facing=east,triggered=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS1 minecraft:sulfur_cube pos=37.5,101.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS2 minecraft:sulfur_cube pos=37.5,101.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#2 minecraft:tnt pos=37.5,101.0,18.5 delta=0.017536106182632297,0.20000000298023224,0.009616911143992405 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS3 minecraft:sulfur_cube pos=37.5,101.0,22.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#3 minecraft:tnt pos=37.5,101.0,26.5 delta=-0.01953577048698808,0.20000000298023224,0.0042841185184032465 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+EV sound at=37.5,101.0,26.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=36,101,26 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,26 data=5 global=0
+# c25 TNT item, a baby cube in front: it cannot swallow, TNT is primed
+BE 36 101 30 {Items:[],components:{},id:"minecraft:dispenser",x:36,y:101,z:30}
+B 36 101 30 minecraft:dispenser[facing=east,triggered=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS1 minecraft:sulfur_cube pos=37.5,101.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS2 minecraft:sulfur_cube pos=37.5,101.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#2 minecraft:tnt pos=37.5,101.0,18.5 delta=0.017536106182632297,0.20000000298023224,0.009616911143992405 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS3 minecraft:sulfur_cube pos=37.5,101.0,22.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#3 minecraft:tnt pos=37.5,101.0,26.5 delta=-0.01953577048698808,0.20000000298023224,0.0042841185184032465 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS4 minecraft:sulfur_cube pos=37.5,101.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=36,101,30 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,30 data=5 global=0
+N cubeS4 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,30.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c26 TNT item with tnt_explodes false and nothing in front: 1001
+C Game rule tnt_explodes is now set to false
+BE 36 101 34 {Items:[{Slot:0b,count:1,id:"minecraft:tnt"}],components:{},id:"minecraft:dispenser",x:36,y:101,z:34}
+B 36 101 34 minecraft:dispenser[facing=east,triggered=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS1 minecraft:sulfur_cube pos=37.5,101.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS2 minecraft:sulfur_cube pos=37.5,101.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#2 minecraft:tnt pos=37.5,101.0,18.5 delta=0.017536106182632297,0.20000000298023224,0.009616911143992405 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS3 minecraft:sulfur_cube pos=37.5,101.0,22.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#3 minecraft:tnt pos=37.5,101.0,26.5 delta=-0.01953577048698808,0.20000000298023224,0.0042841185184032465 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS4 minecraft:sulfur_cube pos=37.5,101.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=36,101,34 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,34 data=5 global=0
+C Game rule tnt_explodes is now set to true
+# c27 a stack of 2 TNT items and a cube in front: one is swallowed, one stays
+BE 36 101 38 {Items:[{Slot:0b,count:1,id:"minecraft:tnt"}],components:{},id:"minecraft:dispenser",x:36,y:101,z:38}
+B 36 101 38 minecraft:dispenser[facing=east,triggered=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS1 minecraft:sulfur_cube pos=37.5,101.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS2 minecraft:sulfur_cube pos=37.5,101.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#2 minecraft:tnt pos=37.5,101.0,18.5 delta=0.017536106182632297,0.20000000298023224,0.009616911143992405 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS3 minecraft:sulfur_cube pos=37.5,101.0,22.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#3 minecraft:tnt pos=37.5,101.0,26.5 delta=-0.01953577048698808,0.20000000298023224,0.0042841185184032465 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS4 minecraft:sulfur_cube pos=37.5,101.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS5 minecraft:sulfur_cube pos=37.5,101.0,38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=36,101,38 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,38 data=5 global=0
+N cubeS5 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,38.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c28 two cubes in the block in front: the one holding TNT refuses, the empty one swallows
+BE 36 101 42 {Items:[],components:{},id:"minecraft:dispenser",x:36,y:101,z:42}
+B 36 101 42 minecraft:dispenser[facing=east,triggered=false]
+E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS1 minecraft:sulfur_cube pos=37.5,101.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS2 minecraft:sulfur_cube pos=37.5,101.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#2 minecraft:tnt pos=37.5,101.0,18.5 delta=0.017536106182632297,0.20000000298023224,0.009616911143992405 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS3 minecraft:sulfur_cube pos=37.5,101.0,22.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#3 minecraft:tnt pos=37.5,101.0,26.5 delta=-0.01953577048698808,0.20000000298023224,0.0042841185184032465 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cubeS4 minecraft:sulfur_cube pos=37.5,101.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS5 minecraft:sulfur_cube pos=37.5,101.0,38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS6a minecraft:sulfur_cube pos=37.3,101.0,42.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS6b minecraft:sulfur_cube pos=37.7,101.0,42.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=36,101,42 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=36,101,42 data=5 global=0
+N cubeS6a {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.3d,101.0d,42.3d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+N cubeS6b {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.7d,101.0d,42.7d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# the cubes and primed TNT settle
+E tnt#1 minecraft:tnt pos=1.5304875617338005,101.2768000089526,32.52527189367143 delta=0.014788007649914791,0.11446400808072105,0.012258145147980704 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=78
+E cubeN1 minecraft:sulfur_cube pos=37.5,101.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=9/19 death=0 fx=-
+E cubeT1 minecraft:sulfur_cube pos=37.5,101.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS1 minecraft:sulfur_cube pos=37.5,101.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS2 minecraft:sulfur_cube pos=37.5,101.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#2 minecraft:tnt pos=37.53472149057609,101.2768000089526,18.519041484248532 delta=0.01684167703337044,0.11446400808072105,0.009236081822209235 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=78
+E cubeS3 minecraft:sulfur_cube pos=37.5,101.0,22.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt#3 minecraft:tnt pos=37.49000000953674,101.2768000089526,26.508482554748152 delta=0.0,0.11446400808072105,0.0041144675852321086 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=78
+E cubeS4 minecraft:sulfur_cube pos=37.5,101.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS5 minecraft:sulfur_cube pos=37.5,101.0,38.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS6a minecraft:sulfur_cube pos=37.3,101.0,42.3 delta=-0.12649110829160046,0.0,-0.12649110829160046 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cubeS6b minecraft:sulfur_cube pos=37.7,101.0,42.7 delta=0.12649110829160046,0.0,0.12649110829160046 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-

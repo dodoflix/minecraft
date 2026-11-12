@@ -29,6 +29,7 @@ mod blocks_container_hooks_golden;
 mod blocks_containers_golden;
 mod blocks_crops_golden;
 mod blocks_dispenser_existing_golden;
+mod blocks_dispenser_fire_golden;
 mod blocks_dispenser_spine_golden;
 mod blocks_furnaces_golden;
 mod blocks_gamemaster_gateway_golden;

@@ -1,13 +1,14 @@
 //! The concrete dispense behaviors of `net.minecraft.core.dispenser` and `DispenseItemBehavior.bootStrap()`.
 //!
-//! Not implemented: only the behaviors of armor stands, boats, projectiles that are `ProjectileItem`s, water bottles,
-//! shulker boxes and TNT exist, next to the component-based defaults (equipment, spawn eggs, sulfur cube swallowing).
-//! Every other `bootStrap()` entry (eggs, thrown potions, fire charges, buckets, bone meal, flint and steel, minecarts,
-//! glass bottles, honeycomb, shears and more) is missing, so those items are dropped like any other item.
+//! Not implemented: the `bootStrap()` entries other than armor stands, boats, projectiles that are `ProjectileItem`s,
+//! water bottles, shulker boxes, TNT and flint and steel (eggs, thrown potions, buckets, bone meal, minecarts, glass
+//! bottles, honeycomb, shears and more) have no behavior, so those items are dropped like any other item. Equipment,
+//! spawn eggs and sulfur cube swallowing come from the component-based defaults.
 
 mod armor_stand;
 mod boat;
 mod equipment;
+mod flint_and_steel;
 mod potion;
 mod projectile;
 mod shulker_box;
