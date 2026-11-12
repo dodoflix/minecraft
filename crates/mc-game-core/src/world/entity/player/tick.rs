@@ -45,14 +45,17 @@ impl ServerPlayer {
         );
     }
 
-    /// `inventoryMenu.slotsChanged(inventory)`.
+    /// `inventoryMenu.slotsChanged(inventory)`, after the recomputes the callers' own grid mutations already owe (vanilla
+    /// runs those synchronously inside `setItem`/`removeItem`).
     pub fn inventory_menu_slots_changed(&mut self, level: &mut ServerLevel) {
         let mut ctx = PlayerCtx {
             player: self,
             level,
         };
         let mut menus = std::mem::take(&mut ctx.player.player.menus);
-        menus.inventory_menu_mut().slots_changed(
+        let menu = menus.inventory_menu_mut();
+        menu.flush_container_events(&mut ctx);
+        menu.slots_changed(
             &mut ctx,
             &crate::world::inventory::ContainerKey::PlayerInventory,
         );

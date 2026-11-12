@@ -99,16 +99,14 @@ impl InventoryMenu {
         &self.base.slots[0]
     }
 
-    /// `CraftingMenu.slotChangedCraftingGrid(this, level, owner, craftSlots, resultSlots, null)` for the grid mutation
-    /// whose notification is being replayed.
-    fn slot_changed_crafting_grid(&mut self, player: &mut dyn MenuPlayer) {
-        let items = self.get_craft_slots_mut().take_snapshot();
+    /// `CraftingMenu.slotChangedCraftingGrid(this, level, owner, craftSlots, resultSlots, null)` over `items`.
+    fn slot_changed_crafting_grid(&mut self, player: &mut dyn MenuPlayer, items: &[ItemStack]) {
         slot_changed_crafting_grid(
             &mut self.base,
             player,
             CRAFT_LOCAL,
             RESULT_LOCAL,
-            &items,
+            items,
             None,
         );
     }
@@ -128,10 +126,17 @@ impl AbstractContainerMenu for InventoryMenu {
         self
     }
 
-    fn slots_changed(&mut self, player: &mut dyn MenuPlayer, _container: &ContainerKey) {
+    fn slots_changed(&mut self, player: &mut dyn MenuPlayer, container: &ContainerKey) {
+        // The grid's own mutations replay the grid as it was right after them; any other caller
+        // (`slotsChanged(inventory)`) sees the grid as it is now.
+        let items = if matches!(container, ContainerKey::Local(CRAFT_LOCAL)) {
+            self.get_craft_slots_mut().take_snapshot()
+        } else {
+            self.get_craft_slots().get_items().to_vec()
+        };
         // Vanilla only recomputes when `owner.level() instanceof ServerLevel`, i.e. always on the server.
         if player.is_server_player() {
-            self.slot_changed_crafting_grid(player);
+            self.slot_changed_crafting_grid(player, &items);
         }
     }
 
