@@ -1,0 +1,103 @@
+T 1
+T 2
+T 3
+# a single compass is changed in place
+T 4
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.lodestone_compass.lock source=player vol=1.0 pitch=1.0
+I A 0 minecraft:compass*1
+PKT A minecraft:sound 77c0070700000024fffffe24000000243f8000003f800000e32d4fcf84a7860e
+PKT A minecraft:container_set_slot 140002002401ff0801004501136d696e6563726166743a6f766572776f726c640000010000004fc401
+# a stack of three keeps two and adds a lodestone compass
+T 5
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.lodestone_compass.lock source=player vol=1.0 pitch=1.0
+I A 0 minecraft:compass*2
+I A 1 minecraft:compass*1
+PKT A minecraft:sound 77c0070700000024fffffe24000000243f8000003f8000003dace6703e05bff8
+PKT A minecraft:container_set_slot 140003002402ff080000
+PKT A minecraft:container_set_slot 140004002501ff0801004501136d696e6563726166743a6f766572776f726c640000010000004fc401
+# not a lodestone: no result
+T 6
+I A 0 minecraft:compass*1
+I A 1 minecraft:compass*1
+PKT A minecraft:container_set_slot 140005002401ff080000
+# off hand
+T 7
+EV sound at=4.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.lodestone_compass.lock source=player vol=1.0 pitch=1.0
+I A 0 minecraft:stick*1
+I A 1 minecraft:compass*2
+I A 40 minecraft:compass*1
+PKT A minecraft:sound 77c0070700000024fffffe24000000243f8000003f8000006fd465a290351d3c
+PKT A minecraft:container_set_slot 140006002401a4080000
+PKT A minecraft:container_set_slot 140007002502ff0801004501136d696e6563726166743a6f766572776f726c640000010000004fc401
+PKT A minecraft:container_set_slot 140008002d01ff080000
+# creative: the stack stays
+T 8
+EV sound at=20.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.lodestone_compass.lock source=player vol=1.0 pitch=1.0
+I C 0 minecraft:compass*2
+I C 1 minecraft:compass*1
+PKT C minecraft:sound 77c00707000000a4fffffe24000000243f8000003f8000004b970fd5e0db99e1
+PKT C minecraft:container_set_slot 140002002402ff080000
+PKT C minecraft:container_set_slot 140003002501ff0801004501136d696e6563726166743a6f766572776f726c640000050000004fc401
+# a survival player with a full inventory drops the lodestone compass
+T 9
+T 10
+EV sound at=40.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:item.lodestone_compass.lock source=player vol=1.0 pitch=1.0
+I D 0 minecraft:dirt*64
+I D 1 minecraft:dirt*64
+I D 2 minecraft:dirt*64
+I D 3 minecraft:dirt*64
+I D 4 minecraft:dirt*64
+I D 5 minecraft:dirt*64
+I D 6 minecraft:dirt*64
+I D 7 minecraft:dirt*64
+I D 8 minecraft:compass*1
+I D 9 minecraft:dirt*64
+I D 10 minecraft:dirt*64
+I D 11 minecraft:dirt*64
+I D 12 minecraft:dirt*64
+I D 13 minecraft:dirt*64
+I D 14 minecraft:dirt*64
+I D 15 minecraft:dirt*64
+I D 16 minecraft:dirt*64
+I D 17 minecraft:dirt*64
+I D 18 minecraft:dirt*64
+I D 19 minecraft:dirt*64
+I D 20 minecraft:dirt*64
+I D 21 minecraft:dirt*64
+I D 22 minecraft:dirt*64
+I D 23 minecraft:dirt*64
+I D 24 minecraft:dirt*64
+I D 25 minecraft:dirt*64
+I D 26 minecraft:dirt*64
+I D 27 minecraft:dirt*64
+I D 28 minecraft:dirt*64
+I D 29 minecraft:dirt*64
+I D 30 minecraft:dirt*64
+I D 31 minecraft:dirt*64
+I D 32 minecraft:dirt*64
+I D 33 minecraft:dirt*64
+I D 34 minecraft:dirt*64
+I D 35 minecraft:dirt*64
+E item#1 minecraft:item pos=40.508149412981176,-58.67954923674464,0.8003701211562486 delta=0.007986424876992214,4.4175500835457544E-4,0.29436272446222905 rot=41.232117,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:compass*1 age=1 pickup=39 health=5 owner=- thrower=-
+PKT D minecraft:sound 77c0070700000144fffffe24000000243f8000003f800000e8168c54d2216418
+PKT D minecraft:container_set_slot 140026002c01ff080000
+# the lodestone is removed: every tracker pointing at it is cleared on the next inventory tick
+T 11
+T 12
+I A 0 minecraft:stick*1
+I A 1 minecraft:compass*2
+I A 40 minecraft:compass*1
+PKT A minecraft:container_set_slot 140009002502ff080100450001
+# a tracker that points into a chunk that was never generated is cleared too, other dimension and untracked stay
+T 13
+T 14
+T 15
+I A 0 minecraft:stick*1
+I A 1 minecraft:compass*2
+I A 3 minecraft:compass*1
+I A 4 minecraft:compass*1
+I A 5 minecraft:compass*1
+I A 6 minecraft:compass*1
+I A 40 minecraft:compass*1
+PKT A minecraft:container_set_slot 14000e002701ff080100450001
+PKT A minecraft:container_set_slot 14000f002a01ff080100450001

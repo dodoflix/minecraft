@@ -1,0 +1,149 @@
+# Item.mineBlock: a tool component wears the item by its damage per block (sword 2, other tools 1) unless the block breaks at once, and
+# counts as a use of the item (mace and trident carry a tool component, spear and stick do not). Unbreakable tools and Unbreaking are honoured, a
+# tool whose last durability is spent breaks (sound, break event, broken statistic). Alice survives and digs one block per case.
+level flat
+preload 3
+level_seed 7
+spawn_player Alice survival 4.5 -60 0.5 0 0
+tick 3
+dump packets:Alice:none
+note sword on stone costs two
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:iron_sword
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note sword on cobweb
+block 4 -60 3 minecraft:cobweb
+give Alice mainhand minecraft:iron_sword
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note pickaxe on stone
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:iron_pickaxe
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note pickaxe on dirt (not its tool, still worn)
+block 4 -60 3 minecraft:dirt
+give Alice mainhand minecraft:iron_pickaxe
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note axe on a log
+block 4 -60 3 minecraft:oak_log
+give Alice mainhand minecraft:iron_axe
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note shovel on dirt
+block 4 -60 3 minecraft:dirt
+give Alice mainhand minecraft:iron_shovel
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note hoe on hay
+block 4 -60 3 minecraft:hay_block
+give Alice mainhand minecraft:iron_hoe
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note shears on leaves
+block 4 -60 3 minecraft:oak_leaves[persistent=true]
+give Alice mainhand minecraft:shears
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note shears on wool
+block 4 -60 3 minecraft:white_wool
+give Alice mainhand minecraft:shears
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note a block that breaks at once does not wear the tool
+block 4 -60 3 minecraft:short_grass
+give Alice mainhand minecraft:iron_pickaxe
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice events blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note sword on a block that breaks at once
+block 4 -60 3 minecraft:short_grass
+give Alice mainhand minecraft:iron_sword
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice events blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note spear on stone (no tool component)
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:iron_spear
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note mace on stone
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:mace
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note trident on stone
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:trident
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note stick on dirt: not a tool (no tool component)
+block 4 -60 3 minecraft:dirt
+give Alice mainhand minecraft:stick
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note unbreakable
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:iron_pickaxe[unbreakable={}]
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note unbreaking III
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:iron_pickaxe[enchantments={"minecraft:unbreaking":3}]
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note the last point of durability breaks the tool
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:iron_pickaxe[damage=249]
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice events blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note two points left, a sword needs two
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:iron_sword[damage=248]
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice events blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes
+note one point left, a sword needs two: it still breaks
+block 4 -60 3 minecraft:stone
+give Alice mainhand minecraft:iron_sword[damage=249]
+tick 1
+dump packets:Alice:none
+dig Alice 4 -60 3
+dump inventory:Alice stats:Alice events blocks:4,-60,3,4,-60,3 packets:Alice:entity_event,sound,container_set_slot,update_attributes

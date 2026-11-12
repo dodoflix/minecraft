@@ -1,0 +1,41 @@
+# KnowledgeBookItem.use: the stack is consumed first (not for creative), an empty recipe list or an unknown recipe fails, otherwise the
+# recipes are unlocked (recipe book packet, recipe unlocked trigger) and the item-used statistic is awarded; recipes that are already
+# known add nothing to the recipe book but still count as use.
+level flat
+preload 3
+watch events
+spawn_player Alice survival 4.5 -60 0.5 0 0
+spawn_player Cleo creative 12.5 -60 0.5 0 0
+tick 3
+dump packets:Alice:none packets:Cleo:none
+note two recipes unlocked
+give Alice mainhand minecraft:knowledge_book[recipes=["minecraft:furnace","minecraft:stick"]]
+use Alice
+dump inventory:Alice stats:Alice advancements:Alice events packets:Alice:recipe_book_add,recipe_book_remove,swing,container_set_slot
+tick 1
+dump inventory:Alice stats:Alice advancements:Alice events packets:Alice:recipe_book_add,recipe_book_remove,swing,container_set_slot
+note the same recipes again: nothing new to unlock
+give Alice mainhand minecraft:knowledge_book[recipes=["minecraft:furnace","minecraft:stick"]]
+use Alice
+tick 1
+dump inventory:Alice stats:Alice advancements:Alice events packets:Alice:recipe_book_add,recipe_book_remove,swing,container_set_slot
+note a book without recipes is consumed and fails
+give Alice mainhand minecraft:knowledge_book
+use Alice
+tick 1
+dump inventory:Alice stats:Alice events packets:Alice:recipe_book_add,recipe_book_remove,swing,container_set_slot
+note an unknown recipe consumes the book and fails
+give Alice mainhand minecraft:knowledge_book[recipes=["minecraft:furnace","minecraft:no_such_recipe"]]
+use Alice
+tick 1
+dump inventory:Alice stats:Alice events packets:Alice:recipe_book_add,recipe_book_remove,swing,container_set_slot
+note off hand and creative: the book stays
+give Cleo offhand minecraft:knowledge_book[recipes=["minecraft:chest","minecraft:barrel"]]
+use Cleo off
+tick 1
+dump inventory:Cleo stats:Cleo advancements:Cleo events packets:Cleo:recipe_book_add,recipe_book_remove,swing,container_set_slot
+note a book with only an unknown recipe
+give Cleo offhand minecraft:knowledge_book[recipes=["minecraft:no_such_recipe"]]
+use Cleo off
+tick 1
+dump inventory:Cleo stats:Cleo events packets:Cleo:recipe_book_add,recipe_book_remove,swing,container_set_slot

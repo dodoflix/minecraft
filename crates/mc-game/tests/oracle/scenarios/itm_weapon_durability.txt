@@ -1,0 +1,90 @@
+# ItemStack.postHurtEnemy: a weapon component wears the item once the attack landed by its damage per attack (1 for swords and the like, 2 for
+# axes, pickaxes, shovels and hoes); items without the component do not wear; unbreakable items keep their durability and a weapon with
+# no durability left breaks (break event, broken statistic). The cow has no AI and plenty of health, Alice attacks it with a full cooldown.
+level flat
+preload 3
+level_seed 7
+spawn_player Alice survival 4.5 -60 0.5 0 0
+spawn Cow minecraft:cow 4.5 -60 2.0 0 0 {NoAI:1b}
+attribute Cow minecraft:max_health 1000
+set Cow health 1000
+tick 3
+dump packets:Alice:none
+note sword (weapon component, one point)
+give Alice mainhand minecraft:iron_sword
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note axe (two points)
+give Alice mainhand minecraft:iron_axe
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note pickaxe (two points)
+give Alice mainhand minecraft:iron_pickaxe
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note shovel (two points)
+give Alice mainhand minecraft:iron_shovel
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note hoe (two points)
+give Alice mainhand minecraft:iron_hoe
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note trident
+give Alice mainhand minecraft:trident
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note mace
+give Alice mainhand minecraft:mace
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note spear
+give Alice mainhand minecraft:iron_spear
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note shears: no weapon component
+give Alice mainhand minecraft:shears
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note stick: no weapon component
+give Alice mainhand minecraft:stick
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note unbreakable sword
+give Alice mainhand minecraft:iron_sword[unbreakable={}]
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note the last point of durability breaks the sword
+give Alice mainhand minecraft:iron_sword[damage=249]
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot
+note an axe with one point left breaks
+give Alice mainhand minecraft:iron_axe[damage=249]
+tick 30
+dump packets:Alice:none
+attack Alice Cow
+dump inventory:Alice stats:Alice entity:Cow packets:Alice:entity_event,sound,container_set_slot

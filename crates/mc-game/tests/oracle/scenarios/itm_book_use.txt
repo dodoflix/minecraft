@@ -1,0 +1,31 @@
+# WritableBookItem.use / WrittenBookItem.use: openItemGui (open book packet for the hand, written books first resolve their
+# components against the player) and the item-used statistic; the stack is untouched.
+level flat
+command_env
+preload 3
+watch events
+spawn_player Alice survival 4.5 -60 0.5 0 0
+spawn_player Bob survival 8.5 -60 0.5 0 0
+tick 3
+dump packets:Alice:none packets:Bob:none
+note writable book, main hand
+give Alice mainhand minecraft:writable_book[writable_book_content={pages:[{raw:"first"},{raw:"second"}]}]
+use Alice
+tick 1
+dump inventory:Alice stats:Alice events packets:Alice:open_book,swing,container_set_slot
+note writable book, off hand
+give Alice offhand minecraft:writable_book
+give Alice mainhand minecraft:stick
+use Alice off
+tick 1
+dump inventory:Alice stats:Alice events packets:Alice:open_book,swing,container_set_slot
+note written book
+give Bob mainhand minecraft:written_book[written_book_content={title:"Title",author:"Bob",pages:[{raw:"plain page"}]}]
+use Bob
+tick 1
+dump inventory:Bob stats:Bob events packets:Bob:open_book,swing,container_set_slot
+note a written book with a selector is resolved against the reader when it is opened
+give Bob mainhand minecraft:written_book[written_book_content={title:"Sel",author:"Bob",pages:[{raw:{selector:"@s"}},{raw:{text:"two"}}]}]
+use Bob
+tick 1
+dump inventory:Bob stats:Bob events packets:Bob:open_book,swing,container_set_slot,container_set_content

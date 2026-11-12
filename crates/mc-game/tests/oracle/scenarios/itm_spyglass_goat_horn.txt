@@ -1,0 +1,62 @@
+# SpyglassItem.use: the use sound for everybody but the user (Player.playSound), item-used statistic, the item is used for 1200 ticks and
+# releasing or finishing plays the stop sound. InstrumentItem.use: the instrument sound at record volume (range / 16) for everybody but the
+# user, an instrument-play game event, a use cooldown of the instrument's duration that refuses a second use, the item-used statistic; the
+# horn is in use for its duration. Alice survives, Cleo is creative, Bob only listens.
+level flat
+preload 3
+watch events
+level_seed 5
+spawn_player Alice survival 4.5 -60 0.5 0 0
+spawn_player Bob survival 8.5 -60 0.5 0 0
+spawn_player Cleo creative 12.5 -60 0.5 0 0
+give Alice mainhand minecraft:spyglass
+give Cleo offhand minecraft:spyglass
+give Bob mainhand minecraft:goat_horn
+tick 3
+dump packets:Alice:none packets:Bob:none packets:Cleo:none
+note spyglass in the main hand
+use Alice
+dump use:Alice stats:Alice events packets:Alice:sound,sound_entity,swing,container_set_slot packets:Bob:sound,sound_entity
+tick 5
+dump use:Alice events packets:Alice:sound,sound_entity,swing,container_set_slot packets:Bob:sound,sound_entity
+note releasing plays the stop sound and ends the use
+release Alice
+dump use:Alice events packets:Alice:sound,sound_entity,swing,container_set_slot packets:Bob:sound,sound_entity
+note off hand, creative
+use Cleo off
+tick 1
+dump use:Cleo stats:Cleo events packets:Cleo:sound,sound_entity,swing,container_set_slot packets:Bob:sound,sound_entity
+release Cleo
+dump use:Cleo events packets:Cleo:sound,sound_entity packets:Bob:sound,sound_entity
+note the spyglass is finished after 1200 ticks and plays the stop sound
+use Alice
+tick 1199
+dump use:Alice events packets:Alice:sound,sound_entity packets:Bob:sound,sound_entity
+tick 1
+dump use:Alice events packets:Alice:sound,sound_entity packets:Bob:sound,sound_entity
+tick 1
+dump use:Alice events packets:Alice:sound,sound_entity packets:Bob:sound,sound_entity
+note goat horn: sound and cooldown, the second use is refused, stat
+use Bob
+dump use:Bob cooldowns:Bob stats:Bob events packets:Alice:sound,sound_entity packets:Bob:sound,sound_entity,cooldown,swing,container_set_slot
+tick 1
+use Bob
+tick 1
+dump use:Bob cooldowns:Bob stats:Bob events packets:Alice:sound,sound_entity packets:Bob:sound,sound_entity,cooldown,swing,container_set_slot
+note held for the 7 seconds of the horn
+tick 136
+dump use:Bob cooldowns:Bob events packets:Bob:sound,sound_entity,cooldown,swing,container_set_slot
+tick 1
+dump use:Bob cooldowns:Bob events packets:Bob:sound,sound_entity,cooldown,swing,container_set_slot
+tick 1
+dump use:Bob cooldowns:Bob events packets:Bob:sound,sound_entity,cooldown,swing,container_set_slot
+note after the cooldown the horn sounds again and releasing it early ends the use
+use Bob
+tick 10
+release Bob
+dump use:Bob cooldowns:Bob stats:Bob events packets:Alice:sound,sound_entity packets:Bob:sound,sound_entity,cooldown,swing,container_set_slot
+note a creative player blows the horn from the off hand
+give Cleo offhand minecraft:goat_horn
+use Cleo off
+tick 1
+dump use:Cleo cooldowns:Cleo stats:Cleo events packets:Bob:sound,sound_entity packets:Cleo:sound,sound_entity,cooldown,swing,container_set_slot

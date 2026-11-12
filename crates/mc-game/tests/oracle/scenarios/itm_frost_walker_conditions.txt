@@ -1,0 +1,40 @@
+# Frost walker conditions: level two walks over a pond as well (radius 4); no ice for a player without the boots (Cleo), for one that is not on the ground (Dora was spawned in the air)
+# and where something stands above the water (Eve's pond is half covered by a slab). Three steps each, then the ice of Eve's pond is
+# dumped again after a few ticks.
+level flat
+preload 5
+time 6000
+level_seed 3
+spawn_player Bob survival 32.5 -60 12.5 0 0
+spawn_player Cleo survival 52.5 -60 12.5 0 0
+spawn_player Dora survival 72.5 -55 12.5 0 0
+spawn_player Eve survival 92.5 -60 12.5 0 0
+give Bob feet minecraft:diamond_boots[enchantments={"minecraft:frost_walker":2}]
+give Cleo feet minecraft:diamond_boots
+give Dora feet minecraft:diamond_boots[enchantments={"minecraft:frost_walker":1}]
+give Eve feet minecraft:diamond_boots[enchantments={"minecraft:frost_walker":2}]
+fill 24 -61 4 40 -61 20 minecraft:water[level=0]
+fill 44 -61 4 60 -61 20 minecraft:water[level=0]
+fill 64 -61 4 80 -61 20 minecraft:water[level=0]
+fill 84 -61 4 100 -61 20 minecraft:water[level=0]
+fill 90 -59 10 94 -59 14 minecraft:stone_slab[type=bottom]
+tick 3
+dump packets:Cleo:none
+snap Bob 33.5 -60 12.5
+snap Cleo 53.5 -60 12.5
+snap Dora 73.5 -60 12.5
+snap Eve 93.5 -60 12.5
+tick 1
+snap Bob 35.5 -60 12.5
+snap Cleo 55.5 -60 12.5
+snap Dora 75.5 -60 12.5
+snap Eve 95.5 -60 12.5
+tick 1
+snap Bob 35.5 -60 15.5
+snap Cleo 55.5 -60 15.5
+snap Dora 75.5 -60 15.5
+snap Eve 95.5 -60 15.5
+tick 1
+dump blocks:27,-61,8,37,-61,18 blocks:47,-61,8,57,-61,18 blocks:67,-61,8,77,-61,18 blocks:87,-61,8,97,-61,18
+tick 5
+dump blocks:87,-61,8,97,-61,18

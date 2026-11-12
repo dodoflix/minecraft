@@ -1,0 +1,81 @@
+# DebugStickItem: only an operator in creative mode may use it (canUseGameMasterBlocks); a block without properties reports an empty
+# state. Using a block cycles the selected property (the first property of the block's state definition until one is selected), hitting
+# it selects the next property, the sneaking player goes backwards. The selection is remembered per block in the item's component.
+level flat
+preload 3
+watch events
+spawn_player Op creative 4.5 -60 0.5 0 0
+spawn_player Plain creative 20.5 -60 0.5 0 0
+spawn_player Survivor survival 30.5 -60 0.5 0 0
+op Op
+op Survivor
+give Op mainhand minecraft:debug_stick
+give Plain mainhand minecraft:debug_stick
+give Survivor mainhand minecraft:debug_stick
+block 4 -60 4 minecraft:oak_stairs[facing=north]
+block 6 -60 4 minecraft:repeater[facing=east]
+block 8 -60 4 minecraft:stone
+block 2 -60 4 minecraft:redstone_wire
+block 0 -60 4 minecraft:oak_fence
+block 20 -60 4 minecraft:oak_stairs[facing=north]
+block 30 -60 4 minecraft:oak_stairs[facing=north]
+tick 3
+dump packets:Op:none packets:Plain:none packets:Survivor:none
+note stairs: cycle the first property three times, then select the next property and cycle it
+use_on Op 4 -60 4 north main
+use_on Op 4 -60 4 north main
+use_on Op 4 -60 4 north main
+tick 1
+dump blocks:4,-60,4,4,-60,4 inventory:Op packets:Op:system_chat,container_set_slot,block_update,swing events
+dig Op 4 -60 4 2
+tick 1
+dump blocks:4,-60,4,4,-60,4 packets:Op:system_chat,container_set_slot,block_update events
+use_on Op 4 -60 4 north main
+use_on Op 4 -60 4 north main
+tick 1
+dump blocks:4,-60,4,4,-60,4 packets:Op:system_chat,container_set_slot,block_update events
+dig Op 4 -60 4 2
+dig Op 4 -60 4 2
+dig Op 4 -60 4 2
+dig Op 4 -60 4 2
+tick 1
+dump blocks:4,-60,4,4,-60,4 packets:Op:system_chat,container_set_slot,block_update events
+note sneaking goes back
+input Op sneak
+dig Op 4 -60 4 2
+use_on Op 4 -60 4 north main
+use_on Op 4 -60 4 north main
+tick 1
+dump blocks:4,-60,4,4,-60,4 packets:Op:system_chat,container_set_slot,block_update events
+input Op none
+note another block keeps its own selection
+use_on Op 6 -60 4 north main
+dig Op 6 -60 4 2
+use_on Op 6 -60 4 north main
+use_on Op 4 -60 4 north main
+tick 1
+dump blocks:4,-60,4,6,-60,4 packets:Op:system_chat,container_set_slot,block_update events
+note a block without properties
+use_on Op 8 -60 4 north main
+dig Op 8 -60 4 2
+tick 1
+dump blocks:8,-60,4,8,-60,4 packets:Op:system_chat,container_set_slot,block_update events
+note redstone wire and a fence (many properties in definition order)
+use_on Op 2 -60 4 north main
+use_on Op 2 -60 4 north main
+dig Op 2 -60 4 2
+use_on Op 2 -60 4 north main
+dig Op 2 -60 4 2
+dig Op 2 -60 4 2
+use_on Op 2 -60 4 north main
+use_on Op 0 -60 4 north main
+dig Op 0 -60 4 2
+use_on Op 0 -60 4 north main
+tick 1
+dump blocks:0,-60,4,2,-60,4 packets:Op:system_chat,container_set_slot,block_update events
+note not an operator, or operator without creative mode: nothing happens
+use_on Plain 20 -60 4 north main
+dig Plain 20 -60 4 2
+use_on Survivor 30 -60 4 north main
+tick 1
+dump blocks:20,-60,4,20,-60,4 blocks:30,-60,4,30,-60,4 inventory:Plain inventory:Survivor packets:Plain:system_chat,container_set_slot,block_update packets:Survivor:system_chat,container_set_slot,block_update events

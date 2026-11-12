@@ -1,0 +1,49 @@
+# Frost walker (replace_disk on every block change of a player that stands on the ground and has no vehicle): the water below the
+# feet becomes frosted ice inside a disk of radius 3 (level one) or 4 (level two) where air is above, then each frosted ice block ages and
+# melts back through its scheduled ticks and random draws. Alice (level 1) walks over a pond and stays there.
+level flat
+preload 5
+time 6000
+level_seed 3
+spawn_player Alice survival 12.5 -60 12.5 0 0
+give Alice feet minecraft:diamond_boots[enchantments={"minecraft:frost_walker":1}]
+fill 4 -61 4 20 -61 20 minecraft:water[level=0]
+tick 3
+dump packets:Alice:none
+note the first step: the block position changed from the spawn position
+snap Alice 13.5 -60 12.5
+tick 1
+dump blocks:7,-61,8,17,-61,18
+dump ticks:7,-61,8,17,-61,18
+note walking on: two more steps
+snap Alice 15.5 -60 12.5
+tick 1
+snap Alice 15.5 -60 15.5
+tick 1
+dump blocks:7,-61,8,17,-61,18
+dump ticks:7,-61,8,17,-61,18
+note the players stay: the ice ages and melts
+tick 40
+dump blocks:7,-61,8,17,-61,18 events
+tick 40
+dump blocks:7,-61,8,17,-61,18 events
+tick 40
+dump blocks:7,-61,8,17,-61,18 events
+tick 40
+dump blocks:7,-61,8,17,-61,18 events
+tick 40
+dump blocks:7,-61,8,17,-61,18 events
+tick 40
+dump blocks:7,-61,8,17,-61,18 events
+tick 60
+dump blocks:7,-61,8,17,-61,18
+tick 60
+dump blocks:7,-61,8,17,-61,18
+tick 60
+dump blocks:7,-61,8,17,-61,18
+tick 60
+dump blocks:7,-61,8,17,-61,18
+tick 60
+dump blocks:7,-61,8,17,-61,18
+tick 60
+dump blocks:7,-61,8,17,-61,18

@@ -1,0 +1,1467 @@
+# sword on stone costs two
+DIG Alice ticks=151 broken=true
+I Alice 0 minecraft:iron_sword*1/dmg=2
+STAT Alice minecraft.custom:minecraft.play_time 155
+STAT Alice minecraft.custom:minecraft.time_since_death 155
+STAT Alice minecraft.custom:minecraft.time_since_rest 155
+STAT Alice minecraft.custom:minecraft.total_world_time 155
+STAT Alice minecraft.used:minecraft.iron_sword 1
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.4000000953674316/add_value]
+PKT Alice minecraft:container_set_slot 140003002401950801000302
+# sword on cobweb
+DIG Alice ticks=8 broken=true
+I Alice 0 minecraft:iron_sword*1/dmg=2
+STAT Alice minecraft.custom:minecraft.play_time 164
+STAT Alice minecraft.custom:minecraft.time_since_death 164
+STAT Alice minecraft.custom:minecraft.time_since_rest 164
+STAT Alice minecraft.custom:minecraft.total_world_time 164
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.used:minecraft.iron_sword 2
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.4000000953674316/add_value]
+PKT Alice minecraft:container_set_slot 140005002401950801000302
+# pickaxe on stone
+DIG Alice ticks=8 broken=true
+I Alice 0 minecraft:iron_pickaxe*1/dmg=1
+STAT Alice minecraft.custom:minecraft.play_time 173
+STAT Alice minecraft.custom:minecraft.time_since_death 173
+STAT Alice minecraft.custom:minecraft.time_since_rest 173
+STAT Alice minecraft.custom:minecraft.total_world_time 173
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 1
+STAT Alice minecraft.used:minecraft.iron_sword 2
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.799999952316284/add_value]
+PKT Alice minecraft:container_set_slot 140007002401970801000301
+# pickaxe on dirt (not its tool, still worn)
+DIG Alice ticks=15 broken=true
+I Alice 0 minecraft:iron_pickaxe*1/dmg=1
+STAT Alice minecraft.custom:minecraft.play_time 189
+STAT Alice minecraft.custom:minecraft.time_since_death 189
+STAT Alice minecraft.custom:minecraft.time_since_rest 189
+STAT Alice minecraft.custom:minecraft.total_world_time 189
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 1
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 2
+STAT Alice minecraft.used:minecraft.iron_sword 2
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.799999952316284/add_value]
+PKT Alice minecraft:container_set_slot 140009002401970801000301
+# axe on a log
+DIG Alice ticks=10 broken=true
+I Alice 0 minecraft:iron_axe*1/dmg=1
+STAT Alice minecraft.custom:minecraft.play_time 200
+STAT Alice minecraft.custom:minecraft.time_since_death 200
+STAT Alice minecraft.custom:minecraft.time_since_rest 200
+STAT Alice minecraft.custom:minecraft.total_world_time 200
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 2
+STAT Alice minecraft.used:minecraft.iron_sword 2
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0999999046325684/add_value]
+PKT Alice minecraft:container_set_slot 14000b002401980801000301
+# shovel on dirt
+DIG Alice ticks=3 broken=true
+I Alice 0 minecraft:iron_shovel*1/dmg=1
+STAT Alice minecraft.custom:minecraft.play_time 204
+STAT Alice minecraft.custom:minecraft.time_since_death 204
+STAT Alice minecraft.custom:minecraft.time_since_rest 204
+STAT Alice minecraft.custom:minecraft.total_world_time 204
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 2
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 2
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 2
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.0/add_value]
+PKT Alice minecraft:container_set_slot 14000d002401960801000301
+# hoe on hay
+DIG Alice ticks=3 broken=true
+I Alice 0 minecraft:iron_hoe*1/dmg=1
+I Alice 1 minecraft:dirt*1
+STAT Alice minecraft.custom:minecraft.play_time 208
+STAT Alice minecraft.custom:minecraft.time_since_death 208
+STAT Alice minecraft.custom:minecraft.time_since_rest 208
+STAT Alice minecraft.custom:minecraft.total_world_time 208
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 2
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 2
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 2
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-1.0/add_value]
+PKT Alice minecraft:container_set_slot 14000f002501370000
+PKT Alice minecraft:container_set_slot 140010002401990801000301
+# shears on leaves
+DIG Alice ticks=1 broken=true
+I Alice 0 minecraft:shears*1/dmg=1
+I Alice 1 minecraft:dirt*1
+STAT Alice minecraft.custom:minecraft.play_time 210
+STAT Alice minecraft.custom:minecraft.time_since_death 210
+STAT Alice minecraft.custom:minecraft.time_since_rest 210
+STAT Alice minecraft.custom:minecraft.total_world_time 210
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 2
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 2
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 2
+STAT Alice minecraft.used:minecraft.shears 1
+PKT Alice minecraft:container_set_slot 140012002401e70901000301
+# shears on wool
+DIG Alice ticks=5 broken=true
+I Alice 0 minecraft:shears*1/dmg=1
+I Alice 1 minecraft:dirt*1
+STAT Alice minecraft.custom:minecraft.play_time 216
+STAT Alice minecraft.custom:minecraft.time_since_death 216
+STAT Alice minecraft.custom:minecraft.time_since_rest 216
+STAT Alice minecraft.custom:minecraft.total_world_time 216
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 2
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 2
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 2
+STAT Alice minecraft.used:minecraft.shears 2
+PKT Alice minecraft:container_set_slot 140014002401e70901000301
+# a block that breaks at once does not wear the tool
+DIG Alice ticks=1 broken=true
+I Alice 0 minecraft:iron_pickaxe*1
+I Alice 1 minecraft:dirt*1
+STAT Alice minecraft.custom:minecraft.play_time 218
+STAT Alice minecraft.custom:minecraft.time_since_death 218
+STAT Alice minecraft.custom:minecraft.time_since_rest 218
+STAT Alice minecraft.custom:minecraft.total_world_time 218
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 2
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 1
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 3
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 2
+STAT Alice minecraft.used:minecraft.shears 2
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=2362 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=10 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=140 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=10 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=14741 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=292 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=2409 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=2363 global=0
+# sword on a block that breaks at once
+DIG Alice ticks=1 broken=true
+I Alice 0 minecraft:iron_sword*1
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+STAT Alice minecraft.custom:minecraft.play_time 220
+STAT Alice minecraft.custom:minecraft.time_since_death 220
+STAT Alice minecraft.custom:minecraft.time_since_rest 220
+STAT Alice minecraft.custom:minecraft.total_world_time 220
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 2
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 3
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 3
+STAT Alice minecraft.used:minecraft.shears 2
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=2363 global=0
+# spear on stone (no tool component)
+DIG Alice ticks=151 broken=true
+I Alice 0 minecraft:iron_spear*1
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+STAT Alice minecraft.custom:minecraft.play_time 372
+STAT Alice minecraft.custom:minecraft.time_since_death 372
+STAT Alice minecraft.custom:minecraft.time_since_rest 372
+STAT Alice minecraft.custom:minecraft.total_world_time 372
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 2
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 3
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 3
+STAT Alice minecraft.used:minecraft.shears 2
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.9473683834075928/add_value]
+# mace on stone
+DIG Alice ticks=151 broken=true
+I Alice 0 minecraft:mace*1/dmg=2
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+STAT Alice minecraft.custom:minecraft.play_time 524
+STAT Alice minecraft.custom:minecraft.time_since_death 524
+STAT Alice minecraft.custom:minecraft.time_since_rest 524
+STAT Alice minecraft.custom:minecraft.total_world_time 524
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 2
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 3
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 3
+STAT Alice minecraft.used:minecraft.mace 1
+STAT Alice minecraft.used:minecraft.shears 2
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-3.4000000953674316/add_value]
+PKT Alice minecraft:container_set_slot 14001a002401de0a01000302
+# trident on stone
+DIG Alice ticks=151 broken=true
+I Alice 0 minecraft:trident*1/dmg=2
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+STAT Alice minecraft.custom:minecraft.play_time 676
+STAT Alice minecraft.custom:minecraft.time_since_death 676
+STAT Alice minecraft.custom:minecraft.time_since_rest 676
+STAT Alice minecraft.custom:minecraft.total_world_time 676
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 2
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 3
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 3
+STAT Alice minecraft.used:minecraft.mace 1
+STAT Alice minecraft.used:minecraft.shears 2
+STAT Alice minecraft.used:minecraft.trident 1
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.9000000953674316/add_value]
+PKT Alice minecraft:container_set_slot 14001c002401cb0b01000302
+# stick on dirt: not a tool (no tool component)
+DIG Alice ticks=15 broken=true
+I Alice 0 minecraft:stick*1
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+STAT Alice minecraft.custom:minecraft.play_time 692
+STAT Alice minecraft.custom:minecraft.time_since_death 692
+STAT Alice minecraft.custom:minecraft.time_since_rest 692
+STAT Alice minecraft.custom:minecraft.total_world_time 692
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 3
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 1
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 3
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 3
+STAT Alice minecraft.used:minecraft.mace 1
+STAT Alice minecraft.used:minecraft.shears 2
+STAT Alice minecraft.used:minecraft.trident 1
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[]
+# unbreakable
+DIG Alice ticks=8 broken=true
+I Alice 0 minecraft:iron_pickaxe*1
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+STAT Alice minecraft.custom:minecraft.play_time 701
+STAT Alice minecraft.custom:minecraft.time_since_death 701
+STAT Alice minecraft.custom:minecraft.time_since_rest 701
+STAT Alice minecraft.custom:minecraft.total_world_time 701
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 3
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 2
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 4
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 3
+STAT Alice minecraft.used:minecraft.mace 1
+STAT Alice minecraft.used:minecraft.shears 2
+STAT Alice minecraft.used:minecraft.trident 1
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.799999952316284/add_value]
+# unbreaking III
+DIG Alice ticks=8 broken=true
+I Alice 0 minecraft:iron_pickaxe*1
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+I Alice 3 minecraft:cobblestone*1
+STAT Alice minecraft.custom:minecraft.play_time 710
+STAT Alice minecraft.custom:minecraft.time_since_death 710
+STAT Alice minecraft.custom:minecraft.time_since_rest 710
+STAT Alice minecraft.custom:minecraft.total_world_time 710
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 3
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 3
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.cobblestone 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 5
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 3
+STAT Alice minecraft.used:minecraft.mace 1
+STAT Alice minecraft.used:minecraft.shears 2
+STAT Alice minecraft.used:minecraft.trident 1
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.799999952316284/add_value]
+PKT Alice minecraft:container_set_slot 1400200027013e0000
+# the last point of durability breaks the tool
+DIG Alice ticks=8 broken=true
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+I Alice 3 minecraft:cobblestone*1
+STAT Alice minecraft.broken:minecraft.iron_pickaxe 1
+STAT Alice minecraft.custom:minecraft.play_time 719
+STAT Alice minecraft.custom:minecraft.time_since_death 719
+STAT Alice minecraft.custom:minecraft.time_since_rest 719
+STAT Alice minecraft.custom:minecraft.total_world_time 719
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 3
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 4
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.cobblestone 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 6
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 3
+STAT Alice minecraft.used:minecraft.mace 1
+STAT Alice minecraft.used:minecraft.shears 2
+STAT Alice minecraft.used:minecraft.trident 1
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=10 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.799999952316284/add_value]
+PKT Alice minecraft:entity_event 22000000012f
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[]
+PKT Alice minecraft:container_set_slot 140022002400
+# two points left, a sword needs two
+DIG Alice ticks=151 broken=true
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+I Alice 3 minecraft:cobblestone*1
+STAT Alice minecraft.broken:minecraft.iron_pickaxe 1
+STAT Alice minecraft.broken:minecraft.iron_sword 1
+STAT Alice minecraft.custom:minecraft.play_time 871
+STAT Alice minecraft.custom:minecraft.time_since_death 871
+STAT Alice minecraft.custom:minecraft.time_since_rest 871
+STAT Alice minecraft.custom:minecraft.total_world_time 871
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 3
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 4
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.cobblestone 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 6
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 4
+STAT Alice minecraft.used:minecraft.mace 1
+STAT Alice minecraft.used:minecraft.shears 2
+STAT Alice minecraft.used:minecraft.trident 1
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.4000000953674316/add_value]
+PKT Alice minecraft:entity_event 22000000012f
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[]
+PKT Alice minecraft:container_set_slot 140024002400
+# one point left, a sword needs two: it still breaks
+DIG Alice ticks=151 broken=true
+I Alice 1 minecraft:dirt*1
+I Alice 2 minecraft:oak_leaves*1
+I Alice 3 minecraft:cobblestone*1
+STAT Alice minecraft.broken:minecraft.iron_pickaxe 1
+STAT Alice minecraft.broken:minecraft.iron_sword 2
+STAT Alice minecraft.custom:minecraft.play_time 1023
+STAT Alice minecraft.custom:minecraft.time_since_death 1023
+STAT Alice minecraft.custom:minecraft.time_since_rest 1023
+STAT Alice minecraft.custom:minecraft.total_world_time 1023
+STAT Alice minecraft.mined:minecraft.cobweb 1
+STAT Alice minecraft.mined:minecraft.dirt 3
+STAT Alice minecraft.mined:minecraft.hay_block 1
+STAT Alice minecraft.mined:minecraft.oak_leaves 1
+STAT Alice minecraft.mined:minecraft.oak_log 1
+STAT Alice minecraft.mined:minecraft.short_grass 2
+STAT Alice minecraft.mined:minecraft.stone 4
+STAT Alice minecraft.mined:minecraft.white_wool 1
+STAT Alice minecraft.picked_up:minecraft.cobblestone 1
+STAT Alice minecraft.picked_up:minecraft.dirt 1
+STAT Alice minecraft.picked_up:minecraft.oak_leaves 1
+STAT Alice minecraft.used:minecraft.iron_axe 1
+STAT Alice minecraft.used:minecraft.iron_hoe 1
+STAT Alice minecraft.used:minecraft.iron_pickaxe 6
+STAT Alice minecraft.used:minecraft.iron_shovel 1
+STAT Alice minecraft.used:minecraft.iron_sword 5
+STAT Alice minecraft.used:minecraft.mace 1
+STAT Alice minecraft.used:minecraft.shears 2
+STAT Alice minecraft.used:minecraft.trident 1
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=4,-60,3 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=4,-60,3 data=1 global=0
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[minecraft:base_attack_speed/-2.4000000953674316/add_value]
+PKT Alice minecraft:entity_event 22000000012f
+PKT Alice minecraft:update_attributes entity=1;minecraft:attack_speed=4.0[]
+PKT Alice minecraft:container_set_slot 140026002400

@@ -1,0 +1,43 @@
+T 1
+T 2
+T 3
+# writable book, main hand
+T 4
+I Alice 0 minecraft:writable_book*1
+STAT Alice minecraft.custom:minecraft.play_time 4
+STAT Alice minecraft.custom:minecraft.time_since_death 4
+STAT Alice minecraft.custom:minecraft.time_since_rest 4
+STAT Alice minecraft.custom:minecraft.total_world_time 4
+STAT Alice minecraft.used:minecraft.writable_book 1
+PKT Alice minecraft:container_set_slot 140002002401db0a0100380205666972737400067365636f6e6400
+# writable book, off hand
+T 5
+I Alice 0 minecraft:stick*1
+I Alice 40 minecraft:writable_book*1
+STAT Alice minecraft.custom:minecraft.play_time 5
+STAT Alice minecraft.custom:minecraft.time_since_death 5
+STAT Alice minecraft.custom:minecraft.time_since_rest 5
+STAT Alice minecraft.custom:minecraft.total_world_time 5
+STAT Alice minecraft.used:minecraft.writable_book 2
+PKT Alice minecraft:container_set_slot 140003002401a4080000
+PKT Alice minecraft:container_set_slot 140004002d01db0a0000
+# written book
+T 6
+I Bob 0 minecraft:written_book*1
+STAT Bob minecraft.custom:minecraft.play_time 6
+STAT Bob minecraft.custom:minecraft.time_since_death 6
+STAT Bob minecraft.custom:minecraft.time_since_rest 6
+STAT Bob minecraft.custom:minecraft.total_world_time 6
+STAT Bob minecraft.used:minecraft.written_book 1
+PKT Bob minecraft:container_set_slot 140002002401dc0a010039055469746c650003426f62000108000a706c61696e20706167650001
+PKT Bob minecraft:open_book 3b00
+# a written book with a selector is resolved against the reader when it is opened
+T 7
+I Bob 0 minecraft:written_book*1
+STAT Bob minecraft.custom:minecraft.play_time 7
+STAT Bob minecraft.custom:minecraft.time_since_death 7
+STAT Bob minecraft.custom:minecraft.time_since_rest 7
+STAT Bob minecraft.custom:minecraft.total_world_time 7
+STAT Bob minecraft.used:minecraft.written_book 2
+PKT Bob minecraft:container_set_slot 140003002401dc0a0100390353656c0003426f6200020a08000873656c6563746f7200024073000008000374776f0001
+PKT Bob minecraft:open_book 3b00

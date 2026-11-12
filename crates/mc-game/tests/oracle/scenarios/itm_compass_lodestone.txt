@@ -1,0 +1,102 @@
+# CompassItem: useOn a lodestone plays the lock sound and binds a lodestone tracker; a single compass of a survival player is
+# changed in place, a stack or a creative player's compass leaves the original and adds a lodestone compass (offhand too, or a
+# dropped item when the inventory is full); any other block gives no result. inventoryTick clears the target of a tracker whose
+# lodestone point of interest is gone (a never generated chunk included) and leaves trackers of another dimension or
+# `tracked:false` alone.
+level flat
+preload 3
+watch events
+level_seed 5
+spawn_player A survival 4.5 -60 0.5 0 0
+spawn_player C creative 20.5 -60 0.5 0 0
+spawn_player D survival 40.5 -60 0.5 0 0
+block 4 -60 4 minecraft:lodestone
+block 8 -60 4 minecraft:stone
+block 20 -60 4 minecraft:lodestone
+block 40 -60 4 minecraft:lodestone
+tick 3
+dump packets:A:none packets:C:none packets:D:none
+note a single compass is changed in place
+give A mainhand minecraft:compass
+use_on A 4 -60 4 north main
+tick 1
+dump inventory:A packets:A:container_set_slot,sound,swing events
+note a stack of three keeps two and adds a lodestone compass
+give A mainhand minecraft:compass 3
+use_on A 4 -60 4 north main
+tick 1
+dump inventory:A packets:A:container_set_slot,sound,swing events
+note not a lodestone: no result
+give A mainhand minecraft:compass
+use_on A 8 -60 4 north main
+tick 1
+dump inventory:A packets:A:container_set_slot,sound,swing events
+note off hand
+give A offhand minecraft:compass 2
+give A mainhand minecraft:stick
+use_on A 4 -60 4 north off
+tick 1
+dump inventory:A packets:A:container_set_slot,sound,swing events
+note creative: the stack stays
+give C mainhand minecraft:compass 2
+use_on C 20 -60 4 north main
+tick 1
+dump inventory:C packets:C:container_set_slot,sound,swing events
+note a survival player with a full inventory drops the lodestone compass
+give D inv0 minecraft:dirt 64
+give D inv1 minecraft:dirt 64
+give D inv2 minecraft:dirt 64
+give D inv3 minecraft:dirt 64
+give D inv4 minecraft:dirt 64
+give D inv5 minecraft:dirt 64
+give D inv6 minecraft:dirt 64
+give D inv7 minecraft:dirt 64
+give D inv8 minecraft:dirt 64
+give D inv9 minecraft:dirt 64
+give D inv10 minecraft:dirt 64
+give D inv11 minecraft:dirt 64
+give D inv12 minecraft:dirt 64
+give D inv13 minecraft:dirt 64
+give D inv14 minecraft:dirt 64
+give D inv15 minecraft:dirt 64
+give D inv16 minecraft:dirt 64
+give D inv17 minecraft:dirt 64
+give D inv18 minecraft:dirt 64
+give D inv19 minecraft:dirt 64
+give D inv20 minecraft:dirt 64
+give D inv21 minecraft:dirt 64
+give D inv22 minecraft:dirt 64
+give D inv23 minecraft:dirt 64
+give D inv24 minecraft:dirt 64
+give D inv25 minecraft:dirt 64
+give D inv26 minecraft:dirt 64
+give D inv27 minecraft:dirt 64
+give D inv28 minecraft:dirt 64
+give D inv29 minecraft:dirt 64
+give D inv30 minecraft:dirt 64
+give D inv31 minecraft:dirt 64
+give D inv32 minecraft:dirt 64
+give D inv33 minecraft:dirt 64
+give D inv34 minecraft:dirt 64
+give D inv35 minecraft:dirt 64
+give D hotbar8 minecraft:compass 2
+select D 8
+tick 1
+dump packets:D:none
+level_seed 11
+use_on D 40 -60 4 north main
+tick 1
+dump inventory:D entities packets:D:container_set_slot,sound,swing events
+note the lodestone is removed: every tracker pointing at it is cleared on the next inventory tick
+block 4 -60 4 minecraft:air
+tick 2
+dump inventory:A packets:A:container_set_slot,container_set_content events
+note a tracker that points into a chunk that was never generated is cleared too, other dimension and untracked stay
+give A hotbar3 minecraft:compass[lodestone_tracker={target:{dimension:"minecraft:overworld",pos:[I;1000,-60,1000]},tracked:true}]
+give A hotbar4 minecraft:compass[lodestone_tracker={target:{dimension:"minecraft:the_nether",pos:[I;1000,-60,1000]},tracked:true}]
+give A hotbar5 minecraft:compass[lodestone_tracker={target:{dimension:"minecraft:overworld",pos:[I;1000,-60,1000]},tracked:false}]
+give A hotbar6 minecraft:compass[lodestone_tracker={target:{dimension:"minecraft:overworld",pos:[I;8,-60,4]},tracked:true}]
+tick 1
+dump packets:A:none
+tick 2
+dump inventory:A packets:A:container_set_slot,container_set_content events
