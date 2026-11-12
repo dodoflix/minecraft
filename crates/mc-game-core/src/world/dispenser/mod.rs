@@ -21,11 +21,13 @@ use mc_core::pos::BlockPos;
 use mc_data::Item;
 use mc_data::block::BlockState;
 use mc_data::props;
+use mc_protocol::components::{ENTITY_DATA, EQUIPPABLE};
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
 mod behaviors;
 mod default_behavior;
+pub use behaviors::{dispense_block, dispense_equipment};
 pub use default_behavior::{
     DefaultDispense, OptionalState, consume_with_remainder, default_execute,
     play_default_animation, play_default_sound, play_optional_sound, spawn_item,
@@ -193,8 +195,19 @@ pub fn get_dispense_method(
     get_default_dispense_method(stack)
 }
 
-/// `DispenserBlock.getDefaultDispenseMethod(itemStack)`.
-/// Not implemented: the equipment, sulfur cube and spawn egg behaviors vanilla picks here; every stack drops as an item.
-pub fn get_default_dispense_method(_stack: &ItemStack) -> &'static dyn DispenseItemBehavior {
-    default_behavior()
+/// `DispenserBlock.getDefaultDispenseMethod(itemStack)`: by component and tag, in vanilla's order.
+pub fn get_default_dispense_method(stack: &ItemStack) -> &'static dyn DispenseItemBehavior {
+    if stack.get(&EQUIPPABLE).is_some() {
+        &behaviors::EQUIPMENT
+    } else if mc_data::tags::get::<Item>("sulfur_cube_swallowable")
+        .is_some_and(|tag| tag.contains(stack.item()))
+    {
+        &behaviors::SULFUR_CUBE
+    } else if stack.item().data().classes.contains(&"SpawnEggItem")
+        && stack.get(&ENTITY_DATA).is_some()
+    {
+        &behaviors::SPAWN_EGG
+    } else {
+        default_behavior()
+    }
 }
