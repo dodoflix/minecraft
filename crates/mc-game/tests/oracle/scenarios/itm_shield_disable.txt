@@ -1,0 +1,37 @@
+# BlocksAttacks.disable: an axe hit on a blocking player puts the shield on cooldown, stops the use and plays the disable sound; the cooldown packet
+# is sent in the same tick as the hit (ServerItemCooldowns.addCooldown), not on the next one. A sword only blocks (no cooldown).
+level flat
+preload 2
+difficulty normal
+watch events
+level_seed 5
+spawn_player V survival 0.5 -60 2.0 180 0
+entity_seed V 101
+give V offhand minecraft:shield
+spawn_player A survival 0.5 -60 0.5 0 0
+entity_seed A 102
+give A mainhand minecraft:diamond_axe
+spawn_player W survival 5.5 -60 2.0 180 0
+entity_seed W 103
+give W offhand minecraft:shield
+spawn_player B survival 5.5 -60 0.5 0 0
+entity_seed B 104
+give B mainhand minecraft:iron_sword
+tick 2
+dump packets:V:none packets:W:none
+note an axe hit disables the blocking shield at once
+use V off
+tick 40
+dump use:V cooldowns:V packets:V:none
+attack A V
+dump use:V cooldowns:V events packets:V:cooldown,entity_event,hurt_animation,damage_event,sound
+tick 1
+dump use:V cooldowns:V events packets:V:cooldown,entity_event,hurt_animation,damage_event,sound
+note a sword hit is blocked and the shield stays in use
+use W off
+tick 40
+dump packets:W:none
+attack B W
+dump use:W cooldowns:W events packets:W:cooldown,entity_event,hurt_animation,damage_event,sound
+tick 1
+dump use:W cooldowns:W events packets:W:cooldown,entity_event,hurt_animation,damage_event,sound

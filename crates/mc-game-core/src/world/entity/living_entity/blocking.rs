@@ -203,8 +203,12 @@ pub fn disable(
         0
     };
     if cooldown_ticks > 0 {
-        if let Some(player) = user.player_mut().filter(|_| true) {
-            player.cooldowns.add_cooldown(blocking_with, cooldown_ticks);
+        if let Some(player) = as_server_player(user) {
+            player
+                .player
+                .cooldowns
+                .add_cooldown(blocking_with, cooldown_ticks);
+            player.flush_item_cooldown_packets();
         }
         stop_using_item(user, level);
         if let Some(sound) = blocks_attacks

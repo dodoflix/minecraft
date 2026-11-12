@@ -47,3 +47,8 @@ fn weapons_wear_by_damage_per_attack_and_break() {
 fn frost_walker_needs_boots_ground_and_air_above() {
     common::block_scenario::check("itm_frost_walker_conditions");
 }
+
+#[test]
+fn axe_hits_disable_the_shield_and_send_its_cooldown_at_once() {
+    common::block_scenario::check("itm_shield_disable");
+}

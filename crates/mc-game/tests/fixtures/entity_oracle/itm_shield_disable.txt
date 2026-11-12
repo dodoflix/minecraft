@@ -1,0 +1,106 @@
+T 1
+T 2
+# an axe hit disables the blocking shield at once
+T 3
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+T 40
+T 41
+T 42
+USE V hand=off item=minecraft:shield*1 remaining=71960 ticks=40 kinetic=0
+USE V hand=off item=empty remaining=0 ticks=0 kinetic=0
+CD V group=minecraft:shield remaining=100
+EV sound at=0.5,-60.0,2.0 r=16.0 ex=0 event=minecraft:item.shield.break source=player vol=0.8 pitch=1.0781524
+EV sound at=0.5,-60.0,2.0 r=16.0 ex=0 event=minecraft:item.shield.block source=player vol=1.0 pitch=1.1682833
+EV sound at=0.5,-60.0,2.0 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.attack.nodamage source=player vol=1.0 pitch=1.0
+PKT V minecraft:cooldown 16106d696e6563726166743a736869656c6464
+PKT V minecraft:sound 77b50b0700000004fffffe20000000103f4ccccd3f8a00e6e32d4fcf84a7860e
+PKT V minecraft:sound 77b40b0700000004fffffe20000000103f8000003f958a4f3dace6703e05bff8
+PKT V minecraft:sound 779d0a0700000004fffffe20000000043f8000003f8000004b970fd5e0db99e1
+T 43
+USE V hand=off item=empty remaining=0 ticks=0 kinetic=0
+CD V group=minecraft:shield remaining=99
+# a sword hit is blocked and the shield stays in use
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+T 57
+T 58
+T 59
+T 60
+T 61
+T 62
+T 63
+T 64
+T 65
+T 66
+T 67
+T 68
+T 69
+T 70
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+T 83
+USE W hand=off item=minecraft:shield*1/dmg=7 remaining=71960 ticks=40 kinetic=0
+EV sound at=5.5,-60.0,2.0 r=16.0 ex=0 event=minecraft:item.shield.block source=player vol=1.0 pitch=1.0382055
+EV sound at=5.5,-60.0,2.0 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=5.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.attack.nodamage source=player vol=1.0 pitch=1.0
+PKT W minecraft:sound 77b40b070000002cfffffe20000000103f8000003f84e3ebe8168c54d2216418
+PKT W minecraft:sound 779d0a070000002cfffffe20000000043f8000003f800000a1a24ca263725fe3
+T 84
+USE W hand=off item=minecraft:shield*1/dmg=7 remaining=71959 ticks=41 kinetic=0
