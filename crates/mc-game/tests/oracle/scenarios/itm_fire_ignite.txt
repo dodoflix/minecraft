@@ -1,0 +1,462 @@
+# FlintAndSteelItem.useOn / FireChargeItem.useOn: campfires, candles and candle cakes are lit, anything else gets fire (soul fire
+# over soul sand/soil) at the clicked face when BaseFireBlock.canBePlacedAt, an empty obsidian frame becomes a portal; water, lit
+# blocks and unsupported faces fail; TNT is handled by the block. Survival, creative and adventure players.
+level flat
+preload 3
+difficulty normal
+watch events
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob creative 20.5 -60 0.5 0 0
+spawn_player Carol adventure 40.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+dump packets:Alice:none packets:Bob:none packets:Carol:none
+level_seed 17
+# Alice: survival
+give Alice mainhand minecraft:flint_and_steel
+give Alice offhand minecraft:fire_charge 16
+# unlit campfire: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:campfire[lit=false]
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# unlit campfire: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:campfire[lit=false]
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# unlit soul campfire: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:soul_campfire[lit=false]
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# unlit soul campfire: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:soul_campfire[lit=false]
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# lit campfire: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:campfire[lit=true]
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# lit campfire: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:campfire[lit=true]
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# waterlogged campfire: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:campfire[lit=false,waterlogged=true]
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# waterlogged campfire: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:campfire[lit=false,waterlogged=true]
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# unlit candle: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:candle[candles=3,lit=false]
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# unlit candle: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:candle[candles=3,lit=false]
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# waterlogged candle: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:candle[lit=false,waterlogged=true]
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# waterlogged candle: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:candle[lit=false,waterlogged=true]
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# candle cake: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:candle_cake[lit=false]
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# candle cake: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:candle_cake[lit=false]
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# lit candle cake: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:red_candle_cake[lit=true]
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# lit candle cake: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:red_candle_cake[lit=true]
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# wool top: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:white_wool
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# wool top: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:white_wool
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# wool side: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:white_wool
+use_on Alice 0 -60 3 east
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# wool side: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:white_wool
+use_on Alice 0 -60 3 east off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# ground top: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+use_on Alice 0 -61 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# ground top: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+use_on Alice 0 -61 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# soul sand: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -61 3 minecraft:soul_sand
+use_on Alice 0 -61 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# soul sand: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -61 3 minecraft:soul_sand
+use_on Alice 0 -61 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# water surface: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -61 3 minecraft:water
+use_on Alice 0 -61 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# water surface: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -61 3 minecraft:water
+use_on Alice 0 -61 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# obsidian: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:obsidian
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# obsidian: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:obsidian
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# tnt: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:tnt
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# tnt: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+block 0 -60 3 minecraft:tnt
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# portal frame: flint and steel
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+fill -1 -60 3 2 -56 3 minecraft:obsidian
+fill 0 -59 3 1 -57 3 minecraft:air
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# portal frame: fire charge
+fill -3 -60 2 3 -54 4 minecraft:air
+fill -3 -61 2 3 -61 4 minecraft:grass_block
+fill -1 -60 3 2 -56 3 minecraft:obsidian
+fill 0 -59 3 1 -57 3 minecraft:air
+use_on Alice 0 -60 3 up off
+dump blocks:-3,-61,2,3,-54,4 ticks:-3,-61,2,3,-54,4 events inventory:Alice
+# Bob: creative
+give Bob mainhand minecraft:flint_and_steel
+give Bob offhand minecraft:fire_charge 16
+# unlit campfire: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:campfire[lit=false]
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# unlit campfire: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:campfire[lit=false]
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# unlit soul campfire: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:soul_campfire[lit=false]
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# unlit soul campfire: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:soul_campfire[lit=false]
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# lit campfire: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:campfire[lit=true]
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# lit campfire: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:campfire[lit=true]
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# waterlogged campfire: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:campfire[lit=false,waterlogged=true]
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# waterlogged campfire: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:campfire[lit=false,waterlogged=true]
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# unlit candle: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:candle[candles=3,lit=false]
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# unlit candle: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:candle[candles=3,lit=false]
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# waterlogged candle: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:candle[lit=false,waterlogged=true]
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# waterlogged candle: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:candle[lit=false,waterlogged=true]
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# candle cake: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:candle_cake[lit=false]
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# candle cake: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:candle_cake[lit=false]
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# lit candle cake: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:red_candle_cake[lit=true]
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# lit candle cake: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:red_candle_cake[lit=true]
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# wool top: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:white_wool
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# wool top: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:white_wool
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# wool side: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:white_wool
+use_on Bob 20 -60 3 east
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# wool side: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:white_wool
+use_on Bob 20 -60 3 east off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# ground top: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+use_on Bob 20 -61 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# ground top: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+use_on Bob 20 -61 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# soul sand: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -61 3 minecraft:soul_sand
+use_on Bob 20 -61 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# soul sand: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -61 3 minecraft:soul_sand
+use_on Bob 20 -61 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# water surface: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -61 3 minecraft:water
+use_on Bob 20 -61 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# water surface: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -61 3 minecraft:water
+use_on Bob 20 -61 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# obsidian: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:obsidian
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# obsidian: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:obsidian
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# tnt: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:tnt
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# tnt: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+block 20 -60 3 minecraft:tnt
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# portal frame: flint and steel
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+fill 19 -60 3 22 -56 3 minecraft:obsidian
+fill 20 -59 3 21 -57 3 minecraft:air
+use_on Bob 20 -60 3 up
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# portal frame: fire charge
+fill 17 -60 2 23 -54 4 minecraft:air
+fill 17 -61 2 23 -61 4 minecraft:grass_block
+fill 19 -60 3 22 -56 3 minecraft:obsidian
+fill 20 -59 3 21 -57 3 minecraft:air
+use_on Bob 20 -60 3 up off
+dump blocks:17,-61,2,23,-54,4 ticks:17,-61,2,23,-54,4 events inventory:Bob
+# Carol: adventure
+give Carol mainhand minecraft:flint_and_steel
+give Carol offhand minecraft:fire_charge 16
+# unlit campfire: flint and steel
+fill 37 -60 2 43 -54 4 minecraft:air
+fill 37 -61 2 43 -61 4 minecraft:grass_block
+block 40 -60 3 minecraft:campfire[lit=false]
+use_on Carol 40 -60 3 up
+dump blocks:37,-61,2,43,-54,4 ticks:37,-61,2,43,-54,4 events inventory:Carol
+# unlit campfire: fire charge
+fill 37 -60 2 43 -54 4 minecraft:air
+fill 37 -61 2 43 -61 4 minecraft:grass_block
+block 40 -60 3 minecraft:campfire[lit=false]
+use_on Carol 40 -60 3 up off
+dump blocks:37,-61,2,43,-54,4 ticks:37,-61,2,43,-54,4 events inventory:Carol
+# wool side: flint and steel
+fill 37 -60 2 43 -54 4 minecraft:air
+fill 37 -61 2 43 -61 4 minecraft:grass_block
+block 40 -60 3 minecraft:white_wool
+use_on Carol 40 -60 3 east
+dump blocks:37,-61,2,43,-54,4 ticks:37,-61,2,43,-54,4 events inventory:Carol
+# wool side: fire charge
+fill 37 -60 2 43 -54 4 minecraft:air
+fill 37 -61 2 43 -61 4 minecraft:grass_block
+block 40 -60 3 minecraft:white_wool
+use_on Carol 40 -60 3 east off
+dump blocks:37,-61,2,43,-54,4 ticks:37,-61,2,43,-54,4 events inventory:Carol
+# tnt: flint and steel
+fill 37 -60 2 43 -54 4 minecraft:air
+fill 37 -61 2 43 -61 4 minecraft:grass_block
+block 40 -60 3 minecraft:tnt
+use_on Carol 40 -60 3 up
+dump blocks:37,-61,2,43,-54,4 ticks:37,-61,2,43,-54,4 events inventory:Carol
+# tnt: fire charge
+fill 37 -60 2 43 -54 4 minecraft:air
+fill 37 -61 2 43 -61 4 minecraft:grass_block
+block 40 -60 3 minecraft:tnt
+use_on Carol 40 -60 3 up off
+dump blocks:37,-61,2,43,-54,4 ticks:37,-61,2,43,-54,4 events inventory:Carol
+# portal frame: flint and steel
+fill 37 -60 2 43 -54 4 minecraft:air
+fill 37 -61 2 43 -61 4 minecraft:grass_block
+fill 39 -60 3 42 -56 3 minecraft:obsidian
+fill 40 -59 3 41 -57 3 minecraft:air
+use_on Carol 40 -60 3 up
+dump blocks:37,-61,2,43,-54,4 ticks:37,-61,2,43,-54,4 events inventory:Carol
+# portal frame: fire charge
+fill 37 -60 2 43 -54 4 minecraft:air
+fill 37 -61 2 43 -61 4 minecraft:grass_block
+fill 39 -60 3 42 -56 3 minecraft:obsidian
+fill 40 -59 3 41 -57 3 minecraft:air
+use_on Carol 40 -60 3 up off
+dump blocks:37,-61,2,43,-54,4 ticks:37,-61,2,43,-54,4 events inventory:Carol
+# the last durability point breaks the tool
+give Alice mainhand minecraft:flint_and_steel[damage=63]
+block 0 -60 3 minecraft:campfire[lit=false]
+use_on Alice 0 -60 3 up
+dump blocks:-3,-61,2,3,-58,4 events inventory:Alice

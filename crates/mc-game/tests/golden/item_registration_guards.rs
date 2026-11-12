@@ -27,16 +27,8 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "use spawns a ThrownEnderpearl and starts the item cooldown (no ender pearl entity yet)",
     ),
     (
-        "FireChargeItem",
-        "useOn lights campfires and candles or places fire, plays the fire charge sound and consumes the charge",
-    ),
-    (
         "FishingRodItem",
         "use casts a FishingHook or reels it in and damages the rod (no fishing hook entity yet)",
-    ),
-    (
-        "FlintAndSteelItem",
-        "useOn lights campfires, candles and candle cakes or places fire, plays the flint and steel sound and damages the item",
     ),
     (
         "FoodOnAStickItem",

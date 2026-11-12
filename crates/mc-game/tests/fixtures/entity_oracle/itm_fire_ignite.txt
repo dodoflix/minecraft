@@ -1,0 +1,2057 @@
+T 1
+T 2
+T 3
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.0929246
+I Alice 0 minecraft:flint_and_steel*1/dmg=1
+I Alice 40 minecraft:fire_charge*16
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.9946404
+I Alice 0 minecraft:flint_and_steel*1/dmg=1
+I Alice 40 minecraft:fire_charge*15
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:soul_campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.98801386
+I Alice 0 minecraft:flint_and_steel*1/dmg=2
+I Alice 40 minecraft:fire_charge*15
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:soul_campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.0968015
+I Alice 0 minecraft:flint_and_steel*1/dmg=2
+I Alice 40 minecraft:fire_charge*14
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:flint_and_steel*1/dmg=2
+I Alice 40 minecraft:fire_charge*14
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:flint_and_steel*1/dmg=2
+I Alice 40 minecraft:fire_charge*14
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:flint_and_steel*1/dmg=2
+I Alice 40 minecraft:fire_charge*14
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:flint_and_steel*1/dmg=2
+I Alice 40 minecraft:fire_charge*14
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:candle[candles=3,lit=true,waterlogged=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.88812095
+I Alice 0 minecraft:flint_and_steel*1/dmg=3
+I Alice 40 minecraft:fire_charge*14
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:candle[candles=3,lit=true,waterlogged=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.0664979
+I Alice 0 minecraft:flint_and_steel*1/dmg=3
+I Alice 40 minecraft:fire_charge*13
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:candle[candles=1,lit=false,waterlogged=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:flint_and_steel*1/dmg=3
+I Alice 40 minecraft:fire_charge*13
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:candle[candles=1,lit=false,waterlogged=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:flint_and_steel*1/dmg=3
+I Alice 40 minecraft:fire_charge*13
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:candle_cake[lit=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.9682883
+I Alice 0 minecraft:flint_and_steel*1/dmg=4
+I Alice 40 minecraft:fire_charge*13
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:candle_cake[lit=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.9805301
+I Alice 0 minecraft:flint_and_steel*1/dmg=4
+I Alice 40 minecraft:fire_charge*12
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:red_candle_cake[lit=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:flint_and_steel*1/dmg=4
+I Alice 40 minecraft:fire_charge*12
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:red_candle_cake[lit=true]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+I Alice 0 minecraft:flint_and_steel*1/dmg=4
+I Alice 40 minecraft:fire_charge*12
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:white_wool
+B 0 -59 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+EV sound at=0.5,-58.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.881504
+I Alice 0 minecraft:flint_and_steel*1/dmg=5
+I Alice 40 minecraft:fire_charge*12
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:white_wool
+B 0 -59 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+EV sound at=0.5,-58.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.90142035
+I Alice 0 minecraft:flint_and_steel*1/dmg=5
+I Alice 40 minecraft:fire_charge*11
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:white_wool
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -60 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+EV sound at=1.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.1429303
+I Alice 0 minecraft:flint_and_steel*1/dmg=6
+I Alice 40 minecraft:fire_charge*11
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:white_wool
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -60 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+EV sound at=1.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.0021341
+I Alice 0 minecraft:flint_and_steel*1/dmg=6
+I Alice 40 minecraft:fire_charge*10
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.0279889
+I Alice 0 minecraft:flint_and_steel*1/dmg=7
+I Alice 40 minecraft:fire_charge*10
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.1151067
+I Alice 0 minecraft:flint_and_steel*1/dmg=7
+I Alice 40 minecraft:fire_charge*9
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:soul_sand
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:soul_fire
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.1584358
+I Alice 0 minecraft:flint_and_steel*1/dmg=8
+I Alice 40 minecraft:fire_charge*9
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:soul_sand
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:soul_fire
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.0284228
+I Alice 0 minecraft:flint_and_steel*1/dmg=8
+I Alice 40 minecraft:fire_charge*8
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:water[level=0]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 0 -61 3 minecraft:water delay=5 prio=0
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+I Alice 0 minecraft:flint_and_steel*1/dmg=8
+I Alice 40 minecraft:fire_charge*8
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:water[level=0]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 0 -61 3 minecraft:water delay=5 prio=0
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+I Alice 0 minecraft:flint_and_steel*1/dmg=8
+I Alice 40 minecraft:fire_charge*8
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:obsidian
+B 0 -59 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 0 -61 3 minecraft:water delay=5 prio=0
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV sound at=0.5,-58.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.0435302
+I Alice 0 minecraft:flint_and_steel*1/dmg=9
+I Alice 40 minecraft:fire_charge*8
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:obsidian
+B 0 -59 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 0 -61 3 minecraft:water delay=5 prio=0
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV sound at=0.5,-58.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.8949624
+I Alice 0 minecraft:flint_and_steel*1/dmg=9
+I Alice 40 minecraft:fire_charge*7
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 0 -61 3 minecraft:water delay=5 prio=0
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV sound at=0.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+I Alice 0 minecraft:flint_and_steel*1/dmg=10
+I Alice 40 minecraft:fire_charge*7
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 0 -61 3 minecraft:water delay=5 prio=0
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV sound at=0.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+I Alice 0 minecraft:flint_and_steel*1/dmg=10
+I Alice 40 minecraft:fire_charge*6
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B -1 -60 3 minecraft:obsidian
+B -1 -59 3 minecraft:obsidian
+B -1 -58 3 minecraft:obsidian
+B -1 -57 3 minecraft:obsidian
+B -1 -56 3 minecraft:obsidian
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:obsidian
+B 0 -59 3 minecraft:nether_portal[axis=x]
+B 0 -58 3 minecraft:nether_portal[axis=x]
+B 0 -57 3 minecraft:nether_portal[axis=x]
+B 0 -56 3 minecraft:obsidian
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -60 3 minecraft:obsidian
+B 1 -59 3 minecraft:nether_portal[axis=x]
+B 1 -58 3 minecraft:nether_portal[axis=x]
+B 1 -57 3 minecraft:nether_portal[axis=x]
+B 1 -56 3 minecraft:obsidian
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -60 3 minecraft:obsidian
+B 2 -59 3 minecraft:obsidian
+B 2 -58 3 minecraft:obsidian
+B 2 -57 3 minecraft:obsidian
+B 2 -56 3 minecraft:obsidian
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 0 -61 3 minecraft:water delay=5 prio=0
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV sound at=0.5,-58.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.9799955
+I Alice 0 minecraft:flint_and_steel*1/dmg=11
+I Alice 40 minecraft:fire_charge*6
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B -1 -60 3 minecraft:obsidian
+B -1 -59 3 minecraft:obsidian
+B -1 -58 3 minecraft:obsidian
+B -1 -57 3 minecraft:obsidian
+B -1 -56 3 minecraft:obsidian
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:obsidian
+B 0 -59 3 minecraft:nether_portal[axis=x]
+B 0 -58 3 minecraft:nether_portal[axis=x]
+B 0 -57 3 minecraft:nether_portal[axis=x]
+B 0 -56 3 minecraft:obsidian
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -60 3 minecraft:obsidian
+B 1 -59 3 minecraft:nether_portal[axis=x]
+B 1 -58 3 minecraft:nether_portal[axis=x]
+B 1 -57 3 minecraft:nether_portal[axis=x]
+B 1 -56 3 minecraft:obsidian
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -60 3 minecraft:obsidian
+B 2 -59 3 minecraft:obsidian
+B 2 -58 3 minecraft:obsidian
+B 2 -57 3 minecraft:obsidian
+B 2 -56 3 minecraft:obsidian
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 0 -61 3 minecraft:water delay=5 prio=0
+TICK block 0 -59 3 minecraft:fire delay=30 prio=0
+TICK block 1 -60 3 minecraft:fire delay=34 prio=0
+TICK block 0 -60 3 minecraft:fire delay=35 prio=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-59,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-58,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-57,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-57,3 data=8687 global=0
+EV sound at=0.5,-58.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.9996844
+I Alice 0 minecraft:flint_and_steel*1/dmg=11
+I Alice 40 minecraft:fire_charge*5
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.0394464
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.8382579
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:soul_campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.9909902
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:soul_campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.89675707
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=true]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=true]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:candle[candles=3,lit=true,waterlogged=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.9056863
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:candle[candles=3,lit=true,waterlogged=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.0107081
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:candle[candles=1,lit=false,waterlogged=true]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:candle[candles=1,lit=false,waterlogged=true]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:candle_cake[lit=true]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.1624938
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:candle_cake[lit=true]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.9943117
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:red_candle_cake[lit=true]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:red_candle_cake[lit=true]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:white_wool
+B 20 -59 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+EV sound at=20.5,-58.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.99045205
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:white_wool
+B 20 -59 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+EV sound at=20.5,-58.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.0152919
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:white_wool
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 21 -60 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=21.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.1180881
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:white_wool
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 21 -60 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=21.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.8629962
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.902955
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.1584793
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:soul_sand
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:soul_fire
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.9502659
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:soul_sand
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:soul_fire
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=20.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.0613586
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:water[level=0]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 20 -61 3 minecraft:water delay=5 prio=0
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:water[level=0]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 20 -61 3 minecraft:water delay=5 prio=0
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:obsidian
+B 20 -59 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 20 -61 3 minecraft:water delay=5 prio=0
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=20.5,-58.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.1672035
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:obsidian
+B 20 -59 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 20 -61 3 minecraft:water delay=5 prio=0
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=20.5,-58.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.1033561
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 20 -61 3 minecraft:water delay=5 prio=0
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=20.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 20 -61 3 minecraft:water delay=5 prio=0
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=20.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 19 -60 3 minecraft:obsidian
+B 19 -59 3 minecraft:obsidian
+B 19 -58 3 minecraft:obsidian
+B 19 -57 3 minecraft:obsidian
+B 19 -56 3 minecraft:obsidian
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:obsidian
+B 20 -59 3 minecraft:nether_portal[axis=x]
+B 20 -58 3 minecraft:nether_portal[axis=x]
+B 20 -57 3 minecraft:nether_portal[axis=x]
+B 20 -56 3 minecraft:obsidian
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 21 -60 3 minecraft:obsidian
+B 21 -59 3 minecraft:nether_portal[axis=x]
+B 21 -58 3 minecraft:nether_portal[axis=x]
+B 21 -57 3 minecraft:nether_portal[axis=x]
+B 21 -56 3 minecraft:obsidian
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 22 -60 3 minecraft:obsidian
+B 22 -59 3 minecraft:obsidian
+B 22 -58 3 minecraft:obsidian
+B 22 -57 3 minecraft:obsidian
+B 22 -56 3 minecraft:obsidian
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 20 -61 3 minecraft:water delay=5 prio=0
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV sound at=20.5,-58.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.0234936
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 19 -60 3 minecraft:obsidian
+B 19 -59 3 minecraft:obsidian
+B 19 -58 3 minecraft:obsidian
+B 19 -57 3 minecraft:obsidian
+B 19 -56 3 minecraft:obsidian
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -60 3 minecraft:obsidian
+B 20 -59 3 minecraft:nether_portal[axis=x]
+B 20 -58 3 minecraft:nether_portal[axis=x]
+B 20 -57 3 minecraft:nether_portal[axis=x]
+B 20 -56 3 minecraft:obsidian
+B 21 -61 2 minecraft:grass_block[snowy=false]
+B 21 -61 3 minecraft:grass_block[snowy=false]
+B 21 -61 4 minecraft:grass_block[snowy=false]
+B 21 -60 3 minecraft:obsidian
+B 21 -59 3 minecraft:nether_portal[axis=x]
+B 21 -58 3 minecraft:nether_portal[axis=x]
+B 21 -57 3 minecraft:nether_portal[axis=x]
+B 21 -56 3 minecraft:obsidian
+B 22 -61 2 minecraft:grass_block[snowy=false]
+B 22 -61 3 minecraft:grass_block[snowy=false]
+B 22 -61 4 minecraft:grass_block[snowy=false]
+B 22 -60 3 minecraft:obsidian
+B 22 -59 3 minecraft:obsidian
+B 22 -58 3 minecraft:obsidian
+B 22 -57 3 minecraft:obsidian
+B 22 -56 3 minecraft:obsidian
+B 23 -61 2 minecraft:grass_block[snowy=false]
+B 23 -61 3 minecraft:grass_block[snowy=false]
+B 23 -61 4 minecraft:grass_block[snowy=false]
+TICK fluid 20 -61 3 minecraft:water delay=5 prio=0
+TICK block 20 -59 3 minecraft:fire delay=30 prio=0
+TICK block 21 -60 3 minecraft:fire delay=38 prio=0
+TICK block 20 -60 3 minecraft:fire delay=38 prio=0
+EV level_event r=64.0 ex=0 type=2001 pos=20,-59,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=21,-59,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=21,-58,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=20,-58,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=20,-57,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=21,-57,3 data=8687 global=0
+EV sound at=20.5,-58.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.95077884
+I Bob 0 minecraft:flint_and_steel*1
+I Bob 40 minecraft:fire_charge*16
+B 37 -61 2 minecraft:grass_block[snowy=false]
+B 37 -61 3 minecraft:grass_block[snowy=false]
+B 37 -61 4 minecraft:grass_block[snowy=false]
+B 38 -61 2 minecraft:grass_block[snowy=false]
+B 38 -61 3 minecraft:grass_block[snowy=false]
+B 38 -61 4 minecraft:grass_block[snowy=false]
+B 39 -61 2 minecraft:grass_block[snowy=false]
+B 39 -61 3 minecraft:grass_block[snowy=false]
+B 39 -61 4 minecraft:grass_block[snowy=false]
+B 40 -61 2 minecraft:grass_block[snowy=false]
+B 40 -61 3 minecraft:grass_block[snowy=false]
+B 40 -61 4 minecraft:grass_block[snowy=false]
+B 40 -60 3 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+B 41 -61 2 minecraft:grass_block[snowy=false]
+B 41 -61 3 minecraft:grass_block[snowy=false]
+B 41 -61 4 minecraft:grass_block[snowy=false]
+B 42 -61 2 minecraft:grass_block[snowy=false]
+B 42 -61 3 minecraft:grass_block[snowy=false]
+B 42 -61 4 minecraft:grass_block[snowy=false]
+B 43 -61 2 minecraft:grass_block[snowy=false]
+B 43 -61 3 minecraft:grass_block[snowy=false]
+B 43 -61 4 minecraft:grass_block[snowy=false]
+I Carol 0 minecraft:flint_and_steel*1
+I Carol 40 minecraft:fire_charge*16
+B 37 -61 2 minecraft:grass_block[snowy=false]
+B 37 -61 3 minecraft:grass_block[snowy=false]
+B 37 -61 4 minecraft:grass_block[snowy=false]
+B 38 -61 2 minecraft:grass_block[snowy=false]
+B 38 -61 3 minecraft:grass_block[snowy=false]
+B 38 -61 4 minecraft:grass_block[snowy=false]
+B 39 -61 2 minecraft:grass_block[snowy=false]
+B 39 -61 3 minecraft:grass_block[snowy=false]
+B 39 -61 4 minecraft:grass_block[snowy=false]
+B 40 -61 2 minecraft:grass_block[snowy=false]
+B 40 -61 3 minecraft:grass_block[snowy=false]
+B 40 -61 4 minecraft:grass_block[snowy=false]
+B 40 -60 3 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+B 41 -61 2 minecraft:grass_block[snowy=false]
+B 41 -61 3 minecraft:grass_block[snowy=false]
+B 41 -61 4 minecraft:grass_block[snowy=false]
+B 42 -61 2 minecraft:grass_block[snowy=false]
+B 42 -61 3 minecraft:grass_block[snowy=false]
+B 42 -61 4 minecraft:grass_block[snowy=false]
+B 43 -61 2 minecraft:grass_block[snowy=false]
+B 43 -61 3 minecraft:grass_block[snowy=false]
+B 43 -61 4 minecraft:grass_block[snowy=false]
+I Carol 0 minecraft:flint_and_steel*1
+I Carol 40 minecraft:fire_charge*16
+B 37 -61 2 minecraft:grass_block[snowy=false]
+B 37 -61 3 minecraft:grass_block[snowy=false]
+B 37 -61 4 minecraft:grass_block[snowy=false]
+B 38 -61 2 minecraft:grass_block[snowy=false]
+B 38 -61 3 minecraft:grass_block[snowy=false]
+B 38 -61 4 minecraft:grass_block[snowy=false]
+B 39 -61 2 minecraft:grass_block[snowy=false]
+B 39 -61 3 minecraft:grass_block[snowy=false]
+B 39 -61 4 minecraft:grass_block[snowy=false]
+B 40 -61 2 minecraft:grass_block[snowy=false]
+B 40 -61 3 minecraft:grass_block[snowy=false]
+B 40 -61 4 minecraft:grass_block[snowy=false]
+B 40 -60 3 minecraft:white_wool
+B 41 -61 2 minecraft:grass_block[snowy=false]
+B 41 -61 3 minecraft:grass_block[snowy=false]
+B 41 -61 4 minecraft:grass_block[snowy=false]
+B 42 -61 2 minecraft:grass_block[snowy=false]
+B 42 -61 3 minecraft:grass_block[snowy=false]
+B 42 -61 4 minecraft:grass_block[snowy=false]
+B 43 -61 2 minecraft:grass_block[snowy=false]
+B 43 -61 3 minecraft:grass_block[snowy=false]
+B 43 -61 4 minecraft:grass_block[snowy=false]
+I Carol 0 minecraft:flint_and_steel*1
+I Carol 40 minecraft:fire_charge*16
+B 37 -61 2 minecraft:grass_block[snowy=false]
+B 37 -61 3 minecraft:grass_block[snowy=false]
+B 37 -61 4 minecraft:grass_block[snowy=false]
+B 38 -61 2 minecraft:grass_block[snowy=false]
+B 38 -61 3 minecraft:grass_block[snowy=false]
+B 38 -61 4 minecraft:grass_block[snowy=false]
+B 39 -61 2 minecraft:grass_block[snowy=false]
+B 39 -61 3 minecraft:grass_block[snowy=false]
+B 39 -61 4 minecraft:grass_block[snowy=false]
+B 40 -61 2 minecraft:grass_block[snowy=false]
+B 40 -61 3 minecraft:grass_block[snowy=false]
+B 40 -61 4 minecraft:grass_block[snowy=false]
+B 40 -60 3 minecraft:white_wool
+B 41 -61 2 minecraft:grass_block[snowy=false]
+B 41 -61 3 minecraft:grass_block[snowy=false]
+B 41 -61 4 minecraft:grass_block[snowy=false]
+B 42 -61 2 minecraft:grass_block[snowy=false]
+B 42 -61 3 minecraft:grass_block[snowy=false]
+B 42 -61 4 minecraft:grass_block[snowy=false]
+B 43 -61 2 minecraft:grass_block[snowy=false]
+B 43 -61 3 minecraft:grass_block[snowy=false]
+B 43 -61 4 minecraft:grass_block[snowy=false]
+I Carol 0 minecraft:flint_and_steel*1
+I Carol 40 minecraft:fire_charge*16
+B 37 -61 2 minecraft:grass_block[snowy=false]
+B 37 -61 3 minecraft:grass_block[snowy=false]
+B 37 -61 4 minecraft:grass_block[snowy=false]
+B 38 -61 2 minecraft:grass_block[snowy=false]
+B 38 -61 3 minecraft:grass_block[snowy=false]
+B 38 -61 4 minecraft:grass_block[snowy=false]
+B 39 -61 2 minecraft:grass_block[snowy=false]
+B 39 -61 3 minecraft:grass_block[snowy=false]
+B 39 -61 4 minecraft:grass_block[snowy=false]
+B 40 -61 2 minecraft:grass_block[snowy=false]
+B 40 -61 3 minecraft:grass_block[snowy=false]
+B 40 -61 4 minecraft:grass_block[snowy=false]
+B 40 -60 3 minecraft:tnt[unstable=false]
+B 41 -61 2 minecraft:grass_block[snowy=false]
+B 41 -61 3 minecraft:grass_block[snowy=false]
+B 41 -61 4 minecraft:grass_block[snowy=false]
+B 42 -61 2 minecraft:grass_block[snowy=false]
+B 42 -61 3 minecraft:grass_block[snowy=false]
+B 42 -61 4 minecraft:grass_block[snowy=false]
+B 43 -61 2 minecraft:grass_block[snowy=false]
+B 43 -61 3 minecraft:grass_block[snowy=false]
+B 43 -61 4 minecraft:grass_block[snowy=false]
+I Carol 0 minecraft:flint_and_steel*1
+I Carol 40 minecraft:fire_charge*16
+B 37 -61 2 minecraft:grass_block[snowy=false]
+B 37 -61 3 minecraft:grass_block[snowy=false]
+B 37 -61 4 minecraft:grass_block[snowy=false]
+B 38 -61 2 minecraft:grass_block[snowy=false]
+B 38 -61 3 minecraft:grass_block[snowy=false]
+B 38 -61 4 minecraft:grass_block[snowy=false]
+B 39 -61 2 minecraft:grass_block[snowy=false]
+B 39 -61 3 minecraft:grass_block[snowy=false]
+B 39 -61 4 minecraft:grass_block[snowy=false]
+B 40 -61 2 minecraft:grass_block[snowy=false]
+B 40 -61 3 minecraft:grass_block[snowy=false]
+B 40 -61 4 minecraft:grass_block[snowy=false]
+B 40 -60 3 minecraft:tnt[unstable=false]
+B 41 -61 2 minecraft:grass_block[snowy=false]
+B 41 -61 3 minecraft:grass_block[snowy=false]
+B 41 -61 4 minecraft:grass_block[snowy=false]
+B 42 -61 2 minecraft:grass_block[snowy=false]
+B 42 -61 3 minecraft:grass_block[snowy=false]
+B 42 -61 4 minecraft:grass_block[snowy=false]
+B 43 -61 2 minecraft:grass_block[snowy=false]
+B 43 -61 3 minecraft:grass_block[snowy=false]
+B 43 -61 4 minecraft:grass_block[snowy=false]
+I Carol 0 minecraft:flint_and_steel*1
+I Carol 40 minecraft:fire_charge*16
+B 37 -61 2 minecraft:grass_block[snowy=false]
+B 37 -61 3 minecraft:grass_block[snowy=false]
+B 37 -61 4 minecraft:grass_block[snowy=false]
+B 38 -61 2 minecraft:grass_block[snowy=false]
+B 38 -61 3 minecraft:grass_block[snowy=false]
+B 38 -61 4 minecraft:grass_block[snowy=false]
+B 39 -61 2 minecraft:grass_block[snowy=false]
+B 39 -61 3 minecraft:grass_block[snowy=false]
+B 39 -61 4 minecraft:grass_block[snowy=false]
+B 39 -60 3 minecraft:obsidian
+B 39 -59 3 minecraft:obsidian
+B 39 -58 3 minecraft:obsidian
+B 39 -57 3 minecraft:obsidian
+B 39 -56 3 minecraft:obsidian
+B 40 -61 2 minecraft:grass_block[snowy=false]
+B 40 -61 3 minecraft:grass_block[snowy=false]
+B 40 -61 4 minecraft:grass_block[snowy=false]
+B 40 -60 3 minecraft:obsidian
+B 40 -56 3 minecraft:obsidian
+B 41 -61 2 minecraft:grass_block[snowy=false]
+B 41 -61 3 minecraft:grass_block[snowy=false]
+B 41 -61 4 minecraft:grass_block[snowy=false]
+B 41 -60 3 minecraft:obsidian
+B 41 -56 3 minecraft:obsidian
+B 42 -61 2 minecraft:grass_block[snowy=false]
+B 42 -61 3 minecraft:grass_block[snowy=false]
+B 42 -61 4 minecraft:grass_block[snowy=false]
+B 42 -60 3 minecraft:obsidian
+B 42 -59 3 minecraft:obsidian
+B 42 -58 3 minecraft:obsidian
+B 42 -57 3 minecraft:obsidian
+B 42 -56 3 minecraft:obsidian
+B 43 -61 2 minecraft:grass_block[snowy=false]
+B 43 -61 3 minecraft:grass_block[snowy=false]
+B 43 -61 4 minecraft:grass_block[snowy=false]
+I Carol 0 minecraft:flint_and_steel*1
+I Carol 40 minecraft:fire_charge*16
+B 37 -61 2 minecraft:grass_block[snowy=false]
+B 37 -61 3 minecraft:grass_block[snowy=false]
+B 37 -61 4 minecraft:grass_block[snowy=false]
+B 38 -61 2 minecraft:grass_block[snowy=false]
+B 38 -61 3 minecraft:grass_block[snowy=false]
+B 38 -61 4 minecraft:grass_block[snowy=false]
+B 39 -61 2 minecraft:grass_block[snowy=false]
+B 39 -61 3 minecraft:grass_block[snowy=false]
+B 39 -61 4 minecraft:grass_block[snowy=false]
+B 39 -60 3 minecraft:obsidian
+B 39 -59 3 minecraft:obsidian
+B 39 -58 3 minecraft:obsidian
+B 39 -57 3 minecraft:obsidian
+B 39 -56 3 minecraft:obsidian
+B 40 -61 2 minecraft:grass_block[snowy=false]
+B 40 -61 3 minecraft:grass_block[snowy=false]
+B 40 -61 4 minecraft:grass_block[snowy=false]
+B 40 -60 3 minecraft:obsidian
+B 40 -56 3 minecraft:obsidian
+B 41 -61 2 minecraft:grass_block[snowy=false]
+B 41 -61 3 minecraft:grass_block[snowy=false]
+B 41 -61 4 minecraft:grass_block[snowy=false]
+B 41 -60 3 minecraft:obsidian
+B 41 -56 3 minecraft:obsidian
+B 42 -61 2 minecraft:grass_block[snowy=false]
+B 42 -61 3 minecraft:grass_block[snowy=false]
+B 42 -61 4 minecraft:grass_block[snowy=false]
+B 42 -60 3 minecraft:obsidian
+B 42 -59 3 minecraft:obsidian
+B 42 -58 3 minecraft:obsidian
+B 42 -57 3 minecraft:obsidian
+B 42 -56 3 minecraft:obsidian
+B 43 -61 2 minecraft:grass_block[snowy=false]
+B 43 -61 3 minecraft:grass_block[snowy=false]
+B 43 -61 4 minecraft:grass_block[snowy=false]
+I Carol 0 minecraft:flint_and_steel*1
+I Carol 40 minecraft:fire_charge*16
+B -3 -61 2 minecraft:grass_block[snowy=false]
+B -3 -61 3 minecraft:grass_block[snowy=false]
+B -3 -61 4 minecraft:grass_block[snowy=false]
+B -2 -61 2 minecraft:grass_block[snowy=false]
+B -2 -61 3 minecraft:grass_block[snowy=false]
+B -2 -61 4 minecraft:grass_block[snowy=false]
+B -1 -61 2 minecraft:grass_block[snowy=false]
+B -1 -61 3 minecraft:grass_block[snowy=false]
+B -1 -61 4 minecraft:grass_block[snowy=false]
+B -1 -60 3 minecraft:obsidian
+B -1 -59 3 minecraft:obsidian
+B -1 -58 3 minecraft:obsidian
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 0 -61 4 minecraft:grass_block[snowy=false]
+B 0 -60 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 4 minecraft:grass_block[snowy=false]
+B 1 -60 3 minecraft:obsidian
+B 2 -61 2 minecraft:grass_block[snowy=false]
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 4 minecraft:grass_block[snowy=false]
+B 2 -60 3 minecraft:obsidian
+B 2 -59 3 minecraft:obsidian
+B 2 -58 3 minecraft:obsidian
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:grass_block[snowy=false]
+EV level_event r=64.0 ex=0 type=2001 pos=0,-59,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-59,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-58,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-58,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,-57,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,-57,3 data=8687 global=0
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.81046194
+I Alice 40 minecraft:fire_charge*5

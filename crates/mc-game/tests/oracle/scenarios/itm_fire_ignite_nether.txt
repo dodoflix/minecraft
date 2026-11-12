@@ -1,0 +1,65 @@
+# FlintAndSteelItem/FireChargeItem in the nether: an empty obsidian frame lights a nether portal, soul fire over soul sand.
+dimension the_nether
+preload 3
+difficulty normal
+watch events
+# vanilla generates real nether terrain here: clear a room before the player joins
+fill -6 64 -2 6 80 8 minecraft:air
+fill -4 64 0 4 64 6 minecraft:stone
+spawn_player Alice survival 0.5 65 0.5 0 0
+tick 30
+dump packets:Alice:none
+level_seed 17
+# Alice: survival
+give Alice mainhand minecraft:flint_and_steel
+give Alice offhand minecraft:fire_charge 16
+# unlit campfire: flint and steel
+fill -3 65 2 3 71 4 minecraft:air
+fill -3 64 2 3 64 4 minecraft:stone
+block 0 65 3 minecraft:campfire[lit=false]
+use_on Alice 0 65 3 up
+dump blocks:-3,64,2,3,71,4 ticks:-3,64,2,3,71,4 events inventory:Alice
+# unlit campfire: fire charge
+fill -3 65 2 3 71 4 minecraft:air
+fill -3 64 2 3 64 4 minecraft:stone
+block 0 65 3 minecraft:campfire[lit=false]
+use_on Alice 0 65 3 up off
+dump blocks:-3,64,2,3,71,4 ticks:-3,64,2,3,71,4 events inventory:Alice
+# wool side: flint and steel
+fill -3 65 2 3 71 4 minecraft:air
+fill -3 64 2 3 64 4 minecraft:stone
+block 0 65 3 minecraft:white_wool
+use_on Alice 0 65 3 east
+dump blocks:-3,64,2,3,71,4 ticks:-3,64,2,3,71,4 events inventory:Alice
+# wool side: fire charge
+fill -3 65 2 3 71 4 minecraft:air
+fill -3 64 2 3 64 4 minecraft:stone
+block 0 65 3 minecraft:white_wool
+use_on Alice 0 65 3 east off
+dump blocks:-3,64,2,3,71,4 ticks:-3,64,2,3,71,4 events inventory:Alice
+# soul sand: flint and steel
+fill -3 65 2 3 71 4 minecraft:air
+fill -3 64 2 3 64 4 minecraft:stone
+block 0 64 3 minecraft:soul_sand
+use_on Alice 0 64 3 up
+dump blocks:-3,64,2,3,71,4 ticks:-3,64,2,3,71,4 events inventory:Alice
+# soul sand: fire charge
+fill -3 65 2 3 71 4 minecraft:air
+fill -3 64 2 3 64 4 minecraft:stone
+block 0 64 3 minecraft:soul_sand
+use_on Alice 0 64 3 up off
+dump blocks:-3,64,2,3,71,4 ticks:-3,64,2,3,71,4 events inventory:Alice
+# portal frame: flint and steel
+fill -3 65 2 3 71 4 minecraft:air
+fill -3 64 2 3 64 4 minecraft:stone
+fill -1 65 3 2 69 3 minecraft:obsidian
+fill 0 66 3 1 68 3 minecraft:air
+use_on Alice 0 65 3 up
+dump blocks:-3,64,2,3,71,4 ticks:-3,64,2,3,71,4 events inventory:Alice
+# portal frame: fire charge
+fill -3 65 2 3 71 4 minecraft:air
+fill -3 64 2 3 64 4 minecraft:stone
+fill -1 65 3 2 69 3 minecraft:obsidian
+fill 0 66 3 1 68 3 minecraft:air
+use_on Alice 0 65 3 up off
+dump blocks:-3,64,2,3,71,4 ticks:-3,64,2,3,71,4 events inventory:Alice

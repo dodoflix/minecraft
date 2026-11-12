@@ -1,0 +1,284 @@
+T 1
+T 2
+T 3
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+B -3 64 2 minecraft:stone
+B -3 64 3 minecraft:stone
+B -3 64 4 minecraft:stone
+B -2 64 2 minecraft:stone
+B -2 64 3 minecraft:stone
+B -2 64 4 minecraft:stone
+B -1 64 2 minecraft:stone
+B -1 64 3 minecraft:stone
+B -1 64 4 minecraft:stone
+B 0 64 2 minecraft:stone
+B 0 64 3 minecraft:stone
+B 0 64 4 minecraft:stone
+B 0 65 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 64 2 minecraft:stone
+B 1 64 3 minecraft:stone
+B 1 64 4 minecraft:stone
+B 2 64 2 minecraft:stone
+B 2 64 3 minecraft:stone
+B 2 64 4 minecraft:stone
+B 3 64 2 minecraft:stone
+B 3 64 3 minecraft:stone
+B 3 64 4 minecraft:stone
+EV sound at=0.5,65.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.0929246
+I Alice 0 minecraft:flint_and_steel*1/dmg=1
+I Alice 40 minecraft:fire_charge*16
+B -3 64 2 minecraft:stone
+B -3 64 3 minecraft:stone
+B -3 64 4 minecraft:stone
+B -2 64 2 minecraft:stone
+B -2 64 3 minecraft:stone
+B -2 64 4 minecraft:stone
+B -1 64 2 minecraft:stone
+B -1 64 3 minecraft:stone
+B -1 64 4 minecraft:stone
+B 0 64 2 minecraft:stone
+B 0 64 3 minecraft:stone
+B 0 64 4 minecraft:stone
+B 0 65 3 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 1 64 2 minecraft:stone
+B 1 64 3 minecraft:stone
+B 1 64 4 minecraft:stone
+B 2 64 2 minecraft:stone
+B 2 64 3 minecraft:stone
+B 2 64 4 minecraft:stone
+B 3 64 2 minecraft:stone
+B 3 64 3 minecraft:stone
+B 3 64 4 minecraft:stone
+EV sound at=0.5,65.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.9946404
+I Alice 0 minecraft:flint_and_steel*1/dmg=1
+I Alice 40 minecraft:fire_charge*15
+B -3 64 2 minecraft:stone
+B -3 64 3 minecraft:stone
+B -3 64 4 minecraft:stone
+B -2 64 2 minecraft:stone
+B -2 64 3 minecraft:stone
+B -2 64 4 minecraft:stone
+B -1 64 2 minecraft:stone
+B -1 64 3 minecraft:stone
+B -1 64 4 minecraft:stone
+B 0 64 2 minecraft:stone
+B 0 64 3 minecraft:stone
+B 0 64 4 minecraft:stone
+B 0 65 3 minecraft:white_wool
+B 1 64 2 minecraft:stone
+B 1 64 3 minecraft:stone
+B 1 64 4 minecraft:stone
+B 1 65 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 2 64 2 minecraft:stone
+B 2 64 3 minecraft:stone
+B 2 64 4 minecraft:stone
+B 3 64 2 minecraft:stone
+B 3 64 3 minecraft:stone
+B 3 64 4 minecraft:stone
+TICK block 1 65 3 minecraft:fire delay=32 prio=0
+EV sound at=1.5,65.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.98801386
+I Alice 0 minecraft:flint_and_steel*1/dmg=2
+I Alice 40 minecraft:fire_charge*15
+B -3 64 2 minecraft:stone
+B -3 64 3 minecraft:stone
+B -3 64 4 minecraft:stone
+B -2 64 2 minecraft:stone
+B -2 64 3 minecraft:stone
+B -2 64 4 minecraft:stone
+B -1 64 2 minecraft:stone
+B -1 64 3 minecraft:stone
+B -1 64 4 minecraft:stone
+B 0 64 2 minecraft:stone
+B 0 64 3 minecraft:stone
+B 0 64 4 minecraft:stone
+B 0 65 3 minecraft:white_wool
+B 1 64 2 minecraft:stone
+B 1 64 3 minecraft:stone
+B 1 64 4 minecraft:stone
+B 1 65 3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 2 64 2 minecraft:stone
+B 2 64 3 minecraft:stone
+B 2 64 4 minecraft:stone
+B 3 64 2 minecraft:stone
+B 3 64 3 minecraft:stone
+B 3 64 4 minecraft:stone
+TICK block 1 65 3 minecraft:fire delay=32 prio=0
+EV sound at=1.5,65.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.0521085
+I Alice 0 minecraft:flint_and_steel*1/dmg=2
+I Alice 40 minecraft:fire_charge*14
+B -3 64 2 minecraft:stone
+B -3 64 3 minecraft:stone
+B -3 64 4 minecraft:stone
+B -2 64 2 minecraft:stone
+B -2 64 3 minecraft:stone
+B -2 64 4 minecraft:stone
+B -1 64 2 minecraft:stone
+B -1 64 3 minecraft:stone
+B -1 64 4 minecraft:stone
+B 0 64 2 minecraft:stone
+B 0 64 3 minecraft:soul_sand
+B 0 64 4 minecraft:stone
+B 0 65 3 minecraft:soul_fire
+B 1 64 2 minecraft:stone
+B 1 64 3 minecraft:stone
+B 1 64 4 minecraft:stone
+B 2 64 2 minecraft:stone
+B 2 64 3 minecraft:stone
+B 2 64 4 minecraft:stone
+B 3 64 2 minecraft:stone
+B 3 64 3 minecraft:stone
+B 3 64 4 minecraft:stone
+TICK block 1 65 3 minecraft:fire delay=32 prio=0
+EV sound at=0.5,65.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=0.9946134
+I Alice 0 minecraft:flint_and_steel*1/dmg=3
+I Alice 40 minecraft:fire_charge*14
+B -3 64 2 minecraft:stone
+B -3 64 3 minecraft:stone
+B -3 64 4 minecraft:stone
+B -2 64 2 minecraft:stone
+B -2 64 3 minecraft:stone
+B -2 64 4 minecraft:stone
+B -1 64 2 minecraft:stone
+B -1 64 3 minecraft:stone
+B -1 64 4 minecraft:stone
+B 0 64 2 minecraft:stone
+B 0 64 3 minecraft:soul_sand
+B 0 64 4 minecraft:stone
+B 0 65 3 minecraft:soul_fire
+B 1 64 2 minecraft:stone
+B 1 64 3 minecraft:stone
+B 1 64 4 minecraft:stone
+B 2 64 2 minecraft:stone
+B 2 64 3 minecraft:stone
+B 2 64 4 minecraft:stone
+B 3 64 2 minecraft:stone
+B 3 64 3 minecraft:stone
+B 3 64 4 minecraft:stone
+TICK block 1 65 3 minecraft:fire delay=32 prio=0
+EV sound at=0.5,65.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=1.0317564
+I Alice 0 minecraft:flint_and_steel*1/dmg=3
+I Alice 40 minecraft:fire_charge*13
+B -3 64 2 minecraft:stone
+B -3 64 3 minecraft:stone
+B -3 64 4 minecraft:stone
+B -2 64 2 minecraft:stone
+B -2 64 3 minecraft:stone
+B -2 64 4 minecraft:stone
+B -1 64 2 minecraft:stone
+B -1 64 3 minecraft:stone
+B -1 64 4 minecraft:stone
+B -1 65 3 minecraft:obsidian
+B -1 66 3 minecraft:obsidian
+B -1 67 3 minecraft:obsidian
+B -1 68 3 minecraft:obsidian
+B -1 69 3 minecraft:obsidian
+B 0 64 2 minecraft:stone
+B 0 64 3 minecraft:stone
+B 0 64 4 minecraft:stone
+B 0 65 3 minecraft:obsidian
+B 0 66 3 minecraft:nether_portal[axis=x]
+B 0 67 3 minecraft:nether_portal[axis=x]
+B 0 68 3 minecraft:nether_portal[axis=x]
+B 0 69 3 minecraft:obsidian
+B 1 64 2 minecraft:stone
+B 1 64 3 minecraft:stone
+B 1 64 4 minecraft:stone
+B 1 65 3 minecraft:obsidian
+B 1 66 3 minecraft:nether_portal[axis=x]
+B 1 67 3 minecraft:nether_portal[axis=x]
+B 1 68 3 minecraft:nether_portal[axis=x]
+B 1 69 3 minecraft:obsidian
+B 2 64 2 minecraft:stone
+B 2 64 3 minecraft:stone
+B 2 64 4 minecraft:stone
+B 2 65 3 minecraft:obsidian
+B 2 66 3 minecraft:obsidian
+B 2 67 3 minecraft:obsidian
+B 2 68 3 minecraft:obsidian
+B 2 69 3 minecraft:obsidian
+B 3 64 2 minecraft:stone
+B 3 64 3 minecraft:stone
+B 3 64 4 minecraft:stone
+TICK block 1 65 3 minecraft:fire delay=32 prio=0
+TICK block 0 66 3 minecraft:fire delay=37 prio=0
+EV sound at=0.5,66.5,3.5 r=16.0 ex=1 event=minecraft:item.flintandsteel.use source=block vol=1.0 pitch=1.1459193
+I Alice 0 minecraft:flint_and_steel*1/dmg=4
+I Alice 40 minecraft:fire_charge*13
+B -3 64 2 minecraft:stone
+B -3 64 3 minecraft:stone
+B -3 64 4 minecraft:stone
+B -2 64 2 minecraft:stone
+B -2 64 3 minecraft:stone
+B -2 64 4 minecraft:stone
+B -1 64 2 minecraft:stone
+B -1 64 3 minecraft:stone
+B -1 64 4 minecraft:stone
+B -1 65 3 minecraft:obsidian
+B -1 66 3 minecraft:obsidian
+B -1 67 3 minecraft:obsidian
+B -1 68 3 minecraft:obsidian
+B -1 69 3 minecraft:obsidian
+B 0 64 2 minecraft:stone
+B 0 64 3 minecraft:stone
+B 0 64 4 minecraft:stone
+B 0 65 3 minecraft:obsidian
+B 0 66 3 minecraft:nether_portal[axis=x]
+B 0 67 3 minecraft:nether_portal[axis=x]
+B 0 68 3 minecraft:nether_portal[axis=x]
+B 0 69 3 minecraft:obsidian
+B 1 64 2 minecraft:stone
+B 1 64 3 minecraft:stone
+B 1 64 4 minecraft:stone
+B 1 65 3 minecraft:obsidian
+B 1 66 3 minecraft:nether_portal[axis=x]
+B 1 67 3 minecraft:nether_portal[axis=x]
+B 1 68 3 minecraft:nether_portal[axis=x]
+B 1 69 3 minecraft:obsidian
+B 2 64 2 minecraft:stone
+B 2 64 3 minecraft:stone
+B 2 64 4 minecraft:stone
+B 2 65 3 minecraft:obsidian
+B 2 66 3 minecraft:obsidian
+B 2 67 3 minecraft:obsidian
+B 2 68 3 minecraft:obsidian
+B 2 69 3 minecraft:obsidian
+B 3 64 2 minecraft:stone
+B 3 64 3 minecraft:stone
+B 3 64 4 minecraft:stone
+TICK block 1 65 3 minecraft:fire delay=32 prio=0
+TICK block 0 66 3 minecraft:fire delay=37 prio=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,66,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,66,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,67,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,67,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,68,3 data=8687 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,68,3 data=8687 global=0
+EV sound at=0.5,66.5,3.5 r=16.0 ex=0 event=minecraft:item.firecharge.use source=block vol=1.0 pitch=0.85395956
+I Alice 0 minecraft:flint_and_steel*1/dmg=4
+I Alice 40 minecraft:fire_charge*12
