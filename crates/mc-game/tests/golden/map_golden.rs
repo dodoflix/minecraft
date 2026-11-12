@@ -2,16 +2,18 @@
 //! `tests/oracle/MapGolden.java` (see its header): same terrain, same player, same ticks, every `map_item_data` packet and the
 //! final colors/decorations must be identical.
 
+use crate::common::feature_harness;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_game::server::level::ServerLevel;
 use mc_game::world::container::Container;
 use mc_game::world::entity::{Entity, ServerPlayer};
-use mc_game::world::item::map_item;
+use mc_game::world::item::ItemBehaviour;
+use mc_game::world::item::map_item::{self, MapItem};
 use mc_game::world::level::LevelAccessor;
 use mc_protocol::codec::GameProfile;
-use mc_protocol::components::MAP_ID;
+use mc_protocol::components::{MAP_ID, MAP_POST_PROCESSING, MapPostProcessing};
 use std::collections::BTreeMap;
 
 const LO: i32 = -48;
@@ -114,6 +116,8 @@ struct Case {
     center: Vec<i32>,
     colors: String,
     decos: Vec<String>,
+    /// `POST` / `POSTDECO` lines of the crafting post-processing copies of this map.
+    post: Vec<String>,
 }
 
 fn load() -> Vec<Case> {
@@ -125,7 +129,7 @@ fn load() -> Vec<Case> {
     let mut cases: Vec<Case> = Vec::new();
     for line in text.lines() {
         let mut it = line.split_whitespace();
-        let (Some(kind), Some(_)) = (it.next(), it.next()) else {
+        let (Some(kind), Some(index)) = (it.next(), it.next()) else {
             continue;
         };
         let rest: Vec<&str> = it.collect();
@@ -149,6 +153,9 @@ fn load() -> Vec<Case> {
             }
             "COLORS" => cases.last_mut().unwrap().colors = rest[0].to_string(),
             "DECO" => cases.last_mut().unwrap().decos.push(rest.join(" ")),
+            "POST" | "POSTDECO" => cases[index.parse::<usize>().unwrap()]
+                .post
+                .push(format!("{kind} {}", rest.join(" "))),
             _ => panic!("bad fixture line {line}"),
         }
     }
@@ -179,11 +186,12 @@ fn map_update_and_packets_match_vanilla() {
                 }
             }
         }
-        // the oracle world allocates one map id per case
-        for _ in 0..i {
+        // the oracle world allocates one map id per case, and two more for each case that post-processes copies of its map
+        let earlier_post = cases[..i].iter().filter(|c| !c.post.is_empty()).count();
+        for _ in 0..i + 2 * earlier_post {
             level.get_free_map_id();
         }
-        let map = map_item::create(&mut level, px, pz, scale as i8, true, false);
+        let map = map_item::create(&level, px, pz, scale as i8, true, false);
         let id = *map.get(&MAP_ID).unwrap();
         let mut p = ServerPlayer::new(
             1,
@@ -267,5 +275,118 @@ fn map_update_and_packets_match_vanilla() {
         for (t, expected) in &case.packets {
             assert_eq!(&got[t], expected, "case {i}: packet of tick {t}");
         }
+        if !case.post.is_empty() {
+            let stack = p.player.inventory.get_item(0).clone();
+            let mut got_post = Vec::new();
+            for (kind, name) in [
+                (MapPostProcessing::Lock, "LOCK"),
+                (MapPostProcessing::Scale, "SCALE"),
+            ] {
+                let mut copy = stack.clone();
+                copy.set(MAP_POST_PROCESSING, kind);
+                MapItem.on_crafted_post_process(&mut copy, &mut level);
+                let tag = format!("{name} {}", copy.get(&MAP_POST_PROCESSING).is_some());
+                let (head, decos) = level
+                    .with_map_data(*copy.get(&MAP_ID).unwrap(), |_, d| {
+                        (
+                            format!(
+                                "POST {tag} {} {} {} {} {}",
+                                d.center_x,
+                                d.center_z,
+                                d.scale,
+                                d.locked,
+                                hex(&d.colors)
+                            ),
+                            d.get_decorations()
+                                .map(|d| {
+                                    format!(
+                                        "POSTDECO {tag} {} {} {} {}",
+                                        d.ty.name(),
+                                        d.x,
+                                        d.y,
+                                        d.rot
+                                    )
+                                })
+                                .collect::<Vec<_>>(),
+                        )
+                    })
+                    .unwrap();
+                got_post.push(head);
+                got_post.extend(decos);
+            }
+            assert_eq!(got_post, case.post, "case {i}: crafting post-processing");
+        }
     }
+}
+
+/// `MapPreviewGolden`: the water outline `MapItem.renderBiomePreviewMap` draws over the seeded biome source of a normal
+/// world.
+#[test]
+fn biome_preview_map_matches_vanilla() {
+    const SEED: i64 = 4242;
+    let dir = tempfile::tempdir().unwrap();
+    let (_config, stem) = crate::common::load_world(
+        dir.path(),
+        mc_world::level_storage::WorldDataConfiguration::DEFAULT,
+        true,
+    )
+    .expect("default world loads");
+    let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+    level.registries = stem.registries.composite_access().clone();
+    level.gen_env = Some(feature_harness::gen_env(SEED));
+    level.tick_state.biomes = Some(feature_harness::WORLD.biomes.clone());
+    level.tick_state.biome_zoom_seed = mc_worldgen::biome::BiomeManager::obfuscate_seed(SEED);
+    let text = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/map_preview_golden.txt"
+    ))
+    .expect("fixture");
+    let mut cases: Vec<(Vec<i32>, String)> = Vec::new();
+    for line in text.lines() {
+        let mut it = line.split_whitespace().skip(2);
+        if line.starts_with("CASE ") {
+            cases.push((it.map(|s| s.parse().unwrap()).collect(), String::new()));
+        } else if line.starts_with("COLORS ") {
+            cases.last_mut().unwrap().1 = it.next().unwrap().to_string();
+        }
+    }
+    assert_eq!(cases.len(), 8);
+    let mut failures = Vec::new();
+    for (i, (params, expected)) in cases.iter().enumerate() {
+        let [scale, x, z] = params[..] else {
+            panic!("params")
+        };
+        let map = map_item::create(&level, x, z, scale as i8, true, true);
+        map_item::render_biome_preview_map(&level, &map);
+        let colors = level
+            .read_map_data(*map.get(&MAP_ID).unwrap(), |d| hex(&d.colors))
+            .unwrap();
+        let differing: Vec<usize> = colors
+            .as_bytes()
+            .chunks(2)
+            .zip(expected.as_bytes().chunks(2))
+            .enumerate()
+            .filter(|(_, (a, b))| a != b)
+            .map(|(at, _)| at)
+            .collect();
+        if let Some(&first) = differing.first() {
+            let pair = |at: usize| (&colors[at * 2..at * 2 + 2], &expected[at * 2..at * 2 + 2]);
+            failures.push(format!(
+                "case {i} (scale {scale} at {x} {z}): {} of 16384 colors differ, first at x={} y={} (rust, vanilla) {:?}, last at x={} y={}",
+                differing.len(),
+                first % 128,
+                first / 128,
+                pair(first),
+                differing[differing.len() - 1] % 128,
+                differing[differing.len() - 1] / 128,
+            ));
+        }
+    }
+    assert!(failures.is_empty(), "{}", failures.join("\n"));
+}
+
+/// `EmptyMapItem.use`, `MapItem.inventoryTick` and the banner toggle of `MapItem.useOn` in the replayed level.
+#[test]
+fn map_item_use_scenario_matches_vanilla() {
+    crate::common::block_scenario::check("itm_map_use");
 }

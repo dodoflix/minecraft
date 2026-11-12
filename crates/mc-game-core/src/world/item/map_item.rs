@@ -10,6 +10,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::BlockStateExt;
+use crate::world::level::level_access::LevelReader;
 use crate::world::level::material::map_color::{self, Brightness, get_packed_id};
 use crate::world::level::saveddata::maps::{MapItemSavedData, MapTickEnv, PlayerView};
 use crate::world::level::{BlockGetter, DimensionKey};
@@ -28,7 +29,7 @@ register_item_class!("EmptyMapItem", |_| Box::new(EmptyMapItem));
 
 /// `MapItem.create(level, originX, originZ, scale, trackPosition, unlimitedTracking)`.
 pub fn create(
-    level: &mut ServerLevel,
+    level: &ServerLevel,
     origin_x: i32,
     origin_z: i32,
     scale: i8,
@@ -50,7 +51,7 @@ pub fn create(
 
 /// `MapItem.applyNewSavedData(level, map, ...)`.
 pub fn apply_new_saved_data(
-    level: &mut ServerLevel,
+    level: &ServerLevel,
     map: &mut ItemStack,
     origin_x: i32,
     origin_z: i32,
@@ -89,6 +90,113 @@ pub fn map_scale_lookup(level: &ServerLevel, stack: &ItemStack) -> Option<i32> {
 /// The facts of a map's saved data that menus read (`locked`, `scale`), `None` without saved data.
 pub fn saved_data_info(stack: &ItemStack, level: &mut ServerLevel) -> Option<(bool, i8)> {
     with_saved_data(stack, level, |_, data| (data.locked, data.scale))
+}
+
+/// `MapItem.renderBiomePreviewMap(level, mapItemStack)`: the water outline of the map's area, from the biomes alone (the
+/// loaded chunks' stored biomes, the generator's biome source for the rest; a level without a generator has no biomes to
+/// show).
+pub fn render_biome_preview_map(level: &ServerLevel, stack: &ItemStack) {
+    let Some(id) = stack.get(&MAP_ID).copied() else {
+        return;
+    };
+    let Some((dimension, data_scale, center_x, center_z)) = level.read_map_data(id, |d| {
+        (d.dimension.clone(), d.scale, d.center_x, d.center_z)
+    }) else {
+        return;
+    };
+    let (Some(env), Some(biomes)) = (level.gen_env.as_ref(), level.tick_state.biomes.as_ref())
+    else {
+        return;
+    };
+    if level.dimension != dimension {
+        return;
+    }
+    let scale = 1i32 << data_scale;
+    let unscaled_start_x = center_x / scale - 64;
+    let unscaled_start_z = center_z / scale - 64;
+    let biome_sample_y = LevelReader::get_sea_level(level);
+    let uncached = env
+        .biome_source()
+        .create_uncached_resolver(&env.random_state);
+    let noise_biome = |qx: i32, qy: i32, qz: i32| match level.chunk_now(qx >> 2, qz >> 2) {
+        Some(chunk) => chunk.data.access.get_noise_biome(qx, qy, qz),
+        None => uncached.get_noise_biome(qx, qy, qz),
+    };
+    let manager =
+        mc_worldgen::biome::BiomeManager::new(&noise_biome, level.tick_state.biome_zoom_seed);
+    // `biome.is(BiomeTags.WATER_ON_MAP_OUTLINES)`: the level's biome registry when it has one, else the vanilla tag
+    let registry = level.registries.registry("worldgen/biome");
+    let tag = mc_core::ident::Identifier::new("minecraft", "water_on_map_outlines").expect("valid");
+    let vanilla_tag: std::collections::HashSet<String> =
+        mc_data::tags::names("worldgen/biome", "minecraft:water_on_map_outlines")
+            .unwrap_or_default()
+            .into_iter()
+            .collect();
+    let mut watery_by_biome: std::collections::HashMap<u32, bool> = Default::default();
+    let mut is_biome_watery = vec![false; 128 * 128];
+    for row in 0..128 {
+        for column in 0..128 {
+            let biome = manager.get_biome(BlockPos::new(
+                (unscaled_start_x + column).wrapping_mul(scale),
+                biome_sample_y,
+                (unscaled_start_z + row).wrapping_mul(scale),
+            ));
+            is_biome_watery[(row * 128 + column) as usize] =
+                *watery_by_biome.entry(biome.0).or_insert_with(|| {
+                    let key = biomes.key(biome);
+                    registry.map_or_else(
+                        || vanilla_tag.contains(&key.to_string()),
+                        |r| r.id_of(key).is_some_and(|id| r.is_in_tag(id, &tag)),
+                    )
+                });
+        }
+    }
+    let watery = |x: i32, z: i32| {
+        (0..128).contains(&x) && (0..128).contains(&z) && is_biome_watery[(z * 128 + x) as usize]
+    };
+    level.modify_map_data(id, |data| {
+        for mx in 1..127 {
+            for mz in 1..127 {
+                let mut water_count = 0;
+                for dx in -1..2 {
+                    for dz in -1..2 {
+                        if (dx != 0 || dz != 0) && watery(mx + dx, mz + dz) {
+                            water_count += 1;
+                        }
+                    }
+                }
+                let mut brightness = Brightness::Lowest;
+                let mut new_color = map_color::NONE;
+                if watery(mx, mz) {
+                    new_color = map_color::COLOR_ORANGE;
+                    if water_count > 7 && mz % 2 == 0 {
+                        let wave = (mc_core::math::mth::sin(f64::from(mz)) * 7.0) as i32;
+                        brightness = match (mx + wave) / 8 % 5 {
+                            0 | 4 => Brightness::Low,
+                            1 | 3 => Brightness::Normal,
+                            _ => Brightness::High,
+                        };
+                    } else if water_count > 7 {
+                        new_color = map_color::NONE;
+                    } else if water_count > 5 {
+                        brightness = Brightness::Normal;
+                    } else if water_count > 1 {
+                        brightness = Brightness::Low;
+                    }
+                } else if water_count > 0 {
+                    new_color = map_color::COLOR_BROWN;
+                    brightness = if water_count > 3 {
+                        Brightness::Normal
+                    } else {
+                        Brightness::Lowest
+                    };
+                }
+                if new_color != map_color::NONE {
+                    data.set_color(mx, mz, get_packed_id(new_color, brightness));
+                }
+            }
+        }
+    });
 }
 
 /// `LivingEntity.hasMapInvisibilityItemEquipped` input: whether `item` is in `#map_invisibility_equipment`.
@@ -432,11 +540,10 @@ impl ItemBehaviour for EmptyMapItem {
         stack.consume(1, infinite);
         // `player.awardStat(Stats.ITEM_USED.get(this))`: not implemented (statistics)
         let position = player.position();
-        level.play_sound_at(
+        level.play_sound_from_entity_at(
             None,
-            position.x,
-            position.y,
-            position.z,
+            player.base_id(),
+            position,
             mc_data::SoundEvent::UI_CARTOGRAPHY_TABLE_TAKE_RESULT,
             SoundSource::Players,
             1.0,

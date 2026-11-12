@@ -4,12 +4,21 @@
 use super::ServerLevel;
 use super::chunk_holder::ChunkSlot;
 use super::server_chunk_cache::ChunkFuture;
+use crate::advancements::predicates::location_predicate::LoadedChunks;
+use crate::world::level::levelgen::GenEnv;
+use crate::world::level::levelgen::structure::StructureManager;
+use crate::world::level::levelgen::structure::generation;
 use crate::world::level::levelgen::structure::locate::{LocateLevel, find_nearest_map_structure};
+use crate::world::level::levelgen::structure::structure_start::MAX_REFERENCES;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_world::chunk::StructureData;
+use mc_world::chunk::{ProtoChunk, StructureData};
 use mc_world::palette::BiomeId;
+use mc_world::serial::{
+    SerializableChunkData, unpack_structure_references, unpack_structure_starts,
+};
 use mc_world::status::ChunkStatus;
+use mc_world::upgrade_data::UpgradeData;
 use mc_worldgen::structure_placement::LocateResult;
 
 impl ServerLevel {
@@ -43,6 +52,7 @@ impl ServerLevel {
         max_search_radius: i32,
         create_reference: bool,
     ) -> LocateResult {
+        self.apply_pending_start_references();
         let env = self.gen_env.clone()?;
         find_nearest_map_structure(
             &env,
@@ -52,6 +62,115 @@ impl ServerLevel {
             max_search_radius,
             create_reference,
         )
+    }
+
+    /// [`Self::find_nearest_map_structure`] for callers that only hold a shared level (loot functions): a chunk's structure
+    /// data is read from the loaded chunk, else from its region file, else generated without being stored (what loading the
+    /// chunk to `STRUCTURE_STARTS` would produce). The reference counters it raises wait in `pending_start_references`
+    /// until [`Self::apply_pending_start_references`] stores them in the chunks.
+    pub fn find_nearest_map_structure_shared(
+        &self,
+        wanted: &[Identifier],
+        pos: BlockPos,
+        max_search_radius: i32,
+        create_reference: bool,
+    ) -> LocateResult {
+        let env = self.gen_env.clone()?;
+        find_nearest_map_structure(
+            &env,
+            &mut SharedLocate(self),
+            wanted,
+            pos,
+            max_search_radius,
+            create_reference,
+        )
+    }
+
+    /// `ExplorationMapFunction.claimStructureAt(level, pos)`: references the valid, still unreferenced start of one of the
+    /// `wanted` structures that contains `pos`.
+    pub fn claim_structure_at(&self, wanted: &[Identifier], pos: BlockPos) {
+        let Some(env) = self.gen_env.as_ref() else {
+            return;
+        };
+        let found =
+            StructureManager::new(env)
+                .get_structure_at_set(&LoadedChunks(self), pos, &|id| wanted.contains(id));
+        let Some(start) = found else {
+            return;
+        };
+        let start = start.lock();
+        let Some(id) = start.structure_id() else {
+            return;
+        };
+        let chunk_pos = start.get_chunk_pos();
+        let key = (chunk_pos.pack(), id.to_string());
+        let mut pending = self.pending_start_references.lock();
+        let references = pending.get(&key).copied().unwrap_or(start.get_references());
+        // `isValid() && canBeReferenced()`, then `addReference(start)`
+        if start.is_valid() && references < MAX_REFERENCES {
+            env.structure_check.increment_reference(chunk_pos, id);
+            pending.insert(key, references + 1);
+        }
+    }
+
+    /// Stores the reference counters raised through a shared level into the starts of their chunks (loading the chunks
+    /// to `STRUCTURE_STARTS` like the exclusive search does).
+    pub fn apply_pending_start_references(&mut self) {
+        let pending = std::mem::take(&mut *self.pending_start_references.lock());
+        for ((key, id), references) in pending {
+            let pos = ChunkPos::unpack(key);
+            if self.with_structure_starts(pos.x, pos.z, &mut |_| {}) {
+                LevelLocate(self).set_start_references(pos, &id, references);
+            } else {
+                self.pending_start_references
+                    .lock()
+                    .insert((key, id), references);
+            }
+        }
+    }
+
+    /// The structure data of a chunk at `STRUCTURE_STARTS` without touching the chunk map (see
+    /// [`Self::find_nearest_map_structure_shared`]).
+    fn structure_data_without_loading(&self, env: &GenEnv, pos: ChunkPos) -> StructureData {
+        let map = &self.chunk_source.chunk_map;
+        if let Some(holder) = map.holders.holder(pos.pack())
+            && holder
+                .latest_chunk_status()
+                .is_some_and(|status| status.is_or_after(ChunkStatus::StructureStarts))
+        {
+            match &holder.slot {
+                ChunkSlot::Proto(chunk) => return chunk.access.structures.clone(),
+                ChunkSlot::Level(chunk) => return chunk.data.access.structures.clone(),
+                _ => {}
+            }
+        }
+        let is_known = |id: &str| {
+            Identifier::try_parse(id).is_some_and(|id| env.structures.get(&id).is_some())
+        };
+        match map.io.read_blocking(pos) {
+            Ok(Some(tag))
+                if SerializableChunkData::get_chunk_status_from_tag(Some(&tag))
+                    .is_or_after(ChunkStatus::StructureStarts) =>
+            {
+                let structures = tag.get_compound_or_empty("structures");
+                return StructureData {
+                    starts: unpack_structure_starts(structures, &is_known),
+                    references: unpack_structure_references(structures, pos, &is_known),
+                };
+            }
+            Ok(_) => {}
+            Err(e) => log::error!("Failed to read chunk {pos}: {e}"),
+        }
+        let context = &map.gen_context;
+        let mut chunk = ProtoChunk::new(
+            pos,
+            UpgradeData::EMPTY,
+            context.level_height,
+            &context.factory,
+            None,
+        );
+        generation::create_structures(env, &mut chunk);
+        chunk.access.structures
     }
 
     /// `level.getChunk(x, z, ChunkStatus.STRUCTURE_STARTS)` handed to `f` as its structure data.
@@ -150,5 +269,33 @@ impl LocateLevel for LevelLocate<'_> {
             }
             _ => {}
         }
+    }
+}
+
+/// `LocateLevel` over a shared level (see [`ServerLevel::find_nearest_map_structure_shared`]).
+struct SharedLocate<'a>(&'a ServerLevel);
+
+impl LocateLevel for SharedLocate<'_> {
+    fn with_structure_data(&mut self, pos: ChunkPos, f: &mut dyn FnMut(&StructureData)) -> bool {
+        let Some(env) = self.0.gen_env.as_ref() else {
+            return false;
+        };
+        let mut data = self.0.structure_data_without_loading(env, pos);
+        for ((key, id), references) in self.0.pending_start_references.lock().iter() {
+            if *key == pos.pack()
+                && let Some(start) = data.starts.get_mut(id)
+            {
+                start.put_int("references", *references);
+            }
+        }
+        f(&data);
+        true
+    }
+
+    fn set_start_references(&mut self, pos: ChunkPos, structure_id: &str, references: i32) {
+        self.0
+            .pending_start_references
+            .lock()
+            .insert((pos.pack(), structure_id.to_owned()), references);
     }
 }

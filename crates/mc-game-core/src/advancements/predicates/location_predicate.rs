@@ -66,7 +66,7 @@ pub struct LocationPredicate {
 }
 
 /// The loaded chunks of a level as `StructureDataSource` (`getChunk(x, z, STRUCTURE_REFERENCES, false)`).
-struct LoadedChunks<'a>(&'a ServerLevel);
+pub(crate) struct LoadedChunks<'a>(pub(crate) &'a ServerLevel);
 
 impl StructureDataSource for LoadedChunks<'_> {
     fn structure_data(&self, pos: ChunkPos) -> Option<&mc_world::chunk::StructureData> {

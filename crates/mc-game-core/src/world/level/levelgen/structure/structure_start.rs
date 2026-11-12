@@ -18,6 +18,9 @@ use std::sync::{Arc, Mutex, MutexGuard};
 /// `StructureStart.INVALID_START_ID`.
 pub const INVALID_START_ID: &str = "INVALID";
 
+/// `StructureStart.getMaxReferences()`.
+pub const MAX_REFERENCES: i32 = 1;
+
 /// `StructureStart`.
 pub struct StructureStart {
     /// `None` for `INVALID_START`.
@@ -177,9 +180,9 @@ impl StructureStart {
         self.chunk_pos
     }
 
-    /// `canBeReferenced()` (`getMaxReferences()` is 1).
+    /// `canBeReferenced()`.
     pub fn can_be_referenced(&self) -> bool {
-        self.references < 1
+        self.references < MAX_REFERENCES
     }
 
     /// `addReference()`.

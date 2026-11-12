@@ -114,6 +114,9 @@ pub struct ServerLevel {
     pub entity_id_counter: Option<std::sync::atomic::AtomicI32>,
     /// `pathTypesByPosCache` (`getPathTypeCache()`), invalidated by `send_block_updated`.
     pub path_type_cache: parking_lot::Mutex<crate::world::level::pathfinder::PathTypeCache>,
+    /// `StructureStart.references` increments made through a shared level (exploration maps), by (chunk, structure id):
+    /// written into the chunks' starts by [`ServerLevel::apply_pending_start_references`].
+    pub pending_start_references: parking_lot::Mutex<std::collections::HashMap<(i64, String), i32>>,
     // ==== spawn framework additions (ServerLevel field) ====
     /// Natural spawning state: spawn state of the tick, custom spawners, dimension attribute base (see `world::level::spawner`).
     pub spawning: crate::world::level::spawner::LevelSpawnData,
@@ -187,6 +190,7 @@ impl ServerLevel {
             deferred_level_ops: Default::default(),
             entity_id_counter: None,
             path_type_cache: Default::default(),
+            pending_start_references: Default::default(),
             // ==== spawn framework additions (ServerLevel::new initializer) ====
             spawning,
         }

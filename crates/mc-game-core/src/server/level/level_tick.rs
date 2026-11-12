@@ -852,6 +852,7 @@ impl ServerLevel {
 
     /// `ServerLevel.tick(haveTime)`.
     pub fn tick(&mut self, env: &mut dyn LevelTickEnv, have_time: &mut dyn FnMut() -> bool) {
+        self.apply_pending_start_references();
         self.tick_state.handling_tick = true;
         self.tick_state.attributes.invalidate_tick_cache();
         let runs = env.runs_normally();

@@ -9,6 +9,7 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.component.MapPostProcessing;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
@@ -28,6 +29,8 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
  * CENTER i x z scale                         saved data center
  * COLORS i hex                               the 16384 color bytes after the last tick
  * DECO i type x y rot                        decorations after the last tick
+ * POST i KIND hasPost cx cz scale locked hex  cases 4 and 5: a copy of the map run through onCraftedPostProcess (KIND = the post processing; two map ids per case)
+ * POSTDECO i KIND hasPost type x y rot       decorations of that copy
  * </pre>
  */
 public final class MapGolden {
@@ -127,6 +130,20 @@ public final class MapGolden {
       out.println("COLORS " + i + " " + hex(data.colors));
       for (MapDecoration d : data.getDecorations()) {
          out.println("DECO " + i + " " + d.type().unwrapKey().get().identifier() + " " + d.x() + " " + d.y() + " " + d.rot());
+      }
+      if (i >= 4) {
+         // the crafting post-processing of a copy (the scale 3 map grows to 4, the scale 4 map stays); each copy takes a new map id
+         for (MapPostProcessing kind : MapPostProcessing.values()) {
+            ItemStack copy = map.copy();
+            copy.set(DataComponents.MAP_POST_PROCESSING, kind);
+            copy.getItem().onCraftedPostProcess(copy, level);
+            MapItemSavedData post = level.getMapData(copy.get(DataComponents.MAP_ID));
+            String tag = i + " " + kind.name() + " " + (copy.get(DataComponents.MAP_POST_PROCESSING) != null);
+            out.println("POST " + tag + " " + post.centerX + " " + post.centerZ + " " + post.scale + " " + post.locked + " " + hex(post.colors));
+            for (MapDecoration d : post.getDecorations()) {
+               out.println("POSTDECO " + tag + " " + d.type().unwrapKey().get().identifier() + " " + d.x() + " " + d.y() + " " + d.rot());
+            }
+         }
       }
    }
 }

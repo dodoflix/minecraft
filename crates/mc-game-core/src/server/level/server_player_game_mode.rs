@@ -444,12 +444,15 @@ impl ServerPlayer {
         }
         let (old_count, old_damage) = (stack.count(), stack.get_damage_value());
         let result = crate::world::item::item_stack_use(level, self, hand);
-        // `resultStack == itemStack` (identity) holds unless the use replaced the held stack
+        // `resultStack == itemStack` (identity): `ItemStack.use` reports the held stack as transformed even when nothing
+        // replaced it, so a stack equal to the one in hand is the same stack
         let transformed = match &result {
             InteractionResult::Success(s) => s.item_context.held_item_transformed_to.clone(),
             _ => None,
         };
-        let same_stack = transformed.is_none();
+        let same_stack = transformed
+            .as_ref()
+            .is_none_or(|t| ItemStack::matches(t, &self.get_item_in_hand(hand)));
         let result_stack = transformed.unwrap_or_else(|| self.get_item_in_hand(hand));
         let use_duration = if result_stack.is_empty() {
             0

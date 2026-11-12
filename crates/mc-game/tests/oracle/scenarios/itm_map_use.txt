@@ -1,0 +1,100 @@
+# EmptyMapItem.use (consume, sound, new filled map in the inventory / replacing the hand stack / dropped when the inventory is
+# full), MapItem.inventoryTick (tickCarriedBy everywhere, terrain update only in a hand) and MapItem.useOn (banner marker toggle,
+# banner outside the map, named banner, other blocks).
+level flat
+preload 7
+level_seed 5
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Cre creative 20.5 -60 0.5 0 0
+spawn_player Full survival 40.5 -60 0.5 0 0
+dump packets:Steve:none
+dump packets:Cre:none
+dump packets:Full:none
+give Steve hotbar0 minecraft:map 3
+give Steve offhand minecraft:map 1
+give Cre hotbar0 minecraft:map 2
+select Steve 0
+select Cre 0
+note empty map in the main hand: one is consumed, the filled map (map id 0) goes into the first free slot
+use Steve main
+dump inventory:Steve events packets:Steve
+note the last empty map in the off hand: the filled map replaces the stack in the hand
+use Steve off
+dump inventory:Steve events packets:Steve
+note creative keeps its stack of empty maps
+use Cre main
+dump inventory:Cre events packets:Cre
+note full inventory: the filled map is dropped
+give Full hotbar0 minecraft:map 2
+give Full hotbar1 minecraft:cobblestone 64
+give Full hotbar2 minecraft:cobblestone 64
+give Full hotbar3 minecraft:cobblestone 64
+give Full hotbar4 minecraft:cobblestone 64
+give Full hotbar5 minecraft:cobblestone 64
+give Full hotbar6 minecraft:cobblestone 64
+give Full hotbar7 minecraft:cobblestone 64
+give Full hotbar8 minecraft:cobblestone 64
+give Full inv9 minecraft:cobblestone 64
+give Full inv10 minecraft:cobblestone 64
+give Full inv11 minecraft:cobblestone 64
+give Full inv12 minecraft:cobblestone 64
+give Full inv13 minecraft:cobblestone 64
+give Full inv14 minecraft:cobblestone 64
+give Full inv15 minecraft:cobblestone 64
+give Full inv16 minecraft:cobblestone 64
+give Full inv17 minecraft:cobblestone 64
+give Full inv18 minecraft:cobblestone 64
+give Full inv19 minecraft:cobblestone 64
+give Full inv20 minecraft:cobblestone 64
+give Full inv21 minecraft:cobblestone 64
+give Full inv22 minecraft:cobblestone 64
+give Full inv23 minecraft:cobblestone 64
+give Full inv24 minecraft:cobblestone 64
+give Full inv25 minecraft:cobblestone 64
+give Full inv26 minecraft:cobblestone 64
+give Full inv27 minecraft:cobblestone 64
+give Full inv28 minecraft:cobblestone 64
+give Full inv29 minecraft:cobblestone 64
+give Full inv30 minecraft:cobblestone 64
+give Full inv31 minecraft:cobblestone 64
+give Full inv32 minecraft:cobblestone 64
+give Full inv33 minecraft:cobblestone 64
+give Full inv34 minecraft:cobblestone 64
+give Full inv35 minecraft:cobblestone 64
+select Full 0
+dump packets:Full:none
+use Full main
+dump inventory:Full entities events packets:Full:none
+note the filled maps are in hotbar1 and the off hand: they are carried (marker of the player) but only a map in a hand renders terrain
+watch packets:Steve:map_item_data
+tick 4
+note selected: the map in the main hand renders the area under the player
+select Steve 1
+tick 14
+watch off
+note banners: toggling adds the marker, toggling again removes it, a banner outside the map area, a named banner, a plain block
+block 3 -60 0 minecraft:white_banner[rotation=0]
+block 6 -60 0 minecraft:red_banner[rotation=4]
+be_nbt 6 -60 0 {CustomName:'"Base"'}
+dump packets:Steve:none
+use_on Steve 3 -60 0 up main 0.5 0.0625 0.5
+dump packets:Steve:map_item_data
+tick 3
+dump packets:Steve:map_item_data
+use_on Steve 6 -60 0 up main 0.5 0.0625 0.5
+tick 3
+dump packets:Steve:map_item_data
+use_on Steve 3 -60 0 up main 0.5 0.0625 0.5
+tick 3
+dump packets:Steve:map_item_data
+use_on Steve 5 -61 0 up main 0.5 1.0 0.5
+tick 2
+dump packets:Steve:map_item_data
+tp Steve 100.5 -60 2.5 0 0
+block 100 -60 0 minecraft:blue_banner[rotation=8]
+tick 2
+dump packets:Steve:none
+use_on Steve 100 -60 0 up main 0.5 0.0625 0.5
+tick 3
+dump packets:Steve:map_item_data
+dump inventory:Steve
