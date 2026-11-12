@@ -282,6 +282,38 @@ fn interact(level: &mut ServerLevel, p: &mut ServerPlayer, target: EntityId, a: 
     swing_on_success(level, p, hand, animation, &result);
 }
 
+/// `handleAttack`: range checks, then `Player.attack(target)` (an item entity, an orb or the player itself as target is a protocol
+/// violation that vanilla answers with a disconnect: a scenario never does that).
+fn attack(level: &mut ServerLevel, p: &mut ServerPlayer, target: EntityId) {
+    if p.is_spectator() {
+        return;
+    }
+    let (block_pos, bounds, ty) = {
+        let Some(t) = level.get_entity(target) else {
+            return;
+        };
+        (t.block_position(), t.base().bounding_box(), t.get_type())
+    };
+    let main_hand = p.get_item_in_hand(InteractionHand::MainHand);
+    if !level.is_within_world_border(block_pos)
+        || !p.is_within_attack_range(&main_hand, &bounds, 3.0)
+        || p.main_hand_has_piercing_weapon()
+    {
+        return;
+    }
+    assert!(
+        ty != mc_data::EntityType::ITEM
+            && ty != mc_data::EntityType::EXPERIENCE_ORB
+            && target != p.id(),
+        "attack on an entity vanilla disconnects the player for"
+    );
+    if mc_game::world::item::is_item_enabled(&main_hand, level.enabled_features())
+        && !p.cannot_attack_with_item(&main_hand, 5)
+    {
+        p.attack(level, target);
+    }
+}
+
 /// `handlePunch`: swing the main hand with the attack animation of the held item.
 fn swing(level: &mut ServerLevel, p: &mut ServerPlayer) {
     let animation = p
@@ -357,6 +389,11 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
         "swing" => {
             h.boot();
             with_player(h, &a[1], swing);
+        }
+        "attack" => {
+            h.boot();
+            let target = h.action_ref(&a[2]);
+            with_player(h, &a[1], |level, p| attack(level, p, target));
         }
         // DROP_ITEM / DROP_ALL_ITEMS (a spectator cannot drop)
         "drop" => {

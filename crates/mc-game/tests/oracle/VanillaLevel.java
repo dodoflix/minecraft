@@ -101,6 +101,7 @@ public final class VanillaLevel {
       public String difficulty = "normal";
       public String dimension = "overworld"; // overworld | the_nether | the_end: the level `v.level` (blocks, ticks, dumps) refers to
       public String features = ""; // comma list of extra feature flags, e.g. redstone_experiments
+      public boolean generateStructures = false; // `generate-structures` of server.properties (a normal world only places structures when true)
       public GameType defaultGameType = GameType.SURVIVAL;
       public int preloadRadiusChunks = 6; // > view distance, so joining a player never waits for async chunk generation
       public int viewDistance = 4;
@@ -280,7 +281,7 @@ public final class VanillaLevel {
       };
       Files.writeString(dir.resolve("server.properties"),
          generator + "level-seed=" + o.seed + "\nonline-mode=false\nenforce-secure-profile=false\nspawn-protection=0\ndifficulty=" + o.difficulty
-            + "\ngamemode=" + o.defaultGameType.getName() + "\ngenerate-structures=false\nview-distance=" + o.viewDistance
+            + "\ngamemode=" + o.defaultGameType.getName() + "\ngenerate-structures=" + o.generateStructures + "\nview-distance=" + o.viewDistance
             + "\nsimulation-distance=" + o.simulationDistance + "\nspawn-monsters=false\nspawn-animals=false\nspawn-npcs=false\nallow-nether=false\n"
             + "pause-when-empty-seconds=0\nmax-tick-time=-1\nenable-jmx-monitoring=false\nlevel-name=world\n");
       // a vanilla server refuses to start without an accepted EULA: accepting it is the user's decision, never ours

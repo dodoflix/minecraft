@@ -6,7 +6,7 @@
 //! handlers around them add (the listener's sequence number and block change ack, the swing and block updates sent back), but no
 //! serverbound packet is decoded and the build-limit messages are not replayed. Entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
 //! reproduce: always call `entity_seed` right after `spawn`/`spawn_item` when the entity's randomness matters, and give `spawn_item` an
-//! explicit velocity), `explode` takes `source=REF`, `attack/swing/drop/respawn/effect/attribute/move_packet` are not replayed.
+//! explicit velocity), `explode` takes `source=REF`, `respawn/effect/attribute/move_packet` are not replayed.
 use super::Scenario;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
@@ -401,8 +401,9 @@ impl Scenario {
             }
             "op" => {
                 self.world();
-                // `PlayerList.op`: the operator permissions of the server (level 4)
-                self.with_player_named(&a[1], |_, p| {
+                // `PlayerList.op`: the operator permissions of the player list entry (level 4) and the server's op list, which
+                // `PlayerList.isOp` and the spawn protection read
+                self.with_player_named(&a[1], |level, p| {
                     use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
                     p.handle
                         .as_ref()
@@ -410,6 +411,11 @@ impl Scenario {
                         .shared
                         .lock()
                         .permissions = LevelBasedPermissionSet::for_level(PermissionLevel::Owners);
+                    let ops = &mut level.server_state.spawn_protection;
+                    ops.ops_empty = false;
+                    if !ops.op_players.contains(&p.uuid()) {
+                        ops.op_players.push(p.uuid());
+                    }
                 });
             }
             "pick_block" => {

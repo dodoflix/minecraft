@@ -94,7 +94,7 @@ import net.minecraft.util.RandomSource;
  * level flat|void|normal      world type (default flat)            seed N              world seed (default 4242)
  * dimension overworld|the_nether|the_end   the level every world command acts on (default overworld; the nether and end keep their real generator)
  * difficulty peaceful|easy|normal|hard (default normal)            preload R           chunk radius kept loaded (6)
- * features NAME[,NAME]       extra feature flags besides vanilla, e.g. redstone_experiments
+ * features NAME[,NAME]       extra feature flags besides vanilla, e.g. redstone_experiments       structures true|false   `generate-structures` (default false: a normal world has no structures)
  * -- world --
  * gamerule NAME VALUE         e.g. gamerule keep_inventory true    time N       (game clock stays frozen otherwise)
  * block X Y Z STATE           e.g. block 0 -60 0 minecraft:water[level=0]   (setBlock flags 3, like /setblock)
@@ -378,6 +378,7 @@ public final class EntityOracleDriver {
          case "dimension" -> options.dimension = a.get(1);
          case "seed" -> options.seed = Long.parseLong(a.get(1));
          case "features" -> options.features = a.get(1);
+         case "structures" -> options.generateStructures = Boolean.parseBoolean(a.get(1));
          case "difficulty" -> {
             if (v == null) {
                options.difficulty = a.get(1);
