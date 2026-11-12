@@ -1,0 +1,916 @@
+LOOT chests/shipwreck_map 0 64 0 1
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 617.0 -407.0 180.0
+M 0 576 -448 1 false bebbb432bdb0c9ff604f8e0f93a4be479eefc211
+I minecraft:feather 4 
+I minecraft:paper 4 
+I minecraft:compass 1 
+LOOT chests/shipwreck_map 0 64 0 2
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 617.0 -407.0 180.0
+M 1 576 -448 1 false bebbb432bdb0c9ff604f8e0f93a4be479eefc211
+I minecraft:paper 3 
+I minecraft:paper 8 
+I minecraft:feather 1 
+I minecraft:copper_nautilus_armor 1 
+LOOT chests/shipwreck_map 0 64 0 3
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 617.0 -407.0 180.0
+M 2 576 -448 1 false bebbb432bdb0c9ff604f8e0f93a4be479eefc211
+I minecraft:feather 1 
+I minecraft:book 2 
+I minecraft:book 3 
+LOOT chests/shipwreck_map 1500 64 -800 1
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 2297.0 -1559.0 180.0
+M 3 2368 -1472 1 false 0497b8a7f4ecd71e1d03f508afa76065260727a6
+I minecraft:feather 4 
+I minecraft:paper 4 
+I minecraft:compass 1 
+LOOT chests/shipwreck_map 1500 64 -800 2
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 2297.0 -1559.0 180.0
+M 4 2368 -1472 1 false 0497b8a7f4ecd71e1d03f508afa76065260727a6
+I minecraft:paper 3 
+I minecraft:paper 8 
+I minecraft:feather 1 
+I minecraft:copper_nautilus_armor 1 
+LOOT chests/shipwreck_map 1500 64 -800 3
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 2297.0 -1559.0 180.0
+M 5 2368 -1472 1 false 0497b8a7f4ecd71e1d03f508afa76065260727a6
+I minecraft:feather 1 
+I minecraft:book 2 
+I minecraft:book 3 
+LOOT chests/shipwreck_map -3000 64 2500 1
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x -2887.0 2041.0 180.0
+M 6 -3008 2112 1 false 85083a6fdfd5c4bee1d04ec0f1e5ba35858e0df5
+I minecraft:feather 4 
+I minecraft:paper 4 
+I minecraft:compass 1 
+LOOT chests/shipwreck_map -3000 64 2500 2
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x -2887.0 2041.0 180.0
+M 7 -3008 2112 1 false 85083a6fdfd5c4bee1d04ec0f1e5ba35858e0df5
+I minecraft:paper 3 
+I minecraft:paper 8 
+I minecraft:feather 1 
+I minecraft:copper_nautilus_armor 1 
+LOOT chests/shipwreck_map -3000 64 2500 3
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x -2887.0 2041.0 180.0
+M 8 -3008 2112 1 false 85083a6fdfd5c4bee1d04ec0f1e5ba35858e0df5
+I minecraft:feather 1 
+I minecraft:book 2 
+I minecraft:book 3 
+LOOT chests/underwater_ruin_big 0 64 0 1
+I minecraft:wheat 2 
+I minecraft:wheat 2 
+I minecraft:gold_nugget 3 
+I minecraft:wheat 3 
+I minecraft:coal 1 
+I minecraft:stone_spear 1 
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 617.0 -407.0 180.0
+M 9 576 -448 1 false bebbb432bdb0c9ff604f8e0f93a4be479eefc211
+LOOT chests/underwater_ruin_big 0 64 0 2
+I minecraft:wheat 3 
+I minecraft:gold_nugget 1 
+I minecraft:gold_nugget 1 
+I minecraft:coal 4 
+I minecraft:wheat 3 
+I minecraft:wheat 2 
+I minecraft:coal 1 
+I minecraft:fishing_rod 1 +minecraft:enchantments
+LOOT chests/underwater_ruin_big 0 64 0 3
+I minecraft:wheat 2 
+I minecraft:gold_nugget 1 
+I minecraft:wheat 3 
+I minecraft:stone_spear 1 
+I minecraft:gold_nugget 2 
+I minecraft:coal 2 
+I minecraft:coal 1 
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 617.0 -407.0 180.0
+M 10 576 -448 1 false bebbb432bdb0c9ff604f8e0f93a4be479eefc211
+LOOT chests/underwater_ruin_big 1500 64 -800 1
+I minecraft:wheat 2 
+I minecraft:wheat 2 
+I minecraft:gold_nugget 3 
+I minecraft:wheat 3 
+I minecraft:coal 1 
+I minecraft:stone_spear 1 
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 2297.0 -1559.0 180.0
+M 11 2368 -1472 1 false 0497b8a7f4ecd71e1d03f508afa76065260727a6
+LOOT chests/underwater_ruin_big 1500 64 -800 2
+I minecraft:wheat 3 
+I minecraft:gold_nugget 1 
+I minecraft:gold_nugget 1 
+I minecraft:coal 4 
+I minecraft:wheat 3 
+I minecraft:wheat 2 
+I minecraft:coal 1 
+I minecraft:fishing_rod 1 +minecraft:enchantments
+LOOT chests/underwater_ruin_big 1500 64 -800 3
+I minecraft:wheat 2 
+I minecraft:gold_nugget 1 
+I minecraft:wheat 3 
+I minecraft:stone_spear 1 
+I minecraft:gold_nugget 2 
+I minecraft:coal 2 
+I minecraft:coal 1 
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 2297.0 -1559.0 180.0
+M 12 2368 -1472 1 false 0497b8a7f4ecd71e1d03f508afa76065260727a6
+LOOT chests/underwater_ruin_big -3000 64 2500 1
+I minecraft:wheat 2 
+I minecraft:wheat 2 
+I minecraft:gold_nugget 3 
+I minecraft:wheat 3 
+I minecraft:coal 1 
+I minecraft:stone_spear 1 
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x -2887.0 2041.0 180.0
+M 13 -3008 2112 1 false 85083a6fdfd5c4bee1d04ec0f1e5ba35858e0df5
+LOOT chests/underwater_ruin_big -3000 64 2500 2
+I minecraft:wheat 3 
+I minecraft:gold_nugget 1 
+I minecraft:gold_nugget 1 
+I minecraft:coal 4 
+I minecraft:wheat 3 
+I minecraft:wheat 2 
+I minecraft:coal 1 
+I minecraft:fishing_rod 1 +minecraft:enchantments
+LOOT chests/underwater_ruin_big -3000 64 2500 3
+I minecraft:wheat 2 
+I minecraft:gold_nugget 1 
+I minecraft:wheat 3 
+I minecraft:stone_spear 1 
+I minecraft:gold_nugget 2 
+I minecraft:coal 2 
+I minecraft:coal 1 
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x -2887.0 2041.0 180.0
+M 14 -3008 2112 1 false 85083a6fdfd5c4bee1d04ec0f1e5ba35858e0df5
+LOOT chests/underwater_ruin_small 0 64 0 1
+I minecraft:wheat 2 
+I minecraft:coal 1 
+I minecraft:coal 2 
+I minecraft:rotten_flesh 1 
+I minecraft:wheat 3 
+I minecraft:emerald 1 
+I minecraft:golden_helmet 1 
+LOOT chests/underwater_ruin_small 0 64 0 2
+I minecraft:stone_spear 1 
+I minecraft:wheat 2 
+I minecraft:coal 4 
+I minecraft:coal 1 
+I minecraft:coal 4 
+I minecraft:rotten_flesh 1 
+I minecraft:wheat 2 
+I minecraft:fishing_rod 1 +minecraft:enchantments
+LOOT chests/underwater_ruin_small 0 64 0 3
+I minecraft:wheat 2 
+I minecraft:coal 1 
+I minecraft:stone_spear 1 
+I minecraft:coal 3 
+I minecraft:emerald 1 
+I minecraft:coal 3 
+I minecraft:wheat 3 
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 617.0 -407.0 180.0
+M 15 576 -448 1 false bebbb432bdb0c9ff604f8e0f93a4be479eefc211
+LOOT chests/underwater_ruin_small 1500 64 -800 1
+I minecraft:wheat 2 
+I minecraft:coal 1 
+I minecraft:coal 2 
+I minecraft:rotten_flesh 1 
+I minecraft:wheat 3 
+I minecraft:emerald 1 
+I minecraft:golden_helmet 1 
+LOOT chests/underwater_ruin_small 1500 64 -800 2
+I minecraft:stone_spear 1 
+I minecraft:wheat 2 
+I minecraft:coal 4 
+I minecraft:coal 1 
+I minecraft:coal 4 
+I minecraft:rotten_flesh 1 
+I minecraft:wheat 2 
+I minecraft:fishing_rod 1 +minecraft:enchantments
+LOOT chests/underwater_ruin_small 1500 64 -800 3
+I minecraft:wheat 2 
+I minecraft:coal 1 
+I minecraft:stone_spear 1 
+I minecraft:coal 3 
+I minecraft:emerald 1 
+I minecraft:coal 3 
+I minecraft:wheat 3 
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x 2297.0 -1559.0 180.0
+M 16 2368 -1472 1 false 0497b8a7f4ecd71e1d03f508afa76065260727a6
+LOOT chests/underwater_ruin_small -3000 64 2500 1
+I minecraft:wheat 2 
+I minecraft:coal 1 
+I minecraft:coal 2 
+I minecraft:rotten_flesh 1 
+I minecraft:wheat 3 
+I minecraft:emerald 1 
+I minecraft:golden_helmet 1 
+LOOT chests/underwater_ruin_small -3000 64 2500 2
+I minecraft:stone_spear 1 
+I minecraft:wheat 2 
+I minecraft:coal 4 
+I minecraft:coal 1 
+I minecraft:coal 4 
+I minecraft:rotten_flesh 1 
+I minecraft:wheat 2 
+I minecraft:fishing_rod 1 +minecraft:enchantments
+LOOT chests/underwater_ruin_small -3000 64 2500 3
+I minecraft:wheat 2 
+I minecraft:coal 1 
+I minecraft:stone_spear 1 
+I minecraft:coal 3 
+I minecraft:emerald 1 
+I minecraft:coal 3 
+I minecraft:wheat 3 
+I minecraft:buried_treasure_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:red_x -2887.0 2041.0 180.0
+M 17 -3008 2112 1 false 85083a6fdfd5c4bee1d04ec0f1e5ba35858e0df5
+LOOT chests/abandoned_camp_common_chest 0 64 0 1
+I minecraft:map 1 
+I minecraft:gunpowder 2 
+I minecraft:cobweb 1 
+I minecraft:arrow 4 
+I minecraft:copper_chestplate 1 
+I minecraft:copper_spear 1 
+I minecraft:abandoned_camp_map 1 +minecraft:item_name,+minecraft:map_decorations,+minecraft:map_id
+D + minecraft:abandoned_camp -6880.0 4432.0 180.0
+M 18 -6976 4288 2 false 27676280bbb7e11ade86601108cdc1f4e6e7a243
+LOOT chests/abandoned_camp_common_chest 0 64 0 2
+I minecraft:compass 1 
+I minecraft:saddle 1 
+I minecraft:arrow 4 
+I minecraft:fishing_rod 1 
+I minecraft:rabbit_hide 4 
+I minecraft:shears 1 
+I minecraft:copper_sword 1 
+I minecraft:abandoned_camp_map 1 +minecraft:item_name,+minecraft:map_decorations,+minecraft:map_id
+D + minecraft:abandoned_camp 8528.0 -5776.0 180.0
+M 19 8384 -5952 2 false e25e5fd6390e2a4900d9c89654475914494dce97
+LOOT chests/abandoned_camp_common_chest 0 64 0 3
+I minecraft:flint_and_steel 1 
+I minecraft:map 1 
+I minecraft:bundle 1 
+I minecraft:map 1 
+I minecraft:glass_bottle 4 
+I minecraft:glass_bottle 1 
+I minecraft:bucket 1 
+I minecraft:copper_leggings 1 
+I minecraft:abandoned_camp_map 1 +minecraft:item_name,+minecraft:map_decorations,+minecraft:map_id
+D + minecraft:abandoned_camp 1488.0 256.0 180.0
+M 20 1728 192 2 false 7f61f4948a73246f81dfe80c142713c34e828d4f
+LOOT chests/abandoned_camp_common_chest 1500 64 -800 1
+I minecraft:map 1 
+I minecraft:gunpowder 2 
+I minecraft:cobweb 1 
+I minecraft:arrow 4 
+I minecraft:copper_chestplate 1 
+I minecraft:copper_spear 1 
+I minecraft:abandoned_camp_map 1 +minecraft:item_name,+minecraft:map_decorations,+minecraft:map_id
+D + minecraft:abandoned_camp 9152.0 4304.0 180.0
+M 21 9408 4288 2 false 90b1d9f01a92faa958a8de9a699b1f41b68fe13b
+LOOT chests/abandoned_camp_common_chest 1500 64 -800 2
+I minecraft:compass 1 
+I minecraft:saddle 1 
+I minecraft:arrow 4 
+I minecraft:fishing_rod 1 
+I minecraft:rabbit_hide 4 
+I minecraft:shears 1 
+I minecraft:copper_sword 1 
+I minecraft:abandoned_camp_map 1 +minecraft:item_name,+minecraft:map_decorations,+minecraft:map_id
+D + minecraft:abandoned_camp 880.0 9232.0 180.0
+M 22 704 9408 2 false 2da9a0d87b2ada13d6964855b5880d13da054379
+LOOT chests/abandoned_camp_common_chest 1500 64 -800 3
+I minecraft:flint_and_steel 1 
+I minecraft:map 1 
+I minecraft:bundle 1 
+I minecraft:map 1 
+I minecraft:glass_bottle 4 
+I minecraft:glass_bottle 1 
+I minecraft:bucket 1 
+I minecraft:copper_leggings 1 
+I minecraft:abandoned_camp_map 1 +minecraft:item_name,+minecraft:map_decorations,+minecraft:map_id
+D + minecraft:abandoned_camp -768.0 -2096.0 180.0
+M 23 -832 -1856 2 false 9bc0f0f2289fd6d4ec24781392dc585e4c7c4a38
+LOOT chests/abandoned_camp_common_chest -3000 64 2500 1
+I minecraft:map 1 
+I minecraft:gunpowder 2 
+I minecraft:cobweb 1 
+I minecraft:arrow 4 
+I minecraft:copper_chestplate 1 
+I minecraft:copper_spear 1 
+I minecraft:abandoned_camp_map 1 +minecraft:item_name,+minecraft:map_decorations,+minecraft:map_id
+D + minecraft:abandoned_camp 992.0 15824.0 180.0
+M 24 1216 16064 2 false 0ee8d52e5fd6bc5f2bfad3b7021cb2175060c05b
+LOOT chests/abandoned_camp_common_chest -3000 64 2500 2
+I minecraft:compass 1 
+I minecraft:saddle 1 
+I minecraft:arrow 4 
+I minecraft:fishing_rod 1 
+I minecraft:rabbit_hide 4 
+I minecraft:shears 1 
+I minecraft:copper_sword 1 
+I minecraft:abandoned_camp_map 1 +minecraft:item_name,+minecraft:map_decorations,+minecraft:map_id
+D + minecraft:abandoned_camp 1280.0 15568.0 180.0
+M 25 1216 15552 2 false 7d6a88b92fdd887dd0ffdceb71639f24d19427b6
+LOOT chests/abandoned_camp_common_chest -3000 64 2500 3
+I minecraft:flint_and_steel 1 
+I minecraft:map 1 
+I minecraft:bundle 1 
+I minecraft:map 1 
+I minecraft:glass_bottle 4 
+I minecraft:glass_bottle 1 
+I minecraft:bucket 1 
+I minecraft:copper_leggings 1 
+I minecraft:abandoned_camp_map 1 +minecraft:item_name,+minecraft:map_decorations,+minecraft:map_id
+D + minecraft:abandoned_camp -2608.0 1536.0 180.0
+M 26 -2368 1728 2 false 0c6fe4be3f169e35c828fb61a4c1914e577eb1cc
+LOOT chests/abandoned_camp_secret_chest 0 64 0 1
+I minecraft:diamond 1 
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:copper_ingot 1 
+I minecraft:map 1 
+I minecraft:copper_ingot 2 
+I minecraft:iron_ingot 1 
+I minecraft:gold_ingot 1 
+I minecraft:warm_ocean_ruins_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:ocean_ruin_warm 2080.0 736.0 180.0
+M 27 2240 704 2 false 39ad9bdfe6d721767d3b2742cdefba620ae7d454
+LOOT chests/abandoned_camp_secret_chest 0 64 0 2
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:map 1 
+I minecraft:copper_ingot 2 
+I minecraft:iron_ingot 1 
+I minecraft:map 1 
+I minecraft:iron_ingot 1 
+I minecraft:iron_ingot 1 
+I minecraft:iron_boots 1 
+I minecraft:buried_ancient_city_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:ancient_city 2016.0 -768.0 180.0
+M 28 2240 -832 2 false 2a9f5125f39016ac79a8a6dfe3504c7ef9f989b7
+LOOT chests/abandoned_camp_secret_chest 0 64 0 3
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:diamond 1 
+I minecraft:iron_ingot 1 
+I minecraft:map 1 
+I minecraft:gold_ingot 2 
+I minecraft:gold_ingot 1 
+I minecraft:iron_leggings 1 
+I minecraft:buried_ancient_city_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:ancient_city 2080.0 1248.0 180.0
+M 29 2240 1216 2 false be5502ff9b04cdf0b701aae6abab2dcb8f11b59f
+LOOT chests/abandoned_camp_secret_chest 1500 64 -800 1
+I minecraft:diamond 1 
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:copper_ingot 1 
+I minecraft:map 1 
+I minecraft:copper_ingot 2 
+I minecraft:iron_ingot 1 
+I minecraft:gold_ingot 1 
+I minecraft:warm_ocean_ruins_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:ocean_ruin_warm 2336.0 -1808.0 180.0
+M 30 2240 -1856 2 false d4b9aca8f9e5bfdced6a09a9b26297b1ec6e28b3
+LOOT chests/abandoned_camp_secret_chest 1500 64 -800 2
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:map 1 
+I minecraft:copper_ingot 2 
+I minecraft:iron_ingot 1 
+I minecraft:map 1 
+I minecraft:iron_ingot 1 
+I minecraft:iron_ingot 1 
+I minecraft:iron_boots 1 
+I minecraft:buried_ancient_city_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:ancient_city 64.0 -2960.0 180.0
+M 31 192 -2880 2 false 5d9a928151706d841072fe4a750823b3a7de1739
+LOOT chests/abandoned_camp_secret_chest 1500 64 -800 3
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:diamond 1 
+I minecraft:iron_ingot 1 
+I minecraft:map 1 
+I minecraft:gold_ingot 2 
+I minecraft:gold_ingot 1 
+I minecraft:iron_leggings 1 
+I minecraft:buried_ancient_city_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:ancient_city 576.0 -3392.0 180.0
+M 32 704 -3392 2 false 5ab17a518d4d961281e7cecc0c5e0c3fd6ab10d2
+LOOT chests/abandoned_camp_secret_chest -3000 64 2500 1
+I minecraft:diamond 1 
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:copper_ingot 1 
+I minecraft:map 1 
+I minecraft:copper_ingot 2 
+I minecraft:iron_ingot 1 
+I minecraft:gold_ingot 1 
+I minecraft:warm_ocean_ruins_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:ocean_ruin_warm -3392.0 2384.0 180.0
+M 33 -3392 2240 2 false 29fe5d6c1fa8ef2b76a2d32f2f67b086f1a520fe
+LOOT chests/abandoned_camp_secret_chest -3000 64 2500 2
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:map 1 
+I minecraft:copper_ingot 2 
+I minecraft:iron_ingot 1 
+I minecraft:map 1 
+I minecraft:iron_ingot 1 
+I minecraft:iron_ingot 1 
+I minecraft:iron_boots 1 
+I minecraft:buried_ancient_city_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:ancient_city -2864.0 928.0 180.0
+M 34 -2880 704 2 false 8c9124d161651e0b5f8ef966794ac8ab2f1ae061
+LOOT chests/abandoned_camp_secret_chest -3000 64 2500 3
+I minecraft:potion 1 +minecraft:potion_contents
+I minecraft:diamond 1 
+I minecraft:iron_ingot 1 
+I minecraft:map 1 
+I minecraft:gold_ingot 2 
+I minecraft:gold_ingot 1 
+I minecraft:iron_leggings 1 
+I minecraft:buried_ancient_city_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:ancient_city -4912.0 1760.0 180.0
+M 35 -4928 1728 2 false f2cce0c8a665a8862699f3cfd3b96c24c6b28fe7
+TRADE minecraft:cartographer/1/emerald_map desert 1
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map desert 2
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map jungle 1
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map jungle 2
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map plains 1
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map plains 2
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map savanna 1
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map savanna 2
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map snow 1
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map snow 2
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map swamp 1
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map swamp 2
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map taiga 1
+I minecraft:map 1 
+TRADE minecraft:cartographer/1/emerald_map taiga 2
+I minecraft:map 1 
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map desert 1
+I minecraft:jungle_pyramid_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:jungle_temple 1184.0 -656.0 180.0
+M 36 1216 -832 2 false 9a876d6870f75a7234b4790bd3d9fe8955c3a3c4
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map desert 2
+I minecraft:jungle_pyramid_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:jungle_temple 2192.0 -1872.0 180.0
+M 37 2240 -1856 2 false d4b9aca8f9e5bfdced6a09a9b26297b1ec6e28b3
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map jungle 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map jungle 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map plains 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map plains 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map savanna 1
+I minecraft:jungle_pyramid_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:jungle_temple 2416.0 -1008.0 180.0
+M 38 2240 -832 2 false 2a9f5125f39016ac79a8a6dfe3504c7ef9f989b7
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map savanna 2
+I minecraft:jungle_pyramid_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:jungle_temple 2576.0 -960.0 180.0
+M 39 2752 -832 2 false 1966a5e099c1a89aac2365c942050732aeb77d85
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map snow 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map snow 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map swamp 1
+I minecraft:jungle_pyramid_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:jungle_temple -2912.0 2240.0 180.0
+M 40 -2880 2240 2 false 91d279df2f3ef01e9e42697cc100378dc547413d
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map swamp 2
+I minecraft:jungle_pyramid_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:jungle_temple 3344.0 -1344.0 180.0
+M 41 3264 -1344 2 false bfe38c9b5e9500f2738d9714738760b7680af2b8
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map taiga 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map taiga 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map desert 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map desert 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map jungle 1
+I minecraft:swamp_hut_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:swamp_hut 3152.0 1744.0 180.0
+M 42 3264 1728 2 false b04b0245109f3b82db7a1590eef7a14c034a15bb
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map jungle 2
+I minecraft:swamp_hut_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:swamp_hut 2688.0 4384.0 180.0
+M 43 2752 4288 2 false 89e0e7841e34afe00ef9aa93f33d9b9a0854b2d1
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map plains 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map plains 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map savanna 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map savanna 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map snow 1
+I minecraft:swamp_hut_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:swamp_hut -5040.0 -4384.0 180.0
+M 44 -4928 -4416 2 false ebeaa6f1ec425c1822c2a2c1087ae89f31e09ecd
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map snow 2
+I minecraft:swamp_hut_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:swamp_hut -5312.0 -5424.0 180.0
+M 45 -5440 -5440 2 false 620dcea68679f1fbd1b0db940660671a1f44a194
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map swamp 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map swamp 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map taiga 1
+I minecraft:swamp_hut_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:swamp_hut -5376.0 -4592.0 180.0
+M 46 -5440 -4416 2 false cf75cc83096a93e0ace49798c2cddc98d263e52f
+TRADE minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map taiga 2
+I minecraft:swamp_hut_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:swamp_hut 4640.0 -6528.0 180.0
+M 47 4800 -6464 2 false 023897267bfdbb3631d49a3d10a42a533a1f4f93
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map desert 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map desert 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map jungle 1
+I minecraft:desert_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_desert 2848.0 -304.0 180.0
+M 48 2752 -320 2 false 1da43ee1d5d63bc5a8b3839be8bda763e24169b8
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map jungle 2
+I minecraft:desert_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_desert 1120.0 -3568.0 180.0
+M 49 1216 -3392 2 false 52c813c2334c921be4ee3beb867766c43120a9b5
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map plains 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map plains 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map savanna 1
+I minecraft:desert_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_desert -480.0 -4080.0 180.0
+M 50 -320 -3904 2 false 55f6298ca07b7b87635a6a68aa1f04cf2bdd4149
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map savanna 2
+I minecraft:desert_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_desert 1408.0 -3952.0 180.0
+M 51 1216 -3904 2 false 62aaadb713d3a786b0fe847c26457e590ae070a1
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map snow 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map snow 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map swamp 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map swamp 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map taiga 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_desert_map taiga 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map desert 1
+I minecraft:plains_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_plains 176.0 864.0 180.0
+M 52 192 704 2 false 80e4c136db38574f055088b5b5c147c564b344ae
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map desert 2
+I minecraft:plains_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_plains 928.0 608.0 180.0
+M 53 704 704 2 false 92ca4a026ccad46123f5f696f26afcb24120fe64
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map jungle 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map jungle 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map plains 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map plains 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map savanna 1
+I minecraft:plains_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_plains 1456.0 -1520.0 180.0
+M 54 1216 -1344 2 false 33462091716716b7f1d2960c128d430a6d65d480
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map savanna 2
+I minecraft:plains_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_plains 1136.0 592.0 180.0
+M 55 1216 704 2 false f2e90ff2a36916536284da7cb3a197e2bb7dfc5c
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map snow 1
+I minecraft:plains_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_plains -1616.0 544.0 180.0
+M 56 -1856 704 2 false 4d2d5f1e2eb3c221a479c648cc15c1b1ff375f64
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map snow 2
+I minecraft:plains_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_plains -208.0 1376.0 180.0
+M 57 -320 1216 2 false 34958494de0d9365bb83a0612714f9ba0e79f19a
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map swamp 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map swamp 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map taiga 1
+I minecraft:plains_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_plains -448.0 -2656.0 180.0
+M 58 -320 -2880 2 false b4bbc4a50250540f7552a656aa6c48323448dd81
+TRADE minecraft:cartographer/2/emerald_and_compass_village_plains_map taiga 2
+I minecraft:plains_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_plains 608.0 1984.0 180.0
+M 59 704 2240 2 false 4c8a96b648ff2363f02c9264829766d199058ee4
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map desert 1
+I minecraft:savanna_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_savanna 1360.0 -1920.0 180.0
+M 60 1216 -1856 2 false 97abfdafeb41d39d96f357c206c900c84a55c81a
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map desert 2
+I minecraft:savanna_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_savanna 1856.0 560.0 180.0
+M 61 1728 704 2 false 4b08a5949b6c7216ca6ee684cdb26caef73fca6d
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map jungle 1
+I minecraft:savanna_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_savanna 1680.0 -2320.0 180.0
+M 62 1728 -2368 2 false 672df960cf2dc6b21f4d921efbe739e7381c6606
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map jungle 2
+I minecraft:savanna_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_savanna 2304.0 -3072.0 180.0
+M 63 2240 -2880 2 false 01bcf9d2b737d073c0702d59af7ef6cb3c5fb2ae
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map plains 1
+I minecraft:savanna_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_savanna 2960.0 -3008.0 180.0
+M 64 2752 -2880 2 false 1eaf6c9191c90f45e670fefcde49f7fd71814549
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map plains 2
+I minecraft:savanna_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_savanna 2560.0 -3648.0 180.0
+M 65 2752 -3392 2 false 487edb7c2832b3db2e7765e24ad5f21406462fb3
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map savanna 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map savanna 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map snow 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map snow 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map swamp 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map swamp 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map taiga 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_savanna_map taiga 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map desert 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map desert 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map jungle 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map jungle 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map plains 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map plains 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map savanna 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map savanna 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map snow 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map snow 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map swamp 1
+I minecraft:snowy_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_snowy -1264.0 -992.0 180.0
+M 66 -1344 -832 2 false eedb85b90fdfcf9df0fee80af86d690202016228
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map swamp 2
+I minecraft:snowy_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_snowy -4016.0 -4864.0 180.0
+M 67 -3904 -4928 2 false 0b552f1e5f8e64ec5bc588fa05af429f1a28abee
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map taiga 1
+I minecraft:snowy_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_snowy -4608.0 -5264.0 180.0
+M 68 -4416 -5440 2 false 8726061ef86c6396c6193c997ea9aa1e9693f379
+TRADE minecraft:cartographer/2/emerald_and_compass_village_snowy_map taiga 2
+I minecraft:snowy_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_snowy -4528.0 -4880.0 180.0
+M 69 -4416 -4928 2 false 3f6deddcd465be8e5595f32407a90f29df59c0e8
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map desert 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map desert 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map jungle 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map jungle 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map plains 1
+I minecraft:taiga_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_taiga 80.0 -496.0 180.0
+M 70 192 -320 2 false 21e42f05582cd5fe01cb6b709bb22859b6a596dd
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map plains 2
+I minecraft:taiga_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_taiga 48.0 -976.0 180.0
+M 71 192 -832 2 false 83b58a0aa9c4466e0c3d176a3a05269addcae4e3
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map savanna 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map savanna 2
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map snow 1
+I minecraft:taiga_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_taiga 176.0 -1536.0 180.0
+M 72 192 -1344 2 false df124657f9bab1793b1ab28eb834fa58db760e7e
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map snow 2
+I minecraft:taiga_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_taiga -1824.0 -1440.0 180.0
+M 73 -1856 -1344 2 false 769d51e413c01dcc8dc1318ce53c24429f871c3b
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map swamp 1
+I minecraft:taiga_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_taiga -1840.0 -960.0 180.0
+M 74 -1856 -832 2 false fd803a1d76b77e02ed7eb4ff95f875389b3868af
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map swamp 2
+I minecraft:taiga_village_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:village_taiga -1952.0 320.0 180.0
+M 75 -1856 192 2 false f39bfbf534ad838b61351c079c4fea82d1b19aaa
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map taiga 1
+NONE
+TRADE minecraft:cartographer/2/emerald_and_compass_village_taiga_map taiga 2
+NONE
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map desert 1
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers 96.0 -448.0 180.0
+M 76 192 -320 2 false 21e42f05582cd5fe01cb6b709bb22859b6a596dd
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map desert 2
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers -416.0 -976.0 180.0
+M 77 -320 -832 2 false 9017a6e5a3d26cf62e1ad39cb7e656b97a82c037
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map jungle 1
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers -384.0 -272.0 180.0
+M 78 -320 -320 2 false 32cf2e9b3eb7096bc458fa0f12f1ef10887c6b7a
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map jungle 2
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers -480.0 176.0 180.0
+M 79 -320 192 2 false a76721a66a20fe36d8ab8fadcdee04781416a49d
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map plains 1
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers 144.0 -848.0 180.0
+M 80 192 -832 2 false 83b58a0aa9c4466e0c3d176a3a05269addcae4e3
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map plains 2
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers 224.0 320.0 180.0
+M 81 192 192 2 false 95ae0f6fad008911444274b30834a71910ea3894
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map savanna 1
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers 784.0 -928.0 180.0
+M 82 704 -832 2 false 41616255d9f2fb6ef91c7db9f7e01c6fd88d4b8f
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map savanna 2
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers 608.0 -496.0 180.0
+M 83 704 -320 2 false 7de0fbdaf30b40cf2009aba675597ff48653e50b
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map snow 1
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers 720.0 48.0 180.0
+M 84 704 192 2 false 1881e4016b410494b5e69a57b25612a2a7fdb5be
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map snow 2
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers -976.0 -1312.0 180.0
+M 85 -832 -1344 2 false 3b9d2f8c3d1d4f688b8744e895fe39475cb45db9
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map swamp 1
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers -1056.0 -752.0 180.0
+M 86 -832 -832 2 false f20177e801cb757dd2b5de34fdfe0d7e4ac2162e
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map swamp 2
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers -816.0 -512.0 180.0
+M 87 -832 -320 2 false 1334aeac5b6242c3c10aefaade46af796dd72bbe
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map taiga 1
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers -816.0 112.0 180.0
+M 88 -832 192 2 false bd6178ef8bddc4d98a8c38364325c19b5ffa8ad5
+TRADE minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map taiga 2
+I minecraft:buried_trial_chambers_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:trial_chambers -768.0 800.0 180.0
+M 89 -832 704 2 false 074d01fbd1d55565931c04be6cc0e158d2146ae5
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map desert 1
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -848.0 -848.0 180.0
+M 90 -832 -832 2 false f20177e801cb757dd2b5de34fdfe0d7e4ac2162e
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map desert 2
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -1488.0 -752.0 180.0
+M 91 -1344 -832 2 false eedb85b90fdfcf9df0fee80af86d690202016228
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map jungle 1
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -1328.0 -384.0 180.0
+M 92 -1344 -320 2 false 67995c5da9e0f2e3642bf03001108e65659b82d2
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map jungle 2
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -1440.0 -2352.0 180.0
+M 93 -1344 -2368 2 false faa37bc4d7917feb55ccced541543fd2752ac030
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map plains 1
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument 2336.0 -2304.0 180.0
+M 94 2240 -2368 2 false 29fe5d6c1fa8ef2b76a2d32f2f67b086f1a520fe
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map plains 2
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -2464.0 -2960.0 180.0
+M 95 -2368 -2880 2 false cbe060a995a8eb220e0cae7f542f88cc5199409f
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map savanna 1
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -1216.0 -2992.0 180.0
+M 96 -1344 -2880 2 false af7c096a0e06fa6070d470704e9ca3b6715c70d3
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map savanna 2
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -816.0 -2880.0 180.0
+M 97 -832 -2880 2 false 5c2be986f2ad9c874545f953a47216e433fd7a78
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map snow 1
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -880.0 2112.0 180.0
+M 98 -832 2240 2 false 372fa0aa115ce5f8f54e824e531fc5da4be46187
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map snow 2
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -2272.0 -3280.0 180.0
+M 99 -2368 -3392 2 false 29fe5d6c1fa8ef2b76a2d32f2f67b086f1a520fe
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map swamp 1
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -3376.0 -4048.0 180.0
+M 100 -3392 -3904 2 false 29fe5d6c1fa8ef2b76a2d32f2f67b086f1a520fe
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map swamp 2
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -3392.0 1744.0 180.0
+M 101 -3392 1728 2 false 67426c90b7ed0b43729ba29ae123d065e37132b2
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map taiga 1
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -2976.0 -3888.0 180.0
+M 102 -2880 -3904 2 false 29fe5d6c1fa8ef2b76a2d32f2f67b086f1a520fe
+TRADE minecraft:cartographer/3/emerald_and_compass_ocean_monument_map taiga 2
+I minecraft:ocean_monument_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:monument -2368.0 -3808.0 180.0
+M 103 -2368 -3904 2 false 29fe5d6c1fa8ef2b76a2d32f2f67b086f1a520fe
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map desert 1
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion 240.0 -2128.0 180.0
+M 104 192 -2368 2 false 497f9fe116eba6dda1e452301ec0faab7293af15
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map desert 2
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion 4656.0 1360.0 180.0
+M 105 4800 1216 2 false 5411a99f567dc3fcf005d1bd7b80899f51dcfbc1
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map jungle 1
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion -3440.0 -8448.0 180.0
+M 106 -3392 -8512 2 false 99da3f226a01ba84896b8c8e9a56241a6f0ce364
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map jungle 2
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion -8512.0 -11136.0 180.0
+M 107 -8512 -11072 2 false 2733a03cbd382befd5c4ce02346a3e8e1aa21360
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map plains 1
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion -11488.0 -7200.0 180.0
+M 108 -11584 -6976 2 false bfad20f19ada31167f9cd7099227f4988ebe53a3
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map plains 2
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion -9632.0 -12224.0 180.0
+M 109 -9536 -12096 2 false 559ccafa23aa58537a48353da25c45947d3d17dc
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map savanna 1
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion 12016.0 -8352.0 180.0
+M 110 11968 -8512 2 false 7d6a7929ec03e644079730202c59ec0a55232860
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map savanna 2
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion 9328.0 -13312.0 180.0
+M 111 9408 -13120 2 false b3626151b9bf267be053c35c31ee87c86aaa6597
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map snow 1
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion -3360.0 -15200.0 180.0
+M 112 -3392 -15168 2 false 9aed573942c9cf21aad8e4903045d0340e28b0ee
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map snow 2
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion -2080.0 13184.0 180.0
+M 113 -1856 12992 2 false 8d650602732456037bd15037fd719cbcf9ea4421
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map swamp 1
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion -14976.0 -10800.0 180.0
+M 114 -15168 -10560 2 false 1d0b19b7aba8397b3b37ff9be5c4fb3479535756
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map swamp 2
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion -5536.0 -17456.0 180.0
+M 115 -5440 -17216 2 false e402bc3180d5d08010bb2f74a40d15fe3b51120c
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map taiga 1
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion 13344.0 15936.0 180.0
+M 116 13504 16064 2 false 29f63b3efca1a45bf620607b4a0c249467714e09
+TRADE minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map taiga 2
+I minecraft:woodland_mansion_map 1 +minecraft:map_decorations,+minecraft:map_id
+D + minecraft:mansion 17440.0 2176.0 180.0
+M 117 17600 2240 2 false 1343c91492c06d83051c2bbafdec2e274e6e7034

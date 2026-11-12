@@ -34,7 +34,7 @@ use mc_world::level_storage::WorldDataConfiguration;
 use sha1::{Digest, Sha1};
 
 /// A merchant for the merchant predicates: position and the villager type component (`Villager.get(VILLAGER_VARIANT)`).
-struct TestMerchant {
+pub(crate) struct TestMerchant {
     base: EntityData,
     variant: Option<Identifier>,
 }
@@ -48,7 +48,7 @@ impl TestMerchant {
             variant: variant.map(|v| Identifier::parse(&format!("minecraft:{v}")).unwrap()),
         }
     }
-    fn villager(variant: &str) -> TestMerchant {
+    pub(crate) fn villager(variant: &str) -> TestMerchant {
         TestMerchant::new(EntityType::VILLAGER, Some(variant), (100.5, 64.0, -20.5))
     }
     fn trader() -> TestMerchant {
