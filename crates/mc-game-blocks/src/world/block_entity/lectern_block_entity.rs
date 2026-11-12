@@ -178,10 +178,10 @@ impl BlockEntity for LecternBlockEntity {
         }
     }
 
-    fn as_container(&self) -> Option<&dyn Container> {
+    fn menu_container(&self) -> Option<&dyn Container> {
         Some(self)
     }
-    fn as_container_mut(&mut self) -> Option<&mut dyn Container> {
+    fn menu_container_mut(&mut self) -> Option<&mut dyn Container> {
         Some(self)
     }
     fn container_data(&self) -> Option<&dyn ContainerData> {

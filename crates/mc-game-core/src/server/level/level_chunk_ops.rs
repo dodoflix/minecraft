@@ -460,7 +460,7 @@ impl ServerLevel {
         let ticks = self
             .chunk_at(pos)
             .and_then(|c| c.block_entities.get(&pos))
-            .is_some_and(|be| be.is_ticking());
+            .is_some_and(|be| be.is_ticking_in(self));
         if !ticks {
             self.remove_block_entity_ticker(pos);
             return;

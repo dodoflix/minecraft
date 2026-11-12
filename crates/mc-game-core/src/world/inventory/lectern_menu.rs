@@ -52,7 +52,7 @@ impl LecternMenu {
         player
             .level_ref()
             .and_then(|l| l.get_block_entity(self.pos))
-            .and_then(|be| be.as_container())
+            .and_then(|be| be.menu_container())
             .map_or_else(ItemStack::empty, |c| c.get_item(0).clone())
     }
 

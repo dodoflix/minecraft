@@ -347,6 +347,10 @@ pub trait BlockEntity: Any {
     fn is_ticking(&self) -> bool {
         false
     }
+    /// `getTicker(level, ..)` for block entities whose ticker depends on the level (the daylight detector).
+    fn is_ticking_in(&self, _level: &crate::server::level::ServerLevel) -> bool {
+        self.is_ticking()
+    }
     fn server_tick(&mut self, _level: &mut crate::server::level::ServerLevel) {}
     /// A ticker that works on the level and the position instead of the taken-out block entity: for block entities
     /// whose tick changes their own block while neighbours read the block entity (sculk sensor, catalyst, shrieker,
@@ -448,6 +452,14 @@ pub trait BlockEntity: Any {
     }
     fn as_container_mut(&mut self) -> Option<&mut dyn crate::world::container::Container> {
         None
+    }
+    /// The container a menu slot reads and writes: `as_container`, except where the menu holds an anonymous container
+    /// that the block entity is not (`LecternBlockEntity.bookAccess`), which hoppers and droppers must not see.
+    fn menu_container(&self) -> Option<&dyn crate::world::container::Container> {
+        self.as_container()
+    }
+    fn menu_container_mut(&mut self) -> Option<&mut dyn crate::world::container::Container> {
+        self.as_container_mut()
     }
     /// The `ContainerData` this block entity hands its menu (`dataAccess`: furnace progress, brewing time, beacon
     /// levels, lectern page, ...).

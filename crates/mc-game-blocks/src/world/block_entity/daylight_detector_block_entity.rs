@@ -27,16 +27,14 @@ impl DaylightDetectorBlockEntity {
 impl BlockEntity for DaylightDetectorBlockEntity {
     block_entity_base!();
 
-    /// `getTicker`: only server levels whose dimension has sky light tick (decided per call, see `server_tick`).
-    fn is_ticking(&self) -> bool {
-        true
+    /// `getTicker`: only levels whose dimension has sky light get a ticker.
+    fn is_ticking_in(&self, level: &ServerLevel) -> bool {
+        level.chunk_source.chunk_map.has_sky_light
     }
 
     /// `DaylightDetectorBlock.tickEntity`.
     fn server_tick(&mut self, level: &mut ServerLevel) {
-        if level.chunk_source.chunk_map.has_sky_light
-            && mc_game_core::world::level::LevelAccessor::get_game_time(level) % 20 == 0
-        {
+        if mc_game_core::world::level::LevelAccessor::get_game_time(level) % 20 == 0 {
             let state =
                 mc_game_core::world::level::BlockGetter::get_block_state(level, self.base.pos);
             update_signal_strength(state, level, self.base.pos);

@@ -60,7 +60,7 @@ impl ContainerKey {
             Self::BlockEntity(pos) => player
                 .level_ref()
                 .and_then(|l| l.get_block_entity(*pos))
-                .is_some_and(|be| be.as_container().is_some_and(|c| c.still_valid(player))),
+                .is_some_and(|be| be.menu_container().is_some_and(|c| c.still_valid(player))),
             Self::Entity(id) => player
                 .level_ref()
                 .and_then(|l| l.get_entity(*id))
@@ -111,7 +111,7 @@ pub fn with_player_container<R>(
             let mut f = Some(f);
             let resolved = player.level().and_then(|level| {
                 let be = level.get_block_entity_immediate(*pos)?;
-                let container = be.as_container_mut()?;
+                let container = be.menu_container_mut()?;
                 let result = (f.take().expect("called once"))(container);
                 let pending = be.container_pending();
                 Some((result, pending))
