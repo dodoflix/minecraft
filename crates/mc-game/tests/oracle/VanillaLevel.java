@@ -207,6 +207,16 @@ public final class VanillaLevel {
       public final boolean sim;
       // simulated client input (see EntityOracleDriver `input`)
       public boolean inForward, inBack, inLeft, inRight, inJump, inSneak, inSprint;
+      // `track_movement`: the known movement a real client reports with its movement packets (the position change of the last tick)
+      public boolean trackMovement;
+      private net.minecraft.world.phys.Vec3 lastTickPos;
+
+      /** Before a tick: the movement of the previous tick becomes the known movement (what the client's move packet carries). */
+      void trackKnownMovement() {
+         net.minecraft.world.phys.Vec3 pos = this.position();
+         this.setKnownMovement(lastTickPos == null ? net.minecraft.world.phys.Vec3.ZERO : pos.subtract(lastTickPos));
+         lastTickPos = pos;
+      }
 
       SimPlayer(MinecraftServer server, ServerLevel level, GameProfile profile, net.minecraft.server.level.ClientInformation info, boolean sim) {
          super(server, level, profile, info);
@@ -403,6 +413,9 @@ public final class VanillaLevel {
       RandomSupport.reseedUniquifier(8682522807148012L ^ (ticks + 1) * 0x9E3779B97F4A7C15L);
       for (FakePlayer p : players) {
          if (p.player instanceof SimPlayer sp && sp.sim) {
+            if (sp.trackMovement) {
+               sp.trackKnownMovement();
+            }
             sp.applyInput();
          }
       }

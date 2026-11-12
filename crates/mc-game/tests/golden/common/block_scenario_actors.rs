@@ -65,6 +65,8 @@ pub struct Actors {
     rx: HashMap<String, UnboundedReceiver<Outbound>>,
     /// The driver's `seq(player)` counters.
     sequences: crate::common::player_actions::Sequences,
+    /// `track_movement` players with the position at the start of the previous tick (`None` before the first tick).
+    tracked_movement: HashMap<EntityId, Option<Vec3>>,
     /// Keeps the inbound queue of every replayed listener open.
     _inbound: Vec<std::sync::mpsc::Sender<mc_game::server::network::InboundPacket>>,
     pub registries_loaded: bool,
@@ -398,6 +400,19 @@ impl Scenario {
                     p.set_last_client_input(input);
                     p.set_shift_key_down(input.shift);
                 });
+            }
+            // ride REF VEHICLE: `startRiding(vehicle, true, true)`
+            "ride" => {
+                self.world();
+                let (rider, vehicle) = (self.entity_id(&a[1]), self.entity_id(&a[2]));
+                self.level()
+                    .with_entity(rider, |level, e| level.start_riding(e, vehicle, true, true));
+            }
+            // track_movement PLAYER: a sim player reports the movement of the previous tick as its known movement
+            "track_movement" => {
+                self.world();
+                let id = self.entity_id(&a[1]);
+                self.actors.tracked_movement.insert(id, None);
             }
             "op" => {
                 self.world();
@@ -733,10 +748,7 @@ impl Scenario {
     fn spawn_player(&mut self, a: &[String]) {
         let name = a[1].clone();
         let sim = a.last().map(String::as_str) == Some("sim");
-        assert!(
-            !sim,
-            "simulated players (`sim`) are not supported by the block replay"
-        );
+        let n = a.len() - usize::from(sim);
         let level = self.level();
         let id = level.next_entity_id();
         let profile = mc_game::server::network::login_listener::create_offline_profile(&name);
@@ -760,13 +772,14 @@ impl Scenario {
                 None,
             ),
         );
-        let (yaw, pitch) = if a.len() > 7 {
+        let (yaw, pitch) = if n > 7 {
             (num(&a[6]) as f32, num(&a[7]) as f32)
         } else {
             (0.0, 0.0)
         };
         p.snap_to(num(&a[3]), num(&a[4]), num(&a[5]), yaw, pitch);
         p.base_mut().first_tick = true;
+        p.simulate_local_player = sim;
         let (tx, rx) = unbounded_channel();
         let sender = ConnectionSender::new(tx);
         p.connection = Some(sender.clone());
@@ -838,11 +851,13 @@ impl Scenario {
         // with the level random on every tick (`ServerChunkCache.tickChunks`), which every later spawner draw depends on.
         level.chunk_source.chunk_map.add_player(tracking);
         // a non-simulated player has no movement packets: onGround is derived once (resting on a block)
-        level.with_player(id, |level, p| {
-            let bb = p.base().bounding_box().move_(0.0, -1.0E-3, 0.0);
-            let free = level.no_collision_aabb(&bb);
-            p.base_mut().set_on_ground_raw(!free);
-        });
+        if !sim {
+            level.with_player(id, |level, p| {
+                let bb = p.base().bounding_box().move_(0.0, -1.0E-3, 0.0);
+                let free = level.no_collision_aabb(&bb);
+                p.base_mut().set_on_ground_raw(!free);
+            });
+        }
         self.actors.known.insert(id);
         self.actors.refs.push((name.clone(), id));
         self.actors.players.push(name.clone());
@@ -960,6 +975,27 @@ impl Scenario {
         }
     }
 
+    /// `VanillaLevel.tick`: before the server ticks, a simulated player applies its keyboard input (`SimPlayer.applyInput`).
+    pub(super) fn apply_player_inputs(&mut self) {
+        for name in self.actors.players.clone() {
+            let id = self.entity_id(&name);
+            let mut tracked = self.actors.tracked_movement.get(&id).copied();
+            self.with_player_named(&name, |_, p| {
+                if p.simulate_local_player {
+                    if let Some(last) = tracked.as_mut() {
+                        let pos = p.position();
+                        p.last_known_client_movement = last.map_or(Vec3::ZERO, |l| pos.subtract(l));
+                        *last = Some(pos);
+                    }
+                    p.apply_input();
+                }
+            });
+            if let Some(t) = tracked {
+                self.actors.tracked_movement.insert(id, t);
+            }
+        }
+    }
+
     /// The player half of a tick, after `ServerLevel::tick` (which ticked the player entity): `ServerGamePacketListenerImpl.tick` -> `doTick`.
     pub(super) fn tick_players(&mut self) {
         for name in self.actors.players.clone() {
@@ -973,7 +1009,10 @@ impl Scenario {
                 p.player.living.entity.set_old_pos(pos);
                 p.do_tick(level);
                 let (y_rot, x_rot) = (p.get_y_rot(), p.get_x_rot());
-                p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
+                // a simulated player keeps the position its own physics produced (`SimPlayer.absSnapTo`)
+                if !p.simulate_local_player {
+                    p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
+                }
             });
         }
     }
@@ -1116,7 +1155,18 @@ impl Scenario {
     /// The `P`/`E` line of the driver's `describe` for the fields the Rust entities model.
     fn describe(&mut self, name: &str, id: EntityId) -> String {
         let players = self.actors.players.clone();
+        let refs = self.actors.refs.clone();
         let level = self.level();
+        // the driver's `uuidName`: a known entity prints as its scenario name
+        let uuid_names: HashMap<uuid::Uuid, String> = refs
+            .iter()
+            .filter_map(|(n, id)| level.get_entity(*id).map(|e| (e.uuid(), n.clone())))
+            .collect();
+        let uuid_name = |u: Option<uuid::Uuid>| {
+            u.map_or("-".to_owned(), |u| {
+                uuid_names.get(&u).cloned().unwrap_or_else(|| u.to_string())
+            })
+        };
         let e = level
             .get_entity(id)
             .unwrap_or_else(|| panic!("entity {name} is gone"));
@@ -1185,8 +1235,8 @@ impl Scenario {
                 item.age,
                 item.pickup_delay,
                 item.health,
-                item.target.map_or("-".into(), |u| u.to_string()),
-                item.thrower.map_or("-".into(), |u| u.to_string())
+                uuid_name(item.target),
+                uuid_name(item.thrower)
             );
         } else if let Some(o) = e
             .as_any()

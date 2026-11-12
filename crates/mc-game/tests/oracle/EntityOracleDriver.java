@@ -132,6 +132,9 @@ import net.minecraft.util.RandomSource;
  * kill REF                    discard (no death logic)
  * -- inputs / actions (vanilla packet handlers of the player's real ServerGamePacketListenerImpl) --
  * input PLAYER FLAGS          sim player: forward,back,left,right,jump,sneak,sprint (comma list) or `none`; applied each tick
+ * ride REF VEHICLE           REF.startRiding(VEHICLE, true, true)
+ * track_movement PLAYER      sim player: from now on its known movement (`getKnownMovement`/`getKnownSpeed`, what a client reports with its move packets) is the position change
+ *                             of the previous tick, set before each tick (kinetic weapons, sweep attacks and projectile deflection read it); without it a sim player reports none
  * op PLAYER                   PlayerList.op (the server's operator permissions)
  * pick_block PLAYER X Y Z [true|false]   ServerboundPickItemFromBlockPacket (the flag = include block data, creative only)
  * move_packet PLAYER X Y Z ONGROUND [yaw pitch]   ServerboundMovePlayerPacket (server-authoritative path)
@@ -592,6 +595,14 @@ public final class EntityOracleDriver {
             p.inSneak = fl.contains("sneak");
             p.inSprint = fl.contains("sprint");
             p.connection.handlePlayerInput(new ServerboundPlayerInputPacket(new net.minecraft.world.entity.player.Input(p.inForward, p.inBack, p.inLeft, p.inRight, p.inJump, p.inSneak, p.inSprint)));
+         }
+         case "track_movement" -> {
+            world();
+            ((VanillaLevel.SimPlayer)player(a.get(1))).trackMovement = true;
+         }
+         case "ride" -> {
+            world();
+            ref(a.get(1)).startRiding(ref(a.get(2)), true, true);
          }
          case "op" -> {
             world();
