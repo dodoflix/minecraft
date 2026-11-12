@@ -930,10 +930,7 @@ impl Harness {
         mc_core::random::reseed_uniquifier(java_hash(&a[1]));
         let id = self.level.next_entity_id();
         let profile = GameProfile {
-            id: uuid::Uuid::new_v3(
-                &uuid::Uuid::NAMESPACE_OID,
-                format!("OfflinePlayer:{}", a[1]).as_bytes(),
-            ),
+            id: mc_core::uuid_util::create_offline_player_uuid(&a[1]),
             name: a[1].clone(),
             properties: vec![],
         };
