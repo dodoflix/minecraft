@@ -3,9 +3,6 @@
 mc-datafix tests/golden/main.rs core_smoke::read_write_roundtrip
 mc-game tests/golden/main.rs advancement_predicates_golden::entity_basic
 mc-game tests/golden/main.rs attack_golden::armor_resistance_absorption_thorns
-mc-game tests/golden/main.rs attack_golden::armor_stands_item_frames_cows
-mc-game tests/golden/main.rs attack_golden::enchantments_and_attributes
-mc-game tests/golden/main.rs books_golden::books_match_vanilla
 mc-game tests/golden/main.rs commands_entity::attribute_get_set_and_modifiers
 mc-game tests/golden/main.rs commands_entity::damage_hurts_living_entities_and_reports_invulnerability
 mc-game tests/golden/main.rs commands_entity::effect_give_and_clear

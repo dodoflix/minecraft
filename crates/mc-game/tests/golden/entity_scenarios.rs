@@ -152,7 +152,7 @@ fn mob_path_ground() {
 
 /// Piglin barter / admire / hostility toward a player without gold armor.
 #[test]
-#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
+#[ignore = "deviation: the scenario replay lacks the mob_drops rule and command feedback lines (#7)"]
 fn mob_piglin_barter() {
     run_scenario_test("mob_piglin_barter");
 }

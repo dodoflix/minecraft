@@ -64,13 +64,19 @@ fn books_match_vanilla() {
                 player.player.inventory.set_item(slot, stack_of(snbt));
             }
             "EDIT" => {
-                let mut parts = rest.splitn(3, ' ');
-                slot = parts.next().unwrap().parse().unwrap();
-                let title = match parts.next().unwrap() {
-                    "-" => None,
-                    json => Some(serde_json::from_str::<String>(json).unwrap()),
+                let (s, rest) = rest.split_once(' ').unwrap();
+                slot = s.parse().unwrap();
+                // a title is a JSON string and may contain spaces: the pages array starts where the first JSON value ends
+                let (title, pages) = match rest.strip_prefix("- ") {
+                    Some(pages) => (None, pages),
+                    None => {
+                        let mut values =
+                            serde_json::Deserializer::from_str(rest).into_iter::<String>();
+                        let title = values.next().unwrap().unwrap();
+                        (Some(title), rest[values.byte_offset()..].trim_start())
+                    }
                 };
-                let pages: Vec<String> = serde_json::from_str(parts.next().unwrap()).unwrap();
+                let pages: Vec<String> = serde_json::from_str(pages).unwrap();
                 edit_book(
                     &mut player,
                     &ServerboundEditBookPacket {

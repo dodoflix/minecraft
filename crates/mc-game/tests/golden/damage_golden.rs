@@ -593,9 +593,10 @@ impl Replay {
             let mut tag = CompoundTag::new();
             tag.merge(&mc_nbt::snbt::parse_compound(&snbt).expect("snbt"));
             mob.read_additional_save_data(&tag);
-            if let Some(name) = tag.get_string("CustomName") {
+            // `Entity.load`: a string tag is a literal component (`'"Bob"'` is the text `"Bob"` with its quotes)
+            if let Some(name) = tag.get("CustomName") {
                 mob.base_mut().set_custom_name(Some(
-                    mc_text::Component::from_json_str(name).expect("custom name json"),
+                    mc_text::Component::from_nbt(name).expect("custom name component"),
                 ));
             }
         }
@@ -1036,7 +1037,6 @@ fn enchantment_protections() {
 }
 
 #[test]
-#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
 fn shield_blocking() {
     check("damage_shield");
 }
@@ -1048,19 +1048,18 @@ fn difficulty_scaling() {
 }
 
 #[test]
-#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
 fn zombie_hits_player() {
     check("hurt_basic");
 }
 
 #[test]
-#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
+#[ignore = "deviation: the respawn position, the death experience orbs and the dropped item motion differ (#27)"]
 fn player_death_drops_xp_totem_and_respawn() {
     check("death_basic");
 }
 
 #[test]
-#[ignore = "deviation: the item behaviour table panics on the poplar boat items (#1)"]
+#[ignore = "deviation: hurt_animation yaw differs for hits without a source position (#28)"]
 fn death_messages_for_every_damage_type() {
     check("death_messages");
 }
