@@ -439,6 +439,8 @@ impl Scenario {
             COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
         ));
         let (shared, _rx) = ServerShared::new();
+        // the scenario thread is the server thread: tasks the game submits (point of interest updates) run inline like in vanilla
+        shared.bind_game_thread();
         let worldgen_biomes = self.real_biomes.then(actors::worldgen_biomes);
         let biomes = BiomeRegistry::new(
             worldgen_biomes

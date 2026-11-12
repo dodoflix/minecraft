@@ -169,8 +169,34 @@ fn use_item(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequenc
         return;
     }
     let animation = interact_animation(p, hand);
-    let result = p.use_item(level, hand);
+    let result = use_item_with_listener_effects(level, p, hand);
     swing_on_success(level, p, hand, animation, &result);
+}
+
+/// `ServerPlayerGameMode.useItem` plus what the listener adds after it (`ItemSystems::use_item`: a book raised by the item is
+/// resolved and opened). That half needs the server, so it runs only in scenarios with the `command_env` verb.
+fn use_item_with_listener_effects(
+    level: &mut ServerLevel,
+    p: &mut ServerPlayer,
+    hand: InteractionHand,
+) -> InteractionResult {
+    use mc_game::commands::server_access::{has_server, with_server};
+    use mc_game::server::network::game_packets::PlayCtx;
+    use mc_game::server::network::game_packets::hooks::ITEM_SYSTEMS;
+    if !has_server() {
+        return p.use_item(level, hand);
+    }
+    with_server(|server| {
+        let mut ctx = PlayCtx {
+            server,
+            level,
+            player: p,
+        };
+        ITEM_SYSTEMS
+            .first()
+            .expect("item systems")
+            .use_item(&mut ctx, hand)
+    })
 }
 
 /// `ServerboundUseItemOnPacket` minus the packet listener: reach and hit-location checks, then `ServerPlayerGameMode.useItemOn`.

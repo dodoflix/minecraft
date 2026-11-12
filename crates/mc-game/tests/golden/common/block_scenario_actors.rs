@@ -535,6 +535,20 @@ impl Scenario {
                         .set_delta_movement_xyz(num(&a[2]), num(&a[3]), num(&a[4]))
                 });
             }
+            "attribute" => {
+                self.world();
+                let id = self.entity_id(&a[1]);
+                let attribute = mc_data::Attribute::by_name(&a[2])
+                    .unwrap_or_else(|| panic!("attribute {}", a[2]));
+                self.level().with_entity(id, |_, e| {
+                    e.living_mut()
+                        .expect("attribute on a living entity")
+                        .attributes
+                        .get_instance(attribute)
+                        .unwrap_or_else(|| panic!("entity has no attribute {attribute:?}"))
+                        .set_base_value(num(&a[3]));
+                });
+            }
             "set" => {
                 self.world();
                 let id = self.entity_id(&a[1]);
