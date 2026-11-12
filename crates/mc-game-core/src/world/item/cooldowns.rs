@@ -97,4 +97,15 @@ impl ItemCooldowns {
     pub fn take_outbox(&mut self) -> Vec<(Identifier, i32)> {
         std::mem::take(&mut self.outbox)
     }
+
+    /// `(group, endTime - tickCount)` of every running cooldown, sorted by group (the scenario dump `cooldowns:`).
+    pub fn running(&self) -> Vec<(Identifier, i32)> {
+        let mut running: Vec<(Identifier, i32)> = self
+            .cooldowns
+            .iter()
+            .map(|(group, c)| (group.clone(), c.end_time.wrapping_sub(self.tick_count)))
+            .collect();
+        running.sort_by_key(|(group, _)| group.to_string());
+        running
+    }
 }
