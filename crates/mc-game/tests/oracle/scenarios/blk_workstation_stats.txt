@@ -1,0 +1,60 @@
+# the INTERACT_WITH_* statistics of the workstation blocks (not dumped by blk_workstation_use): use twice (count 2), plus furnace family, anvil, grindstone, enchanting table, brewing stand, bell/note block/flower pot stats.
+level flat
+preload 2
+spawn_player Alice survival 4.5 -60 4.5 0 0
+tick 1
+block 0 -60 0 minecraft:loom[facing=north]
+block 2 -60 0 minecraft:stonecutter[facing=north]
+block 4 -60 0 minecraft:crafting_table
+block 6 -60 0 minecraft:smithing_table
+block 8 -60 0 minecraft:cartography_table
+block 10 -60 0 minecraft:furnace[facing=north,lit=false]
+block 12 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+block 14 -60 0 minecraft:smoker[facing=north,lit=false]
+block 16 -60 0 minecraft:anvil[facing=north]
+block 18 -60 0 minecraft:grindstone[face=floor,facing=north]
+block 20 -60 0 minecraft:enchanting_table
+block 22 -60 0 minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]
+block 24 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=false]
+block 26 -60 0 minecraft:note_block[instrument=harp,note=0,powered=false]
+block 28 -60 0 minecraft:beacon
+block 30 -60 0 minecraft:lectern[facing=north,has_book=false,powered=false]
+tick 1
+snap Alice 0.5 -60 2.5
+use_on Alice 0 -60 0 up main
+snap Alice 2.5 -60 2.5
+use_on Alice 2 -60 0 up main
+snap Alice 4.5 -60 2.5
+use_on Alice 4 -60 0 up main
+snap Alice 4.5 -60 2.5
+use_on Alice 4 -60 0 up main
+snap Alice 6.5 -60 2.5
+use_on Alice 6 -60 0 up main
+snap Alice 8.5 -60 2.5
+use_on Alice 8 -60 0 up main
+snap Alice 10.5 -60 2.5
+use_on Alice 10 -60 0 up main
+snap Alice 12.5 -60 2.5
+use_on Alice 12 -60 0 up main
+snap Alice 14.5 -60 2.5
+use_on Alice 14 -60 0 up main
+snap Alice 16.5 -60 2.5
+use_on Alice 16 -60 0 up main
+snap Alice 18.5 -60 2.5
+use_on Alice 18 -60 0 up main
+snap Alice 20.5 -60 2.5
+use_on Alice 20 -60 0 up main
+snap Alice 22.5 -60 2.5
+use_on Alice 22 -60 0 up main
+snap Alice 24.5 -60 2.5
+use_on Alice 24 -60 0 up main
+snap Alice 26.5 -60 2.5
+use_on Alice 26 -60 0 up main
+snap Alice 26.5 -60 2.5
+use_on Alice 26 -60 0 up main
+snap Alice 28.5 -60 2.5
+use_on Alice 28 -60 0 up main
+snap Alice 30.5 -60 2.5
+use_on Alice 30 -60 0 up main
+tick 2
+dump stats:Alice blocks:0,-60,0,30,-60,0

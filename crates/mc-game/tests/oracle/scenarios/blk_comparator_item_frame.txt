@@ -1,0 +1,54 @@
+# re-audit probe (frames are loaded from NBT, which does not notify neighbours: a stone placed next to each comparator makes it re-read its input): ComparatorBlock.getInputSignal with an item frame behind a conductor block (getItemFrame: exactly one frame in the cell whose direction equals the comparator facing), frame rotation, empty frame, two frames, wrong-facing frame, subtract mode.
+level flat
+preload 2
+level_seed 5
+difficulty peaceful
+# row 0: rotation 2 -> 3
+block 2 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 1 -60 0 minecraft:redstone_lamp
+block 3 -60 0 minecraft:stone
+spawn f0 minecraft:item_frame 4.5 -59.5 0.5 0 0 {Facing:5b,Item:{id:"minecraft:stick",count:1},ItemRotation:2b}
+# row 4: empty frame -> 0 (frame present, output 0)
+block 2 -60 4 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 1 -60 4 minecraft:redstone_lamp
+block 3 -60 4 minecraft:stone
+spawn f1 minecraft:item_frame 4.5 -59.5 4.5 0 0 {Facing:5b}
+# row 8: two frames in the cell, none counted
+block 2 -60 8 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 1 -60 8 minecraft:redstone_lamp
+block 3 -60 8 minecraft:stone
+spawn f2 minecraft:item_frame 4.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:stick",count:1},ItemRotation:5b}
+spawn f3 minecraft:item_frame 4.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:stick",count:1},ItemRotation:7b}
+# row 12: frame faces another way (attached to the floor stone below): not counted
+block 2 -60 12 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 1 -60 12 minecraft:redstone_lamp
+block 3 -60 12 minecraft:stone
+spawn f4 minecraft:item_frame 4.5 -60.5 12.5 0 0 {Facing:1b,Item:{id:"minecraft:stick",count:1},ItemRotation:4b}
+# row 16: subtract mode with a side input of 2 against rotation 6 -> 7 - 2
+block 2 -60 16 minecraft:comparator[facing=east,mode=subtract,powered=false]
+block 1 -60 16 minecraft:redstone_lamp
+block 3 -60 16 minecraft:stone
+block 2 -60 17 minecraft:redstone_wire[power=2]
+spawn f5 minecraft:item_frame 4.5 -59.5 16.5 0 0 {Facing:5b,Item:{id:"minecraft:stick",count:1},ItemRotation:6b}
+# row 20: frame directly behind (no conductor): the frame is not read, the air gives 0
+block 2 -60 20 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 1 -60 20 minecraft:redstone_lamp
+spawn f6 minecraft:item_frame 3.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:stick",count:1},ItemRotation:3b}
+tick 2
+block 2 -60 -1 minecraft:stone
+block 2 -60 3 minecraft:stone
+block 2 -60 7 minecraft:stone
+block 2 -60 11 minecraft:stone
+block 2 -60 15 minecraft:stone
+block 2 -60 19 minecraft:stone
+tick 8
+dump blocks:1,-60,0,2,-60,20 be:2,-60,0 be:2,-60,4 be:2,-60,8 be:2,-60,12 be:2,-60,16 be:2,-60,20
+nbt f0 {Item:{id:"minecraft:stick",count:1},ItemRotation:7b}
+nbt f3 {Item:{id:"minecraft:stick",count:1},ItemRotation:1b}
+block 2 -60 -1 minecraft:air
+block 2 -60 7 minecraft:air
+tick 2
+block 2 -60 -1 minecraft:stone
+block 2 -60 7 minecraft:stone
+tick 8
+dump be:2,-60,0 be:2,-60,8 blocks:1,-60,0,1,-60,8

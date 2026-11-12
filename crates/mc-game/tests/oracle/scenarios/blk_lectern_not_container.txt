@@ -1,0 +1,36 @@
+# LecternBlockEntity is not a Container in vanilla (only an anonymous bookAccess): a hopper below does not pull the book, a hopper above does not push into it, a dropper facing it spawns the item entity.
+level flat
+preload 2
+level_seed 11
+difficulty peaceful
+watch events
+# hopper below the lectern pointing down into a chest
+block 0 -60 0 minecraft:lectern[facing=north,has_book=true,powered=false]
+be_nbt 0 -60 0 {Book:{id:"minecraft:writable_book",count:1},Page:0}
+block 0 -61 0 minecraft:hopper[facing=down,enabled=true]
+block 0 -62 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+tick 14
+dump blocks:0,-62,0,0,-60,0 be:0,-60,0 be:0,-62,0 entities
+# hopper above the lectern: nothing to push into, the item stays in the hopper
+block 6 -60 0 minecraft:lectern[facing=north,has_book=false,powered=false]
+block 6 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 6 -59 0 {Items:[{Slot:0b,id:"minecraft:writable_book",count:1}]}
+tick 14
+dump blocks:6,-60,0,6,-59,0 be:6,-60,0 be:6,-59,0 entities
+# a dropper facing a lectern: the lectern accepts nothing, the dropper ejects the item entity
+block 12 -60 0 minecraft:dropper[facing=east,triggered=false]
+be_nbt 12 -60 0 {Items:[{Slot:0b,id:"minecraft:writable_book",count:1}]}
+block 13 -60 0 minecraft:lectern[facing=north,has_book=false,powered=false]
+block 12 -60 2 minecraft:redstone_block
+tick 1
+block 12 -61 0 minecraft:redstone_block
+tick 8
+dump blocks:12,-60,0,13,-60,0 be:12,-60,0 be:13,-60,0 entities
+# a dispenser facing a lectern (same rule: dispense behaviour of an item with no special behaviour = drop item)
+block 18 -60 0 minecraft:dropper[facing=east,triggered=false]
+be_nbt 18 -60 0 {Items:[{Slot:0b,id:"minecraft:stick",count:2}]}
+block 19 -60 0 minecraft:lectern[facing=north,has_book=true,powered=false]
+be_nbt 19 -60 0 {Book:{id:"minecraft:writable_book",count:1},Page:0}
+block 18 -61 0 minecraft:redstone_block
+tick 8
+dump blocks:18,-60,0,19,-60,0 be:18,-60,0 be:19,-60,0 entities

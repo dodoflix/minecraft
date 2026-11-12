@@ -1,5 +1,6 @@
-# RedStoneOreBlock.stepOn: an entity that is not stepping carefully (isSteppingCarefully = isShiftKeyDown for a player)
-# lights the ore it stands on; a sneaking player does not.
+# RedStoneOreBlock.stepOn: an entity that is not stepping carefully (Entity.isSteppingCarefully = isShiftKeyDown, Cat/Ocelot add
+# isCrouching) lights the ore it stands on; a sneaking player does not, and neither does a cat that crouches while it is tempted
+# along a row of ore (its pose is crouching, its shift key is not down).
 level flat
 preload 2
 spawn_player Walker survival 3.5 -59 3.5 0 0
@@ -8,5 +9,15 @@ input Sneaker sneak
 block 3 -60 3 minecraft:redstone_ore
 block 7 -60 3 minecraft:redstone_ore
 block 11 -60 3 minecraft:deepslate_redstone_ore
+spawn_player Feeder survival 11.5 -60 12.5 0 0
+give Feeder hotbar0 minecraft:cod 1
+select Feeder 0
+fill 12 -61 12 24 -61 12 minecraft:redstone_ore
+spawn cat1 minecraft:cat 18.5 -60 12.5 90 0
+entity_seed cat1 35
 tick 4
 dump blocks:3,-60,3,11,-60,3 events
+tick 16
+dump blocks:12,-61,12,24,-61,12
+tick 20
+dump blocks:12,-61,12,24,-61,12

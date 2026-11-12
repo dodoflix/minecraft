@@ -1,0 +1,101 @@
+# pistons against blocks that carry block entities (isPushable: a block entity blocks the push; DESTROY reactions drop with the entity's contents): hopper with item, jukebox with a playing record, lectern with a book, sign text, furnace burning, brewing stand, decorated pot, chiseled bookshelf, skull, banner, bell, spawner (immovable? control), command block (immovable control).
+level flat
+preload 3
+level_seed 9
+difficulty peaceful
+fill -2 -61 -2 40 -61 12 minecraft:stone
+block 0 -60 0 minecraft:piston[facing=east,extended=false]
+block 1 -60 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 1 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:5},{Slot:3b,id:"minecraft:apple",count:2}],TransferCooldown:5}
+block 0 -60 2 minecraft:piston[facing=east,extended=false]
+block 1 -60 2 minecraft:jukebox[has_record=true]
+be_nbt 1 -60 2 {RecordItem:{id:"minecraft:music_disc_cat",count:1},ticks_since_song_started:3L}
+block 0 -60 4 minecraft:piston[facing=east,extended=false]
+block 1 -60 4 minecraft:lectern[facing=south,has_book=true,powered=false]
+be_nbt 1 -60 4 {Book:{id:"minecraft:writable_book",count:1,components:{"minecraft:writable_book_content":{pages:[{raw:"a"},{raw:"b"}]}}},Page:1}
+block 0 -60 6 minecraft:piston[facing=east,extended=false]
+block 1 -60 6 minecraft:oak_sign[rotation=4,waterlogged=false]
+be_nbt 1 -60 6 {front_text:{messages:["\"a\"","\"b\"","\"c\"","\"d\""],color:"red",has_glowing_text:1b},is_waxed:1b}
+block 0 -60 8 minecraft:piston[facing=east,extended=false]
+block 1 -60 8 minecraft:furnace[facing=north,lit=true]
+be_nbt 1 -60 8 {Items:[{Slot:0b,id:"minecraft:iron_ore",count:3},{Slot:1b,id:"minecraft:coal",count:2}],lit_time_remaining:100s,lit_total_time:1600s,cooking_time_spent:20s,cooking_total_time:200s}
+block 0 -60 10 minecraft:piston[facing=east,extended=false]
+block 1 -60 10 minecraft:brewing_stand[has_bottle_0=true,has_bottle_1=false,has_bottle_2=false]
+be_nbt 1 -60 10 {Items:[{Slot:0b,id:"minecraft:potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:water"}}},{Slot:3b,id:"minecraft:nether_wart",count:1}],BrewTime:200s,Fuel:10b}
+block 10 -60 0 minecraft:piston[facing=east,extended=false]
+block 11 -60 0 minecraft:decorated_pot[facing=north,cracked=false,waterlogged=false]
+be_nbt 11 -60 0 {item:{id:"minecraft:stick",count:3},sherds:["minecraft:brick","minecraft:brick","minecraft:brick","minecraft:brick"]}
+block 10 -60 2 minecraft:piston[facing=east,extended=false]
+block 11 -60 2 minecraft:chiseled_bookshelf[facing=north,slot_0_occupied=true,slot_1_occupied=false,slot_2_occupied=false,slot_3_occupied=false,slot_4_occupied=false,slot_5_occupied=false]
+be_nbt 11 -60 2 {Items:[{Slot:0b,id:"minecraft:book",count:1}],last_interacted_slot:0}
+block 10 -60 4 minecraft:piston[facing=east,extended=false]
+block 11 -60 4 minecraft:player_head[rotation=3]
+be_nbt 11 -60 4 {profile:{name:"Notch"},note_block_sound:"minecraft:block.note_block.harp"}
+block 10 -60 6 minecraft:piston[facing=east,extended=false]
+block 11 -60 6 minecraft:red_banner[rotation=2]
+be_nbt 11 -60 6 {patterns:[{color:"white",pattern:"minecraft:stripe_top"}],CustomName:"\"B\""}
+block 10 -60 8 minecraft:piston[facing=east,extended=false]
+block 11 -60 8 minecraft:spawner
+block 10 -60 10 minecraft:piston[facing=east,extended=false]
+block 11 -60 10 minecraft:command_block[facing=up,conditional=false]
+block 20 -60 0 minecraft:piston[facing=east,extended=false]
+block 21 -60 0 minecraft:barrel[facing=up,open=false]
+be_nbt 21 -60 0 {Items:[{Slot:2b,id:"minecraft:diamond",count:9}],CustomName:"\"Bx\"",Lock:{components:{"minecraft:custom_name":"k"}}}
+block 20 -60 2 minecraft:piston[facing=east,extended=false]
+block 21 -60 2 minecraft:comparator[facing=east,mode=compare,powered=false]
+be_nbt 21 -60 2 {OutputSignal:9}
+block 20 -60 4 minecraft:piston[facing=east,extended=false]
+block 21 -60 4 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+block 20 -60 6 minecraft:piston[facing=east,extended=false]
+block 21 -60 6 minecraft:daylight_detector[inverted=false,power=3]
+block 20 -60 8 minecraft:piston[facing=east,extended=false]
+block 21 -60 8 minecraft:beacon
+be_nbt 21 -60 8 {primary_effect:"minecraft:speed"}
+block 20 -60 10 minecraft:piston[facing=east,extended=false]
+block 21 -60 10 minecraft:end_gateway
+block 30 -60 0 minecraft:piston[facing=east,extended=false]
+block 31 -60 0 minecraft:red_bed[facing=north,occupied=false,part=foot]
+block 30 -60 2 minecraft:piston[facing=east,extended=false]
+block 31 -60 2 minecraft:conduit[waterlogged=false]
+block 30 -60 4 minecraft:piston[facing=east,extended=false]
+block 31 -60 4 minecraft:bell[attachment=floor,facing=north,powered=false]
+block 30 -60 6 minecraft:piston[facing=east,extended=false]
+block 31 -60 6 minecraft:oak_wall_sign[facing=north,waterlogged=false]
+be_nbt 31 -60 6 {front_text:{messages:["\"x\"","","",""]}}
+block 30 -60 8 minecraft:piston[facing=east,extended=false]
+block 31 -60 8 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+be_nbt 31 -60 8 {Items:[{Slot:0b,id:"minecraft:beef",count:1}],CookingTimes:[I;50,0,0,0],CookingTotalTimes:[I;600,0,0,0]}
+block 30 -60 10 minecraft:piston[facing=east,extended=false]
+block 31 -60 10 minecraft:trapped_chest[facing=north,type=single,waterlogged=false]
+be_nbt 31 -60 10 {Items:[{Slot:1b,id:"minecraft:gold_ingot",count:3}]}
+tick 2
+dump be:1,-60,0 be:1,-60,2 be:1,-60,4 be:1,-60,6 be:1,-60,8 be:1,-60,10 be:11,-60,0 be:11,-60,2 be:11,-60,4 be:11,-60,6 be:11,-60,8 be:11,-60,10 be:21,-60,0 be:21,-60,2 be:21,-60,4 be:21,-60,6 be:21,-60,8 be:21,-60,10
+# power every piston
+block -1 -60 0 minecraft:redstone_block
+block -1 -60 2 minecraft:redstone_block
+block -1 -60 4 minecraft:redstone_block
+block -1 -60 6 minecraft:redstone_block
+block -1 -60 8 minecraft:redstone_block
+block -1 -60 10 minecraft:redstone_block
+block 9 -60 0 minecraft:redstone_block
+block 9 -60 2 minecraft:redstone_block
+block 9 -60 4 minecraft:redstone_block
+block 9 -60 6 minecraft:redstone_block
+block 9 -60 8 minecraft:redstone_block
+block 9 -60 10 minecraft:redstone_block
+block 19 -60 0 minecraft:redstone_block
+block 19 -60 2 minecraft:redstone_block
+block 19 -60 4 minecraft:redstone_block
+block 19 -60 6 minecraft:redstone_block
+block 19 -60 8 minecraft:redstone_block
+block 19 -60 10 minecraft:redstone_block
+block 29 -60 0 minecraft:redstone_block
+block 29 -60 2 minecraft:redstone_block
+block 29 -60 4 minecraft:redstone_block
+block 29 -60 6 minecraft:redstone_block
+block 29 -60 8 minecraft:redstone_block
+block 29 -60 10 minecraft:redstone_block
+tick 4
+dump blocks:0,-60,0,3,-60,10 blocks:10,-60,0,13,-60,10 blocks:20,-60,0,23,-60,10 blocks:30,-60,0,33,-60,10 entities be:2,-60,0 be:2,-60,2 be:2,-60,4 be:2,-60,6 be:2,-60,8 be:2,-60,10 be:12,-60,0 be:12,-60,2 be:12,-60,4 be:12,-60,6 be:12,-60,8 be:12,-60,10 be:22,-60,0 be:22,-60,2 be:22,-60,4 be:22,-60,6 be:22,-60,8 be:22,-60,10 be:32,-60,0 be:32,-60,2 be:32,-60,4 be:32,-60,6 be:32,-60,8 be:32,-60,10 events
+tick 30
+dump be:2,-60,0 be:2,-60,2 be:2,-60,8 be:2,-60,10 be:22,-60,2 be:22,-60,6 events

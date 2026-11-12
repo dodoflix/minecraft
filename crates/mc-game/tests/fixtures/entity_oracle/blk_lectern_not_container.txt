@@ -1,0 +1,70 @@
+C The difficulty has been set to Peaceful
+T 1
+T 2
+T 3
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+B 0 -62 0 minecraft:chest[facing=north,type=single,waterlogged=false]
+B 0 -61 0 minecraft:hopper[enabled=true,facing=down]
+B 0 -60 0 minecraft:lectern[facing=north,has_book=true,powered=false]
+BE 0 -60 0 {Book:{count:1,id:"minecraft:writable_book"},Page:-1,components:{},id:"minecraft:lectern",x:0,y:-60,z:0}
+BE 0 -62 0 {Items:[],components:{},id:"minecraft:chest",x:0,y:-62,z:0}
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+B 6 -60 0 minecraft:lectern[facing=north,has_book=false,powered=false]
+B 6 -59 0 minecraft:hopper[enabled=true,facing=down]
+BE 6 -60 0 {components:{},id:"minecraft:lectern",x:6,y:-60,z:0}
+BE 6 -59 0 {Items:[{Slot:0b,count:1,id:"minecraft:writable_book"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:6,y:-59,z:0}
+T 29
+T 30
+T 31
+T 32
+T 33
+EV level_event r=64.0 ex=0 type=1000 pos=12,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=12,-60,0 data=5 global=0
+T 34
+T 35
+T 36
+T 37
+B 12 -60 0 minecraft:dropper[facing=east,triggered=true]
+B 13 -60 0 minecraft:lectern[facing=north,has_book=false,powered=false]
+BE 12 -60 0 {Items:[],components:{},id:"minecraft:dropper",x:12,y:-60,z:0}
+BE 13 -60 0 {components:{},id:"minecraft:lectern",x:13,y:-60,z:0}
+E item#1 minecraft:item pos=13.929105161231377,-59.360752259392484,-0.6672650549123694 delta=0.12828804890680065,-0.02878336839662179,-0.24390990074584135 rot=309.46964,0.0 og=0 fall=0.029370782896876335 fire=0 air=300 alive=1 pose=standing item=minecraft:writable_book*1 age=5 pickup=0 health=5 owner=- thrower=-
+T 38
+T 39
+T 40
+T 41
+EV level_event r=64.0 ex=0 type=1000 pos=18,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=18,-60,0 data=5 global=0
+T 42
+T 43
+T 44
+T 45
+B 18 -60 0 minecraft:dropper[facing=east,triggered=true]
+B 19 -60 0 minecraft:lectern[facing=north,has_book=true,powered=false]
+BE 18 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:stick"}],components:{},id:"minecraft:dropper",x:18,y:-60,z:0}
+BE 19 -60 0 {Book:{count:1,id:"minecraft:writable_book"},Page:-1,components:{},id:"minecraft:lectern",x:19,y:-60,z:0}
+E item#1 minecraft:item pos=14.679940659789112,-60.0,-2.0948042020913675 delta=0.014144904371776608,0.0,-0.026893247272673716 rot=309.46964,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:writable_book*1 age=13 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=19.988450128353538,-59.435892254072066,-0.15538104494581062 delta=0.1206241891778759,-0.04665215041453243,-0.10812139725827181 rot=236.83118,0.0 og=0 fall=0.05536365555599332 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=5 pickup=0 health=5 owner=- thrower=-

@@ -1,0 +1,33 @@
+STAT Alice minecraft.custom:minecraft.interact_with_anvil 1
+STAT Alice minecraft.custom:minecraft.interact_with_beacon 1
+STAT Alice minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT Alice minecraft.custom:minecraft.interact_with_brewingstand 1
+STAT Alice minecraft.custom:minecraft.interact_with_cartography_table 1
+STAT Alice minecraft.custom:minecraft.interact_with_crafting_table 2
+STAT Alice minecraft.custom:minecraft.interact_with_furnace 1
+STAT Alice minecraft.custom:minecraft.interact_with_grindstone 1
+STAT Alice minecraft.custom:minecraft.interact_with_loom 1
+STAT Alice minecraft.custom:minecraft.interact_with_smithing_table 1
+STAT Alice minecraft.custom:minecraft.interact_with_smoker 1
+STAT Alice minecraft.custom:minecraft.interact_with_stonecutter 1
+STAT Alice minecraft.custom:minecraft.play_time 4
+STAT Alice minecraft.custom:minecraft.time_since_death 4
+STAT Alice minecraft.custom:minecraft.time_since_rest 4
+STAT Alice minecraft.custom:minecraft.total_world_time 4
+STAT Alice minecraft.custom:minecraft.tune_noteblock 2
+B 0 -60 0 minecraft:loom[facing=north]
+B 2 -60 0 minecraft:stonecutter[facing=north]
+B 4 -60 0 minecraft:crafting_table
+B 6 -60 0 minecraft:smithing_table
+B 8 -60 0 minecraft:cartography_table
+B 10 -60 0 minecraft:furnace[facing=north,lit=false]
+B 12 -60 0 minecraft:blast_furnace[facing=north,lit=false]
+B 14 -60 0 minecraft:smoker[facing=north,lit=false]
+B 16 -60 0 minecraft:anvil[facing=north]
+B 18 -60 0 minecraft:grindstone[face=floor,facing=north]
+B 20 -60 0 minecraft:enchanting_table
+B 22 -60 0 minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]
+B 24 -60 0 minecraft:crafter[crafting=false,orientation=north_up,triggered=false]
+B 26 -60 0 minecraft:note_block[instrument=harp,note=2,powered=false]
+B 28 -60 0 minecraft:beacon
+B 30 -60 0 minecraft:lectern[facing=north,has_book=false,powered=false]

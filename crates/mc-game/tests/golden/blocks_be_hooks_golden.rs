@@ -4,7 +4,7 @@
 use crate::common;
 
 #[test]
-fn redstone_ore_lights_under_a_walking_player_but_not_a_sneaking_one() {
+fn redstone_ore_lights_under_a_walking_player_but_not_a_sneaking_player_or_crouching_cat() {
     common::block_scenario::check("blk_redstone_ore_step");
 }
 

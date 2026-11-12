@@ -1,0 +1,30 @@
+# SpawnerBlock.spawnAfterBreak experience (15 + two nextInt(15) draws, only when the tool does not silk touch), the spawner/trial spawner update tags, a vault update tag.
+level flat
+preload 3
+level_seed 21
+difficulty peaceful
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 30
+block 2 -60 0 minecraft:spawner
+be_nbt 2 -60 0 {SpawnData:{entity:{id:"minecraft:pig"}},SpawnPotentials:[{weight:1,data:{entity:{id:"minecraft:pig"}}}],Delay:7s,RequiredPlayerRange:0s}
+block 4 -60 0 minecraft:spawner
+be_nbt 4 -60 0 {RequiredPlayerRange:0s}
+block 6 -60 0 minecraft:trial_spawner[ominous=false,trial_spawner_state=inactive]
+block 8 -60 0 minecraft:vault[facing=north,ominous=false,vault_state=inactive]
+dump beu:2,-60,0 beu:4,-60,0 beu:6,-60,0 beu:8,-60,0 be:2,-60,0
+level_seed 21
+give Steve mainhand minecraft:diamond_pickaxe 1
+dig Steve 2 -60 0
+tick 3
+dump entities blocks:2,-60,0,2,-60,0
+give Steve mainhand minecraft:diamond_pickaxe[enchantments={"minecraft:silk_touch":1}] 1
+dig Steve 4 -60 0
+tick 3
+dump entities blocks:4,-60,0,4,-60,0
+give Steve mainhand minecraft:diamond_pickaxe 1
+dig Steve 6 -60 0
+tick 3
+dump entities blocks:6,-60,0,6,-60,0
+dig Steve 8 -60 0
+tick 3
+dump entities blocks:8,-60,0,8,-60,0

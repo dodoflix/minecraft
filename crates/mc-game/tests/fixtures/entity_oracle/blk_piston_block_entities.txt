@@ -1,0 +1,113 @@
+C The difficulty has been set to Peaceful
+BE 1 -60 0 {Items:[{Slot:0b,count:5,id:"minecraft:stone"},{Slot:3b,count:2,id:"minecraft:apple"}],TransferCooldown:3,components:{},id:"minecraft:hopper",x:1,y:-60,z:0}
+BE 1 -60 2 {RecordItem:{count:1,id:"minecraft:music_disc_cat"},components:{},id:"minecraft:jukebox",ticks_since_song_started:5L,x:1,y:-60,z:2}
+BE 1 -60 4 {Book:{components:{"minecraft:writable_book_content":{pages:[{raw:"a"},{raw:"b"}]}},count:1,id:"minecraft:writable_book"},Page:1,components:{},id:"minecraft:lectern",x:1,y:-60,z:4}
+BE 1 -60 6 {back_text:{color:"black",has_glowing_text:0b,messages:["","","",""]},components:{},front_text:{color:"red",has_glowing_text:1b,messages:['"a"','"b"','"c"','"d"']},id:"minecraft:sign",is_waxed:1b,x:1,y:-60,z:6}
+BE 1 -60 8 {Items:[{Slot:0b,count:3,id:"minecraft:iron_ore"},{Slot:1b,count:2,id:"minecraft:coal"}],RecipesUsed:{},components:{},cooking_time_spent:22,cooking_total_time:200,id:"minecraft:furnace",lit_time_remaining:98,lit_total_time:1600,speed_multiplier:1.0f,x:1,y:-60,z:8}
+BE 1 -60 10 {BrewTime:198,Fuel:10,Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"},{Slot:3b,count:1,id:"minecraft:nether_wart"}],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:0,total_fuel:0,x:1,y:-60,z:10}
+BE 11 -60 0 {components:{},id:"minecraft:decorated_pot",item:{count:3,id:"minecraft:stick"},x:11,y:-60,z:0}
+BE 11 -60 2 {Items:[{Slot:0b,count:1,id:"minecraft:book"}],components:{},id:"minecraft:chiseled_bookshelf",last_interacted_slot:0,x:11,y:-60,z:2}
+BE 11 -60 4 {components:{},id:"minecraft:skull",note_block_sound:"minecraft:block.note_block.harp",profile:{name:"Notch"},x:11,y:-60,z:4}
+BE 11 -60 6 {CustomName:'"B"',components:{},id:"minecraft:banner",patterns:[{color:"white",pattern:"minecraft:stripe_top"}],x:11,y:-60,z:6}
+BE 11 -60 8 {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:4s,SpawnPotentials:[],SpawnRange:4s,components:{},id:"minecraft:mob_spawner",x:11,y:-60,z:8}
+BE 11 -60 10 {Command:"",SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:11,y:-60,z:10}
+BE 21 -60 0 {CustomName:'"Bx"',Items:[{Slot:2b,count:9,id:"minecraft:diamond"}],components:{},id:"minecraft:barrel",x:21,y:-60,z:0}
+BE 21 -60 2 {OutputSignal:9,components:{},id:"minecraft:comparator",x:21,y:-60,z:2}
+BE 21 -60 4 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event_delay:0,selector:{tick:-1L}},x:21,y:-60,z:4}
+BE 21 -60 6 {components:{},id:"minecraft:daylight_detector",x:21,y:-60,z:6}
+BE 21 -60 8 {Levels:0,components:{},id:"minecraft:beacon",primary_effect:"minecraft:speed",x:21,y:-60,z:8}
+BE 21 -60 10 {Age:2L,components:{},id:"minecraft:end_gateway",x:21,y:-60,z:10}
+B 0 -60 0 minecraft:piston[extended=false,facing=east]
+B 0 -60 2 minecraft:piston[extended=false,facing=east]
+B 0 -60 4 minecraft:piston[extended=false,facing=east]
+B 0 -60 6 minecraft:piston[extended=false,facing=east]
+B 0 -60 8 minecraft:piston[extended=false,facing=east]
+B 0 -60 10 minecraft:piston[extended=false,facing=east]
+B 1 -60 0 minecraft:hopper[enabled=true,facing=down]
+B 1 -60 2 minecraft:jukebox[has_record=true]
+B 1 -60 4 minecraft:lectern[facing=south,has_book=true,powered=false]
+B 1 -60 6 minecraft:oak_sign[rotation=4,waterlogged=false]
+B 1 -60 8 minecraft:furnace[facing=north,lit=true]
+B 1 -60 10 minecraft:brewing_stand[has_bottle_0=true,has_bottle_1=false,has_bottle_2=false]
+B 10 -60 0 minecraft:piston[extended=true,facing=east]
+B 10 -60 2 minecraft:piston[extended=false,facing=east]
+B 10 -60 4 minecraft:piston[extended=true,facing=east]
+B 10 -60 6 minecraft:piston[extended=false,facing=east]
+B 10 -60 8 minecraft:piston[extended=false,facing=east]
+B 10 -60 10 minecraft:piston[extended=false,facing=east]
+B 11 -60 0 minecraft:piston_head[facing=east,short=false,type=normal]
+B 11 -60 2 minecraft:chiseled_bookshelf[facing=north,slot_0_occupied=true,slot_1_occupied=false,slot_2_occupied=false,slot_3_occupied=false,slot_4_occupied=false,slot_5_occupied=false]
+B 11 -60 4 minecraft:piston_head[facing=east,short=false,type=normal]
+B 11 -60 6 minecraft:red_banner[rotation=2]
+B 11 -60 8 minecraft:spawner
+B 11 -60 10 minecraft:command_block[conditional=false,facing=up]
+B 20 -60 0 minecraft:piston[extended=false,facing=east]
+B 20 -60 2 minecraft:piston[extended=true,facing=east]
+B 20 -60 4 minecraft:piston[extended=false,facing=east]
+B 20 -60 6 minecraft:piston[extended=false,facing=east]
+B 20 -60 8 minecraft:piston[extended=false,facing=east]
+B 20 -60 10 minecraft:piston[extended=false,facing=east]
+B 21 -60 0 minecraft:barrel[facing=up,open=false]
+B 21 -60 2 minecraft:piston_head[facing=east,short=false,type=normal]
+B 21 -60 4 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
+B 21 -60 6 minecraft:daylight_detector[inverted=false,power=3]
+B 21 -60 8 minecraft:beacon
+B 21 -60 10 minecraft:end_gateway
+B 30 -60 0 minecraft:piston[extended=true,facing=east]
+B 30 -60 2 minecraft:piston[extended=false,facing=east]
+B 30 -60 4 minecraft:piston[extended=true,facing=east]
+B 30 -60 6 minecraft:piston[extended=false,facing=east]
+B 30 -60 8 minecraft:piston[extended=false,facing=east]
+B 30 -60 10 minecraft:piston[extended=false,facing=east]
+B 31 -60 0 minecraft:piston_head[facing=east,short=false,type=normal]
+B 31 -60 2 minecraft:conduit[waterlogged=false]
+B 31 -60 4 minecraft:piston_head[facing=east,short=false,type=normal]
+B 31 -60 6 minecraft:oak_wall_sign[facing=north,waterlogged=false]
+B 31 -60 8 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 31 -60 10 minecraft:trapped_chest[facing=north,type=single,waterlogged=false]
+E item#1 minecraft:item pos=12.228759574861737,-59.107543268715766,0.30325315043911816 delta=0.04547813047217069,0.0323152326326785,-0.07884296004901642 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:decorated_pot*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=12.224067397828057,-59.34757328736106,0.520374400879546 delta=0.04320218756552939,-0.06960093450130199,0.024569081248938814 rot=43.953102,0.0 og=0 fall=0.10267581045627594 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*3 age=4 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=12.184041181165622,-59.15586837549047,4.568854955705785 delta=0.023787450389450307,0.0323152326326785,0.04975677747367386 rot=358.35196,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:player_head*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=22.259201079037595,-59.20684429919326,2.3364814437223873 delta=0.060243797879688504,0.0323152326326785,-0.038420996960973446 rot=206.49406,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:comparator*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=32.22728944159385,-59.439639500749294,4.470388255429369 delta=0.044765041567199175,0.0323152326326785,-0.0453799964737331 rot=168.66861,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bell*1 age=4 pickup=6 health=5 owner=- thrower=-
+BE 2 -60 0 -
+BE 2 -60 2 -
+BE 2 -60 4 -
+BE 2 -60 6 -
+BE 2 -60 8 -
+BE 2 -60 10 -
+BE 12 -60 0 -
+BE 12 -60 2 -
+BE 12 -60 4 -
+BE 12 -60 6 -
+BE 12 -60 8 -
+BE 12 -60 10 -
+BE 22 -60 0 -
+BE 22 -60 2 -
+BE 22 -60 4 -
+BE 22 -60 6 -
+BE 22 -60 8 -
+BE 22 -60 10 -
+BE 32 -60 0 -
+BE 32 -60 2 -
+BE 32 -60 4 -
+BE 32 -60 6 -
+BE 32 -60 8 -
+BE 32 -60 10 -
+EV sound at=10.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.7699063
+EV block_event r=64.0 ex=0 pos=10,-60,0 block=minecraft:piston b0=0 b1=5
+EV sound at=10.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.62577724
+EV block_event r=64.0 ex=0 pos=10,-60,4 block=minecraft:piston b0=0 b1=5
+EV sound at=20.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.624946
+EV block_event r=64.0 ex=0 pos=20,-60,2 block=minecraft:piston b0=0 b1=5
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.68218744
+EV block_event r=64.0 ex=0 pos=30,-60,0 block=minecraft:piston b0=0 b1=5
+EV sound at=30.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.76262206
+EV block_event r=64.0 ex=0 pos=30,-60,4 block=minecraft:piston b0=0 b1=5
+EV sound at=21.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8314967
+BE 2 -60 0 -
+BE 2 -60 2 -
+BE 2 -60 8 -
+BE 2 -60 10 -
+BE 22 -60 2 -
+BE 22 -60 6 -

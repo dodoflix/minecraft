@@ -1,5 +1,5 @@
 # place a pot item carrying sherds and contents
-T 31
+T 301
 EV sound at=1.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.decorated_pot.place source=block vol=1.0 pitch=0.8
 B 1 -61 2 minecraft:grass_block[snowy=false]
 B 1 -60 2 minecraft:decorated_pot[cracked=false,facing=south,waterlogged=false]
@@ -12,24 +12,24 @@ B 2 -60 2 minecraft:decorated_pot[cracked=false,facing=west,waterlogged=false]
 BE 2 -60 2 {components:{},id:"minecraft:decorated_pot",item:{count:3,id:"minecraft:diamond"},sherds:{back:{id:"minecraft:angler_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"}},x:2,y:-60,z:2}
 EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.decorated_pot.place source=block vol=1.0 pitch=0.8
 # insert: empty pot takes one item, the same item stacks, another item is refused (failure wobble)
-T 32
+T 302
 EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert source=block vol=1.0 pitch=0.73125
 EV block_event r=64.0 ex=0 pos=2,-60,2 block=minecraft:decorated_pot b0=1 b1=0
 BE 2 -60 2 {components:{},id:"minecraft:decorated_pot",item:{count:4,id:"minecraft:diamond"},sherds:{back:{id:"minecraft:angler_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"}},x:2,y:-60,z:2}
 I Steve 0 minecraft:diamond*4
-T 33
+T 303
 EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert source=block vol=1.0 pitch=0.7390625
 EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert source=block vol=1.0 pitch=0.746875
 EV block_event r=64.0 ex=0 pos=2,-60,2 block=minecraft:decorated_pot b0=1 b1=0
 BE 2 -60 2 {components:{},id:"minecraft:decorated_pot",item:{count:6,id:"minecraft:diamond"},sherds:{back:{id:"minecraft:angler_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"}},x:2,y:-60,z:2}
 I Steve 0 minecraft:diamond*2
-T 34
+T 304
 EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert_fail source=block vol=1.0 pitch=1.0
 EV block_event r=64.0 ex=0 pos=2,-60,2 block=minecraft:decorated_pot b0=1 b1=1
 BE 2 -60 2 {components:{},id:"minecraft:decorated_pot",item:{count:6,id:"minecraft:diamond"},sherds:{back:{id:"minecraft:angler_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"}},x:2,y:-60,z:2}
 I Steve 0 minecraft:stone*5
 # a full stack refuses more
-T 35
+T 305
 EV sound at=3.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert source=block vol=1.0 pitch=1.2
 EV sound at=3.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert_fail source=block vol=1.0 pitch=1.0
 EV block_event r=64.0 ex=0 pos=3,-60,2 block=minecraft:decorated_pot b0=1 b1=0
@@ -37,23 +37,23 @@ EV block_event r=64.0 ex=0 pos=3,-60,2 block=minecraft:decorated_pot b0=1 b1=1
 BE 3 -60 2 {components:{},id:"minecraft:decorated_pot",item:{count:16,id:"minecraft:ender_pearl"},x:3,y:-60,z:2}
 I Steve 0 minecraft:ender_pearl*3
 # an item with different components is not the same item
-T 36
+T 306
 EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert_fail source=block vol=1.0 pitch=1.0
 EV block_event r=64.0 ex=0 pos=2,-60,2 block=minecraft:decorated_pot b0=1 b1=1
 BE 2 -60 2 {components:{},id:"minecraft:decorated_pot",item:{count:6,id:"minecraft:diamond"},sherds:{back:{id:"minecraft:angler_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"},left:{id:"minecraft:archer_pottery_sherd"},right:{id:"minecraft:arms_up_pottery_sherd"}},x:2,y:-60,z:2}
 I Steve 0 minecraft:diamond*2
 # empty hand: failure wobble
-T 37
+T 307
 EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert_fail source=block vol=1.0 pitch=1.0
 EV block_event r=64.0 ex=0 pos=2,-60,2 block=minecraft:decorated_pot b0=1 b1=1
 # creative player inserts without consuming
-T 38
+T 308
 EV sound at=3.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert_fail source=block vol=1.0 pitch=1.0
 EV block_event r=64.0 ex=0 pos=3,-60,2 block=minecraft:decorated_pot b0=1 b1=1
 BE 3 -60 2 {components:{},id:"minecraft:decorated_pot",item:{count:16,id:"minecraft:ender_pearl"},x:3,y:-60,z:2}
 I Bob 0 minecraft:gold_ingot*1
 # a pot with a loot table unpacks when the item is read
-T 39
+T 309
 EV sound at=4.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.decorated_pot.insert_fail source=block vol=1.0 pitch=1.0
 EV block_event r=64.0 ex=0 pos=4,-60,2 block=minecraft:decorated_pot b0=1 b1=1
 BE 4 -60 2 {components:{},id:"minecraft:decorated_pot",item:{count:1,id:"minecraft:emerald"},x:4,y:-60,z:2}
@@ -63,14 +63,14 @@ B 20 -61 2 minecraft:grass_block[snowy=false]
 B 20 -60 2 minecraft:decorated_pot[cracked=false,facing=south,waterlogged=true]
 TICK fluid 20 -60 2 minecraft:water delay=5 prio=0
 EV sound at=20.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.decorated_pot.place source=block vol=1.0 pitch=0.8
-T 40
-T 41
-T 42
+T 310
+T 311
+T 312
 B 20 -61 2 minecraft:grass_block[snowy=false]
 B 20 -60 2 minecraft:decorated_pot[cracked=false,facing=south,waterlogged=true]
 TICK fluid 20 -60 2 minecraft:water delay=2 prio=0
 # neighbour change: the pot stays
-T 43
+T 313
 B 20 -60 2 minecraft:decorated_pot[cracked=false,facing=south,waterlogged=true]
 # break by hand: the pot and its contents drop, no shatter
 DIG Steve ticks=0 broken=false
@@ -95,15 +95,15 @@ DIG Steve ticks=0 broken=false
 B 7 -60 4 minecraft:decorated_pot[cracked=false,facing=north,waterlogged=false]
 E item#1 minecraft:item pos=6.671882113949418,-59.52643173975978,4.15752439781368 delta=0.06759894289347788,0.16647471164711164,-0.04279072305221738 rot=273.86465,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=0 pickup=0 health=5 owner=- thrower=-
 # an arrow hits the pot: it is cracked and destroyed with its sherds
-T 44
-T 45
+T 314
+T 315
 EV level_event r=64.0 ex=0 type=2001 pos=9,-60,6 data=35444 global=0
 EV sound at=9.5,-59.48577440968473,6.987500000745058 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1177039
-T 46
-T 47
-T 48
-T 49
+T 316
+T 317
+T 318
+T 319
 E item#1 minecraft:item pos=6.9375,-59.38876720854114,3.913280032972102 delta=0.0,-0.07627857635151862,-0.037905840413977356 rot=273.86465,0.0 og=0 fall=0.1164427138864994 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=6 pickup=0 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=9.421995746544559,-59.34607250025237,6.031007257901796 delta=0.04077506873098184,0.0323152326326785,-0.09075325246863655 rot=296.98495,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brick*1 age=4 pickup=6 health=5 owner=- thrower=-
-E item#3 minecraft:item pos=9.089064586009126,-59.10532659616638,6.674193446334484 delta=-0.07198469206960331,0.0323152326326785,0.046615051158669145 rot=326.68738,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=4 pickup=6 health=5 owner=- thrower=-
-E item#4 minecraft:item pos=9.82033688872549,-58.89912664999265,6.301654028244761 delta=0.041702445256596846,0.08576435700754673,0.031229656441488906 rot=51.373745,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=4 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.986559628575533,-59.34607250025237,6.225240048945252 delta=-0.06269598919272094,0.0323152326326785,-0.04459843998666054 rot=154.63287,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brick*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=9.742158171668295,-59.10532659616638,6.282315464492744 delta=0.08320749673303925,0.0323152326326785,-0.04650544961029759 rot=342.42316,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:prize_pottery_sherd*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=9.82033688872549,-58.89912664999265,6.301654028244761 delta=0.041702445256596846,0.08576435700754673,0.031229656441488906 rot=131.58763,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*2 age=4 pickup=0 health=5 owner=- thrower=-

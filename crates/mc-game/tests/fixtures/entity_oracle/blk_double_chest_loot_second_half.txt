@@ -1,0 +1,53 @@
+C The difficulty has been set to Peaceful
+# hopper above the first half, first half has room
+T 1
+T 2
+T 3
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:oak_planks"},{Slot:1b,count:1,id:"minecraft:oak_planks"},{Slot:2b,count:1,id:"minecraft:oak_planks"},{Slot:3b,count:1,id:"minecraft:mangrove_log"},{Slot:4b,count:1,id:"minecraft:mangrove_log"},{Slot:5b,count:1,id:"minecraft:oak_planks"},{Slot:6b,count:1,id:"minecraft:stone_axe"},{Slot:7b,count:1,id:"minecraft:wooden_pickaxe"},{Slot:8b,count:1,id:"minecraft:oak_log"},{Slot:9b,count:1,id:"minecraft:bread"},{Slot:10b,count:1,id:"minecraft:oak_log"},{Slot:11b,count:1,id:"minecraft:oak_planks"},{Slot:13b,count:1,id:"minecraft:bread"},{Slot:14b,count:1,id:"minecraft:bread"},{Slot:17b,count:2,id:"minecraft:oak_planks"},{Slot:19b,count:1,id:"minecraft:mangrove_log"},{Slot:22b,count:1,id:"minecraft:apple"},{Slot:25b,count:1,id:"minecraft:apple"},{Slot:26b,count:5,id:"minecraft:oak_planks"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 1 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:1,y:-60,z:0}
+BE 1 -59 0 {Items:[{Slot:0b,count:2,id:"minecraft:stick"}],TransferCooldown:6,components:{},id:"minecraft:hopper",x:1,y:-59,z:0}
+T 4
+T 5
+T 6
+T 7
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:oak_planks"},{Slot:1b,count:1,id:"minecraft:oak_planks"},{Slot:2b,count:1,id:"minecraft:oak_planks"},{Slot:3b,count:1,id:"minecraft:mangrove_log"},{Slot:4b,count:1,id:"minecraft:mangrove_log"},{Slot:5b,count:1,id:"minecraft:oak_planks"},{Slot:6b,count:1,id:"minecraft:stone_axe"},{Slot:7b,count:1,id:"minecraft:wooden_pickaxe"},{Slot:8b,count:1,id:"minecraft:oak_log"},{Slot:9b,count:1,id:"minecraft:bread"},{Slot:10b,count:1,id:"minecraft:oak_log"},{Slot:11b,count:1,id:"minecraft:oak_planks"},{Slot:13b,count:1,id:"minecraft:bread"},{Slot:14b,count:1,id:"minecraft:bread"},{Slot:17b,count:2,id:"minecraft:oak_planks"},{Slot:19b,count:1,id:"minecraft:mangrove_log"},{Slot:22b,count:1,id:"minecraft:apple"},{Slot:25b,count:1,id:"minecraft:apple"},{Slot:26b,count:5,id:"minecraft:oak_planks"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+BE 1 -60 0 {Items:[{Slot:0b,count:3,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:1,y:-60,z:0}
+BE 1 -59 0 {Items:[],TransferCooldown:8,components:{},id:"minecraft:hopper",x:1,y:-59,z:0}
+# dropper into the second half: the item still goes to the first half
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+BE 6 -60 0 {Items:[{Slot:0b,count:3,id:"minecraft:oak_planks"},{Slot:1b,count:1,id:"minecraft:salmon"},{Slot:3b,count:1,id:"minecraft:oak_planks"},{Slot:5b,count:1,id:"minecraft:salmon"},{Slot:6b,count:1,id:"minecraft:birch_log"},{Slot:8b,count:1,id:"minecraft:apple"},{Slot:9b,count:1,id:"minecraft:apple"},{Slot:10b,count:1,id:"minecraft:acacia_log"},{Slot:15b,count:1,id:"minecraft:wooden_axe"},{Slot:16b,count:1,id:"minecraft:birch_log"},{Slot:17b,count:1,id:"minecraft:jungle_log"},{Slot:21b,count:1,id:"minecraft:stone_pickaxe"},{Slot:23b,count:1,id:"minecraft:apple"},{Slot:24b,count:1,id:"minecraft:apple"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}
+BE 7 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:stick"}],components:{},id:"minecraft:chest",x:7,y:-60,z:0}
+BE 5 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:stick"}],components:{},id:"minecraft:dropper",x:5,y:-60,z:0}
+# first half full: the item goes to the second half
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+T 37
+BE 12 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:salmon"},{Slot:1b,count:1,id:"minecraft:wooden_pickaxe"},{Slot:2b,count:3,id:"minecraft:oak_planks"},{Slot:3b,count:1,id:"minecraft:oak_planks"},{Slot:4b,count:1,id:"minecraft:salmon"},{Slot:5b,count:1,id:"minecraft:dark_oak_log"},{Slot:6b,count:1,id:"minecraft:oak_planks"},{Slot:7b,count:1,id:"minecraft:acacia_log"},{Slot:8b,count:1,id:"minecraft:stick"},{Slot:9b,count:1,id:"minecraft:salmon"},{Slot:11b,count:1,id:"minecraft:acacia_log"},{Slot:12b,count:1,id:"minecraft:dark_oak_log"},{Slot:13b,count:1,id:"minecraft:oak_planks"},{Slot:14b,count:1,id:"minecraft:apple"},{Slot:16b,count:4,id:"minecraft:oak_planks"},{Slot:17b,count:1,id:"minecraft:spruce_log"},{Slot:18b,count:1,id:"minecraft:apple"},{Slot:19b,count:1,id:"minecraft:acacia_log"},{Slot:20b,count:1,id:"minecraft:wooden_axe"},{Slot:23b,count:1,id:"minecraft:salmon"},{Slot:24b,count:1,id:"minecraft:spruce_log"},{Slot:26b,count:1,id:"minecraft:oak_planks"}],components:{},id:"minecraft:chest",x:12,y:-60,z:0}
+BE 13 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:cobblestone"},{Slot:1b,count:64,id:"minecraft:cobblestone"},{Slot:2b,count:64,id:"minecraft:cobblestone"},{Slot:3b,count:64,id:"minecraft:cobblestone"},{Slot:4b,count:64,id:"minecraft:cobblestone"},{Slot:5b,count:64,id:"minecraft:cobblestone"},{Slot:6b,count:64,id:"minecraft:cobblestone"},{Slot:7b,count:64,id:"minecraft:cobblestone"},{Slot:8b,count:64,id:"minecraft:cobblestone"},{Slot:9b,count:64,id:"minecraft:cobblestone"},{Slot:10b,count:64,id:"minecraft:cobblestone"},{Slot:11b,count:64,id:"minecraft:cobblestone"},{Slot:12b,count:64,id:"minecraft:cobblestone"},{Slot:13b,count:64,id:"minecraft:cobblestone"},{Slot:14b,count:64,id:"minecraft:cobblestone"},{Slot:15b,count:64,id:"minecraft:cobblestone"},{Slot:16b,count:64,id:"minecraft:cobblestone"},{Slot:17b,count:64,id:"minecraft:cobblestone"},{Slot:18b,count:64,id:"minecraft:cobblestone"},{Slot:19b,count:64,id:"minecraft:cobblestone"},{Slot:20b,count:64,id:"minecraft:cobblestone"},{Slot:21b,count:64,id:"minecraft:cobblestone"},{Slot:22b,count:64,id:"minecraft:cobblestone"},{Slot:23b,count:64,id:"minecraft:cobblestone"},{Slot:24b,count:64,id:"minecraft:cobblestone"},{Slot:25b,count:64,id:"minecraft:cobblestone"},{Slot:26b,count:64,id:"minecraft:cobblestone"}],components:{},id:"minecraft:chest",x:13,y:-60,z:0}
+BE 13 -59 0 {Items:[],TransferCooldown:0,components:{},id:"minecraft:hopper",x:13,y:-59,z:0}

@@ -1,0 +1,246 @@
+C The difficulty has been set to Peaceful
+T 1
+EV sound at=4.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+T 2
+T 3
+T 4
+EV sound at=4.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+T 5
+T 6
+B 0 -60 0 minecraft:tripwire_hook[attached=true,facing=east,powered=true]
+B 1 -60 0 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 2 -60 0 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=true,south=false,west=true]
+B 3 -60 0 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 4 -60 0 minecraft:tripwire_hook[attached=true,facing=west,powered=true]
+TICK block 0 -60 0 minecraft:tripwire_hook delay=4 prio=0
+TICK block 2 -60 0 minecraft:tripwire delay=8 prio=0
+T 7
+T 8
+T 9
+T 10
+T 11
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+B 0 -60 0 minecraft:tripwire_hook[attached=true,facing=east,powered=true]
+B 1 -60 0 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 2 -60 0 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=true,south=false,west=true]
+B 3 -60 0 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 4 -60 0 minecraft:tripwire_hook[attached=true,facing=west,powered=true]
+TICK block 2 -60 0 minecraft:tripwire delay=6 prio=0
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+EV sound at=4.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_off source=block vol=0.4 pitch=0.5
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_off source=block vol=0.4 pitch=0.5
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+T 32
+B 0 -60 0 minecraft:tripwire_hook[attached=true,facing=east,powered=false]
+B 1 -60 0 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 2 -60 0 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 3 -60 0 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 4 -60 0 minecraft:tripwire_hook[attached=true,facing=west,powered=false]
+TICK block 0 -60 0 minecraft:tripwire_hook delay=2 prio=0
+T 33
+EV sound at=4.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+EV sound at=0.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+T 34
+T 35
+T 36
+T 37
+T 38
+T 39
+B 0 -60 6 minecraft:tripwire_hook[attached=true,facing=east,powered=false]
+B 1 -60 6 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=false]
+B 2 -60 6 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 3 -60 6 minecraft:tripwire[attached=true,disarmed=false,east=false,north=false,powered=false,south=false,west=true]
+B 4 -60 6 minecraft:tripwire_hook[attached=true,facing=west,powered=false]
+T 40
+EV sound at=4.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+EV sound at=0.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+T 41
+T 42
+T 43
+B 0 -60 6 minecraft:tripwire_hook[attached=true,facing=east,powered=true]
+B 1 -60 6 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=true,south=false,west=true]
+B 2 -60 6 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=true,south=false,west=true]
+B 3 -60 6 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=true,south=false,west=true]
+B 4 -60 6 minecraft:tripwire_hook[attached=true,facing=west,powered=true]
+TICK block 1 -60 6 minecraft:tripwire delay=7 prio=0
+TICK block 2 -60 6 minecraft:tripwire delay=7 prio=0
+TICK block 3 -60 6 minecraft:tripwire delay=7 prio=0
+T 44
+T 45
+T 46
+T 47
+T 48
+T 49
+T 50
+EV sound at=4.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_off source=block vol=0.4 pitch=0.5
+EV sound at=0.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_off source=block vol=0.4 pitch=0.5
+T 51
+T 52
+T 53
+T 54
+T 55
+T 56
+T 57
+B 0 -60 6 minecraft:tripwire_hook[attached=true,facing=east,powered=false]
+B 1 -60 6 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 2 -60 6 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 3 -60 6 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 4 -60 6 minecraft:tripwire_hook[attached=true,facing=west,powered=false]
+T 58
+EV sound at=4.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+EV sound at=0.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+T 59
+T 60
+T 61
+T 62
+T 63
+T 64
+T 65
+EV sound at=4.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+EV sound at=0.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+T 66
+EV sound at=2.5,-59.94999999925494,12.626090683139216 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1471136
+T 67
+T 68
+T 69
+T 70
+B 0 -60 12 minecraft:tripwire_hook[attached=true,facing=east,powered=true]
+B 1 -60 12 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 2 -60 12 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=true,south=false,west=true]
+B 3 -60 12 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 4 -60 12 minecraft:tripwire_hook[attached=true,facing=west,powered=true]
+E arr1 minecraft:arrow pos=2.5,-59.94999999925494,12.626090683139216 delta=0.0,0.0,0.0 rot=0.0,-19.786556 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0
+T 71
+T 72
+T 73
+T 74
+T 75
+T 76
+T 77
+T 78
+T 79
+T 80
+T 81
+T 82
+T 83
+T 84
+T 85
+T 86
+T 87
+T 88
+T 89
+T 90
+B 0 -60 12 minecraft:tripwire_hook[attached=true,facing=east,powered=true]
+B 1 -60 12 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 2 -60 12 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=true,south=false,west=true]
+B 3 -60 12 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 4 -60 12 minecraft:tripwire_hook[attached=true,facing=west,powered=true]
+E arr1 minecraft:arrow pos=2.5,-59.94999999925494,12.626090683139216 delta=0.0,0.0,0.0 rot=0.0,-19.786556 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0
+TICK block 2 -60 12 minecraft:tripwire delay=5 prio=0
+T 91
+T 92
+T 93
+T 94
+T 95
+T 96
+T 97
+T 98
+T 99
+B 0 -60 18 minecraft:tripwire_hook[attached=false,facing=east,powered=false]
+B 1 -60 18 minecraft:tripwire[attached=false,disarmed=false,east=true,north=false,powered=false,south=false,west=false]
+B 2 -60 18 minecraft:tripwire[attached=false,disarmed=false,east=true,north=false,powered=true,south=false,west=true]
+B 3 -60 18 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,powered=false,south=false,west=true]
+TICK block 0 -60 18 minecraft:tripwire_hook delay=1 prio=0
+TICK block 2 -60 18 minecraft:tripwire delay=5 prio=0
+TICK block 2 -60 12 minecraft:tripwire delay=6 prio=0
+T 100
+T 101
+T 102
+T 103
+T 104
+T 105
+T 106
+T 107
+T 108
+T 109
+T 110
+T 111
+T 112
+T 113
+B 0 -60 18 minecraft:tripwire_hook[attached=false,facing=east,powered=false]
+B 1 -60 18 minecraft:tripwire[attached=false,disarmed=false,east=true,north=false,powered=false,south=false,west=false]
+B 2 -60 18 minecraft:tripwire[attached=false,disarmed=false,east=true,north=false,powered=false,south=false,west=true]
+B 3 -60 18 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,powered=false,south=false,west=true]
+TICK block 0 -60 18 minecraft:tripwire_hook delay=1 prio=0
+TICK block 2 -60 12 minecraft:tripwire delay=2 prio=0
+T 114
+EV sound at=3.5,-59.5,24.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+EV sound at=0.5,-59.5,24.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+T 115
+T 116
+T 117
+T 118
+EV sound at=3.5,-59.5,24.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+EV sound at=0.5,-59.5,24.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+T 119
+T 120
+T 121
+T 122
+T 123
+EV sound at=3.5,-59.5,24.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_off source=block vol=0.4 pitch=0.5
+EV sound at=0.5,-59.5,24.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_off source=block vol=0.4 pitch=0.5
+T 124
+T 125
+T 126
+T 127
+T 128
+T 129
+T 130
+T 131
+T 132
+EV sound at=2.6710184207496415,-58.14058576997516,24.064288495427853 r=16.0 ex=0 event=minecraft:entity.generic.splash source=ambient vol=0.02233803 pitch=1.0795673
+T 133
+B 0 -60 24 minecraft:water[level=1]
+B 1 -60 24 minecraft:water[level=8]
+B 1 -59 24 minecraft:water[level=1]
+B 2 -60 24 minecraft:water[level=8]
+B 2 -59 24 minecraft:water[level=0]
+B 3 -60 24 minecraft:water[level=8]
+B 3 -59 24 minecraft:water[level=1]
+TICK block 2 -60 12 minecraft:tripwire delay=2 prio=0
+TICK fluid 2 -60 21 minecraft:flowing_water delay=5 prio=0
+TICK fluid 2 -60 22 minecraft:flowing_water delay=5 prio=0
+TICK fluid 1 -60 22 minecraft:flowing_water delay=5 prio=0
+TICK fluid 1 -60 23 minecraft:flowing_water delay=5 prio=0
+TICK fluid 3 -60 22 minecraft:flowing_water delay=5 prio=0
+TICK fluid 3 -60 23 minecraft:flowing_water delay=5 prio=0
+TICK fluid 0 -60 23 minecraft:flowing_water delay=5 prio=0
+TICK fluid 0 -60 24 minecraft:flowing_water delay=5 prio=0
+TICK fluid 4 -60 23 minecraft:flowing_water delay=5 prio=0
+TICK fluid 2 -60 27 minecraft:flowing_water delay=5 prio=0
+TICK fluid 2 -60 26 minecraft:flowing_water delay=5 prio=0
+TICK fluid 1 -60 26 minecraft:flowing_water delay=5 prio=0
+TICK fluid 1 -60 25 minecraft:flowing_water delay=5 prio=0
+TICK fluid 3 -60 26 minecraft:flowing_water delay=5 prio=0
+TICK fluid 3 -60 25 minecraft:flowing_water delay=5 prio=0
+TICK fluid 0 -60 25 minecraft:flowing_water delay=5 prio=0
+TICK fluid 4 -60 25 minecraft:flowing_water delay=5 prio=0

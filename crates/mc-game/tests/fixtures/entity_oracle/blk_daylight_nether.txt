@@ -1,0 +1,6 @@
+B 2 70 2 minecraft:daylight_detector[inverted=false,power=0]
+B 4 70 2 minecraft:daylight_detector[inverted=true,power=0]
+BE 2 70 2 {components:{},id:"minecraft:daylight_detector",x:2,y:70,z:2}
+BES 0 0
+BEM 4 70 2 minecraft:daylight_detector
+BEM 2 70 2 minecraft:daylight_detector

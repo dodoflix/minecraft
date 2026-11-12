@@ -1,0 +1,81 @@
+# tripwire entityInside paths: arrow, armor stand, boat, falling sand, item frame, a player in spectator (no trigger), snowball; hook powered timing (10 tick rescheduled while an entity stays), hook with a hook-less wire (not attached), long wire of 3, and powered release.
+level flat
+preload 3
+level_seed 31
+difficulty peaceful
+watch events
+# line A (z=0): armor stand stands inside the wire, hooks at both ends
+block -1 -60 0 minecraft:stone
+block 5 -60 0 minecraft:stone
+block 0 -60 0 minecraft:tripwire_hook[facing=east]
+block 4 -60 0 minecraft:tripwire_hook[facing=west]
+block 1 -60 0 minecraft:tripwire
+block 2 -60 0 minecraft:tripwire
+block 3 -60 0 minecraft:tripwire
+tick 3
+spawn as1 minecraft:armor_stand 2.5 -60 0.5 0 0 {}
+tick 3
+dump blocks:0,-60,0,4,-60,0 ticks
+tick 12
+dump blocks:0,-60,0,4,-60,0 ticks
+kill as1
+tick 14
+dump blocks:0,-60,0,4,-60,0 ticks
+# line B (z=6): a marker armor stand (no hitbox) and a boat
+block -1 -60 6 minecraft:stone
+block 5 -60 6 minecraft:stone
+block 0 -60 6 minecraft:tripwire_hook[facing=east]
+block 4 -60 6 minecraft:tripwire_hook[facing=west]
+block 1 -60 6 minecraft:tripwire
+block 2 -60 6 minecraft:tripwire
+block 3 -60 6 minecraft:tripwire
+tick 3
+spawn as2 minecraft:armor_stand 2.5 -60 6.5 0 0 {Marker:1b}
+tick 4
+dump blocks:0,-60,6,4,-60,6
+kill as2
+spawn boat1 minecraft:oak_boat 2.5 -60 6.5 0 0 {}
+tick 4
+dump blocks:0,-60,6,4,-60,6 ticks
+kill boat1
+tick 14
+dump blocks:0,-60,6,4,-60,6
+# line C (z=12): an arrow shot through the wire (velocity), and an experience orb resting on it
+block -1 -60 12 minecraft:stone
+block 5 -60 12 minecraft:stone
+block 0 -60 12 minecraft:tripwire_hook[facing=east]
+block 4 -60 12 minecraft:tripwire_hook[facing=west]
+block 1 -60 12 minecraft:tripwire
+block 2 -60 12 minecraft:tripwire
+block 3 -60 12 minecraft:tripwire
+tick 3
+spawn arr1 minecraft:arrow 2.5 -59.5 11.2 0 0 {}
+entity_seed arr1 5
+velocity arr1 0 0 0.3
+tick 10
+dump blocks:0,-60,12,4,-60,12 entities
+tick 20
+dump blocks:0,-60,12,4,-60,12 entities ticks
+# line D (z=18): hook-less wire (second hook missing) triggered by an item
+block -1 -60 18 minecraft:stone
+block 0 -60 18 minecraft:tripwire_hook[facing=east]
+block 1 -60 18 minecraft:tripwire
+block 2 -60 18 minecraft:tripwire
+block 3 -60 18 minecraft:tripwire
+tick 3
+spawn_item i3 minecraft:stick 2.5 -60 18.5 0 0 0
+tick 6
+dump blocks:0,-60,18,4,-60,18 ticks
+kill i3
+tick 14
+dump blocks:0,-60,18,4,-60,18 ticks
+# line E (z=24): disarmed (placed attached) wire destroyed by water flowing in, hook length limit (hooks 3 apart), wire waterlogged
+block -1 -60 24 minecraft:stone
+block 4 -60 24 minecraft:stone
+block 0 -60 24 minecraft:tripwire_hook[facing=east]
+block 3 -60 24 minecraft:tripwire_hook[facing=west]
+block 1 -60 24 minecraft:tripwire[attached=true,disarmed=true]
+block 2 -60 24 minecraft:tripwire
+block 2 -59 24 minecraft:water[level=0]
+tick 20
+dump blocks:0,-60,24,3,-59,24 ticks events

@@ -1,0 +1,24 @@
+# hopper/dropper into a double chest whose first half (the RIGHT chest) has an unopened loot table: the table unpacks before the item is inserted.
+level flat
+preload 2
+level_seed 17
+difficulty peaceful
+watch events
+block 0 -60 0 minecraft:chest[facing=north,type=left,waterlogged=false]
+block 1 -60 0 minecraft:chest[facing=north,type=right,waterlogged=false]
+be_nbt 1 -60 0 {LootTable:"minecraft:chests/spawn_bonus_chest",LootTableSeed:0L}
+block 0 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 0 -59 0 {Items:[{Slot:0b,id:"minecraft:stick",count:3}]}
+tick 3
+dump be:0,-60,0 be:1,-60,0 be:0,-59,0
+tick 14
+dump be:0,-60,0 be:1,-60,0 be:0,-59,0 events
+# dropper into the left half of the same kind of chest pair
+block 6 -60 0 minecraft:chest[facing=north,type=left,waterlogged=false]
+block 7 -60 0 minecraft:chest[facing=north,type=right,waterlogged=false]
+be_nbt 7 -60 0 {LootTable:"minecraft:chests/spawn_bonus_chest",LootTableSeed:5L}
+block 5 -60 0 minecraft:dropper[facing=east,triggered=false]
+be_nbt 5 -60 0 {Items:[{Slot:0b,id:"minecraft:stick",count:2}]}
+block 5 -61 0 minecraft:redstone_block
+tick 8
+dump be:6,-60,0 be:7,-60,0 be:5,-60,0 entities events

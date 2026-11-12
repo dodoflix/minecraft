@@ -5,8 +5,8 @@ level flat
 preload 3
 spawn_player Steve survival 0.5 -60 0.5 0 0
 spawn_player Bob creative 6.5 -60 0.5 0 0
-# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
-tick 30
+# chunk loading finishes asynchronously on the vanilla side: settle (long enough to hold under machine load) before anything draws level randomness
+tick 300
 level_seed 51
 watch events
 note place a pot item carrying sherds and contents

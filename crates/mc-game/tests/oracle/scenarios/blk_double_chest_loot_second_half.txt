@@ -1,0 +1,35 @@
+# A hopper or dropper feeding a double chest whose second half (the LEFT chest) has an unopened loot table: the table unpacks even though the item
+# fits into the first half, and a full first half sends the item to the second half.
+level flat
+preload 2
+level_seed 23
+difficulty peaceful
+watch events
+note hopper above the first half, first half has room
+block 0 -60 0 minecraft:chest[facing=north,type=left,waterlogged=false]
+block 1 -60 0 minecraft:chest[facing=north,type=right,waterlogged=false]
+be_nbt 0 -60 0 {LootTable:"minecraft:chests/spawn_bonus_chest",LootTableSeed:0L}
+block 1 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 1 -59 0 {Items:[{Slot:0b,id:"minecraft:stick",count:3}]}
+tick 3
+dump be:0,-60,0 be:1,-60,0 be:1,-59,0
+tick 14
+dump be:0,-60,0 be:1,-60,0 be:1,-59,0 events
+note dropper into the second half: the item still goes to the first half
+block 6 -60 0 minecraft:chest[facing=north,type=left,waterlogged=false]
+block 7 -60 0 minecraft:chest[facing=north,type=right,waterlogged=false]
+be_nbt 6 -60 0 {LootTable:"minecraft:chests/spawn_bonus_chest",LootTableSeed:5L}
+block 5 -60 0 minecraft:dropper[facing=east,triggered=false]
+be_nbt 5 -60 0 {Items:[{Slot:0b,id:"minecraft:stick",count:2}]}
+block 5 -61 0 minecraft:redstone_block
+tick 8
+dump be:6,-60,0 be:7,-60,0 be:5,-60,0 entities events
+note first half full: the item goes to the second half
+block 12 -60 0 minecraft:chest[facing=north,type=left,waterlogged=false]
+block 13 -60 0 minecraft:chest[facing=north,type=right,waterlogged=false]
+be_nbt 12 -60 0 {LootTable:"minecraft:chests/spawn_bonus_chest",LootTableSeed:9L}
+be_nbt 13 -60 0 {Items:[{Slot:0b,id:"minecraft:cobblestone",count:64},{Slot:1b,id:"minecraft:cobblestone",count:64},{Slot:2b,id:"minecraft:cobblestone",count:64},{Slot:3b,id:"minecraft:cobblestone",count:64},{Slot:4b,id:"minecraft:cobblestone",count:64},{Slot:5b,id:"minecraft:cobblestone",count:64},{Slot:6b,id:"minecraft:cobblestone",count:64},{Slot:7b,id:"minecraft:cobblestone",count:64},{Slot:8b,id:"minecraft:cobblestone",count:64},{Slot:9b,id:"minecraft:cobblestone",count:64},{Slot:10b,id:"minecraft:cobblestone",count:64},{Slot:11b,id:"minecraft:cobblestone",count:64},{Slot:12b,id:"minecraft:cobblestone",count:64},{Slot:13b,id:"minecraft:cobblestone",count:64},{Slot:14b,id:"minecraft:cobblestone",count:64},{Slot:15b,id:"minecraft:cobblestone",count:64},{Slot:16b,id:"minecraft:cobblestone",count:64},{Slot:17b,id:"minecraft:cobblestone",count:64},{Slot:18b,id:"minecraft:cobblestone",count:64},{Slot:19b,id:"minecraft:cobblestone",count:64},{Slot:20b,id:"minecraft:cobblestone",count:64},{Slot:21b,id:"minecraft:cobblestone",count:64},{Slot:22b,id:"minecraft:cobblestone",count:64},{Slot:23b,id:"minecraft:cobblestone",count:64},{Slot:24b,id:"minecraft:cobblestone",count:64},{Slot:25b,id:"minecraft:cobblestone",count:64},{Slot:26b,id:"minecraft:cobblestone",count:64}]}
+block 13 -59 0 minecraft:hopper[facing=down,enabled=true]
+be_nbt 13 -59 0 {Items:[{Slot:0b,id:"minecraft:stick",count:1}]}
+tick 12
+dump be:12,-60,0 be:13,-60,0 be:13,-59,0 events

@@ -1,0 +1,9 @@
+# DaylightDetectorBlock.getTicker is null in a dimension without skylight: no block entity ticker in the nether (BET/BETP lists), the power stays 0 after use toggles inverted mode.
+level flat
+dimension the_nether
+preload 2
+level_seed 3
+block 2 70 2 minecraft:daylight_detector
+block 4 70 2 minecraft:daylight_detector[inverted=true]
+tick 25
+dump blocks:2,70,2,4,70,2 be:2,70,2 bes:0,0
