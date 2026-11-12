@@ -16,7 +16,9 @@ use crate::world::entity::living_entity::damage::as_server_player;
 use crate::world::entity::projectile::deflection::{Deflector, ProjectileDeflection};
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::enchantment::actors::Actors;
-use crate::world::item::{InteractionHand, ItemStack, behaviour, enchantment_helper};
+use crate::world::item::{
+    InteractionHand, ItemStack, behaviour, enchantment_helper, piercing_weapon,
+};
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_data::{Attribute, MobEffect, ParticleType, SoundEvent};
@@ -37,6 +39,18 @@ pub fn default_attack_range(entity_interaction_range: f64) -> AttackRange {
         hitbox_margin: 0.0,
         mob_factor: 1.0,
     }
+}
+
+/// `LivingEntity.getAttackRangeWith(weaponItem)`.
+pub fn get_attack_range_with(entity: &dyn Entity, weapon_item: &ItemStack) -> AttackRange {
+    weapon_item.get(&ATTACK_RANGE).cloned().unwrap_or_else(|| {
+        default_attack_range(
+            entity
+                .living()
+                .expect("living")
+                .get_attribute_value(Attribute::ENTITY_INTERACTION_RANGE),
+        )
+    })
 }
 
 /// `AttackRange.isInRange(attacker, boundingBox, extraBuffer)` for a player (`effectiveMin/MaxRange(Player)`).
@@ -98,13 +112,7 @@ impl ServerPlayer {
 
     /// `LivingEntity.getAttackRangeWith(weaponItem)`.
     pub fn get_attack_range_with(&self, weapon_item: &ItemStack) -> AttackRange {
-        weapon_item.get(&ATTACK_RANGE).cloned().unwrap_or_else(|| {
-            default_attack_range(
-                self.player
-                    .living
-                    .get_attribute_value(Attribute::ENTITY_INTERACTION_RANGE),
-            )
-        })
+        get_attack_range_with(self, weapon_item)
     }
 
     /// `Player.isWithinAttackRange(weaponItem, aabb, buffer)`.
@@ -229,6 +237,7 @@ impl ServerPlayer {
                         attacking_item_stack,
                         &damage_source,
                         true,
+                        None,
                     );
                     self.damage_stats_and_hearts(level, entity, old_living_entity_health);
                     self.cause_food_exhaustion(0.1);
@@ -238,6 +247,84 @@ impl ServerPlayer {
             }
             combat::post_piercing_attack(self, level);
         }
+    }
+
+    /// `Player.stabAttack(slot, target, baseDamage, dealsDamage, dealsKnockback, dismounts)`; `target` is taken out of the level.
+    pub fn stab_attack(
+        &mut self,
+        level: &mut ServerLevel,
+        slot: EquipmentSlot,
+        target: &mut dyn Entity,
+        mut base_damage: f32,
+        deals_damage: bool,
+        deals_knockback: bool,
+        dismounts: bool,
+    ) -> bool {
+        if self.cannot_attack(level, target) {
+            return false;
+        }
+        let weapon_item = self.get_item_by_slot(slot);
+        let damage_source = combat::item_stack_damage_source(level, &weapon_item, &*self);
+        let mut magic_boost =
+            self.get_enchanted_damage(level, target, base_damage, &damage_source) - base_damage;
+        if !self.is_using_item() || self.get_used_item_hand().as_equipment_slot() != slot {
+            magic_boost *= self.get_attack_strength_scale(0.5);
+            base_damage *= self.base_damage_scale_factor();
+        }
+        if deals_knockback && self.deflect_projectile(level, target) {
+            return true;
+        }
+        let total_damage = if deals_damage {
+            base_damage + magic_boost
+        } else {
+            0.0
+        };
+        let old_living_entity_health = target.living().map_or(0.0, |l| l.get_health());
+        let old_movement = target.base().delta_movement();
+        let was_hurt = deals_damage && target.hurt_server(level, &damage_source, total_damage);
+        if deals_knockback {
+            Entity::cause_extra_knockback(
+                self,
+                &mut *target,
+                0.4,
+                old_movement,
+                &damage_source,
+                total_damage,
+                false,
+            );
+            let knockback = combat::get_knockback(&mut *self, level, &mut *target, &damage_source);
+            Entity::cause_extra_knockback(
+                self,
+                &mut *target,
+                knockback,
+                old_movement,
+                &damage_source,
+                total_damage,
+                true,
+            );
+        }
+        let dismounted = dismounts && piercing_weapon::dismount(level, target);
+        if !was_hurt && !deals_knockback && !dismounted {
+            return false;
+        }
+        self.attack_visual_effects(level, target, false, false, deals_damage, true, magic_boost);
+        Entity::set_last_hurt_mob(self, &*target);
+        let hand = if slot == EquipmentSlot::OffHand {
+            InteractionHand::OffHand
+        } else {
+            InteractionHand::MainHand
+        };
+        self.item_attack_interaction(
+            level,
+            target,
+            weapon_item,
+            &damage_source,
+            was_hurt,
+            Some(hand),
+        );
+        self.damage_stats_and_hearts(level, target, old_living_entity_health);
+        self.cause_food_exhaustion(0.1);
+        true
     }
 
     /// `Player.playServerSideSound(sound)`.
@@ -424,7 +511,8 @@ impl ServerPlayer {
     }
 
     /// `Player.itemAttackInteraction(entity, attackingItemStack, damageSource, applyToTarget)`. `attacking` is the weapon as it was
-    /// when the attack began (a copy of the stack in the hand, or of the riptide item).
+    /// when the attack began (a copy of the stack in the hand, or of the riptide item); `weapon_hand` is the hand holding it
+    /// when the caller knows (a stab), otherwise it is derived like vanilla's identity test against the main hand.
     fn item_attack_interaction(
         &mut self,
         level: &mut ServerLevel,
@@ -432,23 +520,30 @@ impl ServerPlayer {
         attacking: ItemStack,
         damage_source: &DamageSource,
         apply_to_target: bool,
+        weapon_hand: Option<InteractionHand>,
     ) {
-        // `attackingItemStack == this.getMainHandItem()` (object identity): only false for a riptide item that is not the held stack
-        let main_hand = self.get_item_by_slot(EquipmentSlot::MainHand);
-        let from_main_hand = !(self.player.living.get_living_entity_flag(4)
-            && self
-                .player
-                .living
-                .auto_spin_attack_item_stack
-                .as_ref()
-                .is_some_and(|s| {
-                    !(ItemStack::is_same_item_same_components(s, &main_hand)
-                        && s.count() == main_hand.count())
-                }));
-        let hand = if from_main_hand {
-            InteractionHand::MainHand
-        } else {
-            InteractionHand::OffHand
+        let (from_slot, hand) = match weapon_hand {
+            Some(hand) => (true, hand),
+            None => {
+                // `attackingItemStack == this.getMainHandItem()` (object identity): only false for a riptide item that is not the held stack
+                let main_hand = self.get_item_by_slot(EquipmentSlot::MainHand);
+                let from_main_hand = !(self.player.living.get_living_entity_flag(4)
+                    && self
+                        .player
+                        .living
+                        .auto_spin_attack_item_stack
+                        .as_ref()
+                        .is_some_and(|s| {
+                            !(ItemStack::is_same_item_same_components(s, &main_hand)
+                                && s.count() == main_hand.count())
+                        }));
+                let hand = if from_main_hand {
+                    InteractionHand::MainHand
+                } else {
+                    InteractionHand::OffHand
+                };
+                (from_main_hand, hand)
+            }
         };
         let mut stack = attacking;
         let target_living = entity.living().is_some();
@@ -459,7 +554,7 @@ impl ServerPlayer {
             if item_hurt_enemy {
                 self.award_stat_once(level, crate::stats::Stat::Used(stack.item()));
             }
-            self.write_weapon_back(from_main_hand, &stack);
+            self.write_weapon_back(from_slot, hand, &stack);
         }
         if apply_to_target {
             let victim = entity.id();
@@ -473,12 +568,12 @@ impl ServerPlayer {
         }
         if !stack.is_empty() && target_living {
             if item_hurt_enemy {
-                if from_main_hand {
+                if from_slot {
                     // an enchantment effect may have changed the held stack (`EnchantedItemInUse` write-back)
-                    stack = self.get_item_by_slot(EquipmentSlot::MainHand);
+                    stack = self.get_item_by_slot(hand.as_equipment_slot());
                 }
                 crate::world::item::post_hurt_enemy(&mut stack, level, &mut *entity, &mut *self);
-                self.write_weapon_back(from_main_hand, &stack);
+                self.write_weapon_back(from_slot, hand, &stack);
             }
             if stack.is_empty() {
                 self.set_item_in_hand(hand, ItemStack::empty());
@@ -487,11 +582,11 @@ impl ServerPlayer {
     }
 
     /// Stores the weapon stack back where it came from (the hand stack is the same object in vanilla).
-    fn write_weapon_back(&mut self, from_main_hand: bool, stack: &ItemStack) {
-        if from_main_hand {
+    fn write_weapon_back(&mut self, from_slot: bool, hand: InteractionHand, stack: &ItemStack) {
+        if from_slot {
             self.player
                 .inventory
-                .equipment_set(EquipmentSlot::MainHand, stack.clone());
+                .equipment_set(hand.as_equipment_slot(), stack.clone());
         }
     }
 

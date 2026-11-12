@@ -69,6 +69,9 @@ pub struct LivingEntityData {
     pub use_item: crate::world::item::ItemStack,
     pub swing_state: super::swing::SwingState,
     pub use_item_remaining: i32,
+    /// `recentKineticEnemies`: the entities a kinetic weapon in use hit, with the game time of the hit and whether they are
+    /// living (the filter of `stabbedEntities` outlives the entity itself); `Some` only while a kinetic weapon is in use.
+    pub recent_kinetic_enemies: Option<std::collections::HashMap<super::EntityId, (i64, bool)>>,
     pub fall_fly_ticks: i32,
     pub auto_spin_attack_ticks: i32,
     pub auto_spin_attack_dmg: f32,
@@ -167,6 +170,7 @@ impl LivingEntityData {
             use_item: crate::world::item::ItemStack::empty(),
             swing_state: Default::default(),
             use_item_remaining: 0,
+            recent_kinetic_enemies: None,
             fall_fly_ticks: 0,
             auto_spin_attack_ticks: 0,
             auto_spin_attack_dmg: 0.0,

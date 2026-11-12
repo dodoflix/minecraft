@@ -132,6 +132,79 @@ pub fn post_piercing_attack(attacker: &mut dyn Entity, level: &mut ServerLevel) 
     enchantment_helper::do_post_piercing_attack_effects(level, &mut Actors::of(attacker), id);
 }
 
+/// `LivingEntity.stabAttack(weaponSlot, target, baseDamage, dealsDamage, dealsKnockback, dismounts)`: the stab of a mob; `target` is
+/// taken out of the level.
+pub fn stab_attack(
+    level: &mut ServerLevel,
+    attacker: &mut dyn Entity,
+    weapon_slot: EquipmentSlot,
+    target: &mut dyn Entity,
+    base_damage: f32,
+    deals_damage: bool,
+    deals_knockback: bool,
+    dismounts: bool,
+) -> bool {
+    let weapon_item = attacker.get_item_by_slot(weapon_slot);
+    let damage_source = item_stack_damage_source(level, &weapon_item, &*attacker);
+    let target_id = target.id();
+    let post_enchantment_damage = enchantment_helper::modify_damage(
+        level,
+        &mut Actors::of(&mut *attacker).and(&mut *target),
+        &weapon_item,
+        target_id,
+        &damage_source,
+        base_damage,
+    );
+    let old_movement = target.base().delta_movement();
+    let dealt_damage =
+        deals_damage && target.hurt_server(level, &damage_source, post_enchantment_damage);
+    let mut affected = deals_knockback || dealt_damage;
+    if deals_knockback {
+        attacker.cause_extra_knockback(
+            &mut *target,
+            0.4,
+            old_movement,
+            &damage_source,
+            post_enchantment_damage,
+            false,
+        );
+        let knockback = get_knockback(&mut *attacker, level, &mut *target, &damage_source);
+        attacker.cause_extra_knockback(
+            &mut *target,
+            knockback,
+            old_movement,
+            &damage_source,
+            post_enchantment_damage,
+            true,
+        );
+    }
+    if dismounts && crate::world::item::piercing_weapon::dismount(level, &mut *target) {
+        affected = true;
+    }
+    if target.living().is_some() {
+        // `weaponItem.hurtEnemy(livingTarget, this)` on the stack of the slot
+        let mut stack = weapon_item;
+        crate::world::item::hurt_enemy(level, &mut stack, &mut *target, &mut *attacker);
+        if let Some(slot) = attacker.item_by_slot_mut(weapon_slot) {
+            *slot = stack;
+        }
+    }
+    if dealt_damage {
+        enchantment_helper::do_post_attack_effects(
+            level,
+            &mut Actors::of(&mut *attacker).and(&mut *target),
+            target_id,
+            &damage_source,
+        );
+    }
+    if !affected {
+        return false;
+    }
+    attacker.set_last_hurt_mob(&*target);
+    attacker.play_attack_sound(level);
+    true
+}
+
 /// `Mob.doHurtTarget(level, target)`: the melee attack of a mob (`ATTACK_DAMAGE` + weapon enchantments + item bonus, knockback,
 /// weapon `hurtEnemy`, post-attack effects). Mob classes call this from their `do_hurt_target` override.
 pub fn mob_do_hurt_target(

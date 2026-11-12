@@ -96,15 +96,17 @@ pub fn start_using_item(e: &mut dyn Entity, level: &mut ServerLevel, hand: Inter
         );
     }
     cause_use_vibration(e, level, &stack, GameEvent::ITEM_INTERACT_START);
-    // `recentKineticEnemies = new Object2LongOpenHashMap()` for a kinetic weapon: owned by the combat code.
+    if stack.has(mc_data::DataComponentType::KINETIC_WEAPON) {
+        e.living_mut().expect("living").recent_kinetic_enemies = Some(Default::default());
+    }
 }
 
 /// `stopUsingItem()`.
 pub fn stop_using_item(e: &mut dyn Entity, level: &mut ServerLevel) {
     let was_using = is_using_item(e);
-    e.living_mut()
-        .expect("living")
-        .set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, false);
+    let living = e.living_mut().expect("living");
+    living.recent_kinetic_enemies = None;
+    living.set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, false);
     if was_using {
         let stack = get_use_item(e);
         cause_use_vibration(e, level, &stack, GameEvent::ITEM_INTERACT_FINISH);

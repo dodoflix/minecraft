@@ -216,8 +216,20 @@ pub fn on_use_tick(
             super::consumable::emit_particles_and_sounds(&consumable, level, entity, stack, 5);
         }
     }
-    // `KineticWeapon.damageEntities` (spear lunge) belongs to the combat code.
-    behaviour(stack.item()).on_use_tick(level, entity, stack, ticks_remaining);
+    if let Some(kinetic) = stack.get(&mc_protocol::components::KINETIC_WEAPON).cloned() {
+        let slot = crate::world::entity::living_entity::using_item::get_used_item_hand(&*entity)
+            .as_equipment_slot();
+        super::kinetic_weapon::damage_entities(
+            &kinetic,
+            stack,
+            level,
+            entity,
+            ticks_remaining,
+            slot,
+        );
+    } else {
+        behaviour(stack.item()).on_use_tick(level, entity, stack, ticks_remaining);
+    }
 }
 
 /// `ItemStack.mineBlock(level, state, pos, owner)`.

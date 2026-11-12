@@ -219,6 +219,21 @@ impl PlayerSystems for ServerPlayerSystems {
         ctx.player.check_movement_statistics(ctx.level, dx, dy, dz);
     }
 
+    /// `PiercingWeapon.attack(player, MAINHAND)` of the main hand item (`STAB` action).
+    fn stab_with_piercing_weapon(&self, ctx: &mut PlayCtx) {
+        let stack = ctx
+            .player
+            .get_item_in_hand(crate::world::item::InteractionHand::MainHand);
+        if let Some(piercing) = stack.get(&mc_protocol::components::PIERCING_WEAPON) {
+            crate::world::item::piercing_weapon::attack(
+                piercing,
+                ctx.level,
+                ctx.player,
+                crate::world::entity::equipment::EquipmentSlot::MainHand,
+            );
+        }
+    }
+
     /// `Player.cannotAttackWithItem(mainHandItem, tolerance)`.
     fn cannot_attack_with_main_hand(&self, ctx: &mut PlayCtx, tolerance_ticks: i32) -> bool {
         let main_hand = ctx

@@ -9,7 +9,7 @@ use crate::world::entity::Entity;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::living::{LIVING_ENTITY_FLAG_IS_USING, LIVING_ENTITY_FLAG_OFF_HAND};
 use crate::world::item::{InteractionHand, ItemStack, behaviour};
-use mc_data::GameEvent;
+use mc_data::{DataComponentType, GameEvent};
 use mc_protocol::components::USE_EFFECTS;
 use mc_protocol::packets::play::{
     ClientboundCooldownPacket, ClientboundSetEquipmentPacket, SwingAnimation, SwingAnimationType,
@@ -109,12 +109,16 @@ impl ServerPlayer {
                 hand == InteractionHand::OffHand,
             );
             self.cause_use_vibration(level, &stack, GameEvent::ITEM_INTERACT_START);
+            if stack.has(DataComponentType::KINETIC_WEAPON) {
+                self.player.living.recent_kinetic_enemies = Some(Default::default());
+            }
         }
     }
 
     /// `stopUsingItem()`.
     pub fn stop_using_item(&mut self, level: &mut ServerLevel) {
         let was_using = self.is_using_item();
+        self.player.living.recent_kinetic_enemies = None;
         self.player
             .living
             .set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, false);
