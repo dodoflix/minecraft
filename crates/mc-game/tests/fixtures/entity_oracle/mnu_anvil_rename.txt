@@ -1,0 +1,707 @@
+# a damaged sword and one diamond: the cost is shown, taking the result costs levels
+MENU A cid=1 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300}
+MS 31 minecraft:diamond*6
+MD 0 0
+PKT A minecraft:open_screen 3c01080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 12010127000000000000000000000000000000000000000000000000000000000000019a08010003ac0206f40700000000000000000000
+PKT A minecraft:container_set_data 130100000000
+MENU A cid=1 type=minecraft:anvil state=6 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300}
+MS 1 minecraft:diamond*6
+MS 2 minecraft:diamond_sword*1{minecraft:repair_cost:1}
+MD 0 1
+PKT A minecraft:container_set_slot 140102001e00
+PKT A minecraft:set_cursor_item 62019a08010003ac02
+PKT A minecraft:container_set_slot 1401030000019a08010003ac02
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140104001f00
+PKT A minecraft:set_cursor_item 6206f4070000
+PKT A minecraft:container_set_slot 140105000106f4070000
+PKT A minecraft:container_set_slot 1401060002019a0801001301
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130100000001
+MENU A cid=1 type=minecraft:anvil state=9 carried=minecraft:diamond_sword*1{minecraft:repair_cost:1}
+MS 1 minecraft:diamond*5
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=39/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_slot 140107000000
+PKT A minecraft:container_set_slot 140108000105f4070000
+PKT A minecraft:container_set_slot 140109000200
+PKT A minecraft:set_cursor_item 62019a0801001301
+PKT A minecraft:container_set_data 130100000000
+MENU A cid=1 type=minecraft:anvil state=10 carried=empty
+MS 1 minecraft:diamond*5
+MS 30 minecraft:diamond_sword*1{minecraft:repair_cost:1}
+MD 0 0
+PKT A minecraft:container_set_slot 14010a001e019a0801001301
+PKT A minecraft:set_cursor_item 6200
+# renaming a stack and taking it
+MENU A cid=2 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=10{minecraft:damage:10}
+MD 0 0
+PKT A minecraft:open_screen 3c02080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 12020127000000000000000000000000000000000000000000000000000000000000019a080100030a000000000000000000
+PKT A minecraft:container_set_data 130200000000
+MENU A cid=2 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=10{minecraft:damage:10}
+MS 2 minecraft:diamond_sword*1/dmg=10{minecraft:custom_name:"Sharp",minecraft:damage:10}
+MD 0 1
+PKT A minecraft:container_set_slot 140202001e00
+PKT A minecraft:set_cursor_item 62019a080100030a
+PKT A minecraft:container_set_slot 1402030000019a080100030a
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1402040002019a080200030a060800055368617270
+PKT A minecraft:container_set_data 130200000001
+MENU A cid=2 type=minecraft:anvil state=6 carried=minecraft:diamond_sword*1/dmg=10{minecraft:custom_name:"Sharp",minecraft:damage:10}
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=39/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_slot 140205000000
+PKT A minecraft:container_set_slot 140206000200
+PKT A minecraft:set_cursor_item 62019a080200030a060800055368617270
+PKT A minecraft:container_set_data 130200000000
+MENU A cid=2 type=minecraft:anvil state=7 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=10{minecraft:custom_name:"Sharp",minecraft:damage:10}
+MD 0 0
+PKT A minecraft:container_set_slot 140207001e019a080200030a060800055368617270
+PKT A minecraft:set_cursor_item 6200
+# names: the longest the packet allows, one more, control and formatting characters, blank, the item's own name
+MENU A cid=3 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:wooden_sword*1
+MD 0 0
+PKT A minecraft:open_screen 3c03080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 120301270000000000000000000000000000000000000000000000000000000000000181080000000000000000000000
+PKT A minecraft:container_set_data 130300000000
+MENU A cid=3 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:wooden_sword*1
+MS 2 minecraft:wooden_sword*1{minecraft:custom_name:"abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwx"}
+MD 0 1
+PKT A minecraft:container_set_slot 140302001e00
+PKT A minecraft:set_cursor_item 620181080000
+PKT A minecraft:container_set_slot 14030300000181080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14030400020181080100060800326162636465666768696a6b6c6d6e6f707172737475767778797a6162636465666768696a6b6c6d6e6f707172737475767778
+PKT A minecraft:container_set_data 130300000001
+MENU A cid=3 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:wooden_sword*1
+MS 2 minecraft:wooden_sword*1{minecraft:custom_name:"abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwx"}
+MD 0 1
+MENU A cid=3 type=minecraft:anvil state=5 carried=empty
+MS 0 minecraft:wooden_sword*1
+MS 2 minecraft:wooden_sword*1{minecraft:custom_name:"ProbBlade"}
+MD 0 1
+PKT A minecraft:container_set_slot 140305000201810801000608000950726f62426c616465
+MENU A cid=3 type=minecraft:anvil state=6 carried=empty
+MS 0 minecraft:wooden_sword*1
+MD 0 0
+PKT A minecraft:container_set_slot 140306000200
+PKT A minecraft:container_set_data 130300000000
+MENU A cid=3 type=minecraft:anvil state=6 carried=empty
+MS 0 minecraft:wooden_sword*1
+MD 0 0
+MENU A cid=3 type=minecraft:anvil state=7 carried=empty
+MS 0 minecraft:wooden_sword*1
+MS 2 minecraft:wooden_sword*1{minecraft:custom_name:"x"}
+MD 0 1
+PKT A minecraft:container_set_slot 140307000201810801000608000178
+PKT A minecraft:container_set_data 130300000001
+MENU A cid=3 type=minecraft:anvil state=8 carried=empty
+MS 0 minecraft:wooden_sword*1
+MD 0 0
+PKT A minecraft:container_set_slot 140308000200
+PKT A minecraft:container_set_data 130300000000
+# two enchanted swords
+MENU A cid=4 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=100{minecraft:damage:100,minecraft:enchantments:{minecraft:sharpness:2,minecraft:unbreaking:1}}
+MS 31 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:fire_aspect:1,minecraft:sharpness:2}}
+MD 0 0
+PKT A minecraft:open_screen 3c04080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_data 130400000000
+MENU A cid=4 type=minecraft:anvil state=6 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=100{minecraft:damage:100,minecraft:enchantments:{minecraft:sharpness:2,minecraft:unbreaking:1}}
+MS 1 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:fire_aspect:1,minecraft:sharpness:2}}
+MS 2 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:fire_aspect:1,minecraft:sharpness:3,minecraft:unbreaking:1},minecraft:repair_cost:1}
+MD 0 9
+PKT A minecraft:container_set_data 130400000009
+MENU A cid=4 type=minecraft:anvil state=9 carried=minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:fire_aspect:1,minecraft:sharpness:3,minecraft:unbreaking:1},minecraft:repair_cost:1}
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=31/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_data 130400000000
+MENU A cid=4 type=minecraft:anvil state=10 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:fire_aspect:1,minecraft:sharpness:3,minecraft:unbreaking:1},minecraft:repair_cost:1}
+MD 0 0
+# a sword and a compatible enchanted book
+MENU A cid=5 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:2}}
+MS 31 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:3,minecraft:unbreaking:2}}
+MD 0 0
+PKT A minecraft:open_screen 3c05080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_data 130500000000
+MENU A cid=5 type=minecraft:anvil state=6 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:2}}
+MS 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:3,minecraft:unbreaking:2}}
+MS 2 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:3,minecraft:unbreaking:2},minecraft:repair_cost:1}
+MD 0 5
+PKT A minecraft:container_set_data 130500000005
+MENU A cid=5 type=minecraft:anvil state=9 carried=minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:3,minecraft:unbreaking:2},minecraft:repair_cost:1}
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=35/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_data 130500000000
+MENU A cid=5 type=minecraft:anvil state=10 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:3,minecraft:unbreaking:2},minecraft:repair_cost:1}
+MD 0 0
+# a sword and an incompatible book
+MENU A cid=6 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:3}}
+MS 31 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:smite:3}}
+MD 0 0
+PKT A minecraft:open_screen 3c06080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 12060127000000000000000000000000000000000000000000000000000000000000019a0801000d01210301f30a01002d0123030000000000000000
+PKT A minecraft:container_set_data 130600000000
+MENU A cid=6 type=minecraft:anvil state=5 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:3}}
+MS 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:smite:3}}
+MD 0 0
+PKT A minecraft:container_set_slot 140602001e00
+PKT A minecraft:set_cursor_item 62019a0801000d012103
+PKT A minecraft:container_set_slot 1406030000019a0801000d012103
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140604001f00
+PKT A minecraft:set_cursor_item 6201f30a01002d012303
+PKT A minecraft:container_set_slot 140605000101f30a01002d012303
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=6 type=minecraft:anvil state=5 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:3}}
+MS 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:smite:3}}
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=40/0/0.0 sel=0 main=empty
+MENU A cid=6 type=minecraft:anvil state=5 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:3}}
+MS 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:smite:3}}
+MD 0 0
+# a high repair cost: affordable, then not enough levels, then too expensive
+MENU A cid=7 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:iron_pickaxe*1{minecraft:repair_cost:31}
+MS 31 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MD 0 0
+PKT A minecraft:open_screen 3c07080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 120701270000000000000000000000000000000000000000000000000000000000000197080100131f019708010013270000000000000000
+PKT A minecraft:container_set_data 130700000000
+MENU A cid=7 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:iron_pickaxe*1{minecraft:repair_cost:31}
+MS 2 minecraft:iron_pickaxe*1{minecraft:custom_name:"Costly",minecraft:repair_cost:31}
+MS 31 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MD 0 32
+PKT A minecraft:container_set_slot 140702001e00
+PKT A minecraft:set_cursor_item 620197080100131f
+PKT A minecraft:container_set_slot 14070300000197080100131f
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14070400020197080200131f06080006436f73746c79
+PKT A minecraft:container_set_data 130700000020
+MENU A cid=7 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:iron_pickaxe*1{minecraft:repair_cost:31}
+MS 2 minecraft:iron_pickaxe*1{minecraft:custom_name:"Costly",minecraft:repair_cost:31}
+MS 31 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MD 0 32
+MENU A cid=7 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:iron_pickaxe*1{minecraft:repair_cost:31}
+MS 2 minecraft:iron_pickaxe*1{minecraft:custom_name:"Costly",minecraft:repair_cost:31}
+MS 31 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MD 0 32
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=5/0/0.0 sel=0 main=empty
+MENU A cid=7 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:iron_pickaxe*1{minecraft:repair_cost:31}
+MS 2 minecraft:iron_pickaxe*1{minecraft:custom_name:"Costly",minecraft:repair_cost:31}
+MS 31 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MD 0 32
+MENU A cid=7 type=minecraft:anvil state=6 carried=minecraft:iron_pickaxe*1{minecraft:custom_name:"Costly",minecraft:repair_cost:31}
+MS 31 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=8/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_slot 140705000000
+PKT A minecraft:container_set_slot 140706000200
+PKT A minecraft:set_cursor_item 620197080200131f06080006436f73746c79
+PKT A minecraft:container_set_data 130700000000
+MENU A cid=7 type=minecraft:anvil state=10 carried=minecraft:iron_pickaxe*1{minecraft:custom_name:"Costly",minecraft:repair_cost:31}
+MS 0 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MS 2 minecraft:iron_pickaxe*1{minecraft:custom_name:"Costly",minecraft:repair_cost:39}
+MD 0 39
+PKT A minecraft:container_set_slot 14070700000197080200131f06080006436f73746c79
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140708001f00
+PKT A minecraft:set_cursor_item 6201970801001327
+PKT A minecraft:container_set_slot 140709000001970801001327
+PKT A minecraft:container_set_slot 14070a00020197080200132706080006436f73746c79
+PKT A minecraft:set_cursor_item 620197080200131f06080006436f73746c79
+PKT A minecraft:container_set_data 130700000027
+MENU A cid=7 type=minecraft:anvil state=10 carried=minecraft:iron_pickaxe*1{minecraft:custom_name:"Costly",minecraft:repair_cost:31}
+MS 0 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MS 2 minecraft:iron_pickaxe*1{minecraft:custom_name:"Costly",minecraft:repair_cost:39}
+MD 0 39
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=8/0/0.0 sel=0 main=empty
+# a heavily damaged sword and several diamonds: the repair takes as many as it needs
+MENU A cid=8 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=1200{minecraft:damage:1200}
+MS 31 minecraft:diamond*6
+MD 0 0
+PKT A minecraft:open_screen 3c08080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 12080127000000000000000000000000000000000000000000000000000000000000019a08010003b00906f40700000000000000000000
+PKT A minecraft:container_set_data 130800000000
+MENU A cid=8 type=minecraft:anvil state=6 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=1200{minecraft:damage:1200}
+MS 1 minecraft:diamond*6
+MS 2 minecraft:diamond_sword*1{minecraft:repair_cost:1}
+MD 0 4
+PKT A minecraft:container_set_slot 140802001e00
+PKT A minecraft:set_cursor_item 62019a08010003b009
+PKT A minecraft:container_set_slot 1408030000019a08010003b009
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140804001f00
+PKT A minecraft:set_cursor_item 6206f4070000
+PKT A minecraft:container_set_slot 140805000106f4070000
+PKT A minecraft:container_set_slot 1408060002019a0801001301
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130800000004
+MENU A cid=8 type=minecraft:anvil state=9 carried=minecraft:diamond_sword*1{minecraft:repair_cost:1}
+MS 1 minecraft:diamond*2
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_slot 140807000000
+PKT A minecraft:container_set_slot 140808000102f4070000
+PKT A minecraft:container_set_slot 140809000200
+PKT A minecraft:set_cursor_item 62019a0801001301
+PKT A minecraft:container_set_data 130800000000
+MENU A cid=8 type=minecraft:anvil state=10 carried=empty
+MS 1 minecraft:diamond*2
+MS 30 minecraft:diamond_sword*1{minecraft:repair_cost:1}
+MD 0 0
+PKT A minecraft:container_set_slot 14080a001e019a0801001301
+PKT A minecraft:set_cursor_item 6200
+# two damaged swords repair each other; different kinds and a lone material do nothing
+MENU A cid=9 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=1000{minecraft:damage:1000}
+MS 31 minecraft:diamond_sword*1/dmg=1200{minecraft:damage:1200}
+MS 32 minecraft:iron_pickaxe*1/dmg=3{minecraft:damage:3}
+MS 33 minecraft:diamond*2
+MD 0 0
+PKT A minecraft:open_screen 3c09080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 12090127000000000000000000000000000000000000000000000000000000000000019a08010003e807019a08010003b0090197080100030302f4070000000000000000
+PKT A minecraft:container_set_data 130900000000
+MENU A cid=9 type=minecraft:anvil state=6 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=1000{minecraft:damage:1000}
+MS 1 minecraft:diamond_sword*1/dmg=1200{minecraft:damage:1200}
+MS 2 minecraft:diamond_sword*1/dmg=452{minecraft:damage:452,minecraft:repair_cost:1}
+MS 32 minecraft:iron_pickaxe*1/dmg=3{minecraft:damage:3}
+MS 33 minecraft:diamond*2
+MD 0 2
+PKT A minecraft:container_set_slot 140902001e00
+PKT A minecraft:set_cursor_item 62019a08010003e807
+PKT A minecraft:container_set_slot 1409030000019a08010003e807
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140904001f00
+PKT A minecraft:set_cursor_item 62019a08010003b009
+PKT A minecraft:container_set_slot 1409050001019a08010003b009
+PKT A minecraft:container_set_slot 1409060002019a08020003c4031301
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130900000002
+MENU A cid=9 type=minecraft:anvil state=9 carried=minecraft:diamond_sword*1/dmg=452{minecraft:damage:452,minecraft:repair_cost:1}
+MS 32 minecraft:iron_pickaxe*1/dmg=3{minecraft:damage:3}
+MS 33 minecraft:diamond*2
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=38/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_slot 140907000000
+PKT A minecraft:container_set_slot 140908000100
+PKT A minecraft:container_set_slot 140909000200
+PKT A minecraft:set_cursor_item 62019a08020003c4031301
+PKT A minecraft:container_set_data 130900000000
+MENU A cid=9 type=minecraft:anvil state=14 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=452{minecraft:damage:452,minecraft:repair_cost:1}
+MS 1 minecraft:iron_pickaxe*1/dmg=3{minecraft:damage:3}
+MS 33 minecraft:diamond*2
+MD 0 0
+PKT A minecraft:container_set_slot 14090a001e019a08020003c4031301
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14090b002000
+PKT A minecraft:set_cursor_item 6201970801000303
+PKT A minecraft:container_set_slot 14090c000101970801000303
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14090d001e00
+PKT A minecraft:set_cursor_item 62019a08020003c4031301
+PKT A minecraft:container_set_slot 14090e0000019a08020003c4031301
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=9 type=minecraft:anvil state=20 carried=empty
+MS 1 minecraft:diamond*2
+MS 30 minecraft:diamond_sword*1/dmg=452{minecraft:damage:452,minecraft:repair_cost:1}
+MS 32 minecraft:iron_pickaxe*1/dmg=3{minecraft:damage:3}
+MD 0 0
+PKT A minecraft:container_set_slot 14090f000100
+PKT A minecraft:set_cursor_item 6201970801000303
+PKT A minecraft:container_set_slot 140910002001970801000303
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140911000000
+PKT A minecraft:set_cursor_item 62019a08020003c4031301
+PKT A minecraft:container_set_slot 140912001e019a08020003c4031301
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140913002100
+PKT A minecraft:set_cursor_item 6202f4070000
+PKT A minecraft:container_set_slot 140914000102f4070000
+PKT A minecraft:set_cursor_item 6200
+# two enchanted books combine
+MENU A cid=10 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:3}}
+MS 31 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:3}}
+MD 0 0
+PKT A minecraft:open_screen 3c0a080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 120a012700000000000000000000000000000000000000000000000000000000000001f30a01002d01210301f30a01002d0121030000000000000000
+PKT A minecraft:container_set_data 130a00000000
+MENU A cid=10 type=minecraft:anvil state=6 carried=empty
+MS 0 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:3}}
+MS 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:3}}
+MS 2 minecraft:enchanted_book*1{minecraft:repair_cost:1,minecraft:stored_enchantments:{minecraft:sharpness:4}}
+MD 0 4
+PKT A minecraft:container_set_slot 140a02001e00
+PKT A minecraft:set_cursor_item 6201f30a01002d012103
+PKT A minecraft:container_set_slot 140a03000001f30a01002d012103
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140a04001f00
+PKT A minecraft:set_cursor_item 6201f30a01002d012103
+PKT A minecraft:container_set_slot 140a05000101f30a01002d012103
+PKT A minecraft:container_set_slot 140a06000201f30a02002d0121041301
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130a00000004
+MENU A cid=10 type=minecraft:anvil state=9 carried=minecraft:enchanted_book*1{minecraft:repair_cost:1,minecraft:stored_enchantments:{minecraft:sharpness:4}}
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=36/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_slot 140a07000000
+PKT A minecraft:container_set_slot 140a08000100
+PKT A minecraft:container_set_slot 140a09000200
+PKT A minecraft:set_cursor_item 6201f30a02002d0121041301
+PKT A minecraft:container_set_data 130a00000000
+MENU A cid=10 type=minecraft:anvil state=10 carried=empty
+MS 30 minecraft:enchanted_book*1{minecraft:repair_cost:1,minecraft:stored_enchantments:{minecraft:sharpness:4}}
+MD 0 0
+PKT A minecraft:container_set_slot 140a0a001e01f30a02002d0121041301
+PKT A minecraft:set_cursor_item 6200
+# an unenchanted sword with an enchanted book: the book gives its enchantment
+MENU A cid=11 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:diamond_sword*1
+MS 31 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:5}}
+MD 0 0
+PKT A minecraft:open_screen 3c0b080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 120b0127000000000000000000000000000000000000000000000000000000000000019a08000001f30a01002d0121050000000000000000
+PKT A minecraft:container_set_data 130b00000000
+MENU A cid=11 type=minecraft:anvil state=7 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:sharpness:5}}
+MS 2 minecraft:diamond_sword*1{minecraft:custom_name:"Both",minecraft:enchantments:{minecraft:sharpness:5},minecraft:repair_cost:1}
+MD 0 6
+PKT A minecraft:container_set_slot 140b02001e00
+PKT A minecraft:set_cursor_item 62019a080000
+PKT A minecraft:container_set_slot 140b030000019a080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140b04001f00
+PKT A minecraft:set_cursor_item 6201f30a01002d012105
+PKT A minecraft:container_set_slot 140b05000101f30a01002d012105
+PKT A minecraft:container_set_slot 140b060002019a08020013010d012105
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130b00000005
+PKT A minecraft:container_set_slot 140b070002019a08030006080004426f746813010d012105
+PKT A minecraft:container_set_data 130b00000006
+MENU A cid=11 type=minecraft:anvil state=10 carried=minecraft:diamond_sword*1{minecraft:custom_name:"Both",minecraft:enchantments:{minecraft:sharpness:5},minecraft:repair_cost:1}
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=34/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_slot 140b08000000
+PKT A minecraft:container_set_slot 140b09000100
+PKT A minecraft:container_set_slot 140b0a000200
+PKT A minecraft:set_cursor_item 62019a08030006080004426f746813010d012105
+PKT A minecraft:container_set_data 130b00000000
+MENU A cid=11 type=minecraft:anvil state=11 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:custom_name:"Both",minecraft:enchantments:{minecraft:sharpness:5},minecraft:repair_cost:1}
+MD 0 0
+PKT A minecraft:container_set_slot 140b0b001e019a08030006080004426f746813010d012105
+PKT A minecraft:set_cursor_item 6200
+# rename and take a stack of more than one: only single items fit as input
+MENU A cid=12 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:wooden_sword*1
+MS 31 minecraft:iron_ingot*4
+MD 0 0
+PKT A minecraft:open_screen 3c0c080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 120c0127000000000000000000000000000000000000000000000000000000000000018108000004fa0700000000000000000000
+PKT A minecraft:container_set_data 130c00000000
+MENU A cid=12 type=minecraft:anvil state=3 carried=empty
+MS 0 minecraft:iron_ingot*4
+MS 30 minecraft:wooden_sword*1
+MD 0 0
+PKT A minecraft:container_set_slot 140c02001f00
+PKT A minecraft:set_cursor_item 6204fa070000
+PKT A minecraft:container_set_slot 140c03000004fa070000
+PKT A minecraft:set_cursor_item 6200
+# sticks in the first, then in the second slot give no result
+MENU A cid=13 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:stick*3
+MD 0 0
+PKT A minecraft:open_screen 3c0d080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 120d012700000000000000000000000000000000000000000000000000000000000003a4080000000000000000000000
+PKT A minecraft:container_set_data 130d00000000
+MENU A cid=13 type=minecraft:anvil state=3 carried=empty
+MS 0 minecraft:stick*3
+MD 0 0
+PKT A minecraft:container_set_slot 140d02001e00
+PKT A minecraft:set_cursor_item 6203a4080000
+PKT A minecraft:container_set_slot 140d03000003a4080000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=13 type=minecraft:anvil state=7 carried=empty
+MS 1 minecraft:stick*3
+MD 0 0
+PKT A minecraft:container_set_slot 140d04000000
+PKT A minecraft:set_cursor_item 6203a4080000
+PKT A minecraft:container_set_slot 140d05001e03a4080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140d06001e00
+PKT A minecraft:set_cursor_item 6203a4080000
+PKT A minecraft:container_set_slot 140d07000103a4080000
+PKT A minecraft:set_cursor_item 6200
+# a stack on the cursor blocks taking the result; shift-click moves items in and the result out
+MENU A cid=14 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:wooden_sword*1
+MS 31 minecraft:stick*3
+MS 32 minecraft:iron_ingot*4
+MD 0 0
+PKT A minecraft:open_screen 3c0e080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 120e0127000000000000000000000000000000000000000000000000000000000000018108000003a408000004fa07000000000000000000
+PKT A minecraft:container_set_data 130e00000000
+MENU A cid=14 type=minecraft:anvil state=3 carried=empty
+MS 0 minecraft:wooden_sword*1
+MS 31 minecraft:stick*3
+MS 32 minecraft:iron_ingot*4
+MD 0 0
+PKT A minecraft:container_set_slot 140e0200000181080000
+PKT A minecraft:container_set_slot 140e03001e00
+MENU A cid=14 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:wooden_sword*1
+MS 2 minecraft:wooden_sword*1{minecraft:custom_name:"Quick"}
+MS 31 minecraft:stick*3
+MS 32 minecraft:iron_ingot*4
+MD 0 1
+PKT A minecraft:container_set_slot 140e040002018108010006080005517569636b
+PKT A minecraft:container_set_data 130e00000001
+MENU A cid=14 type=minecraft:anvil state=5 carried=minecraft:stick*3
+MS 0 minecraft:wooden_sword*1
+MS 2 minecraft:wooden_sword*1{minecraft:custom_name:"Quick"}
+MS 32 minecraft:iron_ingot*4
+MD 0 1
+PKT A minecraft:container_set_slot 140e05001f00
+PKT A minecraft:set_cursor_item 6203a4080000
+MENU A cid=14 type=minecraft:anvil state=9 carried=empty
+MS 31 minecraft:stick*3
+MS 32 minecraft:iron_ingot*4
+MS 38 minecraft:wooden_sword*1{minecraft:custom_name:"Quick"}
+MD 0 0
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=39/0/0.0 sel=0 main=empty
+PKT A minecraft:container_set_slot 140e06001f03a4080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140e07000000
+PKT A minecraft:container_set_slot 140e08000200
+PKT A minecraft:container_set_slot 140e090026018108010006080005517569636b
+PKT A minecraft:container_set_data 130e00000000
+MENU A cid=14 type=minecraft:anvil state=9 carried=empty
+MS 31 minecraft:stick*3
+MS 32 minecraft:iron_ingot*4
+MS 38 minecraft:wooden_sword*1{minecraft:custom_name:"Quick"}
+MD 0 0
+# closing returns the items of both input slots
+MENU A cid=15 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300}
+MS 31 minecraft:diamond*6
+MD 0 0
+PKT A minecraft:open_screen 3c0f080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 120f0127000000000000000000000000000000000000000000000000000000000000019a08010003ac0206f40700000000000000000000
+PKT A minecraft:container_set_data 130f00000000
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300}
+MS 37 minecraft:diamond*6
+I A 0 minecraft:diamond_sword*1/dmg=300{minecraft:damage:300}
+I A 1 minecraft:diamond*6
+PKT A minecraft:container_set_slot 140f02001e00
+PKT A minecraft:set_cursor_item 62019a08010003ac02
+PKT A minecraft:container_set_slot 140f030000019a08010003ac02
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140f04001f00
+PKT A minecraft:set_cursor_item 6206f4070000
+PKT A minecraft:container_set_slot 140f05000106f4070000
+PKT A minecraft:container_set_slot 140f060002019a0801001301
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130f00000001
+# a take without damage to the anvil, then the chance hits: chipped, damaged, destroyed
+MENU A cid=16 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:wooden_sword*1
+MD 0 0
+PKT A minecraft:open_screen 3c10080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 121001270000000000000000000000000000000000000000000000000000000000000181080000000000000000000000
+PKT A minecraft:container_set_data 131000000000
+MENU A cid=16 type=minecraft:anvil state=6 carried=minecraft:wooden_sword*1{minecraft:custom_name:"Zero"}
+MD 0 0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+B 3 -60 4 minecraft:anvil[facing=north]
+PKT A minecraft:container_set_slot 141002001e00
+PKT A minecraft:set_cursor_item 620181080000
+PKT A minecraft:container_set_slot 14100300000181080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14100400020181080100060800045a65726f
+PKT A minecraft:container_set_data 131000000001
+PKT A minecraft:container_set_slot 141005000000
+PKT A minecraft:container_set_slot 141006000200
+PKT A minecraft:set_cursor_item 620181080100060800045a65726f
+PKT A minecraft:container_set_data 131000000000
+# the chance hits with the anvil in state minecraft:anvil
+MENU A cid=17 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:wooden_sword*1
+MD 0 0
+PKT A minecraft:open_screen 3c11080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 121101270000000000000000000000000000000000000000000000000000000000000181080000000000000000000000
+PKT A minecraft:container_set_data 131100000000
+MENU A cid=17 type=minecraft:anvil state=6 carried=minecraft:wooden_sword*1{minecraft:custom_name:"One"}
+MD 0 0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+B 3 -60 4 minecraft:chipped_anvil[facing=north]
+PKT A minecraft:container_set_slot 141102001e00
+PKT A minecraft:set_cursor_item 620181080000
+PKT A minecraft:container_set_slot 14110300000181080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14110400020181080100060800034f6e65
+PKT A minecraft:container_set_data 131100000001
+PKT A minecraft:container_set_slot 141105000000
+PKT A minecraft:container_set_slot 141106000200
+PKT A minecraft:set_cursor_item 620181080100060800034f6e65
+PKT A minecraft:container_set_data 131100000000
+MENU A cid=17 type=minecraft:anvil state=6 carried=minecraft:wooden_sword*1{minecraft:custom_name:"One"}
+MD 0 0
+MENU A cid=17 type=minecraft:anvil state=6 carried=minecraft:wooden_sword*1{minecraft:custom_name:"One"}
+MD 0 0
+B 3 -60 4 minecraft:chipped_anvil[facing=north]
+# the chance hits with the anvil in state minecraft:chipped_anvil
+MENU A cid=18 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:wooden_sword*1
+MD 0 0
+PKT A minecraft:open_screen 3c12080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 121201270000000000000000000000000000000000000000000000000000000000000181080000000000000000000000
+PKT A minecraft:container_set_data 131200000000
+MENU A cid=18 type=minecraft:anvil state=6 carried=minecraft:wooden_sword*1{minecraft:custom_name:"Two"}
+MD 0 0
+EV level_event r=64.0 ex=0 type=1030 pos=3,-60,4 data=0 global=0
+B 3 -60 4 minecraft:damaged_anvil[facing=north]
+PKT A minecraft:container_set_slot 141202001e00
+PKT A minecraft:set_cursor_item 620181080000
+PKT A minecraft:container_set_slot 14120300000181080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 141204000201810801000608000354776f
+PKT A minecraft:container_set_data 131200000001
+PKT A minecraft:container_set_slot 141205000000
+PKT A minecraft:container_set_slot 141206000200
+PKT A minecraft:set_cursor_item 6201810801000608000354776f
+PKT A minecraft:container_set_data 131200000000
+MENU A cid=18 type=minecraft:anvil state=6 carried=minecraft:wooden_sword*1{minecraft:custom_name:"Two"}
+MD 0 0
+MENU A cid=18 type=minecraft:anvil state=6 carried=minecraft:wooden_sword*1{minecraft:custom_name:"Two"}
+MD 0 0
+B 3 -60 4 minecraft:damaged_anvil[facing=north]
+# the chance hits with the anvil in state minecraft:damaged_anvil
+MENU A cid=19 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:wooden_sword*1
+MD 0 0
+PKT A minecraft:open_screen 3c13080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 121301270000000000000000000000000000000000000000000000000000000000000181080000000000000000000000
+PKT A minecraft:container_set_data 131300000000
+MENU A cid=19 type=minecraft:anvil state=6 carried=minecraft:wooden_sword*1{minecraft:custom_name:"Three"}
+MD 0 0
+EV level_event r=64.0 ex=0 type=1029 pos=3,-60,4 data=0 global=0
+PKT A minecraft:container_set_slot 141302001e00
+PKT A minecraft:set_cursor_item 620181080000
+PKT A minecraft:container_set_slot 14130300000181080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14130400020181080100060800055468726565
+PKT A minecraft:container_set_data 131300000001
+PKT A minecraft:container_set_slot 141305000000
+PKT A minecraft:container_set_slot 141306000200
+PKT A minecraft:set_cursor_item 620181080100060800055468726565
+PKT A minecraft:container_set_data 131300000000
+MENU A cid=19 type=minecraft:anvil state=6 carried=minecraft:wooden_sword*1{minecraft:custom_name:"Three"}
+MD 0 0
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:wooden_sword*1{minecraft:custom_name:"Three"}
+PKT A minecraft:container_close 1113
+# out of reach: the rename and the take are ignored and the menu closes with the next tick
+MENU A cid=20 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:wooden_sword*1
+MD 0 0
+PKT A minecraft:open_screen 3c14080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 121401270000000000000000000000000000000000000000000000000000000000000181080000000000000000000000
+PKT A minecraft:container_set_data 131400000000
+MENU A cid=20 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:wooden_sword*1
+MS 2 minecraft:wooden_sword*1{minecraft:custom_name:"Near"}
+MD 0 1
+PKT A minecraft:container_set_slot 141402001e00
+PKT A minecraft:set_cursor_item 620181080000
+PKT A minecraft:container_set_slot 14140300000181080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14140400020181080100060800044e656172
+PKT A minecraft:container_set_data 131400000001
+MENU A cid=20 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:wooden_sword*1
+MS 2 minecraft:wooden_sword*1{minecraft:custom_name:"Near"}
+MD 0 1
+MENU A cid=20 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:wooden_sword*1
+MS 2 minecraft:wooden_sword*1{minecraft:custom_name:"Near"}
+MD 0 1
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:wooden_sword*1
+I A 0 minecraft:wooden_sword*1
+PKT A minecraft:container_close 1114
+# a spectator sees the menu: clicks only resend it and a rename changes nothing without an item
+MENU S cid=1 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:wooden_sword*1
+MD 0 0
+PKT S minecraft:open_screen 3c01080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT S minecraft:container_set_content 120101270000000000000000000000000000000000000000000000000000000000000181080000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+MENU S cid=1 type=minecraft:anvil state=2 carried=empty
+MS 30 minecraft:wooden_sword*1
+MD 0 0
+PKT S minecraft:container_set_content 120102270000000000000000000000000000000000000000000000000000000000000181080000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+# creative: the result needs no levels, costs none and leaves the anvil as it is
+MENU C cid=1 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MD 0 0
+P C minecraft:player pos=9.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+PKT C minecraft:set_experience 69000000000000
+PKT C minecraft:open_screen 3c01080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT C minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000001970801001327000000000000000000
+PKT C minecraft:container_set_data 130100000000
+MENU C cid=1 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+MD 0 0
+P C minecraft:player pos=9.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_pickaxe*1{minecraft:repair_cost:39}
+B 9 -60 4 minecraft:damaged_anvil[facing=north]
+STAT A minecraft.custom:minecraft.interact_with_anvil 20
+STAT A minecraft.custom:minecraft.play_time 6
+STAT A minecraft.custom:minecraft.time_since_death 6
+STAT A minecraft.custom:minecraft.time_since_rest 6
+STAT A minecraft.custom:minecraft.total_world_time 6
+STAT C minecraft.custom:minecraft.interact_with_anvil 1
+STAT C minecraft.custom:minecraft.play_time 6
+STAT C minecraft.custom:minecraft.time_since_death 6
+STAT C minecraft.custom:minecraft.time_since_rest 6
+STAT C minecraft.custom:minecraft.total_world_time 6

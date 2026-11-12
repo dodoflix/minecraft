@@ -1,0 +1,166 @@
+# The enchanting table through the player's listener: the bookshelf count, offered enchantments per slot, lapis and level checks, the
+# experience cost, the item/lapis/seed changes, the enchant_item statistic, the enchanted_item trigger and the enchantment seed.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player C creative 9.5 -60 7.5 0 0
+spawn_player S spectator 12.5 -60 7.5 0 0
+block 3 -60 4 minecraft:enchanting_table
+block 9 -60 4 minecraft:enchanting_table
+set A xp_level 30
+set A enchant_seed 4242
+entity_seed A 77
+give A hotbar0 minecraft:diamond_sword
+give A hotbar1 minecraft:lapis_lazuli 10
+give A hotbar2 minecraft:book 3
+give A hotbar3 minecraft:stick 2
+give A hotbar4 minecraft:iron_pickaxe[enchantments={"minecraft:efficiency":1}]
+give A hotbar5 minecraft:diamond_chestplate
+give C hotbar0 minecraft:diamond_pickaxe
+tick 2
+dump packets:A:none stats:A advancements:A
+note no bookshelves: the first and third slot offer something, the second none
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note lapis moves into its slot (the slot only takes lapis), anything else stays on the cursor
+click A 30 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 33 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 33 0 PICKUP
+note buttons: invalid ids, a slot offering nothing, a level requirement above the player level
+menu_button A 3
+menu_button A -1
+menu_button A 1
+set A xp_level 3
+menu_button A 2
+dump menu:A player:A stats:A advancements:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note the third slot with enough levels
+set A xp_level 30
+menu_button A 2
+dump menu:A player:A stats:A advancements:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note fifteen bookshelves
+fill 1 -60 2 5 -59 2 minecraft:bookshelf
+fill 1 -60 6 5 -59 6 minecraft:bookshelf
+fill 1 -60 3 1 -59 5 minecraft:bookshelf
+fill 5 -60 3 5 -59 5 minecraft:bookshelf
+click A 0 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the offered enchantments depend on the seed; changing the item recomputes them
+click A 0 0 PICKUP
+click A 29 0 PICKUP
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the first slot: costs one level and one lapis
+level_seed 5
+menu_button A 0
+dump menu:A stats:A advancements:A inventory:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note the new seed and the offered enchantments after the enchanting
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 0 0 PICKUP
+click A 29 0 PICKUP
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the third slot costs three levels and three lapis
+menu_button A 2
+dump menu:A stats:A inventory:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note an enchanted item is not offered anything: the stack stays put
+menu_button A 1
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note a book becomes an enchanted book
+click A 0 0 PICKUP
+click A 29 0 PICKUP
+click A 31 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+menu_button A 1
+dump menu:A player:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+note a stick, an already enchanted pickaxe and armor with the remaining levels
+click A 32 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+menu_button A 0
+click A 0 0 PICKUP
+click A 32 0 PICKUP
+click A 33 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+menu_button A 0
+click A 0 0 PICKUP
+click A 33 0 PICKUP
+click A 34 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+set A xp_level 1
+menu_button A 2
+set A xp_level 2
+menu_button A 2
+dump menu:A player:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note enough levels again
+set A xp_level 40
+menu_button A 0
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note leaving takes the item and lapis back to the inventory
+close_menu A
+dump menu:A inventory:A stats:A advancements:A
+note creative: no lapis and no levels used, the stat and the trigger still count
+use_on C 9 -60 4 up main
+click C 29 0 PICKUP
+click C 0 0 PICKUP
+dump menu:C packets:C:open_screen,container_set_slot,container_set_content,container_set_data,set_cursor_item
+menu_button C 0
+dump menu:C player:C stats:C advancements:C packets:C:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+close_menu C
+note a fresh player has the seed 0 until the first enchanting; a bookshelf behind a blocked gap does not count; the count only changes with the slots
+spawn_player N survival 15.5 -60 7.5 0 0
+block 15 -60 4 minecraft:enchanting_table
+fill 13 -60 3 13 -59 5 minecraft:bookshelf
+set N xp_level 30
+give N hotbar0 minecraft:diamond_sword
+give N hotbar1 minecraft:lapis_lazuli 5
+use_on N 15 -60 4 up main
+click N 29 0 PICKUP
+click N 0 0 PICKUP
+click N 30 0 PICKUP
+click N 1 0 PICKUP
+dump menu:N packets:N:open_screen,container_set_slot,container_set_content,container_set_data,set_cursor_item
+block 14 -60 4 minecraft:stone
+dump menu:N packets:N:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click N 0 0 PICKUP
+click N 0 0 PICKUP
+dump menu:N packets:N:container_set_slot,container_set_content,container_set_data,set_cursor_item
+block 14 -60 4 minecraft:air
+block 14 -59 4 minecraft:stone
+click N 0 0 PICKUP
+click N 0 0 PICKUP
+dump menu:N packets:N:container_set_slot,container_set_content,container_set_data,set_cursor_item
+menu_button N 1
+dump menu:N player:N stats:N packets:N:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note the table broken under the open menu: the button does nothing
+block 15 -60 4 minecraft:air
+menu_button N 0
+dump menu:N player:N packets:N:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+tick 1
+dump menu:N inventory:N packets:N:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a button for the inventory menu does nothing
+menu_button N 0
+dump menu:N packets:N:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note a spectator sees the menu and the buttons do nothing
+block 12 -60 4 minecraft:enchanting_table
+set S xp_level 30
+use_on S 12 -60 4 up main
+dump menu:S packets:S:open_screen,container_set_content,container_set_data
+menu_button S 0
+dump menu:S player:S stats:S packets:S:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience

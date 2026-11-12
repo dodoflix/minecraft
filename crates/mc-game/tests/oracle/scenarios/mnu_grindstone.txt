@@ -1,0 +1,273 @@
+# The grindstone through the player's listener: moving items in and out, removing the enchantments and keeping the curses, merging two items,
+# books, items that do not fit, the experience orbs of the result and what closing returns.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player S spectator 9.5 -60 7.5 0 0
+spawn_player C creative 6.5 -60 7.5 0 0
+block 6 -60 4 minecraft:grindstone[face=floor,facing=north]
+block 3 -60 4 minecraft:grindstone[face=floor,facing=north]
+block 9 -60 4 minecraft:grindstone[face=floor,facing=north]
+tick 2
+close_menu A
+note an enchanted sword: the enchantments go and the orbs appear when the result is taken
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+level_seed 11
+give A hotbar0 minecraft:diamond_sword[enchantments={"minecraft:sharpness":3,"minecraft:unbreaking":2,"minecraft:mending":1},damage=20,repair_cost=7]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_data,set_experience
+click A 2 0 PICKUP
+dump menu:A entities events packets:A:container_set_data,set_experience
+click A 30 0 PICKUP
+dump menu:A packets:A:container_set_data,set_experience
+note curses stay, the other enchantments are removed
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+level_seed 11
+give A hotbar0 minecraft:diamond_chestplate[enchantments={"minecraft:binding_curse":1,"minecraft:protection":4,"minecraft:thorns":3}]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_data,set_experience
+click A 2 0 PICKUP
+dump menu:A entities events packets:A:container_set_data,set_experience
+click A 30 0 PICKUP
+note an enchanted book becomes a book and the cost of its enchantments is paid out
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+level_seed 11
+give A hotbar0 minecraft:enchanted_book[stored_enchantments={"minecraft:sharpness":5,"minecraft:looting":3}]
+give A hotbar1 minecraft:enchanted_book[stored_enchantments={"minecraft:vanishing_curse":1}]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_data,set_experience
+click A 2 0 PICKUP
+dump menu:A entities events packets:A:container_set_data,set_experience
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 31 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_data,set_experience
+click A 2 0 PICKUP
+dump menu:A entities events packets:A:container_set_data,set_experience
+note two damaged items of one kind merge, the enchantments of both are removed
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+level_seed 11
+give A hotbar0 minecraft:diamond_sword[damage=1000,enchantments={"minecraft:sharpness":1}]
+give A hotbar1 minecraft:diamond_sword[damage=800,enchantments={"minecraft:unbreaking":3}]
+give A hotbar2 minecraft:diamond_sword[damage=1500]
+give A hotbar3 minecraft:iron_sword[damage=10]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A entities events packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 30 0 PICKUP
+click A 32 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 1 0 PICKUP
+click A 31 0 PICKUP
+click A 33 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 0 0 PICKUP
+click A 32 0 PICKUP
+click A 1 0 PICKUP
+click A 33 0 PICKUP
+note items without enchantments or damage do not fit; one item in the second slot only
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+level_seed 11
+give A hotbar0 minecraft:stick
+give A hotbar1 minecraft:diamond_pickaxe[damage=5]
+give A hotbar2 minecraft:diamond 2
+give A hotbar3 minecraft:diamond_axe[enchantments={"minecraft:efficiency":2}]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 32 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A entities events packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 1 0 PICKUP
+click A 31 0 PICKUP
+click A 33 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A entities events packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note shift-click: items into the grindstone, the result into the inventory
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+level_seed 11
+give A hotbar0 minecraft:diamond_sword[enchantments={"minecraft:sharpness":4}]
+give A hotbar1 minecraft:bow[enchantments={"minecraft:power":3}]
+give A hotbar2 minecraft:stick
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 31 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 QUICK_MOVE
+dump menu:A entities events packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note closing returns the items of both input slots
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+level_seed 11
+give A hotbar0 minecraft:diamond_sword[enchantments={"minecraft:sharpness":4}]
+give A hotbar1 minecraft:diamond_sword[damage=5]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+close_menu A
+dump menu:A inventory:A packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a stack on the cursor blocks taking the result
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+level_seed 11
+give A hotbar0 minecraft:diamond_sword[enchantments={"minecraft:sharpness":4}]
+give A hotbar1 minecraft:stick 3
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 31 0 PICKUP
+note a spectator only sees the menu: no result is taken
+close_menu A
+give S hotbar0 minecraft:diamond_sword[enchantments={"minecraft:sharpness":4}]
+use_on S 9 -60 4 up main
+dump menu:S packets:S:open_screen,container_set_content,container_set_data
+click S 30 0 PICKUP
+click S 0 0 PICKUP
+dump menu:S packets:S:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu S
+note creative takes the result like survival and the orbs still come
+level_seed 25
+give C hotbar0 minecraft:diamond_sword[enchantments={"minecraft:sharpness":4,"minecraft:fire_aspect":2}]
+use_on C 6 -60 4 up main
+click C 29 0 PICKUP
+click C 0 0 PICKUP
+click C 2 0 PICKUP
+dump menu:C entities events packets:C:container_set_data,set_experience
+close_menu C
+dump stats:C

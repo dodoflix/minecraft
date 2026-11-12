@@ -1,0 +1,282 @@
+# an enchanted sword: the enchantments go and the orbs appear when the result is taken
+MENU A cid=1 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=20{minecraft:damage:20,minecraft:enchantments:{minecraft:mending:1,minecraft:sharpness:3,minecraft:unbreaking:2},minecraft:repair_cost:7}
+PKT A minecraft:open_screen 3c010f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+MENU A cid=1 type=minecraft:grindstone state=4 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=20{minecraft:damage:20,minecraft:enchantments:{minecraft:mending:1,minecraft:sharpness:3,minecraft:unbreaking:2},minecraft:repair_cost:7}
+MS 2 minecraft:diamond_sword*1/dmg=20{minecraft:damage:20}
+MENU A cid=1 type=minecraft:grindstone state=6 carried=minecraft:diamond_sword*1/dmg=20{minecraft:damage:20}
+E experience_orb#1 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.15106227181425408,0.035331391069460906,-0.05087559892988522 rot=7.995858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.1186047131964551,0.35296444187948717,-0.09184788222042789 rot=14.084988,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+EV level_event r=64.0 ex=0 type=1042 pos=3,-60,4 data=0 global=0
+MENU A cid=1 type=minecraft:grindstone state=7 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=20{minecraft:damage:20}
+# curses stay, the other enchantments are removed
+MENU A cid=2 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:binding_curse:1,minecraft:protection:4,minecraft:thorns:3}}
+PKT A minecraft:open_screen 3c020f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+MENU A cid=2 type=minecraft:grindstone state=4 carried=empty
+MS 0 minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:binding_curse:1,minecraft:protection:4,minecraft:thorns:3}}
+MS 2 minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:binding_curse:1},minecraft:repair_cost:1}
+MENU A cid=2 type=minecraft:grindstone state=6 carried=minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:binding_curse:1},minecraft:repair_cost:1}
+E experience_orb#1 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.15106227181425408,0.035331391069460906,-0.05087559892988522 rot=7.995858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.1186047131964551,0.35296444187948717,-0.09184788222042789 rot=14.084988,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.05301847026681494,0.06399348394586805,0.053245542869959084 rot=59.010918,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+EV level_event r=64.0 ex=0 type=1042 pos=3,-60,4 data=0 global=0
+# an enchanted book becomes a book and the cost of its enchantments is paid out
+MENU A cid=3 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:looting:3,minecraft:sharpness:5}}
+MS 31 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:vanishing_curse:1}}
+PKT A minecraft:open_screen 3c030f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+MENU A cid=3 type=minecraft:grindstone state=4 carried=empty
+MS 0 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:looting:3,minecraft:sharpness:5}}
+MS 2 minecraft:book*1
+MS 31 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:vanishing_curse:1}}
+MENU A cid=3 type=minecraft:grindstone state=6 carried=minecraft:book*1
+MS 31 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:vanishing_curse:1}}
+E experience_orb#1 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.15106227181425408,0.035331391069460906,-0.05087559892988522 rot=7.995858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.1186047131964551,0.35296444187948717,-0.09184788222042789 rot=14.084988,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.05301847026681494,0.06399348394586805,0.053245542869959084 rot=59.010918,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.09899722524576793,0.3495126586766068,0.18952410427022798 rot=154.96364,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#6 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.10780383429017654,0.11764393665598392,-0.07467683235626951 rot=185.24245,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+EV level_event r=64.0 ex=0 type=1042 pos=3,-60,4 data=0 global=0
+MENU A cid=3 type=minecraft:grindstone state=9 carried=empty
+MS 30 minecraft:book*1
+MS 31 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:vanishing_curse:1}}
+MENU A cid=3 type=minecraft:grindstone state=9 carried=empty
+MS 30 minecraft:book*1
+MS 31 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:vanishing_curse:1}}
+E experience_orb#1 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.15106227181425408,0.035331391069460906,-0.05087559892988522 rot=7.995858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.1186047131964551,0.35296444187948717,-0.09184788222042789 rot=14.084988,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.05301847026681494,0.06399348394586805,0.053245542869959084 rot=59.010918,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.09899722524576793,0.3495126586766068,0.18952410427022798 rot=154.96364,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#6 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.10780383429017654,0.11764393665598392,-0.07467683235626951 rot=185.24245,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+# two damaged items of one kind merge, the enchantments of both are removed
+MENU A cid=4 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:diamond_sword*1/dmg=1000{minecraft:damage:1000,minecraft:enchantments:{minecraft:sharpness:1}}
+MS 31 minecraft:diamond_sword*1/dmg=800{minecraft:damage:800,minecraft:enchantments:{minecraft:unbreaking:3}}
+MS 32 minecraft:diamond_sword*1/dmg=1500{minecraft:damage:1500}
+MS 33 minecraft:iron_sword*1/dmg=10{minecraft:damage:10}
+PKT A minecraft:open_screen 3c040f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT A minecraft:container_set_content 12040127000000000000000000000000000000000000000000000000000000000000019a08020003e8070d012101019a08020003a0060d012803019a08010003dc0b0195080100030a000000000000
+MENU A cid=4 type=minecraft:grindstone state=7 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=1000{minecraft:damage:1000,minecraft:enchantments:{minecraft:sharpness:1}}
+MS 1 minecraft:diamond_sword*1/dmg=800{minecraft:damage:800,minecraft:enchantments:{minecraft:unbreaking:3}}
+MS 2 minecraft:diamond_sword*1/dmg=161{minecraft:damage:161}
+MS 32 minecraft:diamond_sword*1/dmg=1500{minecraft:damage:1500}
+MS 33 minecraft:iron_sword*1/dmg=10{minecraft:damage:10}
+PKT A minecraft:container_set_slot 140402001e00
+PKT A minecraft:set_cursor_item 62019a08020003e8070d012101
+PKT A minecraft:container_set_slot 1404030000019a08020003e8070d012101
+PKT A minecraft:container_set_slot 1404040002019a08010003e807
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140405001f00
+PKT A minecraft:set_cursor_item 62019a08020003a0060d012803
+PKT A minecraft:container_set_slot 1404060001019a08020003a0060d012803
+PKT A minecraft:container_set_slot 1404070002019a08010003a101
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=4 type=minecraft:grindstone state=10 carried=minecraft:diamond_sword*1/dmg=161{minecraft:damage:161}
+MS 32 minecraft:diamond_sword*1/dmg=1500{minecraft:damage:1500}
+MS 33 minecraft:iron_sword*1/dmg=10{minecraft:damage:10}
+E experience_orb#1 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.15106227181425408,0.035331391069460906,-0.05087559892988522 rot=7.995858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.1186047131964551,0.35296444187948717,-0.09184788222042789 rot=14.084988,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.05301847026681494,0.06399348394586805,0.053245542869959084 rot=59.010918,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.09899722524576793,0.3495126586766068,0.18952410427022798 rot=154.96364,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#6 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.10780383429017654,0.11764393665598392,-0.07467683235626951 rot=185.24245,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+EV level_event r=64.0 ex=0 type=1042 pos=3,-60,4 data=0 global=0
+PKT A minecraft:container_set_slot 140408000000
+PKT A minecraft:container_set_slot 140409000100
+PKT A minecraft:container_set_slot 14040a000200
+PKT A minecraft:set_cursor_item 62019a08010003a101
+MENU A cid=4 type=minecraft:grindstone state=13 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=1500{minecraft:damage:1500}
+MS 30 minecraft:diamond_sword*1/dmg=161{minecraft:damage:161}
+MS 33 minecraft:iron_sword*1/dmg=10{minecraft:damage:10}
+PKT A minecraft:container_set_slot 14040b001e019a08010003a101
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14040c002000
+PKT A minecraft:set_cursor_item 62019a08010003dc0b
+PKT A minecraft:container_set_slot 14040d0000019a08010003dc0b
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=4 type=minecraft:grindstone state=15 carried=empty
+MS 0 minecraft:diamond_sword*1/dmg=1500{minecraft:damage:1500}
+MS 1 minecraft:iron_sword*1/dmg=10{minecraft:damage:10}
+MS 30 minecraft:diamond_sword*1/dmg=161{minecraft:damage:161}
+PKT A minecraft:container_set_slot 14040e002100
+PKT A minecraft:set_cursor_item 620195080100030a
+PKT A minecraft:container_set_slot 14040f00010195080100030a
+PKT A minecraft:set_cursor_item 6200
+# items without enchantments or damage do not fit; one item in the second slot only
+MENU A cid=5 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:stick*1
+MS 31 minecraft:diamond_pickaxe*1/dmg=5{minecraft:damage:5}
+MS 32 minecraft:diamond*2
+MS 33 minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:efficiency:2}}
+PKT A minecraft:open_screen 3c050f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT A minecraft:container_set_content 1205012700000000000000000000000000000000000000000000000000000000000001a4080000019c080100030502f4070000019d0801000d010802000000000000
+MENU A cid=5 type=minecraft:grindstone state=2 carried=minecraft:stick*1
+MS 31 minecraft:diamond_pickaxe*1/dmg=5{minecraft:damage:5}
+MS 32 minecraft:diamond*2
+MS 33 minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:efficiency:2}}
+PKT A minecraft:container_set_slot 140502001e00
+PKT A minecraft:set_cursor_item 6201a4080000
+MENU A cid=5 type=minecraft:grindstone state=3 carried=minecraft:diamond*2
+MS 31 minecraft:diamond_pickaxe*1/dmg=5{minecraft:damage:5}
+MS 32 minecraft:stick*1
+MS 33 minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:efficiency:2}}
+PKT A minecraft:container_set_slot 140503002001a4080000
+PKT A minecraft:set_cursor_item 6202f4070000
+MENU A cid=5 type=minecraft:grindstone state=5 carried=empty
+MS 1 minecraft:diamond_pickaxe*1/dmg=5{minecraft:damage:5}
+MS 31 minecraft:diamond*2
+MS 32 minecraft:stick*1
+MS 33 minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:efficiency:2}}
+PKT A minecraft:container_set_slot 140504001f02f4070000
+PKT A minecraft:set_cursor_item 62019c0801000305
+PKT A minecraft:container_set_slot 1405050001019c0801000305
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=5 type=minecraft:grindstone state=5 carried=empty
+MS 1 minecraft:diamond_pickaxe*1/dmg=5{minecraft:damage:5}
+MS 31 minecraft:diamond*2
+MS 32 minecraft:stick*1
+MS 33 minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:efficiency:2}}
+E experience_orb#1 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.15106227181425408,0.035331391069460906,-0.05087559892988522 rot=7.995858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.1186047131964551,0.35296444187948717,-0.09184788222042789 rot=14.084988,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.05301847026681494,0.06399348394586805,0.053245542869959084 rot=59.010918,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.09899722524576793,0.3495126586766068,0.18952410427022798 rot=154.96364,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#6 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.10780383429017654,0.11764393665598392,-0.07467683235626951 rot=185.24245,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+MENU A cid=5 type=minecraft:grindstone state=10 carried=empty
+MS 1 minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:efficiency:2}}
+MS 2 minecraft:diamond_axe*1
+MS 31 minecraft:diamond_pickaxe*1/dmg=5{minecraft:damage:5}
+MS 32 minecraft:stick*1
+MS 33 minecraft:diamond*2
+PKT A minecraft:container_set_slot 140506000100
+PKT A minecraft:set_cursor_item 62019c0801000305
+PKT A minecraft:container_set_slot 140507001f019c0801000305
+PKT A minecraft:set_cursor_item 6202f4070000
+PKT A minecraft:container_set_slot 140508002102f4070000
+PKT A minecraft:set_cursor_item 62019d0801000d010802
+PKT A minecraft:container_set_slot 1405090001019d0801000d010802
+PKT A minecraft:container_set_slot 14050a0002019d080000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=5 type=minecraft:grindstone state=12 carried=minecraft:diamond_axe*1
+MS 31 minecraft:diamond_pickaxe*1/dmg=5{minecraft:damage:5}
+MS 32 minecraft:stick*1
+MS 33 minecraft:diamond*2
+E experience_orb#1 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.15106227181425408,0.035331391069460906,-0.05087559892988522 rot=7.995858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.1186047131964551,0.35296444187948717,-0.09184788222042789 rot=14.084988,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.05301847026681494,0.06399348394586805,0.053245542869959084 rot=59.010918,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.09899722524576793,0.3495126586766068,0.18952410427022798 rot=154.96364,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#6 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.10780383429017654,0.11764393665598392,-0.07467683235626951 rot=185.24245,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+EV level_event r=64.0 ex=0 type=1042 pos=3,-60,4 data=0 global=0
+PKT A minecraft:container_set_slot 14050b000100
+PKT A minecraft:container_set_slot 14050c000200
+PKT A minecraft:set_cursor_item 62019d080000
+# shift-click: items into the grindstone, the result into the inventory
+MENU A cid=6 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+MS 31 minecraft:bow*1{minecraft:enchantments:{minecraft:power:3}}
+MS 32 minecraft:stick*1
+PKT A minecraft:open_screen 3c060f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT A minecraft:container_set_content 12060127000000000000000000000000000000000000000000000000000000000000019a0801000d01210401f00701000d011a0301a408000000000000000000
+MENU A cid=6 type=minecraft:grindstone state=4 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+MS 2 minecraft:diamond_sword*1
+MS 31 minecraft:bow*1{minecraft:enchantments:{minecraft:power:3}}
+MS 32 minecraft:stick*1
+PKT A minecraft:container_set_slot 1406020000019a0801000d012104
+PKT A minecraft:container_set_slot 1406030002019a080000
+PKT A minecraft:container_set_slot 140604001e00
+MENU A cid=6 type=minecraft:grindstone state=7 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+MS 1 minecraft:bow*1{minecraft:enchantments:{minecraft:power:3}}
+MS 32 minecraft:stick*1
+PKT A minecraft:container_set_slot 140605000101f00701000d011a03
+PKT A minecraft:container_set_slot 140606000200
+PKT A minecraft:container_set_slot 140607001f00
+MENU A cid=6 type=minecraft:grindstone state=7 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+MS 1 minecraft:bow*1{minecraft:enchantments:{minecraft:power:3}}
+MS 32 minecraft:stick*1
+E experience_orb#1 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.15106227181425408,0.035331391069460906,-0.05087559892988522 rot=7.995858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.1186047131964551,0.35296444187948717,-0.09184788222042789 rot=14.084988,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.05301847026681494,0.06399348394586805,0.053245542869959084 rot=59.010918,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.09899722524576793,0.3495126586766068,0.18952410427022798 rot=154.96364,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#6 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.10780383429017654,0.11764393665598392,-0.07467683235626951 rot=185.24245,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+MENU A cid=6 type=minecraft:grindstone state=10 carried=empty
+MS 1 minecraft:bow*1{minecraft:enchantments:{minecraft:power:3}}
+MS 2 minecraft:bow*1
+MS 3 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+MS 32 minecraft:stick*1
+PKT A minecraft:container_set_slot 140608000000
+PKT A minecraft:container_set_slot 140609000201f0070000
+PKT A minecraft:container_set_slot 14060a0003019a0801000d012104
+# closing returns the items of both input slots
+MENU A cid=7 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+MS 31 minecraft:diamond_sword*1/dmg=5{minecraft:damage:5}
+PKT A minecraft:open_screen 3c070f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT A minecraft:container_set_content 12070127000000000000000000000000000000000000000000000000000000000000019a0801000d012104019a08010003050000000000000000
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+MS 37 minecraft:diamond_sword*1/dmg=5{minecraft:damage:5}
+I A 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+I A 1 minecraft:diamond_sword*1/dmg=5{minecraft:damage:5}
+PKT A minecraft:container_set_slot 140702001e00
+PKT A minecraft:set_cursor_item 62019a0801000d012104
+PKT A minecraft:container_set_slot 1407030000019a0801000d012104
+PKT A minecraft:container_set_slot 1407040002019a080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140705001f00
+PKT A minecraft:set_cursor_item 62019a0801000305
+PKT A minecraft:container_set_slot 1407060001019a0801000305
+PKT A minecraft:set_cursor_item 6200
+# a stack on the cursor blocks taking the result
+MENU A cid=8 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+MS 31 minecraft:stick*3
+PKT A minecraft:open_screen 3c080f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT A minecraft:container_set_content 12080127000000000000000000000000000000000000000000000000000000000000019a0801000d01210403a40800000000000000000000
+MENU A cid=8 type=minecraft:grindstone state=5 carried=minecraft:stick*3
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+MS 2 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 140802001e00
+PKT A minecraft:set_cursor_item 62019a0801000d012104
+PKT A minecraft:container_set_slot 1408030000019a0801000d012104
+PKT A minecraft:container_set_slot 1408040002019a080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140805001f00
+PKT A minecraft:set_cursor_item 6203a4080000
+# a spectator only sees the menu: no result is taken
+MENU S cid=1 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+PKT S minecraft:open_screen 3c010f0a0800097472616e736c617465001a636f6e7461696e65722e6772696e6473746f6e655f7469746c6500
+PKT S minecraft:container_set_content 12010127000000000000000000000000000000000000000000000000000000000000019a0801000d012104000000000000000000
+MENU S cid=1 type=minecraft:grindstone state=3 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:4}}
+PKT S minecraft:container_set_content 12010227000000000000000000000000000000000000000000000000000000000000019a0801000d012104000000000000000000
+PKT S minecraft:container_set_content 12010327000000000000000000000000000000000000000000000000000000000000019a0801000d012104000000000000000000
+# creative takes the result like survival and the orbs still come
+MENU C cid=1 type=minecraft:grindstone state=1 carried=empty
+MS 30 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:fire_aspect:2,minecraft:sharpness:4}}
+E experience_orb#1 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=-0.15106227181425408,0.035331391069460906,-0.05087559892988522 rot=7.995858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.1186047131964551,0.35296444187948717,-0.09184788222042789 rot=14.084988,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.05301847026681494,0.06399348394586805,0.053245542869959084 rot=59.010918,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.09899722524576793,0.3495126586766068,0.18952410427022798 rot=154.96364,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#6 minecraft:experience_orb pos=3.5,-59.5,4.5 delta=0.10780383429017654,0.11764393665598392,-0.07467683235626951 rot=185.24245,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+PKT C minecraft:set_experience 69000000000000
+STAT C minecraft.custom:minecraft.interact_with_grindstone 1
+STAT C minecraft.custom:minecraft.play_time 2
+STAT C minecraft.custom:minecraft.time_since_death 2
+STAT C minecraft.custom:minecraft.time_since_rest 2
+STAT C minecraft.custom:minecraft.total_world_time 2

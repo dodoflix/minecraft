@@ -1,0 +1,653 @@
+# The anvil through the player's listener: rename packets with valid, invalid and unchanged names, repairing with a material, combining items
+# and books, incompatible enchantments, the experience cost and its limits, taking the result, the chance of damaging the anvil and creative mode.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player C creative 9.5 -60 7.5 0 0
+spawn_player S spectator 6.5 -60 7.5 0 0
+block 6 -60 4 minecraft:anvil[facing=north]
+block 9 -60 4 minecraft:damaged_anvil[facing=north]
+tick 2
+close_menu A
+note a damaged sword and one diamond: the cost is shown, taking the result costs levels
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:diamond_sword[damage=300]
+give A hotbar1 minecraft:diamond 6
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 30 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note renaming a stack and taking it
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:diamond_sword[damage=10]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+rename A "Sharp"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 30 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note names: the longest the packet allows, one more, control and formatting characters, blank, the item's own name
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:wooden_sword
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+rename A "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwx"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxy"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A "Pro§bBlade"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A "   "
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A "Wooden Sword"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A "x"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A ""
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note two enchanted swords
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:diamond_sword[enchantments={"minecraft:sharpness":2,"minecraft:unbreaking":1},damage=100]
+give A hotbar1 minecraft:diamond_sword[enchantments={"minecraft:sharpness":2,"minecraft:fire_aspect":1}]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_data,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_data,set_experience
+click A 30 0 PICKUP
+dump menu:A packets:A:container_set_data,set_experience
+note a sword and a compatible enchanted book
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:diamond_sword[enchantments={"minecraft:sharpness":2}]
+give A hotbar1 minecraft:enchanted_book[stored_enchantments={"minecraft:sharpness":3,"minecraft:unbreaking":2}]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_data,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_data,set_experience
+click A 30 0 PICKUP
+dump menu:A packets:A:container_set_data,set_experience
+note a sword and an incompatible book
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:diamond_sword[enchantments={"minecraft:sharpness":3}]
+give A hotbar1 minecraft:enchanted_book[stored_enchantments={"minecraft:smite":3}]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 30 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note a high repair cost: affordable, then not enough levels, then too expensive
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:iron_pickaxe[repair_cost=31]
+give A hotbar1 minecraft:iron_pickaxe[repair_cost=39]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+rename A "Costly"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+set A xp_level 5
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+set A xp_level 40
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 0 0 PICKUP
+click A 30 0 PICKUP
+click A 31 0 PICKUP
+click A 0 0 PICKUP
+rename A "Costly"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note a heavily damaged sword and several diamonds: the repair takes as many as it needs
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:diamond_sword[damage=1200]
+give A hotbar1 minecraft:diamond 6
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 30 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note two damaged swords repair each other; different kinds and a lone material do nothing
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:diamond_sword[damage=1000]
+give A hotbar1 minecraft:diamond_sword[damage=1200]
+give A hotbar2 minecraft:iron_pickaxe[damage=3]
+give A hotbar3 minecraft:diamond 2
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 30 0 PICKUP
+click A 1 0 PICKUP
+click A 31 0 PICKUP
+click A 32 0 PICKUP
+click A 1 0 PICKUP
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 1 0 PICKUP
+click A 32 0 PICKUP
+click A 0 0 PICKUP
+click A 30 0 PICKUP
+click A 33 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note two enchanted books combine
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:enchanted_book[stored_enchantments={"minecraft:sharpness":3}]
+give A hotbar1 minecraft:enchanted_book[stored_enchantments={"minecraft:sharpness":3}]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 30 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note an unenchanted sword with an enchanted book: the book gives its enchantment
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:diamond_sword
+give A hotbar1 minecraft:enchanted_book[stored_enchantments={"minecraft:sharpness":5}]
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+rename A "Both"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 30 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note rename and take a stack of more than one: only single items fit as input
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:wooden_sword
+give A hotbar1 minecraft:iron_ingot 4
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 31 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note sticks in the first, then in the second slot give no result
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:stick 3
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 0 0 PICKUP
+click A 30 0 PICKUP
+click A 30 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note a stack on the cursor blocks taking the result; shift-click moves items in and the result out
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:wooden_sword
+give A hotbar1 minecraft:stick 3
+give A hotbar2 minecraft:iron_ingot 4
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A "Quick"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 31 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 31 0 PICKUP
+click A 2 0 QUICK_MOVE
+dump menu:A player:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note closing returns the items of both input slots
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:diamond_sword[damage=300]
+give A hotbar1 minecraft:diamond 6
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+close_menu A
+dump menu:A inventory:A packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a take without damage to the anvil, then the chance hits: chipped, damaged, destroyed
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:wooden_sword
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+rename A "Zero"
+click A 2 0 PICKUP
+dump menu:A events blocks:3,-60,4,3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+note the chance hits with the anvil in state minecraft:anvil
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 5000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:wooden_sword
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+block 3 -60 4 minecraft:anvil[facing=north]
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+rename A "One"
+click A 2 0 PICKUP
+dump menu:A events blocks:3,-60,4,3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A "Late5000"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+tick 1
+dump menu:A events blocks:3,-60,4,3,-60,4 packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the chance hits with the anvil in state minecraft:chipped_anvil
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 12000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:wooden_sword
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+block 3 -60 4 minecraft:chipped_anvil[facing=north]
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+rename A "Two"
+click A 2 0 PICKUP
+dump menu:A events blocks:3,-60,4,3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A "Late12000"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+tick 1
+dump menu:A events blocks:3,-60,4,3,-60,4 packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the chance hits with the anvil in state minecraft:damaged_anvil
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 31000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:wooden_sword
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+block 3 -60 4 minecraft:damaged_anvil[facing=north]
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+rename A "Three"
+click A 2 0 PICKUP
+dump menu:A events blocks:3,-60,4,3,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+rename A "Late31000"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+tick 1
+dump menu:A events blocks:3,-60,4,3,-60,4 packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note out of reach: the rename and the take are ignored and the menu closes with the next tick
+close_menu A
+give A hotbar0 minecraft:air
+give A hotbar1 minecraft:air
+give A hotbar2 minecraft:air
+give A hotbar3 minecraft:air
+give A hotbar4 minecraft:air
+give A hotbar5 minecraft:air
+give A hotbar6 minecraft:air
+give A hotbar7 minecraft:air
+give A hotbar8 minecraft:air
+give A hotbar9 minecraft:air
+give A hotbar10 minecraft:air
+give A hotbar11 minecraft:air
+set A xp_level 40
+entity_seed A 1000
+block 3 -60 4 minecraft:anvil[facing=north]
+give A hotbar0 minecraft:wooden_sword
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+rename A "Near"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+snap A 40.5 -60 40.5 0 0
+rename A "Far"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+tick 1
+dump menu:A inventory:A packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+snap A 3.5 -60 7.5 0 0
+note a spectator sees the menu: clicks only resend it and a rename changes nothing without an item
+give S hotbar0 minecraft:wooden_sword
+use_on S 6 -60 4 up main
+dump menu:S packets:S:open_screen,container_set_content,container_set_data
+click S 30 0 PICKUP
+rename S "Spec"
+dump menu:S packets:S:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu S
+note creative: the result needs no levels, costs none and leaves the anvil as it is
+entity_seed C 12000
+give C hotbar0 minecraft:iron_pickaxe[repair_cost=39]
+use_on C 9 -60 4 up main
+click C 29 0 PICKUP
+click C 0 0 PICKUP
+rename C "Free"
+dump menu:C player:C packets:C:open_screen,container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+click C 2 0 PICKUP
+dump menu:C player:C events blocks:9,-60,4,9,-60,4 packets:C:container_set_slot,container_set_content,container_set_data,set_cursor_item,set_experience
+close_menu C
+dump stats:A stats:C

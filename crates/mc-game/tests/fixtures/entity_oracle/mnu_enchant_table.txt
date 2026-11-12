@@ -1,0 +1,950 @@
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+ADV A minecraft:recipes/building_blocks/bookshelf has_book
+ADV A minecraft:recipes/building_blocks/chiseled_bookshelf has_book
+ADV A minecraft:recipes/building_blocks/lapis_block has_lapis_lazuli
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/misc/blue_dye has_lapis_lazuli
+ADV A minecraft:recipes/misc/iron_nugget_from_blasting has_iron_pickaxe
+ADV A minecraft:recipes/misc/iron_nugget_from_smelting has_iron_pickaxe
+ADV A minecraft:recipes/misc/writable_book has_book
+ADV A minecraft:recipes/redstone/lectern has_book
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A minecraft:story/iron_tools iron_pickaxe
+ADV A minecraft:story/shiny_gear diamond_chestplate
+# no bookshelves: the first and third slot offer something, the second none
+MENU A cid=1 type=minecraft:enchantment state=1 carried=empty
+MS 29 minecraft:diamond_sword*1
+MS 30 minecraft:lapis_lazuli*10
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 4242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+PKT A minecraft:open_screen 3c010d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400
+PKT A minecraft:container_set_content 120101260000000000000000000000000000000000000000000000000000000000019a0800000af607000003fa08000002a408000001970801000d01080101bd08000000000000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100010000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 130100031092
+PKT A minecraft:container_set_data 13010004ffff
+PKT A minecraft:container_set_data 13010005ffff
+PKT A minecraft:container_set_data 13010006ffff
+PKT A minecraft:container_set_data 13010007ffff
+PKT A minecraft:container_set_data 13010008ffff
+PKT A minecraft:container_set_data 13010009ffff
+MENU A cid=1 type=minecraft:enchantment state=3 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 30 minecraft:lapis_lazuli*10
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 1
+MD 1 0
+MD 2 4
+MD 3 4242
+MD 4 35
+MD 5 -1
+MD 6 40
+MD 7 1
+MD 8 -1
+MD 9 1
+PKT A minecraft:container_set_slot 140102001d00
+PKT A minecraft:set_cursor_item 62019a080000
+PKT A minecraft:container_set_slot 1401030000019a080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130100000001
+PKT A minecraft:container_set_data 130100020004
+PKT A minecraft:container_set_data 130100040023
+PKT A minecraft:container_set_data 130100060028
+PKT A minecraft:container_set_data 130100070001
+PKT A minecraft:container_set_data 130100090001
+# lapis moves into its slot (the slot only takes lapis), anything else stays on the cursor
+MENU A cid=1 type=minecraft:enchantment state=5 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*10
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 1
+MD 1 0
+MD 2 4
+MD 3 4242
+MD 4 35
+MD 5 -1
+MD 6 40
+MD 7 1
+MD 8 -1
+MD 9 1
+PKT A minecraft:container_set_slot 140104001e00
+PKT A minecraft:set_cursor_item 620af6070000
+PKT A minecraft:container_set_slot 14010500010af6070000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:enchantment state=6 carried=minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*10
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 34 minecraft:diamond_chestplate*1
+MD 0 1
+MD 1 0
+MD 2 4
+MD 3 4242
+MD 4 35
+MD 5 -1
+MD 6 40
+MD 7 1
+MD 8 -1
+MD 9 1
+PKT A minecraft:container_set_slot 140106002100
+PKT A minecraft:set_cursor_item 6201970801000d010801
+# buttons: invalid ids, a slot offering nothing, a level requirement above the player level
+MENU A cid=1 type=minecraft:enchantment state=7 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*10
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 1
+MD 1 0
+MD 2 4
+MD 3 4242
+MD 4 35
+MD 5 -1
+MD 6 40
+MD 7 1
+MD 8 -1
+MD 9 1
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=3/0/0.0 sel=0 main=empty
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+ADV A minecraft:recipes/building_blocks/bookshelf has_book
+ADV A minecraft:recipes/building_blocks/chiseled_bookshelf has_book
+ADV A minecraft:recipes/building_blocks/lapis_block has_lapis_lazuli
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/misc/blue_dye has_lapis_lazuli
+ADV A minecraft:recipes/misc/iron_nugget_from_blasting has_iron_pickaxe
+ADV A minecraft:recipes/misc/iron_nugget_from_smelting has_iron_pickaxe
+ADV A minecraft:recipes/misc/writable_book has_book
+ADV A minecraft:recipes/redstone/lectern has_book
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A minecraft:story/iron_tools iron_pickaxe
+ADV A minecraft:story/shiny_gear diamond_chestplate
+PKT A minecraft:container_set_slot 140107002101970801000d010801
+PKT A minecraft:set_cursor_item 6200
+# the third slot with enough levels
+MENU A cid=1 type=minecraft:enchantment state=9 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 1 minecraft:lapis_lazuli*7
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=27/0/0.0 sel=0 main=empty
+STAT A minecraft.custom:minecraft.enchant_item 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+ADV A minecraft:recipes/building_blocks/bookshelf has_book
+ADV A minecraft:recipes/building_blocks/chiseled_bookshelf has_book
+ADV A minecraft:recipes/building_blocks/lapis_block has_lapis_lazuli
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/misc/blue_dye has_lapis_lazuli
+ADV A minecraft:recipes/misc/iron_nugget_from_blasting has_iron_pickaxe
+ADV A minecraft:recipes/misc/iron_nugget_from_smelting has_iron_pickaxe
+ADV A minecraft:recipes/misc/writable_book has_book
+ADV A minecraft:recipes/redstone/lectern has_book
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A minecraft:story/enchant_item enchanted_item
+ADV A minecraft:story/iron_tools iron_pickaxe
+ADV A minecraft:story/shiny_gear diamond_chestplate
+PKT A minecraft:container_set_slot 1401080000019a0801000d012801
+PKT A minecraft:container_set_slot 140109000107f6070000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 13010003a71e
+PKT A minecraft:container_set_data 13010004ffff
+PKT A minecraft:container_set_data 13010006ffff
+PKT A minecraft:container_set_data 13010007ffff
+PKT A minecraft:container_set_data 13010009ffff
+# fifteen bookshelves
+MENU A cid=1 type=minecraft:enchantment state=11 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 1 minecraft:lapis_lazuli*7
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+PKT A minecraft:container_set_slot 14010a000000
+PKT A minecraft:set_cursor_item 62019a0801000d012801
+PKT A minecraft:container_set_slot 14010b0000019a0801000d012801
+PKT A minecraft:set_cursor_item 6200
+# the offered enchantments depend on the seed; changing the item recomputes them
+MENU A cid=1 type=minecraft:enchantment state=15 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 1 minecraft:lapis_lazuli*7
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+PKT A minecraft:container_set_slot 14010c000000
+PKT A minecraft:set_cursor_item 62019a0801000d012801
+PKT A minecraft:container_set_slot 14010d001d019a0801000d012801
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14010e001d00
+PKT A minecraft:set_cursor_item 62019a0801000d012801
+PKT A minecraft:container_set_slot 14010f0000019a0801000d012801
+PKT A minecraft:set_cursor_item 6200
+# the first slot: costs one level and one lapis
+MENU A cid=1 type=minecraft:enchantment state=15 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 1 minecraft:lapis_lazuli*7
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+STAT A minecraft.custom:minecraft.enchant_item 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+ADV A minecraft:recipes/building_blocks/bookshelf has_book
+ADV A minecraft:recipes/building_blocks/chiseled_bookshelf has_book
+ADV A minecraft:recipes/building_blocks/lapis_block has_lapis_lazuli
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/misc/blue_dye has_lapis_lazuli
+ADV A minecraft:recipes/misc/iron_nugget_from_blasting has_iron_pickaxe
+ADV A minecraft:recipes/misc/iron_nugget_from_smelting has_iron_pickaxe
+ADV A minecraft:recipes/misc/writable_book has_book
+ADV A minecraft:recipes/redstone/lectern has_book
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A minecraft:story/enchant_item enchanted_item
+ADV A minecraft:story/iron_tools iron_pickaxe
+ADV A minecraft:story/shiny_gear diamond_chestplate
+I A 2 minecraft:book*3
+I A 3 minecraft:stick*2
+I A 4 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+I A 5 minecraft:diamond_chestplate*1
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=27/0/0.0 sel=0 main=empty
+# the new seed and the offered enchantments after the enchanting
+MENU A cid=1 type=minecraft:enchantment state=15 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 1 minecraft:lapis_lazuli*7
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+MENU A cid=1 type=minecraft:enchantment state=19 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 1 minecraft:lapis_lazuli*7
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+PKT A minecraft:container_set_slot 140110000000
+PKT A minecraft:set_cursor_item 62019a0801000d012801
+PKT A minecraft:container_set_slot 140111001d019a0801000d012801
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140112001d00
+PKT A minecraft:set_cursor_item 62019a0801000d012801
+PKT A minecraft:container_set_slot 1401130000019a0801000d012801
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:enchantment state=19 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 1 minecraft:lapis_lazuli*7
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+# the third slot costs three levels and three lapis
+MENU A cid=1 type=minecraft:enchantment state=19 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 1 minecraft:lapis_lazuli*7
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+STAT A minecraft.custom:minecraft.enchant_item 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+I A 2 minecraft:book*3
+I A 3 minecraft:stick*2
+I A 4 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+I A 5 minecraft:diamond_chestplate*1
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=27/0/0.0 sel=0 main=empty
+# an enchanted item is not offered anything: the stack stays put
+MENU A cid=1 type=minecraft:enchantment state=19 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 1 minecraft:lapis_lazuli*7
+MS 31 minecraft:book*3
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=27/0/0.0 sel=0 main=empty
+# a book becomes an enchanted book
+MENU A cid=1 type=minecraft:enchantment state=23 carried=minecraft:book*2
+MS 0 minecraft:book*1
+MS 1 minecraft:lapis_lazuli*7
+MS 29 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 8
+MD 1 10
+MD 2 30
+MD 3 -1185110242
+MD 4 28
+MD 5 25
+MD 6 18
+MD 7 1
+MD 8 1
+MD 9 2
+PKT A minecraft:container_set_slot 140114000000
+PKT A minecraft:set_cursor_item 62019a0801000d012801
+PKT A minecraft:container_set_slot 140115001d019a0801000d012801
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140116001f00
+PKT A minecraft:set_cursor_item 6203fa080000
+PKT A minecraft:container_set_slot 140117000001fa080000
+PKT A minecraft:set_cursor_item 6202fa080000
+PKT A minecraft:container_set_data 130100000008
+PKT A minecraft:container_set_data 13010001000a
+PKT A minecraft:container_set_data 13010002001e
+PKT A minecraft:container_set_data 13010004001c
+PKT A minecraft:container_set_data 130100050019
+PKT A minecraft:container_set_data 130100060012
+PKT A minecraft:container_set_data 130100070001
+PKT A minecraft:container_set_data 130100080001
+PKT A minecraft:container_set_data 130100090002
+MENU A cid=1 type=minecraft:enchantment state=25 carried=minecraft:book*2
+MS 0 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:piercing:1}}
+MS 1 minecraft:lapis_lazuli*5
+MS 29 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1945956267
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=25/0/0.0 sel=0 main=minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+I A 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+I A 3 minecraft:stick*2
+I A 4 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+I A 5 minecraft:diamond_chestplate*1
+PKT A minecraft:container_set_slot 140118000001f30a01002d011901
+PKT A minecraft:container_set_slot 140119000105f6070000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100010000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 130100031055
+PKT A minecraft:container_set_data 13010004ffff
+PKT A minecraft:container_set_data 13010005ffff
+PKT A minecraft:container_set_data 13010006ffff
+PKT A minecraft:container_set_data 13010007ffff
+PKT A minecraft:container_set_data 13010008ffff
+PKT A minecraft:container_set_data 13010009ffff
+# a stick, an already enchanted pickaxe and armor with the remaining levels
+MENU A cid=1 type=minecraft:enchantment state=27 carried=minecraft:stick*2
+MS 0 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:piercing:1}}
+MS 1 minecraft:lapis_lazuli*5
+MS 29 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 31 minecraft:book*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1945956267
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+PKT A minecraft:container_set_slot 14011a001f02fa080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14011b002000
+PKT A minecraft:set_cursor_item 6202a4080000
+MENU A cid=1 type=minecraft:enchantment state=30 carried=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:piercing:1}}
+MS 0 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 1 minecraft:lapis_lazuli*5
+MS 29 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 31 minecraft:book*2
+MS 32 minecraft:stick*2
+MS 34 minecraft:diamond_chestplate*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1945956267
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+PKT A minecraft:container_set_slot 14011c002002a4080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14011d002100
+PKT A minecraft:set_cursor_item 6201970801000d010801
+PKT A minecraft:container_set_slot 14011e000001970801000d010801
+PKT A minecraft:set_cursor_item 6201f30a01002d011901
+MENU A cid=1 type=minecraft:enchantment state=34 carried=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:piercing:1}}
+MS 0 minecraft:diamond_chestplate*1
+MS 1 minecraft:lapis_lazuli*5
+MS 29 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 31 minecraft:book*2
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MD 0 4
+MD 1 18
+MD 2 30
+MD 3 -1945956267
+MD 4 27
+MD 5 39
+MD 6 28
+MD 7 1
+MD 8 1
+MD 9 3
+PKT A minecraft:container_set_slot 14011f000001f30a01002d011901
+PKT A minecraft:set_cursor_item 6201970801000d010801
+PKT A minecraft:container_set_slot 140120002101970801000d010801
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140121002200
+PKT A minecraft:set_cursor_item 6201bd080000
+PKT A minecraft:container_set_slot 140122000001bd080000
+PKT A minecraft:set_cursor_item 6201f30a01002d011901
+PKT A minecraft:container_set_data 130100000004
+PKT A minecraft:container_set_data 130100010012
+PKT A minecraft:container_set_data 13010002001e
+PKT A minecraft:container_set_data 13010004001b
+PKT A minecraft:container_set_data 130100050027
+PKT A minecraft:container_set_data 13010006001c
+PKT A minecraft:container_set_data 130100070001
+PKT A minecraft:container_set_data 130100080001
+PKT A minecraft:container_set_data 130100090003
+MENU A cid=1 type=minecraft:enchantment state=34 carried=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:piercing:1}}
+MS 0 minecraft:diamond_chestplate*1
+MS 1 minecraft:lapis_lazuli*5
+MS 29 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 31 minecraft:book*2
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MD 0 4
+MD 1 18
+MD 2 30
+MD 3 -1945956267
+MD 4 27
+MD 5 39
+MD 6 28
+MD 7 1
+MD 8 1
+MD 9 3
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=2/0/0.0 sel=0 main=minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+I A 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+I A 2 minecraft:book*2
+I A 3 minecraft:stick*2
+I A 4 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+# enough levels again
+MENU A cid=1 type=minecraft:enchantment state=36 carried=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:piercing:1}}
+MS 0 minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:projectile_protection:1}}
+MS 1 minecraft:lapis_lazuli*4
+MS 29 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 31 minecraft:book*2
+MS 32 minecraft:stick*2
+MS 33 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 1268969277
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=39/0/0.0 sel=0 main=minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+PKT A minecraft:container_set_slot 140123000001bd0801000d011b01
+PKT A minecraft:container_set_slot 140124000104f6070000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100010000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 13010003ef3d
+PKT A minecraft:container_set_data 13010004ffff
+PKT A minecraft:container_set_data 13010005ffff
+PKT A minecraft:container_set_data 13010006ffff
+PKT A minecraft:container_set_data 13010007ffff
+PKT A minecraft:container_set_data 13010008ffff
+PKT A minecraft:container_set_data 13010009ffff
+# leaving takes the item and lapis back to the inventory
+MENU A cid=0 type=inventory state=7 carried=empty
+MS 36 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+MS 37 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:piercing:1}}
+MS 38 minecraft:book*2
+MS 39 minecraft:stick*2
+MS 40 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MS 41 minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:projectile_protection:1}}
+MS 42 minecraft:lapis_lazuli*4
+I A 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:unbreaking:1}}
+I A 1 minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:piercing:1}}
+I A 2 minecraft:book*2
+I A 3 minecraft:stick*2
+I A 4 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+I A 5 minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:projectile_protection:1}}
+I A 6 minecraft:lapis_lazuli*4
+STAT A minecraft.custom:minecraft.enchant_item 3
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+ADV A minecraft:recipes/building_blocks/bookshelf has_book
+ADV A minecraft:recipes/building_blocks/chiseled_bookshelf has_book
+ADV A minecraft:recipes/building_blocks/lapis_block has_lapis_lazuli
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/misc/blue_dye has_lapis_lazuli
+ADV A minecraft:recipes/misc/iron_nugget_from_blasting has_iron_pickaxe
+ADV A minecraft:recipes/misc/iron_nugget_from_smelting has_iron_pickaxe
+ADV A minecraft:recipes/misc/writable_book has_book
+ADV A minecraft:recipes/redstone/lectern has_book
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A minecraft:story/enchant_item enchanted_item
+ADV A minecraft:story/iron_tools iron_pickaxe
+ADV A minecraft:story/shiny_gear diamond_chestplate
+# creative: no lapis and no levels used, the stat and the trigger still count
+MENU C cid=1 type=minecraft:enchantment state=3 carried=empty
+MS 0 minecraft:diamond_pickaxe*1
+MD 0 2
+MD 1 2
+MD 2 6
+MD 3 0
+MD 4 8
+MD 5 8
+MD 6 40
+MD 7 1
+MD 8 1
+MD 9 1
+PKT C minecraft:container_set_slot 1400020024019c080000
+PKT C minecraft:open_screen 3c010d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400
+PKT C minecraft:container_set_content 120101260000000000000000000000000000000000000000000000000000000000019c080000000000000000000000
+PKT C minecraft:container_set_data 130100000000
+PKT C minecraft:container_set_data 130100010000
+PKT C minecraft:container_set_data 130100020000
+PKT C minecraft:container_set_data 130100030000
+PKT C minecraft:container_set_data 13010004ffff
+PKT C minecraft:container_set_data 13010005ffff
+PKT C minecraft:container_set_data 13010006ffff
+PKT C minecraft:container_set_data 13010007ffff
+PKT C minecraft:container_set_data 13010008ffff
+PKT C minecraft:container_set_data 13010009ffff
+PKT C minecraft:container_set_slot 140102001d00
+PKT C minecraft:set_cursor_item 62019c080000
+PKT C minecraft:container_set_slot 1401030000019c080000
+PKT C minecraft:set_cursor_item 6200
+PKT C minecraft:container_set_data 130100000002
+PKT C minecraft:container_set_data 130100010002
+PKT C minecraft:container_set_data 130100020006
+PKT C minecraft:container_set_data 130100040008
+PKT C minecraft:container_set_data 130100050008
+PKT C minecraft:container_set_data 130100060028
+PKT C minecraft:container_set_data 130100070001
+PKT C minecraft:container_set_data 130100080001
+PKT C minecraft:container_set_data 130100090001
+MENU C cid=1 type=minecraft:enchantment state=4 carried=empty
+MS 0 minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}}
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 1009357284
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+P C minecraft:player pos=9.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+STAT C minecraft.custom:minecraft.enchant_item 1
+STAT C minecraft.custom:minecraft.play_time 2
+STAT C minecraft.custom:minecraft.time_since_death 2
+STAT C minecraft.custom:minecraft.time_since_rest 2
+STAT C minecraft.custom:minecraft.total_world_time 2
+ADV C minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV C minecraft:story/enchant_item enchanted_item
+PKT C minecraft:container_set_slot 1401040000019c0801000d010801
+PKT C minecraft:container_set_data 130100000000
+PKT C minecraft:container_set_data 130100010000
+PKT C minecraft:container_set_data 130100020000
+PKT C minecraft:container_set_data 1301000391e4
+PKT C minecraft:container_set_data 13010004ffff
+PKT C minecraft:container_set_data 13010005ffff
+PKT C minecraft:container_set_data 13010006ffff
+PKT C minecraft:container_set_data 13010007ffff
+PKT C minecraft:container_set_data 13010008ffff
+PKT C minecraft:container_set_data 13010009ffff
+# a fresh player has the seed 0 until the first enchanting; a bookshelf behind a blocked gap does not count; the count only changes with the slots
+MENU N cid=1 type=minecraft:enchantment state=5 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*5
+MD 0 3
+MD 1 5
+MD 2 12
+MD 3 0
+MD 4 40
+MD 5 17
+MD 6 33
+MD 7 1
+MD 8 1
+MD 9 2
+PKT N minecraft:open_screen 3c010d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400
+PKT N minecraft:container_set_content 120101260000000000000000000000000000000000000000000000000000000000019a08000005f60700000000000000000000
+PKT N minecraft:container_set_data 130100000000
+PKT N minecraft:container_set_data 130100010000
+PKT N minecraft:container_set_data 130100020000
+PKT N minecraft:container_set_data 130100030000
+PKT N minecraft:container_set_data 13010004ffff
+PKT N minecraft:container_set_data 13010005ffff
+PKT N minecraft:container_set_data 13010006ffff
+PKT N minecraft:container_set_data 13010007ffff
+PKT N minecraft:container_set_data 13010008ffff
+PKT N minecraft:container_set_data 13010009ffff
+PKT N minecraft:container_set_slot 140102001d00
+PKT N minecraft:set_cursor_item 62019a080000
+PKT N minecraft:container_set_slot 1401030000019a080000
+PKT N minecraft:set_cursor_item 6200
+PKT N minecraft:container_set_data 130100000003
+PKT N minecraft:container_set_data 130100010005
+PKT N minecraft:container_set_data 13010002000c
+PKT N minecraft:container_set_data 130100040028
+PKT N minecraft:container_set_data 130100050011
+PKT N minecraft:container_set_data 130100060021
+PKT N minecraft:container_set_data 130100070001
+PKT N minecraft:container_set_data 130100080001
+PKT N minecraft:container_set_data 130100090002
+PKT N minecraft:container_set_slot 140104001e00
+PKT N minecraft:set_cursor_item 6205f6070000
+PKT N minecraft:container_set_slot 140105000105f6070000
+PKT N minecraft:set_cursor_item 6200
+MENU N cid=1 type=minecraft:enchantment state=5 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*5
+MD 0 3
+MD 1 5
+MD 2 12
+MD 3 0
+MD 4 40
+MD 5 17
+MD 6 33
+MD 7 1
+MD 8 1
+MD 9 2
+MENU N cid=1 type=minecraft:enchantment state=7 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*5
+MD 0 3
+MD 1 4
+MD 2 8
+MD 3 0
+MD 4 40
+MD 5 17
+MD 6 33
+MD 7 1
+MD 8 1
+MD 9 1
+PKT N minecraft:container_set_slot 140106000000
+PKT N minecraft:set_cursor_item 62019a080000
+PKT N minecraft:container_set_data 130100000000
+PKT N minecraft:container_set_data 130100010000
+PKT N minecraft:container_set_data 130100020000
+PKT N minecraft:container_set_data 13010004ffff
+PKT N minecraft:container_set_data 13010005ffff
+PKT N minecraft:container_set_data 13010006ffff
+PKT N minecraft:container_set_data 13010007ffff
+PKT N minecraft:container_set_data 13010008ffff
+PKT N minecraft:container_set_data 13010009ffff
+PKT N minecraft:container_set_slot 1401070000019a080000
+PKT N minecraft:set_cursor_item 6200
+PKT N minecraft:container_set_data 130100000003
+PKT N minecraft:container_set_data 130100010004
+PKT N minecraft:container_set_data 130100020008
+PKT N minecraft:container_set_data 130100040028
+PKT N minecraft:container_set_data 130100050011
+PKT N minecraft:container_set_data 130100060021
+PKT N minecraft:container_set_data 130100070001
+PKT N minecraft:container_set_data 130100080001
+PKT N minecraft:container_set_data 130100090001
+MENU N cid=1 type=minecraft:enchantment state=9 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*5
+MD 0 3
+MD 1 4
+MD 2 8
+MD 3 0
+MD 4 40
+MD 5 17
+MD 6 33
+MD 7 1
+MD 8 1
+MD 9 1
+PKT N minecraft:container_set_slot 140108000000
+PKT N minecraft:set_cursor_item 62019a080000
+PKT N minecraft:container_set_data 130100000000
+PKT N minecraft:container_set_data 130100010000
+PKT N minecraft:container_set_data 130100020000
+PKT N minecraft:container_set_data 13010004ffff
+PKT N minecraft:container_set_data 13010005ffff
+PKT N minecraft:container_set_data 13010006ffff
+PKT N minecraft:container_set_data 13010007ffff
+PKT N minecraft:container_set_data 13010008ffff
+PKT N minecraft:container_set_data 13010009ffff
+PKT N minecraft:container_set_slot 1401090000019a080000
+PKT N minecraft:set_cursor_item 6200
+PKT N minecraft:container_set_data 130100000003
+PKT N minecraft:container_set_data 130100010004
+PKT N minecraft:container_set_data 130100020008
+PKT N minecraft:container_set_data 130100040028
+PKT N minecraft:container_set_data 130100050011
+PKT N minecraft:container_set_data 130100060021
+PKT N minecraft:container_set_data 130100070001
+PKT N minecraft:container_set_data 130100080001
+PKT N minecraft:container_set_data 130100090001
+MENU N cid=1 type=minecraft:enchantment state=11 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:knockback:1,minecraft:sharpness:1}}
+MS 1 minecraft:lapis_lazuli*3
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1209105319
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+P N minecraft:player pos=15.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=28/0/0.0 sel=0 main=empty
+STAT N minecraft.custom:minecraft.enchant_item 1
+PKT N minecraft:container_set_slot 14010a0000019a0801000d0221011101
+PKT N minecraft:container_set_slot 14010b000103f6070000
+PKT N minecraft:container_set_data 130100000000
+PKT N minecraft:container_set_data 130100010000
+PKT N minecraft:container_set_data 130100020000
+PKT N minecraft:container_set_data 130100038459
+PKT N minecraft:container_set_data 13010004ffff
+PKT N minecraft:container_set_data 13010005ffff
+PKT N minecraft:container_set_data 13010006ffff
+PKT N minecraft:container_set_data 13010007ffff
+PKT N minecraft:container_set_data 13010008ffff
+PKT N minecraft:container_set_data 13010009ffff
+# the table broken under the open menu: the button does nothing
+MENU N cid=1 type=minecraft:enchantment state=11 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:knockback:1,minecraft:sharpness:1}}
+MS 1 minecraft:lapis_lazuli*3
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1209105319
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+P N minecraft:player pos=15.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=28/0/0.0 sel=0 main=empty
+MENU N cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:knockback:1,minecraft:sharpness:1}}
+MS 37 minecraft:lapis_lazuli*3
+I N 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:knockback:1,minecraft:sharpness:1}}
+I N 1 minecraft:lapis_lazuli*3
+PKT N minecraft:container_close 1101
+# a button for the inventory menu does nothing
+MENU N cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:knockback:1,minecraft:sharpness:1}}
+MS 37 minecraft:lapis_lazuli*3
+# a spectator sees the menu and the buttons do nothing
+MENU S cid=1 type=minecraft:enchantment state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+PKT S minecraft:open_screen 3c010d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400
+PKT S minecraft:container_set_content 12010126000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+PKT S minecraft:container_set_data 130100010000
+PKT S minecraft:container_set_data 130100020000
+PKT S minecraft:container_set_data 130100030000
+PKT S minecraft:container_set_data 13010004ffff
+PKT S minecraft:container_set_data 13010005ffff
+PKT S minecraft:container_set_data 13010006ffff
+PKT S minecraft:container_set_data 13010007ffff
+PKT S minecraft:container_set_data 13010008ffff
+PKT S minecraft:container_set_data 13010009ffff
+MENU S cid=1 type=minecraft:enchantment state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+P S minecraft:player pos=12.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=30/0/0.0 sel=0 main=empty
+STAT S minecraft.custom:minecraft.play_time 3
+STAT S minecraft.custom:minecraft.time_since_death 3
+STAT S minecraft.custom:minecraft.time_since_rest 3
+STAT S minecraft.custom:minecraft.total_world_time 3

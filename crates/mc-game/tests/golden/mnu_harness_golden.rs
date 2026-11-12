@@ -1,5 +1,6 @@
-//! Container click, creative slot and close packets through the player's real packet handlers. Scenarios
-//! `tests/oracle/scenarios/mnu_*.txt` replayed on the real vanilla level (`scripts/block-oracle.sh NAME`) vs our level.
+//! Menu packets through the player's real packet handlers: container clicks, creative slots, closing, renaming and menu buttons on the
+//! chest, enchanting table, anvil and grindstone. Scenarios `tests/oracle/scenarios/mnu_*.txt` replayed on the real vanilla level
+//! (`scripts/block-oracle.sh NAME`) vs our level.
 
 use crate::common;
 
@@ -36,4 +37,19 @@ fn the_join_sends_recipe_properties_book_and_inventory_menu_before_any_menu_pack
 #[test]
 fn rename_beacon_and_trade_packets_reach_the_open_menu() {
     common::block_scenario::check("mnu_menu_packets");
+}
+
+#[test]
+fn the_enchanting_table_costs_levels_and_lapis_and_advances_the_seed() {
+    common::block_scenario::check("mnu_enchant_table");
+}
+
+#[test]
+fn the_anvil_renames_repairs_and_combines_through_the_packet_handlers() {
+    common::block_scenario::check("mnu_anvil_rename");
+}
+
+#[test]
+fn the_grindstone_removes_enchantments_and_pays_out_experience() {
+    common::block_scenario::check("mnu_grindstone");
 }
