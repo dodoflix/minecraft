@@ -3844,6 +3844,7 @@ pub trait Entity: Any {
     /// `LivingEntity.canDispenserEquipIntoSlot(slot)`: every mob accepts what it can pick up (`Mob`), non-mobs always.
     /// Overriding classes (`Dolphin`, `Fox`, `Panda`, `Pig`, `Strider`, `SulfurCube`, `AbstractHorse`, ...) call
     /// [`super::mob::equipment::can_dispenser_equip_into_slot`] for their `super` part.
+    /// Not implemented: the `Allay`, `HappyGhast` and `AbstractNautilus` overrides (those entities do not exist yet).
     fn can_dispenser_equip_into_slot(&self, _slot: super::equipment::EquipmentSlot) -> bool {
         super::mob::equipment::can_dispenser_equip_into_slot(self.as_dyn())
     }
@@ -4372,6 +4373,7 @@ pub trait Entity: Any {
     }
     /// `getEquipSound(slot, stack, equippable)` override (`Strider`: `STRIDER_SADDLE` for the saddle slot); `None` = the
     /// equippable's own sound.
+    /// Not implemented: the `Camel` and `AbstractNautilus` saddle sounds (those entities do not exist yet).
     fn get_equip_sound_override(
         &self,
         _slot: super::equipment::EquipmentSlot,
