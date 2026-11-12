@@ -287,7 +287,7 @@ impl DispensibleContainerItem for BucketItem {
         pos: BlockPos,
     ) {
         if let Some(mob) = &self.mob {
-            super::mob_bucket::spawn_from_bucket(mob.entity_type, user, level, stack, pos);
+            super::mob_bucket::spawn_from_bucket(mob.entity_type, level, stack, pos);
             level.game_event(
                 GameEvent::ENTITY_PLACE,
                 Vec3::at_center_of(&pos),

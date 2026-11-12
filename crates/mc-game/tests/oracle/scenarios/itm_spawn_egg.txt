@@ -1,0 +1,114 @@
+# SpawnEggItem.useOn on a Spawner block entity (spawner, trial spawner): with spawner_blocks_work off the player gets the
+# advMode.notEnabled.spawner system message and FAIL; otherwise an operator with an entity_data egg (every egg carries it) sets the whole
+# spawn data, everybody else only the entity id; the block is updated, BLOCK_CHANGE fires and the stack is shrunk (a creative player's count is restored).
+# Elsewhere the mob is spawned at the clicked block or beside it (moved up on a slab); `use` on a liquid spawns it inside the liquid.
+level flat
+preload 3
+watch events
+level_seed 5
+spawn_player A survival 4.5 -60 0.5 0 15
+spawn_player B survival 12.5 -60 0.5 0 15
+spawn_player C creative 20.5 -60 0.5 0 15
+spawn_player D survival 24.5 -60 0.5 0 15
+op B
+give A mainhand minecraft:cow_spawn_egg 8
+give B mainhand minecraft:cow_spawn_egg 8
+give C mainhand minecraft:cow_spawn_egg 8
+block 4 -60 4 minecraft:spawner
+block 12 -60 4 minecraft:spawner
+block 20 -60 4 minecraft:spawner
+block 4 -60 -3 minecraft:trial_spawner
+block 12 -60 -3 minecraft:trial_spawner
+tick 2
+dump packets:A:none
+note a player that is not an operator: only the entity id is set (the stack is shrunk)
+use_on A 4 -60 4 up main
+dump blocks:4,-60,4,4,-60,4 be:4,-60,4 beu:4,-60,4 inventory:A events
+tick 1
+note an operator with the plain egg: its entity_data (id only) becomes the spawn data
+use_on B 12 -60 4 up main
+dump blocks:12,-60,4,12,-60,4 be:12,-60,4 beu:12,-60,4 inventory:B events
+tick 1
+note creative: the spawner is set, the stack keeps its count (the game mode restores it)
+use_on C 20 -60 4 up main
+dump blocks:20,-60,4,20,-60,4 be:20,-60,4 inventory:C events
+tick 1
+note an egg with entity_data: a player that is not an operator only sets the id, an operator sets the whole spawn data
+give A mainhand minecraft:cow_spawn_egg[entity_data={id:"minecraft:cow",CustomName:'"Moo"',Health:5f}] 2
+give B mainhand minecraft:cow_spawn_egg[entity_data={id:"minecraft:cow",CustomName:'"Moo"',Health:5f}] 2
+use_on A 4 -60 4 east main
+dump be:4,-60,4 beu:4,-60,4 inventory:A events
+use_on B 12 -60 4 east main
+dump be:12,-60,4 beu:12,-60,4 inventory:B events
+tick 1
+note trial spawners
+use_on A 4 -60 -3 up main
+dump blocks:4,-60,-3,4,-60,-3 be:4,-60,-3 beu:4,-60,-3 inventory:A events
+use_on B 12 -60 -3 up main
+dump blocks:12,-60,-3,12,-60,-3 be:12,-60,-3 beu:12,-60,-3 inventory:B events
+tick 1
+note spawner_blocks_work off: FAIL, a system message, nothing changes and the stack is kept
+give A mainhand minecraft:cow_spawn_egg 8
+gamerule spawner_blocks_work false
+use_on A 4 -60 4 up main
+dump be:4,-60,4 inventory:A packets:A:system_chat events
+use_on A 4 -60 -3 up main
+dump be:4,-60,-3 inventory:A packets:A:system_chat events
+gamerule spawner_blocks_work true
+tick 1
+block 4 -60 4 minecraft:air
+block 12 -60 4 minecraft:air
+block 20 -60 4 minecraft:air
+block 4 -60 -3 minecraft:air
+block 12 -60 -3 minecraft:air
+tick 2
+note an ordinary block: the cow is spawned on top of the clicked block, beside a slab (moved up) and a fence, and in a replaceable block
+block 1 -60 3 minecraft:stone
+block 3 -60 3 minecraft:stone_slab[type=bottom]
+block 5 -60 3 minecraft:oak_fence
+block 7 -60 3 minecraft:short_grass
+tick 1
+use_on A 1 -60 3 up main
+dump entities inventory:A events
+use_on A 3 -60 3 up main
+dump entities inventory:A events
+use_on A 5 -60 3 up main
+dump entities inventory:A events
+use_on A 7 -60 3 up main
+dump entities inventory:A events
+use_on A 1 -60 3 south main
+dump entities inventory:A events
+tick 3
+dump entities events
+note `use` on water: the mob is spawned in the liquid; on a solid block the egg does nothing
+block 4 -60 -3 minecraft:water
+block 8 -60 -3 minecraft:stone
+snap A 4.5 -60 -6.5 0 15
+tick 1
+use A main
+dump entities inventory:A events
+snap A 8.5 -60 -6.5 0 15
+tick 1
+use A main
+dump entities inventory:A events
+tick 3
+dump entities events
+note mob buckets: the mob is spawned with its bucket data and the stack becomes an empty bucket (one player each: the entity uuids follow the command)
+block 8 -60 8 minecraft:stone
+block 12 -60 8 minecraft:stone
+block 24 -60 8 minecraft:stone
+give A mainhand minecraft:cod_bucket
+give B mainhand minecraft:axolotl_bucket[bucket_entity_data={Variant:2,Age:0}]
+give D mainhand minecraft:tadpole_bucket
+snap A 8.5 -60 4.5 0 15
+snap B 12.5 -60 4.5 0 15
+snap D 24.5 -60 4.5 0 15
+tick 1
+use A
+dump entities inventory:A events
+use B main
+dump entities inventory:B events
+use D main
+dump entities inventory:D events
+tick 3
+dump entities events

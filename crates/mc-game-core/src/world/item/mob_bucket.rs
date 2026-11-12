@@ -9,24 +9,19 @@ use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
 use mc_protocol::components::BUCKET_ENTITY_DATA;
 
-/// `MobBucketItem.spawn(level, itemStack, spawnPos)` (the user only matters to `createDefaultStackConfig`'s op check).
+/// `MobBucketItem.spawn(level, itemStack, spawnPos)`: `createDefaultStackConfig` runs without a user.
 pub fn spawn_from_bucket(
     entity_type: EntityType,
-    user: Option<&dyn Entity>,
     level: &mut ServerLevel,
     stack: &ItemStack,
     pos: BlockPos,
 ) {
-    let user_player = user.and_then(|u| {
-        u.as_any()
-            .downcast_ref::<crate::world::entity::ServerPlayer>()
-    });
     let stack_for_config = stack.clone();
     let Some(mut mob) = create_at(
         level,
         entity_type,
         Some(&mut |level: &mut ServerLevel, entity: &mut dyn Entity| {
-            apply_default_stack_config(level, entity, &stack_for_config, user_player)
+            apply_default_stack_config(level, entity, &stack_for_config, None)
         }),
         pos,
         EntitySpawnReason::Bucket,

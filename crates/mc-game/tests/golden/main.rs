@@ -103,6 +103,7 @@ mod items_oracle;
 mod items_use_golden;
 mod itm_brush_golden;
 mod itm_ender_eye_golden;
+mod itm_spawn_egg_golden;
 mod jigsaw_codec;
 mod jigsaw_structures_golden;
 mod levelgen_predicates_golden;

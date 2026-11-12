@@ -15,10 +15,12 @@ use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
+use mc_data::block::BlockState;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{EntityType, GameEvent};
 use mc_protocol::components::ENTITY_DATA;
 use mc_protocol::packets::play::Stat;
+use mc_text::Component;
 
 /// `SpawnEggItem.getType(itemStack)`.
 pub fn get_type(stack: &ItemStack) -> Option<EntityType> {
@@ -115,6 +117,45 @@ pub fn spawn_offspring_from_spawn_egg(
     Some(id)
 }
 
+/// `SpawnEggItem.useOn` for a `Spawner` block entity: sets the spawned entity instead of spawning one.
+fn spawner_use_on(
+    context: &mut UseOnContext,
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    ty: EntityType,
+    pos: BlockPos,
+    block_state: BlockState,
+) -> InteractionResult {
+    if !level.spawner_blocks_work() {
+        player.send_system_message_overlay(
+            Component::translatable("advMode.notEnabled.spawner", Vec::new()),
+            false,
+        );
+        return InteractionResult::FAIL;
+    }
+    let entity_data = if level.is_op_uuid(Entity::uuid(player)) {
+        context.item_stack.get(&ENTITY_DATA)
+    } else {
+        None
+    };
+    level.with_block_entity(pos, |level, be| {
+        if let Some(spawner) = be.as_spawner_mut() {
+            match entity_data {
+                Some(data) => spawner.set_entity_data(level, data.ty, &data.tag),
+                None => spawner.set_entity_id(level, ty),
+            }
+        }
+    });
+    level.send_block_updated(pos, block_state, block_state, 3);
+    level.game_event_at_block(
+        GameEvent::BLOCK_CHANGE,
+        pos,
+        &GameEventContext::of_entity(Some(player.base_id())),
+    );
+    context.item_stack.shrink(1);
+    InteractionResult::SUCCESS
+}
+
 pub struct SpawnEggItem;
 
 impl ItemBehaviour for SpawnEggItem {
@@ -133,6 +174,12 @@ impl ItemBehaviour for SpawnEggItem {
         let pos = context.get_clicked_pos();
         let clicked_face = context.get_clicked_face();
         let block_state = level.get_block_state(pos);
+        if level
+            .with_block_entity(pos, |_, be| be.as_spawner_mut().is_some())
+            .unwrap_or(false)
+        {
+            return spawner_use_on(context, level, player, ty, pos, block_state);
+        }
         let spawn_pos = if block_state.get_collision_shape(&*level, pos).is_empty() {
             pos
         } else {
