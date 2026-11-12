@@ -481,6 +481,14 @@ impl BlockItem {
         self.block
     }
 
+    /// `StandingAndWallBlockItem.wallBlock`: `None` for every other `BlockItem`.
+    pub fn wall_block(&self) -> Option<Block> {
+        match self.kind {
+            Kind::StandingAndWall { wall, .. } => Some(wall),
+            _ => None,
+        }
+    }
+
     fn must_survive(&self) -> bool {
         !matches!(self.kind, Kind::Scaffolding)
     }

@@ -92,6 +92,7 @@ mod item_commands_tree;
 mod item_display_name_golden;
 mod item_golden;
 mod item_predicate_golden;
+mod item_registration_guards;
 mod item_use;
 mod items_oracle;
 mod jigsaw_codec;
