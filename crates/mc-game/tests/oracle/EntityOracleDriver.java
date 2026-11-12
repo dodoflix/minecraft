@@ -182,7 +182,7 @@ import net.minecraft.util.RandomSource;
  * watch WHAT...               dump after every tick: player:REF entity:REF entities inventory:REF packets:REF[:type,..|:!type,..]   (watch off clears;
  *                             `packets` drains the player's packets; `:type,..` keeps only those, `:!type,..` drops those; `:none` drains silently;
  *                             runs of chunk change packets are sorted by chunk, see chunkOrder)
- * dump WHAT...                same WHATs immediately, plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
+ * dump WHAT...                same WHATs immediately (`stats:PLAYER` = `STAT PLAYER type.name:value.name N` per earned statistic, sorted), plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
  *                             block oracle extras: be:X,Y,Z -> `BE x y z SNBT` (saveWithFullMetadata, sorted keys; `-` = none),
  *                             beu:X,Y,Z -> `BEU x y z TYPE SNBT` (getUpdatePacket tag; `-` = none),
  *                             bes:CX,CZ -> `BES cx cz`, `BEM x y z type` per block entity in map iteration order, then `BET x y z` / `BETP x y z`
@@ -1633,6 +1633,14 @@ public final class EntityOracleDriver {
                }
             }
             case "inventory" -> inventory(arg, (Player)ref(arg));
+            case "stats" -> {
+               // STAT PLAYER type.name:value.name N, sorted by name (the statistics a player has earned)
+               @SuppressWarnings("unchecked")
+               it.unimi.dsi.fastutil.objects.Object2IntMap<net.minecraft.stats.Stat<?>> counter = (it.unimi.dsi.fastutil.objects.Object2IntMap<net.minecraft.stats.Stat<?>>)priv(((ServerPlayer)ref(arg)).getStats(), net.minecraft.stats.StatsCounter.class, "stats");
+               TreeMap<String, Integer> sorted = new TreeMap<>();
+               counter.forEach((stat, n) -> sorted.put(stat.getName(), n));
+               sorted.forEach((name, n) -> out.println("STAT " + arg + " " + name + " " + n));
+            }
             case "packets" -> {
                // packets:NAME[:type,type] -- the optional filter (bare type names, e.g. open_sign_editor) drops the other packets
                String[] pa = arg.split(":", 2);

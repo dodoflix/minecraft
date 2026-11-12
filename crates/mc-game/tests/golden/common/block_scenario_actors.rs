@@ -872,6 +872,19 @@ impl Scenario {
             spectator: p.is_spectator(),
             alive: true,
         };
+        // `PlayerList.placeNewPlayer` broadcasts the join message before the new player joins the list: only the players
+        // already in the level get it
+        let joined =
+            mc_game::server::players::player_list::join_message(p.get_display_name(), None);
+        for other in self.actors.players.clone() {
+            self.with_player_named(&other, |_, o| {
+                o.send(&mc_protocol::packets::play::ClientboundSystemChatPacket {
+                    content: joined.clone(),
+                    overlay: false,
+                })
+            });
+        }
+        let level = self.level();
         level.add_player(Box::new(p));
         level.with_player(id, |level, p| p.init_inventory_menu(level));
         // `PlayerList.placeNewPlayer` registers the player with the chunk map: the spawning chunks it creates are shuffled
@@ -1174,6 +1187,22 @@ impl Scenario {
                     super::super::entity_scenario::canon(&mc_nbt::Tag::Compound(tag))
                 );
                 self.out.push(line);
+            }
+            "stats" => {
+                let name = arg.expect("stats:PLAYER");
+                let mut lines: Vec<(String, i32)> = self.with_player_named(name, |_, p| {
+                    p.stats
+                        .lock()
+                        .counter
+                        .iter_fast_order()
+                        .into_iter()
+                        .map(|(stat, n)| (mc_game::stats::stat::build_name(&stat), n))
+                        .collect()
+                });
+                lines.sort();
+                for (stat, n) in lines {
+                    self.out.push(format!("STAT {name} {stat} {n}"));
+                }
             }
             "all_players" => {
                 for name in self.actors.players.clone() {
