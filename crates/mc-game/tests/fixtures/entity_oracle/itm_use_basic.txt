@@ -1,0 +1,86 @@
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE C hand=main item=empty remaining=0 ticks=0 kinetic=0
+I P 0 minecraft:snowball*16
+I P 1 minecraft:experience_bottle*4
+I P 40 minecraft:snowball*3
+T 1
+E snowball#1 minecraft:snowball pos=0.4988952835188544,-58.48957791039935,1.9858485215088917 delta=-0.0011047164811455673,-0.009577913677601238,1.4858485215088917 rot=-0.04255128,0.54672635 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 2
+E snowball#1 minecraft:snowball pos=0.49780161419198493,-58.52876004531762,3.4568385719728503 delta=-0.001093669326869509,-0.03918213491826962,1.4709900504639586 rot=-0.042553734,0.1322138 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 3
+E snowball#1 minecraft:snowball pos=0.49671888154795407,-58.59725035954648,4.913118735960624 delta=-0.0010827326440308574,-0.06849031422885918,1.4562801639877734 rot=-0.042557076,-0.4327667 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:snowball*15
+I P 0 minecraft:snowball*15
+I P 1 minecraft:experience_bottle*4
+I P 40 minecraft:snowball*3
+STAT P minecraft.custom:minecraft.play_time 3
+STAT P minecraft.custom:minecraft.time_since_death 3
+STAT P minecraft.custom:minecraft.time_since_rest 3
+STAT P minecraft.custom:minecraft.total_world_time 3
+STAT P minecraft.used:minecraft.snowball 1
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.snowball.throw source=neutral vol=0.5 pitch=0.36625466
+T 4
+E snowball#1 minecraft:snowball pos=0.4956469762200378,-58.694755771572325,6.35483611219669 delta=-0.001071905327916292,-0.09750541202584742,1.4417173762360656 rot=-0.042561077,-1.1200272 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E experience_bottle#1 minecraft:experience_bottle pos=0.4919667503452541,-58.325892164904786,1.1554694784303714 delta=-0.008033249654745875,0.15410783181696,0.6554694784303714 rot=-0.70212317,17.701704 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 5
+E snowball#1 minecraft:snowball pos=0.49458578993517816,-58.8209861306939,7.782136328419683 delta=-0.0010611862848596148,-0.12623035912157532,1.4273002162229933 rot=-0.04256551,-1.9068472 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E experience_bottle#1 minecraft:experience_bottle pos=0.48401383311044466,-58.24262541060388,1.804384268327483 delta=-0.007952917234809455,0.08326675430090519,0.6489147898971117 rot=-0.7021222,15.623695 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 6
+E snowball#1 minecraft:snowball pos=0.49353521550304685,-58.97565418771419,9.195163556092242 delta=-0.0010505744321312796,-0.15466805702028838,1.4130272276725588 rot=-0.04256995,-2.7748096 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E experience_bottle#1 minecraft:experience_bottle pos=0.47614044497213837,-58.22949132371946,2.4468099165141575 delta=-0.00787338813830629,0.013134086884417757,0.6424256481866742 rot=-0.70212114,12.733167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I P 0 minecraft:snowball*15
+I P 1 minecraft:experience_bottle*3
+I P 40 minecraft:snowball*3
+STAT P minecraft.custom:minecraft.play_time 6
+STAT P minecraft.custom:minecraft.time_since_death 6
+STAT P minecraft.custom:minecraft.time_since_rest 6
+STAT P minecraft.custom:minecraft.total_world_time 6
+STAT P minecraft.used:minecraft.experience_bottle 1
+STAT P minecraft.used:minecraft.snowball 1
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.experience_bottle.throw source=neutral vol=0.5 pitch=0.36631477
+E snowball#1 minecraft:snowball pos=0.49146547878444824,-59.36916873238413,11.97896853748747 delta=-0.0010296680207696031,-0.210693166458728,1.384908012523717 rot=-0.04257211,-4.697263 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E experience_bottle#1 minecraft:experience_bottle pos=0.4606290827771034,-58.41082286143214,3.7124527042641366 delta=-0.007716707863025227,-0.1250342831859391,0.6296413899185234 rot=-0.7021196,5.09372 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#2 minecraft:snowball pos=0.48420017162539203,-58.557629159779395,3.4119729718202847 delta=-0.007860216164110508,-0.05354415675521072,1.4486699779182044 rot=-0.310802,-0.43348908 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I P 0 minecraft:snowball*15
+I P 1 minecraft:experience_bottle*3
+I P 40 minecraft:snowball*2
+STAT P minecraft.custom:minecraft.play_time 8
+STAT P minecraft.custom:minecraft.time_since_death 8
+STAT P minecraft.custom:minecraft.time_since_rest 8
+STAT P minecraft.custom:minecraft.total_world_time 8
+STAT P minecraft.used:minecraft.experience_bottle 1
+STAT P minecraft.used:minecraft.snowball 2
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.snowball.throw source=neutral vol=0.5 pitch=0.36632675
+E experience_bottle#1 minecraft:experience_bottle pos=0.4379388822576836,-59.19150848634644,5.563849653088965 delta=-0.007487514139168842,-0.32714857739933234,0.6109404286522558 rot=-0.70212054,-8.88903 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#2 minecraft:snowball pos=0.4610879994328668,-58.89208532061388,7.6716408080134535 delta=-0.007626760104227688,-0.14016581495066122,1.4056430715260457 rot=-0.31082165,-2.502244 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#3 minecraft:snowball pos=6.52639286170787,-58.63539221461778,4.898941123014687 delta=0.008709351203911506,-0.08107670274032713,1.4516017091939732 rot=0.34385717,-0.93051416 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#4 minecraft:snowball pos=6.458826009092925,-58.63676957214551,4.936656645020159 delta=-0.013586959657711315,-0.0815312154254277,1.4640474125292267 rot=-0.5316234,-0.9403557 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E experience_bottle#2 minecraft:experience_bottle pos=6.506584710854027,-58.231220623980285,2.4362152908256096 delta=0.002172881441910338,0.01256343700661051,0.6389295393896494 rot=0.19489498,12.751544 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I C 0 minecraft:snowball*16
+I C 1 minecraft:experience_bottle*4
+STAT C minecraft.custom:minecraft.play_time 11
+STAT C minecraft.custom:minecraft.time_since_death 11
+STAT C minecraft.custom:minecraft.time_since_rest 11
+STAT C minecraft.custom:minecraft.total_world_time 11
+STAT C minecraft.used:minecraft.experience_bottle 1
+STAT C minecraft.used:minecraft.snowball 2
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.snowball.throw source=neutral vol=0.5 pitch=0.3662907
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.snowball.throw source=neutral vol=0.5 pitch=0.39654794
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.experience_bottle.throw source=neutral vol=0.5 pitch=0.36630273
+E experience_bottle#1 minecraft:experience_bottle pos=0.4379388822576836,-59.19150848634644,5.563849653088965 delta=-0.007487514139168842,-0.32714857739933234,0.6109404286522558 rot=-0.70212054,-8.88903 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#2 minecraft:snowball pos=0.4610879994328668,-58.89208532061388,7.6716408080134535 delta=-0.007626760104227688,-0.14016581495066122,1.4056430715260457 rot=-0.31082165,-2.502244 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#3 minecraft:snowball pos=6.52639286170787,-58.63539221461778,4.898941123014687 delta=0.008709351203911506,-0.08107670274032713,1.4516017091939732 rot=0.34385717,-0.93051416 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#4 minecraft:snowball pos=6.458826009092925,-58.63676957214551,4.936656645020159 delta=-0.013586959657711315,-0.0815312154254277,1.4640474125292267 rot=-0.5316234,-0.9403557 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E experience_bottle#2 minecraft:experience_bottle pos=6.506584710854027,-58.231220623980285,2.4362152908256096 delta=0.002172881441910338,0.01256343700661051,0.6389295393896494 rot=0.19489498,12.751544 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E snowball#5 minecraft:snowball pos=0.5,-58.479999996721745,0.5 delta=-0.016571180086253728,-0.007678217574171308,1.517999878186576 rot=-0.62550265,-0.28970194 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+I P 0 minecraft:snowball*15
+I P 1 minecraft:experience_bottle*3
+I P 40 minecraft:snowball*1
+STAT P minecraft.custom:minecraft.play_time 11
+STAT P minecraft.custom:minecraft.time_since_death 11
+STAT P minecraft.custom:minecraft.time_since_rest 11
+STAT P minecraft.custom:minecraft.total_world_time 11
+STAT P minecraft.used:minecraft.experience_bottle 1
+STAT P minecraft.used:minecraft.snowball 3
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0

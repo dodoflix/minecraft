@@ -1,0 +1,47 @@
+# Item use through the use packet: a thrown snowball and experience bottle (survival consumes one, creative keeps the stack), the offhand, the hotbar selection, an empty hand.
+# An entity's UUID comes from its random, which is seeded from the command line: a repeated `use` line would create an entity with an existing UUID (vanilla drops it), so the lines differ by a counter.
+level flat
+preload 2
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 0.5 0 0
+give P hotbar0 minecraft:snowball 16
+give P hotbar1 minecraft:experience_bottle 4
+give P offhand minecraft:snowball 3
+give C hotbar0 minecraft:snowball 16
+give C hotbar1 minecraft:experience_bottle 4
+dump use:P use:C cooldowns:P stats:P inventory:P
+# survival: one snowball, thrown with the player's rotation
+level_seed 11
+use P main 1
+watch entities
+tick 3
+watch off
+dump player:P inventory:P stats:P cooldowns:P use:P events
+# the hotbar selection decides the item
+select P 1
+level_seed 12
+use P main 2
+watch entities
+tick 3
+watch off
+dump inventory:P stats:P events
+# the offhand
+select P 0
+level_seed 13
+use P off
+tick 2
+dump entities inventory:P stats:P events
+# creative keeps the stack
+level_seed 14
+use C main 1
+use C main 2
+select C 1
+level_seed 15
+use C main 3
+tick 3
+dump entities inventory:C stats:C events
+# an empty hand uses nothing
+select P 8
+use P main 3
+use P off 2
+dump entities inventory:P stats:P use:P

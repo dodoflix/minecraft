@@ -23,7 +23,6 @@ use mc_game::server::level::ServerLevel;
 use mc_game::world::container::Container;
 use mc_game::world::damagesource::DamageSource;
 use mc_game::world::entity::entity::common_tick;
-use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::experience_orb::ExperienceOrb;
 use mc_game::world::entity::falling_block_entity::FallingBlockEntity;
 use mc_game::world::entity::item::ItemEntity;
@@ -69,26 +68,6 @@ fn parse_state(text: &str) -> BlockState {
         .unwrap_or_else(|| panic!("bad state {text}"))
 }
 
-fn parse_stack(spec: &str, count: i32) -> ItemStack {
-    use mc_game::commands::CommandBuildContext;
-    use mc_game::commands::command_build_context::StaticRegistries;
-    use std::sync::Arc;
-    let context = CommandBuildContext::simple(
-        Arc::new(StaticRegistries),
-        mc_world::level_storage::FeatureFlagSet::ALL,
-    );
-    let mut reader = mc_brigadier::StringReader::new(spec);
-    let input = mc_game::commands::arguments::item::item_parser::ItemParser::new(&context)
-        .parse(&mut reader)
-        .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
-    // like the driver: oversized stacks are allowed
-    let mut stack = input
-        .create_item_stack(1)
-        .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
-    stack.set_count(count);
-    stack
-}
-
 /// `EntityOracleDriver.hash(line)` (Java `long` arithmetic over UTF-16 units).
 fn hash(s: &str) -> i64 {
     s.encode_utf16().fold(1125899906842597i64, |h, c| {
@@ -121,6 +100,7 @@ struct Sim {
     out: Vec<String>,
     ticks: i64,
     world_created: bool,
+    sequences: common::player_actions::Sequences,
 }
 
 impl Sim {
@@ -162,6 +142,7 @@ impl Sim {
             out: Vec::new(),
             ticks: 0,
             world_created: false,
+            sequences: Default::default(),
         }
     }
 
@@ -489,7 +470,7 @@ impl Sim {
             "spawn_item" => {
                 mc_core::random::reseed_uniquifier(hash(t[1]));
                 let count = t.get(9).map_or(1, |c| c.parse().unwrap());
-                let stack = parse_stack(t[2], count);
+                let stack = common::player_actions::item_stack(t[2], count);
                 let e = if t.len() >= 9 {
                     ItemEntity::with_stack_and_motion(
                         &self.level,
@@ -576,73 +557,6 @@ impl Sim {
                 self.players.push(id);
                 self.register(t[1], id);
             }
-            "give" => {
-                let id = self.id_of(t[1]);
-                let count = t.get(4).map_or(1, |c| c.parse().unwrap());
-                let stack = parse_stack(t[3], count);
-                self.level.with_player(id, |_, p| {
-                    let inv = &mut p.player.inventory;
-                    match t[2] {
-                        "mainhand" => {
-                            let sel = inv.get_selected_slot() as usize;
-                            inv.set_item(sel, stack);
-                        }
-                        "offhand" | "head" | "chest" | "legs" | "feet" => {
-                            let slot = match t[2] {
-                                "offhand" => EquipmentSlot::OffHand,
-                                "head" => EquipmentSlot::Head,
-                                "chest" => EquipmentSlot::Chest,
-                                "legs" => EquipmentSlot::Legs,
-                                _ => EquipmentSlot::Feet,
-                            };
-                            inv.equipment_set(slot, stack);
-                        }
-                        s if s.starts_with("hotbar") => {
-                            inv.set_item(s[6..].parse().unwrap(), stack)
-                        }
-                        s if s.starts_with("inv") => inv.set_item(s[3..].parse().unwrap(), stack),
-                        other => panic!("slot {other}"),
-                    }
-                });
-            }
-            "select" => {
-                let id = self.id_of(t[1]);
-                self.level.with_player(id, |_, p| {
-                    p.player.inventory.set_selected_slot(t[2].parse().unwrap())
-                });
-            }
-            "drop" => {
-                let id = self.id_of(t[1]);
-                let all = t.get(2) == Some(&"all");
-                self.level
-                    .with_player(id, |level, p| p.drop_selected(level, all));
-            }
-            "use_on" => {
-                // `use_on PLAYER X Y Z FACE [main|off]` at the face centre
-                let id = self.id_of(t[1]);
-                let pos = BlockPos::new(num(2) as i32, num(3) as i32, num(4) as i32);
-                let face = mc_core::direction::Direction::by_name(t[5]).expect("face");
-                let at = |c: i32, step: i32| f64::from(c) + 0.5 + f64::from(step) * 0.5;
-                let hit = mc_core::phys::BlockHitResult {
-                    location: Vec3::new(
-                        at(pos.x(), face.get_step_x()),
-                        at(pos.y(), face.get_step_y()),
-                        at(pos.z(), face.get_step_z()),
-                    ),
-                    direction: face,
-                    block_pos: pos,
-                    miss: false,
-                    inside: false,
-                    world_border_hit: false,
-                };
-                let hand = if t.get(6) == Some(&"off") {
-                    mc_game::world::item::InteractionHand::OffHand
-                } else {
-                    mc_game::world::item::InteractionHand::MainHand
-                };
-                self.level
-                    .with_player(id, |level, p| p.use_item_on(level, hand, &hit));
-            }
             "award" => {
                 let at = Vec3::new(num(1), num(2), num(3));
                 let amount = t[4].parse().unwrap();
@@ -695,9 +609,30 @@ impl Sim {
                 let what: Vec<String> = t[1..].iter().map(|s| s.to_string()).collect();
                 self.dump(&what);
             }
-            other => panic!("unsupported scenario command `{other}`"),
+            other => {
+                let tokens: Vec<String> = t.iter().map(|s| s.to_string()).collect();
+                if !common::player_actions::command(self, &tokens) {
+                    panic!("unsupported scenario command `{other}`");
+                }
+            }
         }
         self.name_new_entities();
+    }
+}
+
+impl common::player_actions::ActionHost for Sim {
+    fn boot(&mut self) {}
+    fn action_level(&mut self) -> &mut ServerLevel {
+        &mut self.level
+    }
+    fn action_ref(&self, name: &str) -> EntityId {
+        self.id_of(name)
+    }
+    fn next_sequence(&mut self, player: &str) -> i32 {
+        self.sequences.next(player)
+    }
+    fn emit(&mut self, line: String) {
+        self.out.push(line);
     }
 }
 

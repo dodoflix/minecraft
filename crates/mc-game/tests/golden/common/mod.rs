@@ -84,5 +84,6 @@ pub mod block_scenario;
 pub mod entity_oracle;
 pub mod entity_scenario;
 pub mod feature_harness;
+pub mod player_actions;
 pub mod structure_golden;
 pub mod test_packs;

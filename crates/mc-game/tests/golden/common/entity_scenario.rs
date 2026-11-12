@@ -28,8 +28,9 @@
 //!   with the oracle's per-tick seed (`mc_core::random::reseed_uniquifier`, the Rust twin of the oracle's `RandomSupport` shadow), so
 //!   freshly created entities draw the same random seeds as in the oracle. Entity ids are assigned `1, 2, 3, ...` in creation order
 //!   (the oracle's `Entity` counter) for entities the scenario creates.
-//! * Commands implemented: see [`Harness::run`] plus the families in `entity_scenario/` (`mob_cmds.rs`: target love age breed tame leash interact;
-//!   `nav_cmds.rs`: nav path_query nav_stop; `dump_cmds.rs`: goals: brain: path: attrs: nbt:). Add a new family as a new file with
+//! * Commands implemented: see [`Harness::run`] plus the families in `entity_scenario/` (`mob_cmds.rs`: target love age breed tame leash;
+//!   `nav_cmds.rs`: nav path_query nav_stop; `dump_cmds.rs`: goals: brain: path: attrs: nbt:) and the player actions shared with the block replay
+//!   (`player_actions.rs`: use use_on release interact drop swing swap dispense select, dumps use: cooldowns: stats: inventory:). Add a new family as a new file with
 //!   `pub(super) fn run(&mut Harness, &[String]) -> bool` (+ a `mod` line and one `||` in the fallback arm of `run`). Entity ids come from the
 //!   level's private counter (`ServerLevel::entity_id_counter`, starts at 1 like the oracle's `Entity.ENTITY_COUNTER`), so auto-created entities
 //!   (babies, arrows, orbs) get the oracle's ids; ids matter for `(tickCount + id) % n` throttles. An unsupported command or dump kind PANICS with `scenario:line`; there is no
@@ -40,7 +41,7 @@
 use super::entity_oracle::{Fixture, Options, scenario_dir};
 
 // Command families of the DSL (one file each, `pub(super) fn run(&mut Harness, &[String]) -> bool` = "handled"): mob state
-// (love/age/breed/target/tame/leash/interact), navigation (nav/path_query/nav_stop), extra dump kinds (goals/brain/path/attrs/nbt/difficulty).
+// (love/age/breed/target/tame/leash), navigation (nav/path_query/nav_stop), extra dump kinds (goals/brain/path/attrs/nbt/difficulty).
 mod dump_cmds;
 mod mob_cmds;
 mod nav_cmds;
@@ -48,12 +49,10 @@ use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::GameType;
-use mc_data::{Attribute, EntityType, Item, MobEffect};
+use mc_data::{Attribute, EntityType, MobEffect};
 use mc_game::server::level::ServerLevel;
-use mc_game::world::container::Container as _;
 use mc_game::world::damagesource::DamageSource;
 use mc_game::world::entity::effect::MobEffectInstance;
-use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::item::ItemEntity;
 use mc_game::world::entity::scenario_dump::{
@@ -266,12 +265,15 @@ pub struct Harness {
     pub line: String,
     flat: bool,
     pub day_time: i64,
+    sequences: super::player_actions::Sequences,
 }
 
 impl Harness {
     pub fn new() -> Self {
         let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
         level.registries = registries();
+        // item behaviour that reads registries without a level (`Item.getUseDuration` of a goat horn)
+        mc_game::world::item::set_item_registries(level.registries.clone());
         let world = mc_game::server::level::level_data::default_world_data();
         level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
             world.clone(),
@@ -302,6 +304,7 @@ impl Harness {
             line: String::new(),
             flat: true,
             day_time: 0,
+            sequences: Default::default(),
         }
     }
 
@@ -444,15 +447,6 @@ impl Harness {
         tag.merge(&extra);
         e.load(&tag)
             .unwrap_or_else(|err| self.fail(&format!("load: {err}")));
-    }
-
-    fn item_stack(&self, spec: &str, count: i32) -> ItemStack {
-        if spec.contains('[') || spec.contains('{') {
-            self.fail("item components/NBT are not replayed (plain item ids only)");
-        }
-        let item =
-            Item::by_name(spec).unwrap_or_else(|| self.fail(&format!("unknown item {spec}")));
-        ItemStack::with_count(item, count)
     }
 
     fn with_entity<R>(
@@ -630,7 +624,7 @@ impl Harness {
                 self.world();
                 mc_core::random::reseed_uniquifier(java_hash(&a[1]));
                 let count = if a.len() > 9 { self.int(&a[9]) } else { 1 };
-                let stack = self.item_stack(&a[2], count);
+                let stack = super::player_actions::item_stack(&a[2], count);
                 let (x, y, z) = (self.num(&a[3]), self.num(&a[4]), self.num(&a[5]));
                 let ie = if a.len() >= 9 {
                     ItemEntity::with_stack_and_motion(
@@ -799,7 +793,10 @@ impl Harness {
                 self.dump(&what);
             }
             other => {
-                if !(mob_cmds::run(self, &a) || nav_cmds::run(self, &a)) {
+                if !(mob_cmds::run(self, &a)
+                    || nav_cmds::run(self, &a)
+                    || super::player_actions::command(self, &a))
+                {
                     self.fail(&format!("unsupported scenario command `{other}` (see the Harness::run doc and entity_scenario/*.rs for the implemented subset)"))
                 }
             }
@@ -973,38 +970,20 @@ impl Harness {
         self.players.push((a[1].clone(), id));
     }
 
+    /// `give REF SLOT STACK [count]`: a player through the shared action, a mob's equipment slot here.
     fn give(&mut self, a: &[String]) {
         let count = a.get(4).map_or(1, |s| self.int(s));
-        let stack = self.item_stack(&a[3], count);
+        let stack = super::player_actions::item_stack(&a[3], count);
         let slot = a[2].clone();
         let line = self.line.clone();
         self.with_entity(&a[1], |_, e| {
-            if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>()
-                && let Some(i) = slot
-                    .strip_prefix("hotbar")
-                    .or_else(|| slot.strip_prefix("inv"))
-            {
-                p.player
-                    .inventory
-                    .set_item(i.parse().expect("slot index"), stack);
-                return;
-            }
-            let es = match slot.as_str() {
-                "mainhand" => EquipmentSlot::MainHand,
-                "offhand" => EquipmentSlot::OffHand,
-                "head" => EquipmentSlot::Head,
-                "chest" => EquipmentSlot::Chest,
-                "legs" => EquipmentSlot::Legs,
-                "feet" => EquipmentSlot::Feet,
-                other => panic!("`{line}`: slot {other}"),
-            };
             if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
-                p.player.inventory.equipment_set(es, stack);
+                super::player_actions::give(p, &slot, stack);
             } else {
                 e.living_mut()
                     .unwrap_or_else(|| panic!("`{line}`: give on a non-living entity"))
                     .equipment
-                    .set(es, stack);
+                    .set(super::player_actions::equipment_slot(&slot), stack);
             }
         });
     }
@@ -1187,8 +1166,10 @@ impl Harness {
                     }
                 }
                 _ => {
-                    if !dump_cmds::dump(self, kind, arg) {
-                        self.fail(&format!("unsupported dump kind `{w}` (replayed: player: entity: mob: all_players entities mobs, see entity_scenario/dump_cmds.rs)"))
+                    if !(dump_cmds::dump(self, kind, arg)
+                        || super::player_actions::dump(self, kind, arg))
+                    {
+                        self.fail(&format!("unsupported dump kind `{w}` (replayed: player: entity: mob: all_players entities mobs use: cooldowns: stats: inventory:, see entity_scenario/dump_cmds.rs)"))
                     }
                 }
             }
@@ -1325,6 +1306,24 @@ impl Harness {
             }
         }
         s
+    }
+}
+
+impl super::player_actions::ActionHost for Harness {
+    fn boot(&mut self) {
+        self.world();
+    }
+    fn action_level(&mut self) -> &mut ServerLevel {
+        &mut self.level
+    }
+    fn action_ref(&self, name: &str) -> EntityId {
+        self.entity_ref(name)
+    }
+    fn next_sequence(&mut self, player: &str) -> i32 {
+        self.sequences.next(player)
+    }
+    fn emit(&mut self, line: String) {
+        self.out.push(line);
     }
 }
 

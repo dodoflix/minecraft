@@ -1,0 +1,57 @@
+# Item cooldowns: a use_cooldown component starts a cooldown group when an instantly used item succeeds, a group is shared by stacks of different items,
+# an item on cooldown cannot be used, the group ends when its time is up; eating a chorus fruit and blowing a goat horn start their cooldowns when the use ends.
+# An entity's UUID comes from its random, which is seeded from the command line: the `use` lines differ by a counter so that no thrown snowball repeats a UUID.
+level flat
+preload 2
+spawn_player P survival 0.5 -60 0.5 0 0
+give P hotbar0 minecraft:snowball[use_cooldown={seconds:2.0,cooldown_group:"test:group"}] 8
+give P hotbar1 minecraft:egg[use_cooldown={seconds:1.0,cooldown_group:"test:group"}] 8
+give P hotbar2 minecraft:snowball[use_cooldown={seconds:0.5}] 8
+dump cooldowns:P
+use P main 1
+dump cooldowns:P inventory:P stats:P
+tick 10
+dump cooldowns:P
+# blocked: the same group through another item and the same stack again
+select P 1
+use P main 2
+select P 0
+use P main 3
+dump cooldowns:P inventory:P stats:P
+tick 10
+dump cooldowns:P
+# the default group of an item is the item itself
+select P 2
+use P main 4
+dump cooldowns:P
+tick 9
+dump cooldowns:P
+tick 1
+dump cooldowns:P
+tick 20
+dump cooldowns:P
+# the first group ends after its 40 ticks
+dump cooldowns:P use:P
+# a goat horn: blowing it plays the sound and starts the cooldown with the horn's use duration
+give P hotbar3 minecraft:goat_horn[instrument="minecraft:ponder_goat_horn"]
+select P 3
+use P main 5
+dump cooldowns:P use:P
+tick 5
+dump cooldowns:P use:P
+release P
+dump cooldowns:P use:P
+tick 40
+dump cooldowns:P use:P
+# a chorus fruit: the cooldown starts when the eating ends
+give P hotbar4 minecraft:chorus_fruit 2
+select P 4
+set P food 10
+use P main 6
+dump cooldowns:P use:P
+tick 31
+dump cooldowns:P use:P
+tick 1
+dump cooldowns:P use:P inventory:P stats:P
+tick 20
+dump cooldowns:P

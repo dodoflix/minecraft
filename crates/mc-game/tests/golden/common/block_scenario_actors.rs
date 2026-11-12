@@ -1,5 +1,6 @@
 //! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `input` (sneak: the shift key), `op`, `pick_block`, `tp`, `snap`, `velocity`, `set`,
-//! `spawn_player`, `give`, `select`, `use_on`, `use`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|entity:REF|player:NAME|inventory:NAME|packets:NAME`).
+//! `spawn_player`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|entity:REF|player:NAME|packets:NAME`). The player actions (`give select use use_on release interact drop swing swap dispense`
+//! and the dumps `use cooldowns stats inventory`) are shared with the entity replay: `player_actions.rs`.
 //! Included by `block_scenario.rs` (private state of `Scenario`). Differences from the Java driver, all caused by the Rust level having no
 //! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` and the replay re-does what the packet
 //! handlers around them add (the listener's sequence number and block change ack, the swing and block updates sent back), but no
@@ -9,11 +10,11 @@
 use super::Scenario;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
-use mc_core::phys::{BlockHitResult, Vec3};
+use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::LegacyRandomSource;
+use mc_data::EntityType;
 use mc_data::enums::GameType;
-use mc_data::{EntityType, Item};
 use mc_game::server::level::chunk_send_sink::ChunkSendSink;
 use mc_game::server::level::level_explode::Explode;
 use mc_game::server::level::{PlayerTrackingInfo, ServerLevel};
@@ -23,18 +24,16 @@ use mc_game::server::network::game_listener::{
 };
 use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
-use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::player::menu_ctx::PlayerCtx;
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::inventory::{PlayerMenus, handle_container_button_click};
-use mc_game::world::item::{InteractionHand, InteractionResult, ItemStack, SwingSource};
+use mc_game::world::item::{InteractionHand, ItemStack};
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::packets::play::{
-    AttributeModifierOperation, ClientboundBlockUpdatePacket, ClientboundSetTimePacket,
-    ClientboundUpdateAttributesPacket,
+    AttributeModifierOperation, ClientboundSetTimePacket, ClientboundUpdateAttributesPacket,
 };
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
@@ -64,8 +63,8 @@ pub struct Actors {
     known: HashSet<EntityId>,
     auto: HashMap<String, i32>,
     rx: HashMap<String, UnboundedReceiver<Outbound>>,
-    /// The driver's `seq(player)`: the sequence number of the player's next `use_on` packet.
-    sequence: HashMap<String, i32>,
+    /// The driver's `seq(player)` counters.
+    sequences: crate::common::player_actions::Sequences,
     /// Keeps the inbound queue of every replayed listener open.
     _inbound: Vec<std::sync::mpsc::Sender<mc_game::server::network::InboundPacket>>,
     pub registries_loaded: bool,
@@ -242,6 +241,8 @@ impl Scenario {
             let level = self.level();
             level.registries = ACCESS.0.clone();
             level.shared.set_recipe_manager(ACCESS.1.clone());
+            // item behaviour that reads registries without a level (`Item.getUseDuration` of a goat horn)
+            mc_game::world::item::set_item_registries(ACCESS.0.clone());
         }
     }
 
@@ -296,25 +297,6 @@ impl Scenario {
             .unwrap_or_else(|| panic!("entity {} is gone", a[1]));
         self.out
             .push(format!("HURT {} {} {} -> {r}", a[1], a[2], a[3]));
-    }
-
-    /// The driver's `stack(spec, count)`: an item id, or an item with components (`minecraft:iron_pickaxe[enchantments={...}]`).
-    fn item_stack(&self, spec: &str, count: i32) -> ItemStack {
-        if spec.contains('[') {
-            use mc_game::commands::CommandBuildContext;
-            use mc_game::commands::command_build_context::StaticRegistries;
-            let context = CommandBuildContext::simple(
-                std::sync::Arc::new(StaticRegistries),
-                mc_world::level_storage::FeatureFlagSet::ALL,
-            );
-            let mut reader = mc_brigadier::StringReader::new(spec);
-            return mc_game::commands::arguments::item::item_parser::ItemParser::new(&context)
-                .parse(&mut reader)
-                .and_then(|input| input.create_item_stack(count))
-                .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
-        }
-        let item = Item::by_name(spec).unwrap_or_else(|| panic!("unknown item {spec}"));
-        ItemStack::with_count(item, count)
     }
 
     /// Entities created by game logic get stable names `type_path#n` in creation (id) order (twin of `nameNewEntities`).
@@ -374,7 +356,10 @@ impl Scenario {
                     .filter(|t| !t.starts_with("rot="))
                     .cloned()
                     .collect::<Vec<_>>();
-                let stack = self.item_stack(&a[2], a.get(9).map_or(1, |c| c.parse().unwrap()));
+                let stack = crate::common::player_actions::item_stack(
+                    &a[2],
+                    a.get(9).map_or(1, |c| c.parse().unwrap()),
+                );
                 assert!(
                     a.len() >= 9,
                     "spawn_item without a velocity draws random motion from the entity random: give `vx vy vz`"
@@ -593,41 +578,6 @@ impl Scenario {
                 reseed_for(&a[1]);
                 self.spawn_player(a);
             }
-            "give" => {
-                self.world();
-                let count = a.get(4).map_or(1, |c| c.parse().unwrap());
-                let stack = self.item_stack(&a[3], count);
-                self.with_player_named(&a[1], |_, p| {
-                    let slot = a[2].as_str();
-                    if let Some(n) = slot
-                        .strip_prefix("hotbar")
-                        .or_else(|| slot.strip_prefix("inv"))
-                    {
-                        p.player.inventory.get_non_equipment_items_mut()
-                            [n.parse::<usize>().unwrap()] = stack;
-                    } else {
-                        let es = match slot {
-                            "mainhand" => EquipmentSlot::MainHand,
-                            "offhand" => EquipmentSlot::OffHand,
-                            "head" => EquipmentSlot::Head,
-                            "chest" => EquipmentSlot::Chest,
-                            "legs" => EquipmentSlot::Legs,
-                            "feet" => EquipmentSlot::Feet,
-                            other => panic!("slot {other}"),
-                        };
-                        p.player.inventory.equipment_set(es, stack);
-                    }
-                });
-            }
-            "select" => {
-                self.world();
-                self.with_player_named(&a[1], |_, p| {
-                    p.player
-                        .inventory
-                        .set_selected_slot(a[2].parse().unwrap())
-                        .expect("hotbar slot");
-                });
-            }
             "pcommand" => {
                 self.world();
                 // `handlePlayerCommand` of the actions the scenarios use (the packet handler itself needs a connection)
@@ -643,17 +593,6 @@ impl Scenario {
                         other => panic!("pcommand {other} is not supported by the Rust replay"),
                     }
                 });
-            }
-            "use" => {
-                self.world();
-                let hand = hand(a, 2);
-                self.with_player_named(&a[1], |level, p| {
-                    p.use_item(level, hand);
-                });
-            }
-            "use_on" => {
-                self.world();
-                self.use_on(a);
             }
             "menu_button" => {
                 self.world();
@@ -724,7 +663,7 @@ impl Scenario {
                 self.load_registries();
                 self.explode(a);
             }
-            _ => return false,
+            _ => return crate::common::player_actions::command(self, a),
         }
         true
     }
@@ -904,100 +843,6 @@ impl Scenario {
         let mut rx = rx;
         while rx.try_recv().is_ok() {}
         self.actors.rx.insert(name, rx);
-    }
-
-    /// `ServerboundUseItemOnPacket` minus the packet listener: reach and hit-location checks, then `ServerPlayerGameMode.useItemOn`.
-    fn use_on(&mut self, a: &[String]) {
-        let pos = BlockPos::new(
-            a[2].parse().unwrap(),
-            a[3].parse().unwrap(),
-            a[4].parse().unwrap(),
-        );
-        let face = Direction::by_name(&a[5]).unwrap_or_else(|| panic!("face {}", a[5]));
-        let cursor = a.len() > 9;
-        let hit = if cursor {
-            let n = a.len();
-            Vec3::new(
-                f64::from(pos.x()) + num(&a[n - 3]),
-                f64::from(pos.y()) + num(&a[n - 2]),
-                f64::from(pos.z()) + num(&a[n - 1]),
-            )
-        } else {
-            let c = Vec3::at_center_of(&pos);
-            Vec3::new(
-                c.x + f64::from(face.get_step_x()) * 0.5,
-                c.y + f64::from(face.get_step_y()) * 0.5,
-                c.z + f64::from(face.get_step_z()) * 0.5,
-            )
-        };
-        let hand_idx = a.len() > 6 && (a[6] == "main" || a[6] == "off");
-        let hand = if hand_idx {
-            hand(a, 6)
-        } else {
-            InteractionHand::MainHand
-        };
-        let result = BlockHitResult {
-            location: hit,
-            direction: face,
-            block_pos: pos,
-            miss: false,
-            inside: false,
-            world_border_hit: false,
-        };
-        let sequence = self.actors.sequence.entry(a[1].clone()).or_insert(0);
-        *sequence += 1;
-        let sequence = *sequence;
-        self.with_player_named(&a[1], |level, p| {
-            let listener = p
-                .listener
-                .as_mut()
-                .expect("replayed players have a listener");
-            listener
-                .ack_block_changes_up_to(sequence)
-                .expect("positive sequence");
-            if !p.is_within_block_interaction_range(pos, 1.0) {
-                return;
-            }
-            let d = hit.subtract(Vec3::at_center_of(&pos));
-            if !(d.x.abs() < 1.0000001 && d.y.abs() < 1.0000001 && d.z.abs() < 1.0000001) {
-                return;
-            }
-            // `handleUseItemOn`: nothing happens while a teleport waits for the client's confirmation
-            if p.listener
-                .as_ref()
-                .is_some_and(|l| l.is_awaiting_position_from_client())
-            {
-                return;
-            }
-            let animation = p
-                .get_item_in_hand(hand)
-                .get(&mc_protocol::components::INTERACT_ANIMATION)
-                .copied()
-                .unwrap_or(mc_game::world::entity::player::item_use::SWING_ANIMATION_DEFAULT);
-            let outcome = p.use_item_on(level, hand, &result);
-            // a successful use swings (the decompiled handler swings in two branches, both reach the client)
-            if let InteractionResult::Success(s) = &outcome
-                && s.should_swing()
-            {
-                for _ in 0..2 {
-                    if p.swing(
-                        level,
-                        hand,
-                        animation,
-                        s.swing_source != SwingSource::Predicted,
-                    ) {
-                        p.reset_attack_strength_ticker();
-                    }
-                }
-            }
-            // ... and the client gets the clicked and the adjacent block back
-            for at in [pos, pos.relative(face)] {
-                p.send(&ClientboundBlockUpdatePacket {
-                    pos: at,
-                    block_state: level.get_block_state(at),
-                });
-            }
-        });
     }
 
     /// Twin of the driver's `dig`: client-like progress accumulation, STOP_DESTROY_BLOCK when the client would send it.
@@ -1188,22 +1033,6 @@ impl Scenario {
                 );
                 self.out.push(line);
             }
-            "stats" => {
-                let name = arg.expect("stats:PLAYER");
-                let mut lines: Vec<(String, i32)> = self.with_player_named(name, |_, p| {
-                    p.stats
-                        .lock()
-                        .counter
-                        .iter_fast_order()
-                        .into_iter()
-                        .map(|(stat, n)| (mc_game::stats::stat::build_name(&stat), n))
-                        .collect()
-                });
-                lines.sort();
-                for (stat, n) in lines {
-                    self.out.push(format!("STAT {name} {stat} {n}"));
-                }
-            }
             "advancements" => {
                 let name = arg.expect("advancements:PLAYER");
                 let mut lines: Vec<(String, String)> = Vec::new();
@@ -1232,30 +1061,6 @@ impl Scenario {
                     let line = self.describe(&name, id);
                     self.out.push(line);
                 }
-            }
-            "inventory" => {
-                let name = arg.expect("inventory:NAME");
-                let id = self.entity_id(name);
-                let items: Vec<String> = self
-                    .level()
-                    .get_entity(id)
-                    .and_then(|e| {
-                        e.as_any().downcast_ref::<ServerPlayer>().map(|p| {
-                            // `Inventory.getItem(i)`: the 36 slots, then the equipment slots (feet, legs, chest, head, offhand, body, saddle)
-                            let inv = &p.player.inventory;
-                            let main = inv.get_non_equipment_items().iter().enumerate();
-                            let worn = (36..=42).filter_map(|i| {
-                                mc_game::world::entity::player::inventory::equipment_slot_for(i)
-                                    .map(|es| (i, inv.equipment_get(es)))
-                            });
-                            main.chain(worn)
-                                .filter(|(_, s)| !s.is_empty())
-                                .map(|(i, s)| format!("I {name} {i} {}", item_name(s)))
-                                .collect()
-                        })
-                    })
-                    .unwrap_or_default();
-                self.out.extend(items);
             }
             "packets" => {
                 let arg = arg.expect("packets:NAME[:type,..]");
@@ -1295,7 +1100,7 @@ impl Scenario {
                     }
                 }
             }
-            _ => return false,
+            _ => return crate::common::player_actions::dump(self, kind, arg),
         }
         true
     }
@@ -1420,10 +1225,20 @@ impl Scenario {
     }
 }
 
-fn hand(a: &[String], i: usize) -> InteractionHand {
-    if a.get(i).map(String::as_str) == Some("off") {
-        InteractionHand::OffHand
-    } else {
-        InteractionHand::MainHand
+impl crate::common::player_actions::ActionHost for Scenario {
+    fn boot(&mut self) {
+        self.world();
+    }
+    fn action_level(&mut self) -> &mut ServerLevel {
+        self.level()
+    }
+    fn action_ref(&self, name: &str) -> EntityId {
+        self.entity_id(name)
+    }
+    fn next_sequence(&mut self, player: &str) -> i32 {
+        self.actors.sequences.next(player)
+    }
+    fn emit(&mut self, line: String) {
+        self.out.push(line);
     }
 }

@@ -138,7 +138,9 @@ import net.minecraft.util.RandomSource;
  * dig PLAYER X Y Z [TICKS]    client-like digging: START_DESTROY_BLOCK, per tick client progress, STOP_DESTROY_BLOCK when the
  *                             client would send it (or after TICKS ticks); prints "DIG ticks=N broken=B"; ticks the server
  * use PLAYER [main|off]       ServerboundUseItemPacket              release PLAYER   RELEASE_USE_ITEM
- * use_on PLAYER X Y Z FACE [main|off] [cx cy cz]  ServerboundUseItemOnPacket (FACE: down up north south west east)
+ * use_on PLAYER X Y Z FACE [main|off] [cx cy cz] [inside]  ServerboundUseItemOnPacket (FACE: down up north south west east; `inside` = BlockHitResult.inside, the click was inside the block)
+ * swap PLAYER                SWAP_ITEM_WITH_OFFHAND (also stops using the item)         stab PLAYER   STAB (spear attack)
+ * dispense X Y Z              BlockStateBase.tick of the block there (a dispenser/dropper dispenses once: no neighbour signal, no 4-tick delay)
  * menu_button PLAYER N       ServerboundContainerButtonClickPacket for the player's open menu (lectern: 1 previous page, 2 next page, 3 take the book, 100+N page N)
  * close_menu PLAYER           ServerboundContainerClosePacket for the player's open menu
  * sign_update PLAYER X Y Z front|back L1 L2 L3 L4   ServerboundSignUpdatePacket (each line one token: "quote" it to keep spaces; missing = "")
@@ -182,7 +184,8 @@ import net.minecraft.util.RandomSource;
  * watch WHAT...               dump after every tick: player:REF entity:REF entities inventory:REF packets:REF[:type,..|:!type,..]   (watch off clears;
  *                             `packets` drains the player's packets; `:type,..` keeps only those, `:!type,..` drops those; `:none` drains silently;
  *                             runs of chunk change packets are sorted by chunk, see chunkOrder)
- * dump WHAT...                same WHATs immediately (`stats:PLAYER` = `STAT PLAYER type.name:value.name N` per earned statistic, sorted; `advancements:PLAYER` = `ADV PLAYER id criterion,..` per advancement with completed criteria, sorted), plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
+ * dump WHAT...                same WHATs immediately (`stats:PLAYER` = `STAT PLAYER type.name:value.name N` per earned statistic, sorted; `advancements:PLAYER` = `ADV PLAYER id criterion,..` per advancement with completed criteria, sorted;
+ *                             `use:PLAYER` = `USE PLAYER hand=main|off item=ID*COUNT remaining=useItemRemaining ticks=getTicksUsingItem kinetic=recentKineticEnemies.size`; `cooldowns:PLAYER` = `CD PLAYER group=ID remaining=endTime-tickCount` per running cooldown, sorted by group), plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
  *                             block oracle extras: be:X,Y,Z -> `BE x y z SNBT` (saveWithFullMetadata, sorted keys; `-` = none),
  *                             beu:X,Y,Z -> `BEU x y z TYPE SNBT` (getUpdatePacket tag; `-` = none),
  *                             bes:CX,CZ -> `BES cx cz`, `BEM x y z type` per block entity in map iteration order, then `BET x y z` / `BETP x y z`
@@ -625,13 +628,28 @@ public final class EntityOracleDriver {
          case "use_on" -> {
             world();
             ServerPlayer p = player(a.get(1));
-            BlockPos pos = new BlockPos(Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)), Integer.parseInt(a.get(4)));
-            Direction face = Direction.byName(a.get(5));
-            boolean cur = a.size() > 9;
-            Vec3 hit = cur ? new Vec3(pos.getX() + d(a.get(a.size() - 3)), pos.getY() + d(a.get(a.size() - 2)), pos.getZ() + d(a.get(a.size() - 1)))
+            List<String> u = new ArrayList<>(a);
+            boolean inside = u.remove("inside");
+            BlockPos pos = new BlockPos(Integer.parseInt(u.get(2)), Integer.parseInt(u.get(3)), Integer.parseInt(u.get(4)));
+            Direction face = Direction.byName(u.get(5));
+            boolean cur = u.size() > 9;
+            Vec3 hit = cur ? new Vec3(pos.getX() + d(u.get(u.size() - 3)), pos.getY() + d(u.get(u.size() - 2)), pos.getZ() + d(u.get(u.size() - 1)))
                : Vec3.atCenterOf(pos).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
-            int handIdx = a.size() > 6 && (a.get(6).equals("main") || a.get(6).equals("off")) ? 6 : -1;
-            p.connection.handleUseItemOn(new ServerboundUseItemOnPacket(handIdx > 0 ? hand(a, 6) : InteractionHand.MAIN_HAND, new BlockHitResult(hit, face, pos, false), seq(a.get(1))));
+            int handIdx = u.size() > 6 && (u.get(6).equals("main") || u.get(6).equals("off")) ? 6 : -1;
+            p.connection.handleUseItemOn(new ServerboundUseItemOnPacket(handIdx > 0 ? hand(u, 6) : InteractionHand.MAIN_HAND, new BlockHitResult(hit, face, pos, inside), seq(a.get(1))));
+         }
+         case "swap" -> {
+            world();
+            player(a.get(1)).connection.handlePlayerAction(new ServerboundPlayerActionPacket(ServerboundPlayerActionPacket.Action.SWAP_ITEM_WITH_OFFHAND, BlockPos.ZERO, Direction.DOWN));
+         }
+         case "stab" -> {
+            world();
+            player(a.get(1)).connection.handlePlayerAction(new ServerboundPlayerActionPacket(ServerboundPlayerActionPacket.Action.STAB, BlockPos.ZERO, Direction.DOWN));
+         }
+         case "dispense" -> {
+            world();
+            BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
+            v.level.getBlockState(pos).tick(v.level, pos, v.level.getRandom());
          }
          case "menu_button" -> {
             world();
@@ -1633,6 +1651,21 @@ public final class EntityOracleDriver {
                }
             }
             case "inventory" -> inventory(arg, (Player)ref(arg));
+            case "use" -> {
+               ServerPlayer p = (ServerPlayer)ref(arg);
+               Object kinetic = priv(p, LivingEntity.class, "recentKineticEnemies");
+               out.println("USE " + arg + " hand=" + (p.getUsedItemHand() == InteractionHand.MAIN_HAND ? "main" : "off") + " item=" + item(p.getUseItem()) + " remaining=" + p.getUseItemRemainingTicks()
+                  + " ticks=" + p.getTicksUsingItem() + " kinetic=" + (kinetic == null ? 0 : ((Map<?, ?>)kinetic).size()));
+            }
+            case "cooldowns" -> {
+               // CD PLAYER group=ID remaining=N, sorted by group: the running cooldowns (endTime - tickCount)
+               net.minecraft.world.item.ItemCooldowns cooldowns = ((ServerPlayer)ref(arg)).getCooldowns();
+               int tickCount = (Integer)priv(cooldowns, net.minecraft.world.item.ItemCooldowns.class, "tickCount");
+               Map<?, ?> running = (Map<?, ?>)priv(cooldowns, net.minecraft.world.item.ItemCooldowns.class, "cooldowns");
+               TreeMap<String, Integer> sorted = new TreeMap<>();
+               running.forEach((group, instance) -> sorted.put(group.toString(), (Integer)priv(instance, "endTime") - tickCount));
+               sorted.forEach((group, remaining) -> out.println("CD " + arg + " group=" + group + " remaining=" + remaining));
+            }
             case "stats" -> {
                // STAT PLAYER type.name:value.name N, sorted by name (the statistics a player has earned)
                @SuppressWarnings("unchecked")

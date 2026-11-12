@@ -1,8 +1,8 @@
-//! Mob state commands of the DSL: `target love age breed tame leash interact` (driver arms of the same names).
+//! Mob state commands of the DSL: `target love age breed tame leash` (driver arms of the same names; `interact` is a player action
+//! in `player_actions.rs`).
 //! `mobspawn` (create + `finalizeSpawn` hook + add) lives in the harness core.
 use super::*;
 use mc_game::world::entity::mob::{ageable, animal, leashable, tamable};
-use mc_game::world::item::InteractionHand;
 
 /// Run `f` on entity `a` with entity `b` taken out of the level next to it (so `f` may read `b` while the level is mutably borrowed).
 fn with_other<R>(
@@ -77,52 +77,6 @@ pub(super) fn run(h: &mut Harness, a: &[String]) -> bool {
                     leashable::set_leashed_to(e, level, leashable::LeashHolder::of(&*holder), true)
                 });
             }
-        }
-        // interact PLAYER REF [main|off] [sneak]   ServerboundInteractPacket (location = entity origin; `center` = bounding box centre relative to the entity)
-        "interact" => {
-            h.world();
-            let target = h.entity_ref(&a[2]);
-            let hand = if a.get(3).is_some_and(|t| t == "off") {
-                InteractionHand::OffHand
-            } else {
-                InteractionHand::MainHand
-            };
-            let sneak = a.iter().any(|t| t == "sneak");
-            let center = a.iter().any(|t| t == "center");
-            let (loc, bb) = {
-                let t = h
-                    .level
-                    .get_entity(target)
-                    .unwrap_or_else(|| h.fail("interact target is not in the level"));
-                let loc = if center {
-                    t.get_bounding_box().get_center().subtract(t.position())
-                } else {
-                    mc_core::phys::Vec3::ZERO
-                };
-                (loc, t.get_bounding_box())
-            };
-            h.with_player(&a[1], |level, p| {
-                // handleInteract: setShiftKeyDown(usingSecondaryAction), range check, interactOn, swing
-                p.base_mut()
-                    .set_shared_flag(mc_game::world::entity::entity::FLAG_SHIFT_KEY_DOWN, sneak);
-                if !p.is_within_entity_interaction_range(&bb, 3.0) {
-                    return;
-                }
-                if let mc_game::world::item::InteractionResult::Success(s) =
-                    p.interact_on(level, target, hand, loc)
-                    && s.should_swing()
-                {
-                    let send = s.swing_source != mc_game::world::item::SwingSource::Predicted;
-                    if p.swing(
-                        level,
-                        hand,
-                        mc_game::world::entity::player::item_use::SWING_ANIMATION_DEFAULT,
-                        send,
-                    ) {
-                        p.reset_attack_strength_ticker();
-                    }
-                }
-            });
         }
         _ => return false,
     }

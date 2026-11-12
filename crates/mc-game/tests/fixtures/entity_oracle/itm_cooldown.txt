@@ -1,0 +1,50 @@
+CD P group=test:group remaining=40
+I P 0 minecraft:snowball*7
+I P 1 minecraft:egg*8
+I P 2 minecraft:snowball*8
+STAT P minecraft.used:minecraft.snowball 1
+CD P group=test:group remaining=30
+CD P group=test:group remaining=30
+I P 0 minecraft:snowball*7
+I P 1 minecraft:egg*8
+I P 2 minecraft:snowball*8
+STAT P minecraft.custom:minecraft.play_time 10
+STAT P minecraft.custom:minecraft.time_since_death 10
+STAT P minecraft.custom:minecraft.time_since_rest 10
+STAT P minecraft.custom:minecraft.total_world_time 10
+STAT P minecraft.used:minecraft.snowball 1
+CD P group=test:group remaining=20
+CD P group=minecraft:snowball remaining=10
+CD P group=test:group remaining=20
+CD P group=minecraft:snowball remaining=1
+CD P group=test:group remaining=11
+CD P group=test:group remaining=10
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+CD P group=minecraft:goat_horn remaining=140
+USE P hand=main item=minecraft:goat_horn*1 remaining=140 ticks=0 kinetic=0
+CD P group=minecraft:goat_horn remaining=135
+USE P hand=main item=minecraft:goat_horn*1 remaining=135 ticks=5 kinetic=0
+CD P group=minecraft:goat_horn remaining=135
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+CD P group=minecraft:goat_horn remaining=95
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+CD P group=minecraft:goat_horn remaining=95
+USE P hand=main item=minecraft:chorus_fruit*2 remaining=32 ticks=0 kinetic=0
+CD P group=minecraft:goat_horn remaining=64
+USE P hand=main item=minecraft:chorus_fruit*2 remaining=1 ticks=31 kinetic=0
+CD P group=minecraft:chorus_fruit remaining=19
+CD P group=minecraft:goat_horn remaining=63
+USE P hand=main item=empty remaining=0 ticks=0 kinetic=0
+I P 0 minecraft:snowball*7
+I P 1 minecraft:egg*8
+I P 2 minecraft:snowball*7
+I P 3 minecraft:goat_horn*1
+I P 4 minecraft:chorus_fruit*1
+STAT P minecraft.custom:minecraft.play_time 127
+STAT P minecraft.custom:minecraft.time_since_death 127
+STAT P minecraft.custom:minecraft.time_since_rest 127
+STAT P minecraft.custom:minecraft.total_world_time 127
+STAT P minecraft.used:minecraft.chorus_fruit 1
+STAT P minecraft.used:minecraft.goat_horn 1
+STAT P minecraft.used:minecraft.snowball 2
+CD P group=minecraft:goat_horn remaining=43

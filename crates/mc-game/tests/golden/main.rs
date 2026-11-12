@@ -96,6 +96,7 @@ mod item_registration_guards;
 mod item_use;
 mod item_wind_charge_golden;
 mod items_oracle;
+mod items_use_golden;
 mod itm_brush_golden;
 mod itm_ender_eye_golden;
 mod jigsaw_codec;
