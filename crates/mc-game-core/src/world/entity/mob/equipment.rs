@@ -70,6 +70,29 @@ pub fn is_equippable_in_slot(e: &dyn Entity, stack: &ItemStack, slot: EquipmentS
     }
 }
 
+/// `Mob.canDispenserEquipIntoSlot(slot)` (`LivingEntity`'s is `true`): the part every override calls as `super`.
+pub fn can_dispenser_equip_into_slot(e: &dyn Entity) -> bool {
+    !e.is_mob() || e.can_pick_up_loot()
+}
+
+/// `LivingEntity.canEquipWithDispenser(stack)`.
+pub fn can_equip_with_dispenser(e: &dyn Entity, stack: &ItemStack) -> bool {
+    if !e.is_alive() || e.is_spectator() {
+        return false;
+    }
+    let Some(eq) = stack.get(&EQUIPPABLE).filter(|eq| eq.dispensable) else {
+        return false;
+    };
+    let slot = EquipmentSlot::from_protocol(eq.slot);
+    e.can_use_slot(slot)
+        && eq
+            .allowed_entities
+            .as_ref()
+            .is_none_or(|set| super::ext::entity_set_contains(set, e.get_type()))
+        && e.get_item_by_slot(slot).is_empty()
+        && e.can_dispenser_equip_into_slot(slot)
+}
+
 /// `setItemSlot(slot, stack)`: stores the stack and runs `onEquipItem`.
 pub fn set_item_slot(
     e: &mut dyn Entity,
@@ -77,7 +100,11 @@ pub fn set_item_slot(
     slot: EquipmentSlot,
     stack: ItemStack,
 ) {
-    let old = lm(e).equipment.set(slot, stack.clone());
+    // a player's equipment lives in its inventory
+    let old = match e.player_mut() {
+        Some(p) => p.inventory.equipment_set(slot, stack.clone()),
+        None => lm(e).equipment.set(slot, stack.clone()),
+    };
     e.on_equip_item(level, slot, &old, &stack);
 }
 
