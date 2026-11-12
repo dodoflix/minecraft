@@ -90,6 +90,7 @@ level_rules! {
     fire_spread_radius_around_player: i32 = FIRE_SPREAD_RADIUS_AROUND_PLAYER,
     forgive_dead_players: bool = FORGIVE_DEAD_PLAYERS,
     freeze_damage: bool = FREEZE_DAMAGE,
+    global_sound_events: bool = GLOBAL_SOUND_EVENTS,
     immediate_respawn: bool = IMMEDIATE_RESPAWN,
     keep_inventory: bool = KEEP_INVENTORY,
     lava_source_conversion: bool = LAVA_SOURCE_CONVERSION,

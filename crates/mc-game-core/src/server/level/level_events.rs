@@ -132,35 +132,26 @@ impl ServerLevel {
         );
     }
 
-    /// `globalLevelEvent(type, pos, data)`; `global_sound_events` is `GameRules.GLOBAL_SOUND_EVENTS`.
-    pub fn global_level_event(
-        &self,
-        global_sound_events: bool,
-        event_type: i32,
-        pos: BlockPos,
-        data: i32,
-        all_players: &[(EntityId, Option<ConnectionSender>, Vec3, bool)],
-    ) {
-        if !global_sound_events {
+    /// `globalLevelEvent(type, pos, data)`.
+    pub fn global_level_event(&self, event_type: i32, pos: BlockPos, data: i32) {
+        if !self.global_sound_events() {
             self.level_event_impl(None, event_type, pos, data);
             return;
         }
-        for (_, connection, player_pos, in_this_level) in all_players {
-            let Some(connection) = connection else {
-                continue;
-            };
-            let sound_pos = if *in_this_level {
+        for player in self.all_player_handles() {
+            let player_pos = player.position();
+            let sound_pos = if player.dimension() == self.dimension {
                 let center = Vec3::at_center_of(&pos);
                 if player_pos.distance_to_sqr(center) < 32.0 * 32.0 {
                     center
                 } else {
-                    let direction = center.subtract(*player_pos).normalize();
+                    let direction = center.subtract(player_pos).normalize();
                     player_pos.add(direction.scale(32.0))
                 }
             } else {
-                *player_pos
+                player_pos
             };
-            connection.send(&ClientboundLevelEventPacket {
+            player.connection.send(&ClientboundLevelEventPacket {
                 r#type: event_type,
                 pos: BlockPos::containing_position(&sound_pos),
                 data,
