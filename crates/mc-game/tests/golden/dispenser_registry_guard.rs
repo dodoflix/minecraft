@@ -147,16 +147,7 @@ const NOT_IMPLEMENTED: &[(&str, &str)] = &[
 /// hand with the commit that completes the behaviour.
 #[rustfmt::skip]
 const INCOMPLETE: &[(&str, &str)] = &[
-    ("minecraft:tnt", "SulfurCubeBlockDispenseItemBehavior.dispenseBlock: a sulfur cube in front swallows the TNT block instead of the TNT being primed (no sulfur cube dispenser hook yet)"),
-];
-
-/// The component-based defaults of `DispenserBlock.getDefaultDispenseMethod` that are still the plain drop (name, the
-/// missing behaviour).
-#[rustfmt::skip]
-const DEFAULTS_NOT_IMPLEMENTED: &[(&str, &str)] = &[
-    ("equippable", "EquipmentDispenseItemBehavior: equips the item on the living entity in front (no equipment dispenser hook yet)"),
-    ("sulfur_cube_swallowable", "SulfurCubeBlockDispenseItemBehavior: a sulfur cube in front swallows the item (no sulfur cube dispenser hook yet)"),
-    ("spawn_egg_with_entity_data", "SpawnEggItemBehavior: spawns the egg's entity in front"),
+    ("minecraft:tnt", "SulfurCubeBlockDispenseItemBehavior.dispenseBlock: a sulfur cube in front swallows the TNT block instead of the TNT being primed (the TNT behaviour does not call it yet)"),
 ];
 
 fn registered() -> BTreeSet<&'static str> {
@@ -222,9 +213,9 @@ fn every_vanilla_item_is_registered_or_accounted_for() {
 }
 
 /// `getDefaultDispenseMethod` returns something other than the plain drop for equippable items, sulfur cube
-/// swallowables and spawn eggs with entity data, once implemented.
+/// swallowables and spawn eggs with entity data.
 #[test]
-fn component_defaults_are_registered_or_accounted_for() {
+fn component_defaults_are_not_the_plain_drop() {
     let swallowable = mc_data::tags::get::<Item>("sulfur_cube_swallowable")
         .and_then(|tag| Item::iter().find(|item| tag.contains(*item)))
         .expect("the sulfur_cube_swallowable tag has items");
@@ -238,26 +229,12 @@ fn component_defaults_are_registered_or_accounted_for() {
     ];
     assert!(stacks[0].1.has(DataComponentType::EQUIPPABLE));
     assert!(stacks[2].1.has(DataComponentType::ENTITY_DATA));
-    let mut problems = Vec::new();
-    for (name, stack) in &stacks {
-        let plain = std::ptr::addr_eq(get_default_dispense_method(stack), default_behavior());
-        let listed = DEFAULTS_NOT_IMPLEMENTED.iter().any(|(n, _)| n == name);
-        match (plain, listed) {
-            (true, true) | (false, false) => {}
-            (true, false) => problems.push(format!(
-                "{name}: dispensed as a plain drop: implement it, or list it in DEFAULTS_NOT_IMPLEMENTED"
-            )),
-            (false, true) => problems.push(format!(
-                "{name} is implemented: delete it from DEFAULTS_NOT_IMPLEMENTED"
-            )),
-        }
-    }
-    for (name, _) in DEFAULTS_NOT_IMPLEMENTED {
-        if !stacks.iter().any(|(n, _)| n == name) {
-            problems.push(format!(
-                "{name} is not a default checked here: delete its entry"
-            ));
-        }
-    }
-    assert!(problems.is_empty(), "{problems:#?}");
+    let plain: Vec<_> = stacks
+        .iter()
+        .filter(|(_, stack)| {
+            std::ptr::addr_eq(get_default_dispense_method(stack), default_behavior())
+        })
+        .map(|(name, _)| name)
+        .collect();
+    assert!(plain.is_empty(), "dispensed as a plain drop: {plain:?}");
 }

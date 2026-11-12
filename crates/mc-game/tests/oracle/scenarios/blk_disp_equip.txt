@@ -1,0 +1,167 @@
+# Dispenser equipment (DispenserBlock.getDefaultDispenseMethod -> EquipmentDispenseItemBehavior for items with an equippable component):
+# LivingEntity.canEquipWithDispenser (alive, not spectator, dispensable, canUseSlot, allowed entities, empty slot, canDispenserEquipIntoSlot
+# with the Mob/AbstractHorse/Pig/Strider overrides) picks the first living entity in the block in front; one item is equipped, a mob gets a
+# guaranteed drop chance and persistence. Without a taker the item is dropped by the default behaviour.
+# Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 2
+time 18000
+note c1 leather helmet on a zombie that can pick up loot: the head slot is filled, its drop chance becomes guaranteed and persistence is required
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+spawn z1 minecraft:zombie 1.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:1b}
+level_seed 101
+dispense 0 -60 0 c1
+dump be:0,-60,0 entities events nbt:z1
+note c2 zombie that cannot pick up loot: Mob.canDispenserEquipIntoSlot is false, the helmet is dropped
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+spawn z2 minecraft:zombie 1.5 -60 4.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:0b}
+level_seed 102
+dispense 0 -60 4 c2
+dump be:0,-60,4 entities events nbt:z2
+note c3 zombie whose head slot is taken: dropped
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+spawn z3 minecraft:zombie 1.5 -60 8.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1}}}
+level_seed 103
+dispense 0 -60 8 c3
+dump be:0,-60,8 entities events nbt:z3
+note c4 leather helmet on a survival player
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+spawn_player P survival 1.5 -60 12.5 0 0
+level_seed 104
+dispense 0 -60 12 c4
+dump be:0,-60,12 entities events player:P inventory:P
+note c5 spectator target: canEquipWithDispenser is false, dropped
+block 0 -60 16 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 16 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+spawn_player S spectator 1.5 -60 16.5 0 0
+level_seed 105
+dispense 0 -60 16 c5
+dump be:0,-60,16 entities events player:S inventory:S
+note c6 leather chestplate on an armor stand (not a mob: no drop chance, no persistence)
+block 0 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 20 {Items:[{Slot:0b,id:"minecraft:leather_chestplate",count:1}]}
+spawn a6 minecraft:armor_stand 1.5 -60 20.5 0 0 {}
+level_seed 106
+dispense 0 -60 20 c6
+dump be:0,-60,20 entities events nbt:a6
+note c7 elytra on an armor stand
+block 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 24 {Items:[{Slot:0b,id:"minecraft:elytra",count:1}]}
+spawn a7 minecraft:armor_stand 1.5 -60 24.5 0 0 {}
+level_seed 107
+dispense 0 -60 24 c7
+dump be:0,-60,24 entities events nbt:a7
+note c8 saddle on a tamed horse
+block 0 -60 28 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 28 {Items:[{Slot:0b,id:"minecraft:saddle",count:1}]}
+spawn h8 minecraft:horse 1.5 -60 28.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 108
+dispense 0 -60 28 c8
+dump be:0,-60,28 entities events nbt:h8
+note c9 saddle on an untamed horse: AbstractHorse accepts the saddle slot only when tamed, canPickUpLoot is false, dropped
+block 0 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 32 {Items:[{Slot:0b,id:"minecraft:saddle",count:1}]}
+spawn h9 minecraft:horse 1.5 -60 32.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 109
+dispense 0 -60 32 c9
+dump be:0,-60,32 entities events nbt:h9
+note c10 saddle on a pig (any pig)
+block 0 -60 36 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 36 {Items:[{Slot:0b,id:"minecraft:saddle",count:1}]}
+spawn p10 minecraft:pig 1.5 -60 36.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 110
+dispense 0 -60 36 c10
+dump be:0,-60,36 entities events nbt:p10
+note c11 saddle on a baby pig: canUseSlot(saddle) is false, dropped
+block 0 -60 40 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 40 {Items:[{Slot:0b,id:"minecraft:saddle",count:1}]}
+spawn p11 minecraft:pig 1.5 -60 40.5 0 0 {NoAI:1b,Silent:1b,Age:-24000}
+level_seed 111
+dispense 0 -60 40 c11
+dump be:0,-60,40 entities events nbt:p11
+note c12 saddle on a strider
+block 0 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 44 {Items:[{Slot:0b,id:"minecraft:saddle",count:1}]}
+spawn s12 minecraft:strider 1.5 -60 44.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 112
+dispense 0 -60 44 c12
+dump be:0,-60,44 entities events nbt:s12
+note c13 white carpet on a tamed llama (body slot)
+block 10 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 0 {Items:[{Slot:0b,id:"minecraft:white_carpet",count:1}]}
+spawn l13 minecraft:llama 11.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 113
+dispense 10 -60 0 c13
+dump be:10,-60,0 entities events nbt:l13
+note c14 white carpet on an untamed llama: dropped
+block 10 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 4 {Items:[{Slot:0b,id:"minecraft:white_carpet",count:1}]}
+spawn l14 minecraft:llama 11.5 -60 4.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 114
+dispense 10 -60 4 c14
+dump be:10,-60,4 entities events nbt:l14
+note c15 white carpet on a tamed horse: not an allowed entity, dropped
+block 10 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 8 {Items:[{Slot:0b,id:"minecraft:white_carpet",count:1}]}
+spawn h15 minecraft:horse 11.5 -60 8.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 115
+dispense 10 -60 8 c15
+dump be:10,-60,8 entities events nbt:h15
+note c16 iron horse armor on a tamed horse (body slot)
+block 10 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 12 {Items:[{Slot:0b,id:"minecraft:iron_horse_armor",count:1}]}
+spawn h16 minecraft:horse 11.5 -60 12.5 0 0 {NoAI:1b,Silent:1b,Tame:1b}
+level_seed 116
+dispense 10 -60 12 c16
+dump be:10,-60,12 entities events nbt:h16
+note c17 no entity in front: dropped
+block 10 -60 16 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 16 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+level_seed 117
+dispense 10 -60 16 c17
+dump be:10,-60,16 entities events
+note c18 dead zombie (health 0, not yet removed): dropped
+block 10 -60 20 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 20 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+spawn z18 minecraft:zombie 11.5 -60 20.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:1b}
+nbt z18 {Health:0f}
+level_seed 118
+dispense 10 -60 20 c18
+dump be:10,-60,20 entities events nbt:z18
+note c19 skeleton skull (equippable head, no registered behaviour) on a zombie
+block 10 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 24 {Items:[{Slot:0b,id:"minecraft:skeleton_skull",count:1}]}
+spawn z19 minecraft:zombie 11.5 -60 24.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:1b}
+level_seed 119
+dispense 10 -60 24 c19
+dump be:10,-60,24 entities events nbt:z19
+note c20 equippable.dispensable false: dropped
+block 10 -60 28 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 28 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1,components:{"minecraft:equippable":{slot:"head",dispensable:false}}}]}
+spawn z20 minecraft:zombie 11.5 -60 28.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:1b}
+level_seed 120
+dispense 10 -60 28 c20
+dump be:10,-60,28 entities events nbt:z20
+note c21 two zombies in the box: the first that accepts is chosen (the one that cannot pick up loot is skipped)
+block 10 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 32 {Items:[{Slot:0b,id:"minecraft:leather_helmet",count:1}]}
+spawn za21 minecraft:zombie 11.5 -60 32.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:0b}
+spawn zb21 minecraft:zombie 11.5 -60 32.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:1b}
+level_seed 121
+dispense 10 -60 32 c21
+dump be:10,-60,32 entities events nbt:za21 nbt:zb21
+note c22 armor stand and zombie in the box
+block 10 -60 36 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 36 {Items:[{Slot:0b,id:"minecraft:golden_helmet",count:1}]}
+spawn a22 minecraft:armor_stand 11.5 -60 36.5 0 0 {}
+spawn z22 minecraft:zombie 11.5 -60 36.5 0 0 {NoAI:1b,Silent:1b,CanPickUpLoot:1b}
+level_seed 122
+dispense 10 -60 36 c22
+dump be:10,-60,36 entities events nbt:a22 nbt:z22
+note the entities settle (the zombies carry equipment now)
+tick 2
+dump entities

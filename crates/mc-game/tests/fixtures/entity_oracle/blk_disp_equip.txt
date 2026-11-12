@@ -1,0 +1,466 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c1 leather helmet on a zombie that can pick up loot: the head slot is filled, its drop chance becomes guaranteed and persistence is required
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+N z1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{head:2.0f},equipment:{head:{count:1,id:"minecraft:leather_helmet"}},fall_distance:0.0d}
+# c2 zombie that cannot pick up loot: Mob.canDispenserEquipIntoSlot is false, the helmet is dropped
+BE 0 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=5 global=0
+N z2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c3 zombie whose head slot is taken: dropped
+BE 0 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+N z3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,8.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:iron_helmet"}},fall_distance:0.0d}
+# c4 leather helmet on a survival player
+BE 0 -60 12 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0
+P P minecraft:player pos=1.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I P 39 minecraft:leather_helmet*1
+# c5 spectator target: canEquipWithDispenser is false, dropped
+BE 0 -60 16 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:16}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,16 data=5 global=0
+P S minecraft:player pos=1.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# c6 leather chestplate on an armor stand (not a mob: no drop chance, no persistence)
+BE 0 -60 20 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:20}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,20 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,20 data=5 global=0
+N a6 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,20.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,attributes:[],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:leather_chestplate"}},fall_distance:0.0d}
+# c7 elytra on an armor stand
+BE 0 -60 24 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:24}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,24 data=5 global=0
+N a7 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,24.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,attributes:[],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:elytra"}},fall_distance:0.0d}
+# c8 saddle on a tamed horse
+BE 0 -60 28 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:28}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,28 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,28 data=5 global=0
+N h8 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,28.5d],Rotation:[0.0f,0.0f],Silent:1b,Tame:1b,Temper:0,Variant:0,attributes:[],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+# c9 saddle on an untamed horse: AbstractHorse accepts the saddle slot only when tamed, canPickUpLoot is false, dropped
+BE 0 -60 32 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:32}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,32 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,32 data=5 global=0
+N h9 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,32.5d],Rotation:[0.0f,0.0f],Silent:1b,Tame:0b,Temper:0,Variant:0,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c10 saddle on a pig (any pig)
+BE 0 -60 36 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:36}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,36 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,36 data=5 global=0
+N p10 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,36.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+# c11 saddle on a baby pig: canUseSlot(saddle) is false, dropped
+BE 0 -60 40 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:40}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,40 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,40 data=5 global=0
+N p11 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,40.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+# c12 saddle on a strider
+BE 0 -60 44 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:44}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,44 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,44 data=5 global=0
+N s12 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:20.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5d,-60.0d,44.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+# c13 white carpet on a tamed llama (body slot)
+BE 10 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:0}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,0 data=5 global=0
+N l13 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[11.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Silent:1b,Strength:1,Tame:1b,Temper:0,Variant:0,attributes:[],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},equipment:{body:{count:1,id:"minecraft:white_carpet"}},fall_distance:0.0d}
+# c14 white carpet on an untamed llama: dropped
+BE 10 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:4}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.2,-59.65625,4.5 delta=0.2880305294026758,0.21267371486519154,0.02132660906427519 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,4 data=5 global=0
+N l14 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Silent:1b,Strength:1,Tame:0b,Temper:0,Variant:0,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c15 white carpet on a tamed horse: not an allowed entity, dropped
+BE 10 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:8}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.2,-59.65625,4.5 delta=0.2880305294026758,0.21267371486519154,0.02132660906427519 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h15 minecraft:horse pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#7 minecraft:item pos=11.2,-59.65625,8.5 delta=0.2225734387438004,0.27600086459123424,-0.04550736689578238 rot=303.9582,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,8 data=5 global=0
+N h15 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,8.5d],Rotation:[0.0f,0.0f],Silent:1b,Tame:1b,Temper:0,Variant:0,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c16 iron horse armor on a tamed horse (body slot)
+BE 10 -60 12 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:12}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.2,-59.65625,4.5 delta=0.2880305294026758,0.21267371486519154,0.02132660906427519 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h15 minecraft:horse pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#7 minecraft:item pos=11.2,-59.65625,8.5 delta=0.2225734387438004,0.27600086459123424,-0.04550736689578238 rot=303.9582,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h16 minecraft:horse pos=11.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,12 data=5 global=0
+N h16 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[11.5d,-60.0d,12.5d],Rotation:[0.0f,0.0f],Silent:1b,Tame:1b,Temper:0,Variant:0,attributes:[],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},equipment:{body:{count:1,id:"minecraft:iron_horse_armor"}},fall_distance:0.0d}
+# c17 no entity in front: dropped
+BE 10 -60 16 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:16}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.2,-59.65625,4.5 delta=0.2880305294026758,0.21267371486519154,0.02132660906427519 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h15 minecraft:horse pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#7 minecraft:item pos=11.2,-59.65625,8.5 delta=0.2225734387438004,0.27600086459123424,-0.04550736689578238 rot=303.9582,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h16 minecraft:horse pos=11.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#8 minecraft:item pos=11.2,-59.65625,16.5 delta=0.32983086572620524,0.13913875986697352,0.07031377580361363 rot=41.30718,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,16 data=5 global=0
+# c18 dead zombie (health 0, not yet removed): dropped
+BE 10 -60 20 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:20}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.2,-59.65625,4.5 delta=0.2880305294026758,0.21267371486519154,0.02132660906427519 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h15 minecraft:horse pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#7 minecraft:item pos=11.2,-59.65625,8.5 delta=0.2225734387438004,0.27600086459123424,-0.04550736689578238 rot=303.9582,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h16 minecraft:horse pos=11.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#8 minecraft:item pos=11.2,-59.65625,16.5 delta=0.32983086572620524,0.13913875986697352,0.07031377580361363 rot=41.30718,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=11.2,-59.65625,20.5 delta=0.22283714997475743,0.1558873122291039,-0.03927929477595512 rot=334.51083,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,20 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,20 data=5 global=0
+N z18 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:0.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,20.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c19 skeleton skull (equippable head, no registered behaviour) on a zombie
+BE 10 -60 24 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:24}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.2,-59.65625,4.5 delta=0.2880305294026758,0.21267371486519154,0.02132660906427519 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h15 minecraft:horse pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#7 minecraft:item pos=11.2,-59.65625,8.5 delta=0.2225734387438004,0.27600086459123424,-0.04550736689578238 rot=303.9582,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h16 minecraft:horse pos=11.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#8 minecraft:item pos=11.2,-59.65625,16.5 delta=0.32983086572620524,0.13913875986697352,0.07031377580361363 rot=41.30718,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=11.2,-59.65625,20.5 delta=0.22283714997475743,0.1558873122291039,-0.03927929477595512 rot=334.51083,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z19 minecraft:zombie pos=11.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,24 data=5 global=0
+N z19 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[11.5d,-60.0d,24.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{head:2.0f},equipment:{head:{count:1,id:"minecraft:skeleton_skull"}},fall_distance:0.0d}
+# c20 equippable.dispensable false: dropped
+BE 10 -60 28 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:28}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.2,-59.65625,4.5 delta=0.2880305294026758,0.21267371486519154,0.02132660906427519 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h15 minecraft:horse pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#7 minecraft:item pos=11.2,-59.65625,8.5 delta=0.2225734387438004,0.27600086459123424,-0.04550736689578238 rot=303.9582,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h16 minecraft:horse pos=11.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#8 minecraft:item pos=11.2,-59.65625,16.5 delta=0.32983086572620524,0.13913875986697352,0.07031377580361363 rot=41.30718,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=11.2,-59.65625,20.5 delta=0.22283714997475743,0.1558873122291039,-0.03927929477595512 rot=334.51083,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z19 minecraft:zombie pos=11.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z20 minecraft:zombie pos=11.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#10 minecraft:item pos=11.2,-59.65625,28.5 delta=0.23009457849742085,0.22575520750484313,-0.02682315361681763 rot=93.51925,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,28 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,28 data=5 global=0
+N z20 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,28.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c21 two zombies in the box: the first that accepts is chosen (the one that cannot pick up loot is skipped)
+BE 10 -60 32 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:32}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.2,-59.65625,4.5 delta=0.2880305294026758,0.21267371486519154,0.02132660906427519 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h15 minecraft:horse pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#7 minecraft:item pos=11.2,-59.65625,8.5 delta=0.2225734387438004,0.27600086459123424,-0.04550736689578238 rot=303.9582,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h16 minecraft:horse pos=11.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#8 minecraft:item pos=11.2,-59.65625,16.5 delta=0.32983086572620524,0.13913875986697352,0.07031377580361363 rot=41.30718,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=11.2,-59.65625,20.5 delta=0.22283714997475743,0.1558873122291039,-0.03927929477595512 rot=334.51083,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z19 minecraft:zombie pos=11.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z20 minecraft:zombie pos=11.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#10 minecraft:item pos=11.2,-59.65625,28.5 delta=0.23009457849742085,0.22575520750484313,-0.02682315361681763 rot=93.51925,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E za21 minecraft:zombie pos=11.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zb21 minecraft:zombie pos=11.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,32 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,32 data=5 global=0
+N za21 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,32.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N zb21 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[11.5d,-60.0d,32.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{head:2.0f},equipment:{head:{count:1,id:"minecraft:leather_helmet"}},fall_distance:0.0d}
+# c22 armor stand and zombie in the box
+BE 10 -60 36 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:36}
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.2,-59.65625,4.5 delta=0.1721586275420234,0.13547170322501179,0.028392082161831023 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.2,-59.65625,8.5 delta=0.3100665307722562,0.19879884987053748,-0.038441893798226545 rot=340.01593,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.2,-59.65625,16.5 delta=0.21395895929491962,0.16530174822679378,-0.025985754179347596 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.2,-59.65625,32.5 delta=0.2521305798168588,0.21188034559070612,0.01677334198042209 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.2,-59.65625,40.5 delta=0.2830447703260185,0.18859104767887921,0.04707629544079577 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=0 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.2,-59.65625,4.5 delta=0.2880305294026758,0.21267371486519154,0.02132660906427519 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h15 minecraft:horse pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#7 minecraft:item pos=11.2,-59.65625,8.5 delta=0.2225734387438004,0.27600086459123424,-0.04550736689578238 rot=303.9582,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E h16 minecraft:horse pos=11.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#8 minecraft:item pos=11.2,-59.65625,16.5 delta=0.32983086572620524,0.13913875986697352,0.07031377580361363 rot=41.30718,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=11.2,-59.65625,20.5 delta=0.22283714997475743,0.1558873122291039,-0.03927929477595512 rot=334.51083,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E z19 minecraft:zombie pos=11.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z20 minecraft:zombie pos=11.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#10 minecraft:item pos=11.2,-59.65625,28.5 delta=0.23009457849742085,0.22575520750484313,-0.02682315361681763 rot=93.51925,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=0 pickup=0 health=5 owner=- thrower=-
+E za21 minecraft:zombie pos=11.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zb21 minecraft:zombie pos=11.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a22 minecraft:armor_stand pos=11.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z22 minecraft:zombie pos=11.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,36 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,36 data=5 global=0
+N a22 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,36.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,attributes:[],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:golden_helmet"}},fall_distance:0.0d}
+N z22 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,36.5d],Rotation:[0.0f,0.0f],Silent:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# the entities settle (the zombies carry equipment now)
+E z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z2 minecraft:zombie pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5408740858168717,-59.507216025793504,4.556216323221962 delta=0.16534115232734317,0.05249102658347921,0.027267756769633066 rot=67.76695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=2 pickup=0 health=5 owner=- thrower=-
+E z3 minecraft:zombie pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#3 minecraft:item pos=1.623638743484884,-59.44815253612101,16.44854820622925 delta=0.20548619250548972,0.08113980291835804,-0.02495671928529774 rot=269.22815,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=2 pickup=0 health=5 owner=- thrower=-
+E a6 minecraft:armor_stand pos=1.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=1.5,-60.0,24.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h8 minecraft:horse pos=1.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E h9 minecraft:horse pos=1.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#4 minecraft:item pos=1.6992185528463897,-59.35592691245204,32.53321121744116 delta=0.24214621828176927,0.1258738895679553,0.01610911826505256 rot=120.63939,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=2 pickup=0 health=5 owner=- thrower=-
+E p10 minecraft:pig pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p11 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#5 minecraft:item pos=1.7604286506441673,-59.40203972276167,40.59321106587068 delta=0.2718362080024634,0.10350684698278885,0.04521207590124207 rot=341.282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:saddle*1 age=2 pickup=0 health=5 owner=- thrower=-
+E s12 minecraft:strider pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l13 minecraft:llama pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l14 minecraft:llama pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=11.770300453711043,-59.354356041273434,4.542226686354037 delta=0.27662453120607283,0.12663584144883044,0.02048207614260456 rot=4.547353,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=2 pickup=0 health=5 owner=- thrower=-
+E h15 minecraft:horse pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#7 minecraft:item pos=11.640695412957976,-59.228968283608,8.409895412678367 delta=0.21375953889023883,0.18745523841314615,-0.04370527686795833 rot=303.9582,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_carpet*1 age=2 pickup=0 health=5 owner=- thrower=-
+E h16 minecraft:horse pos=11.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#8 minecraft:item pos=11.85306512042891,-59.499955253572466,16.63922127743228 delta=0.3167695757738556,0.05601286791950864,0.06752935291040309 rot=41.30718,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=2 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=11.641217561200301,-59.466793119575996,20.422226995594414 delta=0.21401280716630852,0.0720981782342271,-0.03772383617124577 rot=334.51083,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:leather_helmet*1 age=2 pickup=0 health=5 owner=- thrower=-
+E z19 minecraft:zombie pos=11.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z20 minecraft:zombie pos=11.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E za21 minecraft:zombie pos=11.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zb21 minecraft:zombie pos=11.5,-60.0,32.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a22 minecraft:armor_stand pos=11.5,-60.0,36.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z22 minecraft:zombie pos=11.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-

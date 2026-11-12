@@ -1,0 +1,115 @@
+# Dispenser spawn eggs (DispenserBlock.getDefaultDispenseMethod -> SpawnEggItemBehavior for a SpawnEggItem with an entity_data component):
+# EntityType.spawn(level, stack, null, pos in front, EntitySpawnReason.DISPENSER, tryMoveDown = facing != UP, false) with the default stack
+# config (implicit components, entity_data loadInto), one item consumed and the ENTITY_PLACE game event at the dispenser.
+# Every dispense line is unique: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 2
+time 18000
+note c1 zombie egg facing east: spawned in the block in front, tryMoveDown (not aligned), mobs finalise and play their ambient sound
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1}]}
+level_seed 201
+dispense 0 -60 0 c1
+dump be:0,-60,0 entities events nbt:zombie#1
+note c2 zombie egg facing up: no tryMoveDown
+block 0 -60 4 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1}]}
+level_seed 202
+dispense 0 -60 4 c2
+dump be:0,-60,4 entities events nbt:zombie#2
+note c3 zombie egg facing down (dispenser two blocks up)
+block 0 -58 8 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 0 -58 8 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1}]}
+level_seed 203
+dispense 0 -58 8 c3
+dump be:0,-58,8 entities events nbt:zombie#3
+note c4 zombie egg facing north
+block 0 -60 12 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1}]}
+level_seed 204
+dispense 0 -60 12 c4
+dump be:0,-60,12 entities events nbt:zombie#4
+note c5 zombie egg facing south
+block 0 -60 16 minecraft:dispenser[facing=south,triggered=false]
+be_nbt 0 -60 16 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1}]}
+level_seed 205
+dispense 0 -60 16 c5
+dump be:0,-60,16 entities events nbt:zombie#5
+note c6 zombie egg facing west
+block 0 -60 20 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 0 -60 20 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1}]}
+level_seed 206
+dispense 0 -60 20 c6
+dump be:0,-60,20 entities events nbt:zombie#6
+note c7 a stack of two eggs: one is consumed
+block 0 -60 24 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 24 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:2}]}
+level_seed 207
+dispense 0 -60 24 c7
+dump be:0,-60,24 entities events nbt:zombie#7
+note c8 egg against a wall: the zombie is created inside the stone (tryMoveDown still applies)
+block 0 -60 28 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 28 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1}]}
+block 1 -60 28 minecraft:stone
+level_seed 208
+dispense 0 -60 28 c8
+dump be:0,-60,28 entities events nbt:zombie#8
+note c9 bottom slab in front: tryMoveDown lowers the spawn by half a block
+block 0 -60 32 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 32 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1}]}
+block 1 -60 32 minecraft:stone_slab[type=bottom]
+level_seed 209
+dispense 0 -60 32 c9
+dump be:0,-60,32 entities events nbt:zombie#9
+note c10 fence in front: the collision box raises nothing, the mob stands in the fence
+block 0 -60 36 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 36 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1}]}
+block 1 -60 36 minecraft:oak_fence
+level_seed 210
+dispense 0 -60 36 c10
+dump be:0,-60,36 entities events nbt:zombie#10
+note c11 custom entity_data on the egg: a named pig with its own health (loadInto over the egg's type)
+block 0 -60 40 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 40 {Items:[{Slot:0b,id:"minecraft:pig_spawn_egg",count:1,components:{"minecraft:entity_data":{id:"minecraft:pig",NoAI:1b,Silent:1b,Health:5f,CustomName:"Bob"}}}]}
+level_seed 211
+dispense 0 -60 40 c11
+dump be:0,-60,40 entities events nbt:pig#1
+note c12 custom_name component of the egg is applied as an implicit component
+block 0 -60 44 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 44 {Items:[{Slot:0b,id:"minecraft:pig_spawn_egg",count:1,components:{"minecraft:custom_name":"Named"}}]}
+level_seed 212
+dispense 0 -60 44 c12
+dump be:0,-60,44 entities events nbt:pig#2
+note c13 zombie egg whose entity_data names another type: that type is spawned
+block 10 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 0 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1,components:{"minecraft:entity_data":{id:"minecraft:husk",NoAI:1b,Silent:1b}}}]}
+level_seed 213
+dispense 10 -60 0 c13
+dump be:10,-60,0 entities events nbt:husk#1
+note c14 entity_data of a non-mob type: no ambient sound, no finalizeSpawn
+block 10 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 4 {Items:[{Slot:0b,id:"minecraft:zombie_spawn_egg",count:1,components:{"minecraft:entity_data":{id:"minecraft:armor_stand",Invisible:1b}}}]}
+level_seed 214
+dispense 10 -60 4 c14
+dump be:10,-60,4 entities events nbt:armor_stand#1
+note c15 sulfur cube egg facing east
+block 10 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 8 {Items:[{Slot:0b,id:"minecraft:sulfur_cube_spawn_egg",count:1}]}
+level_seed 215
+dispense 10 -60 8 c15
+dump be:10,-60,8 entities events nbt:sulfur_cube#1
+note c16 sulfur cube egg facing up
+block 10 -60 12 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 10 -60 12 {Items:[{Slot:0b,id:"minecraft:sulfur_cube_spawn_egg",count:1}]}
+level_seed 216
+dispense 10 -60 12 c16
+dump be:10,-60,12 entities events nbt:sulfur_cube#2
+note c17 egg of a creeper with powered entity_data
+block 10 -60 16 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 16 {Items:[{Slot:0b,id:"minecraft:creeper_spawn_egg",count:1,components:{"minecraft:entity_data":{id:"minecraft:creeper",powered:1b,NoAI:1b,Silent:1b}}}]}
+level_seed 217
+dispense 10 -60 16 c17
+dump be:10,-60,16 entities events nbt:creeper#1
+note the spawned mobs live a few ticks
+tick 2
+dump entities

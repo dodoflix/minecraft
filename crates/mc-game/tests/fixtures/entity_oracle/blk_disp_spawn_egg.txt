@@ -1,0 +1,268 @@
+C Set minecraft:overworld to 18000 tick(s)
+# c1 zombie egg facing east: spawned in the block in front, tryMoveDown (not aligned), mobs finalise and play their ambient sound
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=0.98844683
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+N zombie#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Rotation:[12.480833f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:0.07402488851733169d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.08172459205734138d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.04473724307216609d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c2 zombie egg facing up: no tryMoveDown
+BE 0 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5,-59.0,4.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=0.97109044
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=1 global=0
+N zombie#2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[0.5d,-59.0d,4.5d],Rotation:[81.92603f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.017595658393812722d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.01882415749334947d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.014418226834226602d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c3 zombie egg facing down (dispenser two blocks up)
+BE 0 -58 8 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-58,z:8}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5,-59.0,8.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=1.0423647
+EV level_event r=64.0 ex=0 type=1000 pos=0,-58,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-58,8 data=0 global=0
+N zombie#3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[0.5d,-59.0d,8.5d],Rotation:[178.77765f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:0.051227857243235406d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.0228140282930835d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.004058064304942639d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c4 zombie egg facing north
+BE 0 -60 12 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5,-60.0,11.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=0.9690277
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=2 global=0
+N zombie#4 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,11.5d],Rotation:[-56.964355f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.06405456628292228d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.021671035847700932d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.04364108520823584d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c5 zombie egg facing south
+BE 0 -60 16 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:16}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5,-60.0,17.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=0.9984163
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,16 data=3 global=0
+N zombie#5 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,17.5d],Rotation:[39.887238f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:0.004768949354125858d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.074785600594532d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.036630115674119765d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c6 zombie egg facing west
+BE 0 -60 20 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:20}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=-0.5,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=1.1152937
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,20 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,20 data=4 global=0
+N zombie#6 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[-0.5d,-60.0d,20.5d],Rotation:[109.33244f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.08685159584562019d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.03586980521182772d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.043916507227283144d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c7 a stack of two eggs: one is consumed
+BE 0 -60 24 {Items:[{Slot:0b,count:1,id:"minecraft:zombie_spawn_egg"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:24}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,24.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=0.8878005
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,24 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,24 data=5 global=0
+N zombie#7 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,24.5d],Rotation:[-153.81595f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.018028083631368767d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.07743174159955969d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.025059932440410826d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c8 egg against a wall: the zombie is created inside the stone (tryMoveDown still applies)
+BE 0 -60 28 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:28}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-59.0,28.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=0.9342137
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,28 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,28 data=5 global=0
+N zombie#8 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-59.0d,28.5d],Rotation:[111.19089f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:0.07618701128231521d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.09330328056602408d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.00839448100975358d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c9 bottom slab in front: tryMoveDown lowers the spawn by half a block
+BE 0 -60 32 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:32}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,0.0,0.0 rot=-151.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-59.5,32.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=0.89149815
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,32 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,32 data=5 global=0
+N zombie#9 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-59.5d,32.5d],Rotation:[-151.95752f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:0.030160525207964986d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.03351094761111297d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.029159038937876226d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c10 fence in front: the collision box raises nothing, the mob stands in the fence
+BE 0 -60 36 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:36}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,0.0,0.0 rot=-151.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#10 minecraft:zombie pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=-82.51233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,36.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=1.1211915
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,36 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,36 data=5 global=0
+N zombie#10 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,36.5d],Rotation:[-82.51233f,0.0f],attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.0614600182803827d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.028820815547898917d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.0019455653664821391d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c11 custom entity_data on the egg: a named pig with its own health (loadInto over the egg's type)
+BE 0 -60 40 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:40}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,0.0,0.0 rot=-151.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#10 minecraft:zombie pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=-82.51233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=14.339283,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,40 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,40 data=5 global=0
+N pig#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:"Bob",DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:5.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,40.5d],Rotation:[14.339283f,0.0f],Silent:1b,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.029582190172570477d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:big",variant:"minecraft:temperate"}
+# c12 custom_name component of the egg is applied as an implicit component
+BE 0 -60 44 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:44}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,0.0,0.0 rot=-151.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#10 minecraft:zombie pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=-82.51233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=14.339283,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=138.59727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-60.0,44.5 r=16.0 ex=0 event=minecraft:entity.pig_big.ambient source=neutral vol=1.0 pitch=1.0538483
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,44 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,44 data=5 global=0
+N pig#2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:"Named",DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,44.5d],Rotation:[138.59727f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.022701170648419568d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:big",variant:"minecraft:temperate"}
+# c13 zombie egg whose entity_data names another type: that type is spawned
+BE 10 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:0}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,0.0,0.0 rot=-151.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#10 minecraft:zombie pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=-82.51233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=14.339283,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=138.59727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E husk#1 minecraft:husk pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-124.55112,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,0 data=5 global=0
+N husk#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,0.5d],Rotation:[-124.55112f,0.0f],Silent:1b,attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.03909541395524085d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.046468207188255804d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.008459221573232681d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c14 entity_data of a non-mob type: no ambient sound, no finalizeSpawn
+BE 10 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:4}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,0.0,0.0 rot=-151.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#10 minecraft:zombie pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=-82.51233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=14.339283,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=138.59727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E husk#1 minecraft:husk pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-124.55112,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-55.105927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,4 data=5 global=0
+N armor_stand#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,4.5d],Pose:{},Rotation:[-55.105927f,0.0f],ShowArms:0b,Small:0b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# c15 sulfur cube egg facing east
+BE 10 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:8}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,0.0,0.0 rot=-151.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#10 minecraft:zombie pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=-82.51233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=14.339283,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=138.59727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E husk#1 minecraft:husk pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-124.55112,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-55.105927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sulfur_cube#1 minecraft:sulfur_cube pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=41.745686,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,8 data=5 global=0
+N sulfur_cube#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,8.5d],Rotation:[41.745686f,0.0f],Size:1,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.06189244351793876d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.4000000059604645d,id:"minecraft:movement_speed"},{base:8.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c16 sulfur cube egg facing up
+BE 10 -60 12 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:12}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,0.0,0.0 rot=-151.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#10 minecraft:zombie pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=-82.51233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=14.339283,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=138.59727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E husk#1 minecraft:husk pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-124.55112,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-55.105927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sulfur_cube#1 minecraft:sulfur_cube pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=41.745686,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sulfur_cube#2 minecraft:sulfur_cube pos=10.5,-59.0,12.5 delta=0.0,0.0,0.0 rot=166.00368,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,12 data=1 global=0
+N sulfur_cube#2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[10.5d,-59.0d,12.5d],Rotation:[166.00368f,0.0f],Size:1,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.06232486704409644d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.4000000059604645d,id:"minecraft:movement_speed"},{base:8.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
+# c17 egg of a creeper with powered entity_data
+BE 10 -60 16 {Items:[],components:{},id:"minecraft:dispenser",x:10,y:-60,z:16}
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=81.92603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.0,8.5 delta=0.0,0.0,0.0 rot=178.77765,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=-56.964355,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,0.0,0.0 rot=39.887238,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=109.33244,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=-153.81595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,0.0,0.0 rot=111.19089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,0.0,0.0 rot=-151.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#10 minecraft:zombie pos=1.5,-60.0,36.5 delta=0.0,0.0,0.0 rot=-82.51233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=14.339283,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=1.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=138.59727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E husk#1 minecraft:husk pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-124.55112,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=11.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-55.105927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sulfur_cube#1 minecraft:sulfur_cube pos=11.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=41.745686,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sulfur_cube#2 minecraft:sulfur_cube pos=10.5,-59.0,12.5 delta=0.0,0.0,0.0 rot=166.00368,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E creeper#1 minecraft:creeper pos=11.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=-97.144745,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1000 pos=10,-60,16 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,16 data=5 global=0
+N creeper#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,ExplosionRadius:3b,FallFlying:0b,Fire:0s,Fuse:30s,Health:20.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:1b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[11.5d,-60.0d,16.5d],Rotation:[-97.144745f,0.0f],Silent:1b,attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.006498646881553337d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,ignited:0b,powered:1b}
+# the spawned mobs live a few ticks
+E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=12.480833,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#2 minecraft:zombie pos=0.5,-59.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=81.92603,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#3 minecraft:zombie pos=0.5,-59.07840000152588,8.5 delta=0.0,-0.1552320045166016,0.0 rot=178.77765,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/18 death=0 fx=-
+E zombie#4 minecraft:zombie pos=0.5,-60.0,11.5 delta=0.0,-0.0784000015258789,0.0 rot=-56.964355,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#5 minecraft:zombie pos=0.5,-60.0,17.5 delta=0.0,-0.0784000015258789,0.0 rot=39.887238,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#6 minecraft:zombie pos=-0.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=109.33244,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#7 minecraft:zombie pos=1.5,-60.0,24.5 delta=0.0,-0.0784000015258789,0.0 rot=-153.81595,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#8 minecraft:zombie pos=1.5,-59.0,28.5 delta=0.0,-0.0784000015258789,0.0 rot=111.19089,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#9 minecraft:zombie pos=1.5,-59.5,32.5 delta=0.0,-0.0784000015258789,0.0 rot=-151.95752,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#10 minecraft:zombie pos=1.5,-60.0,36.5 delta=0.0,-0.0784000015258789,0.0 rot=-82.51233,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#1 minecraft:pig pos=1.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=14.339283,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E pig#2 minecraft:pig pos=1.5,-60.0,44.5 delta=0.0,-0.0784000015258789,0.0 rot=138.59727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E husk#1 minecraft:husk pos=11.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=-124.55112,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=11.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=-55.105927,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sulfur_cube#1 minecraft:sulfur_cube pos=11.511401079430657,-60.0,8.510173190533632 delta=0.004943054602659626,-0.0784000015258789,0.004410690811940842 rot=273.2042,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sulfur_cube#2 minecraft:sulfur_cube pos=10.52005346437725,-59.0,12.48817557596744 delta=0.011977638351573172,-0.0784000015258789,-0.007062553986347773 rot=239.47476,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E creeper#1 minecraft:creeper pos=11.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=-97.144745,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-

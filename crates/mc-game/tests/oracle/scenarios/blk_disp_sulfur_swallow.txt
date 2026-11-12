@@ -1,0 +1,75 @@
+# Dispenser and sulfur cubes (DispenserBlock.getDefaultDispenseMethod -> SulfurCubeBlockDispenseItemBehavior for #sulfur_cube_swallowable items):
+# the first sulfur cube in the block in front that accepts the item (SulfurCube.equipItem: an adult that does not already hold the same item)
+# swallows one item into its body slot and plays the absorb sound; a held different item is spawned back out. Without a taker the item
+# is dropped by the default behaviour. Equippable beats swallowable, so carved pumpkins are not tested here.
+# Every dispense/spawn line is unique: the replay seeds the entity UUIDs and random from the command line.
+level flat
+preload 2
+time 18000
+note c1 a sulfur cube in front, a stack of 3 andesite: one is swallowed (absorb sound, body slot, entity_data of the cube)
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:andesite",count:3}]}
+spawn cube1 minecraft:sulfur_cube 1.5 -60 0.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 301
+dispense 0 -60 0 c1
+dump be:0,-60,0 entities events nbt:cube1
+note c2 the same item again: the cube already holds andesite, equipItem is false and the item is dropped
+dispense 0 -60 0 c2
+dump be:0,-60,0 entities events nbt:cube1
+note c3 a different swallowable item: the held andesite is spawned back out and the planks are swallowed
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:oak_planks",count:2}]}
+level_seed 302
+dispense 0 -60 0 c3
+dump be:0,-60,0 entities events nbt:cube1
+note c4 the cube is not in front any more (moved): the swallowable item is dropped like any item
+snap cube1 1.5 -60 6.5
+level_seed 303
+dispense 0 -60 0 c4
+dump be:0,-60,0 entities events
+
+note c5 a baby cube cannot swallow: dropped
+block 0 -60 10 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 10 {Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+spawn cube5 minecraft:sulfur_cube 1.5 -60 10.5 0 0 {NoAI:1b,Silent:1b,age:-100}
+level_seed 304
+dispense 0 -60 10 c5
+dump be:0,-60,10 entities events nbt:cube5
+
+note c6 no sulfur cube at all: the swallowable item is dropped
+block 0 -60 14 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 14 {Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+level_seed 305
+dispense 0 -60 14 c6
+dump be:0,-60,14 entities events
+
+note c7 a sulfur cube in front but the item is not swallowable (a stick): the plain drop
+block 0 -60 18 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 18 {Items:[{Slot:0b,id:"minecraft:stick",count:2}]}
+spawn cube7 minecraft:sulfur_cube 1.5 -60 18.5 0 0 {NoAI:1b,Silent:1b}
+level_seed 306
+dispense 0 -60 18 c7
+dump be:0,-60,18 entities events nbt:cube7
+
+note c8 two sulfur cubes in the box: the first accepting one swallows (the second keeps its slot empty)
+block 0 -60 22 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 22 {Items:[{Slot:0b,id:"minecraft:iron_block",count:2}]}
+spawn cube8a minecraft:sulfur_cube 1.3 -60 22.3 0 0 {NoAI:1b,Silent:1b}
+spawn cube8b minecraft:sulfur_cube 1.7 -60 22.7 0 0 {NoAI:1b,Silent:1b}
+level_seed 307
+dispense 0 -60 22 c8
+dump be:0,-60,22 entities events nbt:cube8a nbt:cube8b
+note c9 the second dispense: cube 8a holds iron block, so it refuses and the other cube takes it
+dispense 0 -60 22 c9
+dump be:0,-60,22 entities events nbt:cube8a nbt:cube8b
+
+note c10 an adult cube that was handed the item through nbt already holds it: dropped
+block 0 -60 26 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 26 {Items:[{Slot:0b,id:"minecraft:andesite",count:1}]}
+spawn cube10 minecraft:sulfur_cube 1.5 -60 26.5 0 0 {NoAI:1b,Silent:1b,equipment:{body:{id:"minecraft:andesite",count:1}}}
+level_seed 308
+dispense 0 -60 26 c10
+dump be:0,-60,26 entities events nbt:cube10
+
+note the cubes settle
+tick 2
+dump entities
