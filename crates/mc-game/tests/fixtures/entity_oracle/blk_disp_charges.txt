@@ -1,0 +1,121 @@
+# fire charges and wind charges, every facing; level_seed fixes the three triangle draws and the uncertainty draws
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:fire_charge"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E small_fireball#1 minecraft:small_fireball pos=1.5,-59.5,0.5 delta=0.9547722725542179,0.03202000242642831,-0.038118292160917264 rot=92.28621,1.9193676 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1018 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+BE 0 -60 5 {Items:[{Slot:0b,count:1,id:"minecraft:fire_charge"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:5}
+E small_fireball#1 minecraft:small_fireball pos=1.5,-59.5,0.5 delta=0.9547722725542179,0.03202000242642831,-0.038118292160917264 rot=92.28621,1.9193676 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-0.5,-59.5,5.5 delta=-1.0524301471637763,-0.03170578189621334,0.005696686982910609 rot=-89.68988,-1.7255725 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1018 pos=0,-60,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,5 data=4 global=0
+BE 0 -60 10 {Items:[{Slot:0b,count:1,id:"minecraft:fire_charge"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:10}
+E small_fireball#1 minecraft:small_fireball pos=1.5,-59.5,0.5 delta=0.9547722725542179,0.03202000242642831,-0.038118292160917264 rot=92.28621,1.9193676 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-0.5,-59.5,5.5 delta=-1.0524301471637763,-0.03170578189621334,0.005696686982910609 rot=-89.68988,-1.7255725 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#3 minecraft:small_fireball pos=0.5,-59.5,11.5 delta=0.0028120366114490376,0.09670734078100572,1.1005714197963103 rot=0.14639762,5.0216665 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1018 pos=0,-60,10 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,10 data=3 global=0
+BE 0 -60 15 {Items:[{Slot:0b,count:1,id:"minecraft:fire_charge"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:15}
+E small_fireball#1 minecraft:small_fireball pos=1.5,-59.5,0.5 delta=0.9547722725542179,0.03202000242642831,-0.038118292160917264 rot=92.28621,1.9193676 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-0.5,-59.5,5.5 delta=-1.0524301471637763,-0.03170578189621334,0.005696686982910609 rot=-89.68988,-1.7255725 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#3 minecraft:small_fireball pos=0.5,-59.5,11.5 delta=0.0028120366114490376,0.09670734078100572,1.1005714197963103 rot=0.14639762,5.0216665 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#4 minecraft:small_fireball pos=0.5,-59.5,14.5 delta=0.09054605631867872,0.006306962805078631,-1.075287926661354 rot=175.18668,0.33487153 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1018 pos=0,-60,15 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,15 data=2 global=0
+BE 0 -60 20 {Items:[{Slot:0b,count:1,id:"minecraft:fire_charge"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:20}
+E small_fireball#1 minecraft:small_fireball pos=1.5,-59.5,0.5 delta=0.9547722725542179,0.03202000242642831,-0.038118292160917264 rot=92.28621,1.9193676 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-0.5,-59.5,5.5 delta=-1.0524301471637763,-0.03170578189621334,0.005696686982910609 rot=-89.68988,-1.7255725 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#3 minecraft:small_fireball pos=0.5,-59.5,11.5 delta=0.0028120366114490376,0.09670734078100572,1.1005714197963103 rot=0.14639762,5.0216665 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#4 minecraft:small_fireball pos=0.5,-59.5,14.5 delta=0.09054605631867872,0.006306962805078631,-1.075287926661354 rot=175.18668,0.33487153 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.5,-58.5,20.5 delta=0.019208094560484213,0.9262121435954939,-0.004112963698397257 rot=102.08618,88.78503 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1018 pos=0,-60,20 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,20 data=1 global=0
+BE 0 -58 25 {Items:[{Slot:0b,count:1,id:"minecraft:fire_charge"}],components:{},id:"minecraft:dispenser",x:0,y:-58,z:25}
+E small_fireball#1 minecraft:small_fireball pos=1.5,-59.5,0.5 delta=0.9547722725542179,0.03202000242642831,-0.038118292160917264 rot=92.28621,1.9193676 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-0.5,-59.5,5.5 delta=-1.0524301471637763,-0.03170578189621334,0.005696686982910609 rot=-89.68988,-1.7255725 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#3 minecraft:small_fireball pos=0.5,-59.5,11.5 delta=0.0028120366114490376,0.09670734078100572,1.1005714197963103 rot=0.14639762,5.0216665 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#4 minecraft:small_fireball pos=0.5,-59.5,14.5 delta=0.09054605631867872,0.006306962805078631,-1.075287926661354 rot=175.18668,0.33487153 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.5,-58.5,20.5 delta=0.019208094560484213,0.9262121435954939,-0.004112963698397257 rot=102.08618,88.78503 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#6 minecraft:small_fireball pos=0.5,-58.5,25.5 delta=0.009010056975199542,-0.9825585170105507,-0.02478784416031914 rot=160.0246,-88.46234 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1018 pos=0,-58,25 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-58,25 data=0 global=0
+E small_fireball#1 minecraft:small_fireball pos=2.501904773691476,-59.466399324522875,0.45999999164322125 delta=1.0019047736914761,0.03360067547712474,-0.04000000835677877 rot=91.37173,1.1516104 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-1.5947641550025673,-59.532981147128716,5.505925836244778 delta=-1.0947641550025673,-0.032981147128715006,0.005925836244778101 rot=270.18607,-1.0353469 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#3 minecraft:small_fireball pos=0.5029132338833492,-59.39981243459464,12.640177883226114 delta=0.0029132338833491554,0.10018756540536075,1.1401778832261142 rot=36.087833,3.0130057 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#4 minecraft:small_fireball pos=0.593990006607017,-59.49345314970281,13.383813128474186 delta=0.09399000660701694,0.0065468502971925,-1.1161868715258145 rot=141.112,0.2009264 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.5202173881471985,-57.52511983399738,20.495670919712314 delta=0.02021738814719857,0.9748801660026223,-0.004329080287687761 rot=97.25171,53.27098 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#6 minecraft:small_fireball pos=0.5094303898841358,-59.528396371398365,25.474055765078685 delta=0.009430389884135786,-1.0283963713983673,-0.0259442349213148 rot=132.01477,-53.0774 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#1 minecraft:small_fireball pos=6.935448782268159,-59.31771246589372,0.28299534803841503 delta=1.168017671887675,0.03917156976909452,-0.046631893432578175 rot=89.21206,-0.6614619 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-6.3563828755789,-59.67643090009747,5.531699947197596 delta=-1.2439653339063363,-0.03747602030365138,0.00673344558206911 rot=269.89316,0.5947323 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.6102076806406964,-53.18579812508306,20.47640160567034 delta=0.023774523431229263,1.1464048264059075,-0.005090757519515043 rot=85.83464,-30.598907 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+# the same for wind charges, a second row of dispensers
+BE 10 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:wind_charge"}],components:{},id:"minecraft:dispenser",x:10,y:-60,z:0}
+E small_fireball#1 minecraft:small_fireball pos=6.935448782268159,-59.31771246589372,0.28299534803841503 delta=1.168017671887675,0.03917156976909452,-0.046631893432578175 rot=89.21206,-0.6614619 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-6.3563828755789,-59.67643090009747,5.531699947197596 delta=-1.2439653339063363,-0.03747602030365138,0.00673344558206911 rot=269.89316,0.5947323 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.6102076806406964,-53.18579812508306,20.47640160567034 delta=0.023774523431229263,1.1464048264059075,-0.005090757519515043 rot=85.83464,-30.598907 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=11.5,-59.5,0.5 delta=0.9490798185363842,-0.09888937376610268,0.07287415181479336 rot=85.60914,-5.9310236 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1051 pos=10,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,0 data=5 global=0
+BE 10 -60 5 {Items:[{Slot:0b,count:1,id:"minecraft:wind_charge"}],components:{},id:"minecraft:dispenser",x:10,y:-60,z:5}
+E small_fireball#1 minecraft:small_fireball pos=6.935448782268159,-59.31771246589372,0.28299534803841503 delta=1.168017671887675,0.03917156976909452,-0.046631893432578175 rot=89.21206,-0.6614619 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-6.3563828755789,-59.67643090009747,5.531699947197596 delta=-1.2439653339063363,-0.03747602030365138,0.00673344558206911 rot=269.89316,0.5947323 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.6102076806406964,-53.18579812508306,20.47640160567034 delta=0.023774523431229263,1.1464048264059075,-0.005090757519515043 rot=85.83464,-30.598907 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=11.5,-59.5,0.5 delta=0.9490798185363842,-0.09888937376610268,0.07287415181479336 rot=85.60914,-5.9310236 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#2 minecraft:wind_charge pos=9.5,-59.5,5.5 delta=-1.0572661262883132,0.05309268567384132,0.057925894356594475 rot=-86.86399,2.870511 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1051 pos=10,-60,5 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,5 data=4 global=0
+BE 10 -60 10 {Items:[{Slot:0b,count:1,id:"minecraft:wind_charge"}],components:{},id:"minecraft:dispenser",x:10,y:-60,z:10}
+E small_fireball#1 minecraft:small_fireball pos=6.935448782268159,-59.31771246589372,0.28299534803841503 delta=1.168017671887675,0.03917156976909452,-0.046631893432578175 rot=89.21206,-0.6614619 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-6.3563828755789,-59.67643090009747,5.531699947197596 delta=-1.2439653339063363,-0.03747602030365138,0.00673344558206911 rot=269.89316,0.5947323 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.6102076806406964,-53.18579812508306,20.47640160567034 delta=0.023774523431229263,1.1464048264059075,-0.005090757519515043 rot=85.83464,-30.598907 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=11.5,-59.5,0.5 delta=0.9490798185363842,-0.09888937376610268,0.07287415181479336 rot=85.60914,-5.9310236 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#2 minecraft:wind_charge pos=9.5,-59.5,5.5 delta=-1.0572661262883132,0.05309268567384132,0.057925894356594475 rot=-86.86399,2.870511 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#3 minecraft:wind_charge pos=10.5,-59.5,11.5 delta=0.030606662556547554,0.04784259953092714,1.021195733270471 rot=1.7167842,2.6811247 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1051 pos=10,-60,10 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,10 data=3 global=0
+BE 10 -60 15 {Items:[{Slot:0b,count:1,id:"minecraft:wind_charge"}],components:{},id:"minecraft:dispenser",x:10,y:-60,z:15}
+E small_fireball#1 minecraft:small_fireball pos=6.935448782268159,-59.31771246589372,0.28299534803841503 delta=1.168017671887675,0.03917156976909452,-0.046631893432578175 rot=89.21206,-0.6614619 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-6.3563828755789,-59.67643090009747,5.531699947197596 delta=-1.2439653339063363,-0.03747602030365138,0.00673344558206911 rot=269.89316,0.5947323 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.6102076806406964,-53.18579812508306,20.47640160567034 delta=0.023774523431229263,1.1464048264059075,-0.005090757519515043 rot=85.83464,-30.598907 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=11.5,-59.5,0.5 delta=0.9490798185363842,-0.09888937376610268,0.07287415181479336 rot=85.60914,-5.9310236 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#2 minecraft:wind_charge pos=9.5,-59.5,5.5 delta=-1.0572661262883132,0.05309268567384132,0.057925894356594475 rot=-86.86399,2.870511 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#3 minecraft:wind_charge pos=10.5,-59.5,11.5 delta=0.030606662556547554,0.04784259953092714,1.021195733270471 rot=1.7167842,2.6811247 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#4 minecraft:wind_charge pos=10.5,-59.5,14.5 delta=0.0024851768288013435,0.06405996119968148,-1.0426448441946425 rot=179.86339,3.5158367 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1051 pos=10,-60,15 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,15 data=2 global=0
+BE 10 -60 20 {Items:[{Slot:0b,count:1,id:"minecraft:wind_charge"}],components:{},id:"minecraft:dispenser",x:10,y:-60,z:20}
+E small_fireball#1 minecraft:small_fireball pos=6.935448782268159,-59.31771246589372,0.28299534803841503 delta=1.168017671887675,0.03917156976909452,-0.046631893432578175 rot=89.21206,-0.6614619 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-6.3563828755789,-59.67643090009747,5.531699947197596 delta=-1.2439653339063363,-0.03747602030365138,0.00673344558206911 rot=269.89316,0.5947323 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.6102076806406964,-53.18579812508306,20.47640160567034 delta=0.023774523431229263,1.1464048264059075,-0.005090757519515043 rot=85.83464,-30.598907 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=11.5,-59.5,0.5 delta=0.9490798185363842,-0.09888937376610268,0.07287415181479336 rot=85.60914,-5.9310236 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#2 minecraft:wind_charge pos=9.5,-59.5,5.5 delta=-1.0572661262883132,0.05309268567384132,0.057925894356594475 rot=-86.86399,2.870511 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#3 minecraft:wind_charge pos=10.5,-59.5,11.5 delta=0.030606662556547554,0.04784259953092714,1.021195733270471 rot=1.7167842,2.6811247 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#4 minecraft:wind_charge pos=10.5,-59.5,14.5 delta=0.0024851768288013435,0.06405996119968148,-1.0426448441946425 rot=179.86339,3.5158367 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#5 minecraft:wind_charge pos=10.5,-58.5,20.5 delta=-0.006916321615093966,1.0546736023757142,0.07720912842399917 rot=-5.118893,85.79632 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1051 pos=10,-60,20 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-60,20 data=1 global=0
+BE 10 -58 25 {Items:[{Slot:0b,count:1,id:"minecraft:wind_charge"}],components:{},id:"minecraft:dispenser",x:10,y:-58,z:25}
+E small_fireball#1 minecraft:small_fireball pos=6.935448782268159,-59.31771246589372,0.28299534803841503 delta=1.168017671887675,0.03917156976909452,-0.046631893432578175 rot=89.21206,-0.6614619 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-6.3563828755789,-59.67643090009747,5.531699947197596 delta=-1.2439653339063363,-0.03747602030365138,0.00673344558206911 rot=269.89316,0.5947323 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.6102076806406964,-53.18579812508306,20.47640160567034 delta=0.023774523431229263,1.1464048264059075,-0.005090757519515043 rot=85.83464,-30.598907 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=11.5,-59.5,0.5 delta=0.9490798185363842,-0.09888937376610268,0.07287415181479336 rot=85.60914,-5.9310236 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#2 minecraft:wind_charge pos=9.5,-59.5,5.5 delta=-1.0572661262883132,0.05309268567384132,0.057925894356594475 rot=-86.86399,2.870511 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#3 minecraft:wind_charge pos=10.5,-59.5,11.5 delta=0.030606662556547554,0.04784259953092714,1.021195733270471 rot=1.7167842,2.6811247 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#4 minecraft:wind_charge pos=10.5,-59.5,14.5 delta=0.0024851768288013435,0.06405996119968148,-1.0426448441946425 rot=179.86339,3.5158367 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#5 minecraft:wind_charge pos=10.5,-58.5,20.5 delta=-0.006916321615093966,1.0546736023757142,0.07720912842399917 rot=-5.118893,85.79632 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#6 minecraft:wind_charge pos=10.5,-58.5,25.5 delta=-0.019019888135450334,-0.9572988456081926,-0.06744422467223608 rot=-164.25107,-85.813286 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1051 pos=10,-58,25 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=10,-58,25 data=0 global=0
+E small_fireball#1 minecraft:small_fireball pos=8.139936682784336,-59.277317801526316,0.23490741857504843 delta=1.2044879005161768,0.04039466436740431,-0.0480879294633666 rot=88.91241,-0.9130471 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-7.633105455703622,-59.71489377364447,5.538610704099215 delta=-1.276722580124722,-0.03846287354699454,0.006910756901619551 rot=269.85254,0.82091826 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.6347631761606667,-52.00173491303545,20.471143621264247 delta=0.024555495519970293,1.184063212047614,-0.0052579844060934465 rot=84.25047,-42.23615 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=12.449079818536385,-59.598889373766106,0.5728741518147934 delta=0.9490798185363842,-0.09888937376610268,0.07287415181479336 rot=87.36548,-3.558616 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#2 minecraft:wind_charge pos=8.442733873711687,-59.44690731432616,5.557925894356594 delta=-1.0572661262883132,0.05309268567384132,0.057925894356594475 rot=271.88162,1.722306 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#3 minecraft:wind_charge pos=10.530606662556547,-59.452157400469076,12.52119573327047 delta=0.030606662556547554,0.04784259953092714,1.021195733270471 rot=37.03007,1.6086738 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#4 minecraft:wind_charge pos=10.5024851768288,-59.43594003880032,13.457355155805358 delta=0.0024851768288013435,0.06405996119968148,-1.0426448441946425 rot=143.91803,2.1095016 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#5 minecraft:wind_charge pos=10.493083678384906,-57.445326397624285,20.577209128424 delta=-0.006916321615093966,1.0546736023757142,0.07720912842399917 rot=320.92865,51.477787 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#6 minecraft:wind_charge pos=10.48098011186455,-59.45729884560819,25.432555775327764 delta=-0.019019888135450334,-0.9572988456081926,-0.06744422467223608 rot=-134.55063,-51.487972 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#2 minecraft:small_fireball pos=-13.036015018457727,-59.8776632198289,5.567856050841638 delta=-1.3921716009695138,-0.041940920508021715,0.007535669572554238 rot=269.75653,1.3550506 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E small_fireball#5 minecraft:small_fireball pos=0.7400426124719063,-46.925172421357445,20.448600495064387 delta=0.027307938822168826,1.3167857162515972,-0.00584735569163099 rot=80.50935,-69.71869 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=16.24539909268192,-59.99444686883053,0.864370759073967 delta=0.9490798185363842,-0.09888937376610268,0.07287415181479336 rot=91.51326,2.0440624 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#2 minecraft:wind_charge pos=4.213669368558433,-59.234536571630805,5.789629471782971 delta=-1.0572661262883132,0.05309268567384132,0.057925894356594475 rot=268.91922,-0.98929495 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind_charge#5 minecraft:wind_charge pos=10.46541839192453,-53.226631988121426,20.886045642119992 delta=-0.006916321615093966,1.0546736023757142,0.07720912842399917 rot=240.74657,-29.56885 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing

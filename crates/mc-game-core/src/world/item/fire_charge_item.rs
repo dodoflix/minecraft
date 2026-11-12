@@ -1,17 +1,22 @@
-//! `FireChargeItem.useOn`: lights campfires, candles and candle cakes, or places fire against the clicked face.
-//!
-//! Not implemented: the `ProjectileItem` half (`asProjectile` building a `SmallFireball`, the dispenser config with
-//! uncertainty 6.6666665 and event 1018).
+//! `FireChargeItem`: `useOn` lights campfires, candles and candle cakes, or places fire against the clicked face;
+//! `ProjectileItem` builds the dispenser's `SmallFireball`.
 
-use super::{InteractionResult, ItemBehaviour, UseOnContext};
+use super::{
+    DispenseConfig, InteractionResult, ItemBehaviour, ItemStack, PositionFunction, ProjectileItem,
+    UseOnContext,
+};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
 use crate::world::entity::ServerPlayer;
+use crate::world::entity::projectile::Projectile;
+use crate::world::entity::projectile::hurting::small_fireball::SmallFireball;
 use crate::world::level::block::impls::{
     base_fire_block, campfire_block, candle_block, candle_cake_block,
 };
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::{GameEvent, SoundEvent, props};
@@ -56,6 +61,45 @@ impl ItemBehaviour for FireChargeItem {
         }
         context.item_stack.shrink(1);
         InteractionResult::SUCCESS
+    }
+
+    fn as_projectile_item(&self) -> Option<&dyn ProjectileItem> {
+        Some(self)
+    }
+}
+
+impl ProjectileItem for FireChargeItem {
+    fn as_projectile(
+        &self,
+        level: &mut ServerLevel,
+        position: Vec3,
+        item_stack: &ItemStack,
+        direction: Direction,
+    ) -> Box<dyn Entity> {
+        let random = level.random();
+        let dir_x = random.triangle(f64::from(direction.get_step_x()), 0.11485000000000001);
+        let dir_y = random.triangle(f64::from(direction.get_step_y()), 0.11485000000000001);
+        let dir_z = random.triangle(f64::from(direction.get_step_z()), 0.11485000000000001);
+        let dir = Vec3::new(dir_x, dir_y, dir_z);
+        let mut fireball =
+            SmallFireball::at(level, position.x, position.y, position.z, dir.normalize());
+        fireball.set_item(item_stack);
+        Box::new(fireball)
+    }
+
+    /// The fireball flies along the direction it was created with: nothing is shot.
+    fn shoot(&self, _: &mut dyn Projectile, _: f64, _: f64, _: f64, _: f32, _: f32) {}
+
+    fn create_dispense_config(&self) -> DispenseConfig {
+        DispenseConfig {
+            position_function: PositionFunction::Dispenser {
+                scale: 1.0,
+                offset: Vec3::ZERO,
+            },
+            uncertainty: 6.6666665,
+            power: 1.0,
+            override_dispense_event: Some(1018),
+        }
     }
 }
 

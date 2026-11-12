@@ -1,0 +1,79 @@
+# Dispenser fire charges and wind charges (ProjectileDispenseBehavior over FireChargeItem / WindChargeItem): the entity is built by the
+# item's ProjectileItem (three triangle draws around the facing, the direction fixes the motion, shoot is a no-op), one item consumed,
+# event 1018 (fire charge) or 1051 (wind charge) instead of the click, then the smoke animation 2000.
+level flat
+preload 2
+note fire charges and wind charges, every facing; level_seed fixes the three triangle draws and the uncertainty draws
+
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:fire_charge",count:2}]}
+block 0 -60 5 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 0 -60 5 {Items:[{Slot:0b,id:"minecraft:fire_charge",count:2}]}
+block 0 -60 10 minecraft:dispenser[facing=south,triggered=false]
+be_nbt 0 -60 10 {Items:[{Slot:0b,id:"minecraft:fire_charge",count:2}]}
+block 0 -60 15 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 0 -60 15 {Items:[{Slot:0b,id:"minecraft:fire_charge",count:2}]}
+block 0 -60 20 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 0 -60 20 {Items:[{Slot:0b,id:"minecraft:fire_charge",count:2}]}
+block 0 -58 25 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 0 -58 25 {Items:[{Slot:0b,id:"minecraft:fire_charge",count:2}]}
+
+level_seed 101
+dispense 0 -60 0
+dump be:0,-60,0 entities events
+level_seed 102
+dispense 0 -60 5
+dump be:0,-60,5 entities events
+level_seed 103
+dispense 0 -60 10
+dump be:0,-60,10 entities events
+level_seed 104
+dispense 0 -60 15
+dump be:0,-60,15 entities events
+level_seed 105
+dispense 0 -60 20
+dump be:0,-60,20 entities events
+level_seed 106
+dispense 0 -58 25
+dump be:0,-58,25 entities events
+tick 1
+dump entities
+tick 4
+dump entities events
+
+note the same for wind charges, a second row of dispensers
+block 10 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 0 {Items:[{Slot:0b,id:"minecraft:wind_charge",count:2}]}
+block 10 -60 5 minecraft:dispenser[facing=west,triggered=false]
+be_nbt 10 -60 5 {Items:[{Slot:0b,id:"minecraft:wind_charge",count:2}]}
+block 10 -60 10 minecraft:dispenser[facing=south,triggered=false]
+be_nbt 10 -60 10 {Items:[{Slot:0b,id:"minecraft:wind_charge",count:2}]}
+block 10 -60 15 minecraft:dispenser[facing=north,triggered=false]
+be_nbt 10 -60 15 {Items:[{Slot:0b,id:"minecraft:wind_charge",count:2}]}
+block 10 -60 20 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 10 -60 20 {Items:[{Slot:0b,id:"minecraft:wind_charge",count:2}]}
+block 10 -58 25 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 10 -58 25 {Items:[{Slot:0b,id:"minecraft:wind_charge",count:2}]}
+
+level_seed 107
+dispense 10 -60 0
+dump be:10,-60,0 entities events
+level_seed 108
+dispense 10 -60 5
+dump be:10,-60,5 entities events
+level_seed 109
+dispense 10 -60 10
+dump be:10,-60,10 entities events
+level_seed 110
+dispense 10 -60 15
+dump be:10,-60,15 entities events
+level_seed 111
+dispense 10 -60 20
+dump be:10,-60,20 entities events
+level_seed 112
+dispense 10 -58 25
+dump be:10,-58,25 entities events
+tick 1
+dump entities
+tick 4
+dump entities events

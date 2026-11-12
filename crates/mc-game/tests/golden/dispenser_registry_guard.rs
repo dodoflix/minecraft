@@ -106,7 +106,6 @@ const NOT_IMPLEMENTED: &[(&str, &str)] = &[
     ("minecraft:brown_egg", "the projectile entity is created from the item's ProjectileItem and shot with ProjectileDispenseBehavior (the item class is not a ProjectileItem yet, so there is nothing to register)"),
     ("minecraft:splash_potion", "the projectile entity is created from the item's ProjectileItem and shot with ProjectileDispenseBehavior (the item class is not a ProjectileItem yet, so there is nothing to register)"),
     ("minecraft:lingering_potion", "the projectile entity is created from the item's ProjectileItem and shot with ProjectileDispenseBehavior (the item class is not a ProjectileItem yet, so there is nothing to register)"),
-    ("minecraft:fire_charge", "the projectile entity is created from the item's ProjectileItem and shot with ProjectileDispenseBehavior (the item class is not a ProjectileItem yet, so there is nothing to register)"),
     ("minecraft:chest", "equips a chest onto a tamed chested horse in front through slot 499, else drops the chest (no chested horse slot hook yet)"),
     ("minecraft:lava_bucket", "empties the bucket contents into the block in front (DispensibleContainerItem.emptyContents) and returns an empty bucket, else drops it"),
     ("minecraft:water_bucket", "empties the bucket contents into the block in front (DispensibleContainerItem.emptyContents) and returns an empty bucket, else drops it"),
