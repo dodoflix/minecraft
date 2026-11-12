@@ -86,7 +86,7 @@ pub struct ServerPlayer {
     pub camera: Option<EntityId>,
     pub is_changing_dimension: bool,
     pub seen_credits: bool,
-    /// `recipeBook` (`ServerRecipeBook.Packed`), kept as the saved tag until the recipe book is modelled.
+    /// `recipeBook` (`ServerRecipeBook`; saved as `ServerRecipeBook.Packed`).
     pub recipe_book: crate::world::item::crafting::ServerRecipeBook,
     pub levitation_start_pos: Option<Vec3>,
     pub levitation_start_time: i32,

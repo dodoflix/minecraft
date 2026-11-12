@@ -489,7 +489,7 @@ impl Scan {
     }
 }
 
-fn rust_files(dir: &Path, out: &mut Vec<PathBuf>) {
+pub(crate) fn rust_files(dir: &Path, out: &mut Vec<PathBuf>) {
     for entry in std::fs::read_dir(dir).expect("read the source directory") {
         let path = entry.expect("directory entry").path();
         if path.is_dir() {
