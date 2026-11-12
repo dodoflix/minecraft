@@ -1,0 +1,132 @@
+I P 0 minecraft:wooden_pickaxe*1/dmg=58
+I P 1 minecraft:wooden_shovel*1/dmg=58
+I P 2 minecraft:stone_pickaxe*1/dmg=10
+I P 3 minecraft:wooden_pickaxe*1/dmg=58
+DIG P ticks=23 broken=true
+STAT P minecraft.broken:minecraft.wooden_pickaxe 1
+STAT P minecraft.custom:minecraft.play_time 23
+STAT P minecraft.custom:minecraft.time_since_death 23
+STAT P minecraft.custom:minecraft.time_since_rest 23
+STAT P minecraft.custom:minecraft.total_world_time 23
+STAT P minecraft.mined:minecraft.stone 1
+STAT P minecraft.used:minecraft.wooden_pickaxe 1
+I P 1 minecraft:wooden_shovel*1/dmg=58
+I P 2 minecraft:stone_pickaxe*1/dmg=10
+I P 3 minecraft:wooden_pickaxe*1/dmg=58
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=2,-60,0 data=1 global=0
+B 2 -61 0 minecraft:grass_block[snowy=false]
+DIG P ticks=8 broken=true
+STAT P minecraft.broken:minecraft.wooden_pickaxe 1
+STAT P minecraft.broken:minecraft.wooden_shovel 1
+STAT P minecraft.custom:minecraft.play_time 31
+STAT P minecraft.custom:minecraft.time_since_death 31
+STAT P minecraft.custom:minecraft.time_since_rest 31
+STAT P minecraft.custom:minecraft.total_world_time 31
+STAT P minecraft.mined:minecraft.dirt 1
+STAT P minecraft.mined:minecraft.stone 1
+STAT P minecraft.used:minecraft.wooden_pickaxe 1
+STAT P minecraft.used:minecraft.wooden_shovel 1
+I P 2 minecraft:stone_pickaxe*1/dmg=10
+I P 3 minecraft:wooden_pickaxe*1/dmg=58
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=2,-60,2 data=10 global=0
+DIG P ticks=12 broken=true
+STAT P minecraft.broken:minecraft.wooden_pickaxe 1
+STAT P minecraft.broken:minecraft.wooden_shovel 1
+STAT P minecraft.custom:minecraft.play_time 43
+STAT P minecraft.custom:minecraft.time_since_death 43
+STAT P minecraft.custom:minecraft.time_since_rest 43
+STAT P minecraft.custom:minecraft.total_world_time 43
+STAT P minecraft.mined:minecraft.dirt 1
+STAT P minecraft.mined:minecraft.stone 2
+STAT P minecraft.picked_up:minecraft.cobblestone 1
+STAT P minecraft.used:minecraft.stone_pickaxe 1
+STAT P minecraft.used:minecraft.wooden_pickaxe 1
+STAT P minecraft.used:minecraft.wooden_shovel 1
+I P 0 minecraft:cobblestone*1
+I P 2 minecraft:stone_pickaxe*1/dmg=11
+I P 3 minecraft:wooden_pickaxe*1/dmg=58
+DIG P ticks=23 broken=true
+STAT P minecraft.broken:minecraft.wooden_pickaxe 2
+STAT P minecraft.broken:minecraft.wooden_shovel 1
+STAT P minecraft.custom:minecraft.play_time 66
+STAT P minecraft.custom:minecraft.time_since_death 66
+STAT P minecraft.custom:minecraft.time_since_rest 66
+STAT P minecraft.custom:minecraft.total_world_time 66
+STAT P minecraft.mined:minecraft.dirt 1
+STAT P minecraft.mined:minecraft.stone 3
+STAT P minecraft.picked_up:minecraft.cobblestone 2
+STAT P minecraft.used:minecraft.stone_pickaxe 1
+STAT P minecraft.used:minecraft.wooden_pickaxe 2
+STAT P minecraft.used:minecraft.wooden_shovel 1
+I P 0 minecraft:cobblestone*2
+I P 2 minecraft:stone_pickaxe*1/dmg=11
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=2,-60,-2 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2020 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2019 pos=-2,-60,0 data=1 global=0
+EV level_event r=64.0 ex=1 type=2001 pos=-2,-60,0 data=1 global=0
+DIG C ticks=0 broken=true
+STAT C minecraft.custom:minecraft.play_time 66
+STAT C minecraft.custom:minecraft.time_since_death 66
+STAT C minecraft.custom:minecraft.time_since_rest 66
+STAT C minecraft.custom:minecraft.total_world_time 66
+I C 0 minecraft:wooden_pickaxe*1/dmg=58

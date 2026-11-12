@@ -1,0 +1,36 @@
+# Tools breaking while digging: the stack is consumed, the break entity event goes out, and the player earns the `broken` statistic of the item
+# (one per break, not per damage point); an item that survives the hit earns nothing, and the mined block statistic is unaffected.
+level flat
+preload 2
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 0.5 0 0
+give P hotbar0 minecraft:wooden_pickaxe[damage=58]
+give P hotbar1 minecraft:wooden_shovel[damage=58]
+give P hotbar2 minecraft:stone_pickaxe[damage=10]
+give P hotbar3 minecraft:wooden_pickaxe[damage=58]
+block 2 -60 0 minecraft:stone
+block 2 -60 2 minecraft:dirt
+block 2 -60 -2 minecraft:stone
+block -2 -60 0 minecraft:stone
+block 8 -60 0 minecraft:stone
+give C hotbar0 minecraft:wooden_pickaxe[damage=58]
+dump stats:P inventory:P
+# the last point of durability: the pickaxe breaks
+select P 0
+dig P 2 -60 0
+dump stats:P inventory:P events blocks:2,-61,0,2,-59,0
+# another item type breaks
+select P 1
+dig P 2 -60 2
+dump stats:P inventory:P events
+# not broken: only damaged
+select P 2
+dig P 2 -60 -2
+dump stats:P inventory:P
+# a second break of an item type that already broke adds to its counter
+select P 3
+dig P -2 -60 0
+dump stats:P inventory:P events
+# creative never damages the tool
+dig C 8 -60 0
+dump stats:C inventory:C
