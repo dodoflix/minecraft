@@ -108,6 +108,7 @@ mod items_use_golden;
 mod itm_blockitem_kinds_golden;
 mod itm_bows_golden;
 mod itm_brush_golden;
+mod itm_bundle_golden;
 mod itm_dye_sheep_golden;
 mod itm_ender_eye_golden;
 mod itm_firework_golden;

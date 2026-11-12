@@ -13,7 +13,7 @@ use mc_data::SoundEvent;
 use mc_protocol::components::{
     BUNDLE_CONTENTS, BundleContents, Fraction, ItemStackTemplate, ItemUseAnimation,
 };
-use mc_protocol::packets::play::SoundSource;
+use mc_protocol::packets::play::{SoundSource, Stat};
 
 /// `BundleContents.canItemBeInBundle(stack)`.
 pub fn can_item_be_in_bundle(stack: &ItemStack) -> bool {
@@ -375,4 +375,5 @@ fn drop_content_and_sound(
         0.8,
         pitch,
     );
+    player.award_stat_once(level, Stat::Used(bundle.item()));
 }

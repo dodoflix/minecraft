@@ -1,0 +1,70 @@
+# BundleItem.use / onUseTick / dropContent: using a bundle drops one stack at a time (the first tick, then every second tick from the eleventh), each
+# drop plays the remove-one and drop-contents sounds and awards the item-used statistic; an empty bundle drops nothing and awards nothing. An entity's
+# UUID comes from its random, which is seeded from the command line, and the drop spread draws from the level random: every tick of a drop is
+# preceded by `level_seed`.
+level flat
+preload 2
+watch events
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B creative 6.5 -60 0.5 0 0
+spawn_player C survival 12.5 -60 0.5 0 0
+spawn_player D survival 18.5 -60 0.5 0 0
+spawn_player E survival 24.5 -60 0.5 0 0
+give A mainhand minecraft:bundle[bundle_contents=[{id:"minecraft:diamond",count:3},{id:"minecraft:stick",count:2},{id:"minecraft:apple",count:1}]]
+give B mainhand minecraft:bundle[bundle_contents=[{id:"minecraft:diamond",count:3},{id:"minecraft:stick",count:2}]]
+give C mainhand minecraft:bundle
+give D offhand minecraft:bundle[bundle_contents=[{id:"minecraft:gold_ingot",count:5},{id:"minecraft:cobblestone",count:1}]]
+give E mainhand minecraft:bundle[bundle_contents=[{id:"minecraft:diamond",count:2},{id:"minecraft:stick",count:2},{id:"minecraft:apple",count:1}]]
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none
+note A: survival, the first tick drops the first stack, no more for ten ticks, then one stack every second tick until the bundle is empty
+use A
+level_seed 11
+tick 1
+dump entities inventory:A stats:A use:A packets:A:award_stats,container_set_slot,set_player_inventory,sound,sound_entity events
+tick 9
+dump entities stats:A use:A packets:A:award_stats,sound,sound_entity
+level_seed 12
+tick 1
+dump entities inventory:A stats:A use:A packets:A:award_stats,container_set_slot,set_player_inventory,sound,sound_entity events
+level_seed 13
+tick 1
+dump entities stats:A packets:A:award_stats
+level_seed 14
+tick 1
+dump entities stats:A packets:A:award_stats
+level_seed 15
+tick 1
+dump entities inventory:A stats:A use:A packets:A:award_stats,container_set_slot,set_player_inventory,sound,sound_entity events
+tick 4
+dump entities stats:A use:A packets:A:award_stats
+note B: creative drops the same way and is awarded the same statistic
+use B
+level_seed 21
+tick 1
+dump entities inventory:B stats:B use:B packets:B:award_stats,container_set_slot,set_player_inventory,sound,sound_entity events
+tick 10
+level_seed 22
+tick 1
+dump entities inventory:B stats:B packets:B:award_stats
+release B
+dump use:B stats:B
+note C: an empty bundle drops nothing and awards nothing, the use itself still starts
+use C
+tick 3
+dump entities inventory:C stats:C use:C packets:C:award_stats,sound,sound_entity events
+release C
+note D: the off hand bundle
+use D off
+level_seed 31
+tick 1
+dump entities inventory:D stats:D use:D packets:D:award_stats,container_set_slot,set_player_inventory,sound,sound_entity events
+release D
+dump use:D stats:D
+note E: released after the first drop, the bundle keeps the rest
+use E
+level_seed 41
+tick 1
+release E
+tick 12
+dump entities inventory:E stats:E use:E packets:E:award_stats events
