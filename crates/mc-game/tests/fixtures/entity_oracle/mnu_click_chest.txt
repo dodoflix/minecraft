@@ -1,0 +1,596 @@
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 5 minecraft:cobblestone*64
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1201013f1e0100000537000001970800000000403e00000028010000001401000003ef07000000000000000000000000000000000000400100001e370000000000000000000000000000000000000000000000000000000aef07000014010000019a08000000000000000000
+# left click picks the stack up, an empty slot receives it, a different stack swaps
+MENU A cid=1 type=minecraft:generic_9x3 state=2 carried=minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 5 minecraft:cobblestone*64
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 140102000000
+PKT A minecraft:set_cursor_item 621e010000
+MENU A cid=1 type=minecraft:generic_9x3 state=3 carried=empty
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 5 minecraft:cobblestone*64
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 14010300031e010000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:generic_9x3 state=4 carried=minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 5 minecraft:cobblestone*64
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 140104000300
+PKT A minecraft:set_cursor_item 621e010000
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=minecraft:dirt*5
+MS 1 minecraft:stone*30
+MS 2 minecraft:iron_pickaxe*1
+MS 5 minecraft:cobblestone*64
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 14010500011e010000
+PKT A minecraft:set_cursor_item 6205370000
+MENU A cid=1 type=minecraft:generic_9x3 state=6 carried=empty
+MS 0 minecraft:dirt*5
+MS 1 minecraft:stone*30
+MS 2 minecraft:iron_pickaxe*1
+MS 5 minecraft:cobblestone*64
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 140106000005370000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:generic_9x3 state=7 carried=minecraft:stone*30
+MS 0 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 5 minecraft:cobblestone*64
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 140107000100
+PKT A minecraft:set_cursor_item 621e010000
+# right click splits the stack and places one item
+MENU A cid=1 type=minecraft:generic_9x3 state=8 carried=minecraft:cobblestone*64
+MS 0 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 5 minecraft:stone*30
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 14010800051e010000
+PKT A minecraft:set_cursor_item 62403e0000
+MENU A cid=1 type=minecraft:generic_9x3 state=9 carried=minecraft:cobblestone*63
+MS 0 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 4 minecraft:cobblestone*1
+MS 5 minecraft:stone*30
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 1401090004013e0000
+PKT A minecraft:set_cursor_item 623f3e0000
+MENU A cid=1 type=minecraft:generic_9x3 state=10 carried=minecraft:cobblestone*62
+MS 0 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*30
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 14010a0004023e0000
+PKT A minecraft:set_cursor_item 623e3e0000
+MENU A cid=1 type=minecraft:generic_9x3 state=11 carried=empty
+MS 0 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*30
+MS 6 minecraft:cobblestone*62
+MS 7 minecraft:stone*40
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 14010b00063e3e0000
+PKT A minecraft:set_cursor_item 6200
+# quick move: chest to the player inventory, player inventory to the chest, a tool and a hotbar stack
+MENU A cid=1 type=minecraft:generic_9x3 state=13 carried=empty
+MS 0 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*30
+MS 6 minecraft:cobblestone*62
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*60
+MS 56 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 14010c000700
+PKT A minecraft:container_set_slot 14010d00373c010000
+MENU A cid=1 type=minecraft:generic_9x3 state=15 carried=empty
+MS 0 minecraft:dirt*5
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*30
+MS 6 minecraft:cobblestone*62
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*3
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*60
+MS 56 minecraft:diamond_sword*1
+MS 62 minecraft:iron_pickaxe*1
+PKT A minecraft:container_set_slot 14010e000200
+PKT A minecraft:container_set_slot 14010f003e0197080000
+MENU A cid=1 type=minecraft:generic_9x3 state=17 carried=empty
+MS 0 minecraft:dirt*5
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*30
+MS 6 minecraft:cobblestone*62
+MS 9 minecraft:stone*20
+MS 10 minecraft:apple*13
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 55 minecraft:stone*60
+MS 56 minecraft:diamond_sword*1
+MS 62 minecraft:iron_pickaxe*1
+PKT A minecraft:container_set_slot 140110000a0def070000
+PKT A minecraft:container_set_slot 140111003600
+MENU A cid=1 type=minecraft:generic_9x3 state=20 carried=empty
+MS 0 minecraft:dirt*5
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 9 minecraft:stone*46
+MS 10 minecraft:apple*13
+MS 27 minecraft:stone*64
+MS 28 minecraft:dirt*30
+MS 56 minecraft:diamond_sword*1
+MS 62 minecraft:iron_pickaxe*1
+PKT A minecraft:container_set_slot 140112000540010000
+PKT A minecraft:container_set_slot 14011300092e010000
+PKT A minecraft:container_set_slot 140114003700
+MENU A cid=1 type=minecraft:generic_9x3 state=22 carried=empty
+MS 0 minecraft:dirt*35
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 9 minecraft:stone*46
+MS 10 minecraft:apple*13
+MS 27 minecraft:stone*64
+MS 56 minecraft:diamond_sword*1
+MS 62 minecraft:iron_pickaxe*1
+PKT A minecraft:container_set_slot 140115000023370000
+PKT A minecraft:container_set_slot 140116001c00
+# swap with a hotbar slot, the offhand and an empty hotbar slot
+MENU A cid=1 type=minecraft:generic_9x3 state=24 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 9 minecraft:stone*46
+MS 10 minecraft:apple*13
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:diamond_sword*1
+MS 62 minecraft:iron_pickaxe*1
+PKT A minecraft:container_set_slot 140117000000
+PKT A minecraft:container_set_slot 140118003623370000
+MENU A cid=1 type=minecraft:generic_9x3 state=26 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 9 minecraft:diamond_sword*1
+MS 10 minecraft:apple*13
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:iron_pickaxe*1
+PKT A minecraft:container_set_slot 1401190009019a080000
+PKT A minecraft:container_set_slot 14011a00382e010000
+MENU A cid=1 type=minecraft:generic_9x3 state=27 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 9 minecraft:diamond_sword*1
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:iron_pickaxe*1
+PKT A minecraft:container_set_slot 14011b000a01a60b0000
+MENU A cid=1 type=minecraft:generic_9x3 state=29 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 9 minecraft:iron_pickaxe*1
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 14011c00090197080000
+PKT A minecraft:container_set_slot 14011d003e019a080000
+# throw one item and the whole stack (random drop velocity)
+MENU A cid=1 type=minecraft:generic_9x3 state=30 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 14011e000900
+MENU A cid=1 type=minecraft:generic_9x3 state=30 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=30 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+E item#1 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.006206730228725285,0.08172237128019333,-0.28493482926845265 rot=197.39404,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_pickaxe*1 age=0 pickup=40 health=5 owner=- thrower=A
+# pickup all collects every matching stack onto the cursor
+MENU A cid=1 type=minecraft:generic_9x3 state=30 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=31 carried=minecraft:stone*64
+MS 4 minecraft:cobblestone*2
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 14011f000500
+PKT A minecraft:set_cursor_item 6240010000
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+PKT A minecraft:container_set_slot 140120000540010000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+# drag: left (even split), right (one each), a single slot, a slot that cannot take the item
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+# a click outside the window puts the cursor stack down, a click outside with the right button drops one
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+MENU A cid=1 type=minecraft:generic_9x3 state=32 carried=empty
+MS 4 minecraft:cobblestone*2
+MS 5 minecraft:stone*64
+MS 6 minecraft:cobblestone*62
+MS 10 minecraft:shield*1
+MS 27 minecraft:stone*64
+MS 54 minecraft:dirt*35
+MS 56 minecraft:stone*46
+MS 62 minecraft:diamond_sword*1
+E item#1 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.006206730228725285,0.08172237128019333,-0.28493482926845265 rot=197.39404,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_pickaxe*1 age=0 pickup=40 health=5 owner=- thrower=A
+I A 0 minecraft:dirt*35
+I A 2 minecraft:stone*46
+I A 8 minecraft:diamond_sword*1
+I A 9 minecraft:stone*64
+I A 40 minecraft:apple*13
+BE 0 -60 0 {Items:[{Slot:4b,count:2,id:"minecraft:cobblestone"},{Slot:5b,count:64,id:"minecraft:stone"},{Slot:6b,count:62,id:"minecraft:cobblestone"},{Slot:10b,count:1,id:"minecraft:shield"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}
+# a creative player clones a stack with the middle button
+PKT B minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT B minecraft:container_set_content 1201013f07f4070000400100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+MENU B cid=1 type=minecraft:generic_9x3 state=1 carried=minecraft:diamond*64
+MS 0 minecraft:diamond*7
+MS 1 minecraft:stone*64
+PKT B minecraft:set_cursor_item 6240f4070000
+MENU B cid=1 type=minecraft:generic_9x3 state=1 carried=minecraft:diamond*64
+MS 0 minecraft:diamond*7
+MS 1 minecraft:stone*64
+MENU B cid=1 type=minecraft:generic_9x3 state=2 carried=minecraft:diamond*7
+MS 0 minecraft:diamond*64
+MS 1 minecraft:stone*64
+PKT B minecraft:container_set_slot 140102000040f4070000
+PKT B minecraft:set_cursor_item 6207f4070000
+MENU B cid=1 type=minecraft:generic_9x3 state=2 carried=minecraft:diamond*7
+MS 0 minecraft:diamond*64
+MS 1 minecraft:stone*64
+BE 6 -60 0 {Items:[{Slot:0b,count:64,id:"minecraft:diamond"},{Slot:1b,count:64,id:"minecraft:stone"}],components:{},id:"minecraft:chest",x:6,y:-60,z:0}

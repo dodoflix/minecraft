@@ -1,0 +1,42 @@
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 54 minecraft:apple*10
+PKT A minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1201013f1e01000005370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef070000000000000000000000
+# pick up a stack and close the chest
+MENU A cid=1 type=minecraft:generic_9x3 state=2 carried=minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*30
+I A 0 minecraft:apple*10
+I A 1 minecraft:stone*30
+PKT A minecraft:container_set_slot 140102000000
+PKT A minecraft:set_cursor_item 621e010000
+# close with an empty cursor
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*30
+PKT A minecraft:open_screen 3c02020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1202013f0005370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef0700001e0100000000000000000000
+# the inventory menu with a cursor stack
+MENU A cid=0 type=inventory state=3 carried=minecraft:apple*10
+MS 37 minecraft:stone*30
+PKT A minecraft:container_set_slot 140003002400
+PKT A minecraft:set_cursor_item 620aef070000
+MENU A cid=0 type=inventory state=3 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*30
+I A 0 minecraft:apple*10
+I A 1 minecraft:stone*30
+# a second stack dropped a tick later
+MENU A cid=0 type=inventory state=3 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*30
+MS 38 minecraft:dirt*3
+PKT A minecraft:open_screen 3c03020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1203013f0005370000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef0700001e0100000000000000000000
+PKT A minecraft:container_set_slot 140302000102370000
+PKT A minecraft:set_cursor_item 6203370000

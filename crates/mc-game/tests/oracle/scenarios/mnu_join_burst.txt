@@ -1,0 +1,20 @@
+# The packets of the join that concern menus and recipes (the held slot, the recipe property sets, the recipe book settings and
+# initial add, the inventory menu content), then the recipe book after unlocking recipes, changing the settings and seeing recipes.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0 joinburst
+dump packets:A:set_held_slot,update_recipes,recipe_book_settings,recipe_book_add,container_set_content recipes:A
+note unlocking recipes and changing the book settings
+cmd recipe give A minecraft:stick
+cmd recipe give A minecraft:furnace
+cmd recipe give A minecraft:crafting_table
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:A
+recipe_settings A crafting true true
+recipe_settings A furnace true false
+dump packets:A:recipe_book_settings recipes:A
+recipe_seen A minecraft:stick
+recipe_seen A minecraft:furnace
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:A
+cmd recipe take A minecraft:stick
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:A

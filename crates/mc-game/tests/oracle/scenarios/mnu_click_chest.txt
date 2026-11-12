@@ -1,0 +1,147 @@
+# Container clicks through the packet handler on a chest menu: PICKUP (left and right), QUICK_MOVE both ways, SWAP (hotbar and offhand),
+# THROW (one and the stack), PICKUP_ALL, CLONE (creative) and the three drag kinds. A click carries no predicted slot changes, so every
+# change is also sent back as a correction: the packets are part of the comparison.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B creative 6.5 -60 3.5 180 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:30},{Slot:1b,id:"minecraft:dirt",count:5},{Slot:2b,id:"minecraft:iron_pickaxe",count:1},{Slot:5b,id:"minecraft:cobblestone",count:64},{Slot:7b,id:"minecraft:stone",count:40},{Slot:9b,id:"minecraft:stone",count:20},{Slot:10b,id:"minecraft:apple",count:3}]}
+block 6 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:7},{Slot:1b,id:"minecraft:stone",count:64}]}
+give A hotbar0 minecraft:apple 10
+give A hotbar1 minecraft:stone 20
+give A hotbar2 minecraft:diamond_sword
+give A inv9 minecraft:stone 64
+give A inv10 minecraft:dirt 30
+give A offhand minecraft:shield
+tick 2
+dump events packets:A:none packets:B:none
+level_seed 21
+use_on A 0 -60 0 south main
+dump menu:A packets:A:open_screen,container_set_content
+note left click picks the stack up, an empty slot receives it, a different stack swaps
+
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 3 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 3 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note right click splits the stack and places one item
+click A 5 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 4 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 4 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 6 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note quick move: chest to the player inventory, player inventory to the chest, a tool and a hotbar stack
+click A 7 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 2 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 54 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 55 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 28 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note swap with a hotbar slot, the offhand and an empty hotbar slot
+click A 0 0 SWAP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 9 2 SWAP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 10 40 SWAP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 9 8 SWAP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note throw one item and the whole stack (random drop velocity)
+level_seed 22
+click A 9 0 THROW
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 9 1 THROW
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 28 1 THROW
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+dump entities
+note pickup all collects every matching stack onto the cursor
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 5 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 5 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 5 0 PICKUP_ALL
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note drag: left (even split), right (one each), a single slot, a slot that cannot take the item
+click A 28 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 0 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 12 1 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 13 1 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 14 1 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 2 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 4 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 15 5 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 16 5 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 6 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 0 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 17 1 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 2 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 8 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 18 9 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 10 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a click outside the window puts the cursor stack down, a click outside with the right button drops one
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 9 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 9 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -999 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+dump entities inventory:A be:0,-60,0
+note a creative player clones a stack with the middle button
+use_on B 6 -60 0 south main
+dump packets:B:open_screen,container_set_content
+click B 0 2 CLONE
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item
+click B 1 2 CLONE
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item
+click B 0 0 PICKUP
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item
+click B 1 2 CLONE
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item
+dump inventory:B be:6,-60,0

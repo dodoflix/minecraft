@@ -1,0 +1,44 @@
+# The creative inventory packet: set a slot (a hotbar slot, an armor slot, the offhand), copy a stack into another slot, clear
+# a slot, ignored requests (survival player, invalid slot, count above the maximum stack size, zero count), dropping with a negative slot.
+command_env
+level flat
+preload 2
+spawn_player C creative 0.5 -60 3.5 180 0
+spawn_player A survival 6.5 -60 3.5 180 0
+tick 2
+dump events packets:C:none packets:A:none
+note set a hotbar slot (inventory menu slot 36 = hotbar 0), copy it to the next slot, set another stack
+creative_slot C 36 minecraft:stone 64
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+creative_slot C 37 minecraft:stone 64
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+creative_slot C 38 minecraft:iron_pickaxe[enchantments={"minecraft:efficiency":3}]
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+note armor and offhand slots
+creative_slot C 5 minecraft:diamond_helmet
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+creative_slot C 8 minecraft:iron_boots
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+creative_slot C 45 minecraft:shield
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+note clearing a slot
+creative_slot C 37 -
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+note ignored: a count above the maximum stack size, a zero count, a slot past the menu, a survival player
+creative_slot C 39 minecraft:stone 65
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+creative_slot C 40 minecraft:stone 0
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+creative_slot C 46 minecraft:stone 1
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+creative_slot A 36 minecraft:stone 1
+dump inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note dropping: a negative slot throws the stack with the drop velocity of the level random
+level_seed 41
+creative_slot C -1 minecraft:diamond 3
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+creative_slot C -1 minecraft:stone 65
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+creative_slot C -1 minecraft:emerald 1
+dump inventory:C menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+dump entities

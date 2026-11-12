@@ -1,6 +1,6 @@
 //! Player actions of the scenario DSL, replayed the same way by the block replay (`block_scenario_actors.rs`), the entity replay
 //! (`entity_scenario.rs`) and the item entity replay: `give`, `select`, `use`, `use_on [inside]`, `release`, `interact`, `drop [all]`,
-//! `swing`, `swap`, `stab`, `pcommand` (sprint, sleep and gliding actions), `dispense X Y Z` and the dump kinds `use:REF`, `cooldowns:REF`, `stats:REF`, `inventory:REF` (the
+//! `swing`, `swap`, `stab`, `pcommand` (sprint, sleep, gliding and open inventory actions), the menu verbs of `menu_actions.rs`, `dispense X Y Z` and the dump kinds `use:REF`, `cooldowns:REF`, `stats:REF`, `inventory:REF` (the
 //! grammar of the Java driver, `tests/oracle/EntityOracleDriver.java`).
 //!
 //! The Rust level has no server, so the verbs do what the packet handlers of `ServerGamePacketListenerImpl` do around the player
@@ -112,7 +112,7 @@ pub fn hand(a: &[String], i: usize) -> InteractionHand {
     }
 }
 
-fn with_player<H: ActionHost, R>(
+pub(super) fn with_player<H: ActionHost, R>(
     h: &mut H,
     name: &str,
     f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R,
@@ -467,6 +467,18 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
                 }
             });
         }
+        // OPEN_INVENTORY needs the listener (a vehicle with its own inventory screen opens it)
+        "pcommand" if a[2].eq_ignore_ascii_case("open_inventory") => {
+            super::menu_actions::deliver(h, &a[1], |_, p| {
+                mc_protocol::packets::play::ServerboundPlayPacket::PlayerCommand(
+                    mc_protocol::packets::play::ServerboundPlayerCommandPacket {
+                        id: p.base_id(),
+                        action: mc_protocol::packets::play::ServerboundPlayerCommandAction::OpenInventory,
+                        data: a.get(3).map_or(0, |d| d.parse().expect("pcommand data")),
+                    },
+                )
+            });
+        }
         "pcommand" => {
             h.boot();
             with_player(h, &a[1], |level, p| player_command(level, p, &a[2]));
@@ -490,13 +502,16 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
             let level = h.action_level();
             level.get_block_state(pos).tick(level, pos);
         }
-        _ => return false,
+        _ => return super::menu_actions::command(h, a),
     }
     true
 }
 
-/// The player dump kinds: `use:REF`, `cooldowns:REF`, `stats:REF`, `inventory:REF`; `false` for any other kind.
+/// The player dump kinds: `use:REF`, `cooldowns:REF`, `stats:REF`, `inventory:REF`, `menu:REF`, `recipes:REF`; `false` for any other kind.
 pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
+    if matches!(kind, "menu" | "recipes") {
+        return super::menu_actions::dump(h, kind, arg);
+    }
     let (Some(name), "use" | "cooldowns" | "stats" | "inventory") = (arg, kind) else {
         return false;
     };

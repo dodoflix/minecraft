@@ -680,7 +680,8 @@ impl Scenario {
                     );
                 }
             }
-            // `cmd weather rain|clear DURATION` only (the duration is explicit: the command's default draws from the level random)
+            // `cmd weather rain|clear DURATION` (the duration is explicit: the command's default draws from the level random) and
+            // `cmd recipe give|take PLAYER RECIPE|*`
             "cmd" => {
                 self.world();
                 match (a.get(1).map(String::as_str), a.get(2).map(String::as_str)) {
@@ -707,6 +708,7 @@ impl Scenario {
                             }
                         };
                     }
+                    (Some("recipe"), Some("give" | "take")) => self.recipe_command(a),
                     _ => panic!("cmd {:?} is not supported by the Rust replay", &a[1..]),
                 }
             }

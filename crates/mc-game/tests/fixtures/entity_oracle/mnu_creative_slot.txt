@@ -1,0 +1,132 @@
+# set a hotbar slot (inventory menu slot 36 = hotbar 0), copy it to the next slot, set another stack
+I C 0 minecraft:stone*64
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:stone*64
+I C 0 minecraft:stone*64
+I C 1 minecraft:stone*64
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:stone*64
+MS 37 minecraft:stone*64
+I C 0 minecraft:stone*64
+I C 1 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:stone*64
+MS 37 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+# armor and offhand slots
+I C 0 minecraft:stone*64
+I C 1 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 39 minecraft:diamond_helmet*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 36 minecraft:stone*64
+MS 37 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 0 minecraft:stone*64
+I C 1 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 36 minecraft:iron_boots*1
+I C 39 minecraft:diamond_helmet*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 8 minecraft:iron_boots*1
+MS 36 minecraft:stone*64
+MS 37 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 0 minecraft:stone*64
+I C 1 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 36 minecraft:iron_boots*1
+I C 39 minecraft:diamond_helmet*1
+I C 40 minecraft:shield*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 8 minecraft:iron_boots*1
+MS 36 minecraft:stone*64
+MS 37 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+MS 45 minecraft:shield*1
+# clearing a slot
+I C 0 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 36 minecraft:iron_boots*1
+I C 39 minecraft:diamond_helmet*1
+I C 40 minecraft:shield*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 8 minecraft:iron_boots*1
+MS 36 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+MS 45 minecraft:shield*1
+# ignored: a count above the maximum stack size, a zero count, a slot past the menu, a survival player
+I C 0 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 36 minecraft:iron_boots*1
+I C 39 minecraft:diamond_helmet*1
+I C 40 minecraft:shield*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 8 minecraft:iron_boots*1
+MS 36 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+MS 45 minecraft:shield*1
+I C 0 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 36 minecraft:iron_boots*1
+I C 39 minecraft:diamond_helmet*1
+I C 40 minecraft:shield*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 8 minecraft:iron_boots*1
+MS 36 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+MS 45 minecraft:shield*1
+I C 0 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 36 minecraft:iron_boots*1
+I C 39 minecraft:diamond_helmet*1
+I C 40 minecraft:shield*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 8 minecraft:iron_boots*1
+MS 36 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+MS 45 minecraft:shield*1
+# dropping: a negative slot throws the stack with the drop velocity of the level random
+I C 0 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 36 minecraft:iron_boots*1
+I C 39 minecraft:diamond_helmet*1
+I C 40 minecraft:shield*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 8 minecraft:iron_boots*1
+MS 36 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+MS 45 minecraft:shield*1
+I C 0 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 36 minecraft:iron_boots*1
+I C 39 minecraft:diamond_helmet*1
+I C 40 minecraft:shield*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 8 minecraft:iron_boots*1
+MS 36 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+MS 45 minecraft:shield*1
+I C 0 minecraft:stone*64
+I C 2 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+I C 36 minecraft:iron_boots*1
+I C 39 minecraft:diamond_helmet*1
+I C 40 minecraft:shield*1
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 5 minecraft:diamond_helmet*1
+MS 8 minecraft:iron_boots*1
+MS 36 minecraft:stone*64
+MS 38 minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:3}}
+MS 45 minecraft:shield*1
+E item#1 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.007458903069012549,0.08204092085361481,-0.29821971361964766 rot=296.78204,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=0 pickup=40 health=5 owner=- thrower=C
+E item#2 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=0.001894095264733336,0.05852432921528816,-0.3032340594498224 rot=24.473118,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=0 pickup=40 health=5 owner=- thrower=C

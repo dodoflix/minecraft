@@ -1,0 +1,83 @@
+BE 0 -60 4 {Levels:1,components:{},id:"minecraft:beacon",x:0,y:-60,z:4}
+# anvil: an item in the first slot, a name, a different name, no name
+MENU A cid=1 type=minecraft:anvil state=1 carried=empty
+MS 30 minecraft:iron_pickaxe*1
+MS 31 minecraft:iron_ingot*4
+MS 32 minecraft:emerald*10
+MD 0 0
+PKT A minecraft:open_screen 3c01080a0800097472616e736c6174650010636f6e7461696e65722e72657061697200
+PKT A minecraft:container_set_content 12010127000000000000000000000000000000000000000000000000000000000000019708000004fa0700000af507000000000000000000
+MENU A cid=1 type=minecraft:anvil state=4 carried=empty
+MS 0 minecraft:iron_pickaxe*1
+MS 2 minecraft:iron_pickaxe*1{minecraft:custom_name:"Renamed"}
+MS 31 minecraft:iron_ingot*4
+MS 32 minecraft:emerald*10
+MD 0 1
+PKT A minecraft:container_set_slot 140102001e00
+PKT A minecraft:set_cursor_item 620197080000
+PKT A minecraft:container_set_slot 14010300000197080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140104000201970801000608000752656e616d6564
+PKT A minecraft:container_set_data 130100000001
+MENU A cid=1 type=minecraft:anvil state=5 carried=empty
+MS 0 minecraft:iron_pickaxe*1
+MS 2 minecraft:iron_pickaxe*1{minecraft:custom_name:"Another name"}
+MS 31 minecraft:iron_ingot*4
+MS 32 minecraft:emerald*10
+MD 0 1
+PKT A minecraft:container_set_slot 140105000201970801000608000c416e6f74686572206e616d65
+MENU A cid=1 type=minecraft:anvil state=6 carried=empty
+MS 0 minecraft:iron_pickaxe*1
+MS 31 minecraft:iron_ingot*4
+MS 32 minecraft:emerald*10
+MD 0 0
+PKT A minecraft:container_set_slot 140106000200
+PKT A minecraft:container_set_data 130100000000
+# beacon: choose effects with a payment item
+MENU A cid=2 type=minecraft:beacon state=1 carried=empty
+MS 28 minecraft:iron_pickaxe*1
+MS 29 minecraft:iron_ingot*4
+MS 30 minecraft:emerald*10
+MD 0 1
+MD 1 0
+MD 2 0
+PKT A minecraft:open_screen 3c02090a0800097472616e736c6174650010636f6e7461696e65722e626561636f6e00
+PKT A minecraft:container_set_content 1202012500000000000000000000000000000000000000000000000000000000019708000004fa0700000af507000000000000000000
+PKT A minecraft:container_set_data 130200000001
+PKT A minecraft:container_set_data 130200010000
+PKT A minecraft:container_set_data 130200020000
+MENU A cid=2 type=minecraft:beacon state=3 carried=minecraft:iron_ingot*3
+MS 0 minecraft:iron_ingot*1
+MS 28 minecraft:iron_pickaxe*1
+MS 30 minecraft:emerald*10
+MD 0 1
+MD 1 0
+MD 2 0
+PKT A minecraft:container_set_slot 140202001d00
+PKT A minecraft:set_cursor_item 6204fa070000
+PKT A minecraft:container_set_slot 140203000001fa070000
+PKT A minecraft:set_cursor_item 6203fa070000
+MENU A cid=2 type=minecraft:beacon state=3 carried=minecraft:iron_ingot*3
+MS 28 minecraft:iron_pickaxe*1
+MS 30 minecraft:emerald*10
+MD 0 1
+MD 1 1
+MD 2 0
+BE 0 -60 4 {Levels:1,components:{},id:"minecraft:beacon",primary_effect:"minecraft:speed",x:0,y:-60,z:4}
+# trading: select the second offer
+MENU A cid=3 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:iron_pickaxe*1
+MS 31 minecraft:iron_ingot*3
+MS 32 minecraft:emerald*10
+PKT A minecraft:open_screen 3c03130a080009696e73657274696f6e002466663035623461382d353565372d343531662d616330372d6332306634653232616137310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650023656e746974792e6d696e6563726166742e76696c6c616765722e6c696272617269616e00080006616374696f6e000b73686f775f656e74697479080002696400126d696e6563726166743a76696c6c616765720b00047575696400000004ff05b4a855e7451fac07c20f4e22aa71000800097472616e736c6174650023656e746974792e6d696e6563726166742e76696c6c616765722e6c696272617269616e00
+PKT A minecraft:container_set_content 12030127000000000000000000000000000000000000000000000000000000000000019708000003fa0700000af507000000000000000000
+PKT A minecraft:merchant_offers 350302f507010006ab0800000000000000000000000c00000002000000003d4ccccd00000000f908180001f50700000000000000000000001000000002000000003d4ccccd00000000020a0101
+MENU A cid=3 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:iron_pickaxe*1
+MS 31 minecraft:iron_ingot*3
+MS 32 minecraft:emerald*10
+MENU A cid=3 type=minecraft:merchant state=1 carried=empty
+MS 0 minecraft:emerald*10
+MS 2 minecraft:bread*6
+MS 30 minecraft:iron_pickaxe*1
+MS 31 minecraft:iron_ingot*3

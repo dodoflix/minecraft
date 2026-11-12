@@ -117,15 +117,16 @@ import net.minecraft.util.RandomSource;
  * spawn REF TYPE X Y Z [yaw pitch] [SNBT]        real vanilla entity (EntityType.create + addFreshEntity), random seeded from REF
  * spawn_item REF STACK X Y Z [vx vy vz] [count] [rot=YAW]  ItemEntity (constructor random motion unless vx vy vz given; rot= overrides the random yaw)
  * entity_seed REF N           entity.getRandom().setSeed(N)
- * spawn_player NAME survival|creative|adventure|spectator X Y Z [yaw pitch] [sim]
+ * spawn_player NAME survival|creative|adventure|spectator X Y Z [yaw pitch] [sim] [joinburst]
  *                             joins a real ServerPlayer through PlayerList.placeNewPlayer; `sim` = the server simulates its
  *                             physics (client-side LocalPlayer behaviour, see VanillaLevel.SimPlayer), otherwise it only moves
- *                             through `move_packet`s like a real vanilla server player
+ *                             through `move_packet`s like a real vanilla server player; `joinburst` keeps the packets of the join for the
+ *                             first `packets:NAME` dump (otherwise they are discarded): compare them with a type filter (`:set_held_slot,update_recipes,recipe_book_settings,recipe_book_add,container_set_content`)
  * give REF SLOT STACK [count] SLOT: mainhand offhand head chest legs feet hotbarN (0-8) invN (container slot index)
  * select PLAYER N             hotbar slot (ServerboundSetCarriedItemPacket)
  * effect REF EFFECT AMPLIFIER TICKS [hidden]      addEffect
  * attribute REF ATTRIBUTE BASEVALUE               setBaseValue
- * set REF health|food|saturation|exhaustion|air|fire|fall_distance|ticks_frozen|xp_level|absorption|invulnerable|no_gravity|on_ground|tag VALUE
+ * set REF health|food|saturation|exhaustion|air|fire|fall_distance|ticks_frozen|xp_level|enchant_seed|absorption|invulnerable|no_gravity|on_ground|tag VALUE
  * nbt REF SNBT                merge SNBT into the entity (Entity.load of the merged save data)
  * snap REF X Y Z [yaw pitch]  Entity.snapTo (no packets)          tp REF X Y Z [yaw pitch]   teleportTo
  * velocity REF X Y Z          setDeltaMovement
@@ -180,6 +181,7 @@ import net.minecraft.util.RandomSource;
  *                             the raid_omen effect to carry an omen level; omen=N overrides)       dump raids   all raids (`RAID` lines)
  * interact PLAYER REF [main|off] [sneak] [center]   ServerboundInteractPacket (use the entity: board a boat, open a chest boat, feed, tame); location = entity origin, `center` = bounding box centre relative to the origin
  * trade_select PLAYER N       ServerboundSelectTradePacket
+ * click, creative_slot, rename, select_trade, set_beacon, slot_state, place_recipe, recipe_seen, recipe_settings, `dump menu:PLAYER`, `dump recipes:PLAYER`: see MenuVerbs.java
  * local difficulty / light / time of day: `dump difficulty:X,Y,Z` (`DIFFICULTY ..`), `dump light:X,Y,Z` (`LIGHT x y z block=B sky=S`, after ticks),
  *                             `time N` (day time, `/time set`; the sky darkens on the next tick), `gamerule`.
  * -- time --
@@ -522,12 +524,15 @@ public final class EntityOracleDriver {
          case "spawn_player" -> {
             world();
             GameType gm = GameType.byName(a.get(2));
-            boolean sim = a.get(a.size() - 1).equals("sim");
-            int n = a.size() - (sim ? 1 : 0);
+            boolean sim = a.subList(6, a.size()).contains("sim");
+            boolean joinburst = a.subList(6, a.size()).contains("joinburst");
+            int n = a.size() - (sim ? 1 : 0) - (joinburst ? 1 : 0);
             VanillaLevel.reseed(hash(a.get(1)));
             VanillaLevel.FakePlayer p = v.connect(a.get(1), gm, d(a.get(3)), d(a.get(4)), d(a.get(5)), n > 6 ? (float)d(a.get(6)) : 0f, n > 7 ? (float)d(a.get(7)) : 0f, sim);
             refs.put(a.get(1), p.player);
-            p.drain(); // the join burst is deterministic but huge; `packets:NAME` dumps start after the join
+            if (!joinburst) {
+               p.drain(); // the join burst is deterministic but huge; `packets:NAME` dumps start after the join
+            }
          }
          case "give" -> {
             world();
@@ -891,7 +896,11 @@ public final class EntityOracleDriver {
             world();
             player(a.get(1)).connection.handleSelectTrade(new ServerboundSelectTradePacket(Integer.parseInt(a.get(2))));
          }
-         default -> throw new IllegalArgumentException("unknown command " + cmd);
+         default -> {
+            if (!MenuVerbs.run(this, a)) {
+               throw new IllegalArgumentException("unknown command " + cmd);
+            }
+         }
       }
       nameNewEntities();
       flushCommandOutput();
@@ -1056,6 +1065,7 @@ public final class EntityOracleDriver {
          case "fall_distance" -> e.fallDistance = d(value);
          case "ticks_frozen" -> e.setTicksFrozen(Integer.parseInt(value));
          case "xp_level" -> ((ServerPlayer)e).setExperienceLevels(Integer.parseInt(value));
+         case "enchant_seed" -> priv(e, Player.class, "enchantmentSeed", Integer.parseInt(value));
          case "absorption" -> ((LivingEntity)e).setAbsorptionAmount(Float.parseFloat(value));
          case "invulnerable" -> priv(e, Entity.class, "permanentlyInvulnerable", Boolean.parseBoolean(value));
          case "no_gravity" -> e.setNoGravity(Boolean.parseBoolean(value));
@@ -1827,6 +1837,8 @@ public final class EntityOracleDriver {
                }
             }
             case "raids" -> raidsDump();
+            case "menu" -> MenuVerbs.dump(this, arg);
+            case "recipes" -> MenuVerbs.dumpRecipes(this, arg);
             default -> throw new IllegalArgumentException("dump " + w);
          }
       }

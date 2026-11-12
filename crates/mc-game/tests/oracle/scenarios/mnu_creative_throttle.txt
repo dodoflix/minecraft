@@ -1,0 +1,93 @@
+# The throttle on dropping in creative mode: every drop adds 20 to a counter that falls by 1 per tick, drops are ignored from 1480 on
+# (74 in a row), so one tick lets one more drop through (the entity numbering shows which drops were accepted).
+command_env
+level flat
+preload 2
+spawn_player C creative 0.5 -60 3.5 180 0
+tick 2
+dump events packets:C:none
+level_seed 51
+creative_slot C -1 minecraft:stone 1
+creative_slot C -1 minecraft:dirt 1
+creative_slot C -1 minecraft:sand 1
+creative_slot C -1 minecraft:gravel 1
+creative_slot C -1 minecraft:cobblestone 1
+creative_slot C -1 minecraft:oak_planks 1
+creative_slot C -1 minecraft:glass 1
+creative_slot C -1 minecraft:clay_ball 1
+creative_slot C -1 minecraft:stick 1
+creative_slot C -1 minecraft:coal 1
+creative_slot C -1 minecraft:iron_ingot 1
+creative_slot C -1 minecraft:gold_ingot 1
+creative_slot C -1 minecraft:diamond 1
+creative_slot C -1 minecraft:emerald 1
+creative_slot C -1 minecraft:redstone 1
+creative_slot C -1 minecraft:flint 1
+creative_slot C -1 minecraft:bone 1
+creative_slot C -1 minecraft:string 1
+creative_slot C -1 minecraft:feather 1
+creative_slot C -1 minecraft:stone 2
+creative_slot C -1 minecraft:dirt 2
+creative_slot C -1 minecraft:sand 2
+creative_slot C -1 minecraft:gravel 2
+creative_slot C -1 minecraft:cobblestone 2
+creative_slot C -1 minecraft:oak_planks 2
+creative_slot C -1 minecraft:glass 2
+creative_slot C -1 minecraft:clay_ball 2
+creative_slot C -1 minecraft:stick 2
+creative_slot C -1 minecraft:coal 2
+creative_slot C -1 minecraft:iron_ingot 2
+creative_slot C -1 minecraft:gold_ingot 2
+creative_slot C -1 minecraft:diamond 2
+creative_slot C -1 minecraft:emerald 2
+creative_slot C -1 minecraft:redstone 2
+creative_slot C -1 minecraft:flint 2
+creative_slot C -1 minecraft:bone 2
+creative_slot C -1 minecraft:string 2
+creative_slot C -1 minecraft:feather 2
+creative_slot C -1 minecraft:stone 3
+creative_slot C -1 minecraft:dirt 3
+creative_slot C -1 minecraft:sand 3
+creative_slot C -1 minecraft:gravel 3
+creative_slot C -1 minecraft:cobblestone 3
+creative_slot C -1 minecraft:oak_planks 3
+creative_slot C -1 minecraft:glass 3
+creative_slot C -1 minecraft:clay_ball 3
+creative_slot C -1 minecraft:stick 3
+creative_slot C -1 minecraft:coal 3
+creative_slot C -1 minecraft:iron_ingot 3
+creative_slot C -1 minecraft:gold_ingot 3
+creative_slot C -1 minecraft:diamond 3
+creative_slot C -1 minecraft:emerald 3
+creative_slot C -1 minecraft:redstone 3
+creative_slot C -1 minecraft:flint 3
+creative_slot C -1 minecraft:bone 3
+creative_slot C -1 minecraft:string 3
+creative_slot C -1 minecraft:feather 3
+creative_slot C -1 minecraft:stone 4
+creative_slot C -1 minecraft:dirt 4
+creative_slot C -1 minecraft:sand 4
+creative_slot C -1 minecraft:gravel 4
+creative_slot C -1 minecraft:cobblestone 4
+creative_slot C -1 minecraft:oak_planks 4
+creative_slot C -1 minecraft:glass 4
+creative_slot C -1 minecraft:clay_ball 4
+creative_slot C -1 minecraft:stick 4
+creative_slot C -1 minecraft:coal 4
+creative_slot C -1 minecraft:iron_ingot 4
+creative_slot C -1 minecraft:gold_ingot 4
+creative_slot C -1 minecraft:diamond 4
+creative_slot C -1 minecraft:emerald 4
+creative_slot C -1 minecraft:redstone 4
+creative_slot C -1 minecraft:flint 4
+creative_slot C -1 minecraft:bone 4
+creative_slot C -1 minecraft:string 4
+creative_slot C -1 minecraft:feather 4
+dump entity:item#1 entity:item#74
+tick 1
+creative_slot C -1 minecraft:lapis_lazuli 64
+creative_slot C -1 minecraft:quartz 64
+tick 25
+creative_slot C -1 minecraft:amethyst_shard 64
+creative_slot C -1 minecraft:prismarine_shard 64
+dump entity:item#75 entity:item#76

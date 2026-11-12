@@ -1,0 +1,132 @@
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+PKT A minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT A minecraft:container_set_content 1201013f1e0100000537000001970800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef070000140100000000000000000000
+# a click whose predicted changes and cursor equal the server result sends nothing back
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MENU A cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+# a stale state id: the whole menu is sent again after the click is applied
+MENU A cid=1 type=minecraft:generic_9x3 state=2 carried=minecraft:stone*30
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+PKT A minecraft:container_set_content 1201023f000537000001970800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef07000014010000000000000000001e010000
+# a state id the server never had
+MENU A cid=1 type=minecraft:generic_9x3 state=3 carried=empty
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+PKT A minecraft:container_set_content 1201033f000537000001970800001e01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aef070000140100000000000000000000
+# a click for a container the player does not have open is ignored
+MENU A cid=1 type=minecraft:generic_9x3 state=3 carried=empty
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MENU A cid=1 type=minecraft:generic_9x3 state=3 carried=empty
+MS 1 minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+# a wrong hash for a changed slot and for the cursor: the server corrects both
+MENU A cid=1 type=minecraft:generic_9x3 state=4 carried=minecraft:dirt*5
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+PKT A minecraft:container_set_slot 140104000100
+PKT A minecraft:set_cursor_item 6205370000
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=empty
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 4 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+PKT A minecraft:container_set_slot 140105000405370000
+PKT A minecraft:set_cursor_item 6200
+# components take part in the hash
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 4 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+PKT A minecraft:set_cursor_item 620197080000
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=empty
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 4 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+# an out of range slot is ignored
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=empty
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 4 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=empty
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 4 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+# a hotbar stack in sync
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=minecraft:stone*20
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 4 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=empty
+MS 2 minecraft:iron_pickaxe*1
+MS 3 minecraft:stone*30
+MS 4 minecraft:dirt*5
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+# a spectator opens the chest and every click only resends the menu
+MENU S cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:diamond*7
+PKT S minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+PKT S minecraft:container_set_content 1201013f07f4070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+MENU S cid=1 type=minecraft:generic_9x3 state=2 carried=empty
+MS 0 minecraft:diamond*7
+PKT S minecraft:container_set_content 1201023f07f4070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+MENU S cid=1 type=minecraft:generic_9x3 state=3 carried=empty
+MS 0 minecraft:diamond*7
+PKT S minecraft:container_set_content 1201033f07f4070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+MENU S cid=1 type=minecraft:generic_9x3 state=4 carried=empty
+MS 0 minecraft:diamond*7
+PKT S minecraft:container_set_content 1201043f07f4070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+# a chest broken under the player: the click finds the menu invalid and changes nothing
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=empty
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MENU A cid=1 type=minecraft:generic_9x3 state=5 carried=empty
+MS 54 minecraft:apple*10
+MS 55 minecraft:stone*20
+MENU A cid=0 type=inventory state=3 carried=empty
+MS 36 minecraft:apple*10
+MS 37 minecraft:stone*20
+PKT A minecraft:container_set_slot 140106000200
+PKT A minecraft:container_set_slot 140107000300
+PKT A minecraft:container_set_slot 140108000400
+PKT A minecraft:container_close 1101
+I A 0 minecraft:apple*10
+I A 1 minecraft:stone*20

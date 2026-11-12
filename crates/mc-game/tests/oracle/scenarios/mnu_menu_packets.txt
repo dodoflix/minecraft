@@ -1,0 +1,43 @@
+# The menu specific packets through the player's listener: rename on an anvil, the beacon effect selection and a trade selection.
+command_env
+level flat
+preload 4
+spawn_player A survival 0.5 -60 6.5 180 0
+set A xp_level 12
+block 3 -60 4 minecraft:anvil[facing=north]
+fill -1 -61 3 1 -61 5 minecraft:iron_block
+block 0 -60 4 minecraft:beacon
+spawn V minecraft:villager 3.5 -60 6.5 0 0 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:2},Xp:10,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b}
+give A hotbar0 minecraft:iron_pickaxe
+give A hotbar1 minecraft:iron_ingot 4
+give A hotbar2 minecraft:emerald 10
+tick 100
+dump packets:A:none be:0,-60,4
+note anvil: an item in the first slot, a name, a different name, no name
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content
+click A 30 0 PICKUP
+click A 0 0 PICKUP
+rename A "Renamed"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+rename A "Another name"
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+rename A ""
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu A
+note beacon: choose effects with a payment item
+use_on A 0 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+set_beacon A minecraft:speed -
+dump menu:A be:0,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu A 2
+note trading: select the second offer
+interact A V main
+dump menu:A packets:A:open_screen,container_set_content,merchant_offers
+select_trade A 1
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+select_trade A 0
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item

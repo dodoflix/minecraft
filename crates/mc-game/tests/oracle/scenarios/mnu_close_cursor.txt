@@ -1,0 +1,37 @@
+# Closing a menu with a stack on the cursor: the stack is dropped with the drop velocity of the level random (chest menu and the
+# inventory menu), an empty cursor drops nothing. (An extra token keeps equal lines apart: the driver seeds the entity random
+# from the line, and equal lines would create items with the same UUID.)
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:30},{Slot:1b,id:"minecraft:dirt",count:5}]}
+give A hotbar0 minecraft:apple 10
+tick 2
+dump events packets:A:none
+use_on A 0 -60 0 south main
+dump menu:A packets:A:open_screen,container_set_content
+note pick up a stack and close the chest
+click A 0 0 PICKUP
+dump menu:A
+level_seed 61
+close_menu A
+dump menu:A entities inventory:A packets:A:container_close,container_set_slot,container_set_content,set_cursor_item
+note close with an empty cursor
+use_on A 0 -60 0 south main
+close_menu A 2
+dump menu:A entities packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item
+note the inventory menu with a cursor stack
+click A 36 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+level_seed 62
+close_menu A 3
+dump menu:A entities inventory:A packets:A:container_close,container_set_slot,container_set_content,set_cursor_item
+note a second stack dropped a tick later
+use_on A 0 -60 0 south main
+click A 1 1 PICKUP
+tick 1
+level_seed 63
+close_menu A 4
+dump menu:A entities packets:A:open_screen,container_close,container_set_slot,container_set_content,set_cursor_item

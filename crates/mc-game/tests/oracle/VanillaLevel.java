@@ -581,6 +581,27 @@ public final class VanillaLevel {
          }
          Collections.sort(entries);
          text = "entity=" + attrs.getEntityId() + ";" + String.join(";", entries);
+      } else if (p instanceof net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket recipes) {
+         // the property sets are `Set.copyOf` (per JVM salted order) inside a `HashMap`: canonical order by key and item id
+         java.util.TreeMap<String, String> sets = new java.util.TreeMap<>();
+         for (var e : recipes.itemSets().entrySet()) {
+            java.util.Set<net.minecraft.core.Holder<net.minecraft.world.item.Item>> items;
+            try {
+               var field = net.minecraft.world.item.crafting.RecipePropertySet.class.getDeclaredField("items");
+               field.setAccessible(true);
+               items = (java.util.Set<net.minecraft.core.Holder<net.minecraft.world.item.Item>>)field.get(e.getValue());
+            } catch (ReflectiveOperationException ex) {
+               throw new IllegalStateException(ex);
+            }
+            sets.put(e.getKey().identifier().toString(), String.join(",", items.stream().map(h -> h.getRegisteredName()).sorted().toList()));
+         }
+         RegistryFriendlyByteBuf stonecutter = new RegistryFriendlyByteBuf(Unpooled.buffer(), REGISTRIES);
+         net.minecraft.world.item.crafting.SelectableRecipe.SingleInputSet.<net.minecraft.world.item.crafting.StonecutterRecipe>noRecipeCodec().encode(stonecutter, recipes.stonecutterRecipes());
+         byte[] stonecutterBytes = new byte[stonecutter.readableBytes()];
+         stonecutter.readBytes(stonecutterBytes);
+         StringBuilder sets_text = new StringBuilder();
+         sets.forEach((k, v) -> sets_text.append(k).append('=').append(v).append(';'));
+         text = "sets=" + sets_text + " stonecutter=" + java.util.HexFormat.of().formatHex(stonecutterBytes);
       } else if (p instanceof ClientboundLevelChunkWithLightPacket chunk) {
          text = "chunk=" + chunk.x() + "," + chunk.z() + "/len=" + bytes.length; // heightmap map order is identity-hash dependent
       }

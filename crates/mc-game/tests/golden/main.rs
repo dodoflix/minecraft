@@ -131,6 +131,7 @@ mod loot_load;
 mod map_golden;
 mod menu_golden;
 mod mineshaft_golden;
+mod mnu_harness_golden;
 mod mob_spine_golden;
 mod net_common;
 mod nether_fortress_golden;

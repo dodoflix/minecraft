@@ -32,7 +32,7 @@ use mc_game::world::inventory::{PlayerMenus, handle_container_button_click};
 use mc_game::world::item::InteractionHand;
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_protocol::codec::{Decode, read_varint};
+use mc_protocol::codec::{Decode, Encode, read_varint};
 use mc_protocol::packets::play::{
     AttributeModifierOperation, ClientboundSetTimePacket, ClientboundUpdateAttributesPacket,
 };
@@ -117,7 +117,8 @@ fn num(s: &str) -> f64 {
     s.parse().unwrap_or_else(|_| panic!("not a number: {s}"))
 }
 /// `VanillaLevel.record`: the advancement update carries timestamps of obtained criteria; the attribute snapshots are a `HashSet` in
-/// Java (identity hash order), so they are dumped sorted by attribute and modifier id; anything else is its hex wire form.
+/// Java (identity hash order), so they are dumped sorted by attribute and modifier id; the recipe property sets sorted by key and item;
+/// anything else is its hex wire form.
 fn packet_text(ty: &str, wire: &[u8]) -> String {
     match ty {
         "minecraft:update_advancements" => "-".into(),
@@ -152,6 +153,33 @@ fn packet_text(ty: &str, wire: &[u8]) -> String {
                 .collect();
             entries.sort();
             format!("entity={};{}", p.entity_id, entries.join(";"))
+        }
+        // the property sets are a `HashMap` of `Set.copyOf` sets in Java (per JVM order): canonical order by key and item id
+        "minecraft:update_recipes" => {
+            let mut body = wire;
+            read_varint(&mut body).expect("packet id");
+            let p = mc_protocol::packets::play::ClientboundUpdateRecipesPacket::decode(&mut body)
+                .expect("update_recipes");
+            let mut sets: Vec<(String, Vec<&str>)> = p
+                .item_sets
+                .iter()
+                .map(|(key, set)| {
+                    let mut items: Vec<&str> = set.items.iter().map(|i| i.name()).collect();
+                    items.sort();
+                    (key.to_string(), items)
+                })
+                .collect();
+            sets.sort();
+            let mut stonecutter = Vec::new();
+            p.stonecutter_recipes
+                .encode(&mut stonecutter)
+                .expect("stonecutter recipes encode");
+            let sets: String = sets
+                .iter()
+                .map(|(key, items)| format!("{key}={};", items.join(",")))
+                .collect();
+            let stonecutter: String = stonecutter.iter().map(|b| format!("{b:02x}")).collect();
+            format!("sets={sets} stonecutter={stonecutter}")
         }
         _ => wire.iter().map(|b| format!("{b:02x}")).collect(),
     }
@@ -604,6 +632,17 @@ impl Scenario {
                         .living_mut()
                         .expect("living entity")
                         .set_health(v.parse().unwrap()),
+                    "xp_level" | "enchant_seed" => {
+                        let player = e
+                            .as_any_mut()
+                            .downcast_mut::<ServerPlayer>()
+                            .expect("player");
+                        if a[2] == "xp_level" {
+                            player.set_experience_levels(v.parse().unwrap());
+                        } else {
+                            player.player.enchantment_seed = v.parse().unwrap();
+                        }
+                    }
                     "food" | "saturation" | "exhaustion" => {
                         let food = &mut e
                             .as_any_mut()
@@ -700,6 +739,30 @@ impl Scenario {
         true
     }
 
+    /// `/recipe give|take PLAYER RECIPE|*`: `awardRecipes` / `resetRecipes` over the one recipe or every learnable recipe.
+    pub(super) fn recipe_command(&mut self, a: &[String]) {
+        self.load_registries();
+        let level_recipes = self.level().recipe_access();
+        let holders: Vec<_> = if a[4] == "*" {
+            level_recipes.learnable_recipes().to_vec()
+        } else {
+            let id = Identifier::parse(&a[4]).unwrap_or_else(|e| panic!("recipe {}: {e:?}", a[4]));
+            vec![
+                level_recipes
+                    .by_key(&id)
+                    .unwrap_or_else(|| panic!("unknown recipe {id}"))
+                    .clone(),
+            ]
+        };
+        self.with_player_named(&a[3], |level, p| {
+            if a[2] == "give" {
+                p.award_recipes(level, &holders);
+            } else {
+                p.reset_recipes(level, &holders);
+            }
+        });
+    }
+
     fn with_player_named<R>(
         &mut self,
         name: &str,
@@ -756,8 +819,10 @@ impl Scenario {
 
     fn spawn_player(&mut self, a: &[String]) {
         let name = a[1].clone();
-        let sim = a.last().map(String::as_str) == Some("sim");
-        let n = a.len() - usize::from(sim);
+        let flags = &a[6..];
+        let sim = flags.iter().any(|f| f == "sim");
+        let joinburst = flags.iter().any(|f| f == "joinburst");
+        let n = a.len() - usize::from(sim) - usize::from(joinburst);
         let level = self.level();
         let id = level.next_entity_id();
         let profile = mc_game::server::network::login_listener::create_offline_profile(&name);
@@ -855,7 +920,20 @@ impl Scenario {
         }
         let level = self.level();
         level.add_player(Box::new(p));
-        level.with_player(id, |level, p| p.init_inventory_menu(level));
+        level.with_player(id, |level, p| {
+            if joinburst {
+                // `placeNewPlayer`: the held slot, the recipe properties and the recipe book come before the inventory menu
+                p.send(&mc_protocol::packets::play::ClientboundSetHeldSlotPacket {
+                    slot: p.player.inventory.get_selected_slot(),
+                });
+                let recipes = level.recipe_access();
+                p.send(&mc_game::world::item::crafting::update_recipes_packet(
+                    &recipes,
+                ));
+                mc_game::server::players::join::send_initial_recipe_book(p, &recipes);
+            }
+            p.init_inventory_menu(level)
+        });
         // `PlayerList.placeNewPlayer` registers the player with the chunk map: the spawning chunks it creates are shuffled
         // with the level random on every tick (`ServerChunkCache.tickChunks`), which every later spawner draw depends on.
         level.chunk_source.chunk_map.add_player(tracking);
@@ -871,9 +949,9 @@ impl Scenario {
         self.actors.refs.push((name.clone(), id));
         self.actors.players.push(name.clone());
         self.actors._inbound.push(inbound_tx);
-        // the join burst is not compared: `packets:NAME` dumps start after the join
+        // the join burst is only compared with `joinburst`: otherwise `packets:NAME` dumps start after the join
         let mut rx = rx;
-        while rx.try_recv().is_ok() {}
+        while !joinburst && rx.try_recv().is_ok() {}
         self.actors.rx.insert(name, rx);
     }
 
@@ -1018,6 +1096,7 @@ impl Scenario {
             self.with_player_named(&name, |level, p| {
                 if let Some(listener) = p.listener.as_mut() {
                     listener.send_block_changed_ack();
+                    listener.tick_throttlers();
                 }
                 let pos = p.position();
                 p.player.living.entity.set_old_pos(pos);

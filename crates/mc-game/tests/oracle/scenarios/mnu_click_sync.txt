@@ -1,0 +1,72 @@
+# What the click handler does besides the click: a click that matches the server state sends nothing back, a stale state id resends the
+# whole menu, a click for another container id is ignored, a wrong hash for a changed slot or the cursor is corrected, a spectator
+# only gets the whole menu again, a chest broken under the player makes the menu invalid, an out of range slot is ignored.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player S spectator 6.5 -60 3.5 180 0
+block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:30},{Slot:1b,id:"minecraft:dirt",count:5},{Slot:2b,id:"minecraft:iron_pickaxe",count:1}]}
+block 6 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 6 -60 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:7}]}
+give A hotbar0 minecraft:apple 10
+give A hotbar1 minecraft:stone 20
+tick 2
+dump events packets:A:none packets:S:none
+level_seed 31
+use_on A 0 -60 0 south main
+dump menu:A packets:A:open_screen,container_set_content
+note a click whose predicted changes and cursor equal the server result sends nothing back
+click A 0 0 PICKUP changed=0:- carried=minecraft:stone*30
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 3 0 PICKUP changed=3:minecraft:stone*30 carried=-
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a stale state id: the whole menu is sent again after the click is applied
+click A 3 0 PICKUP state=stale changed=3:- carried=minecraft:stone*30
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a state id the server never had
+click A 3 0 PICKUP state=77 changed=3:minecraft:stone*30 carried=-
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a click for a container the player does not have open is ignored
+click A 1 0 PICKUP cid=7
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 1 0 PICKUP cid=0
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a wrong hash for a changed slot and for the cursor: the server corrects both
+click A 1 0 PICKUP changed=1:minecraft:dirt*4 carried=minecraft:dirt*1
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 4 0 PICKUP changed=4:minecraft:dirt*9 carried=minecraft:diamond*2
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note components take part in the hash
+click A 2 0 PICKUP changed=2:- carried=minecraft:iron_pickaxe[damage=5]
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 2 0 PICKUP changed=2:minecraft:iron_pickaxe carried=-
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note an out of range slot is ignored
+click A 90 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A -5 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a hotbar stack in sync
+click A 55 0 PICKUP changed=55:- carried=minecraft:stone*20
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 55 0 PICKUP changed=55:minecraft:stone*20 carried=-
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note a spectator opens the chest and every click only resends the menu
+use_on S 6 -60 0 south main
+dump menu:S packets:S:open_screen,container_set_content
+click S 0 0 PICKUP
+dump menu:S packets:S:container_set_slot,container_set_content,set_cursor_item
+click S 0 0 QUICK_MOVE
+dump menu:S packets:S:container_set_slot,container_set_content,set_cursor_item
+click S 0 0 PICKUP state=stale
+dump menu:S packets:S:container_set_slot,container_set_content,set_cursor_item
+note a chest broken under the player: the click finds the menu invalid and changes nothing
+block 0 -60 0 minecraft:air
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+tick 1
+dump menu:A packets:A:container_close,container_set_slot,container_set_content,set_cursor_item inventory:A
