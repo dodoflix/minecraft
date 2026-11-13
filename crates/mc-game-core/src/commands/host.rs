@@ -1435,16 +1435,9 @@ pub fn entity_relation(
         EntityRelation::Controller => e.get_controlling_passenger().into_iter().collect(),
         EntityRelation::Passengers => e.base().passengers.clone(),
         EntityRelation::Leasher => e.leash_holder().into_iter().collect(),
-        EntityRelation::Target => e.get_target().into_iter().collect(),
+        EntityRelation::Target => e.targeting_target(level).into_iter().collect(),
         EntityRelation::Owner => by_uuid(e.ownable_owner_uuid()),
-        // `LivingEntity.getLastHurtByMob`: a living entity of the level.
-        EntityRelation::Attacker => {
-            by_uuid(e.living().and_then(|l| l.last_hurt_by_mob).filter(|&u| {
-                level
-                    .get_entity_by_uuid(u)
-                    .is_some_and(|o| o.living().is_some())
-            }))
-        }
+        EntityRelation::Attacker => e.attackable_last_attacker(level).into_iter().collect(),
         EntityRelation::Origin => match e.as_projectile() {
             Some(projectile) => projectile
                 .get_owner(level)

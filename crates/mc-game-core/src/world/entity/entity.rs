@@ -3384,6 +3384,19 @@ pub trait Entity: Any {
     fn get_target(&self) -> Option<EntityId> {
         self.mob().and_then(|m| m.target)
     }
+    /// `Targeting.getTarget()`: `Mob.getTarget()` or, for an `Interaction`, the player that last used it.
+    fn targeting_target(&self, _level: &ServerLevel) -> Option<EntityId> {
+        self.get_target()
+    }
+    /// `Attackable.getLastAttacker()`: `LivingEntity.getLastHurtByMob` (a living entity of the level) or, for an
+    /// `Interaction`, the player that last attacked it.
+    fn attackable_last_attacker(&self, level: &ServerLevel) -> Option<EntityId> {
+        self.living()?
+            .last_hurt_by_mob
+            .and_then(|uuid| level.get_entity_by_uuid(uuid))
+            .filter(|attacker| attacker.living().is_some())
+            .map(|attacker| attacker.id())
+    }
     /// `Sheep.isSheared()`; `None` when the entity is not a `Sheep`.
     fn sheep_sheared(&self) -> Option<bool> {
         None
