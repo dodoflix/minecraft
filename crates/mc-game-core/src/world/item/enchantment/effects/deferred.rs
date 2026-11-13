@@ -166,7 +166,7 @@ fn explode(
         params.large_explosion_particles = e.large_particle.clone();
         params.block_particles = block_particles.clone();
         params.explosion_sound = sound.clone();
-        level.explode(params, &mut []);
+        level.explode(params);
     };
     if e.attribute_to_user {
         // the user may be the entity that is running (outside the level): `explode` takes it as the explosion source

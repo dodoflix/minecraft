@@ -1099,11 +1099,6 @@ macro_rules! impl_abstract_arrow_entity {
                 );
             }
         }
-        fn snapshot_for_damage(&self) -> Option<Box<dyn $crate::world::entity::Entity>> {
-            $crate::world::entity::projectile::snapshot_for_damage(self, || {
-                Box::new(Self::new(self.get_type(), self.id()))
-            })
-        }
         fn get_movement_emission(&self) -> $crate::world::entity::MovementEmission {
             $crate::world::entity::MovementEmission::None
         }

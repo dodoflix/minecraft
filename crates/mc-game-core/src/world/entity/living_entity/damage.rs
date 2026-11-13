@@ -74,11 +74,7 @@ pub fn is_invulnerable_to(
         return true;
     }
     let victim = entity.id();
-    let mut causing = source.causing_snapshot(level);
     let mut actors = Actors::of(entity);
-    if let Some(c) = causing.as_mut() {
-        actors.push(&mut ***c);
-    }
     enchantment_helper::is_immune_to_damage(level, &mut actors, victim, source)
 }
 
@@ -491,11 +487,7 @@ pub fn get_damage_after_magic_absorb(
     }
     let enchantment_armor = {
         let victim = entity.id();
-        let mut causing = source.causing_snapshot(level);
         let mut actors = Actors::of(&mut *entity);
-        if let Some(c) = causing.as_mut() {
-            actors.push(&mut ***c);
-        }
         enchantment_helper::get_damage_protection(level, &mut actors, victim, source)
     };
     if enchantment_armor > 0.0 {

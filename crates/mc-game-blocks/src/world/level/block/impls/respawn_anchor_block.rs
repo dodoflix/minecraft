@@ -6,9 +6,9 @@ use mc_data::{EntityType, Item};
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::server::level::level_explode::Explode;
+use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::entity::dismount_helper::find_safe_dismount_location;
 use mc_game_core::world::entity::respawn::respawn_data_of;
-use mc_game_core::world::entity::{Entity, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::explosion::{
@@ -175,8 +175,7 @@ fn explode(level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer) {
     )
     .with_fire(true)
     .with_damage_source(Some(damage_source), Some(&calculator));
-    let participants: &mut [&mut dyn Entity] = &mut [player];
-    level.explode(params, participants);
+    level.lend(player, |level| level.explode(params));
 }
 
 impl BlockBehaviour for RespawnAnchorBlock {

@@ -89,7 +89,6 @@ impl Projectile for LargeFireball {
                 ExplosionInteraction::Mob,
             )
             .with_fire(grief),
-            &mut [],
         );
         self.discard();
     }

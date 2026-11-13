@@ -112,9 +112,12 @@ pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSour
         None => true,
         Some(source_entity) => {
             let (v, s) = (victim.clone(), source.clone());
+            // the victim is lent: `killedEntity` may act on it (a zombie converting the villager it killed)
             level
-                .with_entity_or_defer(source_entity, move |level, e| {
-                    e.killed_entity(level, &v, &s)
+                .lend(&mut *entity, |level| {
+                    level.with_entity_or_defer(source_entity, move |level, e| {
+                        e.killed_entity(level, &v, &s)
+                    })
                 })
                 .unwrap_or(true)
         }
@@ -225,19 +228,10 @@ pub fn loot_table_items(
     let seed = entity.get_loot_table_seed();
 
     {
-        let causing_guard = source.causing_snapshot(level);
-        let direct_guard = source.direct_snapshot(level);
-        let attacker: Option<&dyn Entity> = match source.get_entity() {
-            Some(id) => level
-                .get_entity(id)
-                .or_else(|| causing_guard.as_deref().map(|b| &**b)),
-            None => None,
-        };
+        let attacker: Option<&dyn Entity> = source.get_entity().and_then(|id| level.get_entity(id));
         let direct: Option<&dyn Entity> = match source.get_direct_entity() {
             Some(id) if Some(id) == source.get_entity() => attacker,
-            Some(id) => level
-                .get_entity(id)
-                .or_else(|| direct_guard.as_deref().map(|b| &**b)),
+            Some(id) => level.get_entity(id),
             None => None,
         };
         let killer_uuid = entity.living().expect("living").last_hurt_by_player;
@@ -275,11 +269,7 @@ pub fn get_experience_reward(
 ) -> i32 {
     let base = entity.get_base_experience_reward(level);
     let victim_id = entity.id();
-    let mut causing = source.and_then(|s| s.causing_snapshot(level));
     let mut actors = Actors::of(&mut *entity);
-    if let Some(c) = causing.as_mut() {
-        actors.push(&mut ***c);
-    }
     crate::world::item::enchantment_helper::process_mob_experience(
         level,
         &mut actors,
@@ -300,11 +290,7 @@ pub fn drop_experience(entity: &mut dyn Entity, level: &mut ServerLevel, source:
     if eligible {
         let base = entity.get_base_experience_reward(level);
         let victim_id = entity.id();
-        let mut causing = source.causing_snapshot(level);
         let mut actors = Actors::of(&mut *entity);
-        if let Some(c) = causing.as_mut() {
-            actors.push(&mut ***c);
-        }
         let amount = crate::world::item::enchantment_helper::process_mob_experience(
             level,
             &mut actors,

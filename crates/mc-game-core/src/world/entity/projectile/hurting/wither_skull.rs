@@ -76,10 +76,14 @@ impl Projectile for WitherSkull {
     fn on_hit(&mut self, level: &mut ServerLevel, hit: &HitResult) {
         crate::world::entity::projectile::on_hit_base(self, level, hit);
         let p = self.position();
-        level.explode(
-            Explode::new(Some(&*self), p.x, p.y, p.z, 1.0, ExplosionInteraction::Mob),
-            &mut [],
-        );
+        level.explode(Explode::new(
+            Some(&*self),
+            p.x,
+            p.y,
+            p.z,
+            1.0,
+            ExplosionInteraction::Mob,
+        ));
         self.discard();
     }
 

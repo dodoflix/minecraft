@@ -127,7 +127,7 @@ pub fn drop_resources(
     breaker: Option<crate::world::entity::EntityId>,
 ) {
     super::super::storage::loot::block_drops::drop_resources_for_destroy(
-        level, state, pos, breaker, None,
+        level, state, pos, breaker,
     );
 }
 

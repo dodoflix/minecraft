@@ -203,7 +203,7 @@ impl SulfurCube {
                 )
                 .with_damage_source(None, calculator);
                 params.fire = data.causes_fire;
-                level.explode(params, &mut []);
+                level.explode(params);
             }
             mc_game_core::world::entity::living_entity::effects::trigger_on_death_mob_effects(
                 self,

@@ -245,7 +245,6 @@ fn run(scenario: &str) {
                 };
                 level.explode(
                     Explode::new(None, x, y, z, r, interaction).with_fire(a.contains(&"fire")),
-                    &mut [],
                 );
             }
             "tick" => {

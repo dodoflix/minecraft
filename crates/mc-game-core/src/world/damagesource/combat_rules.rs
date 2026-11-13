@@ -28,11 +28,7 @@ pub fn get_damage_after_absorb(
     let modified_armor_fraction = match source.get_weapon_item() {
         Some(weapon) => {
             let victim_id = victim.id();
-            let mut causing = source.causing_snapshot(level);
             let mut actors = Actors::of(victim);
-            if let Some(c) = causing.as_mut() {
-                actors.push(&mut ***c);
-            }
             mth::clamp_f32(
                 enchantment_helper::modify_armor_effectiveness(
                     level,

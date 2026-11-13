@@ -231,9 +231,9 @@ impl<'a> ServerExplosion<'a> {
         to_blow_set.iter().collect()
     }
 
-    /// `hurtEntities()`. `participants` are entities that currently live outside the level's storage (the acting
-    /// player of a bed/anchor use is taken out while its packet is handled): they take part like level entities, after them.
-    fn hurt_entities(&mut self, level: &mut ServerLevel, participants: &mut [&mut dyn Entity]) {
+    /// `hurtEntities()`: the entities in the blast area, in `getEntities` order (an entity that is out of its slot
+    /// because its code is running is found when that code lent it, see `ServerLevel::lend`).
+    fn hurt_entities(&mut self, level: &mut ServerLevel) {
         if self.radius < 1.0E-5 {
             return;
         }
@@ -253,38 +253,15 @@ impl<'a> ServerExplosion<'a> {
             f64::from(y1),
             f64::from(z1),
         );
-        let mut targets: Vec<Target> = level
-            .get_entities(self.source.map(|s| s.id()), &area, |e| !e.is_spectator())
-            .into_iter()
-            .map(Target::Level)
-            .collect();
-        for (i, p) in participants.iter().enumerate() {
-            if !p.is_spectator()
-                && p.get_bounding_box().intersects_aabb(&area)
-                && self.source.is_none_or(|s| s.id() != p.id())
-            {
-                targets.push(Target::External(i));
-            }
-        }
-        for target in targets {
-            match target {
-                Target::Level(id) => {
-                    let Some(entity) = level.get_entity(id) else {
-                        continue;
-                    };
-                    let Some(plan) = self.plan(level, entity, double_radius) else {
-                        continue;
-                    };
-                    level.with_entity(id, |level, entity| self.apply(level, entity, plan));
-                }
-                Target::External(i) => {
-                    let entity: &mut dyn Entity = &mut *participants[i];
-                    let Some(plan) = self.plan(level, entity, double_radius) else {
-                        continue;
-                    };
-                    self.apply(level, entity, plan);
-                }
-            }
+        let targets = level.get_entities(self.source.map(|s| s.id()), &area, |e| !e.is_spectator());
+        for id in targets {
+            let Some(entity) = level.get_entity(id) else {
+                continue;
+            };
+            let Some(plan) = self.plan(level, entity, double_radius) else {
+                continue;
+            };
+            level.with_entity(id, |level, entity| self.apply(level, entity, plan));
         }
     }
 
@@ -397,11 +374,7 @@ impl<'a> ServerExplosion<'a> {
     }
 
     /// `explode()`: returns the number of exploded block positions (`blockCount` of the packet).
-    pub fn explode(
-        &mut self,
-        level: &mut ServerLevel,
-        participants: &mut [&mut dyn Entity],
-    ) -> usize {
+    pub fn explode(&mut self, level: &mut ServerLevel) -> usize {
         match self.source {
             Some(source) => {
                 level.game_event_from_entity_ref(source, GameEvent::EXPLODE, self.center);
@@ -409,7 +382,7 @@ impl<'a> ServerExplosion<'a> {
             None => level.game_event_from_entity(None, GameEvent::EXPLODE, self.center),
         }
         let mut to_blow = self.calculate_exploded_positions(level);
-        self.hurt_entities(level, participants);
+        self.hurt_entities(level);
         if self.interacts_with_blocks() {
             self.interact_with_blocks(level, &mut to_blow);
         }
@@ -439,11 +412,6 @@ impl<'a> ServerExplosion<'a> {
     pub fn is_small(&self) -> bool {
         self.radius < LARGE_EXPLOSION_RADIUS || !self.interacts_with_blocks()
     }
-}
-
-enum Target {
-    Level(EntityId),
-    External(usize),
 }
 
 struct EntityPlan {

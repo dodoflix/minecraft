@@ -164,7 +164,7 @@ impl PrimedTnt {
                 ExplosionInteraction::Tnt,
             )
             .with_damage_source(None, calculator);
-            level.explode(params, &mut []);
+            level.explode(params);
         }
     }
 }

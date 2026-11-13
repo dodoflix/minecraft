@@ -41,7 +41,10 @@ impl BlockBehaviour for LilyPadBlock {
         _is_precise: bool,
     ) {
         if is_abstract_boat(entity.get_type()) {
-            level.destroy_block_by(pos, true, &*entity, 512);
+            let id = entity.id();
+            level.lend(&mut *entity, |level| {
+                level.destroy_block(pos, true, Some(id), 512)
+            });
         }
     }
 }

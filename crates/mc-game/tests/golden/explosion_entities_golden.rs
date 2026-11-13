@@ -46,7 +46,7 @@ fn registries() -> mc_game::registry::RegistryAccess {
 
 struct Replay {
     level: ServerLevel,
-    players: Vec<(String, ServerPlayer)>,
+    players: Vec<(String, i32)>,
     out: Vec<String>,
     next_id: i32,
     world: mc_game::server::level::level_data::SharedWorldData,
@@ -72,6 +72,14 @@ impl Replay {
                 );
             }
         }
+        for cx in -1..=8 {
+            for cz in -1..=0 {
+                level.entity_manager.update_chunk_status(
+                    mc_core::pos::chunk_pos::ChunkPos::new(cx, cz),
+                    mc_game::world::level::entity::Visibility::Ticking,
+                );
+            }
+        }
         Replay {
             level,
             players: Vec::new(),
@@ -81,38 +89,46 @@ impl Replay {
         }
     }
 
-    fn player(&mut self, name: &str) -> &mut ServerPlayer {
-        &mut self
+    fn with_player<R>(
+        &mut self,
+        name: &str,
+        f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R,
+    ) -> R {
+        let id = self
             .players
-            .iter_mut()
+            .iter()
             .find(|(n, _)| n == name)
             .unwrap_or_else(|| panic!("no player {name}"))
-            .1
+            .1;
+        self.level
+            .with_player(id, f)
+            .unwrap_or_else(|| panic!("player {name} is gone"))
     }
 
     fn dump_player(&mut self, name: &str) {
-        let p = self.player(name);
-        let l = &p.player.living;
-        let (pos, dm) = (p.position(), p.base().delta_movement());
-        let d = |v: f64| mc_core::math::java::java_double_to_string(v);
-        let line = format!(
-            "P {name} minecraft:player pos={},{},{} delta={},{},{} alive={} hp={} abs={} hurt={}/{} death={} food={} sat={} exh={}",
-            d(pos.x),
-            d(pos.y),
-            d(pos.z),
-            d(dm.x),
-            d(dm.y),
-            d(dm.z),
-            u8::from(p.is_alive()),
-            f(l.get_health()),
-            f(p.player.get_absorption_amount()),
-            l.hurt_time,
-            l.damage_cooldown_time,
-            l.death_time,
-            p.player.food_data.get_food_level(),
-            f(p.player.food_data.get_saturation_level()),
-            f(p.player.food_data.exhaustion_level),
-        );
+        let line = self.with_player(name, |_, p| {
+            let l = &p.player.living;
+            let (pos, dm) = (p.position(), p.base().delta_movement());
+            let d = |v: f64| mc_core::math::java::java_double_to_string(v);
+            format!(
+                "P {name} minecraft:player pos={},{},{} delta={},{},{} alive={} hp={} abs={} hurt={}/{} death={} food={} sat={} exh={}",
+                d(pos.x),
+                d(pos.y),
+                d(pos.z),
+                d(dm.x),
+                d(dm.y),
+                d(dm.z),
+                u8::from(p.is_alive()),
+                f(l.get_health()),
+                f(p.player.get_absorption_amount()),
+                l.hurt_time,
+                l.damage_cooldown_time,
+                l.death_time,
+                p.player.food_data.get_food_level(),
+                f(p.player.food_data.get_saturation_level()),
+                f(p.player.food_data.exhaustion_level),
+            )
+        });
         self.out.push(line);
     }
 
@@ -169,7 +185,8 @@ impl Replay {
                 p.set_game_mode_for_player(mode, None);
                 let n = |i: usize| t[i].parse::<f64>().unwrap();
                 p.snap_to(n(3), n(4), n(5), 0.0, 0.0);
-                self.players.push((t[1].to_string(), p));
+                self.level.add_player(Box::new(p));
+                self.players.push((t[1].to_string(), id));
             }
             "give" => {
                 let slot = match t[2] {
@@ -180,55 +197,56 @@ impl Replay {
                     other => panic!("slot {other}"),
                 };
                 let item = Item::by_name(t[3]).unwrap_or_else(|| panic!("item {}", t[3]));
-                self.player(t[1])
-                    .player
-                    .inventory
-                    .equipment_set(slot, ItemStack::new(item));
+                self.with_player(t[1], |_, p| {
+                    p.player.inventory.equipment_set(slot, ItemStack::new(item))
+                });
             }
             "effect" => {
                 let effect = MobEffect::by_name(t[2]).unwrap_or_else(|| panic!("effect {}", t[2]));
                 let (amp, dur) = (t[3].parse().unwrap(), t[4].parse().unwrap());
-                let (level, players) = (&mut self.level, &mut self.players);
-                let p = &mut players.iter_mut().find(|(n, _)| n == t[1]).unwrap().1;
-                p.add_effect(
-                    level,
-                    MobEffectInstance::new(effect, dur, amp, false, true, true, None),
-                    None,
-                );
+                self.with_player(t[1], |level, p| {
+                    p.add_effect(
+                        level,
+                        MobEffectInstance::new(effect, dur, amp, false, true, true, None),
+                        None,
+                    )
+                });
             }
             "set" => {
                 let v: f32 = t[3].parse().unwrap();
-                let p = self.player(t[1]);
-                match t[2] {
+                self.with_player(t[1], |_, p| match t[2] {
                     "health" => p.player.living.set_health(v),
                     "absorption" => p.player.internal_set_absorption_amount(v),
                     other => panic!("set {other}"),
-                }
+                });
             }
             "hurt" => {
-                let (level, players) = (&mut self.level, &mut self.players);
-                let p = &mut players.iter_mut().find(|(n, _)| n == t[1]).unwrap().1;
                 let key = Identifier::parse(&format!("minecraft:{}", t[2])).unwrap();
-                let data = level
-                    .registries
-                    .get::<mc_game::registry::typed::damage_type::DamageType>(
-                        "minecraft:damage_type",
-                        &key,
-                    )
-                    .expect("damage type")
-                    .clone();
-                let source = DamageSource::new(key, std::sync::Arc::new(data), None, None, None);
-                let r = p.hurt_server(level, &source, t[3].parse::<f64>().unwrap() as f32);
+                let amount = t[3].parse::<f64>().unwrap() as f32;
+                let r = self.with_player(t[1], |level, p| {
+                    let data = level
+                        .registries
+                        .get::<mc_game::registry::typed::damage_type::DamageType>(
+                            "minecraft:damage_type",
+                            &key,
+                        )
+                        .expect("damage type")
+                        .clone();
+                    let source =
+                        DamageSource::new(key, std::sync::Arc::new(data), None, None, None);
+                    p.hurt_server(level, &source, amount)
+                });
                 self.out
                     .push(format!("HURT {} {} {} -> {}", t[1], t[2], t[3], r));
             }
             "tick" => {
                 for _ in 0..t.get(1).map_or(1, |n| n.parse().unwrap()) {
-                    let level = &mut self.level;
-                    for (_, p) in &mut self.players {
-                        mc_game::world::entity::entity::common_tick(p);
-                        p.tick(level);
-                        p.do_tick(level);
+                    for (_, id) in self.players.clone() {
+                        self.level.with_player(id, |level, p| {
+                            mc_game::world::entity::entity::common_tick(p);
+                            p.tick(level);
+                            p.do_tick(level);
+                        });
                     }
                 }
             }
@@ -251,12 +269,7 @@ impl Replay {
                     interaction,
                 )
                 .with_fire(t.contains(&"fire"));
-                let mut participants: Vec<&mut dyn Entity> = self
-                    .players
-                    .iter_mut()
-                    .map(|(_, p)| p as &mut dyn Entity)
-                    .collect();
-                self.level.explode(params, &mut participants);
+                self.level.explode(params);
             }
             "dump" => {
                 for w in &t[1..] {

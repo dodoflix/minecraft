@@ -4,8 +4,8 @@
 
 use super::FullChunkStatus;
 use super::ServerLevel;
+use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::PoiTypes;
-use crate::world::entity::{Entity, EntityId};
 use crate::world::level::block::helpers::update_or_destroy_limited;
 use crate::world::level::block::{BlockStateExt, behaviour};
 use crate::world::level::flags::*;
@@ -261,42 +261,13 @@ impl ServerLevel {
         breaker: Option<EntityId>,
         update_limit: i32,
     ) -> bool {
-        self.destroy_block_with(pos, drop_block, breaker, None, update_limit)
-    }
-
-    /// [`Self::destroy_block_impl`] for a breaker the level cannot look up because its own tick holds it (a projectile that
-    /// hit the block): the drops' loot context reads the passed entity.
-    pub fn destroy_block_by(
-        &mut self,
-        pos: BlockPos,
-        drop_block: bool,
-        breaker: &dyn Entity,
-        update_limit: i32,
-    ) -> bool {
-        self.destroy_block_with(
-            pos,
-            drop_block,
-            Some(breaker.id()),
-            Some(breaker),
-            update_limit,
-        )
-    }
-
-    fn destroy_block_with(
-        &mut self,
-        pos: BlockPos,
-        drop_block: bool,
-        breaker: Option<EntityId>,
-        breaker_entity: Option<&dyn Entity>,
-        update_limit: i32,
-    ) -> bool {
         let block_state = BlockGetter::get_block_state(self, pos);
         if block_state.is_air() {
             return false;
         }
         behaviour(block_state.block()).spawn_destroy_particles(self, pos, block_state);
         if drop_block {
-            drop_resources_for_destroy(self, block_state, pos, breaker, breaker_entity);
+            drop_resources_for_destroy(self, block_state, pos, breaker);
         }
         let fluid_state = self.get_fluid_state(pos);
         let destroyed = self.set_block_impl(
@@ -306,19 +277,11 @@ impl ServerLevel {
             update_limit,
         );
         if destroyed {
-            match breaker_entity {
-                Some(entity) => self.game_event_from_entity_ref_in_state(
-                    entity,
-                    Some(block_state),
-                    GameEvent::BLOCK_DESTROY,
-                    Vec3::at_center_of(&pos),
-                ),
-                None => self.game_event_at_block(
-                    GameEvent::BLOCK_DESTROY,
-                    pos,
-                    &GameEventContext::of(breaker, Some(block_state)),
-                ),
-            }
+            self.game_event_at_block(
+                GameEvent::BLOCK_DESTROY,
+                pos,
+                &GameEventContext::of(breaker, Some(block_state)),
+            );
         }
         destroyed
     }

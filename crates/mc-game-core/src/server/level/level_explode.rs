@@ -98,10 +98,17 @@ impl<'a> Explode<'a> {
 }
 
 impl ServerLevel {
-    /// `ServerLevel.explode(..)`. `participants` are entities outside the level's storage that must take part (the
-    /// acting player of a bed/anchor use is taken out while its packet is handled): they are hurt/knocked back and get
-    /// the packet like level players (see `ServerExplosion::hurt_entities`).
-    pub fn explode(&mut self, params: Explode<'_>, participants: &mut [&mut dyn Entity]) {
+    /// `ServerLevel.explode(..)`. The source entity is exposed to the level while the blast runs (it is usually out of
+    /// its slot because its own code explodes). An entity that is hurt by an explosion started by its own code (a
+    /// player using a bed or an anchor) must be lent (`ServerLevel::lend`) to be hurt, knocked back and sent the packet.
+    pub fn explode(&mut self, params: Explode<'_>) {
+        match params.source {
+            Some(source) => self.expose(source, |level| level.explode_blast(params)),
+            None => self.explode_blast(params),
+        }
+    }
+
+    fn explode_blast(&mut self, params: Explode<'_>) {
         let block_interaction = match params.interaction {
             ExplosionInteraction::None => BlockInteraction::Keep,
             ExplosionInteraction::Block => self.get_destroy_type(self.block_explosion_drop_decay()),
@@ -126,7 +133,7 @@ impl ServerLevel {
             params.fire,
             block_interaction,
         );
-        let block_count = explosion.explode(self, participants);
+        let block_count = explosion.explode(self);
         let explosion_particle = if explosion.is_small() {
             params.small_explosion_particles
         } else {
@@ -157,21 +164,10 @@ impl ServerLevel {
                 connection.send(&p);
             }
         }
-        for participant in participants.iter() {
-            if let Some(player) = participant.as_any().downcast_ref::<ServerPlayer>()
-                && let (Some(connection), Some(p)) = (
-                    &player.connection,
-                    packet(participant.id(), participant.position()),
-                )
-            {
-                connection.send(&p);
-            }
-        }
         // a player that explodes from outside the storage (its own packet or tick is being handled) is a level player too
         if let Some(source) = params.source
             && let Some(player) = source.as_any().downcast_ref::<ServerPlayer>()
             && self.get_entity(source.id()).is_none()
-            && participants.iter().all(|p| p.id() != source.id())
             && let (Some(connection), Some(p)) =
                 (&player.connection, packet(source.id(), source.position()))
         {

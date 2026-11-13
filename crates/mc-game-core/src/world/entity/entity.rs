@@ -2907,13 +2907,6 @@ pub trait Entity: Any {
     // Defaults implement `Entity`/`LivingEntity`; `Player`/`ServerPlayer` and mobs override and call the free
     // functions of `living_entity::damage` as their `super` call.
 
-    /// A read-only copy of this entity for [`crate::world::damagesource::DamageEntity::capture`]: loot and experience
-    /// evaluation at a victim's death reads the attacker (equipment, attributes, effects) while the attacker is taken
-    /// out of the level. `None`: no copy (readers then see no attacker entity if it is out).
-    fn snapshot_for_damage(&self) -> Option<Box<dyn Entity>> {
-        None
-    }
-
     /// `getWeaponItem()`: `LivingEntity` = main hand; projectiles override with the weapon that fired them.
     fn get_weapon_item(&self) -> Option<crate::world::item::ItemStack> {
         self.living()

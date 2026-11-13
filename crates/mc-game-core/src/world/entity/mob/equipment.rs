@@ -507,11 +507,7 @@ pub fn drop_custom_death_loot(
                 .get_entity()
                 .filter(|id| level.get_entity(*id).is_some_and(|s| s.living().is_some()));
             if let Some(killer) = living_source {
-                let mut causing = source.causing_snapshot(level);
                 let mut actors = Actors::of(&mut *e);
-                if let Some(c) = causing.as_mut() {
-                    actors.push(&mut ***c);
-                }
                 drop_chance = enchantment_helper::process_equipment_drop_chance(
                     level,
                     &mut actors,

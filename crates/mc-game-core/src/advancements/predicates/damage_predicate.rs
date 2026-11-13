@@ -77,8 +77,7 @@ impl DamagePredicate {
     }
 
     /// `matches(player, source, originalDamage, actualDamage, blocked)`; the entities of the source are looked up in
-    /// the level and distances are measured from `player`. An entity that is not in the level because it is the running
-    /// one (the arrow or trident that hit, the attacking mob) is read from the copy the source captured.
+    /// the level (the running attacker is lent by its hit) and distances are measured from `player`.
     pub fn matches<'a>(
         &self,
         level: &'a ServerLevel,
@@ -88,16 +87,10 @@ impl DamagePredicate {
         actual_damage: f32,
         blocked: bool,
     ) -> bool {
-        let direct_snapshot = source.direct_snapshot(level);
-        let causing_snapshot = source.causing_snapshot(level);
-        let causing = source
-            .get_entity()
-            .and_then(|id| level.get_entity(id))
-            .or(causing_snapshot.as_ref().map(|s| &***s));
+        let causing = source.get_entity().and_then(|id| level.get_entity(id));
         let direct = source
             .get_direct_entity()
             .and_then(|id| level.get_entity(id))
-            .or(direct_snapshot.as_ref().map(|s| &***s))
             .or(if source.get_direct_entity() == source.get_entity() {
                 causing
             } else {

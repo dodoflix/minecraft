@@ -544,8 +544,7 @@ pub fn is_looking_at_me(
     false
 }
 /// Runs `f` with the living entity that caused `source` (`source.getEntity()`): the entity is taken out of the level for
-/// the call when it is in it (so `f` may mutate the level), or is the snapshot the source captured when the attacker
-/// is the running, taken-out entity.
+/// the call (a lent attacker is handed out as the lent `&mut`), so `f` may mutate the level.
 pub fn with_causing_entity(
     level: &mut ServerLevel,
     source: &crate::world::damagesource::DamageSource,
@@ -556,8 +555,6 @@ pub fn with_causing_entity(
     };
     if level.get_entity(id).is_some() {
         level.with_entity(id, |level, e| f(level, &*e));
-    } else if let Some(snapshot) = source.causing_snapshot(level) {
-        f(level, &**snapshot);
     }
 }
 

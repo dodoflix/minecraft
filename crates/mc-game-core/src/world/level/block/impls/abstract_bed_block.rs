@@ -5,7 +5,7 @@ use crate::server::level::ServerLevel;
 use crate::server::level::level_explode::Explode;
 use crate::stats::Stat;
 use crate::world::attribute::BedRule;
-use crate::world::entity::{Entity, ServerPlayer};
+use crate::world::entity::ServerPlayer;
 use crate::world::item::{BlockPlaceContext, InteractionResult, ItemStack};
 use crate::world::level::explosion::ExplosionInteraction;
 use mc_core::phys::{AABB, Vec3};
@@ -134,8 +134,7 @@ fn destroy_on_use(
     )
     .with_fire(true)
     .with_damage_source(Some(damage_source), None);
-    let participants: &mut [&mut dyn Entity] = &mut [player];
-    level.explode(params, participants);
+    level.lend(player, |level| level.explode(params));
     InteractionResult::SUCCESS_SERVER
 }
 

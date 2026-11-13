@@ -107,10 +107,7 @@ fn explosion_block_sets_match_vanilla() {
                     a[3].parse().unwrap(),
                     a[4].parse().unwrap(),
                 );
-                level.explode(
-                    Explode::new(None, x, y, z, r, interaction).with_fire(fire),
-                    &mut [],
-                );
+                level.explode(Explode::new(None, x, y, z, r, interaction).with_fire(fire));
             }
             "dump" => {
                 let c: Vec<i32> = a[1]

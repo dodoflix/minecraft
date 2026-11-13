@@ -136,19 +136,17 @@ impl Entity for EndCrystal {
         if !self.is_removed() {
             level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
             if !source.is_tag(level, DamageTypeTags::IS_EXPLOSION) {
-                // a lent attacker (a player's hit runs inside `ServerLevel::lend`) is found here and takes part in
-                // the explosion where vanilla runs it; a causing entity that is out of the level and not lent (a
-                // projectile running its hit) is read from the source
-                let damage_source = match source.get_entity().and_then(|id| level.get_entity(id)) {
-                    Some(cause) => Some(
-                        level
-                            .damage_sources()
-                            .explosion(Some(self.as_dyn()), Some(cause)),
-                    ),
-                    None => level
-                        .damage_sources()
-                        .explosion_caused_by(self.as_dyn(), source),
-                };
+                // the attacker is lent by whoever hits (a player's hit runs inside `ServerLevel::lend`), so it is
+                // found here and takes part in the explosion where vanilla runs it
+                let damage_source =
+                    source
+                        .get_entity()
+                        .and_then(|id| level.get_entity(id))
+                        .map(|cause| {
+                            level
+                                .damage_sources()
+                                .explosion(Some(self.as_dyn()), Some(cause))
+                        });
                 explode(level, self.as_dyn(), damage_source);
             }
             self.on_destroyed_by(level, source);
@@ -193,7 +191,7 @@ fn explode(level: &mut ServerLevel, crystal: &dyn Entity, damage_source: Option<
         ExplosionInteraction::Block,
     )
     .with_damage_source(damage_source, None);
-    level.explode(params, &mut []);
+    level.explode(params);
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]

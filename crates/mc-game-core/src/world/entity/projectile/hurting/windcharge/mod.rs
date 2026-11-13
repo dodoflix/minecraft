@@ -181,7 +181,7 @@ fn explode_with(
     params.large_explosion_particles = ParticleOptions::Simple(ParticleType::GUST_EMITTER_LARGE);
     params.block_particles = WeightedList(Vec::new());
     params.explosion_sound = SoundEventHolder::Reference(sound);
-    level.explode(params, &mut []);
+    level.explode(params);
 }
 
 /// The `AbstractWindCharge` overrides shared by both classes, for the `Projectile` impl.

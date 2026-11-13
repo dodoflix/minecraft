@@ -1255,14 +1255,14 @@ impl Scenario {
         let (x, y, z, radius) = (num(&a[1]), num(&a[2]), num(&a[3]), num(&a[4]) as f32);
         let Some(source) = source else {
             let params = Explode::new(None, x, y, z, radius, inter).with_fire(fire);
-            self.level().explode(params, &mut []);
+            self.level().explode(params);
             return;
         };
         // the source entity is out of the level's storage while it explodes, like a primed TNT's own tick
         let id = self.entity_id(&source);
         self.level().with_entity(id, |level, e| {
             let params = Explode::new(Some(&*e), x, y, z, radius, inter).with_fire(fire);
-            level.explode(params, &mut []);
+            level.explode(params);
         });
     }
 

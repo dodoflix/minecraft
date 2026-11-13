@@ -144,7 +144,10 @@ fn affect_entities_around(
 fn douse_fire(p: &mut dyn Projectile, level: &mut ServerLevel, pos: BlockPos) {
     let state = level.get_block_state(pos);
     if state.is_tag("fire") {
-        level.destroy_block_by(pos, false, p.as_dyn(), 512);
+        let id = p.id();
+        level.lend(p.as_dyn_mut(), |level| {
+            level.destroy_block(pos, false, Some(id), 512)
+        });
     } else if abstract_candle_block::is_lit(state) {
         abstract_candle_block::extinguish(None, state, level, pos);
     } else if CampfireBlock::is_lit_campfire(state) {

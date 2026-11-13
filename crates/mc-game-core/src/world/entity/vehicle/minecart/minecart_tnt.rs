@@ -57,8 +57,7 @@ struct DirectProjectile {
     speed_sqr: f64,
 }
 
-/// The direct entity of `source` when it is a projectile. The projectile that hit is the running entity, so it is usually not in
-/// the level: the copy the source took of it is read then.
+/// The direct entity of `source` when it is a projectile (the projectile that hit is lent by its own hit).
 fn direct_projectile(level: &ServerLevel, source: &DamageSource) -> Option<DirectProjectile> {
     let read = |e: &dyn Entity| {
         e.as_projectile().map(|_| DirectProjectile {
@@ -70,20 +69,7 @@ fn direct_projectile(level: &ServerLevel, source: &DamageSource) -> Option<Direc
             speed_sqr: e.base().delta_movement().length_sqr(),
         })
     };
-    let id = source.get_direct_entity()?;
-    if let Some(e) = level.get_entity(id) {
-        return read(e);
-    }
-    let info = source.direct_info()?;
-    match &info.snapshot {
-        Some(snapshot) => read(snapshot.0.borrow().as_ref()),
-        // a projectile class that takes no copy: not an arrow, and nothing known about its fire
-        None => info.projectile_hurt_knockback.map(|_| DirectProjectile {
-            is_arrow: false,
-            on_fire: false,
-            speed_sqr: 0.0,
-        }),
-    }
+    read(level.get_entity(source.get_direct_entity()?)?)
 }
 
 /// `damageSourceIgnitesTnt(source)`.
@@ -99,10 +85,8 @@ fn damage_source_ignites_tnt(level: &ServerLevel, source: &DamageSource) -> bool
 
 /// `damageSources().explosion(this, source.getEntity())`.
 fn explosion_source(level: &ServerLevel, cart: &dyn Entity, source: &DamageSource) -> DamageSource {
-    level
-        .damage_sources()
-        .explosion_caused_by(cart, source)
-        .unwrap_or_else(|| level.damage_sources().explosion(Some(cart), None))
+    let cause = source.get_entity().and_then(|id| level.get_entity(id));
+    level.damage_sources().explosion(Some(cart), cause)
 }
 
 impl MinecartTnt {
@@ -151,7 +135,6 @@ impl MinecartTnt {
                     ExplosionInteraction::Tnt,
                 )
                 .with_damage_source(damage_source, None),
-                &mut [],
             );
             self.discard_in_level(level);
         } else if self.is_primed() {

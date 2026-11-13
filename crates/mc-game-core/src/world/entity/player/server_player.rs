@@ -1111,9 +1111,6 @@ impl Entity for ServerPlayer {
     fn get_fire_immune_ticks(&self) -> i32 {
         20
     }
-    fn snapshot_for_damage(&self) -> Option<Box<dyn Entity>> {
-        Some(super::damage::snapshot_for_damage(self))
-    }
     fn killed_entity(
         &mut self,
         level: &mut crate::server::level::ServerLevel,
