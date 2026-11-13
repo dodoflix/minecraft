@@ -1,0 +1,85 @@
+# Llama spit: its entity data and save data, the packets that pair and move it, what it hits (a pig and the players it was spat at, a creative
+# player that cannot be hurt, a player behind a raised shield, its own owner once it left the owner's box, a spit without an owner that does
+# no damage), the blocks it ends on (a wall, water, a solid block, the ground) and the owner-less case. The owner is a player: the llama class does not exist
+# here, the spit only needs a living owner.
+level flat
+preload 5
+difficulty normal
+level_seed 7
+entity_counter 1600
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+spawn_player C creative 6.5 -60 8.5 0 0
+spawn_player D survival 10.5 -60 8.5 -180 0
+give D offhand minecraft:shield
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+spawn p1 minecraft:pig 0.5 -60 7.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed p1 11
+spawn p2 minecraft:pig 14.5 -60 7.5 0 0 {NoAI:1b,Health:10.0f}
+entity_seed p2 12
+use D off
+tick 6
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+note a spit spat by player A at pig p1: moves in a flat arc and hurts it for 1 with the spit damage type (knockback away from the spit)
+spawn s1 minecraft:llama_spit 0.5 -58.7 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed s1 21
+velocity s1 0 0 1.0
+dump xentity:s1 edata:s1 nbt:s1 packets:B:add_entity,set_entity_data,set_entity_motion
+tick 1
+dump xentity:s1 nbt:s1 packets:B:set_entity_motion,move_entity_pos,move_entity_pos_rot,entity_position_sync,remove_entities events
+tick 12
+dump xentity:p1 entities events packets:B:add_entity,set_entity_motion,move_entity_pos,move_entity_pos_rot,entity_position_sync,remove_entities,damage_event,hurt_animation,entity_event,set_health packets:A:damage_event,hurt_animation,set_health
+note a spit shot back at its owner: ignores the owner until it left the owner's box, then hurts the owner
+spawn s2 minecraft:llama_spit 0.5 -58.7 4.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed s2 22
+velocity s2 0 0 -1.0
+tick 14
+dump player:A events packets:A:damage_event,hurt_animation,set_health,entity_event,set_entity_motion
+note a spit that starts inside its owner's box leaves it without hurting it
+spawn s3 minecraft:llama_spit 0.5 -58.7 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed s3 23
+velocity s3 0 0 0.4
+tick 8
+dump player:A events
+tick 20
+dump entities player:A events
+note a spit without an owner hits the second pig and does nothing
+spawn s4 minecraft:llama_spit 14.5 -58.7 2.5 0 0 {}
+entity_seed s4 24
+velocity s4 0 0 1.0
+tick 14
+dump xentity:p2 entities events
+note spits at a creative player, a player behind a raised shield and a pig above the ground
+spawn s5 minecraft:llama_spit 6.5 -58.7 4.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed s5 25
+velocity s5 0 0 1.0
+spawn s6 minecraft:llama_spit 10.5 -58.7 4.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed s6 26
+velocity s6 0 0 1.0
+tick 10
+dump player:C player:D entities events packets:C:damage_event,hurt_animation,set_health,entity_event packets:D:damage_event,hurt_animation,set_health,entity_event
+note a spit that hits a wall, one that falls into water, one inside a solid block and one that falls to the ground
+fill 30 -60 3 34 -57 3 minecraft:stone
+fill 40 -61 0 44 -61 4 minecraft:water[level=0]
+fill 40 -60 0 44 -60 4 minecraft:water[level=0]
+fill 60 -60 0 62 -58 2 minecraft:stone
+spawn w1 minecraft:llama_spit 32.5 -58.7 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed w1 31
+velocity w1 0 0 1.0
+spawn w2 minecraft:llama_spit 42.5 -58.9 0.5 0 0 {}
+entity_seed w2 32
+velocity w2 0 0 0.2
+spawn w5 minecraft:llama_spit 44.5 -59.5 0.5 0 0 {}
+entity_seed w5 35
+velocity w5 0 0 0.2
+spawn w3 minecraft:llama_spit 62.5 -59.5 1.5 0 0 {}
+entity_seed w3 33
+velocity w3 0 0 0.1
+spawn w4 minecraft:llama_spit 52.5 -59.2 2.0 0 0 {}
+entity_seed w4 34
+velocity w4 0 0 0.1
+tick 1
+dump entities events
+tick 12
+dump entities events packets:B:remove_entities

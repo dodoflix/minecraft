@@ -1,0 +1,228 @@
+E p1 minecraft:pig pos=21.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=18.0,-60.0,20.5 delta=-0.07193933046813883,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p3 minecraft:pig pos=20.5,-60.0,24.4 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=20.5,-60.0,26.2 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:pig pos=24.0,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p6 minecraft:pig pos=20.5,-57.5,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E st minecraft:armor_stand pos=20.5,-60.0,17.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p7 minecraft:pig pos=20.5,-60.0,31.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+# a stationary rocket with two explosions at the middle: damage 9, falling off with the distance, walls hide the pigs behind them
+E r1 minecraft:firework_rocket pos=20.5,-59.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=0 canbreak=0 life=0 lifetime=3 attached=- angle=1
+ED r1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:01f10a0100470102000100ff00000000000201000000ff000000 9:19:00 10:8:01
+N r1 {Air:300s,Fire:0s,FireworksItem:{components:{minecraft:fireworks:{explosions:[{colors:[16711680],shape:"small_ball"},{colors:[255],shape:"star"}],flight_duration:1b}},count:1,id:"minecraft:firework_rocket"},HasBeenShot:0b,Invulnerable:0b,Life:0,LifeTime:3,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[20.5d,-59.0d,20.5d],Rotation:[0.0f,0.0f],ShotAtAngle:1b,fall_distance:0.0d}
+PKT A minecraft:add_entity 01f00e4a4833e255ef4b5a9ab05d9bbb3cb437654035800000000000c04e00000000000040348000000000000000000000
+PKT A minecraft:set_entity_data 65f00e0903412000000f0001ff
+PKT A minecraft:add_entity 01f10e69ef8225c2954c6099976576d92097a4654032000000000000c04e00000000000040348000000000000000000000
+PKT A minecraft:set_entity_data 65f10e0903412000000f0001ff
+PKT A minecraft:add_entity 01f20e3ccd2f537d4744b0a63c390c3a608a35654034800000000000c04e00000000000040386666666666660000000000
+PKT A minecraft:set_entity_data 65f20e0903412000000f0001ff
+PKT A minecraft:add_entity 01f30ef9a0afcd251c4249804fd9025a86a061654034800000000000c04e000000000000403a3333333333330000000000
+PKT A minecraft:set_entity_data 65f30e0903412000000f0001ff
+PKT A minecraft:add_entity 01f40e9f6f6543d6d543a3a7cf37033913e6c5654038000000000000c04e00000000000040348000000000000000000000
+PKT A minecraft:set_entity_data 65f40e0903412000000f0001ff
+PKT A minecraft:add_entity 01f50ecf0c183e6a7e44a0bca06971f409875f654034800000000000c04cc0000000000040348000000000000000000000
+PKT A minecraft:set_entity_data 65f50e0508010903412000000f0001ff
+PKT A minecraft:add_entity 01f60e014d0e538d70480a8da9f324130b3ec2054034800000000000c04e00000000000040310000000000000000000000
+PKT A minecraft:set_entity_data 65f60e090341a00000ff
+PKT A minecraft:add_entity 01f70e5d783184aa0141e6abdbb3425e463a91654034800000000000c04e000000000000403f0000000000000000000000
+PKT A minecraft:set_entity_data 65f70e0903412000000f0001ff
+PKT A minecraft:set_entity_data 65f10e0903412000000f0001ff
+PKT A minecraft:set_entity_data 65f20e0903412000000f0001ff
+PKT A minecraft:set_entity_data 65f00e0903412000000f0001ff
+PKT A minecraft:set_entity_data 65f50e0508010903412000000f0001ff
+PKT A minecraft:set_entity_data 65f30e0903412000000f0001ff
+PKT A minecraft:set_entity_data 65f40e0903412000000f0001ff
+PKT A minecraft:set_entity_data 65f70e0903412000000f0001ff
+PKT A minecraft:set_entity_data 65f60e090341a00000ff
+PKT A minecraft:add_entity 01f80eaf9ea91837534a52b59ec4c55a38f7e1364034800000000000c04d800000000000403480000000000000000000ed0e
+PKT A minecraft:set_entity_data 65f80e080701f10a0100470102000100ff00000000000201000000ff0000000a0801ff
+PKT C minecraft:add_entity 01f00e4a4833e255ef4b5a9ab05d9bbb3cb437654035800000000000c04e00000000000040348000000000000000000000
+PKT C minecraft:add_entity 01f10e69ef8225c2954c6099976576d92097a4654032000000000000c04e00000000000040348000000000000000000000
+PKT C minecraft:add_entity 01f20e3ccd2f537d4744b0a63c390c3a608a35654034800000000000c04e00000000000040386666666666660000000000
+PKT C minecraft:add_entity 01f30ef9a0afcd251c4249804fd9025a86a061654034800000000000c04e000000000000403a3333333333330000000000
+PKT C minecraft:add_entity 01f40e9f6f6543d6d543a3a7cf37033913e6c5654038000000000000c04e00000000000040348000000000000000000000
+PKT C minecraft:add_entity 01f50ecf0c183e6a7e44a0bca06971f409875f654034800000000000c04cc0000000000040348000000000000000000000
+PKT C minecraft:add_entity 01f60e014d0e538d70480a8da9f324130b3ec2054034800000000000c04e00000000000040310000000000000000000000
+PKT C minecraft:add_entity 01f70e5d783184aa0141e6abdbb3425e463a91654034800000000000c04e000000000000403f0000000000000000000000
+PKT C minecraft:add_entity 01f80eaf9ea91837534a52b59ec4c55a38f7e1364034800000000000c04d800000000000403480000000000000000000ed0e
+E r1 minecraft:firework_rocket pos=20.5,-59.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 life=3 lifetime=3 attached=- angle=1
+EV sound at=20.5,-59.0,20.5 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+PKT A minecraft:sound 77fd0408000000a4fffffe28000000a4404000003f800000e32d4fcf84a7860e
+E p1 minecraft:pig pos=21.5,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.3783374 abs=0.0 hurt=10/20 death=0 fx=-
+E p2 minecraft:pig pos=18.0,-60.0,20.5 delta=-0.6060910003095852,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.8860683 abs=0.0 hurt=10/20 death=0 fx=-
+E p3 minecraft:pig pos=20.5,-60.0,24.4 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.028082 abs=0.0 hurt=10/20 death=0 fx=-
+E p4 minecraft:pig pos=20.5,-60.0,26.2 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:pig pos=24.0,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.3062687 abs=0.0 hurt=10/20 death=0 fx=-
+E p6 minecraft:pig pos=20.5,-57.5,20.5 delta=-0.016519141831528635,0.0,-0.3996587578441407 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.4700599 abs=0.0 hurt=10/20 death=0 fx=-
+E p7 minecraft:pig pos=20.5,-60.0,31.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P A minecraft:player pos=20.5,-60.0,14.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=18.5,-60.0,20.5 delta=0.12402544568794929,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E p1 minecraft:pig pos=21.5,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.3783374 abs=0.0 hurt=10/20 death=0 fx=-
+E p2 minecraft:pig pos=18.0,-60.0,20.5 delta=-0.6060910003095852,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.8860683 abs=0.0 hurt=10/20 death=0 fx=-
+E p3 minecraft:pig pos=20.5,-60.0,24.4 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.028082 abs=0.0 hurt=10/20 death=0 fx=-
+E p4 minecraft:pig pos=20.5,-60.0,26.2 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:pig pos=24.0,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.3062687 abs=0.0 hurt=10/20 death=0 fx=-
+E p6 minecraft:pig pos=20.5,-57.5,20.5 delta=-0.016519141831528635,0.0,-0.3996587578441407 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.4700599 abs=0.0 hurt=10/20 death=0 fx=-
+E p7 minecraft:pig pos=20.5,-60.0,31.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=21.5,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0745894
+EV sound at=18.0,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.8194942
+EV sound at=20.5,-60.0,24.4 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0084751
+EV sound at=24.0,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0305133
+EV sound at=20.5,-57.5,20.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0131085
+EV sound at=20.5,-60.0,17.0 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+PKT A minecraft:entity_event 220000077811
+PKT A minecraft:damage_event 19f00e0fee0ef90e00
+PKT A minecraft:sound 77fa0906000000acfffffe20000000a43f8000003f898c253dace6703e05bff8
+PKT A minecraft:damage_event 19f10e0fee0ef90e00
+PKT A minecraft:sound 77fa090600000090fffffe20000000a43f8000003f51ca5f6fd465a290351d3c
+PKT A minecraft:damage_event 19f20e0fee0ef90e00
+PKT A minecraft:sound 77fa0906000000a4fffffe20000000c33f8000003f8115b64b970fd5e0db99e1
+PKT A minecraft:damage_event 19f40e0fee0ef90e00
+PKT A minecraft:sound 77fa0906000000c0fffffe20000000a43f8000003f83e7dce8168c54d2216418
+PKT A minecraft:damage_event 19f50e0fee0ef90e00
+PKT A minecraft:sound 77fa0906000000a4fffffe34000000a43f8000003f81ad8aa3981763e0103683
+PKT A minecraft:sound 775206000000a4fffffe20000000883f8000003f800000a1a24ca263725fe3
+PKT A minecraft:remove_entities 4e01f60e
+PKT A minecraft:remove_entities 4e01f80e
+PKT C minecraft:entity_event 220000077811
+PKT C minecraft:damage_event 19f00e0fee0ef90e00
+PKT C minecraft:damage_event 19f10e0fee0ef90e00
+PKT C minecraft:damage_event 19f20e0fee0ef90e00
+PKT C minecraft:damage_event 19f40e0fee0ef90e00
+PKT C minecraft:damage_event 19f50e0fee0ef90e00
+PKT C minecraft:remove_entities 4e01f60e
+PKT C minecraft:remove_entities 4e01f80e
+# a rocket without explosions, the same place: no damage
+E p1 minecraft:pig pos=21.5,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.3783374 abs=0.0 hurt=6/16 death=0 fx=-
+P A minecraft:player pos=20.5,-60.0,14.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E p1 minecraft:pig pos=21.5,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.3783374 abs=0.0 hurt=6/16 death=0 fx=-
+E p2 minecraft:pig pos=18.0,-60.0,20.5 delta=-0.9104127007242437,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.8860683 abs=0.0 hurt=6/16 death=0 fx=-
+E p3 minecraft:pig pos=20.5,-60.0,24.4 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.028082 abs=0.0 hurt=6/16 death=0 fx=-
+E p4 minecraft:pig pos=20.5,-60.0,26.2 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:pig pos=24.0,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.3062687 abs=0.0 hurt=6/16 death=0 fx=-
+E p6 minecraft:pig pos=20.5,-57.5,20.5 delta=-0.016519141831528635,0.0,-0.3996587578441407 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.4700599 abs=0.0 hurt=6/16 death=0 fx=-
+E p7 minecraft:pig pos=20.5,-60.0,31.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=20.5,-59.0,20.5 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+PKT A minecraft:entity_event 220000077911
+PKT A minecraft:remove_entities 4e01f90e
+# one explosion, rocket rises into a ceiling and explodes on it, an owner-less rocket
+T 12
+PKT O minecraft:move_entity_pos 36f10e00000000000000
+PKT O minecraft:move_entity_pos 36f20e00000000000000
+PKT O minecraft:move_entity_pos 36f00e00000000000000
+PKT O minecraft:move_entity_pos 36f50e00000000000000
+PKT O minecraft:move_entity_pos 36f30e00000000000000
+PKT O minecraft:move_entity_pos 36f40e00000000000000
+PKT O minecraft:move_entity_pos 36f70e00000000000000
+PKT O minecraft:move_entity_pos 36f60e00000000000000
+PKT O minecraft:set_entity_motion 67f10e21db7ffefffd
+PKT O minecraft:move_entity_pos 36f80e00000000000000
+PKT O minecraft:set_entity_motion 67f10e59b57ffefffd
+PKT O minecraft:set_entity_motion 67f10e098f7ffefffd
+PKT O minecraft:set_entity_motion 67f60ef9ff7ffeebed
+PKT O minecraft:set_entity_motion 67f10e69687ffefffd
+PKT O minecraft:entity_event 220000077811
+PKT O minecraft:remove_entities 4e01f60e
+PKT O minecraft:remove_entities 4e01f80e
+PKT O minecraft:move_entity_pos 36f90e00000000000000
+PKT O minecraft:set_entity_motion 67f10ea9c97ffefffc
+PKT O minecraft:set_entity_motion 67f10ea9c97ffefffc
+PKT O minecraft:set_entity_motion 67f20ef9ffb330fffd
+PKT O minecraft:set_entity_motion 67f20ef9ffb330fffd
+PKT O minecraft:set_entity_motion 67f00ec1cc7ffefffe
+PKT O minecraft:set_entity_motion 67f00ec1cc7ffefffe
+PKT O minecraft:set_entity_motion 67f50e81f74cd6fffd
+PKT O minecraft:set_entity_motion 67f50e81f74cd6fffd
+PKT O minecraft:set_entity_motion 67f40ec1cc7ffefffe
+PKT O minecraft:set_entity_motion 67f40ec1cc7ffefffe
+PKT O minecraft:set_entity_motion 67f10ec9a27ffefffc
+PKT O minecraft:entity_event 220000077911
+PKT O minecraft:remove_entities 4e01f90e
+PKT O minecraft:set_entity_motion 67f10ed97b7ffefffc
+PKT O minecraft:set_entity_motion 67f10ee1547ffefffc
+PKT O minecraft:set_entity_motion 67f10ee12d7ffefffc
+PKT O minecraft:move_entity_pos 36fa0e00000000000000
+T 13
+PKT O minecraft:set_entity_motion 67f10ee1067ffefffc
+T 14
+PKT O minecraft:set_entity_motion 67f10eeaef7ffefffc
+T 15
+PKT O minecraft:set_entity_motion 67f10e6adc7ffefffc
+T 16
+PKT O minecraft:set_entity_motion 67f10eeac87ffefffc
+T 17
+PKT O minecraft:set_entity_motion 67f10e62b57ffefffc
+T 18
+PKT O minecraft:set_entity_motion 67f10ee2a17ffefffc
+T 19
+PKT O minecraft:set_entity_motion 67f10e628e7ffefffc
+T 20
+PKT O minecraft:set_entity_motion 67f10eda7a7ffefffc
+T 21
+PKT O minecraft:set_entity_motion 67f10e5a677ffefffc
+T 22
+PKT O minecraft:set_entity_motion 67f10eda537ffefffc
+PKT O minecraft:set_entity_motion 67fa0ef9ff7fff6661
+PKT O minecraft:move_entity_pos_rot 37fa0e000000233300000039
+T 23
+PKT O minecraft:set_entity_motion 67f10e52407ffefffc
+T 24
+PKT O minecraft:set_entity_motion 67f10ed22c7ffefffc
+T 25
+PKT O minecraft:set_entity_motion 67f10e52197ffefffc
+T 26
+PKT O minecraft:set_entity_motion 67f10eca057ffefffc
+T 27
+PKT O minecraft:set_entity_motion 67f10e83a17ffefffc
+T 28
+PKT O minecraft:set_entity_motion 67f10e83947ffefffc
+PKT O minecraft:entity_event 220000077a11
+PKT O minecraft:remove_entities 4e01fa0e
+T 29
+PKT O minecraft:set_entity_motion 67f10e83877ffefffc
+T 30
+PKT O minecraft:set_entity_motion 67f10e837a7ffefffc
+T 31
+PKT O minecraft:set_entity_motion 67f10e7b6d7ffefffc
+T 32
+PKT O minecraft:set_entity_motion 67f10e7b607ffefffc
+T 33
+PKT O minecraft:set_entity_motion 67f10e7b537ffefffc
+T 34
+PKT O minecraft:set_entity_motion 67f10e7b467ffefffc
+T 35
+PKT O minecraft:set_entity_motion 67f10e73397ffefffc
+T 36
+PKT O minecraft:set_entity_motion 67f10e732c7ffefffc
+T 37
+PKT O minecraft:set_entity_motion 67f10e731f7ffefffc
+T 38
+PKT O minecraft:set_entity_motion 67f10e73127ffefffc
+T 39
+PKT O minecraft:set_entity_motion 67f10e73057ffefffc
+T 40
+PKT O minecraft:set_entity_motion 67f10e547a7ffefffc01
+T 41
+PKT O minecraft:set_entity_motion 67f10e94707ffefffc01
+P O minecraft:player pos=40.5,-60.0,40.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=40.5,-55.96,40.5 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+EV sound at=18.667567100347682,-60.0,20.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=20.5,-60.0,31.0 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=1.0140587
+EV sound at=18.66787824366063,-60.0,20.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=18.667879507362024,-60.0,20.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+# a rocket that flies into a pig explodes on it
+E p8 minecraft:pig pos=40.5,-60.0,52.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.5138335 abs=0.0 hurt=8/18 death=0 fx=-
+E p1 minecraft:pig pos=21.5,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.3783374 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=18.0,-60.0,20.5 delta=-3.806601739097584,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.8860683 abs=0.0 hurt=0/0 death=0 fx=-
+E p3 minecraft:pig pos=20.5,-60.0,24.4 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.028082 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=20.5,-60.0,26.2 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:pig pos=24.0,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.3062687 abs=0.0 hurt=0/0 death=0 fx=-
+E p6 minecraft:pig pos=20.5,-57.5,20.5 delta=-0.016519141831528635,0.0,-0.3996587578441407 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.4700599 abs=0.0 hurt=0/0 death=0 fx=-
+E p7 minecraft:pig pos=20.5,-60.0,31.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p8 minecraft:pig pos=40.5,-60.0,52.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.5138335 abs=0.0 hurt=8/18 death=0 fx=-
+EV sound at=40.5,-59.5,49.5 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
+EV sound at=18.66787951249444,-60.0,20.5 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
+EV sound at=40.5,-60.0,52.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.8692601
+PKT O minecraft:entity_event 220000077c11
+PKT O minecraft:damage_event 19fb0e0f00fd0e00
+PKT O minecraft:remove_entities 4e01fc0e

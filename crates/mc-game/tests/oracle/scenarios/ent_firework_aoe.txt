@@ -1,0 +1,64 @@
+# Firework rocket explosion damage: 5 + 2 per explosion shaped by the distance (float distance, square-root falloff), only living entities within
+# 5 blocks of the rocket (pigs, an armor stand, a creative player that cannot be hurt, the owner) that the rocket can see (a clip to the feet or to
+# the middle of the box passes through a low block but not through a wall), the explosion event 17 and the explode game event, no damage for a
+# rocket without explosions, an explosion on a block (ceiling) and one against an entity that is hit.
+command_env
+level flat
+preload 5
+difficulty normal
+level_seed 8
+entity_counter 1900
+spawn_player A survival 20.5 -60 14.5 0 0
+spawn_player C creative 18.5 -60 20.5 0 0
+spawn_player O survival 40.5 -60 40.5 0 0
+tick 2
+dump packets:A:none packets:C:none packets:O:none
+fill 22 -60 22 22 -58 28 minecraft:stone
+fill 20 -60 27 21 -60 27 minecraft:stone
+spawn p1 minecraft:pig 21.5 -60 20.5 0 0 {NoAI:1b,Health:40.0f}
+entity_seed p1 11
+spawn p2 minecraft:pig 18.0 -60 20.5 0 0 {NoAI:1b,Health:40.0f}
+entity_seed p2 12
+spawn p3 minecraft:pig 20.5 -60 24.4 0 0 {NoAI:1b,Health:40.0f}
+entity_seed p3 13
+spawn p4 minecraft:pig 20.5 -60 26.2 0 0 {NoAI:1b,Health:40.0f}
+entity_seed p4 14
+spawn p5 minecraft:pig 24.0 -60 20.5 0 0 {NoAI:1b,Health:40.0f}
+entity_seed p5 15
+spawn p6 minecraft:pig 20.5 -57.5 20.5 0 0 {NoAI:1b,NoGravity:1b,Health:40.0f}
+entity_seed p6 16
+spawn st minecraft:armor_stand 20.5 -60 17.0 0 0 {}
+entity_seed st 17
+spawn p7 minecraft:pig 20.5 -60 31.0 0 0 {NoAI:1b,Health:40.0f}
+entity_seed p7 18
+tick 1
+dump entities
+note a stationary rocket with two explosions at the middle: damage 9, falling off with the distance, walls hide the pigs behind them
+spawn r1 minecraft:firework_rocket 20.5 -59 20.5 0 0 {Life:0,LifeTime:3,ShotAtAngle:1b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],FireworksItem:{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:1,explosions:[{shape:"small_ball",colors:[I;16711680]},{shape:"star",colors:[I;255]}]}}}}
+entity_seed r1 51
+dump xentity:r1 edata:r1 nbt:r1 packets:A:add_entity,set_entity_data,set_entity_motion packets:C:add_entity
+tick 3
+dump xentity:r1 events packets:A:sound,entity_event,remove_entities
+tick 1
+dump entity:p1 entity:p2 entity:p3 entity:p4 entity:p5 entity:p6 entity:p7 player:A player:C entities events packets:A:entity_event,damage_event,hurt_animation,set_health,remove_entities,sound packets:C:entity_event,damage_event,remove_entities
+note a rocket without explosions, the same place: no damage
+spawn r2 minecraft:firework_rocket 20.5 -59 20.5 0 0 {Life:0,LifeTime:1,ShotAtAngle:1b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],FireworksItem:{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:1}}}}
+entity_seed r2 52
+tick 4
+dump entity:p1 player:A entities events packets:A:entity_event,damage_event,remove_entities
+note one explosion, rocket rises into a ceiling and explodes on it, an owner-less rocket
+fill 36 -50 38 44 -50 42 minecraft:stone
+spawn r3 minecraft:firework_rocket 40.5 -56 40.5 0 0 {Life:0,LifeTime:100,FireworksItem:{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:1,explosions:[{shape:"creeper",colors:[I;65280]}]}}}}
+entity_seed r3 53
+watch packets:O:entity_event,remove_entities,set_entity_motion,move_entity_pos,move_entity_pos_rot
+tick 30
+watch off
+dump player:O events
+note a rocket that flies into a pig explodes on it
+spawn p8 minecraft:pig 40.5 -60 52.5 0 0 {NoAI:1b,Health:40.0f}
+entity_seed p8 19
+spawn r4 minecraft:firework_rocket 40.5 -59.5 49.0 0 0 {Life:0,LifeTime:100,ShotAtAngle:1b,FireworksItem:{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:2,explosions:[{shape:"burst",colors:[I;255]}]}}}}
+entity_seed r4 54
+velocity r4 0 0 0.5
+tick 8
+dump entity:p8 entities events packets:O:entity_event,damage_event,remove_entities

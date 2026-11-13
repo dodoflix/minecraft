@@ -3,6 +3,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
 use crate::world::item::enchantment::actors::Actors;
 use linkme::distributed_slice;
@@ -176,4 +177,19 @@ impl Entity for EvokerFangs {
 static EVOKER_FANGS_FACTORY: EntityRegistration = EntityRegistration {
     entity_type: EntityType::EVOKER_FANGS,
     create: |ty, id, _registries| Box::new(EvokerFangs::new(ty, id)),
+};
+
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static EVOKER_FANGS_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_any().is::<EvokerFangs>(),
+    fields: |e, _level, ctx| {
+        let f = e.as_any().downcast_ref::<EvokerFangs>().expect("fangs");
+        vec![
+            ("warmup".into(), f.warmup_delay_ticks.to_string()),
+            ("spike".into(), u8::from(f.sent_spike_event).to_string()),
+            ("life".into(), f.life_ticks.to_string()),
+            ("owner".into(), ctx.name_uuid(f.owner)),
+        ]
+    },
 };

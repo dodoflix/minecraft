@@ -4,7 +4,10 @@ import java.util.List;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
+import net.minecraft.world.entity.projectile.EvokerFangs;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ShulkerBullet;
 
 /**
  * Per-class fields of the rich `E` lines (`dump xentity:REF`, `xentities`, `mob:REF`, `mobs`): the Java twin of the Rust registry
@@ -52,9 +55,30 @@ final class EntityExtras {
          out.add("radius", EntityOracleDriver.f(c.getRadius())).add("waiting", EntityOracleDriver.bool(c.isWaiting()));
          out.add("duration", c.getDuration()).add("age", c.tickCount);
       }));
+      ALL.add(new Extra(30, EvokerFangs.class, (d, e, out) -> {
+         var owner = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, "owner");
+         out.add("warmup", EntityOracleDriver.priv(e, "warmupDelayTicks"));
+         out.add("spike", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, "sentSpikeEvent")));
+         out.add("life", EntityOracleDriver.priv(e, "lifeTicks"));
+         out.add("owner", d.uuidName(owner == null ? null : owner.getUUID()));
+      }));
+      ALL.add(new Extra(30, FireworkRocketEntity.class, (d, e, out) -> {
+         out.add("life", EntityOracleDriver.priv(e, "life")).add("lifetime", EntityOracleDriver.priv(e, "lifetime"));
+         out.add("attached", d.entName((Entity)EntityOracleDriver.priv(e, "attachedToEntity")));
+         out.add("angle", EntityOracleDriver.bool(((FireworkRocketEntity)e).isShotAtAngle()));
+      }));
       ALL.add(new Extra(30, OminousItemSpawner.class, (d, e, out) -> {
          OminousItemSpawner s = (OminousItemSpawner)e;
          out.add("item", EntityOracleDriver.item(s.getItem())).add("ticks", EntityOracleDriver.priv(s, "spawnItemAfterTicks"));
+      }));
+      ALL.add(new Extra(30, ShulkerBullet.class, (d, e, out) -> {
+         var target = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, "finalTarget");
+         var dir = (net.minecraft.core.Direction)EntityOracleDriver.priv(e, "currentMoveDirection");
+         out.add("steps", EntityOracleDriver.priv(e, "flightSteps")).add("dir", dir == null ? "-" : dir.getName());
+         out.add("txd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaX")));
+         out.add("tyd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaY")));
+         out.add("tzd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaZ")));
+         out.add("target", d.uuidName(target == null ? null : target.getUUID()));
       }));
       ALL.sort(Comparator.comparingInt(Extra::order));
    }

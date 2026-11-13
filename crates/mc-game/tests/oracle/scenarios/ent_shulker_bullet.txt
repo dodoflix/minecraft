@@ -1,0 +1,76 @@
+# Shulker bullet: its save data (target, direction, steps, target deltas), the direction it picks when its flight steps run out (entity random pinned),
+# the homing flight towards a player target and the hit (4 damage from the mob projectile source, levitation from the owner, the damage game event
+# and removal), a spectator target that makes it fall, a creative player that cannot be hurt, a target that does not exist, a hit on a wall, being attacked by a player, hitting a
+# redirectable projectile, and the removal on peaceful difficulty. The owner is a player: the shulker class does not exist here.
+command_env
+level flat
+preload 5
+difficulty normal
+level_seed 4
+entity_counter 1800
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 8.5 -60 6.5 0 0
+spawn_player C spectator 24.5 -60 6.5 0 0
+spawn_player D survival 40.5 -60 0.5 0 0
+spawn_player E creative 30.5 -60 -14.5 0 0
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+note a bullet at the owner with one flight step left chooses its first direction, then flies to B and hits
+spawn b1 minecraft:shulker_bullet 0.5 -58.8 0.5 0 0 {Steps:1,Dir:1,TXD:0.0,TYD:0.15,TZD:0.0,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],Target:[I;-196291187,2030186727,-1948358755,2017388081]}
+entity_seed b1 41
+dump xentity:b1 edata:b1 nbt:b1 packets:D:add_entity,set_entity_data,set_entity_motion
+watch xentity:b1 packets:D:set_entity_motion,move_entity_pos,move_entity_pos_rot,entity_position_sync,remove_entities
+tick 12
+watch off
+watch xentity:b1 player:B packets:B:damage_event,hurt_animation,set_health,update_mob_effect,set_entity_motion,entity_event packets:D:remove_entities
+tick 50
+watch off
+dump xentity:b1 nbt:b1 player:B events packets:D:remove_entities
+note the bullet that targets a spectator falls with gravity
+spawn b2 minecraft:shulker_bullet 24.5 -58.8 0.5 0 0 {Steps:1,Dir:1,TXD:0.0,TYD:0.0,TZD:0.15,Target:[I;407689464,1828073685,-2048753337,-1664646821]}
+entity_seed b2 42
+tick 1
+dump xentity:b2 nbt:b2
+note a target uuid that is not a loaded entity is dropped on the first tick
+spawn b3 minecraft:shulker_bullet 24.5 -58.8 -4.5 0 0 {Steps:3,Dir:2,TXD:0.1,TYD:0.0,TZD:0.1,Target:[I;1,2,3,4]}
+entity_seed b3 43
+tick 1
+dump xentity:b3 nbt:b3
+tick 20
+dump entities events
+note a bullet with a target but no steps left aims straight at B from a wall: hits a block first
+fill 12 -61 -2 18 -57 -2 minecraft:stone
+spawn b4 minecraft:shulker_bullet 14.5 -59.5 2.5 0 0 {Steps:0,Dir:3,TXD:0.0,TYD:0.0,TZD:-0.15,Target:[I;-196291187,2030186727,-1948358755,2017388081]}
+entity_seed b4 44
+velocity b4 0 0 -0.15
+tick 30
+dump entities events packets:A:level_particles,sound,entity_event packets:B:level_particles
+note attacked by a survival player: destroyed with the hurt sound and crit particles
+spawn b5 minecraft:shulker_bullet 40.5 -59.5 2.0 0 0 {Steps:5,Dir:2,TXD:0.0,TYD:0.0,TZD:-0.15,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed b5 45
+tick 1
+attack D b5
+dump entities events packets:D:level_particles,entity_event,remove_entities player:D
+tick 1
+dump entities events
+note a fireball in its way is redirected, a second bullet reaches the player owner
+spawn f1 minecraft:small_fireball 56.5 -59.5 0.5 0 0 {acceleration_power:0.0d,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed f1 46
+spawn b6 minecraft:shulker_bullet 56.5 -59.5 -3.5 0 0 {Steps:50,Dir:3,TXD:0.0,TYD:0.0,TZD:0.15,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed b6 47
+velocity b6 0 0 0.15
+tick 40
+dump xentity:f1 nbt:f1 entities events
+note a creative player cannot be hurt: the bullet is destroyed without damage or levitation
+spawn b8 minecraft:shulker_bullet 30.5 -59.0 -11.5 0 0 {Steps:1,Dir:1,TXD:0.0,TYD:0.0,TZD:-0.15,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],Target:[I;-2139681332,24654158,-1564951457,-353865346]}
+entity_seed b8 49
+tick 25
+dump entities player:E events packets:E:update_mob_effect,damage_event,hurt_animation,set_health
+note the bullet is discarded when the difficulty is peaceful
+spawn b7 minecraft:shulker_bullet 40.5 -50 0.5 0 0 {Steps:50,Dir:1,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed b7 48
+tick 2
+dump entities
+difficulty peaceful
+tick 2
+dump entities events

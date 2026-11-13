@@ -1,0 +1,109 @@
+# a fang with a warmup next to its owner: saved warmup and owner, nothing hurt by the warmup
+E f0 minecraft:evoker_fangs pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing warmup=3 spike=0 life=22 owner=A
+ED f0 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00
+N f0 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Warmup:3,fall_distance:0.0d}
+PKT A minecraft:add_entity 01a90d4a4833e255ef4b5a9ab05d9bbb3cb43765403e800000000000c04e00000000000040250000000000000000000000
+PKT A minecraft:set_entity_data 65a90d0903412000000f0001ff
+PKT A minecraft:set_entity_data 65a90d0903412000000f0001ff
+PKT A minecraft:add_entity 01af0dd704a08817af4e93b758cb634d518916303fe0000000000000c04e00000000000040120000000000000000000000
+E p1 minecraft:pig pos=30.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=31.35,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p3 minecraft:pig pos=31.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=30.5,-59.15,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:pig pos=30.5,-59.3,50.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p6 minecraft:pig pos=45.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f0 minecraft:evoker_fangs pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E f0 minecraft:evoker_fangs pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing warmup=2 spike=0 life=22 owner=A
+N f0 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Warmup:2,fall_distance:0.0d}
+E f0 minecraft:evoker_fangs pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing warmup=-1 spike=1 life=21 owner=A
+N f0 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Warmup:-1,fall_distance:0.0d}
+PKT A minecraft:entity_event 22000006af04
+# fangs on top of the survival, creative and spectator players and on the owner itself, all owned by A, and one with an unknown owner
+# pigs: directly under, at the edge, beside the widened box, above the box, inside it
+E fb minecraft:evoker_fangs pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing warmup=-8 spike=1 life=14 owner=A
+E fa minecraft:evoker_fangs pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing warmup=-8 spike=1 life=14 owner=A
+E p1 minecraft:pig pos=30.5,-60.0,10.5 delta=-0.3903445750943203,0.0,0.08735626745005842 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=10/20 death=0 fx=-
+E p2 minecraft:pig pos=31.35,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=10/20 death=0 fx=-
+E p3 minecraft:pig pos=31.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=30.5,-59.15,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:pig pos=30.5,-59.3,50.5 delta=0.3394496786525051,0.0,0.21159848872589496 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=10/20 death=0 fx=-
+E p6 minecraft:pig pos=45.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=6.5,-60.0,0.5 delta=0.21743303646036877,0.2751840104494096,0.020529178205184632 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P S minecraft:player pos=18.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=45.5,-60.0,10.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0103581
+EV sound at=30.5,-60.0,10.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.1457466
+EV sound at=31.35,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0285044
+EV sound at=30.5,-59.3,50.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=0.86087334
+PKT A minecraft:entity_event 22000006b004
+PKT A minecraft:entity_event 22000006b104
+PKT A minecraft:entity_event 22000006b204
+PKT A minecraft:entity_event 22000006b304
+PKT A minecraft:entity_event 22000006b504
+PKT A minecraft:damage_event 19a90d17a60db60d00
+PKT B minecraft:entity_event 22000006af04
+PKT B minecraft:entity_event 22000006b004
+PKT B minecraft:entity_event 22000006b104
+PKT B minecraft:entity_event 22000006b204
+PKT B minecraft:entity_event 22000006b304
+PKT B minecraft:entity_event 22000006b504
+PKT B minecraft:entity_event 22000006b604
+PKT B minecraft:damage_event 19a60d17a60db10d00
+PKT B minecraft:hurt_animation 2ba60d00000000
+PKT B minecraft:damage_event 19a90d17a60db60d00
+PKT B minecraft:damage_event 19aa0d17a60db70d00
+PKT B minecraft:set_health 6a416000001440a00000
+PKT C minecraft:entity_event 22000006af04
+PKT C minecraft:entity_event 22000006b004
+PKT C minecraft:entity_event 22000006b104
+PKT C minecraft:entity_event 22000006b204
+PKT C minecraft:entity_event 22000006b304
+PKT C minecraft:entity_event 22000006b504
+PKT C minecraft:entity_event 22000006b604
+PKT C minecraft:damage_event 19a90d17a60db60d00
+PKT C minecraft:damage_event 19aa0d17a60db70d00
+PKT S minecraft:entity_event 22000006af04
+PKT S minecraft:entity_event 22000006b004
+PKT S minecraft:entity_event 22000006b104
+PKT S minecraft:entity_event 22000006b204
+PKT S minecraft:entity_event 22000006b304
+PKT S minecraft:entity_event 22000006b404
+PKT S minecraft:entity_event 22000006b504
+PKT S minecraft:entity_event 22000006b604
+PKT S minecraft:damage_event 19ae0d1b000000
+PKT S minecraft:damage_event 19a90d17a60db60d00
+PKT S minecraft:damage_event 19aa0d17a60db70d00
+E p1 minecraft:pig pos=30.5,-60.0,10.5 delta=-0.3903445750943203,0.0,0.08735626745005842 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=31.35,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p3 minecraft:pig pos=31.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=30.5,-59.15,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:pig pos=30.5,-59.3,50.5 delta=0.3394496786525051,0.0,0.21159848872589496 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p6 minecraft:pig pos=45.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p1 minecraft:pig pos=30.5,-60.0,10.5 delta=-0.3903445750943203,0.0,0.08735626745005842 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p6 minecraft:pig pos=45.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=31.5,-60.0,30.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=1.1006974
+PKT A minecraft:remove_entities 4e01af0d
+PKT A minecraft:remove_entities 4e01b00d
+PKT A minecraft:remove_entities 4e01b10d
+PKT A minecraft:remove_entities 4e01b20d
+PKT A minecraft:remove_entities 4e01b30d
+PKT A minecraft:remove_entities 4e01b50d
+# a team makes the owner and B allies: the fang on B does nothing
+C Created team [red]
+C Added A to team [red]
+C Added B to team [red]
+E fd minecraft:evoker_fangs pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing warmup=-12 spike=1 life=10 owner=A
+P B minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_health 6a416d55551440a00000
+PKT B minecraft:set_health 6a417800001440800000
+PKT B minecraft:entity_event 22000006ba04
+PKT B minecraft:set_health 6a418000001440400000
+E p1 minecraft:pig pos=30.5,-60.0,10.5 delta=-0.3903445750943203,0.0,0.08735626745005842 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=31.35,-60.0,20.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p3 minecraft:pig pos=31.5,-60.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=30.5,-59.15,40.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:pig pos=30.5,-59.3,50.5 delta=0.3394496786525051,0.0,0.21159848872589496 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p6 minecraft:pig pos=45.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+P B minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty

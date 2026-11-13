@@ -1,0 +1,74 @@
+# Evoker fangs: the save data (warmup, owner), the spike event after the warmup, the damage eight ticks into the attack to every living entity in
+# the box widened by 0.2 on both horizontal axes (a survival player, a creative and a spectator player, the owner, pigs at the edge of the box and
+# beside it, a pig above the box), 6 magic damage with the owner as the cause, plain magic damage without an owner, nothing against a member of the
+# owner's team, and the removal when the life runs out. The owner is a player: the evoker class does not exist here.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 3
+entity_counter 1700
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+spawn_player C creative 12.5 -60 0.5 0 0
+spawn_player S spectator 18.5 -60 0.5 0 0
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:S:none
+spawn p1 minecraft:pig 30.5 -60 10.5 0 0 {NoAI:1b,Health:20.0f}
+entity_seed p1 11
+spawn p2 minecraft:pig 31.35 -60 20.5 0 0 {NoAI:1b,Health:20.0f}
+entity_seed p2 12
+spawn p3 minecraft:pig 31.5 -60 30.5 0 0 {NoAI:1b,Health:20.0f}
+entity_seed p3 13
+spawn p4 minecraft:pig 30.5 -59.15 40.5 0 0 {NoAI:1b,NoGravity:1b,Health:20.0f}
+entity_seed p4 14
+spawn p5 minecraft:pig 30.5 -59.3 50.5 0 0 {NoAI:1b,NoGravity:1b,Health:20.0f}
+entity_seed p5 15
+spawn p6 minecraft:pig 45.5 -60 10.5 0 0 {NoAI:1b,Health:20.0f}
+entity_seed p6 16
+tick 1
+note a fang with a warmup next to its owner: saved warmup and owner, nothing hurt by the warmup
+spawn f0 minecraft:evoker_fangs 0.5 -60 4.5 0 0 {Warmup:3,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed f0 21
+dump xentity:f0 edata:f0 nbt:f0 packets:A:add_entity,set_entity_data entities
+tick 1
+dump xentity:f0 nbt:f0 packets:A:entity_event,remove_entities
+tick 3
+dump xentity:f0 nbt:f0 packets:A:entity_event,remove_entities events
+note fangs on top of the survival, creative and spectator players and on the owner itself, all owned by A, and one with an unknown owner
+spawn fb minecraft:evoker_fangs 6.5 -60 0.5 0 0 {Warmup:2,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed fb 22
+spawn fc minecraft:evoker_fangs 12.5 -60 0.5 0 0 {Warmup:2,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed fc 23
+spawn fs minecraft:evoker_fangs 18.5 -60 0.5 0 0 {Warmup:2,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed fs 24
+spawn fa minecraft:evoker_fangs 0.5 -60 0.5 0 0 {Warmup:2,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed fa 25
+spawn fx minecraft:evoker_fangs 45.5 -60 10.5 0 0 {Warmup:2,Owner:[I;1,2,3,4]}
+entity_seed fx 26
+note pigs: directly under, at the edge, beside the widened box, above the box, inside it
+spawn g1 minecraft:evoker_fangs 30.5 -60 10.5 0 0 {Warmup:2,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed g1 27
+spawn g2 minecraft:evoker_fangs 30.5 -60 20.5 0 0 {Warmup:2,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed g2 28
+spawn g3 minecraft:evoker_fangs 30.5 -60 30.5 0 0 {Warmup:2,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed g3 29
+spawn g4 minecraft:evoker_fangs 30.5 -60 40.5 0 0 {Warmup:2,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed g4 30
+spawn g5 minecraft:evoker_fangs 30.5 -60 50.5 0 0 {Warmup:2,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed g5 31
+tick 10
+dump xentity:fb xentity:fa entity:p1 entity:p2 entity:p3 entity:p4 entity:p5 entity:p6 player:A player:B player:C player:S events
+dump packets:A:entity_event,damage_event,hurt_animation,set_health packets:B:entity_event,damage_event,hurt_animation,set_health packets:C:entity_event,damage_event,hurt_animation,set_health packets:S:entity_event,damage_event,hurt_animation,set_health
+tick 20
+dump entities entity:p1 entity:p6 events packets:A:remove_entities
+note a team makes the owner and B allies: the fang on B does nothing
+cmd team add red
+cmd team join red A
+cmd team join red B
+spawn fd minecraft:evoker_fangs 6.5 -60 0.5 0 0 {Warmup:0,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed fd 32
+tick 12
+dump xentity:fd player:B events packets:B:entity_event,damage_event,hurt_animation,set_health
+tick 20
+dump entities player:B

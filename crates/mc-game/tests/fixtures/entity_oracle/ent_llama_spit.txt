@@ -1,0 +1,63 @@
+# a spit spat by player A at pig p1: moves in a flat arc and hurts it for 1 with the spit damage type (knockback away from the spit)
+E s1 minecraft:llama_spit pos=0.5,-58.7,2.5 delta=0.0,0.0,1.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=0 canbreak=0
+ED s1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00
+N s1 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.0d,0.0d,1.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-58.7d,2.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+PKT B minecraft:add_entity 01c70ccbb189a90fb343778488d42a4278641a503fe0000000000000c04d59999999999a400400000000000000000000c10c
+E s1 minecraft:llama_spit pos=0.5,-58.7,3.5 delta=0.0,-0.06,0.9900000095367432 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+N s1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,-0.06d,0.9900000095367432d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-58.7d,3.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+PKT B minecraft:set_entity_motion 67c70cf9fffffcfffd
+PKT B minecraft:move_entity_pos 36c70c00000000000000
+E p1 minecraft:pig pos=0.5,-60.0,7.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=2/12 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p1 minecraft:pig pos=0.5,-60.0,7.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=2/12 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5,-60.0,7.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0235395
+PKT B minecraft:damage_event 19c50c26c20cc80c00
+PKT B minecraft:set_entity_motion 67c50cf9ffb330fffd
+PKT B minecraft:set_entity_motion 67c50cf9ffb330fffd
+PKT B minecraft:remove_entities 4e01c70c
+PKT A minecraft:damage_event 19c50c26c20cc80c00
+# a spit shot back at its owner: ignores the owner until it left the owner's box, then hurts the owner
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,-0.006613375480610475 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/10 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+PKT A minecraft:set_entity_motion 67c80cf9ff0000fffd
+PKT A minecraft:damage_event 19c10c26c20cc90c00
+PKT A minecraft:hurt_animation 2bc10c42b3ffff
+PKT A minecraft:set_health 6a419800001440a00000
+PKT A minecraft:set_entity_motion 67c10cf9ff640b466d
+PKT A minecraft:set_health 6a419eaaab1440a00000
+# a spit that starts inside its owner's box leaves it without hurting it
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/2 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+E p1 minecraft:pig pos=0.5,-60.0,7.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+EV sound at=14.5,-60.0,7.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=0.9324237
+# a spit without an owner hits the second pig and does nothing
+E p2 minecraft:pig pos=14.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E p1 minecraft:pig pos=0.5,-60.0,7.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+# spits at a creative player, a player behind a raised shield and a pig above the ground
+P C minecraft:player pos=6.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=10.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=3/14 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E p1 minecraft:pig pos=0.5,-60.0,7.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=10.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:item.shield.block source=player vol=1.0 pitch=0.89543253
+EV sound at=10.5,-60.0,8.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+PKT C minecraft:damage_event 19c50c26c20cc80c00
+PKT D minecraft:damage_event 19c50c26c20cc80c00
+# a spit that hits a wall, one that falls into water, one inside a solid block and one that falls to the ground
+E p1 minecraft:pig pos=0.5,-60.0,7.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w1 minecraft:llama_spit pos=32.5,-58.7,1.5 delta=0.0,-0.06,0.9900000095367432 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E w2 minecraft:llama_spit pos=42.5,-58.9,0.7 delta=0.0,-0.06,0.19800000190734865 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E w4 minecraft:llama_spit pos=52.5,-59.2,2.1 delta=0.0,-0.06,0.09900000095367432 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E p1 minecraft:pig pos=0.5,-60.0,7.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=14.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=42.5,-59.25760600227738,1.2880798112920762 r=16.0 ex=0 event=minecraft:entity.generic.splash source=neutral vol=0.050310332 pitch=1.1150516
+PKT B minecraft:remove_entities 4e01c80c
+PKT B minecraft:remove_entities 4e01c90c
+PKT B minecraft:remove_entities 4e01ca0c
+PKT B minecraft:remove_entities 4e01cb0c
+PKT B minecraft:remove_entities 4e01cc0c
+PKT B minecraft:remove_entities 4e01cf0c
+PKT B minecraft:remove_entities 4e01cd0c
+PKT B minecraft:remove_entities 4e01ce0c

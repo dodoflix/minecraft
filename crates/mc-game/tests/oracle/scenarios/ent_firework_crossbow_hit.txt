@@ -1,0 +1,61 @@
+# A crossbow rocket (shot at an angle, owner = the shooter): hitting a pig explodes it whether or not it carries explosions (damage only with
+# explosions), hitting a wall explodes it only with explosions (a rocket without explosions keeps lying in the block), the packets of its flight
+# and its explosion event, the shooter's own explosion damage in range.
+level flat
+preload 5
+difficulty normal
+level_seed 6
+entity_counter 2000
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 12.5 -60 0.5 0 0
+spawn_player C survival 24.5 -60 0.5 0 0
+spawn_player D survival 36.5 -60 0.5 0 0
+give A hotbar0 minecraft:crossbow[enchantments={"minecraft:quick_charge":3}]
+give A offhand minecraft:firework_rocket[fireworks={flight_duration:1,explosions:[{shape:"large_ball",colors:[I;16711680]}]}] 2
+give B hotbar0 minecraft:crossbow[enchantments={"minecraft:quick_charge":3}]
+give B offhand minecraft:firework_rocket[fireworks={flight_duration:1}] 2
+give C hotbar0 minecraft:crossbow[enchantments={"minecraft:quick_charge":3}]
+give C offhand minecraft:firework_rocket[fireworks={flight_duration:1,explosions:[{shape:"star",colors:[I;255]}]}] 2
+give D hotbar0 minecraft:crossbow[enchantments={"minecraft:quick_charge":3}]
+give D offhand minecraft:firework_rocket[fireworks={flight_duration:1}] 2
+spawn p1 minecraft:pig 0.5 -59 4.5 0 0 {NoAI:1b,NoGravity:1b,Health:40.0f}
+entity_seed p1 11
+spawn p2 minecraft:pig 12.5 -59 4.5 0 0 {NoAI:1b,NoGravity:1b,Health:40.0f}
+entity_seed p2 12
+fill 22 -60 4 26 -57 4 minecraft:stone
+fill 34 -60 4 38 -57 4 minecraft:stone
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+note A and B charge and shoot at a pig: with and without explosions
+level_seed 21
+use A main 1
+use B main 1
+tick 12
+release A 1
+release B 1
+level_seed 22
+use A main 2
+use B main 2
+tick 1
+dump xentity:firework_rocket#1 xentity:firework_rocket#2 nbt:firework_rocket#1 nbt:firework_rocket#2 edata:firework_rocket#1 inventory:A inventory:B events packets:A:add_entity,set_entity_data,set_entity_motion packets:B:add_entity,set_entity_data,set_entity_motion
+watch entity:p1 entity:p2 packets:A:set_entity_motion,move_entity_pos,move_entity_pos_rot,entity_event,damage_event,set_health,remove_entities packets:B:entity_event,damage_event,remove_entities
+tick 2
+watch off
+tick 2
+dump player:A player:B entities events
+note C and D at a wall: only the rocket with an explosion explodes
+level_seed 23
+use C main 1
+use D main 1
+tick 12
+release C 1
+release D 1
+level_seed 24
+use C main 2
+use D main 2
+tick 1
+dump xentity:firework_rocket#3 xentity:firework_rocket#4 nbt:firework_rocket#3 nbt:firework_rocket#4
+tick 4
+dump entities events packets:C:entity_event,remove_entities,sound packets:D:entity_event,remove_entities,sound player:C player:D
+tick 60
+dump entities events packets:D:entity_event,remove_entities

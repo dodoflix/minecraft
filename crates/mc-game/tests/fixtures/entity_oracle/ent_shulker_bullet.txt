@@ -1,0 +1,247 @@
+# a bullet at the owner with one flight step left chooses its first direction, then flies to B and hits
+E b1 minecraft:shulker_bullet pos=0.5,-58.8,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=0 canbreak=0 steps=1 dir=up txd=0.0 tyd=0.15 tzd=0.0 target=B
+ED b1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00
+N b1 {Air:300s,Dir:1b,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[0.5d,-58.8d,0.5d],Rotation:[0.0f,0.0f],Steps:1,TXD:0.0d,TYD:0.15d,TZD:0.0d,Target:[I;-196291187,2030186727,-1948358755,2017388081],fall_distance:0.0d}
+T 3
+E b1 minecraft:shulker_bullet pos=0.5,-58.76925,0.5 delta=0.0,0.030749999999999996,0.0 rot=45.0,-45.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=20 dir=south txd=0.0 tyd=0.0 tzd=0.15 target=B
+T 4
+E b1 minecraft:shulker_bullet pos=0.5,-58.74465,0.5307499999999999 delta=0.0,0.024599999999999997,0.030749999999999996 rot=112.5,-41.829926 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=19 dir=south txd=0.0 tyd=0.0 tzd=0.15374999999999997 target=B
+T 5
+E b1 minecraft:shulker_bullet pos=0.5,-58.72497,0.5868687499999999 delta=0.0,0.019679999999999996,0.05611874999999999 rot=146.25,-30.577492 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=18 dir=south txd=0.0 tyd=0.0 tzd=0.15759374999999995 target=B
+T 6
+E b1 minecraft:shulker_bullet pos=0.5,-58.709226,0.6640704687499999 delta=0.0,0.015743999999999998,0.07720171874999998 rot=163.125,-21.051949 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=17 dir=south txd=0.0 tyd=0.0 tzd=0.16153359374999993 target=B
+T 7
+E b1 minecraft:shulker_bullet pos=0.5,-58.6966308,0.7589462304687499 delta=0.0,0.012595199999999997,0.09487576171874997 rot=171.5625,-14.30706 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=16 dir=south txd=0.0 tyd=0.0 tzd=0.16557193359374991 target=B
+T 8
+E b1 minecraft:shulker_bullet pos=0.5,-58.686554640000004,0.8687890862304686 delta=0.0,0.010076159999999997,0.1098428557617187 rot=175.78125,-9.77412 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=15 dir=south txd=0.0 tyd=0.0 tzd=0.16971123193359364 target=B
+T 9
+E b1 minecraft:shulker_bullet pos=0.5,-58.678493712000005,0.9914541733862302 delta=0.0,0.008060927999999998,0.12266508715576166 rot=177.89062,-6.7669926 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=14 dir=south txd=0.0 tyd=0.0 tzd=0.17395401273193345 target=B
+T 10
+E b1 minecraft:shulker_bullet pos=0.5,-58.6720449696,1.125246815720886 delta=0.0,0.006448742399999999,0.13379264233465568 rot=178.94531,-4.7632456 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=13 dir=south txd=0.0 tyd=0.0 tzd=0.17830286305023177 target=B
+T 11
+E b1 minecraft:shulker_bullet pos=0.5,-58.66688597568,1.268833016513908 delta=0.0,0.005158993919999999,0.14358620079302206 rot=179.47266,-3.4104772 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=12 dir=south txd=0.0 tyd=0.0 tzd=0.18276043462648756 target=B
+T 12
+E b1 minecraft:shulker_bullet pos=0.5,-58.662758780544,1.4211678662467555 delta=0.0,0.004127195135999999,0.15233484973284758 rot=179.73633,-2.4812167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=11 dir=south txd=0.0 tyd=0.0 tzd=0.18732944549214972 target=B
+T 13
+E b1 minecraft:shulker_bullet pos=0.5,-58.659457024435206,1.5814382823589241 delta=0.0,0.003301756108799999,0.16027041611216875 rot=179.86816,-1.8306581 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=10 dir=south txd=0.0 tyd=0.0 tzd=0.19201268162945345 target=B
+T 14
+E b1 minecraft:shulker_bullet pos=0.5,-58.65681561954817,1.749017214982697 delta=0.0,0.002641404887039999,0.16757893262377296 rot=179.93408,-1.3668404 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=9 dir=south txd=0.0 tyd=0.0 tzd=0.19681299867018978 target=B
+T 15
+E b1 minecraft:shulker_bullet pos=0.5,-58.65470249563854,1.9234270258091044 delta=0.0,0.0021131239096319992,0.17440981082640727 rot=179.96704,-1.0304928 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=8 dir=south txd=0.0 tyd=0.0 tzd=0.20173332363694452 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ef9ff7fff07dd
+PKT B minecraft:set_entity_motion 678e0ef9ff872d0505
+PKT B minecraft:set_entity_motion 678e0ef9ff8e0f0291
+PKT B minecraft:set_entity_motion 678e0ef9ff925f0151
+PKT B minecraft:set_entity_motion 678e0ef9ff957100a9
+T 16
+E b1 minecraft:shulker_bullet pos=0.5,-58.653011996510834,2.104310205815804 delta=0.0,0.0016904991277055994,0.18088318000669945 rot=179.98352,-0.7829542 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 steps=7 dir=south txd=0.0 tyd=0.0 tzd=0.2067766567278681 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 17
+E b1 minecraft:shulker_bullet pos=0.5,-58.65165959720867,2.2914059644503766 delta=0.0,0.0013523993021644794,0.1870957586345725 rot=179.99176,-0.5985732 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=6 dir=south txd=0.0 tyd=0.0 tzd=0.21194607314606478 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 18
+E b1 minecraft:shulker_bullet pos=0.5,-58.65057767776694,2.4845315163529778 delta=0.0,0.0010819194417315836,0.19312555190260128 rot=179.99588,-0.45970225 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=5 dir=south txd=0.0 tyd=0.0 tzd=0.2172447249747164 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ef9ff97f10055
+T 19
+E b1 minecraft:shulker_bullet pos=0.5,-58.64971214221355,2.6835671264948755 delta=0.0,8.655355533852668E-4,0.19903561014189788 rot=179.99794,-0.35440862 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=4 dir=south txd=0.0 tyd=0.0 tzd=0.22267584309908428 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 20
+E b1 minecraft:shulker_bullet pos=0.5,-58.64901971377084,2.8884441624437063 delta=0.0,6.924284427082134E-4,0.20487703594883058 rot=179.99896,-0.27405566 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=3 dir=south txd=0.0 tyd=0.0 tzd=0.22824273917656138 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 21
+E b1 minecraft:shulker_bullet pos=0.5,-58.648465771016674,3.0991355527339657 delta=0.0,5.539427541665707E-4,0.21069139029025954 rot=179.99948,-0.21239862 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=2 dir=south txd=0.0 tyd=0.0 tzd=0.2339488076559754 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ef9ff9a390029
+T 22
+E b1 minecraft:shulker_bullet pos=0.5,-58.64802261681334,3.315648170535648 delta=0.0,4.431542033332566E-4,0.2165126178016826 rot=179.99974,-0.16488461 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=1 dir=south txd=0.0 tyd=0.0 tzd=0.23979752784737476 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 23
+E b1 minecraft:shulker_bullet pos=0.5,-58.647668093450676,3.538016757985706 delta=0.0,3.545233626666053E-4,0.22236858745005791 rot=179.99988,-0.12810424 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=50 dir=east txd=0.15 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+E b1 minecraft:shulker_bullet pos=0.5307499999999999,-58.64738447476054,3.7159116279457525 delta=0.030749999999999996,2.836186901332842E-4,0.17789486996004633 rot=175.09644,-0.10903503 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=49 dir=east txd=0.15374999999999997 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ef9ff9c750015
+T 25
+E b1 minecraft:shulker_bullet pos=0.5868687499999999,-58.647157579808436,3.8582275239137895 delta=0.05611874999999999,2.2689495210662737E-4,0.14231589596803706 rot=166.78792,-0.09695221 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=48 dir=east txd=0.15759374999999995 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 26
+E b1 minecraft:shulker_bullet pos=0.6640704687499999,-58.64697606384675,3.972080240688219 delta=0.07720171874999998,1.815159616853019E-4,0.11385271677442965 rot=156.32367,-0.08627975 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=47 dir=east txd=0.16153359374999993 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 27
+E b1 minecraft:shulker_bullet pos=0.7589462304687499,-58.646830851077404,4.063162414107763 delta=0.09487576171874997,1.4521276934824153E-4,0.09108217341954372 rot=145.07748,-0.07476753 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=46 dir=east txd=0.16557193359374991 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0e81278e91000a
+T 28
+E b1 minecraft:shulker_bullet pos=0.8687890862304686,-58.646714680861926,4.136028152843398 delta=0.1098428557617187,1.1617021547859323E-4,0.07286573873563498 rot=134.31815,-0.06262943 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=45 dir=east txd=0.16971123193359364 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 29
+E b1 minecraft:shulker_bullet pos=0.9914541733862302,-58.64662174468954,4.194320743831906 delta=0.12266508715576166,9.293617238287458E-5,0.05829259098850799 rot=124.86801,-0.05092226 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=44 dir=east txd=0.17395401273193345 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 30
+E b1 minecraft:shulker_bullet pos=1.125246815720886,-58.64654739575163,4.240954816622712 delta=0.13379264233465568,7.434893790629966E-5,0.04663407279080639 rot=117.042114,-0.040491037 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=43 dir=east txd=0.17830286305023177 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ec93e87750006
+T 31
+E b1 minecraft:shulker_bullet pos=1.268833016513908,-58.64648791660131,4.278262074855357 delta=0.14358620079302206,5.947915032503973E-5,0.037307258232645114 rot=110.80342,-0.031723943 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=42 dir=east txd=0.18276043462648756 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 32
+E b1 minecraft:shulker_bullet pos=1.4211678662467555,-58.64644033328105,4.308107881441473 delta=0.15233484973284758,4.7583320260031787E-5,0.029845806586116092 rot=105.94423,-0.02463196 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=41 dir=east txd=0.18732944549214972 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 33
+E b1 minecraft:shulker_bullet pos=1.5814382823589241,-58.64640226662484,4.331984526710366 delta=0.16027041611216875,3.806665620802543E-5,0.023876645268892875 rot=102.208885,-0.019037478 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=40 dir=east txd=0.19201268162945345 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ef94d83d10002
+T 34
+E b1 minecraft:shulker_bullet pos=1.749017214982697,-58.64637181329987,4.351085842925481 delta=0.16757893262377296,3.0453324966420345E-5,0.0191013162151143 rot=99.35581,-0.014687654 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=39 dir=east txd=0.19681299867018978 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 35
+E b1 minecraft:shulker_bullet pos=1.9234270258091044,-58.6463474506399,4.366366895897572 delta=0.17440981082640727,2.4362659973136276E-5,0.015281052972091442 rot=97.1815,-0.011330185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=38 dir=east txd=0.20173332363694452 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 36
+E b1 minecraft:shulker_bullet pos=2.104310205815804,-58.646327960511925,4.3785917382752455 delta=0.18088318000669945,1.949012797850902E-5,0.012224842377673153 rot=95.52394,-0.008747368 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=37 dir=east txd=0.2067766567278681 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0e415981f2fffe
+T 37
+E b1 minecraft:shulker_bullet pos=2.2914059644503766,-58.64631236840954,4.388371612177384 delta=0.1870957586345725,1.5592102382807218E-5,0.009779873902138522 rot=94.25804,-0.00675787 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=36 dir=east txd=0.21194607314606478 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 38
+E b1 minecraft:shulker_bullet pos=2.4845315163529778,-58.64629989472763,4.396195511299094 delta=0.19312555190260128,1.2473681906245775E-5,0.007823899121710817 rot=93.28891,-0.0052290633 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=35 dir=east txd=0.2172447249747164 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 39
+E b1 minecraft:shulker_bullet pos=2.6835671264948755,-58.646289915782106,4.402454630596463 delta=0.19903561014189788,9.97894552499662E-6,0.006259119297368654 rot=92.545044,-0.004048858 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=34 dir=east txd=0.22267584309908428 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ed96280fefffe
+T 40
+E b1 minecraft:shulker_bullet pos=2.8884441624437063,-58.64628193262568,4.407461926034357 delta=0.20487703594883058,7.983156419997295E-6,0.005007295437894923 rot=91.9725,-0.0031421352 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=33 dir=east txd=0.22824273917656138 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 41
+E b1 minecraft:shulker_bullet pos=3.0991355527339657,-58.64627554610055,4.411467762384674 delta=0.21069139029025954,6.386525135997836E-6,0.004005836350315938 rot=91.53088,-0.0024408186 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=32 dir=east txd=0.2339488076559754 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 42
+E b1 minecraft:shulker_bullet pos=3.315648170535648,-58.646270436880435,4.414672431464926 delta=0.2165126178016826,5.109220108798269E-6,0.0032046690802527505 rot=91.18945,-0.0018994254 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=31 dir=east txd=0.23979752784737476 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ed96b8082fffe
+T 43
+E b1 minecraft:shulker_bullet pos=3.538016757985706,-58.64626634950435,4.417236166729128 delta=0.22236858745005791,4.087376087038616E-6,0.0025637352642022 rot=90.925,-0.0014799556 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=30 dir=east txd=0.24579246604355912 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 44
+E b1 minecraft:shulker_bullet pos=3.766299083484682,-58.64626307960348,4.41928715494049 delta=0.22828232549897595,3.2699008696308925E-6,0.0020509882113617602 rot=90.71988,-0.0011519651 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=29 dir=east txd=0.2519372776946481 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 45
+E b1 minecraft:shulker_bullet pos=4.000572085811266,-58.646260463682786,4.42092794550958 delta=0.2342730023265836,2.615920695704714E-6,0.0016407905690894082 rot=90.560585,-8.964171E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=28 dir=east txd=0.25823570963701425 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ed9748042fffe
+T 46
+E b1 minecraft:shulker_bullet pos=4.24092880814812,-58.64625837094623,4.4222405779648515 delta=0.2403567223368548,2.092736556563771E-6,0.0013126324552715266 rot=90.436676,-6.9997855E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=27 dir=east txd=0.2646916023779396 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 47
+E b1 minecraft:shulker_bullet pos=4.487475964505082,-58.646256696756986,4.423290683929069 delta=0.24654715635696145,1.6741892452510168E-6,0.0010501059642172212 rot=90.34034,-5.4835354E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=26 dir=east txd=0.27130889243738804 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 48
+E b1 minecraft:shulker_bullet pos=4.740332012540316,-58.646255357405586,4.424130768700443 delta=0.2528560480352337,1.3393513962008134E-6,8.40084771373777E-4 rot=90.265366,-4.2676466E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=25 dir=east txd=0.2780916147483227 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0e317e8020fffe
+T 49
+E b1 minecraft:shulker_bullet pos=4.9996256319919095,-58.64625428592447,4.424802836517542 delta=0.2592936194515931,1.0714811169606507E-6,6.720678170990216E-4 rot=90.206955,-3.3545264E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=24 dir=east txd=0.28504390511703076 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 50
+E b1 minecraft:shulker_bullet pos=5.265494528102176,-58.64625342873958,4.425340490771221 delta=0.2658688961102658,8.571848935685205E-7,5.376542536792173E-4 rot=90.161415,-2.6309374E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=23 dir=east txd=0.2921700027449565 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 51
+E b1 minecraft:shulker_bullet pos=5.538084495553105,-58.64625274299166,4.425770614174165 delta=0.2725899674509287,6.857479148548165E-7,4.3012340294337385E-4 rot=90.125916,-2.0784081E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=22 dir=east txd=0.2994742528135804 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0e19888010fffe
+T 52
+E b1 minecraft:shulker_bullet pos=5.817548691340631,-58.646252194393334,4.42611471289652 delta=0.27946419578752696,5.485983318838532E-7,3.440987223546991E-4 rot=90.09822,-1.6114087E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=21 dir=east txd=0.3069611091339199 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 53
+E b1 minecraft:shulker_bullet pos=6.104047075343106,-58.64625175551467,4.426389991874403 delta=0.2864983840024751,4.388786655070825E-7,2.7527897788375927E-4 rot=90.07662,-1.263468E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=20 dir=east txd=0.31463513686226785 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 54
+E b1 minecraft:shulker_bullet pos=6.397745985601851,-58.646251404411736,4.42661021505671 delta=0.293698910258745,3.51102932405666E-7,2.202231823070074E-4 rot=90.05977,-1.0132037E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=19 dir=east txd=0.3225010152838245 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ea9928008fffe
+T 55
+E b1 minecraft:shulker_bullet pos=6.698817821942031,-58.64625112352939,4.426786393602556 delta=0.30107183634018003,2.808823459245328E-7,1.7617854584560592E-4 rot=90.04663,-8.1177765E-5 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=18 dir=east txd=0.3305635406659201 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 56
+E b1 minecraft:shulker_bullet pos=7.007440816850688,-58.64625089882351,4.426927336439232 delta=0.30862299490865763,2.2470587673962623E-7,1.4094283667648473E-4 rot=90.03638,-6.347707E-5 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=17 dir=east txd=0.33882762918256804 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 57
+E b1 minecraft:shulker_bullet pos=7.323798876760041,-58.646250719058806,4.427040090708573 delta=0.31635805990935256,1.7976470139170099E-7,1.1275426934118779E-4 rot=90.02838,-5.081202E-5 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=16 dir=east txd=0.3472983199121322 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ef99d8002fffe
+T 58
+E b1 minecraft:shulker_bullet pos=7.64808148026951,-58.646250575247045,4.427130294124046 delta=0.32428260350946914,1.438117611133608E-7,9.020341547295024E-5 rot=90.02215,-4.06648E-5 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=15 dir=east txd=0.3559807779099355 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 59
+E b1 minecraft:shulker_bullet pos=7.980483622548622,-58.646250460197635,4.427202456856424 delta=0.3324021422791121,1.1504940889068864E-7,7.216273237836019E-5 rot=90.01729,-3.1776493E-5 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=14 dir=east txd=0.36488029735768385 tyd=0.0 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 60
+E b1 minecraft:shulker_bullet pos=8.321205797330236,-58.64625036815811,4.427260187042327 delta=0.3407221747816148,9.20395271125509E-8,5.773018590268815E-5 rot=90.01349,-2.7332339E-5 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=10 dir=down txd=0.0 tyd=-0.15 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0e29aa8000fffe
+T 61
+E b1 minecraft:shulker_bullet pos=8.59378353715553,-58.677000294526486,4.427306371191049 delta=0.2725777398252919,-0.030749926368378307,4.6184148722150525E-5 rot=90.0116,3.2181907 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=9 dir=down txd=0.0 tyd=-0.15374999999999997 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0e69ae8000fffe
+T 62
+E b1 minecraft:shulker_bullet pos=8.811845729015763,-58.73311898562119,4.427343318510027 delta=0.2180621918602335,-0.05611869109470263,3.694731897772042E-5 rot=90.01065,8.825094 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=8 dir=down txd=0.0 tyd=-0.15759374999999995 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 63
+E b1 minecraft:shulker_bullet pos=8.98629548250395,-58.810320657246955,4.427372876365209 delta=0.1744497534881868,-0.0772016716257621,2.9557855182176337E-5 rot=90.01018,16.34819 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=7 dir=down txd=0.0 tyd=-0.16153359374999993 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:set_entity_motion 678e0ea16f8000f1a2
+T 64
+E b1 minecraft:shulker_bullet pos=9.125855285294499,-58.905196381266315,4.427396522649355 delta=0.13955980279054944,-0.09487572401935966,2.364628414574107E-5 rot=90.00994,25.278454 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=6 dir=down txd=0.0 tyd=-0.16557193359374991 tzd=0.0 target=B
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:shulker_bullet pos=9.125855285294499,-58.905196381266315,4.427396522649355 delta=0.13955980279054944,-0.09487572401935966,2.364628414574107E-5 rot=90.00994,25.278454 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0 steps=6 dir=down txd=0.0 tyd=-0.16557193359374991 tzd=0.0 target=B
+N b1 {Air:300s,Dir:0b,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.13955980279054944d,-0.09487572401935966d,2.364628414574107E-5d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[9.125855285294499d,-58.905196381266315d,4.427396522649355d],Rotation:[90.00994f,25.278454f],Steps:6,TXD:0.0d,TYD:-0.16557193359374991d,TZD:0.0d,Target:[I;-196291187,2030186727,-1948358755,2017388081],fall_distance:0.0d}
+P B minecraft:player pos=8.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the bullet that targets a spectator falls with gravity
+E b2 minecraft:shulker_bullet pos=24.5,-58.839999999999996,0.5 delta=0.0,-0.04,0.0 rot=45.0,44.999992 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0 steps=40 dir=south txd=0.0 tyd=0.0 tzd=0.15 target=C
+N b2 {Air:300s,Dir:3b,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,-0.04d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[24.5d,-58.839999999999996d,0.5d],Rotation:[45.0f,44.999992f],Steps:40,TXD:0.0d,TYD:0.0d,TZD:0.15d,Target:[I;407689464,1828073685,-2048753337,-1664646821],fall_distance:0.0d}
+# a target uuid that is not a loaded entity is dropped on the first tick
+E b3 minecraft:shulker_bullet pos=24.5,-58.839999999999996,-4.5 delta=0.0,-0.04,0.0 rot=45.0,44.999992 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0 steps=3 dir=north txd=0.1 tyd=0.0 tzd=0.1 target=-
+N b3 {Air:300s,Dir:2b,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,-0.04d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[24.5d,-58.839999999999996d,-4.5d],Rotation:[45.0f,44.999992f],Steps:3,TXD:0.1d,TYD:0.0d,TZD:0.1d,fall_distance:0.0d}
+EV sound at=24.5,-60.239999999999995,0.5 r=16.0 ex=0 event=minecraft:entity.shulker_bullet.hit source=hostile vol=1.0 pitch=1.0
+EV sound at=24.5,-60.239999999999995,-4.5 r=16.0 ex=0 event=minecraft:entity.shulker_bullet.hit source=hostile vol=1.0 pitch=1.0
+EV sound at=8.5,-60.0,6.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+# a bullet with a target but no steps left aims straight at B from a wall: hits a block first
+EV sound at=14.5,-59.5,-1.1310992289580653 r=16.0 ex=0 event=minecraft:entity.shulker_bullet.hit source=hostile vol=1.0 pitch=1.0
+PKT A minecraft:level_particles 301e00004038800000000000c04e1eb851eb851e3fe00000000000003e4ccccd3e4ccccd3e4ccccd0000000000000000000000000200
+PKT A minecraft:level_particles 301e00004038800000000000c04e1eb851eb851ec0120000000000003e4ccccd3e4ccccd3e4ccccd0000000000000000000000000200
+PKT A minecraft:sound 77a50a0700000044fffffe20000000343f8000003f8000006fd465a290351d3c
+PKT A minecraft:level_particles 301e0000402d000000000000c04dc00000000000bff218fb814e7dc63e4ccccd3e4ccccd3e4ccccd0000000000000000000000000200
+PKT A minecraft:sound 77bf0b0500000074fffffe24fffffff73f8000003f8000004b970fd5e0db99e1
+PKT B minecraft:level_particles 301e00004038800000000000c04e1eb851eb851e3fe00000000000003e4ccccd3e4ccccd3e4ccccd0000000000000000000000000200
+PKT B minecraft:level_particles 301e00004038800000000000c04e1eb851eb851ec0120000000000003e4ccccd3e4ccccd3e4ccccd0000000000000000000000000200
+PKT B minecraft:level_particles 301e0000402d000000000000c04dc00000000000bff218fb814e7dc63e4ccccd3e4ccccd3e4ccccd0000000000000000000000000200
+# attacked by a survival player: destroyed with the hurt sound and crit particles
+EV sound at=40.5,-59.54,2.0 r=16.0 ex=0 event=minecraft:entity.shulker_bullet.hurt source=hostile vol=1.0 pitch=1.0
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.attack.strong source=player vol=1.0 pitch=1.0
+PKT D minecraft:level_particles 301e00004038800000000000c04e1eb851eb851e3fe00000000000003e4ccccd3e4ccccd3e4ccccd0000000000000000000000000200
+PKT D minecraft:remove_entities 4e018f0e
+PKT D minecraft:level_particles 301e00004038800000000000c04e1eb851eb851ec0120000000000003e4ccccd3e4ccccd3e4ccccd0000000000000000000000000200
+PKT D minecraft:remove_entities 4e01900e
+PKT D minecraft:level_particles 301e0000402d000000000000c04dc00000000000bff218fb814e7dc63e4ccccd3e4ccccd3e4ccccd0000000000000000000000000200
+PKT D minecraft:level_particles 300d00004044400000000000c04dc51eb851eb8540000000000000003e4ccccd3e4ccccd3e4ccccd0000000000000000000000000f00
+PKT D minecraft:remove_entities 4e01920e
+P D minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+# a fireball in its way is redirected, a second bullet reaches the player owner
+E f1 minecraft:small_fireball pos=56.5,-59.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+N f1 {Air:300s,Fire:20s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:fire_charge"},LeftOwner:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[56.5d,-59.5d,0.5d],Rotation:[0.0f,0.0f],acceleration_power:0.0d,fall_distance:0.0d}
+E f1 minecraft:small_fireball pos=56.5,-59.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+EV sound at=56.5,-60.099999999999994,-2.7500000000000004 r=16.0 ex=0 event=minecraft:entity.shulker_bullet.hit source=hostile vol=1.0 pitch=1.0
+# a creative player cannot be hurt: the bullet is destroyed without damage or levitation
+E f1 minecraft:small_fireball pos=56.5,-59.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+P E minecraft:player pos=30.5,-60.0,-14.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT E minecraft:set_health 6a41a000001440a00000
+# the bullet is discarded when the difficulty is peaceful
+E f1 minecraft:small_fireball pos=56.5,-59.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E b7 minecraft:shulker_bullet pos=40.5,-50.12,0.5 delta=0.0,-0.08,0.0 rot=67.5,67.499985 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+C The difficulty has been set to Peaceful
+E f1 minecraft:small_fireball pos=56.5,-59.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
