@@ -21,14 +21,14 @@ impl PlayHandlers for MenuCoreHandlers {
             |c| &mut c.player.player.menus,
             |menu, p| {
                 if !menu.as_any().is::<BeaconMenu>() {
-                    return true;
+                    return Some(true);
                 }
                 if !menu.still_valid(&*p) {
                     log::debug!(
                         "Player {} interacted with invalid menu",
                         p.player.player.game_profile.name
                     );
-                    return true;
+                    return Some(true);
                 }
                 let beacon = menu
                     .as_any_mut()
@@ -37,13 +37,20 @@ impl PlayHandlers for MenuCoreHandlers {
                 beacon.update_effects(p, packet.primary, packet.secondary)
             },
         );
-        if !accepted {
-            log::warn!(
-                "Player {} tried to set invalid beacon effects",
-                ctx.player.player.game_profile.name
-            );
-            ctx.lis()
-                .disconnect(translatable!("multiplayer.disconnect.generic"));
+        match accepted {
+            Some(true) => {}
+            Some(false) => {
+                log::warn!(
+                    "Player {} tried to set invalid beacon effects",
+                    ctx.player.player.game_profile.name
+                );
+                ctx.lis()
+                    .disconnect(translatable!("multiplayer.disconnect.generic"));
+            }
+            // vanilla: `validateEffects` throws a NullPointerException, the packet processor logs and suppresses it
+            None => log::error!(
+                "Failed to handle packet ServerboundSetBeaconPacket, suppressing error: secondary effect of pyramid level 1-3 without a primary one"
+            ),
         }
     }
 

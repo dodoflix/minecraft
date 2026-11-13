@@ -1,5 +1,5 @@
 //! `BeaconBlockEntity.validateEffects` and the `BeaconMenu` effect encoding against the vanilla classes
-//! (`fixtures/BeaconGolden.java`; the Java side maps a vanilla `NullPointerException` to "invalid").
+//! (`fixtures/BeaconGolden.java`; the Java side maps a vanilla `NullPointerException` to "invalid", `None` here).
 
 use mc_data::MobEffect;
 use mc_game::world::inventory::{decode_effect, encode_effect, validate_effects};
@@ -25,7 +25,7 @@ fn validate_effects_matches_vanilla() {
         assert_eq!(encode_effect(primary), p);
         assert_eq!(encode_effect(secondary), s);
         assert_eq!(
-            validate_effects(primary, secondary, levels),
+            validate_effects(primary, secondary, levels).unwrap_or(false),
             want,
             "primary {p} secondary {s} levels {levels}"
         );

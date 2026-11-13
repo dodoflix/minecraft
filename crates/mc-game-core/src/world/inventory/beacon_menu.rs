@@ -33,25 +33,25 @@ fn get_required_levels_for(effect: Option<MobEffect>) -> i32 {
     }
 }
 
-/// `BeaconBlockEntity.validateEffects(primary, secondary, levels)`. (Vanilla throws a `NullPointerException` for a
-/// secondary effect without a primary one; that is rejected here like any other invalid selection.)
+/// `BeaconBlockEntity.validateEffects(primary, secondary, levels)`. `None` where vanilla throws a
+/// `NullPointerException`: a secondary effect of pyramid level 1-3 without a primary one, on a four level pyramid.
 pub fn validate_effects(
     primary: Option<MobEffect>,
     secondary: Option<MobEffect>,
     levels: i32,
-) -> bool {
+) -> Option<bool> {
     if secondary.is_some() && levels < 4 {
-        return false;
+        return Some(false);
     }
     let primary_level = get_required_levels_for(primary);
     let secondary_level = get_required_levels_for(secondary);
-    if primary_level > levels || secondary_level > levels {
-        return false;
+    if primary_level > levels || secondary_level > levels || primary_level >= 4 {
+        return Some(false);
     }
-    primary_level < 4
-        && (secondary_level == 0
-            || secondary_level >= 4
-            || (primary.is_some() && primary == secondary))
+    if secondary_level == 0 || secondary_level >= 4 {
+        return Some(true);
+    }
+    primary.map(|p| Some(p) == secondary)
 }
 
 /// `BeaconMenu.encodeEffect`.
@@ -207,19 +207,20 @@ impl BeaconMenu {
         !self.base.locals[PAYMENT_LOCAL].get_item(0).is_empty()
     }
 
-    /// `updateEffects(primary, secondary)`: `false` = invalid selection (the listener disconnects the player).
+    /// `updateEffects(primary, secondary)`: `Some(false)` = invalid selection (the listener disconnects the player);
+    /// `None` = vanilla's `NullPointerException` (see [`validate_effects`]): nothing changed, the listener only logs it.
     pub fn update_effects(
         &mut self,
         player: &mut dyn MenuPlayer,
         primary: Option<MobEffect>,
         secondary: Option<MobEffect>,
-    ) -> bool {
+    ) -> Option<bool> {
         if !self.has_payment() {
-            return false;
+            return Some(false);
         }
         let levels = self.get_levels(player);
-        if !validate_effects(primary, secondary, levels) {
-            return false;
+        if !validate_effects(primary, secondary, levels)? {
+            return Some(false);
         }
         self.set_data_value(player, 1, encode_effect(primary));
         self.set_data_value(player, 2, encode_effect(secondary));
@@ -227,7 +228,7 @@ impl BeaconMenu {
         if let (Some(pos), Some(level)) = (self.access.pos(), player.level()) {
             level.block_entity_changed(pos);
         }
-        true
+        Some(true)
     }
 }
 
