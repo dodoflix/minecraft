@@ -345,16 +345,13 @@ impl<'a> PistonStructureResolver<'a> {
     }
 }
 
-/// `Entity.getPistonPushReaction()`: the trait method (`ArmorStand` marker override), plus the types whose Java class
-/// overrides it to `IGNORE_ENTITY` but whose entity implementation does not exist yet (`AreaEffectCloud`, `Display`,
-/// `OminousItemSpawner`).
+/// `Entity.getPistonPushReaction()`: the trait method, plus the types whose Java class overrides it to `IGNORE_ENTITY` but
+/// whose entity implementation does not exist yet (`Display`).
 pub fn entity_push_reaction(entity: &dyn Entity) -> PushReaction {
     let ty = entity.get_type();
-    if ty == EntityType::AREA_EFFECT_CLOUD
-        || ty == EntityType::BLOCK_DISPLAY
+    if ty == EntityType::BLOCK_DISPLAY
         || ty == EntityType::ITEM_DISPLAY
         || ty == EntityType::TEXT_DISPLAY
-        || ty == EntityType::OMINOUS_ITEM_SPAWNER
     {
         PushReaction::IgnoreEntity
     } else {

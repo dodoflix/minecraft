@@ -5,16 +5,21 @@ use super::dimensions::EntityDimensions;
 use super::effect::MobEffectInstance;
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
+use super::spawn_config::apply_base_implicit_components;
 use super::{Entity, EntityData, EntityId, entity};
+use crate::advancements::predicates::entity::support::base_entity_components;
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::effect::{EffectCause, MobEffectExt, potion_contents};
+use crate::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_data::EntityType;
-use mc_data::enums::Pose;
+use mc_data::enums::{Pose, PushReaction};
 use mc_nbt::CompoundTag;
-use mc_protocol::components::PotionContents;
+use mc_protocol::components::{
+    DataComponentMap, POTION_CONTENTS, POTION_DURATION_SCALE, PotionContents,
+};
 use mc_protocol::packets::play::ParticleOptions;
 use std::any::Any;
 use std::collections::HashMap;
@@ -128,25 +133,6 @@ impl AreaEffectCloud {
 
     pub fn set_potion_duration_scale(&mut self, scale: f32) {
         self.potion_duration_scale = scale;
-    }
-    /// `applyComponentsFromItemStack(stack)`: `Entity` takes the custom name and data, the cloud the potion contents
-    /// and the duration scale.
-    pub fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
-        use mc_protocol::components::{
-            CUSTOM_DATA, CUSTOM_NAME, POTION_CONTENTS, POTION_DURATION_SCALE,
-        };
-        if let Some(name) = stack.get(&CUSTOM_NAME) {
-            self.base.set_custom_name(Some(name.clone()));
-        }
-        if let Some(data) = stack.get(&CUSTOM_DATA) {
-            self.base.custom_data = data.tag().clone();
-        }
-        if let Some(contents) = stack.get(&POTION_CONTENTS) {
-            self.set_potion_contents(contents.clone());
-        }
-        if let Some(scale) = stack.get(&POTION_DURATION_SCALE) {
-            self.potion_duration_scale = *scale;
-        }
     }
 
     /// `updateParticle()`.
@@ -269,10 +255,11 @@ impl AreaEffectCloud {
         potion_contents::for_each_effect(&self.potion_contents, self.potion_duration_scale, |e| {
             all_effects.push(e)
         });
+        // `getEntitiesOfClass(LivingEntity.class, box)` leaves spectators out (`EntitySelector.NO_SPECTATORS`)
         let entities = level.get_entities_of_class(
             &self.base.bounding_box(),
             |e| e.living().is_some(),
-            |_| true,
+            |e| !e.is_spectator(),
         );
         let owner_id = self.get_owner(level).map(|o| o.id());
         for id in entities {
@@ -290,7 +277,7 @@ impl AreaEffectCloud {
             let xd = entity.base().x() - self.base.x();
             let zd = entity.base().z() - self.base.z();
             let dist = xd * xd + zd * zd;
-            if dist <= f64::from(radius) * f64::from(radius) {
+            if dist <= f64::from(radius * radius) {
                 self.victims
                     .insert(id, tick_count + self.reapplication_delay);
                 self.apply_effects(level, id, owner_id, &all_effects);
@@ -410,6 +397,32 @@ impl Entity for AreaEffectCloud {
         false
     }
 
+    /// `AreaEffectCloud.getPistonPushReaction()`.
+    fn get_piston_push_reaction(&self) -> PushReaction {
+        PushReaction::IgnoreEntity
+    }
+
+    /// `AreaEffectCloud.get(DataComponentType)`: the potion contents and the duration scale next to the base components.
+    fn entity_components(&self) -> DataComponentMap {
+        let base = base_entity_components(self.base());
+        DataComponentMap::builder()
+            .add_all(&base)
+            .set(POTION_CONTENTS, self.potion_contents.clone())
+            .set(POTION_DURATION_SCALE, self.potion_duration_scale)
+            .build()
+    }
+
+    /// `AreaEffectCloud.applyImplicitComponents(components)`: the potion contents and the duration scale, then the base ones.
+    fn apply_implicit_components(&mut self, stack: &ItemStack) {
+        if let Some(contents) = stack.get(&POTION_CONTENTS) {
+            self.set_potion_contents(contents.clone());
+        }
+        if let Some(scale) = stack.get(&POTION_DURATION_SCALE) {
+            self.set_potion_duration_scale(*scale);
+        }
+        apply_base_implicit_components(self, stack);
+    }
+
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         out.put_int("Age", self.base.tick_count);
         out.put_int("Duration", self.duration);
@@ -497,3 +510,40 @@ static AREA_EFFECT_CLOUD_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
         ]
     },
 };
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mc_protocol::components::map::DataComponentGetter as _;
+
+    #[test]
+    fn components_are_the_potion_contents_and_the_duration_scale() {
+        let mut cloud = AreaEffectCloud::new(EntityType::AREA_EFFECT_CLOUD, 1);
+        let mut tag = CompoundTag::new();
+        tag.put_float("potion_duration_scale", 0.25);
+        tag.put(
+            "potion_contents",
+            mc_dfu::encode_nbt(
+                &PotionContents::codec(),
+                &PotionContents {
+                    potion: Some(mc_data::Potion::POISON),
+                    ..empty_contents()
+                },
+            )
+            .into_result()
+            .expect("contents encode"),
+        );
+        cloud.read_additional_save_data(&tag);
+        let components = cloud.entity_components();
+        assert_eq!(
+            components.get(&POTION_CONTENTS),
+            Some(cloud.get_potion_contents())
+        );
+        assert_eq!(
+            cloud.get_potion_contents().potion,
+            Some(mc_data::Potion::POISON)
+        );
+        assert_eq!(components.get(&POTION_DURATION_SCALE), Some(&0.25));
+        assert_eq!(cloud.get_piston_push_reaction(), PushReaction::IgnoreEntity);
+    }
+}

@@ -1408,7 +1408,7 @@ pub enum EntityRelation {
 /// The entities `relation` leads to from `entity`, before the `!isRemoved()` filter `/execute on` applies:
 /// `OwnableEntity.getOwner`, `Leashable.getLeashHolder`, `Targeting.getTarget`, `Attackable.getLastAttacker`,
 /// `getVehicle`, `getControllingPassenger`, `TraceableEntity.getOwner`, `getPassengers`.
-/// `TraceableEntity` covers the projectiles, item entities and primed TNT that exist so far.
+/// `TraceableEntity` covers the projectiles, item entities, primed TNT and area effect clouds that exist so far.
 /// Not implemented: `OwnableEntity` goes through [`Entity::ownable_owner_uuid`], which the tameable and horse classes do
 /// not override, so `/execute on owner` finds no owner for tamed animals and horses.
 pub fn entity_relation(
@@ -1416,6 +1416,7 @@ pub fn entity_relation(
     entity: &EntityRef,
     relation: EntityRelation,
 ) -> Vec<EntityRef> {
+    use crate::world::entity::area_effect_cloud::AreaEffectCloud;
     use crate::world::entity::item::ItemEntity;
     use crate::world::entity::item::primed_tnt::PrimedTnt;
     let Some(level) = server.level(&entity.dimension) else {
@@ -1447,9 +1448,11 @@ pub fn entity_relation(
             None => match (
                 e.as_any().downcast_ref::<ItemEntity>(),
                 e.as_any().downcast_ref::<PrimedTnt>(),
+                e.as_any().downcast_ref::<AreaEffectCloud>(),
             ) {
-                (Some(item), _) => item.get_owner(level).into_iter().collect(),
-                (_, Some(tnt)) => tnt.get_owner(level).map(|o| o.id()).into_iter().collect(),
+                (Some(item), _, _) => item.get_owner(level).into_iter().collect(),
+                (_, Some(tnt), _) => tnt.get_owner(level).map(|o| o.id()).into_iter().collect(),
+                (_, _, Some(cloud)) => cloud.get_owner(level).map(|o| o.id()).into_iter().collect(),
                 _ => Vec::new(),
             },
         },

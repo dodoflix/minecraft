@@ -167,6 +167,9 @@ impl Entity for OminousItemSpawner {
     fn is_ignoring_block_triggers(&self) -> bool {
         true
     }
+    fn get_piston_push_reaction(&self) -> mc_data::enums::PushReaction {
+        mc_data::enums::PushReaction::IgnoreEntity
+    }
     fn hurt_server(
         &mut self,
         _level: &mut ServerLevel,
