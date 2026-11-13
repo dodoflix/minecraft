@@ -3,7 +3,7 @@
 # behaviour, then the outer sound and animation events play again). The yaw is the facing, the components of the stack are applied
 # (custom_name), the stack shrinks by one. Chest boats, rafts and the poplar boat share the behaviour with their own entity type.
 level flat
-preload 2
+preload 3
 note oak boat facing east into a water source enclosed by stone, a stack of three with a custom name
 block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
 be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:oak_boat",count:3,components:{"minecraft:custom_name":"Boaty"}}]}

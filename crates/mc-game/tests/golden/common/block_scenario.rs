@@ -556,13 +556,13 @@ impl Scenario {
         // The vanilla server creates the overworld first, then the other dimensions in the iteration order of its resource key
         // keyed registry map (the oracle's shadow `ResourceKey.hashCode` fixes it to the end, then the nether; a real server's
         // order changes per run). Every `Level` constructor draws unique seeds (`random`, the sound seed generator, ...): measured
-        // against the first sound seed of each dimension in the oracle, the sound seed generator is the 5th (overworld), 9th (end)
-        // and 12th (nether) draw. `ServerLevel::new` draws `randValue` (the thread-local instance) and the level's `random` itself before the sound seed generator.
+        // against the first sound seed of each dimension in the oracle, the sound seed generator is the 5th (overworld), 18th (end)
+        // and 21st (nether) draw (the oracle runs worker tasks on the main thread, so their draws count here). `ServerLevel::new` draws `randValue` (the thread-local instance) and the level's `random` itself before the sound seed generator.
         mc_core::random::reseed_uniquifier(8682522807148012);
         let draws_before_level = match self.opts.dimension {
             "overworld" => 2,
-            "the_end" => 6,
-            _ => 9,
+            "the_end" => 15,
+            _ => 18,
         };
         for _ in 0..draws_before_level {
             mc_core::random::generate_unique_seed();

@@ -491,8 +491,14 @@ public final class VanillaLevel {
       server.getConnection().getConnections().add(connection);
       ChunkPos spawnChunk = ChunkPos.containing(net.minecraft.core.BlockPos.containing(x, y, z));
       // PrepareSpawnTask.Ready.keepAlive: without a ticket the chunks around a spawn far from the origin never load
+      // the chunk work runs inline here (direct executors) and would advance this thread's unique-seed sequence, which seeds the player's
+      // own random right after: keep the sequence where the caller put it
+      java.lang.reflect.Field uniquifierField = RandomSupport.class.getDeclaredField("SEED_UNIQUIFIER");
+      uniquifierField.setAccessible(true);
+      long uniquifier = ((ThreadLocal<java.util.concurrent.atomic.AtomicLong>)uniquifierField.get(null)).get().get();
       level.getChunkSource().addTicketWithRadius(net.minecraft.server.level.TicketType.PLAYER_SPAWN, spawnChunk, 3);
       level.waitForEntities(spawnChunk, 3);
+      RandomSupport.reseedUniquifier(uniquifier);
       ServerPlayer player = new SimPlayer(server, level, profile, cookie.clientInformation(), sim);
       FakePlayer fp = new FakePlayer(name, player, connection, channel);
       holder[0] = fp;

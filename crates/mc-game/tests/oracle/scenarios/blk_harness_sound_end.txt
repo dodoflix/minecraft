@@ -3,7 +3,7 @@ preload 3
 spawn_player Alice creative 24.5 101 24.5 0 0
 fill 20 99 20 30 99 30 minecraft:stone
 block 26 100 26 minecraft:lever[face=floor,facing=north,powered=false]
-tick 30
+tick 20
 dump packets:Alice:none
 snap Alice 24.5 101 24.5
 use_on Alice 26 100 26 up

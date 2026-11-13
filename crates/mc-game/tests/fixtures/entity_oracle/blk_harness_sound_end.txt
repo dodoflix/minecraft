@@ -1,3 +1,2 @@
-PKT Alice minecraft:sound 77ac0704000000d400000324000000d43e99999a3f19999a4e1fdd4e38cc4fb3
-EV sound at=4.9341299227010715,127.37900805040996,-7.299798963876563 r=80.0 ex=0 event=minecraft:entity.ender_dragon.ambient source=hostile vol=5.0 pitch=0.9603682
+PKT Alice minecraft:sound 77ac0704000000d400000324000000d43e99999a3f19999ad4c9b4ea13cbbe0d
 EV sound at=26.5,100.5,26.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.6
