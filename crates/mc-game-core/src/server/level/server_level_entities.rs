@@ -810,9 +810,7 @@ impl crate::world::entity::movement::EntityCollisionQuery for ServerLevel {
             !e.is_spectator()
                 && match source {
                     None => e.can_be_collided_with(None),
-                    Some(s) => {
-                        e.can_be_collided_with(Some(s)) && !self.is_passenger_of_same_vehicle(s, e)
-                    }
+                    Some(s) => s.can_collide_with(self, e),
                 }
         });
         ids.into_iter()
