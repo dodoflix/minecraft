@@ -1,6 +1,8 @@
 // Golden generator for crates/mc-game/tests/golden/menu_golden.rs: scripted container clicks through the REAL vanilla
 // InventoryMenu / Inventory / AbstractContainerMenu with a constructor-less ServerPlayer subclass on a constructor-less
-// ServerLevel that serves the real RecipeManager (the 2x2 grid and its result slot are part of the clicks).
+// ServerLevel that serves the real RecipeManager (the 2x2 grid and its result slot are part of the clicks). The scripts include
+// bad slots and buttons (an exception of the click is an `EXC` event), malformed drags, items with a custom name, a max stack size
+// or enchantments (armor with a curse of binding), and listeners attached with `addSlotListener`.
 // Usage: scripts/golden-menu.sh
 // Output: crates/mc-game/tests/fixtures/menu_golden.txt.gz
 // Format: "OP ..." lines (the script, replayed by Rust) each followed by "OUT ..." lines (state after the op).
@@ -42,6 +44,10 @@ import net.minecraft.stats.Stat;
 import net.minecraft.tags.TagLoader;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 public class MenuGolden {
    static final StringBuilder OUT = new StringBuilder();
@@ -60,6 +66,22 @@ public class MenuGolden {
          for (net.minecraft.world.item.ItemStackTemplate t : bc.items()) b.append(BuiltInRegistries.ITEM.getKey(t.item().value()).getPath()).append('x').append(t.count()).append(',');
          b.append(';').append(bc.getSelectedItemIndex()).append('}');
       }
+      return b.append(marks(s)).toString();
+   }
+
+   /** Components that make stacks differ besides item/count/damage: custom name, enchantments, a max stack size override. */
+   static String marks(ItemStack s) {
+      StringBuilder b = new StringBuilder();
+      Component name = s.get(DataComponents.CUSTOM_NAME);
+      if (name != null) b.append("+n(").append(name.getString()).append(')');
+      net.minecraft.world.item.enchantment.ItemEnchantments ench = s.get(DataComponents.ENCHANTMENTS);
+      if (ench != null && !ench.isEmpty()) {
+         b.append("+e(");
+         for (var e : ench.entrySet()) b.append(e.getKey().unwrapKey().orElseThrow().identifier().getPath()).append(':').append(e.getIntValue()).append(',');
+         b.append(')');
+      }
+      int max = s.getMaxStackSize();
+      if (max != new ItemStack(s.getItem()).getMaxStackSize()) b.append("+m(").append(max).append(')');
       return b.toString();
    }
 
@@ -145,6 +167,75 @@ public class MenuGolden {
    /** 2x2 recipes the scripts unlock and forget (`recipe give|take`). */
    static final String[] RECIPES = {"stick", "oak_button", "oak_pressure_plate", "oak_planks", "crafting_table", "torch", "honey_block", "sugar_from_honey_bottle"};
 
+   static HolderLookup.Provider PROV;
+   static Holder<Enchantment> ench(String path) {
+      return PROV.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, Identifier.withDefaultNamespace(path)));
+   }
+
+   /** `mods`: `-` or a comma list of `bind` (binding curse), `prot` (protection 3), `name:X`, `max:N` (max stack size override). */
+   static ItemStack mk(String name, int count, int dmg, String mods) {
+      ItemStack s = mk(name, count, dmg);
+      if (!mods.equals("-")) for (String m : mods.split(",")) {
+         if (m.equals("bind")) s.enchant(ench("binding_curse"), 1);
+         else if (m.equals("prot")) s.enchant(ench("protection"), 3);
+         else if (m.startsWith("name:")) s.set(DataComponents.CUSTOM_NAME, Component.literal(m.substring(5)));
+         else if (m.startsWith("max:")) s.set(DataComponents.MAX_STACK_SIZE, Integer.parseInt(m.substring(4)));
+         else throw new IllegalStateException(m);
+      }
+      return s;
+   }
+
+   /** At most one enchantment per stack (the order of several is not specified); no max override on damageable items (vanilla rejects the pair). */
+   static String pickMods(Random r, String name) {
+      boolean damageable = mk(name, 1, 0).isDamageableItem();
+      int[] maxes = {1, 2, 3, 5, 99};
+      switch (r.nextInt(14)) {
+         case 0: return "bind";
+         case 1: return "prot";
+         case 2: return "name:Foo";
+         case 3: return "name:Bar,bind";
+         case 4: return damageable ? "-" : "max:" + maxes[r.nextInt(maxes.length)];
+         case 5: return damageable ? "name:Foo" : "name:Foo,max:3";
+         default: return "-";
+      }
+   }
+
+   static final String[][] ARMOR = {{"diamond_boots", "iron_boots"}, {"diamond_leggings", "iron_leggings"}, {"diamond_chestplate", "elytra"}, {"diamond_helmet", "carved_pumpkin"}};
+   static final int[] BAD_BUTTONS = {2, 3, 5, 8, 40, -1, 100};
+   static final int[] SWAP_BAD = {9, 10, 41, -1, 100};
+   static int badSlot(Random r, int n) { int[] v = {-1, -2, -999, n, n + 1, 100}; return v[r.nextInt(v.length)]; }
+
+   /** A random stack in inventory slot `slot` (`inv` op). */
+   static void randomInv(Random r, Inventory inv, int slot) {
+      String name = pick(r);
+      String mods = pickMods(r, name);
+      ItemStack probe = mk(name, 1, 0, mods);
+      int count = 1 + r.nextInt(Math.max(1, probe.getMaxStackSize()));
+      int dmg = probe.isDamageableItem() && r.nextInt(3) == 0 ? 1 + r.nextInt(5) : 0;
+      op("inv " + slot + " " + name + " " + count + " " + dmg + " " + mods);
+      inv.setItem(slot, mk(name, count, dmg, mods));
+   }
+
+   /** Logs `slotChanged`/`dataChanged` of a listener the scripts attach with `listen`. */
+   static class LogListener implements ContainerListener {
+      final int id;
+      LogListener(int id) { this.id = id; }
+      public void slotChanged(AbstractContainerMenu c, int i, ItemStack s) { events.add("LISTEN " + id + " " + i + " " + st(s)); }
+      public void dataChanged(AbstractContainerMenu c, int dataId, int v) { events.add("LISTENDATA " + id + " " + dataId + " " + v); }
+   }
+
+   /** One scripted click; an exception of the click (a slot index outside the menu) is the `EXC` event, the menu state stays as it was left. */
+   static void click(AbstractContainerMenu menu, Player p, int slot, int button, ContainerInput in) {
+      op("click " + slot + " " + button + " " + in.name());
+      try { menu.clicked(slot, button, in, p); } catch (Exception e) { events.add("EXC"); }
+   }
+
+   static void clickDump(AbstractContainerMenu menu, Player p, List<String> sync, int slot, int button, ContainerInput in) {
+      click(menu, p, slot, button, in);
+      menu.broadcastChanges();
+      dump(menu, p, sync);
+   }
+
    static ItemStack mk(String name, int count, int dmg) {
       ItemStack s = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(name)), count);
       if (dmg > 0) s.setDamageValue(dmg);
@@ -189,6 +280,7 @@ public class MenuGolden {
       var loaded = ReloadableServerRegistries.reload(layers, staticTags, resources, direct).join();
       var comps = BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(loaded.lookupWithUpdatedTags());
       comps.forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
+      PROV = loaded.lookupWithUpdatedTags();
       RecipeManager recipeManager = new RecipeManager(loaded.lookupWithUpdatedTags());
       recipeManager.finalizeRecipeLoading(FeatureFlags.VANILLA_SET);
       Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe"); uf.setAccessible(true); U = (sun.misc.Unsafe) uf.get(null);
@@ -219,18 +311,17 @@ public class MenuGolden {
          set(Player.class, p, "inventoryMenu", menu);
          set(Player.class, p, "containerMenu", menu);
          op("scenario " + scenario + " creative=" + creative);
-         // initial contents: 12 random stacks in the main inventory/armor/offhand slots
-         for (int k = 0; k < 14; k++) {
-            int slot = r.nextInt(43);
-            String name = pick(r);
-            ItemStack probe = mk(name, 1, 0);
-            int max = probe.getMaxStackSize();
-            int count = 1 + r.nextInt(Math.max(1, max));
-            int dmg = probe.isDamageableItem() && r.nextInt(3) == 0 ? 1 + r.nextInt(5) : 0;
-            ItemStack s = mk(name, count, dmg);
-            op("inv " + slot + " " + name + " " + count + " " + dmg);
-            inv.setItem(slot, s);
+         // initial contents: 14 random stacks anywhere, then armor pieces in their own slots (a curse of binding on about half of them)
+         for (int k = 0; k < 14; k++) randomInv(r, inv, r.nextInt(43));
+         for (int a = 0; a < 4; a++) {
+            if (r.nextInt(3) == 0) continue;
+            String name = ARMOR[a][r.nextInt(2)];
+            String mods = r.nextInt(2) == 0 ? "bind" : pickMods(r, name);
+            int dmg = r.nextInt(3) == 0 ? 1 + r.nextInt(5) : 0;
+            op("inv " + (36 + a) + " " + name + " 1 " + dmg + " " + mods);
+            inv.setItem(36 + a, mk(name, 1, dmg, mods));
          }
+         final LogListener[] listeners = {new LogListener(0), new LogListener(1), new LogListener(2)};
          menu.setSynchronizer(new ContainerSynchronizer() {
             public void sendInitialData(AbstractContainerMenu c, List<ItemStack> items, ItemStack carried, int[] data) {
                StringBuilder b = new StringBuilder("SYNC init " + c.incrementStateId() + " " + st(carried));
@@ -245,83 +336,104 @@ public class MenuGolden {
          op("sync");
          dump(menu, p, sync);
 
-         for (int step = 0; step < 260; step++) {
-            int kind = r.nextInt(103);
+         for (int step = 0; step < 300; step++) {
+            int kind = r.nextInt(113);
             int slot = r.nextInt(46);
             if (r.nextInt(4) == 0) slot = r.nextInt(5); // the result slot and the grid get a quarter of the clicks
-            int button = r.nextInt(2);
+            if (r.nextInt(30) == 0) slot = badSlot(r, 46);
+            int button = r.nextInt(12) == 0 ? BAD_BUTTONS[r.nextInt(BAD_BUTTONS.length)] : r.nextInt(2);
             if (kind < 30) {
                if (r.nextInt(10) == 0) slot = -999;
-               op("click " + slot + " " + button + " PICKUP");
-               menu.clicked(slot, button, ContainerInput.PICKUP, p);
+               click(menu, p, slot, button, ContainerInput.PICKUP);
             } else if (kind < 45) {
-               op("click " + slot + " " + button + " QUICK_MOVE");
-               menu.clicked(slot, button, ContainerInput.QUICK_MOVE, p);
+               click(menu, p, slot, button, ContainerInput.QUICK_MOVE);
             } else if (kind < 55) {
                int b = r.nextInt(10); if (b == 9) b = 40;
-               op("click " + slot + " " + b + " SWAP");
-               menu.clicked(slot, b, ContainerInput.SWAP, p);
+               if (r.nextInt(8) == 0) b = SWAP_BAD[r.nextInt(SWAP_BAD.length)];
+               click(menu, p, slot, b, ContainerInput.SWAP);
             } else if (kind < 60) {
-               op("click " + slot + " 0 CLONE");
-               menu.clicked(slot, 0, ContainerInput.CLONE, p);
+               click(menu, p, slot, button, ContainerInput.CLONE);
             } else if (kind < 68) {
-               op("click " + slot + " " + button + " THROW");
-               menu.clicked(slot, button, ContainerInput.THROW, p);
+               click(menu, p, slot, button, ContainerInput.THROW);
             } else if (kind < 76) {
-               op("click " + slot + " " + button + " PICKUP_ALL");
-               menu.clicked(slot, button, ContainerInput.PICKUP_ALL, p);
-            } else if (kind < 92) {
+               click(menu, p, slot, button, ContainerInput.PICKUP_ALL);
+            } else if (kind < 88) {
                int type = r.nextInt(3);
-               op("click -999 " + AbstractContainerMenu.getQuickcraftMask(0, type) + " QUICK_CRAFT");
-               menu.clicked(-999, AbstractContainerMenu.getQuickcraftMask(0, type), ContainerInput.QUICK_CRAFT, p);
+               click(menu, p, -999, AbstractContainerMenu.getQuickcraftMask(0, type), ContainerInput.QUICK_CRAFT);
                menu.broadcastChanges(); dump(menu, p, sync);
                int n = 1 + r.nextInt(5);
                for (int i = 0; i < n; i++) {
                   int s2 = 5 + r.nextInt(41);
-                  op("click " + s2 + " " + AbstractContainerMenu.getQuickcraftMask(1, type) + " QUICK_CRAFT");
-                  menu.clicked(s2, AbstractContainerMenu.getQuickcraftMask(1, type), ContainerInput.QUICK_CRAFT, p);
+                  click(menu, p, s2, AbstractContainerMenu.getQuickcraftMask(1, type), ContainerInput.QUICK_CRAFT);
                   menu.broadcastChanges(); dump(menu, p, sync);
                }
-               op("click -999 " + AbstractContainerMenu.getQuickcraftMask(2, type) + " QUICK_CRAFT");
-               menu.clicked(-999, AbstractContainerMenu.getQuickcraftMask(2, type), ContainerInput.QUICK_CRAFT, p);
+               click(menu, p, -999, AbstractContainerMenu.getQuickcraftMask(2, type), ContainerInput.QUICK_CRAFT);
             } else if (kind < 96) {
+               // malformed and interleaved drags: mostly in order, sometimes a wrong header (3, or out of order), type 3, a raw button, a bad slot, another click in between
+               int len = 1 + r.nextInt(8), prev = -1;
+               ContainerInput[] others = {ContainerInput.PICKUP, ContainerInput.QUICK_MOVE, ContainerInput.SWAP, ContainerInput.CLONE, ContainerInput.THROW, ContainerInput.PICKUP_ALL};
+               for (int i = 0; i < len; i++) {
+                  int header = r.nextInt(4) == 0 ? r.nextInt(4) : prev < 0 || prev == 2 ? 0 : prev == 0 ? 1 : (r.nextBoolean() ? 1 : 2);
+                  int type = r.nextInt(6) == 0 ? 3 : r.nextInt(3);
+                  int mask = r.nextInt(12) == 0 ? r.nextInt(80) - 8 : AbstractContainerMenu.getQuickcraftMask(header, type);
+                  prev = AbstractContainerMenu.getQuickcraftHeader(mask);
+                  int s2 = prev == 1 || r.nextInt(5) == 0 ? (r.nextInt(8) == 0 ? badSlot(r, 46) : r.nextInt(46)) : -999;
+                  if (r.nextInt(7) == 0) clickDump(menu, p, sync, r.nextInt(46), r.nextInt(2), others[r.nextInt(others.length)]);
+                  if (i == len - 1) click(menu, p, s2, mask, ContainerInput.QUICK_CRAFT);
+                  else clickDump(menu, p, sync, s2, mask, ContainerInput.QUICK_CRAFT);
+               }
+            } else if (kind < 100) {
                String name = pick(r);
-               ItemStack probe = mk(name, 1, 0);
-               int count = 1 + r.nextInt(Math.max(1, probe.getMaxStackSize()));
-               op("add " + name + " " + count);
-               ItemStack s = mk(name, count, 0);
+               String mods = pickMods(r, name);
+               int count = 1 + r.nextInt(Math.max(1, mk(name, 1, 0, mods).getMaxStackSize()));
+               op("add " + name + " " + count + " " + mods);
+               ItemStack s = mk(name, count, 0, mods);
                boolean ok = inv.add(s);
                events.add("ADD " + ok + " " + st(s));
-            } else if (kind < 98) {
+            } else if (kind < 102) {
                int sel = r.nextInt(9);
                op("select " + sel);
                inv.setSelectedSlot(sel);
-            } else if (kind < 99) {
+            } else if (kind < 103) {
                int bs = 5 + r.nextInt(41);
                int bi = r.nextInt(5) - 1;
                op("bundlesel " + bs + " " + bi);
                menu.setSelectedBundleItemIndex(bs, bi);
-            } else if (kind == 100 || kind == 101) {
+            } else if (kind < 105) {
                String id = "minecraft:" + RECIPES[r.nextInt(RECIPES.length)];
                var key = net.minecraft.resources.ResourceKey.create(Registries.RECIPE, Identifier.parse(id));
-               op((kind == 100 ? "learn " : "forget ") + id);
-               if (kind == 100) p.book.add(key); else p.book.remove(key);
-            } else if (kind == 102) {
+               op((kind == 103 ? "learn " : "forget ") + id);
+               if (kind == 103) p.book.add(key); else p.book.remove(key);
+            } else if (kind < 106) {
                boolean limited = r.nextBoolean();
                op("limited " + limited);
                ((FakeLevel) lvl).rules.set(GameRules.LIMITED_CRAFTING, limited, null);
-            } else {
+            } else if (kind < 108) {
                // creative-mode slot set (handleSetCreativeModeSlot): only meaningful for infinite materials
                String name = pick(r);
-               ItemStack probe = mk(name, 1, 0);
+               String mods = pickMods(r, name);
+               ItemStack probe = mk(name, 1, 0, mods);
                int count = 1 + r.nextInt(probe.getMaxStackSize());
                int cs = 5 + r.nextInt(41);
-               op("creative " + cs + " " + name + " " + count);
+               op("creative " + cs + " " + name + " " + count + " " + mods);
                if (p.hasInfiniteMaterials()) {
-                  ItemStack s = mk(name, count, 0);
+                  ItemStack s = mk(name, count, 0, mods);
                   menu.getSlot(cs).setByPlayer(s);
                   menu.setRemoteSlot(cs, s);
                }
+            } else if (kind < 110) {
+               // CLONE with a carried stack (ignored), then once the carried stack is gone (clones in creative)
+               int from = r.nextInt(46);
+               for (int i = 0; i < 46; i++) if (!menu.slots.get((from + i) % 46).getItem().isEmpty()) { clickDump(menu, p, sync, (from + i) % 46, r.nextInt(2), ContainerInput.PICKUP); break; }
+               clickDump(menu, p, sync, r.nextInt(46), 0, ContainerInput.CLONE);
+               clickDump(menu, p, sync, -999, 0, ContainerInput.PICKUP);
+               click(menu, p, r.nextInt(46), 0, ContainerInput.CLONE);
+            } else if (kind == 110) {
+               int k = r.nextInt(listeners.length);
+               op("listen " + k);
+               menu.addSlotListener(listeners[k]);
+            } else {
+               randomInv(r, inv, r.nextInt(43));
             }
             menu.broadcastChanges();
             dump(menu, p, sync);
@@ -337,13 +449,13 @@ public class MenuGolden {
          ListTag list = new ListTag();
          for (int i = 0; i < 36; i++) {
             ItemStack s = inv.getItem(i);
-            if (!s.isEmpty()) list.add(ItemStackWithSlot.CODEC.encodeStart(NbtOps.INSTANCE, new ItemStackWithSlot(i, s)).getOrThrow());
+            if (!s.isEmpty()) list.add(ItemStackWithSlot.CODEC.encodeStart(PROV.createSerializationContext(NbtOps.INSTANCE), new ItemStackWithSlot(i, s)).getOrThrow());
          }
          out("NBT " + list);
          Inventory inv2 = new Inventory(p, new PlayerEquipment(p));
          NonNullList<ItemStack> dst = inv2.getNonEquipmentItems();
          for (Tag t : list) {
-            ItemStackWithSlot w = ItemStackWithSlot.CODEC.parse(NbtOps.INSTANCE, t).getOrThrow();
+            ItemStackWithSlot w = ItemStackWithSlot.CODEC.parse(PROV.createSerializationContext(NbtOps.INSTANCE), t).getOrThrow();
             if (w.isValidInContainer(dst.size())) dst.set(w.slot(), w.stack());
          }
          StringBuilder b = new StringBuilder("NBTLOAD");

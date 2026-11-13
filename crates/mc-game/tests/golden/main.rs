@@ -56,6 +56,7 @@ mod blocks_workstations_golden;
 mod boat_golden;
 mod books_golden;
 mod brewing_golden;
+mod click_support;
 mod command_common;
 mod command_exceptions;
 mod command_tree_golden;
