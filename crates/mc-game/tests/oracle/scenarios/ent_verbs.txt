@@ -1,0 +1,45 @@
+# Verbs of the block replay that act on entities through the listener or the entity API: effect, mobspawn (reason, nofinalize),
+# mob_attack, move_packet (with rotation), client_tick_end, ride + paddle + move_vehicle of a boat, explode with a player as source.
+level flat
+difficulty normal
+preload 4
+entity_counter 800
+level_seed 4
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player Q survival 3.5 -60 0.5 0 0
+tick 1
+dump packets:P:none packets:Q:none
+note effect on a player and on a mob
+effect P minecraft:speed 1 100
+level_seed 8
+mobspawn z minecraft:zombie 6.5 -60 0.5 0 0 reason=spawner nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed z 41
+level_seed 9
+mobspawn z2 minecraft:zombie 8.5 -60 0.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed z2 42
+effect z minecraft:slowness 0 50 hidden
+tick 1
+dump player:P xentities
+note a mob attack on the first player
+level_seed 5
+mob_attack z P
+dump player:P
+note a player walks with a position and rotation packet
+move_packet Q 4.5 -60 0.5 true 90 10
+client_tick_end Q
+tick 1
+dump player:Q
+note a boat: ride, paddle, move_vehicle
+spawn boat minecraft:oak_boat 12.5 -60 0.5 0 0
+entity_seed boat 43
+ride Q boat
+tick 1
+paddle Q true false
+move_vehicle Q 13.5 -60 0.5 90 0 true
+tick 2
+dump entity:boat player:Q packets:P:set_passengers,teleport_entity,move_entity_pos,rotate_head
+note an explosion with a player as the source
+level_seed 6
+explode 0.5 -60 0.5 3 block source=P
+tick 1
+dump player:P player:Q packets:P:explode packets:Q:explode

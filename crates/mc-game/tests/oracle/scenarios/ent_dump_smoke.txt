@@ -1,0 +1,31 @@
+# One entity of every non-mob class the server models, through the rich dump (`xentities`) and the synched data dump (`edata:`), before
+# and after a few ticks: item, experience orb, falling block, primed TNT, lightning bolt, area effect cloud, ominous item spawner,
+# arrow, boat and chest boat.
+level flat
+preload 2
+entity_counter 400
+level_seed 5
+spawn_item itm minecraft:diamond 0.5 -60 0.5 0.1 0.2 0.1 3
+entity_seed itm 11
+spawn orb minecraft:experience_orb 2.5 -60 0.5 {Value:7s}
+entity_seed orb 12
+spawn fb minecraft:falling_block 4.5 -55 0.5 {BlockState:"minecraft:sand"}
+entity_seed fb 13
+spawn tnt minecraft:tnt 6.5 -58 0.5 0 0 {fuse:60}
+entity_seed tnt 14
+spawn aec minecraft:area_effect_cloud 8.5 -60 0.5 0 0 {Duration:60,WaitTime:10,Radius:2.0f,potion_contents:{potion:"minecraft:poison"}}
+entity_seed aec 15
+spawn oms minecraft:ominous_item_spawner 10.5 -55 0.5 0 0 {item:{id:"minecraft:stick",count:2},spawn_item_after_ticks:30L}
+entity_seed oms 16
+spawn arrow minecraft:arrow 12.5 -58 0.5 0 0 {pickup:1b,crit:1b,damage:2.0d}
+entity_seed arrow 17
+spawn boat minecraft:oak_boat 14.5 -60 0.5 90 0
+entity_seed boat 18
+spawn cboat minecraft:oak_chest_boat 16.5 -60 0.5 0 0 {Items:[{Slot:3b,id:"minecraft:stone",count:2}]}
+entity_seed cboat 19
+spawn bolt minecraft:lightning_bolt 40.5 -60 0.5
+entity_seed bolt 20
+tick 1
+dump entities xentities edata:itm edata:orb edata:fb edata:tnt edata:aec edata:oms edata:arrow edata:boat edata:cboat edata:bolt
+tick 4
+dump xentities edata:aec edata:arrow edata:boat

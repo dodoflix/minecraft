@@ -18,10 +18,12 @@ pub mod throwable;
 pub mod throwableitemprojectile;
 pub mod util;
 
+use super::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use super::{Entity, EntityId};
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
 use crate::world::level::gameevent::GameEventContext;
+use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
@@ -703,3 +705,22 @@ pub fn read_additional_save_data(projectile: &mut dyn Projectile, input: &mc_nbt
             .ok()
     });
 }
+
+/// `Projectile` fields of the rich scenario dumps (`owner leftowner shot canbreak`).
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static PROJECTILE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 20,
+    applies: |e| e.as_projectile().is_some(),
+    fields: |e, _level, ctx| {
+        let d = e.as_projectile().expect("projectile").projectile_data();
+        vec![
+            ("owner".into(), ctx.name_uuid(d.owner)),
+            ("leftowner".into(), u8::from(d.left_owner).to_string()),
+            ("shot".into(), u8::from(d.has_been_shot).to_string()),
+            (
+                "canbreak".into(),
+                u8::from(d.can_break.is_some()).to_string(),
+            ),
+        ]
+    },
+};

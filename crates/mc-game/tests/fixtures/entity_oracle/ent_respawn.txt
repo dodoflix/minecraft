@@ -1,0 +1,7 @@
+C Game rule keep_inventory is now set to true
+P P minecraft:player pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond*1
+HURT P minecraft:generic_kill 1000 -> true
+P P minecraft:player pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=9/19 death=1 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond*1
+P P minecraft:player pos=4.5,-60.0,-6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond*1
+I P 0 minecraft:diamond*1
+PKT P minecraft:entity_event 220000038518

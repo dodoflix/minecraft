@@ -1,0 +1,43 @@
+E itm minecraft:item pos=0.6,-59.84,0.6 delta=0.09800000190734864,0.1568000030517578,0.09800000190734864 rot=348.4391,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=1 pickup=0 health=5 owner=- thrower=-
+E orb minecraft:experience_orb pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=1 health=5
+E fb minecraft:falling_block pos=4.5,-55.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=1 hurt=false cancel=false drop=true
+E tnt minecraft:tnt pos=6.5,-58.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=59
+E aec minecraft:area_effect_cloud pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E oms minecraft:ominous_item_spawner pos=10.5,-55.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E arrow minecraft:arrow pos=12.5,-58.0,0.5 delta=0.0,-0.05,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E boat minecraft:oak_boat pos=14.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E cboat minecraft:oak_chest_boat pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- items=3:minecraft:stone*2
+E bolt minecraft:lightning_bolt pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=3 seed=-5553620060492135804 fires=0
+E itm minecraft:item pos=0.6,-59.84,0.6 delta=0.09800000190734864,0.1568000030517578,0.09800000190734864 rot=348.4391,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=1 pickup=0 health=5 owner=- thrower=-
+E orb minecraft:experience_orb pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=1 health=5
+E fb minecraft:falling_block pos=4.5,-55.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=1 hurt=false cancel=false drop=true
+E tnt minecraft:tnt pos=6.5,-58.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=59
+E aec minecraft:area_effect_cloud pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.0 waiting=1 duration=60 age=1
+E oms minecraft:ominous_item_spawner pos=10.5,-55.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 ticks=30
+E arrow minecraft:arrow pos=12.5,-58.0,0.5 delta=0.0,-0.05,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E boat minecraft:oak_boat pos=14.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E cboat minecraft:oak_chest_boat pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- items=3:minecraft:stone*2
+E bolt minecraft:lightning_bolt pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=3 seed=-5553620060492135804 fires=0
+ED itm 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:03f4070000
+ED orb 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:07
+ED fb 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:10:0000000000000000
+ED tnt 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:3b 9:14:fa1d
+ED aec 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40000000 9:8:01 10:16:1cff87a363
+ED oms 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:02a4080000
+ED arrow 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:01 9:0:00 10:8:00 11:1:ffffffff0f
+ED boat 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:8:00 12:8:00 13:1:00
+ED cboat 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:8:00 12:8:00 13:1:00
+ED bolt 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00
+E itm minecraft:item pos=0.9803960343219305,-59.62344603256263,0.9803960343219305 delta=0.0903920884763886,-0.0075310721665503766,0.0903920884763886 rot=348.4391,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=5 pickup=0 health=5 owner=- thrower=-
+E orb minecraft:experience_orb pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=5 health=5
+E fb minecraft:falling_block pos=4.5,-55.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=5 hurt=false cancel=false drop=true
+E tnt minecraft:tnt pos=6.5,-58.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=55
+E aec minecraft:area_effect_cloud pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.0 waiting=1 duration=60 age=5
+E oms minecraft:ominous_item_spawner pos=10.5,-55.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 ticks=30
+E arrow minecraft:arrow pos=12.5,-58.495024954720826,0.5 delta=0.0,-0.24504975517371752,0.0 rot=0.0,-53.135998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E boat minecraft:oak_boat pos=14.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E cboat minecraft:oak_chest_boat pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- items=3:minecraft:stone*2
+E bolt minecraft:lightning_bolt pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=2 seed=-125248862213790293 fires=0
+ED aec 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40000000 9:8:01 10:16:1cff87a363
+ED arrow 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:01 9:0:00 10:8:00 11:1:ffffffff0f
+ED boat 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:8:00 12:8:00 13:1:00

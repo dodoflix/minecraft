@@ -1,0 +1,30 @@
+# Players track each other: the second player joins within range of the first (each one gets the other's add_entity and the
+# equipment of what it holds), a third one joins out of range and becomes visible when the first one walks close, then leaves.
+level flat
+preload 4
+entity_counter 600
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+dump packets:A:none
+give A mainhand minecraft:diamond_sword
+spawn_player B survival 3.5 -60 0.5 90 0 joinburst
+give B head minecraft:iron_helmet
+tick 2
+dump packets:A:add_entity,set_equipment,remove_entities packets:B:add_entity,set_equipment,remove_entities
+spawn_player C survival 40.5 -60 0.5 0 0 joinburst
+tick 2
+dump packets:A:add_entity,set_equipment,remove_entities packets:C:add_entity,set_equipment,remove_entities
+note A walks 8 blocks per tick towards C
+move_packet A 8.5 -60 0.5 true
+client_tick_end A
+tick 1
+dump packets:A:add_entity,set_equipment,remove_entities packets:C:add_entity,set_equipment,remove_entities
+move_packet A 16.5 -60 0.5 true
+client_tick_end A
+tick 1
+dump packets:A:add_entity,set_equipment,remove_entities packets:C:add_entity,set_equipment,remove_entities
+move_packet A 24.5 -60 0.5 true
+client_tick_end A
+tick 1
+dump packets:A:add_entity,set_equipment,remove_entities packets:B:add_entity,set_equipment,remove_entities packets:C:add_entity,set_equipment,remove_entities
+dump player:A player:B player:C

@@ -1,27 +1,30 @@
-//! Extension point of the scenario replay harness (`tests/common/entity_scenario.rs`): extra `key=value` fields of the
+//! Extension point of the scenario replay harness (`tests/common/entity_describe.rs`): extra `key=value` fields of the
 //! oracle's `E` lines.
 //!
-//! The vanilla oracle (`tests/oracle/EntityOracleDriver.java`) prints, for `mob:REF` / `mobs` dumps, the plain entity fields
-//! followed by the mob fields (`target= aggr= nav= goals= mem= ...`, see its header) and per-type fields (`vdata=` ...).
-//! Everything beyond the base entity/living/player/item fields the harness core knows is produced by registrations of this
-//! slice, so the owner of a mob adds its fields next to the mob without touching the harness:
+//! The vanilla oracle (`tests/oracle/EntityOracleDriver.java`) prints, for the rich dumps (`mob:REF`, `mobs`, `xentity:REF`,
+//! `xentities`), the plain entity fields followed by the mob fields (`target= aggr= nav= goals= mem= ...`, see its header, mobs
+//! only) and the fields of every class registered in `EntityExtras.java` (`radius=` ...). Everything beyond the base
+//! entity/living/player/item fields the harness core knows is produced by registrations of this slice, so the owner of an entity
+//! class adds its fields next to the class without touching the harness (and the same fields to `EntityExtras.java`):
 //!
 //! ```ignore
 //! #[linkme::distributed_slice(SCENARIO_DUMP_EXTRA)]
 //! static ZOMBIE_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
-//!     order: 20,
+//!     order: 30,
 //!     applies: |e| e.get_type() == EntityType::ZOMBIE,
 //!     fields: |e, _level, ctx| vec![("conv".into(), "0".into())],
 //! };
 //! ```
 //! Registrations run in ascending `order` (ties: registration order); their fields are appended, in the returned order, to the
-//! `E` line of the rich dumps (`mob:REF`, `mobs`, `spawnpass`), exactly like the driver's `describeMob`.
+//! `E` line of the rich dumps (`mob:REF`, `mobs`, `xentity:REF`, `xentities`, `spawnpass`), exactly like the driver's `describeMob`
+//! and `EntityExtras`. The plain `entity:`/`entities` lines never carry them.
 //! Values follow the driver's value grammar (see the driver header): booleans `0`/`1`, entity references through
 //! [`ScenarioDumpCtx::name`], floats via `java_float_to_string`/`{:?}`, `-` for "none".
 //!
 //! Order reserved for the mob spine: `order 10` = the generic mob fields (`target hurtby aggr noai left persist canpickup home leash
 //! speed zza xxa yya head body nav stuck navspeed ntarget path nodes goals tgoals acts mem equip attrs`), `11` = AgeableMob (`age
-//! baby forcedage`), `12` = Animal (`love lovecause`), `13` = TamableAnimal (`tame owner sitting ordered`); concrete types use >= 20.
+//! baby forcedage`), `12` = Animal (`love lovecause`), `13` = TamableAnimal (`tame owner sitting ordered`); `20` = `Projectile`
+//! (`owner leftowner shot canbreak`); concrete mob types use `20..30`, every other concrete class `>= 30`.
 
 use super::{Entity, EntityId};
 use crate::server::level::ServerLevel;
@@ -103,6 +106,18 @@ pub fn canon(tag: &mc_nbt::Tag) -> String {
         mc_nbt::Tag::List(l) => format!("[{}]", l.iter().map(canon).collect::<Vec<_>>().join(",")),
         other => other.to_string(),
     }
+}
+
+/// The driver's `item(stack)`: `id*count` (`/dmg=N` when damaged), `empty` for an empty stack.
+pub fn item_text(s: &crate::world::item::ItemStack) -> String {
+    if s.is_empty() {
+        return "empty".to_string();
+    }
+    let mut r = format!("{}*{}", s.item().name(), s.count());
+    if s.is_damageable_item() && s.get_damage_value() != 0 {
+        r.push_str(&format!("/dmg={}", s.get_damage_value()));
+    }
+    r
 }
 
 /// The driver's `itemFull(stack)`: `id*count` (`/dmg=N` when damaged) plus the canonical SNBT of the components patch.

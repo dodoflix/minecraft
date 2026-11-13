@@ -1,24 +1,26 @@
-//! Entities and players of the block scenario replay (`spawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `input` (sneak: the shift key), `op`, `pick_block`, `tp`, `snap`, `velocity`, `set`,
-//! `leash`, `spawn_player`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|entity:REF|player:NAME|packets:NAME`). The player actions (`give select use use_on release interact drop swing swap dispense`
-//! and the dumps `use cooldowns stats inventory`) are shared with the entity replay: `player_actions.rs`.
+//! Entities and players of the block scenario replay (`spawn`, `mobspawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `effect`, `mob_attack`, `input` (sneak: the shift key), `op`, `pick_block`, `tp`, `snap`, `velocity`, `set`,
+//! `leash`, `spawn_player`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|xentities|entity:REF|xentity:REF|edata:REF|player:NAME|packets:NAME`). The player actions (`give select use use_on release interact drop swing swap dispense`
+//! and the dumps `use cooldowns stats inventory`) are shared with the entity replay: `player_actions.rs`; the `E` line of every dump is
+//! `entity_describe.rs`. `move_packet`, `move_vehicle`, `paddle` and `client_tick_end` hand the packet the Java verb builds to the player's
+//! listener; `respawn` replays the player list's respawn and then delivers the client's loaded report.
 //! Included by `block_scenario.rs` (private state of `Scenario`). Differences from the Java driver, all caused by the Rust level having no
 //! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` and the replay re-does what the packet
 //! handlers around them add (the listener's sequence number and block change ack, the swing and block updates sent back), but no
-//! serverbound packet is decoded and the build-limit messages are not replayed. Entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
+//! serverbound packet of those verbs is decoded and the build-limit messages are not replayed. Entity random seeds come from `entity_seed REF N` (Java draws them from a per-thread counter that Rust cannot
 //! reproduce: always call `entity_seed` right after `spawn`/`spawn_item` when the entity's randomness matters, and give `spawn_item` an
-//! explicit velocity), `explode` takes `source=REF`, `respawn/effect/attribute/move_packet` are not replayed.
+//! explicit velocity), `explode` takes `source=REF`. Players get their chunks through the listener's chunk sender, like the oracle's
+//! connection (no batch is acknowledged: a player tracks entities only in the first batch of chunks).
 use super::Scenario;
 use crate::common::menu_actions::deliver;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
-use mc_core::pos::{BlockPos, ChunkPos};
+use mc_core::pos::BlockPos;
 use mc_core::random::LegacyRandomSource;
 use mc_data::EntityType;
 use mc_data::enums::GameType;
-use mc_game::server::level::chunk_send_sink::ChunkSendSink;
+use mc_game::server::level::ServerLevel;
 use mc_game::server::level::level_explode::Explode;
-use mc_game::server::level::{PlayerTrackingInfo, ServerLevel};
 use mc_game::server::network::common_listener::CommonListenerCookie;
 use mc_game::server::network::game_listener::{
     CLIENT_LOADED_TIMEOUT_TIME, ListenerSettings, ServerGamePacketListenerImpl,
@@ -34,23 +36,14 @@ use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_protocol::codec::{Decode, Encode, read_varint};
 use mc_protocol::packets::play::{
     AttributeModifierOperation, ClientboundSetTimePacket, ClientboundUpdateAttributesPacket,
-    ServerboundContainerButtonClickPacket, ServerboundContainerClosePacket,
+    PositionAndRotation, ServerboundClientTickEndPacket, ServerboundContainerButtonClickPacket,
+    ServerboundContainerClosePacket, ServerboundMovePlayerPosPacket,
+    ServerboundMovePlayerPosRotPacket, ServerboundMoveVehiclePacket, ServerboundPaddleBoatPacket,
     ServerboundPickItemFromBlockPacket, ServerboundPlayPacket as P,
     ServerboundSetCarriedItemPacket,
 };
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
-
-/// The chunk sink of a player that acknowledges every chunk at once.
-struct AcknowledgedChunks;
-
-impl ChunkSendSink for AcknowledgedChunks {
-    fn mark_chunk_pending_to_send(&mut self, _pos: ChunkPos) {}
-    fn drop_chunk(&mut self, _pos: ChunkPos, _alive: bool) {}
-    fn is_pending(&self, _pos: i64) -> bool {
-        false
-    }
-}
 
 /// `VanillaLevel.reseed(hash(name))`: the entity random seeds of what a spawn command creates.
 fn reseed_for(name: &str) {
@@ -601,6 +594,104 @@ impl Scenario {
                         .set_delta_movement_xyz(num(&a[2]), num(&a[3]), num(&a[4]))
                 });
             }
+            // effect REF EFFECT AMPLIFIER TICKS [hidden]      addEffect; prints `EFFECT REF EFFECT added=B`
+            "effect" => {
+                self.world();
+                self.load_registries();
+                let effect =
+                    mc_data::MobEffect::by_name(&a[2]).unwrap_or_else(|| panic!("effect {}", a[2]));
+                let hidden = a.iter().any(|t| t == "hidden");
+                let instance = mc_game::world::entity::effect::MobEffectInstance::new(
+                    effect,
+                    a[4].parse().expect("effect ticks"),
+                    a[3].parse().expect("effect amplifier"),
+                    false,
+                    !hidden,
+                    !hidden,
+                    None,
+                );
+                let id = self.entity_id(&a[1]);
+                let added = self
+                    .level()
+                    .with_entity(id, |level, e| e.add_effect(level, instance, None))
+                    .unwrap_or_else(|| panic!("entity {} is gone", a[1]));
+                self.out
+                    .push(format!("EFFECT {} {} added={added}", a[1], a[2]));
+            }
+            // mob_attack MOB REF        Mob.doHurtTarget(level, REF); prints `MOBATTACK mob ref -> result`
+            "mob_attack" => {
+                self.world();
+                self.load_registries();
+                let (mob, target) = (self.entity_id(&a[1]), self.entity_id(&a[2]));
+                let result = self
+                    .level()
+                    .with_entity(mob, |level, m| {
+                        level
+                            .with_entity(target, |level, t| m.do_hurt_target(level, t))
+                            .unwrap_or_else(|| panic!("entity {} is gone", a[2]))
+                    })
+                    .unwrap_or_else(|| panic!("entity {} is gone", a[1]));
+                self.out
+                    .push(format!("MOBATTACK {} {} -> {result}", a[1], a[2]));
+            }
+            "mobspawn" => {
+                self.world();
+                self.load_registries();
+                reseed_for(&a[1]);
+                self.mob_spawn(a);
+            }
+            // the listener's packet handlers (`deliver`): the same packets as the Java verbs
+            "client_tick_end" => deliver(self, &a[1], |_, _| {
+                P::ClientTickEnd(ServerboundClientTickEndPacket)
+            }),
+            // move_packet PLAYER X Y Z ONGROUND [yaw pitch]   ServerboundMovePlayerPacket (the server-authoritative path)
+            "move_packet" => deliver(self, &a[1], |_, _| {
+                let (x, y, z) = (num(&a[2]), num(&a[3]), num(&a[4]));
+                let on_ground = a[5] == "true";
+                if a.len() > 7 {
+                    P::MovePlayerPosRot(ServerboundMovePlayerPosRotPacket {
+                        x,
+                        y,
+                        z,
+                        y_rot: num(&a[6]) as f32,
+                        x_rot: num(&a[7]) as f32,
+                        on_ground,
+                        horizontal_collision: false,
+                    })
+                } else {
+                    P::MovePlayerPos(ServerboundMovePlayerPosPacket {
+                        x,
+                        y,
+                        z,
+                        on_ground,
+                        horizontal_collision: false,
+                    })
+                }
+            }),
+            // move_vehicle PLAYER X Y Z YROT XROT ONGROUND   ServerboundMoveVehiclePacket of the vehicle the player controls
+            "move_vehicle" => deliver(self, &a[1], |_, _| {
+                P::MoveVehicle(ServerboundMoveVehiclePacket {
+                    moving_to: PositionAndRotation {
+                        position: Vec3::new(num(&a[2]), num(&a[3]), num(&a[4])),
+                        y_rot: num(&a[5]) as f32,
+                        x_rot: num(&a[6]) as f32,
+                    },
+                    on_ground: a[7] == "true",
+                })
+            }),
+            // paddle PLAYER LEFT RIGHT   ServerboundPaddleBoatPacket (true|false)
+            "paddle" => deliver(self, &a[1], |_, _| {
+                P::PaddleBoat(ServerboundPaddleBoatPacket {
+                    left: a[2] == "true",
+                    right: a[3] == "true",
+                })
+            }),
+            // respawn PLAYER   ServerboundClientCommandPacket(PERFORM_RESPAWN) of a dead player
+            "respawn" => {
+                self.world();
+                self.load_registries();
+                self.respawn(&a[1]);
+            }
             "attribute" => {
                 self.world();
                 let id = self.entity_id(&a[1]);
@@ -772,6 +863,34 @@ impl Scenario {
     }
 
     fn spawn(&mut self, a: &[String]) {
+        self.spawn_with(a, mc_data::enums::EntitySpawnReason::Command, false);
+    }
+
+    /// `mobspawn REF TYPE X Y Z [yaw pitch] [reason=NAME] [nofinalize] [SNBT]`: the entity is created with that spawn reason and,
+    /// unless `nofinalize`, `Mob.finalizeSpawn` runs before it joins the level (`/summon`).
+    fn mob_spawn(&mut self, a: &[String]) {
+        let mut reason = mc_data::enums::EntitySpawnReason::Command;
+        let mut finalize = true;
+        let mut rest = Vec::new();
+        for t in a {
+            if let Some(r) = t.strip_prefix("reason=") {
+                reason = crate::common::entity_scenario::spawn_reason(r)
+                    .unwrap_or_else(|| panic!("spawn reason {r}"));
+            } else if t == "nofinalize" {
+                finalize = false;
+            } else {
+                rest.push(t.clone());
+            }
+        }
+        self.spawn_with(&rest, reason, finalize);
+    }
+
+    fn spawn_with(
+        &mut self,
+        a: &[String],
+        reason: mc_data::enums::EntitySpawnReason,
+        finalize: bool,
+    ) {
         let ty = EntityType::by_name(&if a[2].contains(':') {
             a[2].clone()
         } else {
@@ -779,7 +898,7 @@ impl Scenario {
         })
         .unwrap_or_else(|| panic!("entity type {}", a[2]));
         let request = EntitySpawnRequest {
-            reason: mc_data::enums::EntitySpawnReason::Command,
+            reason,
             ignore_checks: true,
         };
         let level = self.level();
@@ -807,6 +926,11 @@ impl Scenario {
             );
             e.load(&tag)
                 .unwrap_or_else(|er| panic!("entity load: {er}"));
+        }
+        if finalize {
+            for hook in mc_game::world::entity::scenario_dump::SCENARIO_FINALIZE_SPAWN.iter() {
+                hook(level, e.as_mut(), reason);
+            }
         }
         let id = e.id();
         level.add_fresh_entity_with_passengers(vec![e]);
@@ -879,7 +1003,7 @@ impl Scenario {
             ListenerSettings {
                 command_spam_threshold_seconds: 10,
                 chat_spam_threshold_seconds: 10,
-                memory_connection: true,
+                memory_connection: false,
                 enforce_secure_profile: std::sync::Arc::new(|| false),
             },
             0,
@@ -893,16 +1017,6 @@ impl Scenario {
         if let Some(l) = p.listener.as_mut() {
             l.confirm_teleport();
         }
-        let tracking = PlayerTrackingInfo {
-            entity_id: id,
-            uuid: p.uuid(),
-            connection: sender,
-            sink: Box::new(AcknowledgedChunks),
-            position: p.position(),
-            requested_view_distance: p.requested_view_distance,
-            spectator: p.is_spectator(),
-            alive: true,
-        };
         // `PlayerList.placeNewPlayer` broadcasts the join message before the new player joins the list: only the players
         // already in the level get it
         let joined =
@@ -916,6 +1030,9 @@ impl Scenario {
             });
         }
         let level = self.level();
+        // `PlayerList.placeNewPlayer` registers the player with the chunk map and the entity tracker (`add_player` does, through
+        // the listener's chunk sender: the spawning chunks it creates are shuffled with the level random on every tick, which
+        // every later spawner draw depends on, and the batches it sends decide which chunks the player tracks entities in)
         level.add_player(Box::new(p));
         level.with_player(id, |level, p| {
             if joinburst {
@@ -931,9 +1048,6 @@ impl Scenario {
             }
             p.init_inventory_menu(level)
         });
-        // `PlayerList.placeNewPlayer` registers the player with the chunk map: the spawning chunks it creates are shuffled
-        // with the level random on every tick (`ServerChunkCache.tickChunks`), which every later spawner draw depends on.
-        level.chunk_source.chunk_map.add_player(tracking);
         // a non-simulated player has no movement packets: onGround is derived once (resting on a block)
         if !sim {
             level.with_player(id, |level, p| {
@@ -950,6 +1064,62 @@ impl Scenario {
         let mut rx = rx;
         while !joinburst && rx.try_recv().is_ok() {}
         self.actors.rx.insert(name, rx);
+    }
+
+    /// `handleClientCommand(PERFORM_RESPAWN)` -> `PlayerList.respawn(player, false)` -> the client reports the new level loaded. The
+    /// new player keeps the id, the listener and the connection of the dead one; a living player ignores the request.
+    fn respawn(&mut self, name: &str) {
+        use mc_game::server::players::respawn::{
+            create_respawned_player, find_spawn_position, take_old_player,
+        };
+        use mc_game::server::players::teleport_transition::{
+            PostTeleportTransition, TeleportTransition,
+        };
+        let id = self.entity_id(name);
+        let level = self.level();
+        if level
+            .with_player(id, |_, p| p.get_health() > 0.0)
+            .unwrap_or_else(|| panic!("no player {name}"))
+        {
+            return;
+        }
+        let keep_inventory = level.keep_inventory();
+        let old = take_old_player(level, id, mc_game::world::entity::RemovalReason::Killed)
+            .expect("player");
+        let position = find_spawn_position(level, false, 10, BlockPos::new(0, -60, 0));
+        let transition = TeleportTransition::new(
+            old.dimension.clone(),
+            position,
+            Vec3::ZERO,
+            0.0,
+            0.0,
+            PostTeleportTransition::DO_NOTHING,
+        );
+        let mut new = create_respawned_player(old, level, &transition, false, keep_inventory);
+        new.send(
+            &mc_protocol::packets::play::ClientboundSetExperiencePacket {
+                experience_progress: new.player.experience_progress,
+                experience_level: new.player.experience_level,
+                total_experience: new.player.total_experience,
+            },
+        );
+        mc_game::server::players::join::send_active_player_effects(&new);
+        // `PlayerList.sendPlayerPermissionLevel`: entity event 24 (op level 0)
+        new.send(&mc_protocol::packets::play::ClientboundEntityEventPacket {
+            entity_id: id,
+            event_id: 24,
+        });
+        let pos = new.position();
+        if let Some(listener) = new.listener.as_mut() {
+            listener.reset_position(pos);
+            listener.restart_client_load_timer_after_respawn();
+        }
+        level.add_player(Box::new(new));
+        level.with_player(id, |level, p| p.init_inventory_menu(level));
+        // a real client reports the new level loaded (`ServerboundPlayerLoadedPacket`)
+        deliver(self, name, |_, _| {
+            P::PlayerLoaded(mc_protocol::packets::play::ServerboundPlayerLoadedPacket)
+        });
     }
 
     /// Twin of the driver's `dig`: client-like progress accumulation, STOP_DESTROY_BLOCK when the client would send it.
@@ -1107,11 +1277,32 @@ impl Scenario {
         }
     }
 
+    /// `MinecraftServer.tickChildren` "send chunks", after the players ticked: every player's `chunkSender.sendNextChunks(player)`. The
+    /// oracle's connection never acknowledges a batch, so a player gets one batch of chunks and tracks entities in those only.
+    pub(super) fn send_chunks(&mut self) {
+        for name in self.actors.players.clone() {
+            self.with_player_named(&name, |level, p| {
+                let sender = p
+                    .listener
+                    .as_ref()
+                    .expect("player listener")
+                    .chunk_sender
+                    .clone();
+                sender.send_next_chunks(
+                    Entity::chunk_position(&*p),
+                    &mut mc_game::server::network::player_chunk_sender::LevelChunkSource {
+                        level: &*level,
+                    },
+                );
+            });
+        }
+    }
+
     // ------------------------------------------------------------------------------------------------ dumps
 
     pub(super) fn dump_actor(&mut self, kind: &str, arg: Option<&str>) -> bool {
         match kind {
-            "entities" => {
+            "entities" | "xentities" => {
                 self.name_new_entities();
                 let mut all: Vec<(String, EntityId)> = self.actors.refs.clone();
                 all.retain(|(n, id)| {
@@ -1120,14 +1311,25 @@ impl Scenario {
                 });
                 all.sort_by_key(|(_, id)| *id);
                 for (name, id) in all {
-                    let line = self.describe(&name, id);
+                    let line = self.describe(&name, id, kind == "xentities");
                     self.out.push(line);
                 }
             }
-            "entity" | "player" => {
+            "entity" | "player" | "xentity" | "mob" => {
                 let name = arg.expect("entity:REF");
                 let id = self.entity_id(name);
-                let line = self.describe(name, id);
+                let line = self.describe(name, id, matches!(kind, "xentity" | "mob"));
+                self.out.push(line);
+            }
+            // ED REF id:serializer:hex ..
+            "edata" => {
+                let name = arg.expect("edata:REF");
+                let id = self.entity_id(name);
+                let level = self.level();
+                let e = level
+                    .get_entity(id)
+                    .unwrap_or_else(|| panic!("entity {name} is gone"));
+                let line = super::super::entity_describe::entity_data_line(name, e);
                 self.out.push(line);
             }
             // BRAIN REF .. / BM / BR lines (`mc_game::world::entity::scenario_dump`, shared with the entity replay)
@@ -1238,7 +1440,7 @@ impl Scenario {
             "all_players" => {
                 for name in self.actors.players.clone() {
                     let id = self.entity_id(&name);
-                    let line = self.describe(&name, id);
+                    let line = self.describe(&name, id, false);
                     self.out.push(line);
                 }
             }
@@ -1291,134 +1493,25 @@ impl Scenario {
         true
     }
 
-    /// The `P`/`E` line of the driver's `describe` for the fields the Rust entities model.
-    fn describe(&mut self, name: &str, id: EntityId) -> String {
-        let players = self.actors.players.clone();
+    /// The `P`/`E` line of the driver's `describe` (`rich`: with the fields of the registered classes, `xentity:REF`).
+    fn describe(&mut self, name: &str, id: EntityId, rich: bool) -> String {
         let refs = self.actors.refs.clone();
         let level = self.level();
+        let names: std::collections::BTreeMap<EntityId, String> =
+            refs.iter().map(|(n, id)| (*id, n.clone())).collect();
         // the driver's `uuidName`: a known entity prints as its scenario name
-        let uuid_names: HashMap<uuid::Uuid, String> = refs
+        let uuids: std::collections::BTreeMap<uuid::Uuid, EntityId> = refs
             .iter()
-            .filter_map(|(n, id)| level.get_entity(*id).map(|e| (e.uuid(), n.clone())))
+            .filter_map(|(_, id)| level.get_entity(*id).map(|e| (e.uuid(), *id)))
             .collect();
-        let uuid_name = |u: Option<uuid::Uuid>| {
-            u.map_or("-".to_owned(), |u| {
-                uuid_names.get(&u).cloned().unwrap_or_else(|| u.to_string())
-            })
+        let ctx = mc_game::world::entity::scenario_dump::ScenarioDumpCtx {
+            names: &names,
+            uuids: &uuids,
         };
         let e = level
             .get_entity(id)
             .unwrap_or_else(|| panic!("entity {name} is gone"));
-        let b = e.base();
-        let is_player = players.iter().any(|n| n == name);
-        let mut s = format!(
-            "{} {name} {}",
-            if is_player { "P" } else { "E" },
-            e.get_type().name()
-        );
-        let (p, d) = (b.position(), b.delta_movement());
-        s += &format!(
-            " pos={} delta={} rot={},{} og={} fall={} fire={} air={} alive={} pose={}",
-            vec3(p.x, p.y, p.z),
-            vec3(d.x, d.y, d.z),
-            flt(b.y_rot()),
-            flt(b.x_rot()),
-            i32::from(b.on_ground()),
-            dbl(b.fall_distance),
-            b.remaining_fire_ticks,
-            b.get_air_supply(),
-            i32::from(e.is_alive()),
-            pose_name(b.get_pose())
-        );
-        if let Some(l) = e.living() {
-            let mut fx: Vec<String> = l
-                .active_effects
-                .iter()
-                .map(|(k, v)| format!("{}/{}/{}", k.name(), v.amplifier, v.duration))
-                .collect();
-            fx.sort();
-            s += &format!(
-                " hp={} abs={} hurt={}/{} death={} fx={}",
-                flt(l.get_health()),
-                flt(e.get_absorption_amount()),
-                l.hurt_time,
-                l.damage_cooldown_time,
-                l.death_time,
-                if fx.is_empty() {
-                    "-".into()
-                } else {
-                    fx.join(";")
-                }
-            );
-        }
-        if let Some(pl) = e.as_any().downcast_ref::<ServerPlayer>() {
-            s += &format!(
-                " gm={} food={} sat={} exh={} xp={}/{}/{} sel={} main={}",
-                pl.game_mode.game_mode_for_player.name().to_lowercase(),
-                pl.player.food_data.get_food_level(),
-                flt(pl.player.food_data.get_saturation_level()),
-                flt(pl.player.food_data.exhaustion_level),
-                pl.player.experience_level,
-                pl.player.total_experience,
-                flt(pl.player.experience_progress),
-                pl.player.inventory.get_selected_slot(),
-                super::super::entity_scenario::item_full(pl.player.inventory.get_selected_item())
-            );
-        } else if let Some(item) = e
-            .as_any()
-            .downcast_ref::<mc_game::world::entity::item::ItemEntity>()
-        {
-            s += &format!(
-                " item={} age={} pickup={} health={} owner={} thrower={}",
-                super::super::entity_scenario::item_text(&item.get_item()),
-                item.age,
-                item.pickup_delay,
-                item.health,
-                uuid_name(item.target),
-                uuid_name(item.thrower)
-            );
-        } else if let Some(o) = e
-            .as_any()
-            .downcast_ref::<mc_game::world::entity::experience_orb::ExperienceOrb>()
-        {
-            s += &format!(
-                " value={} count={} age={} health={}",
-                o.get_value(),
-                o.count,
-                o.age,
-                o.health
-            );
-        } else if let Some(f) =
-            e.as_any()
-                .downcast_ref::<mc_game::world::entity::falling_block_entity::FallingBlockEntity>()
-        {
-            s += &format!(
-                " state={} time={} hurt={} cancel={} drop={}",
-                super::state_string(f.get_block_state()),
-                f.time,
-                f.hurts_entities(),
-                f.is_drop_cancelled(),
-                f.drop_item
-            );
-        } else if let Some(t) = e
-            .as_any()
-            .downcast_ref::<mc_game::world::entity::item::primed_tnt::PrimedTnt>()
-        {
-            s += &format!(" fuse={}", t.get_fuse());
-        } else if let Some(a) = super::super::entity_scenario::abstract_arrow(e) {
-            let d = a.arrow_data();
-            s += &format!(
-                " ground={} crit={} pierce={} pickup={} shake={} life={} dmg={}",
-                u8::from(a.is_in_ground()),
-                u8::from(a.is_crit_arrow()),
-                a.pierce_level(),
-                d.pickup.ordinal(),
-                d.shake_time,
-                d.life,
-                dbl(d.base_damage)
-            );
-        }
-        s
+        super::super::entity_describe::describe(name, e, level, &ctx, rich)
     }
 }
 

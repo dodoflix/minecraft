@@ -1,0 +1,10 @@
+PKT A minecraft:add_entity 01da04f44cd58d790230e78bde679d783ee6319f01400c000000000000c04e0000000000003fe00000000000000000404000
+PKT A minecraft:set_equipment 68da040501b8080000
+# A walks 8 blocks per tick towards C
+PKT C minecraft:add_entity 01d904b76d4ad38d013150b33368cfb42577749f013fe0000000000000c04e0000000000003fe00000000000000000000000
+PKT C minecraft:set_equipment 68d90400019a080000
+PKT B minecraft:add_entity 01d904b76d4ad38d013150b33368cfb42577749f013fe0000000000000c04e0000000000003fe00000000000000000000000
+PKT B minecraft:set_equipment 68d90400019a080000
+P A minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+P B minecraft:player pos=3.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

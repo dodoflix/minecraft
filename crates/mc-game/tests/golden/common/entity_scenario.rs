@@ -35,9 +35,9 @@
 //!   level's private counter (`ServerLevel::entity_id_counter`, starts at 1 like the oracle's `Entity.ENTITY_COUNTER`), so auto-created entities
 //!   (babies, arrows, orbs) get the oracle's ids; ids matter for `(tickCount + id) % n` throttles. An unsupported command or dump kind PANICS with `scenario:line`; there is no
 //!   silent skipping (`ignore_kinds` of [`Options`] only drops output lines at comparison time).
-//! * Output: `T n`, `P`/`E` lines for `dump`/`watch` (`player:`, `entity:`, `mob:`, `entities`, `mobs`, `all_players`), `HURT`, `EFFECT`,
-//!   `# note`. Base/living/player/item fields are written by this module, extra fields of the rich mob dumps by the
-//!   `SCENARIO_DUMP_EXTRA` registry.
+//! * Output: `T n`, `P`/`E` lines for `dump`/`watch` (`player:`, `entity:`, `mob:`, `xentity:`, `entities`, `mobs`, `xentities`, `all_players`), `ED`
+//!   (`edata:`), `HURT`, `EFFECT`, `# note`. The base fields are written by `entity_describe.rs` (shared with the block replay), the extra fields
+//!   of the rich dumps (`mob:`, `mobs`, `xentity:`, `xentities`) by the `SCENARIO_DUMP_EXTRA` registry.
 use super::entity_oracle::{Fixture, Options, scenario_dir};
 
 // Command families of the DSL (one file each, `pub(super) fn run(&mut Harness, &[String]) -> bool` = "handled"): mob state
@@ -548,6 +548,18 @@ impl Harness {
                     .parse::<i64>()
                     .unwrap_or_else(|_| self.fail("level_seed"));
                 self.level.tick_state.random.set_seed(n);
+            }
+            // entity_counter N: the next created entity gets id N + 1
+            "entity_counter" => {
+                self.world();
+                let n = a[1]
+                    .parse::<i32>()
+                    .unwrap_or_else(|_| self.fail("entity_counter"));
+                self.level
+                    .entity_id_counter
+                    .as_ref()
+                    .expect("per-level counter")
+                    .store(n, std::sync::atomic::Ordering::Relaxed);
             }
             "preload" => {}
             "difficulty" => {
@@ -1159,7 +1171,15 @@ impl Harness {
             };
             match (kind, arg) {
                 ("player", Some(n)) | ("entity", Some(n)) => self.describe_ref(n, false),
-                ("mob", Some(n)) => self.describe_ref(n, true),
+                ("mob", Some(n)) | ("xentity", Some(n)) => self.describe_ref(n, true),
+                ("edata", Some(n)) => {
+                    let id = self.entity_ref(n);
+                    let line = match self.level.get_entity(id) {
+                        Some(e) => super::entity_describe::entity_data_line(n, e),
+                        None => self.fail(&format!("entity {n} is not in the level")),
+                    };
+                    self.out.push(line);
+                }
                 ("all_players", None) => {
                     for (n, _) in self.players.clone() {
                         self.describe_ref(&n, false);
@@ -1172,9 +1192,9 @@ impl Harness {
                         self.out.push(super::block_scenario::format_broadcast(&r));
                     }
                 }
-                ("entities", None) | ("mobs", None) => {
+                ("entities", None) | ("mobs", None) | ("xentities", None) => {
                     self.name_new_entities();
-                    let rich = kind == "mobs";
+                    let rich = kind != "entities";
                     let mut all: Vec<(EntityId, String)> = self
                         .names
                         .iter()
@@ -1186,7 +1206,7 @@ impl Harness {
                         let Some(e) = self.level.get_entity(id) else {
                             continue;
                         };
-                        if !e.is_alive() || (rich && !is_mob(e)) {
+                        if !e.is_alive() || (kind == "mobs" && !is_mob(e)) {
                             continue;
                         }
                         self.describe_ref(&n, rich);
@@ -1214,125 +1234,11 @@ impl Harness {
 
     /// The driver's `describe(name, entity, rich)`.
     pub fn describe(&self, name: &str, e: &dyn Entity, rich: bool) -> String {
-        let b = e.base();
-        let is_player = e.as_any().downcast_ref::<ServerPlayer>().is_some();
-        let (p, d) = (b.position(), b.delta_movement());
-        let mut s = format!(
-            "{} {name} {} pos={} delta={} rot={},{} og={} fall={} fire={} air={} alive={} pose={}",
-            if is_player { "P" } else { "E" },
-            e.get_type().name(),
-            vec3(p.x, p.y, p.z),
-            vec3(d.x, d.y, d.z),
-            jf32(b.y_rot()),
-            jf32(b.x_rot()),
-            u8::from(b.on_ground()),
-            jf64(b.fall_distance),
-            b.remaining_fire_ticks,
-            b.get_air_supply(),
-            u8::from(e.is_alive()),
-            snake(&format!("{:?}", b.get_pose())),
-        );
-        if let Some(l) = e.living() {
-            s.push_str(&format!(
-                " hp={} abs={} hurt={}/{} death={} fx=",
-                jf32(e.get_health()),
-                jf32(e.get_absorption_amount()),
-                l.hurt_time,
-                l.damage_cooldown_time,
-                l.death_time
-            ));
-            let mut fx: Vec<&MobEffectInstance> = l.active_effects.values().collect();
-            fx.sort_by_key(|i| i.effect.name());
-            if fx.is_empty() {
-                s.push('-');
-            }
-            for (i, m) in fx.iter().enumerate() {
-                s.push_str(&format!(
-                    "{}{}/{}/{}",
-                    if i > 0 { ";" } else { "" },
-                    m.effect.name(),
-                    m.amplifier,
-                    m.duration
-                ));
-            }
-        }
-        if let Some(sp) = e.as_any().downcast_ref::<ServerPlayer>() {
-            let pd = &sp.player;
-            s.push_str(&format!(
-                " gm={} food={} sat={} exh={} xp={}/{}/{} sel={} main={}",
-                format!("{:?}", sp.game_mode.game_mode_for_player).to_lowercase(),
-                pd.food_data.get_food_level(),
-                jf32(pd.food_data.get_saturation_level()),
-                jf32(pd.food_data.exhaustion_level),
-                pd.experience_level,
-                pd.total_experience,
-                jf32(pd.experience_progress),
-                pd.inventory.get_selected_slot(),
-                item_full(pd.inventory.get_selected_item()),
-            ));
-        } else if let Some(ie) = e.as_any().downcast_ref::<ItemEntity>() {
-            s.push_str(&format!(
-                " item={} age={}",
-                item_text(&ie.get_item()),
-                ie.age
-            ));
-        } else if let Some(o) = e
-            .as_any()
-            .downcast_ref::<mc_game::world::entity::experience_orb::ExperienceOrb>()
-        {
-            s.push_str(&format!(" value={}", o.get_value()));
-        } else if let Some(t) = e
-            .as_any()
-            .downcast_ref::<mc_game::world::entity::item::primed_tnt::PrimedTnt>()
-        {
-            s.push_str(&format!(" fuse={}", t.get_fuse()));
-        } else if let Some(a) = abstract_arrow(e) {
-            let d = a.arrow_data();
-            s.push_str(&format!(
-                " ground={} crit={} pierce={} pickup={} shake={} life={} dmg={}",
-                u8::from(a.is_in_ground()),
-                u8::from(a.is_crit_arrow()),
-                a.pierce_level(),
-                d.pickup.ordinal(),
-                d.shake_time,
-                d.life,
-                jf64(d.base_damage)
-            ));
-        }
         let ctx = ScenarioDumpCtx {
             names: &self.names,
             uuids: &self.uuids,
         };
-        if let Some(ie) = e.as_any().downcast_ref::<ItemEntity>() {
-            s.push_str(&format!(
-                " pickup={} health={} owner={} thrower={}",
-                ie.pickup_delay,
-                ie.health,
-                ctx.name_uuid(ie.target),
-                ctx.name_uuid(ie.thrower)
-            ));
-        } else if let Some(o) = e
-            .as_any()
-            .downcast_ref::<mc_game::world::entity::experience_orb::ExperienceOrb>()
-        {
-            s.push_str(&format!(
-                " count={} age={} health={}",
-                o.count, o.age, o.health
-            ));
-        }
-        if rich && !is_player {
-            let mut extras: Vec<_> = SCENARIO_DUMP_EXTRA
-                .iter()
-                .filter(|x| (x.applies)(e))
-                .collect();
-            extras.sort_by_key(|x| x.order);
-            for x in extras {
-                for (k, v) in (x.fields)(e, &self.level, &ctx) {
-                    s.push_str(&format!(" {k}={v}"));
-                }
-            }
-        }
-        s
+        super::entity_describe::describe(name, e, &self.level, &ctx, rich)
     }
 }
 
@@ -1373,7 +1279,7 @@ fn is_mob(e: &dyn Entity) -> bool {
         .any(|x| x.order == 10 && (x.applies)(e))
 }
 
-fn spawn_reason(name: &str) -> Option<mc_data::enums::EntitySpawnReason> {
+pub fn spawn_reason(name: &str) -> Option<mc_data::enums::EntitySpawnReason> {
     use mc_data::enums::EntitySpawnReason as R;
     Some(match name.to_ascii_lowercase().as_str() {
         "natural" => R::Natural,

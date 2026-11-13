@@ -1,0 +1,34 @@
+# Interacting with an entity at a click position (`interact ... at X Y Z`, relative to the entity origin): an empty hand takes the item of
+# the armor stand slot at that height (feet, legs, chest, hands, head from the bottom up), a held item that fits a slot is swapped
+# with that slot whatever the height.
+level flat
+preload 2
+entity_counter 700
+spawn_player P survival 0.5 -60 3.5 180 0
+spawn stand minecraft:armor_stand 0.5 -60 0.5 0 0 {equipment:{feet:{id:"minecraft:leather_boots",count:1},legs:{id:"minecraft:leather_leggings",count:1},chest:{id:"minecraft:leather_chestplate",count:1},head:{id:"minecraft:leather_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed stand 5
+note an empty hand takes the item at the clicked height
+interact P stand main at 0 0.1 0
+dump nbt:stand inventory:P
+give P mainhand minecraft:air
+interact P stand main at 0 0.8 0
+dump nbt:stand inventory:P
+give P mainhand minecraft:air
+interact P stand main at 0 1.2 0
+dump nbt:stand inventory:P
+give P mainhand minecraft:air
+interact P stand main at 0 1.5 0
+dump nbt:stand inventory:P
+give P mainhand minecraft:air
+interact P stand main at 0 1.8 0
+dump nbt:stand inventory:P
+note a held chestplate goes to the chest slot whatever height is clicked
+give P mainhand minecraft:iron_chestplate
+interact P stand main at 0 0.1 0
+dump nbt:stand inventory:P
+interact P stand main at 0 1.9 0
+dump nbt:stand inventory:P
+note a stick is not wearable: the click does nothing
+give P mainhand minecraft:stick
+interact P stand main at 0 1.9 0
+dump nbt:stand inventory:P

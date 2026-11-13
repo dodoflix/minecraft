@@ -1,0 +1,20 @@
+# A player dies and respawns through the client command: the new player keeps the id and the connection, appears at the world spawn
+# with full health and (keep_inventory) its inventory; a living player's request is ignored.
+level flat
+preload 2
+entity_counter 900
+level_seed 7
+gamerule keep_inventory true
+spawn_player P survival 4.5 -60 4.5 0 0
+give P mainhand minecraft:diamond
+tick 1
+dump packets:P:none
+respawn P
+dump player:P
+hurt P minecraft:generic_kill 1000
+tick 1
+dump player:P packets:P:none
+level_seed 8
+respawn P
+tick 2
+dump player:P inventory:P packets:P:entity_event

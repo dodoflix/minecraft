@@ -167,6 +167,16 @@ impl ServerLevel {
                 connection.send(&p);
             }
         }
+        // a player that explodes from outside the storage (its own packet or tick is being handled) is a level player too
+        if let Some(source) = params.source
+            && let Some(player) = source.as_any().downcast_ref::<ServerPlayer>()
+            && self.get_entity(source.id()).is_none()
+            && participants.iter().all(|p| p.id() != source.id())
+            && let (Some(connection), Some(p)) =
+                (&player.connection, packet(source.id(), source.position()))
+        {
+            connection.send(&p);
+        }
     }
 
     /// `getDestroyType(gameRule)`.

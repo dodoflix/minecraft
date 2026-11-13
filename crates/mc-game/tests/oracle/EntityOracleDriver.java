@@ -152,7 +152,7 @@ import net.minecraft.util.RandomSource;
  * attack PLAYER REF           ServerboundAttackPacket               swing PLAYER   ServerboundPunchPacket (main hand)
  * client_tick_end PLAYER    ServerboundClientTickEndPacket (re-arms the one position packet per tick; zeroes the known movement without one)
  * mob_attack MOB REF        Mob.doHurtTarget(level, REF); prints "MOBATTACK mob ref -> result"
- * paddle PLAYER LEFT RIGHT   ServerboundPaddleBoatPacket (true|false)
+ * paddle PLAYER LEFT RIGHT   ServerboundPaddleBoatPacket (true|false)       move_vehicle PLAYER X Y Z YROT XROT ONGROUND   ServerboundMoveVehiclePacket (the player controls the vehicle it rides)
  * drop PLAYER [all]           DROP_ITEM / DROP_ALL_ITEMS            respawn PLAYER   ServerboundClientCommandPacket
  * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING ...)
  * hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]    entity.hurtServer(level, source, amount); prints "HURT result"
@@ -179,7 +179,7 @@ import net.minecraft.util.RandomSource;
  * raid_waves DIFFICULTY OMEN SEED   composition of every Raid wave (+ bonus wave when omen>1) with Raid's own RNG seeded: `RAID_WAVE` lines
  * raid_start PLAYER X Y Z [omen=N]  Raids.createOrExtendRaid (a village = POI blocks (bell, beds) placed by the script; the player needs
  *                             the raid_omen effect to carry an omen level; omen=N overrides)       dump raids   all raids (`RAID` lines)
- * interact PLAYER REF [main|off] [sneak] [center]   ServerboundInteractPacket (use the entity: board a boat, open a chest boat, feed, tame); location = entity origin, `center` = bounding box centre relative to the origin
+ * interact PLAYER REF [main|off] [sneak] [center] [at X Y Z]   ServerboundInteractPacket (use the entity: board a boat, open a chest boat, feed, tame); location = entity origin, `center` = bounding box centre relative to the origin, `at X Y Z` = that offset from the origin
  * trade_select PLAYER N       ServerboundSelectTradePacket
  * click, creative_slot, rename, select_trade, set_beacon, slot_state, place_recipe, recipe_seen, recipe_settings, `dump menu:PLAYER`, `dump recipes:PLAYER`: see MenuVerbs.java
  * local difficulty / light / time of day: `dump difficulty:X,Y,Z` (`DIFFICULTY ..`), `dump light:X,Y,Z` (`LIGHT x y z block=B sky=S`, after ticks),
@@ -203,6 +203,8 @@ import net.minecraft.util.RandomSource;
  * dump/watch kinds for mobs: mob:REF (rich E line), mobs (all live Mobs, rich), attrs:REF, goals:REF (`G` lines, every registered goal), brain:REF
  *   (`BRAIN`/`BM`/`BR` lines), path:REF (`PATH`/`PN`), nbt:REF (`N REF {canonical sorted SNBT, UUID removed}`), offers:REF, trader:REF
  *   (`TRADER REF xp=villagerXp level=villagerLevel|- trading=REF|-`), difficulty:X,Y,Z, light:X,Y,Z, spawn_state (`SPAWNSTATE`), raids.
+ * dump/watch kinds for every entity: xentity:REF / xentities (all live non-player entities): the normal `E` line + the fields of the classes registered in
+ *   EntityExtras.java (`mob:REF` also carries them); edata:REF = `ED REF id:serializer:hex ..` for every synched data item (accessor id, serializer id, wire form of the value).
  * </pre>
  *
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
@@ -713,16 +715,25 @@ public final class EntityOracleDriver {
          }
          case "interact" -> {
             world();
-            // interact PLAYER REF [main|off] [sneak] [center]: ServerboundInteractPacket at the entity origin (`center`: bounding box centre)
+            // interact PLAYER REF [main|off] [sneak] [center] [at X Y Z]: ServerboundInteractPacket; location = entity origin, `center` = bounding box centre,
+            // `at X Y Z` = that offset from the origin (an armor stand slot is picked by the click height)
             boolean sneak = a.contains("sneak");
             int handIdx = a.size() > 3 && (a.get(3).equals("main") || a.get(3).equals("off")) ? 3 : -1;
             Entity target = ref(a.get(2));
-            Vec3 loc = a.contains("center") ? target.getBoundingBox().getCenter().subtract(target.position()) : Vec3.ZERO;
+            int at = a.indexOf("at");
+            Vec3 loc = at > 0 ? new Vec3(d(a.get(at + 1)), d(a.get(at + 2)), d(a.get(at + 3)))
+               : a.contains("center") ? target.getBoundingBox().getCenter().subtract(target.position()) : Vec3.ZERO;
             player(a.get(1)).connection.handleInteract(new ServerboundInteractPacket(target.getId(), handIdx > 0 ? hand(a, 3) : InteractionHand.MAIN_HAND, loc, sneak));
          }
          case "paddle" -> {
             world();
             player(a.get(1)).connection.handlePaddleBoat(new ServerboundPaddleBoatPacket(Boolean.parseBoolean(a.get(2)), Boolean.parseBoolean(a.get(3))));
+         }
+         case "move_vehicle" -> {
+            world();
+            // move_vehicle PLAYER X Y Z YROT XROT ONGROUND: ServerboundMoveVehiclePacket of the vehicle the player controls
+            player(a.get(1)).connection.handleMoveVehicle(new ServerboundMoveVehiclePacket(
+               net.minecraft.core.PositionAndRotation.of(new Vec3(d(a.get(2)), d(a.get(3)), d(a.get(4))), (float)d(a.get(5)), (float)d(a.get(6))), Boolean.parseBoolean(a.get(7))));
          }
          case "swing" -> {
             world();
@@ -1672,6 +1683,21 @@ public final class EntityOracleDriver {
                   describe(en.getKey(), en.getValue());
                }
             }
+            case "xentity" -> describe(arg, ref(arg), true);
+            case "xentities" -> {
+               nameNewEntities();
+               List<Map.Entry<String, Entity>> all = new ArrayList<>();
+               for (var en : refs.entrySet()) {
+                  if (!(en.getValue() instanceof ServerPlayer) && en.getValue().isAlive()) {
+                     all.add(en);
+                  }
+               }
+               all.sort(Comparator.comparingInt(en -> en.getValue().getId()));
+               for (var en : all) {
+                  describe(en.getKey(), en.getValue(), true);
+               }
+            }
+            case "edata" -> entityData(arg, ref(arg));
             case "inventory" -> inventory(arg, (Player)ref(arg));
             case "use" -> {
                ServerPlayer p = (ServerPlayer)ref(arg);
@@ -1896,7 +1922,7 @@ public final class EntityOracleDriver {
       describe(name, e, false);
    }
 
-   void describe(String name, Entity e, boolean mob) {
+   void describe(String name, Entity e, boolean rich) {
       StringBuilder b = new StringBuilder(e instanceof Player ? "P " : "E ").append(name).append(' ').append(BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()));
       b.append(" pos=").append(vec(e.getX(), e.getY(), e.getZ()));
       Vec3 dm = e.getDeltaMovement();
@@ -1987,8 +2013,32 @@ public final class EntityOracleDriver {
             }
          }
       }
-      if (mob && e instanceof Mob m) {
-         describeMob(b, m);
+      if (rich) {
+         if (e instanceof Mob m) {
+            describeMob(b, m);
+         }
+         EntityExtras.append(this, b, e);
+      }
+      out.println(b);
+   }
+
+   /** `ED REF id:serializer:hex ..`: every synched data item of the entity (accessor id, serializer id, wire form of the value). */
+   void entityData(String name, Entity e) {
+      var items = (net.minecraft.network.syncher.SynchedEntityData.DataItem<?>[])priv(e.getEntityData(), net.minecraft.network.syncher.SynchedEntityData.class, "itemsById");
+      StringBuilder b = new StringBuilder("ED ").append(name);
+      for (var item : items) {
+         var buf = new net.minecraft.network.RegistryFriendlyByteBuf(io.netty.buffer.Unpooled.buffer(), v.server.registryAccess());
+         item.value().write(buf);
+         byte[] wire = new byte[buf.readableBytes()];
+         buf.readBytes(wire);
+         // the accessor id and the serializer id (one byte: there are fewer than 128 serializers) come first
+         b.append(' ').append(wire[0] & 0xFF).append(':').append(wire[1]).append(':');
+         for (int i = 2; i < wire.length; i++) {
+            b.append(String.format("%02x", wire[i]));
+         }
+         if (wire.length == 2) {
+            b.append('-');
+         }
       }
       out.println(b);
    }

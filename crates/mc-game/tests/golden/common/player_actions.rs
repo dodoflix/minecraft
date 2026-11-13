@@ -277,18 +277,24 @@ fn use_on(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequence:
     }
 }
 
-/// `handleInteract`: `interact PLAYER REF [main|off] [sneak] [center]` (location = the entity origin, `center` = bounding box centre
-/// relative to it).
+/// `handleInteract`: `interact PLAYER REF [main|off] [sneak] [center] [at X Y Z]` (location = the entity origin, `center` = bounding
+/// box centre relative to it, `at X Y Z` = that offset from the origin).
 fn interact(level: &mut ServerLevel, p: &mut ServerPlayer, target: EntityId, a: &[String]) {
     let hand = hand(a, 3);
     let sneak = a.iter().any(|t| t == "sneak");
     let center = a.iter().any(|t| t == "center");
+    let at = a.iter().position(|t| t == "at").map(|i| {
+        let n = |k: usize| -> f64 { a[i + k].parse().expect("interact at X Y Z") };
+        Vec3::new(n(1), n(2), n(3))
+    });
     let (block_pos, bounds, location) = {
         let t = level
             .get_entity(target)
             .unwrap_or_else(|| panic!("interact target {} is not in the level", a[2]));
         let bounds = t.base().bounding_box();
-        let location = if center {
+        let location = if let Some(at) = at {
+            at
+        } else if center {
             bounds.get_center().subtract(t.position())
         } else {
             Vec3::ZERO

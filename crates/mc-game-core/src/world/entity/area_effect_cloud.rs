@@ -4,6 +4,7 @@
 use super::dimensions::EntityDimensions;
 use super::effect::MobEffectInstance;
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
+use super::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use super::{Entity, EntityData, EntityId, entity};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
@@ -474,4 +475,25 @@ impl Entity for AreaEffectCloud {
 static AREA_EFFECT_CLOUD_FACTORY: EntityRegistration = EntityRegistration {
     entity_type: EntityType::AREA_EFFECT_CLOUD,
     create: |ty, id, _registries| Box::new(AreaEffectCloud::new(ty, id)),
+};
+
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static AREA_EFFECT_CLOUD_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_any().is::<AreaEffectCloud>(),
+    fields: |e, _level, _ctx| {
+        let c = e
+            .as_any()
+            .downcast_ref::<AreaEffectCloud>()
+            .expect("area effect cloud");
+        vec![
+            (
+                "radius".into(),
+                mc_core::math::java::java_float_to_string(c.get_radius()),
+            ),
+            ("waiting".into(), u8::from(c.is_waiting()).to_string()),
+            ("duration".into(), c.get_duration().to_string()),
+            ("age".into(), c.base().tick_count.to_string()),
+        ]
+    },
 };

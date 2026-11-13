@@ -9,6 +9,7 @@ use super::entity::{self, Entity, EntityData};
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::item::ItemEntity;
 use super::projectile::spawn::spawn_projectile_using_shoot;
+use super::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra, item_text};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::item::{
@@ -199,4 +200,20 @@ impl Entity for OminousItemSpawner {
 static OMINOUS_ITEM_SPAWNER_FACTORY: EntityRegistration = EntityRegistration {
     entity_type: EntityType::OMINOUS_ITEM_SPAWNER,
     create: |ty, id, _registries| Box::new(OminousItemSpawner::new(ty, id)),
+};
+
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static OMINOUS_ITEM_SPAWNER_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_any().is::<OminousItemSpawner>(),
+    fields: |e, _level, _ctx| {
+        let s = e
+            .as_any()
+            .downcast_ref::<OminousItemSpawner>()
+            .expect("ominous item spawner");
+        vec![
+            ("item".into(), item_text(&s.get_item())),
+            ("ticks".into(), s.spawn_item_after_ticks.to_string()),
+        ]
+    },
 };

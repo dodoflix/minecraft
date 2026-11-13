@@ -1,0 +1,24 @@
+# effect on a player and on a mob
+EFFECT P minecraft:speed added=true
+EFFECT z minecraft:slowness added=true
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/99 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E z minecraft:zombie pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:slowness/0/49 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.1955000021755695
+E z2 minecraft:zombie pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0 body=180.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.85418581365063;minecraft:knockback_resistance:0.0468256038627081;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.03411890122095125
+# a mob attack on the first player
+MOBATTACK z P -> true
+P P minecraft:player pos=0.5,-60.0,0.5 delta=-0.4000000059604645,0.36080000519752503,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:speed/1/99 gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+# a player walks with a position and rotation packet
+P Q minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# a boat: ride, paddle, move_vehicle
+E boat minecraft:oak_boat pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=10 pass=Q
+P Q minecraft:player pos=12.5,-60.4125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,10.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:move_entity_pos 36a40600000000000000
+PKT P minecraft:move_entity_pos 36a30600000000000000
+PKT P minecraft:set_passengers 6da50601a206
+PKT P minecraft:move_entity_pos 36a50600000000000000
+PKT P minecraft:rotate_head 55a20640
+# an explosion with a player as the source
+P P minecraft:player pos=0.5,-60.0,0.5 delta=-0.14976775171675102,-0.05049583831769367,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:speed/1/94 gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P Q minecraft:player pos=12.5,-60.4125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,10.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:explode 243fe0000000000000c04e0000000000003fe00000000000004040000000000148001dc00502453f0000003f80000001483f8000003f8000000101
+PKT Q minecraft:explode 243fe0000000000000c04e0000000000003fe00000000000004040000000000148001dc00502453f0000003f80000001483f8000003f8000000101
