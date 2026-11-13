@@ -1,6 +1,7 @@
 # Pillager inventory: `item replace ... mob.inventory.N` (five slots, the sixth is refused), weapon.mainhand, and the Inventory,
 # Patrol and Wave tags read from NBT (reading turns CanPickUpLoot on); both mobs skip finalizeSpawn.
 level flat
+command_env
 difficulty hard
 entity_counter 450
 level_seed 1

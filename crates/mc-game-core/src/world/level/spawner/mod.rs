@@ -63,9 +63,6 @@ pub struct LevelSpawnData {
     pub dimension_type: Option<Arc<DimensionType>>,
     /// The dimension type's constant layer of `natural_mob_spawns` / `creature_world_gen_spawn_probability`.
     pub dimension_base: DimensionSpawnBase,
-    /// `getOverworldClockTime()` and `getMoonBrightness(pos)` as of the start of this tick (`getCurrentDifficultyAt`).
-    pub overworld_clock_time: i64,
-    pub moon_brightness: f32,
     /// `ServerChunkCache.lastSpawnState` + the categories that may spawn this tick.
     spawn_state: Option<(SpawnState, Vec<MobCategory>)>,
     biome_table: OnceLock<Arc<BiomeSpawnTable>>,

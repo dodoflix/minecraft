@@ -59,6 +59,10 @@ impl VindicatorBreakDoorGoal {
 }
 
 impl Goal for VindicatorBreakDoorGoal {
+    fn name(&self) -> &'static str {
+        "Vindicator$VindicatorBreakDoorGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         raider::has_active_raid(mob, level)
             && mob
@@ -117,6 +121,10 @@ impl VindicatorJohnnyAttackGoal {
 }
 
 impl Goal for VindicatorJohnnyAttackGoal {
+    fn name(&self) -> &'static str {
+        "Vindicator$VindicatorJohnnyAttackGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob.as_any()
             .downcast_ref::<Vindicator>()

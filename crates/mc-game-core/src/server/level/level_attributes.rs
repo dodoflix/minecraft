@@ -53,6 +53,12 @@ impl ServerLevel {
         self.tick_state.attributes.clock_total_ticks(&clock) / 24000
     }
 
+    /// `getOverworldClockTime()`: the live total ticks of the `minecraft:overworld` clock.
+    pub fn overworld_clock_time(&self) -> i64 {
+        let clock = Identifier::parse("minecraft:overworld").expect("valid clock id");
+        self.tick_state.attributes.clock_total_ticks(&clock)
+    }
+
     /// `environmentAttributes().getDimensionValue(attribute)`.
     pub fn environment_dimension_value(&self, attribute: &str) -> AttrValue {
         self.with_attribute_env(|system, env| system.get_dimension_value(attribute, env))

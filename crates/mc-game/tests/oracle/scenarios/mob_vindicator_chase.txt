@@ -21,11 +21,12 @@ spawn_player Steve survival 43.5 -60 0.5 90 0
 effect Steve minecraft:resistance 3 100000
 mobspawn V minecraft:vindicator 34.5 -60 0.5 -90 0 {PersistenceRequired:1b}
 entity_seed V 45
+watch mob:Vil
 tick 40
 effect Steve minecraft:raid_omen 2 600
 raid_start Steve 0 -60 0
 target V Steve
-watch mob:V
+watch mob:V mob:Vil
 tick 300
 watch off
 dump raids events nbt:V blocks:40,-60,0,40,-59,0

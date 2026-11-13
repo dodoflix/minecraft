@@ -18,17 +18,14 @@ use mc_worldgen::provider::IntProvider;
 use std::sync::Arc;
 
 impl ServerLevel {
-    /// Publishes the live values worldgen threads and `getCurrentDifficultyAt` read (once per tick, before the chunk source
-    /// ticks).
+    /// Publishes the live values worldgen threads read (once per tick, before the chunk source ticks).
     pub fn publish_spawn_environment(&mut self, env: &dyn LevelTickEnv) {
-        self.spawning.overworld_clock_time = env.overworld_clock_time();
-        self.spawning.moon_brightness = self.get_moon_brightness(BlockPos::ZERO);
         let spawn_mobs = self.spawn_mobs();
         self.spawning.gen_live.publish(
             self.difficulty(),
             spawn_mobs,
-            self.spawning.overworld_clock_time,
-            self.spawning.moon_brightness,
+            env.overworld_clock_time(),
+            self.get_moon_brightness(BlockPos::ZERO),
         );
     }
 }
@@ -42,11 +39,11 @@ impl ServerLevelAccessor for ServerLevel {
         let (mut local_time, mut moon_brightness) = (0i64, 0.0f32);
         if let Some(chunk) = self.chunk_now(pos.x() >> 4, pos.z() >> 4) {
             local_time = chunk.data.access.inhabited_time();
-            moon_brightness = self.spawning.moon_brightness;
+            moon_brightness = self.get_moon_brightness(pos);
         }
         DifficultyInstance::new(
             self.difficulty(),
-            self.spawning.overworld_clock_time,
+            self.overworld_clock_time(),
             local_time,
             moon_brightness,
         )
