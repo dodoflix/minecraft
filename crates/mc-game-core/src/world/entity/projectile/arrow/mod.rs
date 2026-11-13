@@ -798,7 +798,7 @@ enum HitOutcome {
 
 /// `doKnockback(mob, damageSource)`: `mob` is out of the level.
 pub fn do_knockback(
-    arrow: &dyn AbstractArrow,
+    arrow: &mut dyn AbstractArrow,
     level: &mut ServerLevel,
     mob: &mut dyn Entity,
     source: &crate::world::damagesource::DamageSource,
@@ -808,7 +808,7 @@ pub fn do_knockback(
             let id = mob.id();
             f64::from(crate::world::item::enchantment_helper::modify_knockback(
                 level,
-                &mut Actors::of(&mut *mob),
+                &mut Actors::of(&mut *mob).and(arrow.as_dyn_mut()),
                 &weapon,
                 id,
                 source,

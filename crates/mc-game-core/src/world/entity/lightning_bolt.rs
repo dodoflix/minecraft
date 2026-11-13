@@ -37,20 +37,9 @@ pub struct LightningBolt {
 }
 
 impl LightningBolt {
-    /// `LightningBolt(type, level)`: RNG order = UUID, `seed`, `flashes`.
+    /// `LightningBolt(type, level)`: RNG order = UUID, `seed`, `flashes` (the entity's own random and UUID).
     pub fn new(ty: EntityType, id: EntityId) -> Self {
-        Self::with_random(ty, id, mc_core::random::create_new())
-    }
-
-    /// `LightningBolt(type, level)` with the entity's random source given (reproducible `seed`/`flashes`).
-    pub fn with_random(
-        ty: EntityType,
-        id: EntityId,
-        random: mc_core::random::LegacyRandomSource,
-    ) -> Self {
         let mut base = EntityData::new(ty, id, entity::TOTAL_AIR_SUPPLY, |_| {});
-        base.random = random;
-        base.uuid = mc_core::math::mth::create_insecure_uuid(&mut base.random);
         let seed = base.random.next_long();
         let flashes = base.random.next_int_bounded(3) + 1;
         Self {

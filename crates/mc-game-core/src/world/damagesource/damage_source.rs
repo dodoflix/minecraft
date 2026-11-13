@@ -83,9 +83,11 @@ impl DamageEntity {
     /// The entity as a damage source participant: description + full snapshot.
     pub fn capture(entity: &dyn Entity) -> DamageEntity {
         let mut info = DamageEntity::of(entity);
-        info.snapshot = entity
-            .snapshot_for_damage()
-            .map(|b| EntitySnapshot(Rc::new(std::cell::RefCell::new(b))));
+        info.snapshot = mc_core::random::without_advancing_oracle_uniquifier(|| {
+            entity
+                .snapshot_for_damage()
+                .map(|b| EntitySnapshot(Rc::new(std::cell::RefCell::new(b))))
+        });
         info
     }
 
