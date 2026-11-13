@@ -122,8 +122,9 @@ pub fn tick(fish: &mut dyn Entity, level: &mut ServerLevel) {
     if followers && level.random().next_int_bounded(200) == 1 {
         let bb = fish.base().bounding_box().inflate(8.0, 8.0, 8.0);
         let ty = fish.get_type();
-        let neighbors =
-            level.get_entities_of_class_with_stand_in(fish, &bb, |e| e.get_type() == ty, |_| true);
+        let neighbors = level.expose(&*fish, |level| {
+            level.get_entities_of_class(&bb, |e| e.get_type() == ty, |_| true)
+        });
         if neighbors.len() <= 1
             && let Some(f) = super::as_schooling_fish(fish)
         {
@@ -210,19 +211,19 @@ impl Goal for FollowFlockLeaderGoal {
         self.next_start_tick = Self::next_start_tick(mob);
         let bb = mob.base().bounding_box().inflate(8.0, 8.0, 8.0);
         let ty = mob.get_type();
-        // `fish.canBeFollowed() || !fish.isFollower()`; the list includes the mob itself (see
-        // `get_entities_of_class_with_stand_in`)
-        let candidates = level.get_entities_of_class_with_stand_in(
-            mob,
-            &bb,
-            |e| e.get_type() == ty,
-            |e| {
-                as_schooling(e).is_some_and(|f| {
-                    f.school().can_be_followed(f.get_max_school_size())
-                        || !f.school().is_follower(level)
-                })
-            },
-        );
+        // `fish.canBeFollowed() || !fish.isFollower()`; the list includes the mob itself (exposed to the query)
+        let candidates = level.expose(&*mob, |level| {
+            level.get_entities_of_class(
+                &bb,
+                |e| e.get_type() == ty,
+                |e| {
+                    as_schooling(e).is_some_and(|f| {
+                        f.school().can_be_followed(f.get_max_school_size())
+                            || !f.school().is_follower(level)
+                    })
+                },
+            )
+        });
         let leader_id = candidates
             .iter()
             .copied()

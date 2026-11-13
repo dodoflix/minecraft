@@ -551,29 +551,24 @@ impl Panda {
         // `level.addParticle(SNEEZE ..)` is client side
         self.play_sound(level, SoundEvent::ENTITY_PANDA_SNEEZE, 1.0, 1.0);
         let bb = self.base().bounding_box().inflate_scalar(10.0);
-        let pandas = level.get_entities_of_class(
-            &bb,
-            |e| e.as_any().is::<Panda>(),
-            |e| {
-                e.as_any().downcast_ref::<Panda>().is_some_and(|p| {
-                    !p.is_baby()
-                        && p.base().on_ground()
-                        && !p.is_in_water()
-                        && p.can_perform_action(level)
-                })
-            },
-        );
-        for id in pandas {
-            level.with_entity(id, |level, p| p.jump_from_ground(level));
-        }
-        // the ticking panda is not part of the level queries above
-        if !self.is_baby()
-            && self.base().on_ground()
-            && !self.is_in_water()
-            && self.can_perform_action(level)
-        {
-            self.jump_from_ground(level);
-        }
+        // the sneezing panda is lent: it is in the list it asks for, in query order
+        level.lend(self.as_dyn_mut(), |level| {
+            let pandas = level.get_entities_of_class(
+                &bb,
+                |e| e.as_any().is::<Panda>(),
+                |e| {
+                    e.as_any().downcast_ref::<Panda>().is_some_and(|p| {
+                        !p.is_baby()
+                            && p.base().on_ground()
+                            && !p.is_in_water()
+                            && p.can_perform_action(level)
+                    })
+                },
+            );
+            for id in pandas {
+                level.with_entity(id, |level, p| p.jump_from_ground(level));
+            }
+        });
         if level.mob_drops() {
             let table = Identifier::parse("minecraft:gameplay/panda_sneeze").expect("valid id");
             ext::drop_from_gift_loot_table(level, self, &table, |level, e, stack| {

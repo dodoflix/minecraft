@@ -138,18 +138,6 @@ pub fn push_entities_up(
     new_state: BlockState,
     pos: BlockPos,
 ) -> BlockState {
-    push_entities_up_with(level, state, new_state, pos, None)
-}
-
-/// [`push_entities_up`] for a caller that holds an entity taken out of the level (a falling entity's `fallOn`): vanilla finds
-/// it through `getEntities`, here it is passed in.
-pub fn push_entities_up_with(
-    level: &mut crate::server::level::ServerLevel,
-    state: BlockState,
-    new_state: BlockState,
-    pos: BlockPos,
-    taken_out: Option<&mut dyn crate::world::entity::Entity>,
-) -> BlockState {
     use mc_core::phys::shapes::{BooleanOp, Shapes};
     let offset_shape = Shapes::join_unoptimized(
         &state.get_collision_shape(level, pos),
@@ -161,23 +149,16 @@ pub fn push_entities_up_with(
         return new_state;
     }
     let bounds = offset_shape.bounds();
-    let lift = |level: &mut crate::server::level::ServerLevel,
-                entity: &mut dyn crate::world::entity::Entity| {
-        let offset = Shapes::collide(
-            mc_core::direction::Axis::Y,
-            &entity.get_bounding_box().move_(0.0, 1.0, 0.0),
-            [&offset_shape],
-            -1.0,
-        );
-        entity.teleport_relative(level, 0.0, 1.0 + offset, 0.0);
-    };
     for id in level.get_entities(None, &bounds, |_| true) {
-        level.with_entity(id, |level, entity| lift(level, entity));
-    }
-    if let Some(entity) = taken_out
-        && entity.get_bounding_box().intersects_aabb(&bounds)
-    {
-        lift(level, entity);
+        level.with_entity(id, |level, entity| {
+            let offset = Shapes::collide(
+                mc_core::direction::Axis::Y,
+                &entity.get_bounding_box().move_(0.0, 1.0, 0.0),
+                [&offset_shape],
+                -1.0,
+            );
+            entity.teleport_relative(level, 0.0, 1.0 + offset, 0.0);
+        });
     }
     new_state
 }

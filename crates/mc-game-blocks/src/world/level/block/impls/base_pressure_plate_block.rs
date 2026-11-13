@@ -4,7 +4,7 @@ use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_data::GameEvent;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::level::block::block_set_type::{BlockSetType, PressurePlateSensitivity};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::gameevent::GameEventContext;
@@ -62,50 +62,30 @@ impl BasePressurePlateBlock {
     }
 
     /// `getEntityCount(level, TOUCH_AABB.move(pos), entityClass)`: `living_only` selects `LivingEntity.class`.
-    /// `inside` is the entity whose `entityInside` is running: it is out of the level's entity storage meanwhile, so it is
-    /// counted here (vanilla's query finds it in its section).
-    fn get_entity_count(
-        level: &ServerLevel,
-        pos: BlockPos,
-        living_only: bool,
-        inside: Option<&dyn Entity>,
-    ) -> i32 {
-        let aabb = touch_aabb(pos);
-        let counts = |e: &dyn Entity| {
-            (!living_only || e.living().is_some())
-                && !e.is_spectator()
-                && !e.is_ignoring_block_triggers()
-        };
-        let ids = level.get_entities_of_class(
-            &aabb,
-            |e| !living_only || e.living().is_some(),
-            |e| !e.is_spectator() && !e.is_ignoring_block_triggers(),
-        );
-        ids.len() as i32
-            + i32::from(
-                inside.is_some_and(|e| counts(e) && e.get_bounding_box().intersects_aabb(&aabb)),
+    fn get_entity_count(level: &ServerLevel, pos: BlockPos, living_only: bool) -> i32 {
+        level
+            .get_entities_of_class(
+                &touch_aabb(pos),
+                |e| !living_only || e.living().is_some(),
+                |e| !e.is_spectator() && !e.is_ignoring_block_triggers(),
             )
+            .len() as i32
     }
 
     /// `getSignalStrength`.
-    fn get_signal_strength(
-        &self,
-        level: &ServerLevel,
-        pos: BlockPos,
-        inside: Option<&dyn Entity>,
-    ) -> i32 {
+    fn get_signal_strength(&self, level: &ServerLevel, pos: BlockPos) -> i32 {
         match self.max_weight {
             None => {
                 let living_only =
                     self.ty.pressure_plate_sensitivity == PressurePlateSensitivity::Mobs;
-                if Self::get_entity_count(level, pos, living_only, inside) > 0 {
+                if Self::get_entity_count(level, pos, living_only) > 0 {
                     15
                 } else {
                     0
                 }
             }
             Some(max_weight) => {
-                let count = Self::get_entity_count(level, pos, false, inside).min(max_weight);
+                let count = Self::get_entity_count(level, pos, false).min(max_weight);
                 if count > 0 {
                     let percent = count.min(max_weight) as f32 / max_weight as f32;
                     mth::ceil_f32(percent * 15.0)
@@ -119,13 +99,13 @@ impl BasePressurePlateBlock {
     /// `checkPressed(sourceEntity, level, pos, state, oldSignal)`.
     fn check_pressed(
         &self,
-        inside: Option<&dyn Entity>,
+        source: Option<EntityId>,
         level: &mut ServerLevel,
         pos: BlockPos,
         state: BlockState,
         old_signal: i32,
     ) {
-        let signal = self.get_signal_strength(level, pos, inside);
+        let signal = self.get_signal_strength(level, pos);
         let was_pressed = old_signal > 0;
         let is_pressed = signal > 0;
         if old_signal != signal {
@@ -142,7 +122,7 @@ impl BasePressurePlateBlock {
                 1.0,
                 1.0,
             );
-            Self::emit(level, inside, GameEvent::BLOCK_DEACTIVATE, pos);
+            Self::emit(level, source, GameEvent::BLOCK_DEACTIVATE, pos);
         } else if is_pressed && !was_pressed {
             level.play_sound(
                 None,
@@ -152,24 +132,16 @@ impl BasePressurePlateBlock {
                 1.0,
                 1.0,
             );
-            Self::emit(level, inside, GameEvent::BLOCK_ACTIVATE, pos);
+            Self::emit(level, source, GameEvent::BLOCK_ACTIVATE, pos);
         }
         if is_pressed {
             level.schedule_tick_block(pos, state.block(), self.get_pressed_time());
         }
     }
 
-    /// `gameEvent(event, pos, Context.of(sourceEntity))`: the source entity is running, so it is exposed to the listeners.
-    fn emit(level: &mut ServerLevel, inside: Option<&dyn Entity>, event: GameEvent, pos: BlockPos) {
-        match inside {
-            Some(entity) => level.game_event_from_entity_ref_in_state(
-                entity,
-                None,
-                event,
-                mc_core::phys::Vec3::at_center_of(&pos),
-            ),
-            None => level.game_event_at_block(event, pos, &GameEventContext::of_entity(None)),
-        }
+    /// `gameEvent(sourceEntity, event, pos)`.
+    fn emit(level: &mut ServerLevel, source: Option<EntityId>, event: GameEvent, pos: BlockPos) {
+        level.game_event_at_block(event, pos, &GameEventContext::of_entity(source));
     }
 
     /// `updateNeighbours`.
@@ -214,7 +186,11 @@ impl BlockBehaviour for BasePressurePlateBlock {
     ) {
         let signal = self.get_signal_for_state(state);
         if signal == 0 {
-            self.check_pressed(Some(&*entity), level, pos, state, signal);
+            // the entity runs outside the level's storage: lent, the box query finds it
+            let id = entity.id();
+            level.lend(entity, |level| {
+                self.check_pressed(Some(id), level, pos, state, signal)
+            });
         }
     }
     fn affect_neighbors_after_removal(

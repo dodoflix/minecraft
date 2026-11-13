@@ -407,9 +407,11 @@ impl Entity for FallingBlockEntity {
                 && (e.is_spectator() || e.player().is_some_and(|p| p.abilities.instabuild)));
             not_creative_or_spectator && e.is_alive() && e.living().is_some()
         });
-        for id in victims {
-            level.with_entity(id, |level, e| e.hurt_server(level, &actual_source, damage));
-        }
+        level.lend(self.as_dyn_mut(), |level| {
+            for id in victims {
+                level.with_entity(id, |level, e| e.hurt_server(level, &actual_source, damage));
+            }
+        });
         let is_anvil = self.block_state.is_tag("anvil");
         if is_anvil
             && damage > 0.0

@@ -1007,33 +1007,6 @@ impl PersistentEntitySectionManager {
                 ControlFlow::Continue(())
             });
     }
-    /// `for_each_in_aabb` for a class query issued BY the ticking entity (taken out of its slot): vanilla's
-    /// `getEntitiesOfClass` also returns the querying entity itself, so `stand_in` is visited at its slot position.
-    pub fn for_each_in_aabb_with_stand_in(
-        &self,
-        bb: &AABB,
-        stand_in: &dyn Entity,
-        mut consumer: impl FnMut(EntityId, &dyn Entity) -> ControlFlow<()>,
-    ) {
-        let stand_in_id = stand_in.id();
-        self.section_storage
-            .for_each_accessible_non_empty_section(bb, |_, section| {
-                for &id in section.entities() {
-                    let e = if id == stand_in_id {
-                        Some(stand_in)
-                    } else {
-                        self.get_any(id)
-                    };
-                    if let Some(e) = e
-                        && e.get_bounding_box().intersects_aabb(bb)
-                        && consumer(id, e).is_break()
-                    {
-                        return ControlFlow::Break(());
-                    }
-                }
-                ControlFlow::Continue(())
-            });
-    }
 
     /// `for_each_in_aabb` that also visits the entities taken out of their slot (the running one): `entity` is `None`
     /// for them and the consumer decides whether they are in the box.

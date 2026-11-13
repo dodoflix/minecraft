@@ -72,36 +72,21 @@ impl ButtonBlock {
     }
 
     /// `ButtonBlock.checkPressed(state, level, pos)`.
-    /// `inside` is the arrow whose `entityInside` is running (it is out of the entity storage meanwhile).
-    pub fn check_pressed(
-        &self,
-        state: BlockState,
-        level: &mut ServerLevel,
-        pos: BlockPos,
-        inside: Option<&dyn mc_game_core::world::entity::Entity>,
-    ) {
+    pub fn check_pressed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         let first_arrow = if self.ty.can_button_be_activated_by_arrows {
             let bounds = state.get_shape(&*level, pos).bounds().move_(
                 f64::from(pos.x()),
                 f64::from(pos.y()),
                 f64::from(pos.z()),
             );
-            let found = level
+            level
                 .get_entities_of_class(
                     &bounds,
                     |e| e.tracking_kind() == mc_game_core::world::entity::TrackingKind::Arrow,
                     |_| true,
                 )
                 .into_iter()
-                .next();
-            found.or_else(|| {
-                inside
-                    .filter(|e| {
-                        e.tracking_kind() == mc_game_core::world::entity::TrackingKind::Arrow
-                            && e.get_bounding_box().intersects_aabb(&bounds)
-                    })
-                    .map(|e| e.id())
-            })
+                .next()
         } else {
             None
         };
@@ -111,21 +96,15 @@ impl ButtonBlock {
             level.set_block_and_update(pos, state.set(props::POWERED, should_be_pressed));
             update_neighbours(state, level, pos);
             self.play_sound(None, level, pos, should_be_pressed);
-            let emit = |level: &mut ServerLevel| {
-                level.game_event_at_block(
-                    if should_be_pressed {
-                        GameEvent::BLOCK_ACTIVATE
-                    } else {
-                        GameEvent::BLOCK_DEACTIVATE
-                    },
-                    pos,
-                    &GameEventContext::of_entity(first_arrow),
-                )
-            };
-            match inside {
-                Some(entity) => level.expose(entity, emit),
-                None => emit(level),
-            }
+            level.game_event_at_block(
+                if should_be_pressed {
+                    GameEvent::BLOCK_ACTIVATE
+                } else {
+                    GameEvent::BLOCK_DEACTIVATE
+                },
+                pos,
+                &GameEventContext::of_entity(first_arrow),
+            );
         }
         if should_be_pressed {
             level.schedule_tick_block(pos, state.block(), self.ticks_to_stay_pressed);
@@ -210,7 +189,8 @@ impl BlockBehaviour for ButtonBlock {
         _is_precise: bool,
     ) {
         if self.ty.can_button_be_activated_by_arrows && !state.get(props::POWERED) {
-            self.check_pressed(state, level, pos, Some(&*entity));
+            // the arrow runs outside the level's storage: lent, the box query finds it in storage order
+            level.lend(entity, |level| self.check_pressed(state, level, pos));
         }
     }
     fn on_explosion_hit(
@@ -230,7 +210,7 @@ impl BlockBehaviour for ButtonBlock {
     }
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if state.get(props::POWERED) {
-            self.check_pressed(state, level, pos, None);
+            self.check_pressed(state, level, pos);
         }
     }
 }
