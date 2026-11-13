@@ -1,0 +1,35 @@
+# Mob turning: yaw, head and body rotation (MoveControl, LookControl) and the random of a pig, a cow and a zombie walking to alternating targets around a standing player (nav).
+level flat
+difficulty normal
+level_seed 9
+time 18000
+preload 4
+entity_counter 400
+spawn_player Steve creative 0.5 -60 0.5 0 0
+entity_seed Steve 401
+mobspawn Pig minecraft:pig 4.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Pig 402
+mobspawn Cow minecraft:cow -4.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Cow 403
+mobspawn Zombie minecraft:zombie 0.5 -60 4.5 0 0 {PersistenceRequired:1b}
+entity_seed Zombie 404
+tick 3
+nav Pig 8.5 -60 0.5 1.0
+nav Cow -8.5 -60 0.5 1.0
+nav Zombie 0.5 -60 8.5 1.0
+watch mob:Pig mob:Cow mob:Zombie rng:Pig rng:Cow rng:Zombie
+tick 15
+nav Pig 0.5 -60 -8.5 1.0
+nav Cow 0.5 -60 8.5 1.0
+nav Zombie -8.5 -60 0.5 1.0
+tick 15
+nav Pig -8.5 -60 0.5 1.0
+nav Cow 8.5 -60 0.5 1.0
+nav Zombie 0.5 -60 -8.5 1.0
+tick 15
+nav Pig 0.5 -60 8.5 1.0
+nav Cow 0.5 -60 -8.5 1.0
+nav Zombie 8.5 -60 0.5 1.0
+tick 15
+watch off
+dump mobs
