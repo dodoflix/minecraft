@@ -1,0 +1,81 @@
+# Loyalty: a trident that dealt its damage (or lay in the ground more than four ticks) flies back to its owner with the loyalty
+# acceleration, is taken by the owner (also a disallowed or creative-only one), is dropped where it is when the owner is a spectator,
+# vanishes next to a mob owner, hovers while the owner cannot take it, and one that hit a cow returns after the hit.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 2200
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B spectator 8.5 -60 0.5 0 0
+spawn_player C creative 16.5 -60 0.5 0 0
+spawn_player D survival 24.5 -60 0.5 0 0
+spawn_player I survival 32.5 -60 0.5 0 0
+give I hotbar0 minecraft:stone 64
+give I hotbar1 minecraft:stone 64
+give I hotbar2 minecraft:stone 64
+give I hotbar3 minecraft:stone 64
+give I hotbar4 minecraft:stone 64
+give I hotbar5 minecraft:stone 64
+give I hotbar6 minecraft:stone 64
+give I hotbar7 minecraft:stone 64
+give I hotbar8 minecraft:stone 64
+give I inv9 minecraft:stone 64
+give I inv10 minecraft:stone 64
+give I inv11 minecraft:stone 64
+give I inv12 minecraft:stone 64
+give I inv13 minecraft:stone 64
+give I inv14 minecraft:stone 64
+give I inv15 minecraft:stone 64
+give I inv16 minecraft:stone 64
+give I inv17 minecraft:stone 64
+give I inv18 minecraft:stone 64
+give I inv19 minecraft:stone 64
+give I inv20 minecraft:stone 64
+give I inv21 minecraft:stone 64
+give I inv22 minecraft:stone 64
+give I inv23 minecraft:stone 64
+give I inv24 minecraft:stone 64
+give I inv25 minecraft:stone 64
+give I inv26 minecraft:stone 64
+give I inv27 minecraft:stone 64
+give I inv28 minecraft:stone 64
+give I inv29 minecraft:stone 64
+give I inv30 minecraft:stone 64
+give I inv31 minecraft:stone 64
+give I inv32 minecraft:stone 64
+give I inv33 minecraft:stone 64
+give I inv34 minecraft:stone 64
+give I inv35 minecraft:stone 64
+give I offhand minecraft:stone 64
+mobspawn m1 minecraft:cow 56.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,UUID:[I;5,6,7,8]}
+entity_seed m1 1
+mobspawn c1 minecraft:cow 24.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c1 2
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:I:none
+note returning tridents: A (loyalty 3), B spectator owner (dropped), C creative (creative-only), D disallowed, I full inventory, a mob owner, a ground trident, a trident that hits a cow first
+spawn l1 minecraft:trident 0.5 -58.5 6.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":3}}},DealtDamage:1b}
+entity_seed l1 501
+spawn l2 minecraft:trident 8.5 -58.5 6.5 0 0 {Owner:[I;-196291187,2030186727,-1948358755,2017388081],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":3}}},DealtDamage:1b}
+entity_seed l2 502
+spawn l3 minecraft:trident 16.5 -58.5 6.5 0 0 {Owner:[I;407689464,1828073685,-2048753337,-1664646821],pickup:2b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":2}}},DealtDamage:1b}
+entity_seed l3 503
+spawn l4 minecraft:trident 24.5 -58.5 2.5 0 0 {Owner:[I;-571672024,-1301792035,-1920773462,-796079839],pickup:0b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":1}}},DealtDamage:1b}
+entity_seed l4 504
+spawn l5 minecraft:trident 32.5 -58.5 6.5 0 0 {Owner:[I;-1806479048,-549963372,-1520729828,-193991957],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":3}}},DealtDamage:1b}
+entity_seed l5 505
+spawn l6 minecraft:trident 56.5 -58.5 6.5 0 0 {Owner:[I;5,6,7,8],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":2}}},DealtDamage:1b}
+entity_seed l6 506
+spawn l7 minecraft:trident 4.5 -60.05 6.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":1}}},inGround:1b}
+entity_seed l7 507
+spawn l8 minecraft:trident 24.5 -59.5 3.5 0 0 {Owner:[I;-571672024,-1301792035,-1920773462,-796079839],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":3}}}}
+entity_seed l8 520
+velocity l8 0 0 2.0
+watch entities
+tick 12
+watch off
+dump xentities inventory:A inventory:C inventory:D inventory:I packets:A:take_item_entity,remove_entities packets:C:take_item_entity,remove_entities packets:D:take_item_entity,remove_entities packets:I:take_item_entity,remove_entities packets:B:take_item_entity,remove_entities
+tick 25
+dump entities xentities inventory:A inventory:D packets:A:take_item_entity,remove_entities packets:D:take_item_entity,remove_entities packets:I:take_item_entity,remove_entities

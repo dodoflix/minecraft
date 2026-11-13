@@ -1,0 +1,68 @@
+# Arrows stuck in blocks: where the arrow ends up in a wall, a fence, stairs, a slab, a glass pane and the ground (position pulled back
+# by the signum of its motion), the saved block state, shake, crit and piercing reset, sound pitch; a piercing arrow stops in
+# the block after it went through a mob; the arrow drops when its block is removed and shakes again when the state changes.
+command_env
+level flat
+preload 3
+difficulty normal
+level_seed 5
+entity_counter 2600
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 40.5 -60 0.5 0 0
+block 4 -60 10 minecraft:stone
+block 8 -60 10 minecraft:oak_fence
+block 12 -60 10 minecraft:oak_stairs[facing=south,half=bottom]
+block 16 -60 10 minecraft:stone_slab[type=bottom]
+block 20 -60 10 minecraft:glass_pane
+block 24 -60 10 minecraft:oak_trapdoor[open=false,half=bottom]
+block 28 -60 10 minecraft:oak_leaves
+block 32 -60 10 minecraft:cobweb
+block 36 -60 10 minecraft:water
+tick 2
+dump packets:A:none packets:B:none
+spawn s0 minecraft:arrow 4.5 -59.6 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,PierceLevel:1b}
+entity_seed s0 801
+velocity s0 0 0 2.5
+spawn s1 minecraft:arrow 8.5 -59.6 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,PierceLevel:1b}
+entity_seed s1 802
+velocity s1 0 0 2.5
+spawn s2 minecraft:arrow 12.5 -59.6 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,PierceLevel:1b}
+entity_seed s2 803
+velocity s2 0 0 2.5
+spawn s3 minecraft:arrow 16.5 -59.6 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,PierceLevel:1b}
+entity_seed s3 804
+velocity s3 0 0 2.5
+spawn s4 minecraft:arrow 20.5 -59.6 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,PierceLevel:1b}
+entity_seed s4 805
+velocity s4 0 0 2.5
+spawn s5 minecraft:arrow 24.5 -59.6 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,PierceLevel:1b}
+entity_seed s5 806
+velocity s5 0 0 2.5
+spawn s6 minecraft:arrow 28.5 -59.6 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,PierceLevel:1b}
+entity_seed s6 807
+velocity s6 0 0 2.5
+spawn s7 minecraft:arrow 32.5 -59.6 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,PierceLevel:1b}
+entity_seed s7 808
+velocity s7 0 0 2.5
+spawn s8 minecraft:arrow 36.5 -59.6 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,PierceLevel:1b}
+entity_seed s8 809
+velocity s8 0 0 2.5
+note a piercing arrow through a cow into the stone behind it
+mobspawn c1 minecraft:cow 44.5 -60 6.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c1 1
+block 44 -60 12 minecraft:stone
+block 44 -59 12 minecraft:stone
+spawn s9 minecraft:arrow 44.5 -59.2 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,PierceLevel:2b,crit:1b}
+entity_seed s9 810
+velocity s9 0 0 2.5
+tick 8
+dump xentities nbt:s0 nbt:s1 nbt:s2 nbt:s5 nbt:s9 packets:B:sound,remove_entities,set_entity_data,entity_event
+tick 6
+dump xentities
+note change the state of the stuck-in block: the stone of the first arrow becomes a stone slab, the second fence is removed
+block 4 -60 10 minecraft:stone_slab[type=top]
+block 8 -60 10 minecraft:air
+tick 3
+dump xentities
+tick 5
+dump xentities

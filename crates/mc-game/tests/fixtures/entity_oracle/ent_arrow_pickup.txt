@@ -1,0 +1,452 @@
+# arrows at the feet of A..L, stuck in the ground (the arrow is inside the grass block)
+E p0 minecraft:arrow pos=0.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p1 minecraft:arrow pos=5.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=- leftowner=0 shot=0 canbreak=0
+E p2 minecraft:arrow pos=10.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p3 minecraft:arrow pos=15.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p4 minecraft:arrow pos=20.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p5 minecraft:spectral_arrow pos=25.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p6 minecraft:arrow pos=30.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p7 minecraft:arrow pos=35.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=7 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p8 minecraft:arrow pos=40.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p9 minecraft:arrow pos=45.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p10 minecraft:arrow pos=50.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p11 minecraft:arrow pos=55.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+ED p0 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:0:00 10:8:01 11:1:ffffffff0f
+N p6 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PierceLevel:0b,PortalCooldown:0,Pos:[30.5d,-60.05d,0.5d],Rotation:[0.0f,0.0f],SoundEvent:"minecraft:entity.arrow.hit",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:1b,item:{components:{minecraft:potion_contents:{potion:"minecraft:poison"}},count:1,id:"minecraft:tipped_arrow"},life:0s,pickup:1b,shake:0b}
+E p2 minecraft:arrow pos=10.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=3 dmg=2.0
+E p3 minecraft:arrow pos=15.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=3 dmg=2.0
+E p7 minecraft:arrow pos=35.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=4 life=3 dmg=2.0
+E p8 minecraft:arrow pos=40.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=3 dmg=2.0
+E p9 minecraft:arrow pos=45.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=3 dmg=2.0
+I A 0 minecraft:arrow*1
+I B 0 minecraft:arrow*1
+I F 0 minecraft:spectral_arrow*1
+I G 0 minecraft:tipped_arrow*1{minecraft:potion_contents:{potion:"minecraft:poison"}}
+I K 0 minecraft:arrow*1
+I L 0 minecraft:arrow*1{minecraft:custom_name:"Named"}
+E p2 minecraft:arrow pos=10.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=3 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p3 minecraft:arrow pos=15.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=3 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p7 minecraft:arrow pos=35.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=4 life=3 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p8 minecraft:arrow pos=40.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=3 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p9 minecraft:arrow pos=45.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=3 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+PKT A minecraft:add_entity 01b20d2593668130224db69d2652e1d27191ad063fe0000000000000c04e0666666666663fe000000000000000000000a50d
+PKT A minecraft:set_entity_data 65b20d0a0801ff
+PKT A minecraft:add_entity 01b30d4a4833e255ef4b5a9ab05d9bbb3cb437064016000000000000c04e0666666666663fe00000000000000000000000
+PKT A minecraft:set_entity_data 65b30d0a0801ff
+PKT A minecraft:add_entity 01b40d69ef8225c2954c6099976576d92097a4064025000000000000c04e0666666666663fe000000000000000000000a50d
+PKT A minecraft:set_entity_data 65b40d0a0801ff
+PKT A minecraft:add_entity 01b50d3ccd2f537d4744b0a63c390c3a608a3506402f000000000000c04e0666666666663fe000000000000000000000a50d
+PKT A minecraft:set_entity_data 65b50d0a0801ff
+PKT A minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT A minecraft:set_entity_data 65b60d0a0801ff
+PKT A minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT A minecraft:set_entity_data 65b70d0a0801ff
+PKT A minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT A minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT A minecraft:set_entity_data 65b30d0a0801ff
+PKT A minecraft:set_entity_data 65b70d0a0801ff
+PKT A minecraft:set_entity_data 65b50d0a0801ff
+PKT A minecraft:set_entity_data 65b40d0a0801ff
+PKT A minecraft:set_entity_data 65b20d0a0801ff
+PKT A minecraft:set_entity_data 65b60d0a0801ff
+PKT A minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT A minecraft:take_item_entity 7fb20da50d01
+PKT A minecraft:container_set_slot 140002002401f1070000
+PKT A minecraft:remove_entities 4e01b20d
+PKT A minecraft:take_item_entity 7fb30da60d01
+PKT A minecraft:remove_entities 4e01b30d
+PKT A minecraft:take_item_entity 7fb60da90d01
+PKT A minecraft:remove_entities 4e01b60d
+PKT A minecraft:take_item_entity 7fb70daa0d01
+PKT A minecraft:remove_entities 4e01b70d
+PKT A minecraft:take_item_entity 7fb80dab0d01
+PKT A minecraft:remove_entities 4e01b80d
+PKT B minecraft:add_entity 01b20d2593668130224db69d2652e1d27191ad063fe0000000000000c04e0666666666663fe000000000000000000000a50d
+PKT B minecraft:set_entity_data 65b20d0a0801ff
+PKT B minecraft:add_entity 01b30d4a4833e255ef4b5a9ab05d9bbb3cb437064016000000000000c04e0666666666663fe00000000000000000000000
+PKT B minecraft:set_entity_data 65b30d0a0801ff
+PKT B minecraft:add_entity 01b40d69ef8225c2954c6099976576d92097a4064025000000000000c04e0666666666663fe000000000000000000000a50d
+PKT B minecraft:set_entity_data 65b40d0a0801ff
+PKT B minecraft:add_entity 01b50d3ccd2f537d4744b0a63c390c3a608a3506402f000000000000c04e0666666666663fe000000000000000000000a50d
+PKT B minecraft:set_entity_data 65b50d0a0801ff
+PKT B minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT B minecraft:set_entity_data 65b60d0a0801ff
+PKT B minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT B minecraft:set_entity_data 65b70d0a0801ff
+PKT B minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT B minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT B minecraft:set_entity_data 65b30d0a0801ff
+PKT B minecraft:set_entity_data 65b70d0a0801ff
+PKT B minecraft:set_entity_data 65b50d0a0801ff
+PKT B minecraft:set_entity_data 65b40d0a0801ff
+PKT B minecraft:set_entity_data 65b20d0a0801ff
+PKT B minecraft:set_entity_data 65b60d0a0801ff
+PKT B minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT B minecraft:take_item_entity 7fb20da50d01
+PKT B minecraft:remove_entities 4e01b20d
+PKT B minecraft:take_item_entity 7fb30da60d01
+PKT B minecraft:container_set_slot 140002002401f1070000
+PKT B minecraft:remove_entities 4e01b30d
+PKT B minecraft:take_item_entity 7fb60da90d01
+PKT B minecraft:remove_entities 4e01b60d
+PKT B minecraft:take_item_entity 7fb70daa0d01
+PKT B minecraft:remove_entities 4e01b70d
+PKT B minecraft:take_item_entity 7fb80dab0d01
+PKT B minecraft:remove_entities 4e01b80d
+PKT C minecraft:add_entity 01b20d2593668130224db69d2652e1d27191ad063fe0000000000000c04e0666666666663fe000000000000000000000a50d
+PKT C minecraft:set_entity_data 65b20d0a0801ff
+PKT C minecraft:add_entity 01b30d4a4833e255ef4b5a9ab05d9bbb3cb437064016000000000000c04e0666666666663fe00000000000000000000000
+PKT C minecraft:set_entity_data 65b30d0a0801ff
+PKT C minecraft:add_entity 01b40d69ef8225c2954c6099976576d92097a4064025000000000000c04e0666666666663fe000000000000000000000a50d
+PKT C minecraft:set_entity_data 65b40d0a0801ff
+PKT C minecraft:add_entity 01b50d3ccd2f537d4744b0a63c390c3a608a3506402f000000000000c04e0666666666663fe000000000000000000000a50d
+PKT C minecraft:set_entity_data 65b50d0a0801ff
+PKT C minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT C minecraft:set_entity_data 65b60d0a0801ff
+PKT C minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT C minecraft:set_entity_data 65b70d0a0801ff
+PKT C minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT C minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT C minecraft:set_entity_data 65b30d0a0801ff
+PKT C minecraft:set_entity_data 65b70d0a0801ff
+PKT C minecraft:set_entity_data 65b50d0a0801ff
+PKT C minecraft:set_entity_data 65b40d0a0801ff
+PKT C minecraft:set_entity_data 65b20d0a0801ff
+PKT C minecraft:set_entity_data 65b60d0a0801ff
+PKT C minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT C minecraft:take_item_entity 7fb20da50d01
+PKT C minecraft:remove_entities 4e01b20d
+PKT C minecraft:take_item_entity 7fb30da60d01
+PKT C minecraft:remove_entities 4e01b30d
+PKT C minecraft:take_item_entity 7fb60da90d01
+PKT C minecraft:remove_entities 4e01b60d
+PKT C minecraft:take_item_entity 7fb70daa0d01
+PKT C minecraft:remove_entities 4e01b70d
+PKT C minecraft:take_item_entity 7fb80dab0d01
+PKT C minecraft:remove_entities 4e01b80d
+PKT D minecraft:add_entity 01b20d2593668130224db69d2652e1d27191ad063fe0000000000000c04e0666666666663fe000000000000000000000a50d
+PKT D minecraft:set_entity_data 65b20d0a0801ff
+PKT D minecraft:add_entity 01b30d4a4833e255ef4b5a9ab05d9bbb3cb437064016000000000000c04e0666666666663fe00000000000000000000000
+PKT D minecraft:set_entity_data 65b30d0a0801ff
+PKT D minecraft:add_entity 01b40d69ef8225c2954c6099976576d92097a4064025000000000000c04e0666666666663fe000000000000000000000a50d
+PKT D minecraft:set_entity_data 65b40d0a0801ff
+PKT D minecraft:add_entity 01b50d3ccd2f537d4744b0a63c390c3a608a3506402f000000000000c04e0666666666663fe000000000000000000000a50d
+PKT D minecraft:set_entity_data 65b50d0a0801ff
+PKT D minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT D minecraft:set_entity_data 65b60d0a0801ff
+PKT D minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT D minecraft:set_entity_data 65b70d0a0801ff
+PKT D minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT D minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT D minecraft:set_entity_data 65b30d0a0801ff
+PKT D minecraft:set_entity_data 65b70d0a0801ff
+PKT D minecraft:set_entity_data 65b50d0a0801ff
+PKT D minecraft:set_entity_data 65b40d0a0801ff
+PKT D minecraft:set_entity_data 65b20d0a0801ff
+PKT D minecraft:set_entity_data 65b60d0a0801ff
+PKT D minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT D minecraft:take_item_entity 7fb20da50d01
+PKT D minecraft:remove_entities 4e01b20d
+PKT D minecraft:take_item_entity 7fb30da60d01
+PKT D minecraft:remove_entities 4e01b30d
+PKT D minecraft:take_item_entity 7fb60da90d01
+PKT D minecraft:remove_entities 4e01b60d
+PKT D minecraft:take_item_entity 7fb70daa0d01
+PKT D minecraft:remove_entities 4e01b70d
+PKT D minecraft:take_item_entity 7fb80dab0d01
+PKT D minecraft:remove_entities 4e01b80d
+PKT E minecraft:add_entity 01b20d2593668130224db69d2652e1d27191ad063fe0000000000000c04e0666666666663fe000000000000000000000a50d
+PKT E minecraft:set_entity_data 65b20d0a0801ff
+PKT E minecraft:add_entity 01b30d4a4833e255ef4b5a9ab05d9bbb3cb437064016000000000000c04e0666666666663fe00000000000000000000000
+PKT E minecraft:set_entity_data 65b30d0a0801ff
+PKT E minecraft:add_entity 01b40d69ef8225c2954c6099976576d92097a4064025000000000000c04e0666666666663fe000000000000000000000a50d
+PKT E minecraft:set_entity_data 65b40d0a0801ff
+PKT E minecraft:add_entity 01b50d3ccd2f537d4744b0a63c390c3a608a3506402f000000000000c04e0666666666663fe000000000000000000000a50d
+PKT E minecraft:set_entity_data 65b50d0a0801ff
+PKT E minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT E minecraft:set_entity_data 65b60d0a0801ff
+PKT E minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT E minecraft:set_entity_data 65b70d0a0801ff
+PKT E minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT E minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT E minecraft:add_entity 01b90d5d783184aa0141e6abdbb3425e463a91064041c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT E minecraft:set_entity_data 65b90d0a0801ff
+PKT E minecraft:add_entity 01ba0d48e8f448854e4a88b4b1a7a3ece6a690064044400000000000c04e0666666666663fe000000000000000000000a50d
+PKT E minecraft:set_entity_data 65ba0d0a0801ff
+PKT E minecraft:add_entity 01bb0de2fc94299e644b8f9497e4d712cb7388064046c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT E minecraft:set_entity_data 65bb0d0a0801ff
+PKT E minecraft:set_entity_data 65b30d0a0801ff
+PKT E minecraft:set_entity_data 65b70d0a0801ff
+PKT E minecraft:set_entity_data 65b50d0a0801ff
+PKT E minecraft:set_entity_data 65b40d0a0801ff
+PKT E minecraft:set_entity_data 65b20d0a0801ff
+PKT E minecraft:set_entity_data 65b60d0a0801ff
+PKT E minecraft:set_entity_data 65bb0d0a0801ff
+PKT E minecraft:set_entity_data 65ba0d0a0801ff
+PKT E minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT E minecraft:set_entity_data 65b90d0a0801ff
+PKT E minecraft:take_item_entity 7fb20da50d01
+PKT E minecraft:remove_entities 4e01b20d
+PKT E minecraft:take_item_entity 7fb30da60d01
+PKT E minecraft:remove_entities 4e01b30d
+PKT E minecraft:take_item_entity 7fb60da90d01
+PKT E minecraft:remove_entities 4e01b60d
+PKT E minecraft:take_item_entity 7fb70daa0d01
+PKT E minecraft:remove_entities 4e01b70d
+PKT E minecraft:take_item_entity 7fb80dab0d01
+PKT E minecraft:remove_entities 4e01b80d
+PKT F minecraft:add_entity 01b20d2593668130224db69d2652e1d27191ad063fe0000000000000c04e0666666666663fe000000000000000000000a50d
+PKT F minecraft:set_entity_data 65b20d0a0801ff
+PKT F minecraft:add_entity 01b30d4a4833e255ef4b5a9ab05d9bbb3cb437064016000000000000c04e0666666666663fe00000000000000000000000
+PKT F minecraft:set_entity_data 65b30d0a0801ff
+PKT F minecraft:add_entity 01b40d69ef8225c2954c6099976576d92097a4064025000000000000c04e0666666666663fe000000000000000000000a50d
+PKT F minecraft:set_entity_data 65b40d0a0801ff
+PKT F minecraft:add_entity 01b50d3ccd2f537d4744b0a63c390c3a608a3506402f000000000000c04e0666666666663fe000000000000000000000a50d
+PKT F minecraft:set_entity_data 65b50d0a0801ff
+PKT F minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT F minecraft:set_entity_data 65b60d0a0801ff
+PKT F minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT F minecraft:set_entity_data 65b70d0a0801ff
+PKT F minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT F minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT F minecraft:add_entity 01b90d5d783184aa0141e6abdbb3425e463a91064041c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT F minecraft:set_entity_data 65b90d0a0801ff
+PKT F minecraft:add_entity 01ba0d48e8f448854e4a88b4b1a7a3ece6a690064044400000000000c04e0666666666663fe000000000000000000000a50d
+PKT F minecraft:set_entity_data 65ba0d0a0801ff
+PKT F minecraft:add_entity 01bb0de2fc94299e644b8f9497e4d712cb7388064046c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT F minecraft:set_entity_data 65bb0d0a0801ff
+PKT F minecraft:set_entity_data 65b30d0a0801ff
+PKT F minecraft:set_entity_data 65b70d0a0801ff
+PKT F minecraft:set_entity_data 65b50d0a0801ff
+PKT F minecraft:set_entity_data 65b40d0a0801ff
+PKT F minecraft:set_entity_data 65b20d0a0801ff
+PKT F minecraft:set_entity_data 65b60d0a0801ff
+PKT F minecraft:set_entity_data 65bb0d0a0801ff
+PKT F minecraft:set_entity_data 65ba0d0a0801ff
+PKT F minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT F minecraft:set_entity_data 65b90d0a0801ff
+PKT F minecraft:take_item_entity 7fb20da50d01
+PKT F minecraft:remove_entities 4e01b20d
+PKT F minecraft:take_item_entity 7fb30da60d01
+PKT F minecraft:remove_entities 4e01b30d
+PKT F minecraft:take_item_entity 7fb60da90d01
+PKT F minecraft:remove_entities 4e01b60d
+PKT F minecraft:take_item_entity 7fb70daa0d01
+PKT F minecraft:container_set_slot 140002002401a30b0000
+PKT F minecraft:remove_entities 4e01b70d
+PKT F minecraft:take_item_entity 7fb80dab0d01
+PKT F minecraft:remove_entities 4e01b80d
+PKT G minecraft:add_entity 01b20d2593668130224db69d2652e1d27191ad063fe0000000000000c04e0666666666663fe000000000000000000000a50d
+PKT G minecraft:set_entity_data 65b20d0a0801ff
+PKT G minecraft:add_entity 01b30d4a4833e255ef4b5a9ab05d9bbb3cb437064016000000000000c04e0666666666663fe00000000000000000000000
+PKT G minecraft:set_entity_data 65b30d0a0801ff
+PKT G minecraft:add_entity 01b40d69ef8225c2954c6099976576d92097a4064025000000000000c04e0666666666663fe000000000000000000000a50d
+PKT G minecraft:set_entity_data 65b40d0a0801ff
+PKT G minecraft:add_entity 01b50d3ccd2f537d4744b0a63c390c3a608a3506402f000000000000c04e0666666666663fe000000000000000000000a50d
+PKT G minecraft:set_entity_data 65b50d0a0801ff
+PKT G minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT G minecraft:set_entity_data 65b60d0a0801ff
+PKT G minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT G minecraft:set_entity_data 65b70d0a0801ff
+PKT G minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT G minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT G minecraft:add_entity 01b90d5d783184aa0141e6abdbb3425e463a91064041c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT G minecraft:set_entity_data 65b90d0a0801ff
+PKT G minecraft:add_entity 01ba0d48e8f448854e4a88b4b1a7a3ece6a690064044400000000000c04e0666666666663fe000000000000000000000a50d
+PKT G minecraft:set_entity_data 65ba0d0a0801ff
+PKT G minecraft:add_entity 01bb0de2fc94299e644b8f9497e4d712cb7388064046c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT G minecraft:set_entity_data 65bb0d0a0801ff
+PKT G minecraft:set_entity_data 65b30d0a0801ff
+PKT G minecraft:set_entity_data 65b70d0a0801ff
+PKT G minecraft:set_entity_data 65b50d0a0801ff
+PKT G minecraft:set_entity_data 65b40d0a0801ff
+PKT G minecraft:set_entity_data 65b20d0a0801ff
+PKT G minecraft:set_entity_data 65b60d0a0801ff
+PKT G minecraft:set_entity_data 65bb0d0a0801ff
+PKT G minecraft:set_entity_data 65ba0d0a0801ff
+PKT G minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT G minecraft:set_entity_data 65b90d0a0801ff
+PKT G minecraft:take_item_entity 7fb20da50d01
+PKT G minecraft:remove_entities 4e01b20d
+PKT G minecraft:take_item_entity 7fb30da60d01
+PKT G minecraft:remove_entities 4e01b30d
+PKT G minecraft:take_item_entity 7fb60da90d01
+PKT G minecraft:remove_entities 4e01b60d
+PKT G minecraft:take_item_entity 7fb70daa0d01
+PKT G minecraft:remove_entities 4e01b70d
+PKT G minecraft:take_item_entity 7fb80dab0d01
+PKT G minecraft:container_set_slot 140002002401a40b010035011c000000
+PKT G minecraft:remove_entities 4e01b80d
+PKT H minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT H minecraft:set_entity_data 65b60d0a0801ff
+PKT H minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT H minecraft:set_entity_data 65b70d0a0801ff
+PKT H minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT H minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT H minecraft:add_entity 01b90d5d783184aa0141e6abdbb3425e463a91064041c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT H minecraft:set_entity_data 65b90d0a0801ff
+PKT H minecraft:add_entity 01ba0d48e8f448854e4a88b4b1a7a3ece6a690064044400000000000c04e0666666666663fe000000000000000000000a50d
+PKT H minecraft:set_entity_data 65ba0d0a0801ff
+PKT H minecraft:add_entity 01bb0de2fc94299e644b8f9497e4d712cb7388064046c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT H minecraft:set_entity_data 65bb0d0a0801ff
+PKT H minecraft:add_entity 01bc0ddf3687254b7c42a09d811a5ed4fb930b064049400000000000c04e0666666666663fe000000000000000000000a50d
+PKT H minecraft:set_entity_data 65bc0d0a0801ff
+PKT H minecraft:add_entity 01bd0d68b0406c2d8c4fe68d93042f6e5a663e06404bc00000000000c04e0666666666663fe000000000000000000000a50d
+PKT H minecraft:set_entity_data 65bd0d0a0801ff
+PKT H minecraft:set_entity_data 65b70d0a0801ff
+PKT H minecraft:set_entity_data 65bd0d0a0801ff
+PKT H minecraft:set_entity_data 65b60d0a0801ff
+PKT H minecraft:set_entity_data 65bc0d0a0801ff
+PKT H minecraft:set_entity_data 65bb0d0a0801ff
+PKT H minecraft:set_entity_data 65ba0d0a0801ff
+PKT H minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT H minecraft:set_entity_data 65b90d0a0801ff
+PKT H minecraft:take_item_entity 7fb60da90d01
+PKT H minecraft:remove_entities 4e01b60d
+PKT H minecraft:take_item_entity 7fb70daa0d01
+PKT H minecraft:remove_entities 4e01b70d
+PKT H minecraft:take_item_entity 7fb80dab0d01
+PKT H minecraft:remove_entities 4e01b80d
+PKT H minecraft:take_item_entity 7fbc0daf0d01
+PKT H minecraft:remove_entities 4e01bc0d
+PKT H minecraft:take_item_entity 7fbd0db00d01
+PKT H minecraft:remove_entities 4e01bd0d
+PKT I minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT I minecraft:set_entity_data 65b60d0a0801ff
+PKT I minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT I minecraft:set_entity_data 65b70d0a0801ff
+PKT I minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT I minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT I minecraft:add_entity 01b90d5d783184aa0141e6abdbb3425e463a91064041c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT I minecraft:set_entity_data 65b90d0a0801ff
+PKT I minecraft:add_entity 01ba0d48e8f448854e4a88b4b1a7a3ece6a690064044400000000000c04e0666666666663fe000000000000000000000a50d
+PKT I minecraft:set_entity_data 65ba0d0a0801ff
+PKT I minecraft:add_entity 01bb0de2fc94299e644b8f9497e4d712cb7388064046c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT I minecraft:set_entity_data 65bb0d0a0801ff
+PKT I minecraft:add_entity 01bc0ddf3687254b7c42a09d811a5ed4fb930b064049400000000000c04e0666666666663fe000000000000000000000a50d
+PKT I minecraft:set_entity_data 65bc0d0a0801ff
+PKT I minecraft:add_entity 01bd0d68b0406c2d8c4fe68d93042f6e5a663e06404bc00000000000c04e0666666666663fe000000000000000000000a50d
+PKT I minecraft:set_entity_data 65bd0d0a0801ff
+PKT I minecraft:set_entity_data 65b70d0a0801ff
+PKT I minecraft:set_entity_data 65bd0d0a0801ff
+PKT I minecraft:set_entity_data 65b60d0a0801ff
+PKT I minecraft:set_entity_data 65bc0d0a0801ff
+PKT I minecraft:set_entity_data 65bb0d0a0801ff
+PKT I minecraft:set_entity_data 65ba0d0a0801ff
+PKT I minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT I minecraft:set_entity_data 65b90d0a0801ff
+PKT I minecraft:take_item_entity 7fb60da90d01
+PKT I minecraft:remove_entities 4e01b60d
+PKT I minecraft:take_item_entity 7fb70daa0d01
+PKT I minecraft:remove_entities 4e01b70d
+PKT I minecraft:take_item_entity 7fb80dab0d01
+PKT I minecraft:remove_entities 4e01b80d
+PKT I minecraft:take_item_entity 7fbc0daf0d01
+PKT I minecraft:remove_entities 4e01bc0d
+PKT I minecraft:take_item_entity 7fbd0db00d01
+PKT I minecraft:remove_entities 4e01bd0d
+PKT J minecraft:add_entity 01b60df9a0afcd251c4249804fd9025a86a061064034800000000000c04e0666666666663fe000000000000000000000a50d
+PKT J minecraft:set_entity_data 65b60d0a0801ff
+PKT J minecraft:add_entity 01b70d9f6f6543d6d543a3a7cf37033913e6c57e4039800000000000c04e0666666666663fe000000000000000000000a50d
+PKT J minecraft:set_entity_data 65b70d0a0801ff
+PKT J minecraft:add_entity 01b80dcf0c183e6a7e44a0bca06971f409875f06403e800000000000c04e0666666666663fe000000000000000000000a50d
+PKT J minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT J minecraft:add_entity 01b90d5d783184aa0141e6abdbb3425e463a91064041c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT J minecraft:set_entity_data 65b90d0a0801ff
+PKT J minecraft:add_entity 01ba0d48e8f448854e4a88b4b1a7a3ece6a690064044400000000000c04e0666666666663fe000000000000000000000a50d
+PKT J minecraft:set_entity_data 65ba0d0a0801ff
+PKT J minecraft:add_entity 01bb0de2fc94299e644b8f9497e4d712cb7388064046c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT J minecraft:set_entity_data 65bb0d0a0801ff
+PKT J minecraft:add_entity 01bc0ddf3687254b7c42a09d811a5ed4fb930b064049400000000000c04e0666666666663fe000000000000000000000a50d
+PKT J minecraft:set_entity_data 65bc0d0a0801ff
+PKT J minecraft:add_entity 01bd0d68b0406c2d8c4fe68d93042f6e5a663e06404bc00000000000c04e0666666666663fe000000000000000000000a50d
+PKT J minecraft:set_entity_data 65bd0d0a0801ff
+PKT J minecraft:set_entity_data 65b70d0a0801ff
+PKT J minecraft:set_entity_data 65bd0d0a0801ff
+PKT J minecraft:set_entity_data 65b60d0a0801ff
+PKT J minecraft:set_entity_data 65bc0d0a0801ff
+PKT J minecraft:set_entity_data 65bb0d0a0801ff
+PKT J minecraft:set_entity_data 65ba0d0a0801ff
+PKT J minecraft:set_entity_data 65b80d0a08010b01e3c69efc0fff
+PKT J minecraft:set_entity_data 65b90d0a0801ff
+PKT J minecraft:take_item_entity 7fb60da90d01
+PKT J minecraft:remove_entities 4e01b60d
+PKT J minecraft:take_item_entity 7fb70daa0d01
+PKT J minecraft:remove_entities 4e01b70d
+PKT J minecraft:take_item_entity 7fb80dab0d01
+PKT J minecraft:remove_entities 4e01b80d
+PKT J minecraft:take_item_entity 7fbc0daf0d01
+PKT J minecraft:remove_entities 4e01bc0d
+PKT J minecraft:take_item_entity 7fbd0db00d01
+PKT J minecraft:remove_entities 4e01bd0d
+PKT K minecraft:add_entity 01b90d5d783184aa0141e6abdbb3425e463a91064041c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT K minecraft:set_entity_data 65b90d0a0801ff
+PKT K minecraft:add_entity 01ba0d48e8f448854e4a88b4b1a7a3ece6a690064044400000000000c04e0666666666663fe000000000000000000000a50d
+PKT K minecraft:set_entity_data 65ba0d0a0801ff
+PKT K minecraft:add_entity 01bb0de2fc94299e644b8f9497e4d712cb7388064046c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT K minecraft:set_entity_data 65bb0d0a0801ff
+PKT K minecraft:add_entity 01bc0ddf3687254b7c42a09d811a5ed4fb930b064049400000000000c04e0666666666663fe000000000000000000000a50d
+PKT K minecraft:set_entity_data 65bc0d0a0801ff
+PKT K minecraft:add_entity 01bd0d68b0406c2d8c4fe68d93042f6e5a663e06404bc00000000000c04e0666666666663fe000000000000000000000a50d
+PKT K minecraft:set_entity_data 65bd0d0a0801ff
+PKT K minecraft:set_entity_data 65bd0d0a0801ff
+PKT K minecraft:set_entity_data 65bc0d0a0801ff
+PKT K minecraft:set_entity_data 65bb0d0a0801ff
+PKT K minecraft:set_entity_data 65ba0d0a0801ff
+PKT K minecraft:set_entity_data 65b90d0a0801ff
+PKT K minecraft:take_item_entity 7fbc0daf0d01
+PKT K minecraft:container_set_slot 140002002401f1070000
+PKT K minecraft:remove_entities 4e01bc0d
+PKT K minecraft:take_item_entity 7fbd0db00d01
+PKT K minecraft:remove_entities 4e01bd0d
+PKT L minecraft:add_entity 01b90d5d783184aa0141e6abdbb3425e463a91064041c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT L minecraft:set_entity_data 65b90d0a0801ff
+PKT L minecraft:add_entity 01ba0d48e8f448854e4a88b4b1a7a3ece6a690064044400000000000c04e0666666666663fe000000000000000000000a50d
+PKT L minecraft:set_entity_data 65ba0d0a0801ff
+PKT L minecraft:add_entity 01bb0de2fc94299e644b8f9497e4d712cb7388064046c00000000000c04e0666666666663fe000000000000000000000a50d
+PKT L minecraft:set_entity_data 65bb0d0a0801ff
+PKT L minecraft:add_entity 01bc0ddf3687254b7c42a09d811a5ed4fb930b064049400000000000c04e0666666666663fe000000000000000000000a50d
+PKT L minecraft:set_entity_data 65bc0d0a0801ff
+PKT L minecraft:add_entity 01bd0d68b0406c2d8c4fe68d93042f6e5a663e06404bc00000000000c04e0666666666663fe000000000000000000000a50d
+PKT L minecraft:set_entity_data 65bd0d0a0801ff
+PKT L minecraft:set_entity_data 65bd0d0a0801ff
+PKT L minecraft:set_entity_data 65bc0d0a0801ff
+PKT L minecraft:set_entity_data 65bb0d0a0801ff
+PKT L minecraft:set_entity_data 65ba0d0a0801ff
+PKT L minecraft:set_entity_data 65b90d0a0801ff
+PKT L minecraft:take_item_entity 7fbc0daf0d01
+PKT L minecraft:remove_entities 4e01bc0d
+PKT L minecraft:take_item_entity 7fbd0db00d01
+PKT L minecraft:container_set_slot 140002002401f1070100060800054e616d6564
+PKT L minecraft:remove_entities 4e01bd0d
+STAT A minecraft.custom:minecraft.play_time 5
+STAT A minecraft.custom:minecraft.time_since_death 5
+STAT A minecraft.custom:minecraft.time_since_rest 5
+STAT A minecraft.custom:minecraft.total_world_time 5
+STAT F minecraft.custom:minecraft.play_time 5
+STAT F minecraft.custom:minecraft.time_since_death 5
+STAT F minecraft.custom:minecraft.time_since_rest 5
+STAT F minecraft.custom:minecraft.total_world_time 5
+# the shaking arrow of H becomes pickable after its shake runs out
+E p2 minecraft:arrow pos=10.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=11 dmg=2.0
+E p3 minecraft:arrow pos=15.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0
+E p8 minecraft:arrow pos=40.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=11 dmg=2.0
+E p9 minecraft:arrow pos=45.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=11 dmg=2.0
+I H 0 minecraft:arrow*1
+E p2 minecraft:arrow pos=10.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=11 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p3 minecraft:arrow pos=15.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p8 minecraft:arrow pos=40.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=11 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p9 minecraft:arrow pos=45.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=11 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+PKT H minecraft:take_item_entity 7fb90dac0d01
+PKT H minecraft:remove_entities 4e01b90d
+# an arrow stuck in the ground three blocks from a player is not touched
+E p2 minecraft:arrow pos=10.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=14 dmg=2.0
+E p3 minecraft:arrow pos=15.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0
+E p8 minecraft:arrow pos=40.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=14 dmg=2.0
+E p9 minecraft:arrow pos=45.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=14 dmg=2.0
+E q1 minecraft:arrow pos=-20.5,-60.05,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=3 dmg=2.0
+E p2 minecraft:arrow pos=10.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=2 shake=0 life=14 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p3 minecraft:arrow pos=15.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p8 minecraft:arrow pos=40.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=14 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E p9 minecraft:arrow pos=45.5,-60.05,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=14 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E q1 minecraft:arrow pos=-20.5,-60.05,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=3 dmg=2.0 owner=- leftowner=0 shot=0 canbreak=0

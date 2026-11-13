@@ -1,0 +1,130 @@
+# D (riptide 3) launches at the cow and on at player H, F (creative) at player G, E at the zombie
+P D minecraft:player pos=24.5,-58.800000071525574,0.5 delta=0.0,-0.005,3.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=286 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
+P E minecraft:player pos=48.5,-58.800000071525574,0.5 delta=0.0,-0.005,2.25 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=286 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:2}}
+P F minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,-0.005,1.5 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1{minecraft:enchantments:{minecraft:riptide:1}}
+USE D hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE E hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE F hand=main item=empty remaining=0 ticks=0 kinetic=0
+STAT D minecraft.custom:minecraft.play_time 14
+STAT D minecraft.custom:minecraft.time_since_death 14
+STAT D minecraft.custom:minecraft.time_since_rest 14
+STAT D minecraft.custom:minecraft.total_world_time 14
+STAT D minecraft.used:minecraft.trident 1
+STAT E minecraft.custom:minecraft.play_time 14
+STAT E minecraft.custom:minecraft.time_since_death 14
+STAT E minecraft.custom:minecraft.time_since_rest 14
+STAT E minecraft.custom:minecraft.total_world_time 14
+STAT E minecraft.used:minecraft.trident 1
+EV packet at=24.5,-58.800000071525574,0.5 r=16.0 ex=0 id=minecraft:sound_entity
+EV packet at=48.5,-58.800000071525574,0.5 r=16.0 ex=0 id=minecraft:sound_entity
+EV packet at=36.5,-58.800000071525574,0.5 r=16.0 ex=0 id=minecraft:sound_entity
+E c1 minecraft:cow pos=24.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=285 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z1 minecraft:zombie pos=48.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E stand minecraft:armor_stand pos=46.5,-60.0,7.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=26.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=285 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P D minecraft:player pos=24.5,-58.805000071525576,3.5 delta=0.0,-0.009000000059604645,2.400000035762787 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=290 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
+P E minecraft:player pos=48.5,-58.805000071525576,2.75 delta=0.0,-0.009000000059604645,1.8000000268220901 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=290 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:2}}
+P F minecraft:player pos=36.5,-58.805000071525576,2.0 delta=0.0,-0.009000000059604645,1.2000000178813934 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1{minecraft:enchantments:{minecraft:riptide:1}}
+P G minecraft:player pos=36.5,-60.0,6.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=285 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P H minecraft:player pos=24.5,-60.0,12.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=285 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:cow pos=24.5,-60.0,5.5 delta=0.0,0.0,-0.43162278444701263 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=284 alive=1 pose=standing hp=4.329561 abs=0.0 hurt=10/20 death=0 fx=-
+E z1 minecraft:zombie pos=48.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E stand minecraft:armor_stand pos=46.5,-60.0,7.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=26.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=284 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P D minecraft:player pos=24.5,-58.814000071585184,5.900000035762787 delta=0.0,0.0024400000309944157,-0.35237723295754375 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=289 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:3}}
+P E minecraft:player pos=48.5,-58.814000071585184,4.55000002682209 delta=0.0,-0.012200000154972078,1.4400000429153446 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=289 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:2}}
+P F minecraft:player pos=36.5,-58.814000071585184,3.2000000178813934 delta=0.0,-0.012200000154972078,0.9600000286102297 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1{minecraft:enchantments:{minecraft:riptide:1}}
+P G minecraft:player pos=36.5,-60.0,6.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=284 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P H minecraft:player pos=24.5,-60.0,12.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=284 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:cow pos=24.5,-60.0,5.5 delta=0.0,0.0,-0.4720824682948406 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=282 alive=1 pose=standing hp=4.329561 abs=0.0 hurt=8/18 death=0 fx=-
+E z1 minecraft:zombie pos=48.5,-60.0,5.5 delta=0.0,0.0,-0.4826821743037757 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=13.848781 abs=0.0 hurt=9/19 death=0 fx=-
+E stand minecraft:armor_stand pos=46.5,-60.0,7.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=26.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=282 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P D minecraft:player pos=24.5,-58.81900007158519,5.3507926060082545 delta=0.0,-0.009000000059604645,-0.20207606970587208 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=297 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:3}}
+P E minecraft:player pos=48.5,-58.82620007174015,5.8296000654620785 delta=0.0,-0.005,-0.09961460186524426 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=292 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:2}}
+P F minecraft:player pos=36.5,-58.840960072009565,4.9280000808238995 delta=0.0,-0.016808000391483315,0.6144000366210945 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1{minecraft:enchantments:{minecraft:riptide:1}}
+P G minecraft:player pos=36.5,-60.0,6.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=282 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P H minecraft:player pos=24.5,-60.0,12.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=282 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I D 0 minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:3}}
+I E 0 minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:2}}
+E c1 minecraft:cow pos=24.5,-60.0,5.5 delta=0.0,0.0,-0.3138801887479564 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=262 alive=1 pose=standing hp=4.329561 abs=0.0 hurt=0/0 death=0 fx=-
+E z1 minecraft:zombie pos=48.5,-60.0,5.5 delta=0.0,0.0,-0.8020125363102184 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=13.848781 abs=0.0 hurt=0/0 death=0 fx=-
+E stand minecraft:armor_stand pos=46.5,-60.0,7.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=26.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=262 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P D minecraft:player pos=24.5,-59.2399224270826,3.573576326607677 delta=0.0,-0.024815533977910847,-0.004835114558710086 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:3}}
+P E minecraft:player pos=48.5,-59.22735301013427,6.896394205441934 delta=0.0,-0.024769417103295478,0.006356944862404938 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:2}}
+P F minecraft:player pos=36.5,-59.17507781003496,5.3065576672691765 delta=0.0,-0.024437051360534104,-0.0026686746681601967 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1{minecraft:enchantments:{minecraft:riptide:1}}
+P G minecraft:player pos=36.5,-60.0,6.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=262 alive=1 pose=standing hp=12.833333 abs=0.0 hurt=0/2 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+P H minecraft:player pos=24.5,-60.0,12.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=262 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+USE D hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE E hand=main item=empty remaining=0 ticks=0 kinetic=0
+USE F hand=main item=empty remaining=0 ticks=0 kinetic=0
+STAT D minecraft.custom:minecraft.damage_dealt 57
+STAT D minecraft.custom:minecraft.play_time 38
+STAT D minecraft.custom:minecraft.time_since_death 38
+STAT D minecraft.custom:minecraft.time_since_rest 38
+STAT D minecraft.custom:minecraft.total_world_time 38
+STAT D minecraft.used:minecraft.trident 2
+STAT E minecraft.custom:minecraft.damage_dealt 62
+STAT E minecraft.custom:minecraft.play_time 38
+STAT E minecraft.custom:minecraft.time_since_death 38
+STAT E minecraft.custom:minecraft.time_since_rest 38
+STAT E minecraft.custom:minecraft.total_world_time 38
+STAT E minecraft.used:minecraft.trident 2
+STAT F minecraft.custom:minecraft.damage_dealt 80
+STAT F minecraft.custom:minecraft.play_time 38
+STAT F minecraft.custom:minecraft.time_since_death 38
+STAT F minecraft.custom:minecraft.time_since_rest 38
+STAT F minecraft.custom:minecraft.total_world_time 38
+STAT F minecraft.used:minecraft.trident 2
+I D 0 minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:3}}
+I E 0 minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:2}}
+EV sound at=24.5,-58.805000071525576,3.5 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.46957755 pitch=0.839733
+EV sound at=48.5,-58.805000071525576,2.75 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.35218504 pitch=1.2327095
+EV sound at=24.5,-58.814000071585184,5.900000035762787 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.37567264 pitch=0.7618031
+EV sound at=24.5,-60.0,5.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0072489
+EV sound at=24.5,-58.814000071585184,5.900000035762787 r=16.0 ex=0 event=minecraft:entity.player.attack.weak source=player vol=1.0 pitch=1.0
+EV sound at=36.5,-58.814000071585184,3.2000000178813934 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.18785612 pitch=1.1462024
+EV sound at=48.5,-58.814000071585184,4.55000002682209 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.28176218 pitch=1.0805316
+EV sound at=36.5,-58.82620007174015,4.160000046491623 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.15032443 pitch=0.98208034
+EV sound at=48.5,-58.82620007174015,5.990000069737435 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.2254361 pitch=0.876165
+EV sound at=48.5,-60.0,5.5 r=16.0 ex=0 event=minecraft:entity.zombie.hurt source=hostile vol=1.0 pitch=1.045516
+EV sound at=48.5,-58.82620007174015,5.990000069737435 r=16.0 ex=0 event=minecraft:entity.player.attack.weak source=player vol=1.0 pitch=1.0
+EV sound at=36.5,-58.85776807240105,5.542400117444994 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.09634858 pitch=1.0807145
+EV sound at=36.5,-60.0,6.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=36.5,-58.876214472914604,6.033920154066089 r=16.0 ex=0 event=minecraft:entity.player.attack.strong source=player vol=1.0 pitch=1.0
+EV sound at=24.5,-58.854960072069176,4.623011646354546 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.042328097 pitch=1.1252593
+EV sound at=26.5,-60.0,11.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=1.138857
+EV sound at=48.5,-59.03307202603451,6.738727222750481 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.011016393 pitch=0.95205456
+PKT G minecraft:sound 77ae0a07000000c4fffffe2a0000001c3ef06c783f56f8be4b970fd5e0db99e1
+PKT G minecraft:sound 77ae0a0700000184fffffe2a000000163eb451993f9dc96de8168c54d2216418
+PKT G minecraft:sound 77ae0a07000000c4fffffe2a0000002f3ec0582a3f430587a3981763e0103683
+PKT G minecraft:sound 77c40306000000c4fffffe200000002c3ecccccd3f80ed88a1a24ca263725fe3
+PKT G minecraft:sound 77a00a07000000c4fffffe2a0000002f3f8000003f80000029a8e9b76b35b192
+PKT G minecraft:sound 77ae0a0700000124fffffe2a000000193e405d5b3f92b6c3ec866a92984bf066
+PKT G minecraft:sound 77ae0a0700000184fffffe2a000000243e9043223f8a4edc5ac3b5cd447e2ff6
+PKT G minecraft:sound 77ae0a0700000124fffffe2a000000213e19eea63f7b699e5ae586ec5969c658
+PKT G minecraft:sound 77ae0a0700000184fffffe2a0000002f3e66d8b93f604c59d55fad91ece1d6ce
+PKT G minecraft:sound 77de0e0500000184fffffe200000002c3f8000003f85d378d8bde3e82cd7dc02
+PKT G minecraft:sound 77a00a0700000184fffffe2a0000002f3f8000003f8000003b8fbbb9f9feaeb8
+PKT G minecraft:sound 77ae0a0700000124fffffe2a0000002c3dc552683f8a54dadd1c412737275425
+PKT G minecraft:damage_event 19e51222e412e41200
+PKT G minecraft:hurt_animation 2be512c2b3ffff
+PKT G minecraft:set_entity_motion 67e512f9ffb33165bd
+PKT G minecraft:sound 779e0a0700000124fffffe29000000303f8000003f800000c80c02e739d7e31b
+PKT G minecraft:set_health 6a414000001440a00000
+PKT G minecraft:sound 77ae0a07000000c4fffffe2a000000243d2d603a3f90087f9f4d398f7d66aef4
+PKT G minecraft:sound 77c70306000000d4fffffe200000005c3ecccccd3f91c61127061872648c263b
+PKT G minecraft:set_health 6a414d55551440a00000
+PKT G minecraft:sound 77ae0a0700000184fffffe28000000353c347e1a3f73b9d9e86338715c8952d1
+PKT H minecraft:sound 77ae0a07000000c4fffffe2a0000001c3ef06c783f56f8be4b970fd5e0db99e1
+PKT H minecraft:sound 77ae0a07000000c4fffffe2a0000002f3ec0582a3f430587a3981763e0103683
+PKT H minecraft:sound 77c40306000000c4fffffe200000002c3ecccccd3f80ed88a1a24ca263725fe3
+PKT H minecraft:sound 77a00a07000000c4fffffe2a0000002f3f8000003f80000029a8e9b76b35b192
+PKT H minecraft:sound 77ae0a0700000124fffffe2a000000193e405d5b3f92b6c3ec866a92984bf066
+PKT H minecraft:sound 77ae0a0700000124fffffe2a000000213e19eea63f7b699e5ae586ec5969c658
+PKT H minecraft:sound 77ae0a0700000124fffffe2a0000002c3dc552683f8a54dadd1c412737275425
+PKT H minecraft:sound 77a50a0700000124fffffe20000000343f8000003f80000068f642d08afcf74f
+PKT H minecraft:sound 779e0a0700000124fffffe29000000303f8000003f800000c80c02e739d7e31b
+PKT H minecraft:sound 77ae0a07000000c4fffffe2a000000243d2d603a3f90087f9f4d398f7d66aef4
+PKT H minecraft:sound 77c70306000000d4fffffe200000005c3ecccccd3f91c61127061872648c263b

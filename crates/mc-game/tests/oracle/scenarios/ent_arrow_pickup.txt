@@ -1,0 +1,98 @@
+# Arrow pickup: an arrow stuck in the ground goes to the inventory of a survival player when pickup is allowed (also when it has
+# no owner, a tipped arrow keeps its potion), only creative players can take a creative-only arrow (nothing is added), a
+# disallowed arrow stays, an arrow that still shakes cannot be taken yet, a full inventory leaves the arrow, spectators and
+# adventure players: pickup packets and inventories.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 1700
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 5.5 -60 0.5 0 0
+spawn_player C survival 10.5 -60 0.5 0 0
+spawn_player D survival 15.5 -60 0.5 0 0
+spawn_player E creative 20.5 -60 0.5 0 0
+spawn_player F creative 25.5 -60 0.5 0 0
+spawn_player G survival 30.5 -60 0.5 0 0
+spawn_player H survival 35.5 -60 0.5 0 0
+spawn_player I survival 40.5 -60 0.5 0 0
+spawn_player J spectator 45.5 -60 0.5 0 0
+spawn_player K adventure 50.5 -60 0.5 0 0
+spawn_player L survival 55.5 -60 0.5 0 0
+spawn_player O survival -20.5 -60 0.5 0 0
+give I hotbar0 minecraft:stone 64
+give I hotbar1 minecraft:stone 64
+give I hotbar2 minecraft:stone 64
+give I hotbar3 minecraft:stone 64
+give I hotbar4 minecraft:stone 64
+give I hotbar5 minecraft:stone 64
+give I hotbar6 minecraft:stone 64
+give I hotbar7 minecraft:stone 64
+give I hotbar8 minecraft:stone 64
+give I inv9 minecraft:stone 64
+give I inv10 minecraft:stone 64
+give I inv11 minecraft:stone 64
+give I inv12 minecraft:stone 64
+give I inv13 minecraft:stone 64
+give I inv14 minecraft:stone 64
+give I inv15 minecraft:stone 64
+give I inv16 minecraft:stone 64
+give I inv17 minecraft:stone 64
+give I inv18 minecraft:stone 64
+give I inv19 minecraft:stone 64
+give I inv20 minecraft:stone 64
+give I inv21 minecraft:stone 64
+give I inv22 minecraft:stone 64
+give I inv23 minecraft:stone 64
+give I inv24 minecraft:stone 64
+give I inv25 minecraft:stone 64
+give I inv26 minecraft:stone 64
+give I inv27 minecraft:stone 64
+give I inv28 minecraft:stone 64
+give I inv29 minecraft:stone 64
+give I inv30 minecraft:stone 64
+give I inv31 minecraft:stone 64
+give I inv32 minecraft:stone 64
+give I inv33 minecraft:stone 64
+give I inv34 minecraft:stone 64
+give I inv35 minecraft:stone 64
+give I offhand minecraft:stone 64
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none packets:F:none packets:G:none packets:H:none packets:I:none packets:J:none packets:K:none packets:L:none
+note arrows at the feet of A..L, stuck in the ground (the arrow is inside the grass block)
+spawn p0 minecraft:arrow 0.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:1b}
+entity_seed p0 11
+spawn p1 minecraft:arrow 5.5 -60.05 0.5 0 0 {inGround:1b,pickup:1b}
+entity_seed p1 12
+spawn p2 minecraft:arrow 10.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:2b}
+entity_seed p2 13
+spawn p3 minecraft:arrow 15.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:0b}
+entity_seed p3 14
+spawn p4 minecraft:arrow 20.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:2b}
+entity_seed p4 15
+spawn p5 minecraft:spectral_arrow 25.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:1b}
+entity_seed p5 16
+spawn p6 minecraft:arrow 30.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:poison"}}}}
+entity_seed p6 17
+spawn p7 minecraft:arrow 35.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:1b,shake:7b}
+entity_seed p7 18
+spawn p8 minecraft:arrow 40.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:1b}
+entity_seed p8 19
+spawn p9 minecraft:arrow 45.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:1b}
+entity_seed p9 20
+spawn p10 minecraft:arrow 50.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:1b}
+entity_seed p10 21
+spawn p11 minecraft:arrow 55.5 -60.05 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],inGround:1b,pickup:1b,item:{id:"minecraft:arrow",count:1,components:{"minecraft:custom_name":"Named"}}}
+entity_seed p11 22
+dump xentities edata:p0 nbt:p6
+tick 3
+dump entities inventory:A inventory:B inventory:C inventory:D inventory:E inventory:F inventory:G inventory:H inventory:J inventory:K inventory:L xentities packets:A:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:B:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:C:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:D:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:E:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:F:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:G:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:H:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:I:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:J:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:K:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory packets:L:take_item_entity,remove_entities,add_entity,set_entity_data,container_set_slot,set_player_inventory stats:A stats:F
+note the shaking arrow of H becomes pickable after its shake runs out
+tick 8
+dump entities inventory:H xentities packets:H:take_item_entity,remove_entities
+note an arrow stuck in the ground three blocks from a player is not touched
+spawn q1 minecraft:arrow -20.5 -60.05 3.5 0 0 {inGround:1b,pickup:1b}
+entity_seed q1 40
+tick 3
+dump entities inventory:O xentities

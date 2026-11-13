@@ -1,0 +1,56 @@
+# Riptide hits: a player launched by a riptide trident hurts the mobs and players it touches during the spin attack (damage, knockback,
+# the push back of the attacker), a creative player included, an armor stand as a target; stats, sounds and the victims' packets.
+command_env
+level flat
+preload 3
+difficulty normal
+level_seed 5
+entity_counter 2400
+fill 21 -61 -4 28 -58 14 minecraft:glass
+fill 22 -60 -3 27 -58 13 minecraft:air
+fill 22 -60 -3 27 -59 13 minecraft:water
+fill 33 -61 -4 40 -58 14 minecraft:glass
+fill 34 -60 -3 39 -58 13 minecraft:air
+fill 34 -60 -3 39 -59 13 minecraft:water
+fill 45 -61 -4 52 -58 14 minecraft:glass
+fill 46 -60 -3 51 -58 13 minecraft:air
+fill 46 -60 -3 51 -59 13 minecraft:water
+spawn_player O survival 0.5 -60 0.5 0 0
+spawn_player D survival 24.5 -60 0.5 0 0 sim
+spawn_player F creative 36.5 -60 0.5 0 0 sim
+spawn_player E survival 48.5 -60 0.5 0 0 sim
+spawn_player G survival 36.5 -60 6.5 0 0
+spawn_player H survival 24.5 -60 12.5 0 0
+give D hotbar0 minecraft:trident[enchantments={"minecraft:riptide":3}]
+give F hotbar0 minecraft:trident[enchantments={"minecraft:riptide":1}]
+give E hotbar0 minecraft:trident[enchantments={"minecraft:riptide":2}]
+mobspawn c1 minecraft:cow 24.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c1 1
+mobspawn z1 minecraft:zombie 48.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed z1 2
+spawn stand minecraft:armor_stand 46.5 -60 7.5 0 0
+entity_seed stand 3
+mobspawn c2 minecraft:cow 26.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c2 4
+tick 2
+dump packets:D:none packets:E:none packets:F:none packets:G:none packets:H:none packets:O:none
+note D (riptide 3) launches at the cow and on at player H, F (creative) at player G, E at the zombie
+use D main 1
+use E main 1
+use F main 1
+tick 12
+level_seed 101
+release D 1
+level_seed 102
+release E 1
+level_seed 103
+release F 1
+dump player:D player:E player:F use:D use:E use:F stats:D stats:E events
+tick 1
+dump entities player:D player:E player:F player:G player:H
+tick 1
+dump entities player:D player:E player:F player:G player:H
+tick 2
+dump entities player:D player:E player:F player:G player:H inventory:D inventory:E
+tick 20
+dump entities player:D player:E player:F player:G player:H use:D use:E use:F stats:D stats:E stats:F inventory:D inventory:E events packets:G:damage_event,hurt_animation,entity_event,sound,set_health,set_entity_motion packets:H:damage_event,hurt_animation,entity_event,sound,set_health,set_entity_motion packets:O:damage_event,hurt_animation,entity_event,sound,set_entity_motion,remove_entities

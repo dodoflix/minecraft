@@ -1,0 +1,64 @@
+# Arrows against everything else they can meet: an invulnerable cow (the arrow bounces off), a boat, an item frame and a painting on a
+# wall, an armor stand with armor, a baby mob, a mob wearing armor, the owner itself when its own arrow falls back on it, and a
+# player in creative mode shooting a mob.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 2700
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player C creative 50.5 -60 0.5 0 0
+spawn_player B survival 26.5 -60 0.5 0 0
+fill 16 -60 12 24 -58 12 minecraft:stone
+
+mobspawn c1 minecraft:cow 4.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,Invulnerable:1b}
+entity_seed c1 1
+spawn boat minecraft:oak_boat 8.5 -60 8.5 0 0
+entity_seed boat 2
+spawn frame minecraft:item_frame 16.5 -59.5 11.5 0 0 {Facing:2b,Item:{id:"minecraft:stick",count:1}}
+entity_seed frame 3
+spawn painting minecraft:painting 20.5 -59.5 11.5 0 0 {facing:2b,variant:"minecraft:kebab"}
+entity_seed painting 4
+spawn stand minecraft:armor_stand 24.5 -60 8.5 0 0 {ArmorItems:[{id:"minecraft:iron_boots",count:1},{id:"minecraft:iron_leggings",count:1},{id:"minecraft:iron_chestplate",count:1},{id:"minecraft:iron_helmet",count:1}]}
+entity_seed stand 5
+mobspawn baby minecraft:cow 28.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+entity_seed baby 6
+mobspawn z1 minecraft:zombie 32.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:diamond_chestplate",count:1}}}
+entity_seed z1 7
+mobspawn c2 minecraft:cow 44.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c2 8
+tick 2
+dump packets:A:none packets:B:none packets:C:none
+spawn a1 minecraft:arrow 4.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a1 901
+velocity a1 0 0 2.5
+spawn a2 minecraft:arrow 8.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a2 902
+velocity a2 0 0 2.5
+spawn a4 minecraft:arrow 16.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a4 903
+velocity a4 0 0 2.5
+spawn a5 minecraft:arrow 20.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a5 904
+velocity a5 0 0 2.5
+spawn a6 minecraft:arrow 24.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a6 905
+velocity a6 0 0 2.5
+spawn a7 minecraft:arrow 28.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a7 906
+velocity a7 0 0 2.5
+spawn a8 minecraft:arrow 32.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a8 907
+velocity a8 0 0 2.5
+spawn a9 minecraft:arrow 0.5 -59.0 0.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,HasBeenShot:1b}
+entity_seed a9 908
+velocity a9 0 1.5 0
+spawn a10 minecraft:arrow 44.5 -59.5 2.5 0 0 {Owner:[I;407689464,1828073685,-2048753337,-1664646821],pickup:1b}
+entity_seed a10 909
+velocity a10 0 0 2.5
+level_seed 7
+tick 4
+dump entities player:A advancements:A packets:A:game_event,damage_event,hurt_animation packets:B:damage_event,hurt_animation,entity_event,set_entity_data,remove_entities,add_entity,sound
+tick 70
+dump entities player:A xentities packets:A:game_event,damage_event,hurt_animation

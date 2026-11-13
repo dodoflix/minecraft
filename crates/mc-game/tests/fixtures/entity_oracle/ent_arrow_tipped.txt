@@ -1,0 +1,86 @@
+ED a1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:0:00 10:8:00 11:1:eacaa5fd0f
+ED a4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:0:00 10:8:00 11:1:8080fc07
+ED a6 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:0:00 10:8:00
+ED a9 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:0:00 10:8:00 11:1:ff01
+N a4 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.0d,0.0d,2.5d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PierceLevel:0b,PortalCooldown:0,Pos:[16.5d,-59.5d,2.5d],Rotation:[0.0f,0.0f],SoundEvent:"minecraft:entity.arrow.hit",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{components:{minecraft:potion_contents:{custom_color:16711680,custom_effects:[{amplifier:2b,duration:400,id:"minecraft:speed",show_icon:1b},{duration:80,id:"minecraft:levitation",show_icon:1b}]}},count:1,id:"minecraft:tipped_arrow"},life:0s,pickup:1b,shake:0b}
+E c2 minecraft:cow pos=8.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=9/19 death=0 fx=-
+E c3 minecraft:cow pos=12.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:slowness/0/599
+E c4 minecraft:cow pos=16.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:levitation/0/9;minecraft:speed/2/49
+E c5 minecraft:cow pos=20.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:night_vision/0/449
+E c6 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:glowing/0/99
+E c7 minecraft:cow pos=28.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:glowing/0/199
+E c8 minecraft:cow pos=32.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E c9 minecraft:cow pos=36.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E c10 minecraft:cow pos=40.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/0/1994
+E item#1 minecraft:item pos=44.421114773389526,-59.84,8.440226481861721 delta=-0.07730752358287853,0.1568000030517578,-0.05857804891560315 rot=108.005646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=1 pickup=9 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=44.665990293220105,-59.88467567096827,8.584099059402716 delta=0.16267049052171823,0.11301784465073433,0.08241707981872443 rot=340.6177,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
+E item#2 minecraft:item pos=4.5,-60.0,8.5 delta=-0.05123886581463386,0.2,-0.0010393372377592164 rot=185.22737,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=0 pickup=10 health=5 owner=- thrower=-
+E experience_orb#2 minecraft:experience_orb pos=4.5,-60.0,8.5 delta=0.05331224124906486,0.1822385491264639,0.17727320853763812 rot=357.15927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=4.5,-60.0,8.5 delta=0.12008998370616797,0.31239683778648986,0.02484516031213993 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+ADV A minecraft:adventure/root killed_something
+ADV A minecraft:adventure/shoot_arrow shot_arrow
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT B minecraft:set_entity_data 65d2130b01eacaa5fd0fff
+PKT B minecraft:set_entity_data 65d3130b01a3c8e0ff0fff
+PKT B minecraft:set_entity_data 65d4130b01e0dfaefc0fff
+PKT B minecraft:set_entity_data 65d5130b018080fc07ff
+PKT B minecraft:set_entity_data 65d6130b01e8b0c6fd0fff
+PKT B minecraft:set_entity_data 65d9130b01c6bbe1f90fff
+PKT B minecraft:set_entity_data 65da130b01ff01ff
+PKT B minecraft:set_entity_data 65db130b01e3c69efc0fff
+PKT B minecraft:set_entity_data 65dc130b01eacaa5fd0fff
+PKT B minecraft:set_entity_data 65d9130b01c6bbe1f90fff
+PKT B minecraft:set_entity_data 65d3130b01a3c8e0ff0fff
+PKT B minecraft:set_entity_data 65da130b01ff01ff
+PKT B minecraft:set_entity_data 65d4130b01e0dfaefc0fff
+PKT B minecraft:set_entity_data 65d2130b01eacaa5fd0fff
+PKT B minecraft:set_entity_data 65dc130b01eacaa5fd0fff
+PKT B minecraft:set_entity_data 65d5130b018080fc07ff
+PKT B minecraft:set_entity_data 65d6130b01e8b0c6fd0fff
+PKT B minecraft:set_entity_data 65db130b01e3c69efc0fff
+PKT B minecraft:remove_entities 4e01d213
+PKT B minecraft:remove_entities 4e01d313
+PKT B minecraft:sound 77560600000064fffffe24000000403f8000003f93dbd2a1a24ca263725fe3
+PKT B minecraft:remove_entities 4e01d413
+PKT B minecraft:sound 77c4030600000084fffffe20000000443ecccccd3f685b8629a8e9b76b35b192
+PKT B minecraft:sound 77560600000084fffffe24000000403f8000003f93f3fdec866a92984bf066
+PKT B minecraft:remove_entities 4e01d513
+PKT B minecraft:sound 77c80306000000a4fffffe20000000443ecccccd3f8c5e4a5ac3b5cd447e2ff6
+PKT B minecraft:sound 775606000000a4fffffe24000000403f8000003f93f4a45ae586ec5969c658
+PKT B minecraft:remove_entities 4e01d613
+PKT B minecraft:sound 77c40306000000c4fffffe20000000443ecccccd3f909981d55fad91ece1d6ce
+PKT B minecraft:sound 775606000000c4fffffe24000000403f8000003f93f2aed8bde3e82cd7dc02
+PKT B minecraft:remove_entities 4e01d713
+PKT B minecraft:sound 77c80306000000e4fffffe20000000443ecccccd3f6b2dab3b8fbbb9f9feaeb8
+PKT B minecraft:sound 775606000000e4fffffe24000000403f8000003f93f355dd1c412737275425
+PKT B minecraft:remove_entities 4e01d813
+PKT B minecraft:sound 77c4030600000104fffffe20000000443ecccccd3f5d12f268f642d08afcf74f
+PKT B minecraft:sound 77560600000104fffffe24000000403f8000003f93f69ac80c02e739d7e31b
+PKT B minecraft:remove_entities 4e01d913
+PKT B minecraft:sound 77c8030600000124fffffe20000000443ecccccd3f86ba009f4d398f7d66aef4
+PKT B minecraft:sound 77560600000124fffffe24000000403f8000003f93f74127061872648c263b
+PKT B minecraft:remove_entities 4e01da13
+PKT B minecraft:sound 77560600000144fffffe24000000403f8000003f93f54be86338715c8952d1
+PKT B minecraft:remove_entities 4e01db13
+PKT B minecraft:set_entity_data 65dd13080701ec090000ff
+PKT B minecraft:set_entity_data 65de13080103ff
+PKT B minecraft:remove_entities 4e01dc13
+PKT B minecraft:set_entity_data 65dd13080701ec090000ff
+PKT B minecraft:set_entity_data 65de13080103ff
+PKT B minecraft:set_entity_data 65df13080702ec090000ff
+PKT B minecraft:set_entity_data 65e013080101ff
+PKT B minecraft:set_entity_data 65e113080101ff
+E c2 minecraft:cow pos=8.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3 minecraft:cow pos=12.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:slowness/0/569
+E c4 minecraft:cow pos=16.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/2/19
+E c5 minecraft:cow pos=20.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:night_vision/0/419
+E c6 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/69
+E c7 minecraft:cow pos=28.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/169
+E c8 minecraft:cow pos=32.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c9 minecraft:cow pos=36.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c10 minecraft:cow pos=40.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/0/1964
+E item#1 minecraft:item pos=43.748948745700645,-60.0,7.930907690823824 delta=-1.9496444502457218E-4,0.0,-1.4772995263791078E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=31 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=46.23722646484059,-60.0,9.380166597867678 delta=1.9465622566617733E-6,0.0,9.862266743333549E-7 rot=340.6177,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=31 health=5
+E item#2 minecraft:item pos=4.012746135020469,-60.0,8.490116465732331 delta=-3.662726653855226E-4,-0.04,-7.429532528797159E-6 rot=185.22737,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=30 pickup=0 health=5 owner=- thrower=-
+E experience_orb#2 minecraft:experience_orb pos=5.141420106593798,-60.0,10.632842245090018 delta=2.953470285740572E-6,0.0,9.820843048555757E-6 rot=357.15927,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=30 health=5
+E experience_orb#3 minecraft:experience_orb pos=6.77494121991361,-60.0,8.970657731520252 delta=0.003056307336034039,0.0,6.323128989069466E-4 rot=198.11224,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=30 health=5

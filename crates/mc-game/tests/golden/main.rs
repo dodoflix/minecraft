@@ -81,6 +81,7 @@ mod display_math_golden;
 mod enchant_anvil_golden;
 mod enchant_golden;
 mod ent_aec_golden;
+mod ent_arrow_trident_golden;
 mod ent_displays_golden;
 mod ent_dump_golden;
 mod ent_end_crystal_golden;

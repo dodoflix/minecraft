@@ -1,0 +1,64 @@
+# ground arrows: 5 ticks before 1200, 600 (nothing yet), a trident without loyalty, a loyal trident the owner may pick up
+# an arrow inside the air starts falling at once, one in the air does not age
+T 3
+E d1 minecraft:arrow pos=30.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1196 dmg=2.0
+E d2 minecraft:arrow pos=32.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=601 dmg=2.0
+E d3 minecraft:trident pos=34.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1196 dmg=2.0
+E d4 minecraft:trident pos=36.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1195 dmg=2.0
+E d5 minecraft:trident pos=38.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1196 dmg=2.0
+E f1 minecraft:arrow pos=42.5,-57.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E f2 minecraft:arrow pos=44.5,-57.0,20.8 delta=0.0,-0.05,0.29700000286102296 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=50 dmg=2.0
+T 4
+E d1 minecraft:arrow pos=30.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1197 dmg=2.0
+E d2 minecraft:arrow pos=32.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=602 dmg=2.0
+E d3 minecraft:trident pos=34.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1197 dmg=2.0
+E d4 minecraft:trident pos=36.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1195 dmg=2.0
+E d5 minecraft:trident pos=38.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1197 dmg=2.0
+E f1 minecraft:arrow pos=42.5,-57.0,20.5 delta=0.0,-0.05,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E f2 minecraft:arrow pos=44.5,-57.05,21.097000002861023 delta=0.0,-0.09950000047683716,0.29403000566482546 rot=0.0,-1.9112023 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=50 dmg=2.0
+T 5
+E d1 minecraft:arrow pos=30.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1198 dmg=2.0
+E d2 minecraft:arrow pos=32.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=603 dmg=2.0
+E d3 minecraft:trident pos=34.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1198 dmg=2.0
+E d4 minecraft:trident pos=36.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1195 dmg=2.0
+E d5 minecraft:trident pos=38.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1198 dmg=2.0
+E f1 minecraft:arrow pos=42.5,-57.05,20.5 delta=0.0,-0.09950000047683716,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E f2 minecraft:arrow pos=44.5,-57.149500000476834,21.39103000852585 delta=0.0,-0.14850500142097472,0.29108970841226584 rot=0.0,-5.2681303 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=50 dmg=2.0
+T 6
+E d1 minecraft:arrow pos=30.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1199 dmg=2.0
+E d2 minecraft:arrow pos=32.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=604 dmg=2.0
+E d3 minecraft:trident pos=34.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1199 dmg=2.0
+E d4 minecraft:trident pos=36.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1195 dmg=2.0
+E d5 minecraft:trident pos=38.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1199 dmg=2.0
+E f1 minecraft:arrow pos=42.5,-57.149500000476834,20.5 delta=0.0,-0.14850500142097472,0.0 rot=0.0,-32.399998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E f2 minecraft:arrow pos=44.5,-57.298005001897806,21.682119716938114 delta=0.0,-0.19701995282301904,0.28817881410419094 rot=0.0,-9.620334 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=50 dmg=2.0
+T 7
+E d2 minecraft:arrow pos=32.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=605 dmg=2.0
+E d4 minecraft:trident pos=36.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1195 dmg=2.0
+E f1 minecraft:arrow pos=42.5,-57.298005001897806,20.5 delta=0.0,-0.19701995282301904,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E f2 minecraft:arrow pos=44.5,-57.495024954720826,21.970298531042307 delta=0.0,-0.24504975517371752,0.28529702871143636 rot=0.0,-14.568123 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=50 dmg=2.0
+T 8
+E d2 minecraft:arrow pos=32.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=606 dmg=2.0
+E d4 minecraft:trident pos=36.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1195 dmg=2.0
+E f1 minecraft:arrow pos=42.5,-57.495024954720826,20.5 delta=0.0,-0.24504975517371752,0.0 rot=0.0,-53.135998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E f2 minecraft:arrow pos=44.5,-57.74007470989454,22.255595559753743 delta=0.0,-0.2925992599589569,0.2824440611451265 rot=0.0,-19.786556 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=50 dmg=2.0
+T 9
+E d2 minecraft:arrow pos=32.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=607 dmg=2.0
+E d4 minecraft:trident pos=36.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1195 dmg=2.0
+E f1 minecraft:arrow pos=42.5,-57.74007470989454,20.5 delta=0.0,-0.2925992599589569,0.0 rot=0.0,-60.508797 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E f2 minecraft:arrow pos=44.5,-58.0326739698535,22.53803962089887 delta=0.0,-0.3396732701498113,0.2796196232272717 rot=0.0,-25.031675 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=50 dmg=2.0
+T 10
+E d2 minecraft:arrow pos=32.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=608 dmg=2.0
+E d4 minecraft:trident pos=36.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1195 dmg=2.0
+E f1 minecraft:arrow pos=42.5,-58.0326739698535,20.5 delta=0.0,-0.3396732701498113,0.0 rot=0.0,-66.407036 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E f2 minecraft:arrow pos=44.5,-58.37234724000331,22.817659244126144 delta=0.0,-0.3862765406876899,0.2768234296616595 rot=0.0,-30.133076 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=50 dmg=2.0
+# an arrow shot at a stone wall sticks; the block is mined, the arrow falls
+E w1 minecraft:arrow pos=15.5,-58.60407621303688,9.949999999254942 delta=0.0,0.0,0.0 rot=0.0,-1.2208545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=5 life=2 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
+N w1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PierceLevel:0b,PortalCooldown:0,Pos:[15.5d,-58.60407621303688d,9.949999999254942d],Rotation:[0.0f,-1.2208545f],SoundEvent:"minecraft:entity.arrow.hit",crit:0b,damage:2.0d,fall_distance:0.0d,inBlockState:"minecraft:stone",inGround:1b,item:{count:1,id:"minecraft:arrow"},life:2s,pickup:1b,shake:5b}
+E w1 minecraft:arrow pos=15.5,-58.60407621303688,9.949999999254942 delta=0.0,0.0,0.0 rot=0.0,-1.2208545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=4 life=0 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
+E w1 minecraft:arrow pos=15.5,-59.09910116775771,9.949999999254942 delta=0.0,-0.24504975517371752,0.0 rot=0.0,-53.536045 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
+E d2 minecraft:arrow pos=32.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=620 dmg=2.0
+E d4 minecraft:trident pos=36.5,-60.05,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=1195 dmg=2.0
+E f1 minecraft:arrow pos=42.5,-59.94999999925494,20.5 delta=0.0,0.0,0.0 rot=0.0,-82.26905 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0
+E f2 minecraft:arrow pos=44.5,-59.94999999925494,23.759681382758778 delta=0.0,0.0,0.0 rot=0.0,-47.521446 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=58 dmg=2.0
+E w1 minecraft:arrow pos=15.5,-59.09910116775771,9.949999999254942 delta=0.0,-0.24504975517371752,0.0 rot=0.0,-53.536045 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0

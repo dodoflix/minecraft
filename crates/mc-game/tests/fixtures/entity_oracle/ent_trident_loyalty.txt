@@ -1,0 +1,214 @@
+# returning tridents: A (loyalty 3), B spectator owner (dropped), C creative (creative-only), D disallowed, I full inventory, a mob owner, a ground trident, a trident that hits a cow first
+T 3
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l1 minecraft:trident pos=0.5,-58.49160059948635,6.350029991005382 delta=0.0,0.0029694063246915535,-0.1484703103348976 rot=0.0,0.22914648 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l3 minecraft:trident pos=16.5,-58.494400399657565,6.400019994003588 delta=0.0,0.001979604216461035,-0.09898020688993171 rot=0.0,0.22914325 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+E l4 minecraft:trident pos=24.5,-58.49520538527351,2.450089757733825 delta=0.0,0.002964668536974993,-0.049411140319494236 rot=0.0,0.6867 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E l5 minecraft:trident pos=32.5,-58.49160059948635,6.350029991005382 delta=0.0,0.0029694063246915535,-0.1484703103348976 rot=0.0,0.22914648 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.50933148524719,6.400055509328531 delta=0.0,-0.0032981690102745426,-0.09894504671789882 rot=0.0,-0.3818675 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.5,-60.05,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-59.5,5.5 delta=0.0,-0.05,1.9800000190734863 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.5,-58.399999998509884,6.5 delta=0.04930582917308696,0.2,-0.08547883299767874 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=0 pickup=10 health=5 owner=- thrower=-
+T 4
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l1 minecraft:trident pos=0.5,-58.48089661755811,6.059010483429754 delta=0.0,0.005625135243588681,-0.28810931527525024 rot=0.0,0.40702093 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l3 minecraft:trident pos=16.5,-58.48714914457729,6.206007590441043 delta=0.0,0.0037810505544499298,-0.19207228137716637 rot=0.0,0.40886262 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+E l4 minecraft:trident pos=24.5,-58.48771216205944,2.3532361989075596 delta=0.0,0.00570749099478939,-0.09588502416167034 rot=0.0,1.2306396 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E l5 minecraft:trident pos=32.5,-58.48089661755811,6.059010483429754 delta=0.0,0.005625135243588681,-0.28810931527525024 rot=0.0,0.40702093 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.5214147566646,6.206109891572241 delta=0.0,-0.006299582459554308,-0.1920061634283375 rot=0.0,-0.6812977 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.5,-60.05,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-59.55,7.480000019073486 delta=0.0,-0.09950000047683716,1.9602000377655031 rot=0.0,-0.28927645 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.549305829173086,-58.23999999850989,6.414521167002321 delta=0.048319713530059274,0.1568000030517578,-0.08376925796810451 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=1 pickup=9 health=5 owner=- thrower=-
+T 5
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=10/20 death=0 fx=-
+E l1 minecraft:trident pos=0.5,-58.46829032368974,5.635331334788154 delta=0.0,0.007985286481963652,-0.4194423611957024 rot=0.0,0.5437555 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l3 minecraft:trident pos=16.5,-58.47846517259402,5.923556549707631 delta=0.0,0.005414802580027024,-0.2796265330197412 rot=0.0,0.5489627 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+E l4 minecraft:trident pos=24.5,-58.477773203044386,2.2122296642121917 delta=0.0,0.008240043826882482,-0.13959647069315745 rot=0.0,1.660133 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E l5 minecraft:trident pos=32.5,-58.46829032368974,5.635331334788154 delta=0.0,0.007985286481963652,-0.4194423611957024 rot=0.0,0.5437555 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.53588510755256,5.923752976117334 delta=0.0,-0.009021664322718571,-0.2795333489931227 rot=0.0,-0.9147396 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.5,-60.05,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-59.576395265006276,8.000000011175871 delta=0.0,-0.04014949985790253,-0.019405980560817722 rot=183.68771,-0.81259227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.597625542703145,-58.12319999545813,6.330751909034216 delta=0.047353320181083486,0.11446400521850592,-0.08209387440651422 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=2 pickup=8 health=5 owner=- thrower=-
+T 6
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=9/19 death=0 fx=-
+E l1 minecraft:trident pos=0.5,-58.45415270938647,5.086883255967663 delta=0.0,0.010062904124368189,-0.5429636032626947 rot=0.0,0.6473563 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l3 minecraft:trident pos=16.5,-58.46855194458059,5.557927819637324 delta=0.0,0.006889680032006939,-0.36197244625651137 rot=0.0,0.6572584 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+E l5 minecraft:trident pos=32.5,-58.45415270938647,5.086883255967663 delta=0.0,0.010062904124368189,-0.5429636032626947 rot=0.0,0.6473563 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.55240360833518,5.558242042176511 delta=0.0,-0.011479102163486223,-0.36185582808719846 rot=0.0,-1.0951831 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.5,-60.05,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-59.53707034758962,7.833437144335046 delta=0.0,-0.014367741164380223,-0.16489723976088363 rot=-141.04984,-1.6459994 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.644978862884228,-58.04873599023962,6.248658034627702 delta=0.04640625468065472,0.07297472653442398,-0.08045199848420033 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=3 pickup=7 health=5 owner=- thrower=-
+T 7
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=8/18 death=0 fx=-
+E l1 minecraft:trident pos=0.5,-58.438831457229355,4.42108743010657 delta=0.0,0.011864536334234699,-0.6591378739520061 rot=0.0,0.72415125 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l3 minecraft:trident pos=16.5,-58.45759970282676,5.114069317895426 delta=0.0,0.008212726519741214,-0.4394199209574432 rot=0.0,0.73995626 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+E l5 minecraft:trident pos=32.5,-58.438831457229355,4.42108743010657 delta=0.0,0.011864536334234699,-0.6591378739520061 rot=0.0,0.72415125 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.570653346579384,5.114521550180286 delta=0.0,-0.013683626744924331,-0.43928329130791083 rot=0.0,-1.2329831 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.5,-60.05,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-59.475273724056066,7.5286177057281245 delta=0.0,0.009631173193443976,-0.3017712471278367 rot=-112.83987,-0.95120925 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.691385117564883,-58.015761263705194,6.168206036143502 delta=0.04547813047217069,0.0323152326326785,-0.07884296004901642 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=4 pickup=6 health=5 owner=- thrower=-
+T 8
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=7/17 death=0 fx=-
+E l1 minecraft:trident pos=0.5,-58.42266240562033,3.6449233306969195 delta=0.0,0.013386419589894286,-0.7684024658176314 rot=0.0,0.7788994 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l3 minecraft:trident pos=16.5,-58.4457880529209,4.596634532348299 delta=0.0,0.009388822181668251,-0.5122604426262984 rot=0.0,0.80197436 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+E l5 minecraft:trident pos=32.5,-58.42266240562033,3.6449233306969195 delta=0.0,0.013386419589894286,-0.7684024658176314 rot=0.0,0.7788994 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.59033512851231,4.597241685357773 delta=0.0,-0.01564336724149367,-0.5121070711074535 rot=0.0,-1.3363254 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.472980102013158,-60.01366919248676,6.459470153019737 delta=-0.026749699264655546,0.011167999474881798,-0.040124548896983324 rot=6.738013,2.607842 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-59.393740939726975,7.093723747362272 delta=0.0,0.031923012174188636,-0.4305450229296659 rot=-90.2719,0.08712882 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.736863248037054,-58.02344603107252,6.089363076094486 delta=0.044568568730153774,-0.0075310721665503766,-0.07726610235184621 rot=95.98285,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=5 pickup=5 health=5 owner=- thrower=-
+T 9
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=6/16 death=0 fx=-
+E l1 minecraft:trident pos=0.5,-58.405990862987345,2.7649547879444225 delta=0.0,0.014604216964519641,-0.871168865717006 rot=0.0,0.8151949 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l3 minecraft:trident pos=16.5,-58.43328933218027,4.010000004013684 delta=0.0,0.010419828320227127,-0.5807681886458509 rot=0.0,0.8471663 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+E l5 minecraft:trident pos=32.5,-58.405990862987345,2.7649547879444225 delta=0.0,0.014604216964519641,-0.871168865717006 rot=0.0,0.8151949 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.61116187155129,4.010775768299482 delta=0.0,-0.017361427676443678,-0.5806012634806831 rot=0.0,-1.4116284 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.420527351873767,-59.96743562431446,6.380791027810651 delta=-0.05192822313822493,0.02151124511855522,-0.07789233470733738 rot=12.128424,4.6744547 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-59.29500205235551,6.536447930261304 delta=0.0,0.05258933992708798,-0.5517030642445545 rot=-72.217514,1.1587179 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.781431816767208,-58.070977103239066,6.01209697374264 delta=0.04367719820562868,-0.04658045162980263,-0.07572078177854323 rot=95.98285,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=6 pickup=4 health=5 owner=- thrower=-
+T 10
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=5/15 death=0 fx=-
+E l3 minecraft:trident pos=16.5,-58.420273775383635,3.358281747687939 delta=0.0,0.011302708030179647,-0.6452010799777572 rot=0.0,0.87842244 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+E l5 minecraft:trident pos=32.5,-58.38922609726179,1.7873542405986496 delta=0.0,0.015439225058510649,-0.9678245511954405 rot=0.0,0.8349363 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.63285000627667,3.3592365683322787 delta=0.0,-0.018832759728412387,-0.645023814181093 rot=0.0,-1.4637486 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.344134678181527,-59.912231366755925,6.266202017272292 delta=-0.07562874768385451,0.031078796190456035,-0.11344312152578175 rot=16.440752,6.307774 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-59.18138694373143,5.8640241084729325 delta=0.0,0.07171561658380846,-0.6656995899832209 rot=-57.77401,2.156703 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.825109014972837,-58.157557554868866,5.936376191964097 delta=0.04280365507459255,-0.08484884424859764,-0.07420636758723166 rot=95.98285,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=7 pickup=3 health=5 owner=- thrower=-
+T 11
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=4/14 death=0 fx=-
+E l3 minecraft:trident pos=16.5,-58.406919108545566,2.6453506469272305 delta=0.0,0.012024989015014677,-0.705801796552142 rot=0.0,0.8979469 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=2 shake=0 life=0 dmg=2.0
+E l5 minecraft:trident pos=32.5,-58.37306867909467,0.7179247689507948 delta=0.0,0.015584821290131614,-1.0587351871302504 rot=0.0,0.8366186 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.65510351230019,2.6464915114336516 delta=0.0,-0.020036614926501675,-0.7056176131269074 rot=0.0,-1.4962997 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.245206376399162,-59.84892884339759,6.117809564598744 delta=-0.09793901970799518,0.039915862642127244,-0.14690852956199274 rot=19.890614,7.5939775 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-59.05503063732248,5.083256019653443 delta=0.0,0.08939095565030684,-0.7729604153772792 rot=-46.219208,3.0446932 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.86791267004743,-58.28240639911746,5.862169824376865 delta=0.04194758278951563,-0.1223518697449284,-0.07272224165086116 rot=95.98285,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=8 pickup=2 health=5 owner=- thrower=-
+T 12
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=3/13 death=0 fx=-
+E l5 minecraft:trident pos=32.5,-58.36334349739483,-0.43779784469633487 delta=0.0,0.00993672011246492,-1.1441653985324882 rot=0.0,0.76880574 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l6 minecraft:trident pos=56.5,-58.67757635933622,1.876176646246789 delta=0.0,-0.020914691666259793,-0.7626117238812888 rot=0.0,-1.5112281 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=4.125063273070241,-59.77834538912761,5.937594909605362 delta=-0.11894167344140551,0.04806402679502388,-0.17841251016210824 rot=22.650503,8.602018 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-58.91787634932977,4.200544523450892 delta=0.0,0.10571013102595532,-0.8738843896587177 rot=-36.975365,3.8152223 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.909860252836944,-58.444758268862394,5.789447582726004 delta=0.041108631933811965,-0.159104835446646,-0.07126779820491062 rot=95.98285,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=9 pickup=1 health=5 owner=- thrower=-
+T 13
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=2/12 death=0 fx=-
+E l5 minecraft:trident pos=32.5,-58.35731692879938,-1.3747786274578448 delta=0.0,0.006708349952752166,-0.9276109838696399 rot=0.0,0.69791555 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=3.9849475824655327,-59.7012475884244,5.7274213736983 delta=-0.1387145350349085,0.05556139413205105,-0.2080718025523627 rot=24.858416,9.386929 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-58.771671422672426,3.221914190261063 delta=0.0,0.1207804869791815,-0.968844039190877 rot=-29.580292,4.4734206 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.950968884770756,-58.64386310430904,5.7181797845210935 delta=0.040286460079220654,-0.19512274253533643,-0.06984244360013779 rot=95.98285,0.0 og=0 fall=0.6281018443405628 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=10 pickup=0 health=5 owner=- thrower=-
+T 14
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=1/11 death=0 fx=-
+E l5 minecraft:trident pos=32.5,-58.353779461098675,-2.106020039979818 delta=0.0,0.00451262367671872,-0.7239290053704149 rot=0.0,0.6297757 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l7 minecraft:trident pos=3.826027467198016,-59.618355470930396,5.4890412007970255 delta=-0.1573309156304217,0.062442670161665874,-0.2359963734456325 rot=26.624744,9.992703 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E l8 minecraft:trident pos=24.5,-58.61794045901225,2.1530415907573683 delta=0.0,0.13474469322909272,-1.0581838837022208 rot=-23.664234,5.0300865 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.991255344849977,-58.87898584684438,5.648337340920956 delta=0.039480731646039484,-0.23042029216924012,-0.06844559606027392 rot=95.98285,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=11 pickup=0 health=5 owner=- thrower=-
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.263772652813667;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=D aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.402749392528698;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E l5 minecraft:trident pos=32.5,-58.353779461098675,-2.106020039979818 delta=0.0,0.00451262367671872,-0.7239290053704149 rot=0.0,0.6297757 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=I leftowner=1 shot=1 canbreak=0
+E l7 minecraft:trident pos=3.826027467198016,-59.618355470930396,5.4890412007970255 delta=-0.1573309156304217,0.062442670161665874,-0.2359963734456325 rot=26.624744,9.992703 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
+E l8 minecraft:trident pos=24.5,-58.61794045901225,2.1530415907573683 delta=0.0,0.13474469322909272,-1.0581838837022208 rot=-23.664234,5.0300865 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=D leftowner=1 shot=1 canbreak=0
+E item#1 minecraft:item pos=8.991255344849977,-58.87898584684438,5.648337340920956 delta=0.039480731646039484,-0.23042029216924012,-0.06844559606027392 rot=95.98285,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=11 pickup=0 health=5 owner=- thrower=-
+I A 0 minecraft:trident*1{minecraft:enchantments:{minecraft:loyalty:3}}
+I D 0 minecraft:trident*1{minecraft:enchantments:{minecraft:loyalty:1}}
+I I 0 minecraft:stone*64
+I I 1 minecraft:stone*64
+I I 2 minecraft:stone*64
+I I 3 minecraft:stone*64
+I I 4 minecraft:stone*64
+I I 5 minecraft:stone*64
+I I 6 minecraft:stone*64
+I I 7 minecraft:stone*64
+I I 8 minecraft:stone*64
+I I 9 minecraft:stone*64
+I I 10 minecraft:stone*64
+I I 11 minecraft:stone*64
+I I 12 minecraft:stone*64
+I I 13 minecraft:stone*64
+I I 14 minecraft:stone*64
+I I 15 minecraft:stone*64
+I I 16 minecraft:stone*64
+I I 17 minecraft:stone*64
+I I 18 minecraft:stone*64
+I I 19 minecraft:stone*64
+I I 20 minecraft:stone*64
+I I 21 minecraft:stone*64
+I I 22 minecraft:stone*64
+I I 23 minecraft:stone*64
+I I 24 minecraft:stone*64
+I I 25 minecraft:stone*64
+I I 26 minecraft:stone*64
+I I 27 minecraft:stone*64
+I I 28 minecraft:stone*64
+I I 29 minecraft:stone*64
+I I 30 minecraft:stone*64
+I I 31 minecraft:stone*64
+I I 32 minecraft:stone*64
+I I 33 minecraft:stone*64
+I I 34 minecraft:stone*64
+I I 35 minecraft:stone*64
+I I 40 minecraft:stone*64
+PKT A minecraft:remove_entities 4e01a111
+PKT A minecraft:take_item_entity 7fa3119c1101
+PKT A minecraft:remove_entities 4e01a311
+PKT A minecraft:take_item_entity 7fa011991101
+PKT A minecraft:remove_entities 4e01a011
+PKT A minecraft:take_item_entity 7fa2119b1101
+PKT A minecraft:remove_entities 4e01a211
+PKT C minecraft:remove_entities 4e01a111
+PKT C minecraft:take_item_entity 7fa3119c1101
+PKT C minecraft:remove_entities 4e01a311
+PKT C minecraft:take_item_entity 7fa011991101
+PKT C minecraft:remove_entities 4e01a011
+PKT C minecraft:take_item_entity 7fa2119b1101
+PKT C minecraft:remove_entities 4e01a211
+PKT D minecraft:remove_entities 4e01a111
+PKT D minecraft:take_item_entity 7fa3119c1101
+PKT D minecraft:remove_entities 4e01a311
+PKT D minecraft:take_item_entity 7fa011991101
+PKT D minecraft:remove_entities 4e01a011
+PKT D minecraft:take_item_entity 7fa2119b1101
+PKT D minecraft:remove_entities 4e01a211
+PKT I minecraft:take_item_entity 7fa3119c1101
+PKT I minecraft:remove_entities 4e01a311
+PKT I minecraft:take_item_entity 7fa2119b1101
+PKT I minecraft:remove_entities 4e01a211
+PKT I minecraft:remove_entities 4e01a511
+PKT B minecraft:remove_entities 4e01a111
+PKT B minecraft:take_item_entity 7fa3119c1101
+PKT B minecraft:remove_entities 4e01a311
+PKT B minecraft:take_item_entity 7fa011991101
+PKT B minecraft:remove_entities 4e01a011
+PKT B minecraft:take_item_entity 7fa2119b1101
+PKT B minecraft:remove_entities 4e01a211
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/0 death=0 fx=-
+E l5 minecraft:trident pos=32.5,-58.384977719675426,-0.8479896901175948 delta=0.0,-0.003204588606459788,-0.6449781456953256 rot=28.538782,-0.06210939 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=9.197090537200674,-60.0,5.291492068727578 delta=1.8358497817479803E-4,0.0,-3.182712866504578E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=36 pickup=0 health=5 owner=- thrower=-
+E m1 minecraft:cow pos=56.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.263772652813667;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E c1 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=D aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.402749392528698;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E l5 minecraft:trident pos=32.5,-58.384977719675426,-0.8479896901175948 delta=0.0,-0.003204588606459788,-0.6449781456953256 rot=28.538782,-0.06210939 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=I leftowner=1 shot=1 canbreak=0
+E item#1 minecraft:item pos=9.197090537200674,-60.0,5.291492068727578 delta=1.8358497817479803E-4,0.0,-3.182712866504578E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:trident*1 age=36 pickup=0 health=5 owner=- thrower=-
+I A 0 minecraft:trident*1{minecraft:enchantments:{minecraft:loyalty:3}}
+I A 1 minecraft:trident*1{minecraft:enchantments:{minecraft:loyalty:1}}
+I D 0 minecraft:trident*1{minecraft:enchantments:{minecraft:loyalty:1}}
+I D 1 minecraft:trident*1{minecraft:enchantments:{minecraft:loyalty:3}}
+PKT A minecraft:take_item_entity 7fa7119c1101
+PKT A minecraft:remove_entities 4e01a711
+PKT A minecraft:take_item_entity 7fa611991101
+PKT A minecraft:remove_entities 4e01a611
+PKT D minecraft:take_item_entity 7fa7119c1101
+PKT D minecraft:remove_entities 4e01a711
+PKT D minecraft:take_item_entity 7fa611991101
+PKT D minecraft:remove_entities 4e01a611
+PKT I minecraft:take_item_entity 7fa7119c1101
+PKT I minecraft:remove_entities 4e01a711

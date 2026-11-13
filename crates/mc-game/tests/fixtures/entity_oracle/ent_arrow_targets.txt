@@ -1,0 +1,73 @@
+E c1 minecraft:cow pos=4.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E frame minecraft:item_frame pos=16.5,-59.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E baby minecraft:cow pos=28.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E z1 minecraft:zombie pos=32.5,-60.0,8.5 delta=0.0,0.0,0.38397676481229137 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=9/19 death=0 fx=-
+E c2 minecraft:cow pos=44.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E a1 minecraft:arrow pos=4.5,-59.613499157234,7.807425254910707 delta=0.0,-0.08974800524221899,-0.2401490117534925 rot=183.50485,-2.3997996 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E a9 minecraft:arrow pos=0.5,-53.38740641720724,0.5 delta=0.0,1.2438741176979358,0.0 rot=0.0,53.135998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.421114773389528,-59.84,8.440226481861721 delta=-0.07730752358287853,0.1568000030517578,-0.05857804891560315 rot=108.005646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_boat*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=24.2272969971315,-59.61122051618155,8.73551166213529 delta=-0.09161615133960531,0.1568000030517578,0.016112059239340726 rot=329.39127,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=16.5,-59.5,11.818749994039536 delta=-0.05123886581463386,0.2,-0.0010393372377592164 rot=185.22737,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=20.5,-59.5,11.818749994039536 delta=0.07375934259771219,0.2,-0.09555740671401317 rot=227.981,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+ADV A minecraft:adventure/shoot_arrow shot_arrow
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT B minecraft:add_entity 01981597fd63b95d8d486fb6212b7f8c6ea4e5064012000000000000c04dc000000000004004000000000000000000008d15
+PKT B minecraft:add_entity 0199157354d119e2584613b69ed63b58b4e76f064021000000000000c04dc000000000004004000000000000000000008d15
+PKT B minecraft:add_entity 019a15abeddfa391724f5f8e18a6e5ab30910e064030800000000000c04dc000000000004004000000000000000000008d15
+PKT B minecraft:add_entity 019b15966939cf560847cea5224f45b0868410064034800000000000c04dc000000000004004000000000000000000008d15
+PKT B minecraft:add_entity 019c15a1710345d9064d278bd2e1469bbeee75064038800000000000c04dc000000000004004000000000000000000008d15
+PKT B minecraft:add_entity 019d1554954240452e4a249eb47fb594ba8b0e06403c800000000000c04dc000000000004004000000000000000000008d15
+PKT B minecraft:add_entity 019e15f2e0bb87770d476a8a4e2985fd661e41064040400000000000c04dc000000000004004000000000000000000008d15
+PKT B minecraft:add_entity 019f15e2ea924a3f7f440cb0b551e7c791ae3f063fe0000000000000c04d8000000000003fe0000000000000000000008d15
+PKT B minecraft:add_entity 01a015e85f526a30164b46850d6e7b4850bd4a064046400000000000c04dc000000000004004000000000000000000008e15
+PKT B minecraft:add_entity 01a115eaa6bb06f2f545a488838929010b74b5484021000000000000c04e000000000000402100000000000099d778593331004c0000
+PKT B minecraft:set_entity_data 65a115080701cf070000ff
+PKT B minecraft:remove_entities 4e019915
+PKT B minecraft:add_entity 01a215bd5a01a0a9374362bef612214b11bd85484038521ed3661bc1c04de2b75a9780824021702a0bc8035419d08219333100ea0000
+PKT B minecraft:set_entity_data 65a215080701fd0a0000ff
+PKT B minecraft:sound 775206000000c4fffffe20000000443f8000003f8000006fd465a290351d3c
+PKT B minecraft:sound 775606000000c4fffffe24000000423f8000003f9329ca4b970fd5e0db99e1
+PKT B minecraft:remove_entities 4e019c15
+PKT B minecraft:sound 77c40306000000e4fffffe20000000443ecccccd3fd09981e8168c54d2216418
+PKT B minecraft:sound 775606000000e4fffffe24000000423f8000003f9327d9a3981763e0103683
+PKT B minecraft:remove_entities 4e019d15
+PKT B minecraft:sound 77de0e0500000104fffffe20000000443f8000003f954c12a1a24ca263725fe3
+PKT B minecraft:sound 77560600000104fffffe24000000413f8000003f93287e29a8e9b76b35b192
+PKT B minecraft:remove_entities 4e019e15
+PKT B minecraft:remove_entities 4e01a015
+PKT B minecraft:set_entity_data 65a115080701cf070000ff
+PKT B minecraft:set_entity_data 65a215080701fd0a0000ff
+PKT B minecraft:add_entity 01a3153de4a80f494f467885267233eb6dc448484030800000000000c04dc000000000004027a33333000000c1e57fdd333100830000
+PKT B minecraft:set_entity_data 65a315080701a4080000ff
+PKT B minecraft:sound 7791070600000084fffffe240000005f3f8000003f8000005ae586ec5969c658
+PKT B minecraft:sound 77560600000084fffffe220000005f3f8000003f9325e9d55fad91ece1d6ce
+PKT B minecraft:remove_entities 4e019a15
+PKT B minecraft:sound 77ac0906000000a4fffffe240000005f3f8000003f800000d8bde3e82cd7dc02
+PKT B minecraft:add_entity 01a415e4fc194f2cd44cb9a12ac9d59c172cfe484034800000000000c04dc000000000004027a33333000000b92573c3333200a20000
+PKT B minecraft:set_entity_data 65a415080701cb080000ff
+PKT B minecraft:sound 775606000000a4fffffe220000005f3f8000003f9329243b8fbbb9f9feaeb8
+PKT B minecraft:remove_entities 4e019b15
+E c1 minecraft:cow pos=4.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E frame minecraft:item_frame pos=16.5,-59.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E baby minecraft:cow pos=28.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E z1 minecraft:zombie pos=32.5,-60.0,8.5 delta=0.0,0.0,0.38397676481229137 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=44.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a1 minecraft:arrow pos=4.5,-59.94999999925494,7.181272696274921 delta=0.0,0.0,0.0 rot=181.79448,-16.40452 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=67 dmg=2.0
+E item#1 minecraft:item pos=7.748948745700654,-60.0,7.930907690823824 delta=-9.63228037136455E-7,0.0,-7.298645262614007E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_boat*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=23.355037027372408,-60.0,8.888911516848339 delta=-1.118678989928008E-6,-0.04,1.9673629476873807E-7 rot=329.39127,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=15.890393036678612,-60.0,11.806384630222361 delta=-1.7031639606803415E-6,-0.04,-3.4547246473964575E-8 rot=185.22737,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=70 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=21.37783285950862,-60.0,10.681491598984476 delta=1.4416218557948274E-6,-0.08,-1.8676636904606791E-6 rot=227.981,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=70 pickup=0 health=5 owner=- thrower=-
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=0/1 death=0 fx=- gm=survival food=20 sat=4.0 exh=5.1 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:cow pos=4.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.263772652813667;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E frame minecraft:item_frame pos=16.5,-59.5,11.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E baby minecraft:cow pos=28.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.402749392528698;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=-23924 baby=1 forcedage=0 love=0 lovecause=-
+E z1 minecraft:zombie pos=32.5,-60.0,8.5 delta=0.0,0.0,0.38397676481229137 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=chest:minecraft:diamond_chestplate*1;head:minecraft:iron_helmet*1/dmg=2{minecraft:damage:2} attrs=minecraft:armor:12.0;minecraft:armor_toughness:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:37.17354445099194;minecraft:knockback_resistance:0.04005810227352045;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.07113617326487584
+E c2 minecraft:cow pos=44.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=C aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.894030220701719;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E a1 minecraft:arrow pos=4.5,-59.94999999925494,7.181272696274921 delta=0.0,0.0,0.0 rot=181.79448,-16.40452 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=67 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
+E item#1 minecraft:item pos=7.748948745700654,-60.0,7.930907690823824 delta=-9.63228037136455E-7,0.0,-7.298645262614007E-7 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_boat*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=23.355037027372408,-60.0,8.888911516848339 delta=-1.118678989928008E-6,-0.04,1.9673629476873807E-7 rot=329.39127,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=71 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=15.890393036678612,-60.0,11.806384630222361 delta=-1.7031639606803415E-6,-0.04,-3.4547246473964575E-8 rot=185.22737,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=70 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=21.37783285950862,-60.0,10.681491598984476 delta=1.4416218557948274E-6,-0.08,-1.8676636904606791E-6 rot=227.981,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=70 pickup=0 health=5 owner=- thrower=-
+PKT A minecraft:damage_event 198d15008e15a01500
+PKT A minecraft:hurt_animation 2b8d1500000000

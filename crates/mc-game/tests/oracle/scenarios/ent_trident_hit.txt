@@ -1,0 +1,82 @@
+# Thrown tridents hitting things: eight damage on a mob and the reverse deflection afterwards (the trident drops back and can be picked up
+# by its owner, not before it shakes), a kill, no owner, knockback and fire aspect read from the item, an armor stand, a creative player
+# (not hurt: deflected), a trident that hits the ground, one that flies into water, and a trident that has already dealt its damage.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 2100
+fill 40 -61 -2 46 -58 12 minecraft:glass
+fill 41 -60 -1 45 -58 11 minecraft:air
+fill 41 -60 -1 45 -59 11 minecraft:water
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 26.5 -60 0.5 0 0
+spawn_player E creative 36.5 -60 8.5 0 0
+spawn_player D survival 30.5 -60 8.5 0 0
+mobspawn c1 minecraft:cow 4.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c1 1
+mobspawn c2 minecraft:cow 8.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:5f}
+entity_seed c2 2
+mobspawn c3 minecraft:cow 12.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c3 3
+mobspawn c4 minecraft:cow 16.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c4 4
+mobspawn c5 minecraft:cow 20.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c5 5
+mobspawn z1 minecraft:zombie 24.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed z1 20
+spawn stand minecraft:armor_stand 28.5 -60 8.5 0 0
+entity_seed stand 21
+tick 2
+dump packets:A:none packets:B:none packets:D:none packets:E:none advancements:A
+note tridents fly south at the targets: plain, kill, no owner, knockback item, fire aspect item, zombie, armor stand, survival player, creative player
+spawn t1 minecraft:trident 4.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed t1 401
+velocity t1 0 0 2.5
+spawn t2 minecraft:trident 8.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed t2 402
+velocity t2 0 0 2.5
+spawn t3 minecraft:trident 12.5 -59.5 2.5 0 0 {pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed t3 403
+velocity t3 0 0 2.5
+spawn t4 minecraft:trident 16.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:knockback":2}}}}
+entity_seed t4 404
+velocity t4 0 0 2.5
+spawn t5 minecraft:trident 20.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:fire_aspect":1}}}}
+entity_seed t5 405
+velocity t5 0 0 2.5
+spawn t6 minecraft:trident 24.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed t6 406
+velocity t6 0 0 2.5
+spawn t7 minecraft:trident 28.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed t7 407
+velocity t7 0 0 2.5
+spawn t8 minecraft:trident 30.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed t8 408
+velocity t8 0 0 2.5
+spawn t9 minecraft:trident 36.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed t9 409
+velocity t9 0 0 2.5
+level_seed 9
+tick 4
+dump entities xentities player:D player:E advancements:A stats:A packets:A:game_event packets:B:damage_event,hurt_animation,entity_event,set_entity_data,set_entity_motion,update_mob_effect,sound,add_entity,remove_entities,take_item_entity
+tick 3
+dump entities xentities packets:B:set_entity_motion,move_entity_pos,move_entity_pos_rot,entity_position_sync,sound
+note a trident into the ground is taken by its owner once it stopped shaking; a trident that dealt its damage passes through the cow
+spawn g1 minecraft:trident 0.5 -57.0 3.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1},HasBeenShot:1b,LeftOwner:1b}
+entity_seed g1 410
+velocity g1 0 -1.0 0
+spawn g2 minecraft:trident 4.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1},DealtDamage:1b}
+entity_seed g2 411
+velocity g2 0 0 2.5
+spawn w1 minecraft:trident 43.5 -59.2 -1.0 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed w1 412
+velocity w1 0 0 1.5
+tick 4
+dump entities xentities
+tp A 0.5 -60 3.5
+tick 3
+dump entities xentities inventory:A packets:A:take_item_entity,remove_entities
+tick 10
+dump entities xentities inventory:A

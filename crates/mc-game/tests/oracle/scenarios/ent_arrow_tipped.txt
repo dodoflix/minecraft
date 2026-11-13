@@ -1,0 +1,74 @@
+# Tipped and spectral arrows: the effect list of the potion contents is applied to the victim with an eighth of the duration
+# (instant effects apply at once), custom effects and colours, a longer running effect wins, spectral arrow glowing with its own
+# duration, and what a tipped arrow looks like to a client (effect colour in its entity data).
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 2500
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 26.5 -60 0.5 0 0
+mobspawn c1 minecraft:cow 4.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c1 1
+mobspawn c2 minecraft:cow 8.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c2 2
+mobspawn c3 minecraft:cow 12.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c3 3
+mobspawn c4 minecraft:cow 16.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c4 4
+mobspawn c5 minecraft:cow 20.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c5 5
+mobspawn c6 minecraft:cow 24.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c6 6
+mobspawn c7 minecraft:cow 28.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c7 7
+mobspawn c8 minecraft:cow 32.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c8 8
+mobspawn c9 minecraft:cow 36.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c9 9
+mobspawn c10 minecraft:cow 40.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,active_effects:[{id:"minecraft:poison",amplifier:0b,duration:2000}]}
+entity_seed c10 10
+mobspawn c11 minecraft:cow 44.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:3f}
+entity_seed c11 11
+tick 2
+dump packets:A:none packets:B:none
+spawn a1 minecraft:arrow 4.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:strong_harming"}}}}
+entity_seed a1 701
+velocity a1 0 0 2.5
+spawn a2 minecraft:arrow 8.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:strong_healing"}}}}
+entity_seed a2 702
+velocity a2 0 0 2.5
+spawn a3 minecraft:arrow 12.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:long_slowness"}}}}
+entity_seed a3 703
+velocity a3 0 0 2.5
+spawn a4 minecraft:arrow 16.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{custom_effects:[{id:"minecraft:speed",amplifier:2b,duration:400},{id:"minecraft:levitation",amplifier:0b,duration:80}],custom_color:16711680}}}}
+entity_seed a4 704
+velocity a4 0 0 2.5
+spawn a5 minecraft:arrow 20.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:night_vision",custom_effects:[{id:"minecraft:instant_damage",amplifier:1b}]}}}}
+entity_seed a5 705
+velocity a5 0 0 2.5
+spawn a6 minecraft:spectral_arrow 24.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,Duration:100}
+entity_seed a6 706
+velocity a6 0 0 2.5
+spawn a7 minecraft:spectral_arrow 28.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a7 707
+velocity a7 0 0 2.5
+spawn a8 minecraft:arrow 32.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:water"}}}}
+entity_seed a8 708
+velocity a8 0 0 2.5
+spawn a9 minecraft:arrow 36.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{custom_color:255}}}}
+entity_seed a9 709
+velocity a9 0 0 2.5
+spawn a10 minecraft:arrow 40.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:poison"}}}}
+entity_seed a10 710
+velocity a10 0 0 2.5
+spawn a11 minecraft:arrow 44.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:harming"}}}}
+entity_seed a11 711
+velocity a11 0 0 2.5
+dump edata:a1 edata:a4 edata:a6 edata:a9 nbt:a4
+level_seed 7
+tick 4
+dump entities advancements:A packets:B:update_mob_effect,remove_mob_effect,sound,entity_event,damage_event,remove_entities,set_entity_data
+tick 30
+dump entities

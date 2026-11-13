@@ -1,0 +1,119 @@
+C Set the center of the world border to 0.50, 0.50
+C Set the world border to 40.0 block(s) wide
+# arrows in the four directions, a piercing one, a trident, a loyal trident, an arrow with no owner
+T 3
+E e minecraft:arrow pos=18.0,-59.0,0.5 delta=2.475000023841858,-0.05,0.0 rot=17.999998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E w minecraft:arrow pos=-17.0,-59.0,2.5 delta=-2.475000023841858,-0.05,0.0 rot=-17.999998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E n minecraft:arrow pos=1.5,-59.0,-17.0 delta=0.0,-0.05,-2.475000023841858 rot=35.999996,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E s minecraft:arrow pos=-1.5,-59.0,18.0 delta=0.0,-0.05,2.475000023841858 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=13.0,-59.0,6.5 delta=2.475000023841858,-0.05,0.0 rot=17.999998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=2 pickup=1 shake=0 life=0 dmg=2.0
+E tri minecraft:trident pos=13.0,-59.0,-6.5 delta=2.475000023841858,-0.05,0.0 rot=17.999998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E loyal minecraft:trident pos=13.0,-59.0,-9.5 delta=2.475000023841858,-0.05,0.0 rot=17.999998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+T 4
+E e minecraft:arrow pos=20.475000023841858,-59.05,0.5 delta=2.450250047206879,-0.09950000047683716,0.0 rot=32.399998,-0.23145524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E w minecraft:arrow pos=-19.475000023841858,-59.05,2.5 delta=-2.450250047206879,-0.09950000047683716,0.0 rot=-32.399998,-0.23145524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E n minecraft:arrow pos=1.5,-59.05,-19.475000023841858 delta=0.0,-0.09950000047683716,-2.450250047206879 rot=64.799995,-0.23145524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E s minecraft:arrow pos=-1.5,-59.05,20.475000023841858 delta=0.0,-0.09950000047683716,2.450250047206879 rot=0.0,-0.23145524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=15.475000023841858,-59.05,6.5 delta=2.450250047206879,-0.09950000047683716,0.0 rot=32.399998,-0.23145524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=2 pickup=1 shake=0 life=0 dmg=2.0
+E tri minecraft:trident pos=15.475000023841858,-59.05,-6.5 delta=2.450250047206879,-0.09950000047683716,0.0 rot=32.399998,-0.23145524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E loyal minecraft:trident pos=15.475000023841858,-59.05,-9.5 delta=2.450250047206879,-0.09950000047683716,0.0 rot=32.399998,-0.23145524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+T 5
+E e minecraft:arrow pos=20.499990000000253,-59.149500000476834,0.5 delta=-0.24257475701022155,-0.04014949985790253,0.0 rot=228.91739,-0.65021884 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E w minecraft:arrow pos=-19.5,-59.149500000476834,2.5 delta=0.24257475701022155,-0.04014949985790253,0.0 rot=141.08276,-0.65021884 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E n minecraft:arrow pos=1.5,-59.149500000476834,-19.5 delta=0.0,-0.04014949985790253,0.24257475701022155 rot=272.84097,-0.65021884 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E s minecraft:arrow pos=-1.5,-59.149500000476834,20.499990000000253 delta=0.0,-0.04014949985790253,-0.24257475701022155 rot=185.04935,-0.65021884 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=17.925250071048737,-59.149500000476834,6.5 delta=2.4257475701022155,-0.14850500142097472,0.0 rot=43.92,-0.65021884 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=2 pickup=1 shake=0 life=0 dmg=2.0
+E tri minecraft:trident pos=17.925250071048737,-59.149500000476834,-6.5 delta=2.4257475701022155,-0.14850500142097472,0.0 rot=43.92,-0.65021884 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E loyal minecraft:trident pos=17.925250071048737,-59.149500000476834,-9.5 delta=2.4257475701022155,-0.14850500142097472,0.0 rot=43.92,-0.65021884 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+T 6
+E e minecraft:arrow pos=20.25741524299003,-59.18964950033474,0.5 delta=-0.2401490117534925,-0.08974800524221899,0.0 rot=-122.86609,-2.3997996 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E w minecraft:arrow pos=-19.25742524298978,-59.18964950033474,2.5 delta=0.2401490117534925,-0.08974800524221899,0.0 rot=130.86621,-2.3997996 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E n minecraft:arrow pos=1.5,-59.18964950033474,-19.25742524298978 delta=0.0,-0.08974800524221899,0.2401490117534925 rot=-69.72722,-2.3997996 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E s minecraft:arrow pos=-1.5,-59.18964950033474,20.25741524299003 delta=0.0,-0.08974800524221899,-0.2401490117534925 rot=184.03947,-2.3997996 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=20.350997641150954,-59.298005001897806,6.5 delta=2.401490117534925,-0.19701995282301904,0.0 rot=53.135998,-1.2208545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=2 pickup=1 shake=0 life=0 dmg=2.0
+E tri minecraft:trident pos=20.350997641150954,-59.298005001897806,-6.5 delta=2.401490117534925,-0.19701995282301904,0.0 rot=53.135998,-1.2208545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E loyal minecraft:trident pos=20.350997641150954,-59.298005001897806,-9.5 delta=2.401490117534925,-0.19701995282301904,0.0 rot=53.135998,-1.2208545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+T 7
+E e minecraft:arrow pos=20.01726623123654,-59.27939750557696,0.5 delta=-0.237747523926197,-0.13885052604570047,0.0 rot=-116.29287,-6.018177 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E w minecraft:arrow pos=-19.017276231236288,-59.27939750557696,2.5 delta=0.237747523926197,-0.13885052604570047,0.0 rot=122.69297,-6.018177 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E n minecraft:arrow pos=1.5,-59.27939750557696,-19.017276231236288 delta=0.0,-0.13885052604570047,0.237747523926197 rot=-55.781776,-6.018177 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E s minecraft:arrow pos=-1.5,-59.27939750557696,20.01726623123654 delta=0.0,-0.13885052604570047,-0.237747523926197 rot=183.23158,-6.018177 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=20.499990000000253,-59.495024954720826,6.5 delta=-0.237747523926197,-0.03049502448262825,0.0 rot=245.55634,-1.9147038 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=2 pickup=1 shake=0 life=0 dmg=2.0
+E tri minecraft:trident pos=20.499990000000253,-59.495024954720826,-6.5 delta=-0.237747523926197,-0.03049502448262825,0.0 rot=245.56174,-1.9147038 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E loyal minecraft:trident pos=20.499990000000253,-59.495024954720826,-9.5 delta=-0.237747523926197,-0.03049502448262825,0.0 rot=245.55994,-1.9147038 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+T 8
+E e minecraft:arrow pos=19.779518707310345,-59.41824803162266,0.5 delta=-0.2353700509542721,-0.18746202210942525,0.0 rot=-111.034294,-10.871742 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E w minecraft:arrow pos=-18.779528707310092,-59.41824803162266,2.5 delta=0.2353700509542721,-0.18746202210942525,0.0 rot=116.15437,-10.871742 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E n minecraft:arrow pos=1.5,-59.41824803162266,-18.779528707310092 delta=0.0,-0.18746202210942525,0.2353700509542721 rot=-44.62542,-10.871742 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E s minecraft:arrow pos=-1.5,-59.41824803162266,19.779518707310345 delta=0.0,-0.18746202210942525,-0.2353700509542721 rot=182.58527,-10.871742 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=20.262242476074057,-59.52551997920345,6.5 delta=-0.2353700509542721,-0.08019007452862519,0.0 rot=-109.55493,-2.9936295 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=2 pickup=1 shake=0 life=0 dmg=2.0
+E tri minecraft:trident pos=20.262242476074057,-59.52551997920345,-6.5 delta=-0.2353700509542721,-0.08019007452862519,0.0 rot=-109.550606,-2.9936295 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E loyal minecraft:trident pos=20.262242476074057,-59.52551997920345,-9.5 delta=-0.2353700509542721,-0.08019007452862519,0.0 rot=-109.55205,-2.9936295 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+T 9
+E e minecraft:arrow pos=19.54414865635607,-59.60571005373208,0.5 delta=-0.2330163526893931,-0.23558740367610814,0.0 rot=-106.82743,-16.40452 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E w minecraft:arrow pos=-18.54415865635582,-59.60571005373208,2.5 delta=0.2330163526893931,-0.23558740367610814,0.0 rot=110.9235,-16.40452 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E n minecraft:arrow pos=1.5,-59.60571005373208,-18.54415865635582 delta=0.0,-0.23558740367610814,0.2330163526893931 rot=-35.700336,-16.40452 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E s minecraft:arrow pos=-1.5,-59.60571005373208,19.54414865635607 delta=0.0,-0.23558740367610814,-0.2330163526893931 rot=182.0682,-16.40452 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=20.026872425119784,-59.605710053732075,6.5 delta=-0.2330163526893931,-0.1293881745480911,0.0 rot=-105.64394,-6.157633 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=2 pickup=1 shake=0 life=0 dmg=2.0
+E tri minecraft:trident pos=20.026872425119784,-59.605710053732075,-6.5 delta=-0.2330163526893931,-0.1293881745480911,0.0 rot=-105.64048,-6.157633 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E loyal minecraft:trident pos=20.026872425119784,-59.605710053732075,-9.5 delta=-0.2330163526893931,-0.1293881745480911,0.0 rot=-105.64164,-6.157633 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+T 10
+E e minecraft:arrow pos=19.311132303666678,-59.84129745740819,0.5 delta=-0.2306861913847163,-0.28323153188608363,0.0 rot=-103.461945,-22.18649 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E w minecraft:arrow pos=-18.311142303666426,-59.84129745740819,2.5 delta=0.2306861913847163,-0.28323153188608363,0.0 rot=106.7388,-22.18649 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E n minecraft:arrow pos=1.5,-59.84129745740819,-18.311142303666426 delta=0.0,-0.28323153188608363,0.2306861913847163 rot=-28.560268,-22.18649 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E s minecraft:arrow pos=-1.5,-59.84129745740819,19.311132303666678 delta=0.0,-0.28323153188608363,-0.2306861913847163 rot=181.65456,-22.18649 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.79385607243039,-59.735098228280165,6.5 delta=-0.2306861913847163,-0.17809429403655197,0.0 rot=-102.51515,-10.73457 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=2 pickup=1 shake=0 life=0 dmg=2.0
+E tri minecraft:trident pos=19.79385607243039,-59.735098228280165,-6.5 delta=-0.2306861913847163,-0.17809429403655197,0.0 rot=-102.51238,-10.73457 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E loyal minecraft:trident pos=19.79385607243039,-59.735098228280165,-9.5 delta=-0.2306861913847163,-0.17809429403655197,0.0 rot=-102.51331,-10.73457 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E e minecraft:arrow pos=19.231872384551185,-59.94999999925494,0.5 delta=0.0,0.0,0.0 rot=-100.769554,-27.916758 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=19 dmg=2.0
+E w minecraft:arrow pos=-18.231882384550932,-59.94999999925494,2.5 delta=0.0,0.0,0.0 rot=103.39104,-27.916758 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=19 dmg=2.0
+E n minecraft:arrow pos=1.5,-59.94999999925494,-18.231882384550932 delta=0.0,0.0,0.0 rot=-22.848215,-27.916758 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=19 dmg=2.0
+E s minecraft:arrow pos=-1.5,-59.94999999925494,19.231872384551185 delta=0.0,0.0,0.0 rot=181.32364,-27.916758 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=19 dmg=2.0
+E pierce minecraft:arrow pos=19.52556995234542,-59.94999999925494,6.5 delta=0.0,0.0,0.0 rot=-98.0097,-21.84504 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=18 dmg=2.0
+E tri minecraft:trident pos=19.52556995234542,-59.94999999925494,-6.5 delta=0.0,0.0,0.0 rot=-98.00792,-21.84504 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=18 dmg=2.0
+E loyal minecraft:trident pos=9.916904493726863,-58.71346477393138,-4.4496044099146514 delta=-1.212340371642148,0.07077881612790057,0.6372163223907485 rot=125.65779,1.9205498 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+PKT B minecraft:set_entity_motion 67f10efbff1554fffd
+PKT B minecraft:move_entity_pos_rot 37f10e000000000000000000
+PKT B minecraft:set_entity_motion 67ef0ea3aa7ffeffff
+PKT B minecraft:move_entity_pos_rot 37ef0e000000000000000000
+PKT B minecraft:set_entity_motion 67f20efbffeaa8fffd
+PKT B minecraft:move_entity_pos_rot 37f20e000000000000000000
+PKT B minecraft:set_entity_motion 67f00e53557ffefffc
+PKT B minecraft:move_entity_pos_rot 37f00e000000000000000000
+PKT B minecraft:set_entity_motion 67f50ea3aa7ffeffff
+PKT B minecraft:move_entity_pos_rot 37f50e000000000000000000
+PKT B minecraft:set_entity_motion 67f30ea3aa7ffeffff
+PKT B minecraft:move_entity_pos_rot 37f30e000000000000000000
+PKT B minecraft:set_entity_motion 67f40ea3aa7ffeffff
+PKT B minecraft:move_entity_pos_rot 37f40e000000000000000000
+PKT B minecraft:remove_entities 4e01f10e
+PKT B minecraft:remove_entities 4e01f00e
+PKT B minecraft:set_entity_motion 67ef0ec9837ffef5b5
+PKT B minecraft:move_entity_pos_rot 37ef0e005000fd9c0000a2ff
+PKT B minecraft:set_entity_motion 67f20ef9ff60f2f5b5
+PKT B minecraft:move_entity_pos_rot 37f20e000000fd9c500083ff
+PKT B minecraft:set_entity_motion 67f50e41867ffef82d
+PKT B minecraft:entity_position_sync 23f50e0040347fff583a5400c04dbf5cfa4b9d6bc02300000000000043758f58bff5150400
+PKT B minecraft:set_entity_motion 67f30e41867ffef82d
+PKT B minecraft:entity_position_sync 23f30e0040347fff583a5400c04dbf5cfa4b9d6b401a00000000000043758e6cbff5150400
+PKT B minecraft:set_entity_motion 67f40e41867ffef82d
+PKT B minecraft:entity_position_sync 23f40e0040347fff583a5400c04dbf5cfa4b9d6bc01a00000000000043758fcebff5150400
+PKT B minecraft:set_entity_motion 67ef0e00
+PKT B minecraft:move_entity_pos_rot 37ef0e00ebb6f3310000b8ec
+PKT B minecraft:set_entity_motion 67f20e00
+PKT B minecraft:move_entity_pos_rot 37f20e000000f331ebb680ec
+PKT B minecraft:set_entity_motion 67f50e00
+PKT B minecraft:move_entity_pos_rot 37f50e00f069f8b90000baf0
+PKT B minecraft:set_entity_motion 67f30e00
+PKT B minecraft:move_entity_pos_rot 37f30e00f069f8b90000baf0
+PKT B minecraft:set_entity_motion 67f40e00
+PKT B minecraft:move_entity_pos_rot 37f40e00f069f8b90000baf0
+PKT B minecraft:sound 77e00c060000009cfffffe21ffffffb4412000003f80000029a8e9b76b35b192
+PKT B minecraft:set_entity_motion 67f50ed9bc88d102c1
+PKT B minecraft:move_entity_pos_rot 37f50e00fde1014e011da5f4
+PKT B minecraft:move_entity_pos_rot 37ef0e00000000000000b8ec
+PKT B minecraft:move_entity_pos_rot 37f20e0000000000000080ec
+PKT B minecraft:set_entity_motion 67f50ee1d5a72b0b24
+PKT B minecraft:move_entity_pos_rot 37f50e00e4be05ff0e5475fc
+PKT B minecraft:move_entity_pos_rot 37f30e00000000000000baf0
+PKT B minecraft:move_entity_pos_rot 37f40e00000000000000baf0

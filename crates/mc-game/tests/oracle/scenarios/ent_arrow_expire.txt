@@ -1,0 +1,47 @@
+# Arrows and tridents that lie in the ground despawn after 1200 ticks of lying there (a loyal trident that may be picked up never
+# does), an arrow in the air does not age, a stuck arrow whose block disappears falls, an arrow spawned inside nothing starts
+# falling.
+command_env
+level flat
+preload 3
+difficulty normal
+level_seed 5
+entity_counter 2000
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 40.5 -60 0.5 0 0
+fill 10 -60 10 20 -57 12 minecraft:stone
+fill 10 -59 10 20 -58 12 minecraft:stone
+tick 2
+dump packets:A:none packets:B:none
+note ground arrows: 5 ticks before 1200, 600 (nothing yet), a trident without loyalty, a loyal trident the owner may pick up
+spawn d1 minecraft:arrow 30.5 -60.05 20.5 0 0 {inGround:1b,life:1195s,pickup:0b}
+entity_seed d1 328
+spawn d2 minecraft:arrow 32.5 -60.05 20.5 0 0 {inGround:1b,life:600s,pickup:0b}
+entity_seed d2 329
+spawn d3 minecraft:trident 34.5 -60.05 20.5 0 0 {inGround:1b,life:1195s,pickup:0b,DealtDamage:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed d3 330
+spawn d4 minecraft:trident 36.5 -60.05 20.5 0 0 {inGround:1b,life:1195s,pickup:1b,DealtDamage:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":1}}}}
+entity_seed d4 331
+spawn d5 minecraft:trident 38.5 -60.05 20.5 0 0 {inGround:1b,life:1195s,pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed d5 332
+note an arrow inside the air starts falling at once, one in the air does not age
+spawn f1 minecraft:arrow 42.5 -57.0 20.5 0 0 {inGround:1b,life:5s}
+entity_seed f1 330
+spawn f2 minecraft:arrow 44.5 -57.0 20.5 0 0 {pickup:1b,life:50s}
+entity_seed f2 331
+velocity f2 0 0 0.3
+watch entities
+tick 8
+watch off
+note an arrow shot at a stone wall sticks; the block is mined, the arrow falls
+spawn w1 minecraft:arrow 15.5 -58.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed w1 340
+velocity w1 0 0 2.5
+tick 6
+dump xentity:w1 nbt:w1
+block 15 -59 10 minecraft:air
+block 15 -58 10 minecraft:air
+tick 1
+dump xentity:w1
+tick 5
+dump xentity:w1 entities

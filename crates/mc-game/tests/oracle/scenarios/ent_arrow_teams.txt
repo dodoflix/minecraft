@@ -1,0 +1,46 @@
+# Who an arrow can hit: a team mate with friendly fire off (the arrow flies through), an opponent, a spectator (flies through), a
+# player of the same team with friendly fire on, and the creative shooter of a player.
+command_env
+level flat
+preload 3
+difficulty normal
+level_seed 5
+entity_counter 2900
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 5.5 -60 8.5 0 0
+spawn_player C survival 10.5 -60 8.5 0 0
+spawn_player D spectator 15.5 -60 8.5 0 0
+spawn_player E survival 20.5 -60 8.5 0 0
+spawn_player F survival 25.5 -60 8.5 0 0
+cmd team add red
+cmd team add blue
+cmd team join red A
+cmd team join red B
+cmd team join blue C
+cmd team join red E
+cmd team modify red friendlyFire false
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none packets:F:none
+spawn a1 minecraft:arrow 5.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a1 1101
+velocity a1 0 0 2.5
+spawn a2 minecraft:arrow 10.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a2 1102
+velocity a2 0 0 2.5
+spawn a3 minecraft:arrow 15.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a3 1103
+velocity a3 0 0 2.5
+spawn a4 minecraft:arrow 20.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a4 1104
+velocity a4 0 0 2.5
+spawn a5 minecraft:arrow 25.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a5 1105
+velocity a5 0 0 2.5
+spawn t1 minecraft:trident 5.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed t1 1106
+velocity t1 0 0 2.5
+level_seed 7
+tick 5
+dump entities player:B player:C player:D player:E player:F packets:A:game_event packets:B:damage_event,hurt_animation packets:C:damage_event,hurt_animation packets:E:damage_event,hurt_animation packets:F:damage_event,hurt_animation
+tick 10
+dump entities player:B

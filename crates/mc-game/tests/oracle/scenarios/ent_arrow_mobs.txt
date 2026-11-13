@@ -1,0 +1,88 @@
+# Arrows hitting living entities: plain damage, crit roll, piercing through a line of mobs, flaming arrows, tipped and spectral
+# arrows, knockback and power from the weapon, kills (killed_by_arrow, loot, orbs, piercing kill lists), an armor stand, and a
+# player as the target (arrow count, arrow-hit sound to the owner, damage, invulnerability of a creative player).
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 1600
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 26.5 -60 0.5 0 0
+spawn_player D survival 54.5 -60 8.5 0 0
+spawn_player E creative 58.5 -60 8.5 0 0
+mobspawn c1 minecraft:cow 4.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c1 1
+mobspawn c2 minecraft:cow 8.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c2 2
+mobspawn c3a minecraft:cow 12.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c3a 3
+mobspawn c3b minecraft:cow 12.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c3b 4
+mobspawn c3c minecraft:cow 12.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c3c 5
+mobspawn c4 minecraft:cow 16.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c4 6
+mobspawn c5 minecraft:cow 20.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c5 7
+mobspawn c6 minecraft:cow 24.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c6 8
+mobspawn c7 minecraft:cow 28.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c7 9
+mobspawn c8 minecraft:cow 32.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c8 10
+mobspawn c9 minecraft:cow 36.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed c9 11
+mobspawn c10a minecraft:cow 40.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed c10a 12
+mobspawn c10b minecraft:cow 40.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed c10b 13
+spawn stand minecraft:armor_stand 44.5 -60 8.5 0 0
+entity_seed stand 90
+tick 2
+dump packets:A:none packets:B:none advancements:A
+note arrows: plain, crit, piercing 1 (hits two of three), flame, tipped poison, spectral, punch bow, power bow, kill, piercing kill, armor stand, survival player, creative player
+spawn a1 minecraft:arrow 4.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a1 101
+velocity a1 0 0 2.5
+spawn a2 minecraft:arrow 8.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b}
+entity_seed a2 102
+velocity a2 0 0 3.0
+spawn a3 minecraft:arrow 12.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,PierceLevel:1b}
+entity_seed a3 103
+velocity a3 0 0 2.5
+spawn a4 minecraft:arrow 16.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,Fire:200s}
+entity_seed a4 104
+velocity a4 0 0 2.5
+spawn a5 minecraft:arrow 20.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:poison"}}}}
+entity_seed a5 105
+velocity a5 0 0 2.5
+spawn a6 minecraft:spectral_arrow 24.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a6 106
+velocity a6 0 0 2.5
+spawn a7 minecraft:arrow 28.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,weapon:{id:"minecraft:bow",count:1,components:{"minecraft:enchantments":{"minecraft:punch":2}}}}
+entity_seed a7 107
+velocity a7 0 0 2.5
+spawn a8 minecraft:arrow 32.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b,weapon:{id:"minecraft:bow",count:1,components:{"minecraft:enchantments":{"minecraft:power":4}}}}
+entity_seed a8 108
+velocity a8 0 0 2.5
+spawn a9 minecraft:arrow 36.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,weapon:{id:"minecraft:bow",count:1}}
+entity_seed a9 109
+velocity a9 0 0 2.5
+spawn a10 minecraft:arrow 40.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,PierceLevel:2b}
+entity_seed a10 110
+velocity a10 0 0 2.5
+spawn a11 minecraft:arrow 44.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a11 111
+velocity a11 0 0 2.5
+spawn a12 minecraft:arrow 54.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a12 112
+velocity a12 0 0 2.5
+spawn a13 minecraft:arrow 58.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a13 113
+velocity a13 0 0 2.5
+level_seed 7
+tick 4
+dump entities player:D player:E advancements:A stats:A packets:A:game_event,take_item_entity,remove_entities packets:B:damage_event,hurt_animation,entity_event,set_entity_data,set_entity_motion,update_mob_effect,sound,add_entity,remove_entities,take_item_entity
+tick 20
+dump entities player:D advancements:A packets:B:update_mob_effect,set_entity_data,entity_event,sound,remove_entities,add_entity

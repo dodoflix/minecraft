@@ -1,0 +1,40 @@
+# Projectiles that hit an enderman: the enderman teleports away without being hurt and the arrow or trident is deflected back
+# (reverse deflection, the item is dropped when the arrow stops), an enderman standing in water takes the hit.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 2800
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 26.5 -60 0.5 0 0
+fill 20 -61 4 28 -58 14 minecraft:glass
+fill 21 -60 5 27 -58 13 minecraft:air
+fill 21 -60 5 27 -59 13 minecraft:water
+mobspawn e1 minecraft:enderman 4.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed e1 1
+mobspawn e2 minecraft:enderman 12.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed e2 2
+mobspawn e3 minecraft:enderman 24.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed e3 3
+mobspawn e4 minecraft:enderman 36.5 -60 8.5 0 0 {PersistenceRequired:1b}
+entity_seed e4 4
+tick 2
+dump packets:A:none packets:B:none
+spawn a1 minecraft:arrow 4.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a1 1001
+velocity a1 0 0 2.5
+spawn t1 minecraft:trident 12.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed t1 1002
+velocity t1 0 0 2.5
+spawn a3 minecraft:arrow 24.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a3 1003
+velocity a3 0 0 2.5
+spawn a4 minecraft:arrow 36.5 -59.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed a4 1004
+velocity a4 0 0 2.5
+level_seed 7
+tick 6
+dump entities mob:e1 mob:e2 mob:e3 mob:e4 packets:B:sound,entity_event,damage_event,set_entity_data,teleport_entity,move_entity_pos,entity_position_sync,set_entity_motion,remove_entities
+tick 20
+dump entities

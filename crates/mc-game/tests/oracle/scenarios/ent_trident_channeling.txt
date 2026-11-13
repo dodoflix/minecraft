@@ -1,0 +1,51 @@
+# Channeling: a trident with channeling hit on a mob under the open sky in a thunderstorm calls a lightning bolt on it (not in clear
+# weather, not under a roof), and in a thunderstorm a trident that hits a lightning rod calls one there; the bolt's damage, fire and
+# events (sounds, level events).
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 2300
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 60.5 -60 0.5 0 0
+fill 20 -57 12 26 -57 18 minecraft:stone
+fill 28 -61 5 40 -61 20 minecraft:grass_block
+block 36 -60 12 minecraft:lightning_rod
+mobspawn c1 minecraft:cow 4.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c1 1
+mobspawn c2 minecraft:cow 12.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c2 2
+mobspawn c3 minecraft:cow 23.5 -60 15.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed c3 3
+tick 2
+dump packets:A:none packets:B:none events
+note clear weather: nothing happens
+spawn t1 minecraft:trident 4.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:channeling":1}}},HasBeenShot:1b,LeftOwner:1b}
+entity_seed t1 601
+velocity t1 0 0 2.5
+tick 4
+dump entities events packets:B:add_entity,sound
+note thunder: a channeling trident hits a cow (sky visible), another one a cow under a roof, a third one a plain trident, one hits the ground, one a lightning rod
+cmd weather thunder 1000000
+tick 100
+spawn t2 minecraft:trident 12.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:channeling":1}}},HasBeenShot:1b,LeftOwner:1b}
+entity_seed t2 602
+velocity t2 0 0 2.5
+spawn t3 minecraft:trident 23.5 -59.5 9.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:channeling":1}}},HasBeenShot:1b,LeftOwner:1b}
+entity_seed t3 603
+velocity t3 0 0 2.5
+spawn t4 minecraft:trident 4.5 -59.5 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1},HasBeenShot:1b,LeftOwner:1b}
+entity_seed t4 604
+velocity t4 0 0 2.5
+spawn t5 minecraft:trident 32.5 -58.0 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:channeling":1}}},HasBeenShot:1b,LeftOwner:1b}
+entity_seed t5 605
+velocity t5 0 -1.5 0
+spawn t6 minecraft:trident 36.5 -58.0 12.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:channeling":1}}},HasBeenShot:1b,LeftOwner:1b}
+entity_seed t6 606
+velocity t6 0 -1.5 0
+level_seed 11
+tick 4
+dump entities events packets:A:sound,add_entity,entity_event packets:B:add_entity,sound,remove_entities
+tick 20
+dump entities xentities events

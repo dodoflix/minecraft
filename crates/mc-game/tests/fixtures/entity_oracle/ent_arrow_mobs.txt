@@ -1,0 +1,166 @@
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+# arrows: plain, crit, piercing 1 (hits two of three), flame, tipped poison, spectral, punch bow, power bow, kill, piercing kill, armor stand, survival player, creative player
+E c1 minecraft:cow pos=4.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E c2 minecraft:cow pos=8.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=8/18 death=0 fx=-
+E c3a minecraft:cow pos=12.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E c3b minecraft:cow pos=12.5,-60.0,11.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=10/20 death=0 fx=-
+E c3c minecraft:cow pos=12.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c4 minecraft:cow pos=16.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=99 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E c5 minecraft:cow pos=20.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/0/111
+E c6 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:glowing/0/199
+E c7 minecraft:cow pos=28.5,-60.0,8.5 delta=0.0,0.1,1.6000000059604644 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E a3 minecraft:arrow pos=12.5,-59.798005001897806,12.350997641150952 delta=0.0,-0.19701995282301904,2.401490117534925 rot=0.0,-1.2208545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=1 pickup=1 shake=0 life=0 dmg=2.0
+E a10 minecraft:arrow pos=40.5,-59.798005001897806,12.350997641150952 delta=0.0,-0.19701995282301904,2.401490117534925 rot=0.0,-1.2208545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=2 pickup=1 shake=0 life=0 dmg=2.0
+E a13 minecraft:arrow pos=58.5,-59.619590371359784,7.957425231068849 delta=0.0,-0.08974800524221899,-0.2401490117534925 rot=183.57938,-2.3997996 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E item#1 minecraft:item pos=32.421114773389526,-59.84,8.440226481861721 delta=-0.07730752358287853,0.1568000030517578,-0.05857804891560315 rot=108.005646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=1 pickup=9 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=32.665990293220105,-59.88467567096827,8.584099059402716 delta=0.16267049052171823,0.11301784465073433,0.08241707981872443 rot=340.6177,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
+E experience_orb#2 minecraft:experience_orb pos=32.510585738739096,-59.92323368260209,8.438956557981196 delta=0.010374024166221367,0.07523099251415646,-0.059822574342738244 rot=330.27393,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
+E item#2 minecraft:item pos=36.480892258333746,-59.84,8.515449101799692 delta=-0.01872558719738325,0.1568000030517578,0.015140120058367032 rot=299.42035,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=1 pickup=9 health=5 owner=- thrower=-
+E experience_orb#3 minecraft:experience_orb pos=36.3446649610256,-59.97304264723126,8.62451471159828 delta=-0.15222834115769027,0.026418206227538918,0.1220244197412443 rot=166.34384,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
+E item#3 minecraft:item pos=40.50065023626793,-59.84,8.462118698342685 delta=6.3723155497628E-4,0.1568000030517578,-0.037123676346696194 rot=3.2410955,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*3 age=1 pickup=9 health=5 owner=- thrower=-
+E experience_orb#4 minecraft:experience_orb pos=40.684861774406855,-59.98408525867085,8.558437575810627 delta=0.18116454244467298,0.015596446806112108,0.05726882540902361 rot=95.92329,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
+E item#4 minecraft:item pos=44.766232759851206,-59.503355862717,8.716716247375187 delta=0.04621873558689456,0.1568000030517578,0.08451849699902457 rot=287.16324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=40.5,-60.0,11.5 delta=-0.05123886581463386,0.2,-0.0010393372377592164 rot=185.22737,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=0 pickup=10 health=5 owner=- thrower=-
+E experience_orb#5 minecraft:experience_orb pos=40.5,-60.0,11.5 delta=0.05331224124906486,0.1822385491264639,0.17727320853763812 rot=357.15927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#6 minecraft:experience_orb pos=40.5,-60.0,11.5 delta=0.12008998370616797,0.31239683778648986,0.02484516031213993 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+P D minecraft:player pos=54.5,-60.0,8.5 delta=0.0,0.19128033396326094,0.1987440317739259 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P E minecraft:player pos=58.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+ADV A minecraft:adventure/root killed_something
+ADV A minecraft:adventure/shoot_arrow shot_arrow
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT A minecraft.custom:minecraft.mob_kills 4
+STAT A minecraft.custom:minecraft.play_time 6
+STAT A minecraft.custom:minecraft.time_since_death 6
+STAT A minecraft.custom:minecraft.time_since_rest 6
+STAT A minecraft.custom:minecraft.total_world_time 6
+STAT A minecraft.killed:minecraft.cow 4
+PKT A minecraft:remove_entities 4e01d40c
+PKT A minecraft:remove_entities 4e01d30c
+PKT A minecraft:remove_entities 4e01d60c
+PKT A minecraft:remove_entities 4e01d70c
+PKT A minecraft:remove_entities 4e01d80c
+PKT A minecraft:remove_entities 4e01d90c
+PKT A minecraft:game_event 270600000000
+PKT B minecraft:add_entity 01d30c97fd63b95d8d486fb6212b7f8c6ea4e5064012000000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:add_entity 01d40c7354d119e2584613b69ed63b58b4e76f064021000000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:set_entity_data 65d40c080001ff
+PKT B minecraft:add_entity 01d50c5407935cbb164b1995c072164081cedb064029000000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:set_entity_data 65d50c090001ff
+PKT B minecraft:add_entity 01d60cabeddfa391724f5f8e18a6e5ab30910e064030800000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:add_entity 01d70c966939cf560847cea5224f45b0868410064034800000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:set_entity_data 65d70c0b01e3c69efc0fff
+PKT B minecraft:add_entity 01d80ca1710345d9064d278bd2e1469bbeee757e4038800000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:add_entity 01d90c54954240452e4a249eb47fb594ba8b0e06403c800000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:add_entity 01da0cf2e0bb87770d476a8a4e2985fd661e41064040400000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:set_entity_data 65da0c080001ff
+PKT B minecraft:add_entity 01db0ce2ea924a3f7f440cb0b551e7c791ae3f064042400000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:add_entity 01dc0ce85f526a30164b46850d6e7b4850bd4a064044400000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:set_entity_data 65dc0c090002ff
+PKT B minecraft:add_entity 01dd0cace8587e27154c39aefed625a6837184064046400000000000c04dc00000000000400400000000000000000000c10c
+PKT B minecraft:set_entity_motion 67d40cfbfffffcfffd
+PKT B minecraft:set_entity_data 65d40c080001ff
+PKT B minecraft:set_entity_motion 67dd0cfbffeaa8fffd
+PKT B minecraft:set_entity_motion 67dc0cfbffeaa8fffd
+PKT B minecraft:set_entity_data 65dc0c090002ff
+PKT B minecraft:set_entity_motion 67d90cfbffeaa8fffd
+PKT B minecraft:set_entity_motion 67d80cfbffeaa8fffd
+PKT B minecraft:set_entity_motion 67d30cfbffeaa8fffd
+PKT B minecraft:set_entity_motion 67d70cfbffeaa8fffd
+PKT B minecraft:set_entity_data 65d70c0b01e3c69efc0fff
+PKT B minecraft:set_entity_motion 67d50cfbffeaa8fffd
+PKT B minecraft:set_entity_data 65d50c090001ff
+PKT B minecraft:set_entity_motion 67d60cfbffeaa8fffd
+PKT B minecraft:set_entity_motion 67db0cfbffeaa8fffd
+PKT B minecraft:set_entity_motion 67da0cfbffeaa8fffd
+PKT B minecraft:set_entity_data 65da0c080001ff
+PKT B minecraft:set_entity_motion 67d60cfbffe996fbb9
+PKT B minecraft:set_entity_data 65d60c000001ff
+PKT B minecraft:set_entity_motion 67d60cfbffe996fbb9
+PKT B minecraft:remove_entities 4e01d40c
+PKT B minecraft:remove_entities 4e01d30c
+PKT B minecraft:sound 77560600000064fffffe24000000403f8000003f93113ba3981763e0103683
+PKT B minecraft:sound 77c4030600000084fffffe20000000443ecccccd3f909981a1a24ca263725fe3
+PKT B minecraft:sound 77560600000084fffffe24000000403f8000003f93147629a8e9b76b35b192
+PKT B minecraft:remove_entities 4e01d60c
+PKT B minecraft:sound 77c80306000000a4fffffe20000000443ecccccd3f6b2dabec866a92984bf066
+PKT B minecraft:sound 775606000000a4fffffe24000000403f8000003f93151b5ac3b5cd447e2ff6
+PKT B minecraft:remove_entities 4e01d70c
+PKT B minecraft:sound 77c40306000000c4fffffe20000000443ecccccd3f5d12f25ae586ec5969c658
+PKT B minecraft:sound 775606000000c4fffffe24000000403f8000003f93132ad55fad91ece1d6ce
+PKT B minecraft:remove_entities 4e01d80c
+PKT B minecraft:sound 77c80306000000e4fffffe20000000443ecccccd3f86ba00d8bde3e82cd7dc02
+PKT B minecraft:sound 775606000000e4fffffe24000000403f8000003f9313d03b8fbbb9f9feaeb8
+PKT B minecraft:remove_entities 4e01d90c
+PKT B minecraft:sound 77c5030600000104fffffe20000000443ecccccd3f8af538dd1c412737275425
+PKT B minecraft:add_entity 01e00ceaa6bb06f2f545a488838929010b74b5484040400000000000c04e000000000000402100000000000099d778593331004c0000
+PKT B minecraft:set_entity_data 65e00c080701ec090000ff
+PKT B minecraft:add_entity 01e10cbd5a01a0a9374362bef612214b11bd85324040400000000000c04e0000000000004021000000000000f1548ac3253200f20000
+PKT B minecraft:set_entity_data 65e10c080101ff
+PKT B minecraft:add_entity 01e20cb12265dbf2944c6f9e9ce32ba95fa06e324040400000000000c04e00000000000040210000000000006105782f1b5200ea0000
+PKT B minecraft:set_entity_data 65e20c080101ff
+PKT B minecraft:sound 77560600000104fffffe24000000403f8000003f8e914b68f642d08afcf74f
+PKT B minecraft:remove_entities 4e01da0c
+PKT B minecraft:sound 77c9030600000124fffffe20000000443ecccccd3f898c25c80c02e739d7e31b
+PKT B minecraft:add_entity 01e30c52769c66c6624448a0e0258744fc03cf484042400000000000c04e000000000000402100000000000031f681f9333100d40000
+PKT B minecraft:set_entity_data 65e30c080702ec090000ff
+PKT B minecraft:add_entity 01e40cd8f329522b46487aba5057099c92afda324042400000000000c04e000000000000402100000000000071b08fef0e9100760000
+PKT B minecraft:set_entity_data 65e40c080103ff
+PKT B minecraft:sound 77560600000124fffffe24000000403f8000003f9317b09f4d398f7d66aef4
+PKT B minecraft:remove_entities 4e01db0c
+PKT B minecraft:add_entity 01e50c8eac731c7b7c486084d244dfe11e57b7484044400000000000c04e000000000000402100000000000051007b25333200020000
+PKT B minecraft:set_entity_data 65e50c080703ec090000ff
+PKT B minecraft:add_entity 01e60cd981f45f37524028a2a407cb4b37c7f1324044400000000000c04e0000000000004021000000000000a15e87790bbe00440000
+PKT B minecraft:set_entity_data 65e60c080103ff
+PKT B minecraft:sound 77560600000144fffffe24000000403f8000003f9315c1e86338715c8952d1
+PKT B minecraft:add_entity 01e70cbb98c656575a491f8c5bbb1f1a18bae04840465c0a82f200d5c04dd4e8d84bfd5c402142cd578a31fd21188b09333200cc0000
+PKT B minecraft:set_entity_data 65e70c080701fd0a0000ff
+PKT B minecraft:remove_entities 4e01dd0c
+PKT B minecraft:set_entity_motion 67dc0cfbffe77cf351
+PKT B minecraft:set_entity_motion 67d50cfbffe77cf351
+PKT B minecraft:set_entity_data 65e00c080701ec090000ff
+PKT B minecraft:set_entity_data 65e10c080101ff
+PKT B minecraft:set_entity_data 65e30c080702ec090000ff
+PKT B minecraft:set_entity_data 65e20c080101ff
+PKT B minecraft:set_entity_data 65e70c080701fd0a0000ff
+PKT B minecraft:set_entity_data 65e60c080103ff
+PKT B minecraft:set_entity_data 65e40c080103ff
+PKT B minecraft:set_entity_data 65e50c080703ec090000ff
+PKT B minecraft:add_entity 01e80c3de4a80f494f467885267233eb6dc448484044400000000000c04e0000000000004027000000000000c1e57fdd333100830000
+PKT B minecraft:set_entity_data 65e80c080702ec090000ff
+PKT B minecraft:add_entity 01e90ce4fc194f2cd44cb9a12ac9d59c172cfe324044400000000000c04e0000000000004027000000000000411b96af2ea600fd0000
+PKT B minecraft:set_entity_data 65e90c080101ff
+PKT B minecraft:add_entity 01ea0cce4c4715cc284e39bf3bcf9eb23fae71324044400000000000c04e0000000000004027000000000000713d832d4ff6008c0000
+PKT B minecraft:set_entity_data 65ea0c080101ff
+E c1 minecraft:cow pos=4.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=8.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3a minecraft:cow pos=12.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3b minecraft:cow pos=12.5,-60.0,11.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3c minecraft:cow pos=12.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c4 minecraft:cow pos=16.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=79 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=9/19 death=0 fx=-
+E c5 minecraft:cow pos=20.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/0/91
+E c6 minecraft:cow pos=24.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/179
+E c7 minecraft:cow pos=28.5,-60.0,8.5 delta=0.0,0.1,1.6000000059604644 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a10 minecraft:arrow pos=40.5,-59.94999999925494,14.75075569829056 delta=0.0,0.0,0.0 rot=0.0,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=18 dmg=2.0
+E item#1 minecraft:item pos=31.749844216013834,-60.0,7.931586213448493 delta=-5.638981611085234E-4,-0.04,-4.2728123388173625E-4 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=21 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=34.23683246631122,-60.0,9.379966978329191 delta=3.939985293659785E-4,0.0,1.9961953848587257E-4 rot=340.6177,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=21 health=5
+E experience_orb#2 minecraft:experience_orb pos=32.57396365690607,-60.0,8.073483125445964 delta=1.953842300883186E-6,0.0,-1.1266975517480877E-5 rot=330.27393,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=21 health=5
+E item#2 minecraft:item pos=36.3189230750801,-60.0,8.646405362576308 delta=-3.9505687356050043E-4,0.0,3.194136681825885E-4 rot=299.42035,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=21 pickup=0 health=5 owner=- thrower=-
+E experience_orb#3 minecraft:experience_orb pos=35.83070371027986,-60.0,9.036499910377826 delta=-6.1928651627739705E-6,0.0,4.964126734065015E-6 rot=166.34384,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=21 health=5
+E item#3 minecraft:item pos=40.50616204604004,-60.0,8.14101306497236 delta=1.3443781665666772E-5,-0.08,-7.832044655265685E-4 rot=3.2410955,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*3 age=21 pickup=0 health=5 owner=- thrower=-
+E experience_orb#4 minecraft:experience_orb pos=41.29651893441748,-60.0,8.751791565692644 delta=7.370030935785595E-6,0.0,2.329777169555725E-6 rot=95.92329,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=21 health=5
+E item#4 minecraft:item pos=45.24262570103641,-60.0,9.587878447263135 delta=5.506450956772346E-4,0.0,0.0010069443760317928 rot=287.16324,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=21 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=40.01442842277474,-60.0,11.49015058952254 delta=-0.0010593751206748625,0.0,-2.1488532077511135E-5 rot=185.22737,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=20 pickup=0 health=5 owner=- thrower=-
+E experience_orb#5 minecraft:experience_orb pos=41.14014257427022,-60.0,13.62859421032902 delta=5.978041262874929E-4,0.0,0.00198781092411646 rot=357.15927,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=20 health=5
+E experience_orb#6 minecraft:experience_orb pos=42.46312431178289,-59.92560280540054,11.906146597190354 delta=0.048103840895721804,0.07290925212648516,0.009952100931316031 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=20 health=5
+P D minecraft:player pos=54.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:adventure/root killed_something
+ADV A minecraft:adventure/shoot_arrow shot_arrow
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT B minecraft:set_entity_data 65e90c080101ff
+PKT B minecraft:set_entity_data 65e80c080702ec090000ff
+PKT B minecraft:set_entity_data 65ea0c080101ff
+PKT B minecraft:remove_entities 4e01d50c
+PKT B minecraft:set_entity_data 65dc0c0900000a0801ff
+PKT B minecraft:sound 77c80306000000a4fffffe20000000443ecccccd3f64bef4c8b3e3156ef5b6f0
+PKT B minecraft:sound 77c4030600000084fffffe20000000443ecccccd3f81158383cbf119740d27de

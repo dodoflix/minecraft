@@ -1,0 +1,79 @@
+# Arrows and tridents against players: a raised shield blocks (side, pierce, crit, flame, trident) and the projectile bounces off,
+# a shield that is not up yet or turned away does not, a creative player cannot be hurt (the projectile is deflected), armor
+# reduces the damage, and a hit on a blocking player sets the item cooldown (packets, health, arrow count, cooldowns).
+command_env
+level flat
+preload 3
+difficulty normal
+level_seed 5
+entity_counter 1800
+spawn_player A survival -6.5 -60 15.5 180 0
+spawn_player B survival 0.5 -60 10.5 0 0
+spawn_player C survival 6.5 -60 10.5 0 0
+spawn_player D survival 12.5 -60 10.5 180 0
+spawn_player E creative 18.5 -60 10.5 0 0
+spawn_player F survival 24.5 -60 10.5 0 0
+spawn_player G survival 30.5 -60 10.5 0 0
+spawn_player H survival 36.5 -60 10.5 0 0
+spawn_player I survival 42.5 -60 10.5 0 0
+spawn_player J survival 48.5 -60 10.5 0 0
+spawn_player K survival 54.5 -60 10.5 0 0
+give B offhand minecraft:shield
+give C offhand minecraft:shield
+give D offhand minecraft:shield
+give E offhand minecraft:shield
+give F offhand minecraft:shield
+give G offhand minecraft:shield
+give H offhand minecraft:shield
+give I offhand minecraft:shield
+give K offhand minecraft:shield
+give J chest minecraft:iron_chestplate
+give J head minecraft:iron_helmet
+tick 2
+dump packets:B:none packets:C:none packets:D:none packets:E:none packets:F:none packets:G:none packets:H:none packets:I:none packets:J:none packets:K:none
+note raise the shields (B C E F G H I K; D faces away, J has armor and no shield)
+use B off
+use C off
+use E off
+use F off
+use G off
+use H off
+use I off
+use K off
+tick 7
+note arrows fly north at the players: B plain, C trident-free blocking, D turned away, E creative, F pierce, G crit, H flame, I tipped, J armor, K trident
+spawn s0 minecraft:arrow 0.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed s0 201
+velocity s0 0 0 -2.5
+spawn s1 minecraft:spectral_arrow 6.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed s1 202
+velocity s1 0 0 -2.5
+spawn s2 minecraft:arrow 12.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed s2 203
+velocity s2 0 0 -2.5
+spawn s3 minecraft:arrow 18.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed s3 204
+velocity s3 0 0 -2.5
+spawn s4 minecraft:arrow 24.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,PierceLevel:2b}
+entity_seed s4 205
+velocity s4 0 0 -2.5
+spawn s5 minecraft:arrow 30.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,crit:1b}
+entity_seed s5 206
+velocity s5 0 0 -3.0
+spawn s6 minecraft:arrow 36.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,Fire:200s}
+entity_seed s6 207
+velocity s6 0 0 -2.5
+spawn s7 minecraft:arrow 42.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:poison"}}}}
+entity_seed s7 208
+velocity s7 0 0 -2.5
+spawn s8 minecraft:arrow 48.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b}
+entity_seed s8 209
+velocity s8 0 0 -2.5
+spawn s9 minecraft:trident 54.5 -59.0 15.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],pickup:1b,item:{id:"minecraft:trident",count:1}}
+entity_seed s9 210
+velocity s9 0 0 -2.5
+level_seed 9
+tick 4
+dump entities player:B player:C player:D player:E player:F player:G player:H player:I player:J player:K cooldowns:B cooldowns:G cooldowns:K packets:B:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:C:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:D:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:E:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:F:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:G:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:H:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:I:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:J:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:K:damage_event,hurt_animation,entity_event,set_health,set_entity_motion,set_entity_data,remove_entities,add_entity,game_event,cooldown packets:A:game_event
+tick 15
+dump entities player:B player:H cooldowns:B cooldowns:G cooldowns:K

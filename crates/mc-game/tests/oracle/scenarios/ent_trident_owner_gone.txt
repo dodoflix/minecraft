@@ -1,0 +1,35 @@
+# A returning trident whose owner is dead (or a spectator) drops its item where it is, a trident whose owner died while it was
+# flying home as well, and tridents of a living owner are not affected by other deaths.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 3200
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 8.5 -60 0.5 0 0
+spawn_player C survival 16.5 -60 0.5 0 0
+spawn_player D survival 24.5 -60 0.5 0 0
+mobspawn m1 minecraft:cow 32.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,UUID:[I;5,6,7,8]}
+entity_seed m1 1
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+note B and the cow die while their tridents are on the way, C turns spectator, D stays alive
+spawn l1 minecraft:trident 8.5 -58.5 8.5 0 0 {Owner:[I;-196291187,2030186727,-1948358755,2017388081],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":3}}},DealtDamage:1b}
+entity_seed l1 1503
+spawn l2 minecraft:trident 16.5 -58.5 8.5 0 0 {Owner:[I;407689464,1828073685,-2048753337,-1664646821],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":3}}},DealtDamage:1b}
+entity_seed l2 1505
+spawn l3 minecraft:trident 24.5 -58.5 8.5 0 0 {Owner:[I;-571672024,-1301792035,-1920773462,-796079839],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":3}}},DealtDamage:1b}
+entity_seed l3 1507
+spawn l4 minecraft:trident 32.5 -58.5 8.5 0 0 {Owner:[I;5,6,7,8],pickup:1b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":3}}},DealtDamage:1b}
+entity_seed l4 1509
+spawn l5 minecraft:trident 8.5 -58.5 12.5 0 0 {Owner:[I;-196291187,2030186727,-1948358755,2017388081],pickup:0b,item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":1}}},DealtDamage:1b}
+entity_seed l5 1511
+tick 3
+hurt B generic_kill 1000
+hurt m1 generic_kill 1000
+cmd gamemode spectator C
+watch entities
+tick 20
+watch off
+dump entities inventory:D xentities
