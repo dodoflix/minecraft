@@ -7,7 +7,6 @@ spawn_player Alice survival 0.5 -60 0.5 0 90
 give Alice mainhand minecraft:ender_pearl 5
 tick 5
 entity_counter 500
-level_seed 11
 gamerule spawn_mobs true
 gamerule spawn_monsters true
 use Alice main 16

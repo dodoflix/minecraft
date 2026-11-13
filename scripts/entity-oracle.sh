@@ -12,7 +12,7 @@
 #
 # Output: stdout, or OUT with -o (replaced only when the run succeeded; --regen writes crates/mc-game/tests/fixtures/entity_oracle/*.txt[.gz]).
 # Needs: java, javac, python3, ref/ with decompiled sources (setup-ref.sh --decompile) and MC_ACCEPT_EULA=1 (the oracle starts a vanilla
-# level). The shadow classes Holder/ResourceKey/RandomSource/RandomSupport (vanilla + tests/oracle/shadow.patch, see oracle-shadow.sh) are
+# level). The shadow classes Holder/ResourceKey/RandomSource/Util/RandomSupport (vanilla + tests/oracle/shadow.patch, see oracle-shadow.sh) are
 # generated and compiled into target/entity-oracle-shadow on demand.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -68,7 +68,7 @@ PY
   rm -rf "$classes"; trap - EXIT
 fi
 CP="${CP//"$SERVER_JAR"/"$PATCHED"}"
-JAVA_OPTS_ORACLE=(-Xmx2G -Dio.netty.noUnsafe=false -Dlog4j2.configurationFile="$T/oracle/log4j2-oracle.xml")
+JAVA_OPTS_ORACLE=(-Xmx2G -Dio.netty.noUnsafe=false -Doracle.directExecutors=true -Dlog4j2.configurationFile="$T/oracle/log4j2-oracle.xml")
 scenario="$(realpath "$1")"; shift
 out=""
 if [ "${1:-}" = -o ]; then out="$(realpath -m "$2")"; shift 2; fi

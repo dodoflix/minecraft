@@ -73,3 +73,44 @@
     public String toString() {
        return "ResourceKey[" + this.registryName + " / " + this.identifier + "]";
     }
+--- a/util/Util.java
++++ b/util/Util.java
+@@ -102,6 +102,9 @@
+    private static final Logger LOGGER = LogUtils.getLogger();
+    private static final int DEFAULT_MAX_THREADS = 255;
+    private static final int DEFAULT_SAFE_FILE_OPERATION_RETRIES = 10;
++   // ORACLE SHADOW (tests/oracle/shadow.patch): -Doracle.directExecutors=true runs every background and IO task on the submitting thread (vanilla's own
++   // `threads <= 0` branch in makeExecutor), so chunk loading, generation and lighting finish in a fixed order instead of racing the server thread.
++   private static final boolean ORACLE_DIRECT_EXECUTORS = Boolean.getBoolean("oracle.directExecutors");
+    private static final String MAX_THREADS_SYSTEM_PROPERTY = "max.bg.threads";
+    private static final TracingExecutor BACKGROUND_EXECUTOR = makeExecutor("Main");
+    private static final TracingExecutor IO_POOL = makeIoExecutor("IO-Worker-", false);
+@@ -198,7 +201,7 @@
+    }
+ 
+    private static TracingExecutor makeExecutor(final String name) {
+-      int threads = maxAllowedExecutorThreads();
++      int threads = ORACLE_DIRECT_EXECUTORS ? 0 : maxAllowedExecutorThreads();
+       ExecutorService executor;
+       if (threads <= 0) {
+          executor = MoreExecutors.newDirectExecutorService();
+@@ -272,6 +275,10 @@
+    }
+ 
+    private static TracingExecutor makeIoExecutor(final String prefix, final boolean daemon) {
++      if (ORACLE_DIRECT_EXECUTORS) {
++         return new TracingExecutor(MoreExecutors.newDirectExecutorService());
++      }
++
+       AtomicInteger workerCount = new AtomicInteger(1);
+       return new TracingExecutor(Executors.newCachedThreadPool(runnable -> {
+          String name = prefix + workerCount.getAndIncrement();
+@@ -637,7 +644,7 @@
+    public static <K extends Enum<K>, V> Map<K, V> makeEnumMap(final Class<K> keyType, final Function<K, V> function) {
+       EnumMap<K, V> map = new EnumMap<>(keyType);
+ 
+-      for (K key : (Enum[])keyType.getEnumConstants()) {
++      for (K key : keyType.getEnumConstants()) {
+          map.put(key, function.apply(key));
+       }
+ 

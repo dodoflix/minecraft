@@ -6,7 +6,7 @@ STAT Alice minecraft.custom:minecraft.time_since_death 5
 STAT Alice minecraft.custom:minecraft.time_since_rest 5
 STAT Alice minecraft.custom:minecraft.total_world_time 5
 STAT Alice minecraft.used:minecraft.ender_pearl 1
-PKT Alice minecraft:sound 77e1040600000004fffffe20000000043f0000003ebb85bbe32d4fcf84a7860e
+PKT Alice minecraft:sound 77e1040600000004fffffe20000000043f0000003ebb8d9ce32d4fcf84a7860e
 PKT Alice minecraft:bundle_delimiter 00
 PKT Alice minecraft:add_entity 01f503a2f8a8ad2f064bb2929be669a186f6db2d3fe0000000000000c04d3d70a3d000003fe000000000000042fce0acff8dffff0001
 PKT Alice minecraft:set_entity_data 65f503080701f1090000ff
@@ -14,7 +14,7 @@ PKT Alice minecraft:bundle_delimiter 00
 PKT Alice minecraft:cooldown 16156d696e6563726166743a656e6465725f706561726c14
 PKT Alice minecraft:container_set_content 1200032e00000000000000000000000000000000000000000000000000000000000000000000000004f109000000000000000000000000
 T 6
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.36625466
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.36631477
 E ender_pearl#1 minecraft:ender_pearl pos=0.4855668975792904,-58.51312561674692,1.9956275757146171 delta=-0.014433102420709614,-0.0331256200251756,1.4956275757146171 rot=-0.55277014,-0.35883665 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
 T 7
@@ -87,12 +87,12 @@ C Game rule spawn_monsters is now set to true
 P Alice minecraft:player pos=0.4926987322387201,-59.995273801444284,0.5060871141996789 delta=0.0,-0.0784000015258789,0.0 rot=0.0,90.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=12.5 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*3
 P Bob minecraft:player pos=30.488198099829205,-59.89684547081582,13.367372726683957 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
 E endermite#1 minecraft:endermite pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
-EV sound at=30.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.48338974
+EV sound at=30.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.3785195
 EV sound at=30.488198099829205,-59.89684547081582,13.367372726683957 r=16.0 ex=0 event=minecraft:entity.player.teleport source=player vol=1.0 pitch=1.0
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.36426622
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.41528606
 EV sound at=0.4926987322387201,-59.995273801444284,0.5060871141996789 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
 EV sound at=0.4926987322387201,-59.995273801444284,0.5060871141996789 r=16.0 ex=0 event=minecraft:entity.player.teleport source=player vol=1.0 pitch=1.0
-PKT Alice minecraft:sound 77e1040600000004fffffe20000000043f0000003eba811aa3981763e0103683
+PKT Alice minecraft:sound 77e1040600000004fffffe20000000043f0000003ed4a060a3981763e0103683
 PKT Alice minecraft:bundle_delimiter 00
 PKT Alice minecraft:add_entity 01f7030ce1ee0b83e24aa1a56afc9635cc06c72d3fe0000000000000c04d3d70a3d000003fe00000000000001afe80623fedc0dc0001
 PKT Alice minecraft:set_entity_data 65f703080701f1090000ff

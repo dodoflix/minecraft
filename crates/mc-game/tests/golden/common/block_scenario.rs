@@ -968,12 +968,28 @@ impl Scenario {
         apply_spawn_settings(level, &self.env.game_rules, self.opts.difficulty);
     }
 
+    /// `VanillaLevel.drainChunkTasks`: the vanilla server loop runs the chunk source's queued tasks while it waits for the next tick, so
+    /// every chunk step the worker threads have finished is applied when a tick starts. Wait for the workers and drain, so a tick
+    /// never depends on thread timing (the chunks `tickChunks` shuffles decide the level random draws).
+    fn settle_chunks(&mut self) {
+        let level = self.level();
+        loop {
+            while level.poll_chunk_task() {}
+            let map = &level.chunk_source().chunk_map;
+            if map.pending_task_count() == 0 && map.loading_count() == 0 && !map.worldgen_busy() {
+                return;
+            }
+            std::thread::sleep(Duration::from_micros(200));
+        }
+    }
+
     /// One real server tick; with `watch`es set the `T n` header and the dumps follow.
     pub fn tick_once(&mut self) {
         // `VanillaLevel.tick`: every tick restarts the entity-seed sequence
         mc_core::random::reseed_uniquifier(
             8682522807148012i64 ^ ((self.ticks + 1).wrapping_mul(0x9E3779B97F4A7C15u64 as i64)),
         );
+        self.settle_chunks();
         self.apply_player_inputs();
         self.force_game_time_synchronization();
         let mut level = self.level.take().expect("world");

@@ -78,7 +78,9 @@ import net.minecraft.world.level.storage.PrimaryLevelData;
  * from {@link RandomSupport#reseedUniquifier}'s per-thread counter (the ORACLE SHADOW, {@code tests/oracle/shadow.patch} applied to
  * vanilla's RandomSupport without {@code System.nanoTime()}); the sequence is reset at boot, at the start of every tick and by
  * {@link #reseed}. {@code Level.random} is seeded at boot and by the driver's {@code level_seed};
- * {@code random_tick_speed} defaults to 0 so random ticks (chunk-order dependent) do not consume it. Chunks around
+ * {@code random_tick_speed} defaults to 0 so random ticks (chunk-order dependent) do not consume it. Worker tasks (chunk loading, generation,
+ * lighting) run on the submitting thread (shadow Util, {@code -Doracle.directExecutors=true}) and every tick starts with the chunk source's
+ * queued tasks drained, so chunk readiness never depends on thread timing. Chunks around
  * the origin are fully loaded and entity-ticking before the first script line. Player connections are real
  * {@link Connection}s over a Netty {@code EmbeddedChannel}: every clientbound packet the vanilla code sends is recorded
  * (bundles flattened with their delimiters, encoded with the real play codec) in {@link FakePlayer#packets}.
@@ -422,7 +424,7 @@ public final class VanillaLevel {
       // every tick restarts the entity-seed sequence: calls to RandomSource.create() made by main-thread housekeeping
       // (chunk tasks, light, ...) vary between runs and would otherwise shift the seeds of entities created later
       RandomSupport.reseedUniquifier(8682522807148012L ^ (ticks + 1) * 0x9E3779B97F4A7C15L);
-      awaitWorkers();
+      drainChunkTasks();
       for (FakePlayer p : players) {
          if (p.player instanceof SimPlayer sp && sp.sim) {
             if (sp.trackMovement) {
@@ -442,29 +444,15 @@ public final class VanillaLevel {
    }
 
    /**
-    * Chunk loading and generation run on worker threads and hand their results to the main thread's task queue: whether a result is
-    * already queued when a tick polls that queue (and with it the number of chunks that tick, hence the Level.random draws of
-    * ServerChunkCache.tickChunks, which shuffles the spawning chunks) would depend on thread timing. Before a tick, let the
-    * worker pools finish what they hold; the main thread's own queue is left to the tick, as in the server loop.
+    * The oracle JVM runs every worker task on the submitting thread (shadow Util, {@code -Doracle.directExecutors=true}), so chunk loading,
+    * generation and lighting finish in a fixed order; only the chunk source's main-thread task queue is left. A real server drains it while
+    * it waits for the next tick ({@code waitUntilNextTick}), so do the same: a tick never starts with a chunk result applied or not
+    * depending on timing (the number of chunks ServerChunkCache.tickChunks shuffles, hence its Level.random draws, depends on it).
     */
-   private static void awaitWorkers() {
-      long deadline = System.nanoTime() + 60_000_000_000L;
-      int calm = 0;
-      while (calm < 5 && System.nanoTime() < deadline) {
-         boolean idle = true;
-         if (Util.backgroundExecutor().service() instanceof java.util.concurrent.ForkJoinPool fj) {
-            fj.awaitQuiescence(60, java.util.concurrent.TimeUnit.SECONDS);
-            idle = fj.isQuiescent();
-         }
-         if (Util.ioPool().service() instanceof java.util.concurrent.ThreadPoolExecutor io) {
-            idle &= io.getActiveCount() == 0 && io.getQueue().isEmpty();
-         }
-         calm = idle ? calm + 1 : 0;
-         try {
-            Thread.sleep(1);
-         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return;
+   private void drainChunkTasks() {
+      for (ServerLevel l : server.getAllLevels()) {
+         while (l.getChunkSource().pollTask()) {
+            // each task may queue the next promotion step
          }
       }
    }

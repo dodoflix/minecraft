@@ -1,6 +1,6 @@
 C Game rule spawn_mobs is now set to true
 C Game rule spawn_monsters is now set to true
 P Alice minecraft:player pos=0.4926987322387201,-59.995273801444284,0.5060871141996789 delta=0.0,-0.0784000015258789,0.0 rot=0.0,90.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.36625466
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.44607988
 EV sound at=0.4926987322387201,-59.995273801444284,0.5060871141996789 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
 EV sound at=0.4926987322387201,-59.995273801444284,0.5060871141996789 r=16.0 ex=0 event=minecraft:entity.player.teleport source=player vol=1.0 pitch=1.0
