@@ -14,24 +14,15 @@ use uuid::Uuid;
 
 pub const NO_ANGER_END_TIME: i64 = -1;
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct NeutralData {
+    /// The plain `long` field of the classes without synched data starts at 0; only `stopBeingAngry` writes -1.
     pub persistent_anger_end_time: i64,
     /// `DATA_ANGER_END_TIME` of the classes that keep the end time in synched data (`Wolf`, `Bee`); when set it is the
     /// source of truth instead of `persistent_anger_end_time`.
     pub end_time_accessor: Option<EntityDataAccessor<serializer::Long>>,
     /// `EntityReference<LivingEntity>` persistent anger target.
     pub persistent_anger_target: Option<Uuid>,
-}
-
-impl Default for NeutralData {
-    fn default() -> Self {
-        Self {
-            persistent_anger_end_time: NO_ANGER_END_TIME,
-            end_time_accessor: None,
-            persistent_anger_target: None,
-        }
-    }
 }
 
 fn nd(e: &dyn Entity) -> &NeutralData {
@@ -103,7 +94,7 @@ pub fn read_persistent_anger_save_data(
         let game_time = level.map_or(0, |l| l.game_time());
         set_persistent_anger_end_time(e, game_time + i64::from(t.int_value()));
     } else {
-        set_persistent_anger_end_time(e, -1);
+        set_persistent_anger_end_time(e, NO_ANGER_END_TIME);
     }
     set_persistent_anger_target(
         e,
@@ -223,5 +214,5 @@ pub fn stop_being_angry(e: &mut dyn Entity, level: &ServerLevel) {
     }
     set_persistent_anger_target(e, None);
     e.set_target(level, None);
-    set_persistent_anger_end_time(e, -1);
+    set_persistent_anger_end_time(e, NO_ANGER_END_TIME);
 }

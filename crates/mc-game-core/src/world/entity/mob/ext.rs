@@ -313,9 +313,18 @@ pub fn trigger_tame_animal_by_id(level: &mut ServerLevel, player: EntityId, anim
     });
 }
 
-/// `oldBrain` `ANGRY_AT` memory copy of `ConversionType.convertCommon`. Not implemented: does nothing, the brain
-/// memories are not copied.
-pub fn copy_angry_at_memory(_from: &dyn Entity, _to: &mut dyn Entity) {}
+/// The `ANGRY_AT` memory copy of `ConversionType.convertCommon` (the value only, without its expiry).
+pub fn copy_angry_at_memory(from: &dyn Entity, to: &mut dyn Entity) {
+    use crate::world::entity::ai::memory::memory_module_type::ANGRY_AT;
+    let angry_at = from
+        .living()
+        .and_then(|l| l.brain.get_memory_internal(&ANGRY_AT))
+        .flatten()
+        .copied();
+    if let Some(uuid) = angry_at {
+        to.brain_mut().set_memory(&ANGRY_AT, uuid);
+    }
+}
 
 /// `CriteriaTriggers.PLAYER_SHEARED_EQUIPMENT.trigger(player, itemStackToShear, mob)`; `mob` is the running entity.
 pub fn trigger_player_sheared_equipment(

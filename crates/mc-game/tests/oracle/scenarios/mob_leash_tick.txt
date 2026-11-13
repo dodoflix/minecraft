@@ -1,0 +1,55 @@
+# Leashable.tickLeash: no pull inside the slack, the elastic pull (motion, angular momentum turning the leashed mob), the close range
+# behaviour of a path finder (walks to its holder unless it panics), the snap past 12 blocks, and the quad leash between a ghast and
+# a llama / boat (four attachment points, force scaled by 0.25). The holder of a leash that is removed lets go.
+level flat
+difficulty normal
+entity_counter 400
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn Cow minecraft:cow 3.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Pig minecraft:pig 3.5 -60 8.5 0 0 {PersistenceRequired:1b}
+mobspawn Llama minecraft:llama 20.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Ghast minecraft:ghast 26.5 -58 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn Boat minecraft:oak_boat 26.5 -60 8.5 0 0
+entity_seed Pig 12
+tick 3
+note inside the slack nothing pulls
+leash Cow Steve
+leash Pig Steve
+dump mob:Cow mob:Pig
+tick 5
+dump mob:Cow mob:Pig
+note the holder walks away: elastic pull and angular momentum, the cow drifts after it
+watch mob:Cow
+tp Steve 9.5 -60 0.5
+tick 10
+tp Steve 12.5 -60 0.5
+tick 15
+watch off
+dump mob:Cow mob:Pig
+note a pig close to its holder walks towards it, a panicking pig does not
+tp Steve 6.5 -60 8.5
+watch mob:Pig
+tick 20
+watch off
+hurt Pig player_attack 1 by=Steve
+watch mob:Pig
+tick 15
+watch off
+dump mob:Pig
+note past 12 blocks the lead snaps: break sound, the lead drops as an item
+tp Steve 30.5 -60 0.5
+tick 3
+dump mobs entities events
+note quad leash: the ghast holds the llama and the boat at four attachment points
+leash Llama Ghast
+leash Boat Ghast
+dump mob:Llama mob:Ghast entity:Boat
+tick 5
+watch mob:Llama entity:Boat mob:Pig
+tick 30
+watch off
+dump mob:Llama entity:Boat
+note the holder is removed: the leashes are dropped
+kill Ghast
+tick 3
+dump mobs entities events

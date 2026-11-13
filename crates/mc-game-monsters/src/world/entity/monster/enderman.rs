@@ -8,11 +8,11 @@ use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
 use mc_data::{Attribute, Block, EntityType, GameEvent, Item, SoundEvent};
-use mc_game_ai::world::entity::ai::goal::ResetUniversalAngerTargetGoal;
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::ResetUniversalAngerTargetGoal;
 use mc_game_core::world::entity::ai::goal::target::{
     HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type,
 };

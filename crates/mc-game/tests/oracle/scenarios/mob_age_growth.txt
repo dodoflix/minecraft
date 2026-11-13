@@ -1,0 +1,69 @@
+# AgeableMob: a baby grows one tick at a time and is an adult at age 0; wheat feeds a baby up (a tenth of the remaining seconds, forced
+# age with happy villager particles every 4th tick for 40 ticks); an adult counts its positive age (breeding cooldown) down; feeding an
+# adult starts love; a golden dandelion locks and unlocks a baby's growth (pause/reset particles).
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 300
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve mainhand minecraft:wheat 16
+mobspawn B1 minecraft:cow 3.5 -60 0.5 0 0 {Age:-60,NoAI:1b,PersistenceRequired:1b}
+mobspawn B2 minecraft:cow 3.5 -60 3.5 0 0 {Age:-24000,NoAI:1b,PersistenceRequired:1b}
+mobspawn A1 minecraft:cow 6.5 -60 0.5 0 0 {Age:50,NoAI:1b,PersistenceRequired:1b}
+mobspawn A2 minecraft:cow 6.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn B3 minecraft:sheep 9.5 -60 0.5 0 0 {Age:-24000,NoAI:1b,PersistenceRequired:1b}
+entity_seed B1 5
+entity_seed B2 6
+entity_seed A1 7
+entity_seed A2 8
+entity_seed B3 9
+tick 2
+dump mob:B1 mob:B2 mob:A1 mob:A2 mob:B3
+note a baby becomes an adult when its age reaches 0, an adult counts its cooldown down to 0
+watch mob:B1 mob:A1 packets:Steve:level_particles
+tick 62
+watch off
+dump mob:B1 mob:B2 mob:A1 mob:A2 mob:B3
+note wheat on a baby: 24000 ticks = 1200 s, a tenth is 120 s = 2400 ticks of growth, forced age and particles
+interact Steve B2
+dump mob:B2 packets:Steve:level_particles,entity_event
+watch mob:B2 packets:Steve:level_particles
+tick 45
+watch off
+note feeding the baby again while the forced age timer ran out
+interact Steve B2
+tick 2
+dump mob:B2 nbt:B2 packets:Steve:level_particles,entity_event
+note feeding an adult puts it in love, feeding a cooling-down adult does nothing
+interact Steve A2
+tick 2
+dump mob:A2 packets:Steve:level_particles,entity_event
+interact Steve A2
+nbt A1 {Age:100}
+interact Steve A1
+tick 2
+dump mob:A1 mob:A2 packets:Steve:level_particles,entity_event
+note forced age of a nearly grown baby: ageUp passes 0, the forced age becomes the age
+nbt B2 {Age:-30,ForcedAge:-2000}
+interact Steve B2
+tick 2
+dump mob:B2 nbt:B2
+note golden dandelion: lock (age reset to a baby, persistent, pause particles), growth stops, unlock (reset particles)
+give Steve mainhand minecraft:golden_dandelion 4
+interact Steve B3
+dump mob:B3 nbt:B3 packets:Steve:level_particles
+watch mob:B3 packets:Steve:level_particles
+tick 45
+watch off
+interact Steve B3
+tick 2
+dump mob:B3 nbt:B3 packets:Steve:level_particles
+note an adult ignores the dandelion
+interact Steve A2
+tick 2
+dump mob:A2 packets:Steve:level_particles
+note age and forced age survive the NBT round trip
+nbt B1 {Age:-77,ForcedAge:-5}
+tick 3
+dump mob:B1 nbt:B1

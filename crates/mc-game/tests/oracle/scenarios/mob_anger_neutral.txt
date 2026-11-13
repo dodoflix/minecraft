@@ -1,0 +1,82 @@
+# NeutralMob: persistent anger of a wolf, a zombified piglin and an iron golem (timer draws, persistent target, forgive when the
+# target is creative / dies, universal anger with the reset goal). The mobs cannot move (speed 0), so only the anger logic runs.
+level flat
+difficulty normal
+entity_counter 100
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 18.5 -60 0.5 0 0
+mobspawn W minecraft:wolf 9.5 -60 0.5 90 0 {PersistenceRequired:1b}
+mobspawn Z minecraft:zombified_piglin 4.5 -60 14.5 90 0 {PersistenceRequired:1b}
+mobspawn G minecraft:iron_golem 4.5 -60 -11.5 90 0 {PersistenceRequired:1b}
+attribute W minecraft:movement_speed 0
+attribute Z minecraft:movement_speed 0
+attribute G minecraft:movement_speed 0
+entity_seed W 11
+entity_seed Z 22
+entity_seed G 33
+tick 5
+note calm: no anger, no target
+dump mob:W mob:Z mob:G nbt:W nbt:Z nbt:G
+note a hit makes the victim angry at the attacker (timer drawn on the next ai step)
+hurt W player_attack 1 by=Steve
+hurt Z player_attack 1 by=Steve
+hurt G player_attack 1 by=Steve
+tick 1
+dump mob:W mob:Z mob:G
+tick 4
+dump mob:W mob:Z mob:G nbt:W nbt:Z nbt:G
+note the anger runs for 20 to 39 seconds and is refreshed while the target is in sight
+tick 200
+dump mob:W mob:Z mob:G nbt:W nbt:Z nbt:G
+tick 200
+dump mob:W mob:Z mob:G nbt:W nbt:Z nbt:G
+note a creative target is forgiven at once
+cmd gamemode creative Steve
+tick 3
+dump mob:W mob:Z mob:G nbt:W nbt:Z nbt:G
+cmd gamemode survival Steve
+tick 3
+dump mob:W mob:Z mob:G
+note anger written to NBT and read back keeps the end time and the target
+hurt W player_attack 1 by=Alex
+tick 3
+nbt W {anger_end_time:200L}
+tick 2
+dump mob:W nbt:W
+nbt W {AngerTime:50}
+tick 2
+dump mob:W nbt:W
+note a mob target that dies ends the anger
+mobspawn Cow minecraft:cow 6.5 -60 0.5 0 0 {PersistenceRequired:1b}
+target W Cow
+tick 3
+dump mob:W nbt:W
+hurt Cow out_of_world 1000
+tick 3
+dump mob:W nbt:W
+note universal anger: a hit by a player angers the mob at every player (the reset goal clears the personal target)
+gamerule universal_anger true
+hurt Z player_attack 1 by=Steve
+tick 3
+dump mob:Z nbt:Z
+hurt G player_attack 1 by=Steve
+tick 3
+dump mob:G nbt:G
+tick 100
+dump mob:Z nbt:Z mob:G nbt:G
+gamerule universal_anger false
+tick 3
+dump mob:Z nbt:Z mob:G nbt:G
+note a player that dies is forgiven when forgive_dead_players is on
+hurt W player_attack 1 by=Steve
+tick 5
+dump mob:W nbt:W
+hurt Steve out_of_world 1000
+tick 3
+dump mob:W nbt:W mob:Z mob:G
+gamerule forgive_dead_players false
+hurt W player_attack 1 by=Alex
+tick 5
+hurt Alex out_of_world 1000
+tick 3
+dump mob:W nbt:W

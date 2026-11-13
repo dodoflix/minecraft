@@ -15,15 +15,14 @@ use mc_data::{EntityType, GameEvent, Item, SoundEvent};
 use mc_game_ai::world::entity::ai::goal::target::{
     NonTameRandomTargetGoal, OwnerHurtByTargetGoal, OwnerHurtTargetGoal,
 };
-use mc_game_ai::world::entity::ai::goal::{
-    AvoidEntityGoal, LeapAtTargetGoal, ResetUniversalAngerTargetGoal,
-};
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::registry::keys;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::{DamageSource, DamageTypeTags};
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::ResetUniversalAngerTargetGoal;
 use mc_game_core::world::entity::ai::goal::target::{
     HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_types,
 };

@@ -419,7 +419,24 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
 
     player.remove_entities_on_shoulder(level);
     if level.forgive_dead_players() {
-        // `tellNeutralMobsThatIDied()`: neutral mobs (`NeutralMob.playerDied`) belong to the mob code.
+        // `tellNeutralMobsThatIDied()`
+        let pos = player.base().block_position();
+        let area = mc_core::phys::AABB::unit_cube_from_lower_corner(mc_core::phys::Vec3::new(
+            f64::from(pos.x()),
+            f64::from(pos.y()),
+            f64::from(pos.z()),
+        ))
+        .inflate(32.0, 10.0, 32.0);
+        let neutral = level.get_entities_of_class(
+            &area,
+            |e| e.mob().is_some_and(|m| m.neutral.is_some()),
+            |e| !e.is_spectator(),
+        );
+        for id in neutral {
+            level.with_entity(id, |level, e| {
+                crate::world::entity::mob::neutral::player_died(e, level, &*player)
+            });
+        }
     }
     if !player.is_spectator() {
         player.drop_all_death_loot(level, source);

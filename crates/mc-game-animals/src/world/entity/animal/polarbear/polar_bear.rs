@@ -6,12 +6,12 @@ use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{EntityType, SoundEvent};
-use mc_game_ai::world::entity::ai::goal::ResetUniversalAngerTargetGoal;
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::damagesource::{DamageSource, DamageTypeTags};
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::ResetUniversalAngerTargetGoal;
 use mc_game_core::world::entity::ai::goal::target::{
     HurtByTargetGoal, NearestAttackableTargetGoal, TargetType,
 };

@@ -291,9 +291,10 @@ pub fn comfortable_fall_distance(allowed_damage: f32) -> i32 {
     mth::floor_f32(allowed_damage + 3.0)
 }
 
-/// `getTarget()`: the target if it is still a valid one (`asValidTarget`).
+/// `getTarget()`: the target (`Entity::get_target`, which brain mobs read from the `ATTACK_TARGET` memory) if it is still a
+/// valid one (`asValidTarget`).
 pub fn get_target_checked(e: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
-    as_valid_target(e, level, m(e).target)
+    as_valid_target(e, level, e.get_target())
 }
 
 /// `asValidTarget(target)`.

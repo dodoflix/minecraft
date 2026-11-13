@@ -4068,10 +4068,6 @@ pub trait Entity: Any {
         self.mob().is_some_and(|m| m.kind.is_pathfinder())
             && super::mob::pathfinder::is_panicking(self.as_dyn())
     }
-    /// The brain's `IS_PANICKING` memory; `None` = no brain.
-    fn is_panicking_by_brain(&self) -> Option<bool> {
-        None
-    }
     /// `RangedAttackMob.performRangedAttack(target, power)` (default: not a ranged-attack mob). `target` is in the level.
     fn perform_ranged_attack(&mut self, _level: &mut ServerLevel, _target: EntityId, _power: f32) {}
     /// `RangedAttackMob.rangedAttackUncertainty(level)`.

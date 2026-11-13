@@ -1,0 +1,69 @@
+# Mob.convertTo carry-over (ConversionType.convertCommon / SINGLE): equipment and drop chances, custom name, persistence, no AI, effects,
+# absorption, tags, fire, leash, rider, vehicle, baby/age, left-handed, can break doors, pick-up flag; and SPLIT_ON_DEATH (slime).
+level flat
+difficulty hard
+time 18000
+entity_counter 500
+spawn_player Steve creative 0.5 -60 0.5 0 0
+note zombie -> drowned in a closed water tank (equipment kept, pick-up flag kept, leashed to a player, a non-mob passenger on top)
+fill 4 -61 -2 9 -56 3 minecraft:stone
+fill 5 -60 -1 8 -57 2 minecraft:water
+mobspawn Z minecraft:zombie 6.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,CustomName:"Zed",CustomNameVisible:1b,CanPickUpLoot:1b,LeftHanded:1b,CanBreakDoors:1b,Tags:["a","b"],AbsorptionAmount:3.0f,Invulnerable:1b,Silent:0b,active_effects:[{id:"minecraft:speed",amplifier:1b,duration:2000},{id:"minecraft:regeneration",amplifier:0b,duration:500}],equipment:{mainhand:{id:"minecraft:iron_sword",count:1},head:{id:"minecraft:iron_helmet",count:1}},drop_chances:{mainhand:0.5f,head:1.0f},DrownedConversionTime:6,InWaterTime:1}
+spawn As minecraft:armor_stand 6.5 -60 0.5 0 0
+tick 1
+ride As Z
+leash Z Steve
+entity_seed Z 51
+dump mob:Z entity:As
+tick 4
+dump mob:Z entity:As
+tick 4
+dump mobs
+dump nbt:drowned#1
+tick 3
+dump mobs
+note baby zombie jockey -> drowned: the drowned keeps riding the chicken, baby flag and age carry over
+fill 11 -61 -2 16 -56 3 minecraft:stone
+fill 12 -60 -1 15 -57 2 minecraft:water
+mobspawn R minecraft:chicken 13.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Z2 minecraft:zombie 13.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,IsBaby:1b,CustomName:"Jock",DrownedConversionTime:6,InWaterTime:1,equipment:{mainhand:{id:"minecraft:iron_axe",count:1}}}
+tick 1
+ride Z2 R
+entity_seed Z2 56
+dump mob:Z2 mob:R
+tick 8
+dump mobs
+dump nbt:drowned#2
+note piglin -> zombified piglin and hoglin -> zoglin after the overworld timer (equipment, name, age, left-handed kept)
+mobspawn Pg minecraft:piglin 30.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,CustomName:"Pig",TimeInOverworld:299,LeftHanded:1b,CanPickUpLoot:1b,Tags:["p"],equipment:{mainhand:{id:"minecraft:golden_sword",count:1},feet:{id:"minecraft:golden_boots",count:1}},drop_chances:{mainhand:0.25f},active_effects:[{id:"minecraft:slowness",amplifier:0b,duration:900}]}
+mobspawn Hg minecraft:hoglin 30.5 -60 6.5 0 0 nofinalize {PersistenceRequired:1b,CustomName:"Hog",TimeInOverworld:299,Age:-4000,Tags:["h"],active_effects:[{id:"minecraft:speed",amplifier:0b,duration:900}]}
+entity_seed Pg 52
+entity_seed Hg 55
+tick 2
+dump mob:Pg mob:Hg
+tick 4
+dump mobs
+dump nbt:zombified_piglin#1
+dump nbt:zoglin#1
+note mooshroom -> cow when sheared: age (breeding cooldown), forced age, name, effects and tags carry over; a baby cannot be sheared
+mobspawn M minecraft:mooshroom 36.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,CustomName:"Moo",Age:3000,ForcedAge:7,Tags:["m"],active_effects:[{id:"minecraft:speed",amplifier:0b,duration:700}],NoAI:1b}
+mobspawn Baby minecraft:mooshroom 36.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,Age:-2000,NoAI:1b}
+tp Steve 36.5 -60 2.5
+give Steve mainhand minecraft:shears
+tick 3
+interact Steve Baby
+tick 1
+dump mob:Baby
+entity_seed M 53
+interact Steve M
+tick 3
+dump mobs entities
+dump nbt:cow#1
+note slime split on death: name, persistence, effects, no AI and tags carry over
+mobspawn Sl minecraft:slime 42.5 -60 0.5 0 0 nofinalize {Size:2,PersistenceRequired:1b,CustomName:"Blob",NoAI:1b,Tags:["sl"],active_effects:[{id:"minecraft:speed",amplifier:0b,duration:300}]}
+tick 2
+entity_seed Sl 54
+level_seed 77
+hurt Sl generic 1000
+tick 25
+dump mobs

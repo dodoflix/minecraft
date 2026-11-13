@@ -17,9 +17,7 @@ use mc_game_core::world::entity::ai::control::body_rotation_control::{
     BodyRotationControl, BodyRotationControlBase, base_client_tick,
 };
 use mc_game_core::world::entity::ai::memory::BrainPacked;
-use mc_game_core::world::entity::ai::memory::memory_module_type::{
-    DANGER_DETECTED_RECENTLY, IS_PANICKING,
-};
+use mc_game_core::world::entity::ai::memory::memory_module_type::DANGER_DETECTED_RECENTLY;
 use mc_game_core::world::entity::ai::navigation::{PathNavigation, StandardPathNavigation};
 use mc_game_core::world::entity::ai::sensing::sensor_type::{
     ARMADILLO_SCARE_DETECTED, FOOD_TEMPTATIONS, HURT_BY, NEAREST_ADULT, NEAREST_LIVING_ENTITIES,
@@ -405,11 +403,6 @@ impl Entity for Armadillo {
 
     fn armadillo_is_scared(&self) -> bool {
         self.is_scared()
-    }
-
-    fn is_panicking_by_brain(&self) -> Option<bool> {
-        // `Mob.isPanicking`: a present `IS_PANICKING` memory answers; otherwise no `PanicGoal` runs on a brain mob
-        self.brain().has_memory_value(IS_PANICKING).then_some(true)
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {

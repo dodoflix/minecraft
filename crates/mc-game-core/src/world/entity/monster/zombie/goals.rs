@@ -1,7 +1,7 @@
 //! The goal registration of the zombie family (`registerGoals()`'s egg goal and `addBehaviourGoals()` of `Zombie`,
 //! `Drowned`, `ZombifiedPiglin`).
 //!
-//! Not implemented: `SpearUseGoal` and `ResetUniversalAngerTargetGoal` exist in `mc-game-ai` but are never added here.
+//! Not implemented: `SpearUseGoal` exists in `mc-game-ai` but is never added here.
 
 use super::drowned::{self, DrownedGoToWaterGoal, DrownedSwimUpGoal};
 use super::{Zombie, ZombieKind};
@@ -14,8 +14,8 @@ use crate::world::entity::ai::goal::target::{
 };
 use crate::world::entity::ai::goal::{
     BreakDoorGoal, Flag, Goal, GoalFlags, MoveThroughVillageGoal, RandomStrollGoal,
-    RangedAttackGoal, RemoveBlockGoal, RemoveBlockHooks, WaterAvoidingRandomStrollGoal,
-    ZombieAttackGoal,
+    RangedAttackGoal, RemoveBlockGoal, RemoveBlockHooks, ResetUniversalAngerTargetGoal,
+    WaterAvoidingRandomStrollGoal, ZombieAttackGoal,
 };
 use crate::world::entity::ai::targeting::TargetSelector;
 use crate::world::entity::mob::{self, neutral};
@@ -209,7 +209,7 @@ pub fn add_behaviour_goals(zombie: &mut Zombie) {
                         },
                     ));
             t.add_goal(2, Box::new(angry));
-            // `ResetUniversalAngerTargetGoal(3)`: not added
+            t.add_goal(3, Box::new(ResetUniversalAngerTargetGoal::new(true)));
         }
         _ => {
             // `SpearUseGoal(2)`: not added

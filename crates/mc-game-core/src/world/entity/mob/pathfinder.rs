@@ -3,6 +3,7 @@
 use super::{MobKind, leashable, navigation};
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::goal::Flag;
+use crate::world::entity::ai::memory::memory_module_type::IS_PANICKING;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::level::LevelReader;
 use mc_core::phys::Vec3;
@@ -25,10 +26,13 @@ pub fn is_path_finding(e: &dyn Entity, level: &ServerLevel) -> bool {
     !navigation::is_done(e, level)
 }
 
-/// `isPanicking()`: the brain's `IS_PANICKING` memory, else a running `PanicGoal`.
+/// `isPanicking()`: a live brain's `IS_PANICKING` memory, else a running `PanicGoal`.
 pub fn is_panicking(e: &dyn Entity) -> bool {
-    if let Some(by_brain) = e.is_panicking_by_brain() {
-        return by_brain;
+    if let Some(l) = e.living()
+        && !l.brain.is_brain_dead()
+        && l.brain.has_memory_value(IS_PANICKING)
+    {
+        return true;
     }
     e.mob().is_some_and(|m| {
         m.goal_selector

@@ -586,7 +586,7 @@ impl Harness {
 
     // ---- commands -------------------------------------------------------------------------------------------
 
-    /// One scenario command. Implemented: `level seed difficulty preload note gamerule time reseed block fill cmd(effect clear)
+    /// One scenario command. Implemented: `level seed difficulty preload note gamerule time reseed block fill cmd(effect clear, gamemode) ride
     /// spawn spawn_item entity_seed spawn_player give effect attribute set nbt snap tp velocity kill input hurt tick watch dump
     /// mobspawn`, the mob verbs of `mob_verbs.rs` and the player actions of `player_actions.rs`. Everything else panics.
     pub fn run(&mut self) {
@@ -680,8 +680,19 @@ impl Harness {
                     self.with_entity(&a[3].clone(), |level, e| {
                         e.remove_effect(level, effect);
                     });
+                } else if a.len() == 4 && a[1] == "gamemode" {
+                    // `gamemode MODE PLAYER`
+                    let mode = match a[2].as_str() {
+                        "creative" => GameType::Creative,
+                        "spectator" => GameType::Spectator,
+                        "adventure" => GameType::Adventure,
+                        _ => GameType::Survival,
+                    };
+                    self.with_player(&a[3].clone(), |level, p| {
+                        p.set_game_mode(level, mode);
+                    });
                 } else {
-                    self.fail("only `cmd effect clear TARGET EFFECT` is replayed");
+                    self.fail("only `cmd effect clear TARGET EFFECT` and `cmd gamemode MODE PLAYER` are replayed");
                 }
             }
             "spawn" => {
@@ -790,6 +801,14 @@ impl Harness {
                     tag.merge(&extra);
                     e.load(&tag)
                         .unwrap_or_else(|err| panic!("scenario {label}:{no}: load: {err}"));
+                });
+            }
+            // ride REF VEHICLE: `startRiding(vehicle, true, true)`
+            "ride" => {
+                self.world();
+                let vehicle = self.entity_ref(&a[2]);
+                self.with_entity(&a[1].clone(), |level, e| {
+                    level.start_riding(e, vehicle, true, true);
                 });
             }
             "snap" => {

@@ -138,14 +138,13 @@ fn mob_path_ground() {
 
 /// Piglin barter / admire / hostility toward a player without gold armor.
 #[test]
-#[ignore = "deviation: from tick 122 vanilla's `target=` shows the brain's attack target (Piglin.getTarget reads ATTACK_TARGET) and the `look_target` memory, ours show neither"]
 fn mob_piglin_barter() {
     run_scenario_test("mob_piglin_barter");
 }
 
 /// Hoglin attack and throwTarget knockback against a player.
 #[test]
-#[ignore = "deviation: from tick 3 vanilla's `target=` shows the brain's attack target (Hoglin.getTarget reads ATTACK_TARGET), ours stays empty"]
+#[ignore = "deviation: the player hit by the hoglin has hp=16.0 and delta=0.42,0.70,0.04 in vanilla (line 80), hp=17.0 and delta=0.06,0.70,0.01 here: damage and knockback of the attack differ"]
 fn mob_hoglin_vs_player() {
     run_scenario_test("mob_hoglin_vs_player");
 }

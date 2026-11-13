@@ -1,0 +1,58 @@
+# TamableAnimal: tame (owner, health), sit / stand by hand, a sitting pet stays put, a standing pet follows its owner and teleports
+# when the owner is far away, the NBT round trip and a pet whose owner is not in the level.
+level flat
+difficulty normal
+entity_counter 200
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 8.5 -60 8.5 0 0
+give Steve mainhand minecraft:air
+mobspawn W minecraft:wolf 3.5 -60 0.5 90 0 {PersistenceRequired:1b}
+mobspawn C minecraft:cat 3.5 -60 4.5 90 0 {PersistenceRequired:1b}
+entity_seed W 4711
+entity_seed C 4712
+tick 3
+note taming sets the owner, the wolf starts standing with full health and keeps its pose
+tame W Steve
+tame C Steve
+tick 2
+dump mob:W mob:C nbt:W nbt:C
+note an owner right click toggles sitting; a stranger cannot
+interact Steve W
+tick 2
+dump mob:W
+interact Alex W
+tick 2
+dump mob:W
+interact Steve C
+tick 2
+dump mob:W mob:C
+note a sitting pet stays while the owner walks away
+tp Steve 20.5 -60 0.5
+watch mob:W mob:C
+tick 30
+watch off
+dump mob:W mob:C nbt:W nbt:C
+note standing up: the pet follows the owner (FollowOwnerGoal start distance 10) and teleports when farther than 12 blocks
+tp Steve 5.5 -60 2.5
+interact Steve W
+interact Steve C
+tick 2
+dump mob:W mob:C
+tp Steve 22.5 -60 2.5
+watch mob:W mob:C
+tick 40
+tp Steve 45.5 -60 0.5
+tick 40
+watch off
+dump mob:W mob:C
+note the saved state keeps the owner and the sitting flags
+nbt W {Sitting:1b}
+tick 3
+dump mob:W nbt:W
+nbt W {Sitting:0b}
+tick 3
+dump mob:W
+note a pet of an owner that is not in the level: no follow, no teleport
+nbt C {Owner:[I;1,2,3,4]}
+tick 5
+dump mob:C nbt:C

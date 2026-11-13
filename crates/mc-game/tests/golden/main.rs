@@ -177,6 +177,7 @@ mod mnu_recipe_golden;
 mod mnu_smithing_golden;
 mod mnu_stonecutter_golden;
 mod mob_armadillo_golden;
+mod mob_base_golden;
 mod mob_ctrl_golden;
 mod mob_fixtures_golden;
 mod mob_goat_golden;

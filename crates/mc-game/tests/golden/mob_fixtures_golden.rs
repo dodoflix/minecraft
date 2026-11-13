@@ -16,11 +16,6 @@ const FINALIZE_EQUIPMENT_DIVERGENT: &[&str] = &[
     "minecraft:sniffer",
     "minecraft:vindicator",
     "minecraft:witch",
-    // the saved `anger_end_time` is -1 where vanilla saves 0
-    "minecraft:enderman",
-    "minecraft:iron_golem",
-    "minecraft:polar_bear",
-    "minecraft:zombified_piglin",
     // the `aggr` field is 0 where vanilla shows 1
     "minecraft:panda",
     // `yHeadRot` (head=0.49275765 in vanilla, 4.9479904 here) and the saved data differ

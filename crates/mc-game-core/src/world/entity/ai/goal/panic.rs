@@ -65,19 +65,17 @@ impl PanicGoal {
         }
     }
 
-    /// `shouldPanic()`.
+    /// `shouldPanic()` (`getLastDamageSource()` forgets a source older than 40 ticks).
     pub fn should_panic(&self, mob: &dyn Entity, level: &ServerLevel) -> bool {
-        mob.living()
-            .and_then(|l| l.last_damage_source.as_ref())
-            .is_some_and(|s| {
-                s.is_tag(
-                    level,
-                    match self.panic_causing_damage_types {
-                        PanicTag::Fixed(t) => t,
-                        PanicTag::Func(f) => f(mob),
-                    },
-                )
-            })
+        crate::world::entity::mob::ext::get_last_damage_source(level, mob, 40).is_some_and(|s| {
+            s.is_tag(
+                level,
+                match self.panic_causing_damage_types {
+                    PanicTag::Fixed(t) => t,
+                    PanicTag::Func(f) => f(mob),
+                },
+            )
+        })
     }
 
     /// `findRandomPosition()`.

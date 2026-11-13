@@ -52,10 +52,6 @@ mod move_towards_target;
 
 pub use move_towards_target::MoveTowardsTargetGoal;
 
-mod reset_universal_anger_target;
-
-pub use reset_universal_anger_target::ResetUniversalAngerTargetGoal;
-
 mod random_swimming;
 
 pub use random_swimming::{RandomSwimmingGoal, get_random_swimmable_pos};

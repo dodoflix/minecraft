@@ -8,6 +8,8 @@ tick 3
 love P1 Steve
 love P2 Steve
 dump mobs
+note the level random is pinned: tick-driven chunk work draws from it only in the vanilla server
+level_seed 4241
 breed P1 P2
 dump mobs rng:level
 tick 3

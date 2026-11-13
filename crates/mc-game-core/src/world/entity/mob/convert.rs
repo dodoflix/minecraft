@@ -103,9 +103,12 @@ fn relink_riding(
 ) {
     let root_passenger = from.base().passengers.first().copied();
     if let Some(root) = root_passenger {
-        level.with_entity(root, |level, p| {
-            level.stop_riding(p);
-            p.base_mut().boarding_cooldown = 0;
+        // the rider leaves the converting mob, which is out of its slot while its own code runs
+        level.lend(from, |level| {
+            level.with_entity(root, |level, p| {
+                level.stop_riding(p);
+                p.base_mut().boarding_cooldown = 0;
+            });
         });
         let existing: Vec<_> = level
             .get_entity(to_id)
@@ -179,7 +182,9 @@ fn convert(
         }
         ConversionType::SplitOnDeath => {
             if let Some(root) = from.base().passengers.first().copied() {
-                level.with_entity(root, |level, p| level.stop_riding(p));
+                level.lend(from, |level| {
+                    level.with_entity(root, |level, p| level.stop_riding(p));
+                });
             }
             if super::leashable::get_leash_holder(from).is_some() {
                 super::leashable::drop_leash(from, level);
