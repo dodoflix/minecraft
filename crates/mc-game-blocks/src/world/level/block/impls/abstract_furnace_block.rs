@@ -1,9 +1,6 @@
 //! `net.minecraft.world.level.block.AbstractFurnaceBlock` with `FurnaceBlock`, `SmokerBlock` and `BlastFurnaceBlock`:
-//! placement facing, the interaction stat, the comparator signal, `rotate` and `mirror`. The block entity ticks itself
-//! (`getTicker`), see `abstract_furnace_block_entity`.
-//!
-//! Not implemented: `useWithoutItem` opens the menu through the block entity's `menu_provider`, which stays `None` until
-//! the furnace, smoker and blast furnace menus exist; the interaction stat is awarded either way, like vanilla.
+//! placement facing, the menu and the interaction stat, the comparator signal, `rotate` and `mirror`. The block entity ticks
+//! itself (`getTicker`) and provides the menu, see `abstract_furnace_block_entity`.
 use crate::world::block_entity::abstract_furnace_block_entity::{
     AbstractFurnaceBlockEntity, FurnaceKind,
 };

@@ -244,6 +244,10 @@ pub trait SlotBehavior {
     fn get_max_stack_size(&self, slot: &Slot, env: &mut SlotEnv) -> i32 {
         slot.base_get_max_stack_size(env)
     }
+    /// `getMaxStackSize(stack)` (the base is `min(getMaxStackSize(), stack.getMaxStackSize())`).
+    fn get_max_stack_size_for(&self, slot: &Slot, env: &mut SlotEnv, stack: &ItemStack) -> i32 {
+        slot.get_max_stack_size(env).min(stack.get_max_stack_size())
+    }
     fn remove(&self, slot: &Slot, env: &mut SlotEnv, amount: i32) -> ItemStack {
         slot.base_remove(env, amount)
     }
@@ -349,7 +353,7 @@ impl Slot {
 
     /// `getMaxStackSize(stack)`.
     pub fn get_max_stack_size_for(&self, env: &mut SlotEnv, stack: &ItemStack) -> i32 {
-        self.get_max_stack_size(env).min(stack.get_max_stack_size())
+        self.behavior.get_max_stack_size_for(self, env, stack)
     }
 
     pub fn on_quick_craft(&self, env: &mut SlotEnv, picked: &ItemStack, original: &ItemStack) {

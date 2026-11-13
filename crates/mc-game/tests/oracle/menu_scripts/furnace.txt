@@ -1,0 +1,287 @@
+# The furnace menu: what the slots accept (smeltable input, fuel or a bucket, nothing into the result), the quick-move branches, cooking
+# with the four data slots changing under the open menu, taking the result (experience orbs from the recipes used, drawn from the
+# level's random), every click kind on the result and what closing returns. Menu slots: 0 input, 1 fuel, 2 result, 3-29 inventory,
+# 30-38 hotbar (inventory 0-8).
+# what the slots accept
+OPEN furnace 0 0 0 1 1
+GIVE 0 raw_ironx8
+GIVE 1 coalx8
+GIVE 2 lava_bucket
+GIVE 3 bucketx5
+GIVE 4 dirtx7
+GIVE 5 stickx9
+GIVE 6 porkchopx5
+GIVE 7 oak_logx4
+GIVE 8 sandx3
+GIVE 9 iron_sword
+CLICK 30 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 30 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 1 1 PICKUP
+CLICK 32 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 1 1 PICKUP
+CLICK 1 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 3 0 PICKUP
+# a bucket never stacks in the fuel slot: pick up two and put them down one by one
+CLICK 6 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 1 1 PICKUP
+CLICK 6 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+CLICK 2 0 PICKUP
+CLICK 2 1 PICKUP
+CLOSE
+# quick move: smeltable first, then fuel, then the other half of the inventory
+OPEN furnace 0 0 0 1 1
+GIVE 0 raw_ironx8
+GIVE 1 coalx8
+GIVE 2 lava_bucket
+GIVE 3 bucketx5
+GIVE 4 dirtx7
+GIVE 5 oak_logx4
+GIVE 6 iron_sword
+GIVE 7 sandx64
+GIVE 9 stickx9
+GIVE 10 porkchopx4
+GIVE 11 diamond
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 32 0 QUICK_MOVE
+CLICK 33 0 QUICK_MOVE
+CLICK 34 0 QUICK_MOVE
+CLICK 35 0 QUICK_MOVE
+CLICK 36 0 QUICK_MOVE
+CLICK 37 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 5 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLOSE
+# cooking: the input is smelted with coal, the data slots follow the ticks
+OPEN furnace 0 0 0 1 1
+SET 0 raw_ironx3
+TICK 3
+SET 1 coalx2
+TICK 1
+TICK 50
+SET 0 raw_ironx2
+TICK 5
+TICK 200
+TICK 200
+GIVE 8 stickx3
+CLICK 38 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 38 0 PICKUP
+TICK 100
+CLOSE
+# taking the result pays out the experience of the recipes used once (the player would pick the orbs up on the next tick, so every
+# paying take is the last thing a session does before it ends or only takes again): right click takes half, the rest owes nothing
+OPEN furnace 0 0 0 1 1
+SET 0 raw_ironx6
+SET 1 coalx2
+TICK 200
+TICK 200
+SEED level 77
+CLICK 2 1 PICKUP
+CLICK 36 0 PICKUP
+SEED level 78
+CLICK 2 0 PICKUP
+CLICK 37 0 PICKUP
+SEED level 79
+CLICK 2 0 PICKUP
+CLOSE
+# shift-click on the result: experience, stat and the move into the inventory, hotbar last; the fraction of the experience is
+# drawn from the level's random (0.35 per cooked beef)
+OPEN furnace 0 0 0 1 1
+SET 0 beefx5
+SET 1 coalx1
+TICK 200
+TICK 200
+TICK 200
+SEED level 5
+CLICK 2 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+GIVE 4 stonex64
+GIVE 5 stonex64
+GIVE 6 stonex64
+CLICK 2 0 QUICK_MOVE
+CLOSE
+OPEN furnace 0 0 0 1 1
+SET 0 beefx5
+SET 1 coalx1
+TICK 200
+TICK 200
+TICK 200
+SEED level 6
+CLICK 2 0 QUICK_MOVE
+CLOSE
+OPEN furnace 0 0 0 1 1
+SET 0 beefx5
+SET 1 coalx1
+TICK 200
+TICK 200
+SEED level 7
+CLICK 2 0 QUICK_MOVE
+CLOSE
+# a full inventory: the result stays, the experience is still paid once the move succeeded in part
+OPEN furnace 0 0 0 1 1
+GIVE 0 stonex64
+GIVE 1 stonex64
+GIVE 2 stonex64
+GIVE 3 stonex64
+GIVE 4 stonex64
+GIVE 5 stonex64
+GIVE 6 stonex64
+GIVE 7 stonex64
+GIVE 8 stonex64
+GIVE 9 stonex64
+GIVE 10 stonex64
+GIVE 11 stonex64
+GIVE 12 stonex64
+GIVE 13 stonex64
+GIVE 14 stonex64
+GIVE 15 stonex64
+GIVE 16 stonex64
+GIVE 17 stonex64
+GIVE 18 stonex64
+GIVE 19 stonex64
+GIVE 20 stonex64
+GIVE 21 stonex64
+GIVE 22 stonex64
+GIVE 23 stonex64
+GIVE 24 stonex64
+GIVE 25 stonex64
+GIVE 26 stonex64
+GIVE 27 stonex64
+GIVE 28 stonex64
+GIVE 29 stonex64
+GIVE 30 stonex64
+GIVE 31 stonex64
+GIVE 32 stonex64
+GIVE 33 stonex64
+GIVE 34 stonex64
+GIVE 35 iron_ingotx60
+SET 0 raw_ironx6
+SET 1 coalx1
+TICK 200
+TICK 200
+SEED level 9
+CLICK 2 0 QUICK_MOVE
+CLOSE
+# the other click kinds on the result, one session each: swap to the hotbar, throw (whole stack, one item), clone (creative), double
+# click, drag
+OPEN furnace 0 0 0 1 1
+SET 0 chickenx2
+SET 1 coal
+TICK 200
+SEED level 11
+CLICK 2 3 SWAP
+CLICK 2 8 SWAP
+CLICK 2 40 SWAP
+CLOSE
+OPEN furnace 0 0 0 1 1
+SET 0 chickenx4
+SET 1 coal
+TICK 200
+SEED level 12
+CLICK 2 0 THROW
+CLICK 2 1 THROW
+CLOSE
+OPEN furnace 0 0 0 1 1
+SET 0 potatox4
+SET 1 bamboox2
+TICK 100
+SEED level 14
+CLICK 2 0 CLONE
+CLICK 2 0 PICKUP_ALL
+CLICK 2 40 SWAP
+DRAG 0 2 3 4
+CLOSE
+OPEN furnace 0 0 1 1 1
+SET 0 porkchopx3
+SET 1 coalx1
+TICK 200
+TICK 200
+SEED level 21
+CLICK 2 0 CLONE
+CLICK 2 0 PICKUP
+DRAG 2 3 4 5
+CLOSE
+OPEN furnace 0 0 0 1 1
+SET 0 porkchopx3
+SET 1 coalx1
+TICK 200
+SEED level 22
+GIVE 0 porkchopx1
+CLICK 30 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 2 0 PICKUP_ALL
+CLICK 2 1 PICKUP
+CLOSE
+# a stack that is picked up and put back into the result changes nothing, a result of another item blocks the cooking
+OPEN furnace 0 0 0 1 1
+SET 0 raw_ironx3
+SET 1 coalx1
+SET 2 iron_ingotx3
+TICK 200
+SET 0 raw_goldx2
+TICK 200
+SET 2 gold_ingotx64
+TICK 100
+SEED level 30
+CLICK 2 0 PICKUP
+CLICK 30 0 PICKUP
+CLICK 2 0 PICKUP
+CLOSE
+# closing returns the cursor but leaves the furnace's stacks in place
+OPEN furnace 0 0 0 1 1
+SET 0 raw_copperx3
+SET 1 coalx1
+GIVE 0 stonex64
+CLICK 30 0 PICKUP
+CLOSE
+# the furnace is gone: the menu closes on the next tick (an empty furnace: the player would pick up what it drops)
+OPEN furnace 0 0 0 1 1
+BLOCK 0 70 0 minecraft:air
+TICK 1
+# random sessions
+GEN furnace 31 120 raw_ironx8|raw_gold|coalx4|coalx64|bucket|bucketx16|lava_bucket|beefx3|porkchopx64|sandx5|stickx9|oak_logx4|iron_sword|stonex7|iron_ingotx3|-
+GEN furnace 32 120 raw_copperx3|chickenx2|charcoal|coal_blockx2|blaze_rod|iron_ingot|cooked_beefx8|dirtx7|cobblestonex3|water_bucket|potato|kelp|-

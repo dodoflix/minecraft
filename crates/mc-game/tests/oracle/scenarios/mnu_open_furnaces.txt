@@ -1,0 +1,74 @@
+# The furnace, smoker and blast furnace opened with use_on: the screen packet with the type and title (default names, a custom name),
+# the 3 slots, the 4 data slots and the interaction statistic of each, a locked furnace that refuses (message, statistic), a
+# spectator that opens it, a creative player, a lit furnace whose progress is sent with the menu and the menu closing when the
+# furnace is removed.
+command_env
+level flat
+preload 4
+spawn_player A survival 4.5 -60 6.5 0 0
+spawn_player S spectator 10.5 -60 6.5 0 0
+spawn_player C creative 16.5 -60 6.5 0 0
+block 2 -60 4 minecraft:furnace[facing=south,lit=false]
+block 3 -60 4 minecraft:smoker[facing=south,lit=false]
+block 4 -60 4 minecraft:blast_furnace[facing=south,lit=false]
+block 5 -60 4 minecraft:furnace[facing=south,lit=false]
+be_nbt 5 -60 4 {CustomName:"Hearth"}
+block 6 -60 4 minecraft:furnace[facing=south,lit=false]
+be_nbt 6 -60 4 {lock:{items:"minecraft:diamond"}}
+block 7 -60 4 minecraft:smoker[facing=south,lit=true]
+be_nbt 7 -60 4 {Items:[{Slot:0b,id:"minecraft:beef",count:3},{Slot:1b,id:"minecraft:coal",count:2},{Slot:2b,id:"minecraft:cooked_beef",count:1}],lit_time_remaining:900,lit_total_time:1600,cooking_time_spent:40,cooking_total_time:100}
+block 10 -60 4 minecraft:blast_furnace[facing=south,lit=false]
+block 16 -60 4 minecraft:furnace[facing=south,lit=false]
+tick 2
+note using each furnace type opens its own menu and counts its own statistic
+use_on A 2 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+close_menu A
+use_on A 3 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+close_menu A
+use_on A 4 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+close_menu A
+note a custom name is the title, the default one is the translation key of the type
+use_on A 5 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+close_menu A
+note a held fuel or ingredient does not stop the block from opening
+give A hotbar0 minecraft:coal 3
+give A hotbar1 minecraft:raw_iron 3
+use_on A 2 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+close_menu A
+note a locked furnace refuses: the message, no menu, the statistic anyway
+use_on A 6 -60 4 up main
+tick 2
+dump stats:A packets:A:system_chat,open_screen,container_close
+note the key opens it
+give A hotbar2 minecraft:diamond 1
+use_on A 6 -60 4 up main
+dump menu:A packets:A:system_chat,open_screen,container_set_content,container_set_data
+close_menu A
+note a lit smoker: the contents and the burn and cook progress come with the screen, the data slots follow the ticks
+use_on A 7 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+tick 20
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data
+close_menu A
+note a spectator opens the menu and takes nothing
+use_on S 10 -60 4 up main
+give S hotbar0 minecraft:coal 3
+click S 30 0 PICKUP
+click S 1 0 PICKUP
+dump menu:S packets:S:open_screen,container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu S
+note creative opens it like survival
+use_on C 16 -60 4 up main
+dump menu:C packets:C:open_screen,container_set_content,container_set_data
+close_menu C
+note the furnace is removed under an open menu: the menu closes
+use_on A 2 -60 4 up main
+block 2 -60 4 minecraft:air
+tick 2
+dump menu:A packets:A:container_close,open_screen
+dump stats:A stats:S stats:C

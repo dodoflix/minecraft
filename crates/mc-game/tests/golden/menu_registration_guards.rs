@@ -141,19 +141,36 @@ const MENU_OPENERS: &[(&str, &str, &str, &str)] = &[
         "SmithingMenu::new",
         "mc-game-blocks/src/world/level/block/impls/smithing_table_block.rs",
     ),
+    (
+        "minecraft:furnace",
+        FURNACE_MENU,
+        "FurnaceMenu::furnace",
+        FURNACE_OPENER,
+    ),
+    (
+        "minecraft:smoker",
+        FURNACE_MENU,
+        "FurnaceMenu::smoker",
+        FURNACE_OPENER,
+    ),
+    (
+        "minecraft:blast_furnace",
+        FURNACE_MENU,
+        "FurnaceMenu::blast_furnace",
+        FURNACE_OPENER,
+    ),
 ];
 
+const FURNACE_MENU: &str = "mc-game-core/src/world/inventory/furnace_menu.rs";
+const FURNACE_OPENER: &str =
+    "mc-game-blocks/src/world/block_entity/abstract_furnace_block_entity.rs";
 const CONTAINER_MENUS: &str = "mc-game-core/src/world/inventory/container_menus.rs";
 const CONTAINER_OPENER: &str = "mc-game-core/src/world/block_entity/container_menus.rs";
 const BLOCKS_CONTAINER_PROVIDER: &str =
     "mc-game-blocks/src/world/block_entity/container_menu_provider.rs";
 
 /// Menus without a Rust menu yet (menu, what is not implemented). Delete the line when the menu lands.
-const EXPECTED_MISSING: &[(&str, &str)] = &[
-    ("minecraft:furnace", "furnace menu"),
-    ("minecraft:smoker", "smoker menu"),
-    ("minecraft:blast_furnace", "blast furnace menu"),
-];
+const EXPECTED_MISSING: &[(&str, &str)] = &[];
 
 type Opener = (&'static str, &'static str, &'static str, &'static str);
 

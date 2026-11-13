@@ -1,0 +1,102 @@
+# The blast furnace menu: ores, tools and armor are smelted (food and sand are not), cooking takes half the time.
+# Menu slots: 0 input, 1 fuel, 2 result, 3-29 inventory, 30-38 hotbar (inventory 0-8).
+OPEN blast_furnace 0 0 0 1 1
+GIVE 0 raw_ironx8
+GIVE 1 beefx3
+GIVE 2 coalx8
+GIVE 3 bucketx5
+GIVE 4 sandx7
+GIVE 5 iron_sword
+GIVE 6 iron_ore
+GIVE 7 stickx9
+GIVE 8 diamond
+CLICK 30 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 30 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 1 1 PICKUP
+CLICK 3 0 PICKUP
+CLOSE
+OPEN blast_furnace 0 0 0 1 1
+GIVE 0 raw_ironx8
+GIVE 1 beefx3
+GIVE 2 coalx8
+GIVE 3 bucketx5
+GIVE 4 sandx7
+GIVE 5 iron_sword
+GIVE 9 iron_ore
+GIVE 10 stickx9
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 32 0 QUICK_MOVE
+CLICK 33 0 QUICK_MOVE
+CLICK 34 0 QUICK_MOVE
+CLICK 35 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLOSE
+OPEN blast_furnace 0 0 0 1 1
+SET 0 raw_goldx4
+SET 1 coalx1
+TICK 1
+TICK 99
+TICK 100
+SEED level 14
+CLICK 2 0 PICKUP
+CLICK 36 0 PICKUP
+SEED level 15
+CLICK 2 1 PICKUP
+CLICK 37 0 PICKUP
+CLICK 2 0 QUICK_MOVE
+CLOSE
+OPEN blast_furnace 0 0 0 1 1
+SET 0 iron_sword
+SET 1 blaze_rod
+TICK 150
+SEED level 19
+CLICK 2 0 QUICK_MOVE
+CLOSE
+OPEN blast_furnace 0 0 0 1 1
+SET 0 iron_orex3
+SET 1 blaze_rod
+TICK 250
+SEED level 20
+CLICK 2 3 SWAP
+CLOSE
+OPEN blast_furnace 0 0 0 1 1
+BLOCK 0 70 0 minecraft:air
+TICK 1
+GEN blast_furnace 51 100 raw_ironx8|raw_goldx3|iron_sword|iron_ore|coalx4|bucketx16|stickx9|beefx3|sandx3|diamond|iron_ingotx3|-
+GEN blast_furnace 52 100 raw_copperx3|golden_pickaxe|iron_chestplate|coal_blockx2|lava_bucket|bucket|dirt|iron_chain|-

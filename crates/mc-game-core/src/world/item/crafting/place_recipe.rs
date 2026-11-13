@@ -38,8 +38,12 @@ pub trait RecipeBookMenu: AbstractContainerMenu {
         allow_dropping_items_to_clear: bool,
         recipe: &RecipeHolder,
     ) -> PostPlaceAction;
-    /// `fillCraftSlotsStackedContents(stackedContents)`.
-    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents);
+    /// `fillCraftSlotsStackedContents(stackedContents)`; the player reaches the containers that live in the level.
+    fn fill_craft_slots_stacked_contents(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        contents: &mut StackedItemContents,
+    );
     /// `getRecipeBookType()`.
     fn get_recipe_book_type(&self) -> RecipeBookType;
 }
@@ -47,9 +51,13 @@ pub trait RecipeBookMenu: AbstractContainerMenu {
 /// `ServerPlaceRecipe.CraftingMenuAccess` + `Slot` access of the input grid / slots to clear.
 pub trait PlaceRecipeMenu {
     /// `fillCraftSlotsStackedContents(stackedContents)`.
-    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents);
+    fn fill_craft_slots_stacked_contents(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        contents: &mut StackedItemContents,
+    );
     /// `clearCraftingContent()`.
-    fn clear_crafting_content(&mut self);
+    fn clear_crafting_content(&mut self, player: &mut dyn MenuPlayer);
     /// `recipeMatches(recipe)`.
     fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> bool;
 
@@ -122,10 +130,14 @@ impl CraftingGridAccess<'_> {
 }
 
 impl PlaceRecipeMenu for CraftingGridAccess<'_> {
-    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents) {
+    fn fill_craft_slots_stacked_contents(
+        &mut self,
+        _player: &mut dyn MenuPlayer,
+        contents: &mut StackedItemContents,
+    ) {
         self.craft_slots().fill_stacked_contents(contents);
     }
-    fn clear_crafting_content(&mut self) {
+    fn clear_crafting_content(&mut self, _player: &mut dyn MenuPlayer) {
         let base = self.menu.base_mut();
         base.locals[self.grid.result_local].clear_content();
         base.locals[self.grid.craft_local].clear_content();
@@ -280,7 +292,7 @@ pub fn place_recipe(
     }
     placer
         .menu
-        .fill_craft_slots_stacked_contents(&mut available_items);
+        .fill_craft_slots_stacked_contents(&mut *placer.player, &mut available_items);
     placer.try_place_recipe(recipe, &mut available_items)
 }
 
@@ -321,7 +333,7 @@ impl ServerPlaceRecipe<'_> {
             self.menu
                 .set_slot_to_clear_item(self.player, index, stack_copy);
         }
-        self.menu.clear_crafting_content();
+        self.menu.clear_crafting_content(self.player);
     }
 
     fn place_recipe(&mut self, recipe: &RecipeHolder, available_items: &mut StackedItemContents) {

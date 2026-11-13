@@ -78,3 +78,18 @@ fn the_cartography_table_opens_for_survival_spectator_and_creative_players() {
 fn the_crafter_toggles_slots_through_the_slot_state_packet() {
     common::block_scenario::check("mnu_crafter_slots");
 }
+
+#[test]
+fn the_furnaces_open_with_their_titles_locks_and_statistics() {
+    common::block_scenario::check("mnu_open_furnaces");
+}
+
+#[test]
+fn taking_a_furnace_result_pays_experience_and_unlocks_the_recipes_used() {
+    common::block_scenario::check("mnu_furnace_take");
+}
+
+#[test]
+fn the_recipe_book_places_recipes_into_the_furnaces() {
+    common::block_scenario::check("mnu_place_recipe_furnace");
+}

@@ -209,6 +209,21 @@ pub const MENU_KINDS: &[MenuKind] = &[
         block: Block::SMITHING_TABLE,
         setup: no_setup,
     },
+    MenuKind {
+        name: "furnace",
+        block: Block::FURNACE,
+        setup: no_setup,
+    },
+    MenuKind {
+        name: "smoker",
+        block: Block::SMOKER,
+        setup: no_setup,
+    },
+    MenuKind {
+        name: "blast_furnace",
+        block: Block::BLAST_FURNACE,
+        setup: no_setup,
+    },
 ];
 
 fn st(s: &ItemStack) -> String {
@@ -347,6 +362,10 @@ impl MenuPlayer for TestPlayer {
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool {
         let range = self.container_interaction_range() + buffer;
         AABB::from_block_pos(&pos).distance_to_sqr(self.eye()) < range * range
+    }
+    /// The feet of the player of `VanillaLevel.connect`.
+    fn position(&self) -> Vec3 {
+        Vec3::new(0.5, 71.0, 0.5)
     }
     fn send_inventory_slot_update(&mut self, _slot: usize, _stack: ItemStack) {}
     fn level(&mut self) -> Option<&mut ServerLevel> {

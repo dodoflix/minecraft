@@ -1,0 +1,41 @@
+# Taking the result of a furnace through the click packets: the statistic of the crafted item, the recipes used pay out their
+# experience at the player (orbs, drawn from the level's random) and unlock their recipes with the recipe book packet, the
+# recipe_crafted trigger, shift-click on the result, and a second take that owes nothing.
+command_env
+level flat
+preload 4
+spawn_player A survival 4.5 -60 6.5 0 0
+spawn_player B survival 10.5 -60 6.5 0 0
+block 2 -60 4 minecraft:furnace[facing=south,lit=false]
+be_nbt 2 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:4},{Slot:1b,id:"minecraft:coal",count:2},{Slot:2b,id:"minecraft:iron_ingot",count:3}],RecipesUsed:{"minecraft:iron_ingot_from_smelting_raw_iron":3}}
+block 3 -60 4 minecraft:smoker[facing=south,lit=false]
+be_nbt 3 -60 4 {Items:[{Slot:2b,id:"minecraft:cooked_beef",count:5}],RecipesUsed:{"minecraft:cooked_beef_from_smoking":5}}
+block 10 -60 4 minecraft:blast_furnace[facing=south,lit=false]
+be_nbt 10 -60 4 {Items:[{Slot:2b,id:"minecraft:gold_ingot",count:2}],RecipesUsed:{"minecraft:gold_ingot_from_blasting_raw_gold":2}}
+tick 2
+dump recipes:A advancements:A stats:A
+note one click on the result: 3 ingots, 3 uses of a recipe worth 0.7 each
+level_seed 30
+use_on A 2 -60 4 up main
+click A 2 0 PICKUP
+dump menu:A stats:A recipes:A entities packets:A:recipe_book_add,container_set_slot,container_set_data,set_cursor_item
+level_seed 31
+click A 30 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A stats:A recipes:A entities
+close_menu A
+note shift-click on a result of 5 smoked beef
+use_on A 3 -60 4 up main
+level_seed 32
+click A 2 0 QUICK_MOVE
+dump menu:A stats:A inventory:A recipes:A entities packets:A:recipe_book_add,container_set_slot,container_set_data,set_cursor_item
+close_menu A
+note right click takes half: the statistic counts what was taken, the experience is paid out once
+use_on B 10 -60 4 up main
+level_seed 33
+click B 2 1 PICKUP
+dump menu:B stats:B recipes:B entities packets:B:recipe_book_add,container_set_slot,container_set_data,set_cursor_item
+level_seed 34
+click B 2 0 PICKUP
+dump menu:B stats:B recipes:B entities
+close_menu B

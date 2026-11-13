@@ -50,3 +50,25 @@ fn crafter_menu_script_matches_vanilla() {
     let ops = replay("menu_oracle", "crafter");
     assert!(ops > 500, "fixture has {ops} ops");
 }
+
+/// The furnace: slot rules, quick-move routing, cooking under an open menu (four data slots), taking the result with its experience
+/// orbs and every click kind on it, and two seeded random sessions.
+#[test]
+fn furnace_menu_script_matches_vanilla() {
+    let ops = replay("menu_oracle", "furnace");
+    assert!(ops > 500, "fixture has {ops} ops");
+}
+
+/// The smoker smelts food only and cooks twice as fast.
+#[test]
+fn smoker_menu_script_matches_vanilla() {
+    let ops = replay("menu_oracle", "smoker");
+    assert!(ops > 300, "fixture has {ops} ops");
+}
+
+/// The blast furnace smelts ores, tools and armor and cooks twice as fast.
+#[test]
+fn blast_furnace_menu_script_matches_vanilla() {
+    let ops = replay("menu_oracle", "blast_furnace");
+    assert!(ops > 300, "fixture has {ops} ops");
+}

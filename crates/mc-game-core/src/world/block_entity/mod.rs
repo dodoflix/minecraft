@@ -479,6 +479,17 @@ pub trait BlockEntity: Any {
     fn menu_provider(&self) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
         None
     }
+    /// `AbstractFurnaceBlockEntity.awardUsedRecipesAndPopExperience(player)` minus the player half: pops the experience of
+    /// the recipes used at `position` (the player's), forgets them and returns the recipes to award (the caller unlocks
+    /// them and fires the `recipe_crafted` trigger over the container's stacks). Block entities without recipes used
+    /// return none.
+    fn award_used_recipes_and_pop_experience(
+        &mut self,
+        _level: &mut crate::server::level::ServerLevel,
+        _position: mc_core::phys::Vec3,
+    ) -> Vec<crate::world::item::crafting::RecipeHolder> {
+        Vec::new()
+    }
     fn container_pending(&self) -> bool {
         false
     }

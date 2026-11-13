@@ -1,0 +1,102 @@
+# The smoker menu: only food is smelted, cooking takes half the time, taking the result pays out the experience of the recipes used.
+# Menu slots: 0 input, 1 fuel, 2 result, 3-29 inventory, 30-38 hotbar (inventory 0-8).
+OPEN smoker 0 0 0 1 1
+GIVE 0 beefx8
+GIVE 1 raw_ironx3
+GIVE 2 coalx8
+GIVE 3 bucketx5
+GIVE 4 sandx7
+GIVE 5 potatox9
+GIVE 6 kelpx5
+GIVE 7 iron_sword
+GIVE 8 oak_logx4
+CLICK 30 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 30 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 1 1 PICKUP
+CLICK 3 0 PICKUP
+CLOSE
+# quick move routing
+OPEN smoker 0 0 0 1 1
+GIVE 0 beefx8
+GIVE 1 raw_ironx3
+GIVE 2 coalx8
+GIVE 3 bucketx5
+GIVE 4 sandx7
+GIVE 5 potatox9
+GIVE 9 stickx9
+GIVE 10 iron_sword
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 32 0 QUICK_MOVE
+CLICK 33 0 QUICK_MOVE
+CLICK 34 0 QUICK_MOVE
+CLICK 35 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLOSE
+# cooking and taking: the smoker is twice as fast as the furnace (paying takes end their session, see the furnace script)
+OPEN smoker 0 0 0 1 1
+SET 0 beefx4
+SET 1 coalx1
+TICK 1
+TICK 99
+TICK 100
+SEED level 3
+CLICK 2 0 PICKUP
+CLICK 36 0 PICKUP
+SEED level 4
+CLICK 2 1 PICKUP
+CLICK 37 0 PICKUP
+CLICK 2 0 QUICK_MOVE
+CLOSE
+OPEN smoker 0 0 0 1 1
+SET 0 kelpx9
+SET 1 blaze_rod
+TICK 150
+SEED level 8
+CLICK 2 0 QUICK_MOVE
+CLOSE
+OPEN smoker 0 0 0 1 1
+SET 0 potatox9
+SET 1 blaze_rod
+TICK 250
+SEED level 9
+CLICK 2 3 SWAP
+CLOSE
+# the smoker is gone
+OPEN smoker 0 0 0 1 1
+BLOCK 0 70 0 minecraft:air
+TICK 1
+GEN smoker 41 100 beefx8|porkchopx4|potatox64|kelpx5|raw_iron|sandx3|coalx4|bucketx16|stickx9|chicken|cooked_beefx3|dirt|-
+GEN smoker 42 100 mutton|rabbit|cod|salmonx3|coal_blockx2|lava_bucket|bucket|iron_sword|beef|-

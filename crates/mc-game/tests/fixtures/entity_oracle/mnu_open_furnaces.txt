@@ -1,0 +1,218 @@
+# using each furnace type opens its own menu and counts its own statistic
+MENU A cid=1 type=minecraft:furnace state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT A minecraft.custom:minecraft.interact_with_furnace 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:open_screen 3c010e0a0800097472616e736c6174650011636f6e7461696e65722e6675726e61636500
+PKT A minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100010000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 130100030000
+MENU A cid=2 type=minecraft:smoker state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT A minecraft.custom:minecraft.interact_with_furnace 1
+STAT A minecraft.custom:minecraft.interact_with_smoker 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:open_screen 3c02160a0800097472616e736c6174650010636f6e7461696e65722e736d6f6b657200
+PKT A minecraft:container_set_content 1202012700000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:container_set_data 130200000000
+PKT A minecraft:container_set_data 130200010000
+PKT A minecraft:container_set_data 130200020000
+PKT A minecraft:container_set_data 130200030000
+MENU A cid=3 type=minecraft:blast_furnace state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT A minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT A minecraft.custom:minecraft.interact_with_furnace 1
+STAT A minecraft.custom:minecraft.interact_with_smoker 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:open_screen 3c030a0a0800097472616e736c6174650017636f6e7461696e65722e626c6173745f6675726e61636500
+PKT A minecraft:container_set_content 1203012700000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:container_set_data 130300000000
+PKT A minecraft:container_set_data 130300010000
+PKT A minecraft:container_set_data 130300020000
+PKT A minecraft:container_set_data 130300030000
+# a custom name is the title, the default one is the translation key of the type
+MENU A cid=4 type=minecraft:furnace state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+PKT A minecraft:open_screen 3c040e080006486561727468
+PKT A minecraft:container_set_content 1204012700000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:container_set_data 130400000000
+PKT A minecraft:container_set_data 130400010000
+PKT A minecraft:container_set_data 130400020000
+PKT A minecraft:container_set_data 130400030000
+# a held fuel or ingredient does not stop the block from opening
+MENU A cid=5 type=minecraft:furnace state=1 carried=empty
+MS 30 minecraft:coal*3
+MS 31 minecraft:raw_iron*3
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+PKT A minecraft:open_screen 3c050e0a0800097472616e736c6174650011636f6e7461696e65722e6675726e61636500
+PKT A minecraft:container_set_content 1205012700000000000000000000000000000000000000000000000000000000000003f207000003f90700000000000000000000
+PKT A minecraft:container_set_data 130500000000
+PKT A minecraft:container_set_data 130500010000
+PKT A minecraft:container_set_data 130500020000
+PKT A minecraft:container_set_data 130500030000
+# a locked furnace refuses: the message, no menu, the statistic anyway
+STAT A minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT A minecraft.custom:minecraft.interact_with_furnace 4
+STAT A minecraft.custom:minecraft.interact_with_smoker 1
+STAT A minecraft.custom:minecraft.play_time 4
+STAT A minecraft.custom:minecraft.time_since_death 4
+STAT A minecraft.custom:minecraft.time_since_rest 4
+STAT A minecraft.custom:minecraft.total_world_time 4
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650011636f6e7461696e65722e6675726e616365000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+# the key opens it
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:coal*3
+MS 37 minecraft:raw_iron*3
+MS 38 minecraft:diamond*1
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650011636f6e7461696e65722e6675726e616365000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+# a lit smoker: the contents and the burn and cook progress come with the screen, the data slots follow the ticks
+MENU A cid=8 type=minecraft:smoker state=1 carried=empty
+MS 0 minecraft:beef*3
+MS 1 minecraft:coal*2
+MS 2 minecraft:cooked_beef*1
+MS 30 minecraft:coal*3
+MS 31 minecraft:raw_iron*3
+MS 32 minecraft:diamond*1
+MD 0 896
+MD 1 1600
+MD 2 44
+MD 3 100
+PKT A minecraft:open_screen 3c08160a0800097472616e736c6174650010636f6e7461696e65722e736d6f6b657200
+PKT A minecraft:container_set_content 1208012703ec09000002f207000001ed09000000000000000000000000000000000000000000000000000000000003f207000003f907000001f407000000000000000000
+PKT A minecraft:container_set_data 130800000380
+PKT A minecraft:container_set_data 130800010640
+PKT A minecraft:container_set_data 13080002002c
+PKT A minecraft:container_set_data 130800030064
+MENU A cid=8 type=minecraft:smoker state=1 carried=empty
+MS 0 minecraft:beef*3
+MS 1 minecraft:coal*2
+MS 2 minecraft:cooked_beef*1
+MS 30 minecraft:coal*3
+MS 31 minecraft:raw_iron*3
+MS 32 minecraft:diamond*1
+MD 0 876
+MD 1 1600
+MD 2 64
+MD 3 100
+PKT A minecraft:container_set_data 13080000037f
+PKT A minecraft:container_set_data 13080002002d
+PKT A minecraft:container_set_data 13080000037e
+PKT A minecraft:container_set_data 13080002002e
+PKT A minecraft:container_set_data 13080000037d
+PKT A minecraft:container_set_data 13080002002f
+PKT A minecraft:container_set_data 13080000037c
+PKT A minecraft:container_set_data 130800020030
+PKT A minecraft:container_set_data 13080000037b
+PKT A minecraft:container_set_data 130800020031
+PKT A minecraft:container_set_data 13080000037a
+PKT A minecraft:container_set_data 130800020032
+PKT A minecraft:container_set_data 130800000379
+PKT A minecraft:container_set_data 130800020033
+PKT A minecraft:container_set_data 130800000378
+PKT A minecraft:container_set_data 130800020034
+PKT A minecraft:container_set_data 130800000377
+PKT A minecraft:container_set_data 130800020035
+PKT A minecraft:container_set_data 130800000376
+PKT A minecraft:container_set_data 130800020036
+PKT A minecraft:container_set_data 130800000375
+PKT A minecraft:container_set_data 130800020037
+PKT A minecraft:container_set_data 130800000374
+PKT A minecraft:container_set_data 130800020038
+PKT A minecraft:container_set_data 130800000373
+PKT A minecraft:container_set_data 130800020039
+PKT A minecraft:container_set_data 130800000372
+PKT A minecraft:container_set_data 13080002003a
+PKT A minecraft:container_set_data 130800000371
+PKT A minecraft:container_set_data 13080002003b
+PKT A minecraft:container_set_data 130800000370
+PKT A minecraft:container_set_data 13080002003c
+PKT A minecraft:container_set_data 13080000036f
+PKT A minecraft:container_set_data 13080002003d
+PKT A minecraft:container_set_data 13080000036e
+PKT A minecraft:container_set_data 13080002003e
+PKT A minecraft:container_set_data 13080000036d
+PKT A minecraft:container_set_data 13080002003f
+# a spectator opens the menu and takes nothing
+MENU S cid=1 type=minecraft:blast_furnace state=3 carried=empty
+MS 30 minecraft:coal*3
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+PKT S minecraft:open_screen 3c010a0a0800097472616e736c6174650017636f6e7461696e65722e626c6173745f6675726e61636500
+PKT S minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+PKT S minecraft:container_set_data 130100010000
+PKT S minecraft:container_set_data 130100020000
+PKT S minecraft:container_set_data 130100030000
+PKT S minecraft:container_set_content 1201022700000000000000000000000000000000000000000000000000000000000003f2070000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+PKT S minecraft:container_set_data 130100010000
+PKT S minecraft:container_set_data 130100020000
+PKT S minecraft:container_set_data 130100030000
+PKT S minecraft:container_set_content 1201032700000000000000000000000000000000000000000000000000000000000003f2070000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+PKT S minecraft:container_set_data 130100010000
+PKT S minecraft:container_set_data 130100020000
+PKT S minecraft:container_set_data 130100030000
+# creative opens it like survival
+MENU C cid=1 type=minecraft:furnace state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+PKT C minecraft:open_screen 3c010e0a0800097472616e736c6174650011636f6e7461696e65722e6675726e61636500
+PKT C minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT C minecraft:container_set_data 130100000000
+PKT C minecraft:container_set_data 130100010000
+PKT C minecraft:container_set_data 130100020000
+PKT C minecraft:container_set_data 130100030000
+# the furnace is removed under an open menu: the menu closes
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:coal*3
+MS 37 minecraft:raw_iron*3
+MS 38 minecraft:diamond*1
+PKT A minecraft:open_screen 3c090e0a0800097472616e736c6174650011636f6e7461696e65722e6675726e61636500
+PKT A minecraft:container_close 1109
+STAT A minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT A minecraft.custom:minecraft.interact_with_furnace 6
+STAT A minecraft.custom:minecraft.interact_with_smoker 2
+STAT A minecraft.custom:minecraft.play_time 26
+STAT A minecraft.custom:minecraft.time_since_death 26
+STAT A minecraft.custom:minecraft.time_since_rest 26
+STAT A minecraft.custom:minecraft.total_world_time 26
+STAT S minecraft.custom:minecraft.play_time 26
+STAT S minecraft.custom:minecraft.time_since_death 26
+STAT S minecraft.custom:minecraft.time_since_rest 26
+STAT S minecraft.custom:minecraft.total_world_time 26
+STAT C minecraft.custom:minecraft.interact_with_furnace 1
+STAT C minecraft.custom:minecraft.play_time 26
+STAT C minecraft.custom:minecraft.time_since_death 26
+STAT C minecraft.custom:minecraft.time_since_rest 26
+STAT C minecraft.custom:minecraft.total_world_time 26

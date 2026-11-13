@@ -1,9 +1,6 @@
 //! `AbstractFurnaceBlockEntity` with its three subclasses (`FurnaceBlockEntity`, `BlastFurnaceBlockEntity`,
 //! `SmokerBlockEntity`): fuel burning, cooking progress, the recipes used and their experience, saving.
-//!
-//! Not implemented: the furnace, smoker and blast furnace menus do not exist yet, so `menu_provider` stays `None` (the
-//! block opens nothing), and neither the result slot's `awardUsedRecipesAndPopExperience` nor `fillStackedContents` exist.
-//! `container_data` is what those menus read.
+//! The menu provider opens `FurnaceMenu`, `SmokerMenu` or `BlastFurnaceMenu`; `container_data` is what they read.
 
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
@@ -16,7 +13,9 @@ use mc_data::{BlockEntityType, Item, RecipeType, props};
 use mc_game_core::block_entity_base;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::ComponentReader;
-use mc_game_core::world::block_entity::base_container::BaseContainer;
+use mc_game_core::world::block_entity::base_container::{
+    BaseContainer, send_chest_locked_notifications,
+};
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log,
     deferred,
@@ -24,14 +23,16 @@ use mc_game_core::world::block_entity::{
 use mc_game_core::world::container::{Container, WorldlyContainer, empty_stack, helper};
 use mc_game_core::world::containers::drop_item_stack;
 use mc_game_core::world::entity::experience_orb::ExperienceOrb;
-use mc_game_core::world::inventory::{ContainerData, MenuPlayer};
+use mc_game_core::world::inventory::{
+    AbstractContainerMenu, ContainerData, FurnaceMenu, MenuPlayer, MenuProvider,
+};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::item::crafting::{RecipeCheck, RecipeHolder, SingleRecipeInput};
-use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::storage::loot::providers::number::{
     ResolvableFloat, ResolvableInt,
 };
 use mc_game_core::world::level::storage::loot::{LootContext, LootContextParamSets, LootParams};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::components::{
     COOKING_FUEL, CookingFuel, ResolvableFloat as ProtocolFloat, ResolvableInt as ProtocolInt,
@@ -62,6 +63,18 @@ pub enum FurnaceKind {
 }
 
 impl FurnaceKind {
+    /// `getDefaultName()`.
+    pub fn default_name(self) -> Component {
+        Component::translatable(
+            match self {
+                Self::Furnace => "container.furnace",
+                Self::BlastFurnace => "container.blast_furnace",
+                Self::Smoker => "container.smoker",
+            },
+            Vec::new(),
+        )
+    }
+
     pub fn block_entity_type(self) -> BlockEntityType {
         match self {
             Self::Furnace => BlockEntityType::FURNACE,
@@ -620,6 +633,25 @@ impl BlockEntity for AbstractFurnaceBlockEntity {
         Some(self)
     }
 
+    fn menu_provider(&self) -> Option<Box<dyn MenuProvider>> {
+        Some(Box::new(FurnaceMenuProvider {
+            pos: self.base.pos,
+            kind: self.kind,
+            title: self.container.get_name(self.kind.default_name()),
+        }))
+    }
+
+    /// `awardUsedRecipesAndPopExperience(player)`: the experience pops at the player, the recipes used are forgotten.
+    fn award_used_recipes_and_pop_experience(
+        &mut self,
+        level: &mut ServerLevel,
+        position: Vec3,
+    ) -> Vec<RecipeHolder> {
+        let recipes = self.get_recipes_to_award_and_pop_experience(level, position);
+        self.recipes_used.clear();
+        recipes
+    }
+
     /// `preRemoveSideEffects`: drops the contents, then pops the experience of the recipes used.
     fn pre_remove_side_effects(
         &mut self,
@@ -629,6 +661,51 @@ impl BlockEntity for AbstractFurnaceBlockEntity {
     ) {
         mc_game_core::world::containers::drop_contents_at(level, pos, &*self);
         self.get_recipes_to_award_and_pop_experience(level, Vec3::at_center_of(&pos));
+    }
+}
+
+/// `BaseContainerBlockEntity` as `MenuProvider` (`getDisplayName()` = `getName()`): the lock check, then the menu of the kind.
+struct FurnaceMenuProvider {
+    pos: BlockPos,
+    kind: FurnaceKind,
+    title: Component,
+}
+
+impl MenuProvider for FurnaceMenuProvider {
+    fn get_display_name(&self) -> Component {
+        self.title.clone()
+    }
+
+    fn create_menu(
+        &self,
+        container_id: i32,
+        player: &mut dyn MenuPlayer,
+    ) -> Option<Box<dyn AbstractContainerMenu>> {
+        let pos = self.pos;
+        let can_open = player
+            .level_ref()?
+            .get_block_entity(pos)?
+            .as_any()
+            .downcast_ref::<AbstractFurnaceBlockEntity>()?
+            .container
+            .can_open(&*player);
+        if !can_open {
+            let title = self.title.clone();
+            player.with_server_player(&mut |level, server_player| {
+                send_chest_locked_notifications(
+                    level,
+                    Vec3::at_center_of(&pos),
+                    server_player,
+                    &title,
+                );
+            });
+            return None;
+        }
+        Some(Box::new(match self.kind {
+            FurnaceKind::Furnace => FurnaceMenu::furnace(container_id, pos, &*player),
+            FurnaceKind::Smoker => FurnaceMenu::smoker(container_id, pos, &*player),
+            FurnaceKind::BlastFurnace => FurnaceMenu::blast_furnace(container_id, pos, &*player),
+        }))
     }
 }
 

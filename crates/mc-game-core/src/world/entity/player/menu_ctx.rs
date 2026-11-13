@@ -73,6 +73,9 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool {
         self.player.is_within_block_interaction_range(pos, buffer)
     }
+    fn position(&self) -> mc_core::phys::Vec3 {
+        crate::world::entity::Entity::position(&*self.player)
+    }
     fn send_inventory_slot_update(&mut self, slot: usize, stack: ItemStack) {
         self.player.send(&ClientboundSetPlayerInventoryPacket {
             slot: slot as i32,

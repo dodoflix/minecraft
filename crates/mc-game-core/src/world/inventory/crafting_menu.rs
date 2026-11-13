@@ -115,7 +115,11 @@ impl RecipeBookMenu for CraftingMenu {
         action
     }
 
-    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents) {
+    fn fill_craft_slots_stacked_contents(
+        &mut self,
+        _player: &mut dyn MenuPlayer,
+        contents: &mut StackedItemContents,
+    ) {
         self.get_craft_slots().fill_stacked_contents(contents);
     }
 

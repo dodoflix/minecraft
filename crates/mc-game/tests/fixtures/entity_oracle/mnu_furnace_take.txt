@@ -1,0 +1,148 @@
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:crafting_table highlight=minecraft:crafting_table
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# one click on the result: 3 ingots, 3 uses of a recipe worth 0.7 each
+MENU A cid=1 type=minecraft:furnace state=2 carried=minecraft:iron_ingot*4
+MS 0 minecraft:raw_iron*3
+MS 1 minecraft:coal*1
+MD 0 1599
+MD 1 1600
+MD 2 1
+MD 3 200
+STAT A minecraft.crafted:minecraft.iron_ingot 4
+STAT A minecraft.custom:minecraft.interact_with_furnace 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:crafting_table,minecraft:iron_ingot_from_smelting_raw_iron highlight=minecraft:crafting_table,minecraft:iron_ingot_from_smelting_raw_iron
+E experience_orb#1 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
+PKT A minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT A minecraft:container_set_data 13010000063f
+PKT A minecraft:container_set_data 130100010640
+PKT A minecraft:container_set_data 130100020001
+PKT A minecraft:container_set_data 1301000300c8
+PKT A minecraft:recipe_book_add 4b018006020602f9070105fa07010000049703c8013f3333333706010102f9070300
+PKT A minecraft:container_set_slot 140102000200
+PKT A minecraft:set_cursor_item 6204fa070000
+MENU A cid=1 type=minecraft:furnace state=3 carried=empty
+MS 0 minecraft:raw_iron*3
+MS 1 minecraft:coal*1
+MS 30 minecraft:iron_ingot*4
+MD 0 1599
+MD 1 1600
+MD 2 1
+MD 3 200
+STAT A minecraft.crafted:minecraft.iron_ingot 4
+STAT A minecraft.custom:minecraft.interact_with_furnace 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:bucket,minecraft:crafting_table,minecraft:crossbow,minecraft:heavy_weighted_pressure_plate,minecraft:hopper,minecraft:iron_axe,minecraft:iron_bars,minecraft:iron_block,minecraft:iron_boots,minecraft:iron_chain,minecraft:iron_chestplate,minecraft:iron_door,minecraft:iron_helmet,minecraft:iron_hoe,minecraft:iron_ingot_from_smelting_raw_iron,minecraft:iron_leggings,minecraft:iron_nugget,minecraft:iron_pickaxe,minecraft:iron_shovel,minecraft:iron_spear,minecraft:iron_sword,minecraft:iron_trapdoor,minecraft:lantern,minecraft:lodestone,minecraft:minecart,minecraft:shears,minecraft:shield,minecraft:smithing_table highlight=minecraft:bucket,minecraft:crafting_table,minecraft:crossbow,minecraft:heavy_weighted_pressure_plate,minecraft:hopper,minecraft:iron_axe,minecraft:iron_bars,minecraft:iron_block,minecraft:iron_boots,minecraft:iron_chain,minecraft:iron_chestplate,minecraft:iron_door,minecraft:iron_helmet,minecraft:iron_hoe,minecraft:iron_ingot_from_smelting_raw_iron,minecraft:iron_leggings,minecraft:iron_nugget,minecraft:iron_pickaxe,minecraft:iron_shovel,minecraft:iron_spear,minecraft:iron_sword,minecraft:iron_trapdoor,minecraft:lantern,minecraft:lodestone,minecraft:minecart,minecraft:shears,minecraft:shield,minecraft:smithing_table
+E experience_orb#1 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
+# shift-click on a result of 5 smoked beef
+MENU A cid=2 type=minecraft:smoker state=3 carried=empty
+MS 30 minecraft:iron_ingot*4
+MS 38 minecraft:cooked_beef*5
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT A minecraft.crafted:minecraft.air 0
+STAT A minecraft.crafted:minecraft.cooked_beef 5
+STAT A minecraft.crafted:minecraft.iron_ingot 4
+STAT A minecraft.custom:minecraft.interact_with_furnace 1
+STAT A minecraft.custom:minecraft.interact_with_smoker 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+I A 0 minecraft:iron_ingot*4
+I A 8 minecraft:cooked_beef*5
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:bucket,minecraft:cooked_beef_from_smoking,minecraft:crafting_table,minecraft:crossbow,minecraft:heavy_weighted_pressure_plate,minecraft:hopper,minecraft:iron_axe,minecraft:iron_bars,minecraft:iron_block,minecraft:iron_boots,minecraft:iron_chain,minecraft:iron_chestplate,minecraft:iron_door,minecraft:iron_helmet,minecraft:iron_hoe,minecraft:iron_ingot_from_smelting_raw_iron,minecraft:iron_leggings,minecraft:iron_nugget,minecraft:iron_pickaxe,minecraft:iron_shovel,minecraft:iron_spear,minecraft:iron_sword,minecraft:iron_trapdoor,minecraft:lantern,minecraft:lodestone,minecraft:minecart,minecraft:shears,minecraft:shield,minecraft:smithing_table highlight=minecraft:bucket,minecraft:cooked_beef_from_smoking,minecraft:crafting_table,minecraft:crossbow,minecraft:heavy_weighted_pressure_plate,minecraft:hopper,minecraft:iron_axe,minecraft:iron_bars,minecraft:iron_block,minecraft:iron_boots,minecraft:iron_chain,minecraft:iron_chestplate,minecraft:iron_door,minecraft:iron_helmet,minecraft:iron_hoe,minecraft:iron_ingot_from_smelting_raw_iron,minecraft:iron_leggings,minecraft:iron_nugget,minecraft:iron_pickaxe,minecraft:iron_shovel,minecraft:iron_spear,minecraft:iron_sword,minecraft:iron_trapdoor,minecraft:lantern,minecraft:lodestone,minecraft:minecart,minecraft:shears,minecraft:shield,minecraft:smithing_table
+E experience_orb#1 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=0.1578894172529977,0.3926468715102037,-0.19510877723880404 rot=24.451748,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=-0.07908077077071002,0.2628587879833386,0.12891205399363037 rot=47.17171,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+PKT A minecraft:recipe_book_add 4b01e302010303090602a4080602fa070602a4080602a6080602d3060602a608000602a4080005d30b0100000495030002010702a40802fa0702a40802a60802d30602a60802a4080300
+PKT A minecraft:recipe_book_add 4b01fa06010303090602c4030602c4030602c4030602c4030602fa070602c4030602c4030602c4030602c40305ff0b0100000495030003010902c40302c40302c40302c40302fa0702c40302c40302c40302c4030300
+PKT A minecraft:recipe_book_add 4b018106010303090602fa070602fa070602fa070602fa07000602fa070602fa07000602fa0705ba080100000495030002010702fa0702fa0702fa0702fa0702fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01f405010103030602b00b0602fa070602b00b05d9030100000495030003010302b00b02fa0702b00b0300
+PKT A minecraft:recipe_book_add 4b01820600010602fa0705b00b0900000495030003010102fa070300
+PKT A minecraft:recipe_book_add 4b019d06010303090602b00b0602b00b0602b00b0602b00b06028b030602b00b0602b00b0602b00b0602b00b05eb0b0100000495030003010902b00b02b00b02b00b02b00b028b0302b00b02b00b02b00b02b00b0300
+PKT A minecraft:recipe_book_add 4b018906010202040602fa070602fa070602fa070602fa07058e070100000495030001010402fa0702fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01f205010303090602fa070602fa070602fa070602fa070602fa070602fa070602fa070602fa070602fa0705770100000495030000010902fa0702fa0702fa0702fa0702fa0702fa0702fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01f105010302060602fa070602fa070602fa070602fa070602fa070602fa0705d0031000000495030003010602fa0702fa0702fa0702fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01ec05010303090602fa07000602fa070602fa07060294030602fa07000602fa070005c2060100000495030001010602fa0702fa0702fa0702940302fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01f705010302060602fa070602fa070602fa070602fa07000602fa0705b8080100000495030002010502fa0702fa0702fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01f605010203060602fa070602fa070602fa070602fa070602fa070602fa0705f8060300000495030001010602fa0702fa0702fa0702fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b0185060103030906001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73000602a40800000602a4080005970801000004950300020105001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7302a40802a4080300
+PKT A minecraft:recipe_book_add 4b01dd0a010203060602fa070602fa070600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b7305e80b0100000495030003010602fa0702fa0700106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730300
+PKT A minecraft:recipe_book_add 4b01b207010302060602fa07000602fa070602fa070602fa070602fa0705c6070100000495030003010502fa0702fa0702fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01f305010302060602fa07000602fa070602fa07000602fa0705bb080100000495030002010402fa0702fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01f0050102030606001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c730602a408000602a40805980801000004950300020105001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7302a40802a4080300
+PKT A minecraft:recipe_book_add 4b0186060101030306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c730602a4080602a40805960801000004950300020103001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7302a40802a4080300
+PKT A minecraft:recipe_book_add 4b01f8050102030606001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73000602a408000602a40805990801000004950300020104001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7302a40802a4080300
+PKT A minecraft:recipe_book_add 4b01d60a0103030906001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c730602fa0706001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c7306001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c7306001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c7306001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c730006001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c730005a60b01000004950300020107001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c7302fa07001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c73001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c73001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c73001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c73001f6d696e6563726166743a776f6f64656e5f746f6f6c5f6d6174657269616c730300
+PKT A minecraft:recipe_book_add 4b01f505010303090602fa07000602fa070602fa070602fa070602fa070602fa070602fa070602fa0705b9080100000495030002010802fa0702fa0702fa0702fa0702fa0702fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01a201010302060602fa07000602fa07000602fa070005e8080100000495030003010302fa0702fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01d50a01020204000602fa070602fa070005e7090100000495030002010202fa0702fa070300
+PKT A minecraft:recipe_book_add 4b01870601030309000006001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73000602a408000602a408000005aa0b01000004950300020103001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7302a40802a4080300
+PKT A minecraft:recipe_book_add 4b01e805010201020602fa070602fa0705ea060100000495030001010202fa0702fa070300
+PKT A minecraft:recipe_book_add 4b0188060101030306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c730602a40805950801000004950300020103001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7302a4080300
+PKT A minecraft:container_set_slot 140103001e04fa070000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130200000000
+PKT A minecraft:container_set_data 130200010000
+PKT A minecraft:container_set_data 130200020000
+PKT A minecraft:container_set_data 130200030000
+PKT A minecraft:recipe_book_add 4b019802020602ec090105ed0901000004e30bc8013eb333330009010102ec090300
+PKT A minecraft:container_set_slot 140202000200
+PKT A minecraft:container_set_slot 140203002605ed090000
+# right click takes half: the statistic counts what was taken, the experience is paid out once
+MENU B cid=1 type=minecraft:blast_furnace state=2 carried=minecraft:gold_ingot*1
+MS 2 minecraft:gold_ingot*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT B minecraft.crafted:minecraft.gold_ingot 1
+STAT B minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:crafting_table,minecraft:gold_ingot_from_blasting_raw_gold highlight=minecraft:crafting_table,minecraft:gold_ingot_from_blasting_raw_gold
+E experience_orb#1 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=0.1578894172529977,0.3926468715102037,-0.19510877723880404 rot=24.451748,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=-0.07908077077071002,0.2628587879833386,0.12891205399363037 rot=47.17171,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=10.5,-60.0,6.5 delta=-0.001609963062552705,0.15481968716094788,0.07353280338407242 rot=247.60121,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=10.5,-60.0,6.5 delta=0.1382846934828345,0.06315519742468725,0.09933432128699976 rot=76.08243,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+PKT B minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT B minecraft:container_set_data 130100000000
+PKT B minecraft:container_set_data 130100010000
+PKT B minecraft:container_set_data 130100020000
+PKT B minecraft:container_set_data 130100030000
+PKT B minecraft:recipe_book_add 4b019d05020602fd070105fe0701000004e40bc8013f8000003508010102fd070300
+PKT B minecraft:container_set_slot 140102000201fe070000
+PKT B minecraft:set_cursor_item 6201fe070000
+MENU B cid=1 type=minecraft:blast_furnace state=3 carried=minecraft:gold_ingot*2
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT B minecraft.crafted:minecraft.gold_ingot 2
+STAT B minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:crafting_table,minecraft:gold_ingot_from_blasting_raw_gold highlight=minecraft:crafting_table,minecraft:gold_ingot_from_blasting_raw_gold
+E experience_orb#1 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=-0.12672201485371964,0.07560916396698142,0.11292722970701385 rot=87.321205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=0.1578894172529977,0.3926468715102037,-0.19510877723880404 rot=24.451748,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=4.5,-60.0,6.5 delta=-0.07908077077071002,0.2628587879833386,0.12891205399363037 rot=47.17171,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#4 minecraft:experience_orb pos=10.5,-60.0,6.5 delta=-0.001609963062552705,0.15481968716094788,0.07353280338407242 rot=247.60121,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=10.5,-60.0,6.5 delta=0.1382846934828345,0.06315519742468725,0.09933432128699976 rot=76.08243,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5

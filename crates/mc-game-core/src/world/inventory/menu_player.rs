@@ -150,6 +150,10 @@ pub trait MenuPlayer {
     fn recipe_book_contains(&self, _recipe_id: &mc_core::ident::Identifier) -> bool {
         false
     }
+    /// `Entity.position()` (the feet).
+    fn position(&self) -> mc_core::phys::Vec3 {
+        mc_core::phys::Vec3::ZERO
+    }
     /// `ServerPlayer.awardRecipes(recipes)`.
     fn award_recipes(&mut self, recipes: &[RecipeHolder]) {
         self.with_server_player(&mut |level, player| {

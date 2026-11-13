@@ -64,7 +64,7 @@ import net.minecraft.world.phys.AABB;
  * Script lines (stacks are `@item[components]` (the command syntax, no spaces, count 1) or `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..][,p=potion]`;
  * the printed ops carry the stack as `ItemStack.CODEC` SNBT, `-` = empty); `#` lines are copied:
  *   OPEN kind [xp [seed [creative [pseed [lseed [shelves [blockers]]]]]]]
- *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | crafting | chest | cartography | brewing_stand | beacon | lectern | stonecutter | crafter | smithing): resets the
+ *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | crafting | chest | cartography | brewing_stand | beacon | lectern | stonecutter | crafter | smithing | furnace | smoker | blast_furnace): resets the
  *        world around TABLE, places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
  *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table,
  *        the levels (0..4) of the iron pyramid under a beacon, the pages (at least 1) of the book on a lectern and whether that book is a writable one.
@@ -170,6 +170,9 @@ public class MenuOracleBase {
       // no block: the menu comes from an entity (SPAWN, USE)
       KINDS.put("merchant", new Kind(null, NO_SETUP));
       KINDS.put("mount", new Kind(null, NO_SETUP));
+      KINDS.put("furnace", new Kind(Blocks.FURNACE, NO_SETUP));
+      KINDS.put("smoker", new Kind(Blocks.SMOKER, NO_SETUP));
+      KINDS.put("blast_furnace", new Kind(Blocks.BLAST_FURNACE, NO_SETUP));
    }
 
    static String st(ItemStack s) {

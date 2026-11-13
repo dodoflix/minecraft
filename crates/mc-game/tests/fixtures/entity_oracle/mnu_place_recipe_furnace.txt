@@ -1,0 +1,196 @@
+C No new recipes were learned
+C No new recipes were learned
+C No new recipes were learned
+C Unlocked 1 recipe(s) for A
+C No new recipes were learned
+C No new recipes were learned
+C No new recipes were learned
+C No new recipes were learned
+C No new recipes were learned
+MENU A cid=1 type=minecraft:furnace state=1 carried=empty
+MS 3 minecraft:raw_iron*64
+MS 4 minecraft:raw_iron*20
+MS 5 minecraft:sand*10
+MS 6 minecraft:beef*5
+MS 7 minecraft:coal*3
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+PKT A minecraft:container_set_slot 140002000940f9070000
+PKT A minecraft:container_set_slot 140003000a14f9070000
+PKT A minecraft:container_set_slot 140004000b0a580000
+PKT A minecraft:container_set_slot 140005000c05ec090000
+PKT A minecraft:container_set_slot 140006000d03f2070000
+PKT A minecraft:container_set_content 1201012700000040f907000014f90700000a58000005ec09000003f20700000000000000000000000000000000000000000000000000000000000000000000
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:black_concrete_powder,minecraft:blue_concrete_powder,minecraft:brown_concrete_powder,minecraft:campfire,minecraft:coal_block,minecraft:cooked_beef,minecraft:cooked_beef_from_campfire_cooking,minecraft:cooked_beef_from_smoking,minecraft:crafting_table,minecraft:cyan_concrete_powder,minecraft:glass,minecraft:gold_ingot_from_smelting_raw_gold,minecraft:gray_concrete_powder,minecraft:green_concrete_powder,minecraft:iron_ingot_from_blasting_raw_iron,minecraft:iron_ingot_from_smelting_raw_iron,minecraft:light_blue_concrete_powder,minecraft:light_gray_concrete_powder,minecraft:lime_concrete_powder,minecraft:magenta_concrete_powder,minecraft:orange_concrete_powder,minecraft:pink_concrete_powder,minecraft:purple_concrete_powder,minecraft:raw_iron_block,minecraft:red_concrete_powder,minecraft:sandstone,minecraft:white_concrete_powder,minecraft:yellow_concrete_powder highlight=minecraft:black_concrete_powder,minecraft:blue_concrete_powder,minecraft:brown_concrete_powder,minecraft:campfire,minecraft:coal_block,minecraft:cooked_beef,minecraft:cooked_beef_from_campfire_cooking,minecraft:cooked_beef_from_smoking,minecraft:crafting_table,minecraft:cyan_concrete_powder,minecraft:glass,minecraft:gold_ingot_from_smelting_raw_gold,minecraft:gray_concrete_powder,minecraft:green_concrete_powder,minecraft:iron_ingot_from_blasting_raw_iron,minecraft:iron_ingot_from_smelting_raw_iron,minecraft:light_blue_concrete_powder,minecraft:light_gray_concrete_powder,minecraft:lime_concrete_powder,minecraft:magenta_concrete_powder,minecraft:orange_concrete_powder,minecraft:pink_concrete_powder,minecraft:purple_concrete_powder,minecraft:raw_iron_block,minecraft:red_concrete_powder,minecraft:sandstone,minecraft:white_concrete_powder,minecraft:yellow_concrete_powder
+# one ingredient, placing again adds one, use max items fills the input slot with a stack
+MENU A cid=1 type=minecraft:furnace state=1 carried=empty
+MS 0 minecraft:raw_iron*1
+MS 3 minecraft:raw_iron*63
+MS 4 minecraft:raw_iron*20
+MS 5 minecraft:sand*10
+MS 6 minecraft:beef*5
+MS 7 minecraft:coal*3
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+MENU A cid=1 type=minecraft:furnace state=1 carried=empty
+MS 0 minecraft:raw_iron*3
+MS 3 minecraft:raw_iron*61
+MS 4 minecraft:raw_iron*20
+MS 5 minecraft:sand*10
+MS 6 minecraft:beef*5
+MS 7 minecraft:coal*3
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+MENU A cid=1 type=minecraft:furnace state=1 carried=empty
+MS 0 minecraft:raw_iron*64
+MS 4 minecraft:raw_iron*20
+MS 5 minecraft:sand*10
+MS 6 minecraft:beef*5
+MS 7 minecraft:coal*3
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+# another recipe: the input slot and the result slot are cleared into the inventory first
+MENU A cid=1 type=minecraft:furnace state=1 carried=empty
+MS 0 minecraft:sand*10
+MS 4 minecraft:raw_iron*64
+MS 6 minecraft:beef*5
+MS 7 minecraft:coal*3
+MS 30 minecraft:raw_iron*20
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+MENU A cid=1 type=minecraft:furnace state=1 carried=empty
+MS 0 minecraft:beef*1
+MS 4 minecraft:raw_iron*64
+MS 6 minecraft:beef*4
+MS 7 minecraft:coal*3
+MS 30 minecraft:raw_iron*20
+MS 31 minecraft:sand*10
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+# the fuel slot is untouched; a result already in the result slot goes back to the inventory
+MENU A cid=1 type=minecraft:furnace state=8 carried=empty
+MS 0 minecraft:beef*1
+MS 4 minecraft:raw_iron*64
+MS 6 minecraft:beef*4
+MS 7 minecraft:coal*3
+MS 30 minecraft:raw_iron*20
+MS 31 minecraft:sand*10
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+PKT A minecraft:container_set_slot 140102000001ec090000
+PKT A minecraft:container_set_slot 140103000300
+PKT A minecraft:container_set_slot 140104000440f9070000
+PKT A minecraft:container_set_slot 140105000500
+PKT A minecraft:container_set_slot 140106000604ec090000
+PKT A minecraft:container_set_slot 140107001e14f9070000
+PKT A minecraft:container_set_slot 140108001f0a580000
+MENU A cid=1 type=minecraft:furnace state=8 carried=empty
+MS 0 minecraft:raw_iron*64
+MS 4 minecraft:raw_iron*20
+MS 6 minecraft:beef*5
+MS 7 minecraft:coal*3
+MS 31 minecraft:sand*10
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+# cannot be made (no raw gold): the slots are cleared and the ghost recipe is sent
+MENU A cid=1 type=minecraft:furnace state=8 carried=empty
+MS 4 minecraft:raw_iron*64
+MS 6 minecraft:beef*5
+MS 7 minecraft:coal*3
+MS 30 minecraft:raw_iron*20
+MS 31 minecraft:sand*10
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+PKT A minecraft:place_ghost_recipe 4001020602fd070105fe07010000049703c8013f800000
+# a recipe that is not in the book and a wrong container id are ignored
+C Took 1 recipe(s) from A
+MENU A cid=1 type=minecraft:furnace state=8 carried=empty
+MS 4 minecraft:raw_iron*64
+MS 6 minecraft:beef*5
+MS 7 minecraft:coal*3
+MS 30 minecraft:raw_iron*20
+MS 31 minecraft:sand*10
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+MENU A cid=1 type=minecraft:furnace state=8 carried=empty
+MS 4 minecraft:raw_iron*64
+MS 6 minecraft:beef*5
+MS 7 minecraft:coal*3
+MS 30 minecraft:raw_iron*20
+MS 31 minecraft:sand*10
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+# the smoker
+MENU B cid=1 type=minecraft:smoker state=1 carried=empty
+MS 0 minecraft:beef*40
+MS 4 minecraft:potato*5
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+MENU B cid=1 type=minecraft:smoker state=1 carried=empty
+MS 0 minecraft:potato*1
+MS 4 minecraft:potato*4
+MS 30 minecraft:beef*40
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+MENU B cid=1 type=minecraft:smoker state=1 carried=empty
+MS 0 minecraft:potato*5
+MS 30 minecraft:beef*40
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+# the blast furnace
+MENU C cid=1 type=minecraft:blast_furnace state=1 carried=empty
+MS 0 minecraft:raw_gold*30
+MS 4 minecraft:iron_sword*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+MENU C cid=1 type=minecraft:blast_furnace state=1 carried=empty
+MS 0 minecraft:iron_sword*1
+MS 30 minecraft:raw_gold*30
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+MENU C cid=1 type=minecraft:blast_furnace state=1 carried=empty
+MS 0 minecraft:iron_sword*1
+MS 30 minecraft:raw_gold*30
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 200
+# a spectator is ignored
+MENU D cid=1 type=minecraft:furnace state=1 carried=empty
+MS 3 minecraft:raw_iron*4
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
