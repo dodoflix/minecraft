@@ -1,0 +1,32 @@
+# The packets and entity data of a leash knot: the pairing (add_entity, set_entity_data, set_entity_link) seen by an observer, the
+# knot's own save data, the knot's entity line, what the observer sees when the last leash is cut and when a second mob joins the knot.
+command_env
+level flat
+preload 3
+difficulty normal
+level_seed 5
+entity_counter 800
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player A survival 6.5 -60 6.5 0 0
+block 3 -60 0 minecraft:oak_fence
+tick 3
+dump packets:A:none packets:P:none
+mobspawn Cow minecraft:cow 2.5 -60 0.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+mobspawn Sheep minecraft:sheep 1.5 -60 1.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+tick 1
+leash Cow P
+tick 1
+use_on P 3 -60 0 up
+tick 1
+dump xentities edata:leash_knot#1 nbt:leash_knot#1 packets:A:add_entity,set_entity_data,set_entity_link,remove_entities packets:P:add_entity,set_entity_data,set_entity_link,remove_entities
+note a second mob joins the knot, then a hit that breaks the first leash
+leash Sheep P
+tick 1
+interact P leash_knot#1 main
+tick 1
+dump xentities packets:A:add_entity,set_entity_link,remove_entities packets:P:add_entity,set_entity_link,remove_entities
+note shears: everything goes
+give P mainhand minecraft:shears 1
+interact P leash_knot#1 main
+tick 2
+dump xentities packets:A:set_entity_link,remove_entities,add_entity packets:P:set_entity_link,remove_entities,add_entity

@@ -1,0 +1,46 @@
+E Cow minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=3,-60,0/5 leash=leash_knot#1 speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E leash_knot#1 minecraft:leash_knot pos=3.5,-59.625,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+ED leash_knot#1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00
+N leash_knot#1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[3.5d,-59.625d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+PKT A minecraft:add_entity 01a30635b0520d6d29415d8b0a4d676ec42f581e4004000000000000c04e0000000000003fe00000000000000000000000
+PKT A minecraft:set_entity_data 65a3060408010903412000000f0001ff
+PKT A minecraft:add_entity 01a406b932f91eb70d476880b77b32519575eb723ff8000000000000c04e0000000000003ff80000000000000000000000
+PKT A minecraft:set_entity_data 65a4060408010903410000000f0001ff
+PKT A minecraft:set_entity_data 65a4060408010903410000000f0001ff
+PKT A minecraft:set_entity_data 65a3060408010903412000000f0001ff
+PKT A minecraft:set_entity_link 660000032300000321
+PKT A minecraft:add_entity 01a506f87e445af2d6495196928edf1c32af674d4008000000000000c04e00000000000000000000000000000000000000
+PKT A minecraft:set_entity_link 660000032300000325
+PKT P minecraft:add_entity 01a30635b0520d6d29415d8b0a4d676ec42f581e4004000000000000c04e0000000000003fe00000000000000000000000
+PKT P minecraft:set_entity_data 65a3060408010903412000000f0001ff
+PKT P minecraft:add_entity 01a406b932f91eb70d476880b77b32519575eb723ff8000000000000c04e0000000000003ff80000000000000000000000
+PKT P minecraft:set_entity_data 65a4060408010903410000000f0001ff
+PKT P minecraft:set_entity_data 65a4060408010903410000000f0001ff
+PKT P minecraft:set_entity_data 65a3060408010903412000000f0001ff
+PKT P minecraft:set_entity_link 660000032300000321
+PKT P minecraft:add_entity 01a506f87e445af2d6495196928edf1c32af674d4008000000000000c04e00000000000000000000000000000000000000
+PKT P minecraft:set_entity_link 660000032300000325
+# a second mob joins the knot, then a hit that breaks the first leash
+E Cow minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=3,-60,0/5 leash=leash_knot#1 speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=3,-60,0/5 leash=leash_knot#1 speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E leash_knot#1 minecraft:leash_knot pos=3.5,-59.625,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT A minecraft:set_entity_link 660000032400000321
+PKT A minecraft:set_entity_link 660000032400000325
+PKT P minecraft:set_entity_link 660000032400000321
+PKT P minecraft:set_entity_link 660000032400000325
+# shears: everything goes
+E Cow minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Sheep minecraft:sheep pos=1.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=2.5824794334094876,-59.723199996948246,0.36827749624457884 delta=0.040006692003443894,0.11446400521850592,-0.0638920688446366 rot=69.15318,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:lead*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.3972003369707422,-59.723199996948246,1.5615198216737112 delta=-0.04986302993197142,0.11446400521850592,0.029840221447542545 rot=15.585201,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:lead*1 age=2 pickup=8 health=5 owner=- thrower=-
+PKT A minecraft:add_entity 01a60645f88c73c20b445aa984f2f704e41bc0484004000000000000c04e0000000000003fe00000000000004915777b333200310000
+PKT A minecraft:set_entity_link 660000032300000000
+PKT A minecraft:add_entity 01a70618bc7f70656a475eab169e702570e834483ff8000000000000c04e0000000000003ff800000000000061e583f93331000b0000
+PKT A minecraft:set_entity_link 660000032400000000
+PKT A minecraft:remove_entities 4e01a506
+PKT P minecraft:add_entity 01a60645f88c73c20b445aa984f2f704e41bc0484004000000000000c04e0000000000003fe00000000000004915777b333200310000
+PKT P minecraft:set_entity_link 660000032300000000
+PKT P minecraft:add_entity 01a70618bc7f70656a475eab169e702570e834483ff8000000000000c04e0000000000003ff800000000000061e583f93331000b0000
+PKT P minecraft:set_entity_link 660000032400000000
+PKT P minecraft:remove_entities 4e01a506

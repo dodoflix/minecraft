@@ -1,9 +1,7 @@
 //! The concrete dispense behaviors of `net.minecraft.core.dispenser` and `DispenseItemBehavior.bootStrap()`.
 //!
-//! Not implemented: the `bootStrap()` entries other than armor stands, boats, buckets, bone meal, honeycomb, chests,
-//! minecarts, projectiles that are `ProjectileItem`s, water bottles, shulker boxes, TNT and flint and steel have no
-//! behavior, so those items are dropped like any other item: eggs and thrown potions (no thrown entities) and the brush
-//! (`Armadillo.brushOffScute` on an armadillo in front). Equipment, spawn eggs and sulfur cube swallowing come from the
+//! Not implemented: the brush on an armadillo (`Armadillo.brushOffScute` on an armadillo in front) has no behavior, so
+//! the item is dropped like any other item. Equipment, spawn eggs and sulfur cube swallowing come from the
 //! component-based defaults.
 
 mod armor_stand;

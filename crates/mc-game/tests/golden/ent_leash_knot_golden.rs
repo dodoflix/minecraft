@@ -16,3 +16,8 @@ fn lead_on_a_fence_matches_vanilla() {
 fn leash_position_tag_restores_the_knot() {
     run_scenario_test("ent_leash_restore");
 }
+
+#[test]
+fn leash_knot_packets_and_save_data_match_vanilla() {
+    crate::common::block_scenario::check("ent_knot_packets");
+}

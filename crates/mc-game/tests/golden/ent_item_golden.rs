@@ -1,5 +1,5 @@
 //! Item entities in the block replay: the NBT round trip, merging across chunk borders and against the stack cap, the packets of
-//! dropping and picking up, who may pick an item up, the vibration an item dampens, and the item slot commands
+//! dropping and picking up, lava, cactus, fire and despawn ages, who may pick an item up, the vibration an item dampens, and the item slot commands
 //! (`tests/oracle/scenarios/ent_item_*.txt`; fixtures regenerated with `scripts/block-oracle.sh NAME`).
 
 use crate::common;
@@ -16,6 +16,7 @@ macro_rules! golden {
 
 golden!(
     drop_packets => "ent_item_drop_packets",
+    environment => "ent_item_environment",
     hopper => "ent_item_hopper",
     merge_chunk => "ent_item_merge_chunk",
     nbt => "ent_item_nbt",

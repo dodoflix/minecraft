@@ -1,0 +1,54 @@
+# What an explosion and a wind charge burst do to the non-living entities around it (ServerExplosion.hurtEntities / knockback,
+# Entity.ignoreExplosion, isAttackable): items, orbs, falling blocks, primed tnt, boats, minecarts, arrows in the air, snowballs, thrown
+# eggs, item frames, paintings, armor stands, markers, interactions, displays, a leash knot, end crystals, area effect clouds, fireballs.
+command_env
+level flat
+preload 4
+level_seed 3
+entity_counter 700
+gamerule block_drops false
+spawn_player A creative 30.5 -60 30.5 0 0
+tick 2
+dump packets:A:none
+note a flat stone floor, the blast at (0.5 -59 0.5) with power 3 and a tnt as source
+fill -8 -61 -8 8 -61 8 minecraft:stone
+spawn i1 minecraft:item 2.5 -60 0.5 0 0 {Item:{id:"minecraft:stone",count:1},Age:100s}
+spawn o1 minecraft:experience_orb 0.5 -60 2.5 0 0 {Value:5s}
+spawn b1 minecraft:oak_boat 3.5 -60 3.5 0 0
+spawn m1 minecraft:minecart -2.5 -59.9375 0.5 0 0
+spawn m2 minecraft:chest_minecart -2.5 -59.9375 3.5 0 0
+spawn fb minecraft:falling_block 0.5 -58 -2.5 0 0 {BlockState:{id:"minecraft:sand"},Time:1,NoGravity:1b}
+spawn tn minecraft:tnt 3.5 -60 -2.5 0 0 {fuse:200s}
+spawn ar minecraft:arrow 1.5 -59 5.5 0 0 {NoGravity:1b}
+spawn sn minecraft:snowball 5.5 -59 1.5 0 0 {NoGravity:1b}
+spawn st minecraft:armor_stand -4.5 -60 0.5 0 0
+spawn mk minecraft:marker -4.5 -60 3.5 0 0
+spawn ia minecraft:interaction -4.5 -60 -2.5 0 0 {width:1.0f,height:1.0f}
+spawn dp minecraft:block_display 5.5 -60 -2.5 0 0 {block_state:{id:"minecraft:stone"}}
+spawn ec minecraft:end_crystal 5.5 -60 3.5 0 0 {ShowBottom:0b}
+spawn ac minecraft:area_effect_cloud 3.5 -60 -4.5 0 0 {Duration:600,Radius:2.0f}
+spawn fi minecraft:fireball 0.5 -59 -4.5 0 0 {acceleration_power:0.0d}
+spawn pa minecraft:painting -6.5 -60 5.5 0 0 {variant:"minecraft:kebab",facing:2b}
+tick 3
+dump xentities
+note power 3 explosion by a tnt (not a mob, no damage to non-living except knockback)
+explode 0.5 -59 0.5 3 tnt
+watch xentities packets:A:set_entity_motion,entity_position_sync,remove_entities,add_entity,explode,damage_event
+tick 5
+dump xentities
+note a wind charge burst next to the ring: the same set again further away
+spawn w1 minecraft:wind_charge 20.5 -58 0.5 0 0
+velocity w1 0 -0.2 0
+spawn i2 minecraft:item 22.5 -60 0.5 0 0 {Item:{id:"minecraft:stone",count:1},Age:100s}
+spawn o2 minecraft:experience_orb 20.5 -60 2.5 0 0 {Value:5s}
+spawn b2 minecraft:oak_boat 23.5 -60 3.5 0 0
+spawn m3 minecraft:minecart 17.5 -59.9375 0.5 0 0
+spawn tn2 minecraft:tnt 23.5 -60 -2.5 0 0 {fuse:200s}
+spawn ar2 minecraft:arrow 21.5 -59 5.5 0 0 {NoGravity:1b}
+spawn fb2 minecraft:falling_block 20.5 -58 -2.5 0 0 {BlockState:{id:"minecraft:sand"},Time:1,NoGravity:1b}
+spawn st2 minecraft:armor_stand 15.5 -60 0.5 0 0
+fill 12 -61 -8 28 -61 8 minecraft:stone
+tick 2
+watch xentities packets:A:set_entity_motion,remove_entities,explode
+tick 10
+dump xentities

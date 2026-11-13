@@ -1,5 +1,5 @@
 //! Arrows and tridents against vanilla: hits on mobs and players, shields, pickup, despawn, the world border, loyalty,
-//! channeling and riptide (`tests/oracle/scenarios/ent_{arrow,trident}_*.txt`; fixtures regenerated with
+//! channeling, riptide and projectiles against minecarts and boats (`tests/oracle/scenarios/ent_{arrow,trident}_*.txt`; fixtures regenerated with
 //! `scripts/block-oracle.sh NAME`).
 
 use crate::common;
@@ -24,6 +24,7 @@ golden!(
     arrow_stuck_in_blocks => "ent_arrow_stuck",
     arrow_and_teams => "ent_arrow_teams",
     arrow_against_other_entities => "ent_arrow_targets",
+    projectiles_against_minecarts_and_boats => "ent_arrow_minecart",
     arrow_at_the_world_border => "ent_arrow_world_border",
     tipped_and_spectral_arrows => "ent_arrow_tipped",
     trident_channeling_in_thunder => "ent_trident_channeling",

@@ -1,0 +1,74 @@
+I Alice 0 minecraft:experience_bottle*3
+STAT Alice minecraft.custom:minecraft.play_time 3
+STAT Alice minecraft.custom:minecraft.time_since_death 3
+STAT Alice minecraft.custom:minecraft.time_since_rest 3
+STAT Alice minecraft.custom:minecraft.total_world_time 3
+STAT Alice minecraft.used:minecraft.experience_bottle 1
+PKT Alice minecraft:sound 77ee040600000004fffffe20000000043f0000003ebb85bbe32d4fcf84a7860e
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:add_entity 01f503a2f8a8ad2f064bb2929be669a186f6db313fe0000000000000c04d3d70a3d000003fe000000000000081fcb7a67225dbff0001
+PKT Alice minecraft:set_entity_data 65f503080701d80a0000ff
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:container_set_content 1200032e00000000000000000000000000000000000000000000000000000000000000000000000003d80a000000000000000000000000
+T 4
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.experience_bottle.throw source=neutral vol=0.5 pitch=0.36625466
+E experience_bottle#1 minecraft:experience_bottle pos=0.49326455231837285,-59.09785623063573,0.9305019647195465 delta=-0.00673544768162716,-0.6178562339139856,0.43050196471954655 rot=-0.8963509,-52.52354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:experience_bottle*3
+T 5
+E experience_bottle#1 minecraft:experience_bottle pos=0.48659645904932775,-59.77883390877048,1.3566989138974843 delta=-0.006668093269045124,-0.680977678134754,0.42619694917793777 rot=-0.89635086,-53.61002 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:experience_bottle*3
+T 6
+EV level_event r=64.0 ex=0 type=2002 pos=0,-60,1 data=-13083194 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=0,-60,1 data=0 global=0
+E experience_orb#1 minecraft:experience_orb pos=0.48463267747870703,-59.75,1.4822157116507158 delta=0.05331224124906486,0.1822385491264639,0.17727320853763812 rot=357.15927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=0.48463267747870703,-59.75,1.4822157116507158 delta=0.12008998370616797,0.31239683778648986,0.02484516031213993 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/3/0.42857143 sel=0 main=minecraft:experience_bottle*3
+T 7
+E experience_orb#1 minecraft:experience_orb pos=0.5389469307262854,-59.56124717060259,1.5954444565650525 delta=0.05322796921858895,0.1849777764096379,0.11096417217571704 rot=357.15927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
+E experience_orb#2 minecraft:experience_orb pos=0.6057246731833885,-59.431088881942564,1.4430164083395545 delta=0.11867015810023436,0.31253290177903564,-0.038415317992605474 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/3/0.42857143 sel=0 main=minecraft:experience_bottle*3
+T 8
+E experience_orb#2 minecraft:experience_orb pos=0.7160777504199335,-59.12959015425074,1.3304164796237605 delta=0.108146017796632,0.29546875888861607,-0.11034793228915118 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=2 health=5
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/4/0.5714286 sel=0 main=minecraft:experience_bottle*3
+T 9
+E experience_orb#2 minecraft:experience_orb pos=0.8042155842733636,-58.8697151747109,1.143174347716704 delta=0.08637507885745732,0.254677484905768,-0.18349729284027574 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=3 health=5
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/4/0.5714286 sel=0 main=minecraft:experience_bottle*3
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/4/0.5714286 sel=0 main=minecraft:experience_bottle*3
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:experience_bottle*4
+E experience_orb#2 minecraft:experience_orb pos=0.8042155842733636,-58.8697151747109,1.143174347716704 delta=0.08637507885745732,0.254677484905768,-0.18349729284027574 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=3 health=5
+I Alice 0 minecraft:experience_bottle*3
+STAT Alice minecraft.custom:minecraft.play_time 9
+STAT Alice minecraft.custom:minecraft.time_since_death 9
+STAT Alice minecraft.custom:minecraft.time_since_rest 9
+STAT Alice minecraft.custom:minecraft.total_world_time 9
+STAT Alice minecraft.used:minecraft.experience_bottle 1
+# creative: the bottle is not consumed, the statistic is still counted
+I Bob 0 minecraft:experience_bottle*4
+STAT Bob minecraft.custom:minecraft.play_time 9
+STAT Bob minecraft.custom:minecraft.time_since_death 9
+STAT Bob minecraft.custom:minecraft.time_since_rest 9
+STAT Bob minecraft.custom:minecraft.total_world_time 9
+STAT Bob minecraft.used:minecraft.experience_bottle 1
+E experience_orb#2 minecraft:experience_orb pos=0.8042155842733636,-58.8697151747109,1.143174347716704 delta=0.08637507885745732,0.254677484905768,-0.18349729284027574 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=3 health=5
+E experience_bottle#2 minecraft:experience_bottle pos=20.5,-58.479999996721745,0.5 delta=-6.432710274272635E-4,-0.5587707080262868,0.431186225100018 rot=-0.0853956,-52.34373 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.experience_bottle.throw source=neutral vol=0.5 pitch=0.43713197
+PKT Bob minecraft:add_entity 01f503a2f8a8ad2f064bb2929be669a186f6db313fe0000000000000c04d3d70a3d000003fe000000000000081fcb7a67225dbff0001
+PKT Bob minecraft:set_entity_data 65f503080701d80a0000ff
+PKT Bob minecraft:set_entity_data 65f503080701d80a0000ff
+PKT Bob minecraft:add_entity 01f6033de4a80f494f467885267233eb6dc448323fdf0438c716037bc04de000000000003ff7b727d27283daf10275693eba001e0000
+PKT Bob minecraft:set_entity_data 65f603080103ff
+PKT Bob minecraft:add_entity 01f703e4fc194f2cd44cb9a12ac9d59c172cfe323fdf0438c716037bc04de000000000003ff7b727d27283da411b96af2ea600fd0000
+PKT Bob minecraft:set_entity_data 65f703080101ff
+PKT Bob minecraft:add_entity 01f803ce4c4715cc284e39bf3bcf9eb23fae71323fdf0438c716037bc04de000000000003ff7b727d27283da713d832d4ff6008c0000
+PKT Bob minecraft:set_entity_data 65f803080101ff
+PKT Bob minecraft:remove_entities 4e01f503
+PKT Bob minecraft:remove_entities 4e01f603
+PKT Bob minecraft:set_entity_data 65f703080101ff
+PKT Bob minecraft:set_entity_data 65f803080101ff
+PKT Bob minecraft:remove_entities 4e01f703
+PKT Bob minecraft:add_entity 01f903b289f54573ae44879cab60bcbbbf161e314034800000000000c04d3d70a3d000003fe0000000000000a1ffb72e70f5daff0002
+PKT Bob minecraft:set_entity_data 65f903080701d80a0000ff
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/5/0.71428573 sel=0 main=minecraft:experience_bottle*3
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/6/0.85714287 sel=0 main=minecraft:experience_bottle*4
+EV level_event r=64.0 ex=0 type=2002 pos=20,-60,1 data=-13083194 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=20,-60,1 data=0 global=0

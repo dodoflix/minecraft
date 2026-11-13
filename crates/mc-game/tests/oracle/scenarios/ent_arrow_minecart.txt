@@ -1,0 +1,50 @@
+# Projectiles against minecarts and boats of every kind: an arrow, a trident, a snowball, a fireball and a thrown potion at a
+# minecart, chest minecart, furnace minecart, hopper minecart, a boat and a chest boat (damage, break, drops, hurt direction,
+# the rider hit through the vehicle, the packets).
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+gamerule block_drops true
+spawn_player A creative 40.5 -60 30.5 0 0
+tick 2
+dump packets:A:none
+spawn c1 minecraft:minecart 0.5 -59.9375 0.5 0 0
+spawn c2 minecraft:chest_minecart 0.5 -59.9375 4.5 0 0
+spawn c3 minecraft:furnace_minecart 0.5 -59.9375 8.5 0 0
+spawn c4 minecraft:hopper_minecart 0.5 -59.9375 12.5 0 0
+spawn c5 minecraft:oak_boat 0.5 -60 16.5 0 0
+spawn c6 minecraft:oak_chest_boat 0.5 -60 20.5 0 0
+spawn r1 minecraft:pig 0.5 -59.9375 24.5 0 0
+spawn c7 minecraft:minecart 0.5 -59.9375 24.5 0 0
+ride r1 c7
+tick 3
+dump xentities
+note arrows fired along +x at each target from 10 blocks away
+spawn a1 minecraft:arrow -9.5 -59.2 0.5 0 0 {pickup:0b,damage:2.0d}
+velocity a1 2.5 0 0
+spawn a2 minecraft:arrow -9.5 -59.2 4.5 0 0 {pickup:0b,damage:2.0d}
+velocity a2 2.5 0 0
+spawn a3 minecraft:arrow -9.5 -59.2 8.5 0 0 {pickup:0b,damage:2.0d}
+velocity a3 2.5 0 0
+spawn a4 minecraft:arrow -9.5 -59.2 12.5 0 0 {pickup:0b,damage:2.0d}
+velocity a4 2.5 0 0
+spawn a5 minecraft:arrow -9.5 -59.2 16.5 0 0 {pickup:0b,damage:2.0d}
+velocity a5 2.5 0 0
+spawn a6 minecraft:arrow -9.5 -59.2 20.5 0 0 {pickup:0b,damage:2.0d}
+velocity a6 2.5 0 0
+spawn a7 minecraft:arrow -9.5 -59.2 24.5 0 0 {pickup:0b,damage:2.0d}
+velocity a7 2.5 0 0
+watch xentities packets:A:remove_entities,damage_event,hurt_animation,set_entity_motion,entity_event,add_entity,take_item_entity
+tick 12
+dump xentities
+note a trident, a snowball and a large fireball into the intact carts
+spawn t1 minecraft:trident -9.5 -59.2 0.5 0 0 {item:{id:"minecraft:trident",count:1}}
+velocity t1 2.5 0 0
+spawn s1 minecraft:snowball -9.5 -59.2 4.5 0 0
+velocity s1 1.5 0 0
+spawn f1 minecraft:fireball -9.5 -59.2 8.5 0 0 {ExplosionPower:0b,acceleration_power:0.3d}
+velocity f1 0.5 0 0
+tick 25
+dump xentities

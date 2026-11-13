@@ -1,0 +1,25 @@
+# ExperienceBottleItem.use: the throw sound (players, 0.5 / 0.4 / (random * 0.4 + 0.8)), a ThrownExperienceBottle at eye height - 0.1 shot with the pitch lowered by
+# 20 degrees at power 0.7, the item-used statistic and one bottle consumed (not in creative). Landing spawns orbs worth 3 to 11 experience; the pairing, entity data and
+# motion packets of the bottle and the removal packet of the hit are compared.
+level flat
+preload 3
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 60
+spawn_player Bob creative 20.5 -60 0.5 0 60
+give Alice mainhand minecraft:experience_bottle 4
+give Bob mainhand minecraft:experience_bottle 4
+tick 3
+entity_counter 500
+level_seed 11
+dump packets:Alice:none packets:Bob:none
+watch events entities player:Alice
+use Alice
+dump inventory:Alice stats:Alice packets:Alice:add_entity,container_set_content,cooldown,remove_entities,set_entity_data,set_entity_motion,sound,bundle_delimiter
+tick 6
+watch off
+dump all_players entities events inventory:Alice stats:Alice
+note creative: the bottle is not consumed, the statistic is still counted
+use Bob
+dump inventory:Bob stats:Bob entities events packets:Bob:add_entity,remove_entities,set_entity_data,set_entity_motion
+tick 6
+dump all_players entities events

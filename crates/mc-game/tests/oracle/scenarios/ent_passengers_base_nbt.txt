@@ -1,0 +1,30 @@
+# The base Entity save data on non-mob entities (Motion out of range, Rotation, Fire, Air, fall_distance, Tags, CustomName,
+# flags, an invalid UUID, a NaN position) and `Passengers` given to boats, minecarts, an armor stand and a display: nested summon,
+# passenger packets, saved form again, a passenger that cannot ride (a painting, a nested boat), a deep chain.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 20.5 0 0
+tick 2
+dump packets:A:none
+note base entity data on an arrow-less vehicle: a boat and a minecart carrying flags
+spawn x1 minecraft:oak_boat 2.5 -60 4.5 0 0 {Motion:[100.0d,0.0d,0.0d],Rotation:[720.0f,-200.0f],Fire:-5s,Air:-100s,fall_distance:7.5d,Tags:["a","b"],CustomName:"hello",CustomNameVisible:1b,Invulnerable:1b,Glowing:1b,NoGravity:1b,Silent:1b,OnGround:1b,PortalCooldown:30,TicksFrozen:50}
+spawn x2 minecraft:minecart 6.5 -59.9375 4.5 0 0 {Motion:[0.0d,"x",0.0d],Rotation:[0.0f],UUID:[I;1,2,3],Tags:"nope",CustomName:"{",Fire:30000s,Air:1.5d}
+spawn x3 minecraft:armor_stand 10.5 -60 4.5 0 0 {Pos:[10.5d,-60.0d,4.5d],Motion:[0.0d,0.5d,0.0d],UUID:[I;1,2,3,4],data:{foo:1b}}
+spawn x4 minecraft:item_frame 14.5 -60 4.5 0 0 {Facing:2b,TileX:14,TileY:-60,TileZ:4,Invisible:1b,Fixed:1b,ItemRotation:9b,ItemDropChance:5.0f,Item:{id:"minecraft:apple",count:2}}
+tick 2
+dump xentities edata:x1 edata:x2 edata:x3 edata:x4 nbt:x1 nbt:x2 nbt:x3 nbt:x4 packets:A:add_entity,set_entity_data,set_entity_motion
+note passengers in the save data
+spawn p1 minecraft:oak_boat 2.5 -60 12.5 0 0 {Passengers:[{id:"minecraft:armor_stand",Tags:["rider"]},{id:"minecraft:item",Item:{id:"minecraft:stone",count:1}},{id:"minecraft:oak_boat"}]}
+spawn p2 minecraft:oak_chest_boat 6.5 -60 12.5 0 0 {Passengers:[{id:"minecraft:painting",variant:"minecraft:kebab",facing:2b},{id:"minecraft:text_display",text:"hi"}]}
+spawn p3 minecraft:minecart 10.5 -59.9375 12.5 0 0 {Passengers:[{id:"minecraft:armor_stand",Passengers:[{id:"minecraft:armor_stand",Passengers:[{id:"minecraft:block_display",block_state:{id:"minecraft:stone"}}]}]}]}
+spawn p4 minecraft:armor_stand 14.5 -60 12.5 0 0 {Passengers:[{id:"minecraft:item_display",item:{id:"minecraft:stone",count:1}},{id:"minecraft:nope"}]}
+tick 3
+dump xentities nbt:p1 nbt:p2 nbt:p3 nbt:p4 edata:p1 edata:p3 packets:A:add_entity,set_passengers,set_entity_data
+note remove a vehicle: passengers are discarded with it or left
+kill p1
+kill p3
+tick 2
+dump xentities packets:A:remove_entities,set_passengers

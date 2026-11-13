@@ -1,0 +1,55 @@
+# base entity data on an arrow-less vehicle: a boat and a minecart carrying flags
+E x1 minecraft:oak_boat pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=7.5 fire=0 air=-100 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E x2 minecraft:minecart pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=30000 air=1 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E x3 minecraft:armor_stand pos=10.5,-59.088399991989135,4.5 delta=0.0,0.32496801417541515,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E x4 minecraft:item_frame pos=14.5,-59.5,4.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+ED x1 0:0:40 1:1:9cffffff0f 2:6:0108000568656c6c6f 3:8:01 4:8:01 5:8:01 6:20:00 7:1:32 8:1:00 9:1:01 10:3:00000000 11:8:00 12:8:00 13:1:00
+ED x2 0:0:00 1:1:01 2:6:010800017b 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06
+ED x3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:9:000000000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
+ED x4 0:0:20 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:02 9:7:01ef070000 10:1:01
+N x1 {Air:-100s,CustomName:"hello",CustomNameVisible:1b,Fire:0s,Glowing:1b,Invulnerable:1b,Motion:[0.0d,0.0d,0.0d],NoGravity:1b,OnGround:0b,PortalCooldown:28,Pos:[2.5d,-60.0d,4.5d],Rotation:[0.0f,-90.0f],Silent:1b,Tags:["a","b"],TicksFrozen:50,fall_distance:7.5d}
+N x2 {Air:1s,CustomName:"{",Fire:30000s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[6.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N x3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,0.32496801417541515d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[10.5d,-59.088399991989135d,4.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,data:{foo:1b},fall_distance:0.0d}
+N x4 {Air:300s,Facing:2b,Fire:0s,Fixed:1b,Invisible:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:apple"},ItemDropChance:5.0f,ItemRotation:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[14.5d,-59.5d,4.96875d],Rotation:[180.0f,0.0f],block_pos:[I;14,-60,4],fall_distance:0.0d}
+PKT A minecraft:add_entity 01a206669c42227c944ae0b5695c83976555f15a4004000000000000c04e000000000000401200000000000000c0000000
+PKT A minecraft:set_entity_data 65a20600004001019cffffff0f02060108000568656c6c6f030801040801050801070132ff
+PKT A minecraft:add_entity 01a306adc5411c334147ddadbdbaf35abcb28a56401a000000000000c04df8000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65a3060101010206010800017bff
+PKT A minecraft:add_entity 01a40600000001000000020000000300000004054025000000000000c04e0000000000004012000000000000f9ff7fff7ffd00000000
+PKT A minecraft:set_entity_data 65a406090341a00000ff
+PKT A minecraft:add_entity 01a506935217f45f384ada86e297adabfd7f794a402c000000000000c04e00000000000040100000000000000000800002
+PKT A minecraft:set_entity_data 65a506000020080c02090701ef0700000a0101ff
+PKT A minecraft:set_entity_data 65a406090341a00000ff
+PKT A minecraft:set_entity_data 65a20600004001019cffffff0f02060108000568656c6c6f030801040801050801070132ff
+PKT A minecraft:set_entity_data 65a506000020080c02090701ef0700000a0101ff
+PKT A minecraft:set_entity_data 65a3060101010206010800017bff
+# passengers in the save data
+E x1 minecraft:oak_boat pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=7.5 fire=0 air=-100 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E x2 minecraft:minecart pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=30000 air=1 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E x3 minecraft:armor_stand pos=10.5,-58.36649603080333,4.5 delta=0.0,0.07532994414328781,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E x4 minecraft:item_frame pos=14.5,-59.5,4.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E p1 minecraft:oak_boat pos=2.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E p2 minecraft:oak_chest_boat pos=6.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- items=- mdir=west leash=- ooc=0.0 loot=- seed=0
+E p3 minecraft:minecart pos=10.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E p4 minecraft:armor_stand pos=14.5,-60.0,12.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N p1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,12.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N p2 {Air:300s,Fire:0s,Invulnerable:0b,Items:[],Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[6.5d,-60.0d,12.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N p3 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[10.5d,-60.0d,12.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N p4 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[14.5d,-60.0d,12.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+ED p1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:8:00 12:8:00 13:1:00
+ED p3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06
+PKT A minecraft:add_entity 01a6064a4833e255ef4b5a9ab05d9bbb3cb4375a4004000000000000c04e00000000000040290000000000000000000000
+PKT A minecraft:add_entity 01a70669ef8225c2954c6099976576d92097a45b401a000000000000c04e00000000000040290000000000000000000000
+PKT A minecraft:add_entity 01a8063ccd2f537d4744b0a63c390c3a608a35564025000000000000c04df8000000000040290000000000000000000000
+PKT A minecraft:add_entity 01a906f9a0afcd251c4249804fd9025a86a06105402d000000000000c04e00000000000040290000000000000000000000
+PKT A minecraft:set_entity_data 65a906090341a00000ff
+PKT A minecraft:set_entity_data 65a906090341a00000ff
+# remove a vehicle: passengers are discarded with it or left
+E x1 minecraft:oak_boat pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=7.5 fire=0 air=-100 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E x2 minecraft:minecart pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=30000 air=1 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E x3 minecraft:armor_stand pos=10.5,-58.2957427414887,4.5 delta=0.0,-0.08288512334525083,0.0 rot=0.0,0.0 og=0 fall=0.004576654639095068 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E x4 minecraft:item_frame pos=14.5,-59.5,4.96875 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E p2 minecraft:oak_chest_boat pos=6.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- items=- mdir=west leash=- ooc=0.0 loot=- seed=0
+E p4 minecraft:armor_stand pos=14.5,-60.0,12.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT A minecraft:remove_entities 4e01a606
+PKT A minecraft:remove_entities 4e01a806

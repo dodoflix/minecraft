@@ -17,3 +17,8 @@ fn entity_replay_dumps_like_vanilla() {
 fn level_and_player_random_streams_stay_on_the_vanilla_sequence() {
     common::block_scenario::check("ent_rng_level");
 }
+
+#[test]
+fn base_save_data_and_passengers_round_trip_like_vanilla() {
+    common::block_scenario::check("ent_passengers_base_nbt");
+}
