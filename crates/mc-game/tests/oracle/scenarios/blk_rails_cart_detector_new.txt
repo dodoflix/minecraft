@@ -1,0 +1,126 @@
+# minecart_improvements: Detector rails with real carts: a cart that rolls over one (fast and slow: the power lasts until the 20 tick re-check finds no cart), power
+# that boosts and starts the powered rails around it, a cart that stands on it for a long time, a lamp below and beside it, comparators
+# reading chest, hopper, furnace and command block carts, and things that do not trigger it (a boat, an item, a pig, a minecart that is
+# not touching its search box).
+features minecart_improvements
+level flat
+preload 3
+level_seed 29
+entity_counter 3200
+fill -2 -60 -4 60 -40 40 minecraft:air
+note a: a fast and a slow cart pass over the detector rail, powered rails behind it start a second cart that waits against a stone
+fill 0 -60 0 6 -60 0 minecraft:rail[shape=east_west]
+block 7 -60 0 minecraft:detector_rail[shape=east_west]
+block 7 -61 -1 minecraft:redstone_lamp
+block 7 -61 0 minecraft:redstone_lamp
+block 7 -60 -1 minecraft:redstone_lamp
+fill 8 -60 0 9 -60 0 minecraft:powered_rail[powered=false,shape=east_west]
+fill 10 -60 0 20 -60 0 minecraft:rail[shape=east_west]
+block 11 -60 0 minecraft:stone
+spawn a1 minecraft:minecart 0.5 -59.9375 0.5
+entity_seed a1 321
+velocity a1 0.3 0 0
+spawn a2 minecraft:minecart 10.5 -59.9375 0.5
+entity_seed a2 322
+note b: slow cart over the detector rail
+fill 0 -60 4 6 -60 4 minecraft:rail[shape=east_west]
+block 7 -60 4 minecraft:detector_rail[shape=east_west]
+block 7 -61 4 minecraft:redstone_lamp
+block 7 -60 3 minecraft:redstone_lamp
+fill 8 -60 4 20 -60 4 minecraft:rail[shape=east_west]
+spawn b1 minecraft:minecart 3.5 -59.9375 4.5
+entity_seed b1 323
+velocity b1 0.03 0 0
+note c: a cart standing on the detector rail for good, a second one joins it
+fill 0 -60 8 12 -60 8 minecraft:rail[shape=east_west]
+block 5 -60 8 minecraft:detector_rail[shape=east_west]
+block 5 -61 8 minecraft:redstone_lamp
+spawn c1 minecraft:minecart 5.5 -59.9375 8.5
+entity_seed c1 324
+spawn c2 minecraft:minecart 0.5 -59.9375 8.5
+entity_seed c2 325
+velocity c2 0.2 0 0
+note d: a detector rail on a slope with a cart rolling up it, and one on the north-south axis
+block 1 -61 12 minecraft:stone
+fill 2 -61 12 2 -60 12 minecraft:stone
+fill 3 -61 12 8 -59 12 minecraft:stone
+fill 0 -60 12 0 -60 12 minecraft:rail[shape=east_west]
+block 1 -60 12 minecraft:detector_rail[shape=ascending_east]
+block 2 -59 12 minecraft:rail[shape=ascending_east]
+fill 3 -58 12 8 -58 12 minecraft:rail[shape=east_west]
+block 1 -60 13 minecraft:redstone_lamp
+spawn d1 minecraft:minecart 0.5 -59.9375 12.5
+entity_seed d1 326
+velocity d1 0.3 0 0
+fill 20 -60 12 20 -60 14 minecraft:rail[shape=north_south]
+block 20 -60 15 minecraft:detector_rail[shape=north_south]
+fill 20 -60 16 20 -60 24 minecraft:rail[shape=north_south]
+block 21 -60 15 minecraft:redstone_lamp
+spawn d2 minecraft:minecart 20.5 -59.9375 12.5
+entity_seed d2 327
+velocity d2 0 0 0.3
+note e: a boat, an item, a pig and an armor stand on a detector rail do not trigger it
+fill 0 -60 20 4 -60 20 minecraft:detector_rail[shape=east_west]
+block 0 -61 21 minecraft:redstone_lamp
+block 2 -61 21 minecraft:redstone_lamp
+block 4 -61 21 minecraft:redstone_lamp
+spawn e1 minecraft:oak_boat 0.5 -59.9375 20.5 0 0 {NoGravity:1b}
+entity_seed e1 328
+spawn_item e2 minecraft:stick 1.5 -59.9 20.5 0 0 0
+spawn e3 minecraft:pig 2.5 -59.9375 20.5 0 0 {NoAI:1b}
+entity_seed e3 329
+spawn e4 minecraft:armor_stand 3.5 -59.9375 20.5
+entity_seed e4 330
+spawn e5 minecraft:minecart 4.5 -59.9375 21.5 0 0 {NoGravity:1b}
+entity_seed e5 331
+note f: a pig riding a minecart on the detector rail is detected through the cart
+fill 8 -60 20 14 -60 20 minecraft:rail[shape=east_west]
+block 11 -60 20 minecraft:detector_rail[shape=east_west]
+block 11 -61 20 minecraft:redstone_lamp
+spawn f1 minecraft:pig 11.5 -59.9375 20.5 0 0 {NoAI:1b}
+entity_seed f1 332
+spawn f2 minecraft:minecart 11.5 -59.9375 20.5
+entity_seed f2 333
+ride f1 f2
+note g: comparators beside detector rails with carts of every container kind
+block 0 -60 28 minecraft:detector_rail[shape=east_west]
+spawn g1 minecraft:chest_minecart 0.5 -59.9375 28.5 0 0 {Items:[{Slot:0b,id:"minecraft:stick",count:64},{Slot:5b,id:"minecraft:stick",count:32},{Slot:9b,id:"minecraft:dirt",count:1}]}
+entity_seed g1 334
+block 0 -60 27 minecraft:comparator[facing=south,mode=compare,powered=false]
+block 0 -60 26 minecraft:redstone_lamp
+block 4 -60 28 minecraft:detector_rail[shape=east_west]
+spawn g2 minecraft:hopper_minecart 4.5 -59.9375 28.5 0 0 {Items:[{Slot:0b,id:"minecraft:stick",count:64},{Slot:1b,id:"minecraft:stick",count:64},{Slot:2b,id:"minecraft:stick",count:64}]}
+entity_seed g2 335
+block 4 -60 27 minecraft:comparator[facing=south,mode=compare,powered=false]
+block 4 -60 26 minecraft:redstone_lamp
+block 8 -60 28 minecraft:detector_rail[shape=east_west]
+spawn g3 minecraft:furnace_minecart 8.5 -59.9375 28.5
+entity_seed g3 336
+block 8 -60 27 minecraft:comparator[facing=south,mode=compare,powered=false]
+block 8 -60 26 minecraft:redstone_lamp
+block 12 -60 28 minecraft:detector_rail[shape=east_west]
+spawn g4 minecraft:command_block_minecart 12.5 -59.9375 28.5 0 0 {Command:"say hi",SuccessCount:5}
+entity_seed g4 337
+block 12 -60 27 minecraft:comparator[facing=south,mode=compare,powered=false]
+block 12 -60 26 minecraft:redstone_lamp
+block 16 -60 28 minecraft:detector_rail[shape=east_west]
+spawn g5 minecraft:chest_minecart 16.5 -59.9375 28.5 0 0 {Items:[{Slot:0b,id:"minecraft:stick",count:64}]}
+entity_seed g5 338
+spawn g6 minecraft:command_block_minecart 16.5 -59.9375 28.5 0 0 {Command:"say hi",SuccessCount:2}
+entity_seed g6 339
+block 16 -60 27 minecraft:comparator[facing=south,mode=compare,powered=false]
+block 16 -60 26 minecraft:redstone_lamp
+watch xentities
+tick 3
+dump blocks:-1,-61,-1,22,-58,32
+tick 12
+dump blocks:-1,-61,-1,22,-58,32
+tick 30
+dump blocks:-1,-61,-1,22,-58,32
+tick 40
+dump blocks:-1,-61,-1,22,-58,32 ticks
+note a cart picked up and the comparators follow, a chest cart emptied
+kill g1
+kill g6
+tick 30
+dump blocks:-1,-61,24,22,-58,32 ticks

@@ -1,0 +1,91 @@
+# minecart_improvements: Activator rails against real carts: power that runs along a chain of them and that arrives or leaves while a cart stands on one (a redstone block placed or removed beside the rail),
+# the shake of every plain cart kind (hurt time only restarts at zero), the ejection of a pig and of a player, a slope, the flag of a hopper
+# cart and the fuse of a TNT cart that start with the power change and not with the cart's own movement.
+features minecart_improvements
+level flat
+preload 4
+level_seed 31
+entity_counter 3400
+gamerule block_drops false
+fill -2 -60 -4 60 -40 60 minecraft:air
+spawn_player Alice survival 30.5 -60 30.5 0 0
+tick 2
+dump packets:Alice:none
+note a: six activator rails powered from one redstone block, an empty cart rolls over all of them
+fill 0 -60 0 5 -60 0 minecraft:activator_rail[shape=east_west,powered=false]
+fill 6 -60 0 14 -60 0 minecraft:rail[shape=east_west]
+block -1 -60 0 minecraft:redstone_block
+spawn a1 minecraft:minecart 0.5 -59.9375 0.5
+entity_seed a1 341
+velocity a1 0.3 0 0
+note b: a standing cart on an activator rail that a redstone block beside it switches on and off
+fill 0 -60 4 8 -60 4 minecraft:rail[shape=east_west]
+block 4 -60 4 minecraft:activator_rail[shape=east_west,powered=false]
+spawn b1 minecraft:minecart 4.5 -59.9375 4.5
+entity_seed b1 342
+spawn b2 minecraft:chest_minecart 7.5 -59.9375 4.5
+entity_seed b2 343
+block 7 -60 4 minecraft:activator_rail[shape=east_west,powered=false]
+note c: a furnace cart and a pig in a cart on powered rails
+fill 0 -60 8 12 -60 8 minecraft:rail[shape=east_west]
+block 3 -61 8 minecraft:redstone_block
+block 3 -60 8 minecraft:activator_rail[shape=east_west,powered=true]
+spawn c1 minecraft:furnace_minecart 0.5 -59.9375 8.5
+entity_seed c1 344
+velocity c1 0.3 0 0
+fill 0 -60 12 12 -60 12 minecraft:rail[shape=east_west]
+block 3 -61 12 minecraft:redstone_block
+block 3 -60 12 minecraft:activator_rail[shape=east_west,powered=true]
+spawn c2 minecraft:minecart 0.5 -59.9375 12.5
+entity_seed c2 345
+spawn c3 minecraft:pig 0.5 -59.9375 12.5 0 0 {NoAI:1b}
+entity_seed c3 346
+ride c3 c2
+velocity c2 0.3 0 0
+note d: a player in a cart
+fill 0 -60 16 12 -60 16 minecraft:rail[shape=east_west]
+block 3 -61 16 minecraft:redstone_block
+block 3 -60 16 minecraft:activator_rail[shape=east_west,powered=true]
+spawn d1 minecraft:minecart 0.5 -59.9375 16.5
+entity_seed d1 347
+spawn_player Rider survival 0.5 -60 16.5 0 0
+ride Rider d1
+velocity d1 0.3 0 0
+note e: an activator rail on a slope
+fill 0 -61 20 0 -61 20 minecraft:stone
+fill 1 -61 20 1 -60 20 minecraft:stone
+fill 2 -61 20 9 -59 20 minecraft:stone
+block 0 -60 20 minecraft:rail[shape=east_west]
+block 1 -59 20 minecraft:activator_rail[shape=ascending_east,powered=false]
+fill 2 -58 20 9 -58 20 minecraft:rail[shape=east_west]
+block 1 -59 21 minecraft:redstone_block
+spawn e1 minecraft:minecart 0.5 -59.9375 20.5
+entity_seed e1 348
+velocity e1 0.3 0 0
+note f: hopper cart enabled flag and a TNT cart primed by the power change
+fill 0 -60 24 14 -60 24 minecraft:rail[shape=east_west]
+block 3 -60 24 minecraft:activator_rail[shape=east_west,powered=false]
+spawn f1 minecraft:hopper_minecart 3.5 -59.9375 24.5
+entity_seed f1 349
+block 40 -60 40 minecraft:stone
+fill 41 -60 40 49 -60 40 minecraft:rail[shape=east_west]
+block 44 -60 40 minecraft:activator_rail[shape=east_west,powered=false]
+spawn f2 minecraft:tnt_minecart 44.5 -59.9375 40.5
+entity_seed f2 350
+tick 2
+dump xentities
+watch xentity:a1 xentity:b1 xentity:b2 xentity:c1 xentity:c2 xentity:c3 xentity:d1 xentity:e1 xentity:f1 xentity:f2 player:Rider packets:Rider:set_passengers,teleport_entity,player_position
+tick 12
+note the power arrives at the three standing carts
+block 4 -60 5 minecraft:redstone_block
+block 7 -60 5 minecraft:redstone_block
+block 3 -60 25 minecraft:redstone_block
+block 44 -60 41 minecraft:redstone_block
+tick 25
+note the power leaves one of the rails again, and the hopper cart gets its flag back
+block 4 -60 5 minecraft:air
+block 3 -60 25 minecraft:air
+tick 15
+dump blocks:-1,-61,-1,14,-58,26 nbt:f1 nbt:b1 nbt:b2
+tick 70
+dump xentities

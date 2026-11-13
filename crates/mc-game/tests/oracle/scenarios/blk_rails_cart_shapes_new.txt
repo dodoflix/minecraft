@@ -1,0 +1,79 @@
+# minecart_improvements: Rail shape updates under real carts: a rail removed ahead of a rolling cart, a line end that bends into a curve while the cart is on its way,
+# a flat end that turns into a slope, a rail whose support goes away under a cart, power that leaves or arrives on a powered rail under a
+# cart, and a rail replaced by a detector or an activator rail under a standing cart.
+features minecart_improvements
+level flat
+preload 3
+level_seed 53
+entity_counter 4400
+fill -2 -60 -4 60 -40 40 minecraft:air
+note a: a rail is removed ahead of a rolling cart and put back after it came off the track
+fill 0 -60 0 12 -60 0 minecraft:rail[shape=east_west]
+spawn a1 minecraft:minecart 0.5 -59.9375 0.5
+entity_seed a1 441
+velocity a1 0.4 0 0
+note b: the end of a line bends into a curve when a rail is placed beside it
+fill 0 -60 4 6 -60 4 minecraft:rail[shape=east_west]
+spawn b1 minecraft:minecart 0.5 -59.9375 4.5
+entity_seed b1 442
+velocity b1 0.4 0 0
+note c: a flat end turns into a slope when a rail is placed one higher beyond it
+fill 0 -60 8 6 -60 8 minecraft:rail[shape=east_west]
+block 7 -60 8 minecraft:stone
+spawn c1 minecraft:minecart 0.5 -59.9375 8.5
+entity_seed c1 443
+velocity c1 0.4 0 0
+note d: the support of a rail goes away under a standing cart
+fill 0 -60 12 6 -60 12 minecraft:rail[shape=east_west]
+spawn d1 minecraft:minecart 3.5 -59.9375 12.5
+entity_seed d1 444
+note e: a powered rail loses its power under a cart that rolls over it, and one gets power under a cart that stands on it
+fill 0 -60 16 12 -60 16 minecraft:rail[shape=east_west]
+block 5 -60 16 minecraft:powered_rail[powered=true,shape=east_west]
+block 6 -60 16 minecraft:powered_rail[powered=true,shape=east_west]
+block 5 -61 16 minecraft:redstone_block
+spawn e1 minecraft:minecart 0.5 -59.9375 16.5
+entity_seed e1 445
+velocity e1 0.4 0 0
+fill 0 -60 20 12 -60 20 minecraft:rail[shape=east_west]
+block 3 -60 20 minecraft:stone
+block 4 -60 20 minecraft:powered_rail[powered=false,shape=east_west]
+spawn e2 minecraft:minecart 4.5 -59.9375 20.5
+entity_seed e2 446
+note f: a rail replaced under a standing cart by a detector rail, an activator rail with power and a powered rail with power
+fill 0 -60 24 12 -60 24 minecraft:rail[shape=east_west]
+spawn f1 minecraft:minecart 2.5 -59.9375 24.5
+entity_seed f1 447
+spawn f2 minecraft:minecart 6.5 -59.9375 24.5
+entity_seed f2 448
+spawn f3 minecraft:minecart 10.5 -59.9375 24.5
+entity_seed f3 449
+block 6 -61 25 minecraft:redstone_block
+block 10 -61 25 minecraft:redstone_block
+note g: a cart rolls up to a junction whose neighbour rail is added just before it arrives
+fill 0 -60 28 3 -60 28 minecraft:rail[shape=east_west]
+block 4 -60 28 minecraft:rail[shape=east_west]
+fill 5 -60 28 12 -60 28 minecraft:rail[shape=east_west]
+fill 4 -60 29 4 -60 33 minecraft:rail[shape=north_south]
+spawn g1 minecraft:minecart 0.5 -59.9375 28.5
+entity_seed g1 450
+velocity g1 0.4 0 0
+watch xentities
+tick 2
+block 8 -60 0 minecraft:air
+block 6 -60 5 minecraft:rail
+block 7 -59 8 minecraft:rail
+block 3 -61 12 minecraft:air
+block 5 -61 16 minecraft:air
+tick 10
+block 8 -60 0 minecraft:rail[shape=east_west]
+block 4 -61 20 minecraft:redstone_block
+block 5 -60 20 minecraft:stone
+block 2 -60 24 minecraft:detector_rail[shape=east_west]
+block 6 -60 24 minecraft:activator_rail[powered=true,shape=east_west]
+block 10 -60 24 minecraft:powered_rail[powered=true,shape=east_west]
+block 5 -61 28 minecraft:redstone_block
+tick 20
+dump blocks:-1,-62,-1,13,-58,34
+tick 30
+dump xentities

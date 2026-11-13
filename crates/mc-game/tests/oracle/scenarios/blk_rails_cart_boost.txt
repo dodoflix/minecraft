@@ -1,0 +1,89 @@
+# Powered rails against real carts: the boost along a chain of powered rails (power runs at most eight rails from the source), the brake of
+# an unpowered one for a fast and a slow cart, boosting up and down slopes in every direction, and the start push of a standing cart that
+# stands against a solid block (flat rails only, never on a slope), plus a cart that is pushed onto a powered rail from the side.
+level flat
+preload 3
+level_seed 19
+entity_counter 3000
+fill -2 -60 -4 60 -40 40 minecraft:air
+note a: eleven powered rails from one redstone block, a slow cart is boosted until the power ends
+block 0 -61 0 minecraft:redstone_block
+fill 0 -60 0 10 -60 0 minecraft:powered_rail[shape=east_west]
+fill 11 -60 0 16 -60 0 minecraft:rail[shape=east_west]
+spawn a1 minecraft:minecart 0.5 -59.9375 0.5
+entity_seed a1 301
+velocity a1 0.05 0 0
+note b: an unpowered powered rail brakes a fast cart (halves) and stops a slow one
+fill 0 -60 4 16 -60 4 minecraft:rail[shape=east_west]
+block 6 -60 4 minecraft:powered_rail[powered=false,shape=east_west]
+spawn b1 minecraft:minecart 0.5 -59.9375 4.5
+entity_seed b1 302
+velocity b1 0.3 0 0
+fill 0 -60 8 16 -60 8 minecraft:rail[shape=east_west]
+block 6 -60 8 minecraft:powered_rail[powered=false,shape=east_west]
+spawn b2 minecraft:minecart 4.5 -59.9375 8.5
+entity_seed b2 303
+velocity b2 0.025 0 0
+note c: a ramp of three powered rails up to the east onto a platform of plain rails, a cart rolling up it and a cart rolling down it
+fill 1 -61 12 1 -61 12 minecraft:stone
+fill 2 -61 12 2 -60 12 minecraft:stone
+fill 3 -61 12 3 -59 12 minecraft:stone
+fill 4 -61 12 9 -58 12 minecraft:stone
+fill 0 -60 12 0 -60 12 minecraft:rail[shape=east_west]
+block 1 -60 13 minecraft:redstone_block
+block 2 -59 13 minecraft:redstone_block
+block 3 -58 13 minecraft:redstone_block
+block 1 -60 12 minecraft:powered_rail[powered=true,shape=ascending_east]
+block 2 -59 12 minecraft:powered_rail[powered=true,shape=ascending_east]
+block 3 -58 12 minecraft:powered_rail[powered=true,shape=ascending_east]
+fill 4 -57 12 9 -57 12 minecraft:rail[shape=east_west]
+spawn c1 minecraft:minecart 0.5 -59.9375 12.5
+entity_seed c1 304
+velocity c1 0.3 0 0
+fill 1 -61 16 1 -61 16 minecraft:stone
+fill 2 -61 16 2 -60 16 minecraft:stone
+fill 3 -61 16 3 -59 16 minecraft:stone
+fill 4 -61 16 9 -58 16 minecraft:stone
+fill 0 -60 16 0 -60 16 minecraft:rail[shape=east_west]
+block 1 -60 17 minecraft:redstone_block
+block 2 -59 17 minecraft:redstone_block
+block 3 -58 17 minecraft:redstone_block
+block 1 -60 16 minecraft:powered_rail[powered=true,shape=ascending_east]
+block 2 -59 16 minecraft:powered_rail[powered=true,shape=ascending_east]
+block 3 -58 16 minecraft:powered_rail[powered=true,shape=ascending_east]
+fill 4 -57 16 9 -57 16 minecraft:rail[shape=east_west]
+spawn c2 minecraft:minecart 6.5 -56.9375 16.5
+entity_seed c2 305
+velocity c2 -0.3 0 0
+note d: a standing cart on a powered rail next to a solid block is pushed away, an unpowered rail does not push, a block on both sides pushes to the east
+block 2 -60 20 minecraft:stone
+block 3 -61 20 minecraft:redstone_block
+block 3 -60 20 minecraft:powered_rail[powered=true,shape=east_west]
+fill 4 -60 20 14 -60 20 minecraft:rail[shape=east_west]
+spawn d1 minecraft:minecart 3.5 -59.9375 20.5
+entity_seed d1 306
+block 2 -60 24 minecraft:stone
+block 4 -60 24 minecraft:stone
+block 3 -61 24 minecraft:redstone_block
+block 3 -60 24 minecraft:powered_rail[powered=true,shape=east_west]
+spawn d2 minecraft:minecart 3.5 -59.9375 24.5
+entity_seed d2 307
+block 2 -60 28 minecraft:stone
+block 3 -60 28 minecraft:powered_rail[powered=false,shape=east_west]
+spawn d3 minecraft:minecart 3.5 -59.9375 28.5
+entity_seed d3 308
+block 3 -61 32 minecraft:redstone_block
+block 3 -60 32 minecraft:powered_rail[powered=true,shape=north_south]
+block 3 -60 31 minecraft:stone
+fill 3 -60 33 3 -60 40 minecraft:rail[shape=north_south]
+spawn d4 minecraft:minecart 3.5 -59.9375 32.5
+entity_seed d4 309
+note a start on a slope does not push
+block 31 -60 20 minecraft:stone
+block 30 -60 20 minecraft:powered_rail[powered=true,shape=ascending_east]
+block 30 -60 21 minecraft:redstone_block
+spawn d5 minecraft:minecart 30.5 -59.5 20.5
+entity_seed d5 310
+watch xentities
+tick 80
+dump xentities

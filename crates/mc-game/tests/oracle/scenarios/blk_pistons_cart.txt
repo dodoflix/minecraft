@@ -1,0 +1,103 @@
+# Pistons against real carts and boats: a head that pushes a cart standing in front of it (empty, chest, hopper, with a pig), a cart that is
+# squeezed against a wall or the ceiling, a rail with a cart on it lifted by a vertical piston, a slime block that carries a cart sideways and
+# a sticky piston that pulls one back, a boat in water pushed by a head and a cart on rails that a piston keeps in place.
+level flat
+preload 3
+level_seed 37
+entity_counter 3600
+gamerule block_drops false
+fill -2 -60 -4 60 -40 60 minecraft:air
+note a: a piston head pushes carts on the ground (an empty one, a chest cart, a hopper cart, a pig in a cart) eastwards
+block 0 -60 0 minecraft:piston[facing=east,extended=false]
+spawn a1 minecraft:minecart 1.5 -59.9375 0.5
+entity_seed a1 361
+block 0 -60 4 minecraft:piston[facing=east,extended=false]
+spawn a2 minecraft:chest_minecart 1.5 -59.9375 4.5 0 0 {Items:[{Slot:0b,id:"minecraft:stick",count:12}]}
+entity_seed a2 362
+block 0 -60 8 minecraft:piston[facing=east,extended=false]
+spawn a3 minecraft:hopper_minecart 1.5 -59.9375 8.5 0 0 {Items:[{Slot:0b,id:"minecraft:stick",count:12}]}
+entity_seed a3 363
+block 0 -60 12 minecraft:piston[facing=east,extended=false]
+spawn a4 minecraft:minecart 1.5 -59.9375 12.5
+entity_seed a4 364
+spawn a5 minecraft:pig 1.5 -59.9375 12.5 0 0 {NoAI:1b}
+entity_seed a5 365
+ride a5 a4
+note b: a cart between the head and a wall, and one under a ceiling that a vertical head pushes up
+block 0 -60 16 minecraft:piston[facing=east,extended=false]
+spawn b1 minecraft:minecart 1.5 -59.9375 16.5
+entity_seed b1 366
+block 3 -60 16 minecraft:stone
+block 8 -61 16 minecraft:piston[facing=up,extended=false]
+spawn b2 minecraft:minecart 8.5 -59.9375 16.5
+entity_seed b2 367
+block 8 -59 16 minecraft:stone
+note c: a vertical piston lifts a rail with a cart on it (the rail pops, the cart falls back), and a stone block with a rail and a cart on it
+block 12 -61 16 minecraft:piston[facing=up,extended=false]
+block 12 -60 16 minecraft:stone
+block 12 -59 16 minecraft:rail[shape=east_west]
+spawn c1 minecraft:minecart 12.5 -58.9375 16.5
+entity_seed c1 368
+block 16 -61 16 minecraft:piston[facing=up,extended=false]
+block 16 -60 16 minecraft:rail[shape=east_west]
+spawn c2 minecraft:minecart 16.5 -59.9375 16.5
+entity_seed c2 369
+note d: a slime block pushed east with a cart on top, a sticky piston that pulls a slime block with a cart on top, a slime block that a cart beside it
+block 0 -60 20 minecraft:piston[facing=east,extended=false]
+block 1 -60 20 minecraft:slime_block
+spawn d1 minecraft:minecart 1.5 -58.9375 20.5
+entity_seed d1 370
+block 6 -60 24 minecraft:sticky_piston[facing=east,extended=false]
+block 7 -60 24 minecraft:slime_block
+spawn d2 minecraft:chest_minecart 7.5 -58.9375 24.5
+entity_seed d2 371
+block 0 -60 28 minecraft:piston[facing=east,extended=false]
+block 1 -60 28 minecraft:slime_block
+block 1 -60 29 minecraft:slime_block
+spawn d3 minecraft:minecart 1.5 -59.9375 29.5
+entity_seed d3 372
+note e: a boat floating in a pool in front of a head, and a boat on land
+fill 0 -62 32 8 -61 36 minecraft:water
+block -1 -61 33 minecraft:piston[facing=east,extended=false]
+spawn e1 minecraft:oak_boat 0.5 -61 33.5
+entity_seed e1 373
+block -1 -60 40 minecraft:piston[facing=east,extended=false]
+spawn e2 minecraft:oak_chest_boat 0.5 -60 40.5
+entity_seed e2 374
+note f: a piston extending against a cart on rails: the cart stays on the track and the rail is pushed with the block under it
+fill 10 -60 40 30 -60 40 minecraft:rail[shape=east_west]
+block 20 -61 41 minecraft:piston[facing=north,extended=false]
+spawn f1 minecraft:minecart 20.5 -59.9375 40.5
+entity_seed f1 375
+block 30 -60 44 minecraft:piston[facing=east,extended=false]
+fill 31 -60 44 40 -60 44 minecraft:rail[shape=east_west]
+spawn f2 minecraft:minecart 31.5 -59.9375 44.5
+entity_seed f2 376
+velocity f2 0.2 0 0
+watch xentities
+tick 3
+dump blocks:-2,-62,-2,40,-57,48
+note power all the pistons at once
+block 0 -61 0 minecraft:redstone_block
+block 0 -61 4 minecraft:redstone_block
+block 0 -61 8 minecraft:redstone_block
+block 0 -61 12 minecraft:redstone_block
+block 0 -61 16 minecraft:redstone_block
+block 9 -61 16 minecraft:redstone_block
+block 13 -62 16 minecraft:redstone_block
+block 17 -62 16 minecraft:redstone_block
+block 0 -61 20 minecraft:redstone_block
+block 7 -61 24 minecraft:redstone_block
+block 0 -61 28 minecraft:redstone_block
+block -1 -62 33 minecraft:redstone_block
+block -1 -61 40 minecraft:redstone_block
+block 21 -61 41 minecraft:redstone_block
+block 30 -61 44 minecraft:redstone_block
+tick 12
+dump blocks:-2,-62,-2,40,-57,48
+note the sticky piston retracts
+block 7 -61 24 minecraft:air
+tick 12
+dump blocks:-2,-62,-2,40,-57,48
+tick 20
+dump xentities

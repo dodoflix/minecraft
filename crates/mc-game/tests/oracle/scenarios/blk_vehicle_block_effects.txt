@@ -1,0 +1,75 @@
+# Blocks that act on a vehicle that touches them: a lily pad that a boat breaks (a cart in water does not), slime blocks that bounce a falling
+# cart or boat at 0.8 of the speed, honey blocks that slow a cart on a rail over them and catch a falling one, soul sand under a boat on land.
+level flat
+preload 3
+level_seed 47
+entity_counter 4200
+fill -2 -60 -4 60 -40 40 minecraft:air
+note a: a pool with lily pads, a boat of every kind drifting into one, a cart and a pig in a cart on the others
+fill 0 -62 0 16 -61 8 minecraft:water
+block 2 -60 2 minecraft:lily_pad
+block 5 -60 2 minecraft:lily_pad
+block 8 -60 2 minecraft:lily_pad
+block 11 -60 2 minecraft:lily_pad
+block 14 -60 2 minecraft:lily_pad
+block 2 -60 6 minecraft:lily_pad
+block 5 -60 6 minecraft:lily_pad
+spawn a1 minecraft:oak_boat 2.5 -60.5 2.5
+entity_seed a1 431
+spawn a2 minecraft:oak_chest_boat 5.5 -60.5 2.5
+entity_seed a2 432
+spawn a3 minecraft:bamboo_raft 8.5 -60.5 2.5
+entity_seed a3 433
+spawn a4 minecraft:minecart 11.5 -60.4 2.5
+entity_seed a4 434
+spawn a5 minecraft:oak_boat 14.5 -60.5 4.5
+entity_seed a5 435
+velocity a5 0 0 -0.1
+spawn a6 minecraft:pig 2.5 -60.5 6.5 0 0 {NoAI:1b}
+entity_seed a6 436
+note b: carts and a boat fall onto slime blocks from several heights
+fill 20 -61 0 32 -61 12 minecraft:grass_block
+block 20 -61 0 minecraft:slime_block
+block 22 -61 0 minecraft:slime_block
+block 24 -61 0 minecraft:slime_block
+block 26 -61 0 minecraft:slime_block
+block 28 -61 0 minecraft:honey_block
+spawn b1 minecraft:minecart 20.5 -54 0.5
+entity_seed b1 437
+spawn b2 minecraft:chest_minecart 22.5 -50 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:stick",count:64}]}
+entity_seed b2 438
+spawn b3 minecraft:oak_boat 24.5 -52 0.5
+entity_seed b3 439
+spawn b4 minecraft:minecart 26.5 -55 0.5
+entity_seed b4 440
+spawn b4p minecraft:pig 26.5 -55 0.5 0 0 {NoAI:1b}
+entity_seed b4p 441
+ride b4p b4
+spawn b5 minecraft:minecart 28.5 -54 0.5
+entity_seed b5 442
+note c: a cart on rails over honey blocks and one over slime blocks, and one over plain grass
+fill 0 -60 16 30 -60 16 minecraft:rail[shape=east_west]
+fill 10 -61 16 14 -61 16 minecraft:honey_block
+fill 16 -61 16 20 -61 16 minecraft:slime_block
+spawn c1 minecraft:minecart 0.5 -59.9375 16.5
+entity_seed c1 443
+velocity c1 0.4 0 0
+fill 0 -60 20 30 -60 20 minecraft:rail[shape=east_west]
+fill 10 -61 20 14 -61 20 minecraft:soul_sand
+spawn c2 minecraft:minecart 0.5 -59.9375 20.5
+entity_seed c2 444
+velocity c2 0.4 0 0
+note d: a boat on land over soul sand and over honey slides slower
+fill 0 -61 24 4 -61 24 minecraft:soul_sand
+fill 6 -61 24 10 -61 24 minecraft:honey_block
+spawn d1 minecraft:oak_boat 0.5 -60 24.5
+entity_seed d1 445
+velocity d1 0.3 0 0
+spawn d2 minecraft:oak_boat 6.5 -60 24.5
+entity_seed d2 446
+velocity d2 0.3 0 0
+watch xentities
+tick 4
+dump blocks:0,-61,0,16,-59,8
+tick 56
+dump blocks:0,-61,0,16,-59,8 xentities

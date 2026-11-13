@@ -185,6 +185,7 @@ mod placement_golden;
 mod poi_golden;
 mod portal_golden;
 mod rails_golden;
+mod rails_vehicles_golden;
 mod recipe_book_golden;
 mod recipe_golden;
 mod recipes_load;

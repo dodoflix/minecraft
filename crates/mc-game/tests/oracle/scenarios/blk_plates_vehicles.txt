@@ -1,0 +1,168 @@
+# Pressure plates and tripwires with real carts and boats: an oak plate takes any vehicle, a stone plate only a living entity (a pig riding the
+# cart counts), the weighted plates count every vehicle (and the cart's rider), a cart that rolls off the end of its rail over a row of plates,
+# boats of every kind on plates, a primed TNT on the plates, and a cart or a boat in a tripwire line.
+level flat
+preload 3
+level_seed 41
+entity_counter 3800
+fill -2 -60 -4 60 -40 40 minecraft:air
+note a: oak, stone, light weighted, heavy weighted and polished blackstone plates, a cart on each
+block 1 -60 1 minecraft:oak_pressure_plate
+block 1 -61 1 minecraft:redstone_lamp
+block 5 -60 1 minecraft:stone_pressure_plate
+block 5 -61 1 minecraft:redstone_lamp
+block 9 -60 1 minecraft:light_weighted_pressure_plate
+block 9 -61 1 minecraft:redstone_lamp
+block 13 -60 1 minecraft:heavy_weighted_pressure_plate
+block 13 -61 1 minecraft:redstone_lamp
+block 17 -60 1 minecraft:polished_blackstone_pressure_plate
+block 17 -61 1 minecraft:redstone_lamp
+spawn a1 minecraft:minecart 1.5 -59.9375 1.5
+entity_seed a1 381
+spawn a2 minecraft:minecart 5.5 -59.9375 1.5
+entity_seed a2 382
+spawn a3 minecraft:minecart 9.5 -59.9375 1.5
+entity_seed a3 383
+spawn a4 minecraft:minecart 13.5 -59.9375 1.5
+entity_seed a4 384
+spawn a5 minecraft:minecart 17.5 -59.9375 1.5
+entity_seed a5 385
+note b: a pig in a cart on every plate
+block 1 -60 5 minecraft:oak_pressure_plate
+block 1 -61 5 minecraft:redstone_lamp
+block 5 -60 5 minecraft:stone_pressure_plate
+block 5 -61 5 minecraft:redstone_lamp
+block 9 -60 5 minecraft:light_weighted_pressure_plate
+block 9 -61 5 minecraft:redstone_lamp
+block 13 -60 5 minecraft:heavy_weighted_pressure_plate
+block 13 -61 5 minecraft:redstone_lamp
+spawn b1 minecraft:minecart 1.5 -59.9375 5.5
+entity_seed b1 386
+spawn b2 minecraft:minecart 5.5 -59.9375 5.5
+entity_seed b2 387
+spawn b3 minecraft:minecart 9.5 -59.9375 5.5
+entity_seed b3 388
+spawn b4 minecraft:minecart 13.5 -59.9375 5.5
+entity_seed b4 389
+spawn bp1 minecraft:pig 1.5 -59.9375 5.5 0 0 {NoAI:1b}
+entity_seed bp1 390
+spawn bp2 minecraft:pig 5.5 -59.9375 5.5 0 0 {NoAI:1b}
+entity_seed bp2 391
+spawn bp3 minecraft:pig 9.5 -59.9375 5.5 0 0 {NoAI:1b}
+entity_seed bp3 392
+spawn bp4 minecraft:pig 13.5 -59.9375 5.5 0 0 {NoAI:1b}
+entity_seed bp4 393
+ride bp1 b1
+ride bp2 b2
+ride bp3 b3
+ride bp4 b4
+note c: boats, a chest boat, a raft and a chest raft on plates
+block 1 -60 9 minecraft:oak_pressure_plate
+block 1 -61 9 minecraft:redstone_lamp
+block 5 -60 9 minecraft:stone_pressure_plate
+block 5 -61 9 minecraft:redstone_lamp
+block 9 -60 9 minecraft:light_weighted_pressure_plate
+block 9 -61 9 minecraft:redstone_lamp
+block 13 -60 9 minecraft:heavy_weighted_pressure_plate
+block 13 -61 9 minecraft:redstone_lamp
+block 17 -60 9 minecraft:oak_pressure_plate
+block 17 -61 9 minecraft:redstone_lamp
+spawn c1 minecraft:oak_boat 1.5 -60 9.5
+entity_seed c1 394
+spawn c2 minecraft:birch_boat 5.5 -60 9.5
+entity_seed c2 395
+spawn c3 minecraft:oak_chest_boat 9.5 -60 9.5
+entity_seed c3 396
+spawn c4 minecraft:bamboo_raft 13.5 -60 9.5
+entity_seed c4 397
+spawn c5 minecraft:bamboo_chest_raft 17.5 -60 9.5
+entity_seed c5 398
+note d: several vehicles on one weighted plate raise the strength, a cart with a pig counts twice
+block 22 -60 1 minecraft:light_weighted_pressure_plate
+block 22 -61 1 minecraft:redstone_lamp
+spawn d1 minecraft:minecart 22.5 -59.9375 1.5
+entity_seed d1 399
+spawn d2 minecraft:chest_minecart 22.3 -59.9375 1.7
+entity_seed d2 400
+spawn d3 minecraft:oak_boat 22.7 -60 1.3
+entity_seed d3 401
+spawn d4 minecraft:pig 22.5 -59.9375 1.5 0 0 {NoAI:1b}
+entity_seed d4 402
+ride d4 d1
+note e: a cart rolls off the end of its rail across plates
+fill 0 -60 14 4 -60 14 minecraft:rail[shape=east_west]
+block 5 -60 14 minecraft:oak_pressure_plate
+block 6 -60 14 minecraft:stone_pressure_plate
+block 7 -60 14 minecraft:heavy_weighted_pressure_plate
+block 8 -60 14 minecraft:oak_pressure_plate
+block 5 -61 14 minecraft:redstone_lamp
+block 6 -61 14 minecraft:redstone_lamp
+block 7 -61 14 minecraft:redstone_lamp
+block 8 -61 14 minecraft:redstone_lamp
+spawn e1 minecraft:minecart 0.5 -59.9375 14.5
+entity_seed e1 403
+velocity e1 0.3 0 0
+note f: a cart and a boat in tripwire lines
+block 0 -60 20 minecraft:tripwire_hook[facing=east]
+fill 1 -60 20 4 -60 20 minecraft:tripwire
+block 5 -60 20 minecraft:tripwire_hook[facing=west]
+block -1 -60 20 minecraft:stone
+block 6 -60 20 minecraft:stone
+block 2 -61 20 minecraft:redstone_lamp
+spawn f1 minecraft:minecart 3.5 -59.9375 20.5
+entity_seed f1 404
+block 0 -60 24 minecraft:tripwire_hook[facing=east]
+fill 1 -60 24 4 -60 24 minecraft:tripwire
+block 5 -60 24 minecraft:tripwire_hook[facing=west]
+block -1 -60 24 minecraft:stone
+block 6 -60 24 minecraft:stone
+spawn f2 minecraft:oak_boat 2.5 -60 24.5
+entity_seed f2 405
+block 0 -60 28 minecraft:tripwire_hook[facing=east]
+fill 1 -60 28 4 -60 28 minecraft:tripwire
+block 5 -60 28 minecraft:tripwire_hook[facing=west]
+block -1 -60 28 minecraft:stone
+block 6 -60 28 minecraft:stone
+fill 0 -60 31 8 -60 31 minecraft:rail[shape=east_west]
+spawn f3 minecraft:minecart 0.5 -59.9375 28.5
+entity_seed f3 406
+velocity f3 0.1 0 0
+note g: a primed TNT on an oak, a stone and a weighted plate and in a tripwire line (it explodes after the fuse)
+block 30 -60 1 minecraft:oak_pressure_plate
+block 30 -61 1 minecraft:redstone_lamp
+block 34 -60 1 minecraft:stone_pressure_plate
+block 34 -61 1 minecraft:redstone_lamp
+block 38 -60 1 minecraft:heavy_weighted_pressure_plate
+block 38 -61 1 minecraft:redstone_lamp
+spawn g1 minecraft:tnt 30.5 -60 1.5 0 0 {fuse:30s}
+spawn g2 minecraft:tnt 34.5 -60 1.5 0 0 {fuse:30s}
+spawn g3 minecraft:tnt 38.5 -60 1.5 0 0 {fuse:30s}
+block 30 -60 6 minecraft:tripwire_hook[facing=east]
+fill 31 -60 6 34 -60 6 minecraft:tripwire
+block 35 -60 6 minecraft:tripwire_hook[facing=west]
+spawn g4 minecraft:tnt 32.5 -60 6.5 0 0 {fuse:30s}
+watch xentities events
+tick 2
+dump blocks:-1,-61,-1,40,-60,31
+tick 2
+dump blocks:-1,-61,-1,40,-60,31
+tick 6
+note the vehicles leave: every plate and wire releases after the delay
+kill a1
+kill a2
+kill a3
+kill a4
+kill a5
+kill c1
+kill c2
+kill c3
+kill c4
+kill c5
+kill f1
+kill f2
+tick 8
+dump blocks:-1,-61,-1,40,-60,31
+tick 8
+dump blocks:-1,-61,-1,40,-60,31
+tick 24
+dump blocks:-1,-61,-1,40,-60,31
