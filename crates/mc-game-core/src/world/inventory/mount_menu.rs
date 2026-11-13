@@ -27,7 +27,12 @@ pub trait MountInventory {
     fn get_equipment_slot_item(&self, slot: EquipmentSlot) -> ItemStack;
     /// The `setTheItem` of `Mob.createEquipmentSlotContainer(slot)`: `setItemSlot(slot, stack)` and, for a non-empty
     /// stack, `setGuaranteedDrop(slot)` + `setPersistenceRequired()`.
-    fn set_equipment_slot_item(&mut self, slot: EquipmentSlot, stack: ItemStack);
+    fn set_equipment_slot_item(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        slot: EquipmentSlot,
+        stack: ItemStack,
+    );
     /// `instanceof Llama` (only selects the armor slot sprite on the client; kept for completeness).
     fn is_llama(&self) -> bool {
         false
@@ -79,6 +84,9 @@ impl SlotBehavior for MountArmorSlot {
 struct MountMenuCore {
     base: MenuBase,
     mount: EntityId,
+    // Not implemented: the container object the slots were built on. Vanilla's slots keep the old container after
+    // `createInventory` replaces the mob's chest (until the next player tick closes the screen); ours address the mob's
+    // current container, so the slots already read the new chest in that window.
     container: super::ContainerRef,
     epoch: u32,
 }

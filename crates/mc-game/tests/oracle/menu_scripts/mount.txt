@@ -1,0 +1,207 @@
+# The inventory screen of tamed mounts opened the way AbstractHorse.openCustomInventoryScreen does it: a horse (saddle and armor slot), a donkey with a
+# chest (five columns), a llama with a chest (columns = strength) and a mule without one. Slots: 0 saddle, 1 body armor, then the chest slots,
+# the inventory rows and the hotbar. Shift-click in both directions, the equipment the mount keeps (persistence, drop chances), and the screen closing
+# when the mount is out of reach, replaced its chest, died or left.
+# Session 1: the horse
+OPEN mount 0 0 0 1 2
+EVENTS on
+SPAWN H minecraft:horse 0.5 71 2.5 7 {Tame:1b,NoAI:1b,NoGravity:1b}
+USE H 1
+GIVE 0 saddle
+GIVE 1 iron_horse_armor
+GIVE 2 white_carpetx3
+GIVE 3 stickx5
+GIVE 4 breadx20
+GIVE 9 saddle
+GIVE 10 leather_horse_armor
+GIVE 11 applex30
+CLICK 29 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 30 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 30 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 33 1 PICKUP
+CLICK 1 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 29 0 QUICK_MOVE
+CLICK 30 0 QUICK_MOVE
+CLICK 33 0 QUICK_MOVE
+GIVE 9 saddle
+GIVE 10 iron_horse_armor
+CLICK 2 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 0 0 SWAP
+CLICK 1 1 SWAP
+CLICK 0 0 THROW
+CLICK 1 0 THROW
+CLICK 0 0 CLONE
+SET 0 saddle
+SET 1 leather_horse_armor
+CLICK 0 0 PICKUP_ALL
+DRAG 0 0 1 2 3
+CLOSE
+# Session 2: the donkey with a chest (15 chest slots: 2-16, inventory 17-43, hotbar 44-52)
+OPEN mount 0 0 0 3 4
+SPAWN D minecraft:donkey 0.5 71 2.5 8 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b,Items:[{Slot:0b,id:"minecraft:bread",count:5},{Slot:3b,id:"minecraft:apple",count:9},{Slot:14b,id:"minecraft:carrot",count:64}]}
+USE D 1
+GIVE 0 saddle
+GIVE 1 iron_horse_armor
+GIVE 2 white_carpetx3
+GIVE 3 stickx5
+GIVE 4 breadx20
+GIVE 9 saddle
+GIVE 10 leather_horse_armor
+GIVE 11 applex30
+CLICK 2 0 PICKUP
+CLICK 47 0 PICKUP
+CLICK 47 1 PICKUP
+CLICK 5 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 5 0 QUICK_MOVE
+CLICK 16 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 17 0 QUICK_MOVE
+CLICK 18 0 QUICK_MOVE
+CLICK 19 0 QUICK_MOVE
+CLICK 44 0 QUICK_MOVE
+CLICK 45 0 QUICK_MOVE
+CLICK 46 0 QUICK_MOVE
+CLICK 47 0 QUICK_MOVE
+CLICK 48 0 QUICK_MOVE
+CLICK 44 0 QUICK_MOVE
+CLICK 17 0 PICKUP
+DRAG 0 6 7 8
+DRAG 1 9 10
+DRAG 2 11 12
+CLOSE
+# Session 3: the llama, strength 3 (9 chest slots: 2-10, inventory 11-37, hotbar 38-46), in survival and creative mode
+OPEN mount 0 0 0 5 6
+SPAWN L minecraft:llama 0.5 71 2.5 9 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b,Strength:3,Items:[{Slot:0b,id:"minecraft:wheat",count:7},{Slot:8b,id:"minecraft:hay_block",count:2}]}
+USE L 1
+GIVE 0 saddle
+GIVE 2 white_carpetx3
+GIVE 3 stickx5
+GIVE 9 saddle
+GIVE 11 applex30
+CLICK 40 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 41 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 10 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 11 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLOSE
+OPEN mount 0 0 1 5 6
+SPAWN L minecraft:llama 0.5 71 2.5 9 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b,Strength:3,Items:[{Slot:0b,id:"minecraft:wheat",count:7},{Slot:8b,id:"minecraft:hay_block",count:2}]}
+USE L 1
+GIVE 0 saddle
+GIVE 2 white_carpetx3
+GIVE 3 stickx5
+GIVE 9 saddle
+GIVE 11 applex30
+CLICK 40 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 41 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 10 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 11 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLOSE
+# Session 4: the mule without a chest has only the saddle and armor slots
+OPEN mount 0 0 0 7 8
+SPAWN M minecraft:mule 0.5 71 2.5 10 {Tame:1b,NoAI:1b,NoGravity:1b}
+USE M 1
+GIVE 0 saddle
+GIVE 1 iron_horse_armor
+GIVE 2 applex3
+GIVE 9 breadx2
+CLICK 29 0 QUICK_MOVE
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLOSE
+# Session 5: an untamed horse has no screen until it is tame
+OPEN mount 0 0 0 9 10
+SPAWN H minecraft:horse 0.5 71 2.5 11 {NoAI:1b,NoGravity:1b}
+USE H 1
+NBT H {Tame:1b}
+USE H 1
+CLOSE
+# Session 6: the screen closes when the horse is out of reach (the interaction range plus 4 blocks), gets a new inventory (its data is loaded again), dies or leaves
+OPEN mount 0 0 0 11 12
+SPAWN D minecraft:donkey 0.5 71 2.5 12 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b,Items:[{Slot:1b,id:"minecraft:bread",count:5}]}
+USE D 1
+TICK 1
+PLAYER 0.5 71 9.5
+TICK 1
+PLAYER 0.5 71 12.0
+TICK 1
+PLAYER 0.5 71 0.5
+USE D 1
+NBT D {ChestedHorse:1b}
+TICK 1
+USE D 1
+NBT D {ChestedHorse:1b,Items:[{Slot:1b,id:"minecraft:bread",count:5}]}
+TICK 1
+USE D 1
+NBT D {Health:0.0f}
+TICK 1
+OPEN mount 0 0 0 13 14
+SPAWN D minecraft:donkey 0.5 71 2.5 12 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b}
+USE D 1
+DISCARD D
+TICK 1
+# random sessions
+OPEN mount 0 0 0 201 208
+SPAWN H minecraft:horse 0.5 71 2.5 201 {Tame:1b,NoAI:1b,NoGravity:1b}
+USE H 1
+GENCONT 201 200 saddle|saddle|iron_horse_armor|leather_horse_armor|white_carpet|white_carpetx3|applex16|apple|stick|stickx5|breadx20|hay_blockx8|wheatx64|-
+CLOSE
+OPEN mount 0 0 0 202 209
+SPAWN D minecraft:donkey 0.5 71 2.5 202 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b}
+USE D 1
+GENCONT 202 200 saddle|saddle|iron_horse_armor|leather_horse_armor|white_carpet|white_carpetx3|applex16|apple|stick|stickx5|breadx20|hay_blockx8|wheatx64|-
+CLOSE
+OPEN mount 0 0 1 203 210
+SPAWN L minecraft:llama 0.5 71 2.5 203 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b,Strength:5}
+USE L 1
+GENCONT 203 200 saddle|saddle|iron_horse_armor|leather_horse_armor|white_carpet|white_carpetx3|applex16|apple|stick|stickx5|breadx20|hay_blockx8|wheatx64|-
+CLOSE
+OPEN mount 0 0 0 204 211
+SPAWN D minecraft:donkey 0.5 71 2.5 204 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b,Items:[{Slot:2b,id:"minecraft:apple",count:3},{Slot:7b,id:"minecraft:apple",count:60}]}
+USE D 1
+GENCONT 204 200 saddle|saddle|iron_horse_armor|leather_horse_armor|white_carpet|white_carpetx3|applex16|apple|stick|stickx5|breadx20|hay_blockx8|wheatx64|-
+CLOSE
+OPEN mount 0 0 0 205 212
+SPAWN L minecraft:llama 0.5 71 2.5 205 {Tame:1b,NoAI:1b,NoGravity:1b,ChestedHorse:1b,Strength:1}
+USE L 1
+GENCONT 205 200 saddle|saddle|iron_horse_armor|leather_horse_armor|white_carpet|white_carpetx3|applex16|apple|stick|stickx5|breadx20|hay_blockx8|wheatx64|-
+CLOSE
+OPEN mount 0 0 0 206 213
+SPAWN M minecraft:mule 0.5 71 2.5 206 {Tame:1b,NoAI:1b,NoGravity:1b}
+USE M 1
+GENCONT 206 200 saddle|saddle|iron_horse_armor|leather_horse_armor|white_carpet|white_carpetx3|applex16|apple|stick|stickx5|breadx20|hay_blockx8|wheatx64|-
+CLOSE

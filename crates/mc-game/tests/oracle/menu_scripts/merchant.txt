@@ -1,0 +1,146 @@
+# The trading screen of a villager with pinned offers (a master villager never levels up). Slots: 0 and 1 payments, 2 result,
+# 3-29 the inventory rows, 30-38 the hotbar; GIVE slots are inventory slots (0-8 hotbar, 9-35 rows). The villager sits next to the player.
+# Session 1: select an offer, take the result, shift-click, swapped payments, out of stock, hints, closing with payments inside.
+OPEN merchant 0 0 0 1 2
+EVENTS on
+SPAWN V minecraft:villager 0.5 71 2.5 31 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:5},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:2,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:2,priceMultiplier:0.2f,specialPrice:-5,demand:3},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:stone",count:64},maxUses:20,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stick",count:32},buyB:{id:"minecraft:paper",count:3},sell:{id:"minecraft:emerald",count:2},maxUses:20,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b,NoGravity:1b}
+USE V 0
+GIVE 0 emeraldx64
+GIVE 1 emeraldx20
+GIVE 2 paperx64
+GIVE 3 paperx64
+GIVE 4 book
+GIVE 5 stonex64
+GIVE 6 stickx32
+GIVE 9 stickx5
+GIVE 10 emeraldx16
+TRADE 0
+CLICK 2 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 2 0 QUICK_MOVE
+CLICK 2 0 PICKUP
+CLICK 2 0 QUICK_MOVE
+TRADE 1
+CLICK 2 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 0 1 PICKUP
+CLICK 0 0 PICKUP
+CLICK 5 0 PICKUP
+CLICK 0 0 PICKUP
+TRADE 2
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 6 0 PICKUP
+TRADE 3
+CLICK 2 0 PICKUP
+CLICK 2 0 QUICK_MOVE
+TRADE 4
+CLICK 2 0 QUICK_MOVE
+TRADE 0
+TRADE 5
+TRADE 6
+CLICK 2 0 SWAP
+CLICK 2 1 SWAP
+CLICK 2 0 THROW
+CLICK 2 1 THROW
+CLICK 2 0 CLONE
+CLICK 2 0 PICKUP_ALL
+TRADE 7
+CLICK 2 0 QUICK_MOVE
+TRADE -1
+TRADE 8
+TRADE 99
+# a payment taken out leaves no result; payments swapped into the inventory with a click
+CLICK 0 0 PICKUP
+CLICK 7 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 32 0 QUICK_MOVE
+CLICK 1 0 PICKUP
+CLICK 8 0 PICKUP
+DRAG 0 0 1
+DRAG 2 0 1
+CLOSE
+# closing with payments inside gives them back, the stack that does not fit drops
+USE V 0
+TRADE 6
+CLICK 2 0 PICKUP
+CLICK 3 0 PICKUP
+CLOSE
+# the villager goes: the trading screen closes with the next tick
+USE V 0
+TRADE 0
+DISCARD V
+TICK 1
+# Session 2: a dead and a disconnected player lose the payments to the floor
+OPEN merchant 0 0 0 3 4
+SPAWN V minecraft:villager 0.5 71 2.5 32 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:5},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:1,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:1,priceMultiplier:0.2f,specialPrice:-5,demand:3},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:stone",count:64},maxUses:20,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stick",count:32},buyB:{id:"minecraft:paper",count:3},sell:{id:"minecraft:emerald",count:2},maxUses:20,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b,NoGravity:1b}
+USE V 0
+GIVE 0 emeraldx64
+GIVE 1 paperx64
+TRADE 0
+CLICK 2 0 PICKUP
+HEALTH 0
+CLOSE
+OPEN merchant 0 0 0 3 4
+SPAWN V minecraft:villager 0.5 71 2.5 32 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:5},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:1,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:1,priceMultiplier:0.2f,specialPrice:-5,demand:3},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:stone",count:64},maxUses:20,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stick",count:32},buyB:{id:"minecraft:paper",count:3},sell:{id:"minecraft:emerald",count:2},maxUses:20,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b,NoGravity:1b}
+USE V 0
+GIVE 0 emeraldx64
+GIVE 1 paperx64
+TRADE 1
+HEALTH disconnected
+CLOSE
+# Session 3: results with map post-processing (set with MAPOFFERS): the map in the cursor is locked or scaled when it is taken
+OPEN merchant 0 0 0 5 6
+MAP 5 64 64 0 0
+MAP 6 64 64 1 0
+SPAWN V minecraft:villager 0.5 71 2.5 33 {VillagerData:{type:"minecraft:plains",profession:"minecraft:cartographer",level:5},Xp:0,NoAI:1b,NoGravity:1b,Offers:{Recipes:[]}}
+MAPOFFERS V
+USE V 0
+GIVE 0 emeraldx64
+GIVE 1 compassx3
+TRADE 0
+CLICK 2 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 2 0 QUICK_MOVE
+TRADE 1
+CLICK 2 0 PICKUP
+CLICK 5 0 PICKUP
+CLICK 2 0 QUICK_MOVE
+CLICK 2 0 SWAP
+CLOSE
+# random sessions: clicks of every kind, drags, SETs into the slots and selections, with creative players too
+OPEN merchant 0 0 0 101 108
+SPAWN V minecraft:villager 0.5 71 2.5 101 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:5},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:0,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:0,priceMultiplier:0.2f,specialPrice:-5,demand:3},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:stone",count:64},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stick",count:32},buyB:{id:"minecraft:paper",count:3},sell:{id:"minecraft:emerald",count:2},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b,NoGravity:1b}
+USE V 0
+GENCONT 101 150 emeraldx16|emeraldx64|emeraldx3|paperx24|paperx64|book|bookx3|stonex5|stonex64|breadx6|iron_swordx1|diamondx2|arrowx16|stick|stickx32|paperx3|-
+CLOSE
+OPEN merchant 0 0 0 102 109
+SPAWN V minecraft:villager 0.5 71 2.5 102 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:5},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:0,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:0,priceMultiplier:0.2f,specialPrice:-5,demand:3},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:stone",count:64},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stick",count:32},buyB:{id:"minecraft:paper",count:3},sell:{id:"minecraft:emerald",count:2},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b,NoGravity:1b}
+USE V 0
+GENCONT 102 150 emeraldx16|emeraldx64|emeraldx3|paperx24|paperx64|book|bookx3|stonex5|stonex64|breadx6|iron_swordx1|diamondx2|arrowx16|stick|stickx32|paperx3|-
+CLOSE
+OPEN merchant 0 0 1 103 110
+SPAWN V minecraft:villager 0.5 71 2.5 103 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:5},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:0,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:0,priceMultiplier:0.2f,specialPrice:-5,demand:3},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:stone",count:64},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stick",count:32},buyB:{id:"minecraft:paper",count:3},sell:{id:"minecraft:emerald",count:2},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b,NoGravity:1b}
+USE V 0
+GENCONT 103 150 emeraldx16|emeraldx64|emeraldx3|paperx24|paperx64|book|bookx3|stonex5|stonex64|breadx6|iron_swordx1|diamondx2|arrowx16|stick|stickx32|paperx3|-
+CLOSE
+OPEN merchant 0 0 0 104 111
+SPAWN V minecraft:villager 0.5 71 2.5 104 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:5},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:0,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:0,priceMultiplier:0.2f,specialPrice:-5,demand:3},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:stone",count:64},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stick",count:32},buyB:{id:"minecraft:paper",count:3},sell:{id:"minecraft:emerald",count:2},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b,NoGravity:1b}
+USE V 0
+GENCONT 104 150 emeraldx16|emeraldx64|emeraldx3|paperx24|paperx64|book|bookx3|stonex5|stonex64|breadx6|iron_swordx1|diamondx2|arrowx16|stick|stickx32|paperx3|-
+CLOSE
+OPEN merchant 0 0 0 105 112
+SPAWN V minecraft:villager 0.5 71 2.5 105 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:5},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:0,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:0,priceMultiplier:0.2f,specialPrice:-5,demand:3},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:stone",count:64},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stick",count:32},buyB:{id:"minecraft:paper",count:3},sell:{id:"minecraft:emerald",count:2},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b,NoGravity:1b}
+USE V 0
+GENCONT 105 150 emeraldx16|emeraldx64|emeraldx3|paperx24|paperx64|book|bookx3|stonex5|stonex64|breadx6|iron_swordx1|diamondx2|arrowx16|stick|stickx32|paperx3|-
+CLOSE
+OPEN merchant 0 0 1 106 113
+SPAWN V minecraft:villager 0.5 71 2.5 106 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:5},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:0,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:0,priceMultiplier:0.2f,specialPrice:-5,demand:3},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:stone",count:64},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stick",count:32},buyB:{id:"minecraft:paper",count:3},sell:{id:"minecraft:emerald",count:2},maxUses:20,uses:0,xp:0,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b,NoGravity:1b}
+USE V 0
+GENCONT 106 150 emeraldx16|emeraldx64|emeraldx3|paperx24|paperx64|book|bookx3|stonex5|stonex64|breadx6|iron_swordx1|diamondx2|arrowx16|stick|stickx32|paperx3|-
+CLOSE

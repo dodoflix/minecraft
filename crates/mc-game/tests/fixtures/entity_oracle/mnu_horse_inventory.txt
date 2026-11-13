@@ -1,0 +1,412 @@
+# sneaking at a tamed horse opens its screen: the screen packet with the mount entity and the content with the saddle and armor slots
+MENU A cid=1 type=none state=1 carried=empty
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 29 minecraft:saddle*1
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:stick*5
+MS 33 minecraft:bread*20
+PKT A minecraft:mount_screen_open 2a010000000065
+PKT A minecraft:container_set_content 12010126000001b507000001830b00001eef07000000000000000000000000000000000000000000000000000001b507000001ff0a000003c404000005a408000014ab0800000000000000
+# the saddle slot takes a saddle only and one item, the armor slot takes horse armor only
+MENU A cid=1 type=none state=3 carried=empty
+MS 0 minecraft:saddle*1
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:stick*5
+MS 33 minecraft:bread*20
+PKT A minecraft:container_set_slot 140102001d00
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140103000001b5070000
+PKT A minecraft:set_cursor_item 6200
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.horse.saddle source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.horse.saddle source=neutral vol=1.0 pitch=1.0
+N H {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,Variant:0,attributes:[{base:0.22499999403953552d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+MENU A cid=1 type=none state=6 carried=empty
+MS 1 minecraft:iron_horse_armor*1
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:saddle*1
+MS 31 minecraft:white_carpet*3
+MS 32 minecraft:stick*5
+MS 33 minecraft:bread*20
+PKT A minecraft:container_set_slot 140104000000
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140105001e01b5070000
+PKT A minecraft:set_cursor_item 6201ff0a0000
+PKT A minecraft:container_set_slot 140106000101ff0a0000
+PKT A minecraft:set_cursor_item 6200
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.horse.armor source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.horse.armor source=neutral vol=1.0 pitch=1.0
+N H {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,Variant:0,attributes:[{base:0.22499999403953552d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f,saddle:2.0f},equipment:{body:{count:1,id:"minecraft:iron_horse_armor"}},fall_distance:0.0d}
+MENU A cid=1 type=none state=9 carried=minecraft:white_carpet*3
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:stick*5
+MS 33 minecraft:bread*20
+PKT A minecraft:container_set_slot 140107000100
+PKT A minecraft:set_cursor_item 6201ff0a0000
+PKT A minecraft:container_set_slot 140108001e01ff0a0000
+PKT A minecraft:set_cursor_item 6201b5070000
+PKT A minecraft:container_set_slot 140109001f01b5070000
+PKT A minecraft:set_cursor_item 6203c4040000
+N H {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,Variant:0,attributes:[{base:0.22499999403953552d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f,saddle:2.0f},fall_distance:0.0d}
+# carpet, a stack of sticks and a stack of saddles do not fit the armor slot; the cursor keeps them
+MENU A cid=1 type=none state=11 carried=minecraft:bread*20
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:white_carpet*3
+MS 33 minecraft:stick*5
+PKT A minecraft:container_set_slot 14010a002003c4040000
+PKT A minecraft:set_cursor_item 6205a4080000
+PKT A minecraft:container_set_slot 14010b002105a4080000
+PKT A minecraft:set_cursor_item 6214ab080000
+I A 1 minecraft:iron_horse_armor*1
+I A 2 minecraft:saddle*1
+I A 3 minecraft:white_carpet*3
+I A 4 minecraft:stick*5
+I A 9 minecraft:saddle*1
+I A 10 minecraft:leather_horse_armor*1
+I A 11 minecraft:apple*30
+# shift-click: a saddle goes to the saddle slot, armor to the armor slot, other items to nowhere (a horse has no chest)
+MENU A cid=1 type=none state=13 carried=minecraft:stick*5
+MS 2 minecraft:saddle*1
+MS 3 minecraft:leather_horse_armor*1
+MS 4 minecraft:apple*30
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+MS 33 minecraft:white_carpet*3
+PKT A minecraft:container_set_slot 14010c002014ab080000
+PKT A minecraft:set_cursor_item 6203c4040000
+PKT A minecraft:container_set_slot 14010d002103c4040000
+PKT A minecraft:set_cursor_item 6205a4080000
+I A 1 minecraft:iron_horse_armor*1
+I A 2 minecraft:saddle*1
+I A 3 minecraft:bread*20
+I A 4 minecraft:white_carpet*3
+I A 9 minecraft:saddle*1
+I A 10 minecraft:leather_horse_armor*1
+I A 11 minecraft:apple*30
+N H {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,Variant:0,attributes:[{base:0.22499999403953552d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f,saddle:2.0f},fall_distance:0.0d}
+MENU A cid=1 type=none state=25 carried=minecraft:stick*5
+MS 0 minecraft:saddle*1
+MS 1 minecraft:leather_horse_armor*1
+MS 2 minecraft:apple*30
+MS 3 minecraft:iron_horse_armor*1
+MS 4 minecraft:white_carpet*3
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+PKT A minecraft:container_set_slot 14010e000001b5070000
+PKT A minecraft:container_set_slot 14010f000200
+PKT A minecraft:container_set_slot 140110000101830b0000
+PKT A minecraft:container_set_slot 140111000300
+PKT A minecraft:container_set_slot 140112000400
+PKT A minecraft:container_set_slot 140113001d1eef070000
+PKT A minecraft:container_set_slot 14011400021eef070000
+PKT A minecraft:container_set_slot 140115001d00
+PKT A minecraft:container_set_slot 140116000301ff0a0000
+PKT A minecraft:container_set_slot 140117001e00
+PKT A minecraft:container_set_slot 140118000403c4040000
+PKT A minecraft:container_set_slot 140119002100
+I A 2 minecraft:saddle*1
+I A 3 minecraft:bread*20
+I A 9 minecraft:apple*30
+I A 10 minecraft:iron_horse_armor*1
+I A 11 minecraft:white_carpet*3
+# a second saddle stays in the inventory while the saddle slot is taken
+MENU A cid=1 type=none state=29 carried=minecraft:stick*5
+MS 0 minecraft:saddle*1
+MS 1 minecraft:leather_horse_armor*1
+MS 4 minecraft:white_carpet*3
+MS 29 minecraft:saddle*1
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+PKT A minecraft:container_set_slot 14011a000200
+PKT A minecraft:container_set_slot 14011b001d01b5070000
+PKT A minecraft:container_set_slot 14011c000300
+PKT A minecraft:container_set_slot 14011d001e01ff0a0000
+I A 0 minecraft:saddle*1
+I A 1 minecraft:iron_horse_armor*1
+I A 2 minecraft:saddle*1
+I A 3 minecraft:bread*20
+I A 11 minecraft:white_carpet*3
+# a spectator does not open the screen
+MENU S cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:saddle*1
+MS 37 minecraft:stick*1
+# without sneaking the player mounts instead; from the saddle the inventory key opens the screen
+MENU A cid=2 type=none state=1 carried=empty
+MS 0 minecraft:saddle*1
+MS 1 minecraft:leather_horse_armor*1
+MS 4 minecraft:white_carpet*3
+MS 29 minecraft:saddle*1
+MS 30 minecraft:iron_horse_armor*1
+MS 31 minecraft:saddle*1
+MS 32 minecraft:bread*20
+MS 33 minecraft:stick*5
+PKT A minecraft:mount_screen_open 2a020000000065
+PKT A minecraft:container_set_content 1202012601b507000001830b0000000003c404000000000000000000000000000000000000000000000000000001b507000001ff0a000001b507000014ab08000005a40800000000000000
+# an untamed horse has no screen
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 11 minecraft:white_carpet*3
+MS 36 minecraft:saddle*1
+MS 37 minecraft:iron_horse_armor*1
+MS 38 minecraft:saddle*1
+MS 39 minecraft:bread*20
+MS 40 minecraft:stick*5
+# the donkey with a chest: five columns of three rows after the saddle and armor slots
+MENU A cid=3 type=none state=1 carried=empty
+MS 2 minecraft:bread*5
+MS 5 minecraft:apple*9
+MS 16 minecraft:carrot*64
+MS 17 minecraft:saddle*1
+MS 18 minecraft:leather_horse_armor*1
+MS 19 minecraft:apple*30
+MS 44 minecraft:saddle*1
+MS 45 minecraft:iron_horse_armor*1
+MS 46 minecraft:white_carpet*3
+MS 47 minecraft:stick*5
+MS 48 minecraft:bread*20
+PKT A minecraft:mount_screen_open 2a030500000066
+PKT A minecraft:container_set_content 12030135000005ab080000000009ef0700000000000000000000000040e20a000001b507000001830b00001eef07000000000000000000000000000000000000000000000000000001b507000001ff0a000003c404000005a408000014ab0800000000000000
+MENU A cid=3 type=none state=5 carried=minecraft:apple*9
+MS 5 minecraft:bread*5
+MS 16 minecraft:carrot*64
+MS 17 minecraft:saddle*1
+MS 18 minecraft:leather_horse_armor*1
+MS 19 minecraft:apple*30
+MS 44 minecraft:saddle*1
+MS 45 minecraft:iron_horse_armor*1
+MS 46 minecraft:white_carpet*3
+MS 47 minecraft:stick*5
+MS 48 minecraft:bread*20
+PKT A minecraft:container_set_slot 140302000200
+PKT A minecraft:set_cursor_item 6205ab080000
+PKT A minecraft:container_set_slot 140303002f05ab080000
+PKT A minecraft:set_cursor_item 6205a4080000
+PKT A minecraft:container_set_slot 140304002f05a4080000
+PKT A minecraft:set_cursor_item 6205ab080000
+PKT A minecraft:container_set_slot 140305000505ab080000
+PKT A minecraft:set_cursor_item 6209ef070000
+I A 0 minecraft:saddle*1
+I A 1 minecraft:iron_horse_armor*1
+I A 2 minecraft:white_carpet*3
+I A 3 minecraft:stick*5
+I A 4 minecraft:bread*20
+I A 9 minecraft:saddle*1
+I A 10 minecraft:leather_horse_armor*1
+I A 11 minecraft:apple*30
+N D {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:1b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Items:[{Slot:3b,count:5,id:"minecraft:bread"},{Slot:14b,count:64,id:"minecraft:carrot"}],LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[3.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.17499999701976776d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# shift-click from the chest into the inventory and back
+MENU A cid=3 type=none state=10 carried=empty
+MS 3 minecraft:apple*9
+MS 17 minecraft:saddle*1
+MS 18 minecraft:leather_horse_armor*1
+MS 19 minecraft:apple*30
+MS 44 minecraft:saddle*1
+MS 45 minecraft:iron_horse_armor*1
+MS 46 minecraft:white_carpet*3
+MS 47 minecraft:stick*5
+MS 48 minecraft:bread*25
+MS 52 minecraft:carrot*64
+PKT A minecraft:container_set_slot 140306000309ef070000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140307000500
+PKT A minecraft:container_set_slot 140308003019ab080000
+PKT A minecraft:container_set_slot 140309001000
+PKT A minecraft:container_set_slot 14030a003440e20a0000
+I A 0 minecraft:saddle*1
+I A 1 minecraft:iron_horse_armor*1
+I A 2 minecraft:white_carpet*3
+I A 3 minecraft:stick*5
+I A 4 minecraft:bread*25
+I A 8 minecraft:carrot*64
+I A 9 minecraft:saddle*1
+I A 10 minecraft:leather_horse_armor*1
+I A 11 minecraft:apple*30
+N D {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:1b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Items:[{Slot:1b,count:9,id:"minecraft:apple"}],LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[3.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.17499999701976776d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# a saddle goes to its slot, horse armor is refused by a donkey, other stacks fill the chest in order
+MENU A cid=3 type=none state=26 carried=empty
+MS 0 minecraft:saddle*1
+MS 2 minecraft:leather_horse_armor*1
+MS 3 minecraft:apple*39
+MS 4 minecraft:saddle*1
+MS 5 minecraft:iron_horse_armor*1
+MS 6 minecraft:white_carpet*3
+MS 7 minecraft:stick*5
+MS 8 minecraft:bread*25
+MS 52 minecraft:carrot*64
+PKT A minecraft:container_set_slot 14030b000001b5070000
+PKT A minecraft:container_set_slot 14030c001100
+PKT A minecraft:container_set_slot 14030d000201830b0000
+PKT A minecraft:container_set_slot 14030e001200
+PKT A minecraft:container_set_slot 14030f000327ef070000
+PKT A minecraft:container_set_slot 140310001300
+PKT A minecraft:container_set_slot 140311000401b5070000
+PKT A minecraft:container_set_slot 140312002c00
+PKT A minecraft:container_set_slot 140313000501ff0a0000
+PKT A minecraft:container_set_slot 140314002d00
+PKT A minecraft:container_set_slot 140315000603c4040000
+PKT A minecraft:container_set_slot 140316002e00
+PKT A minecraft:container_set_slot 140317000705a4080000
+PKT A minecraft:container_set_slot 140318002f00
+PKT A minecraft:container_set_slot 140319000819ab080000
+PKT A minecraft:container_set_slot 14031a003000
+I A 8 minecraft:carrot*64
+N D {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:1b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Items:[{Slot:0b,count:1,id:"minecraft:leather_horse_armor"},{Slot:1b,count:39,id:"minecraft:apple"},{Slot:2b,count:1,id:"minecraft:saddle"},{Slot:3b,count:1,id:"minecraft:iron_horse_armor"},{Slot:4b,count:3,id:"minecraft:white_carpet"},{Slot:5b,count:5,id:"minecraft:stick"},{Slot:6b,count:25,id:"minecraft:bread"}],LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[3.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.17499999701976776d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+# a drag over chest slots
+MENU A cid=3 type=none state=26 carried=empty
+MS 0 minecraft:saddle*1
+MS 2 minecraft:leather_horse_armor*1
+MS 3 minecraft:apple*39
+MS 4 minecraft:saddle*1
+MS 5 minecraft:iron_horse_armor*1
+MS 6 minecraft:white_carpet*3
+MS 7 minecraft:stick*5
+MS 8 minecraft:bread*25
+MS 52 minecraft:carrot*64
+I A 8 minecraft:carrot*64
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 44 minecraft:carrot*64
+I A 8 minecraft:carrot*64
+N D {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:1b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Items:[{Slot:0b,count:1,id:"minecraft:leather_horse_armor"},{Slot:1b,count:39,id:"minecraft:apple"},{Slot:2b,count:1,id:"minecraft:saddle"},{Slot:3b,count:1,id:"minecraft:iron_horse_armor"},{Slot:4b,count:3,id:"minecraft:white_carpet"},{Slot:5b,count:5,id:"minecraft:stick"},{Slot:6b,count:25,id:"minecraft:bread"}],LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[3.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],Tame:1b,Temper:0,attributes:[{base:0.17499999701976776d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{saddle:2.0f},equipment:{saddle:{count:1,id:"minecraft:saddle"}},fall_distance:0.0d}
+# the llama: three columns for strength 3, a carpet in the armor slot
+MENU A cid=4 type=none state=1 carried=empty
+MS 2 minecraft:wheat*7
+MS 10 minecraft:hay_block*2
+MS 38 minecraft:saddle*1
+MS 40 minecraft:white_carpet*3
+MS 41 minecraft:stick*5
+MS 46 minecraft:carrot*64
+PKT A minecraft:mount_screen_open 2a040300000067
+PKT A minecraft:container_set_content 1204012f000007aa0800000000000000000002c304000000000000000000000000000000000000000000000000000000000001b50700000003c404000005a40800000000000040e20a000000
+MENU A cid=4 type=none state=4 carried=minecraft:saddle*1
+MS 1 minecraft:white_carpet*1
+MS 2 minecraft:wheat*7
+MS 10 minecraft:hay_block*2
+MS 38 minecraft:white_carpet*2
+MS 41 minecraft:stick*5
+MS 46 minecraft:carrot*64
+PKT A minecraft:container_set_slot 140402002800
+PKT A minecraft:set_cursor_item 6203c4040000
+PKT A minecraft:container_set_slot 140403000101c4040000
+PKT A minecraft:set_cursor_item 6202c4040000
+PKT A minecraft:container_set_slot 140404002602c4040000
+PKT A minecraft:set_cursor_item 6201b5070000
+I A 0 minecraft:white_carpet*2
+I A 3 minecraft:stick*5
+I A 8 minecraft:carrot*64
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.horse.saddle source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.horse.saddle source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.horse.armor source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.horse.armor source=neutral vol=1.0 pitch=1.0
+EV sound at=3.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:entity.horse.saddle source=neutral vol=1.0 pitch=1.0
+EV sound at=3.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:entity.horse.saddle source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,9.5 r=16.0 ex=0 event=minecraft:entity.llama.swag source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,9.5 r=16.0 ex=0 event=minecraft:entity.llama.swag source=neutral vol=1.0 pitch=1.0
+N L {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:1b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Items:[{Slot:0b,count:7,id:"minecraft:wheat"},{Slot:8b,count:2,id:"minecraft:hay_block"}],LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,9.5d],Rotation:[0.0f,0.0f],Strength:3,Tame:1b,Temper:0,Variant:0,attributes:[{base:0.17499999701976776d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},equipment:{body:{count:1,id:"minecraft:white_carpet"}},fall_distance:0.0d}
+MENU A cid=4 type=none state=12 carried=minecraft:saddle*1
+MS 2 minecraft:stick*5
+MS 38 minecraft:white_carpet*3
+MS 44 minecraft:hay_block*2
+MS 45 minecraft:wheat*7
+MS 46 minecraft:carrot*64
+PKT A minecraft:container_set_slot 140405000200
+PKT A minecraft:container_set_slot 140406002d07aa080000
+PKT A minecraft:container_set_slot 140407000a00
+PKT A minecraft:container_set_slot 140408002c02c3040000
+PKT A minecraft:container_set_slot 140409000100
+PKT A minecraft:container_set_slot 14040a002603c4040000
+PKT A minecraft:container_set_slot 14040b000205a4080000
+PKT A minecraft:container_set_slot 14040c002900
+I A 0 minecraft:white_carpet*3
+I A 6 minecraft:hay_block*2
+I A 7 minecraft:wheat*7
+I A 8 minecraft:carrot*64
+N L {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},Bred:0b,CanPickUpLoot:0b,ChestedHorse:1b,DeathTime:0s,EatingHaystack:0b,FallFlying:0b,Fire:0s,ForcedAge:0,Health:53.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Items:[{Slot:0b,count:5,id:"minecraft:stick"}],LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,9.5d],Rotation:[0.0f,0.0f],Strength:3,Tame:1b,Temper:0,Variant:0,attributes:[{base:0.17499999701976776d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},fall_distance:0.0d}
+# the mule without a chest has no chest slots
+MENU A cid=5 type=none state=1 carried=empty
+MS 29 minecraft:white_carpet*3
+MS 30 minecraft:saddle*1
+MS 35 minecraft:hay_block*2
+MS 36 minecraft:wheat*7
+MS 37 minecraft:carrot*64
+PKT A minecraft:mount_screen_open 2a050000000068
+PKT A minecraft:container_set_content 12050126000000000000000000000000000000000000000000000000000000000003c404000001b50700000000000002c304000007aa08000040e20a000000
+# the screen closes when the player walks out of reach (the interaction range plus 4 blocks)
+MENU A cid=6 type=none state=1 carried=empty
+MS 0 minecraft:saddle*1
+MS 2 minecraft:leather_horse_armor*1
+MS 3 minecraft:apple*39
+MS 4 minecraft:saddle*1
+MS 5 minecraft:iron_horse_armor*1
+MS 6 minecraft:white_carpet*3
+MS 7 minecraft:stick*5
+MS 8 minecraft:bread*25
+MS 44 minecraft:white_carpet*3
+MS 45 minecraft:saddle*1
+MS 50 minecraft:hay_block*2
+MS 51 minecraft:wheat*7
+MS 52 minecraft:carrot*64
+PKT A minecraft:mount_screen_open 2a060500000066
+PKT A minecraft:container_set_content 1206013501b50700000001830b000027ef07000001b507000001ff0a000003c404000005a408000019ab080000000000000000000000000000000000000000000000000000000000000000000000000003c404000001b50700000000000002c304000007aa08000040e20a000000
+MENU A cid=6 type=none state=1 carried=empty
+MS 0 minecraft:saddle*1
+MS 2 minecraft:leather_horse_armor*1
+MS 3 minecraft:apple*39
+MS 4 minecraft:saddle*1
+MS 5 minecraft:iron_horse_armor*1
+MS 6 minecraft:white_carpet*3
+MS 7 minecraft:stick*5
+MS 8 minecraft:bread*25
+MS 44 minecraft:white_carpet*3
+MS 45 minecraft:saddle*1
+MS 50 minecraft:hay_block*2
+MS 51 minecraft:wheat*7
+MS 52 minecraft:carrot*64
+# a donkey that loads data without its chest has a new inventory: the screen closes (an empty chest: the slots of the screen keep the old container in vanilla)
+MENU A cid=7 type=none state=1 carried=empty
+MS 44 minecraft:white_carpet*3
+MS 45 minecraft:saddle*1
+MS 50 minecraft:hay_block*2
+MS 51 minecraft:wheat*7
+MS 52 minecraft:carrot*64
+PKT A minecraft:mount_screen_open 2a07050000006a
+PKT A minecraft:container_set_content 12070135000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003c404000001b50700000000000002c304000007aa08000040e20a000000
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 36 minecraft:white_carpet*3
+MS 37 minecraft:saddle*1
+MS 42 minecraft:hay_block*2
+MS 43 minecraft:wheat*7
+MS 44 minecraft:carrot*64
+PKT A minecraft:container_close 1107
+# a mount that is gone closes the screen too (a horse with no equipment: the slots of the screen keep the old container in vanilla)
+MENU A cid=8 type=none state=1 carried=empty
+MS 29 minecraft:white_carpet*3
+MS 30 minecraft:saddle*1
+MS 35 minecraft:hay_block*2
+MS 36 minecraft:wheat*7
+MS 37 minecraft:carrot*64
+PKT A minecraft:mount_screen_open 2a08000000006b
+PKT A minecraft:container_set_content 12080126000000000000000000000000000000000000000000000000000000000003c404000001b50700000000000002c304000007aa08000040e20a000000
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 36 minecraft:white_carpet*3
+MS 37 minecraft:saddle*1
+MS 42 minecraft:hay_block*2
+MS 43 minecraft:wheat*7
+MS 44 minecraft:carrot*64
+PKT A minecraft:container_close 1108

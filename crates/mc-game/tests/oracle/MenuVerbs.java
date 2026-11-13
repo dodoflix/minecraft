@@ -41,7 +41,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayId;
  * recipe_seen PLAYER RECIPE_ID          ServerboundRecipeBookSeenRecipePacket for the first display of the recipe
  * recipe_settings PLAYER TYPE OPEN FILTERING   ServerboundRecipeBookChangeSettingsPacket (TYPE: crafting furnace blast_furnace smoker)
  * dump recipes:PLAYER        `RECIPES PLAYER crafting=OF furnace=OF blast_furnace=OF smoker=OF known=ID,.. highlight=ID,..` (O = open, F = filtering as 0/1; ids sorted)
- * dump menu:PLAYER            `MENU PLAYER cid=N type=KEY|inventory state=N carried=STACK`, `MS i STACK` per non-empty slot, `MD i value` per data slot
+ * dump menu:PLAYER            `MENU PLAYER cid=N type=KEY|inventory|none state=N carried=STACK` (none = a menu without a type, the mount inventories), `MS i STACK` per non-empty slot, `MD i value` per data slot
  * </pre>
  */
 final class MenuVerbs {
@@ -229,7 +229,15 @@ final class MenuVerbs {
    static void dump(EntityOracleDriver d, String name) {
       ServerPlayer p = (ServerPlayer)d.ref(name);
       AbstractContainerMenu m = p.containerMenu;
-      String type = m == p.inventoryMenu ? "inventory" : BuiltInRegistries.MENU.getKey(m.getType()).toString();
+      String type;
+      if (m == p.inventoryMenu) type = "inventory";
+      else {
+         try {
+            type = BuiltInRegistries.MENU.getKey(m.getType()).toString();
+         } catch (UnsupportedOperationException e) {
+            type = "none"; // the mount menus have no menu type
+         }
+      }
       d.out.println("MENU " + name + " cid=" + m.containerId + " type=" + type + " state=" + m.getStateId() + " carried=" + d.itemFull(m.getCarried()));
       for (int i = 0; i < m.slots.size(); i++) {
          ItemStack s = m.getSlot(i).getItem();

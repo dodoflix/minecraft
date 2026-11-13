@@ -32,6 +32,7 @@ impl ServerPlayer {
         }) else {
             return InteractionResult::PASS;
         };
+        self.open_pending_mount_inventory(level);
         if interact.consumes_action() {
             // vanilla compares the stack object: the hand still holds the same (emptied or shrunk) stack
             if self.has_infinite_materials() {

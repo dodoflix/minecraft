@@ -25,6 +25,9 @@ pub struct PlayerMenus {
     container_menu: Option<Box<dyn AbstractContainerMenu>>,
     /// `containerCounter`.
     container_counter: i32,
+    /// A mount whose `openCustomInventoryScreen` ran while the mount was out of its level (inside its own `interact`): the screen reads
+    /// the mount, so it opens (`ServerPlayer::open_pending_mount_inventory`) once the mount is back.
+    pub pending_mount_inventory: Option<crate::world::entity::EntityId>,
 }
 
 impl PlayerMenus {
@@ -33,6 +36,7 @@ impl PlayerMenus {
             inventory_menu: Some(Box::new(InventoryMenu::new(true))),
             container_menu: None,
             container_counter: 0,
+            pending_mount_inventory: None,
         }
     }
 

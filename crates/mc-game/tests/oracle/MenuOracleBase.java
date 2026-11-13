@@ -15,6 +15,22 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.MapPostProcessing;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffers;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.npc.villager.AbstractVillager;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -70,6 +86,12 @@ import net.minecraft.world.phys.AABB;
  *   GEN kind seed n spec|spec|.. [ticks]  n random ops (SET/GIVE/CLICK/DRAG/BUTTON) on a fresh `kind` session, from java.util.Random(seed);
  *                                       `ticks` replaces half of the BUTTON ops by TICK 1..30 and never drops items (no throw, no click outside the window:
  *                                       the real player would pick them up while ticking, the replay's stand-in does not)
+ *   GENCONT seed n spec|spec|..         n random ops on the menu that is open now (TRADE replaces BUTTON in a trading screen), no OPEN and no CLOSE
+ *   Entity menus: `OPEN merchant|mount ..` only resets (no block, no menu); the menu comes from an entity:
+ *   SPAWN ref type x y z seed [SNBT]    the entity (no spaces in the SNBT), its random seeded with `seed`; discarded by the next OPEN
+ *   USE ref [sneak]                     a horse opens its inventory (`openCustomInventoryScreen`), another entity is interacted with (a villager starts trading)
+ *   TRADE n                             `handleSelectTrade`: selection hint and `tryMoveItems`        NBT ref SNBT   merge SNBT into the entity (`/data merge`)
+ *   DISCARD ref | PLAYER x y z | HEALTH n|disconnected     remove the entity | `setPos` of the player | its health (0 = dead, no death processing) or its disconnected flag
  * Stdout: one "OP ..." line per op (replayed by Rust) followed by "OUT ..." lines, only those that changed since the last printed
  * line of the same kind (reset by OPEN):
  *   OUT S i=stack ..   menu slots (non-empty)   OUT D d0 d1 ..  data slots   OUT C carried   OUT I i=stack  player inventory
@@ -77,6 +99,7 @@ import net.minecraft.world.phys.AABB;
  *   OUT DROPS id=n,..  dropped item entities (only when there are some)   OUT K ids  recipes the player knows (after a RECIPE op)
  *   OUT M id=cx,cz,scale,locked,colorHash ..  every map of the level, ids 0..63 (only when any)   OUT R b  result of BUTTON / NAME
  *   OUT PKT ...  container packets sent since the last op   OUT EV ...  broadcasts (EVENTS on)
+ *   OUT P x,y,z alive  the player once it moved or died   OUT E ref alive=A [xp= trading= offers=uses/max/demand/special;..] [persist= drops=]  entities of SPAWN
  */
 public class MenuOracleBase {
    static final PrintStream OUT = VanillaLevel.OUT;
@@ -94,6 +117,8 @@ public class MenuOracleBase {
    static final List<BlockPos> placed = new ArrayList<>();
    /** The map ids 0..MAP_PROBE the M line looks at: the ones made by MAP and the ones crafted (cartography table). */
    static final int MAP_PROBE = 64;
+   /** Entities of SPAWN by their names; discarded by the next OPEN. */
+   static final Map<String, Entity> ents = new LinkedHashMap<>();
 
    /** What a kind adds around TABLE besides its block (shelves/blockers of an enchanting table). */
    interface Setup {
@@ -137,6 +162,9 @@ public class MenuOracleBase {
          ((net.minecraft.world.level.block.entity.LecternBlockEntity) level.getBlockEntity(TABLE)).setBook(book(pages, writable != 0));
       }));
       KINDS.put("stonecutter", new Kind(Blocks.STONECUTTER, NO_SETUP));
+      // no block: the menu comes from an entity (SPAWN, USE)
+      KINDS.put("merchant", new Kind(null, NO_SETUP));
+      KINDS.put("mount", new Kind(null, NO_SETUP));
    }
 
    static String st(ItemStack s) {
@@ -290,9 +318,130 @@ public class MenuOracleBase {
             .append(',').append(data.locked ? 1 : 0).append(',').append(Arrays.hashCode(data.colors));
       }
       stateUnlessEmpty("M", m.toString(), "M");
+      // the player's position and life only show once an op moved or killed it
+      stateUnlessEmpty("P", "P " + p.getX() + "," + p.getY() + "," + p.getZ() + " " + (p.isAlive() ? 1 : 0), "P 0.5,71.0,0.5 1");
+      ents.forEach((ref, e) -> state("E" + ref, entityLine(ref, e)));
       if (events) for (String e : VanillaLevel.EVENTS) out(e);
       VanillaLevel.EVENTS.clear();
       for (String l : packetLines()) out(l);
+   }
+
+   /** `E ref alive=A` plus `xp= trading= offers=uses/max/demand/special;..` of a villager and `persist= drops=` of a mob. */
+   static String entityLine(String ref, Entity e) {
+      StringBuilder b = new StringBuilder("E " + ref + " alive=" + (e.isAlive() ? 1 : 0));
+      if (!e.isAlive()) return b.toString();
+      if (e instanceof AbstractVillager av) {
+         b.append(" xp=").append(av.getVillagerXp()).append(" trading=").append(av.getTradingPlayer() != null ? 1 : 0).append(" offers=");
+         StringJoiner offers = new StringJoiner(";");
+         for (MerchantOffer o : av.getOffers()) offers.add(o.getUses() + "/" + o.getMaxUses() + "/" + o.getDemand() + "/" + o.getSpecialPriceDiff());
+         b.append(offers);
+      }
+      if (e instanceof AbstractHorse) {
+         try (ProblemReporter.ScopedCollector rep = new ProblemReporter.ScopedCollector(e.problemPath(), org.slf4j.LoggerFactory.getLogger("oracle"))) {
+            TagValueOutput o = TagValueOutput.createWithContext(rep, level.registryAccess());
+            e.saveWithoutId(o);
+            CompoundTag tag = o.buildResult();
+            b.append(" persist=").append(tag.getBooleanOr("PersistenceRequired", false) ? 1 : 0)
+               .append(" drops=").append(tag.get("drop_chances") == null ? "-" : EntityOracleDriver.canon(tag.get("drop_chances")));
+         }
+      }
+      return b.toString();
+   }
+
+   /** `SPAWN ref type x y z seed [SNBT]`: the entity as the driver's `spawn` makes it, its random seeded with `seed`. */
+   static void spawn(String ref, String type, double x, double y, double z, long seed, String snbt) throws Exception {
+      op("SPAWN " + ref + " " + type + " " + x + " " + y + " " + z + " " + seed + (snbt == null ? "" : " " + snbt));
+      Entity e = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse(type.contains(":") ? type : "minecraft:" + type)).create(level, EntitySpawnReason.COMMAND);
+      e.snapTo(x, y, z, 0f, 0f);
+      if (snbt != null) {
+         try (ProblemReporter.ScopedCollector rep = new ProblemReporter.ScopedCollector(e.problemPath(), org.slf4j.LoggerFactory.getLogger("oracle"))) {
+            TagValueOutput o = TagValueOutput.createWithContext(rep, level.registryAccess());
+            e.saveWithoutId(o);
+            CompoundTag merged = o.buildResult().merge(TagParser.parseCompoundFully(snbt));
+            e.load(TagValueInput.create(rep, level.registryAccess(), merged));
+         }
+      }
+      e.getRandom().setSeed(seed);
+      level.addFreshEntity(e);
+      ents.put(ref, e);
+      dump();
+   }
+
+   /** `USE ref [sneak]`: a horse opens its inventory screen, anything else is interacted with (a villager starts trading). */
+   static void use(String ref, boolean sneak) {
+      op("USE " + ref + " " + (sneak ? 1 : 0));
+      Entity e = ents.get(ref);
+      p.setShiftKeyDown(sneak);
+      if (e instanceof AbstractHorse h) h.openCustomInventoryScreen(p);
+      else e.interact(p, InteractionHand.MAIN_HAND, e.position());
+      p.setShiftKeyDown(false);
+      menu = p.containerMenu;
+      dump();
+   }
+
+   /** `TRADE n`: `ServerGamePacketListenerImpl.handleSelectTrade`. */
+   static void trade(int selection) {
+      op("TRADE " + selection);
+      if (p.containerMenu instanceof MerchantMenu m && m.stillValid(p)) {
+         m.setSelectionHint(selection);
+         m.tryMoveItems(selection);
+      }
+      menu.broadcastChanges();
+      dump();
+   }
+
+   /** `NBT ref SNBT`: merges SNBT into an entity of SPAWN (the driver's `nbt`). */
+   static void nbt(String ref, String snbt) {
+      op("NBT " + ref + " " + snbt);
+      Entity e = ents.get(ref);
+      try (ProblemReporter.ScopedCollector rep = new ProblemReporter.ScopedCollector(e.problemPath(), org.slf4j.LoggerFactory.getLogger("oracle"))) {
+         TagValueOutput o = TagValueOutput.createWithContext(rep, level.registryAccess());
+         e.saveWithoutId(o);
+         CompoundTag merged = o.buildResult().merge(TagParser.parseCompoundFully(snbt));
+         e.load(TagValueInput.create(rep, level.registryAccess(), merged));
+      } catch (Exception ex) {
+         throw new RuntimeException(ex);
+      }
+      dump();
+   }
+
+   /** `DISCARD ref`: the entity leaves the level. */
+   static void discard(String ref) {
+      op("DISCARD " + ref);
+      ents.get(ref).discard();
+      dump();
+   }
+
+   /** `PLAYER x y z`: `setPos` of the player. */
+   static void player(double x, double y, double z) {
+      op("PLAYER " + x + " " + y + " " + z);
+      p.setPos(x, y, z);
+      dump();
+   }
+
+   /** `HEALTH n`: the player's health (0 = dead without the death processing) or `DISCONNECTED`. */
+   static void health(String what) throws Exception {
+      op("HEALTH " + what);
+      if (what.equals("disconnected")) setField(ServerPlayer.class, p, "disconnected", true);
+      else p.setHealth(Float.parseFloat(what));
+      dump();
+   }
+
+   /**
+    * `MAPOFFERS ref`: the villager's offers become two cartographer offers (13 and 14 emeralds with a compass) whose result is a map that
+    * the trade finishes when it is taken: locked (id 5) or scaled (id 6). Map post-processing is not stored in the Offers NBT.
+    */
+   static void mapOffers(String ref) throws Exception {
+      op("MAPOFFERS " + ref);
+      MerchantOffers offers = new MerchantOffers();
+      for (int i = 0; i < 2; i++) {
+         ItemStack map = new ItemStack(Items.FILLED_MAP);
+         map.set(DataComponents.MAP_ID, new MapId(5 + i));
+         map.set(DataComponents.MAP_POST_PROCESSING, i == 0 ? MapPostProcessing.LOCK : MapPostProcessing.SCALE);
+         offers.add(new MerchantOffer(new ItemCost(Items.EMERALD, 13 + i), Optional.of(new ItemCost(Items.COMPASS, 1)), map, 12, 1, 0.05F));
+      }
+      setField(AbstractVillager.class, ents.get(ref), "offers", offers);
+      dump();
    }
 
    static void put(BlockPos pos, BlockState state) {
@@ -320,7 +469,13 @@ public class MenuOracleBase {
       for (int i = 0; i < p.getInventory().getContainerSize(); i++) p.getInventory().setItem(i, ItemStack.EMPTY);
       p.inventoryMenu.setCarried(ItemStack.EMPTY);
       if (recipes && !p.getRecipeBook().pack().known().isEmpty()) v.command("recipe take Steve *");
+      for (Entity e : ents.values()) e.discard();
+      ents.clear();
       clearArea();
+      p.setPos(0.5, 71, 0.5);
+      p.setHealth(p.getMaxHealth());
+      p.setShiftKeyDown(false);
+      setField(ServerPlayer.class, p, "disconnected", false);
       p.experienceLevel = xp;
       p.totalExperience = 0;
       p.experienceProgress = 0;
@@ -329,10 +484,12 @@ public class MenuOracleBase {
       p.getAbilities().mayBuild = true;
       p.getRandom().setSeed(pseed);
       level.getRandom().setSeed(lseed);
-      put(TABLE, spec.block().defaultBlockState());
-      spec.setup().run(shelves, blockers);
-      MenuProvider provider = level.getBlockState(TABLE).getMenuProvider(level, TABLE);
-      if (provider != null) p.openMenu(provider);
+      if (spec.block() != null) {
+         put(TABLE, spec.block().defaultBlockState());
+         spec.setup().run(shelves, blockers);
+         MenuProvider provider = level.getBlockState(TABLE).getMenuProvider(level, TABLE);
+         if (provider != null) p.openMenu(provider);
+      }
       menu = p.containerMenu;
       dump();
    }
@@ -493,6 +650,17 @@ public class MenuOracleBase {
       Random r = new Random(seed);
       OUT.println("# GEN " + k + " " + seed + " " + count);
       open(k, r.nextInt(31), r.nextInt(), r.nextInt(5) == 0, r.nextInt(1 << 24), r.nextInt(1 << 24), r.nextInt(16), 0);
+      randomOps(r, count, pool, ticks);
+      close();
+   }
+
+   /** `count` random ops on the menu that is open now (no OPEN, no CLOSE): the entity kinds open theirs with SPAWN and USE. */
+   static void generateContinue(long seed, int count, String[] pool) {
+      OUT.println("# GENCONT " + seed + " " + count);
+      randomOps(new Random(seed), count, pool, false);
+   }
+
+   static void randomOps(Random r, int count, String[] pool, boolean ticks) {
       ContainerInput[] inputs = {ContainerInput.PICKUP, ContainerInput.PICKUP, ContainerInput.PICKUP, ContainerInput.QUICK_MOVE, ContainerInput.SWAP, ContainerInput.THROW,
          ContainerInput.CLONE, ContainerInput.PICKUP_ALL};
       for (int i = 0; i < count; i++) {
@@ -528,12 +696,12 @@ public class MenuOracleBase {
                drag(type, slots);
             }
             default -> {
-               if (ticks && r.nextBoolean()) tick(1 + r.nextInt(30));
+               if (menu instanceof MerchantMenu) trade(r.nextInt(9) - 1);
+               else if (ticks && r.nextBoolean()) tick(1 + r.nextInt(30));
                else button(r.nextInt(4));
             }
          }
       }
-      close();
    }
 
    /** Runs script lines (see the class comment). */
@@ -567,6 +735,15 @@ public class MenuOracleBase {
             case "MAYBUILD" -> maybuild(a[1].equals("1"));
             case "SETBEACON" -> setBeacon(a[1], a[2]);
             case "GEN" -> generate(a[1], Long.parseLong(a[2]), Integer.parseInt(a[3]), a[4].split("\\|"), a.length > 5 && a[5].equals("ticks"));
+            case "GENCONT" -> generateContinue(Long.parseLong(a[1]), Integer.parseInt(a[2]), a[3].split("\\|"));
+            case "SPAWN" -> spawn(a[1], a[2], Double.parseDouble(a[3]), Double.parseDouble(a[4]), Double.parseDouble(a[5]), Long.parseLong(a[6]), a.length > 7 ? a[7] : null);
+            case "USE" -> use(a[1], a.length > 2 && a[2].equals("1"));
+            case "TRADE" -> trade(Integer.parseInt(a[1]));
+            case "NBT" -> nbt(a[1], a[2]);
+            case "DISCARD" -> discard(a[1]);
+            case "PLAYER" -> player(Double.parseDouble(a[1]), Double.parseDouble(a[2]), Double.parseDouble(a[3]));
+            case "HEALTH" -> health(a[1]);
+            case "MAPOFFERS" -> mapOffers(a[1]);
             default -> throw new IllegalArgumentException("unknown script line: " + line);
          }
       }

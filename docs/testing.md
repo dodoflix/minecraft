@@ -127,7 +127,9 @@ crate can use it as a dev-dependency.
   block, tick, recipe, gamerule, seed, map, maybuild, setbeacon, seeded random sessions) with the menu, inventory, xp, drops, packets and level
   broadcasts after every op (`scripts/menu-oracle.sh NAME`, fixtures in `fixtures/menu_oracle/`). `golden/common/menu_oracle.rs`
   replays them on a stand-in player and names the first diverging op with both sides' state. A new menu is one entry in the kind
-  table on each side and a script.
+  table on each side and a script. A menu that an entity provides (villager trading, horse inventories) is opened with `SPAWN` and
+  `USE` after an `OPEN` of the kind `merchant` or `mount`, and `TRADE`, `NBT`, `DISCARD`, `PLAYER` and `HEALTH` change the world around
+  it; statistics and advancement triggers need a real player and are compared by the packet scenarios (`mnu_trade_session`).
 - A third target, `tests/it/main.rs`, holds T0/T1 tests that need a process of their own because they change
   process-wide state that every other test of the crate would see (today only `mc-text`: `Language::inject` replaces
   the translations of the whole process). A crate adds it only for that reason. Tests that capture log lines, or that

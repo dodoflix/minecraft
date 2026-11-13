@@ -145,7 +145,7 @@ pub fn with_player_container<R>(
         ContainerKey::EntityEquipment(id, equipment) => {
             let mut f = Some(f);
             let resolved = player.level().and_then(|l| {
-                l.with_entity(*id, |_, e| {
+                l.with_entity(*id, |level, e| {
                     let mount = e.as_mount_inventory_mut()?;
                     let mut container = super::mount_menu::EquipmentSlotContainer {
                         stack: mount.get_equipment_slot_item(*equipment),
@@ -153,7 +153,7 @@ pub fn with_player_container<R>(
                     };
                     let result = (f.take().expect("called once"))(&mut container);
                     if container.dirty {
-                        mount.set_equipment_slot_item(*equipment, container.stack);
+                        mount.set_equipment_slot_item(level, *equipment, container.stack);
                     }
                     Some(result)
                 })

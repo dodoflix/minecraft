@@ -76,6 +76,17 @@ impl PlayerSystems for ServerPlayerSystems {
         let Some(vehicle) = ctx.player.base().vehicle else {
             return;
         };
+        if ctx
+            .level
+            .get_entity(vehicle)
+            .is_some_and(|e| e.has_custom_inventory_screen())
+        {
+            ctx.level.with_entity(vehicle, |level, e| {
+                e.open_custom_inventory_screen(level, ctx.player)
+            });
+            ctx.player.open_pending_mount_inventory(ctx.level);
+            return;
+        }
         let Some((title, position)) = ctx
             .level
             .get_entity(vehicle)

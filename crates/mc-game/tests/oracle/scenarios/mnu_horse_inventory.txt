@@ -1,0 +1,165 @@
+# The inventory screen of tamed mounts: a horse (saddle and armor slot), a donkey with a chest (five columns), a llama with a chest
+# (the columns follow its strength) and a mule. Opening it by sneaking or from the saddle, what each slot accepts, shift-click in
+# both directions, the equipment the mount keeps, and the screen closing when the mount is out of reach, replaced its chest or is gone.
+command_env
+level flat
+preload 4
+spawn_player A survival 0.5 -60 6.5 180 0
+spawn_player S spectator 12.5 -60 6.5 180 0
+entity_counter 100
+spawn H minecraft:horse 0.5 -60 4.5 0 0 {Tame:1b,NoAI:1b}
+spawn D minecraft:donkey 3.5 -60 6.5 0 0 {Tame:1b,NoAI:1b,ChestedHorse:1b,Items:[{Slot:0b,id:"minecraft:bread",count:5},{Slot:3b,id:"minecraft:apple",count:9},{Slot:14b,id:"minecraft:carrot",count:64}]}
+spawn L minecraft:llama 0.5 -60 9.5 0 0 {Tame:1b,NoAI:1b,ChestedHorse:1b,Strength:3,Items:[{Slot:0b,id:"minecraft:wheat",count:7},{Slot:8b,id:"minecraft:hay_block",count:2}]}
+spawn M minecraft:mule 4.5 -60 9.5 0 0 {Tame:1b,NoAI:1b}
+spawn U minecraft:horse 7.5 -60 6.5 0 0 {NoAI:1b}
+give A hotbar0 minecraft:saddle
+give A hotbar1 minecraft:iron_horse_armor
+give A hotbar2 minecraft:white_carpet 3
+give A hotbar3 minecraft:stick 5
+give A hotbar4 minecraft:bread 20
+give A inv9 minecraft:saddle
+give A inv10 minecraft:leather_horse_armor
+give A inv11 minecraft:apple 30
+give S hotbar0 minecraft:saddle
+tick 1
+dump packets:A:none packets:S:none
+note sneaking at a tamed horse opens its screen: the screen packet with the mount entity and the content with the saddle and armor slots
+interact A H main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+note the saddle slot takes a saddle only and one item, the armor slot takes horse armor only
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item events nbt:H
+click A 0 0 PICKUP
+click A 30 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item events nbt:H
+click A 1 0 PICKUP
+click A 30 0 PICKUP
+click A 31 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item events nbt:H
+note carpet, a stack of sticks and a stack of saddles do not fit the armor slot; the cursor keeps them
+click A 32 0 PICKUP
+click A 1 0 PICKUP
+click A 33 1 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A
+click A 32 0 PICKUP
+click A 33 0 PICKUP
+note shift-click: a saddle goes to the saddle slot, armor to the armor slot, other items to nowhere (a horse has no chest)
+click A 0 0 QUICK_MOVE
+click A 1 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:H
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+click A 29 0 QUICK_MOVE
+click A 30 0 QUICK_MOVE
+click A 33 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A
+note a second saddle stays in the inventory while the saddle slot is taken
+give A inv9 minecraft:saddle
+give A inv10 minecraft:iron_horse_armor
+click A 2 0 QUICK_MOVE
+click A 3 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A
+note a spectator does not open the screen
+give S hotbar1 minecraft:stick
+interact S H main sneak
+dump menu:S packets:S:mount_screen_open,open_screen,container_set_content
+note without sneaking the player mounts instead; from the saddle the inventory key opens the screen
+close_menu A
+interact A H main
+pcommand A OPEN_INVENTORY
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content,container_close
+close_menu A
+note an untamed horse has no screen
+interact A U main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+note the donkey with a chest: five columns of three rows after the saddle and armor slots
+give A hotbar0 minecraft:saddle
+give A hotbar1 minecraft:iron_horse_armor
+give A hotbar2 minecraft:white_carpet 3
+give A hotbar3 minecraft:stick 5
+give A hotbar4 minecraft:bread 20
+give A inv9 minecraft:saddle
+give A inv10 minecraft:leather_horse_armor
+give A inv11 minecraft:apple 30
+interact A D main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+click A 2 0 PICKUP
+click A 47 0 PICKUP
+click A 47 1 PICKUP
+click A 5 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:D
+click A 3 0 PICKUP
+note shift-click from the chest into the inventory and back
+click A 5 0 QUICK_MOVE
+click A 16 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:D
+note a saddle goes to its slot, horse armor is refused by a donkey, other stacks fill the chest in order
+click A 17 0 QUICK_MOVE
+click A 18 0 QUICK_MOVE
+click A 19 0 QUICK_MOVE
+click A 44 0 QUICK_MOVE
+click A 45 0 QUICK_MOVE
+click A 46 0 QUICK_MOVE
+click A 47 0 QUICK_MOVE
+click A 48 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:D
+note a drag over chest slots
+click A 17 0 PICKUP
+click A -999 0 QUICK_CRAFT
+click A 6 1 QUICK_CRAFT
+click A 7 1 QUICK_CRAFT
+click A 8 1 QUICK_CRAFT
+click A -999 2 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A
+close_menu A
+dump menu:A packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:D
+note the llama: three columns for strength 3, a carpet in the armor slot
+give A hotbar0 minecraft:saddle
+give A hotbar2 minecraft:white_carpet 3
+give A hotbar3 minecraft:stick 5
+interact A L main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+click A 40 0 PICKUP
+click A 1 0 PICKUP
+click A 38 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A events nbt:L
+click A 2 0 QUICK_MOVE
+click A 10 0 QUICK_MOVE
+click A 1 0 QUICK_MOVE
+click A 41 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item inventory:A nbt:L
+close_menu A
+note the mule without a chest has no chest slots
+interact A M main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+close_menu A
+note the screen closes when the player walks out of reach (the interaction range plus 4 blocks)
+interact A D main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+tp A 9.5 -60 6.5
+tick 1
+dump menu:A packets:A:container_close,container_set_slot,container_set_content
+tp A 0.5 -60 6.5
+tick 1
+note a donkey that loads data without its chest has a new inventory: the screen closes (an empty chest: the slots of the screen keep the old container in vanilla)
+spawn E minecraft:donkey 3.5 -60 4.5 0 0 {Tame:1b,NoAI:1b,ChestedHorse:1b}
+interact A E main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+nbt E {ChestedHorse:0b}
+tick 1
+dump menu:A packets:A:container_close,container_set_slot,container_set_content
+note a mount that is gone closes the screen too (a horse with no equipment: the slots of the screen keep the old container in vanilla)
+spawn K minecraft:horse 0.5 -60 4.5 0 0 {Tame:1b,NoAI:1b}
+interact A K main sneak
+dump menu:A packets:A:mount_screen_open,open_screen,container_set_content
+kill K
+tick 1
+dump menu:A packets:A:container_close,container_set_slot,container_set_content

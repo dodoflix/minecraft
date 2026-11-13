@@ -307,7 +307,7 @@ pub fn dump<H: ActionHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
                 let type_name = if in_inventory {
                     "inventory".to_owned()
                 } else {
-                    base.get_type().name().to_owned()
+                    base.menu_type().map_or("none", |t| t.name()).to_owned()
                 };
                 // MENU REF cid=N type=KEY|inventory state=N carried=STACK
                 let mut lines = vec![format!(

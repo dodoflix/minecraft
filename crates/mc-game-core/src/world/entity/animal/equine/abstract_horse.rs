@@ -251,9 +251,14 @@ impl<T: AbstractHorse + ?Sized> crate::world::inventory::MountInventory for T {
     fn get_equipment_slot_item(&self, slot: EquipmentSlot) -> ItemStack {
         self.get_item_by_slot(slot)
     }
-    fn set_equipment_slot_item(&mut self, slot: EquipmentSlot, stack: ItemStack) {
+    fn set_equipment_slot_item(
+        &mut self,
+        level: &mut ServerLevel,
+        slot: EquipmentSlot,
+        stack: ItemStack,
+    ) {
         let empty = stack.is_empty();
-        mob::equipment::set_item_slot_spawn(self.as_dyn_mut(), slot, stack);
+        mob::equipment::set_item_slot(self.as_dyn_mut(), level, slot, stack);
         if !empty {
             mob::equipment::set_guaranteed_drop(self.as_dyn_mut(), slot);
             if let Some(m) = self.mob_mut() {
@@ -662,14 +667,15 @@ pub fn play_step_sound(
     }
 }
 
-/// `openCustomInventoryScreen(player)`.
+/// `openCustomInventoryScreen(player)`. The screen reads the horse, which is out of its level while it runs
+/// (inside `interact`, the `OPEN_INVENTORY` hook): the open is deferred to `ServerPlayer::open_pending_mount_inventory`.
 pub fn open_custom_inventory_screen(
     e: &mut (impl AbstractHorse + ?Sized),
-    level: &mut ServerLevel,
+    _level: &mut ServerLevel,
     player: &mut ServerPlayer,
 ) {
     if (!e.base().is_vehicle() || e.base().passengers.contains(&player.id())) && is_tamed(e) {
-        player.open_horse_inventory(level, e.id());
+        player.player.menus.pending_mount_inventory = Some(e.id());
     }
 }
 

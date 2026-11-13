@@ -24,6 +24,7 @@ use mc_core::ident::Identifier;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::{LegacyRandomSource, RandomSource};
+use mc_data::EntityType;
 use mc_data::MobEffect;
 use mc_data::block::{Block, BlockState};
 use mc_game::registry::RegistryAccess;
@@ -34,6 +35,7 @@ use mc_game::world::container::Container;
 use mc_game::world::entity::EntityId;
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::experience_orb::ExperienceOrb;
+use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::item::ItemEntity;
 use mc_game::world::entity::player::inventory::Inventory;
 use mc_game::world::inventory::enchantment_menu::BOOKSHELF_OFFSETS;
@@ -240,10 +242,14 @@ fn data() -> (RegistryAccess, RecipeManager) {
     DATA.clone()
 }
 
-/// The player of `VanillaLevel.connect` (standing next to [`TABLE`]): the eye is 1.62 above the feet.
-fn eye() -> Vec3 {
-    Vec3::new(0.5, 71.0 + f64::from(1.62f32), 0.5)
-}
+/// Where the player of `VanillaLevel.connect` stands (next to [`TABLE`]).
+const START: Vec3 = Vec3::new(0.5, 71.0, 0.5);
+
+/// The entity id of the stand-in player: far from the ids the level hands out, so no entity of the replay shares it.
+const PLAYER_ID: i32 = 0x7000_0001;
+
+/// Kinds of the `OPEN` op that open nothing: the menu comes from `SPAWN` and `USE`.
+const ENTITY_KINDS: &[&str] = &["merchant", "mount"];
 
 /// `Player` as the menus see it: the inventory, xp, the enchantment seed, the entity random, the recipe book and the level.
 pub struct TestPlayer {
@@ -256,11 +262,36 @@ pub struct TestPlayer {
     pub rng: LegacyRandomSource,
     pub level: ServerLevel,
     pub recipe_book: ServerRecipeBook,
+    /// The feet (`PLAYER` moves it).
+    pub pos: Vec3,
+    /// `HEALTH 0`: not alive, no death processing.
+    pub dead: bool,
+    /// `HEALTH disconnected`.
+    pub disconnected: bool,
+}
+
+impl TestPlayer {
+    /// The eye is 1.62 above the feet.
+    fn eye(&self) -> Vec3 {
+        Vec3::new(self.pos.x, self.pos.y + f64::from(1.62f32), self.pos.z)
+    }
 }
 
 impl MenuPlayer for TestPlayer {
     fn entity_id(&self) -> i32 {
-        1
+        PLAYER_ID
+    }
+    fn is_alive(&self) -> bool {
+        !self.dead
+    }
+    fn has_disconnected(&self) -> bool {
+        self.disconnected
+    }
+    /// `Player.isWithinEntityInteractionRange`: the `ENTITY_INTERACTION_RANGE` base value (3.0) plus the buffer; the oracle's creative
+    /// player never gets the creative bonus (it is added by the player's tick, which scripts do not run for it).
+    fn is_within_entity_interaction_range(&self, target: &AABB, buffer: f64) -> bool {
+        let range = 3.0 + buffer;
+        target.distance_to_sqr(self.eye()) < range * range
     }
     fn registries(&self) -> RegistryAccess {
         self.level.registries.clone()
@@ -289,7 +320,7 @@ impl MenuPlayer for TestPlayer {
         if stack.is_empty() {
             return;
         }
-        let eye = eye();
+        let eye = self.eye();
         let mut entity =
             ItemEntity::with_stack(&self.level, eye.x, eye.y - f64::from(0.3f32), eye.z, stack);
         entity.set_pick_up_delay(40);
@@ -302,7 +333,7 @@ impl MenuPlayer for TestPlayer {
     /// `Player.isWithinBlockInteractionRange`: the eye against the block's box.
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool {
         let range = self.container_interaction_range() + buffer;
-        AABB::from_block_pos(&pos).distance_to_sqr(eye()) < range * range
+        AABB::from_block_pos(&pos).distance_to_sqr(self.eye()) < range * range
     }
     fn send_inventory_slot_update(&mut self, _slot: usize, _stack: ItemStack) {}
     fn level(&mut self) -> Option<&mut ServerLevel> {
@@ -409,6 +440,10 @@ pub struct Session {
     events: bool,
     /// Set by the first `RECIPE` op (see `MenuOracleBase.recipes`).
     recipes: bool,
+    /// The entities of `SPAWN` by name.
+    ents: Vec<(String, EntityId)>,
+    /// The last printed `E` line per entity (see `MenuOracleBase.entityLine`).
+    ent_prev: HashMap<String, String>,
     log: Arc<Mutex<Vec<BroadcastRecord>>>,
 }
 
@@ -479,6 +514,9 @@ impl Session {
                 rng: LegacyRandomSource::new(0),
                 level,
                 recipe_book: ServerRecipeBook::new(),
+                pos: START,
+                dead: false,
+                disconnected: false,
             },
             menu: None,
             packets: Rc::default(),
@@ -494,8 +532,162 @@ impl Session {
             ticks: 0,
             events: false,
             recipes: false,
+            ents: Vec::new(),
+            ent_prev: HashMap::new(),
             log,
         }
+    }
+
+    fn ent(&self, name: &str) -> EntityId {
+        self.ents
+            .iter()
+            .find(|(n, _)| n == name)
+            .map(|(_, id)| *id)
+            .unwrap_or_else(|| panic!("no entity {name}"))
+    }
+
+    /// `SPAWN ref type x y z seed [SNBT]`: the entity as the driver's `spawn` makes it, its random seeded with `seed`.
+    fn spawn(&mut self, rest: &str) {
+        let a: Vec<&str> = rest.splitn(7, ' ').collect();
+        let type_name = if a[1].contains(':') {
+            a[1].to_owned()
+        } else {
+            format!("minecraft:{}", a[1])
+        };
+        let ty =
+            EntityType::by_name(&type_name).unwrap_or_else(|| panic!("entity type {type_name}"));
+        let level = &mut self.player.level;
+        let request = EntitySpawnRequest {
+            reason: mc_data::enums::EntitySpawnReason::Command,
+            ignore_checks: true,
+        };
+        let mut e = factory::create(ty, level, request)
+            .unwrap_or_else(|| panic!("cannot create {type_name}"));
+        let num = |i: usize| a[i].parse::<f64>().unwrap();
+        e.snap_to(num(2), num(3), num(4), 0.0, 0.0);
+        if let Some(snbt) = a.get(6) {
+            let mut tag = mc_nbt::CompoundTag::new();
+            e.save_without_id(&mut tag, &|_| None);
+            tag.merge(
+                &snbt::parse_compound(snbt).unwrap_or_else(|er| panic!("bad SNBT {snbt}: {er}")),
+            );
+            e.load(&tag)
+                .unwrap_or_else(|er| panic!("entity load: {er}"));
+        }
+        e.base_mut().random = LegacyRandomSource::new(a[5].parse().unwrap());
+        let id = e.id();
+        level.add_fresh_entity(e);
+        self.ents.push((a[0].to_owned(), id));
+    }
+
+    /// `ServerPlayer.openMenu` / `openHorseInventory`: an open menu is closed first (with its packet), the counter advances, the menu
+    /// is created, announced (`open_packet`: the screen type name of a typed menu) and synchronised.
+    fn open_entity_menu(
+        &mut self,
+        open_packet: Option<&str>,
+        create: impl FnOnce(i32, &mut TestPlayer) -> Box<dyn AbstractContainerMenu>,
+    ) {
+        if let Some(mut old) = self.menu.take() {
+            self.packets
+                .borrow_mut()
+                .push(format!("PKT close {}", old.base().container_id));
+            old.removed(&mut self.player);
+        }
+        self.container_counter = self.container_counter % 100 + 1;
+        let id = self.container_counter;
+        let mut menu = create(id, &mut self.player);
+        if let Some(name) = open_packet {
+            self.packets
+                .borrow_mut()
+                .push(format!("PKT open {id} {name}"));
+        }
+        menu.add_slot_listener(Box::new(NoListener), &mut self.player);
+        menu.base_mut()
+            .set_synchronizer(Box::new(Sync(self.packets.clone())), &mut self.player);
+        self.menu = Some(menu);
+    }
+
+    /// `USE`: a tamed horse without rider opens its inventory (`AbstractHorse.openCustomInventoryScreen`); a villager is talked to
+    /// (`Villager.startTrading`: the special prices are reset, the player becomes the trading player, the screen opens).
+    fn use_entity(&mut self, name: &str) {
+        let id = self.ent(name);
+        let kind = self.player.level.get_entity(id).map(|e| {
+            let mut tag = mc_nbt::CompoundTag::new();
+            e.save_without_id(&mut tag, &|_| None);
+            (
+                e.as_mount_inventory().is_some(),
+                e.base().is_vehicle(),
+                tag.get_boolean_or("Tame", false),
+            )
+        });
+        match kind.unwrap_or_else(|| panic!("entity {name} is gone")) {
+            (true, vehicle, tamed) => {
+                if !vehicle && tamed {
+                    self.open_entity_menu(None, |cid, player| {
+                        Box::new(HorseInventoryMenu::new(cid, player, id))
+                    });
+                }
+            }
+            _ => {
+                self.player.level.with_entity(id, |level, e| {
+                    let m = e.as_merchant_mut().expect("merchant");
+                    for offer in m.get_offers(level).0.iter_mut() {
+                        offer.reset_special_price_diff();
+                    }
+                    m.set_trading_player(Some(PLAYER_ID));
+                });
+                self.open_entity_menu(Some("merchant"), |cid, _| {
+                    Box::new(MerchantMenu::new(cid, id))
+                });
+            }
+        }
+    }
+
+    /// The `E` line of `MenuOracleBase.entityLine`.
+    fn entity_line(&mut self, name: &str, id: EntityId) -> String {
+        let alive = self
+            .player
+            .level
+            .get_entity(id)
+            .is_some_and(|e| e.is_alive());
+        let mut line = format!("E {name} alive={}", i32::from(alive));
+        if !alive {
+            return line;
+        }
+        self.player.level.with_entity(id, |level, e| {
+            if let Some(m) = e.as_merchant_mut() {
+                let offers: Vec<String> = m
+                    .get_offers(level)
+                    .iter()
+                    .map(|o| {
+                        format!(
+                            "{}/{}/{}/{}",
+                            o.get_uses(),
+                            o.get_max_uses(),
+                            o.get_demand(),
+                            o.get_special_price_diff()
+                        )
+                    })
+                    .collect();
+                line += &format!(
+                    " xp={} trading={} offers={}",
+                    m.get_villager_xp(),
+                    i32::from(m.get_trading_player().is_some()),
+                    offers.join(";")
+                );
+            }
+            if e.as_mount_inventory().is_some() {
+                let mut tag = mc_nbt::CompoundTag::new();
+                e.save_without_id(&mut tag, &|_| None);
+                line += &format!(
+                    " persist={} drops={}",
+                    i32::from(tag.get_boolean_or("PersistenceRequired", false)),
+                    tag.get("drop_chances")
+                        .map_or("-".to_owned(), super::entity_scenario::canon)
+                );
+            }
+        });
+        line
     }
 
     pub fn set_block(&mut self, pos: BlockPos, state: BlockState) {
@@ -520,11 +712,14 @@ impl Session {
         let lseed: i64 = parts[5].parse().unwrap();
         let shelves: usize = parts[6].parse().unwrap();
         let blockers: usize = parts[7].parse().unwrap();
-        let kind = MENU_KINDS
-            .iter()
-            .find(|k| k.name == kind)
-            .unwrap_or_else(|| panic!("unknown menu kind {kind}"));
+        let spec = (!ENTITY_KINDS.contains(&kind)).then(|| {
+            MENU_KINDS
+                .iter()
+                .find(|k| k.name == kind)
+                .unwrap_or_else(|| panic!("unknown menu kind {kind}"))
+        });
         self.prev.clear();
+        self.ent_prev.clear();
         self.log.lock().clear();
         if let Some(mut menu) = self.menu.take() {
             menu.removed(&mut self.player);
@@ -534,6 +729,11 @@ impl Session {
         }
         if self.recipes && self.player.recipe_book.known().next().is_some() {
             self.player.recipe_book = ServerRecipeBook::new();
+        }
+        for (_, id) in std::mem::take(&mut self.ents) {
+            self.player
+                .level
+                .remove_entity(id, mc_game::world::entity::RemovalReason::Discarded);
         }
         for pos in std::mem::take(&mut self.placed) {
             self.player
@@ -551,12 +751,20 @@ impl Session {
                 .level
                 .remove_entity(id, mc_game::world::entity::RemovalReason::Discarded);
         }
+        self.player.pos = START;
+        self.player.dead = false;
+        self.player.disconnected = false;
         self.player.xp_level = xp;
         self.player.seed = seed;
         self.player.creative = creative;
         self.player.may_build = true;
         self.player.rng.set_seed(pseed);
         self.player.level.random().set_seed(lseed);
+        // an entity kind opens nothing here: the menu comes from SPAWN and USE
+        let Some(kind) = spec else {
+            self.packets.borrow_mut().clear();
+            return;
+        };
         self.set_block(TABLE, kind.block.default_state());
         (kind.setup)(self, shelves, blockers);
         let state = self.player.level.get_block_state(TABLE);
@@ -762,6 +970,22 @@ impl Session {
             });
         }
         self.state_unless_empty(&mut out, "M", maps, "M");
+        // the player's position and life only show once an op moved or killed it
+        let pos = self.player.pos;
+        let line = format!(
+            "P {:?},{:?},{:?} {}",
+            pos.x,
+            pos.y,
+            pos.z,
+            i32::from(!self.player.dead)
+        );
+        self.state_unless_empty(&mut out, "P", line, "P 0.5,71.0,0.5 1");
+        for (name, id) in self.ents.clone() {
+            let line = self.entity_line(&name, id);
+            if self.ent_prev.insert(name, line.clone()).as_deref() != Some(line.as_str()) {
+                out.push(line);
+            }
+        }
         let records = std::mem::take(&mut *self.log.lock());
         if self.events {
             out.extend(records.iter().map(format_broadcast));
@@ -797,7 +1021,9 @@ impl Session {
                 let slot: usize = slot.parse().unwrap();
                 self.player.inv.set_item(slot, parse_stack(stack));
                 let Session { player, menu, .. } = self;
-                menu.as_mut().unwrap().broadcast_changes(player);
+                if let Some(menu) = menu.as_mut() {
+                    menu.broadcast_changes(player);
+                }
                 self.dump()
             }
             "CLICK" => {
@@ -925,6 +1151,96 @@ impl Session {
                 }
                 out.append(&mut self.dump());
                 out
+            }
+            "SPAWN" => {
+                self.spawn(rest);
+                self.dump()
+            }
+            "USE" => {
+                let name = rest.split(' ').next().unwrap();
+                self.use_entity(name);
+                self.dump()
+            }
+            "TRADE" => {
+                let selection: i32 = rest.parse().unwrap();
+                let Session { player, menu, .. } = self;
+                if let Some(menu) = menu.as_mut() {
+                    // `ServerGamePacketListenerImpl.handleSelectTrade`
+                    if let Some(m) = menu.as_any_mut().downcast_mut::<MerchantMenu>()
+                        && AbstractContainerMenu::still_valid(m, player)
+                    {
+                        m.set_selection_hint(player, selection);
+                        m.try_move_items(player, selection);
+                    }
+                    menu.broadcast_changes(player);
+                }
+                self.dump()
+            }
+            "NBT" => {
+                let (name, snbt) = rest.split_once(' ').unwrap();
+                let extra =
+                    snbt::parse_compound(snbt).unwrap_or_else(|e| panic!("bad SNBT {snbt}: {e}"));
+                let id = self.ent(name);
+                self.player.level.with_entity(id, |_, e| {
+                    let mut tag = mc_nbt::CompoundTag::new();
+                    e.save_without_id(&mut tag, &|_| None);
+                    tag.merge(&extra);
+                    e.load(&tag)
+                        .unwrap_or_else(|er| panic!("entity load: {er}"));
+                });
+                self.dump()
+            }
+            "MAPOFFERS" => {
+                use mc_game::world::item::trading::{ItemCost, MerchantOffer, MerchantOffers};
+                use mc_protocol::components::{MAP_ID, MAP_POST_PROCESSING, MapPostProcessing};
+                let id = self.ent(rest);
+                self.player.level.with_entity(id, |level, e| {
+                    let offers = (0..2)
+                        .map(|i| {
+                            let mut map = ItemStack::new(mc_data::Item::FILLED_MAP);
+                            map.set(MAP_ID, MapId(5 + i));
+                            map.set(
+                                MAP_POST_PROCESSING,
+                                if i == 0 {
+                                    MapPostProcessing::Lock
+                                } else {
+                                    MapPostProcessing::Scale
+                                },
+                            );
+                            MerchantOffer::with_cost_b(
+                                ItemCost::of(mc_data::Item::EMERALD, 13 + i),
+                                Some(ItemCost::of(mc_data::Item::COMPASS, 1)),
+                                map,
+                                12,
+                                1,
+                                0.05,
+                            )
+                        })
+                        .collect();
+                    *e.as_merchant_mut().expect("merchant").get_offers(level) =
+                        MerchantOffers(offers);
+                });
+                self.dump()
+            }
+            "DISCARD" => {
+                let id = self.ent(rest);
+                self.player
+                    .level
+                    .remove_entity(id, mc_game::world::entity::RemovalReason::Discarded);
+                self.dump()
+            }
+            "PLAYER" => {
+                let c: Vec<f64> = rest.split(' ').map(|v| v.parse().unwrap()).collect();
+                self.player.pos = Vec3::new(c[0], c[1], c[2]);
+                self.dump()
+            }
+            "HEALTH" => {
+                if rest == "disconnected" {
+                    self.player.disconnected = true;
+                } else {
+                    self.player.dead = rest.parse::<f32>().unwrap() <= 0.0;
+                }
+                self.dump()
             }
             other => panic!("unknown op {other}"),
         }
