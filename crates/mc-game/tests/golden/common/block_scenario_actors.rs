@@ -542,7 +542,10 @@ impl Scenario {
             "kill" => {
                 self.world();
                 let id = self.entity_id(&a[1]);
-                self.level().with_entity(id, |_, e| e.discard());
+                // the level-aware removal: a container cart drops its contents when it is discarded
+                self.level().with_entity(id, |level, e| {
+                    level.remove_held_entity(e, mc_game::world::entity::RemovalReason::Discarded)
+                });
             }
             "signal" => {
                 self.world();
