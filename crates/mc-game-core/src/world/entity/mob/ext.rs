@@ -4,7 +4,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::{Entity, EntityId};
+use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
 use crate::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
 use mc_core::ident::Identifier;
@@ -289,9 +289,13 @@ pub fn trigger_bred_animals(
     level.with_player(cause, |level, player| matches.award(level, player));
 }
 
-/// `CriteriaTriggers.TAME_ANIMAL.trigger(player, animal)`; `animal` is the running entity (the player may be too).
-pub fn trigger_tame_animal(level: &mut ServerLevel, player: EntityId, animal: &dyn Entity) {
-    crate::advancements::triggers::fire_with_entity(
+/// `CriteriaTriggers.TAME_ANIMAL.trigger(player, animal)`; `animal` is the running entity.
+pub fn trigger_tame_animal(
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    animal: &dyn Entity,
+) {
+    crate::advancements::triggers::fire_for_player(
         level,
         player,
         animal,
@@ -302,6 +306,13 @@ pub fn trigger_tame_animal(level: &mut ServerLevel, player: EntityId, animal: &d
     );
 }
 
+/// [`trigger_tame_animal`] for the player with id `player` (a passenger that is in storage).
+pub fn trigger_tame_animal_by_id(level: &mut ServerLevel, player: EntityId, animal: &dyn Entity) {
+    level.with_player(player, |level, player| {
+        trigger_tame_animal(level, player, animal)
+    });
+}
+
 /// `oldBrain` `ANGRY_AT` memory copy of `ConversionType.convertCommon`. Not implemented: does nothing, the brain
 /// memories are not copied.
 pub fn copy_angry_at_memory(_from: &dyn Entity, _to: &mut dyn Entity) {}
@@ -309,12 +320,12 @@ pub fn copy_angry_at_memory(_from: &dyn Entity, _to: &mut dyn Entity) {}
 /// `CriteriaTriggers.PLAYER_SHEARED_EQUIPMENT.trigger(player, itemStackToShear, mob)`; `mob` is the running entity.
 pub fn trigger_player_sheared_equipment(
     level: &mut ServerLevel,
-    player: EntityId,
+    player: &mut ServerPlayer,
     sheared: &crate::world::item::ItemStack,
     mob: &dyn Entity,
 ) {
     let sheared = sheared.clone();
-    crate::advancements::triggers::fire_with_entity(
+    crate::advancements::triggers::fire_for_player(
         level,
         player,
         mob,

@@ -372,36 +372,29 @@ pub fn holder_matches(holder: &Option<ConditionHolder>, context: &mut LootContex
     }
 }
 
-/// Fires a trigger of player `player_id` (needs the player mutably to award) that also reads `entity`, which is out of
-/// the level because it is the running entity (a victim being hurt, a projectile ticking). `matcher` is `X.matches(..)`.
-/// When the player is not in the level because it is the running entity (a melee attacker), the firing runs when the player
-/// is put back and `entity` is looked up by id then.
-pub fn fire_with_entity<F>(
+/// Fires a trigger of `player` that also reads `entity`, which is out of the level because it is the running entity (a
+/// victim being hurt, a projectile ticking, a tamed animal): both are exposed to the predicates. `matcher` is `X.matches(..)`.
+pub fn fire_for_player(
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    entity: &dyn Entity,
+    matcher: impl Fn(&ServerLevel, &ServerPlayer, &dyn Entity) -> TriggerMatches,
+) {
+    let matches = level.expose(&*player, |level| {
+        level.expose(entity, |level| matcher(&*level, &*player, entity))
+    });
+    matches.award(level, player);
+}
+
+/// [`fire_for_player`] for the player with id `player_id`, which the level hands out (it is in storage or lent by its
+/// running code); nothing happens when it is not reachable.
+pub fn fire_with_entity(
     level: &mut ServerLevel,
     player_id: crate::world::entity::EntityId,
     entity: &dyn Entity,
-    matcher: F,
-) where
-    F: Fn(&ServerLevel, &ServerPlayer, &dyn Entity) -> TriggerMatches + 'static,
-{
-    let fired = level.with_player(player_id, |level, player| {
-        // the player and the entity are out of the level while their code runs: nested predicates look them up by id
-        let matches = level.expose(&*player, |level| {
-            level.expose(entity, |level| matcher(&*level, &*player, entity))
-        });
-        matches.award(level, player);
+    matcher: impl Fn(&ServerLevel, &ServerPlayer, &dyn Entity) -> TriggerMatches,
+) {
+    level.with_player(player_id, |level, player| {
+        fire_for_player(level, player, entity, matcher)
     });
-    if fired.is_none() {
-        let entity_id = entity.id();
-        level.with_entity_or_defer(player_id, move |level, running| {
-            let Some(player) = running.as_any_mut().downcast_mut::<ServerPlayer>() else {
-                return;
-            };
-            let Some(entity) = level.get_entity(entity_id) else {
-                return;
-            };
-            let matches = matcher(&*level, &*player, entity);
-            matches.award(level, player);
-        });
-    }
 }

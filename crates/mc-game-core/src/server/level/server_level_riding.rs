@@ -184,11 +184,8 @@ impl ServerLevel {
                 Some(v.base().position())
             }
             None => {
-                self.entity_manager.defer_or_apply(
-                    old_vehicle_id,
-                    Box::new(move |v: &mut dyn Entity| v.remove_passenger(rider_id)),
-                );
                 self.with_entity(old_vehicle_id, |level, v| {
+                    v.remove_passenger(rider_id);
                     v.on_passenger_removed(level, rider_id);
                     v.refresh_first_passenger_authority(level);
                 });
@@ -291,27 +288,14 @@ impl ServerLevel {
     pub fn eject_passengers(&mut self, vehicle: &mut dyn Entity) {
         let vehicle_id = vehicle.id();
         for pid in vehicle.base().passengers.clone().into_iter().rev() {
-            match self.take_entity(pid) {
-                Some(mut p) => {
-                    if p.base().vehicle == Some(vehicle_id) {
-                        self.stop_riding_from(p.as_mut(), Some(&mut *vehicle));
-                    }
-                    self.put_back_entity(pid, p);
+            let ejected = self.with_entity(pid, |level, p| {
+                if p.base().vehicle == Some(vehicle_id) {
+                    level.stop_riding_from(p, Some(&mut *vehicle));
                 }
-                None => {
-                    // the passenger is out too: drop its link when it comes back
-                    vehicle.remove_passenger(pid);
-                    self.entity_manager.defer_or_apply(
-                        pid,
-                        Box::new(move |p: &mut dyn Entity| {
-                            if p.base().vehicle == Some(vehicle_id) {
-                                p.base_mut().vehicle = None;
-                                p.base_mut().boarding_cooldown =
-                                    if p.is_player() { 0 } else { BOARDING_COOLDOWN };
-                            }
-                        }),
-                    );
-                }
+            });
+            if ejected.is_none() {
+                // a passenger the level cannot hand out (it runs unlent) keeps its own link until its next tick
+                vehicle.remove_passenger(pid);
             }
         }
     }

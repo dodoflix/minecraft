@@ -1256,7 +1256,7 @@ impl Scenario {
         // the source entity is out of the level's storage while it explodes, like a primed TNT's own tick
         let id = self.entity_id(&source);
         self.level().with_entity(id, |level, e| {
-            let params = Explode::new(Some(&*e), x, y, z, radius, inter).with_fire(fire);
+            let params = Explode::new(Some(e), x, y, z, radius, inter).with_fire(fire);
             level.explode(params);
         });
     }

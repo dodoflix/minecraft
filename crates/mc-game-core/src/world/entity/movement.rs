@@ -712,7 +712,8 @@ fn apply_movement_emission_and_play_sound(
                 entity.water_swim_sound(level);
             }
             if emission.emits_events() {
-                entity.game_event(level, mc_data::GameEvent::SWIM);
+                let position = entity.base().position();
+                level.game_event_from_live_entity(entity, mc_data::GameEvent::SWIM, position);
             }
         }
     } else if supporting_state.is_air() {
@@ -745,8 +746,8 @@ fn vibration_and_sound_effects_from_block(
         }
         if should_vibrate {
             let position = entity.base().position();
-            level.game_event_from_entity_ref_in_state(
-                &*entity,
+            level.game_event_from_live_entity_in_state(
+                entity,
                 Some(block_state),
                 mc_data::GameEvent::STEP,
                 position,

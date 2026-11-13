@@ -79,13 +79,14 @@ impl Projectile for LargeFireball {
         crate::world::entity::projectile::on_hit_base(self, level, hit);
         let grief = level.mob_griefing();
         let p = self.position();
+        let power = self.explosion_power as f32;
         level.explode(
             Explode::new(
-                Some(&*self),
+                Some(self.as_dyn_mut()),
                 p.x,
                 p.y,
                 p.z,
-                self.explosion_power as f32,
+                power,
                 ExplosionInteraction::Mob,
             )
             .with_fire(grief),

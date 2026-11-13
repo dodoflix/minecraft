@@ -1969,7 +1969,12 @@ pub trait Entity: Any {
         if self.is_flapping() {
             self.on_flap_in(level);
             if self.get_movement_emission().emits_events() {
-                self.game_event(level, mc_data::GameEvent::FLAP);
+                let position = self.base().position();
+                level.game_event_from_live_entity(
+                    self.as_dyn_mut(),
+                    mc_data::GameEvent::FLAP,
+                    position,
+                );
             }
         }
     }
@@ -4797,11 +4802,12 @@ pub fn check_fall_damage_base(
                 Some(p) => level.get_block_state(p),
                 None => on_state,
             };
-            level.game_event_from_entity_ref_in_state(
-                &*this,
+            let position = this.base().position();
+            level.game_event_from_live_entity_in_state(
+                this,
                 Some(ctx_state),
                 mc_data::GameEvent::HIT_GROUND,
-                this.base().position(),
+                position,
             );
         }
         this.reset_fall_distance();

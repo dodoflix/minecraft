@@ -71,7 +71,7 @@ fn try_get_player(
 /// `CriteriaTriggers.AVOID_VIBRATION.trigger(player)`; when the player is the entity being ticked it is out of the
 /// level and the trigger runs as soon as it is put back.
 pub fn trigger_avoid_vibration(level: &mut ServerLevel, player: EntityId) {
-    level.with_entity_or_defer(player, |level, entity| {
+    level.with_entity(player, |level, entity| {
         if let Some(player) = entity.as_any_mut().downcast_mut::<ServerPlayer>() {
             crate::advancements::triggers::CriteriaTriggers::AVOID_VIBRATION.trigger(level, player);
         }

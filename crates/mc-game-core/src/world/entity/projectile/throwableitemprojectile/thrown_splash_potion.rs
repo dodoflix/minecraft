@@ -76,12 +76,11 @@ fn on_hit_as_potion(
         return;
     }
     let effect_source = p.get_effect_source(level);
-    // Only instantaneous effects read the owner: it is lent out of the level storage for such an application so it
-    // can be passed next to `&mut level`.
     let owner_id = p
         .get_owner(level)
         .map(|o| o.id())
         .filter(|_| effects.iter().any(|e| e.effect.is_instantaneous()));
+    let potion = p.id();
     for id in entities {
         let Some(entity) = level.get_entity(id) else {
             continue;
@@ -96,45 +95,51 @@ fn on_hit_as_potion(
         }
         let scale = 1.0 - dist.sqrt() / 4.0;
         let owner_is_victim = owner_id == Some(id);
-        let lent_owner = owner_id
-            .filter(|_| !owner_is_victim)
-            .and_then(|o| level.take_entity(o).map(|e| (o, e)));
-        level.with_entity(id, |level, entity| {
-            let owner_cause = match (&lent_owner, owner_is_victim) {
-                (Some((_, owner)), _) => Some(EffectCause::Entity(owner.as_ref())),
-                (None, true) => Some(EffectCause::Mob),
-                (None, false) => None,
-            };
-            for effect_instance in &effects {
-                if effect_instance.effect.is_instantaneous() {
-                    effect_instance.effect.apply_instantaneous_effect(
-                        level,
-                        Some(EffectCause::Entity(p.as_dyn())),
-                        owner_cause,
-                        entity,
-                        effect_instance.amplifier,
-                        scale,
-                    );
-                } else {
-                    let duration = effect_instance.map_duration(|d| {
-                        (scale * f64::from(d) * f64::from(duration_scale) + 0.5) as i32
-                    });
-                    let new_effect = MobEffectInstance::with_flags(
-                        effect_instance.effect,
-                        duration,
-                        effect_instance.amplifier,
-                        effect_instance.ambient,
-                        effect_instance.visible,
-                    );
-                    if !new_effect.ends_within(20) {
-                        entity.add_effect(level, new_effect, Some(effect_source));
+        // the potion and the owner are lent while the effects apply: the cause is read through the level and a victim that
+        // dies can credit and trigger them
+        level.lend(p.as_dyn_mut(), |level| {
+            let apply = |level: &mut ServerLevel| {
+                level.with_entity(id, |level, entity| {
+                    let owner_cause = match owner_id {
+                        Some(owner) if !owner_is_victim => Some(EffectCause::Entity(owner)),
+                        Some(_) => Some(EffectCause::Mob),
+                        None => None,
+                    };
+                    for effect_instance in &effects {
+                        if effect_instance.effect.is_instantaneous() {
+                            effect_instance.effect.apply_instantaneous_effect(
+                                level,
+                                Some(EffectCause::Entity(potion)),
+                                owner_cause,
+                                entity,
+                                effect_instance.amplifier,
+                                scale,
+                            );
+                        } else {
+                            let duration = effect_instance.map_duration(|d| {
+                                (scale * f64::from(d) * f64::from(duration_scale) + 0.5) as i32
+                            });
+                            let new_effect = MobEffectInstance::with_flags(
+                                effect_instance.effect,
+                                duration,
+                                effect_instance.amplifier,
+                                effect_instance.ambient,
+                                effect_instance.visible,
+                            );
+                            if !new_effect.ends_within(20) {
+                                entity.add_effect(level, new_effect, Some(effect_source));
+                            }
+                        }
                     }
+                });
+            };
+            match owner_id.filter(|_| !owner_is_victim) {
+                Some(owner) => {
+                    level.with_entity(owner, |level, owner| level.lend(owner, apply));
                 }
+                None => apply(level),
             }
         });
-        if let Some((owner, entity)) = lent_owner {
-            level.put_back_entity(owner, entity);
-        }
     }
 }
 

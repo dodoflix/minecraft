@@ -145,18 +145,19 @@ impl PrimedTnt {
     }
 
     /// `explode()`.
-    fn explode(&self, level: &mut ServerLevel) {
+    fn explode(&mut self, level: &mut ServerLevel) {
         if level.tnt_explodes() {
             let calculator: Option<&dyn ExplosionDamageCalculator> = self
                 .used_portal
                 .then_some(&USED_PORTAL_DAMAGE_CALCULATOR as &dyn ExplosionDamageCalculator);
             let y = self.base.get_y_progress(0.0625);
+            let (x, z, power) = (self.base.x(), self.base.z(), self.explosion_power);
             let params = Explode::new(
-                Some(self),
-                self.base.x(),
+                Some(self.as_dyn_mut()),
+                x,
                 y,
-                self.base.z(),
-                self.explosion_power,
+                z,
+                power,
                 ExplosionInteraction::Tnt,
             )
             .with_damage_source(None, calculator);

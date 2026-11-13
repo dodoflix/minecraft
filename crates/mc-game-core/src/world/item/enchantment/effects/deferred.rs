@@ -158,7 +158,7 @@ fn explode(
             .collect(),
     );
     let radius = e.radius.calculate(enchantment_level).max(0.0);
-    let run = |level: &mut ServerLevel, source: Option<&dyn crate::world::entity::Entity>| {
+    let run = |level: &mut ServerLevel, source: Option<&mut dyn crate::world::entity::Entity>| {
         let mut params = Explode::new(source, pos.x, pos.y, pos.z, radius, interaction)
             .with_fire(e.create_fire)
             .with_damage_source(damage_source.clone(), Some(&calculator));
@@ -171,7 +171,7 @@ fn explode(
     if e.attribute_to_user {
         // the user may be the entity that is running (outside the level): `explode` takes it as the explosion source
         if actors
-            .with(level, entity, |level, user| run(level, Some(&*user)))
+            .with(level, entity, |level, user| run(level, Some(user)))
             .is_none()
         {
             run(level, None);

@@ -790,7 +790,7 @@ impl Cat {
     }
 
     /// `tryToTame(player)`.
-    fn try_to_tame(&mut self, level: &mut ServerLevel, player: &ServerPlayer) {
+    fn try_to_tame(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer) {
         if self.base_mut().random.next_int_bounded(3) == 0 {
             tamable::tame(self, level, player);
             tamable::set_ordered_to_sit(self, true);

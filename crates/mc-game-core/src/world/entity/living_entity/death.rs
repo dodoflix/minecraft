@@ -46,8 +46,8 @@ pub fn resolve_kill_credit(
 }
 
 /// `killer.awardKillScore(victim, source)` (`Entity.awardKillScore` = `ENTITY_KILLED_PLAYER`, then `ServerPlayer`'s scoreboard,
-/// stats and `PLAYER_KILLED_ENTITY`). The dying `victim` is out of the level: a killer in the level is handed it directly; a
-/// killer that is the running entity gets the call when it is put back (the victim entity is then looked up by id).
+/// stats and `PLAYER_KILLED_ENTITY`). The dying `victim` is out of the level: a killer the level hands out (in storage or
+/// lent by its running code) is given it directly.
 pub fn award_kill_score_to_killer(
     level: &mut ServerLevel,
     killer_id: crate::world::entity::EntityId,
@@ -55,7 +55,12 @@ pub fn award_kill_score_to_killer(
     snapshot: &DamageEntity,
     source: &DamageSource,
 ) {
-    let ran = level.with_entity(killer_id, |level, killer| {
+    if killer_id == victim.id() {
+        // the dying entity is its own killer (a player killed by its own TNT): `ServerPlayer.awardKillScore` does nothing
+        // for `victim == this`, and for any other entity `Entity.awardKillScore` only reacts to a player victim
+        return;
+    }
+    level.with_entity(killer_id, |level, killer| {
         if let Some(player) = victim
             .as_any_mut()
             .downcast_mut::<crate::world::entity::ServerPlayer>()
@@ -65,18 +70,6 @@ pub fn award_kill_score_to_killer(
         }
         killer.award_kill_score(level, snapshot, Some(&*victim), source);
     });
-    if ran.is_none() {
-        let (v, s) = (snapshot.clone(), source.clone());
-        level.with_entity_or_defer(killer_id, move |level, killer| {
-            if v.is_player {
-                level.with_player(v.id, |level, player| {
-                    crate::advancements::triggers::CriteriaTriggers::ENTITY_KILLED_PLAYER
-                        .trigger(level, player, &*killer, &s);
-                });
-            }
-            killer.award_kill_score(level, &v, None, &s);
-        });
-    }
 }
 
 /// `LivingEntity.die(source)`.
@@ -115,7 +108,7 @@ pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSour
             // the victim is lent: `killedEntity` may act on it (a zombie converting the villager it killed)
             level
                 .lend(&mut *entity, |level| {
-                    level.with_entity_or_defer(source_entity, move |level, e| {
+                    level.with_entity(source_entity, move |level, e| {
                         e.killed_entity(level, &v, &s)
                     })
                 })

@@ -1032,7 +1032,7 @@ pub fn tame_with_name(
 ) -> bool {
     set_owner(e, Some(player_uuid));
     set_tamed(e, true);
-    ext::trigger_tame_animal(level, player, e.as_dyn());
+    ext::trigger_tame_animal_by_id(level, player, e.as_dyn());
     level.broadcast_entity_event(e.id(), 7);
     true
 }

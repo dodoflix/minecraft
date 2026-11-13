@@ -64,6 +64,24 @@ impl ServerLevel {
         });
     }
 
+    /// `gameEvent(source, event, pos)` for a source its running code lent to the level (`ServerLevel::lend`), also when it
+    /// removed itself meanwhile (vanilla's context still holds the object).
+    pub fn game_event_from_lent_entity(
+        &mut self,
+        source: Option<EntityId>,
+        event: GameEvent,
+        position: Vec3,
+    ) {
+        let mut context = GameEventContext::of_entity(source);
+        if let Some(id) = source
+            && self.get_entity(id).is_none()
+            && let Some(entity) = self.get_entity_or_lent(id)
+        {
+            context.source_info = Some(source_entity_info(self, entity));
+        }
+        self.post_game_event(event, position, &context);
+    }
+
     /// [`game_event_from_entity_ref`](Self::game_event_from_entity_ref) for the listeners that act on the source entity
     /// itself (`ENTITY_DIE` listened to by sculk catalysts): it is lent, so they re-enter it with `with_entity`.
     pub fn game_event_from_live_entity(
@@ -72,7 +90,24 @@ impl ServerLevel {
         event: GameEvent,
         position: Vec3,
     ) {
-        let context = GameEventContext::of_entity(Some(entity.id()));
+        self.game_event_from_live_entity_in_state(entity, None, event, position);
+    }
+
+    /// [`game_event_from_live_entity`](Self::game_event_from_live_entity) with `Context.of(entity, state)`: the movement
+    /// events of the running entity (step, swim, flap, hit ground), so a listener that acts on it (the avoid vibration
+    /// trigger of a sneaking player) re-enters it.
+    pub fn game_event_from_live_entity_in_state(
+        &mut self,
+        entity: &mut dyn Entity,
+        state: Option<BlockState>,
+        event: GameEvent,
+        position: Vec3,
+    ) {
+        let mut context = GameEventContext::of(Some(entity.id()), state);
+        // a removed or not yet added entity stays invisible to the level, vanilla's context still holds the object
+        if entity.is_removed() || !self.entity_manager.has_entity_with_id(entity.id()) {
+            context.source_info = Some(source_entity_info(self, &*entity));
+        }
         self.lend(entity, |level| {
             level.post_game_event(event, position, &context);
         });

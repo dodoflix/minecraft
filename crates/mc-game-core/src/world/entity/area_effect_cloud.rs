@@ -294,49 +294,47 @@ impl AreaEffectCloud {
     /// The effect loop for one victim. The owner (a live entity of the level) is lent out of the level storage for the
     /// call so it can be passed by reference next to `&mut level`; when the victim is the owner it is its own cause.
     fn apply_effects(
-        &self,
+        &mut self,
         level: &mut ServerLevel,
         victim: EntityId,
         owner_id: Option<EntityId>,
         effects: &[MobEffectInstance],
     ) {
+        let cloud = self.base.id;
         let owner_is_victim = owner_id == Some(victim);
-        let lent_owner = owner_id
-            .filter(|_| !owner_is_victim)
-            .and_then(|o| level.take_entity(o).map(|e| (o, e)));
-        // the cloud and its owner are out of the level while the effect runs: both stay visible to what it reads
-        let apply = |level: &mut ServerLevel| {
-            level.expose(self, |level| {
+        // the cloud and its owner are lent while the effect runs: both stay visible to what it reads and re-enterable
+        // for the kill credit and the triggers of a victim that dies
+        level.lend(self.as_dyn_mut(), |level| {
+            let apply = |level: &mut ServerLevel| {
                 level.with_entity(victim, |level, entity| {
-                    let owner_cause = match (&lent_owner, owner_is_victim) {
-                        (Some((_, owner)), _) => Some(EffectCause::Entity(owner.as_ref())),
-                        (None, true) => Some(EffectCause::Mob),
-                        (None, false) => None,
+                    let owner_cause = match owner_id {
+                        Some(owner) if !owner_is_victim => Some(EffectCause::Entity(owner)),
+                        Some(_) => Some(EffectCause::Mob),
+                        None => None,
                     };
                     for effect in effects {
                         if effect.effect.is_instantaneous() {
                             effect.effect.apply_instantaneous_effect(
                                 level,
-                                Some(EffectCause::Entity(self)),
+                                Some(EffectCause::Entity(cloud)),
                                 owner_cause,
                                 entity,
                                 effect.amplifier,
                                 0.5,
                             );
                         } else {
-                            entity.add_effect(level, effect.clone(), Some(self.base.id));
+                            entity.add_effect(level, effect.clone(), Some(cloud));
                         }
                     }
-                })
-            })
-        };
-        match &lent_owner {
-            Some((_, owner)) => level.expose(owner.as_ref(), apply),
-            None => apply(level),
-        };
-        if let Some((id, owner)) = lent_owner {
-            level.put_back_entity(id, owner);
-        }
+                });
+            };
+            match owner_id.filter(|_| !owner_is_victim) {
+                Some(owner) => {
+                    level.with_entity(owner, |level, owner| level.lend(owner, apply));
+                }
+                None => apply(level),
+            }
+        });
     }
 }
 

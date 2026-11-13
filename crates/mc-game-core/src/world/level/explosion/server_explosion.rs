@@ -26,18 +26,9 @@ const LARGE_EXPLOSION_RADIUS: f32 = 2.0;
 /// The calculator of an explosion: the caller's, else the default / entity based one (`makeDamageCalculator`).
 enum Calculator<'a> {
     Default(DefaultExplosionDamageCalculator),
-    EntityBased(EntityBasedExplosionDamageCalculator<'a>),
+    /// `EntityBasedExplosionDamageCalculator(source)`: the source is read from the level (it is lent) on each use.
+    EntityBased,
     Custom(&'a dyn ExplosionDamageCalculator),
-}
-
-impl Calculator<'_> {
-    fn get(&self) -> &dyn ExplosionDamageCalculator {
-        match self {
-            Calculator::Default(c) => c,
-            Calculator::EntityBased(c) => c,
-            Calculator::Custom(c) => *c,
-        }
-    }
 }
 
 /// `ServerExplosion.StackCollector`.
@@ -63,7 +54,8 @@ pub struct ServerExplosion<'a> {
     fire: bool,
     block_interaction: BlockInteraction,
     center: Vec3,
-    source: Option<&'a dyn Entity>,
+    /// The exploding entity; it is lent to the level while the explosion runs, so it is read by id.
+    source: Option<EntityId>,
     radius: f32,
     damage_source: DamageSource,
     damage_calculator: Calculator<'a>,
@@ -76,10 +68,10 @@ pub struct ServerExplosion<'a> {
 
 impl<'a> ServerExplosion<'a> {
     /// `new ServerExplosion(level, source, damageSource, damageCalculator, center, radius, fire, blockInteraction)`.
-    /// `source` is the exploding entity (it is usually taken out of the level while it runs, hence passed explicitly).
+    /// `source` is the exploding entity, which its caller lent to the level (`ServerLevel::lend`).
     pub fn new(
         level: &ServerLevel,
-        source: Option<&'a dyn Entity>,
+        source: Option<EntityId>,
         damage_source: Option<DamageSource>,
         damage_calculator: Option<&'a dyn ExplosionDamageCalculator>,
         center: Vec3,
@@ -87,21 +79,20 @@ impl<'a> ServerExplosion<'a> {
         fire: bool,
         block_interaction: BlockInteraction,
     ) -> Self {
-        let indirect_source = get_indirect_source_entity(level, source);
+        let source_entity = source.and_then(|id| level.get_entity_or_lent(id));
+        let indirect_source = get_indirect_source_entity(level, source_entity);
         let damage_source = damage_source.unwrap_or_else(|| {
-            let indirect = indirect_source.and_then(|id| resolve(level, source, id));
-            level.damage_sources().explosion(source, indirect)
+            let indirect = indirect_source.and_then(|id| level.get_entity_or_lent(id));
+            level.damage_sources().explosion(source_entity, indirect)
         });
         let damage_calculator = match (damage_calculator, source) {
             (Some(c), _) => Calculator::Custom(c),
             (None, None) => Calculator::Default(DefaultExplosionDamageCalculator),
-            (None, Some(s)) => {
-                Calculator::EntityBased(EntityBasedExplosionDamageCalculator { source: s })
-            }
+            (None, Some(_)) => Calculator::EntityBased,
         };
         let is_breeze_wind_charge =
-            source.is_some_and(|s| s.get_type() == EntityType::BREEZE_WIND_CHARGE);
-        let is_wind_charge = source.is_some_and(|s| s.get_type() == EntityType::WIND_CHARGE);
+            source_entity.is_some_and(|s| s.get_type() == EntityType::BREEZE_WIND_CHARGE);
+        let is_wind_charge = source_entity.is_some_and(|s| s.get_type() == EntityType::WIND_CHARGE);
         let can_trigger_blocks = if block_interaction != BlockInteraction::TriggerBlock {
             false
         } else if is_breeze_wind_charge {
@@ -175,9 +166,26 @@ impl<'a> ServerExplosion<'a> {
         }
     }
 
+    /// Runs `f` with the damage calculator; an entity based one reads its source from the level.
+    fn with_calculator<R>(
+        &self,
+        level: &ServerLevel,
+        f: impl FnOnce(&dyn ExplosionDamageCalculator) -> R,
+    ) -> R {
+        match &self.damage_calculator {
+            Calculator::Default(c) => f(c),
+            Calculator::Custom(c) => f(*c),
+            Calculator::EntityBased => {
+                match self.source.and_then(|id| level.get_entity_or_lent(id)) {
+                    Some(source) => f(&EntityBasedExplosionDamageCalculator { source }),
+                    None => f(&DefaultExplosionDamageCalculator),
+                }
+            }
+        }
+    }
+
     /// `calculateExplodedPositions()`: the `HashSet<BlockPos>` of the rays in Java iteration order.
     fn calculate_exploded_positions(&self, level: &mut ServerLevel) -> Vec<BlockPos> {
-        let calculator = self.damage_calculator.get();
         let mut to_blow_set = JavaBlockPosHashSet::new();
         for xx in 0..16 {
             for yy in 0..16 {
@@ -203,19 +211,15 @@ impl<'a> ServerExplosion<'a> {
                             if !level.is_in_world_bounds(pos) {
                                 break;
                             }
-                            if let Some(resistance) = calculator
-                                .get_block_explosion_resistance(self, level, pos, block, fluid)
-                            {
+                            if let Some(resistance) = self.with_calculator(level, |c| {
+                                c.get_block_explosion_resistance(self, level, pos, block, fluid)
+                            }) {
                                 remaining_power -= (resistance + 0.3) * 0.3;
                             }
                             if remaining_power > 0.0
-                                && calculator.should_block_explode(
-                                    self,
-                                    level,
-                                    pos,
-                                    block,
-                                    remaining_power,
-                                )
+                                && self.with_calculator(level, |c| {
+                                    c.should_block_explode(self, level, pos, block, remaining_power)
+                                })
                             {
                                 to_blow_set.insert(pos);
                             }
@@ -253,7 +257,7 @@ impl<'a> ServerExplosion<'a> {
             f64::from(y1),
             f64::from(z1),
         );
-        let targets = level.get_entities(self.source.map(|s| s.id()), &area, |e| !e.is_spectator());
+        let targets = level.get_entities(self.source, &area, |e| !e.is_spectator());
         for id in targets {
             let Some(entity) = level.get_entity(id) else {
                 continue;
@@ -275,7 +279,6 @@ impl<'a> ServerExplosion<'a> {
         if entity.ignore_explosion(self) || entity.ignore_explosion_in_level(level, self) {
             return None;
         }
-        let calculator = self.damage_calculator.get();
         let dist = entity.base().distance_to_sqr_vec(self.center).sqrt() / f64::from(double_radius);
         if dist > 1.0 {
             return None;
@@ -286,18 +289,27 @@ impl<'a> ServerExplosion<'a> {
             entity.base().get_eye_position()
         };
         let direction = origin.subtract(self.center).normalize();
-        let should_damage_entity = calculator.should_damage_entity(self, entity);
-        let knockback_multiplier = calculator.get_knockback_multiplier(entity);
+        let (should_damage_entity, knockback_multiplier) = self.with_calculator(level, |c| {
+            (
+                c.should_damage_entity(self, entity),
+                c.get_knockback_multiplier(entity),
+            )
+        });
         let exposure = if !should_damage_entity && knockback_multiplier == 0.0 {
             0.0
         } else {
             Self::get_seen_percent(level, self.center, entity)
         };
+        let source = self.source.and_then(|id| level.get_entity_or_lent(id));
         let damage = (should_damage_entity
-            && self.source.is_none_or(|s| {
+            && source.is_none_or(|s| {
                 crate::world::entity::team::do_teams_allow_damage(level, s, entity)
             }))
-        .then(|| calculator.get_entity_damage_amount(self, entity, exposure));
+        .then(|| {
+            self.with_calculator(level, |c| {
+                c.get_entity_damage_amount(self, entity, exposure)
+            })
+        });
         Some(EntityPlan {
             dist,
             direction,
@@ -326,7 +338,7 @@ impl<'a> ServerExplosion<'a> {
             let owner = self
                 .damage_source
                 .get_entity()
-                .and_then(|id| resolve(level, self.source, id))
+                .and_then(|id| level.get_entity_or_lent(id))
                 .map(|e| e.uuid());
             if let Some(projectile) = entity.as_projectile_mut() {
                 projectile.set_owner_uuid(owner);
@@ -337,7 +349,8 @@ impl<'a> ServerExplosion<'a> {
         {
             self.hit_players.push((entity.id(), knockback));
         }
-        entity.on_explosion_hit(self.source);
+        let source = self.source.and_then(|id| level.get_entity_or_lent(id));
+        entity.on_explosion_hit(source);
     }
 
     /// `interactWithBlocks(targetBlocks)`.
@@ -375,12 +388,7 @@ impl<'a> ServerExplosion<'a> {
 
     /// `explode()`: returns the number of exploded block positions (`blockCount` of the packet).
     pub fn explode(&mut self, level: &mut ServerLevel) -> usize {
-        match self.source {
-            Some(source) => {
-                level.game_event_from_entity_ref(source, GameEvent::EXPLODE, self.center);
-            }
-            None => level.game_event_from_entity(None, GameEvent::EXPLODE, self.center),
-        }
+        level.game_event_from_lent_entity(self.source, GameEvent::EXPLODE, self.center);
         let mut to_blow = self.calculate_exploded_positions(level);
         self.hurt_entities(level);
         if self.interacts_with_blocks() {
@@ -431,9 +439,6 @@ impl Explosion for ServerExplosion<'_> {
         self.indirect_source
     }
     fn get_direct_source_entity(&self) -> Option<EntityId> {
-        self.source.map(|s| s.id())
-    }
-    fn get_direct_source_entity_ref(&self) -> Option<&dyn Entity> {
         self.source
     }
     fn radius(&self) -> f32 {
@@ -450,18 +455,6 @@ impl Explosion for ServerExplosion<'_> {
     }
     fn server_damage_source(&self) -> Option<&DamageSource> {
         Some(&self.damage_source)
-    }
-}
-
-/// The entity `id` as a reference: the explicitly passed `source` (which is outside the level) or the level's entity.
-fn resolve<'l>(
-    level: &'l ServerLevel,
-    source: Option<&'l dyn Entity>,
-    id: EntityId,
-) -> Option<&'l dyn Entity> {
-    match source {
-        Some(s) if s.id() == id => Some(s),
-        _ => level.get_entity(id),
     }
 }
 

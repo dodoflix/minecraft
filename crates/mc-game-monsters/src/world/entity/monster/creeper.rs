@@ -136,15 +136,15 @@ impl Creeper {
         let explosion_multiplier = if self.is_powered() { 2.0f32 } else { 1.0f32 };
         self.mob.living.dead = true;
         let p = self.position();
+        let radius = self.explosion_radius as f32 * explosion_multiplier;
         level.explode(Explode::new(
-            Some(&*self),
+            Some(self.as_dyn_mut()),
             p.x,
             p.y,
             p.z,
-            self.explosion_radius as f32 * explosion_multiplier,
+            radius,
             ExplosionInteraction::Mob,
         ));
-        level.run_deferred_level_ops(self);
         self.spawn_lingering_cloud(level);
         mc_game_core::world::entity::living_entity::effects::trigger_on_death_mob_effects(
             self,

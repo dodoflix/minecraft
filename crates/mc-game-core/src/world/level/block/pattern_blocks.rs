@@ -5,7 +5,7 @@ use super::pattern::BlockPatternMatch;
 use crate::advancements::triggers::{CriteriaTriggers, fire_with_entity};
 use crate::server::level::ServerLevel;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
+use crate::world::entity::{Entity, EntityId};
 use crate::world::level::LevelAccessor;
 use mc_data::EntityType;
 use mc_data::block::Block;
@@ -61,49 +61,16 @@ pub fn add_fresh_entity(
     level.add_fresh_entity(entity).then_some(id)
 }
 
-/// `CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity)` for the entity with id `entity_id` (which must be in the
-/// level), reading both from the level.
-fn award_summoned_entity(level: &mut ServerLevel, player: &mut ServerPlayer, entity_id: EntityId) {
-    let Some(entity) = level.get_entity(entity_id) else {
-        return;
-    };
-    let matches = CriteriaTriggers::SUMMONED_ENTITY.matches(&*level, &*player, entity);
-    matches.award(level, player);
-}
-
 /// `level.getEntitiesOfClass(ServerPlayer.class, entity.getBoundingBox().inflate(range))` +
-/// `CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity)` for the not yet added `entity`. When one of the players is
-/// running (taken out of the level: the one whose placement summoned the entity) every award waits until it is put back,
-/// to keep vanilla's order.
+/// `CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity)` for the not yet added `entity`. The player whose placement
+/// summoned it is lent by the placing code, so it is found and awarded here like the others.
 pub fn trigger_summoned_entity(level: &mut ServerLevel, entity: &dyn Entity, range: f64) {
     let search = entity.get_bounding_box().inflate_scalar(range);
-    let players = level.get_players_in_aabb(&search);
-    let Some(running) = players
-        .iter()
-        .copied()
-        .find(|&id| level.get_entity(id).is_none())
-    else {
-        for id in players {
-            fire_with_entity(level, id, entity, |level, player, entity| {
-                CriteriaTriggers::SUMMONED_ENTITY.matches(level, player, entity)
-            });
-        }
-        return;
-    };
-    let entity_id = entity.id();
-    level.with_entity_or_defer(running, move |level, running_entity| {
-        for id in players {
-            if id == running {
-                if let Some(player) = running_entity.as_any_mut().downcast_mut::<ServerPlayer>() {
-                    award_summoned_entity(level, player, entity_id);
-                }
-            } else {
-                level.with_player(id, |level, player| {
-                    award_summoned_entity(level, player, entity_id);
-                });
-            }
-        }
-    });
+    for id in level.get_players_in_aabb(&search) {
+        fire_with_entity(level, id, entity, |level, player, entity| {
+            CriteriaTriggers::SUMMONED_ENTITY.matches(level, player, entity)
+        });
+    }
 }
 
 /// `CarvedPumpkinBlock.spawnGolemInWorld(level, match, golem, spawnPos)`.

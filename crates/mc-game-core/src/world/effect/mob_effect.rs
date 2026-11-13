@@ -21,11 +21,12 @@ use mc_protocol::packets::play::{ParticleOptions, SoundSource};
 const AMBIENT_ALPHA: i32 = 38;
 
 /// The `source` / `owner` entities of `applyInstantaneousEffect`: either the affected mob itself (a player drinking
-/// a potion passes itself, which the borrow checker cannot express as a second reference) or another entity.
+/// a potion passes itself, which the borrow checker cannot express as a second reference) or another entity, by id: it is
+/// in the level or lent to it by the code that applies the effect.
 #[derive(Clone, Copy)]
-pub enum EffectCause<'a> {
+pub enum EffectCause {
     Mob,
-    Entity(&'a dyn Entity),
+    Entity(crate::world::entity::EntityId),
 }
 
 fn data_operation(op: DataOperation) -> AttributeModifierOperation {
@@ -83,8 +84,8 @@ pub trait MobEffectExt: Copy {
     fn apply_instantaneous_effect(
         self,
         level: &mut ServerLevel,
-        source: Option<EffectCause<'_>>,
-        owner: Option<EffectCause<'_>>,
+        source: Option<EffectCause>,
+        owner: Option<EffectCause>,
         mob: &mut dyn Entity,
         amplification: i32,
         scale: f64,
@@ -269,8 +270,8 @@ impl MobEffectExt for MobEffect {
     fn apply_instantaneous_effect(
         self,
         level: &mut ServerLevel,
-        source: Option<EffectCause<'_>>,
-        owner: Option<EffectCause<'_>>,
+        source: Option<EffectCause>,
+        owner: Option<EffectCause>,
         mob: &mut dyn Entity,
         amplification: i32,
         scale: f64,
@@ -290,16 +291,16 @@ impl MobEffectExt for MobEffect {
                 Some(source) => {
                     // the cause is either `mob` itself or another entity; both are only read to build the source
                     let mob_ref: &dyn Entity = &*mob;
-                    fn resolve<'x>(mob: &'x dyn Entity, c: EffectCause<'x>) -> &'x dyn Entity {
-                        match c {
-                            EffectCause::Mob => mob,
-                            EffectCause::Entity(e) => e,
-                        }
+                    let resolve = |c: EffectCause| match c {
+                        EffectCause::Mob => Some(mob_ref),
+                        EffectCause::Entity(id) => level.get_entity_or_lent(id),
+                    };
+                    match resolve(source) {
+                        Some(source) => level
+                            .damage_sources()
+                            .indirect_magic(source, owner.and_then(resolve)),
+                        None => level.damage_sources().magic(),
                     }
-                    level.damage_sources().indirect_magic(
-                        resolve(mob_ref, source),
-                        owner.map(|o| resolve(mob_ref, o)),
-                    )
                 }
             };
             mob.hurt_server(level, &damage_source, amount as f32);

@@ -442,8 +442,12 @@ impl Entity for ItemFrame {
     fn skip_attack_interaction(&mut self, level: &mut ServerLevel, source: &dyn Entity) -> bool {
         block_attached::skip_attack_interaction(self, level, source)
     }
-    fn ignore_explosion(&self, explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
-        block_attached::ignore_explosion(explosion)
+    fn ignore_explosion_in_level(
+        &self,
+        level: &ServerLevel,
+        explosion: &dyn crate::world::level::explosion::Explosion,
+    ) -> bool {
+        block_attached::ignore_explosion(level, explosion)
     }
     fn r#move(&mut self, level: &mut ServerLevel, _mover: MoverType, delta: Vec3) {
         if !self.fixed {

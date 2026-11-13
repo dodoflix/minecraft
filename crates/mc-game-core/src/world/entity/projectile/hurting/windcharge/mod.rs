@@ -161,7 +161,7 @@ fn tick(wind_charge: &mut dyn AbstractWindCharge, level: &mut ServerLevel) {
 
 /// `level.explode(this, null, calculator, x, y, z, radius, false, TRIGGER, GUST_EMITTER_SMALL, GUST_EMITTER_LARGE, WeightedList.of(), sound)`.
 fn explode_with(
-    wind_charge: &dyn Entity,
+    wind_charge: &mut dyn Entity,
     level: &mut ServerLevel,
     calculator: &dyn ExplosionDamageCalculator,
     position: Vec3,
@@ -351,7 +351,7 @@ impl AbstractHurtingProjectile for WindCharge {
 impl AbstractWindCharge for WindCharge {
     fn explode(&mut self, level: &mut ServerLevel, position: Vec3) {
         explode_with(
-            self,
+            self.as_dyn_mut(),
             level,
             &WIND_CHARGE_EXPLOSION_DAMAGE_CALCULATOR,
             position,
@@ -419,7 +419,7 @@ impl AbstractHurtingProjectile for BreezeWindCharge {
 impl AbstractWindCharge for BreezeWindCharge {
     fn explode(&mut self, level: &mut ServerLevel, position: Vec3) {
         explode_with(
-            self,
+            self.as_dyn_mut(),
             level,
             &EXPLOSION_DAMAGE_CALCULATOR,
             position,

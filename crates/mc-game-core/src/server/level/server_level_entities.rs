@@ -126,6 +126,12 @@ impl ServerLevel {
             .or_else(|| self.loading_entity.as_deref().filter(|e| e.id() == id))
     }
 
+    /// [`ServerLevel::get_entity`], or the entity its running code lent although it removed itself meanwhile.
+    pub fn get_entity_or_lent(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.get_entity(id)
+            .or_else(|| self.entity_manager.lent_including_removed(id))
+    }
+
     /// [`ServerLevel::get_entity`], or the entity that was removed when [`ServerLevel::removed_entities`] keeps them.
     pub fn get_entity_or_removed(&self, id: EntityId) -> Option<&dyn Entity> {
         self.entity_manager.get(id).or_else(|| {
@@ -178,54 +184,6 @@ impl ServerLevel {
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
         self.process_waypoint_state(id);
-        if let Some(ops) = self.deferred_level_ops.remove(&id)
-            && let Some(mut entity) = self.take_entity(id)
-        {
-            for op in ops {
-                op(self, entity.as_mut());
-            }
-            self.put_back_entity(id, entity);
-        }
-    }
-
-    /// Run `f` on entity `id` now if it is in storage or lent (returns its result); if the entity is taken out (it is
-    /// the one running and no call-out lent it) `f` runs when it is put back and `None` is returned.
-    pub fn with_entity_or_defer<R: 'static>(
-        &mut self,
-        id: EntityId,
-        f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R + 'static,
-    ) -> Option<R> {
-        if self.entity_manager.can_reenter_lent(id) {
-            return self.with_entity(id, f);
-        }
-        match self.take_entity(id) {
-            Some(mut entity) => {
-                let result = f(self, entity.as_mut());
-                self.put_back_entity(id, entity);
-                Some(result)
-            }
-            None => {
-                if self.entity_manager.has_entity_with_id(id) {
-                    self.deferred_level_ops
-                        .entry(id)
-                        .or_default()
-                        .push(Box::new(move |level, entity| {
-                            f(level, entity);
-                        }));
-                }
-                None
-            }
-        }
-    }
-
-    /// Runs now the ops other code deferred for `entity` while it was the running (taken-out) entity, for an entity that
-    /// removes itself before it is put back (`Creeper.explodeCreeper`: the `killedEntity` of its explosion kills).
-    pub fn run_deferred_level_ops(&mut self, entity: &mut dyn Entity) {
-        if let Some(ops) = self.deferred_level_ops.remove(&entity.id()) {
-            for op in ops {
-                op(self, entity);
-            }
-        }
     }
 
     /// The tracker part of `Entity.setRemoved` for an entity that is out of storage (it is being ticked or lent):

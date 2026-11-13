@@ -253,7 +253,7 @@ impl Entity for Guardian {
         {
             let thorns = level.damage_sources().thorns(self);
             level.lend(&mut *self, |level| {
-                level.with_entity_or_defer(cause, move |level, e| {
+                level.with_entity(cause, move |level, e| {
                     e.hurt_server(level, &thorns, 2.0);
                 })
             });

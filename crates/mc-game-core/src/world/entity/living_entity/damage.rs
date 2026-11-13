@@ -226,15 +226,26 @@ pub fn hurt_server(
     }
     if let Some(source_player) = source.get_entity().filter(|_| source.causing_is_player()) {
         let source = source.clone();
-        crate::advancements::triggers::fire_with_entity(
-            level,
-            source_player,
-            &*entity,
-            move |level, player, victim| {
-                crate::advancements::triggers::CriteriaTriggers::PLAYER_HURT_ENTITY
-                    .matches(level, player, victim, &source, damage, damage, blocked)
-            },
-        );
+        let matcher = move |level: &ServerLevel,
+                            player: &crate::world::entity::ServerPlayer,
+                            victim: &dyn Entity| {
+            crate::advancements::triggers::CriteriaTriggers::PLAYER_HURT_ENTITY
+                .matches(level, player, victim, &source, damage, damage, blocked)
+        };
+        if source_player == entity.id() {
+            // the player hurts itself (its own arrow, a cloud it owns): it is the victim in hand
+            if let Some(player) = as_server_player(entity) {
+                let matches = level.expose(&*player, |level| matcher(&*level, &*player, &*player));
+                matches.award(level, player);
+            }
+        } else {
+            crate::advancements::triggers::fire_with_entity(
+                level,
+                source_player,
+                &*entity,
+                matcher,
+            );
+        }
     }
     success
 }
@@ -463,19 +474,13 @@ pub fn get_damage_after_magic_absorb(
                     mc_core::math::java::round_f32(damage_resisted * 10.0),
                 );
             } else if source.causing_is_player() {
-                let causing = source.causing_entity.expect("causing");
-                level.with_entity_or_defer(causing, move |level, e| {
-                    if let Some(p) = e
-                        .as_any_mut()
-                        .downcast_mut::<crate::world::entity::ServerPlayer>()
-                    {
-                        p.award_stat(
-                            level,
-                            crate::stats::stats::Stats::DAMAGE_DEALT_RESISTED,
-                            mc_core::math::java::round_f32(damage_resisted * 10.0),
-                        );
-                    }
-                });
+                award_causing_player_stat(
+                    entity,
+                    level,
+                    source,
+                    crate::stats::stats::Stats::DAMAGE_DEALT_RESISTED,
+                    mc_core::math::java::round_f32(damage_resisted * 10.0),
+                );
             }
         }
     }
@@ -496,6 +501,25 @@ pub fn get_damage_after_magic_absorb(
     damage
 }
 
+/// Awards `stat` to the player that caused the damage: the level hands it out (in storage or lent by its running
+/// attack), or it is the damaged entity itself.
+fn award_causing_player_stat(
+    entity: &mut dyn Entity,
+    level: &mut ServerLevel,
+    source: &DamageSource,
+    stat: crate::stats::Stat,
+    amount: i32,
+) {
+    let causing = source.causing_entity.expect("causing");
+    if causing == entity.id() {
+        if let Some(p) = as_server_player(entity) {
+            p.award_stat(level, stat, amount);
+        }
+    } else {
+        level.with_player(causing, |level, p| p.award_stat(level, stat, amount));
+    }
+}
+
 /// `LivingEntity.actuallyHurt(level, source, dmg)`.
 pub fn actually_hurt(
     entity: &mut dyn Entity,
@@ -513,19 +537,13 @@ pub fn actually_hurt(
     entity.set_absorption_amount(absorption - (dmg - var10));
     let absorbed_damage = dmg - var10;
     if absorbed_damage > 0.0 && absorbed_damage < STAT_DAMAGE_LIMIT && source.causing_is_player() {
-        let causing = source.causing_entity.expect("causing");
-        level.with_entity_or_defer(causing, move |level, e| {
-            if let Some(p) = e
-                .as_any_mut()
-                .downcast_mut::<crate::world::entity::ServerPlayer>()
-            {
-                p.award_stat(
-                    level,
-                    crate::stats::stats::Stats::DAMAGE_DEALT_ABSORBED,
-                    mc_core::math::java::round_f32(absorbed_damage * 10.0),
-                );
-            }
-        });
+        award_causing_player_stat(
+            entity,
+            level,
+            source,
+            crate::stats::stats::Stats::DAMAGE_DEALT_ABSORBED,
+            mc_core::math::java::round_f32(absorbed_damage * 10.0),
+        );
     }
     if var10 != 0.0 {
         super::combat::record_damage(entity, level, source, var10);

@@ -68,8 +68,8 @@ pub(super) fn run(h: &mut Harness, a: &[String]) -> bool {
             if !horse {
                 with_other(h, &a[1], &a[2], |level, e, player| {
                     let player = player
-                        .as_any()
-                        .downcast_ref::<ServerPlayer>()
+                        .as_any_mut()
+                        .downcast_mut::<ServerPlayer>()
                         .expect("tame needs a player");
                     tamable::tame(e, level, player);
                 });

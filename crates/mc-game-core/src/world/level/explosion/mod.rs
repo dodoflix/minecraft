@@ -54,8 +54,6 @@ pub trait Explosion {
     fn get_indirect_source_entity(&self) -> Option<EntityId>;
     /// `getDirectSourceEntity()`.
     fn get_direct_source_entity(&self) -> Option<EntityId>;
-    /// `getDirectSourceEntity()` as the entity itself (it usually lives outside the level while it runs).
-    fn get_direct_source_entity_ref(&self) -> Option<&dyn Entity>;
     fn radius(&self) -> f32;
     fn center(&self) -> Vec3;
     fn can_trigger_blocks(&self) -> bool;
@@ -281,14 +279,11 @@ pub fn default_on_explosion_hit(
         );
         let radius = (explosion.get_block_interaction() == BlockInteraction::DestroyWithDecay)
             .then(|| explosion.radius());
-        behaviour(block).before_get_drops(
-            state,
-            level,
-            pos,
-            explosion
-                .get_direct_source_entity_ref()
-                .map(|e| e.get_type()),
-        );
+        let source_type = explosion
+            .get_direct_source_entity()
+            .and_then(|id| level.get_entity_or_lent(id))
+            .map(|e| e.get_type());
+        behaviour(block).before_get_drops(state, level, pos, source_type);
         let block_entity = if state.has_block_entity() {
             level.get_block_entity(pos)
         } else {
@@ -299,7 +294,9 @@ pub fn default_on_explosion_hit(
             state,
             pos,
             block_entity,
-            explosion.get_direct_source_entity_ref(),
+            explosion
+                .get_direct_source_entity()
+                .and_then(|id| level.get_entity_or_lent(id)),
             radius,
         );
         for stack in drops {

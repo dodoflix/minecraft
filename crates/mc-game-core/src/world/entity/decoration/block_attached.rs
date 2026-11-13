@@ -117,8 +117,10 @@ pub fn kill<E: BlockAttached>(e: &mut E, level: &mut ServerLevel, attributed_to:
     level.remove_held_entity(e.as_dyn_mut(), RemovalReason::Killed);
     let position = e.base().position();
     match attributed_to {
-        Some(source) => level.game_event_from_entity(Some(source), GameEvent::ENTITY_DIE, position),
-        None => level.game_event_from_entity_ref(e.as_dyn(), GameEvent::ENTITY_DIE, position),
+        Some(source) if source != e.id() => {
+            level.game_event_from_entity(Some(source), GameEvent::ENTITY_DIE, position)
+        }
+        _ => level.game_event_from_entity_ref(e.as_dyn(), GameEvent::ENTITY_DIE, position),
     }
 }
 
@@ -144,9 +146,13 @@ pub fn hurt_server<E: BlockAttached>(
 }
 
 /// `BlockAttachedEntity.ignoreExplosion(explosion)` given `super.ignoreExplosion` (the entity's own `Entity.ignoreExplosion`).
-pub fn ignore_explosion(explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+pub fn ignore_explosion(
+    level: &crate::server::level::ServerLevel,
+    explosion: &dyn crate::world::level::explosion::Explosion,
+) -> bool {
     if explosion
-        .get_direct_source_entity_ref()
+        .get_direct_source_entity()
+        .and_then(|id| level.get_entity_or_lent(id))
         .is_some_and(|d| d.is_in_water())
     {
         true

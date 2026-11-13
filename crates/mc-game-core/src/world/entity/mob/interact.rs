@@ -235,7 +235,7 @@ pub fn attempt_to_shear_equipment(
             super::equipment::set_item_slot(e, level, slot, ItemStack::empty());
             level.game_event_from_entity_ref(&*player, GameEvent::SHEAR, e.position());
             crate::world::entity::item::spawn_at_location(level, e, item_stack.clone(), offset);
-            ext::trigger_player_sheared_equipment(level, player.id(), &item_stack, &*e);
+            ext::trigger_player_sheared_equipment(level, player, &item_stack, &*e);
             if let Some(sound) = shearing_sound {
                 e.play_sound_default(level, sound);
             }

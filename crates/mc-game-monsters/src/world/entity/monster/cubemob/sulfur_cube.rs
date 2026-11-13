@@ -193,11 +193,12 @@ impl SulfurCube {
                         as &dyn ExplosionDamageCalculator,
                 );
                 let y = self.base().get_y_progress(0.0625);
+                let (x, z) = (self.base().x(), self.base().z());
                 let mut params = Explode::new(
-                    Some(self),
-                    self.base().x(),
+                    Some(self.as_dyn_mut()),
+                    x,
                     y,
-                    self.base().z(),
+                    z,
                     data.power as f32,
                     interaction,
                 )
@@ -984,12 +985,7 @@ impl Entity for SulfurCube {
                         hand.as_equipment_slot(),
                     )
                 });
-                mob::ext::trigger_player_sheared_equipment(
-                    level,
-                    player.id(),
-                    &sheared,
-                    self.as_dyn(),
-                );
+                mob::ext::trigger_player_sheared_equipment(level, player, &sheared, self.as_dyn());
                 InteractionResult::SUCCESS
             } else if is_swallowable_item(&held) {
                 let worked = self.equip_item(level, &held);

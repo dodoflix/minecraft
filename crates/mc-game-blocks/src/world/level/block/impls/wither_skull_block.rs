@@ -153,10 +153,14 @@ impl BlockBehaviour for WitherSkullBlock {
         _state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        _placer: Option<&mut ServerPlayer>,
+        placer: Option<&mut ServerPlayer>,
         _stack: &ItemStack,
     ) {
-        check_spawn(level, pos);
+        // the summoned wither's trigger awards the placing player, so it is lent
+        match placer {
+            Some(player) => level.lend(player, |level| check_spawn(level, pos)),
+            None => check_spawn(level, pos),
+        }
     }
 }
 
@@ -194,10 +198,14 @@ impl BlockBehaviour for WitherWallSkullBlock {
         _state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        _placer: Option<&mut ServerPlayer>,
+        placer: Option<&mut ServerPlayer>,
         _stack: &ItemStack,
     ) {
-        check_spawn(level, pos);
+        // the summoned wither's trigger awards the placing player, so it is lent
+        match placer {
+            Some(player) => level.lend(player, |level| check_spawn(level, pos)),
+            None => check_spawn(level, pos),
+        }
     }
 }
 

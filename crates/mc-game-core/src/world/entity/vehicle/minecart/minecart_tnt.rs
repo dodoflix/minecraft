@@ -127,7 +127,7 @@ impl MinecartTnt {
             let p = self.base.position();
             level.explode(
                 Explode::new(
-                    Some(&*self),
+                    Some(self.as_dyn_mut()),
                     p.x,
                     p.y,
                     p.z,

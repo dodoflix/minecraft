@@ -33,9 +33,6 @@ pub enum EntityLevelEvent {
     SectionChange(EntityId),
 }
 
-/// A change applied to an entity that was taken out of storage when it was requested.
-pub type DeferredEntityOp = Box<dyn FnOnce(&mut dyn Entity)>;
-
 /// An entity that is out of its slot (its owner is running) but published for lookups while one call-out runs.
 struct Lent {
     id: EntityId,
@@ -81,7 +78,6 @@ pub struct PersistentEntitySectionManager {
     events: Vec<EntityLevelEvent>,
     /// Entities removed from storage whose events are still being processed.
     limbo: HashMap<EntityId, Box<dyn Entity>>,
-    deferred: HashMap<EntityId, Vec<DeferredEntityOp>>,
     /// Entities currently lent to the level (see [`Self::lend_in`]); empty almost always, newest last.
     lent: Vec<Lent>,
     /// Section moves of lent entities (`previous`, `new` status), applied by `put_back` once the entity is in its slot
@@ -105,7 +101,6 @@ impl PersistentEntitySectionManager {
             tick_list: EntityTickList::default(),
             events: Vec::new(),
             limbo: HashMap::new(),
-            deferred: HashMap::new(),
             lent: Vec::new(),
             lent_moves: HashMap::new(),
         }
@@ -724,7 +719,6 @@ impl PersistentEntitySectionManager {
             self.known_uuids.remove(&uuid);
         }
         self.remove_section_if_empty(slot.section_key);
-        self.deferred.remove(&id);
         self.lent_moves.remove(&id);
     }
 
@@ -818,6 +812,18 @@ impl PersistentEntitySectionManager {
         // `&mut` to start.
         let entity = unsafe { l.ptr.as_ref() };
         (!entity.is_removed()).then_some(entity)
+    }
+
+    /// The lent entity `id` even when it removed itself while lent (an explosion's source: a primed TNT discards itself before
+    /// it explodes, vanilla's explosion still holds the object), unless a re-entry holds its `&mut`.
+    pub fn lent_including_removed(&self, id: EntityId) -> Option<&dyn Entity> {
+        let l = &self.lent[self.lent_index(id)?];
+        if l.busy {
+            None
+        } else {
+            // SAFETY: as in `lent_ref`
+            Some(unsafe { l.ptr.as_ref() })
+        }
     }
 
     /// Is `id` lent right now (even if its `&mut` is out)?
@@ -952,12 +958,7 @@ impl PersistentEntitySectionManager {
     }
 
     /// Put a taken-out entity back: runs deferred operations, then syncs removal / section changes.
-    pub fn put_back(&mut self, id: EntityId, mut entity: Box<dyn Entity>) {
-        if let Some(ops) = self.deferred.remove(&id) {
-            for op in ops {
-                op(entity.as_mut());
-            }
-        }
+    pub fn put_back(&mut self, id: EntityId, entity: Box<dyn Entity>) {
         match self.entities.get_mut(&id) {
             Some(slot) => slot.entity = Some(entity),
             None => {
@@ -972,19 +973,6 @@ impl PersistentEntitySectionManager {
             }
         }
         self.sync_entity(id);
-    }
-
-    /// Run `op` on the entity now if it is in storage, else when it is put back.
-    pub fn defer_or_apply(&mut self, id: EntityId, op: DeferredEntityOp) {
-        if let Some(slot) = self.entities.get_mut(&id) {
-            match slot.entity.as_deref_mut() {
-                Some(e) => {
-                    op(e);
-                    self.sync_entity(id);
-                }
-                None => self.deferred.entry(id).or_default().push(op),
-            }
-        }
     }
 
     pub fn is_loaded(&self, uuid: Uuid) -> bool {
@@ -1247,6 +1235,25 @@ mod tests {
             );
         });
         assert_eq!(e.position().x, 3.0, "the owner reads the mutated entity");
+    }
+
+    #[test]
+    fn lent_entity_is_mutable_through_the_manager_unless_a_reentry_holds_it() {
+        let (mut m, mut e) = lend_setup(&[(1, 1.0)]);
+        M::lend_in(&mut m, this, e.as_mut(), |m| {
+            m.get_any_mut(1).unwrap().set_pos(5.0, 64.0, 1.0);
+            assert_eq!(m.get_any(1).unwrap().position().x, 5.0);
+            M::with_lent_mut(m, this, 1, |m, _| {
+                assert!(m.get_any_mut(1).is_none(), "the re-entry holds the &mut");
+            });
+            m.get_any_mut(1).unwrap().discard();
+            assert!(
+                m.get_any_mut(1).is_none(),
+                "a removed lent entity is invisible"
+            );
+            assert!(m.lent_including_removed(1).is_some());
+        });
+        assert!(e.is_removed());
     }
 
     #[test]

@@ -526,7 +526,14 @@ impl BlockItem {
         else {
             return InteractionResult::FAIL;
         };
-        if !self.place_block(&updated, placement_state, level) {
+        // placing can summon (golems, the wither): the placing player is lent so the triggers find it
+        let placed = match player.as_deref_mut() {
+            Some(p) => level.lend(p, |level| {
+                self.place_block(&updated, placement_state, level)
+            }),
+            None => self.place_block(&updated, placement_state, level),
+        };
+        if !placed {
             return InteractionResult::FAIL;
         }
         let pos = updated.get_clicked_pos();

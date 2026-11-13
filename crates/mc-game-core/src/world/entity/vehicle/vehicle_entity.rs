@@ -138,9 +138,6 @@ pub fn ignore_explosion(level: &ServerLevel, explosion: &dyn Explosion) -> bool 
         return false;
     };
     // the exploding entity usually runs outside the level
-    let source = explosion
-        .get_direct_source_entity_ref()
-        .filter(|d| d.id() == indirect)
-        .or_else(|| level.get_entity(indirect));
+    let source = level.get_entity_or_lent(indirect);
     source.is_some_and(is_mob) && !level.mob_griefing()
 }

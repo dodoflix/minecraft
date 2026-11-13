@@ -110,9 +110,6 @@ pub struct ServerLevel {
     pub worldgen_clock: Option<super::server_level_worldgen::WorldGenClock>,
     /// `waypointManager`
     pub waypoint_manager: crate::server::waypoints::ServerWaypointManager,
-    /// Operations on entities that were taken out (running) when they were requested: run when put back
-    /// (`ServerLevel::with_entity_or_defer`).
-    pub deferred_level_ops: std::collections::HashMap<EntityId, Vec<DeferredLevelOp>>,
     /// A private `ENTITY_COUNTER` for this level (the scenario replay harness gives its level the oracle's id sequence 1, 2, 3, ...
     /// regardless of other levels created by tests running in parallel); `None` = the process wide counter.
     pub entity_id_counter: Option<std::sync::atomic::AtomicI32>,
@@ -125,8 +122,6 @@ pub struct ServerLevel {
     /// Natural spawning state: spawn state of the tick, custom spawners, dimension attribute base (see `world::level::spawner`).
     pub spawning: crate::world::level::spawner::LevelSpawnData,
 }
-
-pub type DeferredLevelOp = Box<dyn FnOnce(&mut ServerLevel, &mut dyn crate::world::entity::Entity)>;
 
 impl ServerLevel {
     /// `new ServerLevel(...)` for the chunk side: creates the chunk source over the dimension folder.
@@ -191,7 +186,6 @@ impl ServerLevel {
             worldgen_data: None,
             worldgen_clock: None,
             waypoint_manager: Default::default(),
-            deferred_level_ops: Default::default(),
             entity_id_counter: None,
             path_type_cache: Default::default(),
             pending_start_references: Default::default(),

@@ -147,7 +147,7 @@ impl Entity for EndCrystal {
                                 .damage_sources()
                                 .explosion(Some(self.as_dyn()), Some(cause))
                         });
-                explode(level, self.as_dyn(), damage_source);
+                explode(level, self.as_dyn_mut(), damage_source);
             }
             self.on_destroyed_by(level, source);
         }
@@ -180,7 +180,7 @@ impl Entity for EndCrystal {
 }
 
 /// The explosion of a destroyed crystal at its position (`Level.explode(crystal, damageSource, null, x, y, z, 6.0F, false, BLOCK)`).
-fn explode(level: &mut ServerLevel, crystal: &dyn Entity, damage_source: Option<DamageSource>) {
+fn explode(level: &mut ServerLevel, crystal: &mut dyn Entity, damage_source: Option<DamageSource>) {
     let p = crystal.position();
     let params = Explode::new(
         Some(crystal),

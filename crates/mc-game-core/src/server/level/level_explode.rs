@@ -3,8 +3,7 @@
 
 use super::ServerLevel;
 use crate::world::damagesource::DamageSource;
-use crate::world::entity::Entity;
-use crate::world::entity::player::ServerPlayer;
+use crate::world::entity::{Entity, EntityId};
 use crate::world::level::explosion::{
     BlockInteraction, ExplosionDamageCalculator, ExplosionInteraction, ServerExplosion,
 };
@@ -40,7 +39,9 @@ pub fn default_explosion_block_particles() -> WeightedList<ExplosionParticleInfo
 /// The arguments of `ServerLevel.explode(..)`; [`Explode::new`] = the short `Level.explode(source, x, y, z, r, interaction)`
 /// overload (default damage source/calculator/particles/sound), the fields are the long overload's parameters.
 pub struct Explode<'a> {
-    pub source: Option<&'a dyn Entity>,
+    /// The exploding entity: lent to the level for the blast, so victims, listeners and loot read (and, for kill credit and
+    /// triggers, re-enter) it like vanilla's object. `None` = no entity (a block).
+    pub source: Option<&'a mut dyn Entity>,
     pub damage_source: Option<DamageSource>,
     pub calculator: Option<&'a dyn ExplosionDamageCalculator>,
     pub x: f64,
@@ -57,7 +58,7 @@ pub struct Explode<'a> {
 
 impl<'a> Explode<'a> {
     pub fn new(
-        source: Option<&'a dyn Entity>,
+        source: Option<&'a mut dyn Entity>,
         x: f64,
         y: f64,
         z: f64,
@@ -98,17 +99,20 @@ impl<'a> Explode<'a> {
 }
 
 impl ServerLevel {
-    /// `ServerLevel.explode(..)`. The source entity is exposed to the level while the blast runs (it is usually out of
-    /// its slot because its own code explodes). An entity that is hurt by an explosion started by its own code (a
-    /// player using a bed or an anchor) must be lent (`ServerLevel::lend`) to be hurt, knocked back and sent the packet.
-    pub fn explode(&mut self, params: Explode<'_>) {
-        match params.source {
-            Some(source) => self.expose(source, |level| level.explode_blast(params)),
-            None => self.explode_blast(params),
+    /// `ServerLevel.explode(..)`. The source entity is lent to the level while the blast runs (it is usually out of its slot
+    /// because its own code explodes). An entity that is hurt by an explosion started by its own code (a player using a bed
+    /// or an anchor) must be lent (`ServerLevel::lend`) to be hurt, knocked back and sent the packet.
+    pub fn explode(&mut self, mut params: Explode<'_>) {
+        match params.source.take() {
+            Some(source) => {
+                let id = source.id();
+                self.lend(source, |level| level.explode_blast(params, Some(id)));
+            }
+            None => self.explode_blast(params, None),
         }
     }
 
-    fn explode_blast(&mut self, params: Explode<'_>) {
+    fn explode_blast(&mut self, params: Explode<'_>, source: Option<EntityId>) {
         let block_interaction = match params.interaction {
             ExplosionInteraction::None => BlockInteraction::Keep,
             ExplosionInteraction::Block => self.get_destroy_type(self.block_explosion_drop_decay()),
@@ -125,7 +129,7 @@ impl ServerLevel {
         let center = Vec3::new(params.x, params.y, params.z);
         let mut explosion = ServerExplosion::new(
             self,
-            params.source,
+            source,
             params.damage_source,
             params.calculator,
             center,
@@ -139,7 +143,9 @@ impl ServerLevel {
         } else {
             params.large_explosion_particles
         };
-        let play_sound = params.source.is_none_or(|s| !s.base().is_silent());
+        let play_sound = source
+            .and_then(|id| self.get_entity_or_lent(id))
+            .is_none_or(|s| !s.base().is_silent());
         let packet = |player_id, position: Vec3| {
             (position.distance_to_sqr(center) < 4096.0).then(|| ClientboundExplodePacket {
                 center,
@@ -152,26 +158,12 @@ impl ServerLevel {
                 play_sound,
             })
         };
-        for &id in &self.players {
-            let Some(entity) = self.get_entity(id) else {
-                continue;
-            };
-            let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else {
-                continue;
-            };
-            if let (Some(connection), Some(p)) = (&player.connection, packet(id, entity.position()))
+        for record in self.player_records() {
+            if let (Some(connection), Some(p)) =
+                (&record.connection, packet(record.id, record.position))
             {
                 connection.send(&p);
             }
-        }
-        // a player that explodes from outside the storage (its own packet or tick is being handled) is a level player too
-        if let Some(source) = params.source
-            && let Some(player) = source.as_any().downcast_ref::<ServerPlayer>()
-            && self.get_entity(source.id()).is_none()
-            && let (Some(connection), Some(p)) =
-                (&player.connection, packet(source.id(), source.position()))
-        {
-            connection.send(&p);
         }
     }
 

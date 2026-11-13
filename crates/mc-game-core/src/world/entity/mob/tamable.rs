@@ -107,10 +107,10 @@ pub fn is_owned_by(e: &dyn Entity, level: &ServerLevel, entity: &dyn Entity) -> 
 }
 
 /// `tame(player)`.
-pub fn tame(e: &mut dyn Entity, level: &mut ServerLevel, player: &ServerPlayer) {
+pub fn tame(e: &mut dyn Entity, level: &mut ServerLevel, player: &mut ServerPlayer) {
     e.set_tame(Some(&mut *level), true, true);
-    set_owner(e, Some(player));
-    ext::trigger_tame_animal(level, player.id(), &*e);
+    set_owner(e, Some(&*player));
+    ext::trigger_tame_animal(level, player, &*e);
 }
 
 /// `isOrderedToSit()`.
