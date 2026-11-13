@@ -4514,6 +4514,10 @@ pub trait Entity: Any {
     fn get_celebrate_sound(&self) -> Option<mc_data::SoundEvent> {
         None
     }
+    /// `Entity.setCustomName(name)` (`Vindicator` turns Johnny on for the name "Johnny").
+    fn set_custom_name(&mut self, name: Option<Component>) {
+        self.base_mut().set_custom_name(name);
+    }
     /// The part of `readAdditionalSaveData` that needs the level (a thrown trident's loyalty comes from its enchantments),
     /// run before the loaded or freshly created entity is added to the level and so before any tracker pairs it.
     fn read_level_dependent_data(&mut self, _level: &mut ServerLevel) {}
@@ -5074,12 +5078,12 @@ pub fn load<E: Entity + ?Sized>(entity: &mut E, input: &CompoundTag) -> Result<(
     entity.reapply_position();
     let (yr, xr) = (entity.base().y_rot(), entity.base().x_rot());
     entity.set_rot(yr, xr);
+    let name = input
+        .get("CustomName")
+        .and_then(|t| Component::from_nbt(t).ok());
+    entity.set_custom_name(name);
     {
         let b = entity.base_mut();
-        let name = input
-            .get("CustomName")
-            .and_then(|t| Component::from_nbt(t).ok());
-        b.set_custom_name(name);
         b.set_custom_name_visible(input.get_boolean_or("CustomNameVisible", false));
         b.set_silent(input.get_boolean_or("Silent", false));
         b.set_no_gravity(input.get_boolean_or("NoGravity", false));

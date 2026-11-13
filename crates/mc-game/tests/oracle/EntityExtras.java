@@ -6,12 +6,17 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.animal.goat.Goat;
+import net.minecraft.world.entity.monster.PatrollingMonster;
+import net.minecraft.world.entity.monster.illager.Pillager;
+import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ShulkerBullet;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.vehicle.boat.AbstractChestBoat;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
@@ -156,6 +161,29 @@ final class EntityExtras {
          out.add("fuse", EntityOracleDriver.priv(e, MinecartTNT.class, "fuse"));
       }));
       ALL.add(new Extra(32, MinecartHopper.class, (d, e, out) -> out.add("enabled", EntityOracleDriver.bool(((MinecartHopper)e).isEnabled()))));
+      ALL.add(new Extra(40, Raider.class, (d, e, out) -> {
+         Raider r = (Raider)e;
+         Raid raid = (Raid)EntityOracleDriver.priv(e, Raider.class, "raid");
+         out.add("raid", raid == null ? "-" : "1").add("wave", EntityOracleDriver.priv(e, Raider.class, "wave"));
+         out.add("canjoin", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Raider.class, "canJoinRaid")));
+         out.add("outside", EntityOracleDriver.priv(e, Raider.class, "ticksOutsideRaid"));
+         var target = (net.minecraft.core.BlockPos)EntityOracleDriver.priv(e, PatrollingMonster.class, "patrolTarget");
+         out.add("ptarget", target == null ? "-" : target.getX() + "," + target.getY() + "," + target.getZ());
+         out.add("leader", EntityOracleDriver.bool(r.isPatrolLeader()));
+         out.add("patrolling", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, PatrollingMonster.class, "patrolling")));
+         out.add("celebrating", EntityOracleDriver.bool(r.isCelebrating()));
+      }));
+      ALL.add(new Extra(41, Pillager.class, (d, e, out) -> {
+         Pillager p = (Pillager)e;
+         StringBuilder items = new StringBuilder();
+         for (int i = 0; i < p.getInventory().getContainerSize(); i++) {
+            if (!p.getInventory().getItem(i).isEmpty()) {
+               items.append(items.length() > 0 ? ";" : "").append(i).append(':').append(d.itemFull(p.getInventory().getItem(i)));
+            }
+         }
+         out.add("charging", EntityOracleDriver.bool(p.isChargingCrossbow())).add("inventory", items.length() == 0 ? "-" : items.toString());
+      }));
+      ALL.add(new Extra(41, Vindicator.class, (d, e, out) -> out.add("johnny", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Vindicator.class, "isJohnny")))));
       ALL.sort(Comparator.comparingInt(Extra::order));
    }
 

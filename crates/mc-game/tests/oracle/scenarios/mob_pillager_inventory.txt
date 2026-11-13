@@ -1,0 +1,15 @@
+# Pillager inventory: `item replace ... mob.inventory.N` (five slots, the sixth is refused), weapon.mainhand, and the Inventory,
+# Patrol and Wave tags read from NBT (reading turns CanPickUpLoot on); both mobs skip finalizeSpawn.
+level flat
+difficulty hard
+entity_counter 450
+level_seed 1
+mobspawn S minecraft:pillager 0.5 -60 8.5 reason=command nofinalize
+cmd item replace entity @e[type=minecraft:pillager,x=0.5,y=-60,z=8.5,distance=..1] mob.inventory.2 with minecraft:diamond 3
+cmd item replace entity @e[type=minecraft:pillager,x=0.5,y=-60,z=8.5,distance=..1] mob.inventory.4 with minecraft:white_banner
+cmd item replace entity @e[type=minecraft:pillager,x=0.5,y=-60,z=8.5,distance=..1] mob.inventory.5 with minecraft:stone
+cmd item replace entity @e[type=minecraft:pillager,x=0.5,y=-60,z=8.5,distance=..1] mob.inventory.0 with minecraft:diamond_sword
+cmd item replace entity @e[type=minecraft:pillager,x=0.5,y=-60,z=8.5,distance=..1] weapon.mainhand with minecraft:iron_sword
+dump mob:S nbt:S
+mobspawn N minecraft:pillager 3.5 -60 8.5 reason=command nofinalize {Inventory:[{id:"minecraft:diamond",count:2},{id:"minecraft:emerald",count:5}],Patrolling:1b,PatrolTarget:[I;10,-60,20],PatrolLeader:1b,Wave:2,CanJoinRaid:1b,CanPickUpLoot:0b}
+dump mob:N nbt:N

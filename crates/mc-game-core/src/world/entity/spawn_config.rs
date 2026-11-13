@@ -24,7 +24,7 @@ pub fn apply_base_implicit_components(entity: &mut dyn Entity, stack: &ItemStack
         projectile.projectile_data_mut().can_break = Some(can_break.clone());
     }
     if let Some(name) = stack.get(&CUSTOM_NAME) {
-        entity.base_mut().set_custom_name(Some(name.clone()));
+        entity.set_custom_name(Some(name.clone()));
     }
     if let Some(data) = stack.get(&CUSTOM_DATA) {
         entity.base_mut().custom_data = data.tag().clone();

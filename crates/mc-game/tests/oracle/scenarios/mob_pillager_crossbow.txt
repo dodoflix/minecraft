@@ -1,0 +1,17 @@
+# Pillager shooting a standing player on hard: crossbow charge (using item, charging flag), the 20-39 tick reload delay, the shot
+# (arrow entities `arrow#n`) and the player's hurt flashes. The player's resistance keeps the player alive through the volleys.
+level flat
+difficulty hard
+time 18000
+gamerule mob_drops false
+entity_counter 100
+level_seed 5
+spawn_player Steve survival 0.5 -60 0.5 -90 0
+effect Steve minecraft:resistance 3 100000
+mobspawn P minecraft:pillager 12.5 -60 0.5 90 0 {PersistenceRequired:1b}
+entity_seed P 7
+tick 2
+watch mobs entities
+tick 200
+watch off
+dump nbt:P

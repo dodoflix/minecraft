@@ -262,7 +262,7 @@ fn convert_common(
     // COMPONENTS_TO_COPY: custom name and custom data
     let name = from.base().get_custom_name();
     if name.is_some() {
-        to.base_mut().set_custom_name(name);
+        to.set_custom_name(name);
     }
     if !from.base().custom_data.is_empty() {
         to.base_mut().custom_data = from.base().custom_data.clone();

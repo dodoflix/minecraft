@@ -55,20 +55,12 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "Nautilus: swimming mount with armor and saddle",
     ),
     (
-        "minecraft:pillager",
-        "Pillager: crossbow raider with patrol behaviour",
-    ),
-    (
         "minecraft:ravager",
         "Ravager: stun, roar and charge attack raider mount",
     ),
     (
         "minecraft:sniffer",
         "Sniffer: digging, seed finding, egg laying",
-    ),
-    (
-        "minecraft:vindicator",
-        "Vindicator: axe illager with johnny naming",
     ),
     (
         "minecraft:wandering_trader",
@@ -95,10 +87,6 @@ const EXPECTED_MISSING_PREDICATE: &[(&str, &str)] = &[
     (
         "minecraft:nautilus",
         "AbstractNautilus.checkNautilusSpawnRules",
-    ),
-    (
-        "minecraft:pillager",
-        "PatrollingMonster.checkPatrollingMonsterSpawnRules",
     ),
 ];
 

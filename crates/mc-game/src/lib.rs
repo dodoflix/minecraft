@@ -68,6 +68,10 @@ pub mod world {
                 pub use mc_game_core::world::entity::monster::cubemob::*;
                 pub use mc_game_monsters::world::entity::monster::cubemob::*;
             }
+            pub mod illager {
+                pub use mc_game_core::world::entity::monster::illager::*;
+                pub use mc_game_monsters::world::entity::monster::illager::*;
+            }
         }
     }
     pub mod level {

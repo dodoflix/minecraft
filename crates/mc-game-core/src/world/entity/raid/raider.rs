@@ -60,7 +60,7 @@ fn data_mut(e: &mut dyn Entity) -> &mut RaiderData {
 
 /// Implements the `Entity` methods every raider inherits (`Raider`/`PatrollingMonster` overrides) for a concrete type whose
 /// `RaiderData` is the field `$raider`; list the overrides the class does NOT define itself:
-/// `raider_entity!(raider; ai_step, update_no_action_time, die, hurt_server, can_join_patrol, remove_when_far_away, requires_custom_persistence, finalize_spawn, pick_up_item, nbt)`.
+/// `raider_entity!(raider; ai_step, update_no_action_time, die, hurt_server, can_join_patrol, remove_when_far_away, requires_custom_persistence, finalize_spawn, pick_up_item, nbt, after_loaded)`.
 #[macro_export]
 macro_rules! raider_entity {
     ($raider:ident; $($m:ident),* $(,)?) => {
@@ -853,3 +853,34 @@ impl Goal for RaiderMoveThroughVillageGoal {
         GoalFlags::of(&[Flag::Move])
     }
 }
+
+/// The `Raider`/`PatrollingMonster` fields of the rich `E` lines of the scenario harness (order 40; the twin of the `Raider`
+/// entry of `EntityExtras.java`).
+#[linkme::distributed_slice(crate::world::entity::scenario_dump::SCENARIO_DUMP_EXTRA)]
+static RAIDER_DUMP: crate::world::entity::scenario_dump::ScenarioDumpExtra =
+    crate::world::entity::scenario_dump::ScenarioDumpExtra {
+        order: 40,
+        applies: |e| e.raider().is_some(),
+        fields: |e, _level, _ctx| {
+            let d = data(e);
+            let flag = |v: bool| if v { "1" } else { "0" }.to_string();
+            vec![
+                (
+                    "raid".into(),
+                    d.raid.map_or("-".to_string(), |_| "1".to_string()),
+                ),
+                ("wave".into(), d.wave.to_string()),
+                ("canjoin".into(), flag(d.can_join_raid)),
+                ("outside".into(), d.ticks_outside_raid.to_string()),
+                (
+                    "ptarget".into(),
+                    d.patrol.patrol_target.map_or("-".to_string(), |p| {
+                        format!("{},{},{}", p.x(), p.y(), p.z())
+                    }),
+                ),
+                ("leader".into(), flag(d.patrol.patrol_leader)),
+                ("patrolling".into(), flag(d.patrol.patrolling)),
+                ("celebrating".into(), flag(is_celebrating(e))),
+            ]
+        },
+    };

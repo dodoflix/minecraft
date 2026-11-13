@@ -1,0 +1,83 @@
+# Pillager.finalizeSpawn: crossbow, mob_spawn_equipment enchant rolls, the 1 in 300 piercing crossbow, the patrol leader roll and its
+# banner (skipped for patrol, event and structure), patrolling for patrol; the level random is seeded before every spawn.
+# (the inventory slots and the NBT round trip are `mob_pillager_inventory`)
+level flat
+difficulty hard
+time 3000000
+tick 1
+entity_counter 400
+level_seed 345951703617
+mobspawn F1 minecraft:pillager 1.5 -60 -6.5 reason=natural
+dump mob:F1 nbt:F1
+level_seed 1027750251402
+mobspawn F2 minecraft:pillager 2.5 -60 -6.5 reason=natural
+dump mob:F2 nbt:F2
+level_seed 788794547466
+mobspawn F3 minecraft:pillager 3.5 -60 -6.5 reason=natural
+dump mob:F3 nbt:F3
+level_seed 948361190963
+mobspawn F4 minecraft:pillager 4.5 -60 -6.5 reason=natural
+dump mob:F4 nbt:F4
+level_seed 3725875055
+mobspawn F5 minecraft:pillager 5.5 -60 -6.5 reason=natural
+dump mob:F5 nbt:F5
+level_seed 345951703617
+mobspawn F6 minecraft:pillager 6.5 -60 -6.5 reason=patrol
+dump mob:F6 nbt:F6
+level_seed 1027750251402
+mobspawn F7 minecraft:pillager 7.5 -60 -6.5 reason=patrol
+dump mob:F7 nbt:F7
+level_seed 788794547466
+mobspawn F8 minecraft:pillager 8.5 -60 -6.5 reason=patrol
+dump mob:F8 nbt:F8
+level_seed 948361190963
+mobspawn F9 minecraft:pillager 9.5 -60 -6.5 reason=patrol
+dump mob:F9 nbt:F9
+level_seed 3725875055
+mobspawn F10 minecraft:pillager 10.5 -60 -6.5 reason=patrol
+dump mob:F10 nbt:F10
+level_seed 345951703617
+mobspawn F11 minecraft:pillager 11.5 -60 -6.5 reason=event
+dump mob:F11 nbt:F11
+level_seed 1027750251402
+mobspawn F12 minecraft:pillager 12.5 -60 -6.5 reason=event
+dump mob:F12 nbt:F12
+level_seed 788794547466
+mobspawn F13 minecraft:pillager 13.5 -60 -6.5 reason=event
+dump mob:F13 nbt:F13
+level_seed 948361190963
+mobspawn F14 minecraft:pillager 14.5 -60 -6.5 reason=event
+dump mob:F14 nbt:F14
+level_seed 3725875055
+mobspawn F15 minecraft:pillager 15.5 -60 -6.5 reason=event
+dump mob:F15 nbt:F15
+level_seed 345951703617
+mobspawn F16 minecraft:pillager 16.5 -60 -6.5 reason=structure
+dump mob:F16 nbt:F16
+level_seed 1027750251402
+mobspawn F17 minecraft:pillager 17.5 -60 -6.5 reason=structure
+dump mob:F17 nbt:F17
+level_seed 788794547466
+mobspawn F18 minecraft:pillager 18.5 -60 -6.5 reason=structure
+dump mob:F18 nbt:F18
+level_seed 948361190963
+mobspawn F19 minecraft:pillager 19.5 -60 -6.5 reason=structure
+dump mob:F19 nbt:F19
+level_seed 3725875055
+mobspawn F20 minecraft:pillager 20.5 -60 -6.5 reason=structure
+dump mob:F20 nbt:F20
+level_seed 345951703617
+mobspawn F21 minecraft:pillager 21.5 -60 -6.5 reason=spawner
+dump mob:F21 nbt:F21
+level_seed 1027750251402
+mobspawn F22 minecraft:pillager 22.5 -60 -6.5 reason=spawner
+dump mob:F22 nbt:F22
+level_seed 788794547466
+mobspawn F23 minecraft:pillager 23.5 -60 -6.5 reason=spawner
+dump mob:F23 nbt:F23
+level_seed 948361190963
+mobspawn F24 minecraft:pillager 24.5 -60 -6.5 reason=spawner
+dump mob:F24 nbt:F24
+level_seed 3725875055
+mobspawn F25 minecraft:pillager 25.5 -60 -6.5 reason=spawner
+dump mob:F25 nbt:F25

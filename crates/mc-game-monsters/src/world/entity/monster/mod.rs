@@ -16,6 +16,8 @@ pub mod giant;
 
 pub mod guardian;
 
+pub mod illager;
+
 pub mod phantom;
 
 pub mod shulker;

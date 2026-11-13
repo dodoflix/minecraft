@@ -24,7 +24,7 @@ impl ItemBehaviour for NameTagItem {
             return InteractionResult::PASS;
         }
         if target.is_alive() {
-            target.base_mut().set_custom_name(Some(custom_name));
+            target.set_custom_name(Some(custom_name));
             if target.mob().is_some() {
                 target.set_persistence_required();
             }

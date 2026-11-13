@@ -1,0 +1,31 @@
+# Vindicator of an active raid (a bell and beds make the village the raid needs): joins the raid, opens its doors to pathfinding and breaks a wooden door in its way (240 ticks of
+# hitting: destroy progress, door level events) on the way to its target; the axe from its default equipment hits the player.
+level flat
+difficulty hard
+gamerule raids true
+gamerule mob_drops false
+entity_counter 200
+level_seed 31
+fill -12 -60 -12 12 -52 12 minecraft:air
+block 0 -60 0 minecraft:bell
+block 3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+block -3 -60 0 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block -3 -60 -1 minecraft:red_bed[facing=south,part=head,occupied=false]
+mobspawn Vil minecraft:villager 1.5 -60 2.5 0 0 {PersistenceRequired:1b}
+fill 40 -60 -3 46 -58 3 minecraft:oak_planks
+fill 41 -60 -2 45 -59 2 minecraft:air
+block 40 -60 0 minecraft:oak_door[facing=west,half=lower,hinge=left,open=false]
+block 40 -59 0 minecraft:oak_door[facing=west,half=upper,hinge=left,open=false]
+spawn_player Steve survival 43.5 -60 0.5 90 0
+effect Steve minecraft:resistance 3 100000
+mobspawn V minecraft:vindicator 34.5 -60 0.5 -90 0 {PersistenceRequired:1b}
+entity_seed V 45
+tick 40
+effect Steve minecraft:raid_omen 2 600
+raid_start Steve 0 -60 0
+target V Steve
+watch mob:V
+tick 300
+watch off
+dump raids events nbt:V blocks:40,-60,0,40,-59,0

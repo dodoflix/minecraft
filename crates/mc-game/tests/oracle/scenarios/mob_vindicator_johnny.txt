@@ -1,0 +1,24 @@
+# Vindicator "Johnny": a name tag turns it on (setCustomName), then it attacks any attackable living entity in range (a cow); a
+# vindicator named through NBT loses the flag again when the entity's own data is read (the cow beside it is left alone).
+level flat
+difficulty hard
+time 18000
+gamerule mob_drops false
+entity_counter 300
+level_seed 11
+spawn_player Steve creative 2.5 -60 0.5 90 0
+mobspawn A minecraft:vindicator 0.5 -60 0.5 -90 0 {PersistenceRequired:1b}
+mobspawn B minecraft:vindicator 40.5 -60 0.5 -90 0 {PersistenceRequired:1b,CustomName:"Johnny"}
+mobspawn CA minecraft:cow 6.5 -60 0.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn CB minecraft:cow 46.5 -60 0.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed A 21
+entity_seed B 22
+tick 40
+dump mob:A mob:B nbt:A nbt:B
+give Steve mainhand minecraft:name_tag[custom_name="Johnny"]
+interact Steve A
+dump mob:A nbt:A
+watch mob:A mob:CA
+tick 80
+watch off
+dump nbt:A mob:B nbt:B
