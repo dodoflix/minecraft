@@ -182,6 +182,7 @@ import net.minecraft.util.RandomSource;
  * raid_start PLAYER X Y Z [omen=N]  Raids.createOrExtendRaid (a village = POI blocks (bell, beds) placed by the script; the player needs
  *                             the raid_omen effect to carry an omen level; omen=N overrides)       dump raids   all raids (`RAID` lines)
  * interact PLAYER REF [main|off] [sneak] [center] [at X Y Z]   ServerboundInteractPacket (use the entity: board a boat, open a chest boat, feed, tame); location = entity origin, `center` = bounding box centre relative to the origin, `at X Y Z` = that offset from the origin
+ * set_command_minecart PLAYER REF COMMAND [true|false]   ServerboundSetCommandMinecartPacket (the editor of a command block minecart; "quote" COMMAND to keep spaces; the flag = track output, default true)
  * trade_select PLAYER N       ServerboundSelectTradePacket
  * click, creative_slot, rename, select_trade, set_beacon, slot_state, place_recipe, recipe_seen, recipe_settings, `dump menu:PLAYER`, `dump recipes:PLAYER`: see MenuVerbs.java
  * local difficulty / light / time of day: `dump difficulty:X,Y,Z` (`DIFFICULTY ..`), `dump light:X,Y,Z` (`LIGHT x y z block=B sky=S`, after ticks),
@@ -727,6 +728,15 @@ public final class EntityOracleDriver {
             Vec3 loc = at > 0 ? new Vec3(d(a.get(at + 1)), d(a.get(at + 2)), d(a.get(at + 3)))
                : a.contains("center") ? target.getBoundingBox().getCenter().subtract(target.position()) : Vec3.ZERO;
             player(a.get(1)).connection.handleInteract(new ServerboundInteractPacket(target.getId(), handIdx > 0 ? hand(a, 3) : InteractionHand.MAIN_HAND, loc, sneak));
+         }
+         case "set_command_minecart" -> {
+            world();
+            String command = a.get(3);
+            if (command.length() >= 2 && command.startsWith("\"") && command.endsWith("\"")) {
+               command = command.substring(1, command.length() - 1);
+            }
+            player(a.get(1)).connection.handleSetCommandMinecart(new ServerboundSetCommandMinecartPacket(
+               ref(a.get(2)).getId(), command, a.size() < 5 || Boolean.parseBoolean(a.get(4))));
          }
          case "paddle" -> {
             world();

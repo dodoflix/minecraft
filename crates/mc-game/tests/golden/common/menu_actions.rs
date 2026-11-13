@@ -1,4 +1,4 @@
-//! Menu verbs of the scenario DSL: `click`, `button`, `creative_slot`, `pick_entity`, `rename`, `select_trade`, `set_beacon`, `slot_state`, `place_recipe`,
+//! Menu verbs of the scenario DSL: `click`, `button`, `creative_slot`, `pick_entity`, `rename`, `select_trade`, `set_beacon`, `set_command_minecart`, `slot_state`, `place_recipe`,
 //! `recipe_seen`, `recipe_settings`, `bundle_select`, `edit_book` and the dump kinds `menu:REF`, `recipes:REF` (the grammar of the Java driver's
 //! `MenuVerbs.java`, which lists every verb and option). The block replay builds `select`, `close_menu`, `menu_button` and `pick_block` the same way.
 //!
@@ -24,7 +24,7 @@ use mc_protocol::packets::play::{
     ServerboundPlayPacket, ServerboundRecipeBookChangeSettingsPacket,
     ServerboundRecipeBookSeenRecipePacket, ServerboundRenameItemPacket,
     ServerboundSelectBundleItemPacket, ServerboundSelectTradePacket, ServerboundSetBeaconPacket,
-    ServerboundSetCreativeModeSlotPacket,
+    ServerboundSetCommandMinecartPacket, ServerboundSetCreativeModeSlotPacket,
 };
 
 /// `ITEM[components][*COUNT]`, `-` = empty.
@@ -187,6 +187,21 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
                 P::PickItemFromEntity(ServerboundPickItemFromEntityPacket {
                     id,
                     include_data: a.iter().skip(3).any(|t| t == "data"),
+                })
+            });
+        }
+        // set_command_minecart PLAYER REF COMMAND [true|false]
+        "set_command_minecart" => {
+            let id = h.action_ref(&a[2]);
+            deliver(h, &a[1], |_, _| {
+                P::SetCommandMinecart(ServerboundSetCommandMinecartPacket {
+                    entity: id,
+                    command: a[3]
+                        .strip_prefix('"')
+                        .and_then(|t| t.strip_suffix('"'))
+                        .unwrap_or(&a[3])
+                        .to_owned(),
+                    track_output: a.get(4).is_none_or(|t| t == "true"),
                 })
             });
         }

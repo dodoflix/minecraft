@@ -127,6 +127,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "paddle"
                         | "client_tick_end"
                         | "respawn"
+                        | "set_command_minecart"
                 )
             )
         })
@@ -928,6 +929,12 @@ impl Scenario {
 
     fn gamerule(&mut self, name: &str, value: &str) {
         set_rule(&mut self.env.game_rules, name, value);
+        // the command source of a command block reads the rules of the installed server
+        if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| {
+                set_rule(server.game_rules(), name, value)
+            });
+        }
         let level = self.level.as_mut().expect("world");
         level.server_state.rules.refresh(&self.env.game_rules);
         apply_spawn_settings(level, &self.env.game_rules, self.opts.difficulty);

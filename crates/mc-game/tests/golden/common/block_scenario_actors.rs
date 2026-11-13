@@ -1414,7 +1414,7 @@ impl Scenario {
                 let id = self.entity_id(name);
                 let level = self.level();
                 let e = level
-                    .get_entity(id)
+                    .get_entity_or_removed(id)
                     .unwrap_or_else(|| panic!("entity {name} is gone"));
                 let mut tag = mc_nbt::CompoundTag::new();
                 e.save_without_id(&mut tag, &|i| level.get_entity(i));
