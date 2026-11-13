@@ -56,6 +56,23 @@ pub fn collision_context(entity: &dyn Entity) -> CollisionContext {
     )
 }
 
+/// `CollisionContext.of(entity)` where the cart context needs the level: a cart under the experimental movement ignores the
+/// block below its rail and the block its slope leans on (`MinecartCollisionContext`).
+pub fn collision_context_in(
+    entity: &dyn Entity,
+    level: &dyn crate::world::level::BlockGetter,
+) -> CollisionContext {
+    let context = collision_context(entity);
+    match entity.as_abstract_minecart() {
+        Some(cart) if cart.minecart().experimental => {
+            let (below, slope) =
+                super::vehicle::minecart::new_behavior::collision_ignored_positions(cart, level);
+            context.with_ignored_positions(below, slope)
+        }
+        _ => context,
+    }
+}
+
 /// `PowderSnowBlock.canEntityWalkOnPowderSnow(entity)`.
 pub fn can_entity_walk_on_powder_snow(entity: &dyn Entity) -> bool {
     if mc_data::tags::get::<mc_data::EntityType>("powder_snow_walkable_mobs")
@@ -80,7 +97,9 @@ fn collect_colliders_ignoring_world_border<L: MovementLevel>(
     if let Some(border) = level.world_border_collision(source, bounding_box) {
         colliders.push(border);
     }
-    colliders.extend(level.get_block_collisions(Some(&collision_context(source)), bounding_box));
+    colliders.extend(
+        level.get_block_collisions(Some(&collision_context_in(source, level)), bounding_box),
+    );
     colliders
 }
 
@@ -258,7 +277,7 @@ pub fn check_supporting_block<L: MovementLevel>(
             bb.min_y,
             bb.max_z,
         );
-        let ctx = collision_context(entity);
+        let ctx = collision_context_in(entity, level);
         let position = entity.base().position();
         let mut supporting = level.find_supporting_block(&ctx, position, &test_area);
         let no_blocks = entity.base().on_ground_no_blocks;
@@ -504,7 +523,7 @@ pub fn move_entity(
                 check_to,
                 ClipBlock::FalldamageResetting,
                 ClipFluid::Water,
-                collision_context(entity),
+                collision_context_in(entity, &*level),
             ));
             if !hit.miss {
                 entity.reset_fall_distance();
@@ -933,7 +952,11 @@ fn can_fall_at_least<L: MovementLevel>(
         bb.min_y,
         bb.max_z - 1.0E-7 + delta_z,
     );
-    level.no_collision(Some(entity.id()), Some(&collision_context(entity)), &area)
+    level.no_collision(
+        Some(entity.id()),
+        Some(&collision_context_in(entity, level)),
+        &area,
+    )
 }
 
 trait SignumJava {

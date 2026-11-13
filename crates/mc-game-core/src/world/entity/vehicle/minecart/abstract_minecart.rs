@@ -7,7 +7,7 @@
 //! `AbstractMinecart.tick` does not run `Entity.baseTick`: fire, the water state of the previous tick and the leash stay as they
 //! are, `updateFluidInteraction` is called explicitly.
 
-use super::old_behavior;
+use super::{new_behavior, old_behavior};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::dismount_helper;
@@ -32,10 +32,11 @@ use mc_core::math::java::java_float_to_string;
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
-use mc_data::EntityType;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::{EntitySpawnReason, Pose, RailShape};
+use mc_data::{EntityType, props};
 use mc_nbt::CompoundTag;
+use mc_protocol::packets::play::MinecartStep;
 
 define_accessor!(pub DATA_ID_CUSTOM_DISPLAY_BLOCK: OptionalBlockState = AbstractMinecart);
 define_accessor!(pub DATA_ID_DISPLAY_OFFSET: Int = AbstractMinecart);
@@ -77,6 +78,11 @@ static MINECART_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
 pub struct MinecartData {
     pub on_rails: bool,
     pub flipped: bool,
+    /// The behaviour the constructor picked: `NewMinecartBehavior` when the level enables `minecart_improvements`
+    /// (`useExperimentalMovement`), set when the cart is created for a level or added to one.
+    pub experimental: bool,
+    /// `NewMinecartBehavior.lerpSteps`: the steps of the movement since `ServerEntity` last sent them.
+    pub lerp_steps: Vec<MinecartStep>,
 }
 
 /// `defineSynchedData`; `default_display_offset` is the virtual `getDefaultDisplayOffset()`.
@@ -136,12 +142,24 @@ pub fn rail_shape(state: BlockState) -> RailShape {
     state.get(base_rail_block::shape_property(state))
 }
 
-/// `getCurrentBlockPosOrRailBelow()`.
-pub fn current_block_pos_or_rail_below(base: &EntityData, level: &dyn BlockGetter) -> BlockPos {
+/// `getCurrentBlockPosOrRailBelow()`: the experimental behaviour looks slightly below the cart (it rides 0.1 above the rail).
+pub fn current_block_pos_or_rail_below<M: AbstractMinecart + ?Sized>(
+    m: &M,
+    level: &dyn BlockGetter,
+) -> BlockPos {
+    let base = m.base();
     let xt = mth::floor_f64(base.x());
     let mut yt = mth::floor_f64(base.y());
     let zt = mth::floor_f64(base.z());
-    if level
+    if m.minecart().experimental {
+        let y = base.y() - 0.1 - f64::from(1.0E-5f32);
+        if level
+            .get_block_state(BlockPos::containing(f64::from(xt), y, f64::from(zt)))
+            .is_tag("rails")
+        {
+            yt = mth::floor_f64(y);
+        }
+    } else if level
         .get_block_state(BlockPos::new(xt, yt - 1, zt))
         .is_tag("rails")
     {
@@ -178,6 +196,15 @@ pub fn create_minecart(
         b.zo = z;
     }
     spawn_config::apply_default_stack_config(level, entity.as_mut(), item_stack, player);
+    if let Some(cart) = entity.as_abstract_minecart_mut() {
+        let experimental = new_behavior::use_experimental_movement(level);
+        cart.minecart_mut().experimental = experimental;
+        if experimental {
+            let current_pos = current_block_pos_or_rail_below(cart, level);
+            let current_state = level.get_block_state(current_pos);
+            new_behavior::adjust_to_rails(cart, current_pos, current_state, true);
+        }
+    }
     Some(entity)
 }
 
@@ -203,8 +230,8 @@ pub trait AbstractMinecart: VehicleEntity {
         false
     }
     /// `getMaxSpeed(level)`.
-    fn get_max_speed(&self, _level: &ServerLevel) -> f64 {
-        old_behavior::get_max_speed(self.is_in_water())
+    fn get_max_speed(&self, level: &ServerLevel) -> f64 {
+        behavior_max_speed(self, level)
     }
     /// `activateMinecart(level, x, y, z, state)` (activator rails).
     fn activate_minecart(
@@ -222,6 +249,42 @@ pub trait AbstractMinecart: VehicleEntity {
     }
 }
 
+/// `behavior.getMaxSpeed(level)`: what `AbstractMinecart.getMaxSpeed` returns and its subclasses scale.
+pub fn behavior_max_speed<M: AbstractMinecart + ?Sized>(m: &M, level: &ServerLevel) -> f64 {
+    if m.minecart().experimental {
+        new_behavior::get_max_speed(level, m.is_in_water())
+    } else {
+        old_behavior::get_max_speed(m.is_in_water())
+    }
+}
+
+/// `getRedstoneDirection(pos)`: the direction a powered rail pushes a standing cart (away from the solid block at its end).
+pub fn get_redstone_direction(level: &ServerLevel, pos: BlockPos) -> Vec3 {
+    let state = level.get_block_state(pos);
+    if state.is_block(Block::POWERED_RAIL) && state.get(props::POWERED) {
+        match rail_shape(state) {
+            RailShape::EastWest => {
+                if is_redstone_conductor(level, pos.west()) {
+                    return Vec3::new(1.0, 0.0, 0.0);
+                }
+                if is_redstone_conductor(level, pos.east()) {
+                    return Vec3::new(-1.0, 0.0, 0.0);
+                }
+            }
+            RailShape::NorthSouth => {
+                if is_redstone_conductor(level, pos.north()) {
+                    return Vec3::new(0.0, 0.0, 1.0);
+                }
+                if is_redstone_conductor(level, pos.south()) {
+                    return Vec3::new(0.0, 0.0, -1.0);
+                }
+            }
+            _ => {}
+        }
+    }
+    Vec3::ZERO
+}
+
 /// `isRedstoneConductor(pos)`.
 pub fn is_redstone_conductor(level: &ServerLevel, pos: BlockPos) -> bool {
     level.get_block_state(pos).is_redstone_conductor()
@@ -229,7 +292,11 @@ pub fn is_redstone_conductor(level: &ServerLevel, pos: BlockPos) -> bool {
 
 /// `AbstractMinecart.applyNaturalSlowdown(movement)`.
 pub fn apply_natural_slowdown<M: AbstractMinecart + ?Sized>(m: &M, movement: Vec3) -> Vec3 {
-    let slowdown_factor = old_behavior::get_slowdown_factor(m.base().is_vehicle());
+    let slowdown_factor = if m.minecart().experimental {
+        new_behavior::get_slowdown_factor(m.base().is_vehicle())
+    } else {
+        old_behavior::get_slowdown_factor(m.base().is_vehicle())
+    };
     let new_movement = movement.multiply_xyz(slowdown_factor, 0.0, slowdown_factor);
     if m.is_in_water() {
         new_movement.scale(f64::from(WATER_SLOWDOWN_FACTOR))
@@ -251,7 +318,11 @@ pub fn tick<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut ServerLevel) {
     m.check_below_world(level);
     crate::world::entity::entity::compute_speed(m);
     m.handle_portal(level);
-    old_behavior::tick(m, level);
+    if m.minecart().experimental {
+        new_behavior::tick(m, level);
+    } else {
+        old_behavior::tick(m, level);
+    }
     m.update_fluid_interaction(level);
     if m.is_in_lava() {
         m.lava_ignite();
@@ -290,15 +361,34 @@ pub fn move_cart<M: AbstractMinecart + ?Sized>(
     mover: MoverType,
     delta: Vec3,
 ) {
-    movement::move_entity(m.as_dyn_mut(), level, mover, delta);
-    m.apply_effects_from_blocks(level);
+    if m.minecart().experimental {
+        let to_position = m.base().position().add(delta);
+        movement::move_entity(m.as_dyn_mut(), level, mover, delta);
+        if new_behavior::push_and_pickup_entities(m, level) {
+            let rest = to_position.subtract(m.base().position());
+            movement::move_entity(m.as_dyn_mut(), level, mover, rest);
+        }
+        if mover == MoverType::Piston {
+            m.minecart_mut().on_rails = false;
+        }
+    } else {
+        movement::move_entity(m.as_dyn_mut(), level, mover, delta);
+        m.apply_effects_from_blocks(level);
+    }
 }
 
-/// `applyEffectsFromBlocks()`.
+/// `applyEffectsFromBlocks()`: `Entity`'s under the experimental behaviour, otherwise the effects of the cart's position only.
 pub fn apply_effects_from_blocks<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut ServerLevel) {
-    let p = m.base().position();
-    m.apply_effects_from_blocks_between(level, p, p);
-    m.base_mut().movement_this_tick.clear();
+    if m.minecart().experimental {
+        crate::world::entity::inside_block_effects::apply_effects_from_blocks(
+            m.as_dyn_mut(),
+            level,
+        );
+    } else {
+        let p = m.base().position();
+        m.apply_effects_from_blocks_between(level, p, p);
+        m.base_mut().movement_this_tick.clear();
+    }
 }
 
 /// `push(entity)` (`AbstractMinecart.push`): `m` is the cart, `entity` what overlaps it.
@@ -339,8 +429,15 @@ fn push_other_minecart<M: AbstractMinecart + ?Sized>(
     xa: f64,
     za: f64,
 ) {
-    let xo = other.base().x() - m.base().x();
-    let zo = other.base().z() - m.base().z();
+    let experimental = m.minecart().experimental;
+    let (xo, zo) = if experimental {
+        (m.base().delta_movement().x, m.base().delta_movement().z)
+    } else {
+        (
+            other.base().x() - m.base().x(),
+            other.base().z() - m.base().z(),
+        )
+    };
     let dir = Vec3::new(xo, 0.0, zo).normalize();
     let rad = (std::f64::consts::PI / 180.0) as f32;
     let y_rot = m.base().y_rot();
@@ -351,7 +448,7 @@ fn push_other_minecart<M: AbstractMinecart + ?Sized>(
     )
     .normalize();
     let dot = dir.dot(facing).abs();
-    if !(dot < f64::from(0.8f32)) {
+    if !(dot < f64::from(0.8f32)) || experimental {
         let movement = m.base().delta_movement();
         let entity_movement = other.base().delta_movement();
         if other.is_furnace() && !m.is_furnace() {
@@ -583,7 +680,17 @@ macro_rules! minecart_entity_methods {
             0.95
         }
         fn get_motion_direction(&self) -> ::mc_core::direction::Direction {
-            $crate::world::entity::vehicle::minecart::old_behavior::get_motion_direction(self)
+            if self.minecart.experimental {
+                self.get_direction()
+            } else {
+                $crate::world::entity::vehicle::minecart::old_behavior::get_motion_direction(self)
+            }
+        }
+        fn read_level_dependent_data(&mut self, level: &mut $crate::server::level::ServerLevel) {
+            self.minecart.experimental =
+                $crate::world::entity::vehicle::minecart::new_behavior::use_experimental_movement(
+                    level,
+                );
         }
         fn resets_forward_portal_offset(&self) -> bool {
             true
@@ -622,9 +729,15 @@ macro_rules! minecart_entity_methods {
             &self,
             level: &$crate::server::level::ServerLevel,
         ) -> ::mc_core::phys::Vec3 {
-            $crate::world::entity::vehicle::minecart::old_behavior::get_known_movement(
-                $crate::world::entity::entity::default_known_movement(self, level),
-            )
+            let known_movement =
+                $crate::world::entity::entity::default_known_movement(self, level);
+            if self.minecart.experimental {
+                known_movement
+            } else {
+                $crate::world::entity::vehicle::minecart::old_behavior::get_known_movement(
+                    known_movement,
+                )
+            }
         }
         fn get_passenger_attachment_point(
             &self,

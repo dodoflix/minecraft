@@ -1882,7 +1882,7 @@ pub trait Entity: Any {
         let bx = self.base().bounding_box().move_(xa, ya, za);
         level.no_collision(
             Some(self.id()),
-            Some(&super::movement::collision_context(self.as_dyn())),
+            Some(&super::movement::collision_context_in(self.as_dyn(), level)),
             &bx,
         ) && !super::movement::contains_any_liquid(level, &bx)
     }

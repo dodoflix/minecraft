@@ -1,7 +1,6 @@
 //! `net.minecraft.world.entity.vehicle.minecart.MinecartFurnace`: a cart that pushes itself along while it has fuel.
 
 use super::abstract_minecart::{self, AbstractMinecart, MinecartData};
-use super::old_behavior;
 use crate::define_accessor;
 use crate::minecart_entity_methods;
 use crate::server::level::ServerLevel;
@@ -119,8 +118,8 @@ impl AbstractMinecart for MinecartFurnace {
     fn is_furnace(&self) -> bool {
         true
     }
-    fn get_max_speed(&self, _level: &ServerLevel) -> f64 {
-        let speed = old_behavior::get_max_speed(self.is_in_water());
+    fn get_max_speed(&self, level: &ServerLevel) -> f64 {
+        let speed = abstract_minecart::behavior_max_speed(self, level);
         if self.is_in_water() {
             speed * 0.75
         } else {

@@ -53,7 +53,7 @@ pub fn get_known_movement(known_movement: Vec3) -> Vec3 {
 /// `tick()`.
 pub fn tick<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut ServerLevel) {
     m.apply_gravity();
-    let pos = current_block_pos_or_rail_below(m.base(), &*level);
+    let pos = current_block_pos_or_rail_below(m, &*level);
     let state = level.get_block_state(pos);
     let on_rails = base_rail_block::is_rail_state(state);
     m.minecart_mut().on_rails = on_rails;
@@ -92,7 +92,7 @@ pub fn tick<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut ServerLevel) {
 
 /// `moveAlongTrack(level)`.
 pub fn move_along_track<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut ServerLevel) {
-    let pos = current_block_pos_or_rail_below(m.base(), &*level);
+    let pos = current_block_pos_or_rail_below(m, &*level);
     let state = level.get_block_state(pos);
     m.reset_fall_distance();
     let mut x = m.base().x();

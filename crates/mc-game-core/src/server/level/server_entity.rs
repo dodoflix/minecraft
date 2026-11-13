@@ -10,16 +10,17 @@ use crate::world::entity::vec_delta_codec::{self, VecDeltaCodec};
 use crate::world::entity::{Entity, EntityId, TrackingKind};
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
-use mc_protocol::codec::LpVec3;
+use mc_protocol::codec::{Angle, LpVec3};
 use mc_protocol::packet::Packet;
 use mc_protocol::packets::play::{
     AttributeSnapshot, ClientboundAddEntityPacket, ClientboundBundleDelimiterPacket,
     ClientboundEntityPositionSyncPacket, ClientboundMoveEntityPosPacket,
     ClientboundMoveEntityPosRotPacket, ClientboundMoveEntityRotPacket,
-    ClientboundProjectilePowerPacket, ClientboundRemoveEntitiesPacket, ClientboundRotateHeadPacket,
-    ClientboundSetEntityDataPacket, ClientboundSetEntityLinkPacket,
-    ClientboundSetEntityMotionPacket, ClientboundSetPassengersPacket,
-    ClientboundUpdateAttributesPacket, DataValue, PositionPath, VecDelta, VecDeltaStep,
+    ClientboundMoveMinecartPacket, ClientboundProjectilePowerPacket,
+    ClientboundRemoveEntitiesPacket, ClientboundRotateHeadPacket, ClientboundSetEntityDataPacket,
+    ClientboundSetEntityLinkPacket, ClientboundSetEntityMotionPacket,
+    ClientboundSetPassengersPacket, ClientboundUpdateAttributesPacket, DataValue, MinecartStep,
+    PositionPath, VecDelta, VecDeltaStep,
 };
 
 const TOLERANCE_LEVEL_POSITION: f64 = 7.6293945E-6f32 as f64;
@@ -212,6 +213,11 @@ impl ServerEntity {
                 self.position_codec.set_base(current_position);
                 self.send_dirty_entity_data(entity, sync);
                 self.was_riding = true;
+            } else if entity
+                .as_abstract_minecart()
+                .is_some_and(|cart| cart.minecart().experimental)
+            {
+                self.handle_minecart_pos_rot(entity, y_rotn, x_rotn, should_send_rotation, sync);
             } else {
                 self.teleport_delay += 1;
                 let position = entity
@@ -305,6 +311,58 @@ impl ServerEntity {
                 },
             ));
         }
+    }
+
+    /// `handleMinecartPosRot(newMinecartBehavior, yRotn, xRotn, shouldSendRotation)`: the steps the cart recorded since the last
+    /// send go out as one packet; without steps a state packet with one step of weight 1 follows a change of position, rotation or
+    /// motion. `lastSentMovement` is not updated (vanilla keeps the motion of the entity's creation or last motion packet).
+    fn handle_minecart_pos_rot(
+        &mut self,
+        entity: &mut dyn Entity,
+        y_rotn: i8,
+        x_rotn: i8,
+        should_send_rotation: bool,
+        sync: &mut dyn Synchronizer,
+    ) {
+        self.send_dirty_entity_data(entity, sync);
+        let entity_id = entity.id();
+        let lerp_steps = std::mem::take(
+            &mut entity
+                .as_abstract_minecart_mut()
+                .expect("a minecart")
+                .minecart_mut()
+                .lerp_steps,
+        );
+        if lerp_steps.is_empty() {
+            let movement = entity.base().delta_movement();
+            let diff = movement.distance_to_sqr(self.last_sent_movement);
+            let current_position = entity.tracking_position();
+            let position_changed = self.position_codec.delta(current_position).length_sqr()
+                >= TOLERANCE_LEVEL_POSITION;
+            let should_send_position =
+                position_changed || self.tick_count % FORCED_POS_UPDATE_PERIOD == 0;
+            if should_send_position || should_send_rotation || diff > 1.0E-7 {
+                let b = entity.base();
+                sync.send_to_tracking_players(encode_payload(&ClientboundMoveMinecartPacket {
+                    entity_id,
+                    lerp_steps: vec![MinecartStep {
+                        position: b.position(),
+                        movement,
+                        y_rot: Angle(b.y_rot()),
+                        x_rot: Angle(b.x_rot()),
+                        weight: 1.0,
+                    }],
+                }));
+            }
+        } else {
+            sync.send_to_tracking_players(encode_payload(&ClientboundMoveMinecartPacket {
+                entity_id,
+                lerp_steps,
+            }));
+        }
+        self.last_sent_y_rot = y_rotn;
+        self.last_sent_x_rot = x_rotn;
+        self.position_codec.set_base(entity.base().position());
     }
 
     fn create_move_packet(
