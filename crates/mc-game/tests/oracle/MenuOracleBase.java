@@ -44,10 +44,10 @@ import net.minecraft.world.phys.AABB;
  * Output: crates/mc-game/tests/fixtures/menu_oracle/NAME.txt.gz (the wrapper compresses stdout)
  *        other oracles (EnchantAnvilOracle) call boot(), the op methods and `script(...)` directly.
  *
- * Script lines (stacks are `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id]`;
+ * Script lines (stacks are `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..]`;
  * the printed ops carry the stack as `ItemStack.CODEC` SNBT, `-` = empty); `#` lines are copied:
  *   OPEN kind [xp [seed [creative [pseed [lseed [shelves [blockers]]]]]]]
- *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | chest): resets the world around TABLE,
+ *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | chest): resets the world around TABLE,
  *        places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
  *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table.
  *        Gravity blocks (anvils) fall when ticked: no support block is placed.
@@ -111,6 +111,7 @@ public class MenuOracleBase {
       KINDS.put("chipped_anvil", new Kind(Blocks.CHIPPED_ANVIL, NO_SETUP));
       KINDS.put("damaged_anvil", new Kind(Blocks.DAMAGED_ANVIL, NO_SETUP));
       KINDS.put("grindstone", new Kind(Blocks.GRINDSTONE, NO_SETUP));
+      KINDS.put("loom", new Kind(Blocks.LOOM, NO_SETUP));
       KINDS.put("chest", new Kind(Blocks.CHEST, NO_SETUP));
    }
 
@@ -140,7 +141,7 @@ public class MenuOracleBase {
 
    static Item item(String id) { return BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(id)); }
 
-   /** name[count][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id] */
+   /** name[count][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..] */
    static ItemStack mk(String spec) {
       if (spec.equals("-")) return ItemStack.EMPTY;
       String[] parts = spec.split(",");
@@ -158,6 +159,16 @@ public class MenuOracleBase {
             case "n" -> s.set(DataComponents.CUSTOM_NAME, Component.literal(val));
             case "e", "s" -> { for (String e : val.split(";")) { String[] x = e.split("@"); s.enchant(ench(x[0]), Integer.parseInt(x[1])); } }
             case "m" -> s.set(DataComponents.MAP_ID, new MapId(Integer.parseInt(val)));
+            case "b" -> {
+               var layers = new net.minecraft.world.level.block.entity.BannerPatternLayers.Builder();
+               for (String e : val.split(";")) {
+                  String[] x = e.split("@");
+                  layers.add(level.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)
+                     .getOrThrow(ResourceKey.create(Registries.BANNER_PATTERN, Identifier.withDefaultNamespace(x[0]))),
+                     net.minecraft.world.item.DyeColor.valueOf(x[1].toUpperCase()));
+               }
+               s.set(DataComponents.BANNER_PATTERNS, layers.build());
+            }
             default -> throw new IllegalArgumentException(k);
          }
       }

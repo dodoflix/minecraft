@@ -1,0 +1,568 @@
+# The loom: every banner colour x pattern item x dye, the patterns that need no item, six layers, selection kept by value,
+# invalid button ids, taking the result (and its sound), quick moves and closing. Slots: 0 banner, 1 dye, 2 pattern, 3 result, 4-39 inventory.
+OPEN loom 0 0 0 1 2
+# every banner colour with a dye and each pattern item (a single pattern selects itself)
+SET 0 white_banner
+SET 1 orange_dye
+SET 2 flower_banner_pattern
+SET 1 pink_dye
+SET 2 creeper_banner_pattern
+SET 1 blue_dye
+SET 2 skull_banner_pattern
+SET 1 white_dye
+SET 2 mojang_banner_pattern
+SET 1 lime_dye
+SET 2 globe_banner_pattern
+SET 1 purple_dye
+SET 2 piglin_banner_pattern
+SET 1 black_dye
+SET 2 flow_banner_pattern
+SET 1 yellow_dye
+SET 2 guster_banner_pattern
+SET 1 cyan_dye
+SET 2 field_masoned_banner_pattern
+SET 1 red_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 orange_banner
+SET 1 yellow_dye
+SET 2 flower_banner_pattern
+SET 1 cyan_dye
+SET 2 creeper_banner_pattern
+SET 1 red_dye
+SET 2 skull_banner_pattern
+SET 1 light_blue_dye
+SET 2 mojang_banner_pattern
+SET 1 light_gray_dye
+SET 2 globe_banner_pattern
+SET 1 green_dye
+SET 2 piglin_banner_pattern
+SET 1 magenta_dye
+SET 2 flow_banner_pattern
+SET 1 gray_dye
+SET 2 guster_banner_pattern
+SET 1 brown_dye
+SET 2 field_masoned_banner_pattern
+SET 1 orange_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 magenta_banner
+SET 1 gray_dye
+SET 2 flower_banner_pattern
+SET 1 brown_dye
+SET 2 creeper_banner_pattern
+SET 1 orange_dye
+SET 2 skull_banner_pattern
+SET 1 pink_dye
+SET 2 mojang_banner_pattern
+SET 1 blue_dye
+SET 2 globe_banner_pattern
+SET 1 white_dye
+SET 2 piglin_banner_pattern
+SET 1 lime_dye
+SET 2 flow_banner_pattern
+SET 1 purple_dye
+SET 2 guster_banner_pattern
+SET 1 black_dye
+SET 2 field_masoned_banner_pattern
+SET 1 yellow_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 light_blue_banner
+SET 1 purple_dye
+SET 2 flower_banner_pattern
+SET 1 black_dye
+SET 2 creeper_banner_pattern
+SET 1 yellow_dye
+SET 2 skull_banner_pattern
+SET 1 cyan_dye
+SET 2 mojang_banner_pattern
+SET 1 red_dye
+SET 2 globe_banner_pattern
+SET 1 light_blue_dye
+SET 2 piglin_banner_pattern
+SET 1 light_gray_dye
+SET 2 flow_banner_pattern
+SET 1 green_dye
+SET 2 guster_banner_pattern
+SET 1 magenta_dye
+SET 2 field_masoned_banner_pattern
+SET 1 gray_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 yellow_banner
+SET 1 green_dye
+SET 2 flower_banner_pattern
+SET 1 magenta_dye
+SET 2 creeper_banner_pattern
+SET 1 gray_dye
+SET 2 skull_banner_pattern
+SET 1 brown_dye
+SET 2 mojang_banner_pattern
+SET 1 orange_dye
+SET 2 globe_banner_pattern
+SET 1 pink_dye
+SET 2 piglin_banner_pattern
+SET 1 blue_dye
+SET 2 flow_banner_pattern
+SET 1 white_dye
+SET 2 guster_banner_pattern
+SET 1 lime_dye
+SET 2 field_masoned_banner_pattern
+SET 1 purple_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 lime_banner
+SET 1 white_dye
+SET 2 flower_banner_pattern
+SET 1 lime_dye
+SET 2 creeper_banner_pattern
+SET 1 purple_dye
+SET 2 skull_banner_pattern
+SET 1 black_dye
+SET 2 mojang_banner_pattern
+SET 1 yellow_dye
+SET 2 globe_banner_pattern
+SET 1 cyan_dye
+SET 2 piglin_banner_pattern
+SET 1 red_dye
+SET 2 flow_banner_pattern
+SET 1 light_blue_dye
+SET 2 guster_banner_pattern
+SET 1 light_gray_dye
+SET 2 field_masoned_banner_pattern
+SET 1 green_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 pink_banner
+SET 1 light_blue_dye
+SET 2 flower_banner_pattern
+SET 1 light_gray_dye
+SET 2 creeper_banner_pattern
+SET 1 green_dye
+SET 2 skull_banner_pattern
+SET 1 magenta_dye
+SET 2 mojang_banner_pattern
+SET 1 gray_dye
+SET 2 globe_banner_pattern
+SET 1 brown_dye
+SET 2 piglin_banner_pattern
+SET 1 orange_dye
+SET 2 flow_banner_pattern
+SET 1 pink_dye
+SET 2 guster_banner_pattern
+SET 1 blue_dye
+SET 2 field_masoned_banner_pattern
+SET 1 white_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 gray_banner
+SET 1 pink_dye
+SET 2 flower_banner_pattern
+SET 1 blue_dye
+SET 2 creeper_banner_pattern
+SET 1 white_dye
+SET 2 skull_banner_pattern
+SET 1 lime_dye
+SET 2 mojang_banner_pattern
+SET 1 purple_dye
+SET 2 globe_banner_pattern
+SET 1 black_dye
+SET 2 piglin_banner_pattern
+SET 1 yellow_dye
+SET 2 flow_banner_pattern
+SET 1 cyan_dye
+SET 2 guster_banner_pattern
+SET 1 red_dye
+SET 2 field_masoned_banner_pattern
+SET 1 light_blue_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 light_gray_banner
+SET 1 cyan_dye
+SET 2 flower_banner_pattern
+SET 1 red_dye
+SET 2 creeper_banner_pattern
+SET 1 light_blue_dye
+SET 2 skull_banner_pattern
+SET 1 light_gray_dye
+SET 2 mojang_banner_pattern
+SET 1 green_dye
+SET 2 globe_banner_pattern
+SET 1 magenta_dye
+SET 2 piglin_banner_pattern
+SET 1 gray_dye
+SET 2 flow_banner_pattern
+SET 1 brown_dye
+SET 2 guster_banner_pattern
+SET 1 orange_dye
+SET 2 field_masoned_banner_pattern
+SET 1 pink_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 cyan_banner
+SET 1 brown_dye
+SET 2 flower_banner_pattern
+SET 1 orange_dye
+SET 2 creeper_banner_pattern
+SET 1 pink_dye
+SET 2 skull_banner_pattern
+SET 1 blue_dye
+SET 2 mojang_banner_pattern
+SET 1 white_dye
+SET 2 globe_banner_pattern
+SET 1 lime_dye
+SET 2 piglin_banner_pattern
+SET 1 purple_dye
+SET 2 flow_banner_pattern
+SET 1 black_dye
+SET 2 guster_banner_pattern
+SET 1 yellow_dye
+SET 2 field_masoned_banner_pattern
+SET 1 cyan_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 purple_banner
+SET 1 black_dye
+SET 2 flower_banner_pattern
+SET 1 yellow_dye
+SET 2 creeper_banner_pattern
+SET 1 cyan_dye
+SET 2 skull_banner_pattern
+SET 1 red_dye
+SET 2 mojang_banner_pattern
+SET 1 light_blue_dye
+SET 2 globe_banner_pattern
+SET 1 light_gray_dye
+SET 2 piglin_banner_pattern
+SET 1 green_dye
+SET 2 flow_banner_pattern
+SET 1 magenta_dye
+SET 2 guster_banner_pattern
+SET 1 gray_dye
+SET 2 field_masoned_banner_pattern
+SET 1 brown_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 blue_banner
+SET 1 magenta_dye
+SET 2 flower_banner_pattern
+SET 1 gray_dye
+SET 2 creeper_banner_pattern
+SET 1 brown_dye
+SET 2 skull_banner_pattern
+SET 1 orange_dye
+SET 2 mojang_banner_pattern
+SET 1 pink_dye
+SET 2 globe_banner_pattern
+SET 1 blue_dye
+SET 2 piglin_banner_pattern
+SET 1 white_dye
+SET 2 flow_banner_pattern
+SET 1 lime_dye
+SET 2 guster_banner_pattern
+SET 1 purple_dye
+SET 2 field_masoned_banner_pattern
+SET 1 black_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 brown_banner
+SET 1 lime_dye
+SET 2 flower_banner_pattern
+SET 1 purple_dye
+SET 2 creeper_banner_pattern
+SET 1 black_dye
+SET 2 skull_banner_pattern
+SET 1 yellow_dye
+SET 2 mojang_banner_pattern
+SET 1 cyan_dye
+SET 2 globe_banner_pattern
+SET 1 red_dye
+SET 2 piglin_banner_pattern
+SET 1 light_blue_dye
+SET 2 flow_banner_pattern
+SET 1 light_gray_dye
+SET 2 guster_banner_pattern
+SET 1 green_dye
+SET 2 field_masoned_banner_pattern
+SET 1 magenta_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 green_banner
+SET 1 light_gray_dye
+SET 2 flower_banner_pattern
+SET 1 green_dye
+SET 2 creeper_banner_pattern
+SET 1 magenta_dye
+SET 2 skull_banner_pattern
+SET 1 gray_dye
+SET 2 mojang_banner_pattern
+SET 1 brown_dye
+SET 2 globe_banner_pattern
+SET 1 orange_dye
+SET 2 piglin_banner_pattern
+SET 1 pink_dye
+SET 2 flow_banner_pattern
+SET 1 blue_dye
+SET 2 guster_banner_pattern
+SET 1 white_dye
+SET 2 field_masoned_banner_pattern
+SET 1 lime_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 red_banner
+SET 1 blue_dye
+SET 2 flower_banner_pattern
+SET 1 white_dye
+SET 2 creeper_banner_pattern
+SET 1 lime_dye
+SET 2 skull_banner_pattern
+SET 1 purple_dye
+SET 2 mojang_banner_pattern
+SET 1 black_dye
+SET 2 globe_banner_pattern
+SET 1 yellow_dye
+SET 2 piglin_banner_pattern
+SET 1 cyan_dye
+SET 2 flow_banner_pattern
+SET 1 red_dye
+SET 2 guster_banner_pattern
+SET 1 light_blue_dye
+SET 2 field_masoned_banner_pattern
+SET 1 light_gray_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+SET 0 black_banner
+SET 1 red_dye
+SET 2 flower_banner_pattern
+SET 1 light_blue_dye
+SET 2 creeper_banner_pattern
+SET 1 light_gray_dye
+SET 2 skull_banner_pattern
+SET 1 green_dye
+SET 2 mojang_banner_pattern
+SET 1 magenta_dye
+SET 2 globe_banner_pattern
+SET 1 gray_dye
+SET 2 piglin_banner_pattern
+SET 1 brown_dye
+SET 2 flow_banner_pattern
+SET 1 orange_dye
+SET 2 guster_banner_pattern
+SET 1 pink_dye
+SET 2 field_masoned_banner_pattern
+SET 1 blue_dye
+SET 2 bordure_indented_banner_pattern
+SET 2 -
+# every dye on one banner, the pattern list needing no item
+SET 0 white_banner
+SET 1 white_dye
+BUTTON 0
+SET 1 orange_dye
+BUTTON 1
+SET 1 magenta_dye
+BUTTON 2
+SET 1 light_blue_dye
+BUTTON 3
+SET 1 yellow_dye
+BUTTON 4
+SET 1 lime_dye
+BUTTON 5
+SET 1 pink_dye
+BUTTON 6
+SET 1 gray_dye
+BUTTON 7
+SET 1 light_gray_dye
+BUTTON 8
+SET 1 cyan_dye
+BUTTON 9
+SET 1 purple_dye
+BUTTON 10
+SET 1 blue_dye
+BUTTON 11
+SET 1 brown_dye
+BUTTON 12
+SET 1 green_dye
+BUTTON 13
+SET 1 red_dye
+BUTTON 14
+SET 1 black_dye
+BUTTON 15
+# every selectable pattern, taking the result back into the inventory
+BUTTON 0
+CLICK 3 0 QUICK_MOVE
+SET 0 white_banner
+SET 1 red_dye
+BUTTON 1
+BUTTON 2
+BUTTON 3
+BUTTON 4
+CLICK 3 0 QUICK_MOVE
+SET 0 white_banner
+SET 1 red_dye
+BUTTON 5
+BUTTON 6
+BUTTON 7
+BUTTON 8
+CLICK 3 0 QUICK_MOVE
+SET 0 white_banner
+SET 1 red_dye
+BUTTON 9
+BUTTON 10
+BUTTON 11
+BUTTON 12
+CLICK 3 0 QUICK_MOVE
+SET 0 white_banner
+SET 1 red_dye
+BUTTON 13
+BUTTON 14
+BUTTON 15
+BUTTON 16
+CLICK 3 0 QUICK_MOVE
+SET 0 white_banner
+SET 1 red_dye
+BUTTON 17
+BUTTON 18
+BUTTON 19
+BUTTON 20
+CLICK 3 0 QUICK_MOVE
+SET 0 white_banner
+SET 1 red_dye
+BUTTON 21
+BUTTON 22
+BUTTON 23
+BUTTON 24
+CLICK 3 0 QUICK_MOVE
+SET 0 white_banner
+SET 1 red_dye
+BUTTON 25
+BUTTON 26
+BUTTON 27
+BUTTON 28
+CLICK 3 0 QUICK_MOVE
+SET 0 white_banner
+SET 1 red_dye
+BUTTON 29
+BUTTON 30
+BUTTON 31
+# invalid button ids
+BUTTON -1
+BUTTON 32
+BUTTON 33
+BUTTON 99
+BUTTON 2147483647
+BUTTON -2147483648
+# the selection survives a change of dye or banner (same list), and is lost when a pattern item changes the list
+SET 0 blue_banner
+SET 1 lime_dye
+BUTTON 7
+SET 1 orange_dye
+SET 0 black_banner
+SET 1 -
+SET 1 pink_dye
+SET 2 globe_banner_pattern
+SET 2 -
+BUTTON 31
+SET 2 skull_banner_pattern
+SET 2 creeper_banner_pattern
+SET 2 -
+# six layers: the result stays empty, five layers still take one
+SET 0 white_banner,b=stripe_bottom@red;stripe_top@blue;cross@green;circle@black;border@yellow;gradient@pink
+SET 1 red_dye
+BUTTON 0
+SET 2 flower_banner_pattern
+SET 2 -
+SET 0 white_banner,b=stripe_bottom@red;stripe_top@blue;cross@green;circle@black;border@yellow
+BUTTON 3
+SET 2 mojang_banner_pattern
+CLICK 3 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK -999 0 PICKUP
+# take results with the sound once per tick
+EVENTS on
+SET 0 red_bannerx5
+SET 1 white_dyex2
+SET 2 -
+BUTTON 4
+CLICK 3 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+TICK 1
+SET 0 red_bannerx5
+SET 1 white_dyex2
+BUTTON 5
+CLICK 3 0 PICKUP
+CLICK 10 0 PICKUP
+TICK 2
+CLICK 3 0 QUICK_MOVE
+EVENTS off
+# the input slots only accept their kind
+SET 0 -
+SET 1 -
+GIVE 0 stonex5
+GIVE 1 blue_bannerx3
+GIVE 2 yellow_dyex9
+GIVE 3 paper
+GIVE 4 flower_banner_pattern
+GIVE 5 creeper_banner_pattern
+GIVE 6 green_bannerx4
+GIVE 7 black_dyex2
+GIVE 8 diamond_sword
+CLICK 13 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 3 1 PICKUP
+CLICK 0 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 3 0 PICKUP
+DRAG 0 0 1 2
+# quick-move routes
+CLICK 33 0 QUICK_MOVE
+CLICK 34 0 QUICK_MOVE
+CLICK 35 0 QUICK_MOVE
+CLICK 36 0 QUICK_MOVE
+CLICK 37 0 QUICK_MOVE
+CLICK 38 0 QUICK_MOVE
+CLICK 39 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 8 0 QUICK_MOVE
+CLICK 9 0 QUICK_MOVE
+CLICK 12 1 SWAP
+CLICK 0 2 SWAP
+CLICK 3 2 SWAP
+CLICK 3 0 THROW
+CLICK 1 0 CLONE
+CLICK 0 0 PICKUP_ALL
+# closing returns the inputs, with an item on the cursor
+SET 0 red_bannerx2
+SET 1 blue_dye
+SET 2 skull_banner_pattern
+CLICK 0 1 PICKUP
+CLOSE
+# opened without items, closed with a result showing
+OPEN loom 10 5 1 7 8
+SET 0 gray_banner
+SET 1 black_dye
+BUTTON 9
+TICK 3
+CLOSE
+# random sessions over banners (plain and layered), dyes, pattern items and other items
+GEN loom 1 150 white_banner|red_bannerx3|blue_banner,b=cross@red;stripe_top@black;border@yellow;circle@pink;gradient@lime|green_banner,b=cross@red;stripe_top@black;border@yellow;circle@pink;gradient@lime;rhombus@white|red_dye|blue_dyex4|black_dyex2|flower_banner_pattern|creeper_banner_pattern|globe_banner_patternx2|paper|stonex20|diamond_sword,d=50|-
+GEN loom 2 150 white_banner|red_bannerx3|blue_banner,b=cross@red;stripe_top@black;border@yellow;circle@pink;gradient@lime|green_banner,b=cross@red;stripe_top@black;border@yellow;circle@pink;gradient@lime;rhombus@white|red_dye|blue_dyex4|black_dyex2|flower_banner_pattern|creeper_banner_pattern|globe_banner_patternx2|paper|stonex20|diamond_sword,d=50|-
+GEN loom 3 150 white_banner|red_bannerx3|blue_banner,b=cross@red;stripe_top@black;border@yellow;circle@pink;gradient@lime|green_banner,b=cross@red;stripe_top@black;border@yellow;circle@pink;gradient@lime;rhombus@white|red_dye|blue_dyex4|black_dyex2|flower_banner_pattern|creeper_banner_pattern|globe_banner_patternx2|paper|stonex20|diamond_sword,d=50|-
+GEN loom 4 200 white_banner|red_bannerx3|blue_banner,b=cross@red;stripe_top@black;border@yellow;circle@pink;gradient@lime|green_banner,b=cross@red;stripe_top@black;border@yellow;circle@pink;gradient@lime;rhombus@white|red_dye|blue_dyex4|black_dyex2|flower_banner_pattern|creeper_banner_pattern|globe_banner_patternx2|paper|stonex20|diamond_sword,d=50|-

@@ -17,3 +17,11 @@ fn menu_ops_script_matches_vanilla() {
     let ops = replay("menu_oracle", "menu_ops");
     assert!(ops > 30, "fixture has {ops} ops");
 }
+
+/// The loom: every banner colour with each pattern item and dye, the patterns that need no item, six layers, selection kept by
+/// value, invalid button ids, taking the result with its sound, quick moves, close and random sessions.
+#[test]
+fn loom_menu_script_matches_vanilla() {
+    let ops = replay("menu_oracle", "loom");
+    assert!(ops > 1000, "fixture has {ops} ops");
+}

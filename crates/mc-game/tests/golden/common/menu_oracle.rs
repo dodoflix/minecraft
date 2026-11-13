@@ -111,6 +111,11 @@ pub const MENU_KINDS: &[MenuKind] = &[
         setup: no_setup,
     },
     MenuKind {
+        name: "loom",
+        block: Block::LOOM,
+        setup: no_setup,
+    },
+    MenuKind {
         name: "chest",
         block: Block::CHEST,
         setup: no_setup,

@@ -1,0 +1,69 @@
+# The loom opened with use_on: the screen packet with its title, the contents and the selected pattern, the statistic, a spectator,
+# then banner, dye and pattern item moved in through the click packets, the result taken and what closing returns.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player S spectator 9.5 -60 7.5 0 0
+spawn_player C creative 6.5 -60 7.5 0 0
+block 3 -60 4 minecraft:loom[facing=north]
+block 6 -60 4 minecraft:loom[facing=east]
+block 9 -60 4 minecraft:loom[facing=south]
+tick 2
+note an empty loom: the screen with 40 slots and the pattern index at 0 until the first change of the inputs
+give A hotbar0 minecraft:red_banner 3
+give A hotbar1 minecraft:white_dye 2
+give A hotbar2 minecraft:creeper_banner_pattern
+give A hotbar3 minecraft:stick
+level_seed 11
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data stats:A
+note banner and dye: no pattern item, so the patterns that need none are offered and none is selected
+click A 31 0 PICKUP
+click A 0 0 PICKUP
+click A 32 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a pattern item selects its single pattern and fills the result
+click A 33 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note something that is not a pattern item stays out of the pattern slot
+click A 34 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 34 0 PICKUP
+note taking the result uses one banner and one dye, the sound plays
+click A 3 0 PICKUP
+dump menu:A events packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 35 0 PICKUP
+note shift-click: the result goes to the inventory, a banner back to its slot
+click A 3 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note closing returns the three input slots
+close_menu A
+dump menu:A inventory:A packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a spectator only sees the menu: nothing is moved
+give S hotbar0 minecraft:blue_banner
+use_on S 9 -60 4 up main
+dump menu:S packets:S:open_screen,container_set_content,container_set_data stats:S
+click S 31 0 PICKUP
+click S 0 0 PICKUP
+dump menu:S packets:S:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu S
+note creative takes the result like survival
+give C hotbar0 minecraft:lime_banner
+give C hotbar1 minecraft:black_dye
+give C hotbar2 minecraft:flower_banner_pattern
+use_on C 6 -60 4 up main
+click C 31 0 PICKUP
+click C 0 0 PICKUP
+click C 32 0 PICKUP
+click C 1 0 PICKUP
+click C 33 0 PICKUP
+click C 2 0 PICKUP
+click C 3 0 QUICK_MOVE
+dump menu:C inventory:C packets:C:container_set_slot,container_set_content,container_set_data,set_cursor_item stats:C
+close_menu C

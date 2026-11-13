@@ -1095,10 +1095,6 @@ const ACCEPTED_HOOKS: &[(&str, &str)] = &[
         "menus are not implemented yet",
     ),
     (
-        "getMenuProvider@LoomBlock -> LoomBlock (registered as LoomBlock)",
-        "menus are not implemented yet",
-    ),
-    (
         "getMenuProvider@StonecutterBlock -> StonecutterBlock (registered as StonecutterBlock)",
         "menus are not implemented yet",
     ),

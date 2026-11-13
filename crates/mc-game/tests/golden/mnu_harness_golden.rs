@@ -58,3 +58,8 @@ fn the_grindstone_removes_enchantments_and_pays_out_experience() {
 fn picking_an_entity_selects_or_adds_its_pick_result_and_prints_avatar_profiles() {
     common::block_scenario::check("mnu_pick_entity");
 }
+
+#[test]
+fn the_loom_opens_takes_its_result_and_returns_its_inputs() {
+    common::block_scenario::check("mnu_open_loom");
+}
