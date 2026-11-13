@@ -141,6 +141,7 @@ mod mnu_harness_golden;
 mod mnu_merchant_golden;
 mod mnu_mount_golden;
 mod mnu_recipe_golden;
+mod mnu_smithing_golden;
 mod mnu_stonecutter_golden;
 mod mob_spine_golden;
 mod net_common;

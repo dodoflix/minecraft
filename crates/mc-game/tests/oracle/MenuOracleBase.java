@@ -34,6 +34,7 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -63,7 +64,7 @@ import net.minecraft.world.phys.AABB;
  * Script lines (stacks are `@item[components]` (the command syntax, no spaces, count 1) or `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..][,p=potion]`;
  * the printed ops carry the stack as `ItemStack.CODEC` SNBT, `-` = empty); `#` lines are copied:
  *   OPEN kind [xp [seed [creative [pseed [lseed [shelves [blockers]]]]]]]
- *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | crafting | chest | cartography | brewing_stand | beacon | lectern | stonecutter | crafter): resets the
+ *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | crafting | chest | cartography | brewing_stand | beacon | lectern | stonecutter | crafter | smithing): resets the
  *        world around TABLE, places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
  *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table,
  *        the levels (0..4) of the iron pyramid under a beacon, the pages (at least 1) of the book on a lectern and whether that book is a writable one.
@@ -99,6 +100,7 @@ import net.minecraft.world.phys.AABB;
  *   OUT X level seed totalXp progressBits   OUT B state of the block at TABLE (+ has_bottle_N, has_book, powered when it has them)   OUT ORBS n  experience of the orbs near TABLE
  *   OUT DROPS id=n,..  dropped item entities (only when there are some)   OUT K ids  recipes the player knows (after a RECIPE op)
  *   OUT M id=cx,cz,scale,locked,colorHash ..  every map of the level, ids 0..63 (only when any)   OUT R b  result of BUTTON / NAME
+ *   OUT CRAFTED id=n ..  the `item_crafted` statistics of the player (only when any)
  *   OUT PKT ...  container packets sent since the last op   OUT EV ...  broadcasts (EVENTS on)
  *   OUT P x,y,z alive  the player once it moved or died   OUT E ref alive=A [xp= trading= offers=uses/max/demand/special;..] [persist= drops=]  entities of SPAWN
  */
@@ -164,6 +166,7 @@ public class MenuOracleBase {
          ((net.minecraft.world.level.block.entity.LecternBlockEntity) level.getBlockEntity(TABLE)).setBook(book(pages, writable != 0));
       }));
       KINDS.put("stonecutter", new Kind(Blocks.STONECUTTER, NO_SETUP));
+      KINDS.put("smithing", new Kind(Blocks.SMITHING_TABLE, NO_SETUP));
       // no block: the menu comes from an entity (SPAWN, USE)
       KINDS.put("merchant", new Kind(null, NO_SETUP));
       KINDS.put("mount", new Kind(null, NO_SETUP));
@@ -313,6 +316,12 @@ public class MenuOracleBase {
          p.getRecipeBook().pack().known().forEach(k -> known.add(k.identifier().toString()));
          stateUnlessEmpty("K", "K" + known.stream().map(k -> " " + k).reduce("", String::concat), "K");
       }
+      TreeMap<String, Integer> crafted = new TreeMap<>();
+      for (Item it : BuiltInRegistries.ITEM) {
+         int n = p.getStats().getValue(Stats.ITEM_CRAFTED.get(it));
+         if (n > 0) crafted.put(BuiltInRegistries.ITEM.getKey(it).toString(), n);
+      }
+      stateUnlessEmpty("CRAFTED", "CRAFTED" + crafted.entrySet().stream().map(e -> " " + e.getKey() + "=" + e.getValue()).reduce("", String::concat), "CRAFTED");
       StringBuilder m = new StringBuilder("M");
       for (int id = 0; id < MAP_PROBE; id++) {
          MapItemSavedData data = level.getMapData(new MapId(id));

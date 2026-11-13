@@ -1,0 +1,225 @@
+# an empty hand opens the menu: screen packet with the title, initial content and the data slot
+MENU A cid=1 type=minecraft:smithing state=1 carried=empty
+MS 31 minecraft:netherite_upgrade_smithing_template*2
+MS 32 minecraft:diamond_sword*1
+MS 33 minecraft:netherite_ingot*3
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MS 36 minecraft:diamond_chestplate*1
+MD 0 0
+STAT A minecraft.custom:minecraft.interact_with_smithing_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:open_screen 3c01150a0800097472616e736c6174650011636f6e7461696e65722e7570677261646500
+PKT A minecraft:container_set_content 120101280000000000000000000000000000000000000000000000000000000000000002ab0c0000019a08000003ff0700000501000001b908000001bd08000000000000
+PKT A minecraft:container_set_data 130100000000
+# each input from the inventory: the stone goes into no input slot, the result appears with the third input
+MENU A cid=1 type=minecraft:smithing state=3 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*2
+MS 32 minecraft:diamond_sword*1
+MS 33 minecraft:netherite_ingot*3
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MS 36 minecraft:diamond_chestplate*1
+MD 0 0
+PKT A minecraft:container_set_slot 140102001f00
+PKT A minecraft:set_cursor_item 6202ab0c0000
+PKT A minecraft:container_set_slot 140103000002ab0c0000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:smithing state=5 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*2
+MS 32 minecraft:diamond_sword*1
+MS 33 minecraft:netherite_ingot*3
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MS 36 minecraft:diamond_chestplate*1
+MD 0 0
+PKT A minecraft:container_set_slot 140104002200
+PKT A minecraft:set_cursor_item 6205010000
+PKT A minecraft:container_set_slot 140105002205010000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:smithing state=7 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*2
+MS 1 minecraft:diamond_sword*1
+MS 33 minecraft:netherite_ingot*3
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MS 36 minecraft:diamond_chestplate*1
+MD 0 0
+PKT A minecraft:container_set_slot 140106002000
+PKT A minecraft:set_cursor_item 62019a080000
+PKT A minecraft:container_set_slot 1401070001019a080000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:smithing state=10 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*2
+MS 1 minecraft:diamond_sword*1
+MS 2 minecraft:netherite_ingot*3
+MS 3 minecraft:netherite_sword*1
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MS 36 minecraft:diamond_chestplate*1
+MD 0 0
+PKT A minecraft:container_set_slot 140108002100
+PKT A minecraft:set_cursor_item 6203ff070000
+PKT A minecraft:container_set_slot 140109000203ff070000
+PKT A minecraft:container_set_slot 14010a0003019f080000
+PKT A minecraft:set_cursor_item 6200
+# taking the result: the inputs shrink by one each, the level event and the statistic
+MENU A cid=1 type=minecraft:smithing state=14 carried=minecraft:netherite_sword*1
+MS 0 minecraft:netherite_upgrade_smithing_template*1
+MS 2 minecraft:netherite_ingot*2
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MS 36 minecraft:diamond_chestplate*1
+MD 0 0
+STAT A minecraft.crafted:minecraft.netherite_sword 1
+STAT A minecraft.custom:minecraft.interact_with_smithing_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+EV level_event r=64.0 ex=0 type=1044 pos=3,-60,4 data=0 global=0
+PKT A minecraft:container_set_slot 14010b000001ab0c0000
+PKT A minecraft:container_set_slot 14010c000100
+PKT A minecraft:container_set_slot 14010d000202ff070000
+PKT A minecraft:container_set_slot 14010e000300
+PKT A minecraft:set_cursor_item 62019f080000
+MENU A cid=1 type=minecraft:smithing state=15 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*1
+MS 2 minecraft:netherite_ingot*2
+MS 31 minecraft:netherite_sword*1
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MS 36 minecraft:diamond_chestplate*1
+MD 0 0
+PKT A minecraft:container_set_slot 14010f001f019f080000
+PKT A minecraft:set_cursor_item 6200
+# an upgrade of the wrong base leaves the error flag until the base is replaced
+MENU A cid=1 type=minecraft:smithing state=17 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*1
+MS 1 minecraft:iron_chestplate*1
+MS 2 minecraft:netherite_ingot*2
+MS 31 minecraft:netherite_sword*1
+MS 34 minecraft:stone*5
+MS 36 minecraft:diamond_chestplate*1
+MD 0 1
+PKT A minecraft:container_set_slot 140110002300
+PKT A minecraft:set_cursor_item 6201b9080000
+PKT A minecraft:container_set_slot 140111000101b9080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130100000001
+MENU A cid=1 type=minecraft:smithing state=22 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*1
+MS 1 minecraft:diamond_chestplate*1
+MS 2 minecraft:netherite_ingot*2
+MS 3 minecraft:netherite_chestplate*1
+MS 31 minecraft:netherite_sword*1
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MD 0 0
+PKT A minecraft:container_set_slot 140112000100
+PKT A minecraft:set_cursor_item 6201b9080000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_slot 140113002301b9080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140114002400
+PKT A minecraft:set_cursor_item 6201bd080000
+PKT A minecraft:container_set_slot 140115000101bd080000
+PKT A minecraft:container_set_slot 140116000301c5080000
+PKT A minecraft:set_cursor_item 6200
+# shift-click: the inputs out, back in, then the result straight into the inventory
+MENU A cid=1 type=minecraft:smithing state=29 carried=empty
+MS 4 minecraft:netherite_upgrade_smithing_template*1
+MS 5 minecraft:netherite_ingot*2
+MS 6 minecraft:diamond_chestplate*1
+MS 31 minecraft:netherite_sword*1
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MD 0 0
+PKT A minecraft:container_set_slot 140117000000
+PKT A minecraft:container_set_slot 140118000300
+PKT A minecraft:container_set_slot 140119000401ab0c0000
+PKT A minecraft:container_set_slot 14011a000200
+PKT A minecraft:container_set_slot 14011b000502ff070000
+PKT A minecraft:container_set_slot 14011c000100
+PKT A minecraft:container_set_slot 14011d000601bd080000
+MENU A cid=1 type=minecraft:smithing state=36 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*1
+MS 1 minecraft:diamond_chestplate*1
+MS 2 minecraft:netherite_ingot*2
+MS 3 minecraft:netherite_chestplate*1
+MS 31 minecraft:netherite_sword*1
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MD 0 0
+PKT A minecraft:container_set_slot 14011e000001ab0c0000
+PKT A minecraft:container_set_slot 14011f000400
+PKT A minecraft:container_set_slot 140120000202ff070000
+PKT A minecraft:container_set_slot 140121000500
+PKT A minecraft:container_set_slot 140122000101bd080000
+PKT A minecraft:container_set_slot 140123000301c5080000
+PKT A minecraft:container_set_slot 140124000600
+MENU A cid=1 type=minecraft:smithing state=41 carried=empty
+MS 2 minecraft:netherite_ingot*1
+MS 31 minecraft:netherite_sword*1
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MS 39 minecraft:netherite_chestplate*1
+MD 0 0
+STAT A minecraft.crafted:minecraft.air 0
+STAT A minecraft.crafted:minecraft.netherite_sword 1
+STAT A minecraft.custom:minecraft.interact_with_smithing_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+EV level_event r=64.0 ex=0 type=1044 pos=3,-60,4 data=0 global=0
+PKT A minecraft:container_set_slot 140125000000
+PKT A minecraft:container_set_slot 140126000100
+PKT A minecraft:container_set_slot 140127000201ff070000
+PKT A minecraft:container_set_slot 140128000300
+PKT A minecraft:container_set_slot 140129002701c5080000
+# closing returns what is left in the inputs
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:netherite_sword*1
+MS 37 minecraft:netherite_ingot*1
+MS 39 minecraft:stone*5
+MS 40 minecraft:iron_chestplate*1
+MS 44 minecraft:netherite_chestplate*1
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:netherite_sword*1
+# the table broken while the menu is open closes it on the next tick
+MENU A cid=2 type=minecraft:smithing state=5 carried=empty
+MS 31 minecraft:netherite_sword*1
+MS 32 minecraft:netherite_ingot*1
+MS 34 minecraft:stone*5
+MS 35 minecraft:iron_chestplate*1
+MS 39 minecraft:netherite_chestplate*1
+MD 0 0
+PKT A minecraft:open_screen 3c02150a0800097472616e736c6174650011636f6e7461696e65722e7570677261646500
+PKT A minecraft:container_set_content 1202012800000000000000000000000000000000000000000000000000000000000000019f08000001ff070000000501000001b908000000000001c508000000
+PKT A minecraft:container_set_data 130200000000
+PKT A minecraft:container_set_slot 1402020004019f080000
+PKT A minecraft:container_set_slot 140203001f00
+PKT A minecraft:container_set_slot 140204000400
+PKT A minecraft:container_set_slot 140205001f019f080000
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:netherite_sword*1
+MS 37 minecraft:netherite_ingot*1
+MS 39 minecraft:stone*5
+MS 40 minecraft:iron_chestplate*1
+MS 44 minecraft:netherite_chestplate*1
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:netherite_sword*1
+PKT A minecraft:container_close 1102
+# a spectator opens the menu through the provider; a stone has none
+MENU S cid=1 type=minecraft:smithing state=1 carried=empty
+MD 0 0
+STAT S minecraft.custom:minecraft.play_time 3
+STAT S minecraft.custom:minecraft.time_since_death 3
+STAT S minecraft.custom:minecraft.time_since_rest 3
+STAT S minecraft.custom:minecraft.total_world_time 3
+PKT S minecraft:open_screen 3c01150a0800097472616e736c6174650011636f6e7461696e65722e7570677261646500
+PKT S minecraft:container_set_content 120101280000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+MENU S cid=0 type=inventory state=1 carried=empty

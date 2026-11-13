@@ -1,0 +1,536 @@
+# The smithing table: slot predicates of the three property sets, netherite upgrades and armor trims, taking the result (crafted statistic,
+# one of each input, level event 1044), the recipe error data slot, quick moves, pick-all, drags and what closing returns.
+# Menu slots: 0 template, 1 base, 2 addition, 3 result, 4..30 inventory, 31..39 hotbar (player slots 9..35 and 0..8).
+EVENTS on
+OPEN smithing 0 0 0 1 1
+# the predicates: every item goes by hand into every slot (only the matching ones stay)
+GIVE 0 stonex5
+GIVE 1 netherite_upgrade_smithing_template
+GIVE 2 diamond_sword
+GIVE 3 netherite_ingot
+GIVE 4 sentry_armor_trim_smithing_template
+GIVE 5 iron_chestplate
+GIVE 6 emerald
+GIVE 7 diamond_pickaxe
+CLICK 31 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 35 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 38 0 PICKUP
+# a netherite upgrade by hand: the result appears with the third input; the result slot takes nothing back
+CLICK 32 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 34 0 PICKUP
+CLICK 2 0 PICKUP
+CLICK 31 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK -999 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 36 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 36 0 PICKUP
+# all three inputs but no recipe: the error data slot goes to 1 until the result exists or an input leaves
+SET 0 sentry_armor_trim_smithing_template
+SET 1 stone
+SET 2 emerald
+SET 1 diamond_sword
+SET 2 netherite_ingot
+SET 0 -
+SET 0 netherite_upgrade_smithing_template
+SET 1 -
+SET 2 -
+# the 12 netherite upgrades
+SET 1 diamond_sword
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_axe
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_pickaxe
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_shovel
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_hoe
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_spear
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_helmet
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_chestplate
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_leggings
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_boots
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_horse_armor
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_nautilus_armor
+SET 2 netherite_ingot
+SET 2 -
+SET 1 diamond_sword,d=100,n=Blade,e=sharpness@5;looting@3,rc=7
+SET 2 netherite_ingot
+SET 2 netherite_block
+SET 2 -
+SET 1 -
+# the trims: every pattern on a chestplate, bolt on every kind of armor, every material on an enchanted helmet
+SET 0 bolt_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 coast_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 dune_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 eye_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 flow_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 host_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 raiser_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 rib_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 sentry_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 shaper_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 silence_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 snout_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 spire_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 tide_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 vex_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 ward_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 wayfinder_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 wild_armor_trim_smithing_template
+SET 1 iron_chestplate
+SET 2 emerald
+SET 2 -
+SET 1 -
+SET 0 bolt_armor_trim_smithing_template
+SET 1 leather_helmet
+SET 2 copper_ingot
+SET 2 -
+SET 1 chainmail_leggings
+SET 2 copper_ingot
+SET 2 -
+SET 1 golden_boots
+SET 2 copper_ingot
+SET 2 -
+SET 1 diamond_chestplate
+SET 2 copper_ingot
+SET 2 -
+SET 1 netherite_helmet
+SET 2 copper_ingot
+SET 2 -
+SET 1 turtle_helmet
+SET 2 copper_ingot
+SET 2 -
+SET 1 iron_horse_armor
+SET 2 copper_ingot
+SET 2 -
+SET 1 diamond_sword
+SET 2 copper_ingot
+SET 2 -
+SET 1 elytra
+SET 2 copper_ingot
+SET 2 -
+SET 1 carved_pumpkin
+SET 2 copper_ingot
+SET 2 -
+SET 1 iron_helmet,d=20,n=Hat,e=protection@4
+SET 2 amethyst_shard
+SET 2 copper_ingot
+SET 2 diamond
+SET 2 emerald
+SET 2 gold_ingot
+SET 2 iron_ingot
+SET 2 lapis_lazuli
+SET 2 netherite_ingot
+SET 2 quartz
+SET 2 redstone
+SET 2 resin_brick
+SET 2 netherite_scrap
+SET 2 gold_nugget
+SET 2 -
+SET 1 iron_helmet,e=protection@4
+SET 0 -
+CLOSE
+# taking the result: several ways, each consumes one of each input
+OPEN smithing 5 3 0 11 22
+SET 0 netherite_upgrade_smithing_templatex3
+SET 1 diamond_sword
+SET 2 netherite_ingotx2
+CLICK 3 0 PICKUP
+CLICK 31 0 PICKUP
+SET 1 diamond_axe
+CLICK 3 0 QUICK_MOVE
+SET 1 diamond_pickaxe
+CLICK 3 0 SWAP
+CLICK 3 1 SWAP
+SET 1 diamond_shovel
+CLICK 3 0 THROW
+SET 1 diamond_hoe
+SET 2 netherite_ingotx3
+SET 0 netherite_upgrade_smithing_templatex2
+CLICK 3 1 THROW
+SET 1 diamond_helmet
+CLICK 3 0 QUICK_MOVE
+SET 1 iron_chestplate
+SET 0 coast_armor_trim_smithing_templatex2
+SET 2 diamondx2
+CLICK 3 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+SET 1 iron_leggings
+CLICK 3 0 PICKUP
+CLICK 32 0 PICKUP
+CLICK 3 0 PICKUP
+CLOSE
+# quick moves: inventory to inputs (first free matching slot), inputs back, full inventory
+OPEN smithing 0 0 0 1 1
+GIVE 9 netherite_upgrade_smithing_templatex2
+GIVE 10 diamond_boots
+GIVE 11 netherite_ingotx4
+GIVE 12 netherite_upgrade_smithing_template
+GIVE 13 diamond_boots
+GIVE 14 stonex9
+GIVE 0 diamond_leggings
+GIVE 1 emeraldx5
+GIVE 2 vex_armor_trim_smithing_template
+GIVE 3 iron_boots
+CLICK 4 0 QUICK_MOVE
+CLICK 5 0 QUICK_MOVE
+CLICK 6 0 QUICK_MOVE
+CLICK 7 0 QUICK_MOVE
+CLICK 8 0 QUICK_MOVE
+CLICK 9 0 QUICK_MOVE
+CLICK 10 0 QUICK_MOVE
+CLICK 35 0 QUICK_MOVE
+CLICK 34 0 QUICK_MOVE
+CLICK 33 0 QUICK_MOVE
+CLICK 32 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 5 0 QUICK_MOVE
+CLICK 6 0 QUICK_MOVE
+CLICK 7 0 QUICK_MOVE
+CLICK 8 0 QUICK_MOVE
+CLICK 9 0 QUICK_MOVE
+CLICK 10 0 QUICK_MOVE
+CLICK 11 0 QUICK_MOVE
+CLICK 12 0 QUICK_MOVE
+CLICK 13 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 39 0 QUICK_MOVE
+CLICK 4 1 QUICK_MOVE
+# a full inventory: the result does not fit and stays
+GIVE 1 dirtx64
+GIVE 2 dirtx64
+GIVE 3 dirtx64
+GIVE 4 dirtx64
+GIVE 5 dirtx64
+GIVE 6 dirtx64
+GIVE 7 dirtx64
+GIVE 8 dirtx64
+GIVE 9 dirtx64
+GIVE 10 dirtx64
+GIVE 11 dirtx64
+GIVE 12 dirtx64
+GIVE 13 dirtx64
+GIVE 14 dirtx64
+GIVE 15 dirtx64
+GIVE 16 dirtx64
+GIVE 17 dirtx64
+GIVE 18 dirtx64
+GIVE 19 dirtx64
+GIVE 20 dirtx64
+GIVE 21 dirtx64
+GIVE 22 dirtx64
+GIVE 23 dirtx64
+GIVE 24 dirtx64
+GIVE 25 dirtx64
+GIVE 26 dirtx64
+GIVE 27 dirtx64
+GIVE 28 dirtx64
+GIVE 29 dirtx64
+GIVE 30 dirtx64
+GIVE 31 dirtx64
+GIVE 32 dirtx64
+GIVE 33 dirtx64
+GIVE 34 dirtx64
+GIVE 35 dirtx64
+SET 0 netherite_upgrade_smithing_template
+SET 1 diamond_boots
+SET 2 netherite_ingot
+CLICK 3 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 31 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 31 0 PICKUP
+CLOSE
+# pick-all, drags, swap and clone over the inputs and the result
+OPEN smithing 0 0 0 1 1
+GIVE 0 netherite_upgrade_smithing_templatex40
+GIVE 1 netherite_upgrade_smithing_templatex30
+GIVE 2 netherite_ingotx20
+GIVE 3 diamond_chestplate
+SET 0 netherite_upgrade_smithing_templatex5
+SET 1 diamond_chestplate
+SET 2 netherite_ingotx2
+CLICK 31 0 PICKUP
+CLICK 0 0 PICKUP_ALL
+CLICK 31 0 PICKUP
+CLICK 32 0 PICKUP
+DRAG 0 0 1 2 3
+DRAG 1 0 2 4
+CLICK 33 0 PICKUP
+DRAG 1 0 1 2 4 5
+DRAG 0 2 3 4
+CLICK 3 0 PICKUP_ALL
+CLICK -999 0 PICKUP
+CLICK 1 0 SWAP
+CLICK 1 1 SWAP
+CLICK 3 2 SWAP
+CLICK 3 0 CLONE
+CLICK 0 0 CLONE
+CLOSE
+OPEN smithing 0 0 1 1 1
+GIVE 4 netherite_upgrade_smithing_template
+SET 0 netherite_upgrade_smithing_templatex2
+SET 1 diamond_helmet
+SET 2 netherite_ingotx2
+CLICK 3 0 CLONE
+CLICK -999 0 PICKUP
+CLICK 3 0 PICKUP
+CLICK 31 0 PICKUP
+SET 1 diamond_helmet
+CLICK 3 0 QUICK_MOVE
+DRAG 2 0 1 2 3
+CLOSE
+# closing returns the inputs, a full inventory drops them
+OPEN smithing 0 0 0 7 8
+SET 0 netherite_upgrade_smithing_templatex2
+SET 1 diamond_boots
+SET 2 netherite_ingotx2
+CLOSE
+OPEN smithing 0 0 0 7 8
+GIVE 0 dirtx64
+GIVE 1 dirtx64
+GIVE 2 dirtx64
+GIVE 3 dirtx64
+GIVE 4 dirtx64
+GIVE 5 dirtx64
+GIVE 6 dirtx64
+GIVE 7 dirtx64
+GIVE 8 dirtx64
+GIVE 9 dirtx64
+GIVE 10 dirtx64
+GIVE 11 dirtx64
+GIVE 12 dirtx64
+GIVE 13 dirtx64
+GIVE 14 dirtx64
+GIVE 15 dirtx64
+GIVE 16 dirtx64
+GIVE 17 dirtx64
+GIVE 18 dirtx64
+GIVE 19 dirtx64
+GIVE 20 dirtx64
+GIVE 21 dirtx64
+GIVE 22 dirtx64
+GIVE 23 dirtx64
+GIVE 24 dirtx64
+GIVE 25 dirtx64
+GIVE 26 dirtx64
+GIVE 27 dirtx64
+GIVE 28 dirtx64
+GIVE 29 dirtx64
+GIVE 30 dirtx64
+GIVE 31 dirtx64
+GIVE 32 dirtx64
+GIVE 33 dirtx64
+GIVE 34 dirtx64
+GIVE 35 dirtx64
+SET 0 netherite_upgrade_smithing_templatex2
+SET 1 diamond_boots
+SET 2 netherite_ingotx2
+CLICK 31 0 PICKUP
+CLOSE
+# the table replaced under the player: the menu closes on the next tick and returns the inputs
+OPEN smithing 0 0 0 7 8
+SET 0 netherite_upgrade_smithing_template
+SET 1 diamond_boots
+SET 2 netherite_ingot
+BLOCK 0 70 0 minecraft:smithing_table
+TICK 1
+BLOCK 0 70 0 minecraft:stone
+TICK 1
+OPEN smithing 0 0 0 7 8
+BLOCK 0 70 0 minecraft:air
+TICK 2
+# random sessions over the smithing items
+GEN smithing 11 120 netherite_upgrade_smithing_template|netherite_upgrade_smithing_templatex3|diamond_sword|diamond_boots|diamond_chestplate,d=30|netherite_ingot|netherite_ingotx5|stonex7|-|emerald
+GEN smithing 12 120 vex_armor_trim_smithing_template|coast_armor_trim_smithing_templatex2|iron_helmet|iron_leggings,n=Pants|diamond|emerald|copper_ingotx3|gold_ingot|leather_boots|apple|-
+GEN smithing 13 150 netherite_upgrade_smithing_template|eye_armor_trim_smithing_template|diamond_axe|iron_chestplate|netherite_ingot|quartz|diamond_horse_armor|stonex64|-|dirtx64

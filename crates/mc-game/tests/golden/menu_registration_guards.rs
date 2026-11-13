@@ -135,6 +135,12 @@ const MENU_OPENERS: &[(&str, &str, &str, &str)] = &[
         "CrafterMenu::new",
         BLOCKS_CONTAINER_PROVIDER,
     ),
+    (
+        "minecraft:smithing",
+        "mc-game-core/src/world/inventory/smithing_menu.rs",
+        "SmithingMenu::new",
+        "mc-game-blocks/src/world/level/block/impls/smithing_table_block.rs",
+    ),
 ];
 
 const CONTAINER_MENUS: &str = "mc-game-core/src/world/inventory/container_menus.rs";
@@ -147,7 +153,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
     ("minecraft:furnace", "furnace menu"),
     ("minecraft:smoker", "smoker menu"),
     ("minecraft:blast_furnace", "blast furnace menu"),
-    ("minecraft:smithing", "smithing table menu"),
 ];
 
 type Opener = (&'static str, &'static str, &'static str, &'static str);

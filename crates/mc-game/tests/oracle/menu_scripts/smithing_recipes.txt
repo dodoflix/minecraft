@@ -1,0 +1,43 @@
+# Taking a smithing result unlocks its recipe (netherite upgrades and trims); nothing enters the inventory,
+# so the real player unlocks nothing by itself.
+EVENTS on
+RECIPE take *
+OPEN smithing 0 0 0 1 1
+SET 0 netherite_upgrade_smithing_templatex4
+SET 1 diamond_sword
+SET 2 netherite_ingotx4
+CLICK 3 0 THROW
+SET 1 diamond_pickaxe
+CLICK 3 0 THROW
+SET 1 diamond_sword
+CLICK 3 0 THROW
+RECIPE take minecraft:netherite_sword_smithing
+SET 1 diamond_sword
+SET 0 netherite_upgrade_smithing_template
+SET 2 netherite_ingot
+CLICK 3 0 THROW
+SET 0 wild_armor_trim_smithing_templatex2
+SET 1 iron_chestplate
+SET 2 amethyst_shardx2
+CLICK 3 1 THROW
+SET 1 iron_chestplate
+SET 2 quartz
+CLICK 3 1 THROW
+RECIPE give minecraft:netherite_axe_smithing
+RECIPE give minecraft:rib_armor_trim_smithing_template_smithing_trim
+SET 0 rib_armor_trim_smithing_template
+SET 1 diamond_leggings
+SET 2 emerald
+CLICK 3 0 THROW
+RECIPE take *
+SET 0 netherite_upgrade_smithing_template
+SET 1 diamond_axe
+SET 2 netherite_ingot
+CLICK 3 0 THROW
+CLOSE
+OPEN smithing 0 0 1 1 1
+SET 0 netherite_upgrade_smithing_template
+SET 1 diamond_shovel
+SET 2 netherite_ingot
+CLICK 3 0 THROW
+CLOSE

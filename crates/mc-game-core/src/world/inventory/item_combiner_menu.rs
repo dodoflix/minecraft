@@ -8,12 +8,13 @@
 //! `Rc`) to [`ItemCombinerMenuCore::new`].
 
 use super::{
-    AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, MenuSimpleContainer, Slot,
-    SlotBehavior, SlotEnv, finish_quick_move,
+    AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, MenuSimpleContainer,
+    RecipeCraftingHolder, Slot, SlotBehavior, SlotEnv, finish_quick_move,
 };
 use crate::world::container::Container;
 use crate::world::inventory::ContainerLevelAccess;
 use crate::world::item::ItemStack;
+use crate::world::item::crafting::RecipeHolder;
 use mc_data::MenuType;
 use mc_data::block::BlockState;
 use std::any::Any;
@@ -121,6 +122,16 @@ impl ItemCombinerMenuSlotDefinitionBuilder {
 pub(super) struct CombinerResultContainer {
     item: ItemStack,
     pending: u32,
+    recipe_used: Option<RecipeHolder>,
+}
+
+impl RecipeCraftingHolder for CombinerResultContainer {
+    fn set_recipe_used(&mut self, recipe: Option<RecipeHolder>) {
+        self.recipe_used = recipe;
+    }
+    fn get_recipe_used(&self) -> Option<&RecipeHolder> {
+        self.recipe_used.as_ref()
+    }
 }
 
 impl Container for CombinerResultContainer {

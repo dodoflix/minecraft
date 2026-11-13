@@ -31,6 +31,7 @@ use mc_game::registry::RegistryAccess;
 use mc_game::server::level::ServerLevel;
 use mc_game::server::level::level_events::BroadcastRecord;
 use mc_game::server::level::level_tick::WeatherState;
+use mc_game::stats::Stat;
 use mc_game::world::container::Container;
 use mc_game::world::entity::EntityId;
 use mc_game::world::entity::equipment::EquipmentSlot;
@@ -41,7 +42,7 @@ use mc_game::world::entity::player::inventory::Inventory;
 use mc_game::world::inventory::enchantment_menu::BOOKSHELF_OFFSETS;
 use mc_game::world::inventory::*;
 use mc_game::world::item::ItemStack;
-use mc_game::world::item::crafting::{RecipeManager, ServerRecipeBook};
+use mc_game::world::item::crafting::{RecipeHolder, RecipeManager, ServerRecipeBook};
 use mc_game::world::level::block::behaviour as block_behaviour;
 use mc_game::world::level::gamerules::{AnyGameRule, GameRules};
 use mc_game::world::level::saveddata::maps::MapItemSavedData;
@@ -203,6 +204,11 @@ pub const MENU_KINDS: &[MenuKind] = &[
         block: Block::CRAFTER,
         setup: no_setup,
     },
+    MenuKind {
+        name: "smithing",
+        block: Block::SMITHING_TABLE,
+        setup: no_setup,
+    },
 ];
 
 fn st(s: &ItemStack) -> String {
@@ -267,6 +273,8 @@ pub struct TestPlayer {
     pub rng: LegacyRandomSource,
     pub level: ServerLevel,
     pub recipe_book: ServerRecipeBook,
+    /// The `item_crafted` statistics (item id -> count).
+    pub crafted: BTreeMap<String, i32>,
     /// The feet (`PLAYER` moves it).
     pub pos: Vec3,
     /// `HEALTH 0`: not alive, no death processing.
@@ -371,6 +379,23 @@ impl MenuPlayer for TestPlayer {
     }
     fn player_random_next_float(&mut self) -> f32 {
         self.rng.next_float()
+    }
+    fn recipe_book_contains(&self, recipe_id: &Identifier) -> bool {
+        self.recipe_book.contains(recipe_id)
+    }
+    /// `ServerPlayer.awardRecipes` without the packet and the unlock trigger.
+    fn award_recipes(&mut self, recipes: &[RecipeHolder]) {
+        let manager = self.level.recipe_access();
+        let mut entries = Vec::new();
+        for recipe in recipes {
+            self.recipe_book
+                .try_add_recipe(recipe, &manager, &mut entries);
+        }
+    }
+    fn award_stat(&mut self, stat: Stat, count: i32) {
+        if let Stat::Crafted(item) = stat {
+            *self.crafted.entry(item.name().to_string()).or_default() += count;
+        }
     }
 }
 
@@ -519,6 +544,7 @@ impl Session {
                 rng: LegacyRandomSource::new(0),
                 level,
                 recipe_book: ServerRecipeBook::new(),
+                crafted: BTreeMap::new(),
                 pos: START,
                 dead: false,
                 disconnected: false,
@@ -961,6 +987,14 @@ impl Session {
             let known: String = known.iter().map(|k| format!(" {k}")).collect();
             self.state_unless_empty(&mut out, "K", format!("K{known}"), "K");
         }
+        let crafted: String = self
+            .player
+            .crafted
+            .iter()
+            .filter(|(_, v)| **v > 0)
+            .map(|(k, v)| format!(" {k}={v}"))
+            .collect();
+        self.state_unless_empty(&mut out, "CRAFTED", format!("CRAFTED{crafted}"), "CRAFTED");
         let mut maps = String::from("M");
         for id in 0..MAP_PROBE {
             self.player.level.read_map_data(MapId(id), |d| {

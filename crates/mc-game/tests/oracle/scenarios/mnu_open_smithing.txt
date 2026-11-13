@@ -1,0 +1,77 @@
+# The smithing table through the player's listener: the open (title, slots, the recipe error data slot), placing the three inputs from the inventory, an
+# item that does not fit, taking the result (statistic, level event, inputs shrink by one), shift-clicking, closing, a table that is gone and a spectator.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player S spectator 9.5 -60 7.5 0 0
+block 3 -60 4 minecraft:smithing_table
+block 9 -60 4 minecraft:smithing_table
+block 6 -60 4 minecraft:stone
+tick 2
+note an empty hand opens the menu: screen packet with the title, initial content and the data slot
+give A hotbar0 minecraft:netherite_upgrade_smithing_template 2
+give A hotbar1 minecraft:diamond_sword
+give A hotbar2 minecraft:netherite_ingot 3
+give A hotbar3 minecraft:stone 5
+give A hotbar4 minecraft:iron_chestplate
+give A hotbar5 minecraft:diamond_chestplate
+use_on A 3 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+note each input from the inventory: the stone goes into no input slot, the result appears with the third input
+click A 31 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 34 0 PICKUP
+click A 1 0 PICKUP
+click A 0 0 PICKUP
+click A 34 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 32 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 33 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note taking the result: the inputs shrink by one each, the level event and the statistic
+click A 3 0 PICKUP
+dump menu:A stats:A entities events packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 31 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note an upgrade of the wrong base leaves the error flag until the base is replaced
+click A 35 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 1 0 PICKUP
+click A 35 0 PICKUP
+click A 36 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note shift-click: the inputs out, back in, then the result straight into the inventory
+click A 0 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 1 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 4 0 QUICK_MOVE
+click A 5 0 QUICK_MOVE
+click A 6 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 3 0 QUICK_MOVE
+dump menu:A stats:A entities events packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note closing returns what is left in the inputs
+close_menu A
+dump menu:A player:A packets:A:container_close,container_set_slot,container_set_content
+note the table broken while the menu is open closes it on the next tick
+use_on A 3 -60 4 up main
+click A 31 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+dump menu:A packets:A:open_screen,container_set_content,container_set_slot,container_set_data
+block 3 -60 4 minecraft:air
+tick 1
+dump menu:A player:A packets:A:container_close,container_set_slot,container_set_content
+note a spectator opens the menu through the provider; a stone has none
+use_on S 9 -60 4 up main
+dump menu:S stats:S packets:S:open_screen,container_set_content,container_set_data
+close_menu S
+use_on S 6 -60 4 up main
+dump menu:S packets:S:open_screen,container_close

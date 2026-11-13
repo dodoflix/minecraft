@@ -36,6 +36,7 @@ mod player_menus;
 mod recipe_crafting_holder;
 mod remote_slot;
 mod slot;
+pub mod smithing_menu;
 mod stonecutter_menu;
 mod synchronizer;
 
@@ -68,5 +69,6 @@ pub use player_menus::*;
 pub use recipe_crafting_holder::RecipeCraftingHolder;
 pub use remote_slot::*;
 pub use slot::*;
+pub use smithing_menu::SmithingMenu;
 pub use stonecutter_menu::StonecutterMenu;
 pub use synchronizer::*;
