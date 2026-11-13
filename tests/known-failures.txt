@@ -9,11 +9,9 @@ mc-game tests/golden/main.rs commands_entity::effect_give_and_clear
 mc-game tests/golden/main.rs commands_entity::kill_removes_entities_and_kills_players
 mc-game tests/golden/main.rs commands_entity::swing_starts_the_swing_of_living_entities
 mc-game tests/golden/main.rs goals_combat_golden::creeper_target_swell_melee
-mc-game tests/golden/main.rs gossip_golden::gossip_container_matches_vanilla
 mc-game tests/golden/main.rs mob_spine_golden::chicken_egg_matches_vanilla
 mc-game tests/golden/main.rs network_login_config::invalid_usernames_and_protocol_errors_disconnect_with_vanilla_text
 mc-game tests/golden/main.rs packs::disabled_missing_and_feature_packs
-mc-game tests/golden/main.rs poi_golden::poi_manager_matches_vanilla
 mc-protocol tests/golden/main.rs play_debug::string_limits
 mc-protocol tests/golden/main.rs text_payload_golden::hover_item_components_match_vanilla
 mc-server tests/oracle/main.rs network_vanilla_diff::transcripts_equal_the_real_vanilla_server

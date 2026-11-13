@@ -2,7 +2,8 @@
 //!
 //! The per-target map is a Java `HashMap<UUID, _>` whose iteration order is observable (transfer selection ranges,
 //! the saved list order); it is emulated exactly: bucket index of `UUID.hashCode()` in a table that doubles
-//! on `computeIfAbsent` (resize *before* inserting when `size > threshold`) and never shrinks. The entries of one target
+//! on `computeIfAbsent` (resize *before* inserting when `size > threshold`) and never shrinks; inside a bucket the
+//! newest target comes first (`computeIfAbsent` links a new node at the head of its bin). The entries of one target
 //! (`Object2IntOpenHashMap<GossipType>`, enum identity hashes: JVM-random in vanilla) iterate in ordinal order.
 
 use super::gossip_type::GossipType;
@@ -106,13 +107,14 @@ impl GossipContainer {
         Self::default()
     }
 
-    /// Indexes of `gossips` in `HashMap` iteration order.
+    /// Indexes of `gossips` in `HashMap` iteration order: bucket ascending, and inside a bucket the newest first
+    /// (`computeIfAbsent` links a new node at the head of its bin, and resizes keep the relative order).
     fn order(&self) -> Vec<usize> {
         let cap = self.table_capacity.max(1);
         let mut order: Vec<usize> = (0..self.gossips.len()).collect();
         order.sort_by_key(|&i| {
             let h = java_hash_code(&self.gossips[i].0) as u32;
-            ((h ^ (h >> 16)) as usize) & (cap - 1)
+            (((h ^ (h >> 16)) as usize) & (cap - 1), std::cmp::Reverse(i))
         });
         order
     }

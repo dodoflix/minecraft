@@ -29,8 +29,8 @@ import net.minecraft.world.level.chunk.storage.SimpleRegionStorage;
 
 /**
  * Golden generator for PoiManager (crates/mc-game/tests/golden/poi_golden.rs):
- * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/poi_oracle.txt crates/mc-game/tests/oracle/PoiOracle.java
- * Output: crates/mc-game/tests/fixtures/poi_oracle.txt (stdout)
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/poi_oracle.txt crates/mc-game/tests/oracle/PoiOracle.java crates/mc-game/tests/fixtures/poi_oracle.txt
+ * Output: crates/mc-game/tests/fixtures/poi_oracle.txt (the path argument: the logger writes error lines to stdout)
  * Per scenario: "scenario N", then "<op> => <result>" lines (the Rust test replays the ops), "chunk cx cz <hex>" (uncompressed
  * NBT of every poi chunk after flushAll+close) and, after "post", queries against a fresh manager that loaded the written files.
  * Query results that span several POI types are sorted by type name inside one section order only when stated: the type order inside
@@ -122,7 +122,11 @@ public class PoiOracle {
         return sb.toString();
     }
 
+    /** The output file: bootstrap routes System.out through the logger, which also prints the expected `POI data mismatch` errors. */
+    static java.io.PrintStream OUT;
+
     public static void main(String[] args) throws Exception {
+        OUT = new java.io.PrintStream(new java.io.FileOutputStream(args[0]), false, "UTF-8");
         SharedConstants.tryDetectVersion();
         Bootstrap.bootStrap();
         // the data pack tag `point_of_interest_type/village` (not loaded outside a server)
@@ -143,7 +147,7 @@ public class PoiOracle {
             Random r = new Random(seed);
             Path dir = Files.createTempDirectory("poi-oracle");
             PoiManager m = open(dir);
-            System.out.println("scenario " + seed);
+            OUT.println("scenario " + seed);
             Set<Long> chunks = new TreeSet<>();
             int span = 40 + (int) seed * 20; // blocks around the origin
             int ops = 600;
@@ -171,39 +175,42 @@ public class PoiOracle {
                 }
                 // a position that was never registered makes `remove` log an error and `release` throw: both are exercised
                 if (line.startsWith("add") || line.startsWith("remove") || line.startsWith("release") || line.startsWith("take")) chunks.add(ChunkPos.pack(x >> 4, z >> 4));
-                System.out.println(line + " => " + run(m, line));
+                OUT.println(line + " => " + run(m, line));
             }
             for (long c : chunks) {
                 ChunkPos p = ChunkPos.unpack(c);
                 for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) for (int sy = -1; sy <= 1; sy++) {
                     String line = "village " + (p.x() + dx) + " " + sy + " " + (p.z() + dz);
-                    System.out.println(line + " => " + run(m, line));
+                    OUT.println(line + " => " + run(m, line));
                 }
             }
             settle();
             m.flushAll();
+            // the IOWorker skips queued stores once close() has flagged shutdown: wait for the flushed chunks to land first
+            settle();
             m.close();
             SimpleRegionStorage storage = new SimpleRegionStorage(INFO.info, dir, DataFixers.getDataFixer(), true, DataFixTypes.POI_CHUNK);
             for (long c : chunks) {
                 ChunkPos p = ChunkPos.unpack(c);
                 Optional<CompoundTag> tag = storage.read(p).join();
-                if (tag.isPresent()) System.out.println("chunk " + p.x() + " " + p.z() + " " + hex(tag.get()));
+                if (tag.isPresent()) OUT.println("chunk " + p.x() + " " + p.z() + " " + hex(tag.get()));
             }
             storage.close();
-            System.out.println("post");
+            OUT.println("post");
             PoiManager m2 = open(dir);
             for (long c : chunks) {
                 ChunkPos p = ChunkPos.unpack(c);
                 for (String q : new String[]{"*", "minecraft:home", "minecraft:meeting"}) {
                     String line = "range " + (p.x() * 16 + 8) + " 5 " + (p.z() * 16 + 8) + " 24 ANY " + q;
-                    System.out.println(line + " => " + run(m2, line));
+                    OUT.println(line + " => " + run(m2, line));
                 }
                 for (int dx = -1; dx <= 1; dx++) for (int sy = -1; sy <= 0; sy++) {
                     String line2 = "village " + (p.x() + dx) + " " + sy + " " + p.z();
-                    System.out.println(line2 + " => " + run(m2, line2));
+                    OUT.println(line2 + " => " + run(m2, line2));
                 }
             }
             m2.close();
+            OUT.flush();
         }
     }
 }
