@@ -2189,21 +2189,7 @@ pub trait Entity: Any {
         from: &mc_core::ident::Identifier,
         to: &mc_core::ident::Identifier,
     ) -> bool {
-        if *from == crate::server::world_dimensions::end_key()
-            && *to == crate::server::world_dimensions::overworld_key()
-        {
-            for &pid in &self.base().passengers {
-                if level
-                    .entity_manager
-                    .get_any(pid)
-                    .and_then(|p| p.as_any().downcast_ref::<super::ServerPlayer>())
-                    .is_some_and(|p| !p.seen_credits)
-                {
-                    return false;
-                }
-            }
-        }
-        true
+        super::portal::can_teleport_base(self.base(), level, from, to)
     }
     /// `Leashable.removeLeash()` of `removeAfterChangingDimensions` (the mob classes override it for leashable mobs).
     fn remove_leash(&mut self, _level: &mut ServerLevel) {}

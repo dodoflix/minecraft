@@ -172,11 +172,14 @@ struct DataItem {
     value: EntityDataValue,
     initial_value: EntityDataValue,
     dirty: bool,
+    /// Set by a forced `set` of an `ItemStack`: vanilla compares stacks by identity, so the new object is never the
+    /// default one even when both stacks are equal.
+    replaced_object: bool,
 }
 
 impl DataItem {
     fn is_set_to_default(&self) -> bool {
-        self.initial_value == self.value
+        !self.replaced_object && self.initial_value == self.value
     }
 }
 
@@ -207,6 +210,7 @@ impl SynchedEntityDataBuilder {
             initial_value: value.clone(),
             value,
             dirty: false,
+            replaced_object: false,
         });
         self
     }
@@ -266,6 +270,7 @@ impl SynchedEntityData {
         if force_dirty || value != item.value {
             item.value = value;
             item.dirty = true;
+            item.replaced_object |= force_dirty;
             self.is_dirty = true;
             true
         } else {
@@ -296,6 +301,7 @@ impl SynchedEntityData {
         item.initial_value = value.clone();
         item.value = value;
         item.dirty = false;
+        item.replaced_object = false;
     }
 
     pub fn is_dirty(&self) -> bool {

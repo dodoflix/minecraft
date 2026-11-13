@@ -1,0 +1,15 @@
+# The endermite roll of a landing pearl needs a difficulty above peaceful: the pearl of `use Alice main 16` creates an endermite on normal and none here
+# although monsters are spawning.
+level flat
+preload 3
+difficulty peaceful
+spawn_player Alice survival 0.5 -60 0.5 0 90
+give Alice mainhand minecraft:ender_pearl 5
+tick 5
+entity_counter 500
+level_seed 11
+gamerule spawn_mobs true
+gamerule spawn_monsters true
+use Alice main 16
+tick 3
+dump all_players entities events

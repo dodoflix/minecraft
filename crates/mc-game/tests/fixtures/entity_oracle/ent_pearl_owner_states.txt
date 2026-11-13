@@ -1,0 +1,41 @@
+C Game rule keep_inventory is now set to true
+C Set minecraft:overworld to 18000 tick(s)
+# a sleeping owner is not teleported: the pearl is discarded when it lands (Bob's pearl flies past the bed, Bob lies down in the same tick)
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Bob minecraft:player pos=16.5,-59.3125,21.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+P Carol minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Dave minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Bob minecraft:player pos=16.5,-59.3125,21.5 delta=0.0,4.350876652218848E-4,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+P Carol minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Dave minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+E ender_pearl#1 minecraft:ender_pearl pos=16.494622720347998,-58.826610272273875,24.36273909595934 delta=-0.0013241220356323305,-0.1299737717123554,1.4436634373719166 rot=-0.05250362,-2.4044216 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Bob minecraft:player pos=16.5,-59.3125,21.5 delta=0.0,4.350876652218848E-4,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+P Carol minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Dave minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+EV sound at=16.5,-60.0,18.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.36623064
+# a dead owner: the pearl vanishes in its next tick (the rule defaults to true)
+HURT Carol minecraft:generic_kill 1000 -> true
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Bob minecraft:player pos=16.5,-59.3125,21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Bob minecraft:player pos=16.5,-59.3125,21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+EV sound at=8.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.3680305
+EV sound at=8.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.death source=player vol=1.0 pitch=1.0
+# rule off: the pearl keeps flying; landing it finds a dead owner and is discarded without a teleport
+C Game rule ender_pearls_vanish_on_death is now set to false
+HURT Dave minecraft:generic_kill 1000 -> true
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Bob minecraft:player pos=16.5,-59.3125,21.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+E ender_pearl#3 minecraft:ender_pearl pos=24.509907149898837,-58.49855884482839,1.973751340900362 delta=0.00990714989883741,-0.01855884810664516,1.473751340900362 rot=0.38522136,0.20222479 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Bob minecraft:player pos=16.5,-59.3125,21.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.4177665
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.death source=player vol=1.0 pitch=1.0
+# a control pearl of a live owner lands normally
+P Alice minecraft:player pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=2/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+P Bob minecraft:player pos=16.5,-59.3125,21.5 delta=0.0,0.08044396699668764,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.37468788
+EV sound at=0.3751785528015472,-59.81110202322779,13.434599438769412 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=0.3751785528015472,-59.81110202322779,13.434599438769412 r=16.0 ex=0 event=minecraft:entity.player.teleport source=player vol=1.0 pitch=1.0

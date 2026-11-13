@@ -1,0 +1,29 @@
+# ServerPlayer.saveEnderPearls: the player data (nbt) lists the pearls in flight, each saved as an entity plus the `ender_pearl_dimension` it is in; a
+# pearl that landed is no longer listed. Two pearls in flight are listed in registration order. The pearls are thrown from the second hotbar slot and the
+# first slot is selected for every dump (an empty main hand keeps the player's `equipment` tag out of the comparison).
+level flat
+preload 3
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 -20
+give Alice hotbar1 minecraft:ender_pearl 4
+tick 3
+entity_counter 900
+level_seed 3
+note no pearl yet: no ender_pearls entry
+dump nbt:Alice
+select Alice 1
+use Alice
+select Alice 0
+tick 6
+note one pearl in flight
+dump nbt:Alice nbt:ender_pearl#1
+tick 20
+select Alice 1
+use Alice main 2
+select Alice 0
+tick 6
+note two pearls in flight
+dump nbt:Alice
+tick 60
+note both landed
+dump all_players entities nbt:Alice

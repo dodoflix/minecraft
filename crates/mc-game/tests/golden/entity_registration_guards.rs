@@ -19,7 +19,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
     ("minecraft:command_block_minecart", "MinecartCommandBlock: command, last output, console tick"),
     ("minecraft:egg", "ThrownEgg: hit effects, chicken spawn"),
     ("minecraft:end_crystal", "EndCrystal: beam target, explosion on hurt (the dragon fight is a mob concern)"),
-    ("minecraft:ender_pearl", "ThrownEnderpearl: teleport of the owner on hit"),
     ("minecraft:eye_of_ender", "EyeOfEnder: flight toward the stronghold and the drop or break"),
     ("minecraft:fishing_bobber", "FishingHook: cast, bite, retrieve and loot"),
     ("minecraft:furnace_minecart", "MinecartFurnace: fuel, push and drive"),

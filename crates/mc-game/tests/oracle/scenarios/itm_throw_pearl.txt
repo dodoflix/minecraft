@@ -1,0 +1,38 @@
+# EnderpearlItem.use: the throw sound (neutral, 0.5 / 0.4 / (random * 0.4 + 0.8)), a ThrownEnderpearl at eye height - 0.1 shot at 1.5 blocks per
+# tick, the item-used statistic, one pearl consumed (not in creative) and the 20 tick use_cooldown that refuses the second use. When the pearl lands
+# the owner is teleported to the pearl's previous position (rotation kept), takes 5.0 ender pearl damage (not in creative) and the teleport sound
+# plays there. A pearl rolls for an endermite at the owner's feet (5 %, monsters spawning and not peaceful): the text of a throw's line seeds the
+# pearl's own random, so `use Alice main 16` is a pearl that rolls it.
+level flat
+preload 3
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob creative 30.5 -60 0.5 0 0
+give Alice mainhand minecraft:ender_pearl 5
+give Bob mainhand minecraft:ender_pearl 2
+tick 5
+entity_counter 500
+level_seed 11
+dump packets:Alice:none
+watch events entities player:Alice
+use Alice
+note the second use of the same stack is refused by the cooldown
+use Alice main 2
+dump cooldowns:Alice inventory:Alice stats:Alice packets:Alice:add_entity,block_changed_ack,container_set_content,cooldown,damage_event,move_entity_pos,player_position,remove_entities,set_entity_data,set_entity_motion,set_health,sound,teleport_entity,entity_position_sync,bundle_delimiter
+tick 16
+dump cooldowns:Alice inventory:Alice packets:Alice:add_entity,block_changed_ack,container_set_content,cooldown,damage_event,move_entity_pos,player_position,remove_entities,set_entity_data,set_entity_motion,set_health,sound,teleport_entity,entity_position_sync,bundle_delimiter
+watch off
+note creative: the pearl is not consumed, the cooldown still runs, no damage
+use Bob
+dump cooldowns:Bob inventory:Bob
+tick 16
+dump all_players cooldowns:Bob inventory:Bob stats:Bob
+note a pearl thrown straight down lands in the first tick; monsters spawning and normal difficulty: the pearl of this line rolls an endermite at the owner's feet
+tp Alice 0.5 -60 0.5 0 90
+tick 20
+gamerule spawn_mobs true
+gamerule spawn_monsters true
+dump packets:Alice:none
+use Alice main 16
+tick 3
+dump all_players entities events packets:Alice:add_entity,block_changed_ack,container_set_content,cooldown,damage_event,move_entity_pos,player_position,remove_entities,set_entity_data,set_entity_motion,set_health,sound,teleport_entity,entity_position_sync,bundle_delimiter

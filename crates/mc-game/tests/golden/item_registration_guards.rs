@@ -23,10 +23,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "useOn on obsidian or bedrock places an EndCrystal and tries to respawn the dragon fight (no end crystal entity, no dragon fight respawn yet)",
     ),
     (
-        "EnderpearlItem",
-        "use spawns a ThrownEnderpearl and starts the item cooldown (no ender pearl entity yet)",
-    ),
-    (
         "FishingRodItem",
         "use casts a FishingHook or reels it in and damages the rod (no fishing hook entity yet)",
     ),

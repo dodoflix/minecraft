@@ -112,7 +112,11 @@ pub struct ServerPlayer {
     /// `Player.lastItemInMainHand` (a hotbar/item change resets the attack strength ticker).
     pub last_item_in_main_hand: crate::world::item::ItemStack,
     pub last_client_input: Input,
-    pub ender_pearls: Vec<CompoundTag>,
+    /// `enderPearls`: the entity ids of the pearls this player threw. A removed pearl is not deregistered when it goes
+    /// (every reader skips ids without a live pearl).
+    pub ender_pearls: Vec<EntityId>,
+    /// The `ender_pearls` tags of the loaded player data: `loadAndSpawnEnderPearls` consumes them on join.
+    pub saved_ender_pearls: Vec<CompoundTag>,
     pub post_effects_dirty: bool,
     pub shoulder_entity_left: CompoundTag,
     pub shoulder_entity_right: CompoundTag,
@@ -197,6 +201,7 @@ impl ServerPlayer {
             last_item_in_main_hand: crate::world::item::ItemStack::empty(),
             last_client_input: Input::default(),
             ender_pearls: Vec::new(),
+            saved_ender_pearls: Vec::new(),
             post_effects_dirty: true,
             shoulder_entity_left: CompoundTag::new(),
             shoulder_entity_right: CompoundTag::new(),
@@ -1177,13 +1182,6 @@ impl Entity for ServerPlayer {
         if let Some(pos) = self.raid_omen_position {
             out.put_int_array("raid_omen_position", vec![pos.x(), pos.y(), pos.z()]);
         }
-        if !self.ender_pearls.is_empty() {
-            let mut l = ListTag::new();
-            for p in &self.ender_pearls {
-                l.push(Tag::Compound(p.clone()));
-            }
-            out.put("ender_pearls", l);
-        }
         let mut post = ListTag::new();
         for id in &p.post_effects {
             post.push(Tag::String(id.to_string()));
@@ -1309,7 +1307,7 @@ impl Entity for ServerPlayer {
             .get_compound("ShoulderEntityRight")
             .cloned()
             .unwrap_or_default();
-        self.ender_pearls = input
+        self.saved_ender_pearls = input
             .get_list("ender_pearls")
             .map(|l| l.iter().filter_map(|t| t.as_compound().cloned()).collect())
             .unwrap_or_default();
@@ -1323,6 +1321,7 @@ impl Entity for ServerPlayer {
         entity::save_without_id(self, out, lookup);
         out.put_string("Dimension", self.dimension.to_string());
         self.save_parent_vehicle(out, lookup);
+        self.save_ender_pearls(out, lookup);
     }
 }
 
@@ -1337,6 +1336,35 @@ fn put_vec3(out: &mut CompoundTag, key: &str, v: Option<Vec3>) {
 }
 
 impl ServerPlayer {
+    /// `registerEnderPearl(pearl)`.
+    pub fn register_ender_pearl(&mut self, pearl: EntityId) {
+        if !self.ender_pearls.contains(&pearl) {
+            self.ender_pearls.push(pearl);
+        }
+    }
+
+    /// `saveEnderPearls(output)`: the pearls that are still alive, each with the dimension it is in.
+    /// Not implemented: pearls in another level than the player's (`lookup` sees this player's level only).
+    fn save_ender_pearls(&self, out: &mut CompoundTag, lookup: &EntityLookupFn<'_>) {
+        let live: Vec<&dyn Entity> = self
+            .ender_pearls
+            .iter()
+            .filter_map(|&id| lookup(id))
+            .filter(|pearl| !pearl.is_removed())
+            .collect();
+        if live.is_empty() {
+            return;
+        }
+        let mut list = ListTag::new();
+        for pearl in live {
+            if let Some(mut tag) = entity::save(pearl, lookup) {
+                tag.put_string("ender_pearl_dimension", self.dimension.to_string());
+                list.push(Tag::Compound(tag));
+            }
+        }
+        out.put("ender_pearls", list);
+    }
+
     /// `saveParentVehicle`: the root vehicle (with all its passengers) when this player rides something and is the
     /// only player in the root vehicle.
     fn save_parent_vehicle(&self, out: &mut CompoundTag, lookup: &EntityLookupFn<'_>) {

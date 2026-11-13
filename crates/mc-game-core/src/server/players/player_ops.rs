@@ -80,6 +80,10 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
         }
         player.base_mut().vehicle = None;
     }
+    // Not implemented: pearls in another level than the player's (a level only sees its own entities).
+    for pearl in std::mem::take(&mut player.ender_pearls) {
+        level.with_entity(pearl, |_, e| e.remove(RemovalReason::UnloadedWithPlayer));
+    }
     player.remove(RemovalReason::UnloadedWithPlayer);
     player.close_menus_on_removal(level);
     player.advancements.clear_triggers();

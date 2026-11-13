@@ -138,3 +138,27 @@ impl PortalProcessor {
         )
     }
 }
+
+/// `Entity.canTeleport(from, to)`: no player passenger that has not seen the credits may leave the End for the overworld.
+pub fn can_teleport_base(
+    entity: &super::EntityData,
+    level: &crate::server::level::ServerLevel,
+    from: &mc_core::ident::Identifier,
+    to: &mc_core::ident::Identifier,
+) -> bool {
+    if *from == crate::server::world_dimensions::end_key()
+        && *to == crate::server::world_dimensions::overworld_key()
+    {
+        for &pid in &entity.passengers {
+            if level
+                .entity_manager
+                .get_any(pid)
+                .and_then(|p| p.as_any().downcast_ref::<super::ServerPlayer>())
+                .is_some_and(|p| !p.seen_credits)
+            {
+                return false;
+            }
+        }
+    }
+    true
+}

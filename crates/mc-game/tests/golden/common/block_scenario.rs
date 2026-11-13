@@ -586,6 +586,8 @@ impl Scenario {
             level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
                 {
                     let data = mc_game::server::level::level_data::default_world_data();
+                    // `ServerLevel.getDifficulty()` (the endermite roll of a landing ender pearl) reads the level data
+                    data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
                     if self.opts.flat {
                         // the vanilla flat world's spawn (natural spawning keeps its distance from it)
                         data.lock().respawn_data.pos = BlockPos::new(0, -60, 0);

@@ -1,0 +1,117 @@
+# the second use of the same stack is refused by the cooldown
+CD Alice group=minecraft:ender_pearl remaining=20
+I Alice 0 minecraft:ender_pearl*4
+STAT Alice minecraft.custom:minecraft.play_time 5
+STAT Alice minecraft.custom:minecraft.time_since_death 5
+STAT Alice minecraft.custom:minecraft.time_since_rest 5
+STAT Alice minecraft.custom:minecraft.total_world_time 5
+STAT Alice minecraft.used:minecraft.ender_pearl 1
+PKT Alice minecraft:sound 77e1040600000004fffffe20000000043f0000003ebb85bbe32d4fcf84a7860e
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:add_entity 01f503a2f8a8ad2f064bb2929be669a186f6db2d3fe0000000000000c04d3d70a3d000003fe000000000000042fce0acff8dffff0001
+PKT Alice minecraft:set_entity_data 65f503080701f1090000ff
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:cooldown 16156d696e6563726166743a656e6465725f706561726c14
+PKT Alice minecraft:container_set_content 1200032e00000000000000000000000000000000000000000000000000000000000000000000000004f109000000000000000000000000
+T 6
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.36625466
+E ender_pearl#1 minecraft:ender_pearl pos=0.4855668975792904,-58.51312561674692,1.9956275757146171 delta=-0.014433102420709614,-0.0331256200251756,1.4956275757146171 rot=-0.55277014,-0.35883665 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 7
+E ender_pearl#1 minecraft:ender_pearl pos=0.4712781260451431,-58.57561998117386,3.476298889935504 delta=-0.014288771534147308,-0.06249436442693668,1.480671314220887 rot=-0.55277604,-0.7704227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 8
+E ender_pearl#1 minecraft:ender_pearl pos=0.4571322420900689,-58.66718940283862,4.942163505134964 delta=-0.01414588395507418,-0.09156942166476231,1.46586461519946 rot=-0.5527842,-1.3312063 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 9
+E ender_pearl#1 minecraft:ender_pearl pos=0.4431278168396398,-58.787543131446114,6.393369488162004 delta=-0.0140044252504291,-0.12035372860749104,1.4512059830270398 rot=-0.5527941,-2.0130954 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 10
+E ender_pearl#1 minecraft:ender_pearl pos=0.4292634357081584,-58.93639332420142,7.830063425198552 delta=-0.013864381131481416,-0.148850192755301,1.4366939370365481 rot=-0.55280524,-2.7934294 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 11
+E ender_pearl#1 minecraft:ender_pearl pos=0.41553769825577075,-59.11345501673482,9.252390436566115 delta=-0.013725737452387645,-0.17706169253339635,1.4223270113675637 rot=-0.5528171,-3.6539037 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 12
+E ender_pearl#1 minecraft:ender_pearl pos=0.40194921804700817,-59.31844609431757,10.66049419138437 delta=-0.013588480208762601,-0.20499107758275656,1.4081037548182553 rot=-0.55282664,-4.57963 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 13
+E ender_pearl#1 minecraft:ender_pearl pos=0.38849662251074335,-59.55108726336555,12.054516922083167 delta=-0.01345259553626482,-0.23264116904797855,1.3940227306987967 rot=-0.5528305,-5.5585117 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 14
+E ender_pearl#1 minecraft:ender_pearl pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=-0.01331806970919612,-0.2600147598622401,1.3800825166862454 rot=-0.5528296,-6.580656 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 15
+EV sound at=0.3751785528015472,-59.81110202322779,13.434599438769412 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=0.3751785528015472,-59.81110202322779,13.434599438769412 r=16.0 ex=0 event=minecraft:entity.player.teleport source=player vol=1.0 pitch=1.0
+P Alice minecraft:player pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 16
+P Alice minecraft:player pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 17
+P Alice minecraft:player pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 18
+P Alice minecraft:player pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=6/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 19
+P Alice minecraft:player pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 20
+P Alice minecraft:player pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=4/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+T 21
+P Alice minecraft:player pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=3/14 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+CD Alice group=minecraft:ender_pearl remaining=4
+I Alice 0 minecraft:ender_pearl*4
+PKT Alice minecraft:move_entity_pos 36f50300000000000000
+PKT Alice minecraft:set_entity_data 65f503080701f1090000ff
+PKT Alice minecraft:block_changed_ack 0402
+PKT Alice minecraft:player_position 49023fd802ece79c5e48c04de7d230ebbdcc402ade83d150bfc9000000000000000000000000000000000000000000000000000000000000000000000018
+PKT Alice minecraft:damage_event 190108000000
+PKT Alice minecraft:sound 77af0a0700000003fffffe220000006b3f8000003f8000006fd465a290351d3c
+PKT Alice minecraft:remove_entities 4e01f503
+PKT Alice minecraft:set_health 6a417000001440a00000
+PKT Alice minecraft:set_entity_data 6501090341700000ff
+PKT Alice minecraft:set_entity_motion 6701f9ff7ffeebed
+# creative: the pearl is not consumed, the cooldown still runs, no damage
+CD Bob group=minecraft:ender_pearl remaining=20
+I Bob 0 minecraft:ender_pearl*2
+P Alice minecraft:player pos=0.3751785528015472,-59.81110202322779,13.434599438769412 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+P Bob minecraft:player pos=30.488198099829205,-59.89684547081582,13.367372726683957 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+CD Bob group=minecraft:ender_pearl remaining=4
+I Bob 0 minecraft:ender_pearl*2
+STAT Bob minecraft.custom:minecraft.play_time 37
+STAT Bob minecraft.custom:minecraft.time_since_death 37
+STAT Bob minecraft.custom:minecraft.time_since_rest 37
+STAT Bob minecraft.custom:minecraft.total_world_time 37
+STAT Bob minecraft.used:minecraft.ender_pearl 1
+# a pearl thrown straight down lands in the first tick; monsters spawning and normal difficulty: the pearl of this line rolls an endermite at the owner's feet
+C Game rule spawn_mobs is now set to true
+C Game rule spawn_monsters is now set to true
+P Alice minecraft:player pos=0.4926987322387201,-59.995273801444284,0.5060871141996789 delta=0.0,-0.0784000015258789,0.0 rot=0.0,90.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=12.5 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*3
+P Bob minecraft:player pos=30.488198099829205,-59.89684547081582,13.367372726683957 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+E endermite#1 minecraft:endermite pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=30.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.48338974
+EV sound at=30.488198099829205,-59.89684547081582,13.367372726683957 r=16.0 ex=0 event=minecraft:entity.player.teleport source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.36426622
+EV sound at=0.4926987322387201,-59.995273801444284,0.5060871141996789 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=0.4926987322387201,-59.995273801444284,0.5060871141996789 r=16.0 ex=0 event=minecraft:entity.player.teleport source=player vol=1.0 pitch=1.0
+PKT Alice minecraft:sound 77e1040600000004fffffe20000000043f0000003eba811aa3981763e0103683
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:add_entity 01f7030ce1ee0b83e24aa1a56afc9635cc06c72d3fe0000000000000c04d3d70a3d000003fe00000000000001afe80623fedc0dc0001
+PKT Alice minecraft:set_entity_data 65f703080701f1090000ff
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:cooldown 16156d696e6563726166743a656e6465725f706561726c14
+PKT Alice minecraft:container_set_content 1200042e00000000000000000000000000000000000000000000000000000000000000000000000003f109000000000000000000000000
+PKT Alice minecraft:move_entity_pos 36f70300000000000000
+PKT Alice minecraft:set_entity_data 65f703080701f1090000ff
+PKT Alice minecraft:block_changed_ack 0403
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:add_entity 01f803b572080d307041fb970fee4013aeefa62b3fe0000000000000c04e0000000000003fe00000000000000040000200
+PKT Alice minecraft:set_entity_data 65f803090341000000ff
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:player_position 49043fdf8860436fbddfc04dff6521c5e2683fe031dd9a8d44b7000000000000000000000000000000000000000000000000000000000000000000000018
+PKT Alice minecraft:damage_event 190108000000
+PKT Alice minecraft:sound 77af0a0700000003fffffe21000000043f8000003f80000029a8e9b76b35b192
+PKT Alice minecraft:remove_entities 4e01f703
+PKT Alice minecraft:set_health 6a414800001440000000
+PKT Alice minecraft:move_entity_pos 36f80300000000000000
+PKT Alice minecraft:set_entity_data 65f803090341000000ff
+PKT Alice minecraft:set_entity_data 6501090341480000ff
+PKT Alice minecraft:set_entity_motion 6701f9ff7ffeebed

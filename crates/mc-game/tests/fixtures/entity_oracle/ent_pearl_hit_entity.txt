@@ -1,0 +1,31 @@
+T 4
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.3662787
+E cow minecraft:cow pos=0.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ender_pearl#1 minecraft:ender_pearl pos=0.4855668975792904,-58.51312561674692,1.9956275757146171 delta=-0.014433102420709614,-0.0331256200251756,1.4956275757146171 rot=-0.55277014,-0.35883665 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+T 5
+E cow minecraft:cow pos=0.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ender_pearl#1 minecraft:ender_pearl pos=0.4712781260451431,-58.57561998117386,3.476298889935504 delta=-0.014288771534147308,-0.06249436442693668,1.480671314220887 rot=-0.55277604,-0.7704227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+T 6
+E cow minecraft:cow pos=0.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ender_pearl#1 minecraft:ender_pearl pos=0.4571322420900689,-58.66718940283862,4.942163505134964 delta=-0.01414588395507418,-0.09156942166476231,1.46586461519946 rot=-0.5527842,-1.3312063 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+T 7
+EV sound at=0.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0695623
+EV sound at=0.4571322420900689,-58.66718940283862,4.942163505134964 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=0.4571322420900689,-58.66718940283862,4.942163505134964 r=16.0 ex=0 event=minecraft:entity.player.teleport source=player vol=1.0 pitch=1.0
+E cow minecraft:cow pos=0.5,-60.0,6.5 delta=-0.0038598995809300328,0.0,0.3999813819962083 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=10/20 death=0 fx=-
+P Alice minecraft:player pos=0.4571322420900689,-58.66718940283862,4.942163505134964 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+T 8
+E cow minecraft:cow pos=0.5,-60.0,6.5 delta=-0.0038598995809300328,0.0,0.3999813819962083 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=9/19 death=0 fx=-
+P Alice minecraft:player pos=0.4571322420900689,-58.66718940283862,4.942163505134964 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+T 9
+E cow minecraft:cow pos=0.5,-60.0,6.5 delta=-0.0038598995809300328,0.0,0.3999813819962083 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=8/18 death=0 fx=-
+P Alice minecraft:player pos=0.4571322420900689,-58.66718940283862,4.942163505134964 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+T 10
+E cow minecraft:cow pos=0.5,-60.0,6.5 delta=-0.0038598995809300328,0.0,0.3999813819962083 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=7/17 death=0 fx=-
+P Alice minecraft:player pos=0.4571322420900689,-58.66718940283862,4.942163505134964 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=6/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1
+T 11
+E cow minecraft:cow pos=0.5,-60.0,6.5 delta=-0.0038598995809300328,0.0,0.3999813819962083 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=6/16 death=0 fx=-
+P Alice minecraft:player pos=0.4571322420900689,-58.66718940283862,4.942163505134964 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*1

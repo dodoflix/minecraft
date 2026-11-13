@@ -1,0 +1,48 @@
+# ThrownEnderpearl.onHit only teleports an owner that is allowed to: a sleeping owner and a dead one are not. A dead player owner also makes the pearl
+# vanish on its next tick while ender_pearls_vanish_on_death is on (default); with it off the pearl flies on and is discarded on landing (a killed
+# player leaves the level, so no dump lists the dead players).
+level flat
+preload 3
+difficulty normal
+gamerule keep_inventory true
+time 18000
+block 16 -60 20 minecraft:red_bed[facing=south,occupied=false,part=foot]
+block 16 -60 21 minecraft:red_bed[facing=south,occupied=false,part=head]
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 16.5 -60 18.5 0 0
+spawn_player Carol survival 8.5 -60 0.5 0 0
+spawn_player Dave survival 24.5 -60 0.5 0 0
+give Alice mainhand minecraft:ender_pearl 2
+give Bob mainhand minecraft:ender_pearl 2
+give Carol mainhand minecraft:ender_pearl 2
+give Dave mainhand minecraft:ender_pearl 2
+tick 3
+entity_counter 700
+level_seed 5
+note a sleeping owner is not teleported: the pearl is discarded when it lands (Bob's pearl flies past the bed, Bob lies down in the same tick)
+use Bob
+use_on Bob 16 -60 21 up
+dump all_players
+tick 4
+dump all_players entities
+tick 16
+dump all_players entities events
+note a dead owner: the pearl vanishes in its next tick (the rule defaults to true)
+use Carol
+hurt Carol minecraft:generic_kill 1000
+tick 1
+dump entity:Alice entity:Bob entities
+tick 16
+dump entity:Alice entity:Bob entities events
+note rule off: the pearl keeps flying; landing it finds a dead owner and is discarded without a teleport
+gamerule ender_pearls_vanish_on_death false
+use Dave
+hurt Dave minecraft:generic_kill 1000
+tick 1
+dump entity:Alice entity:Bob entities
+tick 16
+dump entity:Alice entity:Bob entities events
+note a control pearl of a live owner lands normally
+use Alice
+tick 17
+dump entity:Alice entity:Bob entities events

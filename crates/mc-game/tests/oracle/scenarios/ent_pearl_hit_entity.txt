@@ -1,0 +1,16 @@
+# ThrownEnderpearl.onHitEntity hurts the entity it hits for 0 as a thrown projectile; the pearl then lands on the entity's position and teleports its
+# owner to the pearl's previous position.
+level flat
+preload 3
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn cow minecraft:cow 0.5 -60 6.5 0 0 {NoAI:1b}
+entity_seed cow 3
+give Alice mainhand minecraft:ender_pearl 2
+tick 3
+entity_counter 800
+level_seed 9
+use Alice
+watch events entities player:Alice
+tick 8
+dump packets:Alice:none

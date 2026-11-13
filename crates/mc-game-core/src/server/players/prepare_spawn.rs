@@ -3,6 +3,7 @@
 //! Everything runs on the game thread, polled from the connection's configuration tick (the chunk system advances
 //! with the server tick, so `tick` never blocks).
 
+use super::ender_pearl_ticket::load_and_spawn_ender_pearls;
 use super::join::{ListenerParams, place_new_player};
 use super::name_and_id::NameAndId;
 use super::server_join_host::ServerJoinHost;
@@ -363,7 +364,8 @@ impl PrepareSpawn for PrepareSpawnTask {
                 enforce_secure_profile: Arc::new(move || enforce),
             };
             let mut host = ServerJoinHost { server, level };
-            place_new_player(&mut host, player, pending.sender, params);
+            let handle = place_new_player(&mut host, player, pending.sender, params);
+            load_and_spawn_ender_pearls(server, level, handle.id);
             Ok(())
         });
         result.unwrap_or_else(|| Err("the spawn level is unavailable".into()))

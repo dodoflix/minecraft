@@ -1,4 +1,4 @@
-//! `SnowballItem` and `EggItem` (+ the shared throw sound of the throwable items).
+//! `SnowballItem` and `EnderpearlItem` (+ the shared throw sound of the throwable items).
 
 use super::{
     InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, ProjectileItem,
@@ -7,6 +7,7 @@ use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::projectile::spawn::spawn_projectile_from_rotation;
 use crate::world::entity::projectile::throwableitemprojectile::snowball::Snowball;
+use crate::world::entity::projectile::throwableitemprojectile::thrown_enderpearl::ThrownEnderpearl;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::LevelAccessor;
 use mc_core::direction::Direction;
@@ -89,3 +90,36 @@ impl ProjectileItem for SnowballItem {
 }
 
 register_item_class!("SnowballItem", |_| Box::new(SnowballItem));
+
+struct EnderpearlItem;
+
+impl ItemBehaviour for EnderpearlItem {
+    fn use_item(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
+        let stack = player.get_item_in_hand(hand);
+        play_throw_sound(
+            level,
+            player,
+            SoundEvent::ENTITY_ENDER_PEARL_THROW,
+            SoundSource::Neutral,
+        );
+        if let Some(pearl) = spawn_projectile_from_rotation(
+            level,
+            |level, source, item| Box::new(ThrownEnderpearl::with_owner(level, source, item)),
+            &stack,
+            player,
+            0.0,
+            1.5,
+            1.0,
+        ) {
+            player.register_ender_pearl(pearl);
+        }
+        finish_throw(level, player, hand, stack)
+    }
+}
+
+register_item_class!("EnderpearlItem", |_| Box::new(EnderpearlItem));

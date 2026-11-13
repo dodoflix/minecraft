@@ -17,10 +17,17 @@ use mc_nbt::CompoundTag;
 
 define_accessor!(pub DATA_ITEM_STACK: ItemStack = ThrowableItemProjectile);
 
-/// `Entity` members every throwable shares. `$gravity` is `getDefaultGravity()`.
+/// `Entity` members every throwable shares. `$gravity` is `getDefaultGravity()`. `impl_throwable_entity!(@shared ..)` is
+/// the same without `tick`, for a class that overrides `tick()` (it calls [`tick`] for `super.tick()`).
 #[macro_export]
 macro_rules! impl_throwable_entity {
     ($gravity:expr $(, $arm:tt)?) => {
+        $crate::impl_throwable_entity!(@shared $gravity $(, $arm)?);
+        fn tick(&mut self, level: &mut $crate::server::level::ServerLevel) {
+            $crate::world::entity::projectile::throwable::tick(self, level);
+        }
+    };
+    (@shared $gravity:expr $(, $arm:tt)?) => {
         fn base(&self) -> &$crate::world::entity::EntityData {
             &self.base
         }
@@ -47,9 +54,6 @@ macro_rules! impl_throwable_entity {
         }
         fn can_use_portal(&self, _ignore_passenger: bool) -> bool {
             true
-        }
-        fn tick(&mut self, level: &mut $crate::server::level::ServerLevel) {
-            $crate::world::entity::projectile::throwable::tick(self, level);
         }
         $crate::impl_projectile_entity!($($arm)?);
     };
@@ -147,8 +151,9 @@ pub fn position_at_owner(p: &mut dyn Entity, owner: &dyn Entity) {
 
 /// `ThrowableItemProjectile.setItem(source)`.
 pub fn set_item(base: &mut EntityData, source: &ItemStack) {
+    // a new stack object: vanilla's identity comparison always sees a change
     base.entity_data
-        .set(DATA_ITEM_STACK, source.copy_with_count(1));
+        .set_force(DATA_ITEM_STACK, source.copy_with_count(1), true);
 }
 
 /// `ThrowableItemProjectile.getItem()`.
