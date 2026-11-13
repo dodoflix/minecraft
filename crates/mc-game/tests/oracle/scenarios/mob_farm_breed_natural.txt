@@ -1,0 +1,54 @@
+# Breeding through the goals: feeding sets love (hearts, the stack shrinks, not for creative players), two animals in love walk to each
+# other (BreedGoal), after 60 ticks the baby spawns with the parents' 6000 tick cooldown and an experience orb; the baby follows a parent.
+# Cows and sheep take wheat, pigs a carrot, chickens seeds.
+level flat
+preload 4
+entity_counter 8200
+level_seed 8201
+difficulty normal
+spawn_player Steve survival 0.5 -60 6.5 0 0
+spawn_player Alex creative 0.5 -60 -8.5 0 0
+mobspawn C1 minecraft:cow 3.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C2 minecraft:cow 3.5 -60 9.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn P1 minecraft:pig 0.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn P2 minecraft:pig -3.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn S1 minecraft:sheep -3.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,Color:14b}
+mobspawn S2 minecraft:sheep 0.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Color:4b}
+mobspawn H1 minecraft:chicken 2.5 -60 -6.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn H2 minecraft:chicken -2.5 -60 -6.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed C1 201
+entity_seed C2 202
+entity_seed P1 203
+entity_seed P2 204
+entity_seed S1 205
+entity_seed S2 206
+entity_seed H1 207
+entity_seed H2 208
+tick 3
+give Steve mainhand minecraft:wheat 8
+give Alex mainhand minecraft:wheat_seeds 4
+note feeding: love, the stack shrinks; an animal already in love is not fed again; creative keeps the stack
+interact Steve C1 main
+interact Steve C2 main
+interact Steve C1 main
+interact Steve S1 main
+interact Steve S2 main
+give Steve mainhand minecraft:carrot 4
+interact Steve P1 main
+interact Steve P2 main
+interact Alex H1 main
+interact Alex H2 main
+tick 1
+dump mobs inventory:Steve inventory:Alex
+watch events
+tick 40
+watch off
+dump mobs
+tick 40
+dump mobs
+tick 40
+dump mobs entities
+tick 40
+dump mobs entities
+tick 200
+dump mobs entities

@@ -1,0 +1,85 @@
+# Sheep breeding colours: the baby's colour is the dye the two parents' dyes craft into (red + yellow = orange, found through the recipe
+# manager), else one parent's colour by a level random boolean (equal colours, pairs without a recipe, repeated for each seed).
+level flat
+preload 4
+entity_counter 7600
+level_seed 7601
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn WHITE0 minecraft:sheep 2.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:0b}
+mobspawn WHITE1 minecraft:sheep 2.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:0b}
+mobspawn ORANGE0 minecraft:sheep 5.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:1b}
+mobspawn ORANGE1 minecraft:sheep 5.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:1b}
+mobspawn MAGENTA0 minecraft:sheep 8.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:2b}
+mobspawn MAGENTA1 minecraft:sheep 8.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:2b}
+mobspawn LIGHT_BLUE0 minecraft:sheep 11.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:3b}
+mobspawn LIGHT_BLUE1 minecraft:sheep 11.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:3b}
+mobspawn YELLOW0 minecraft:sheep 14.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:4b}
+mobspawn YELLOW1 minecraft:sheep 14.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:4b}
+mobspawn LIME0 minecraft:sheep 17.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:5b}
+mobspawn LIME1 minecraft:sheep 17.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:5b}
+mobspawn PINK0 minecraft:sheep 20.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:6b}
+mobspawn PINK1 minecraft:sheep 20.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:6b}
+mobspawn GRAY0 minecraft:sheep 23.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:7b}
+mobspawn GRAY1 minecraft:sheep 23.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:7b}
+mobspawn CYAN0 minecraft:sheep 29.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:9b}
+mobspawn CYAN1 minecraft:sheep 29.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:9b}
+mobspawn PURPLE0 minecraft:sheep 32.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:10b}
+mobspawn PURPLE1 minecraft:sheep 32.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:10b}
+mobspawn BLUE0 minecraft:sheep 35.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:11b}
+mobspawn BLUE1 minecraft:sheep 35.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:11b}
+mobspawn BROWN0 minecraft:sheep 38.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:12b}
+mobspawn BROWN1 minecraft:sheep 38.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:12b}
+mobspawn GREEN0 minecraft:sheep 41.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:13b}
+mobspawn GREEN1 minecraft:sheep 41.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:13b}
+mobspawn RED0 minecraft:sheep 44.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:14b}
+mobspawn RED1 minecraft:sheep 44.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:14b}
+mobspawn BLACK0 minecraft:sheep 47.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:15b}
+mobspawn BLACK1 minecraft:sheep 47.5 -60 22.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:15b}
+tick 3
+level_seed 7610
+breed RED0 YELLOW1
+level_seed 7611
+breed BLUE0 WHITE1
+level_seed 7612
+breed BLACK0 WHITE1
+level_seed 7613
+breed GRAY0 WHITE1
+level_seed 7614
+breed BLUE0 GREEN1
+level_seed 7615
+breed BLUE0 RED1
+level_seed 7616
+breed RED0 WHITE1
+level_seed 7617
+breed GREEN0 WHITE1
+level_seed 7618
+breed PURPLE0 PINK1
+level_seed 7619
+breed YELLOW0 BLUE1
+level_seed 7620
+breed BROWN0 WHITE1
+level_seed 7621
+breed MAGENTA0 WHITE1
+level_seed 7622
+breed ORANGE0 ORANGE1
+level_seed 7623
+breed WHITE0 WHITE1
+level_seed 7624
+breed LIME0 LIME1
+level_seed 7625
+breed PINK0 GRAY1
+level_seed 7626
+breed LIGHT_BLUE0 RED1
+level_seed 7627
+breed CYAN0 ORANGE1
+level_seed 7628
+breed BLACK0 BROWN1
+level_seed 7629
+breed WHITE0 RED1
+level_seed 7630
+breed YELLOW0 PURPLE1
+level_seed 7631
+breed GREEN0 RED1
+tick 1
+dump mobs

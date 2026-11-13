@@ -1,0 +1,142 @@
+C The difficulty did not change; it is already set to Normal
+# a bowl on a red mooshroom: mushroom stew, the stack of bowls shrinks
+T 2
+EV sound at=2.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.mooshroom.milk source=neutral vol=1.0 pitch=1.0
+I Steve 0 minecraft:bowl*3
+I Steve 1 minecraft:mushroom_stew*1
+E R minecraft:mooshroom pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N R {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,0.5d],Rotation:[90.0f,0.0f],Type:"red",attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# a flower on a red mooshroom does nothing
+T 3
+I Steve 0 minecraft:bowl*3
+I Steve 1 minecraft:mushroom_stew*1
+I Steve 40 minecraft:dandelion*3
+E R minecraft:mooshroom pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+# a brown mooshroom eats a flower: the stew effects are stored; the second flower only smokes
+T 4
+EV sound at=2.5,-60.0,2.5 r=32.0 ex=0 event=minecraft:entity.mooshroom.eat source=neutral vol=2.0 pitch=1.0
+I Steve 0 minecraft:bowl*3
+I Steve 1 minecraft:mushroom_stew*1
+I Steve 40 minecraft:dandelion*2
+E N minecraft:mooshroom pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,2.5d],Rotation:[90.0f,0.0f],Type:"brown",attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,stew_effects:[{duration:7,id:"minecraft:saturation"}]}
+T 5
+I Steve 0 minecraft:bowl*3
+I Steve 1 minecraft:mushroom_stew*1
+I Steve 40 minecraft:dandelion*2
+E N minecraft:mooshroom pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,2.5d],Rotation:[90.0f,0.0f],Type:"brown",attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,stew_effects:[{duration:7,id:"minecraft:saturation"}]}
+# a poppy after that, then the bowl gives suspicious stew and clears the effects
+T 6
+I Steve 0 minecraft:bowl*3
+I Steve 1 minecraft:mushroom_stew*1
+I Steve 40 minecraft:poppy*1
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,2.5d],Rotation:[90.0f,0.0f],Type:"brown",attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,stew_effects:[{duration:7,id:"minecraft:saturation"}]}
+T 7
+EV sound at=2.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.mooshroom.suspicious_milk source=neutral vol=1.0 pitch=1.0
+I Steve 0 minecraft:bowl*2
+I Steve 1 minecraft:mushroom_stew*1
+I Steve 2 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:7,id:"minecraft:saturation"}]}
+I Steve 40 minecraft:poppy*1
+E N minecraft:mooshroom pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,2.5d],Rotation:[90.0f,0.0f],Type:"brown",attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# after a bowl the brown mooshroom takes a poppy
+T 8
+EV sound at=2.5,-60.0,2.5 r=32.0 ex=0 event=minecraft:entity.mooshroom.eat source=neutral vol=2.0 pitch=1.0
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,2.5d],Rotation:[90.0f,0.0f],Type:"brown",attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,stew_effects:[{duration:100,id:"minecraft:night_vision"}]}
+T 9
+EV sound at=2.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.mooshroom.suspicious_milk source=neutral vol=1.0 pitch=1.0
+I Steve 0 minecraft:bowl*1
+I Steve 1 minecraft:mushroom_stew*1
+I Steve 2 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:7,id:"minecraft:saturation"}]}
+I Steve 3 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:night_vision"}]}
+N N {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,2.5d],Rotation:[90.0f,0.0f],Type:"brown",attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# a baby gives nothing and does not eat a flower
+T 10
+I Steve 0 minecraft:bowl*1
+I Steve 1 minecraft:mushroom_stew*1
+I Steve 2 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:7,id:"minecraft:saturation"}]}
+I Steve 3 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:night_vision"}]}
+I Steve 40 minecraft:dandelion*1
+N B {AbsorptionAmount:0.0f,Age:-23990,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,-1.5d],Rotation:[90.0f,0.0f],Type:"brown",attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# shears: the mooshroom turns into a cow and drops five red mushrooms
+T 11
+EV packet at=2.5,-60.0,-3.5 r=16.0 ex=0 id=minecraft:sound_entity
+E R minecraft:mooshroom pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E N minecraft:mooshroom pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E B minecraft:mooshroom pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=-23989 baby=1 forcedage=0 love=0 lovecause=-
+E T minecraft:mooshroom pos=2.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow#1 minecraft:cow pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.6399035 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E R minecraft:mooshroom pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E N minecraft:mooshroom pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:mooshroom pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T minecraft:mooshroom pos=2.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.540041415757722,-58.44000002384186,-3.5677888722373816 delta=0.03924058820629695,0.1568000030517578,-0.06643309608560428 rot=75.99698,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.4697788157797573,-58.44000002384186,-3.4573673258535056 delta=-0.029616761112261268,0.1568000030517578,0.041780021476718436 rot=234.45065,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.4761640700330267,-58.44000002384186,-3.516006959227358 delta=-0.023359211822268185,0.1568000030517578,-0.01568682034811942 rot=287.78073,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.544249201235857,-58.44000002384186,-3.424378777234139 delta=0.04336421805512652,0.1568000030517578,0.07410879975290392 rot=260.42783,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.5308266355336113,-58.44000002384186,-3.478974545800325 delta=0.030210103410910336,0.1568000030517578,0.020604945516710483 rot=129.66498,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+I Steve 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
+I Steve 1 minecraft:mushroom_stew*1
+I Steve 2 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:7,id:"minecraft:saturation"}]}
+I Steve 3 minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:night_vision"}]}
+I Steve 40 minecraft:dandelion*1
+T 12
+T 13
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+T 32
+T 33
+T 34
+T 35
+T 36
+E R minecraft:mooshroom pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E N minecraft:mooshroom pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:mooshroom pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T minecraft:mooshroom pos=2.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=2.0738003306832384,-60.0,-2.8987650685390873 delta=-5.535007892365629E-4,0.0,7.80817145197906E-4 rot=234.45065,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*2 age=25 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.1645919639378337,-60.0,-3.7252424287709496 delta=-7.424402311132274E-4,-0.04,-4.985838825943135E-4 rot=287.78073,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*2 age=26 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.9337779686825276,-60.0,-3.204139661838267 delta=9.601863422878492E-4,-0.12,6.548996870227684E-4 rot=129.66498,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=26 pickup=0 health=5 owner=- thrower=-
+# creative players keep the bowls, and shear a brown mooshroom into five brown mushrooms
+T 37
+EV sound at=2.5,-60.0,12.5 r=16.0 ex=0 event=minecraft:entity.mooshroom.milk source=neutral vol=1.0 pitch=1.0
+T 38
+EV packet at=2.5,-60.0,12.5 r=16.0 ex=0 id=minecraft:sound_entity
+E R minecraft:mooshroom pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E N minecraft:mooshroom pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E B minecraft:mooshroom pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=-23962 baby=1 forcedage=0 love=0 lovecause=-
+E cow#1 minecraft:cow pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.6399035 body=3.6399035 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow#2 minecraft:cow pos=2.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.789405 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E R minecraft:mooshroom pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E N minecraft:mooshroom pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:mooshroom pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=2.0738003306832384,-60.0,-2.8987650685390873 delta=-5.535007892365629E-4,-0.08,7.80817145197906E-4 rot=234.45065,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*2 age=27 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.1645919639378337,-60.0,-3.7252424287709496 delta=-7.424402311132274E-4,-0.12,-4.985838825943135E-4 rot=287.78073,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*2 age=28 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.9347381550248155,-60.0,-3.2034847621512443 delta=5.645896260389687E-4,-0.04,3.8508105469217056E-4 rot=129.66498,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_mushroom*1 age=28 pickup=0 health=5 owner=- thrower=-
+E cow#2 minecraft:cow pos=2.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#6 minecraft:item pos=2.468014753186544,-58.44000002384186,12.423461203870652 delta=-0.0313455424872573,0.1568000030517578,-0.07500802166662246 rot=79.277084,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brown_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=2.5615462336830377,-58.44000002384186,12.408691663572698 delta=0.06031531018327837,0.1568000030517578,-0.08948217144032378 rot=69.82078,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brown_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=2.5010657919604355,-58.44000002384186,12.555984001314535 delta=0.0010444761415553132,0.1568000030517578,0.054864322356053555 rot=43.80339,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brown_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=2.426958109357485,-58.44000002384186,12.569817129843367 delta=-0.07158105422282822,0.1568000030517578,0.06842078857815576 rot=0.66001654,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brown_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=2.5487771217943904,-58.44000002384186,12.579886625299466 delta=0.04780158028885243,0.1568000030517578,0.07828889431719356 rot=277.72598,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brown_mushroom*1 age=1 pickup=0 health=5 owner=- thrower=-
+I Alex 0 minecraft:shears*1
+I Alex 1 minecraft:mushroom_stew*1

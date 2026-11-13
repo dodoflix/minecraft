@@ -1,0 +1,237 @@
+# finalizeSpawn variant picks by biome: cow, pig and chicken variants (and their sound variants), sheep wool colour, rabbit variant and mooshroom,
+# in temperate, warm and cold farm-animal biomes. Level and entity randoms are seeded per mob.
+level flat
+preload 6
+entity_counter 7700
+level_seed 7701
+difficulty normal
+spawn_player Steve creative 0.5 -60 -10.5 0 0
+biome 0 -64 0 8 -50 20 minecraft:plains
+biome 10 -64 0 18 -50 20 minecraft:desert
+biome 20 -64 0 28 -50 20 minecraft:savanna
+biome 30 -64 0 38 -50 20 minecraft:badlands
+biome 40 -64 0 48 -50 20 minecraft:jungle
+biome 50 -64 0 58 -50 20 minecraft:taiga
+biome 60 -64 0 68 -50 20 minecraft:snowy_plains
+biome 70 -64 0 78 -50 20 minecraft:swamp
+biome 80 -64 0 88 -50 20 minecraft:mushroom_fields
+tick 3
+level_seed 7801
+mobspawn CO0 minecraft:cow 2.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CO0 7901
+level_seed 7802
+mobspawn PI0 minecraft:pig 2.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed PI0 7902
+level_seed 7803
+mobspawn CH0 minecraft:chicken 2.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CH0 7903
+level_seed 7804
+mobspawn SH0 minecraft:sheep 2.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed SH0 7904
+level_seed 7805
+mobspawn RA0 minecraft:rabbit 2.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RA0 7905
+level_seed 7806
+mobspawn MO0 minecraft:mooshroom 2.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed MO0 7906
+level_seed 7807
+mobspawn CO1 minecraft:cow 12.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CO1 7907
+level_seed 7808
+mobspawn PI1 minecraft:pig 12.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed PI1 7908
+level_seed 7809
+mobspawn CH1 minecraft:chicken 12.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CH1 7909
+level_seed 7810
+mobspawn SH1 minecraft:sheep 12.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed SH1 7910
+level_seed 7811
+mobspawn RA1 minecraft:rabbit 12.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RA1 7911
+level_seed 7812
+mobspawn MO1 minecraft:mooshroom 12.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed MO1 7912
+level_seed 7813
+mobspawn CO2 minecraft:cow 22.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CO2 7913
+level_seed 7814
+mobspawn PI2 minecraft:pig 22.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed PI2 7914
+level_seed 7815
+mobspawn CH2 minecraft:chicken 22.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CH2 7915
+level_seed 7816
+mobspawn SH2 minecraft:sheep 22.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed SH2 7916
+level_seed 7817
+mobspawn RA2 minecraft:rabbit 22.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RA2 7917
+level_seed 7818
+mobspawn MO2 minecraft:mooshroom 22.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed MO2 7918
+level_seed 7819
+mobspawn CO3 minecraft:cow 32.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CO3 7919
+level_seed 7820
+mobspawn PI3 minecraft:pig 32.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed PI3 7920
+level_seed 7821
+mobspawn CH3 minecraft:chicken 32.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CH3 7921
+level_seed 7822
+mobspawn SH3 minecraft:sheep 32.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed SH3 7922
+level_seed 7823
+mobspawn RA3 minecraft:rabbit 32.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RA3 7923
+level_seed 7824
+mobspawn MO3 minecraft:mooshroom 32.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed MO3 7924
+level_seed 7825
+mobspawn CO4 minecraft:cow 42.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CO4 7925
+level_seed 7826
+mobspawn PI4 minecraft:pig 42.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed PI4 7926
+level_seed 7827
+mobspawn CH4 minecraft:chicken 42.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CH4 7927
+level_seed 7828
+mobspawn SH4 minecraft:sheep 42.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed SH4 7928
+level_seed 7829
+mobspawn RA4 minecraft:rabbit 42.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RA4 7929
+level_seed 7830
+mobspawn MO4 minecraft:mooshroom 42.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed MO4 7930
+level_seed 7831
+mobspawn CO5 minecraft:cow 52.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CO5 7931
+level_seed 7832
+mobspawn PI5 minecraft:pig 52.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed PI5 7932
+level_seed 7833
+mobspawn CH5 minecraft:chicken 52.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CH5 7933
+level_seed 7834
+mobspawn SH5 minecraft:sheep 52.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed SH5 7934
+level_seed 7835
+mobspawn RA5 minecraft:rabbit 52.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RA5 7935
+level_seed 7836
+mobspawn MO5 minecraft:mooshroom 52.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed MO5 7936
+level_seed 7837
+mobspawn CO6 minecraft:cow 62.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CO6 7937
+level_seed 7838
+mobspawn PI6 minecraft:pig 62.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed PI6 7938
+level_seed 7839
+mobspawn CH6 minecraft:chicken 62.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CH6 7939
+level_seed 7840
+mobspawn SH6 minecraft:sheep 62.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed SH6 7940
+level_seed 7841
+mobspawn RA6 minecraft:rabbit 62.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RA6 7941
+level_seed 7842
+mobspawn MO6 minecraft:mooshroom 62.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed MO6 7942
+level_seed 7843
+mobspawn CO7 minecraft:cow 72.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CO7 7943
+level_seed 7844
+mobspawn PI7 minecraft:pig 72.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed PI7 7944
+level_seed 7845
+mobspawn CH7 minecraft:chicken 72.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CH7 7945
+level_seed 7846
+mobspawn SH7 minecraft:sheep 72.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed SH7 7946
+level_seed 7847
+mobspawn RA7 minecraft:rabbit 72.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RA7 7947
+level_seed 7848
+mobspawn MO7 minecraft:mooshroom 72.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed MO7 7948
+level_seed 7849
+mobspawn CO8 minecraft:cow 82.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CO8 7949
+level_seed 7850
+mobspawn PI8 minecraft:pig 82.5 -60 5.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed PI8 7950
+level_seed 7851
+mobspawn CH8 minecraft:chicken 82.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed CH8 7951
+level_seed 7852
+mobspawn SH8 minecraft:sheep 82.5 -60 11.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed SH8 7952
+level_seed 7853
+mobspawn RA8 minecraft:rabbit 82.5 -60 14.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RA8 7953
+level_seed 7854
+mobspawn MO8 minecraft:mooshroom 82.5 -60 17.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed MO8 7954
+tick 1
+dump mobs
+note the variants round trip through the entity data
+dump nbt:CO0
+dump nbt:PI0
+dump nbt:CH0
+dump nbt:SH0
+dump nbt:RA0
+dump nbt:MO0
+dump nbt:CO1
+dump nbt:PI1
+dump nbt:CH1
+dump nbt:SH1
+dump nbt:RA1
+dump nbt:MO1
+dump nbt:CO2
+dump nbt:PI2
+dump nbt:CH2
+dump nbt:SH2
+dump nbt:RA2
+dump nbt:MO2
+dump nbt:CO3
+dump nbt:PI3
+dump nbt:CH3
+dump nbt:SH3
+dump nbt:RA3
+dump nbt:MO3
+dump nbt:CO4
+dump nbt:PI4
+dump nbt:CH4
+dump nbt:SH4
+dump nbt:RA4
+dump nbt:MO4
+dump nbt:CO5
+dump nbt:PI5
+dump nbt:CH5
+dump nbt:SH5
+dump nbt:RA5
+dump nbt:MO5
+dump nbt:CO6
+dump nbt:PI6
+dump nbt:CH6
+dump nbt:SH6
+dump nbt:RA6
+dump nbt:MO6
+dump nbt:CO7
+dump nbt:PI7
+dump nbt:CH7
+dump nbt:SH7
+dump nbt:RA7
+dump nbt:MO7
+dump nbt:CO8
+dump nbt:PI8
+dump nbt:CH8
+dump nbt:SH8
+dump nbt:RA8
+dump nbt:MO8

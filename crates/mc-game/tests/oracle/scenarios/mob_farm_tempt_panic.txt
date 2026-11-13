@@ -1,0 +1,38 @@
+# Cow, sheep and pig: tempted by the food a player holds (the goal's range, speed and stop distance), losing interest when the player
+# holds something else, then panicking after a hit by a player (speed, the path away, how long it lasts).
+level flat
+preload 6
+entity_counter 8300
+level_seed 8301
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 0.5 -60 30.5 0 0
+give Steve mainhand minecraft:wheat 5
+give Alex mainhand minecraft:carrot 5
+mobspawn T1 minecraft:cow 7.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn T2 minecraft:sheep 7.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn T3 minecraft:pig 7.5 -60 30.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn T4 minecraft:mooshroom 7.5 -60 -4.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed T1 301
+entity_seed T2 302
+entity_seed T3 303
+entity_seed T4 304
+tick 2
+watch mob:T1 mob:T2 mob:T3 mob:T4
+tick 80
+watch off
+note the players put the food away: the animals lose interest
+give Steve mainhand minecraft:stick 1
+give Alex mainhand minecraft:stick 1
+watch mob:T1 mob:T2 mob:T3 mob:T4
+tick 40
+watch off
+note a hit by a player: the animals panic and run
+hurt T1 player_attack 1 by=Steve
+hurt T2 player_attack 1 by=Steve
+hurt T3 player_attack 1 by=Alex
+hurt T4 player_attack 1 by=Steve
+watch mob:T1 mob:T2 mob:T3 mob:T4
+tick 60
+watch off
+dump mobs

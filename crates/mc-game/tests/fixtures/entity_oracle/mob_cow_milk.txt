@@ -1,0 +1,48 @@
+C The difficulty did not change; it is already set to Normal
+# a stack of two buckets: one is used, the milk bucket goes into the inventory
+T 2
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.cow.milk source=player vol=1.0 pitch=1.0
+I Steve 0 minecraft:bucket*1
+I Steve 1 minecraft:milk_bucket*1
+E A minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+# the last bucket is replaced by the milk bucket
+T 3
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.cow.milk source=player vol=1.0 pitch=1.0
+I Steve 0 minecraft:milk_bucket*1
+I Steve 1 minecraft:milk_bucket*1
+# a baby gives nothing
+T 4
+I Steve 0 minecraft:bucket*1
+I Steve 1 minecraft:milk_bucket*1
+E B minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=-23996 baby=1 forcedage=0 love=0 lovecause=-
+# a mooshroom milks like a cow
+T 5
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.cow.milk source=player vol=1.0 pitch=1.0
+I Steve 0 minecraft:milk_bucket*1
+I Steve 1 minecraft:milk_bucket*1
+# a creative player keeps both buckets and gets one milk bucket, once
+T 6
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=1 event=minecraft:entity.cow.milk source=player vol=1.0 pitch=1.0
+I Alex 0 minecraft:bucket*2
+I Alex 1 minecraft:milk_bucket*1
+E C minecraft:cow pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N C {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,8.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:moody",variant:"minecraft:cold"}
+T 7
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=1 event=minecraft:entity.cow.milk source=player vol=1.0 pitch=1.0
+I Alex 0 minecraft:bucket*2
+I Alex 1 minecraft:milk_bucket*1
+T 8
+EV sound at=0.5,-60.0,8.5 r=16.0 ex=1 event=minecraft:entity.cow.milk source=player vol=1.0 pitch=1.0
+I Alex 0 minecraft:bucket*2
+I Alex 1 minecraft:milk_bucket*1
+E E minecraft:cow pos=2.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N E {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,10.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:warm"}
+# wheat sets love and an empty hand does nothing
+T 9
+I Steve 0 minecraft:wheat*1
+I Steve 1 minecraft:milk_bucket*1
+E A minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=599 lovecause=Steve
+T 10
+I Steve 0 minecraft:wheat*1
+I Steve 1 minecraft:milk_bucket*1
+E A minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=598 lovecause=Steve

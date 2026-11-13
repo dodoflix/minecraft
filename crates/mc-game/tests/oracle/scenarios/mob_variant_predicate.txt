@@ -1,0 +1,67 @@
+# Entity predicates over the variant components of every farm and pet variant mob: `execute if predicate` (an inline entity_properties
+# components predicate) tags the mob when its own variant matches, and a different value must not match.
+command_env
+level flat
+preload 4
+entity_counter 8000
+level_seed 8001
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn COW minecraft:cow 3.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["cow"],variant:"minecraft:cold",sound_variant:"minecraft:moody"}
+entity_seed COW 8100
+mobspawn PIG minecraft:pig 5.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["pig"],variant:"minecraft:warm",sound_variant:"minecraft:mini"}
+entity_seed PIG 8101
+mobspawn CHK minecraft:chicken 7.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["chk"],variant:"minecraft:cold",sound_variant:"minecraft:picky"}
+entity_seed CHK 8102
+mobspawn MOO minecraft:mooshroom 9.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["moo"],Type:"brown"}
+entity_seed MOO 8103
+mobspawn SHP minecraft:sheep 11.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["shp"],Color:6b}
+entity_seed SHP 8104
+mobspawn RAB minecraft:rabbit 13.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["rab"],RabbitType:4}
+entity_seed RAB 8105
+mobspawn HOR minecraft:horse 15.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["hor"],Variant:2}
+entity_seed HOR 8106
+mobspawn LLA minecraft:llama 17.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["lla"],Variant:2}
+entity_seed LLA 8107
+mobspawn FOX minecraft:fox 19.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["fox"],Type:"snow"}
+entity_seed FOX 8108
+mobspawn AXO minecraft:axolotl 21.5 -60 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Tags:["axo"],Variant:2}
+entity_seed AXO 8109
+tick 2
+cmd execute as @e[tag=cow] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cow/variant":"minecraft:cold"}}} run tag @s add hit_cow_variant
+cmd execute as @e[tag=cow] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cow/variant":"minecraft:warm"}}} run tag @s add miss_cow_variant
+cmd execute as @e[tag=cow] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cow/sound_variant":"minecraft:moody"}}} run tag @s add hit_cow_sound_variant
+cmd execute as @e[tag=cow] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:cow/sound_variant":"minecraft:classic"}}} run tag @s add miss_cow_sound_variant
+cmd execute as @e[tag=pig] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:pig/variant":"minecraft:warm"}}} run tag @s add hit_pig_variant
+cmd execute as @e[tag=pig] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:pig/variant":"minecraft:cold"}}} run tag @s add miss_pig_variant
+cmd execute as @e[tag=pig] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:pig/sound_variant":"minecraft:mini"}}} run tag @s add hit_pig_sound_variant
+cmd execute as @e[tag=pig] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:pig/sound_variant":"minecraft:big"}}} run tag @s add miss_pig_sound_variant
+cmd execute as @e[tag=chk] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:chicken/variant":"minecraft:cold"}}} run tag @s add hit_chicken_variant
+cmd execute as @e[tag=chk] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:chicken/variant":"minecraft:warm"}}} run tag @s add miss_chicken_variant
+cmd execute as @e[tag=chk] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:chicken/sound_variant":"minecraft:picky"}}} run tag @s add hit_chicken_sound_variant
+cmd execute as @e[tag=chk] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:chicken/sound_variant":"minecraft:classic"}}} run tag @s add miss_chicken_sound_variant
+cmd execute as @e[tag=moo] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:mooshroom/variant":"brown"}}} run tag @s add hit_mooshroom_variant
+cmd execute as @e[tag=moo] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:mooshroom/variant":"red"}}} run tag @s add miss_mooshroom_variant
+cmd execute as @e[tag=shp] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:sheep/color":"pink"}}} run tag @s add hit_sheep_color
+cmd execute as @e[tag=shp] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:sheep/color":"white"}}} run tag @s add miss_sheep_color
+cmd execute as @e[tag=rab] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:rabbit/variant":"gold"}}} run tag @s add hit_rabbit_variant
+cmd execute as @e[tag=rab] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:rabbit/variant":"brown"}}} run tag @s add miss_rabbit_variant
+cmd execute as @e[tag=hor] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:horse/variant":"chestnut"}}} run tag @s add hit_horse_variant
+cmd execute as @e[tag=hor] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:horse/variant":"white"}}} run tag @s add miss_horse_variant
+cmd execute as @e[tag=lla] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:llama/variant":"brown"}}} run tag @s add hit_llama_variant
+cmd execute as @e[tag=lla] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:llama/variant":"creamy"}}} run tag @s add miss_llama_variant
+cmd execute as @e[tag=fox] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:fox/variant":"snow"}}} run tag @s add hit_fox_variant
+cmd execute as @e[tag=fox] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:fox/variant":"red"}}} run tag @s add miss_fox_variant
+cmd execute as @e[tag=axo] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:axolotl/variant":"gold"}}} run tag @s add hit_axolotl_variant
+cmd execute as @e[tag=axo] if predicate {type:"minecraft:entity_properties",entity:"this",predicate:{"minecraft:components":{"minecraft:axolotl/variant":"lucy"}}} run tag @s add miss_axolotl_variant
+tick 1
+dump nbt:COW
+dump nbt:PIG
+dump nbt:CHK
+dump nbt:MOO
+dump nbt:SHP
+dump nbt:RAB
+dump nbt:HOR
+dump nbt:LLA
+dump nbt:FOX
+dump nbt:AXO

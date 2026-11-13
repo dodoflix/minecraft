@@ -1,0 +1,59 @@
+# Cow milking: a bucket on an adult cow or mooshroom gives milk (the last bucket is replaced, a stack of buckets keeps the rest and
+# gets the milk bucket in the inventory, a creative player keeps the stack and gets one milk bucket), a baby gives none, wheat sets love.
+# Cold and warm cows carry their variant and sound variant.
+level flat
+preload 4
+entity_counter 7100
+level_seed 7101
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 0.5 -60 8.5 0 0
+mobspawn A minecraft:cow 2.5 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn B minecraft:cow 2.5 -60 2.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+mobspawn C minecraft:cow 2.5 -60 8.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,variant:"minecraft:cold",sound_variant:"minecraft:moody"}
+mobspawn D minecraft:mooshroom 2.5 -60 -1.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn E minecraft:cow 2.5 -60 10.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,variant:"minecraft:warm"}
+entity_seed A 11
+entity_seed B 12
+entity_seed C 13
+entity_seed D 14
+entity_seed E 15
+give Steve mainhand minecraft:bucket 2
+give Alex mainhand minecraft:bucket 2
+tick 1
+watch events
+note a stack of two buckets: one is used, the milk bucket goes into the inventory
+interact Steve A main
+tick 1
+dump inventory:Steve mob:A
+note the last bucket is replaced by the milk bucket
+interact Steve A main
+tick 1
+dump inventory:Steve
+note a baby gives nothing
+give Steve mainhand minecraft:bucket 1
+interact Steve B main
+tick 1
+dump inventory:Steve mob:B
+note a mooshroom milks like a cow
+interact Steve D main
+tick 1
+dump inventory:Steve
+note a creative player keeps both buckets and gets one milk bucket, once
+interact Alex C main
+tick 1
+dump inventory:Alex mob:C nbt:C
+interact Alex C main
+tick 1
+dump inventory:Alex
+interact Alex E main
+tick 1
+dump inventory:Alex mob:E nbt:E
+note wheat sets love and an empty hand does nothing
+give Steve mainhand minecraft:wheat 2
+interact Steve A main
+tick 1
+dump inventory:Steve mob:A
+interact Steve A main
+tick 1
+dump inventory:Steve mob:A

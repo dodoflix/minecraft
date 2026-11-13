@@ -1,0 +1,75 @@
+# Mooshroom: a bowl on an adult gives mushroom stew; a brown mooshroom eats a flower and then gives suspicious stew with its effects
+# (a second flower only smokes); a baby gives nothing; shears turn it into a cow and drop five mushrooms of its variant; creative players keep their stack.
+level flat
+preload 4
+entity_counter 7200
+level_seed 7201
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 0.5 -60 12.5 0 0
+mobspawn R minecraft:mooshroom 2.5 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn N minecraft:mooshroom 2.5 -60 2.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Type:"brown"}
+mobspawn B minecraft:mooshroom 2.5 -60 -1.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000,Type:"brown"}
+mobspawn S minecraft:mooshroom 2.5 -60 -3.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn T minecraft:mooshroom 2.5 -60 12.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Type:"brown"}
+entity_seed R 21
+entity_seed N 22
+entity_seed B 23
+entity_seed S 24
+entity_seed T 25
+give Steve mainhand minecraft:bowl 4
+give Alex mainhand minecraft:bowl 2
+tick 1
+watch events
+note a bowl on a red mooshroom: mushroom stew, the stack of bowls shrinks
+interact Steve R main
+tick 1
+dump inventory:Steve mob:R nbt:R
+note a flower on a red mooshroom does nothing
+give Steve offhand minecraft:dandelion 3
+interact Steve R off
+tick 1
+dump inventory:Steve mob:R
+note a brown mooshroom eats a flower: the stew effects are stored; the second flower only smokes
+interact Steve N off
+tick 1
+dump inventory:Steve mob:N nbt:N
+interact Steve N off
+tick 1
+dump inventory:Steve mob:N nbt:N
+note a poppy after that, then the bowl gives suspicious stew and clears the effects
+give Steve offhand minecraft:poppy 1
+interact Steve N off
+tick 1
+dump inventory:Steve nbt:N
+interact Steve N main
+tick 1
+dump inventory:Steve mob:N nbt:N
+note after a bowl the brown mooshroom takes a poppy
+interact Steve N off
+tick 1
+dump nbt:N
+interact Steve N main
+tick 1
+dump inventory:Steve nbt:N
+note a baby gives nothing and does not eat a flower
+give Steve mainhand minecraft:bowl 1
+interact Steve B main
+give Steve offhand minecraft:dandelion 1
+interact Steve B off
+tick 1
+dump inventory:Steve nbt:B
+note shears: the mooshroom turns into a cow and drops five red mushrooms
+give Steve mainhand minecraft:shears 1
+interact Steve S main
+tick 1
+dump mobs entities inventory:Steve
+tick 25
+dump entities
+note creative players keep the bowls, and shear a brown mooshroom into five brown mushrooms
+interact Alex T main
+tick 1
+give Alex mainhand minecraft:shears 1
+interact Alex T main
+tick 1
+dump mobs entities inventory:Alex

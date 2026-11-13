@@ -93,7 +93,7 @@ pub fn abstract_cow_mob_interact(
             item_stack,
             &mut PlayerCtx { player, level },
             ItemStack::new(Item::MILK_BUCKET),
-            false,
+            true,
         );
         player.set_item_in_hand(hand, result);
         InteractionResult::SUCCESS

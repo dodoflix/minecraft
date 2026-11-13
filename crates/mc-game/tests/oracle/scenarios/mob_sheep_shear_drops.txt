@@ -1,0 +1,49 @@
+# Shearing sheep: three random floats per dropped wool (velocity), the drop count, the sheared flag, a baby and a sheared sheep pass,
+# wool of every colour.
+level flat
+preload 4
+entity_counter 7300
+level_seed 7301
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 0.5 -60 8.5 0 0
+mobspawn A minecraft:sheep 2.5 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn B minecraft:sheep 2.5 -60 2.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:14b}
+mobspawn C minecraft:sheep 2.5 -60 -1.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+mobspawn D minecraft:sheep 2.5 -60 -3.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Sheared:1b}
+mobspawn E minecraft:sheep 2.5 -60 8.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:3b}
+mobspawn F minecraft:sheep 2.5 -60 10.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:15b}
+entity_seed A 31
+entity_seed B 32
+entity_seed C 33
+entity_seed D 34
+entity_seed E 35
+entity_seed F 36
+give Steve mainhand minecraft:shears 1
+give Alex mainhand minecraft:shears 1
+tick 1
+watch events
+note the first shear: a white sheep drops one to three white wool
+interact Steve A main
+tick 1
+dump mob:A nbt:A entities inventory:Steve
+note shearing it again does nothing
+interact Steve A main
+tick 1
+dump mob:A entities inventory:Steve
+note a red sheep
+interact Steve B main
+tick 1
+dump mob:B nbt:B entities inventory:Steve
+note a baby and an already sheared sheep are not ready
+interact Steve C main
+interact Steve D main
+tick 1
+dump mob:C mob:D entities inventory:Steve
+note creative players shear too: light blue and black
+interact Alex E main
+interact Alex F main
+tick 1
+dump mob:E mob:F nbt:E nbt:F entities inventory:Alex
+tick 25
+dump entities

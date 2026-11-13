@@ -1,0 +1,75 @@
+# Sheep eat grass: EatBlockGoal draws 1 in 50 (baby) or 1 in 1000 (adult) on the goal selector's cadence, then the 40 tick animation turns the
+# grass block below (or the tall grass the sheep stands in) into dirt (or removes the tall grass), regrows the wool and ages a baby by 60 ticks.
+# Each sheep stands in its own pen so that nothing but the goal moves it; the second baby stands in short grass; mob_griefing off later.
+level flat
+preload 4
+entity_counter 7400
+level_seed 7401
+difficulty normal
+gamerule mob_griefing true
+spawn_player Steve creative 0.5 -60 14.5 0 0
+fill -1 -60 9 27 -59 11 minecraft:stone
+fill 0 -60 10 0 -59 10 minecraft:air
+fill 2 -60 10 2 -59 10 minecraft:air
+fill 4 -60 10 4 -59 10 minecraft:air
+fill 6 -60 10 6 -59 10 minecraft:air
+fill 8 -60 10 8 -59 10 minecraft:air
+fill 10 -60 10 10 -59 10 minecraft:air
+fill 12 -60 10 12 -59 10 minecraft:air
+fill 14 -60 10 14 -59 10 minecraft:air
+fill 16 -60 10 16 -59 10 minecraft:air
+fill 18 -60 10 18 -59 10 minecraft:air
+fill 20 -60 10 20 -59 10 minecraft:air
+fill 22 -60 10 22 -59 10 minecraft:air
+fill 24 -60 10 24 -59 10 minecraft:air
+fill 26 -60 10 26 -59 10 minecraft:air
+block 2 -60 10 minecraft:short_grass
+block 6 -60 10 minecraft:short_grass
+mobspawn S0 minecraft:sheep 0.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000}
+mobspawn S1 minecraft:sheep 2.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000}
+mobspawn S2 minecraft:sheep 4.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Sheared:1b}
+mobspawn S3 minecraft:sheep 6.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn S4 minecraft:sheep 8.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Sheared:1b}
+mobspawn S5 minecraft:sheep 10.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn S6 minecraft:sheep 12.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Sheared:1b}
+mobspawn S7 minecraft:sheep 14.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn S8 minecraft:sheep 16.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Sheared:1b}
+mobspawn S9 minecraft:sheep 18.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn S10 minecraft:sheep 20.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Sheared:1b}
+mobspawn S11 minecraft:sheep 22.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn S12 minecraft:sheep 24.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Sheared:1b}
+entity_seed S0 41
+entity_seed S1 42
+entity_seed S2 43
+entity_seed S3 44
+entity_seed S4 45
+entity_seed S5 46
+entity_seed S6 47
+entity_seed S7 48
+entity_seed S8 49
+entity_seed S9 50
+entity_seed S10 51
+entity_seed S11 52
+entity_seed S12 53
+tick 2
+dump mobs
+watch mob:S0 mob:S1
+tick 150
+watch off
+dump mobs blocks:-1,-61,9,27,-60,11
+tick 250
+dump mobs
+tick 250
+dump mobs
+tick 250
+dump mobs
+tick 250
+dump mobs
+dump blocks:-1,-61,9,27,-60,11 events
+note without mob_griefing a sheep in tall grass leaves it
+gamerule mob_griefing false
+block 26 -60 10 minecraft:short_grass
+mobspawn T minecraft:sheep 26.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000}
+entity_seed T 77
+tick 300
+dump mob:T blocks:26,-61,10,26,-60,10

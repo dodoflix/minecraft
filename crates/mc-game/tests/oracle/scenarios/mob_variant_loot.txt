@@ -1,0 +1,97 @@
+# Loot conditions that read a mob's variant components: a dying sheep drops wool of its colour (and none once sheared), shearing drops
+# the wool of its colour, a laying chicken gives the egg of its variant (the chicken_lay gift), a sheared mooshroom drops mushrooms of
+# its variant.
+level flat
+preload 6
+entity_counter 7800
+level_seed 7801
+difficulty normal
+gamerule mob_drops true
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve mainhand minecraft:shears 1
+tick 30
+mobspawn W0 minecraft:sheep 2.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:0b}
+entity_seed W0 100
+mobspawn W1 minecraft:sheep 4.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:1b}
+entity_seed W1 101
+mobspawn W2 minecraft:sheep 6.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:2b}
+entity_seed W2 102
+mobspawn W3 minecraft:sheep 8.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:3b}
+entity_seed W3 103
+mobspawn W4 minecraft:sheep 10.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:4b}
+entity_seed W4 104
+mobspawn W5 minecraft:sheep 12.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:5b}
+entity_seed W5 105
+mobspawn W6 minecraft:sheep 14.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:6b}
+entity_seed W6 106
+mobspawn W7 minecraft:sheep 16.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:7b}
+entity_seed W7 107
+mobspawn W8 minecraft:sheep 18.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:8b}
+entity_seed W8 108
+mobspawn W9 minecraft:sheep 20.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:9b}
+entity_seed W9 109
+mobspawn W10 minecraft:sheep 22.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:10b}
+entity_seed W10 110
+mobspawn W11 minecraft:sheep 24.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:11b}
+entity_seed W11 111
+mobspawn W12 minecraft:sheep 26.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:12b}
+entity_seed W12 112
+mobspawn W13 minecraft:sheep 28.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:13b}
+entity_seed W13 113
+mobspawn W14 minecraft:sheep 30.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:14b}
+entity_seed W14 114
+mobspawn W15 minecraft:sheep 32.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:15b}
+entity_seed W15 115
+mobspawn WS minecraft:sheep 36.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:14b,Sheared:1b}
+entity_seed WS 120
+mobspawn H0 minecraft:chicken 2.5 -60 8.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,EggLayTime:1,variant:"minecraft:temperate"}
+entity_seed H0 130
+mobspawn H1 minecraft:chicken 4.5 -60 8.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,EggLayTime:1,variant:"minecraft:warm"}
+entity_seed H1 131
+mobspawn H2 minecraft:chicken 6.5 -60 8.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,EggLayTime:1,variant:"minecraft:cold"}
+entity_seed H2 132
+mobspawn M0 minecraft:mooshroom 2.5 -60 -2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Type:"red"}
+entity_seed M0 140
+mobspawn M1 minecraft:mooshroom 2.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Type:"brown"}
+entity_seed M1 141
+mobspawn X0 minecraft:sheep -2.5 -60 -1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:14b}
+entity_seed X0 150
+mobspawn X1 minecraft:sheep -2.5 -60 1.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:11b}
+entity_seed X1 151
+mobspawn X2 minecraft:sheep -2.5 -60 3.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Color:15b}
+entity_seed X2 152
+tick 1
+level_seed 7802
+note chickens lay: the egg of the variant
+watch events
+tick 3
+watch off
+dump entities
+note shearing a red sheep and the mooshrooms
+interact Steve X0 main
+interact Steve X1 main
+interact Steve X2 main
+interact Steve M0 main
+interact Steve M1 main
+tick 1
+dump entities
+note every sheep dies: the wool of its colour
+hurt W0 generic_kill 100
+hurt W1 generic_kill 100
+hurt W2 generic_kill 100
+hurt W3 generic_kill 100
+hurt W4 generic_kill 100
+hurt W5 generic_kill 100
+hurt W6 generic_kill 100
+hurt W7 generic_kill 100
+hurt W8 generic_kill 100
+hurt W9 generic_kill 100
+hurt W10 generic_kill 100
+hurt W11 generic_kill 100
+hurt W12 generic_kill 100
+hurt W13 generic_kill 100
+hurt W14 generic_kill 100
+hurt W15 generic_kill 100
+hurt WS generic_kill 100
+tick 21
+dump entities

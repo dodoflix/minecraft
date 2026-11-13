@@ -1,0 +1,23 @@
+# Chicken jockeys: a chicken saved with its jockey flag keeps it, lays no egg, needs persistence handling like a jockey, and gives 10
+# experience points when a player kills it; a plain chicken lays an egg and gives 1 to 3.
+level flat
+preload 4
+entity_counter 7900
+level_seed 7901
+difficulty normal
+gamerule mob_drops true
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve mainhand minecraft:diamond_sword
+mobspawn J1 minecraft:chicken 3.5 -60 3.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:0b,IsChickenJockey:1b,EggLayTime:1}
+entity_seed J1 161
+mobspawn J2 minecraft:chicken 6.5 -60 3.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:0b,EggLayTime:1}
+entity_seed J2 162
+mobspawn J3 minecraft:chicken 9.5 -60 3.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:0b,IsChickenJockey:1b}
+entity_seed J3 163
+tick 3
+dump mobs nbt:J1 nbt:J2 nbt:J3 entities
+note killing a jockey chicken gives 10 experience points, a plain one gives 1 to 3
+hurt J3 player_attack 100 by=Steve
+hurt J2 player_attack 100 by=Steve
+tick 22
+dump entities

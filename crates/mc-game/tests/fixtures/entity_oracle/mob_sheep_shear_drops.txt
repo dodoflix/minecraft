@@ -1,0 +1,125 @@
+C The difficulty did not change; it is already set to Normal
+# the first shear: a white sheep drops one to three white wool
+T 2
+EV packet at=2.5,-60.0,0.5 r=16.0 ex=0 id=minecraft:sound_entity
+E A minecraft:sheep pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N A {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,Color:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,0.5d],Rotation:[90.0f,0.0f],Sheared:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E A minecraft:sheep pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:sheep pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E C minecraft:sheep pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E D minecraft:sheep pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E E minecraft:sheep pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E F minecraft:sheep pos=2.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.5886351812385864,-58.80995638497174,0.5396496164214937 delta=0.08686247930439671,0.1862427463524912,0.03885662484932022 rot=347.24167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.5742112493833225,-58.80267539262772,0.357398125650052 delta=0.07272702581112335,0.19337811898850646,-0.13974983958286388 rot=191.37036,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.4375084818192168,-58.79598378777504,0.4970866274438651 delta=-0.06124168900909862,0.19993589187176156,-0.0028551051605803595 rot=283.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+I Steve 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
+# shearing it again does nothing
+T 3
+E A minecraft:sheep pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E A minecraft:sheep pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:sheep pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E C minecraft:sheep pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E D minecraft:sheep pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E E minecraft:sheep pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E F minecraft:sheep pos=2.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.675497660542983,-58.66371363861925,0.5785062412708138 delta=0.08512523137507909,0.14331789421480037,0.03807949309346512 rot=347.24167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.646938275194446,-58.64929727363921,0.21764828606718814 delta=0.07127248668205882,0.15031055953419178,-0.13695484545672326 rot=191.37036,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.376266792810118,-58.63604789590328,0.49423152228328476 delta=-0.06001685639700916,0.15673717708486137,-0.0027980031118255617 rot=283.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=2 pickup=8 health=5 owner=- thrower=-
+I Steve 0 minecraft:shears*1/dmg=1{minecraft:damage:1}
+# a red sheep
+T 4
+EV packet at=2.5,-60.0,2.5 r=16.0 ex=0 id=minecraft:sound_entity
+E B minecraft:sheep pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N B {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,Color:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,2.5d],Rotation:[90.0f,0.0f],Sheared:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E A minecraft:sheep pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:sheep pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E C minecraft:sheep pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E D minecraft:sheep pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E E minecraft:sheep pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E F minecraft:sheep pos=2.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.760622891918062,-58.56039574440445,0.616585734364279 delta=0.08342272837121244,0.1012515383011368,0.037317903957904505 rot=347.24167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.7182107618765046,-58.53898671410502,0.08069344061046488 delta=0.06984703830783244,0.10810435044751489,-0.13421575115979517 rot=191.37036,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.316249936413109,-58.51931071881842,0.4914335191714592 delta=-0.058816520413799665,0.1144024357697491,-0.0027420431029567247 rot=283.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.378515502241483,-58.811051767468456,2.5471151164245334 delta=-0.11905481012047965,0.18516927148481813,0.046172814994692175 rot=149.74007,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.4439914639230054,-58.796701021641496,2.367399029029969 delta=-0.054888366423732786,0.1992330026689573,-0.12994895407979312 rot=51.786674,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+I Steve 0 minecraft:shears*1/dmg=2{minecraft:damage:2}
+# a baby and an already sheared sheep are not ready
+T 5
+E C minecraft:sheep pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=-23995 baby=1 forcedage=0 love=0 lovecause=-
+E D minecraft:sheep pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E A minecraft:sheep pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:sheep pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E C minecraft:sheep pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E D minecraft:sheep pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E E minecraft:sheep pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E F minecraft:sheep pos=2.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.8440456202892745,-58.49914420610332,0.6539036383221835 delta=0.08175427539495046,0.06002650870339444,0.03657154659052895 rot=347.24167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*2 age=3 pickup=6 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.257433415999309,-58.44490828304867,0.4886914760685025 delta=-0.05764019112735977,0.07291438847346794,-0.0026872022931979118 rot=283.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.259460692121003,-58.66588249598364,2.5932879314192254 delta=-0.11667371618886035,0.14226588882400587,0.045249359575474886 rot=149.74007,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_wool*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.3891030974992726,-58.63746801897254,2.237450074950176 delta=-0.05379060014217064,0.15604834565270664,-0.12734997747677687 rot=51.786674,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_wool*1 age=2 pickup=8 health=5 owner=- thrower=-
+I Steve 0 minecraft:shears*1/dmg=2{minecraft:damage:2}
+# creative players shear too: light blue and black
+T 6
+EV packet at=2.5,-60.0,8.5 r=16.0 ex=0 id=minecraft:sound_entity
+EV packet at=2.5,-60.0,10.5 r=16.0 ex=0 id=minecraft:sound_entity
+E E minecraft:sheep pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E F minecraft:sheep pos=2.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
+N E {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,Color:3b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,8.5d],Rotation:[90.0f,0.0f],Sheared:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N F {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,Color:15b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,10.5d],Rotation:[90.0f,0.0f],Sheared:1b,attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E A minecraft:sheep pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:sheep pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E C minecraft:sheep pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E D minecraft:sheep pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E E minecraft:sheep pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E F minecraft:sheep pos=2.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=2.925799895684225,-58.47911769739992,0.6904751849127124 delta=0.08011919144639051,0.01962597891130189,0.035840116356265266 rot=347.24167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*2 age=4 pickup=5 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.199793224871949,-58.411993894575204,0.4860042737753046 delta=-0.05648738840421197,0.03225610133179072,-0.0026334582985882695 rot=283.63702,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*1 age=5 pickup=5 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.1427869759321427,-58.56361660715963,2.6385372909947002 delta=-0.11434024409045768,0.10022057299809278,0.04434437324702843 rot=149.74007,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_wool*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.335312497357102,-58.52141967331983,2.1101000974733988 delta=-0.0527147891653015,0.11372738095309903,-0.12480298035624939 rot=51.786674,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_wool*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.53793391456382,-58.79426569133997,8.403516140522592 delta=0.03717523699607566,0.20161962641090028,-0.09455418412814345 rot=209.82187,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:light_blue_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=2.440727666303234,-58.824041323885325,8.581904781471732 delta=-0.058086888153360744,0.17243950594853022,0.08026668740450736 rot=212.11604,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:light_blue_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=2.4326288589139535,-58.81264951653779,8.58187367275113 delta=-0.0660237195493281,0.18360347736639707,0.08023620085772361 rot=25.670006,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:light_blue_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=2.4151447882147075,-58.80880053542555,10.514118278726297 delta=-0.0831581091680716,0.18737547892980747,0.01383591342105612 rot=354.7458,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:black_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=2.5711973099528382,-58.829412417635325,10.4661426348286 delta=0.06977336511176223,0.16717583397108474,-0.033180218513749374 rot=125.14542,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:black_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=2.5788789681696107,-58.790682356953624,10.545544704320127 delta=0.07730139031071526,0.2051312941778687,0.044633811102420824 rot=3.5142946,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:black_wool*1 age=1 pickup=9 health=5 owner=- thrower=-
+I Alex 0 minecraft:shears*1
+T 7
+T 8
+T 9
+T 10
+T 11
+EV sound at=2.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.sheep.ambient source=neutral vol=1.0 pitch=1.0842062
+T 12
+T 13
+EV sound at=2.5,-60.0,-1.5 r=16.0 ex=0 event=minecraft:entity.sheep.ambient source=neutral vol=1.0 pitch=1.5296606
+T 14
+T 15
+T 16
+T 17
+T 18
+T 19
+T 20
+T 21
+T 22
+T 23
+T 24
+T 25
+T 26
+T 27
+T 28
+T 29
+T 30
+T 31
+E A minecraft:sheep pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:sheep pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E C minecraft:sheep pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E D minecraft:sheep pos=2.5,-60.0,-3.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E E minecraft:sheep pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E F minecraft:sheep pos=2.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=3.6867160052599397,-60.0,1.030859572376209 delta=9.74011734099458E-4,-0.12,4.357095129429813E-4 rot=347.24167,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_wool*2 age=29 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.8721370770491321,-60.0,3.1313311784888556 delta=-7.849758290672414E-4,0.0,3.044357778921198E-4 rot=149.74007,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_wool*2 age=27 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=3.0360731098882736,-60.0,7.136512914662169 delta=2.402089404013672E-4,0.0,-6.10964776965235E-4 rot=209.82187,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:light_blue_wool*1 age=26 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=1.3654789736149153,-60.0,10.688762525416566 delta=-0.0015858394007355124,-0.12,2.6385324134691227E-4 rot=354.7458,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:black_wool*1 age=26 pickup=0 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=3.4532443672118682,-60.0,10.046691544109589 delta=7.823870201575309E-4,0.0,-3.720584817654419E-4 rot=125.14542,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:black_wool*1 age=26 pickup=0 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=3.6138494598938995,-60.0,11.143136510088697 delta=8.494647404416982E-4,-0.04,4.904808129665177E-4 rot=3.5142946,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:black_wool*1 age=26 pickup=0 health=5 owner=- thrower=-

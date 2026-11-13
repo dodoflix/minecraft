@@ -1,0 +1,77 @@
+# A saddled pig steered by a simulated rider holding a carrot on a stick: the boost multiplies the speed along a sine curve of its random
+# duration (the pig always walks ahead, whatever the input; a wall stops it), expires, and the next use boosts again. Saddling: the saddle item equips
+# an adult pig, not a baby; a sneaking player does not mount; a second rider cannot board an occupied pig; leaving the pig.
+level flat
+preload 4
+entity_counter 7500
+level_seed 7501
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0 sim
+spawn_player Alex survival 0.5 -60 8.5 0 0
+mobspawn P minecraft:pig 0.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn U minecraft:pig 4.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn B minecraft:pig 4.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed P 51
+entity_seed U 52
+entity_seed B 53
+give Steve mainhand minecraft:carrot_on_a_stick
+give Alex mainhand minecraft:saddle 4
+fill -3 -60 8 3 -58 8 minecraft:stone
+tick 3
+note a sneaking player does not mount, a plain click does
+interact Steve P main sneak
+tick 1
+dump player:Steve mob:P
+interact Steve P main
+accept_teleport Steve
+tick 2
+dump player:Steve mob:P
+note a second rider cannot board
+interact Alex P main
+tick 1
+dump player:Alex mob:P
+note the rider uses the stick: the boost starts, the pig runs ahead
+input Steve forward
+use Steve main
+watch player:Steve mob:P edata:P
+tick 30
+watch off
+note the boost runs its course; the pig is held by a wall ahead (its speed attribute still follows the boost)
+tick 100
+dump player:Steve mob:P edata:P
+tick 100
+dump player:Steve mob:P edata:P
+tick 100
+dump player:Steve mob:P edata:P
+tick 100
+dump player:Steve mob:P edata:P
+tick 100
+dump player:Steve mob:P edata:P
+tick 100
+dump player:Steve mob:P edata:P
+tick 100
+dump player:Steve mob:P edata:P
+tick 100
+dump player:Steve mob:P edata:P
+tick 100
+dump player:Steve mob:P edata:P
+tick 100
+dump player:Steve mob:P edata:P
+note after the boost the next use boosts again
+use Steve main
+watch mob:P edata:P
+tick 20
+watch off
+input Steve none
+tick 5
+dump player:Steve mob:P inventory:Steve
+note saddling: an adult takes the saddle, a baby does not, a saddled pig refuses a second saddle
+interact Alex U main
+tick 1
+dump mob:U inventory:Alex events
+interact Alex B main
+tick 1
+dump mob:B inventory:Alex
+interact Alex U main
+tick 1
+dump mob:U inventory:Alex
