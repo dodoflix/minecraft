@@ -11,6 +11,7 @@ pub mod deflection;
 pub mod evoker_fangs;
 pub mod eye_of_ender;
 pub mod firework_rocket;
+pub mod fishing_hook;
 pub mod hurting;
 pub mod llama_spit;
 pub mod shulker_bullet;
@@ -219,13 +220,12 @@ pub trait Projectile: Entity {
 
     /// `canHitEntity(entity)`.
     fn can_hit_entity(&self, level: &ServerLevel, entity: &dyn Entity) -> bool {
-        if !entity.can_be_hit_by_projectile() {
-            return false;
-        }
-        let owner = self.get_owner(level);
-        owner.is_none_or(|o| {
-            self.projectile_data().left_owner || !level.is_passenger_of_same_vehicle(o, entity)
-        })
+        can_hit_entity_base(self, level, entity)
+    }
+
+    /// The entity id `getAddEntityPacket` writes as packet data: the owner, 0 without one.
+    fn add_entity_packet_data(&self) -> i32 {
+        self.projectile_data().owner_id.unwrap_or(0)
     }
 
     /// `getMovementToShoot(xd, yd, zd, pow, uncertainty)`.
@@ -380,7 +380,7 @@ macro_rules! impl_projectile_entity {
             &self,
             server_entity: &$crate::server::level::ServerEntity,
         ) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
-            let owner = $crate::world::entity::projectile::Projectile::projectile_data(self).owner_id.unwrap_or(0);
+            let owner = $crate::world::entity::projectile::Projectile::add_entity_packet_data(self);
             server_entity.add_entity_packet(self.id(), self.uuid(), self.get_type(), owner)
         }
         fn may_interact(&self, level: &$crate::server::level::ServerLevel, pos: mc_core::pos::BlockPos) -> bool {
@@ -417,6 +417,21 @@ pub fn on_inside_bubble_column(projectile: &mut dyn Entity, drag_down: bool) {
     let b = projectile.base_mut();
     b.set_delta_movement(b.delta_movement().add_xyz(0.0, yd, 0.0));
     projectile.reset_fall_distance();
+}
+
+/// `Projectile.canHitEntity(entity)`.
+pub fn can_hit_entity_base(
+    projectile: &(impl Projectile + ?Sized),
+    level: &ServerLevel,
+    entity: &dyn Entity,
+) -> bool {
+    if !entity.can_be_hit_by_projectile() {
+        return false;
+    }
+    let owner = projectile.get_owner(level);
+    owner.is_none_or(|o| {
+        projectile.projectile_data().left_owner || !level.is_passenger_of_same_vehicle(o, entity)
+    })
 }
 
 /// `Projectile.tick()`: the shoot game event, the owner check, then `Entity.tick()`.

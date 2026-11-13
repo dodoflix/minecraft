@@ -1,0 +1,172 @@
+# Open water fishing: while a fish is on its way (timeUntilHooked or nibble running) the bobber checks every tick that the 5x5 blocks around it, in four layers from one below to two above its block, are one kind each: source water without a collision shape in the lower layers and air (or lily pads) above. Deep water, shallow water, a stone block above the surface, lily pads, flowing water, seagrass, a waterlogged slab and a roof two blocks above the surface; a bite pulls the bobber down until the bedrock below counts. Reeling in at a bite is the fishing loot (treasure only in open water). Lure III rods keep the waits short.
+command_env
+level flat
+preload 6
+difficulty normal
+entity_counter 1100
+level_seed 41
+fill -5 -63 5 5 -61 15 minecraft:water[level=0]
+fill 11 -61 5 21 -61 15 minecraft:water[level=0]
+fill 27 -63 5 37 -61 15 minecraft:water[level=0]
+fill 43 -63 5 53 -61 15 minecraft:water[level=0]
+fill -5 -63 45 5 -61 55 minecraft:water[level=0]
+fill 11 -62 45 21 -61 55 minecraft:water[level=0]
+fill 27 -63 45 37 -61 55 minecraft:water[level=0]
+fill 43 -63 45 53 -61 55 minecraft:water[level=0]
+block 33 -60 10 minecraft:stone
+block 49 -60 10 minecraft:lily_pad
+block 46 -60 11 minecraft:lily_pad
+block 1 -61 50 minecraft:water[level=1]
+block 15 -62 50 minecraft:seagrass
+block 33 -61 50 minecraft:oak_slab[type=bottom,waterlogged=true]
+block 48 -59 50 minecraft:stone
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 16.5 -60 0.5 0 0
+spawn_player C survival 32.5 -60 0.5 0 0
+spawn_player D survival 48.5 -60 0.5 0 0
+spawn_player E survival 0.5 -60 40.5 0 0
+spawn_player F survival 16.5 -60 40.5 0 0
+spawn_player G survival 32.5 -60 40.5 0 0
+spawn_player H survival 48.5 -60 40.5 0 0
+give A mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+give B mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+give C mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+give D mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+give E mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+give F mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+give G mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+give H mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+tick 3
+use A main 1
+use B main 1
+use C main 1
+use D main 1
+use E main 1
+use F main 1
+use G main 1
+use H main 1
+tick 1
+dump xentity:fishing_bobber#1
+dump xentity:fishing_bobber#2
+dump xentity:fishing_bobber#3
+dump xentity:fishing_bobber#4
+dump xentity:fishing_bobber#5
+dump xentity:fishing_bobber#6
+dump xentity:fishing_bobber#7
+dump xentity:fishing_bobber#8
+tick 12
+dump xentity:fishing_bobber#1
+dump xentity:fishing_bobber#2
+dump xentity:fishing_bobber#3
+dump xentity:fishing_bobber#4
+dump xentity:fishing_bobber#5
+dump xentity:fishing_bobber#6
+dump xentity:fishing_bobber#7
+dump xentity:fishing_bobber#8
+tick 1
+dump xentity:fishing_bobber#1
+dump xentity:fishing_bobber#2
+dump xentity:fishing_bobber#3
+dump xentity:fishing_bobber#4
+dump xentity:fishing_bobber#5
+dump xentity:fishing_bobber#6
+dump xentity:fishing_bobber#7
+dump xentity:fishing_bobber#8
+tick 11
+dump xentity:fishing_bobber#1
+tick 43
+dump xentity:fishing_bobber#1
+tick 4
+dump xentity:fishing_bobber#1
+use A main 2
+dump entities stats:A advancements:A
+tick 41
+dump xentity:fishing_bobber#3
+tick 1
+dump xentity:fishing_bobber#3
+tick 5
+dump xentity:fishing_bobber#7
+tick 1
+dump xentity:fishing_bobber#7
+tick 41
+dump xentity:fishing_bobber#3
+tick 4
+dump xentity:fishing_bobber#5
+tick 2
+dump xentity:fishing_bobber#3
+use C main 2
+dump entities stats:C advancements:C
+tick 4
+dump xentity:fishing_bobber#7
+tick 6
+dump xentity:fishing_bobber#4
+tick 31
+dump xentity:fishing_bobber#7
+tick 1
+dump xentity:fishing_bobber#7
+tick 26
+dump xentity:fishing_bobber#8
+tick 1
+dump xentity:fishing_bobber#8
+tick 7
+dump xentity:fishing_bobber#5
+tick 4
+dump xentity:fishing_bobber#5
+use E main 2
+dump entities stats:E advancements:E
+tick 9
+dump xentity:fishing_bobber#4
+tick 3
+dump xentity:fishing_bobber#4
+use D main 2
+dump entities stats:D advancements:D
+tick 12
+dump xentity:fishing_bobber#7
+tick 1
+dump xentity:fishing_bobber#7
+tick 12
+dump xentity:fishing_bobber#6
+tick 3
+dump xentity:fishing_bobber#2
+dump xentity:fishing_bobber#8
+tick 1
+dump xentity:fishing_bobber#2
+tick 24
+dump xentity:fishing_bobber#8
+tick 1
+dump xentity:fishing_bobber#8
+tick 16
+dump xentity:fishing_bobber#8
+tick 1
+dump xentity:fishing_bobber#8
+tick 11
+dump xentity:fishing_bobber#2
+tick 3
+dump xentity:fishing_bobber#6
+tick 3
+dump xentity:fishing_bobber#2
+dump xentity:fishing_bobber#6
+dump xentity:fishing_bobber#7
+use B main 2
+dump entities stats:B advancements:B
+use F main 2
+dump entities stats:F advancements:F
+tick 36
+dump xentity:fishing_bobber#7
+tick 1
+dump xentity:fishing_bobber#7
+tick 7
+dump xentity:fishing_bobber#7
+tick 1
+dump xentity:fishing_bobber#7
+tick 13
+dump xentity:fishing_bobber#8
+tick 36
+dump xentity:fishing_bobber#8
+tick 1
+dump xentity:fishing_bobber#8
+tick 3
+dump xentity:fishing_bobber#7
+tick 5
+dump xentity:fishing_bobber#7
+dump xentity:fishing_bobber#8

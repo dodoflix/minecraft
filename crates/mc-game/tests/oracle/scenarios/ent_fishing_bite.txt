@@ -1,0 +1,71 @@
+# The bite timeline of FishingHook.catchingFish: after landing in water the bobber waits timeUntilLured (100-600 ticks, minus the lure speed, with teasing splashes at the end), then timeUntilHooked (20-80) while a fish approaches, then a nibble (20-40 ticks) with the bobber pulled down; each tick advances by the fishing speed: 1, plus 1 in rain on a quarter of the ticks. Alice fishes in clear weather and reels in during the nibble (fishing loot, item thrown towards the player, experience orb, fish statistic, advancement); Carol reels in while the fish is still far away (nothing). Bob and Dave fish in rain (faster); Dave reels in while a fish approaches but before the nibble. The bobber's own random comes from the text of the use line.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 900
+level_seed 31
+fill -5 -63 3 5 -61 13 minecraft:water[level=0]
+fill 15 -63 3 25 -61 13 minecraft:water[level=0]
+fill 35 -63 3 45 -61 13 minecraft:water[level=0]
+fill 55 -63 3 65 -61 13 minecraft:water[level=0]
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Carol survival 20.5 -60 0.5 0 0
+spawn_player Bob survival 40.5 -60 0.5 0 0
+spawn_player Dave survival 60.5 -60 0.5 0 0
+give Alice mainhand minecraft:fishing_rod
+give Carol mainhand minecraft:fishing_rod
+give Bob mainhand minecraft:fishing_rod
+give Dave mainhand minecraft:fishing_rod
+tick 3
+use Alice main 1
+use Carol main 1
+tick 1
+dump xentity:fishing_bobber#1
+dump xentity:fishing_bobber#2
+tick 12
+dump xentity:fishing_bobber#1
+dump xentity:fishing_bobber#2
+tick 1
+dump xentity:fishing_bobber#1
+dump xentity:fishing_bobber#2
+tick 183
+dump xentity:fishing_bobber#2
+use Carol main 2
+dump entities stats:Carol advancements:Carol inventory:Carol
+tick 111
+dump xentity:fishing_bobber#1
+tick 54
+dump xentity:fishing_bobber#1
+tick 15
+dump xentity:fishing_bobber#1
+use Alice main 2
+dump entities stats:Alice advancements:Alice inventory:Alice
+tick 5
+cmd weather rain 20000
+tick 20
+use Bob main 1
+use Dave main 1
+tick 1
+dump xentity:fishing_bobber#3
+dump xentity:fishing_bobber#4
+tick 12
+dump xentity:fishing_bobber#3
+dump xentity:fishing_bobber#4
+tick 1
+dump xentity:fishing_bobber#3
+dump xentity:fishing_bobber#4
+tick 372
+dump xentity:fishing_bobber#3
+tick 26
+dump xentity:fishing_bobber#3
+tick 8
+dump xentity:fishing_bobber#3
+use Bob main 2
+dump entities stats:Bob advancements:Bob inventory:Bob
+tick 40
+dump xentity:fishing_bobber#4
+tick 35
+dump xentity:fishing_bobber#4
+use Dave main 2
+dump entities stats:Dave advancements:Dave inventory:Dave

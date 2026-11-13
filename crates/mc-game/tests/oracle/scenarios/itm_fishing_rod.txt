@@ -1,0 +1,64 @@
+# FishingRodItem.use: a cast throws the bobber from just in front of the eyes along the view (the bobber's own random gives the three
+# triangle jitters, seeded from the text of the use line, so every cast line below is different), plays the throw sound, counts the
+# item-used statistic and sends the game event ITEM_INTERACT_START; using the rod again reels the bobber in (retrieve sound, ITEM_INTERACT_FINISH,
+# the rod loses 2 durability when the bobber rests on the ground, nothing in water without a bite, nothing at all in creative mode) and
+# the bobber is removed. A rod in the off hand works the same; a rod at the end of its durability breaks. A rod that breaks on the reel-in sends no vibration (the emptied stack has no use effects).
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 800
+level_seed 21
+fill -5 -63 3 5 -61 13 minecraft:water[level=0]
+block 3 -60 -1 minecraft:sculk_sensor
+block 43 -60 -1 minecraft:sculk_sensor
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob creative 20.5 -60 0.5 180 0
+spawn_player Carol survival 40.5 -60 0.5 180 0
+give Alice mainhand minecraft:fishing_rod
+give Bob mainhand minecraft:fishing_rod
+give Carol mainhand minecraft:fishing_rod
+give Carol offhand minecraft:fishing_rod[damage=62]
+tick 3
+dump packets:Alice:none packets:Bob:none packets:Carol:none
+watch events xentities be:3,-60,-1
+note a cast over the pond
+use Alice main 1
+dump inventory:Alice stats:Alice packets:Alice:add_entity,set_entity_data,remove_entities,sound,entity_event,set_entity_motion use:Alice
+tick 24
+watch off
+dump be:3,-60,-1 xentities events stats:Alice packets:Alice:add_entity,set_entity_data,remove_entities,sound,entity_event,set_entity_motion
+note reeled in over water without a bite: no damage, the bobber is gone
+level_seed 22
+use Alice main 2
+dump inventory:Alice stats:Alice be:3,-60,-1 xentities events packets:Alice:add_entity,set_entity_data,remove_entities,sound,entity_event,set_entity_motion
+tick 6
+dump xentities be:3,-60,-1 events
+note a creative player casts onto the grass and reels in the resting bobber: no damage
+level_seed 23
+use Bob main 1
+tick 30
+dump xentities inventory:Bob events
+level_seed 24
+use Bob main 2
+dump xentities inventory:Bob stats:Bob events
+tick 2
+note a survival player casts onto the grass: the resting bobber costs 2 durability
+level_seed 25
+use Carol main 1
+tick 30
+dump xentities inventory:Carol events
+level_seed 26
+use Carol main 2
+dump be:43,-60,-1 xentities inventory:Carol stats:Carol events
+tick 4
+note an off hand rod 2 points short of breaking: the second reel-in breaks it
+level_seed 27
+use Carol off 3
+tick 120
+dump be:43,-60,-1 xentities inventory:Carol events
+level_seed 28
+use Carol off 4
+dump be:43,-60,-1 xentities inventory:Carol stats:Carol events packets:Carol:add_entity,set_entity_data,remove_entities,sound,entity_event,set_entity_motion
+tick 6
+dump be:43,-60,-1 all_players xentities events

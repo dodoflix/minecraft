@@ -88,6 +88,7 @@ mod ent_decoration_golden;
 mod ent_displays_golden;
 mod ent_dump_golden;
 mod ent_end_crystal_golden;
+mod ent_fishing_golden;
 mod ent_frame_golden;
 mod ent_hurting_projectiles_golden;
 mod ent_interact_golden;

@@ -113,6 +113,9 @@ pub struct PlayerData {
     pub last_death_location: Option<GlobalPos>,
     pub post_effects: Vec<Identifier>,
     pub hurt_dir: f32,
+    /// `fishing`: the id of the `FishingHook` this player cast. A removed hook does not clear it (vanilla clears it in
+    /// `FishingHook.remove`): readers check that the id still names a live hook.
+    pub fishing: Option<super::EntityId>,
 }
 
 impl PlayerData {
@@ -154,6 +157,7 @@ impl PlayerData {
             last_death_location: None,
             post_effects: Vec::new(),
             hurt_dir: 0.0,
+            fishing: None,
         }
     }
 

@@ -1,0 +1,179 @@
+# a cast over the pond
+I Alice 0 minecraft:fishing_rod*1
+STAT Alice minecraft.custom:minecraft.play_time 3
+STAT Alice minecraft.custom:minecraft.time_since_death 3
+STAT Alice minecraft.custom:minecraft.time_since_rest 3
+STAT Alice minecraft.custom:minecraft.total_world_time 3
+STAT Alice minecraft.used:minecraft.fishing_rod 1
+PKT Alice minecraft:sound 7786050600000004fffffe20000000043f0000003eb547d6e32d4fcf84a7860e
+PKT Alice minecraft:add_entity 01a406b28ffa16561c4abc937c56ae0e500435a0013fdfffffffffffffc04d30a3d70000003fe999999999999afaffc610fffd00ff00a106
+USE Alice hand=main item=empty remaining=0 ticks=0 kinetic=0
+T 4
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.throw source=neutral vol=0.5 pitch=0.3540637
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999983,-58.409999994561076,1.8948635548200476 delta=-1.2355082163202446E-16,-0.027599999383091926,1.0072744704344438 rot=-7.027688E-15,-0.31391004 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event_delay:0,selector:{event:{distance:3.456067f,game_event:"minecraft:projectile_shoot",pos:[0.49999999999999994d,-58.37999999523163d,0.8d],source:[I;278005000,-707248403,-1814916367,-1817188393]},tick:4L}},x:3,y:-60,z:-1}
+T 5
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.4999999999999997,-58.467599993273616,2.9021380252544917 delta=-1.1366675590146252E-16,-0.0529919988155365,0.9266925127996883 rot=-7.025782E-15,-0.9057183 og=0 fall=0.08759999834001064 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event:{distance:3.456067f,game_event:"minecraft:projectile_shoot",pos:[0.49999999999999994d,-58.37999999523163d,0.8d],source:[I;278005000,-707248403,-1814916367,-1817188393]},event_delay:2,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 6
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.4999999999999996,-58.5505919914186,3.82883053805418 delta=-1.0457341542934552E-16,-0.07635263829338551,0.8525571117757134 rot=-7.026136E-15,-1.7480948 og=0 fall=0.17059199325740337 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event:{distance:3.456067f,game_event:"minecraft:projectile_shoot",pos:[0.49999999999999994d,-58.37999999523163d,0.8d],source:[I;278005000,-707248403,-1814916367,-1817188393]},event_delay:1,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 7
+EV sound at=3.5,-59.5,-0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8833093
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.4999999999999995,-58.65694462904143,4.681387649829893 delta=-9.620754219499788E-17,-0.0978444266130066,0.7843525428336563 rot=-7.024823E-15,-2.8206215 og=0 fall=0.27694462798535824 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 8
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.4999999999999994,-58.78478905498389,5.465740192663549 delta=-8.851093881939805E-17,-0.117616871867058,0.7216043394069638 rot=-7.0230746E-15,-4.10797 og=0 fall=0.40478905104100704 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 9
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.4999999999999993,-58.932405926180394,6.187344532070513 delta=-8.143006371384621E-17,-0.1358075215007853,0.6638759922544067 rot=-7.02328E-15,-5.598634 og=0 fall=0.5524059291929007 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 10
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.4999999999999992,-59.09821344701063,6.85122052432492 delta=-7.491565861673851E-17,-0.1525429191638144,0.6107659128740542 rot=-7.022314E-15,-7.2835307 og=0 fall=0.7182134445756674 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 11
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999917,-59.28075636550389,7.461986437198974 delta=-6.892240592739944E-17,-0.16793948501380118,0.56190463984413 rot=-7.0215E-15,-9.154823 og=0 fall=0.9007563646882772 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 12
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.4999999999999991,-59.47869584984714,8.023891077043105 delta=-6.340861345320748E-17,-0.182104325595789,0.5169522686565996 rot=-7.0224596E-15,-11.204973 og=0 fall=1.0986958499997854 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 13
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999906,-59.69080017477238,8.540843345699704 delta=-5.833592437695089E-17,-0.19513597893121784,0.47559608716407165 rot=-7.0227874E-15,-13.425623 og=0 fall=1.3108001705259085 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 14
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.499999999999999,-59.915936153033044,9.016439432863775 delta=-5.366905042679482E-17,-0.20712509999981235,0.43754840019094593 rot=-7.022736E-15,-15.806857 og=0 fall=1.535936152562499 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 15
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.153061252362306,9.453987833054722 delta=-4.937552639265123E-17,-0.2181550913829193,0.40254452817567027 rot=-7.0228217E-15,-18.336496 og=0 fall=1.7730612512677908 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 16
+EV sound at=0.49999999999999895,-60.153061252362306,9.453987833054722 r=16.0 ex=0 event=minecraft:entity.generic.splash source=neutral vol=0.056568563 pitch=0.8866682
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.153061252362306,9.453987833054722 delta=-1.481265791779537E-17,-0.04363101827658386,0.12076335845270107 rot=-7.0228217E-15,-18.336496 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 17
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.1964690422055,9.562674855662152 delta=-1.2264880755934567E-17,-0.03993516665573541,0.09999206079883649 rot=-7.022707E-15,-19.023386 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=294 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 18
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.21847682687924,9.652667710381104 delta=-1.0155321265913821E-17,-0.020247161899842544,0.08279342634143662 rot=-7.0230343E-15,-17.967115 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=293 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 19
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.21854520662291,9.727181794088397 delta=-8.408606008176645E-18,-6.290936417789786E-5,0.06855295701070953 rot=-7.0225134E-15,-14.384197 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=292 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 20
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.208231244042324,9.788879455398035 delta=-6.962325774770263E-18,0.00948884557414525,0.0567618484048675 rot=-7.021222E-15,-9.609304 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=291 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 21
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.18835317870549,9.839965118962416 delta=-5.7648057415097784E-18,0.018287820109887783,0.04699881047923029 rot=-7.020156E-15,-3.435113 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=290 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 22
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.1592998178808,9.882264048393724 delta=-4.773259153970097E-18,0.026729091958713088,0.03891501507680268 rot=-7.0202218E-15,4.148623 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=289 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 23
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.131211838888056,9.917287561962846 delta=-3.952258579487241E-18,0.025840940673324545,0.032221632483592624 rot=-7.021478E-15,11.064641 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=288 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 24
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.125801261561016,9.946287031198079 delta=-3.2724701038154353E-18,0.0049777311408760235,0.026679511696414696 rot=-7.0226735E-15,10.965404 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=287 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 25
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.09986217702226,9.970298591724852 delta=-2.7096052459591805E-18,0.023863957775654518,0.02209063568463137 rot=-7.0216287E-15,18.214294 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=286 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 26
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.07899545312635,9.99018016384102 delta=-2.2435531436542016E-18,0.019197385984232335,0.018291046346874777 rot=-7.0206123E-15,23.848423 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=285 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+T 27
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.0615191387594,10.006642105553206 delta=-1.8576620029456792E-18,0.01607820921759348,0.015144986375212317 rot=-7.0217994E-15,28.421185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=284 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.0615191387594,10.006642105553206 delta=-1.8576620029456792E-18,0.01607820921759348,0.015144986375212317 rot=-7.0217994E-15,28.421185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=284 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+STAT Alice minecraft.custom:minecraft.play_time 27
+STAT Alice minecraft.custom:minecraft.time_since_death 27
+STAT Alice minecraft.custom:minecraft.time_since_rest 27
+STAT Alice minecraft.custom:minecraft.total_world_time 27
+STAT Alice minecraft.used:minecraft.fishing_rod 1
+PKT Alice minecraft:sound 77910b040000001cfffffe24fffffffc3f8000003f62208f3dace6703e05bff8
+PKT Alice minecraft:set_entity_motion 67a406f9ffdc5ae1e1
+PKT Alice minecraft:set_entity_motion 67a406f9ffbcdece09
+PKT Alice minecraft:sound 77c4050600000003fffffe1f0000004b3d67b4703f62fcb06fd465a290351d3c
+PKT Alice minecraft:set_entity_motion 67a406f9ff8a96facd
+PKT Alice minecraft:set_entity_motion 67a406f9ff841f0699
+# reeled in over water without a bite: no damage, the bobber is gone
+I Alice 0 minecraft:fishing_rod*1
+STAT Alice minecraft.custom:minecraft.play_time 27
+STAT Alice minecraft.custom:minecraft.time_since_death 27
+STAT Alice minecraft.custom:minecraft.time_since_rest 27
+STAT Alice minecraft.custom:minecraft.total_world_time 27
+STAT Alice minecraft.used:minecraft.fishing_rod 1
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.retrieve source=neutral vol=1.0 pitch=0.36600247
+PKT Alice minecraft:remove_entities 4e01a406
+PKT Alice minecraft:sound 7784050600000004fffffe20000000043f8000003ebb64ad4b970fd5e0db99e1
+BE 3 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:-1}
+# a creative player casts onto the grass and reels in the resting bobber: no damage
+E fishing_bobber#2 minecraft:fishing_bobber pos=20.5,-60.0,-8.087276848918869 delta=0.0,0.0,0.0 rot=5.0665493,-0.8122426 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Bob leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+I Bob 0 minecraft:fishing_rod*1
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.throw source=neutral vol=0.5 pitch=0.36601448
+EV sound at=3.5,-59.5,-0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.9296424
+I Bob 0 minecraft:fishing_rod*1
+STAT Bob minecraft.custom:minecraft.play_time 63
+STAT Bob minecraft.custom:minecraft.time_since_death 63
+STAT Bob minecraft.custom:minecraft.time_since_rest 63
+STAT Bob minecraft.custom:minecraft.total_world_time 63
+STAT Bob minecraft.used:minecraft.fishing_rod 1
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.retrieve source=neutral vol=1.0 pitch=0.3660745
+# a survival player casts onto the grass: the resting bobber costs 2 durability
+E fishing_bobber#3 minecraft:fishing_bobber pos=40.5,-60.0,-8.118402615207817 delta=0.0,0.0,0.0 rot=5.0665493,-0.8108451 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Carol leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+I Carol 0 minecraft:fishing_rod*1
+I Carol 40 minecraft:fishing_rod*1/dmg=62{minecraft:damage:62}
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.throw source=neutral vol=0.5 pitch=0.3660865
+EV sound at=43.5,-59.5,-0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9333027
+BE 43 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:43,y:-60,z:-1}
+I Carol 0 minecraft:fishing_rod*1/dmg=2{minecraft:damage:2}
+I Carol 40 minecraft:fishing_rod*1/dmg=62{minecraft:damage:62}
+STAT Carol minecraft.custom:minecraft.play_time 95
+STAT Carol minecraft.custom:minecraft.time_since_death 95
+STAT Carol minecraft.custom:minecraft.time_since_rest 95
+STAT Carol minecraft.custom:minecraft.total_world_time 95
+STAT Carol minecraft.used:minecraft.fishing_rod 1
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.retrieve source=neutral vol=1.0 pitch=0.3660505
+# an off hand rod 2 points short of breaking: the second reel-in breaks it
+BE 43 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:43,y:-60,z:-1}
+E fishing_bobber#4 minecraft:fishing_bobber pos=40.5,-60.0,-8.104227966140153 delta=0.0,0.0,0.0 rot=9.611942E-9,-1.5394905E-9 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Carol leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+I Carol 0 minecraft:fishing_rod*1/dmg=2{minecraft:damage:2}
+I Carol 40 minecraft:fishing_rod*1/dmg=62{minecraft:damage:62}
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.throw source=neutral vol=0.5 pitch=0.36606252
+EV sound at=43.5,-59.5,-0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.92148334
+BE 43 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:43,y:-60,z:-1}
+I Carol 0 minecraft:fishing_rod*1/dmg=2{minecraft:damage:2}
+STAT Carol minecraft.broken:minecraft.fishing_rod 1
+STAT Carol minecraft.custom:minecraft.play_time 219
+STAT Carol minecraft.custom:minecraft.time_since_death 219
+STAT Carol minecraft.custom:minecraft.time_since_rest 219
+STAT Carol minecraft.custom:minecraft.total_world_time 219
+STAT Carol minecraft.used:minecraft.fishing_rod 2
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.fishing_bobber.retrieve source=neutral vol=1.0 pitch=0.3661225
+PKT Carol minecraft:add_entity 01a506d6c06ac21f1d4e34876b7b0d101d7d30a0014034800000000000c04d30a3d70000003fc999999999999afaff39a2fffd007f00a206
+PKT Carol minecraft:set_entity_motion 67a506f9ff2340e1e1
+PKT Carol minecraft:set_entity_motion 67a506f9ff42dece09
+PKT Carol minecraft:set_entity_motion 67a50600
+PKT Carol minecraft:remove_entities 4e01a506
+PKT Carol minecraft:sound 7786050600000144fffffe20000000043f0000003ebb6fb129a8e9b76b35b192
+PKT Carol minecraft:add_entity 01a606675ad2852ff34a4c9d17cee150d62245a0014044400000000000c04d30a3d70000003fc999999999999afaff395efffd007f00a306
+PKT Carol minecraft:sound 77910b040000015cfffffe24fffffffc3f8000003f6eecedec866a92984bf066
+PKT Carol minecraft:set_entity_motion 67a606f9ff22e6e1e1
+PKT Carol minecraft:set_entity_motion 67a606f9ff42a2ce09
+PKT Carol minecraft:set_entity_motion 67a60600
+PKT Carol minecraft:remove_entities 4e01a606
+PKT Carol minecraft:sound 7784050600000144fffffe20000000043f8000003ebb6af95ac3b5cd447e2ff6
+PKT Carol minecraft:sound 7786050600000144fffffe20000000043f0000003ebb6c8c5ae586ec5969c658
+PKT Carol minecraft:add_entity 01a7067692ab184a1e4d42995dcf3668b753c2a0014044400000000000c04d30a3d70000003fc999999999999afaff397efffd007f00a306
+PKT Carol minecraft:set_entity_motion 67a706f9ff230ee1e1
+PKT Carol minecraft:sound 77920b040000015cfffffe24fffffffc3f8000003f6be655d55fad91ece1d6ce
+PKT Carol minecraft:set_entity_motion 67a706f9ff42bece09
+PKT Carol minecraft:set_entity_motion 67a70600
+PKT Carol minecraft:remove_entities 4e01a706
+PKT Carol minecraft:entity_event 220000032330
+PKT Carol minecraft:sound 7784050600000144fffffe20000000043f8000003ebb7469d8bde3e82cd7dc02
+BE 43 -60 -1 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:43,y:-60,z:-1}
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:fishing_rod*1
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:fishing_rod*1
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:fishing_rod*1/dmg=2{minecraft:damage:2}

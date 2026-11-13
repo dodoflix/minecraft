@@ -11,11 +11,9 @@ use mc_game::world::entity::vehicle::boat::abstract_boat::{BoatKind, boat_spec};
 use std::collections::{BTreeSet, HashMap};
 use std::path::{Path, PathBuf};
 
-/// Non-mob vanilla entity types without a Rust class (type, what is not implemented). Delete the line when the class lands.
-#[rustfmt::skip]
-const EXPECTED_MISSING: &[(&str, &str)] = &[
-    ("minecraft:fishing_bobber", "FishingHook: cast, bite, retrieve and loot"),
-];
+/// Non-mob vanilla entity types without a Rust class (type, what is not implemented). Every type has one now; a type that
+/// is added without a class gets its line here until the class lands.
+const EXPECTED_MISSING: &[(&str, &str)] = &[];
 
 /// The vanilla boat entity types, each with `(drop item, kind, chest)` from its `boatFactory`/`chestBoatFactory`/
 /// `raftFactory`/`chestRaftFactory` registration.
@@ -181,9 +179,10 @@ const NON_MOB_TYPES: usize = 70;
 #[test]
 fn a_non_mob_type_without_a_factory_fails_the_guard() {
     let vanilla = vanilla();
-    let problems = problems(&vanilla.non_mob, &EXPECTED_MISSING[1..], &has);
+    let without_boat = |name: &str| name != "minecraft:oak_boat" && has(name);
+    let problems = problems(&vanilla.non_mob, EXPECTED_MISSING, &without_boat);
     assert_eq!(problems.len(), 1, "{problems:?}");
-    assert!(problems[0].starts_with(&format!("{}: no factory", EXPECTED_MISSING[0].0)));
+    assert!(problems[0].starts_with("minecraft:oak_boat: no factory"));
 }
 
 #[test]

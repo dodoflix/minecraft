@@ -1,0 +1,50 @@
+# FishingHook.shouldStopFishing: every tick the bobber is discarded (and its removal sent) unless its owner can interact with the level (alive, not
+# a spectator) holds a fishing rod in either hand and is within 32 blocks (distance squared <= 1024). A: selects another slot, B: teleports 50 blocks
+# away, C: dies, D: becomes a spectator, E: swaps the rod into the off hand (the bobber stays). A bobber that rests on the ground for 1200 ticks
+# (G) would be discarded too if onGround stayed true: it alternates, so G's bobber stays.
+command_env
+level flat
+preload 7
+difficulty normal
+entity_counter 1900
+level_seed 71
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 20.5 -60 0.5 0 0
+spawn_player C survival 40.5 -60 0.5 0 0
+spawn_player D survival 60.5 -60 0.5 0 0
+spawn_player E survival 80.5 -60 0.5 0 0
+spawn_player G survival 100.5 -60 0.5 0 0
+give A mainhand minecraft:fishing_rod
+give A hotbar1 minecraft:stick
+give B mainhand minecraft:fishing_rod
+give C mainhand minecraft:fishing_rod
+give D mainhand minecraft:fishing_rod
+give E mainhand minecraft:fishing_rod
+give G mainhand minecraft:fishing_rod
+tick 3
+level_seed 72
+use A main 1
+use B main 1
+use C main 1
+use D main 1
+use E main 1
+use G main 1
+tick 20
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none packets:G:none
+dump xentities
+note A selects the stick, B is 50 blocks away, C is killed, D is a spectator, E holds the rod in the off hand
+select A 1
+tp B 20.5 -60 60.5
+hurt C minecraft:generic_kill 1000
+cmd gamemode spectator D
+swap E
+watch xentities
+tick 3
+watch off
+dump xentities events packets:A:remove_entities packets:B:remove_entities packets:C:remove_entities packets:D:remove_entities packets:E:remove_entities packets:G:remove_entities
+note G's bobber rests on the ground: onGround alternates every tick (no gravity on the ground tick), so the life counter keeps restarting and the bobber is still there after 1200 ticks
+tick 1140
+watch xentities
+tick 45
+watch off
+dump xentities

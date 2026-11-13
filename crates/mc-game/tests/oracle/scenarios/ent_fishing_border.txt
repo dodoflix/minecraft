@@ -1,0 +1,25 @@
+# FishingHook.shouldBounceOnWorldBorder: a bobber that reaches the world border (6 blocks south of the player) is deflected back (ProjectileDeflection.REVERSE
+# at 0.2 power) instead of hitting it; the bobber of a player casting away from the border flies on.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 2100
+level_seed 81
+cmd worldborder center 0 0
+cmd worldborder set 12
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival -3.5 -60 0.5 180 0
+give A mainhand minecraft:fishing_rod
+give B mainhand minecraft:fishing_rod
+tick 3
+level_seed 82
+use A main 1
+use B main 1
+watch xentities
+tick 40
+watch off
+level_seed 83
+use A main 2
+use B main 2
+dump xentities inventory:A inventory:B events

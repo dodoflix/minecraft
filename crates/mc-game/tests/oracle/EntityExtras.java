@@ -7,6 +7,7 @@ import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ShulkerBullet;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
@@ -91,6 +92,16 @@ final class EntityExtras {
          out.add("life", EntityOracleDriver.priv(e, "life")).add("lifetime", EntityOracleDriver.priv(e, "lifetime"));
          out.add("attached", d.entName((Entity)EntityOracleDriver.priv(e, "attachedToEntity")));
          out.add("angle", EntityOracleDriver.bool(((FireworkRocketEntity)e).isShotAtAngle()));
+      }));
+      ALL.add(new Extra(30, FishingHook.class, (d, e, out) -> {
+         out.add("state", EntityOracleDriver.priv(e, "currentState").toString().toLowerCase());
+         out.add("life", EntityOracleDriver.priv(e, "life")).add("nibble", EntityOracleDriver.priv(e, "nibble"));
+         out.add("lured", EntityOracleDriver.priv(e, "timeUntilLured")).add("hooked", EntityOracleDriver.priv(e, "timeUntilHooked"));
+         out.add("angle", EntityOracleDriver.f((float)(Float)EntityOracleDriver.priv(e, "fishAngle")));
+         out.add("biting", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, "biting")));
+         out.add("openwater", EntityOracleDriver.bool(((FishingHook)e).isOpenWaterFishing()));
+         out.add("out", EntityOracleDriver.priv(e, "outOfWaterTime")).add("hookedin", d.entName(((FishingHook)e).getHookedIn()));
+         out.add("luck", EntityOracleDriver.priv(e, "luck")).add("lure", EntityOracleDriver.priv(e, "lureSpeed"));
       }));
       ALL.add(new Extra(30, OminousItemSpawner.class, (d, e, out) -> {
          OminousItemSpawner s = (OminousItemSpawner)e;

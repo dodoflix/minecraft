@@ -1,0 +1,204 @@
+# Lure and Luck of the Sea: the rod's fishing_time_reduction enchantment effect (lure level 1-3 = 5, 10, 15 seconds, 20 ticks each, taken off the 100-600 tick wait) and fishing_luck_bonus (Luck of the Sea level) are read when the bobber is cast (lure and luck fields of the bobber); the loot roll adds the bobber's luck and the owner's luck attribute (Carol has the Luck III effect). Alice: Lure III; Bob: Lure III and Luck of the Sea III; Carol: Lure III and Luck III; Dave: Lure II and Luck of the Sea II. Each player reels in three bites; every reel-in is the fishing loot at that luck (fish, junk, treasure; treasure only in open water), the item thrown at the player, the experience orb and the fish statistic.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 1400
+level_seed 51
+fill -5 -63 3 5 -61 13 minecraft:water[level=0]
+fill 15 -63 3 25 -61 13 minecraft:water[level=0]
+fill 35 -63 3 45 -61 13 minecraft:water[level=0]
+fill 55 -63 3 65 -61 13 minecraft:water[level=0]
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 20.5 -60 0.5 0 0
+spawn_player Carol survival 40.5 -60 0.5 0 0
+spawn_player Dave survival 60.5 -60 0.5 0 0
+give Alice mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+give Bob mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3,"minecraft:luck_of_the_sea":3}]
+give Carol mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":3}]
+give Dave mainhand minecraft:fishing_rod[enchantments={"minecraft:lure":2,"minecraft:luck_of_the_sea":2}]
+effect Carol minecraft:luck 2 100000
+tick 3
+use Alice main 1
+use Bob main 1
+use Carol main 1
+use Dave main 1
+tick 1
+dump xentity:fishing_bobber#1
+dump xentity:fishing_bobber#2
+dump xentity:fishing_bobber#3
+dump xentity:fishing_bobber#4
+tick 12
+dump xentity:fishing_bobber#1
+dump xentity:fishing_bobber#2
+dump xentity:fishing_bobber#3
+dump xentity:fishing_bobber#4
+tick 1
+dump xentity:fishing_bobber#1
+dump xentity:fishing_bobber#2
+dump xentity:fishing_bobber#3
+dump xentity:fishing_bobber#4
+tick 120
+dump xentity:fishing_bobber#1
+tick 36
+dump xentity:fishing_bobber#1
+tick 4
+dump xentity:fishing_bobber#1
+level_seed 177
+use Alice main 101
+dump entities stats:Alice advancements:Alice
+use Alice main 2
+tick 1
+dump xentity:fishing_bobber#5
+tick 6
+dump xentity:fishing_bobber#2
+tick 6
+dump xentity:fishing_bobber#5
+tick 1
+dump xentity:fishing_bobber#5
+tick 26
+dump xentity:fishing_bobber#3
+tick 23
+dump xentity:fishing_bobber#2
+tick 4
+dump xentity:fishing_bobber#2
+level_seed 244
+use Bob main 101
+dump entities stats:Bob advancements:Bob
+use Bob main 2
+tick 1
+dump xentity:fishing_bobber#6
+tick 11
+dump xentity:fishing_bobber#3
+tick 1
+dump xentity:fishing_bobber#6
+tick 1
+dump xentity:fishing_bobber#6
+tick 2
+dump xentity:fishing_bobber#3
+level_seed 260
+use Carol main 101
+dump entities stats:Carol advancements:Carol
+use Carol main 2
+tick 1
+dump xentity:fishing_bobber#7
+tick 12
+dump xentity:fishing_bobber#7
+tick 1
+dump xentity:fishing_bobber#7
+tick 108
+dump xentity:fishing_bobber#4
+tick 1
+dump xentity:fishing_bobber#6
+tick 28
+dump xentity:fishing_bobber#4
+tick 4
+dump xentity:fishing_bobber#4
+level_seed 415
+use Dave main 101
+dump entities stats:Dave advancements:Dave
+use Dave main 2
+tick 1
+dump xentity:fishing_bobber#8
+tick 12
+dump xentity:fishing_bobber#8
+tick 1
+dump xentity:fishing_bobber#8
+tick 29
+dump xentity:fishing_bobber#6
+tick 4
+dump xentity:fishing_bobber#6
+level_seed 462
+use Bob main 102
+dump entities stats:Bob advancements:Bob
+use Bob main 3
+tick 1
+dump xentity:fishing_bobber#9
+tick 12
+dump xentity:fishing_bobber#9
+tick 1
+dump xentity:fishing_bobber#9
+tick 13
+dump xentity:fishing_bobber#5
+tick 67
+dump xentity:fishing_bobber#5
+tick 4
+dump xentity:fishing_bobber#5
+level_seed 560
+use Alice main 102
+dump entities stats:Alice advancements:Alice
+use Alice main 3
+tick 1
+dump xentity:fishing_bobber#10
+tick 12
+dump xentity:fishing_bobber#10
+tick 1
+dump xentity:fishing_bobber#10
+tick 3
+dump xentity:fishing_bobber#7
+tick 17
+dump xentity:fishing_bobber#9
+tick 35
+dump xentity:fishing_bobber#7
+tick 4
+dump xentity:fishing_bobber#7
+level_seed 633
+use Carol main 102
+dump entities stats:Carol advancements:Carol
+use Carol main 3
+tick 1
+dump xentity:fishing_bobber#11
+tick 12
+dump xentity:fishing_bobber#11
+tick 1
+dump xentity:fishing_bobber#11
+tick 3
+dump xentity:fishing_bobber#8
+tick 23
+dump xentity:fishing_bobber#9
+tick 4
+dump xentity:fishing_bobber#9
+level_seed 677
+use Bob main 103
+dump entities stats:Bob advancements:Bob
+tick 51
+dump xentity:fishing_bobber#11
+tick 1
+dump xentity:fishing_bobber#8
+tick 4
+dump xentity:fishing_bobber#8
+level_seed 733
+use Dave main 102
+dump entities stats:Dave advancements:Dave
+use Dave main 3
+tick 1
+dump xentity:fishing_bobber#12
+tick 12
+dump xentity:fishing_bobber#12
+tick 1
+dump xentity:fishing_bobber#12
+tick 41
+dump xentity:fishing_bobber#11
+tick 4
+dump xentity:fishing_bobber#11
+level_seed 792
+use Carol main 103
+dump entities stats:Carol advancements:Carol
+tick 57
+dump xentity:fishing_bobber#10
+tick 20
+dump xentity:fishing_bobber#10
+tick 4
+dump xentity:fishing_bobber#10
+level_seed 873
+use Alice main 103
+dump entities stats:Alice advancements:Alice
+tick 257
+dump xentity:fishing_bobber#12
+tick 37
+dump xentity:fishing_bobber#12
+tick 4
+dump xentity:fishing_bobber#12
+level_seed 1171
+use Dave main 103
+dump entities stats:Dave advancements:Dave

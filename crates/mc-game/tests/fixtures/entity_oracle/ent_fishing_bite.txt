@@ -1,0 +1,64 @@
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999983,-58.409999994561076,1.8948635548200476 delta=-1.2355082163202446E-16,-0.027599999383091926,1.0072744704344438 rot=-7.027688E-15,-0.31391004 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#2 minecraft:fishing_bobber pos=20.5,-58.409999994561076,1.9035555851779888 delta=-1.2454764428224857E-16,-0.027599999383091926,1.0152711383637498 rot=-7.0283135E-15,-0.3114389 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing owner=Carol leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.153061252362306,9.453987833054722 delta=-1.481265791779537E-17,-0.04363101827658386,0.12076335845270107 rot=-7.0228217E-15,-18.336496 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#2 minecraft:fishing_bobber pos=20.5,-60.153061252362306,9.522691119990354 delta=-1.4932168194841176E-17,-0.04363101827658386,0.12172208867362833 rot=-7.023498E-15,-18.207376 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Carol leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.1964690422055,9.562674855662152 delta=-1.2264880755934567E-17,-0.03993516665573541,0.09999206079883649 rot=-7.022707E-15,-19.023386 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=294 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#2 minecraft:fishing_bobber pos=20.5,-60.19243848081838,9.632240999796618 delta=-1.2363835265328494E-17,-0.036227050179587064,0.10078588942176427 rot=-7.0236535E-15,-18.520054 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Carol leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=258 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#2 minecraft:fishing_bobber pos=20.5,-60.08244725156199,10.159609025840723 delta=-1.2351077350496705E-32,-0.0033972749554503426,1.0068189112626015E-16 rot=-7.0216757E-15,41.12709 og=0 fall=0.003692690283060074 fire=0 air=300 alive=1 pose=standing owner=Carol leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=75 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.13428574821559,10.085889127283965 delta=-1.2252224949645653E-32,-0.0019620851220193514,9.988888163410732E-17 rot=-7.020834E-15,-25.907478 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+STAT Carol minecraft.custom:minecraft.play_time 200
+STAT Carol minecraft.custom:minecraft.time_since_death 200
+STAT Carol minecraft.custom:minecraft.time_since_rest 200
+STAT Carol minecraft.custom:minecraft.total_world_time 200
+STAT Carol minecraft.used:minecraft.fishing_rod 1
+ADV Carol minecraft:adventure/adventuring_time minecraft:plains
+ADV Carol minecraft:recipes/decorations/crafting_table unlock_right_away
+I Carol 0 minecraft:fishing_rod*1
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.09068381630005,10.085889127283965 delta=-9.762978770284576E-42,-0.0038983391197953683,7.959477032042747E-26 rot=-7.020282E-15,-13.605515 og=0 fall=0.007219644925498869 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=54 angle=323.1221 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-60.52479981156764,10.085889127283965 delta=-3.657804849113096E-46,-0.3587371170520783,2.9821035535614165E-30 rot=-7.0213543E-15,-67.66027 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=39 lured=0 hooked=0 angle=321.73706 biting=1 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999895,-61.63660715484253,10.085889127283965 delta=-2.1561331812525353E-47,0.07390656599442703,1.757833642580439E-31 rot=-7.0208088E-15,-9.668385 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=24 lured=0 hooked=0 angle=321.73706 biting=1 openwater=1 out=0 hookedin=- luck=0 lure=0
+E item#1 minecraft:item pos=0.49999999999999895,-61.63660715484253,10.085889127283965 delta=1.0547118733938988E-16,0.4131349822642958,-0.9585889127283965 rot=305.741,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:salmon*1 age=0 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=0.5,-59.5,1.0 delta=-0.05333503980066845,0.1829572024602848,-0.0193332925728813 rot=52.70395,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+STAT Alice minecraft.custom:minecraft.fish_caught 1
+STAT Alice minecraft.custom:minecraft.play_time 380
+STAT Alice minecraft.custom:minecraft.time_since_death 380
+STAT Alice minecraft.custom:minecraft.time_since_rest 380
+STAT Alice minecraft.custom:minecraft.total_world_time 380
+STAT Alice minecraft.used:minecraft.fishing_rod 1
+ADV Alice minecraft:adventure/adventuring_time minecraft:plains
+ADV Alice minecraft:husbandry/fishy_business salmon
+ADV Alice minecraft:recipes/decorations/crafting_table unlock_right_away
+I Alice 0 minecraft:fishing_rod*1/dmg=1{minecraft:damage:1}
+C Set the weather to rain
+E fishing_bobber#3 minecraft:fishing_bobber pos=40.5,-58.409999994561076,1.8994408248924517 delta=-1.2439784014469573E-16,-0.027599999383091926,1.0114855589010556 rot=-7.0462807E-15,-0.3126038 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing owner=Bob leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#4 minecraft:fishing_bobber pos=60.5,-58.409999994561076,1.8953354855366762 delta=-1.2383394568976073E-16,-0.027599999383091926,1.0077086466937422 rot=-7.0407462E-15,-0.31377485 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing owner=Dave leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#3 minecraft:fishing_bobber pos=40.5,-60.153061252362306,9.490167354549252 delta=-1.491420799502276E-17,-0.04363101827658386,0.12126823095855355 rot=-7.0414374E-15,-18.268267 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Bob leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#4 minecraft:fishing_bobber pos=60.5,-60.153061252362306,9.457718053740003 delta=-1.48466020046104E-17,-0.04363101827658386,0.12081541237124295 rot=-7.0358754E-15,-18.329443 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Dave leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#3 minecraft:fishing_bobber pos=40.5,-60.18619739203184,9.59930876241195 delta=-1.2348964219878844E-17,-0.03048524849597559,0.10041009523368234 rot=-7.04146E-15,-17.992348 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Bob leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=467 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#4 minecraft:fishing_bobber pos=60.5,-60.1900282183124,9.566451924874121 delta=-1.2292986459817412E-17,-0.034009608674087845,0.10003516144338917 rot=-7.0357737E-15,-18.41892 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Dave leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=565 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#3 minecraft:fishing_bobber pos=40.5,-60.148939808203956,10.124710423518426 delta=-3.971145652418756E-48,0.0011637626159797796,3.228959984387293E-32 rot=-7.0409012E-15,-33.650665 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Bob leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=32 angle=248.83337 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#3 minecraft:fishing_bobber pos=40.5,-60.47845149426535,10.124710423518426 delta=-2.9356520054501336E-50,-0.30341883301734923,2.386994505706743E-34 rot=-7.0385164E-15,-67.47767 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Bob leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=22 lured=0 hooked=0 angle=198.63301 biting=1 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#3 minecraft:fishing_bobber pos=40.5,-61.45023094016035,10.124710423518426 delta=-6.485556796326269E-51,0.07371652781309951,5.273441269789088E-35 rot=-7.0406615E-15,-21.421377 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Bob leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=14 lured=0 hooked=0 angle=198.63301 biting=1 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#4 minecraft:fishing_bobber pos=60.5,-60.141155687559014,10.089891723124413 delta=-6.456157817128893E-51,-0.005099092857682299,5.25375010906894E-35 rot=-7.0350677E-15,-15.47378 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#2 minecraft:item pos=40.5,-61.45023094016035,10.124710423518426 delta=0.0,0.39460971002550954,-0.9624710423518427 rot=199.04315,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cod*1 age=0 pickup=0 health=5 owner=- thrower=-
+E experience_orb#2 minecraft:experience_orb pos=40.5,-59.5,1.0 delta=0.17674344797294445,0.0685537749604705,0.1011434475113514 rot=119.47587,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=4 count=1 age=0 health=5
+STAT Bob minecraft.custom:minecraft.fish_caught 1
+STAT Bob minecraft.custom:minecraft.play_time 825
+STAT Bob minecraft.custom:minecraft.time_since_death 825
+STAT Bob minecraft.custom:minecraft.time_since_rest 825
+STAT Bob minecraft.custom:minecraft.total_world_time 825
+STAT Bob minecraft.used:minecraft.fishing_rod 1
+ADV Bob minecraft:adventure/adventuring_time minecraft:plains
+ADV Bob minecraft:husbandry/fishy_business cod
+ADV Bob minecraft:recipes/decorations/crafting_table unlock_right_away
+I Bob 0 minecraft:fishing_rod*1/dmg=1{minecraft:damage:1}
+E fishing_bobber#4 minecraft:fishing_bobber pos=60.5,-60.08096312842515,10.089891723124413 delta=-3.397720177926071E-54,0.01409492856693961,2.764921995556674E-38 rot=-7.0334427E-15,56.41952 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Dave leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=69 angle=193.92448 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+E fishing_bobber#4 minecraft:fishing_bobber pos=60.5,-60.11196464313855,10.089891723124413 delta=-4.594617863948751E-57,0.006472069177552633,3.7389070694349394E-41 rot=-7.0353036E-15,48.21372 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Dave leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=28 angle=185.43207 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+STAT Dave minecraft.custom:minecraft.play_time 900
+STAT Dave minecraft.custom:minecraft.time_since_death 900
+STAT Dave minecraft.custom:minecraft.time_since_rest 900
+STAT Dave minecraft.custom:minecraft.total_world_time 900
+STAT Dave minecraft.used:minecraft.fishing_rod 1
+ADV Dave minecraft:adventure/adventuring_time minecraft:plains
+ADV Dave minecraft:recipes/decorations/crafting_table unlock_right_away
+I Dave 0 minecraft:fishing_rod*1

@@ -27,6 +27,7 @@ mod ender_eye_item;
 pub mod entity_items;
 mod fire_charge_item;
 mod firework_rocket_item;
+mod fishing_rod_item;
 mod flint_and_steel_item;
 mod food_on_a_stick_item;
 pub mod honeycomb_item;
