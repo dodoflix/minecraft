@@ -1,14 +1,16 @@
 //! `net.minecraft.world.level.block.StonecutterBlock`: placement, `rotate` / `mirror` of the `facing` property,
-//! `useWithoutItem` (stat and success).
-//!
-//! Not implemented: `get_menu_provider` returns `None` until `StonecutterMenu` exists, so the menu does not open.
+//! `useWithoutItem` (menu, stat and success) and the menu provider.
 use mc_core::phys::BlockHitResult;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::stats::stats::Stats;
 use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::inventory::{
+    ContainerLevelAccess, MenuProvider, SimpleMenuProvider, StonecutterMenu,
+};
 use mc_game_core::world::item::{BlockPlaceContext, InteractionResult};
 use mc_game_core::world::level::block::impls::prelude::*;
+use mc_text::Component;
 
 pub struct StonecutterBlock;
 
@@ -24,8 +26,7 @@ impl BlockBehaviour for StonecutterBlock {
             context.get_horizontal_direction().get_opposite(),
         ))
     }
-    /// `useWithoutItem`: `player.openMenu(state.getMenuProvider(level, pos))` + `INTERACT_WITH_STONECUTTER`. The menu provider is the
-    /// menu hook: `getMenuProvider` returns none until the menu exists.
+    /// `useWithoutItem`: `player.openMenu(state.getMenuProvider(level, pos))` + `INTERACT_WITH_STONECUTTER`.
     fn use_without_item(
         &self,
         state: BlockState,
@@ -39,6 +40,23 @@ impl BlockBehaviour for StonecutterBlock {
         }
         player.award_stat_once(level, Stats::INTERACT_WITH_STONECUTTER);
         InteractionResult::SUCCESS
+    }
+    fn get_menu_provider(
+        &self,
+        _state: BlockState,
+        _level: &ServerLevel,
+        pos: BlockPos,
+    ) -> Option<Box<dyn MenuProvider>> {
+        Some(Box::new(SimpleMenuProvider::new(
+            Component::translatable("container.stonecutter", Vec::new()),
+            move |container_id, player| {
+                Some(Box::new(StonecutterMenu::new(
+                    container_id,
+                    player,
+                    ContainerLevelAccess::create(pos),
+                )))
+            },
+        )))
     }
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         helpers::rotate_facing(state, props::HORIZONTAL_FACING, rotation)
