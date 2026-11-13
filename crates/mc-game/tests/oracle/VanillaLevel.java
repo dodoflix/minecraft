@@ -302,7 +302,9 @@ public final class VanillaLevel {
          generator + "level-seed=" + o.seed + "\nonline-mode=false\nenforce-secure-profile=false\nspawn-protection=0\ndifficulty=" + o.difficulty
             + "\ngamemode=" + o.defaultGameType.getName() + "\ngenerate-structures=" + o.generateStructures + "\nview-distance=" + o.viewDistance
             + "\nsimulation-distance=" + o.simulationDistance + "\nspawn-monsters=false\nspawn-animals=false\nspawn-npcs=false\nallow-nether=false\n"
-            + "pause-when-empty-seconds=0\nmax-tick-time=-1\nenable-jmx-monitoring=false\nlevel-name=world\n");
+            + "pause-when-empty-seconds=0\nmax-tick-time=-1\nenable-jmx-monitoring=false\nlevel-name=world\n"
+            // feature packs are not selected automatically: a world only gets a feature's flag from its enabled pack
+            + (o.features.isBlank() ? "" : "initial-enabled-packs=vanilla," + o.features.strip() + "\n"));
       // a vanilla server refuses to start without an accepted EULA: accepting it is the user's decision, never ours
       if (!"1".equals(System.getenv("MC_ACCEPT_EULA"))) throw new IllegalStateException("starting a vanilla server accepts the Minecraft EULA (https://aka.ms/MinecraftEULA) in your name: set MC_ACCEPT_EULA=1 if you accept it");
       Files.writeString(dir.resolve("eula.txt"), "eula=true\n");

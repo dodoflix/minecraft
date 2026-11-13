@@ -425,24 +425,7 @@ pub struct Scenario {
 
 impl Scenario {
     pub fn new() -> Self {
-        // VanillaLevel.boot: frozen, quiet world
-        let mut game_rules = GameRules::new(FeatureFlagSet::DEFAULT_FLAGS);
-        for rule in [
-            "advance_time",
-            "advance_weather",
-            "spawn_mobs",
-            "spawn_monsters",
-            "spawn_patrols",
-            "spawn_phantoms",
-            "spawn_wandering_traders",
-            "spawn_wardens",
-            "raids",
-            "log_admin_commands",
-            "send_command_feedback",
-        ] {
-            set_rule(&mut game_rules, rule, "false");
-        }
-        set_rule(&mut game_rules, "random_tick_speed", "0");
+        let game_rules = quiet_game_rules(FeatureFlagSet::DEFAULT_FLAGS);
         Scenario {
             clocks: Arc::default(),
             level: None,
@@ -820,6 +803,7 @@ impl Scenario {
                         },
                     );
                 }
+                self.env.game_rules = quiet_game_rules(self.opts.features);
             }
             // `cmd weather rain|thunder|clear DURATION` (the duration is explicit: the command's default draws from the level random) and
             // `cmd recipe give|take PLAYER RECIPE|*`
@@ -1271,6 +1255,28 @@ fn apply_spawn_settings(level: &mut ServerLevel, rules: &GameRules, difficulty: 
     level.chunk_source_mut().set_spawn_settings(
         difficulty != Difficulty::Peaceful && rules.get(GameRules::SPAWN_MONSTERS),
     );
+}
+
+/// `VanillaLevel.boot`: the frozen, quiet world's rules (a rule that needs a feature flag exists only when the world enables it).
+fn quiet_game_rules(features: FeatureFlagSet) -> GameRules {
+    let mut game_rules = GameRules::new(features);
+    for rule in [
+        "advance_time",
+        "advance_weather",
+        "spawn_mobs",
+        "spawn_monsters",
+        "spawn_patrols",
+        "spawn_phantoms",
+        "spawn_wandering_traders",
+        "spawn_wardens",
+        "raids",
+        "log_admin_commands",
+        "send_command_feedback",
+    ] {
+        set_rule(&mut game_rules, rule, "false");
+    }
+    set_rule(&mut game_rules, "random_tick_speed", "0");
+    game_rules
 }
 
 fn set_rule(rules: &mut GameRules, name: &str, value: &str) {
