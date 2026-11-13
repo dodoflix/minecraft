@@ -164,7 +164,7 @@ impl FireworkRocketEntity {
         let owner = self.get_owner(level).map(|o| o.id());
         level.game_event_from_entity(owner, GameEvent::EXPLODE, self.base.position());
         self.deal_explosion_damage(level);
-        self.discard();
+        self.discard_in_level(level);
     }
 
     /// `dealExplosionDamage(level)`.

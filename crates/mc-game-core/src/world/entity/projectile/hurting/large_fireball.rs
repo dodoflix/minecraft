@@ -91,7 +91,7 @@ impl Projectile for LargeFireball {
             )
             .with_fire(grief),
         );
-        self.discard();
+        self.discard_in_level(level);
     }
 
     fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {

@@ -1402,6 +1402,12 @@ pub trait Entity: Any {
         self.remove(RemovalReason::Discarded);
     }
 
+    /// `discard()` where the level is at hand: `setRemoved` untracks the entity at once ([`ServerLevel::remove_held_entity`]),
+    /// so watchers get `remove_entities` before anything the rest of the tick sends.
+    fn discard_in_level(&mut self, level: &mut ServerLevel) {
+        level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
+    }
+
     // ---- name -----------------------------------------------------------------------------------------------
 
     fn should_show_name(&self) -> bool {
@@ -2145,7 +2151,7 @@ pub trait Entity: Any {
             let source = level.damage_sources().fell_out_of_world();
             self.hurt_server(level, &source, 4.0);
         } else {
-            self.discard();
+            self.discard_in_level(level);
         }
     }
 

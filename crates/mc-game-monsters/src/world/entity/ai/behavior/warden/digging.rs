@@ -51,9 +51,9 @@ impl Behavior for Digging {
         }
     }
 
-    fn stop(&mut self, _level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
+    fn stop(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) {
         if body.base().removal_reason().is_none() {
-            body.remove(RemovalReason::Discarded);
+            level.remove_held_entity(body, RemovalReason::Discarded);
         }
     }
 }

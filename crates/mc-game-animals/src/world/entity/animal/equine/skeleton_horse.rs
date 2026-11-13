@@ -175,7 +175,7 @@ impl Entity for SkeletonHorse {
             let time = self.trap_time;
             self.trap_time += 1;
             if time >= TRAP_MAX_LIFE {
-                self.discard();
+                self.discard_in_level(level);
             }
         }
     }

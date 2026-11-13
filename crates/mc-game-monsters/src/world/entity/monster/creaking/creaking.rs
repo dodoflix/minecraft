@@ -32,7 +32,7 @@ use mc_game_core::world::entity::ai::sensing::sensor_type::{
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::living_entity::damage;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
-use mc_game_core::world::entity::{Entity, EntityId, RemovalReason};
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::level::pathfinder::node_evaluator::{
     EvaluatorState, NodeEvaluator, PathEnv, default_get_path_type,
 };
@@ -232,7 +232,7 @@ impl Creaking {
         if let Some(sound) = self.get_death_sound() {
             damage::make_sound(self, level, sound);
         }
-        self.remove(RemovalReason::Discarded);
+        self.discard_in_level(level);
     }
 
     /// `creakingDeathEffects(source)`.

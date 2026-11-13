@@ -500,7 +500,7 @@ impl ShoulderRidingAccess for Parrot {
             .with_player(owner, |level, p| p.set_entity_on_shoulder(&*level, tag))
             .unwrap_or(false);
         if placed {
-            self.discard();
+            self.discard_in_level(level);
             return true;
         }
         false

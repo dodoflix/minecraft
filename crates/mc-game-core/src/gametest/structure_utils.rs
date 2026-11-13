@@ -94,7 +94,7 @@ pub fn clear_block_ticks_and_events(level: &mut ServerLevel, bounding_box: &Boun
 pub fn discard_non_player_entities(level: &mut ServerLevel, bounds: &AABB) {
     let ids = level.get_entities(None, bounds, |e| !e.is_player());
     for id in ids {
-        level.with_entity(id, |_, entity| entity.discard());
+        level.with_entity(id, |level, entity| entity.discard_in_level(level));
     }
 }
 

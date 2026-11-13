@@ -163,9 +163,9 @@ impl AbstractArrow for ThrownTrident {
         0.99
     }
 
-    fn tick_despawn(&mut self) {
+    fn tick_despawn(&mut self, level: &mut ServerLevel) {
         if self.arrow.pickup != Pickup::Allowed || self.loyalty() <= 0 {
-            super::tick_despawn_base(self);
+            super::tick_despawn_base(self, level);
         }
     }
 
@@ -320,7 +320,7 @@ impl Entity for ThrownTrident {
                         Vec3::new(0.0, f64::from(0.1f32), 0.0),
                     );
                 }
-                self.discard();
+                self.discard_in_level(level);
             } else {
                 let (owner_eye, owner_is_player, owner_width) = {
                     let owner = self.get_owner(level).expect("owner checked above");
@@ -333,7 +333,7 @@ impl Entity for ThrownTrident {
                 if !owner_is_player
                     && self.position().distance_to(owner_eye) < f64::from(owner_width) + 1.0
                 {
-                    self.discard();
+                    self.discard_in_level(level);
                     return;
                 }
                 self.set_no_physics(true);

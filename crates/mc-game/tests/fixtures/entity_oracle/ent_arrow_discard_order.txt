@@ -1,0 +1,22 @@
+# two arrows hit cows in the tick an arrow lying in the ground despawns on its 1200th tick; the despawning arrow ticks between them
+E cow1 minecraft:cow pos=16.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-
+E kill_arrow minecraft:arrow pos=16.5,-58.0,3.5 delta=0.0,-1.0400000095367432,0.0 rot=0.0,54.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E gone minecraft:arrow pos=8.5,-60.05,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1199 dmg=2.0
+E cow2 minecraft:cow pos=20.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E hurt_arrow minecraft:arrow pos=20.5,-58.0,3.5 delta=0.0,-1.0400000095367432,0.0 rot=0.0,54.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+PKT Obs minecraft:add_entity 01a306b247e16dc76e4191b0aaef8d910fff331e4030800000000000c04e000000000000400c0000000000000000000000
+PKT Obs minecraft:add_entity 01a40632f5898386454609aa955d9cf41c70e1064030800000000000c04c800000000000400c0000000000000040000000
+PKT Obs minecraft:add_entity 01a506086900a201bc4156b3954a4832c27b39064021000000000000c04e06666666666640210000000000000000000000
+PKT Obs minecraft:add_entity 01a60628fe9ab57a774ed690c1d95d9a8fd2661e4034800000000000c04e000000000000400c0000000000000000000000
+PKT Obs minecraft:add_entity 01a706e1bb597b6a324e5db8231f8f29b2f3b8064034800000000000c04c800000000000400c0000000000000040000000
+E cow2 minecraft:cow pos=20.5,-60.0,3.5 delta=0.3971211509731972,0.0,-0.04790403133447847 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=10/20 death=0 fx=-
+E item#1 minecraft:item pos=16.5,-60.0,3.5 delta=0.018151388467361612,0.2,-0.017084264099485047 rot=314.98608,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=0 pickup=10 health=5 owner=- thrower=-
+PKT Obs minecraft:damage_event 19a30600a506a50600
+PKT Obs minecraft:add_entity 01a80603df439efcec422e9d67af46dd4ce401484030800000000000c04e000000000000400c00000000000041097dcf333200df0000
+PKT Obs minecraft:entity_event 220000032303
+PKT Obs minecraft:remove_entities 4e01a406
+PKT Obs minecraft:remove_entities 4e01a506
+PKT Obs minecraft:damage_event 19a60600a806a80600
+PKT Obs minecraft:remove_entities 4e01a706
+E cow2 minecraft:cow pos=20.5,-60.0,3.5 delta=0.3971211509731972,0.0,-0.04790403133447847 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=8/18 death=0 fx=-
+E item#1 minecraft:item pos=16.535939749511588,-59.723199996948246,3.466173156757163 delta=0.01743259416262621,0.11446400521850592,-0.01640772787982414 rot=314.98608,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=2 pickup=8 health=5 owner=- thrower=-

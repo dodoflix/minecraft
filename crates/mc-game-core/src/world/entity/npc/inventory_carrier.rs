@@ -74,10 +74,10 @@ pub fn pick_up_item<M: InventoryCarrier>(level: &mut ServerLevel, mob: &mut M, i
         let count = item_stack.count();
         let remainder = mob.get_inventory_mut().add_item(&item_stack);
         take(level, &*mob, item_id, count - remainder.count());
-        level.with_entity(item_id, |_, item| {
+        level.with_entity(item_id, |level, item| {
             if let Some(ie) = item.as_any_mut().downcast_mut::<ItemEntity>() {
                 if remainder.is_empty() {
-                    ie.discard();
+                    ie.discard_in_level(level);
                 } else {
                     // `itemStack.setCount(remainder.getCount())`
                     let mut stack = ie.get_item();

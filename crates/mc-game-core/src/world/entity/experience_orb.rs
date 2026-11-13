@@ -425,7 +425,7 @@ impl Entity for ExperienceOrb {
             }
             self.count -= 1;
             if self.count == 0 {
-                self.discard();
+                self.discard_in_level(level);
             }
         }
     }

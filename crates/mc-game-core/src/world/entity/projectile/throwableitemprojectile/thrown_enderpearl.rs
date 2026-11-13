@@ -128,7 +128,7 @@ impl Projectile for ThrownEnderpearl {
             .filter(|o| o.is_alive() && !o.is_sleeping())
             .map(|o| o.id())
         else {
-            self.discard();
+            self.discard_in_level(level);
             return;
         };
         let teleport_pos = self.base.old_position();
@@ -193,7 +193,7 @@ impl Projectile for ThrownEnderpearl {
             }
             Self::play_sound(level, teleport_pos);
         });
-        self.discard();
+        self.discard_in_level(level);
     }
 }
 
@@ -208,7 +208,7 @@ impl Entity for ThrownEnderpearl {
         if owner.is_some_and(|(_, alive, won_game)| !alive && !won_game)
             && level.ender_pearls_vanish_on_death()
         {
-            self.discard();
+            self.discard_in_level(level);
         } else {
             throwable::tick(self, level);
         }

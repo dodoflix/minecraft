@@ -151,7 +151,7 @@ impl ShulkerBullet {
 
     /// `destroy()`.
     fn destroy(&mut self, level: &mut ServerLevel) {
-        self.discard();
+        self.discard_in_level(level);
         self.game_event(level, GameEvent::ENTITY_DAMAGE);
     }
 }
@@ -274,7 +274,7 @@ impl Entity for ShulkerBullet {
 
     fn check_despawn(&mut self, level: &mut ServerLevel) {
         if level.difficulty() == Difficulty::Peaceful {
-            self.discard();
+            self.discard_in_level(level);
         }
     }
 

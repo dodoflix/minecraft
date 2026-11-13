@@ -251,7 +251,7 @@ impl Entity for FallingBlockEntity {
 
     fn tick(&mut self, level: &mut ServerLevel) {
         if self.block_state.is_air() {
-            self.discard();
+            self.discard_in_level(level);
             return;
         }
         let block = self.block_state.block();
@@ -289,7 +289,7 @@ impl Entity for FallingBlockEntity {
                     if self.drops_enabled(level) {
                         self.spawn_block_item(level, block);
                     }
-                    self.discard();
+                    self.discard_in_level(level);
                 }
             } else {
                 let current_state = level.get_block_state(pos);

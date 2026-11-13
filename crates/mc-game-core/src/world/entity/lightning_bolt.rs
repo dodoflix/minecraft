@@ -275,7 +275,7 @@ impl Entity for LightningBolt {
         if self.life < 0 {
             if self.flashes == 0 {
                 self.trigger_lightning_strike(level);
-                self.discard();
+                self.discard_in_level(level);
             } else if self.life < -self.base.random.next_int_bounded(10) {
                 self.flashes -= 1;
                 self.life = 1;

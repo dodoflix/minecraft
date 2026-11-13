@@ -89,7 +89,7 @@ impl Projectile for LlamaSpit {
 
     fn on_hit_block(&mut self, level: &mut ServerLevel, hit: &BlockHitResult) {
         super::on_hit_block_base(self, level, hit);
-        self.discard();
+        self.discard_in_level(level);
     }
 }
 
@@ -136,7 +136,7 @@ impl Entity for LlamaSpit {
         let touches_no_air = !BlockPos::between_closed_aabb(&self.get_bounding_box())
             .any(|p| level.get_block_state(p).is_air());
         if touches_no_air || self.is_in_water() {
-            self.discard();
+            self.discard_in_level(level);
         } else {
             let drag = f64::from(self.get_air_drag());
             self.base.set_delta_movement(movement.scale(drag));

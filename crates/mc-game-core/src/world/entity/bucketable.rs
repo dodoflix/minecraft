@@ -108,7 +108,7 @@ pub fn bucket_mob_pickup_in_place(
     let mut bucket = entity.as_bucketable()?.get_bucket_item_stack();
     entity.as_bucketable()?.save_to_bucket_tag(&mut bucket);
     crate::world::entity::mob::leashable::drop_leash(entity, level);
-    entity.discard();
+    entity.discard_in_level(level);
     let result = create_filled_result(
         stack,
         &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level },
@@ -138,7 +138,7 @@ pub fn bucket_mob_pickup(
         let mut bucket = entity.as_bucketable()?.get_bucket_item_stack();
         entity.as_bucketable()?.save_to_bucket_tag(&mut bucket);
         crate::world::entity::mob::leashable::drop_leash(entity, level);
-        entity.discard();
+        entity.discard_in_level(level);
         Some(bucket)
     })??;
     let result = create_filled_result(

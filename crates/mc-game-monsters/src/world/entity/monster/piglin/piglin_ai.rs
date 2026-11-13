@@ -539,7 +539,7 @@ pub fn pick_up_item(level: &mut ServerLevel, body: &mut Piglin, item_id: EntityI
     if entity_stack.item() == Item::GOLD_NUGGET {
         take(level, &*body, item_id, entity_stack.count());
         taken = entity_stack;
-        level.with_entity(item_id, |_, e| e.discard());
+        level.with_entity(item_id, |level, e| e.discard_in_level(level));
     } else {
         take(level, &*body, item_id, 1);
         taken = remove_one_item_from_item_entity(level, item_id);
@@ -570,7 +570,7 @@ fn hold_in_off_hand(level: &mut ServerLevel, body: &mut Piglin, stack: ItemStack
 
 fn remove_one_item_from_item_entity(level: &mut ServerLevel, item_id: EntityId) -> ItemStack {
     level
-        .with_entity(item_id, |_, e| {
+        .with_entity(item_id, |level, e| {
             let item = e
                 .as_any_mut()
                 .downcast_mut::<ItemEntity>()
@@ -578,7 +578,7 @@ fn remove_one_item_from_item_entity(level: &mut ServerLevel, item_id: EntityId) 
             let mut source = item.get_item();
             let removed = source.split(1);
             if source.is_empty() {
-                item.discard();
+                item.discard_in_level(level);
             } else {
                 item.set_item_in_place(source);
             }

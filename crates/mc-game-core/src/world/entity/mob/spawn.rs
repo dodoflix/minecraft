@@ -119,7 +119,7 @@ pub fn mob_finalize_spawn(
 /// `Mob.checkDespawn()`.
 pub fn check_despawn(e: &mut dyn Entity, level: &mut ServerLevel) {
     if level.difficulty() == Difficulty::Peaceful && !e.get_type().data().allowed_in_peaceful {
-        e.discard();
+        e.discard_in_level(level);
         return;
     }
     let is_persistent = e.is_persistence_required() || e.requires_custom_persistence();
@@ -136,7 +136,7 @@ pub fn check_despawn(e: &mut dyn Entity, level: &mut ServerLevel) {
             && dist_sqr > f64::from(despawn_distance_sqr)
             && e.remove_when_far_away(dist_sqr)
         {
-            e.discard();
+            e.discard_in_level(level);
         }
         let no_despawn_distance = category.no_despawn_distance;
         let no_despawn_distance_sqr = no_despawn_distance * no_despawn_distance;
@@ -146,7 +146,7 @@ pub fn check_despawn(e: &mut dyn Entity, level: &mut ServerLevel) {
             && dist_sqr > f64::from(no_despawn_distance_sqr)
             && e.remove_when_far_away(dist_sqr)
         {
-            e.discard();
+            e.discard_in_level(level);
         } else if dist_sqr < f64::from(no_despawn_distance_sqr) {
             lm(e).no_action_time = 0;
         }

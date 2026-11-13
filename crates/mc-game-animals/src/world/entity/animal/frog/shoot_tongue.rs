@@ -82,9 +82,9 @@ impl ShootTongue {
             && level.get_entity(target).is_some_and(|t| t.is_alive())
         {
             combat::do_hurt_target(body, level, target);
-            level.with_entity(target, |_, t| {
+            level.with_entity(target, |level, t| {
                 if !t.is_alive() {
-                    t.remove(RemovalReason::Killed);
+                    level.remove_held_entity(t, RemovalReason::Killed);
                 }
             });
         }

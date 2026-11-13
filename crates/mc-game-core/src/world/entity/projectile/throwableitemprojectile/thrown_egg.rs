@@ -103,7 +103,7 @@ impl Projectile for ThrownEgg {
             }
         }
         level.broadcast_entity_event(self.id(), 3);
-        self.discard();
+        self.discard_in_level(level);
     }
 }
 

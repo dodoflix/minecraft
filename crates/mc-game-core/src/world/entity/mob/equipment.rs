@@ -322,14 +322,14 @@ pub fn pick_up_item(e: &mut dyn Entity, level: &mut ServerLevel, item_id: Entity
                 .entity_tracker
                 .send_to_tracking_players(item_id, &encode_payload(&packet));
         }
-        level.with_entity(item_id, |_, item| {
+        level.with_entity(item_id, |level, item| {
             if let Some(ie) = item.as_any_mut().downcast_mut::<ItemEntity>() {
                 let mut stack = ie.get_item();
                 stack.shrink(equipped.count());
                 let empty = stack.is_empty();
                 ie.set_item_in_place(stack);
                 if empty {
-                    ie.discard();
+                    ie.discard_in_level(level);
                 }
             }
         });

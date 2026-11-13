@@ -139,7 +139,7 @@ pub fn tick(projectile: &mut dyn AbstractHurtingProjectile, level: &mut ServerLe
             hit_target_or_deflect_self(projectile, level, &hit_result);
         }
     } else {
-        projectile.discard();
+        projectile.discard_in_level(level);
     }
 }
 

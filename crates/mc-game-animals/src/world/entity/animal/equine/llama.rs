@@ -392,7 +392,7 @@ impl Llama {
         }
         if delay <= 0 {
             leashable::remove_leash(self, level);
-            self.discard();
+            self.discard_in_level(level);
         }
     }
 

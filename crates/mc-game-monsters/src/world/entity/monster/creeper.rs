@@ -151,7 +151,7 @@ impl Creeper {
             level,
             mc_game_core::world::entity::RemovalReason::Killed,
         );
-        self.discard();
+        self.discard_in_level(level);
     }
 
     /// `spawnLingeringCloud()`.

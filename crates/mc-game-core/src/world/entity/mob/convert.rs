@@ -90,7 +90,7 @@ pub fn convert_to(
         relink_riding(from, level, new_id);
     }
     if params.ty.should_discard_after_conversion() {
-        from.discard();
+        from.discard_in_level(level);
     }
     Some(new_id)
 }
@@ -114,7 +114,7 @@ fn relink_riding(
         for passenger in existing {
             level.with_entity(passenger, |level, p| {
                 level.stop_riding(p);
-                p.remove(crate::world::entity::RemovalReason::Discarded);
+                level.remove_held_entity(p, crate::world::entity::RemovalReason::Discarded);
             });
         }
         level.with_entity(root, |level, p| {

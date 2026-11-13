@@ -330,7 +330,7 @@ impl Entity for Dolphin {
                     &mc_game_core::server::level::server_entity::encode_payload(&packet),
                 );
             }
-            level.with_entity(item_id, |_, e| e.discard());
+            level.with_entity(item_id, |level, e| e.discard_in_level(level));
         }
     }
 

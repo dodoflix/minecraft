@@ -157,8 +157,8 @@ pub trait AbstractArrow: Projectile {
     fn do_post_hurt_effects(&mut self, _level: &mut ServerLevel, _mob: &mut dyn Entity) {}
 
     /// `tickDespawn()`.
-    fn tick_despawn(&mut self) {
-        tick_despawn_base(self.as_abstract_arrow_mut());
+    fn tick_despawn(&mut self, level: &mut ServerLevel) {
+        tick_despawn_base(self.as_abstract_arrow_mut(), level);
     }
 
     /// `findHitEntities(from, to)`.
@@ -369,7 +369,7 @@ pub fn tick(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel) {
         if arrow.arrow_data().last_state != Some(block_state) && should_fall(arrow, level) {
             start_falling(arrow);
         } else {
-            arrow.tick_despawn();
+            arrow.tick_despawn(level);
         }
         arrow.arrow_data_mut().in_ground_time += 1;
         if arrow.is_alive() {
@@ -453,10 +453,10 @@ fn start_falling(arrow: &mut dyn AbstractArrow) {
 }
 
 /// `tickDespawn()`.
-pub fn tick_despawn_base(arrow: &mut dyn AbstractArrow) {
+pub fn tick_despawn_base(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel) {
     arrow.arrow_data_mut().life += 1;
     if arrow.arrow_data().life >= 1200 {
-        arrow.discard();
+        arrow.discard_in_level(level);
     }
 }
 
@@ -650,7 +650,7 @@ pub fn on_hit_entity(
         d.pierced_and_killed_entities
             .get_or_insert_with(|| Vec::with_capacity(5));
         if ignore.len() as i32 > i32::from(pierce_level) {
-            arrow.discard();
+            arrow.discard_in_level(level);
             return;
         }
         if !ignore.contains(&victim) {
@@ -762,7 +762,7 @@ pub fn on_hit_entity(
             let sound = arrow.arrow_data().sound_event;
             arrow.play_sound(level, sound, 1.0, pitch);
             if arrow.pierce_level() <= 0 {
-                arrow.discard();
+                arrow.discard_in_level(level);
             }
         }
         HitOutcome::Bounced => {
@@ -784,7 +784,7 @@ pub fn on_hit_entity(
                         Vec3::new(0.0, 0.1f32.into(), 0.0),
                     );
                 }
-                arrow.discard();
+                arrow.discard_in_level(level);
             }
         }
         HitOutcome::Ignored | HitOutcome::Missing => {}
@@ -924,7 +924,7 @@ pub fn player_touch(
         && arrow.try_pickup(player)
     {
         player.take(level, arrow.as_dyn(), 1);
-        arrow.discard();
+        arrow.discard_in_level(level);
     }
 }
 

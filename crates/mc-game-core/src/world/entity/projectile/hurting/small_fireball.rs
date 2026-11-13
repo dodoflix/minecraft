@@ -72,7 +72,7 @@ impl Projectile for SmallFireball {
 
     fn on_hit(&mut self, level: &mut ServerLevel, hit: &HitResult) {
         crate::world::entity::projectile::on_hit_base(self, level, hit);
-        self.discard();
+        self.discard_in_level(level);
     }
 
     fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {

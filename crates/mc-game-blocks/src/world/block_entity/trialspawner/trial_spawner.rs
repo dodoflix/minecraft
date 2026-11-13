@@ -298,7 +298,7 @@ impl TrialSpawner {
                 level.level_event(None, 3012, block_pos, FLAME_NORMAL);
             }
             spawner_mob_steps::drop_preserved_equipment(level, id);
-            level.with_entity(id, |_, e| e.remove(RemovalReason::Discarded));
+            level.remove_entity(id, RemovalReason::Discarded);
         }
         let ominous = self.ominous_config(level);
         if !ominous.spawn_potentials_definition.is_empty() {

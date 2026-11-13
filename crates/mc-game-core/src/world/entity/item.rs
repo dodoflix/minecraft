@@ -195,11 +195,11 @@ impl ItemEntity {
             },
         );
         for id in ids {
-            level.with_entity(id, |_, other| {
+            level.with_entity(id, |level, other| {
                 if let Some(other) = other.as_any_mut().downcast_mut::<ItemEntity>()
                     && other.is_mergable()
                 {
-                    self.try_to_merge(other);
+                    self.try_to_merge(level, other);
                 }
             });
             if self.is_removed() {
@@ -208,14 +208,14 @@ impl ItemEntity {
         }
     }
 
-    fn try_to_merge(&mut self, other: &mut ItemEntity) {
+    fn try_to_merge(&mut self, level: &mut ServerLevel, other: &mut ItemEntity) {
         let this_stack = self.get_item();
         let other_stack = other.get_item();
         if self.target == other.target && are_mergable(&this_stack, &other_stack) {
             if other_stack.count() < this_stack.count() {
-                merge_entities(self, this_stack, other, other_stack);
+                merge_entities(level, self, this_stack, other, other_stack);
             } else {
-                merge_entities(other, other_stack, self, this_stack);
+                merge_entities(level, other, other_stack, self, this_stack);
             }
         }
     }
@@ -241,6 +241,7 @@ pub fn merge_stacks(to_stack: &ItemStack, from_stack: &mut ItemStack, max_count:
 
 /// `ItemEntity.merge(toItem, toStack, fromItem, fromStack)`.
 fn merge_entities(
+    level: &mut ServerLevel,
     to: &mut ItemEntity,
     to_stack: ItemStack,
     from: &mut ItemEntity,
@@ -253,7 +254,7 @@ fn merge_entities(
     let emptied = from_stack.is_empty();
     from.set_item_in_place(from_stack);
     if emptied {
-        from.discard();
+        from.discard_in_level(level);
     }
 }
 
@@ -378,7 +379,7 @@ impl Entity for ItemEntity {
     fn tick(&mut self, level: &mut ServerLevel) {
         let item = self.get_item();
         if item.is_empty() {
-            self.discard();
+            self.discard_in_level(level);
             return;
         }
         self.fire_immune_item = !item.can_be_hurt_by(level, &level.damage_sources().in_fire());
@@ -460,7 +461,7 @@ impl Entity for ItemEntity {
             self.base.needs_sync = true;
         }
         if self.age >= LIFETIME {
-            self.discard();
+            self.discard_in_level(level);
         }
     }
 
@@ -487,7 +488,7 @@ impl Entity for ItemEntity {
         if self.health <= 0 {
             crate::world::item::on_destroyed(&mut stack, level, position);
             self.set_item_in_place(stack);
-            self.discard();
+            self.discard_in_level(level);
         }
         true
     }
@@ -507,7 +508,7 @@ impl Entity for ItemEntity {
             }
             player.take(level, self, org_count);
             if stack.is_empty() {
-                self.discard();
+                self.discard_in_level(level);
                 stack.set_count(org_count);
                 self.set_item_in_place(stack);
             }
@@ -666,7 +667,7 @@ mod tests {
 
     #[test]
     fn merging_moves_items_into_the_larger_stack() {
-        let level = level();
+        let mut level = level();
         let mut a = ItemEntity::with_stack(
             &level,
             0.0,
@@ -683,7 +684,7 @@ mod tests {
         );
         a.age = 5;
         b.age = 2;
-        a.try_to_merge(&mut b);
+        a.try_to_merge(&mut level, &mut b);
         assert_eq!(a.get_item().count(), 13);
         assert!(b.is_removed());
         assert_eq!(a.age, 2);

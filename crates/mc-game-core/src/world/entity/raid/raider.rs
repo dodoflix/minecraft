@@ -411,7 +411,7 @@ pub fn pick_up_item(e: &mut dyn Entity, level: &mut ServerLevel, item_id: Entity
             );
         }
         mob::equipment::set_item_slot(e, level, slot, item_stack.clone());
-        level.with_entity(item_id, |_, item| item.discard());
+        level.with_entity(item_id, |level, item| item.discard_in_level(level));
         level.with_raid(raid_id.expect("active raid"), |level, raid| {
             raid.set_leader(level, wave, e)
         });

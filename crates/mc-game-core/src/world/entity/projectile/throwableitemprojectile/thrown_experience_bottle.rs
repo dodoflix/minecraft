@@ -76,7 +76,7 @@ impl Projectile for ThrownExperienceBottle {
                 xp_count,
             ),
         }
-        self.discard();
+        self.discard_in_level(level);
     }
 }
 

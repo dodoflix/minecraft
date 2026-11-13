@@ -149,7 +149,7 @@ impl Entity for EvokerFangs {
             }
             self.life_ticks -= 1;
             if self.life_ticks < 0 {
-                self.discard();
+                self.discard_in_level(level);
             }
         }
     }

@@ -86,7 +86,7 @@ impl Projectile for DragonFireball {
             let pos = self.block_position();
             level.level_event(None, 2006, pos, if self.base.is_silent() { -1 } else { 1 });
             level.add_fresh_entity(Box::new(cloud));
-            self.discard();
+            self.discard_in_level(level);
         }
     }
 }

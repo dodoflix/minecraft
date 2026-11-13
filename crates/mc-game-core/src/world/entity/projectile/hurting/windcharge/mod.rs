@@ -139,13 +139,13 @@ fn on_hit_block(
     .multiply_xyz(0.25, 0.25, 0.25);
     let explosion_pos = hit.location.add(scaled_normal);
     wind_charge.explode(level, explosion_pos);
-    wind_charge.discard();
+    wind_charge.discard_in_level(level);
 }
 
 /// `AbstractWindCharge.onHit(hitResult)`.
 fn on_hit(wind_charge: &mut dyn AbstractWindCharge, level: &mut ServerLevel, hit: &HitResult) {
     crate::world::entity::projectile::on_hit_base(wind_charge, level, hit);
-    wind_charge.discard();
+    wind_charge.discard_in_level(level);
 }
 
 /// `AbstractWindCharge.tick()`.
@@ -153,7 +153,7 @@ fn tick(wind_charge: &mut dyn AbstractWindCharge, level: &mut ServerLevel) {
     if wind_charge.block_position().y() > level.get_max_y() + 30 {
         let position = wind_charge.position();
         wind_charge.explode(level, position);
-        wind_charge.discard();
+        wind_charge.discard_in_level(level);
     } else {
         super::tick(wind_charge, level);
     }

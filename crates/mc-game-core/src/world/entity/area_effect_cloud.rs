@@ -214,7 +214,7 @@ impl AreaEffectCloud {
     fn server_tick(&mut self, level: &mut ServerLevel) {
         let tick_count = self.base.tick_count;
         if self.duration != -1 && tick_count - self.wait_time >= self.duration {
-            self.discard();
+            self.discard_in_level(level);
             return;
         }
         let is_waiting = self.is_waiting();
@@ -229,7 +229,7 @@ impl AreaEffectCloud {
         if self.radius_per_tick != 0.0 {
             radius += self.radius_per_tick;
             if radius < MINIMAL_RADIUS {
-                self.discard();
+                self.discard_in_level(level);
                 return;
             }
             self.set_radius(radius);
@@ -275,7 +275,7 @@ impl AreaEffectCloud {
                 if self.radius_on_use != 0.0 {
                     radius += self.radius_on_use;
                     if radius < MINIMAL_RADIUS {
-                        self.discard();
+                        self.discard_in_level(level);
                         return;
                     }
                     self.set_radius(radius);
@@ -283,7 +283,7 @@ impl AreaEffectCloud {
                 if self.duration_on_use != 0 && self.duration != -1 {
                     self.duration += self.duration_on_use;
                     if self.duration <= 0 {
-                        self.discard();
+                        self.discard_in_level(level);
                         return;
                     }
                 }

@@ -723,7 +723,7 @@ impl Entity for Fox {
             self.set_item_slot(level, EquipmentSlot::MainHand, one);
             mob::equipment::set_guaranteed_drop(self, EquipmentSlot::MainHand);
             ext::take(level, &*self, item_id, stack.count());
-            level.with_entity(item_id, |_, e| e.discard());
+            level.with_entity(item_id, |level, e| e.discard_in_level(level));
             self.ticks_since_eaten = 0;
         }
     }

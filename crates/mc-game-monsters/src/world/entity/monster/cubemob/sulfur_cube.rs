@@ -211,7 +211,7 @@ impl SulfurCube {
                 level,
                 RemovalReason::Killed,
             );
-            self.discard();
+            self.discard_in_level(level);
         }
     }
 

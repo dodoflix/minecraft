@@ -72,7 +72,7 @@ impl Projectile for Snowball {
     fn on_hit(&mut self, level: &mut ServerLevel, hit: &HitResult) {
         on_hit_base(self, level, hit);
         level.broadcast_entity_event(self.id(), 3);
-        self.discard();
+        self.discard_in_level(level);
     }
 }
 

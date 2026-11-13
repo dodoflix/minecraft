@@ -199,11 +199,11 @@ impl FishingHook {
     }
 
     /// `shouldStopFishing(owner)`: discards the hook unless the owner may keep fishing.
-    fn should_stop_fishing(&mut self, owner: &dyn Entity) -> bool {
+    fn should_stop_fishing(&mut self, level: &mut ServerLevel, owner: &dyn Entity) -> bool {
         if self.owner_allows_fishing(owner) {
             return false;
         }
-        self.discard();
+        self.discard_in_level(level);
         true
     }
 
@@ -439,7 +439,7 @@ impl FishingHook {
         owner: &mut ServerPlayer,
         rod: &ItemStack,
     ) -> i32 {
-        if self.should_stop_fishing(&*owner) {
+        if self.should_stop_fishing(level, &*owner) {
             return 0;
         }
         let mut dmg = 0;
@@ -522,7 +522,7 @@ impl FishingHook {
         if self.base.on_ground() {
             dmg = 2;
         }
-        self.discard();
+        self.discard_in_level(level);
         dmg
     }
 }

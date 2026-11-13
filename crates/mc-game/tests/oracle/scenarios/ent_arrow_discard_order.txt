@@ -1,0 +1,31 @@
+# An arrow that despawns after 1200 ticks and arrows that hit mobs untrack themselves at their own discard: in one tick the
+# observer gets remove_entities of the arrow that killed a cow (after the damage, the death and the drops), of the arrow that
+# despawned, and of the arrow that hurt another cow (after the damage), in the order the level ticks the entities.
+level flat
+command_env
+preload 3
+difficulty normal
+entity_counter 800
+spawn_player Obs survival 0.5 -60 0.5 0 0
+spawn_player Alice survival 4.5 -60 0.5 0 0
+tick 30
+dump packets:Obs:none packets:Alice:none
+level_seed 21
+note two arrows hit cows in the tick an arrow lying in the ground despawns on its 1200th tick; the despawning arrow ticks between them
+mobspawn cow1 minecraft:cow 16.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+spawn kill_arrow minecraft:arrow 16.5 -57 3.5 0 90
+entity_seed kill_arrow 32
+velocity kill_arrow 0 -1 0
+spawn gone minecraft:arrow 8.5 -60.05 8.5 0 0 {inGround:1b,life:1198s,pickup:0b}
+entity_seed gone 31
+mobspawn cow2 minecraft:cow 20.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn hurt_arrow minecraft:arrow 20.5 -57 3.5 0 90
+entity_seed hurt_arrow 33
+velocity hurt_arrow 0 -1 0
+tick 1
+dump entities packets:Obs:remove_entities,damage_event,hurt_animation,entity_event,add_entity
+tick 1
+dump entities packets:Obs:remove_entities,damage_event,hurt_animation,entity_event,add_entity
+tick 2
+dump entities packets:Obs:remove_entities,damage_event,hurt_animation,entity_event,add_entity
+dump packets:Alice:none

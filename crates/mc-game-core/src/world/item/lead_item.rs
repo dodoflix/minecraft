@@ -72,7 +72,7 @@ pub fn bind_player_mobs(
         InteractionResult::SUCCESS_SERVER
     } else {
         if existing_knot.is_none() {
-            level.with_entity(knot, |_, k| k.discard());
+            level.with_entity(knot, |level, k| k.discard_in_level(level));
         }
         InteractionResult::PASS
     }

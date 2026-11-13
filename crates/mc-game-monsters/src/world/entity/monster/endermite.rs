@@ -125,7 +125,7 @@ impl Entity for Endermite {
             self.life += 1;
         }
         if self.life >= MAX_LIFE {
-            self.discard();
+            self.discard_in_level(level);
         }
     }
 }

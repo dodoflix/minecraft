@@ -84,7 +84,7 @@ impl Projectile for WitherSkull {
             1.0,
             ExplosionInteraction::Mob,
         ));
-        self.discard();
+        self.discard_in_level(level);
     }
 
     fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {

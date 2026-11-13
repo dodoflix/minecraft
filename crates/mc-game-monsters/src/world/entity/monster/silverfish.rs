@@ -227,7 +227,7 @@ impl Goal for SilverfishMergeWithStoneGoal {
                 level.set_block_and_update(pos, infested_block::infested_state_by_host(state));
                 // `Mob.spawnAnim()`
                 level.broadcast_entity_event(mob.id(), 20);
-                mob.discard();
+                mob.discard_in_level(level);
             }
         }
     }

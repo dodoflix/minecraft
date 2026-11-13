@@ -90,7 +90,7 @@ pub fn on_hit(
             level.level_event(None, 1053, pos, 0);
         }
     }
-    p.discard();
+    p.discard_in_level(level);
 }
 
 /// `affectEntitiesAround(level, potion)`: water bottles hurt water-sensitive mobs, put out burning ones and rehydrate
