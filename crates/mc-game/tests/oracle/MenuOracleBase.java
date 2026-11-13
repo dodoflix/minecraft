@@ -47,7 +47,7 @@ import net.minecraft.world.phys.AABB;
  * Script lines (stacks are `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..][,p=potion]`;
  * the printed ops carry the stack as `ItemStack.CODEC` SNBT, `-` = empty); `#` lines are copied:
  *   OPEN kind [xp [seed [creative [pseed [lseed [shelves [blockers]]]]]]]
- *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | chest | cartography | brewing_stand | beacon | lectern): resets the
+ *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | chest | cartography | brewing_stand | beacon | lectern | stonecutter): resets the
  *        world around TABLE, places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
  *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table,
  *        the levels (0..4) of the iron pyramid under a beacon, the pages (at least 1) of the book on a lectern and whether that book is a writable one.
@@ -135,6 +135,7 @@ public class MenuOracleBase {
          put(TABLE, Blocks.LECTERN.defaultBlockState().setValue(net.minecraft.world.level.block.LecternBlock.HAS_BOOK, true));
          ((net.minecraft.world.level.block.entity.LecternBlockEntity) level.getBlockEntity(TABLE)).setBook(book(pages, writable != 0));
       }));
+      KINDS.put("stonecutter", new Kind(Blocks.STONECUTTER, NO_SETUP));
    }
 
    static String st(ItemStack s) {

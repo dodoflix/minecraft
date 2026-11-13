@@ -117,6 +117,12 @@ const MENU_OPENERS: &[(&str, &str, &str, &str)] = &[
         "CartographyTableMenu::new",
         "mc-game-blocks/src/world/level/block/impls/cartography_table_block.rs",
     ),
+    (
+        "minecraft:stonecutter",
+        "mc-game-core/src/world/inventory/stonecutter_menu.rs",
+        "StonecutterMenu::new",
+        "mc-game-blocks/src/world/level/block/impls/stonecutter_block.rs",
+    ),
 ];
 
 const CONTAINER_MENUS: &str = "mc-game-core/src/world/inventory/container_menus.rs";
@@ -131,7 +137,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
     ("minecraft:smoker", "smoker menu"),
     ("minecraft:blast_furnace", "blast furnace menu"),
     ("minecraft:crafter_3x3", "crafter menu"),
-    ("minecraft:stonecutter", "stonecutter menu"),
     ("minecraft:smithing", "smithing table menu"),
 ];
 

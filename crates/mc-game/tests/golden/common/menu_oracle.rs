@@ -186,6 +186,11 @@ pub const MENU_KINDS: &[MenuKind] = &[
         block: Block::LECTERN,
         setup: lectern_setup,
     },
+    MenuKind {
+        name: "stonecutter",
+        block: Block::STONECUTTER,
+        setup: no_setup,
+    },
 ];
 
 fn st(s: &ItemStack) -> String {

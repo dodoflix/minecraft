@@ -1,0 +1,916 @@
+# StonecutterMenu opened through its block: the recipe list of every input item of the stonecutter recipes, the menu buttons (same
+# index, invalid index, valid index), the result slot (take, shift-click craft loop, throw, swap, clone), moving stacks between
+# the slots, re-listing only when the input item changes, the take sound once per game tick, closing and a random session.
+# Slots: 0 input, 1 result, 2-28 inventory, 29-37 hotbar; the data slot is the selected recipe index.
+
+# every input item: select recipes, take the result by click, then shift-click craft until the input is used up
+OPEN stonecutter 0 0 0 1 1
+SET 0 andesitex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 basaltx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 black_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 blackstonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 blue_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 brown_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 cinnabarx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 cinnabar_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 cobbled_deepslatex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 cobblestonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 copper_blockx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 cut_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 cut_red_sandstonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 cut_sandstonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 cyan_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 dark_prismarinex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 deepslatex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 deepslate_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 deepslate_tilesx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 dioritex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 end_stonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 end_stone_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 exposed_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 exposed_cut_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 granitex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 gray_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 green_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 light_blue_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 light_gray_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 lime_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 magenta_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 mossy_cobblestonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 mossy_stone_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 mud_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 nether_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 orange_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 oxidized_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 oxidized_cut_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 pink_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 polished_andesitex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 polished_blackstonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 polished_blackstone_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 polished_cinnabarx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 polished_deepslatex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 polished_dioritex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 polished_granitex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 polished_sulfurx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 polished_tuffx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 prismarinex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 prismarine_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 purple_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 purpur_blockx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 quartz_blockx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 red_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 red_nether_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 red_sandstonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 resin_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 sandstonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 smooth_quartzx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 smooth_red_sandstonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 smooth_sandstonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 smooth_stonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 stonex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 stone_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 sulfurx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 sulfur_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 tuffx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 tuff_bricksx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 waxed_copper_blockx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 waxed_cut_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 waxed_exposed_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 waxed_exposed_cut_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 waxed_oxidized_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 waxed_oxidized_cut_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 waxed_weathered_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 waxed_weathered_cut_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 weathered_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 weathered_cut_copperx3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 white_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+OPEN stonecutter 0 0 0 1 1
+SET 0 yellow_concretex3
+BUTTON 0
+BUTTON 0
+BUTTON 99
+BUTTON 2
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+
+# the list is rebuilt when the input item changes, not when its count does; an item without recipes empties the list
+OPEN stonecutter 0 0 0 1 1
+SET 0 cobblestonex1
+BUTTON 1
+SET 0 cobblestonex7
+SET 0 stonex1
+BUTTON 10
+BUTTON 11
+BUTTON -1
+BUTTON 0
+SET 0 dirt
+BUTTON 0
+SET 0 stonex2
+BUTTON 5
+SET 0 -
+BUTTON 5
+SET 0 stonex2
+BUTTON 5
+CLICK 0 0 PICKUP
+CLICK 0 1 PICKUP
+CLICK 0 0 PICKUP
+
+# stacks into and out of the menu: only an item with a recipe goes to the input, the rest cycles between inventory and hotbar
+OPEN stonecutter 0 0 0 1 1
+GIVE 9 stonex20
+GIVE 10 dirtx5
+GIVE 0 cobblestonex3
+GIVE 1 oak_planksx4
+CLICK 2 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 29 0 QUICK_MOVE
+CLICK 30 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 29 1 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 1 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 0 SWAP
+CLICK 0 3 SWAP
+CLICK 0 40 SWAP
+
+# taking the result: cursor stack of another item, same item, right click, drop, swap, a full inventory and a stack that does not fit
+OPEN stonecutter 0 0 0 1 1
+EVENTS on
+SEED level 7
+SET 0 stonex6
+BUTTON 10
+GIVE 0 dirtx2
+GIVE 1 stone_slabx3
+CLICK 29 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 30 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 1 1 PICKUP
+CLICK 30 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 1 0 PICKUP_ALL
+CLICK 5 0 PICKUP_ALL
+CLICK 6 0 PICKUP
+CLICK 5 0 PICKUP_ALL
+CLICK 6 0 PICKUP
+SEED level 8
+CLICK 1 0 THROW
+CLICK 1 1 THROW
+CLICK 1 0 SWAP
+CLICK 1 5 SWAP
+CLICK 1 40 SWAP
+TICK 1
+SEED level 9
+CLICK 1 0 QUICK_MOVE
+CLICK 1 -999 PICKUP
+EVENTS off
+
+# the sound plays once per game tick: the shift-click craft loop and a click in the same tick share it, the next tick plays it again
+OPEN stonecutter 0 0 0 1 1
+EVENTS on
+SEED level 21
+SET 0 stonex5
+BUTTON 0
+CLICK 1 0 QUICK_MOVE
+SET 0 stonex3
+BUTTON 2
+SEED level 22
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+TICK 1
+SEED level 23
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+TICK 3
+EVENTS off
+
+# a full inventory keeps the result: it does not move, and the part that does not fit is dropped
+OPEN stonecutter 0 0 0 1 1
+EVENTS on
+SEED level 31
+GIVE 0 dirtx64
+GIVE 1 dirtx64
+GIVE 2 dirtx64
+GIVE 3 dirtx64
+GIVE 4 dirtx64
+GIVE 5 dirtx64
+GIVE 6 dirtx64
+GIVE 7 dirtx64
+GIVE 8 dirtx64
+GIVE 9 dirtx64
+GIVE 10 dirtx64
+GIVE 11 dirtx64
+GIVE 12 dirtx64
+GIVE 13 dirtx64
+GIVE 14 dirtx64
+GIVE 15 dirtx64
+GIVE 16 dirtx64
+GIVE 17 dirtx64
+GIVE 18 dirtx64
+GIVE 19 dirtx64
+GIVE 20 dirtx64
+GIVE 21 dirtx64
+GIVE 22 dirtx64
+GIVE 23 dirtx64
+GIVE 24 dirtx64
+GIVE 25 dirtx64
+GIVE 26 dirtx64
+GIVE 27 dirtx64
+GIVE 28 dirtx64
+GIVE 29 dirtx64
+GIVE 30 dirtx64
+GIVE 31 dirtx64
+GIVE 32 dirtx64
+GIVE 33 dirtx64
+GIVE 34 dirtx64
+GIVE 35 stone_slabx63
+SET 0 stonex4
+BUTTON 10
+CLICK 1 0 QUICK_MOVE
+SET 0 stonex1
+BUTTON 10
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+GIVE 35 dirtx64
+CLICK 1 0 QUICK_MOVE
+EVENTS off
+
+# creative mode: the result is cloned at a full stack, a drag over the slots, closing
+OPEN stonecutter 5 3 1 9 9
+SET 0 tuffx9
+BUTTON 3
+CLICK 1 2 CLONE
+CLICK 29 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 29 0 PICKUP
+DRAG 0 1 2 3
+DRAG 1 0 2 3
+CLOSE
+
+# closing returns the input and the cursor stack; with the world block gone the menu closes on the next tick (the stand-in player has no
+# inventory menu to resynchronise, so nothing is left in the input then)
+OPEN stonecutter 0 0 0 1 1
+SET 0 stonex12
+BUTTON 4
+GIVE 0 dirtx3
+CLICK 29 0 PICKUP
+CLOSE
+OPEN stonecutter 0 0 0 1 1
+EVENTS on
+SET 0 tuffx12
+BUTTON 2
+SET 0 -
+BLOCK 0 70 0 minecraft:air
+TICK 2
+EVENTS off
+
+# random sessions: clicks, drags, buttons and slot writes over inputs, results and unrelated stacks
+GEN stonecutter 1 250 stonex5|stonex64|cobblestonex7|cobblestonex64|dirtx3|stone_slabx2|stone_stairsx9|sandstonex4|tuffx11|-
+GEN stonecutter 2 250 stonex5|stonex64|stone_bricksx8|andesitex30|oak_planksx9|stone_slabx40|cobblestone_wallx4|-
+GEN stonecutter 3 300 quartz_blockx6|stonex1|stone_slabx64|polished_andesitex3|dirtx2|diamond_swordx1|-

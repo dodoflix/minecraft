@@ -1091,10 +1091,6 @@ const ACCEPTED_HOOKS: &[(&str, &str)] = &[
         "menus are not implemented yet",
     ),
     (
-        "getMenuProvider@StonecutterBlock -> StonecutterBlock (registered as StonecutterBlock)",
-        "menus are not implemented yet",
-    ),
-    (
         "useWithoutItem@FenceBlock -> FenceBlock (registered as FenceBlock)",
         "leash fence knots need their entity",
     ),

@@ -1,0 +1,141 @@
+C Took 34 recipe(s) from A
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
+# using the block opens the menu and counts the statistic
+MENU A cid=1 type=minecraft:stonecutter state=1 carried=empty
+MS 29 minecraft:stone*20
+MS 30 minecraft:cobblestone*5
+MS 31 minecraft:dirt*4
+MD 0 0
+PKT A minecraft:open_screen 3c01180a0800097472616e736c6174650015636f6e7461696e65722e73746f6e6563757474657200
+PKT A minecraft:container_set_content 12010126000000000000000000000000000000000000000000000000000000000014010000053e00000437000000000000000000
+PKT A minecraft:container_set_data 130100000000
+STAT A minecraft.custom:minecraft.interact_with_stonecutter 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# an input without recipes lists none; a stone block lists its recipes, the buttons pick one
+MENU A cid=1 type=minecraft:stonecutter state=3 carried=empty
+MS 0 minecraft:dirt*4
+MS 29 minecraft:stone*20
+MS 30 minecraft:cobblestone*5
+MD 0 -1
+PKT A minecraft:container_set_slot 140102001f00
+PKT A minecraft:set_cursor_item 6204370000
+PKT A minecraft:container_set_slot 140103000004370000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 13010000ffff
+MENU A cid=1 type=minecraft:stonecutter state=6 carried=empty
+MS 0 minecraft:stone*20
+MS 30 minecraft:cobblestone*5
+MS 31 minecraft:dirt*4
+MD 0 -1
+PKT A minecraft:container_set_slot 140104001d00
+PKT A minecraft:set_cursor_item 6214010000
+PKT A minecraft:container_set_slot 140105000014010000
+PKT A minecraft:set_cursor_item 6204370000
+PKT A minecraft:container_set_slot 140106001f04370000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:stonecutter state=8 carried=empty
+MS 0 minecraft:stone*20
+MS 1 minecraft:cobblestone_stairs*1
+MS 30 minecraft:cobblestone*5
+MS 31 minecraft:dirt*4
+MD 0 3
+PKT A minecraft:container_set_slot 140107000101c4030000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_slot 14010800010199030000
+PKT A minecraft:container_set_data 130100000003
+# taking the result: the input shrinks by one, the result stays, the recipe unlocks and the statistic counts
+MENU A cid=1 type=minecraft:stonecutter state=9 carried=minecraft:cobblestone_stairs*1
+MS 0 minecraft:stone*19
+MS 1 minecraft:cobblestone_stairs*1
+MS 30 minecraft:cobblestone*5
+MS 31 minecraft:dirt*4
+MD 0 3
+PKT A minecraft:recipe_book_add 4b018e020306020105990301000004e90b000a010102010300
+PKT A minecraft:container_set_slot 140109000013010000
+PKT A minecraft:set_cursor_item 620199030000
+STAT A minecraft.crafted:minecraft.cobblestone_stairs 1
+STAT A minecraft.custom:minecraft.interact_with_stonecutter 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:cobblestone_stairs_from_stone_stonecutting highlight=minecraft:cobblestone_stairs_from_stone_stonecutting
+MENU A cid=1 type=minecraft:stonecutter state=13 carried=minecraft:cobblestone*5
+MS 30 minecraft:cobblestone_stairs*20
+MS 31 minecraft:dirt*4
+MD 0 -1
+I A 1 minecraft:cobblestone_stairs*20
+I A 2 minecraft:dirt*4
+PKT A minecraft:container_set_slot 14010a001e0199030000
+PKT A minecraft:set_cursor_item 62053e0000
+PKT A minecraft:container_set_slot 14010b000000
+PKT A minecraft:container_set_slot 14010c000100
+PKT A minecraft:container_set_slot 14010d001e1499030000
+PKT A minecraft:container_set_data 13010000ffff
+STAT A minecraft.crafted:minecraft.air 0
+STAT A minecraft.crafted:minecraft.cobblestone_stairs 1
+STAT A minecraft.custom:minecraft.interact_with_stonecutter 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:cobblestone_stairs_from_stone_stonecutting highlight=minecraft:cobblestone_stairs_from_stone_stonecutting
+# closing returns what is left in the input
+MENU A cid=0 type=inventory state=4 carried=empty
+MS 36 minecraft:cobblestone*5
+MS 37 minecraft:cobblestone_stairs*20
+MS 38 minecraft:dirt*4
+I A 0 minecraft:cobblestone*5
+I A 1 minecraft:cobblestone_stairs*20
+I A 2 minecraft:dirt*4
+# a spectator opens the menu and takes nothing
+MENU S cid=1 type=minecraft:stonecutter state=1 carried=empty
+MD 0 0
+PKT S minecraft:open_screen 3c01180a0800097472616e736c6174650015636f6e7461696e65722e73746f6e6563757474657200
+PKT S minecraft:container_set_content 12010126000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+MENU S cid=1 type=minecraft:stonecutter state=2 carried=empty
+MD 0 0
+PKT S minecraft:container_set_content 12010226000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT S minecraft:container_set_data 130100000000
+# creative takes the result like survival
+MENU C cid=1 type=minecraft:stonecutter state=7 carried=empty
+MS 37 minecraft:cobblestone_slab*16
+MD 0 -1
+I C 8 minecraft:cobblestone_slab*16
+PKT C minecraft:open_screen 3c01180a0800097472616e736c6174650015636f6e7461696e65722e73746f6e6563757474657200
+PKT C minecraft:container_set_content 12010126000000000000000000000000000000000000000000000000000000000008010000000000000000000000
+PKT C minecraft:container_set_data 130100000000
+PKT C minecraft:container_set_slot 140102001d00
+PKT C minecraft:set_cursor_item 6208010000
+PKT C minecraft:container_set_slot 140103000008010000
+PKT C minecraft:set_cursor_item 6200
+PKT C minecraft:container_set_data 13010000ffff
+PKT C minecraft:container_set_slot 140104000102e8020000
+PKT C minecraft:container_set_data 130100000002
+PKT C minecraft:container_set_slot 140105000000
+PKT C minecraft:container_set_slot 140106000100
+PKT C minecraft:container_set_slot 140107002510e8020000
+PKT C minecraft:container_set_data 13010000ffff
+STAT C minecraft.crafted:minecraft.air 0
+STAT C minecraft.custom:minecraft.interact_with_stonecutter 1
+STAT C minecraft.custom:minecraft.play_time 2
+STAT C minecraft.custom:minecraft.time_since_death 2
+STAT C minecraft.custom:minecraft.time_since_rest 2
+STAT C minecraft.custom:minecraft.total_world_time 2
+MENU C cid=0 type=inventory state=2 carried=empty
+MS 44 minecraft:cobblestone_slab*16
+I C 8 minecraft:cobblestone_slab*16
+STAT C minecraft.crafted:minecraft.air 0
+STAT C minecraft.custom:minecraft.interact_with_stonecutter 1
+STAT C minecraft.custom:minecraft.play_time 2
+STAT C minecraft.custom:minecraft.time_since_death 2
+STAT C minecraft.custom:minecraft.time_since_rest 2
+STAT C minecraft.custom:minecraft.total_world_time 2

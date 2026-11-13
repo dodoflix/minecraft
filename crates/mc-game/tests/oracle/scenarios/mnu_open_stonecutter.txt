@@ -1,0 +1,62 @@
+# The stonecutter block through the player's listener: the screen with its title, the recipe buttons, taking the result (statistic,
+# recipe unlock, sound), shift-click, what closing returns and a spectator. Slots: 0 input, 1 result, 2-28 inventory, 29-37 hotbar.
+# Player A's recipe book is emptied after the items are given (the inventory advancements unlock recipes by themselves).
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player S spectator 9.5 -60 7.5 0 0
+spawn_player C creative 6.5 -60 7.5 0 0
+block 3 -60 4 minecraft:stonecutter[facing=north]
+block 6 -60 4 minecraft:stonecutter[facing=east]
+block 9 -60 4 minecraft:stonecutter[facing=south]
+give A hotbar0 minecraft:stone 20
+give A hotbar1 minecraft:cobblestone 5
+give A hotbar2 minecraft:dirt 4
+give C hotbar0 minecraft:stone 8
+tick 2
+cmd recipe take A *
+level_seed 11
+dump packets:A:none packets:S:none packets:C:none stats:A recipes:A
+note using the block opens the menu and counts the statistic
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data stats:A
+note an input without recipes lists none; a stone block lists its recipes, the buttons pick one
+click A 31 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+click A 31 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+button A 0
+button A 0
+button A 99
+button A -1
+button A 3
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note taking the result: the input shrinks by one, the result stays, the recipe unlocks and the statistic counts
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,recipe_book_add stats:A recipes:A
+click A 30 0 PICKUP
+click A 1 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,recipe_book_add stats:A recipes:A
+note closing returns what is left in the input
+close_menu A
+dump menu:A inventory:A packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a spectator opens the menu and takes nothing
+use_on S 9 -60 4 up main
+dump menu:S packets:S:open_screen,container_set_content,container_set_data
+click S 0 0 PICKUP
+button S 0
+dump menu:S packets:S:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu S
+note creative takes the result like survival
+use_on C 6 -60 4 up main
+click C 29 0 PICKUP
+click C 0 0 PICKUP
+button C 2
+click C 1 0 QUICK_MOVE
+dump menu:C inventory:C packets:C:open_screen,container_set_slot,container_set_content,container_set_data,set_cursor_item stats:C
+close_menu C
+dump menu:C inventory:C stats:C
