@@ -1,18 +1,18 @@
 # amethyst: the block, budding amethyst, cluster and the three buds chime once; one of them by an arrow of Steve
 # a snowball chimes too
-EV sound at=10.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.299937
+EV sound at=10.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.6377786
 EV sound at=9.949999999254942,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1467993
-EV sound at=10.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.0450587
+EV sound at=10.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.5806636
 EV sound at=9.949999999254942,-59.5,4.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1467403
-EV sound at=10.5,-59.5,8.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.5950176
+EV sound at=10.5,-59.5,8.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.5170815
 EV sound at=10.137499999254942,-59.9,8.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1467601
-EV sound at=10.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.0459163
+EV sound at=10.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.0048354
 EV sound at=10.137499999254942,-59.9,12.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1468582
-EV sound at=10.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=0.7681887
+EV sound at=10.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=0.98491406
 EV sound at=10.137499999254942,-59.9,16.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1468779
-EV sound at=10.5,-59.5,20.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=0.8746972
+EV sound at=10.5,-59.5,20.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.3556339
 EV sound at=10.199999999254942,-59.9,20.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.146819
-EV sound at=10.5,-59.5,22.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.1521819
+EV sound at=10.5,-59.5,22.5 r=16.0 ex=0 event=minecraft:block.amethyst_block.chime source=block vol=1.0 pitch=1.3620691
 B 10 -60 0 minecraft:amethyst_block
 B 10 -60 4 minecraft:budding_amethyst
 B 10 -60 8 minecraft:amethyst_cluster[facing=up,waterlogged=false]
@@ -57,8 +57,8 @@ E s11 minecraft:trident pos=10.379166673868895,-59.9,36.5 delta=0.0,0.0,0.0 rot=
 E s12 minecraft:arrow pos=10.245833333581686,-59.9,40.5 delta=0.0,0.0,0.0 rot=32.399998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s13 minecraft:trident pos=10.137499999254942,-59.9,44.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=0
 E s14 minecraft:trident pos=10.387499999254942,-59.9,48.5 delta=0.0,0.0,0.0 rot=15.862018,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=1
-E item#1 minecraft:item pos=10.227452891336869,-59.28163021595934,24.36628119379433 delta=-0.05900896690570402,-0.08484884424859764,-0.04197569737881131 rot=154.63287,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=7 pickup=3 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=10.909858657362022,-59.160950539453985,48.38699803554634 delta=0.07831423483779154,-0.08484884424859764,-0.043770559685300324 rot=342.42316,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=7 pickup=3 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=9.828985029721315,-59.13410663434813,24.0526683004835 delta=-0.05900896690570402,-0.08484884424859764,-0.04197569737881131 rot=154.63287,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=7 pickup=3 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.222344658120877,-59.20471890650246,48.40780140557663 delta=0.07831423483779154,-0.08484884424859764,-0.043770559685300324 rot=342.42316,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=7 pickup=3 health=5 owner=- thrower=-
 C Game rule projectiles_can_break_blocks is now set to false
 # projectiles_can_break_blocks false
 EV sound at=10.312500011175871,-59.9,52.5 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1476246
@@ -77,8 +77,8 @@ E s11 minecraft:trident pos=10.379166673868895,-59.9,36.5 delta=0.0,0.0,0.0 rot=
 E s12 minecraft:arrow pos=10.245833333581686,-59.9,40.5 delta=0.0,0.0,0.0 rot=32.399998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=18 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s13 minecraft:trident pos=10.137499999254942,-59.9,44.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=15 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=0
 E s14 minecraft:trident pos=10.387499999254942,-59.9,48.5 delta=0.0,0.0,0.0 rot=2.661205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=1
-E item#1 minecraft:item pos=9.928615207618188,-60.0,24.153704684918903 delta=-0.0039037600248457453,0.0,-0.002776917781059921 rot=154.63287,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=15 pickup=0 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=11.368210842617554,-60.0,48.130820704270995 delta=0.008634844571797794,0.0,-0.004826095542987815 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=9.48362139325188,-60.0,23.806995816278643 delta=-0.006506266180452192,0.0,-0.004628195926444129 rot=154.63287,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.680696843376408,-60.0,48.15162407430128 delta=0.008634844571797794,0.0,-0.004826095542987815 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=15 pickup=0 health=5 owner=- thrower=-
 E s15 minecraft:trident pos=10.312500011175871,-59.9,52.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 C Game rule projectiles_can_break_blocks is now set to true
 C Game rule mob_griefing is now set to false
@@ -99,8 +99,8 @@ E s11 minecraft:trident pos=10.379166673868895,-59.9,36.5 delta=0.0,0.0,0.0 rot=
 E s12 minecraft:arrow pos=10.245833333581686,-59.9,40.5 delta=0.0,0.0,0.0 rot=32.399998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=26 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s13 minecraft:trident pos=10.137499999254942,-59.9,44.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=23 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=0
 E s14 minecraft:trident pos=10.387499999254942,-59.9,48.5 delta=0.0,0.0,0.0 rot=0.44647607,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=1
-E item#1 minecraft:item pos=9.922416036467911,-60.0,24.149294939318388 delta=-0.0013497018774755085,-0.12,-9.6010285438583E-4 rot=154.63287,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=23 pickup=0 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=11.387696065566153,-60.0,48.119930230581 delta=6.069338690936404E-4,0.0,-3.3922102663989446E-4 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=23 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=9.471039939225918,-60.0,23.798046069579584 delta=-0.0013227078656695187,-0.12,-9.409008156106221E-4 rot=154.63287,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=23 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.700182066325008,-60.0,48.140733600611284 delta=6.069338690936404E-4,0.0,-3.3922102663989446E-4 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=23 pickup=0 health=5 owner=- thrower=-
 E s15 minecraft:trident pos=10.312500011175871,-59.9,52.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s16 minecraft:trident pos=10.137499999254942,-59.9,56.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=1
 C Game rule mob_griefing is now set to true
@@ -120,12 +120,12 @@ E s11 minecraft:trident pos=10.379166673868895,-59.9,36.5 delta=0.0,0.0,0.0 rot=
 E s12 minecraft:arrow pos=10.245833333581686,-59.9,40.5 delta=0.0,0.0,0.0 rot=32.399998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=34 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s13 minecraft:trident pos=10.137499999254942,-59.9,44.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=31 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=0
 E s14 minecraft:trident pos=10.387499999254942,-59.9,48.5 delta=0.0,0.0,0.0 rot=0.07490627,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=1
-E item#1 minecraft:item pos=9.920272709806676,-60.0,24.147770295928854 delta=-4.6665141977647454E-4,-0.12,-3.319498680468594E-4 rot=154.63287,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=31 pickup=0 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=11.38865987658616,-60.0,48.119391547570636 delta=2.0984378583863654E-4,0.0,-1.1728365822208209E-4 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=31 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=9.468939479057026,-60.0,23.79655191902876 delta=-4.5731840028161456E-4,-0.12,-3.2531087701736345E-4 rot=154.63287,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=31 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.701145877345015,-60.0,48.14019491760092 delta=2.0984378583863654E-4,0.0,-1.1728365822208209E-4 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=31 pickup=0 health=5 owner=- thrower=-
 E s15 minecraft:trident pos=10.312500011175871,-59.9,52.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s16 minecraft:trident pos=10.137499999254942,-59.9,56.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=1
 E s17 minecraft:trident pos=10.387499999254942,-59.9,60.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=1
-E item#3 minecraft:item pos=10.4927841798687,-59.671880212702526,60.6031660847639 delta=-0.004108192672013275,0.2,-0.07868481050164321 rot=276.7093,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=10.330306302182912,-59.62610512051875,60.44329709755415 delta=-0.004108192672013275,0.2,-0.07868481050164321 rot=276.7093,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=0 pickup=10 health=5 owner=- thrower=-
 # tridents hitting in their first tick keep their full speed: 0.605 breaks, 0.595 does not
 EV level_event r=64.0 ex=0 type=2001 pos=10,-60,64 data=33571 global=0
 EV sound at=10.279166679829359,-59.9,64.5 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.148077
@@ -145,12 +145,12 @@ E s11 minecraft:trident pos=10.379166673868895,-59.9,36.5 delta=0.0,0.0,0.0 rot=
 E s12 minecraft:arrow pos=10.245833333581686,-59.9,40.5 delta=0.0,0.0,0.0 rot=32.399998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s13 minecraft:trident pos=10.137499999254942,-59.9,44.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=39 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=0
 E s14 minecraft:trident pos=10.387499999254942,-59.9,48.5 delta=0.0,0.0,0.0 rot=0.012567185,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=1
-E item#1 minecraft:item pos=9.91953166732448,-60.0,24.147243159518766 delta=-1.613419609274797E-4,-0.12,-1.147696982598968E-4 rot=154.63287,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=39 pickup=0 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=11.38865987658616,-60.0,48.119391547570636 delta=7.255224448233542E-5,0.0,-4.0550129283573243E-5 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=9.468213257410339,-60.0,23.796035325336824 delta=-1.581151247862838E-4,-0.12,-1.1247430648375714E-4 rot=154.63287,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=11.701145877345015,-60.0,48.14019491760092 delta=7.255224448233542E-5,0.0,-4.0550129283573243E-5 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=39 pickup=0 health=5 owner=- thrower=-
 E s15 minecraft:trident pos=10.312500011175871,-59.9,52.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s16 minecraft:trident pos=10.137499999254942,-59.9,56.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=1
 E s17 minecraft:trident pos=10.387499999254942,-59.9,60.5 delta=0.0,0.0,0.0 rot=12.689614,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=1
-E item#3 minecraft:item pos=10.46212946499262,-59.554286613310104,60.01603188158053 delta=-0.0034950989591839587,-0.1223518697449284,-0.06694213763667206 rot=276.7093,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=10.299651587306832,-59.50851152112633,59.85616289437078 delta=-0.0034950989591839587,-0.1223518697449284,-0.06694213763667206 rot=276.7093,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=8 pickup=2 health=5 owner=- thrower=-
 E s90 minecraft:trident pos=10.279166679829359,-59.9,64.5 delta=0.0,0.0,0.0 rot=9.215999,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=3 life=0 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s91 minecraft:trident pos=10.137499999254942,-59.9,68.5 delta=0.0,0.0,0.0 rot=17.999998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
-E item#4 minecraft:item pos=10.26605377123352,-59.47263200074721,64.90903496781563 delta=-0.051875715721818455,0.0323152326326785,0.038564759241808313 rot=174.28705,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=10.345855609771084,-59.3877652839176,64.90866970138798 delta=-0.051875715721818455,0.0323152326326785,0.038564759241808313 rot=174.28705,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=4 pickup=6 health=5 owner=- thrower=-

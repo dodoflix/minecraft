@@ -83,6 +83,8 @@ pub fn check_with(name: &str, opts: &Options) {
     // replay changes the same state without a command, so the text is not part of the comparison
     let mut opts = opts.clone();
     opts.ignore_kinds.push("C");
+    // light updates come from the light thread: which tick carries them depends on thread timing in vanilla
+    opts.ignore_containing.push("minecraft:light_update");
     if let Err(report) = compare(&fixture.lines, &actual, &opts) {
         panic!(
             "block oracle scenario `{name}` differs from {}:\n{report}",

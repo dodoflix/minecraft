@@ -18,7 +18,6 @@ BEU 0 -58 0 minecraft:conduit {Target:[I;1988178086,-155630999,-1476070963,-5430
 P A minecraft:player pos=0.5,-58.0,1.5 delta=0.0,-0.025000001136746355,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:conduit_power/0/258 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=6.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 E Z minecraft:zombie pos=0.5,-59.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=9/19 death=0 fx=-
-EV sound at=0.5,-57.5,0.5 r=16.0 ex=0 event=minecraft:block.conduit.ambient.short source=block vol=1.0 pitch=1.0
 EV sound at=0.5,-59.0,-0.5 r=16.0 ex=0 event=minecraft:block.conduit.attack.target source=block vol=1.0 pitch=1.0
 BE 0 -58 0 {Target:[I;1988178086,-155630999,-1476070963,-543042677],components:{},id:"minecraft:conduit",x:0,y:-58,z:0}
 BEU 0 -58 0 minecraft:conduit {Target:[I;1988178086,-155630999,-1476070963,-543042677]}
@@ -26,6 +25,7 @@ P A minecraft:player pos=0.5,-58.0,1.5 delta=0.0,-0.025000001490069243,0.0 rot=0
 P B minecraft:player pos=6.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 E Z minecraft:zombie pos=0.5,-59.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=9/19 death=0 fx=-
 # remove the top plate: 33 frame blocks, active but no longer hunting
+EV sound at=0.5,-57.5,0.5 r=16.0 ex=0 event=minecraft:block.conduit.ambient.short source=block vol=1.0 pitch=1.0
 EV sound at=0.5,-57.5,0.5 r=16.0 ex=0 event=minecraft:block.conduit.ambient source=block vol=1.0 pitch=1.0
 BE 0 -58 0 {components:{},id:"minecraft:conduit",x:0,y:-58,z:0}
 BEU 0 -58 0 minecraft:conduit {}

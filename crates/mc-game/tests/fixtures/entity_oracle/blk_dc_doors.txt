@@ -114,14 +114,14 @@ EV sound at=9.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.nether_wood.place s
 T 60
 EV sound at=12.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.bamboo_wood.place source=block vol=1.0 pitch=0.8
 T 61
-EV sound at=0.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.98787457
+EV sound at=0.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.9457042
 T 62
 T 63
-EV sound at=6.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.copper_door.open source=block vol=1.0 pitch=0.9314818
+EV sound at=6.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.copper_door.open source=block vol=1.0 pitch=0.9355077
 T 64
-EV sound at=9.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.nether_wood_door.open source=block vol=1.0 pitch=0.9038676
+EV sound at=9.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.nether_wood_door.open source=block vol=1.0 pitch=0.9545571
 T 65
-EV sound at=12.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.bamboo_wood_door.open source=block vol=1.0 pitch=0.9839075
+EV sound at=12.5,-59.5,12.5 r=16.0 ex=1 event=minecraft:block.bamboo_wood_door.open source=block vol=1.0 pitch=0.91104776
 B 0 -60 12 minecraft:oak_door[facing=south,half=lower,hinge=left,open=true,powered=false]
 B 0 -59 12 minecraft:oak_door[facing=south,half=upper,hinge=left,open=true,powered=false]
 B 3 -60 12 minecraft:iron_door[facing=south,half=lower,hinge=left,open=false,powered=false]
@@ -133,14 +133,14 @@ B 9 -59 12 minecraft:crimson_door[facing=south,half=upper,hinge=left,open=true,p
 B 12 -60 12 minecraft:bamboo_door[facing=south,half=lower,hinge=left,open=true,powered=false]
 B 12 -59 12 minecraft:bamboo_door[facing=south,half=upper,hinge=left,open=true,powered=false]
 T 66
-EV sound at=0.5,-58.5,12.5 r=16.0 ex=1 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9311539
+EV sound at=0.5,-58.5,12.5 r=16.0 ex=1 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.98567355
 T 67
 T 68
-EV sound at=6.5,-58.5,12.5 r=16.0 ex=1 event=minecraft:block.copper_door.close source=block vol=1.0 pitch=0.94880915
+EV sound at=6.5,-58.5,12.5 r=16.0 ex=1 event=minecraft:block.copper_door.close source=block vol=1.0 pitch=0.93343204
 T 69
-EV sound at=9.5,-58.5,12.5 r=16.0 ex=1 event=minecraft:block.nether_wood_door.close source=block vol=1.0 pitch=0.97781754
+EV sound at=9.5,-58.5,12.5 r=16.0 ex=1 event=minecraft:block.nether_wood_door.close source=block vol=1.0 pitch=0.9146763
 T 70
-EV sound at=12.5,-58.5,12.5 r=16.0 ex=1 event=minecraft:block.bamboo_wood_door.close source=block vol=1.0 pitch=0.99985725
+EV sound at=12.5,-58.5,12.5 r=16.0 ex=1 event=minecraft:block.bamboo_wood_door.close source=block vol=1.0 pitch=0.91315496
 B 0 -60 12 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
 B 0 -59 12 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
 B 3 -60 12 minecraft:iron_door[facing=south,half=lower,hinge=left,open=false,powered=false]
@@ -160,8 +160,8 @@ EV sound at=6.5,-59.5,16.5 r=16.0 ex=1 event=minecraft:block.iron.place source=b
 T 74
 EV sound at=9.5,-59.5,16.5 r=16.0 ex=1 event=minecraft:block.wood.place source=block vol=1.0 pitch=0.8
 T 75
-EV sound at=6.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.iron_door.open source=block vol=1.0 pitch=0.93272495
-EV sound at=9.5,-58.5,16.5 r=16.0 ex=0 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.95568883
+EV sound at=6.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.iron_door.open source=block vol=1.0 pitch=0.9642218
+EV sound at=9.5,-58.5,16.5 r=16.0 ex=0 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.96312916
 T 76
 B 0 -60 16 minecraft:oak_door[facing=south,half=lower,hinge=left,open=true,powered=true]
 B 0 -59 16 minecraft:oak_door[facing=south,half=upper,hinge=left,open=true,powered=true]
@@ -176,9 +176,9 @@ B 9 -60 16 minecraft:oak_door[facing=south,half=lower,hinge=left,open=true,power
 B 9 -59 16 minecraft:oak_door[facing=south,half=upper,hinge=left,open=true,powered=true]
 B 9 -59 17 minecraft:redstone_block
 T 77
-EV sound at=6.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.iron_door.close source=block vol=1.0 pitch=0.9015161
-EV sound at=9.5,-58.5,16.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.92122597
-EV sound at=3.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9670899
+EV sound at=6.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.iron_door.close source=block vol=1.0 pitch=0.9376767
+EV sound at=9.5,-58.5,16.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.91181123
+EV sound at=3.5,-59.5,16.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.94087714
 T 78
 B 0 -60 16 minecraft:oak_door[facing=south,half=lower,hinge=left,open=true,powered=true]
 B 0 -59 16 minecraft:oak_door[facing=south,half=upper,hinge=left,open=true,powered=true]

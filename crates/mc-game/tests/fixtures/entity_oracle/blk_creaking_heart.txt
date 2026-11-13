@@ -625,7 +625,7 @@ B 17 -61 15 minecraft:grass_block[snowy=false]
 B 17 -61 16 minecraft:grass_block[snowy=false]
 B 17 -61 17 minecraft:grass_block[snowy=false]
 E experience_orb#2 minecraft:experience_orb pos=15.598714824335744,-59.82028757417542,16.416898318598722 delta=-0.10899897708825297,-0.10050946662476086,0.10227364107681783 rot=110.77478,0.0 og=0 fall=0.3202875703573227 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=6 health=5
-E item#1 minecraft:item pos=16.23936841448244,-59.64207968747772,16.05583203312371 delta=-0.048501575236216746,-0.15215841372877212,-0.08484432030194035 rot=219.27908,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:resin_clump*2 age=6 pickup=4 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=16.950117250422288,-59.64207968747772,17.020270317433873 delta=0.07150219239528843,-0.15215841372877212,0.05003654652164527 rot=212.87521,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:resin_clump*2 age=6 pickup=4 health=5 owner=- thrower=-
 DIG Op ticks=0 broken=true
 T 286
 EV level_event r=64.0 ex=1 type=2001 pos=16,-60,8 data=5455 global=0
@@ -642,4 +642,4 @@ B 17 -61 7 minecraft:grass_block[snowy=false]
 B 17 -61 8 minecraft:grass_block[snowy=false]
 B 17 -61 9 minecraft:grass_block[snowy=false]
 E experience_orb#2 minecraft:experience_orb pos=15.42877192941563,-59.95930350755217,16.900552184322823 delta=-0.013432008082270975,0.03988256337509517,0.1482339183958006 rot=110.77478,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=9 health=5
-E item#1 minecraft:item pos=16.115386743521128,-60.0,15.83894958030893 delta=-0.016433749680819794,0.0,-0.028747732726013303 rot=219.27908,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:resin_clump*2 age=9 pickup=1 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=17.132894021019744,-60.0,17.148175743529286 delta=0.02422703027130885,0.0,0.01695384276540774 rot=212.87521,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:resin_clump*2 age=9 pickup=1 health=5 owner=- thrower=-

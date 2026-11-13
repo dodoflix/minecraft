@@ -71,7 +71,7 @@ E wind_charge#2 minecraft:wind_charge pos=10.49724312412122,-58.40694975969997,3
 PKT Alice minecraft:move_entity_pos 360400000000000000
 PKT Alice minecraft:move_entity_pos 360300000000000000
 PKT Alice minecraft:block_changed_ack 0401
-PKT Alice minecraft:explode 243fdefe9fd3697753c04de000000000003fe05ec1ccbdbfa03f99999a0000003f013f89a74b1531a3473ff17a8d010ac454bf82e3b606e5385722f10d0001
+PKT Alice minecraft:explode 243fdefe9fd3697753c04de000000000003fe05ec1ccbdbfa03f99999a00000041013f89a74b1531a3473ff17a8d010ac454bf82e3b606e5385722f10d0001
 PKT Alice minecraft:remove_entities 4e0103
 T 33
 P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.006223727833143482,0.8186324828595317,-0.004582732652673233 rot=0.0,90.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:wind_charge*3
@@ -87,7 +87,7 @@ PKT Alice minecraft:remove_entities 4e0104
 PKT Bob minecraft:move_entity_pos 360400000000000000
 PKT Bob minecraft:move_entity_pos 360300000000000000
 PKT Bob minecraft:block_changed_ack 0402
-PKT Bob minecraft:explode 243fdefe9fd3697753c04de000000000003fe05ec1ccbdbfa03f99999a0000003f0022f10d0001
+PKT Bob minecraft:explode 243fdefe9fd3697753c04de000000000003fe05ec1ccbdbfa03f99999a000000410022f10d0001
 PKT Bob minecraft:remove_entities 4e0103
 PKT Bob minecraft:explode 244024fc7a5c1ec7d9c04d393f54597762401f0000000000003f99999a000000400022f10d0001
 PKT Bob minecraft:remove_entities 4e0104

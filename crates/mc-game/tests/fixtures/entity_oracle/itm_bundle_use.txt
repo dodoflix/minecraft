@@ -2,8 +2,8 @@ T 1
 T 2
 # A: survival, the first tick drops the first stack, no more for ten ticks, then one stack every second tick until the bundle is empty
 T 3
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=0.92164356
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=1.143292
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=0.84821266
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=1.0902811
 E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.0062067302287252485,0.08172237128019333,0.31506519457340526 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=0 pickup=40 health=5 owner=- thrower=A
 I A 0 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
 STAT A minecraft.custom:minecraft.drop 1
@@ -14,7 +14,7 @@ STAT A minecraft.custom:minecraft.total_world_time 3
 STAT A minecraft.dropped:minecraft.diamond 3
 STAT A minecraft.used:minecraft.bundle 1
 USE A hand=main item=minecraft:bundle*1 remaining=199 ticks=1 kinetic=0
-PKT A minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f9257643dace6703e05bff8
+PKT A minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f8b8e553dace6703e05bff8
 T 4
 T 5
 T 6
@@ -54,8 +54,8 @@ STAT A minecraft.custom:minecraft.total_world_time 14
 STAT A minecraft.dropped:minecraft.diamond 3
 STAT A minecraft.used:minecraft.bundle 1
 T 15
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=0.8336684
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=1.1739359
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=1.0238233
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=1.1256312
 E item#1 minecraft:item pos=0.4383990239960498,-60.0,3.626980354450231 delta=-0.0010520339038499807,0.0,0.05340320175030213 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=12 pickup=28 health=5 owner=- thrower=A
 E item#2 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.010691446817025389,0.08966601639986038,0.2919882987621401 rot=208.90628,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=0 pickup=40 health=5 owner=- thrower=A
 STAT A minecraft.custom:minecraft.drop 2
@@ -81,8 +81,8 @@ STAT A minecraft.used:minecraft.bundle 2
 USE A hand=main item=minecraft:bundle*1 remaining=186 ticks=14 kinetic=0
 PKT A minecraft:container_set_slot 140004002401810901003401ef07010000
 T 17
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=0.84576845
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=0.8410063
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=0.9511173
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=0.9489757
 T 18
 T 19
 T 20
@@ -101,8 +101,8 @@ STAT A minecraft.used:minecraft.bundle 3
 USE A hand=main item=minecraft:bundle*1 remaining=182 ticks=18 kinetic=0
 # B: creative drops the same way and is awarded the same statistic
 T 21
-EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=1.0494943
-EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=0.9594281
+EV sound at=6.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=0.9945487
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=0.8781808
 E item#1 minecraft:item pos=0.4359510783500193,-60.0,3.751242637947308 delta=-4.348044242705584E-5,0.0,0.0022071482968628493 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=18 pickup=22 health=5 owner=- thrower=A
 E item#2 minecraft:item pos=0.43897449141312017,-58.98075038568158,2.1666345292951665 delta=-0.009470937809256995,-0.14431898176591731,0.2586556399647677 rot=208.90628,0.0 og=0 fall=0.35908908396959305 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=6 pickup=34 health=5 owner=- thrower=A
 E item#3 minecraft:item pos=0.4842821173081654,-58.52768392405474,1.6443788977341474 delta=-0.003734981742053093,-0.022795680629430635,0.27193448206916154 rot=29.503784,0.0 og=0 fall=0.023260898888111115 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=4 pickup=36 health=5 owner=- thrower=A
@@ -116,13 +116,13 @@ STAT B minecraft.custom:minecraft.total_world_time 21
 STAT B minecraft.dropped:minecraft.diamond 3
 STAT B minecraft.used:minecraft.bundle 1
 USE B hand=main item=minecraft:bundle*1 remaining=199 ticks=1 kinetic=0
-PKT B minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f6bf0d5e32d4fcf84a7860e
-PKT B minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f9257643dace6703e05bff8
-PKT B minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f556b4b6fd465a290351d3c
-PKT B minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f9643884b970fd5e0db99e1
-PKT B minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f588448e8168c54d2216418
-PKT B minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f574c30a3981763e0103683
-PKT B minecraft:sound 77ee010700000034fffffe24000000043f4ccccd3f759d1429a8e9b76b35b192
+PKT B minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f592477e32d4fcf84a7860e
+PKT B minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f8b8e553dace6703e05bff8
+PKT B minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f830ca46fd465a290351d3c
+PKT B minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f9014af4b970fd5e0db99e1
+PKT B minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f737c6ce8168c54d2216418
+PKT B minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f72f012a3981763e0103683
+PKT B minecraft:sound 77ee010700000034fffffe24000000043f4ccccd3f60d07529a8e9b76b35b192
 T 22
 T 23
 T 24
@@ -168,18 +168,18 @@ STAT C minecraft.custom:minecraft.time_since_death 35
 STAT C minecraft.custom:minecraft.time_since_rest 35
 STAT C minecraft.custom:minecraft.total_world_time 35
 USE C hand=main item=minecraft:bundle*1 remaining=197 ticks=3 kinetic=0
-PKT C minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f6bf0d5e32d4fcf84a7860e
-PKT C minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f9257643dace6703e05bff8
-PKT C minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f556b4b6fd465a290351d3c
-PKT C minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f9643884b970fd5e0db99e1
-PKT C minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f588448e8168c54d2216418
-PKT C minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f574c30a3981763e0103683
-PKT C minecraft:sound 77f1010700000034fffffe20000000043f4ccccd3f8655d4a1a24ca263725fe3
-PKT C minecraft:sound 77ee010700000034fffffe24000000043f4ccccd3f759d1429a8e9b76b35b192
+PKT C minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f592477e32d4fcf84a7860e
+PKT C minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f8b8e553dace6703e05bff8
+PKT C minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f830ca46fd465a290351d3c
+PKT C minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f9014af4b970fd5e0db99e1
+PKT C minecraft:sound 77f1010700000004fffffe20000000043f4ccccd3f737c6ce8168c54d2216418
+PKT C minecraft:sound 77ee010700000004fffffe24000000043f4ccccd3f72f012a3981763e0103683
+PKT C minecraft:sound 77f1010700000034fffffe20000000043f4ccccd3f7e9abea1a24ca263725fe3
+PKT C minecraft:sound 77ee010700000034fffffe24000000043f4ccccd3f60d07529a8e9b76b35b192
 # D: the off hand bundle
 T 36
-EV sound at=18.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=0.87354404
-EV sound at=18.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=1.0207161
+EV sound at=18.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=0.94577
+EV sound at=18.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=0.9488809
 E item#1 minecraft:item pos=0.43586699829976433,-60.0,3.755510698007453 delta=-8.839466693485369E-6,-0.12,4.487078044440952E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=33 pickup=7 health=5 owner=- thrower=A
 E item#2 minecraft:item pos=0.38111378935363,-60.0,3.7468367459521343 delta=-4.315896476355168E-5,0.0,0.0011786910521386995 rot=208.90628,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=21 pickup=19 health=5 owner=- thrower=A
 E item#3 minecraft:item pos=0.4518971530320027,-60.0,4.002245440456715 delta=-4.633295829253802E-5,0.0,0.0033733843660203582 rot=29.503784,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=19 pickup=21 health=5 owner=- thrower=A
@@ -194,9 +194,9 @@ STAT D minecraft.custom:minecraft.total_world_time 36
 STAT D minecraft.dropped:minecraft.gold_ingot 5
 STAT D minecraft.used:minecraft.bundle 1
 USE D hand=off item=minecraft:bundle*1 remaining=199 ticks=1 kinetic=0
-PKT D minecraft:sound 77f1010700000034fffffe20000000043f4ccccd3f8655d4a1a24ca263725fe3
-PKT D minecraft:sound 77ee010700000034fffffe24000000043f4ccccd3f759d1429a8e9b76b35b192
-PKT D minecraft:sound 77ee010700000094fffffe24000000043f4ccccd3f82a6d35ac3b5cd447e2ff6
+PKT D minecraft:sound 77f1010700000034fffffe20000000043f4ccccd3f7e9abea1a24ca263725fe3
+PKT D minecraft:sound 77ee010700000034fffffe24000000043f4ccccd3f60d07529a8e9b76b35b192
+PKT D minecraft:sound 77ee010700000094fffffe24000000043f4ccccd3f72e9dc5ac3b5cd447e2ff6
 USE D hand=off item=empty remaining=0 ticks=0 kinetic=0
 STAT D minecraft.custom:minecraft.drop 1
 STAT D minecraft.custom:minecraft.play_time 36
@@ -207,8 +207,8 @@ STAT D minecraft.dropped:minecraft.gold_ingot 5
 STAT D minecraft.used:minecraft.bundle 1
 # E: released after the first drop, the bundle keeps the rest
 T 37
-EV sound at=24.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=1.1245922
-EV sound at=24.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=0.95725703
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.bundle.remove_one source=player vol=0.8 pitch=0.8384668
+EV sound at=24.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:item.bundle.drop_contents source=player vol=0.8 pitch=0.95758176
 T 38
 T 39
 T 40

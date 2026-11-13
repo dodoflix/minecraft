@@ -23,27 +23,26 @@ DIG Alice ticks=1 broken=false
 B 3 -60 3 minecraft:redstone_ore[lit=true]
 # breaking drops dust and experience (a nearby player collects orbs in reach); the level seed pins the orb split
 DIG Alice ticks=15 broken=true
-E item#1 minecraft:item pos=3.2867458183770566,-59.45553443239713,3.3186783826478568 delta=0.015105854030504134,0.1568000030517578,0.02440889552093187 rot=208.90628,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*4 age=1 pickup=9 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=3.3340668762991217,-59.36660437269146,3.432110050722211 delta=0.015105854030504134,0.1568000030517578,0.02440889552093187 rot=208.90628,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*4 age=1 pickup=9 health=5 owner=- thrower=-
 DIG Alice ticks=23 broken=true
-E item#2 minecraft:item pos=5.642328513818401,-59.461749665104946,3.21887956031373 delta=0.013607160843315428,0.1568000030517578,-0.03080847617438746 rot=85.242966,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*5 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.350822724029279,-59.64569942019651,3.3569308163776865 delta=0.013607160843315428,0.1568000030517578,-0.03080847617438746 rot=85.242966,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*5 age=1 pickup=9 health=5 owner=- thrower=-
 E experience_orb#1 minecraft:experience_orb pos=5.323205135379414,-59.36695948149172,3.490582821640127 delta=-0.17325897070026897,0.13037971067566254,-0.009228834972293974 rot=298.22275,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
+E experience_orb#2 minecraft:experience_orb pos=5.258930646894174,-59.29737572167741,3.6558142595616885 delta=-0.23624797064174233,0.19857179662088956,0.15269797734237603 rot=130.3484,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
 # silk touch drops the ore and no experience
 DIG Alice ticks=15 broken=true
-E item#3 minecraft:item pos=7.5319838983508385,-59.68023926741426,3.275824237867621 delta=-0.04124417423608773,0.1568000030517578,7.677545950956534E-4 rot=343.0226,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone_ore*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=7.346349393199461,-59.33028281759044,3.41566107236312 delta=-0.04124417423608773,0.1568000030517578,7.677545950956534E-4 rot=343.0226,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone_ore*1 age=1 pickup=9 health=5 owner=- thrower=-
 # fortune
 DIG Alice ticks=15 broken=true
-E item#3 minecraft:item pos=7.145044871856944,-60.0,3.283027054292361 delta=-0.0024663694639576916,-0.08,4.591112621913745E-5 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone_ore*1 age=16 pickup=0 health=5 owner=- thrower=-
-E item#4 minecraft:item pos=3.3047400893995875,-59.438480456997404,4.587852166399681 delta=-0.036489499847105984,0.1568000030517578,-0.006623025545023911 rot=217.88531,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*7 age=1 pickup=9 health=5 owner=- thrower=-
-E experience_orb#2 minecraft:experience_orb pos=3.515861921351413,-59.376475350180854,4.5871583805272085 delta=0.015544683226926809,0.12105415917880802,0.08541521457907816 rot=225.77295,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
-E experience_orb#3 minecraft:experience_orb pos=3.6287114374142235,-59.152254130958795,4.435671938696604 delta=0.12613721112091508,0.34079095829310874,-0.06304150130428839 rot=345.78445,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
+E item#3 minecraft:item pos=6.89306967191526,-60.0,3.4240988116396434 delta=-0.002368701325387806,0.0,4.409304733720269E-5 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone_ore*1 age=16 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=3.5551418300961166,-59.37967560912856,4.385481906981151 delta=-0.036489499847105984,0.1568000030517578,-0.006623025545023911 rot=217.88531,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*7 age=1 pickup=9 health=5 owner=- thrower=-
+E experience_orb#3 minecraft:experience_orb pos=3.3894733467503078,-59.24845814718043,4.406597609725267 delta=-0.10831612229282693,0.24651102056095775,-0.09153434425074704 rot=168.33221,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
 # destroy without a tool still drops experience
 DESTROY true
 DESTROY true
 DESTROY true
-E item#3 minecraft:item pos=7.145044871856944,-60.0,3.283027054292361 delta=-0.0024663694639576916,-0.08,4.591112621913745E-5 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone_ore*1 age=16 pickup=0 health=5 owner=- thrower=-
-E item#4 minecraft:item pos=3.3047400893995875,-59.438480456997404,4.587852166399681 delta=-0.036489499847105984,0.1568000030517578,-0.006623025545023911 rot=217.88531,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*7 age=1 pickup=9 health=5 owner=- thrower=-
-E experience_orb#2 minecraft:experience_orb pos=3.515861921351413,-59.376475350180854,4.5871583805272085 delta=0.015544683226926809,0.12105415917880802,0.08541521457907816 rot=225.77295,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
-E experience_orb#3 minecraft:experience_orb pos=3.6287114374142235,-59.152254130958795,4.435671938696604 delta=0.12613721112091508,0.34079095829310874,-0.06304150130428839 rot=345.78445,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
+E item#3 minecraft:item pos=6.89306967191526,-60.0,3.4240988116396434 delta=-0.002368701325387806,0.0,4.409304733720269E-5 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone_ore*1 age=16 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=3.5551418300961166,-59.37967560912856,4.385481906981151 delta=-0.036489499847105984,0.1568000030517578,-0.006623025545023911 rot=217.88531,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*7 age=1 pickup=9 health=5 owner=- thrower=-
+E experience_orb#3 minecraft:experience_orb pos=3.3894733467503078,-59.24845814718043,4.406597609725267 delta=-0.10831612229282693,0.24651102056095775,-0.09153434425074704 rot=168.33221,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
 E item#5 minecraft:item pos=1.6140953762191514,-59.62679364949258,5.408318749455957 delta=0.03199659350167655,0.2,0.09730407190900414 rot=257.33533,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*5 age=0 pickup=10 health=5 owner=- thrower=-
 E experience_orb#4 minecraft:experience_orb pos=1.5,-59.5,5.5 delta=0.0754595792363546,0.18243777348484344,0.13926192485449812 rot=48.04703,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
 E item#6 minecraft:item pos=1.6138714292392196,-59.70293265994079,6.334062304256141 delta=0.08727854270595248,0.2,0.07712647928084201 rot=133.39052,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:redstone*5 age=0 pickup=10 health=5 owner=- thrower=-

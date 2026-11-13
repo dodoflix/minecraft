@@ -224,9 +224,9 @@ E T3 minecraft:text_display pos=2.5,-60.0,11.5 delta=0.06622776601683791,0.0,0.1
 E T4 minecraft:text_display pos=3.5,-60.0,11.5 delta=0.07221359549995791,0.0,0.14442719099991583 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E T5 minecraft:text_display pos=4.5,-60.0,11.5 delta=0.05470019622522915,0.0,0.08205029433784372 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E T6 minecraft:text_display pos=5.5,-60.0,11.5 delta=0.015184399664479903,0.0,0.01822127959737588 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E item#1 minecraft:item pos=2.764710629547395,-62.506491239645854,5.819222154964735 delta=0.0936809378449009,0.11446400521850592,0.04513399624751077 rot=17.582352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*15 age=2 pickup=8 health=5 owner=- thrower=-
-PKT A minecraft:set_entity_data 65bb0608070f370000ff
-PKT A minecraft:set_entity_data 65bb0608070f370000ff
+E item#1 minecraft:item pos=1.7040345409324047,-61.344673008047906,3.7518038121984776 delta=0.0936809378449009,0.11446400521850592,0.04513399624751077 rot=17.582352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+PKT A minecraft:set_entity_data 65bb06080710370000ff
+PKT A minecraft:set_entity_data 65bb06080710370000ff
 PKT A minecraft:set_entity_data 65a106090340920000ff
 E B0 minecraft:block_display pos=0.5,-60.0,3.5 delta=0.0,0.0,-0.75 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E I0 minecraft:item_display pos=1.5,-60.0,3.5 delta=0.3222135954999579,0.0,-0.6444271909999159 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -251,6 +251,6 @@ E T3 minecraft:text_display pos=2.5,-60.0,11.5 delta=0.06622776601683791,0.0,0.1
 E T4 minecraft:text_display pos=3.5,-60.0,11.5 delta=0.07221359549995791,0.0,0.14442719099991583 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E T5 minecraft:text_display pos=4.5,-60.0,11.5 delta=0.05470019622522915,0.0,0.08205029433784372 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E T6 minecraft:text_display pos=5.5,-60.0,11.5 delta=0.015184399664479903,0.0,0.01822127959737588 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E item#1 minecraft:item pos=2.858391567392296,-62.432027234427345,5.864356151212246 delta=0.09180732087482497,0.07297472653442398,0.04423131718342321 rot=17.582352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*15 age=3 pickup=7 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=1.7977154787773055,-61.2702090028294,3.796937808445988 delta=0.09180732087482497,0.07297472653442398,0.04423131718342321 rot=17.582352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=3 pickup=7 health=5 owner=- thrower=-
 PKT A minecraft:remove_entities 4e01a506
 PKT A minecraft:remove_entities 4e01a906

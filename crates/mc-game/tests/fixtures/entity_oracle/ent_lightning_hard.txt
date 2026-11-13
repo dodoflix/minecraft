@@ -214,7 +214,7 @@ B 26 -62 6 minecraft:dirt
 B 26 -61 4 minecraft:grass_block[snowy=false]
 B 26 -61 5 minecraft:grass_block[snowy=false]
 B 26 -61 6 minecraft:grass_block[snowy=false]
-TICK block 5 -60 5 minecraft:fire delay=36 prio=0
+TICK block 5 -60 5 minecraft:fire delay=33 prio=0
 # a cow and a chicken inside the radius burn and are hurt, a cow outside is left alone, an item inside is hurt too
 E c1 minecraft:cow pos=36.5,-60.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=8/18 death=0 fx=-
 E c3 minecraft:cow pos=36.5,-60.0,12.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -233,13 +233,13 @@ B 35 -61 5 minecraft:grass_block[snowy=false]
 B 35 -61 6 minecraft:grass_block[snowy=false]
 B 35 -61 7 minecraft:grass_block[snowy=false]
 B 35 -61 8 minecraft:grass_block[snowy=false]
-B 35 -60 6 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 35 -60 6 minecraft:fire[age=1,east=false,north=false,south=false,up=false,west=false]
 B 36 -61 4 minecraft:grass_block[snowy=false]
 B 36 -61 5 minecraft:grass_block[snowy=false]
 B 36 -61 6 minecraft:grass_block[snowy=false]
 B 36 -61 7 minecraft:grass_block[snowy=false]
 B 36 -61 8 minecraft:grass_block[snowy=false]
-B 36 -60 4 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 36 -60 4 minecraft:fire[age=1,east=false,north=false,south=false,up=false,west=false]
 B 36 -60 5 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
 B 37 -61 4 minecraft:grass_block[snowy=false]
 B 37 -61 5 minecraft:grass_block[snowy=false]

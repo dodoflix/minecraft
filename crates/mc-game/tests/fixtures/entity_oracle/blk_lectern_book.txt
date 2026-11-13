@@ -382,4 +382,4 @@ B 9 -61 -1 minecraft:grass_block[snowy=false]
 B 9 -61 0 minecraft:grass_block[snowy=false]
 B 9 -61 1 minecraft:grass_block[snowy=false]
 E item#1 minecraft:item pos=8.556098144036644,-58.62344603256263,0.3942116806912654 delta=0.010555516775401376,-0.0075310721665503766,-0.06694570092197906 rot=46.04917,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:written_book*1 age=5 pickup=5 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=8.540611937871796,-59.2671271701948,0.5878344365231054 delta=0.052858015566111784,-0.0075310721665503766,0.01944344194937994 rot=347.7967,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:lectern*1 age=5 pickup=5 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.715979034081434,-59.078704908947905,0.6034190142532311 delta=0.052858015566111784,-0.0075310721665503766,0.01944344194937994 rot=347.7967,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:lectern*1 age=5 pickup=5 health=5 owner=- thrower=-

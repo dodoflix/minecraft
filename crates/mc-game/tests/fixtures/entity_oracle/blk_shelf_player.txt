@@ -101,40 +101,40 @@ EV sound at=24.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.activate sour
 B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
 BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
 EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.place_item source=block vol=1.0 pitch=1.0
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.96363336
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.995798
 B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
 BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.97631216
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8272917
 EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.place_item source=block vol=1.0 pitch=1.0
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8983205
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8084463
 B 32 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
 BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
 BE 30 -60 0 {Items:[{Slot:1b,count:3,id:"minecraft:stick"}],align_items_to_bottom:0b,components:{},id:"minecraft:shelf",x:30,y:-60,z:0}
 I Eve 2 minecraft:apple*2
 I Eve 6 minecraft:apple*7
 I Eve 7 minecraft:stick*3{minecraft:use_effects:{interact_vibrations:0b}}
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8270706
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8362489
 EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.take_item source=block vol=1.0 pitch=1.0
 B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
 BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:3,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
 EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.take_item source=block vol=1.0 pitch=1.0
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.896453
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.98533195
 B 30 -60 0 minecraft:oak_shelf[facing=north,powered=true,side_chain=unconnected,waterlogged=false]
 B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
 BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.94810313
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.88479584
 EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.activate source=block vol=1.0 pitch=1.0
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.81230456
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.93423295
 B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
 BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:6,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
 I Eve 2 minecraft:apple*2
 I Eve 5 minecraft:stick*3
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.97986126
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.88767976
 EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.multi_swap source=block vol=1.0 pitch=1.0
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9737657
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.924438
 B 30 -60 0 minecraft:oak_shelf[facing=north,powered=false,side_chain=unconnected,waterlogged=false]
 B 32 -60 0 minecraft:sculk_sensor[power=12,sculk_sensor_phase=active,waterlogged=false]
 BE 32 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:9,listener:{event_delay:0,selector:{tick:-1L}},x:32,y:-60,z:0}
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8295102
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8546862
 EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shelf.deactivate source=block vol=1.0 pitch=1.0
-EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.991923
+EV sound at=32.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.87996006

@@ -33,20 +33,20 @@ B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=
 B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
 TICK block 0 -60 0 minecraft:sculk_sensor delay=25 prio=0
 EV sound at=3.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.6
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9178705
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.917587
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9237811
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.95597124
 EV sound at=3.5,-59.5,1.5 r=16.0 ex=0 event=minecraft:block.lever.click source=block vol=0.3 pitch=0.5
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9444431
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.99692804
-EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.93923163
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8493602
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.89177316
-EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9981693
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.82859397
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.9734852
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8194546
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.9801804
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.9310932
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9093687
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8748449
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.95261973
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8292647
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8671172
 EV sound at=1.5,-59.5,3.5 r=48.0 ex=0 event=minecraft:block.note_block.harp source=record vol=3.0 pitch=0.5297316
 EV block_event r=64.0 ex=0 pos=1,-60,3 block=minecraft:note_block b0=0 b1=0
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9737622
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.98578143
 # button pressed (10), released by itself after 20 ticks (9)
 BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:10,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
 BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
@@ -71,17 +71,17 @@ BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0
 B 0 -60 0 minecraft:sculk_sensor[power=5,sculk_sensor_phase=active,waterlogged=false]
 B 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
 TICK block 0 -60 0 minecraft:sculk_sensor delay=26 prio=0
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.9509808
-EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.9975071
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8111205
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.98920894
 EV sound at=3.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.stone_button.click_on source=block vol=1.0 pitch=1.0
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.87117124
-EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9868495
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9882076
+EV sound at=2.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9816956
 EV sound at=3.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.stone_button.click_off source=block vol=1.0 pitch=1.0
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.869077
-EV sound at=1.5,-59.5,1.5 r=16.0 ex=1 event=minecraft:block.wooden_trapdoor.open source=block vol=1.0 pitch=0.9269583
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.82423425
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8964513
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8064438
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8299739
+EV sound at=1.5,-59.5,1.5 r=16.0 ex=1 event=minecraft:block.wooden_trapdoor.open source=block vol=1.0 pitch=0.9806888
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.837843
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8111642
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9652047
 # item entity falling to the ground
 T 482
 BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:15,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}

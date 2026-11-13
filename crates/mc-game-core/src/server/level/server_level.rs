@@ -531,6 +531,10 @@ impl ServerLevel {
         have_time: &dyn Fn() -> bool,
         runs_normally: bool,
     ) {
+        self.chunk_source
+            .chunk_map
+            .settings
+            .spectators_generate_chunks = self.spectators_generate_chunks();
         self.chunk_source.tick_pre(runs_normally, env.is_some());
         self.apply_chunk_events();
         if let Some(env) = env {

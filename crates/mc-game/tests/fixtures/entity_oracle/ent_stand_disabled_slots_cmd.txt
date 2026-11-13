@@ -67,9 +67,9 @@ EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
 E d1 minecraft:armor_stand pos=1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["d_open"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{count:1,id:"minecraft:carved_pumpkin"}},fall_distance:0.0d}
 BE 0 -60 0 {Items:[{Slot:1b,count:1,id:"minecraft:iron_helmet"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
-EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.armor.equip_generic source=neutral vol=1.0 pitch=1.0
 EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.armor.equip_generic source=neutral vol=1.0 pitch=1.0
 EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
 EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0

@@ -68,10 +68,12 @@ STAT P minecraft.custom:minecraft.total_world_time 43
 STAT P minecraft.mined:minecraft.dirt 1
 STAT P minecraft.mined:minecraft.stone 2
 STAT P minecraft.picked_up:minecraft.cobblestone 1
+STAT P minecraft.picked_up:minecraft.dirt 1
 STAT P minecraft.used:minecraft.stone_pickaxe 1
 STAT P minecraft.used:minecraft.wooden_pickaxe 1
 STAT P minecraft.used:minecraft.wooden_shovel 1
 I P 0 minecraft:cobblestone*1
+I P 1 minecraft:dirt*1
 I P 2 minecraft:stone_pickaxe*1/dmg=11{minecraft:damage:11}
 I P 3 minecraft:wooden_pickaxe*1/dmg=58{minecraft:damage:58}
 DIG P ticks=23 broken=true
@@ -83,11 +85,13 @@ STAT P minecraft.custom:minecraft.time_since_rest 66
 STAT P minecraft.custom:minecraft.total_world_time 66
 STAT P minecraft.mined:minecraft.dirt 1
 STAT P minecraft.mined:minecraft.stone 3
-STAT P minecraft.picked_up:minecraft.cobblestone 2
+STAT P minecraft.picked_up:minecraft.cobblestone 1
+STAT P minecraft.picked_up:minecraft.dirt 1
 STAT P minecraft.used:minecraft.stone_pickaxe 1
 STAT P minecraft.used:minecraft.wooden_pickaxe 2
 STAT P minecraft.used:minecraft.wooden_shovel 1
-I P 0 minecraft:cobblestone*2
+I P 0 minecraft:cobblestone*1
+I P 1 minecraft:dirt*1
 I P 2 minecraft:stone_pickaxe*1/dmg=11{minecraft:damage:11}
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,-2 data=1 global=0

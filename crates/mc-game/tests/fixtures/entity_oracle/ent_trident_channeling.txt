@@ -8,18 +8,17 @@ EV sound at=4.5,-59.57131925231452,8.000000011175871 r=16.0 ex=0 event=minecraft
 # thunder: a channeling trident hits a cow (sky visible), another one a cow under a roof, a third one a plain trident, one hits the ground, one a lightning rod
 C Set the weather to rain and thunder
 E c2 minecraft:cow pos=12.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=1 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=9/19 death=0 fx=-
-E c3 minecraft:cow pos=23.5,-60.0,15.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=1 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=9/19 death=0 fx=-
+E c3 minecraft:cow pos=23.5,-60.0,15.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=9/19 death=0 fx=-
 E t1 minecraft:trident pos=4.5,-59.94999999925494,7.95787235048995 delta=0.0,0.0,0.0 rot=181.47452,-45.31029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=101 dmg=2.0
 E t2 minecraft:trident pos=12.5,-59.61146875217242,7.975742535474849 delta=0.0,-0.08974800524221899,-0.02401490117534925 rot=182.88423,-12.292301 og=0 fall=0.0 fire=1 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
-E t3 minecraft:trident pos=23.5,-59.61146875217242,14.975742535474849 delta=0.0,-0.08974800524221899,-0.02401490117534925 rot=182.8828,-12.292301 og=0 fall=0.0 fire=1 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E t3 minecraft:trident pos=23.5,-59.61146875217242,14.975742535474849 delta=0.0,-0.08974800524221899,-0.02401490117534925 rot=182.8828,-12.292301 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 E t4 minecraft:trident pos=4.5,-59.61146875217242,7.975742535474849 delta=0.0,-0.08974800524221899,-0.02401490117534925 rot=182.87563,-12.292301 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 E t5 minecraft:trident pos=32.5,-59.94999999925494,2.5 delta=0.0,0.0,0.0 rot=0.0,-32.399998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=5 life=2 dmg=2.0
 E t6 minecraft:trident pos=36.5,-58.94999999925494,12.5 delta=0.0,0.0,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=1 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=4 life=3 dmg=2.0
-E lightning_bolt#1 minecraft:lightning_bolt pos=36.5,-59.00000999999975,12.5 delta=0.0,0.0,0.0 rot=44.681225,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=0 seed=-1862042069271614724 fires=1
-E lightning_bolt#2 minecraft:lightning_bolt pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=82.02023,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=1 seed=6365282591925732166 fires=1
-E lightning_bolt#3 minecraft:lightning_bolt pos=23.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=175.39566,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=1 seed=2943220169742541114 fires=2
-E item#1 minecraft:item pos=4.50975097766122,-59.84,8.463436225412636 delta=0.009555958293980607,0.1568000030517578,-0.03583249979301594 rot=351.34946,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=1 pickup=9 health=5 owner=- thrower=-
-E experience_orb#1 minecraft:experience_orb pos=4.31693590385982,-59.90933665214438,8.464975328608373 delta=-0.17940281770904706,0.08885008262777173,-0.0343241786318366 rot=37.561504,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
+E lightning_bolt#1 minecraft:lightning_bolt pos=36.5,-59.00000999999975,12.5 delta=0.0,0.0,0.0 rot=169.05957,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=0 seed=-1862042069271614724 fires=1
+E lightning_bolt#2 minecraft:lightning_bolt pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=161.89996,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=1 seed=6365282591925732166 fires=1
+E item#1 minecraft:item pos=4.406078732296802,-59.84,8.488713702068463 delta=-0.09204284414054065,0.1568000030517578,-0.011060572188175351 rot=193.0346,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=1 pickup=9 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=4.690388319186895,-59.96253231455576,8.3477797897739 delta=0.1865805564345265,0.03671833244999705,-0.14917580892494833 rot=243.93822,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
 EV sound at=4.5,-59.94999999925494,7.95787235048995 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.108899
 EV sound at=12.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=1.0639268
 EV sound at=23.5,-60.0,15.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=0.96296936
@@ -27,14 +26,10 @@ EV sound at=36.5,-59.00000999999975,12.5 r=80.0 ex=0 event=minecraft:item.triden
 EV sound at=36.5,-58.94999999925494,12.5 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1583221
 EV sound at=32.5,-59.94999999925494,2.5 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1583822
 EV level_event r=64.0 ex=0 type=3002 pos=36,-60,12 data=1 global=0
-EV level_event r=64.0 ex=0 type=3002 pos=36,-60,12 data=-1 global=0
-EV level_event r=64.0 ex=0 type=3002 pos=36,-60,12 data=-1 global=0
-EV level_event r=64.0 ex=0 type=3002 pos=36,-60,12 data=-1 global=0
 EV sound at=12.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.1405509
 EV sound at=12.5,-60.0,8.5 r=80.0 ex=0 event=minecraft:item.trident.thunder source=neutral vol=5.0 pitch=1.0
 EV sound at=12.5,-59.57131925231452,8.000000011175871 r=16.0 ex=0 event=minecraft:item.trident.hit source=neutral vol=1.0 pitch=1.0
 EV sound at=23.5,-60.0,15.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.hurt source=neutral vol=0.4 pitch=0.8941316
-EV sound at=23.5,-60.0,15.5 r=80.0 ex=0 event=minecraft:item.trident.thunder source=neutral vol=5.0 pitch=1.0
 EV sound at=23.5,-59.57131925231452,15.000000011175871 r=16.0 ex=0 event=minecraft:item.trident.hit source=neutral vol=1.0 pitch=1.0
 EV sound at=4.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=1.0012931
 EV sound at=4.5,-59.57131925231452,8.000000011175871 r=16.0 ex=0 event=minecraft:item.trident.hit source=neutral vol=1.0 pitch=1.0
@@ -48,51 +43,44 @@ PKT A minecraft:add_entity 01841208b0dda48dde4ea2af685d3437ba72678b0140378000000
 PKT A minecraft:add_entity 018512d5810984b7044baabc1c0668101e3b608b014012000000000000c04dc00000000000400400000000000000000000fd11
 PKT A minecraft:sound 77e50c0600000124fffffe280000006440a000003f800000a3981763e0103683
 PKT A minecraft:sound 77c4030600000064fffffe20000000443ecccccd3f91fd92ec866a92984bf066
-PKT A minecraft:add_entity 0189126eab4cddb924494b96638893dd9f1a214e4029000000000000c04e000000000000402100000000000000003a0000
+PKT A minecraft:add_entity 0189126eab4cddb924494b96638893dd9f1a214e4029000000000000c04e00000000000040210000000000000000730000
 PKT A minecraft:sound 77e50c0600000064fffffe200000004440a000003f8000005ac3b5cd447e2ff6
 PKT A minecraft:sound 77de0c0600000064fffffe24000000403f8000003f8000005ae586ec5969c658
-PKT A minecraft:add_entity 018a1263ab9a15767e48e7a03eb9716ee6835f4e4037800000000000c04e000000000000402f00000000000000007c0000
-PKT A minecraft:sound 77e50c06000000bcfffffe200000007c40a000003f800000d8bde3e82cd7dc02
-PKT A minecraft:sound 77c5030600000024fffffe20000000443ecccccd3f802a5fdd1c412737275425
-PKT A minecraft:add_entity 018b121ca87b0206a04cc080fcf5e384044cca484012000000000000c04e0000000000004021000000000000f9047b51333200f90000
-PKT A minecraft:add_entity 018c12cabf42f6a195458ebc7c0f7d31f925b5324012000000000000c04e000000000000402100000000000041a27b831ee1001a0000
-PKT A minecraft:sound 77de0c0600000024fffffe24000000403f8000003f80000068f642d08afcf74f
+PKT A minecraft:sound 77c5030600000024fffffe20000000443ecccccd3f802a5f3b8fbbb9f9feaeb8
+PKT A minecraft:add_entity 018a1263ab9a15767e48e7a03eb9716ee6835f484012000000000000c04e0000000000004021000000000000e1cf7e8d333100890000
+PKT A minecraft:add_entity 018b121ca87b0206a04cc080fcf5e384044cca324012000000000000c04e000000000000402100000000000071616c83114200ad0000
+PKT A minecraft:sound 77de0c0600000024fffffe24000000403f8000003f800000dd1c412737275425
 PKT B minecraft:add_entity 018612499f0fb2f61148fa8f9f5afc32011af18b014040400000000000c04d000000000000400400000000000000000000fd11
 PKT B minecraft:add_entity 018712e3ee129017a44a92a511b999375f2b918b014042400000000000c04d000000000000402900000000000000000000fd11
-PKT B minecraft:add_entity 018812cb96794d583c4509a64b25dfbaaa23d64e4042400000000000c04e000000000000402900000000000000001f0000
+PKT B minecraft:add_entity 018812cb96794d583c4509a64b25dfbaaa23d64e4042400000000000c04e00000000000040290000000000000000780000
 PKT B minecraft:sound 77e50c0600000124fffffe280000006440a000003f800000a3981763e0103683
 PKT B minecraft:sound 77e50c0600000064fffffe200000004440a000003f8000005ac3b5cd447e2ff6
-PKT B minecraft:sound 77e50c06000000bcfffffe200000007c40a000003f800000d8bde3e82cd7dc02
+E c3 minecraft:cow pos=23.5,-60.0,15.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/0 death=0 fx=-
 E t1 minecraft:trident pos=4.5,-59.94999999925494,7.95787235048995 delta=0.0,0.0,0.0 rot=181.47452,-45.31029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=121 dmg=2.0
 E t2 minecraft:trident pos=12.5,-59.94999999925494,7.95787235048995 delta=0.0,0.0,0.0 rot=181.47672,-45.31029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=17 dmg=2.0
-E t3 minecraft:trident pos=23.5,-59.94999999925494,14.957872350489952 delta=0.0,0.0,0.0 rot=181.47598,-45.31029 og=0 fall=0.0 fire=162 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=17 dmg=2.0
+E t3 minecraft:trident pos=23.5,-59.94999999925494,14.957872350489952 delta=0.0,0.0,0.0 rot=181.47598,-45.31029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=17 dmg=2.0
 E t4 minecraft:trident pos=4.5,-59.94999999925494,7.95787235048995 delta=0.0,0.0,0.0 rot=181.4723,-45.31029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=17 dmg=2.0
 E t5 minecraft:trident pos=32.5,-59.94999999925494,2.5 delta=0.0,0.0,0.0 rot=0.0,-32.399998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=22 dmg=2.0
 E t6 minecraft:trident pos=36.5,-58.94999999925494,12.5 delta=0.0,0.0,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=23 dmg=2.0
-E item#1 minecraft:item pos=4.592406370187347,-60.0,8.153498776496633 delta=2.0160366495861127E-4,0.0,-7.55964295852059E-4 rot=351.34946,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=21 pickup=0 health=5 owner=- thrower=-
-E experience_orb#1 minecraft:experience_orb pos=2.9714192590802497,-60.0,8.207544847541886 delta=-9.385749114801017E-5,0.0,-1.7957250244112874E-5 rot=37.561504,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=21 health=5
+E item#1 minecraft:item pos=3.6080014121840382,-60.0,8.392810626785671 delta=-0.0011418040443608745,-0.12,-1.3720790763615192E-4 rot=193.0346,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=21 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=5.494313016280684,-60.0,7.705021941392235 delta=1.2650602438248038E-5,0.0,-1.0114472205338313E-5 rot=243.93822,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=21 health=5
 E item#2 minecraft:item pos=12.580778208895302,-59.84,8.410983860471523 delta=0.07916264625811807,0.1568000030517578,-0.08723581843575555 rot=308.0057,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_beef*2 age=1 pickup=9 health=4 owner=- thrower=-
 E experience_orb#2 minecraft:experience_orb pos=12.416459457208648,-59.95518196249768,8.665490770885285 delta=-0.08186973352893519,0.04392167760710657,0.1621809586240649 rot=315.2059,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=4
 E experience_orb#3 minecraft:experience_orb pos=12.355504503292257,-59.89001667788152,8.331619584179302 delta=-0.14160558952962005,0.10778365777387536,-0.16501281071588503 rot=154.33156,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=4
-E item#3 minecraft:item pos=23.49350957625945,-59.84,15.481003435936843 delta=-0.006360615389534231,0.1568000030517578,-0.018616633144223668 rot=54.46736,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing item=minecraft:cooked_beef*3 age=1 pickup=9 health=4 owner=- thrower=-
-E experience_orb#4 minecraft:experience_orb pos=23.677278247831307,-59.9663168933614,15.45713737080083 delta=0.17373268625599403,0.033009445148277985,-0.04200537743272708 rot=232.13667,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing value=3 count=1 age=1 health=4
+E c3 minecraft:cow pos=23.5,-60.0,15.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=A aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.711530908928712;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E t1 minecraft:trident pos=4.5,-59.94999999925494,7.95787235048995 delta=0.0,0.0,0.0 rot=181.47452,-45.31029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=121 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
 E t2 minecraft:trident pos=12.5,-59.94999999925494,7.95787235048995 delta=0.0,0.0,0.0 rot=181.47672,-45.31029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=17 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
-E t3 minecraft:trident pos=23.5,-59.94999999925494,14.957872350489952 delta=0.0,0.0,0.0 rot=181.47598,-45.31029 og=0 fall=0.0 fire=162 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=17 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
+E t3 minecraft:trident pos=23.5,-59.94999999925494,14.957872350489952 delta=0.0,0.0,0.0 rot=181.47598,-45.31029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=17 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
 E t4 minecraft:trident pos=4.5,-59.94999999925494,7.95787235048995 delta=0.0,0.0,0.0 rot=181.4723,-45.31029 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=17 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
 E t5 minecraft:trident pos=32.5,-59.94999999925494,2.5 delta=0.0,0.0,0.0 rot=0.0,-32.399998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=22 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
 E t6 minecraft:trident pos=36.5,-58.94999999925494,12.5 delta=0.0,0.0,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=23 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
-E item#1 minecraft:item pos=4.592406370187347,-60.0,8.153498776496633 delta=2.0160366495861127E-4,0.0,-7.55964295852059E-4 rot=351.34946,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=21 pickup=0 health=5 owner=- thrower=-
-E experience_orb#1 minecraft:experience_orb pos=2.9714192590802497,-60.0,8.207544847541886 delta=-9.385749114801017E-5,0.0,-1.7957250244112874E-5 rot=37.561504,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=21 health=5
+E item#1 minecraft:item pos=3.6080014121840382,-60.0,8.392810626785671 delta=-0.0011418040443608745,-0.12,-1.3720790763615192E-4 rot=193.0346,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=21 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=5.494313016280684,-60.0,7.705021941392235 delta=1.2650602438248038E-5,0.0,-1.0114472205338313E-5 rot=243.93822,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=21 health=5
 E item#2 minecraft:item pos=12.580778208895302,-59.84,8.410983860471523 delta=0.07916264625811807,0.1568000030517578,-0.08723581843575555 rot=308.0057,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_beef*2 age=1 pickup=9 health=4 owner=- thrower=-
 E experience_orb#2 minecraft:experience_orb pos=12.416459457208648,-59.95518196249768,8.665490770885285 delta=-0.08186973352893519,0.04392167760710657,0.1621809586240649 rot=315.2059,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=4
 E experience_orb#3 minecraft:experience_orb pos=12.355504503292257,-59.89001667788152,8.331619584179302 delta=-0.14160558952962005,0.10778365777387536,-0.16501281071588503 rot=154.33156,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=4
-E item#3 minecraft:item pos=23.49350957625945,-59.84,15.481003435936843 delta=-0.006360615389534231,0.1568000030517578,-0.018616633144223668 rot=54.46736,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing item=minecraft:cooked_beef*3 age=1 pickup=9 health=4 owner=- thrower=-
-E experience_orb#4 minecraft:experience_orb pos=23.677278247831307,-59.9663168933614,15.45713737080083 delta=0.17373268625599403,0.033009445148277985,-0.04200537743272708 rot=232.13667,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing value=3 count=1 age=1 health=4
 EV sound at=12.5,-59.94999999925494,7.95787235048995 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.3033063
 EV sound at=23.5,-59.94999999925494,14.957872350489952 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.2313482
 EV sound at=4.5,-59.94999999925494,7.95787235048995 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1498947
 EV sound at=12.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0046725
-EV sound at=23.5,-60.0,15.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.hurt source=neutral vol=0.4 pitch=0.92503285
 EV sound at=12.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=1.0237744
-EV sound at=23.5,-60.0,15.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.death source=neutral vol=0.4 pitch=0.9839846

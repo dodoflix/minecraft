@@ -5,14 +5,15 @@ BEU 6 -60 0 minecraft:trial_spawner {}
 BEU 8 -60 0 minecraft:vault {shared_data:{}}
 BE 2 -60 0 {Delay:7s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:0s,SpawnCount:4s,SpawnData:{entity:{id:"minecraft:pig"}},SpawnPotentials:[{data:{entity:{id:"minecraft:pig"}},weight:1}],SpawnRange:4s,components:{},id:"minecraft:mob_spawner",x:2,y:-60,z:0}
 DIG Steve ticks=19 broken=true
-E experience_orb#1 minecraft:experience_orb pos=2.3683944611013223,-58.88910992971215,0.059101229620280374 delta=-0.11206835706025466,0.0966120301640333,-0.09378145671887192 rot=29.982311,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=37 count=1 age=4 health=5
-E experience_orb#2 minecraft:experience_orb pos=2.4570268963418154,-59.42570136103975,0.29838971601351083 delta=-0.0902786511409575,-0.017842714496748843,-0.0430654924374949 rot=171.68614,0.0 og=0 fall=0.018206851556897163 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=4 health=5
+E experience_orb#1 minecraft:experience_orb pos=2.3683944611013223,-58.88910992971215,0.059101229620280374 delta=-0.11206835706025466,0.0966120301640333,-0.09378145671887192 rot=29.982311,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=17 count=1 age=4 health=5
+E experience_orb#2 minecraft:experience_orb pos=2.4570268963418154,-59.42570136103975,0.29838971601351083 delta=-0.0902786511409575,-0.017842714496748843,-0.0430654924374949 rot=171.68614,0.0 og=0 fall=0.018206851556897163 fire=0 air=300 alive=1 pose=standing value=17 count=1 age=4 health=5
 E experience_orb#3 minecraft:experience_orb pos=2.36987323491146,-58.2694008423152,0.013939253021699266 delta=-0.10744205286493762,0.22980446572030414,-0.10416525529180327 rot=95.13045,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=4 health=5
 DIG Steve ticks=19 broken=true
 E experience_orb#4 minecraft:experience_orb pos=4.618466626701701,-58.80639181949441,0.911187056463559 delta=-0.006387879451890948,0.11931453216260275,0.09565444579037699 rot=23.585651,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=17 count=1 age=4 health=5
-E experience_orb#5 minecraft:experience_orb pos=4.970932100094792,-58.703672457940364,1.0232876201743644 delta=0.08106816787644446,0.1435337868914481,0.12216211616706817 rot=206.88783,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=17 count=1 age=4 health=5
-E experience_orb#6 minecraft:experience_orb pos=3.492826208334055,-59.28005051417995,0.3374918329477219 delta=-0.2868612281240202,0.009772261012704748,-0.03720599650204292 rot=247.94518,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=4 health=5
+E experience_orb#5 minecraft:experience_orb pos=4.970932100094792,-58.703672457940364,1.0232876201743644 delta=0.08106816787644446,0.1435337868914481,0.12216211616706817 rot=206.88783,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=4 health=5
+E experience_orb#6 minecraft:experience_orb pos=3.492826208334055,-59.28005051417995,0.3374918329477219 delta=-0.2868612281240202,0.009772261012704748,-0.03720599650204292 rot=247.94518,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=4 health=5
 E experience_orb#7 minecraft:experience_orb pos=4.198601422758672,-59.40446251077032,0.657093793063965 delta=-0.11082166280476066,-0.019462855532988026,0.036361460496918935 rot=299.70023,0.0 og=0 fall=0.019860057160258293 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=4 health=5
+E experience_orb#8 minecraft:experience_orb pos=3.9341124833725423,-59.4388011985996,1.1255287932270406 delta=-0.17600818465437007,-0.027170062708788304,0.144341542576618 rot=186.41988,0.0 og=0 fall=0.027724552899599075 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=4 health=5
 DIG Steve ticks=1500 broken=false
 B 6 -60 0 minecraft:trial_spawner[ominous=false,trial_spawner_state=inactive]
 DIG Steve ticks=1500 broken=false

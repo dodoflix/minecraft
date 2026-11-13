@@ -66,7 +66,7 @@ EV level_event r=64.0 ex=0 type=2019 pos=3,-60,10 data=1 global=0
 EV level_event r=64.0 ex=0 type=2020 pos=3,-60,10 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=3,-60,10 data=2391 global=0
 EV level_event r=64.0 ex=0 type=2001 pos=2,-60,10 data=2374 global=0
-E item#1 minecraft:item pos=2.2723582090866623,-59.4154724191806,10.20482682116532 delta=-0.08664270485731292,0.0323152326326785,-0.0840767932318259 rot=63.71665,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:piston*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=2.227079169540294,-59.48681600302124,9.947445584172034 delta=-0.08664270485731292,-0.115263684456482,-0.0840767932318259 rot=63.71665,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:piston*1 age=4 pickup=6 health=5 owner=- thrower=-
 # survival with a pickaxe breaks a sticky head
 DIG Alex ticks=8 broken=true
 EV level_event r=64.0 ex=0 type=2019 pos=3,-60,12 data=1 global=0
@@ -78,7 +78,7 @@ EV level_event r=64.0 ex=0 type=2019 pos=3,-60,12 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=3,-60,12 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=3,-60,12 data=2392 global=0
 EV level_event r=64.0 ex=0 type=2001 pos=2,-60,12 data=2351 global=0
-E item#2 minecraft:item pos=2.9166025348106848,-59.36920000076294,12.39997309992513 delta=0.043755930016746755,-0.0776160022583008,0.028708216541520455 rot=233.00674,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.7124454743288866,-59.44222110360957,12.808725115669318 delta=0.043755930016746755,0.0323152326326785,0.028708216541520455 rot=233.00674,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=4 pickup=6 health=5 owner=- thrower=-
 # survival with a pickaxe breaks the sticky base
 DIG Alex ticks=8 broken=true
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,14 data=1 global=0
@@ -90,8 +90,8 @@ EV level_event r=64.0 ex=0 type=2019 pos=2,-60,14 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,14 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=2,-60,14 data=2351 global=0
 EV level_event r=64.0 ex=0 type=2001 pos=3,-60,14 data=2392 global=0
-E item#2 minecraft:item pos=3.141089322501422,-60.0,12.54725862920698 delta=0.0017020777320924658,-0.08,0.0011167312884152827 rot=233.00674,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=15 pickup=0 health=5 owner=- thrower=-
-E item#3 minecraft:item pos=3.0088114773819106,-59.27881817427873,14.221697625839738 delta=0.061574386712042045,0.0323152326326785,-0.04981897867840598 rot=89.22381,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.01467933588703,-60.0,13.007020412797509 delta=0.0016346755175321351,0.0,0.0010725087711419574 rot=233.00674,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=2.775912881614728,-59.347688205910046,14.395127700629995 delta=0.061574386712042045,0.0323152326326785,-0.04981897867840598 rot=89.22381,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=4 pickup=6 health=5 owner=- thrower=-
 # survival breaks a retracted sticky piston and a head without a base
 DIG Alex ticks=8 broken=true
 DIG Alex ticks=8 broken=true
@@ -111,6 +111,6 @@ EV level_event r=64.0 ex=0 type=2019 pos=3,-60,18 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=3,-60,18 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=3,-60,18 data=1 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=3,-60,18 data=2391 global=0
-E item#2 minecraft:item pos=3.1447267335268516,-60.0,12.549645130495572 delta=1.1963719958678143E-4,-0.08,7.849383228385058E-5 rot=233.00674,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=34 pickup=0 health=5 owner=- thrower=-
-E item#3 minecraft:item pos=3.490770249367901,-60.0,13.831751496165253 delta=7.794272005074928E-4,0.0,-6.306236920400938E-4 rot=89.22381,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=23 pickup=0 health=5 owner=- thrower=-
-E item#4 minecraft:item pos=2.2155642889291283,-60.0,16.05329231579908 delta=-0.01476544878210611,0.0,-0.026615928090691906 rot=288.41116,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.0181727055718333,-60.0,13.00931240872429 delta=1.1489957095566598E-4,-0.08,7.538547945982613E-5 rot=233.00674,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=34 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.257871653600718,-60.0,14.00518157095551 delta=7.794272005074928E-4,0.0,-6.306236920400938E-4 rot=89.22381,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=23 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=2.3869619187749334,-60.0,16.097764070416357 delta=-0.00885926998770392,0.0,-0.015969558149462413 rot=288.41116,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sticky_piston*1 age=12 pickup=0 health=5 owner=- thrower=-

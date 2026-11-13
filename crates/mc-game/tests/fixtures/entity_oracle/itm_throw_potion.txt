@@ -57,7 +57,7 @@ PKT Bob minecraft:add_entity 01f503a2f8a8ad2f064bb2929be669a186f6db6c3fe00000000
 PKT Bob minecraft:set_entity_data 65f503080701a20b010035011c000000ff
 PKT Bob minecraft:set_entity_data 65f503080701a20b010035011c000000ff
 PKT Bob minecraft:remove_entities 4e01f503
-PKT Bob minecraft:sound 77af0706000000a4fffffe20000000043f0000003eacdd6e4b970fd5e0db99e1
+PKT Bob minecraft:sound 77af0706000000a4fffffe20000000043f0000003ee574f34b970fd5e0db99e1
 PKT Bob minecraft:add_entity 01f603b289f54573ae44879cab60bcbbbf161e6d4034800000000000c04d3d70a3d000003fe0000000000000b9ffb70cbd2de9ff0002
 PKT Bob minecraft:set_entity_data 65f603080701a50b010035011f000000ff
 P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/635 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -73,7 +73,7 @@ E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=
 E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=183 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/3 death=0 fx=-
 E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
 E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.lingering_potion.throw source=neutral vol=0.5 pitch=0.33762687
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.lingering_potion.throw source=neutral vol=0.5 pitch=0.44815788
 EV level_event r=64.0 ex=0 type=2002 pos=20,-60,2 data=-3318613 global=0
 EV level_event r=64.0 ex=0 type=1053 pos=20,-60,2 data=0 global=0
 E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=600 age=1
@@ -119,7 +119,7 @@ E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=
 E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=7/17 death=0 fx=-
 E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
 E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-EV sound at=40.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.splash_potion.throw source=player vol=0.5 pitch=0.422924
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.splash_potion.throw source=player vol=0.5 pitch=0.36883926
 EV sound at=40.5,-60.0,5.0 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.8912482
 EV sound at=40.5,-60.0,3.0 r=16.0 ex=0 event=minecraft:entity.blaze.hurt source=hostile vol=1.0 pitch=1.0712719
 EV sound at=42.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.enderman.hurt source=hostile vol=1.0 pitch=1.006552
@@ -156,7 +156,7 @@ E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=
 E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
 E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-EV sound at=60.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.splash_potion.throw source=player vol=0.5 pitch=0.36094186
+EV sound at=60.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.splash_potion.throw source=player vol=0.5 pitch=0.3698201
 EV sound at=2.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0961143
 EV level_event r=64.0 ex=0 type=2007 pos=60,-59,3 data=-515037 global=0
 EV level_event r=64.0 ex=0 type=1054 pos=60,-59,3 data=0 global=0

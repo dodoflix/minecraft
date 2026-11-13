@@ -336,7 +336,7 @@ impl ChunkMap {
                 super::chunk_task_queue::priority_level_count(),
             ),
             settings: ChunkMapSettings {
-                spectators_generate_chunks: false,
+                spectators_generate_chunks: true,
                 no_save: false,
             },
             game_time: 0,

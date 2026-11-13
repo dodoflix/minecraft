@@ -37,17 +37,17 @@ B 2 -60 0 minecraft:redstone_lamp[lit=false]
 B 3 -61 -1 minecraft:grass_block[snowy=false]
 B 3 -61 0 minecraft:grass_block[snowy=false]
 B 3 -61 1 minecraft:grass_block[snowy=false]
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shulker_box.open source=block vol=0.5 pitch=0.91976106
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.shulker_box.open source=block vol=0.5 pitch=0.9917587
 EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:shulker_box b0=1 b1=1
 EV level_event r=64.0 ex=0 type=2001 pos=0,-59,0 data=8555 global=0
 B 8 -60 0 minecraft:bell[attachment=floor,facing=north,powered=false]
 EV sound at=8.5,-59.5,0.5 r=32.0 ex=0 event=minecraft:block.bell.use source=block vol=2.0 pitch=1.0
 EV block_event r=64.0 ex=0 pos=8,-60,0 block=minecraft:bell b0=1 b1=3
-EV sound at=16.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.open source=block vol=0.5 pitch=0.97671956
+EV sound at=16.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.open source=block vol=0.5 pitch=0.9027018
 EV block_event r=64.0 ex=0 pos=16,-60,0 block=minecraft:ender_chest b0=1 b1=1
 EV block_event r=64.0 ex=0 pos=16,-60,0 block=minecraft:ender_chest b0=1 b1=1
 TICK block 16 -60 0 minecraft:ender_chest delay=4 prio=0
-EV sound at=26.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.9387487
+EV sound at=26.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.9578633
 EV block_event r=64.0 ex=0 pos=25,-60,0 block=minecraft:chest b0=1 b1=1
 EV block_event r=64.0 ex=0 pos=16,-60,0 block=minecraft:ender_chest b0=1 b1=1
 EV block_event r=64.0 ex=0 pos=25,-60,0 block=minecraft:chest b0=1 b1=1

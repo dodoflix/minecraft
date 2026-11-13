@@ -20,7 +20,7 @@ B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=
 BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
 B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=false]
 E g minecraft:snow_golem pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.99163246
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.98291856
 TICK block 0 -60 0 minecraft:sculk_sensor delay=28 prio=0
 # players walking
 T 127
@@ -151,9 +151,9 @@ ADV Sneaker minecraft:adventure/adventuring_time minecraft:plains
 ADV Sneaker minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Walker minecraft:adventure/adventuring_time minecraft:plains
 ADV Walker minecraft:recipes/decorations/crafting_table unlock_right_away
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.98569834
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.8641702
 EV sound at=-1.5,-60.0,-4.78137793216215 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.91334444
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.8463463
 EV sound at=-1.5,-60.0,-3.020396491713332 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
 EV sound at=-1.5,-60.0,-1.4785549256871064 r=16.0 ex=1 event=minecraft:block.grass.step source=player vol=0.15 pitch=1.0
 TICK block 0 -60 0 minecraft:sculk_sensor delay=20 prio=0

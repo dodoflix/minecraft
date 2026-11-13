@@ -19,7 +19,7 @@ E item#2 minecraft:item pos=36.480892258333746,-59.84,8.515449101799692 delta=-0
 E experience_orb#3 minecraft:experience_orb pos=36.3446649610256,-59.97304264723126,8.62451471159828 delta=-0.15222834115769027,0.026418206227538918,0.1220244197412443 rot=166.34384,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
 E item#3 minecraft:item pos=40.50065023626793,-59.84,8.462118698342685 delta=6.3723155497628E-4,0.1568000030517578,-0.037123676346696194 rot=3.2410955,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*3 age=1 pickup=9 health=5 owner=- thrower=-
 E experience_orb#4 minecraft:experience_orb pos=40.684861774406855,-59.98408525867085,8.558437575810627 delta=0.18116454244467298,0.015596446806112108,0.05726882540902361 rot=95.92329,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
-E item#4 minecraft:item pos=44.766232759851206,-59.503355862717,8.716716247375187 delta=0.04621873558689456,0.1568000030517578,0.08451849699902457 rot=287.16324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=44.48744214812759,-59.54712224080279,8.55175504774515 delta=0.04621873558689456,0.1568000030517578,0.08451849699902457 rot=287.16324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=1 pickup=9 health=5 owner=- thrower=-
 E item#5 minecraft:item pos=40.5,-60.0,11.5 delta=-0.05123886581463386,0.2,-0.0010393372377592164 rot=185.22737,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=0 pickup=10 health=5 owner=- thrower=-
 E experience_orb#5 minecraft:experience_orb pos=40.5,-60.0,11.5 delta=0.05331224124906486,0.1822385491264639,0.17727320853763812 rot=357.15927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
 E experience_orb#6 minecraft:experience_orb pos=40.5,-60.0,11.5 delta=0.12008998370616797,0.31239683778648986,0.02484516031213993 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
@@ -112,7 +112,7 @@ PKT B minecraft:set_entity_data 65e50c080703ec090000ff
 PKT B minecraft:add_entity 01e60cd981f45f37524028a2a407cb4b37c7f1324044400000000000c04e0000000000004021000000000000a15e87790bbe00440000
 PKT B minecraft:set_entity_data 65e60c080103ff
 PKT B minecraft:sound 77560600000144fffffe24000000403f8000003f9315c1e86338715c8952d1
-PKT B minecraft:add_entity 01e70cbb98c656575a491f8c5bbb1f1a18bae04840465c0a82f200d5c04dd4e8d84bfd5c402142cd578a31fd21188b09333200cc0000
+PKT B minecraft:add_entity 01e70cbb98c656575a491f8c5bbb1f1a18bae0484046385b19ca1c62c04dda82fb4942d84020ee578c2f27c821188b09333200cc0000
 PKT B minecraft:set_entity_data 65e70c080701fd0a0000ff
 PKT B minecraft:remove_entities 4e01dd0c
 PKT B minecraft:set_entity_motion 67dc0cfbffe77cf351
@@ -148,7 +148,7 @@ E item#2 minecraft:item pos=36.3189230750801,-60.0,8.646405362576308 delta=-3.95
 E experience_orb#3 minecraft:experience_orb pos=35.83070371027986,-60.0,9.036499910377826 delta=-6.1928651627739705E-6,0.0,4.964126734065015E-6 rot=166.34384,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=21 health=5
 E item#3 minecraft:item pos=40.50616204604004,-60.0,8.14101306497236 delta=1.3443781665666772E-5,-0.08,-7.832044655265685E-4 rot=3.2410955,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*3 age=21 pickup=0 health=5 owner=- thrower=-
 E experience_orb#4 minecraft:experience_orb pos=41.29651893441748,-60.0,8.751791565692644 delta=7.370030935785595E-6,0.0,2.329777169555725E-6 rot=95.92329,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=21 health=5
-E item#4 minecraft:item pos=45.24262570103641,-60.0,9.587878447263135 delta=5.506450956772346E-4,0.0,0.0010069443760317928 rot=287.16324,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=21 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=44.963835089312795,-60.0,9.422917247633098 delta=5.506450956772346E-4,0.0,0.0010069443760317928 rot=287.16324,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=21 pickup=0 health=5 owner=- thrower=-
 E item#5 minecraft:item pos=40.01442842277474,-60.0,11.49015058952254 delta=-0.0010593751206748625,0.0,-2.1488532077511135E-5 rot=185.22737,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=20 pickup=0 health=5 owner=- thrower=-
 E experience_orb#5 minecraft:experience_orb pos=41.14014257427022,-60.0,13.62859421032902 delta=5.978041262874929E-4,0.0,0.00198781092411646 rot=357.15927,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=20 health=5
 E experience_orb#6 minecraft:experience_orb pos=42.46312431178289,-59.92560280540054,11.906146597190354 delta=0.048103840895721804,0.07290925212648516,0.009952100931316031 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=20 health=5

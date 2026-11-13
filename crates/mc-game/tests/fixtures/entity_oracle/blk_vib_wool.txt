@@ -13,13 +13,13 @@ B 0 -60 0 minecraft:sculk_sensor[power=10,sculk_sensor_phase=active,waterlogged=
 B 0 -60 3 minecraft:stone
 TICK block 0 -60 0 minecraft:sculk_sensor delay=25 prio=0
 EV sound at=0.5,-59.5,3.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9446053
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.81201786
 # C: wool block placed at (0,-60,2): dampens
 BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
 B 0 -60 0 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
 B 0 -60 2 minecraft:white_wool
 B 0 -60 3 minecraft:stone
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.93232864
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking_stop source=block vol=1.0 pitch=0.82368964
 EV sound at=0.5,-59.5,2.5 r=16.0 ex=1 event=minecraft:block.wool.place source=block vol=1.0 pitch=0.8
 # D: carpet placed at (2,-60,2): dampens
 BE 0 -60 0 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:13,listener:{event_delay:0,selector:{tick:-1L}},x:0,y:-60,z:0}
@@ -49,4 +49,4 @@ B 2 -60 2 minecraft:white_carpet
 B 3 -60 0 minecraft:stone
 TICK block 0 -60 0 minecraft:sculk_sensor delay=24 prio=0
 EV sound at=2.5,-59.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
-EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9000399
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9180344

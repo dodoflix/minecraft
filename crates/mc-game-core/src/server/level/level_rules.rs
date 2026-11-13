@@ -121,6 +121,7 @@ level_rules! {
     spawn_wandering_traders: bool = SPAWN_WANDERING_TRADERS,
     spawn_wardens: bool = SPAWN_WARDENS,
     spawner_blocks_work: bool = SPAWNER_BLOCKS_WORK,
+    spectators_generate_chunks: bool = SPECTATORS_GENERATE_CHUNKS,
     spread_vines: bool = SPREAD_VINES,
     tnt_explodes: bool = TNT_EXPLODES,
     tnt_explosion_drop_decay: bool = TNT_EXPLOSION_DROP_DECAY,

@@ -288,13 +288,13 @@ B 7 -60 13 minecraft:iron_trapdoor[facing=north,half=bottom,open=true,powered=tr
 B 7 -60 14 minecraft:redstone_block
 B 10 -60 13 minecraft:crimson_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
 T 55
-EV sound at=1.5,-59.5,13.5 r=16.0 ex=1 event=minecraft:block.wooden_trapdoor.close source=block vol=1.0 pitch=0.9616949
+EV sound at=1.5,-59.5,13.5 r=16.0 ex=1 event=minecraft:block.wooden_trapdoor.close source=block vol=1.0 pitch=0.9681539
 EV sound at=1.5,-60.0,10.5 r=16.0 ex=1 event=minecraft:entity.player.splash source=player vol=0.015736694 pitch=0.8900804
 T 56
-EV sound at=4.5,-59.5,13.5 r=16.0 ex=1 event=minecraft:block.wooden_trapdoor.open source=block vol=1.0 pitch=0.98194736
+EV sound at=4.5,-59.5,13.5 r=16.0 ex=1 event=minecraft:block.wooden_trapdoor.open source=block vol=1.0 pitch=0.99885774
 T 57
 T 58
-EV sound at=10.5,-59.5,13.5 r=16.0 ex=1 event=minecraft:block.nether_wood_trapdoor.open source=block vol=1.0 pitch=0.939129
+EV sound at=10.5,-59.5,13.5 r=16.0 ex=1 event=minecraft:block.nether_wood_trapdoor.open source=block vol=1.0 pitch=0.9592808
 B 0 -60 12 minecraft:water[level=3]
 B 1 -60 12 minecraft:water[level=3]
 B 1 -60 13 minecraft:oak_trapdoor[facing=north,half=bottom,open=false,powered=true,waterlogged=false]
@@ -311,7 +311,7 @@ B 7 -60 14 minecraft:redstone_block
 B 8 -60 12 minecraft:water[level=3]
 B 10 -60 13 minecraft:crimson_trapdoor[facing=north,half=bottom,open=true,powered=false,waterlogged=false]
 T 59
-EV sound at=7.5,-59.5,13.5 r=16.0 ex=0 event=minecraft:block.iron_trapdoor.close source=block vol=1.0 pitch=0.907891
+EV sound at=7.5,-59.5,13.5 r=16.0 ex=0 event=minecraft:block.iron_trapdoor.close source=block vol=1.0 pitch=0.9945045
 T 60
 B 0 -60 12 minecraft:water[level=3]
 B 1 -60 12 minecraft:water[level=3]
@@ -330,7 +330,7 @@ B 8 -60 12 minecraft:water[level=3]
 B 10 -60 13 minecraft:crimson_trapdoor[facing=north,half=bottom,open=true,powered=true,waterlogged=false]
 B 10 -60 14 minecraft:redstone_block
 T 61
-EV sound at=4.5,-59.5,13.5 r=16.0 ex=0 event=minecraft:block.wooden_trapdoor.close source=block vol=1.0 pitch=0.984654
+EV sound at=4.5,-59.5,13.5 r=16.0 ex=0 event=minecraft:block.wooden_trapdoor.close source=block vol=1.0 pitch=0.97687185
 T 62
 B 0 -60 12 minecraft:water[level=3]
 B 0 -60 13 minecraft:water[level=4]

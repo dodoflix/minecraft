@@ -10,24 +10,24 @@ T 32
 EV level_event r=64.0 ex=0 type=2014 pos=2,-60,3 data=2292 global=0
 EV level_event r=64.0 ex=0 type=2014 pos=2,-60,2 data=2293 global=0
 E item#1 minecraft:item pos=1.7145380127200605,-59.519538034810964,3.357351936131664 delta=0.04867629769145693,0.11446400521850592,0.009376322459753401 rot=223.79321,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=2 pickup=8 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=2.3864318503688757,-59.67148660081254,3.3269768747525763 delta=0.08479331820381221,0.1568000030517578,0.03898428174865846 rot=271.17154,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.5299998215674373,-59.35733018878882,3.323955806051586 delta=0.08479331820381221,0.1568000030517578,0.03898428174865846 rot=271.17154,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=1 pickup=9 health=5 owner=- thrower=-
 # the same on a bed for comparison (event 2001)
 DESTROY true
 T 33
 EV level_event r=64.0 ex=0 type=2001 pos=3,-60,2 data=2037 global=0
 EV level_event r=64.0 ex=0 type=2001 pos=3,-60,3 data=2036 global=0
 E item#1 minecraft:item pos=1.7632143104115174,-59.445074029592455,3.3667282585914178 delta=0.04770277266605449,0.07297472653442398,0.009188796189397492 rot=223.79321,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=3 pickup=7 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=2.471225168572688,-59.554686597760785,3.3659611565012346 delta=0.08309745345704016,0.11446400521850592,0.03820459685725145 rot=271.17154,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=2 pickup=8 health=5 owner=- thrower=-
-E item#3 minecraft:item pos=3.7393272617518267,-59.45349552627533,3.7382602787419374 delta=0.005920149606252201,0.1568000030517578,0.07516040276366757 rot=273.18054,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_bed*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.6147931397712494,-59.240530185737065,3.3629400878002444 delta=0.08309745345704016,0.11446400521850592,0.03820459685725145 rot=271.17154,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.3484066118858014,-59.2644655594235,3.338854885019117 delta=0.005920149606252201,0.1568000030517578,0.07516040276366757 rot=273.18054,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_bed*1 age=1 pickup=9 health=5 owner=- thrower=-
 # a bed facing another way and an occupied one
 DESTROY true
 T 34
 EV level_event r=64.0 ex=0 type=2014 pos=4,-60,2 data=2299 global=0
 EV level_event r=64.0 ex=0 type=2014 pos=5,-60,2 data=2298 global=0
 E item#1 minecraft:item pos=1.8109170830775718,-59.41209930305803,3.3759170547808153 delta=0.04674871812259158,0.0323152326326785,0.00900502044087192 rot=223.79321,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=4 pickup=6 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=2.554322622029728,-59.480222592542276,3.404165753358486 delta=0.0814355059728575,0.07297472653442398,0.037440505648801276 rot=271.17154,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=3 pickup=7 health=5 owner=- thrower=-
-E item#3 minecraft:item pos=3.745247411358079,-59.336695523223575,3.813420681505605 delta=0.005801746727045049,0.11446400521850592,0.07365719614196514 rot=273.18054,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_bed*1 age=2 pickup=8 health=5 owner=- thrower=-
-E item#4 minecraft:item pos=5.5317503368734995,-59.46429178805354,2.6433996670569626 delta=-0.08558210140036021,0.1568000030517578,-0.08713097040105092 rot=57.1485,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.6978905932282897,-59.166066180518555,3.401144684657496 delta=0.0814355059728575,0.07297472653442398,0.037440505648801276 rot=271.17154,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.3543267614920538,-59.14766555637174,3.4140152877827847 delta=0.005801746727045049,0.11446400521850592,0.07365719614196514 rot=273.18054,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:white_bed*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=5.473972879222201,-59.24601414288454,2.2253245091785367 delta=-0.08558210140036021,0.1568000030517578,-0.08713097040105092 rot=57.1485,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=1 pickup=9 health=5 owner=- thrower=-
 # nothing there: no event, no drop
 DESTROY false
 # survival player break: playerWillDestroy sends 2001 for the broken half, the other half is destroyed with 2014
@@ -46,9 +46,9 @@ EV level_event r=64.0 ex=1 type=2001 pos=1,-60,5 data=2293 global=0
 EV level_event r=64.0 ex=0 type=2014 pos=1,-60,6 data=2292 global=0
 DIG Steve ticks=6 broken=true
 T 41
-E item#3 minecraft:item pos=3.783502526324913,-59.65825379662784,4.299095882287878 delta=0.005036645157366788,-0.159104835446646,0.06394370138983901 rot=273.18054,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:white_bed*1 age=9 pickup=1 health=5 owner=- thrower=-
-E item#4 minecraft:item pos=4.967445605522103,-59.50669818866112,2.0688821214484783 delta=-0.07429601753659087,-0.1223518697449284,-0.07564063044693378 rot=57.1485,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=8 pickup=2 health=5 owner=- thrower=-
-E item#5 minecraft:item pos=1.830009342230436,-59.4881103155366,6.70429942926484 delta=0.09392581049622484,0.11446400521850592,0.0035206905965903834 rot=79.63358,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.3925818764588875,-59.469223829776006,3.899690488565056 delta=0.005036645157366788,-0.159104835446646,0.06394370138983901 rot=273.18054,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:white_bed*1 age=9 pickup=1 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.909668147870804,-59.288420543492116,1.6508069635700524 delta=-0.07429601753659087,-0.1223518697449284,-0.07564063044693378 rot=57.1485,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=1.6205711410135402,-59.39260866336487,6.491657804646832 delta=0.09392581049622484,0.11446400521850592,0.0035206905965903834 rot=79.63358,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=2 pickup=8 health=5 owner=- thrower=-
 T 42
 EV level_event r=64.0 ex=0 type=2019 pos=2,-60,6 data=1 global=0
 T 43
@@ -64,30 +64,30 @@ EV level_event r=64.0 ex=1 type=2001 pos=2,-60,6 data=2292 global=0
 EV level_event r=64.0 ex=0 type=2014 pos=2,-60,5 data=2293 global=0
 DIG Steve ticks=6 broken=true
 T 48
-E item#4 minecraft:item pos=4.65932366569247,-60.0,1.755183775884167 delta=-0.005015388179818555,0.0,-0.005106156917101733 rot=57.1485,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=15 pickup=0 health=5 owner=- thrower=-
-E item#5 minecraft:item pos=2.4493301860957057,-59.809668588940866,6.727513890335225 delta=0.08153940543152709,-0.159104835446646,0.003056401817963408 rot=79.63358,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=9 pickup=1 health=5 owner=- thrower=-
-E item#6 minecraft:item pos=2.7689280118358766,-59.12874136067079,6.537028978374478 delta=0.0565943296464296,0.11446400521850592,0.04503253075066414 rot=54.559628,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.54177160304604,-60.0,1.2762522093251378 delta=-0.008358979621828203,0.0,-0.008510260838365388 rot=57.1485,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.23989198487881,-59.71416693676913,6.514872265717217 delta=0.08153940543152709,-0.159104835446646,0.003056401817963408 rot=79.63358,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=9 pickup=1 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.651174391506793,-59.48304070896209,6.548707109238783 delta=0.0565943296464296,0.11446400521850592,0.04503253075066414 rot=54.559628,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=2 pickup=8 health=5 owner=- thrower=-
 # creative player: the other half goes too, nothing drops
 DIG Bob ticks=0 broken=true
 T 49
 EV level_event r=64.0 ex=0 type=2014 pos=3,-60,5 data=2293 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=3,-60,6 data=2292 global=0
 EV level_event r=64.0 ex=1 type=2001 pos=3,-60,5 data=2293 global=0
-E item#4 minecraft:item pos=4.654308277512651,-60.0,1.7500776189670653 delta=-0.002949048546282218,0.0,-0.003002420569171683 rot=57.1485,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=16 pickup=0 health=5 owner=- thrower=-
-E item#5 minecraft:item pos=2.530869591527233,-60.0,6.730570292153189 delta=0.047945175214984204,0.0,0.0017971644496808227 rot=79.63358,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=10 pickup=0 health=5 owner=- thrower=-
-E item#6 minecraft:item pos=2.8255223414823063,-59.05427735545228,6.5820615091251415 delta=0.055462444132952184,0.07297472653442398,0.04413188099457822 rot=54.559628,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.533412623424212,-60.0,1.2677419484867725 delta=-0.004915080511883122,0.0,-0.005004033876151914 rot=57.1485,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=16 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.3214313903103374,-59.91327177221578,6.51792866753518 delta=0.07990861887813729,-0.19512274253533643,0.0029952738399003785 rot=79.63358,0.0 og=0 fall=0.6281018443405628 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.7077687211532226,-59.408576703743584,6.593739639989447 delta=0.055462444132952184,0.07297472653442398,0.04413188099457822 rot=54.559628,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=3 pickup=7 health=5 owner=- thrower=-
 DIG Bob ticks=0 broken=true
 T 50
 EV level_event r=64.0 ex=1 type=2001 pos=4,-60,6 data=2292 global=0
 EV level_event r=64.0 ex=0 type=2014 pos=4,-60,5 data=2293 global=0
-E item#4 minecraft:item pos=4.651359228966369,-60.0,1.7470751983978936 delta=-0.0017340407195847193,0.0,-0.0017654234721994953 rot=57.1485,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=17 pickup=0 health=5 owner=- thrower=-
-E item#5 minecraft:item pos=2.578814766742217,-60.0,6.73236745660287 delta=0.028191765861303807,0.0,0.0010567328026747176 rot=79.63358,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=11 pickup=0 health=5 owner=- thrower=-
-E item#6 minecraft:item pos=2.8809847856152584,-59.02130262891785,6.626193390119719 delta=0.05435319630815531,0.0323152326326785,0.04324924421643548 rot=54.559628,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.528497542912329,-60.0,1.2627379146106206 delta=-0.002890067631605211,0.0,-0.0029423722150548775 rot=57.1485,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=17 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.4013400091884747,-60.0,6.520923941375081 delta=0.04698627262516617,0.0,0.0017612211949653979 rot=79.63358,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.7632311652861747,-59.37560197720916,6.637871520984024 delta=0.05435319630815531,0.0323152326326785,0.04324924421643548 rot=54.559628,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=4 pickup=6 health=5 owner=- thrower=-
 # an explosion removes the foot silently, the head is destroyed by updateOrDestroy (2014)
 T 51
 EV level_event r=64.0 ex=0 type=2014 pos=8,-60,9 data=2292 global=0
-E item#4 minecraft:item pos=4.649625188246784,-60.0,1.745309774925694 delta=-0.001019616045645841,0.0,-0.0010380691060389226 rot=57.1485,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=18 pickup=0 health=5 owner=- thrower=-
-E item#5 minecraft:item pos=2.607006532603521,-60.0,6.733424189405545 delta=0.016576759993363947,0.0,6.213589504550279E-4 rot=79.63358,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=12 pickup=0 health=5 owner=- thrower=-
-E item#6 minecraft:item pos=2.9353379819234138,-59.028987396285174,6.669442634336155 delta=0.053266133418697154,-0.0075310721665503766,0.04238426015702064 rot=54.559628,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=5 pickup=5 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.525607475280724,-60.0,1.2597955423955658 delta=-0.0016993599382672268,0.0,-0.0017301150364282863 rot=57.1485,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=18 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=2.4483262818136406,-60.0,6.522685162570046 delta=0.027627931081792997,0.0,0.001035598166776802 rot=79.63358,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=2.81758436159433,-59.38328674457648,6.68112076520046 delta=0.053266133418697154,-0.0075310721665503766,0.04238426015702064 rot=54.559628,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=5 pickup=5 health=5 owner=- thrower=-
 E item#7 minecraft:item pos=8.449630239152684,-59.45406822620772,9.631014251144908 delta=0.01618926670456513,0.1568000030517578,0.026120117753879377 rot=26.19059,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:straw_bed*1 age=1 pickup=9 health=5 owner=- thrower=-
 E item#8 minecraft:item pos=7.561221372822561,-61.43942324349064,8.695417452412283 delta=-0.09531029835109071,0.1568000030517578,0.044091580793322094 rot=180.84332,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=1 pickup=9 health=5 owner=- thrower=-

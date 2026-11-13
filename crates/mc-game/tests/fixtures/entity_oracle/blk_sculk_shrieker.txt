@@ -15,7 +15,7 @@ P Steve minecraft:player pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot
 B 0 -60 0 minecraft:sculk_shrieker[can_summon=true,shrieking=false,waterlogged=false]
 B 3 -60 0 minecraft:sculk_shrieker[can_summon=false,shrieking=true,waterlogged=false]
 BE 0 -60 0 {components:{},id:"minecraft:sculk_shrieker",listener:{event_delay:0,selector:{tick:-1L}},warning_level:0,x:0,y:-60,z:0}
-EV sound at=5.0,-54.0,7.0 r=80.0 ex=0 event=minecraft:entity.warden.nearby_close source=hostile vol=5.0 pitch=1.0
+EV sound at=3.0,-53.0,1.0 r=80.0 ex=0 event=minecraft:entity.warden.nearby_close source=hostile vol=5.0 pitch=1.0
 EV level_event r=64.0 ex=0 type=3007 pos=3,-60,0 data=0 global=0
 P Steve minecraft:player pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:darkness/0/258 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1
 # on cooldown: no warning, no shriek
@@ -34,7 +34,7 @@ B 0 -60 0 minecraft:sculk_shrieker[can_summon=true,shrieking=false,waterlogged=f
 B 3 -60 0 minecraft:sculk_shrieker[can_summon=false,shrieking=true,waterlogged=false]
 BE 0 -60 0 {components:{},id:"minecraft:sculk_shrieker",listener:{event_delay:0,selector:{tick:-1L}},warning_level:0,x:0,y:-60,z:0}
 EV level_event r=64.0 ex=0 type=3007 pos=3,-60,0 data=0 global=0
-EV sound at=1.0,-58.0,7.0 r=80.0 ex=0 event=minecraft:entity.warden.nearby_closer source=hostile vol=5.0 pitch=1.0
+EV sound at=-3.0,-67.0,-1.0 r=80.0 ex=0 event=minecraft:entity.warden.nearby_closer source=hostile vol=5.0 pitch=1.0
 P Steve minecraft:player pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:darkness/0/248 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1
 B 0 -60 0 minecraft:sculk_shrieker[can_summon=true,shrieking=true,waterlogged=false]
 B 3 -60 0 minecraft:sculk_shrieker[can_summon=false,shrieking=true,waterlogged=false]
@@ -50,14 +50,16 @@ P Steve minecraft:player pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot
 DESTROY true
 B 3 -60 0 minecraft:sculk_shrieker[can_summon=false,shrieking=true,waterlogged=false]
 E experience_orb#1 minecraft:experience_orb pos=0.5,-59.5,0.5 delta=-0.14011284648017233,0.11427366732903668,0.044605977351074605 rot=11.841566,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
-E experience_orb#2 minecraft:experience_orb pos=0.5,-59.5,0.5 delta=0.04372227995100228,0.3283471526049754,-0.039413839734065925 rot=221.91237,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=2 age=0 health=5
+E experience_orb#2 minecraft:experience_orb pos=0.5,-59.5,0.5 delta=0.04372227995100228,0.3283471526049754,-0.039413839734065925 rot=221.91237,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#3 minecraft:experience_orb pos=0.5,-59.5,0.5 delta=-0.038171703410805696,0.22664827825930686,-0.10556223337939424 rot=21.961649,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
 EV level_event r=64.0 ex=0 type=2001 pos=0,-60,0 data=31132 global=0
-EV sound at=-6.0,-58.0,5.0 r=80.0 ex=0 event=minecraft:entity.warden.nearby_closest source=hostile vol=5.0 pitch=1.0
+EV sound at=9.0,-54.0,1.0 r=80.0 ex=0 event=minecraft:entity.warden.nearby_closest source=hostile vol=5.0 pitch=1.0
 P Steve minecraft:player pos=2.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:darkness/0/260 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_pickaxe*1
 E experience_orb#1 minecraft:experience_orb pos=0.3106848990892712,-59.35100417820635,0.6737742163104793 delta=-0.07681610540494013,0.058995038831407574,0.09798698151936892 rot=11.841566,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=2 health=5
-E experience_orb#2 minecraft:experience_orb pos=0.6737592121266271,-58.93020801442868,0.5104184451796819 delta=0.0988383008878337,0.26158326770602264,0.020237745041411966 rot=221.91237,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=2 age=2 health=5
+E experience_orb#2 minecraft:experience_orb pos=0.6737592121266271,-58.93020801442868,0.5104184451796819 delta=0.0988383008878337,0.26158326770602264,0.020237745041411966 rot=221.91237,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=2 health=5
+E experience_orb#3 minecraft:experience_orb pos=0.5105359446717518,-59.13014558457933,0.3780532271251026 delta=0.01913560092539473,0.16530934394338684,-0.04465474414263969 rot=21.961649,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=2 health=5
 DIG Steve ticks=60 broken=true
-E item#1 minecraft:item pos=3.6225752943043883,-59.4383462016904,0.4678352659661272 delta=-0.06852991816441452,0.2,5.873323428832455E-4 rot=213.7591,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sculk_shrieker*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=3.4507086001886127,-59.655553477643785,0.2796751473600614 delta=-0.06852991816441452,0.2,5.873323428832455E-4 rot=213.7591,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sculk_shrieker*1 age=0 pickup=10 health=5 owner=- thrower=-
 EV level_event r=64.0 ex=0 type=2019 pos=3,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=3,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=3,-60,0 data=1 global=0
@@ -121,10 +123,10 @@ EV level_event r=64.0 ex=1 type=2001 pos=3,-60,0 data=31138 global=0
 I Steve 0 minecraft:diamond_pickaxe*1
 I Steve 1 minecraft:diamond_pickaxe*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:silk_touch:1}}
 DIG Steve ticks=60 broken=true
-E item#1 minecraft:item pos=2.807250547265565,-60.0,0.47482296720254374 delta=-6.588437410034879E-6,0.0,5.646588356769373E-8 rot=213.7591,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sculk_shrieker*1 age=60 pickup=0 health=5 owner=- thrower=-
-E experience_orb#3 minecraft:experience_orb pos=4.5,-59.5,0.5 delta=0.16031767491290633,0.27512501548616247,0.12421643834560298 rot=49.475857,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
-E experience_orb#4 minecraft:experience_orb pos=4.5,-59.5,0.5 delta=0.06362886373847798,0.26693648774205675,0.03648365796757194 rot=223.31868,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
-E experience_orb#5 minecraft:experience_orb pos=4.5,-59.5,0.5 delta=-0.16542216892112738,0.040616108913504784,-0.04784018631664533 rot=19.389282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E item#1 minecraft:item pos=2.688673075352149,-60.0,0.2862061358998211 delta=-6.722895185516151E-6,-0.04,5.761824741705395E-8 rot=213.7591,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sculk_shrieker*1 age=60 pickup=0 health=5 owner=- thrower=-
+E experience_orb#4 minecraft:experience_orb pos=4.5,-59.5,0.5 delta=0.16031767491290633,0.27512501548616247,0.12421643834560298 rot=49.475857,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=0 health=5
+E experience_orb#5 minecraft:experience_orb pos=4.5,-59.5,0.5 delta=0.06362886373847798,0.26693648774205675,0.03648365796757194 rot=223.31868,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
+E experience_orb#6 minecraft:experience_orb pos=4.5,-59.5,0.5 delta=-0.16542216892112738,0.040616108913504784,-0.04784018631664533 rot=19.389282,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=0 health=5
 EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0
 EV level_event r=64.0 ex=0 type=2019 pos=4,-60,0 data=1 global=0

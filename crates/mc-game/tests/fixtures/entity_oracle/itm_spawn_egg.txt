@@ -47,109 +47,109 @@ T 9
 T 10
 # an ordinary block: the cow is spawned on top of the clicked block, beside a slab (moved up) and a fence, and in a replaceable block
 T 11
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-127.42328,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-67.41144,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 I A 0 minecraft:cow_spawn_egg*7
-EV sound at=1.5,-59.0,3.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=0.9560571
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-127.42328,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=-20.879913,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=1.5,-59.0,3.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=0.9560571
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-67.41144,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=-46.305695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 I A 0 minecraft:cow_spawn_egg*6
-EV sound at=3.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=0.97888094
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-127.42328,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=-20.879913,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,0.0,0.0 rot=9.338701,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=3.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=0.97888094
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-67.41144,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=-46.305695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,0.0,0.0 rot=153.8329,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 I A 0 minecraft:cow_spawn_egg*5
 EV sound at=5.5,-58.5,3.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=1.1316874
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-127.42328,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=-20.879913,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,0.0,0.0 rot=9.338701,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=155.73335,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-67.41144,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=-46.305695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,0.0,0.0 rot=153.8329,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-46.030457,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 I A 0 minecraft:cow_spawn_egg*4
-EV sound at=7.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=1.0097163
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-127.42328,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=-20.879913,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,0.0,0.0 rot=9.338701,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=155.73335,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=-44.181763,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=7.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=1.0097163
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=-67.41144,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,0.0,0.0 rot=-46.305695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,0.0,0.0 rot=153.8329,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=-46.030457,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=34.42405,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 I A 0 minecraft:cow_spawn_egg*3
-EV sound at=1.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=1.1254154
+EV sound at=1.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=1.1254154
 T 12
 T 13
 T 14
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-127.42328,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-20.879913,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=9.338701,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=155.73335,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=-44.181763,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-67.41144,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.305695,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=153.8329,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.030457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=34.42405,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 # `use` on water: the mob is spawned in the liquid; on a solid block the egg does nothing
 T 15
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-127.42328,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-20.879913,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=9.338701,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=155.73335,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=-44.181763,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#6 minecraft:cow pos=4.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=25.162167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-67.41144,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.305695,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=153.8329,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.030457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=34.42405,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#6 minecraft:cow pos=4.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=155.20486,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 I A 0 minecraft:cow_spawn_egg*2
-EV sound at=4.5,-60.0,-2.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=1.0015169
+EV sound at=4.5,-60.0,-2.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=1.0015169
 T 16
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-127.42328,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-20.879913,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=9.338701,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=155.73335,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=-44.181763,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#6 minecraft:cow pos=4.5,-60.0,-2.5 delta=0.0,-0.005,0.0 rot=25.162167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-67.41144,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.305695,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=153.8329,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.030457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=34.42405,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#6 minecraft:cow pos=4.5,-60.0,-2.5 delta=0.0,-0.005,0.0 rot=155.20486,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 I A 0 minecraft:cow_spawn_egg*2
 T 17
 T 18
 T 19
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-127.42328,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-20.879913,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=9.338701,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=155.73335,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=-44.181763,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#6 minecraft:cow pos=4.5,-59.816600003182884,-2.5 delta=0.0,0.06332000014066692,0.0 rot=25.162167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-67.41144,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.305695,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.5,-58.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=153.8329,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.030457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=34.42405,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#6 minecraft:cow pos=4.5,-59.816600003182884,-2.5 delta=0.0,0.06332000014066692,0.0 rot=155.20486,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 # mob buckets: the mob is spawned with its bucket data and the stack becomes an empty bucket (one player each: the entity uuids follow the command)
 T 20
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-127.42328,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-20.879913,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.528286984809845,-58.5,3.528281560787009 delta=0.01544469550011745,-0.0784000015258789,0.015441733983304893 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=155.73335,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=-44.181763,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#6 minecraft:cow pos=4.5,-59.75328000304222,-2.5 delta=0.0,0.045656000867366764,0.0 rot=25.162167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cod#1 minecraft:cod pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=31.549322,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-67.41144,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.305695,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.535899752256267,-58.5,3.4823589152800714 delta=0.01960126700866035,-0.0784000015258789,-0.00963203337586702 rot=243.8329,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.030457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=34.42405,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#6 minecraft:cow pos=4.5,-59.75328000304222,-2.5 delta=0.0,0.045656000867366764,0.0 rot=155.20486,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cod#1 minecraft:cod pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=83.29098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
 I A 0 minecraft:bucket*1
 EV sound at=8.5,-59.5,7.5 r=16.0 ex=1 event=minecraft:item.bucket.empty_fish source=neutral vol=1.0 pitch=1.0
 EV sound at=8.5,-60.0,7.5 r=16.0 ex=0 event=minecraft:entity.cod.ambient source=neutral vol=1.0 pitch=0.98806113
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-127.42328,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-20.879913,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.528286984809845,-58.5,3.528281560787009 delta=0.01544469550011745,-0.0784000015258789,0.015441733983304893 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=155.73335,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=-44.181763,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#6 minecraft:cow pos=4.5,-59.75328000304222,-2.5 delta=0.0,0.045656000867366764,0.0 rot=25.162167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cod#1 minecraft:cod pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=31.549322,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
-E axolotl#1 minecraft:axolotl pos=12.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=-56.355713,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-67.41144,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.305695,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.535899752256267,-58.5,3.4823589152800714 delta=0.01960126700866035,-0.0784000015258789,-0.00963203337586702 rot=243.8329,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.030457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=34.42405,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#6 minecraft:cow pos=4.5,-59.75328000304222,-2.5 delta=0.0,0.045656000867366764,0.0 rot=155.20486,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cod#1 minecraft:cod pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=83.29098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=12.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=-125.08426,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
 I B 0 minecraft:bucket*1
 EV sound at=12.5,-59.5,7.5 r=16.0 ex=1 event=minecraft:item.bucket.empty_axolotl source=neutral vol=1.0 pitch=1.0
 EV sound at=12.5,-60.0,7.5 r=16.0 ex=0 event=minecraft:entity.axolotl.idle_air source=neutral vol=1.0 pitch=0.9845341
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-127.42328,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-20.879913,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.528286984809845,-58.5,3.528281560787009 delta=0.01544469550011745,-0.0784000015258789,0.015441733983304893 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=155.73335,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=-44.181763,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#6 minecraft:cow pos=4.5,-59.75328000304222,-2.5 delta=0.0,0.045656000867366764,0.0 rot=25.162167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cod#1 minecraft:cod pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=31.549322,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
-E axolotl#1 minecraft:axolotl pos=12.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=-56.355713,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
-E tadpole#1 minecraft:tadpole pos=24.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=4.4218254,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-67.41144,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.305695,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.535899752256267,-58.5,3.4823589152800714 delta=0.01960126700866035,-0.0784000015258789,-0.00963203337586702 rot=243.8329,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.030457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=34.42405,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#6 minecraft:cow pos=4.5,-59.75328000304222,-2.5 delta=0.0,0.045656000867366764,0.0 rot=155.20486,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cod#1 minecraft:cod pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=83.29098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=12.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=-125.08426,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tadpole#1 minecraft:tadpole pos=24.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=-129.71875,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
 I D 0 minecraft:bucket*1
 EV sound at=24.5,-59.5,7.5 r=16.0 ex=1 event=minecraft:item.bucket.empty_tadpole source=neutral vol=1.0 pitch=1.0
 T 21
 T 22
 T 23
-E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-127.42328,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-20.879913,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#3 minecraft:cow pos=5.6809400358194875,-58.5,3.68092915041572 delta=0.030993034841898203,-0.0784000015258789,0.030992552791682063 rot=315.00034,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=155.73335,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=-44.181763,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cow#6 minecraft:cow pos=4.5,-59.48627936164461,-2.5 delta=0.0,0.057255873982601166,0.0 rot=25.162167,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-E cod#1 minecraft:cod pos=8.5,-59.98499999999999,7.5 delta=0.0,-4.999999999999996E-4,0.0 rot=31.549322,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
-E axolotl#1 minecraft:axolotl pos=12.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=-56.355713,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
-E tadpole#1 minecraft:tadpole pos=24.5,-59.98499999999999,7.5 delta=0.0,-4.999999999999996E-4,0.0 rot=4.4218254,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#1 minecraft:cow pos=1.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-67.41144,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#2 minecraft:cow pos=3.5,-59.5,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.305695,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#3 minecraft:cow pos=5.691409308986617,-58.5,3.5933849447429917 delta=0.030363947536386396,-0.0784000015258789,0.028157513856098423 rot=317.95242,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#4 minecraft:cow pos=7.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-46.030457,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#5 minecraft:cow pos=1.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=34.42405,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow#6 minecraft:cow pos=4.5,-59.48627936164461,-2.5 delta=0.0,0.057255873982601166,0.0 rot=155.20486,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cod#1 minecraft:cod pos=8.5,-59.98499999999999,7.5 delta=0.0,-4.999999999999996E-4,0.0 rot=83.29098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl#1 minecraft:axolotl pos=12.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=-125.08426,0.0 og=0 fall=0.0 fire=0 air=6000 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tadpole#1 minecraft:tadpole pos=24.5,-59.98499999999999,7.5 delta=0.0,-4.999999999999996E-4,0.0 rot=-129.71875,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-

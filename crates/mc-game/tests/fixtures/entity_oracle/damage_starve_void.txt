@@ -492,9 +492,9 @@ PKT V1 minecraft:set_health 6a41a000001440a00000
 PKT V1 minecraft:set_experience 69000000000000
 PKT V1 minecraft:chunk_batch_start 0c
 PKT V1 minecraft:level_chunk_with_light chunk=6,0/len=7260
+PKT V1 minecraft:level_chunk_with_light chunk=5,0/len=7260
 PKT V1 minecraft:level_chunk_with_light chunk=6,-1/len=7260
 PKT V1 minecraft:level_chunk_with_light chunk=7,0/len=7260
-PKT V1 minecraft:level_chunk_with_light chunk=5,0/len=7260
 PKT V1 minecraft:level_chunk_with_light chunk=6,1/len=7260
 PKT V1 minecraft:level_chunk_with_light chunk=5,-1/len=7260
 PKT V1 minecraft:level_chunk_with_light chunk=7,-1/len=7260

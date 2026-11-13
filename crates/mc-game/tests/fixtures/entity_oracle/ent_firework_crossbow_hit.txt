@@ -9,8 +9,8 @@ I A 40 minecraft:firework_rocket*1{minecraft:fireworks:{explosions:[{colors:[167
 I B 0 minecraft:crossbow*1/dmg=3{minecraft:damage:3,minecraft:enchantments:{minecraft:quick_charge:3}}
 I B 40 minecraft:firework_rocket*1
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.quick_charge_3 source=player vol=0.5 pitch=1.0
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=0.92922425
-EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=0.8887676
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=1.023877
+EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=1.180454
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source=player vol=1.0 pitch=1.0
 EV sound at=12.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source=player vol=1.0 pitch=1.0
 EV sound at=0.5023565400794644,-58.51225023067044,2.0928588963990347 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
@@ -59,14 +59,14 @@ E p1 minecraft:pig pos=0.5,-59.0,4.5 delta=-0.0036319242615968817,0.0,-0.3999835
 E p2 minecraft:pig pos=12.5,-59.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E firework_rocket#4 minecraft:firework_rocket pos=36.418702843353806,-58.45369767278118,3.875 delta=-0.01625943132923783,0.015260465682181227,1.6107153404856973 rot=-0.57851774,0.54262936 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.quick_charge_3 source=player vol=0.5 pitch=1.0
-EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=0.9327876
-EV sound at=36.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=0.9155484
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=0.868232
+EV sound at=36.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.loading_end source=player vol=1.0 pitch=0.96752995
 EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source=player vol=1.0 pitch=1.0
 EV sound at=36.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.crossbow.shoot source=player vol=1.0 pitch=1.0
 EV sound at=24.496768152301815,-58.535157601702515,2.0828785933562033 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
 EV sound at=36.48374056867076,-58.51473953550991,2.1107153404856973 r=48.0 ex=0 event=minecraft:entity.firework_rocket.launch source=ambient vol=3.0 pitch=1.0
 EV sound at=24.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
-PKT C minecraft:sound 77e6030700000064fffffe20000000043f8000003f6386466fd465a290351d3c
+PKT C minecraft:sound 77e6030700000064fffffe20000000043f8000003f97191e6fd465a290351d3c
 PKT C minecraft:sound 77ec030700000064fffffe20000000043f8000003f800000e8168c54d2216418
 PKT C minecraft:sound 77fd040800000004fffffe2c00000010404000003f800000a3981763e0103683
 PKT C minecraft:sound 77fd040800000064fffffe2c00000010404000003f800000a1a24ca263725fe3
@@ -75,8 +75,8 @@ PKT C minecraft:remove_entities 4e01d70f
 PKT C minecraft:entity_event 22000007d811
 PKT C minecraft:remove_entities 4e01d80f
 PKT C minecraft:sound 77eb0307000000c4fffffe20000000043f0000003f800000ec866a92984bf066
-PKT C minecraft:sound 77e60307000000c4fffffe20000000043f8000003f6ecb2b5ac3b5cd447e2ff6
-PKT C minecraft:sound 77e6030700000124fffffe20000000043f8000003f6a61615ae586ec5969c658
+PKT C minecraft:sound 77e60307000000c4fffffe20000000043f8000003f5e44745ac3b5cd447e2ff6
+PKT C minecraft:sound 77e6030700000124fffffe20000000043f8000003f77b00b5ae586ec5969c658
 PKT C minecraft:sound 77ec0307000000c4fffffe20000000043f8000003f800000d55fad91ece1d6ce
 PKT C minecraft:sound 77ec030700000124fffffe20000000043f8000003f800000d8bde3e82cd7dc02
 PKT C minecraft:sound 77fd0408000000c3fffffe2c00000010404000003f8000003b8fbbb9f9feaeb8
@@ -86,8 +86,8 @@ PKT C minecraft:remove_entities 4e01d90f
 PKT D minecraft:sound 77fd040800000004fffffe2c00000010404000003f800000a3981763e0103683
 PKT D minecraft:sound 77fd040800000064fffffe2c00000010404000003f800000a1a24ca263725fe3
 PKT D minecraft:sound 77eb0307000000c4fffffe20000000043f0000003f800000ec866a92984bf066
-PKT D minecraft:sound 77e60307000000c4fffffe20000000043f8000003f6ecb2b5ac3b5cd447e2ff6
-PKT D minecraft:sound 77e6030700000124fffffe20000000043f8000003f6a61615ae586ec5969c658
+PKT D minecraft:sound 77e60307000000c4fffffe20000000043f8000003f5e44745ac3b5cd447e2ff6
+PKT D minecraft:sound 77e6030700000124fffffe20000000043f8000003f77b00b5ae586ec5969c658
 PKT D minecraft:sound 77ec0307000000c4fffffe20000000043f8000003f800000d55fad91ece1d6ce
 PKT D minecraft:sound 77ec030700000124fffffe20000000043f8000003f800000d8bde3e82cd7dc02
 PKT D minecraft:sound 77fd0408000000c3fffffe2c00000010404000003f8000003b8fbbb9f9feaeb8

@@ -749,7 +749,7 @@ B 43 -61 39 minecraft:grass_block[snowy=false]
 B 43 -61 40 minecraft:frosted_ice[age=0]
 B 43 -61 41 minecraft:frosted_ice[age=0]
 B 43 -61 42 minecraft:frosted_ice[age=0]
-B 43 -61 43 minecraft:frosted_ice[age=0]
+B 43 -61 43 minecraft:frosted_ice[age=1]
 B 43 -61 44 minecraft:frosted_ice[age=0]
 B 43 -61 45 minecraft:grass_block[snowy=false]
 B 44 -62 39 minecraft:dirt
@@ -761,7 +761,7 @@ B 44 -62 44 minecraft:dirt
 B 44 -62 45 minecraft:dirt
 B 44 -61 39 minecraft:grass_block[snowy=false]
 B 44 -61 40 minecraft:frosted_ice[age=0]
-B 44 -61 41 minecraft:frosted_ice[age=0]
+B 44 -61 41 minecraft:frosted_ice[age=1]
 B 44 -61 42 minecraft:frosted_ice[age=0]
 B 44 -61 43 minecraft:frosted_ice[age=0]
 B 44 -61 44 minecraft:frosted_ice[age=0]
@@ -791,13 +791,11 @@ TICK block 44 -61 43 minecraft:frosted_ice delay=16 prio=0
 TICK block 41 -61 44 minecraft:frosted_ice delay=18 prio=0
 TICK block 42 -61 40 minecraft:frosted_ice delay=22 prio=0
 TICK block 42 -61 41 minecraft:frosted_ice delay=22 prio=0
-TICK block 44 -61 41 minecraft:frosted_ice delay=25 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=22 prio=0
 TICK block 40 -61 42 minecraft:frosted_ice delay=26 prio=0
 TICK block 42 -61 42 minecraft:frosted_ice delay=26 prio=0
 TICK block 43 -61 41 minecraft:frosted_ice delay=27 prio=0
-TICK block 43 -61 43 minecraft:frosted_ice delay=28 prio=0
-TICK block 43 -61 42 minecraft:frosted_ice delay=31 prio=0
-TICK block 42 -61 43 minecraft:frosted_ice delay=35 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=34 prio=0
 TICK block 41 -61 43 minecraft:frosted_ice delay=37 prio=0
 TICK block 43 -61 40 minecraft:frosted_ice delay=38 prio=0
 TICK block 44 -61 40 minecraft:frosted_ice delay=40 prio=0
@@ -805,6 +803,8 @@ TICK block 40 -61 41 minecraft:frosted_ice delay=41 prio=0
 TICK block 41 -61 40 minecraft:frosted_ice delay=44 prio=0
 TICK block 40 -61 40 minecraft:frosted_ice delay=46 prio=0
 TICK block 41 -61 41 minecraft:frosted_ice delay=49 prio=0
+TICK block 43 -61 43 minecraft:frosted_ice delay=50 prio=0
+TICK block 44 -61 41 minecraft:frosted_ice delay=107 prio=0
 B 39 -62 39 minecraft:dirt
 B 39 -62 40 minecraft:dirt
 B 39 -62 41 minecraft:dirt
@@ -827,11 +827,11 @@ B 40 -62 43 minecraft:dirt
 B 40 -62 44 minecraft:dirt
 B 40 -62 45 minecraft:dirt
 B 40 -61 39 minecraft:grass_block[snowy=false]
-B 40 -61 40 minecraft:frosted_ice[age=0]
-B 40 -61 41 minecraft:frosted_ice[age=0]
-B 40 -61 42 minecraft:frosted_ice[age=0]
-B 40 -61 43 minecraft:frosted_ice[age=0]
-B 40 -61 44 minecraft:frosted_ice[age=0]
+B 40 -61 40 minecraft:frosted_ice[age=1]
+B 40 -61 41 minecraft:frosted_ice[age=1]
+B 40 -61 42 minecraft:frosted_ice[age=1]
+B 40 -61 43 minecraft:frosted_ice[age=2]
+B 40 -61 44 minecraft:frosted_ice[age=2]
 B 40 -61 45 minecraft:grass_block[snowy=false]
 B 41 -62 39 minecraft:dirt
 B 41 -62 40 minecraft:dirt
@@ -841,11 +841,11 @@ B 41 -62 43 minecraft:dirt
 B 41 -62 44 minecraft:dirt
 B 41 -62 45 minecraft:dirt
 B 41 -61 39 minecraft:grass_block[snowy=false]
-B 41 -61 40 minecraft:frosted_ice[age=0]
+B 41 -61 40 minecraft:frosted_ice[age=1]
 B 41 -61 41 minecraft:frosted_ice[age=0]
 B 41 -61 42 minecraft:frosted_ice[age=0]
 B 41 -61 43 minecraft:frosted_ice[age=0]
-B 41 -61 44 minecraft:frosted_ice[age=0]
+B 41 -61 44 minecraft:frosted_ice[age=2]
 B 41 -61 45 minecraft:grass_block[snowy=false]
 B 42 -62 39 minecraft:dirt
 B 42 -62 40 minecraft:dirt
@@ -855,11 +855,11 @@ B 42 -62 43 minecraft:dirt
 B 42 -62 44 minecraft:dirt
 B 42 -62 45 minecraft:dirt
 B 42 -61 39 minecraft:grass_block[snowy=false]
-B 42 -61 40 minecraft:frosted_ice[age=0]
-B 42 -61 41 minecraft:frosted_ice[age=0]
+B 42 -61 40 minecraft:frosted_ice[age=1]
+B 42 -61 41 minecraft:frosted_ice[age=1]
 B 42 -61 42 minecraft:frosted_ice[age=0]
-B 42 -61 43 minecraft:frosted_ice[age=0]
-B 42 -61 44 minecraft:frosted_ice[age=0]
+B 42 -61 43 minecraft:frosted_ice[age=1]
+B 42 -61 44 minecraft:frosted_ice[age=1]
 B 42 -61 45 minecraft:grass_block[snowy=false]
 B 43 -62 39 minecraft:dirt
 B 43 -62 40 minecraft:dirt
@@ -869,11 +869,11 @@ B 43 -62 43 minecraft:dirt
 B 43 -62 44 minecraft:dirt
 B 43 -62 45 minecraft:dirt
 B 43 -61 39 minecraft:grass_block[snowy=false]
-B 43 -61 40 minecraft:frosted_ice[age=0]
+B 43 -61 40 minecraft:frosted_ice[age=1]
 B 43 -61 41 minecraft:frosted_ice[age=0]
 B 43 -61 42 minecraft:frosted_ice[age=0]
-B 43 -61 43 minecraft:frosted_ice[age=0]
-B 43 -61 44 minecraft:frosted_ice[age=0]
+B 43 -61 43 minecraft:frosted_ice[age=2]
+B 43 -61 44 minecraft:frosted_ice[age=2]
 B 43 -61 45 minecraft:grass_block[snowy=false]
 B 44 -62 39 minecraft:dirt
 B 44 -62 40 minecraft:dirt
@@ -883,11 +883,11 @@ B 44 -62 43 minecraft:dirt
 B 44 -62 44 minecraft:dirt
 B 44 -62 45 minecraft:dirt
 B 44 -61 39 minecraft:grass_block[snowy=false]
-B 44 -61 40 minecraft:frosted_ice[age=0]
-B 44 -61 41 minecraft:frosted_ice[age=0]
-B 44 -61 42 minecraft:frosted_ice[age=0]
-B 44 -61 43 minecraft:frosted_ice[age=0]
-B 44 -61 44 minecraft:frosted_ice[age=0]
+B 44 -61 40 minecraft:frosted_ice[age=1]
+B 44 -61 41 minecraft:frosted_ice[age=1]
+B 44 -61 42 minecraft:frosted_ice[age=1]
+B 44 -61 43 minecraft:frosted_ice[age=1]
+B 44 -61 44 minecraft:frosted_ice[age=1]
 B 44 -61 45 minecraft:grass_block[snowy=false]
 B 45 -62 39 minecraft:dirt
 B 45 -62 40 minecraft:dirt
@@ -903,31 +903,31 @@ B 45 -61 42 minecraft:grass_block[snowy=false]
 B 45 -61 43 minecraft:grass_block[snowy=false]
 B 45 -61 44 minecraft:grass_block[snowy=false]
 B 45 -61 45 minecraft:grass_block[snowy=false]
-TICK block 42 -61 41 minecraft:frosted_ice delay=1 prio=0
-TICK block 43 -61 43 minecraft:frosted_ice delay=1 prio=0
-TICK block 42 -61 42 minecraft:frosted_ice delay=4 prio=0
-TICK block 42 -61 43 minecraft:frosted_ice delay=5 prio=0
-TICK block 42 -61 40 minecraft:frosted_ice delay=8 prio=0
-TICK block 44 -61 40 minecraft:frosted_ice delay=8 prio=0
-TICK block 43 -61 42 minecraft:frosted_ice delay=9 prio=0
-TICK block 43 -61 40 minecraft:frosted_ice delay=9 prio=0
-TICK block 40 -61 41 minecraft:frosted_ice delay=10 prio=0
-TICK block 43 -61 44 minecraft:frosted_ice delay=12 prio=0
-TICK block 42 -61 44 minecraft:frosted_ice delay=16 prio=0
-TICK block 41 -61 41 minecraft:frosted_ice delay=16 prio=0
-TICK block 44 -61 41 minecraft:frosted_ice delay=16 prio=0
-TICK block 40 -61 44 minecraft:frosted_ice delay=17 prio=0
-TICK block 44 -61 44 minecraft:frosted_ice delay=19 prio=0
-TICK block 40 -61 40 minecraft:frosted_ice delay=19 prio=0
-TICK block 40 -61 43 minecraft:frosted_ice delay=19 prio=0
-TICK block 44 -61 43 minecraft:frosted_ice delay=23 prio=0
-TICK block 44 -61 42 minecraft:frosted_ice delay=25 prio=0
-TICK block 41 -61 44 minecraft:frosted_ice delay=25 prio=0
-TICK block 40 -61 42 minecraft:frosted_ice delay=28 prio=0
-TICK block 41 -61 42 minecraft:frosted_ice delay=29 prio=0
-TICK block 43 -61 41 minecraft:frosted_ice delay=29 prio=0
-TICK block 41 -61 40 minecraft:frosted_ice delay=30 prio=0
-TICK block 41 -61 43 minecraft:frosted_ice delay=31 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=5 prio=0
+TICK block 41 -61 43 minecraft:frosted_ice delay=13 prio=0
+TICK block 43 -61 41 minecraft:frosted_ice delay=14 prio=0
+TICK block 41 -61 41 minecraft:frosted_ice delay=17 prio=0
+TICK block 44 -61 44 minecraft:frosted_ice delay=18 prio=0
+TICK block 42 -61 42 minecraft:frosted_ice delay=18 prio=0
+TICK block 42 -61 41 minecraft:frosted_ice delay=19 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=19 prio=0
+TICK block 44 -61 42 minecraft:frosted_ice delay=24 prio=0
+TICK block 42 -61 44 minecraft:frosted_ice delay=24 prio=0
+TICK block 44 -61 41 minecraft:frosted_ice delay=27 prio=0
+TICK block 44 -61 43 minecraft:frosted_ice delay=27 prio=0
+TICK block 40 -61 42 minecraft:frosted_ice delay=34 prio=0
+TICK block 43 -61 40 minecraft:frosted_ice delay=34 prio=0
+TICK block 42 -61 40 minecraft:frosted_ice delay=49 prio=0
+TICK block 41 -61 40 minecraft:frosted_ice delay=54 prio=0
+TICK block 43 -61 43 minecraft:frosted_ice delay=55 prio=0
+TICK block 43 -61 44 minecraft:frosted_ice delay=55 prio=0
+TICK block 40 -61 40 minecraft:frosted_ice delay=58 prio=0
+TICK block 40 -61 41 minecraft:frosted_ice delay=65 prio=0
+TICK block 40 -61 43 minecraft:frosted_ice delay=69 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=74 prio=0
+TICK block 44 -61 40 minecraft:frosted_ice delay=78 prio=0
+TICK block 40 -61 44 minecraft:frosted_ice delay=104 prio=0
+TICK block 41 -61 44 minecraft:frosted_ice delay=108 prio=0
 B 39 -62 39 minecraft:dirt
 B 39 -62 40 minecraft:dirt
 B 39 -62 41 minecraft:dirt
@@ -950,11 +950,11 @@ B 40 -62 43 minecraft:dirt
 B 40 -62 44 minecraft:dirt
 B 40 -62 45 minecraft:dirt
 B 40 -61 39 minecraft:grass_block[snowy=false]
-B 40 -61 40 minecraft:frosted_ice[age=0]
-B 40 -61 41 minecraft:frosted_ice[age=0]
-B 40 -61 42 minecraft:frosted_ice[age=0]
-B 40 -61 43 minecraft:frosted_ice[age=0]
-B 40 -61 44 minecraft:frosted_ice[age=0]
+B 40 -61 40 minecraft:frosted_ice[age=3]
+B 40 -61 41 minecraft:frosted_ice[age=3]
+B 40 -61 42 minecraft:water[level=0]
+B 40 -61 43 minecraft:water[level=0]
+B 40 -61 44 minecraft:water[level=0]
 B 40 -61 45 minecraft:grass_block[snowy=false]
 B 41 -62 39 minecraft:dirt
 B 41 -62 40 minecraft:dirt
@@ -964,11 +964,11 @@ B 41 -62 43 minecraft:dirt
 B 41 -62 44 minecraft:dirt
 B 41 -62 45 minecraft:dirt
 B 41 -61 39 minecraft:grass_block[snowy=false]
-B 41 -61 40 minecraft:frosted_ice[age=0]
-B 41 -61 41 minecraft:frosted_ice[age=0]
-B 41 -61 42 minecraft:frosted_ice[age=0]
-B 41 -61 43 minecraft:frosted_ice[age=0]
-B 41 -61 44 minecraft:frosted_ice[age=0]
+B 41 -61 40 minecraft:frosted_ice[age=3]
+B 41 -61 41 minecraft:frosted_ice[age=2]
+B 41 -61 42 minecraft:frosted_ice[age=2]
+B 41 -61 43 minecraft:frosted_ice[age=3]
+B 41 -61 44 minecraft:water[level=0]
 B 41 -61 45 minecraft:grass_block[snowy=false]
 B 42 -62 39 minecraft:dirt
 B 42 -62 40 minecraft:dirt
@@ -978,11 +978,11 @@ B 42 -62 43 minecraft:dirt
 B 42 -62 44 minecraft:dirt
 B 42 -62 45 minecraft:dirt
 B 42 -61 39 minecraft:grass_block[snowy=false]
-B 42 -61 40 minecraft:frosted_ice[age=0]
-B 42 -61 41 minecraft:frosted_ice[age=0]
-B 42 -61 42 minecraft:frosted_ice[age=0]
-B 42 -61 43 minecraft:frosted_ice[age=0]
-B 42 -61 44 minecraft:frosted_ice[age=0]
+B 42 -61 40 minecraft:frosted_ice[age=3]
+B 42 -61 41 minecraft:frosted_ice[age=2]
+B 42 -61 42 minecraft:frosted_ice[age=1]
+B 42 -61 43 minecraft:frosted_ice[age=3]
+B 42 -61 44 minecraft:water[level=0]
 B 42 -61 45 minecraft:grass_block[snowy=false]
 B 43 -62 39 minecraft:dirt
 B 43 -62 40 minecraft:dirt
@@ -992,11 +992,11 @@ B 43 -62 43 minecraft:dirt
 B 43 -62 44 minecraft:dirt
 B 43 -62 45 minecraft:dirt
 B 43 -61 39 minecraft:grass_block[snowy=false]
-B 43 -61 40 minecraft:frosted_ice[age=0]
-B 43 -61 41 minecraft:frosted_ice[age=0]
-B 43 -61 42 minecraft:frosted_ice[age=0]
-B 43 -61 43 minecraft:frosted_ice[age=0]
-B 43 -61 44 minecraft:frosted_ice[age=0]
+B 43 -61 40 minecraft:frosted_ice[age=3]
+B 43 -61 41 minecraft:frosted_ice[age=1]
+B 43 -61 42 minecraft:frosted_ice[age=3]
+B 43 -61 43 minecraft:water[level=0]
+B 43 -61 44 minecraft:water[level=0]
 B 43 -61 45 minecraft:grass_block[snowy=false]
 B 44 -62 39 minecraft:dirt
 B 44 -62 40 minecraft:dirt
@@ -1006,11 +1006,11 @@ B 44 -62 43 minecraft:dirt
 B 44 -62 44 minecraft:dirt
 B 44 -62 45 minecraft:dirt
 B 44 -61 39 minecraft:grass_block[snowy=false]
-B 44 -61 40 minecraft:frosted_ice[age=0]
-B 44 -61 41 minecraft:frosted_ice[age=0]
-B 44 -61 42 minecraft:frosted_ice[age=0]
-B 44 -61 43 minecraft:frosted_ice[age=0]
-B 44 -61 44 minecraft:frosted_ice[age=0]
+B 44 -61 40 minecraft:water[level=0]
+B 44 -61 41 minecraft:water[level=0]
+B 44 -61 42 minecraft:water[level=0]
+B 44 -61 43 minecraft:water[level=0]
+B 44 -61 44 minecraft:water[level=0]
 B 44 -61 45 minecraft:grass_block[snowy=false]
 B 45 -62 39 minecraft:dirt
 B 45 -62 40 minecraft:dirt
@@ -1026,31 +1026,24 @@ B 45 -61 42 minecraft:grass_block[snowy=false]
 B 45 -61 43 minecraft:grass_block[snowy=false]
 B 45 -61 44 minecraft:grass_block[snowy=false]
 B 45 -61 45 minecraft:grass_block[snowy=false]
-TICK block 43 -61 43 minecraft:frosted_ice delay=1 prio=0
-TICK block 40 -61 42 minecraft:frosted_ice delay=1 prio=0
-TICK block 44 -61 41 minecraft:frosted_ice delay=2 prio=0
-TICK block 42 -61 41 minecraft:frosted_ice delay=2 prio=0
-TICK block 44 -61 40 minecraft:frosted_ice delay=2 prio=0
-TICK block 40 -61 43 minecraft:frosted_ice delay=3 prio=0
-TICK block 41 -61 41 minecraft:frosted_ice delay=3 prio=0
-TICK block 44 -61 42 minecraft:frosted_ice delay=5 prio=0
-TICK block 42 -61 40 minecraft:frosted_ice delay=9 prio=0
-TICK block 40 -61 41 minecraft:frosted_ice delay=10 prio=0
-TICK block 40 -61 44 minecraft:frosted_ice delay=11 prio=0
-TICK block 43 -61 40 minecraft:frosted_ice delay=11 prio=0
-TICK block 42 -61 43 minecraft:frosted_ice delay=16 prio=0
-TICK block 40 -61 40 minecraft:frosted_ice delay=21 prio=0
-TICK block 41 -61 43 minecraft:frosted_ice delay=21 prio=0
-TICK block 43 -61 41 minecraft:frosted_ice delay=22 prio=0
-TICK block 41 -61 42 minecraft:frosted_ice delay=23 prio=0
-TICK block 41 -61 40 minecraft:frosted_ice delay=25 prio=0
-TICK block 42 -61 42 minecraft:frosted_ice delay=26 prio=0
-TICK block 42 -61 44 minecraft:frosted_ice delay=27 prio=0
-TICK block 44 -61 44 minecraft:frosted_ice delay=28 prio=0
-TICK block 44 -61 43 minecraft:frosted_ice delay=28 prio=0
-TICK block 43 -61 42 minecraft:frosted_ice delay=28 prio=0
-TICK block 41 -61 44 minecraft:frosted_ice delay=29 prio=0
-TICK block 43 -61 44 minecraft:frosted_ice delay=30 prio=0
+TICK block 43 -61 43 minecraft:frosted_ice delay=2 prio=0
+TICK block 40 -61 41 minecraft:frosted_ice delay=4 prio=0
+TICK fluid 43 -61 43 minecraft:water delay=4 prio=0
+TICK fluid 42 -61 44 minecraft:water delay=4 prio=0
+TICK block 41 -61 40 minecraft:frosted_ice delay=7 prio=0
+TICK block 42 -61 41 minecraft:frosted_ice delay=17 prio=0
+TICK block 41 -61 41 minecraft:frosted_ice delay=22 prio=0
+TICK block 40 -61 42 minecraft:frosted_ice delay=25 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=26 prio=0
+TICK block 40 -61 40 minecraft:frosted_ice delay=37 prio=0
+TICK block 43 -61 40 minecraft:frosted_ice delay=41 prio=0
+TICK block 43 -61 41 minecraft:frosted_ice delay=45 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=46 prio=0
+TICK block 42 -61 44 minecraft:frosted_ice delay=48 prio=0
+TICK block 41 -61 43 minecraft:frosted_ice delay=60 prio=0
+TICK block 42 -61 40 minecraft:frosted_ice delay=61 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=62 prio=0
+TICK block 42 -61 42 minecraft:frosted_ice delay=66 prio=0
 B 49 -62 49 minecraft:dirt
 B 49 -62 50 minecraft:dirt
 B 49 -62 51 minecraft:dirt
@@ -1074,34 +1067,27 @@ B 52 -62 51 minecraft:dirt
 B 52 -61 49 minecraft:grass_block[snowy=false]
 B 52 -61 50 minecraft:grass_block[snowy=false]
 B 52 -61 51 minecraft:grass_block[snowy=false]
-TICK block 44 -61 41 minecraft:frosted_ice delay=1 prio=0
-TICK block 42 -61 41 minecraft:frosted_ice delay=1 prio=0
-TICK block 44 -61 40 minecraft:frosted_ice delay=1 prio=0
-TICK block 40 -61 43 minecraft:frosted_ice delay=2 prio=0
-TICK block 41 -61 41 minecraft:frosted_ice delay=2 prio=0
-TICK block 44 -61 42 minecraft:frosted_ice delay=4 prio=0
+TICK block 43 -61 43 minecraft:frosted_ice delay=1 prio=0
+TICK block 40 -61 41 minecraft:frosted_ice delay=3 prio=0
+TICK fluid 43 -61 43 minecraft:water delay=3 prio=0
+TICK fluid 42 -61 44 minecraft:water delay=3 prio=0
 TICK fluid 50 -61 50 minecraft:water delay=5 prio=0
-TICK block 42 -61 40 minecraft:frosted_ice delay=8 prio=0
-TICK block 40 -61 41 minecraft:frosted_ice delay=9 prio=0
-TICK block 40 -61 44 minecraft:frosted_ice delay=10 prio=0
-TICK block 43 -61 40 minecraft:frosted_ice delay=10 prio=0
-TICK block 42 -61 43 minecraft:frosted_ice delay=15 prio=0
-TICK block 40 -61 40 minecraft:frosted_ice delay=20 prio=0
-TICK block 41 -61 43 minecraft:frosted_ice delay=20 prio=0
-TICK block 43 -61 41 minecraft:frosted_ice delay=21 prio=0
-TICK block 41 -61 42 minecraft:frosted_ice delay=22 prio=0
-TICK block 40 -61 42 minecraft:frosted_ice delay=22 prio=0
-TICK block 41 -61 40 minecraft:frosted_ice delay=24 prio=0
-TICK block 42 -61 42 minecraft:frosted_ice delay=25 prio=0
-TICK block 42 -61 44 minecraft:frosted_ice delay=26 prio=0
-TICK block 43 -61 43 minecraft:frosted_ice delay=26 prio=0
-TICK block 44 -61 44 minecraft:frosted_ice delay=27 prio=0
-TICK block 44 -61 43 minecraft:frosted_ice delay=27 prio=0
-TICK block 43 -61 42 minecraft:frosted_ice delay=27 prio=0
-TICK block 41 -61 44 minecraft:frosted_ice delay=28 prio=0
-TICK block 43 -61 44 minecraft:frosted_ice delay=29 prio=0
-TICK block 51 -61 50 minecraft:frosted_ice delay=69 prio=0
-TICK block 50 -61 50 minecraft:frosted_ice delay=110 prio=0
+TICK block 41 -61 40 minecraft:frosted_ice delay=6 prio=0
+TICK block 42 -61 41 minecraft:frosted_ice delay=16 prio=0
+TICK block 41 -61 41 minecraft:frosted_ice delay=21 prio=0
+TICK block 40 -61 42 minecraft:frosted_ice delay=24 prio=0
+TICK block 43 -61 42 minecraft:frosted_ice delay=25 prio=0
+TICK block 40 -61 40 minecraft:frosted_ice delay=36 prio=0
+TICK block 43 -61 40 minecraft:frosted_ice delay=40 prio=0
+TICK block 43 -61 41 minecraft:frosted_ice delay=44 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=45 prio=0
+TICK block 42 -61 44 minecraft:frosted_ice delay=47 prio=0
+TICK block 41 -61 43 minecraft:frosted_ice delay=59 prio=0
+TICK block 42 -61 40 minecraft:frosted_ice delay=60 prio=0
+TICK block 42 -61 43 minecraft:frosted_ice delay=61 prio=0
+TICK block 42 -61 42 minecraft:frosted_ice delay=65 prio=0
+TICK block 51 -61 50 minecraft:frosted_ice delay=88 prio=0
+TICK block 50 -61 50 minecraft:frosted_ice delay=107 prio=0
 B 49 -62 49 minecraft:dirt
 B 49 -62 50 minecraft:dirt
 B 49 -62 51 minecraft:dirt
@@ -1126,29 +1112,5 @@ B 52 -62 51 minecraft:dirt
 B 52 -61 49 minecraft:grass_block[snowy=false]
 B 52 -61 50 minecraft:grass_block[snowy=false]
 B 52 -61 51 minecraft:grass_block[snowy=false]
-TICK block 41 -61 41 minecraft:frosted_ice delay=2 prio=0
-TICK block 44 -61 40 minecraft:frosted_ice delay=2 prio=0
-TICK block 44 -61 42 minecraft:frosted_ice delay=3 prio=0
-TICK block 42 -61 41 minecraft:frosted_ice delay=5 prio=0
-TICK block 40 -61 41 minecraft:frosted_ice delay=6 prio=0
-TICK block 43 -61 44 minecraft:frosted_ice delay=6 prio=0
-TICK block 50 -61 50 minecraft:frosted_ice delay=10 prio=0
-TICK block 41 -61 44 minecraft:frosted_ice delay=10 prio=0
-TICK block 41 -61 42 minecraft:frosted_ice delay=10 prio=0
-TICK block 42 -61 40 minecraft:frosted_ice delay=11 prio=0
-TICK block 44 -61 41 minecraft:frosted_ice delay=12 prio=0
-TICK block 42 -61 44 minecraft:frosted_ice delay=13 prio=0
-TICK block 44 -61 44 minecraft:frosted_ice delay=17 prio=0
-TICK block 40 -61 40 minecraft:frosted_ice delay=18 prio=0
-TICK block 43 -61 42 minecraft:frosted_ice delay=19 prio=0
-TICK block 43 -61 41 minecraft:frosted_ice delay=20 prio=0
-TICK block 40 -61 44 minecraft:frosted_ice delay=21 prio=0
-TICK block 41 -61 40 minecraft:frosted_ice delay=21 prio=0
-TICK block 44 -61 43 minecraft:frosted_ice delay=24 prio=0
-TICK block 40 -61 42 minecraft:frosted_ice delay=25 prio=0
-TICK block 43 -61 43 minecraft:frosted_ice delay=25 prio=0
-TICK block 42 -61 42 minecraft:frosted_ice delay=28 prio=0
-TICK block 41 -61 43 minecraft:frosted_ice delay=29 prio=0
-TICK block 42 -61 43 minecraft:frosted_ice delay=30 prio=0
-TICK block 40 -61 43 minecraft:frosted_ice delay=31 prio=0
-TICK block 43 -61 40 minecraft:frosted_ice delay=33 prio=0
+TICK block 50 -61 50 minecraft:frosted_ice delay=7 prio=0
+TICK block 41 -61 42 minecraft:frosted_ice delay=62 prio=0

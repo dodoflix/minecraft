@@ -43,7 +43,7 @@ STAT Bob minecraft.custom:minecraft.total_world_time 7
 STAT Bob minecraft.used:minecraft.brown_egg 1
 E chicken#1 minecraft:chicken pos=0.48341792333905337,-60.0,1.3653567434837457 delta=0.0,-0.0784000015258789,0.0 rot=-1.0978017,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
 E egg#2 minecraft:egg pos=20.5,-58.479999996721745,0.5 delta=-0.0013784379393902229,-1.3124650332602024,0.752966020912754 rot=-0.10476395,-60.157032 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.47238696
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.35622966
 P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:egg*15
 P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:brown_egg*4
 E chicken#1 minecraft:chicken pos=0.48341792333905337,-60.0,1.3653567434837457 delta=0.0,-0.0784000015258789,0.0 rot=-1.0978017,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -52,18 +52,18 @@ P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot
 P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:brown_egg*4
 E chicken#1 minecraft:chicken pos=0.4693011823680376,-59.172735650389804,2.2194365278442425 delta=-0.004119171990794817,0.10905472940649964,0.19688248009922665 rot=-1.0978017,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=7/17 death=0 fx=-
 E chicken#2 minecraft:chicken pos=0.5137162897938098,-60.0,2.273464084634152 delta=0.004137340808903392,-0.0784000015258789,0.17121106150928062 rot=-0.6921332,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=7/17 death=0 fx=-
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3842017
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.36272588
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.41135332
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.42710507
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.46594056
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.46430868
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4051335
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.41082862
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.46156287
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.49780357
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.364004
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.34553918
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4626392
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.36219886
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.425053
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.43759546
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3975873
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.49301574
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.37439492
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3559399
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.390956
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3920595
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.41937223
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.41521397
 EV sound at=0.48341792333905337,-60.0,1.3653567434837457 r=16.0 ex=0 event=minecraft:entity.baby_chicken.hurt source=neutral vol=1.0 pitch=1.4073386
 EV sound at=0.4913578909035178,-59.96238899921293,1.2153567375232812 r=16.0 ex=0 event=minecraft:entity.baby_chicken.hurt source=neutral vol=1.0 pitch=1.385714
 I Alice 0 minecraft:egg*3
@@ -80,15 +80,15 @@ E chicken#1 minecraft:chicken pos=0.4549183884107458,-59.13035972162211,2.906885
 E chicken#2 minecraft:chicken pos=-0.0655495306133996,-60.0,2.2016397467600064 delta=-0.08474061879635841,-0.0784000015258789,-0.08379118563852052 rot=145.4111,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=3/13 death=0 fx=-
 E chicken#3 minecraft:chicken pos=0.5005735928775628,-60.0,2.1492931107079167 delta=-0.005396466397163904,-0.0784000015258789,0.3311960622784837 rot=0.8425923,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=8/18 death=0 fx=-
 E chicken#4 minecraft:chicken pos=20.509000437848968,-60.0,1.3407355882429313 delta=0.0,-0.0784000015258789,0.0 rot=0.61340123,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3667176
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.36065802
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3411784
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.42217293
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.49656567
-EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4691287
-EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3618563
-EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.33593693
-EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4072293
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4145552
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4850776
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.41462952
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.34974995
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.35417053
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.44914392
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4780975
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.46942434
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.40131214
 EV sound at=0.5130204596400366,-60.0,1.3853944859332334 r=16.0 ex=0 event=minecraft:entity.baby_chicken.hurt source=neutral vol=1.0 pitch=1.5494636
 EV sound at=-0.0655495306133996,-60.0,2.2016397467600064 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
 I Alice 0 minecraft:egg*3

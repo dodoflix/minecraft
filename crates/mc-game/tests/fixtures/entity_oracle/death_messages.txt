@@ -12,9 +12,9 @@ PKT Obs minecraft:waypoint 8d0100014c8520ee9780376da4aa4f7f12618cc9116d696e65637
 PKT Obs minecraft:waypoint 8d010001a55dab719c533bbeb061716b9f69d0a3116d696e6563726166743a64656661756c7400020000
 PKT Obs minecraft:chunk_batch_start 0c
 PKT Obs minecraft:level_chunk_with_light chunk=6,0/len=7260
+PKT Obs minecraft:level_chunk_with_light chunk=5,0/len=7260
 PKT Obs minecraft:level_chunk_with_light chunk=6,-1/len=7260
 PKT Obs minecraft:level_chunk_with_light chunk=7,0/len=7260
-PKT Obs minecraft:level_chunk_with_light chunk=5,0/len=7260
 PKT Obs minecraft:level_chunk_with_light chunk=6,1/len=7260
 PKT Obs minecraft:level_chunk_with_light chunk=5,-1/len=7260
 PKT Obs minecraft:level_chunk_with_light chunk=7,-1/len=7260

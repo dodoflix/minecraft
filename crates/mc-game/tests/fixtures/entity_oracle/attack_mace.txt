@@ -1,60 +1,60 @@
-P A minecraft:player pos=0.5,-59.5,0.5 delta=0.0,0.41999998688697815,0.0 rot=0.0,0.0 og=0 fall=0.5 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.15 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-E M0 minecraft:husk pos=0.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=991.144 abs=0.0 hurt=10/20 death=0 fx=-
-E M0n0 minecraft:husk pos=2.0,-60.0,2.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+P A minecraft:player pos=0.5,-59.5,0.5 delta=0.0,0.41999998688697815,0.0 rot=0.0,0.0 og=0 fall=0.5 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.15 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+E M0 minecraft:zombie pos=0.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=148 air=300 alive=1 pose=standing hp=989.144 abs=0.0 hurt=10/20 death=0 fx=-
+E M0n0 minecraft:zombie pos=2.0,-60.0,2.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=148 air=300 alive=1 pose=standing hp=998.0 abs=0.0 hurt=0/1 death=0 fx=-
 E M0n1 minecraft:cow pos=-1.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.33319999363422365,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.15 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-P A minecraft:player pos=8.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-E M1 minecraft:husk pos=8.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=981.69763 abs=0.0 hurt=10/20 death=0 fx=-
-E M1n0 minecraft:husk pos=10.0,-60.0,2.0 delta=1.399999976158142,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.33319999363422365,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.15 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=8.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+E M1 minecraft:zombie pos=8.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=123 air=300 alive=1 pose=standing hp=978.69763 abs=0.0 hurt=10/20 death=0 fx=-
+E M1n0 minecraft:zombie pos=10.0,-60.0,2.0 delta=1.399999976158142,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=81 air=300 alive=1 pose=standing hp=996.0 abs=0.0 hurt=0/1 death=0 fx=-
 E M1n1 minecraft:cow pos=6.5,-60.0,1.5 delta=-0.9768491087204217,0.699999988079071,-0.24421227718010544 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-P A minecraft:player pos=16.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.45000002 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-E M2 minecraft:husk pos=16.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=973.432 abs=0.0 hurt=10/20 death=0 fx=-
-E M2n0 minecraft:husk pos=18.0,-60.0,2.0 delta=1.399999976158142,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=16.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.45000002 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+E M2 minecraft:zombie pos=16.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=150 air=300 alive=1 pose=standing hp=968.432 abs=0.0 hurt=10/20 death=0 fx=-
+E M2n0 minecraft:zombie pos=18.0,-60.0,2.0 delta=1.399999976158142,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=151 air=300 alive=1 pose=standing hp=996.0 abs=0.0 hurt=0/5 death=0 fx=-
 E M2n1 minecraft:cow pos=14.5,-60.0,1.5 delta=-0.9768491087204217,0.699999988079071,-0.24421227718010544 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.45000002 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-P A minecraft:player pos=24.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-E M3 minecraft:husk pos=24.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=966.052 abs=0.0 hurt=10/20 death=0 fx=-
-E M3n0 minecraft:husk pos=26.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.45000002 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=24.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+E M3 minecraft:zombie pos=24.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=130 air=300 alive=1 pose=standing hp=958.052 abs=0.0 hurt=10/20 death=0 fx=-
+E M3n0 minecraft:zombie pos=26.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=94 air=300 alive=1 pose=standing hp=991.0 abs=0.0 hurt=4/14 death=0 fx=-
 E M3n1 minecraft:cow pos=22.5,-60.0,1.5 delta=-1.9536982174408435,0.699999988079071,-0.48842455436021087 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-P A minecraft:player pos=32.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.75000006 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-E M4 minecraft:husk pos=32.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=957.196 abs=0.0 hurt=10/20 death=0 fx=-
-E M4n0 minecraft:husk pos=34.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=32.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.75000006 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+E M4 minecraft:zombie pos=32.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=151 air=300 alive=1 pose=standing hp=947.196 abs=0.0 hurt=10/20 death=0 fx=-
+E M4n0 minecraft:zombie pos=34.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=989.0 abs=0.0 hurt=3/13 death=0 fx=-
 E M4n1 minecraft:cow pos=30.5,-60.0,1.5 delta=-1.9536982174408435,0.699999988079071,-0.48842455436021087 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.75000006 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-P A minecraft:player pos=40.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-E M5 minecraft:husk pos=40.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=940.96 abs=0.0 hurt=10/20 death=0 fx=-
-E M5n0 minecraft:husk pos=42.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.75000006 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=40.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+E M5 minecraft:zombie pos=40.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=134 air=300 alive=1 pose=standing hp=930.944 abs=0.0 hurt=4/14 death=0 fx=-
+E M5n0 minecraft:zombie pos=42.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=157 air=300 alive=1 pose=standing hp=992.0 abs=0.0 hurt=0/8 death=0 fx=-
 E M5n1 minecraft:cow pos=38.5,-60.0,1.5 delta=-1.9536982174408435,0.699999988079071,-0.48842455436021087 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-P A minecraft:player pos=48.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.0500001 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-E M6 minecraft:husk pos=48.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=953.875 abs=0.0 hurt=10/20 death=0 fx=-
-E M6n0 minecraft:husk pos=50.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=48.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.0500001 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:density:3}}
+E M6 minecraft:zombie pos=48.5,-60.0,2.0 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=157 air=300 alive=1 pose=standing hp=937.859 abs=0.0 hurt=7/17 death=0 fx=-
+E M6n0 minecraft:zombie pos=50.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=144 air=300 alive=1 pose=standing hp=985.0 abs=0.0 hurt=0/0 death=0 fx=-
 E M6n1 minecraft:cow pos=46.5,-60.0,1.5 delta=-1.9536982174408435,0.699999988079071,-0.48842455436021087 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=48.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.0500001 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-P A minecraft:player pos=56.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.2 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-E M7 minecraft:husk pos=56.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=965.5 abs=0.0 hurt=10/20 death=0 fx=-
-E M7n0 minecraft:husk pos=58.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:density:3}}
+P A minecraft:player pos=48.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.0500001 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:density:3}}
+P A minecraft:player pos=56.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.2 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:breach:3}}
+E M7 minecraft:zombie pos=56.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=143 air=300 alive=1 pose=standing hp=948.5 abs=0.0 hurt=10/20 death=0 fx=-
+E M7n0 minecraft:zombie pos=58.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=143 air=300 alive=1 pose=standing hp=984.0 abs=0.0 hurt=0/0 death=0 fx=-
 E M7n1 minecraft:cow pos=54.5,-60.0,1.5 delta=-1.9536982174408435,0.699999988079071,-0.48842455436021087 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=56.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.2 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-P A minecraft:player pos=64.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.35 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:breach:3}}
+P A minecraft:player pos=56.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.2 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:breach:3}}
+P A minecraft:player pos=64.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.35 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
 P M8 minecraft:player pos=64.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
-E M8n0 minecraft:husk pos=66.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M8n0 minecraft:zombie pos=66.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=136 air=300 alive=1 pose=standing hp=984.0 abs=0.0 hurt=6/16 death=0 fx=-
 E M8n1 minecraft:cow pos=62.5,-60.0,1.5 delta=-1.9536982174408435,0.699999988079071,-0.48842455436021087 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=64.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.35 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
-P A minecraft:player pos=72.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.5 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=64.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.35 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=72.5,-59.5,0.5 delta=0.0,0.009999999776482582,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.5 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
 P M9 minecraft:player pos=72.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
-E M9n0 minecraft:husk pos=74.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M9n0 minecraft:zombie pos=74.0,-60.0,2.0 delta=2.799999952316284,0.699999988079071,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=128 air=300 alive=1 pose=standing hp=981.0 abs=0.0 hurt=0/8 death=0 fx=-
 E M9n1 minecraft:cow pos=70.5,-60.0,1.5 delta=-1.9536982174408435,0.699999988079071,-0.48842455436021087 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1000.0 abs=0.0 hurt=0/0 death=0 fx=-
-I A 0 minecraft:mace*1/dmg=1
-P A minecraft:player pos=72.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.5 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1
+I A 0 minecraft:mace*1/dmg=1{minecraft:damage:1}
+P A minecraft:player pos=72.5,-60.0,0.5 delta=0.0,-0.06860000155419112,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.5 xp=0/0/0.0 sel=0 main=minecraft:mace*1/dmg=1{minecraft:damage:1}
