@@ -1,0 +1,51 @@
+# minecart_improvements: MinecartItem.useOn refuses a rail whose new cart would overlap another cart (the cart was created, so its entity id is used up), a pig in the way does not matter, the neighbouring rail piece and a creative player's use behave like the plain rule.
+features minecart_improvements
+level flat
+preload 4
+level_seed 104
+entity_counter 1420
+spawn_player P survival 4.5 -60 2.5 0 0
+spawn_player C creative 20.5 -60 2.5 0 0
+give P mainhand minecraft:minecart 16
+give C mainhand minecraft:minecart 16
+block 4 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+block 5 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+block 9 -60 4 minecraft:stone
+block 8 -60 4 minecraft:powered_rail[powered=false,shape=ascending_east,waterlogged=false]
+block 12 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+block 20 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+spawn pig minecraft:pig 12.5 -60 4.5 0 0 {NoAI:1b}
+entity_seed pig 421
+spawn chest minecraft:chest_minecart 5.9 -59.9375 4.5
+entity_seed chest 422
+tick 3
+dump xentities inventory:P
+note a free rail takes the cart, a second use on the same rail overlaps it and refuses
+use_on P 4 -60 4 up
+tick 2
+dump xentities inventory:P
+use_on P 4 -60 4 up main
+tick 2
+dump xentities inventory:P
+note the next rail piece is partly covered by the chest cart standing on it
+use_on P 5 -60 4 up
+tick 2
+dump xentities inventory:P
+note a slope takes a cart, a second one overlaps it
+snap P 8.5 -60 2.5
+use_on P 8 -60 4 up
+tick 2
+use_on P 8 -60 4 up main
+tick 2
+dump xentities inventory:P
+note a pig standing on the rail is no obstacle
+snap P 12.5 -60 2.5
+use_on P 12 -60 4 up
+tick 2
+dump xentities inventory:P
+note a creative player refuses too and keeps its stack either way
+use_on C 20 -60 4 up
+tick 2
+use_on C 20 -60 4 up main
+tick 2
+dump xentities inventory:C

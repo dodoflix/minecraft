@@ -126,6 +126,16 @@ fn max_minecart_speed_rule() {
 }
 
 #[test]
+fn minecart_item_refuses_an_overlapping_cart() {
+    common::block_scenario::check("itm_minecart_new_overlap");
+}
+
+#[test]
+fn dispensed_carts_snap_onto_the_rail() {
+    common::block_scenario::check("blk_disp_minecart_new");
+}
+
+#[test]
 fn pistons_push_carts() {
     common::block_scenario::check("mc_new_piston");
 }

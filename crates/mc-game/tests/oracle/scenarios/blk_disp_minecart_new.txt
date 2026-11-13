@@ -1,0 +1,127 @@
+# minecart_improvements: MinecartDispenseItemBehavior: a rail in front takes the cart a tenth above it (0.6 on a slope); air in front with a rail below takes it 0.9 below
+# the dispenser level (0.4 above a slope, never for a dispenser facing down); anything else drops the item (default behaviour, then the outer
+# sound and animation events play again). The cart stands 1.125 in front of the dispenser, the components of the stack are applied (custom_name,
+# entity data), the stack shrinks by one. All six cart items share the behaviour with their own entity type.
+features minecart_improvements
+level flat
+preload 6
+entity_counter 1440
+note a flat rail in front, a stack of three with a custom name
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:minecart",count:3,components:{"minecraft:custom_name":"Carty"}}]}
+block 1 -60 0 minecraft:rail[shape=east_west,waterlogged=false]
+level_seed 121
+dispense 0 -60 0
+dump be:0,-60,0 xentities events nbt:minecart#1
+tick 3
+dump xentities
+
+note a slope in front
+block 10 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 0 {Items:[{Slot:0b,id:"minecraft:minecart",count:1}]}
+block 12 -60 0 minecraft:stone
+block 11 -60 0 minecraft:rail[shape=ascending_east,waterlogged=false]
+level_seed 122
+dispense 10 -60 0
+tick 3
+dump be:10,-60,0 xentities events
+
+note air in front with a rail below it
+block 20 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 20 -60 0 {Items:[{Slot:0b,id:"minecraft:minecart",count:1}]}
+block 21 -61 0 minecraft:rail[shape=east_west,waterlogged=false]
+block 21 -62 0 minecraft:stone
+level_seed 123
+dispense 20 -60 0
+tick 3
+dump be:20,-60,0 xentities events
+
+note air in front with a sloped rail below it
+block 30 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 30 -60 0 {Items:[{Slot:0b,id:"minecraft:minecart",count:1}]}
+block 31 -62 0 minecraft:stone
+block 32 -61 0 minecraft:stone
+block 31 -61 0 minecraft:rail[shape=ascending_east,waterlogged=false]
+level_seed 124
+dispense 30 -60 0
+tick 3
+dump be:30,-60,0 xentities events
+
+note facing down: a rail in front, and air with a rail below it (a slope below makes no difference)
+block 40 -58 0 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 40 -58 0 {Items:[{Slot:0b,id:"minecraft:minecart",count:1}]}
+block 40 -60 0 minecraft:stone
+block 40 -59 0 minecraft:rail[shape=north_south,waterlogged=false]
+level_seed 125
+dispense 40 -58 0
+tick 3
+dump be:40,-58,0 xentities events
+block 50 -58 0 minecraft:dispenser[facing=down,triggered=false]
+be_nbt 50 -58 0 {Items:[{Slot:0b,id:"minecraft:minecart",count:1}]}
+block 50 -60 -1 minecraft:stone
+block 50 -60 0 minecraft:rail[shape=ascending_north,waterlogged=false]
+level_seed 126
+dispense 50 -58 0
+tick 3
+dump be:50,-58,0 xentities events
+
+note facing up: a rail in front
+block 60 -60 0 minecraft:dispenser[facing=up,triggered=false]
+be_nbt 60 -60 0 {Items:[{Slot:0b,id:"minecraft:minecart",count:1}]}
+block 60 -59 0 minecraft:rail[shape=north_south,waterlogged=false]
+level_seed 127
+dispense 60 -60 0
+tick 3
+dump be:60,-60,0 xentities events
+
+note a solid block in front, and air with nothing below: dropped as an item
+block 70 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 70 -60 0 {Items:[{Slot:0b,id:"minecraft:minecart",count:2}]}
+block 71 -60 0 minecraft:stone
+level_seed 128
+dispense 70 -60 0
+tick 2
+dump be:70,-60,0 xentities events
+block 80 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 80 -60 0 {Items:[{Slot:0b,id:"minecraft:furnace_minecart",count:2}]}
+level_seed 129
+dispense 80 -60 0
+tick 2
+dump be:80,-60,0 xentities events
+
+note every other cart type on a flat rail, with entity data from the stack
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:chest_minecart",count:1,components:{"minecraft:custom_name":"Chesty","minecraft:entity_data":{id:"minecraft:chest_minecart",Invulnerable:1b,LootTable:"minecraft:chests/simple_dungeon"}}}]}
+block 1 -60 8 minecraft:rail[shape=east_west,waterlogged=false]
+level_seed 130
+dispense 0 -60 8
+tick 3
+dump be:0,-60,8 xentities events nbt:chest_minecart#1
+block 10 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 10 -60 8 {Items:[{Slot:0b,id:"minecraft:furnace_minecart",count:1,components:{"minecraft:entity_data":{id:"minecraft:furnace_minecart",Fuel:50s}}}]}
+block 11 -60 8 minecraft:rail[shape=east_west,waterlogged=false]
+level_seed 131
+dispense 10 -60 8
+tick 3
+dump be:10,-60,8 xentities events
+block 20 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 20 -60 8 {Items:[{Slot:0b,id:"minecraft:tnt_minecart",count:1,components:{"minecraft:custom_name":"Boom"}}]}
+block 21 -60 8 minecraft:rail[shape=east_west,waterlogged=false]
+level_seed 132
+dispense 20 -60 8
+tick 3
+dump be:20,-60,8 xentities events
+block 30 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 30 -60 8 {Items:[{Slot:0b,id:"minecraft:hopper_minecart",count:1}]}
+block 31 -60 8 minecraft:rail[shape=east_west,waterlogged=false]
+level_seed 133
+dispense 30 -60 8
+tick 3
+dump be:30,-60,8 xentities events
+block 40 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 40 -60 8 {Items:[{Slot:0b,id:"minecraft:command_block_minecart",count:1,components:{"minecraft:entity_data":{id:"minecraft:command_block_minecart",Command:"say dispensed",TrackOutput:0b}}}]}
+block 41 -60 8 minecraft:rail[shape=east_west,waterlogged=false]
+level_seed 134
+dispense 40 -60 8
+tick 3
+dump be:40,-60,8 xentities events
