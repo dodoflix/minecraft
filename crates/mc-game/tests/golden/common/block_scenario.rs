@@ -12,7 +12,7 @@
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
-//! `command_env` (a real command environment around the whole scenario), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`,
+//! `command_env` (a real command environment around the whole scenario; `cmd COMMAND...` then runs any other command as the console, its feedback printed as `C` lines), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`,
 //! `note`, `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
 //! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `bes:cx,cz` (`BES`/`BEM x y z type`/`BET x y z`/`BETP x y z`: block entity map and ticker list), `chunkbes:cx,cz` (`CHUNKBES`/`BEP x y z type`: the block entity list of the chunk packet; `BEM` is the map's iteration order, vanilla's fastutil order), `ticks[:x1,y1,z1,x2,y2,z2]` (`TICK block|fluid x y z id
@@ -315,6 +315,25 @@ impl LevelTickEnv for Env {
     fn teleport_through_portal(&mut self, _level: &mut ServerLevel, _entity: &mut dyn Entity) {}
 }
 
+/// `VanillaLevel.command`'s sink: the feedback of a console command, printed as `C` lines.
+#[derive(Default)]
+struct CommandOutput(Mutex<Vec<String>>);
+
+impl mc_game::commands::CommandSource for CommandOutput {
+    fn send_system_message(&self, message: &mc_text::Component) {
+        self.0.lock().push(message.get_string());
+    }
+    fn accepts_success(&self) -> bool {
+        true
+    }
+    fn accepts_failure(&self) -> bool {
+        true
+    }
+    fn should_inform_admins(&self) -> bool {
+        false
+    }
+}
+
 struct Options_ {
     flat: bool,
     difficulty: Difficulty,
@@ -431,6 +450,39 @@ impl Scenario {
 
     pub fn level(&mut self) -> &mut ServerLevel {
         self.level.as_mut().expect("world not booted")
+    }
+
+    /// `cmd COMMAND...`: any command as the console (`VanillaLevel.command`), run through the server `command_env` installs.
+    /// The output is not replayed (the comparison drops `C` lines); the effects on the level are.
+    fn console_command(&mut self) {
+        let command = self.line["cmd".len()..].trim().to_string();
+        let level = self.level();
+        let respawn = level.level_data.get_respawn_data().pos;
+        let output = Arc::new(CommandOutput::default());
+        let source = mc_game::commands::CommandSourceStack::named(
+            output.clone(),
+            mc_core::phys::Vec3::new(
+                f64::from(respawn.x()),
+                f64::from(respawn.y()),
+                f64::from(respawn.z()),
+            ),
+            mc_core::phys::Vec2::ZERO,
+            level.dimension.clone(),
+            mc_game::server::permissions::LevelBasedPermissionSet::OWNER.into(),
+            mc_text::Component::literal("Server"),
+        );
+        assert!(
+            mc_game::commands::server_access::has_server(),
+            "block_scenario: `cmd {command}` needs the `command_env` verb"
+        );
+        mc_game::commands::server_access::with_server(|server| {
+            let commands = server.commands.clone();
+            server.with_lent_level(level, |server| {
+                commands.perform_prefixed_command(server, source, &command)
+            });
+        });
+        self.out
+            .extend(output.0.lock().drain(..).map(|line| format!("C {line}")));
     }
 
     /// `VanillaLevel.boot`: the level with the preloaded chunks forced, ticking, entities loaded.
@@ -715,7 +767,7 @@ impl Scenario {
                         };
                     }
                     (Some("recipe"), Some("give" | "take")) => self.recipe_command(a),
-                    _ => panic!("cmd {:?} is not supported by the Rust replay", &a[1..]),
+                    _ => self.console_command(),
                 }
             }
             "note" => self.out.push(format!("# {}", self.line[4..].trim())),
