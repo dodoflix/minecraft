@@ -1,0 +1,76 @@
+# A cow as the victim: a player's sword, a zombie's hit, an arrow, an explosion, fire; a second hit inside the invulnerability window,
+# one that is larger than the first, and one after the window; the hurt/death sounds and entity events of every hit.
+level flat
+preload 4
+entity_counter 6100
+level_seed 6101
+difficulty normal
+spawn_player I1 survival 0.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+give I1 mainhand minecraft:iron_sword
+mobspawn C1 minecraft:cow 0.5 -60 2.5 0 0 {PersistenceRequired:1b}
+entity_seed C1 21
+mobspawn C2 minecraft:cow 6.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C2 22
+block 6 -57 5 minecraft:stone
+mobspawn Z1 minecraft:zombie 6.5 -60 5.5 180 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z1 23
+mobspawn C3 minecraft:cow 12.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C3 24
+mobspawn C4 minecraft:cow 18.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C4 25
+mobspawn C5 minecraft:cow 24.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C5 26
+love C2
+love C3
+tick 1
+dump mob:C1 mob:C2 mob:C3 mob:C4 mob:C5 events
+note the player swings an iron sword; a second swing inside the window does nothing
+attack I1 C1
+dump mob:C1 events
+tick 5
+attack I1 C1
+dump mob:C1 events
+tick 6
+hurt C1 generic 1 by=I1
+dump mob:C1 events
+tick 20
+dump mob:C1 events
+note a zombie attacks a cow; knockback pushes it away from the attacker
+mob_attack Z1 C2
+dump mob:C2 mob:Z1 events
+tick 3
+dump mob:C2 events
+hurt C2 mob_attack 2 by=Z1
+dump mob:C2 events
+tick 10
+dump mob:C2 events
+note an arrow from the player, then an arrow while the cow is invulnerable
+hurt C3 arrow 6 by=I1 direct=I1
+dump mob:C3 events
+tick 3
+hurt C3 arrow 9 by=I1 direct=I1
+dump mob:C3 events
+tick 12
+hurt C3 arrow 2 by=I1 direct=I1
+dump mob:C3 events
+note an explosion next to a cow and fire damage
+explode 24.5 -60 4.5 1.5 none
+dump mobs events
+tick 1
+hurt C4 in_fire 1
+hurt C4 on_fire 1
+dump mob:C4 events
+tick 21
+hurt C4 on_fire 1
+dump mob:C4 events
+set C5 fire 100
+tick 25
+dump mob:C5 events
+note the death animation of a cow
+hurt C5 generic_kill 1000
+watch mob:C5 events
+tick 22
+watch off
+dump mobs entities events

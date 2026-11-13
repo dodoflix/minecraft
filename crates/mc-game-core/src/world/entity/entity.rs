@@ -3182,6 +3182,25 @@ pub trait Entity: Any {
         );
     }
 
+    /// `blockedByItem(defender, source, damage, fullyBlocked)` of the attacker whose hit `defender` blocked with an item: the
+    /// default pushes the defender away unless the hit was blocked completely (hoglin, zoglin and ravager override it).
+    fn blocked_by_item(
+        &mut self,
+        _level: &mut ServerLevel,
+        defender: &mut dyn Entity,
+        source: &crate::world::damagesource::DamageSource,
+        damage: f32,
+        fully_blocked: bool,
+    ) {
+        super::living_entity::blocking::blocked_by_item(
+            self.position(),
+            defender,
+            source,
+            damage,
+            fully_blocked,
+        );
+    }
+
     /// `onEnterCombat()` / `onLeaveCombat()` (`ServerPlayer` sends the combat packets).
     fn on_enter_combat(&mut self, _level: &mut ServerLevel) {}
     fn on_leave_combat(&mut self, _level: &mut ServerLevel) {}

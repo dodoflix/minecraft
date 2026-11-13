@@ -4,7 +4,7 @@
 //! by line, nothing ignored but the `PKT` types listed in [`PKT_TYPES`] complement (the join burst, chunk/tracker traffic).
 //!
 //! Replay: `level`, `difficulty`, `gamerule`, `cmd difficulty`, `entity_counter` (the level's own id counter; the next entity gets
-//! id N + 1), `spawn` (a living stand-in `Mob` for any entity type: attackers only need name/equipment/position), `spawn_player`,
+//! id N + 1), `spawn` (the real entity class, created with the command spawn reason), `spawn_player`,
 //! `give` (item components via the command item parser), `effect`, `set`, `snap`, `use`, `hurt` (`by=`/`direct=`/`at=`),
 //! `respawn` (`PlayerList.respawn` core), `tick`, `watch`, `dump` (`player:`/`entity:`/`entities`/`inventory:`/`packets:`).
 use crate::common;
@@ -14,7 +14,7 @@ use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::Block;
-use mc_data::enums::GameType;
+use mc_data::enums::{EntitySpawnReason, GameType};
 use mc_data::{EntityType, Item, MobEffect};
 use mc_game::server::level::ServerLevel;
 use mc_game::server::level::chunk_map::PlayerTrackingInfo;
@@ -24,8 +24,8 @@ use mc_game::server::players::PlayerHandle;
 use mc_game::world::damagesource::DamageSource;
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_game::world::entity::equipment::EquipmentSlot;
-use mc_game::world::entity::living::{self, LivingEntityData};
-use mc_game::world::entity::{Entity, EntityData, EntityId, ServerPlayer};
+use mc_game::world::entity::factory::{self, EntitySpawnRequest};
+use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::item::{InteractionHand, ItemStack};
 use mc_game::world::level::entity::Visibility;
 use mc_game::world::level::{BlockGetter, LevelAccessor};
@@ -33,7 +33,6 @@ use mc_nbt::CompoundTag;
 use mc_protocol::codec::GameProfile;
 use mc_protocol::packet::{ConnectionState, PacketFlow, packet_names};
 use mc_world::level_storage::Difficulty;
-use std::any::Any;
 use std::collections::HashMap;
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
 
@@ -156,67 +155,6 @@ fn parse_stack(spec: &str, count: i32) -> ItemStack {
         .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
     stack.set_count(count);
     stack
-}
-
-// ---------------------------------------------------------------------------------------------------- stand-in mob
-
-/// A living entity of any type with nothing but the `LivingEntity` state: what the scenarios use `spawn Z minecraft:zombie ...`
-/// for (attacker with a name, a main hand item and a position; `NoAI`).
-struct Mob {
-    living: LivingEntityData,
-}
-
-impl Mob {
-    fn new(ty: EntityType, id: EntityId) -> Self {
-        let mut living = LivingEntityData::new(ty, id, 300, |_| {});
-        let max = living.get_max_health();
-        living.set_health(max);
-        Mob { living }
-    }
-}
-
-impl Entity for Mob {
-    fn base(&self) -> &EntityData {
-        &self.living.entity
-    }
-    fn base_mut(&mut self) -> &mut EntityData {
-        &mut self.living.entity
-    }
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-    fn as_any_mut(&mut self) -> &mut dyn Any {
-        self
-    }
-    fn as_dyn(&self) -> &dyn Entity {
-        self
-    }
-    fn as_dyn_mut(&mut self) -> &mut dyn Entity {
-        self
-    }
-    fn living(&self) -> Option<&LivingEntityData> {
-        Some(&self.living)
-    }
-    fn living_mut(&mut self) -> Option<&mut LivingEntityData> {
-        Some(&mut self.living)
-    }
-    /// `Mob.isEffectiveAi()` with `NoAI`: the scenarios only spawn NoAI attackers.
-    fn is_effective_ai(&self) -> bool {
-        false
-    }
-    fn add_additional_save_data(&self, out: &mut CompoundTag) {
-        living::add_additional_save_data(
-            &self.living,
-            self.living.absorption_amount,
-            &self.living.equipment,
-            out,
-        );
-    }
-    fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        let (absorption, equipment) = living::read_additional_save_data(&mut self.living, input);
-        self.living.absorption_amount = absorption;
-        self.living.equipment = equipment;
-    }
 }
 
 // ---------------------------------------------------------------------------------------------------- replay
@@ -622,10 +560,15 @@ impl Replay {
     }
 
     fn spawn(&mut self, t: &[String]) {
-        let id = self.level.next_entity_id();
         mc_core::random::reseed_uniquifier(driver_hash(&t[1]));
         let ty = EntityType::by_name(&t[2]).unwrap_or_else(|| panic!("entity type {}", t[2]));
-        let mut mob = Mob::new(ty, id);
+        let request = EntitySpawnRequest {
+            reason: EntitySpawnReason::Command,
+            ignore_checks: true,
+        };
+        let mut mob = factory::create(ty, &self.level, request)
+            .unwrap_or_else(|| panic!("cannot create {}", t[2]));
+        let id = mob.id();
         let n = |i: usize| t[i].parse::<f64>().unwrap();
         let snbt = t
             .last()
@@ -643,6 +586,7 @@ impl Replay {
             let mut tag = CompoundTag::new();
             tag.merge(&mc_nbt::snbt::parse_compound(&snbt).expect("snbt"));
             mob.read_additional_save_data(&tag);
+            mob.resolve_registry_refs(&self.level.registries);
             // `Entity.load`: a string tag is a literal component (`'"Bob"'` is the text `"Bob"` with its quotes)
             if let Some(name) = tag.get("CustomName") {
                 mob.base_mut().set_custom_name(Some(
@@ -650,7 +594,7 @@ impl Replay {
                 ));
             }
         }
-        self.level.add_fresh_entity(Box::new(mob));
+        self.level.add_fresh_entity(mob);
         self.refs.insert(t[1].clone(), id);
         self.names.push(t[1].clone());
         self.known.insert(id);
@@ -697,22 +641,6 @@ impl Replay {
         self.level
             .get_entity_or_removed(id)
             .expect("attacker entity")
-    }
-
-    /// `Mob.checkDespawn()` in peaceful: the attacker stand-ins vanish once the difficulty drops.
-    fn despawn_in_peaceful(&mut self) {
-        if self.level.difficulty() != Difficulty::Peaceful {
-            return;
-        }
-        for id in self.refs.values().copied().collect::<Vec<_>>() {
-            let Some(mut e) = self.level.take_entity(id) else {
-                continue;
-            };
-            if e.as_any().is::<Mob>() && !e.get_type().data().allowed_in_peaceful {
-                e.discard_in_level(&mut self.level);
-            }
-            self.level.put_back_entity(id, e);
-        }
     }
 
     fn hurt(&mut self, t: &[String]) {
@@ -804,8 +732,11 @@ impl Replay {
             });
         }
         self.level.tick_entity_tracker();
-        self.despawn_in_peaceful();
         self.level.for_each_ticking(|level, e| {
+            if e.is_removed() {
+                return;
+            }
+            e.check_despawn(level);
             if !e.is_removed() {
                 mc_game::world::entity::entity::common_tick(e);
                 e.tick(level);

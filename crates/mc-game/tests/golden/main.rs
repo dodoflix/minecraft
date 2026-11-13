@@ -185,6 +185,7 @@ mod mob_harness_golden;
 mod mob_illager_golden;
 mod mob_registration_guards;
 mod mob_spine_golden;
+mod mob_victim_golden;
 mod net_common;
 mod nether_fortress_golden;
 mod network_login_config;

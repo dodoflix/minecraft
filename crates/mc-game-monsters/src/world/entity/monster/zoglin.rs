@@ -273,6 +273,19 @@ impl Entity for Zoglin {
         }
     }
 
+    fn blocked_by_item(
+        &mut self,
+        level: &mut ServerLevel,
+        defender: &mut dyn Entity,
+        _source: &DamageSource,
+        _damage: f32,
+        _fully_blocked: bool,
+    ) {
+        if self.is_adult() {
+            hoglin_base::throw_target(level, &*self, defender);
+        }
+    }
+
     fn can_be_leashed(&self) -> bool {
         true
     }

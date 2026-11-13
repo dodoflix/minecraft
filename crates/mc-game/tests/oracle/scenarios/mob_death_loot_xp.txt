@@ -1,0 +1,80 @@
+# Mobs dying: death loot with the player's looting, no player credit, a baby, a burning sheep, equipment drops, a skeleton's
+# victim creeper, a charged creeper's victim, a slime that splits, the experience orbs and the death animation.
+level flat
+preload 4
+entity_counter 6200
+level_seed 6201
+difficulty normal
+gamerule mob_drops true
+spawn_player I1 survival -30.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+give I1 mainhand minecraft:diamond_sword[enchantments={"minecraft:looting":3}]
+# a roof keeps the undead from burning in the sun
+fill -2 -57 -2 70 -57 8 minecraft:stone
+mobspawn C1 minecraft:cow 6.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C1 31
+mobspawn C2 minecraft:cow 10.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C2 32
+mobspawn C3 minecraft:cow 14.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+entity_seed C3 33
+mobspawn S1 minecraft:sheep 18.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,Color:3b}
+entity_seed S1 34
+mobspawn Z1 minecraft:zombie 22.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:iron_sword",count:1}},drop_chances:{head:1.0f,chest:1.0f,mainhand:1.0f}}
+entity_seed Z1 35
+mobspawn Z2 minecraft:zombie 26.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,IsBaby:1b}
+entity_seed Z2 36
+mobspawn K1 minecraft:skeleton 30.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,equipment:{mainhand:{id:"minecraft:bow",count:1}},drop_chances:{mainhand:1.0f}}
+entity_seed K1 37
+mobspawn R1 minecraft:creeper 34.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed R1 38
+mobspawn R2 minecraft:creeper 38.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,powered:1b}
+entity_seed R2 39
+mobspawn Z3 minecraft:zombie 40.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z3 40
+mobspawn L1 minecraft:slime 44.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,Size:2}
+entity_seed L1 41
+mobspawn C4 minecraft:cow 48.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed C4 42
+tick 1
+dump mobs
+note the player kills a cow with looting: leather, beef, three orbs of experience
+set S1 fire 200
+hurt C1 player_attack 100 by=I1
+dump mob:C1 entities events
+tick 1
+dump mob:C1 entities events
+tick 25
+dump mobs entities events
+note no player credit: the items drop, no experience and no looting
+hurt C2 generic_kill 100
+tick 22
+dump mobs entities events
+note a baby cow and a burning sheep
+hurt C3 player_attack 100 by=I1
+hurt S1 player_attack 100 by=I1
+tick 22
+dump mobs entities events
+note a zombie wearing iron equipment (drop chance 1) and a baby zombie
+hurt Z1 player_attack 100 by=I1
+hurt Z2 player_attack 100 by=I1
+tick 22
+dump mobs entities events
+note a creeper killed by a skeleton drops a music disc; the skeleton drops its bow
+hurt R1 mob_projectile 100 by=K1 direct=K1
+hurt K1 player_attack 100 by=I1
+tick 22
+dump mobs entities events
+note a charged creeper's victim drops its head
+hurt Z3 explosion 100 by=R2 direct=R2
+tick 22
+dump mobs entities events
+note a slime splits into smaller slimes when its death animation ends
+hurt L1 player_attack 100 by=I1
+tick 22
+dump mobs entities events
+note mob_drops false: no loot and no experience
+gamerule mob_drops false
+hurt C4 player_attack 100 by=I1
+tick 22
+dump mobs entities events

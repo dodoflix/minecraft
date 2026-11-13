@@ -1,0 +1,69 @@
+C The difficulty has been set to Hard
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P T minecraft:player pos=0.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P U minecraft:player pos=0.5,-60.0,40.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P V minecraft:player pos=0.5,-60.0,60.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E H1 minecraft:hoglin pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:attack_knockback:1.0;minecraft:follow_range:15.425058176407255;minecraft:knockback_resistance:0.6000000238418579;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E H2 minecraft:hoglin pos=2.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:0.5;minecraft:attack_knockback:1.0;minecraft:follow_range:15.536609223451917;minecraft:knockback_resistance:0.6000000238418579;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=-23999 baby=1 forcedage=0 love=0 lovecause=-
+E G1 minecraft:zoglin pos=2.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:attack_knockback:1.0;minecraft:follow_range:16.082186078245464;minecraft:knockback_resistance:0.6000000238418579;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896
+E Z1 minecraft:zombie pos=2.5,-60.0,60.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:11.0;minecraft:follow_range:33.43518525638974;minecraft:knockback_resistance:0.012304961733878982;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.08079127243757576
+USE S hand=off item=minecraft:shield*1 remaining=71994 ticks=6 kinetic=0
+USE T hand=off item=minecraft:shield*1 remaining=71994 ticks=6 kinetic=0
+USE U hand=off item=minecraft:shield*1 remaining=71994 ticks=6 kinetic=0
+USE V hand=off item=minecraft:shield*1 remaining=71994 ticks=6 kinetic=0
+# an adult hoglin hits the blocking player: the shield stops the damage, the hoglin throws the player back
+MOBATTACK H1 S -> false
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.14210057565545942,0.34931151509284974,0.16451070163194625 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E H1 minecraft:hoglin pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:attack_knockback:1.0;minecraft:follow_range:15.425058176407255;minecraft:knockback_resistance:0.6000000238418579;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
+EV sound at=2.5,-60.0,60.5 r=16.0 ex=0 event=minecraft:entity.zombie.ambient source=hostile vol=1.0 pitch=0.9533799
+EV sound at=2.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.hoglin.attack source=hostile vol=1.0 pitch=1.0188422
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.shield.block source=player vol=1.0 pitch=0.8101638
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.07060410225582137,0.1802467876372447,0.08173879906272291 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:entity_event 22000018a104
+PKT S minecraft:set_entity_motion 679d31b948950d596a
+# a baby hoglin: no throw
+MOBATTACK H2 T -> false
+P T minecraft:player pos=0.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E H2 minecraft:hoglin pos=2.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:0.5;minecraft:attack_knockback:1.0;minecraft:follow_range:15.536609223451917;minecraft:knockback_resistance:0.6000000238418579;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=-23991 baby=1 forcedage=0 love=0 lovecause=-
+EV sound at=2.5,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.hoglin.attack source=hostile vol=1.0 pitch=1.4148881
+EV sound at=0.5,-60.0,20.5 r=16.0 ex=0 event=minecraft:item.shield.block source=player vol=1.0 pitch=1.1773555
+EV sound at=0.5,-60.0,20.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+P T minecraft:player pos=0.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT T minecraft:entity_event 22000018a104
+PKT T minecraft:entity_event 22000018a204
+# a zoglin
+MOBATTACK G1 U -> false
+P U minecraft:player pos=0.5,-60.0,40.5 delta=-0.23266315767934742,0.3382548534870148,-0.20272840002114378 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E G1 minecraft:zoglin pos=2.5,-60.0,40.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:attack_knockback:1.0;minecraft:follow_range:16.082186078245464;minecraft:knockback_resistance:0.6000000238418579;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896
+EV sound at=2.5,-60.0,40.5 r=16.0 ex=0 event=minecraft:entity.zoglin.attack source=hostile vol=1.0 pitch=0.92358387
+EV sound at=0.5,-60.0,40.5 r=16.0 ex=0 event=minecraft:item.shield.block source=player vol=1.0 pitch=1.1621403
+EV sound at=0.5,-60.0,40.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+P U minecraft:player pos=0.5,-60.0,40.5 delta=-0.11560103328352578,0.1696279694176582,-0.1007276474372395 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT U minecraft:entity_event 22000018a204
+PKT U minecraft:entity_event 22000018a304
+PKT U minecraft:set_entity_motion 679f31d988660d5695
+# a zombie with an axe disables the shield
+MOBATTACK Z1 V -> false
+P V minecraft:player pos=0.5,-60.0,60.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E Z1 minecraft:zombie pos=2.5,-60.0,60.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:11.0;minecraft:follow_range:33.43518525638974;minecraft:knockback_resistance:0.012304961733878982;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.08079127243757576
+EV sound at=0.5,-60.0,60.5 r=16.0 ex=0 event=minecraft:item.shield.break source=player vol=0.8 pitch=0.91386
+EV sound at=0.5,-60.0,60.5 r=16.0 ex=0 event=minecraft:item.shield.block source=player vol=1.0 pitch=1.1402518
+EV sound at=0.5,-60.0,60.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+USE V hand=off item=empty remaining=0 ticks=0 kinetic=0
+P V minecraft:player pos=0.5,-60.0,60.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT V minecraft:entity_event 22000018a304
+CD V group=minecraft:shield remaining=98
+# a second attack without a shield in use: the damage lands, the hoglin throws the player
+MOBATTACK H1 S -> true
+P S minecraft:player pos=0.5,-60.0,0.5 delta=-0.8486480308481497,0.5119079720973969,0.13057195921842712 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+E H1 minecraft:hoglin pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:attack_knockback:1.0;minecraft:follow_range:15.425058176407255;minecraft:knockback_resistance:0.6000000238418579;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
+EV sound at=2.5,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.hoglin.ambient source=hostile vol=1.0 pitch=1.479021
+EV sound at=2.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.hoglin.attack source=hostile vol=1.0 pitch=0.9306365
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+P S minecraft:player pos=0.5,-60.0,0.5 delta=-0.4216593217361973,0.3364044310229232,0.06487599306249947 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:entity_event 22000018a204
+PKT S minecraft:entity_event 22000018a104
+PKT S minecraft:damage_event 199d311ca231a23100
+PKT S minecraft:hurt_animation 2b9d3142b40000
+PKT S minecraft:set_entity_motion 679d31814d90b58308

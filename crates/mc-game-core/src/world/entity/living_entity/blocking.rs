@@ -241,21 +241,41 @@ pub fn stop_using_item(entity: &mut dyn Entity, level: &mut ServerLevel) {
     }
 }
 
-/// `LivingEntity.blockUsingItem(level, attacker, source, damage, fullyBlocked)` = `attacker.blockedByItem(this, ...)`.
+/// `LivingEntity.blockUsingItem(level, attacker, source, damage, fullyBlocked)` = `attacker.blockedByItem(this, ...)`: the
+/// attacker is reached through the level (in storage, or lent by the code that runs it); an attacker the level cannot hand out
+/// gets the default behaviour from its snapshot.
 pub fn block_using_item(
     entity: &mut dyn Entity,
-    _level: &mut ServerLevel,
+    level: &mut ServerLevel,
     attacker: &DamageEntity,
     source: &DamageSource,
     damage: f32,
     fully_blocked: bool,
 ) {
+    let handled = level
+        .with_entity(attacker.id, |level, attacker| {
+            attacker.blocked_by_item(level, &mut *entity, source, damage, fully_blocked);
+        })
+        .is_some();
+    if !handled {
+        blocked_by_item(attacker.position, entity, source, damage, fully_blocked);
+    }
+}
+
+/// `LivingEntity.blockedByItem(defender, source, damage, fullyBlocked)`: `attacker_position` is where the attacker stands.
+pub fn blocked_by_item(
+    attacker_position: Vec3,
+    defender: &mut dyn Entity,
+    source: &DamageSource,
+    damage: f32,
+    fully_blocked: bool,
+) {
     if !fully_blocked {
-        let p = entity.position();
-        entity.knockback(
+        let p = defender.position();
+        defender.knockback(
             0.5,
-            p.x - attacker.position.x,
-            p.z - attacker.position.z,
+            p.x - attacker_position.x,
+            p.z - attacker_position.z,
             source,
             damage,
             false,

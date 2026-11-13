@@ -25,10 +25,11 @@ fn mob_goat_milk_matches_vanilla() {
     run_scenario_test("mob_goat_milk");
 }
 
+/// Replayed on the ticking level: two mobs push each other only inside the entity-ticking range, which the detached entity replay has
+/// no chunk tickets for.
 #[test]
-#[ignore = "deviation: the knockback and push motion of the rammed player and goat differ after the impact"]
 fn mob_goat_ram_matches_vanilla() {
-    run_scenario_test("mob_goat_ram");
+    crate::common::block_scenario::check("mob_goat_ram");
 }
 
 #[test]

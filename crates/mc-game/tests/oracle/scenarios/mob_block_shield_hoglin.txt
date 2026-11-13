@@ -1,0 +1,62 @@
+# A player blocking with a shield: the attacker's own blocked-by-item behaviour (hoglin and zoglin throw the defender, a baby hoglin
+# does not), the shield cooldown of an axe, and the same hoglin hitting a player who no longer blocks.
+level flat
+preload 4
+entity_counter 6300
+level_seed 6301
+difficulty hard
+spawn_player S survival 0.5 -60 0.5 -90 0
+spawn_player T survival 0.5 -60 20.5 -90 0
+spawn_player U survival 0.5 -60 40.5 -90 0
+spawn_player V survival 0.5 -60 60.5 -90 0
+give S offhand minecraft:shield
+give T offhand minecraft:shield
+give U offhand minecraft:shield
+give V offhand minecraft:shield
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+# a roof keeps the zombie from burning in the sun
+fill -2 -57 -2 6 -57 64 minecraft:stone
+mobspawn H1 minecraft:hoglin 2.5 -60 0.5 90 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b}
+entity_seed H1 51
+mobspawn H2 minecraft:hoglin 2.5 -60 20.5 90 0 {PersistenceRequired:1b,NoAI:1b,IsImmuneToZombification:1b,Age:-24000}
+entity_seed H2 52
+mobspawn G1 minecraft:zoglin 2.5 -60 40.5 90 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed G1 53
+mobspawn Z1 minecraft:zombie 2.5 -60 60.5 90 0 {PersistenceRequired:1b,NoAI:1b,equipment:{mainhand:{id:"minecraft:iron_axe",count:1}}}
+entity_seed Z1 54
+tick 1
+dump player:S player:T player:U player:V mobs packets:S:none packets:T:none packets:U:none packets:V:none events
+use S off
+use T off
+use U off
+use V off
+tick 6
+dump use:S use:T use:U use:V
+note an adult hoglin hits the blocking player: the shield stops the damage, the hoglin throws the player back
+mob_attack H1 S
+dump player:S mob:H1 events
+tick 2
+dump player:S packets:S:set_entity_motion,damage_event,hurt_animation,entity_event
+note a baby hoglin: no throw
+mob_attack H2 T
+dump player:T mob:H2 events
+tick 2
+dump player:T packets:T:set_entity_motion,damage_event,hurt_animation,entity_event
+note a zoglin
+mob_attack G1 U
+dump player:U mob:G1 events
+tick 2
+dump player:U packets:U:set_entity_motion,damage_event,hurt_animation,entity_event
+note a zombie with an axe disables the shield
+mob_attack Z1 V
+dump player:V mob:Z1 events use:V
+tick 2
+dump player:V packets:V:set_entity_motion,damage_event,hurt_animation,entity_event cooldowns:V
+note a second attack without a shield in use: the damage lands, the hoglin throws the player
+release S
+tick 30
+mob_attack H1 S
+dump player:S mob:H1 events
+tick 2
+dump player:S packets:S:set_entity_motion,damage_event,hurt_animation,entity_event

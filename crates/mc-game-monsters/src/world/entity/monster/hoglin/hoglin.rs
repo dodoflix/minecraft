@@ -96,6 +96,22 @@ impl Hoglin {
         !self.is_baby()
     }
 
+    /// The part of `ageBoundaryReached()` that sets the experience reward and attack damage of a baby or an adult.
+    fn apply_age_stats(&mut self) {
+        let (xp_reward, attack_damage) = if self.is_baby() {
+            (3, BABY_ATTACK_DAMAGE)
+        } else {
+            (5, 6.0)
+        };
+        self.mob.xp_reward = xp_reward;
+        self.mob
+            .living
+            .attributes
+            .get_instance(Attribute::ATTACK_DAMAGE)
+            .expect("attack damage")
+            .set_base_value(attack_damage);
+    }
+
     fn is_immune_to_zombification(&self) -> bool {
         self.base().entity_data.get(DATA_IMMUNE_TO_ZOMBIFICATION)
     }
@@ -181,6 +197,19 @@ impl Entity for Hoglin {
         }
     }
 
+    fn blocked_by_item(
+        &mut self,
+        level: &mut ServerLevel,
+        defender: &mut dyn Entity,
+        _source: &DamageSource,
+        _damage: f32,
+        _fully_blocked: bool,
+    ) {
+        if !self.is_baby() {
+            hoglin_base::throw_target(level, &*self, defender);
+        }
+    }
+
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
         let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(
             self, level, source, damage,
@@ -219,23 +248,7 @@ impl Entity for Hoglin {
     }
 
     fn age_boundary_reached(&mut self, _level: &mut ServerLevel) {
-        if self.is_baby() {
-            self.mob.xp_reward = 3;
-            self.mob
-                .living
-                .attributes
-                .get_instance(Attribute::ATTACK_DAMAGE)
-                .expect("attack damage")
-                .set_base_value(BABY_ATTACK_DAMAGE);
-        } else {
-            self.mob.xp_reward = 5;
-            self.mob
-                .living
-                .attributes
-                .get_instance(Attribute::ATTACK_DAMAGE)
-                .expect("attack damage")
-                .set_base_value(6.0);
-        }
+        self.apply_age_stats();
     }
 
     fn finalize_spawn(
@@ -303,6 +316,10 @@ impl Entity for Hoglin {
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, input);
+        if self.is_baby() {
+            // `setAge` crossed the baby boundary while the data loaded
+            self.apply_age_stats();
+        }
         self.set_immune_to_zombification(input.get_boolean_or("IsImmuneToZombification", false));
         self.time_in_overworld = input.get_int_or("TimeInOverworld", 0);
         self.set_cannot_be_hunted(input.get_boolean_or("CannotBeHunted", false));

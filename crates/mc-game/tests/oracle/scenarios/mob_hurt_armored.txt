@@ -1,0 +1,85 @@
+# Zombies as the victim of damage that armor, enchantments and effects reduce: armor points and toughness, armor durability, protection
+# enchantments, resistance, absorption, fire resistance, a helmet against falling blocks, freezing, magic and damage that bypasses armor.
+level flat
+preload 4
+entity_counter 6400
+level_seed 6401
+difficulty hard
+spawn_player I1 survival -30.5 -60 0.5 0 0
+# chunk loading finishes asynchronously on the vanilla side: settle before anything draws level randomness
+tick 30
+give I1 mainhand minecraft:diamond_sword
+# a roof keeps the undead from burning in the sun
+fill -2 -57 -2 70 -57 8 minecraft:stone
+mobspawn Z1 minecraft:zombie 6.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1},legs:{id:"minecraft:iron_leggings",count:1},feet:{id:"minecraft:iron_boots",count:1}}}
+entity_seed Z1 61
+mobspawn Z2 minecraft:zombie 10.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,equipment:{head:{id:"minecraft:diamond_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:protection":4,"minecraft:blast_protection":4,"minecraft:projectile_protection":4,"minecraft:fire_protection":4,"minecraft:feather_falling":4}}},feet:{id:"minecraft:diamond_boots",count:1,components:{"minecraft:enchantments":{"minecraft:feather_falling":4}}}}}
+entity_seed Z2 62
+mobspawn Z3 minecraft:zombie 14.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z3 63
+mobspawn Z4 minecraft:zombie 18.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z4 64
+mobspawn Z5 minecraft:zombie 22.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+entity_seed Z5 65
+mobspawn Z6 minecraft:zombie 26.5 -60 2.5 0 0 {PersistenceRequired:1b,NoAI:1b,equipment:{head:{id:"minecraft:netherite_helmet",count:1},chest:{id:"minecraft:netherite_chestplate",count:1},legs:{id:"minecraft:netherite_leggings",count:1},feet:{id:"minecraft:netherite_boots",count:1}}}
+entity_seed Z6 66
+effect Z3 minecraft:resistance 1 2000
+effect Z5 minecraft:fire_resistance 0 2000
+effect Z4 minecraft:absorption 1 2000
+tick 1
+dump mobs
+note iron armor: 10 armor points; the helmet and the plates lose durability
+hurt Z1 mob_attack 10 by=I1 direct=I1
+dump mob:Z1 events
+tick 21
+hurt Z1 mob_attack 4 by=I1 direct=I1
+hurt Z1 magic 4
+dump mob:Z1 events
+tick 21
+hurt Z1 generic_kill 3
+dump mob:Z1 events
+note protection enchantments: generic, explosion, arrow, fire, fall
+hurt Z2 mob_attack 10 by=I1 direct=I1
+dump mob:Z2 events
+tick 21
+hurt Z2 explosion 10 at=10.5,-60,5.5
+tick 21
+hurt Z2 arrow 10 by=I1 direct=I1
+tick 21
+hurt Z2 in_fire 10
+tick 21
+hurt Z2 fall 10
+tick 21
+dump mob:Z2 events
+note resistance II reduces damage by 40%, not damage that bypasses it
+hurt Z3 mob_attack 10 by=I1 direct=I1
+dump mob:Z3 events
+tick 21
+hurt Z3 generic_kill 3
+hurt Z3 magic 5
+dump mob:Z3 events
+note absorption absorbs first
+hurt Z4 mob_attack 4 by=I1 direct=I1
+dump mob:Z4 events
+tick 21
+hurt Z4 mob_attack 7 by=I1 direct=I1
+dump mob:Z4 events
+note fire resistance
+hurt Z5 in_fire 5
+hurt Z5 lava 5
+hurt Z5 on_fire 5
+hurt Z5 hot_floor 5
+hurt Z5 mob_attack 5 by=I1 direct=I1
+dump mob:Z5 events
+note a falling anvil against a helmet and freezing damage
+hurt Z6 falling_anvil 10
+tick 21
+hurt Z6 freeze 3
+tick 21
+hurt Z6 mob_attack 10 by=I1 direct=I1
+dump mob:Z6 events
+tick 21
+hurt Z6 mob_attack 10 by=I1 direct=I1
+tick 21
+hurt Z6 mob_attack 10 by=I1 direct=I1
+dump mobs events
