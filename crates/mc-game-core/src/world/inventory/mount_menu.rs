@@ -297,6 +297,8 @@ mount_menu!(
     HorseInventoryMenu,
     "`HorseInventoryMenu(containerId, inventory, horseInventory, horse, inventoryColumns)`."
 );
+// Not implemented: the `Nautilus`, `ZombieNautilus` and `Camel` screens (those entities do not exist yet, so nothing constructs
+// a `NautilusInventoryMenu` and no mount opens a `HappyGhast` screen).
 mount_menu!(
     NautilusInventoryMenu,
     "`NautilusInventoryMenu(containerId, inventory, nautilusInventory, nautilus, inventoryColumns)`."

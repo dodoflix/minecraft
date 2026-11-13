@@ -312,6 +312,7 @@ impl PlayHandlers for MenuHandlers {
         packet: &ServerboundPickItemFromEntityPacket,
     ) {
         // `level.getEntityOrPart(id)`; the player itself is taken out of the level
+        // Not implemented: `getEntityOrPart` (the parts of the `EnderDragon` cannot be picked: they are not entities of the level).
         let entity: &dyn Entity = if packet.id == ctx.player.id() {
             &*ctx.player
         } else if let Some(entity) = ctx.level.get_entity(packet.id) {

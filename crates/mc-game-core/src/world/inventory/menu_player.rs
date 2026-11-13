@@ -145,6 +145,8 @@ pub trait MenuPlayer {
         0.0
     }
     /// `serverPlayer.getTextFilter().processStreamMessage(text)`.
+    /// Not implemented: the moderation text filter on anvil renames (the dedicated server's filter passes the text through, so
+    /// the no-op is what vanilla does today).
     fn process_stream_message(&mut self, _text: &str) {}
     /// `getRecipeBook().contains(recipeId)` (test players know no recipe).
     fn recipe_book_contains(&self, _recipe_id: &mc_core::ident::Identifier) -> bool {

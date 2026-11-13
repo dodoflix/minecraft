@@ -80,6 +80,7 @@ pub fn notify_trade(player: &mut dyn MenuPlayer, id: EntityId, offer_index: usiz
 }
 
 /// `Merchant.openTradingScreen(player, title, level)`.
+/// Not implemented: the `WanderingTrader` (the entity does not exist yet, so only the villager opens a `MerchantMenu`).
 pub fn open_trading_screen(
     player: &mut ServerPlayer,
     level: &mut ServerLevel,

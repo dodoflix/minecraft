@@ -3417,6 +3417,8 @@ pub trait Entity: Any {
     /// `addPassenger(passenger)`'s effect on the new rider (`AbstractHorse`/`Camel`: `passenger.absSnapRotationTo(...)`).
     fn after_add_passenger(&self, _passenger: &mut dyn Entity) {}
     /// `this instanceof HasCustomInventoryScreen` (`ServerboundPlayerCommandPacket.OPEN_INVENTORY`).
+    /// Not implemented: the `HasCustomInventoryScreen` overrides of `AbstractNautilus`, `Camel` and `HappyGhast` (those entities
+    /// do not exist yet; only the horses return true).
     fn has_custom_inventory_screen(&self) -> bool {
         false
     }
