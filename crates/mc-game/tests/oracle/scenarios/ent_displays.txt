@@ -14,7 +14,7 @@ spawn B0 minecraft:block_display 0.5 -60 3.5 0 0
 spawn I0 minecraft:item_display 1.5 -60 3.5 0 0 {}
 spawn T0 minecraft:text_display 2.5 -60 3.5 0 0 {}
 tick 2
-dump entities nbt:B0 nbt:I0 nbt:T0 packets:A:add_entity,set_entity_data
+dump entities nbt:B0 nbt:I0 nbt:T0 edata:B0 edata:I0 edata:T0 packets:A:add_entity,set_entity_data
 note a block display with every field: the matrix form of the transformation (a shear and a translation), a state with properties
 spawn B1 minecraft:block_display 0.5 -60 5.5 0 0 {block_state:{id:"minecraft:oak_stairs",properties:{facing:"east",half:"top"}},transformation:[1.0f,0.5f,0.0f,1.0f,0.0f,1.0f,0.25f,2.0f,0.0f,0.0f,2.0f,3.0f,0.0f,0.0f,0.0f,1.0f],billboard:"center",brightness:{block:3,sky:12},view_range:2.5f,shadow_radius:1.5f,shadow_strength:0.5f,width:2.0f,height:3.0f,glow_color_override:16711680,interpolation_duration:20,start_interpolation:5,teleport_duration:100}
 note a bare block name, the decomposed form with an axis angle and a quaternion, the largest teleport duration
@@ -24,7 +24,7 @@ spawn B3 minecraft:block_display 2.5 -60 5.5 0 0 {block_state:"minecraft:no_such
 note a state with an unknown property and a transformation of the wrong length
 spawn B4 minecraft:block_display 3.5 -60 5.5 0 0 {block_state:{id:"minecraft:oak_stairs",properties:{facing:"up",half:5}},transformation:[1.0f,0.0f,0.0f],billboard:3b,brightness:{block:7},shadow_radius:2,width:1.5d,height:3}
 tick 2
-dump entities nbt:B1 nbt:B2 nbt:B3 nbt:B4 packets:A:add_entity,set_entity_data
+dump entities nbt:B1 nbt:B2 nbt:B3 nbt:B4 edata:B1 edata:B2 edata:B3 edata:B4 packets:A:add_entity,set_entity_data
 note an item display with an item with components, a decomposed transformation with a rotation as a quaternion list
 spawn I1 minecraft:item_display 0.5 -60 7.5 0 0 {item:{id:"minecraft:diamond_sword",count:1,components:{"minecraft:custom_name":'"Blade"',"minecraft:damage":5}},item_display:"gui",transformation:{translation:[0.0f,0.5f,0.0f],left_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],right_rotation:[0.5f,0.5f,0.5f,0.5f]},billboard:"horizontal",view_range:0.5f,glow_color_override:255}
 note every item display context
@@ -41,7 +41,7 @@ spawn I10 minecraft:item_display 0.5 -60 9.5 0 0 {item:{id:"minecraft:nonsense",
 spawn I11 minecraft:item_display 1.5 -60 9.5 0 0 {item:{id:"minecraft:stone",count:0},item_display:5}
 spawn I12 minecraft:item_display 2.5 -60 9.5 0 0 {item:{id:"minecraft:stone"},item_display:"none"}
 tick 2
-dump entities nbt:I1 nbt:I2 nbt:I3 nbt:I4 nbt:I5 nbt:I6 nbt:I7 nbt:I8 nbt:I9 nbt:I10 nbt:I11 nbt:I12 packets:A:add_entity,set_entity_data
+dump entities nbt:I1 nbt:I2 nbt:I3 nbt:I4 nbt:I5 nbt:I6 nbt:I7 nbt:I8 nbt:I9 nbt:I10 nbt:I11 nbt:I12 edata:I1 edata:I2 edata:I10 edata:I11 packets:A:add_entity,set_entity_data
 note a text display with every field set
 spawn T1 minecraft:text_display 0.5 -60 11.5 0 0 {text:{text:"hello",color:"red",bold:true,extra:[{text:" world",italic:true}]},line_width:100,background:805306368,text_opacity:127b,shadow:1b,see_through:1b,default_background:1b,alignment:"left",billboard:"center"}
 note a plain string, a list, right alignment, an opacity that does not fit a byte, a negative width, a background that is a double
@@ -52,13 +52,13 @@ spawn T4 minecraft:text_display 3.5 -60 11.5 0 0 {text:{"bogus":1},alignment:"mi
 spawn T5 minecraft:text_display 4.5 -60 11.5 0 0 {text:5,alignment:1,default_background:3b}
 spawn T6 minecraft:text_display 5.5 -60 11.5 0 0 {text:{translate:"chat.type.text",with:["Steve",{text:"hi",hover_event:{action:"show_text",value:"tip"}}]},alignment:"right",line_width:2147483647}
 tick 2
-dump entities nbt:T1 nbt:T2 nbt:T3 nbt:T4 nbt:T5 nbt:T6 packets:A:add_entity,set_entity_data
+dump entities nbt:T1 nbt:T2 nbt:T3 nbt:T4 nbt:T5 nbt:T6 edata:T1 edata:T2 edata:T3 edata:T4 edata:T5 edata:T6 packets:A:add_entity,set_entity_data
 note merging changes a few fields and loads the whole tag again: start_interpolation is resent even though it keeps its value
 nbt B1 {view_range:3.0f,shadow_strength:0.25f}
 nbt I1 {item_display:"head"}
 nbt T1 {line_width:50,alignment:"right"}
 tick 1
-dump nbt:B1 nbt:I1 nbt:T1 packets:A:set_entity_data
+dump nbt:B1 nbt:I1 nbt:T1 edata:B1 edata:I1 edata:T1 packets:A:set_entity_data
 note negative zero is a different value from zero
 nbt B1 {transformation:{translation:[-0.0f,0.0f,0.0f],left_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f]},shadow_radius:-0.0f}
 tick 1

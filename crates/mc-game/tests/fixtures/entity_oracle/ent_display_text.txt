@@ -154,6 +154,15 @@ PKT A minecraft:set_entity_data 658b0708010017050a080009696e73657274696f6e002461
 PKT A minecraft:set_entity_data 658d0708010017050a09000565787472610a0000000c08000000015b00080005636f6c6f720004676f6c64080004746578740003362e3500080005636f6c6f720003726564080004746578740001640008000000012c0008000000012000080005636f6c6f720004676f6c640800047465787400052d35392e3000080005636f6c6f720003726564080004746578740001640008000000012c0008000000012000080005636f6c6f720004676f6c64080004746578740003332e3500080005636f6c6f720003726564080004746578740001640008000000015d0008000474657874000000ff
 PKT A minecraft:set_entity_data 65890708010017050800023131ff
 PKT A minecraft:set_entity_data 658707080100ff
+# the wildcard score name is the display itself (its own score is read)
+C Set [pts] for Text Display to 3
+C Modified entity data of Text Display
+N text_display#7 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{extra:["[",{color:"gold",text:"6.5"},{color:"red",text:"d"},","," ",{color:"gold",text:"-59.0"},{color:"red",text:"d"},","," ",{color:"gold",text:"3.5"},{color:"red",text:"d"},"]"],text:""},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+PKT A minecraft:set_entity_data 658d07080100ff
+# /data merge resolves with the display in the level: the nearest text display to itself is itself
+C Modified entity data of Text Display
+N text_display#9 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{extra:['"',{color:"green",text:"from storage"},'"'],text:""},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+PKT A minecraft:set_entity_data 658f07080100ff
 # a text that does not resolve to anything keeps the stored one
 C Modified entity data of Text Display
 C Modified entity data of Text Display

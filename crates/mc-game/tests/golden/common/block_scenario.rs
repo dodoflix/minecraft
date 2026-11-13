@@ -130,7 +130,12 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                 )
             )
         })
-        .then(crate::command_common::test_server);
+        .then(|| {
+            let server = crate::command_common::test_server();
+            // the dedicated server installs the parsers the text codec validates selectors and paths with
+            mc_game::commands::install_text_validators();
+            server
+        });
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();
         if line.is_empty() || line.starts_with('#') {

@@ -1,6 +1,7 @@
 # Text displays resolve the selector, score and NBT contents of their text while they load, with the display as the source
 # and game master permissions: through /summon (at the position of the tag, the origin here, before the move to the
-# summoned position), /execute summon and /data merge entity. The other load paths (spawn REF) keep the text as given.
+# summoned position), /execute summon and /data merge entity (which sees the display in the level). The other load paths
+# (spawn REF) never see such a text.
 command_env
 level flat
 preload 2
@@ -56,6 +57,15 @@ cmd data get entity @e[type=minecraft:text_display,x=0.5,y=-59,z=3.5,distance=..
 cmd data get entity @e[type=minecraft:text_display,x=2.5,y=-59,z=3.5,distance=..0.1,limit=1] text
 tick 1
 dump nbt:text_display#1 nbt:text_display#3 nbt:text_display#5 nbt:text_display#7 packets:A:set_entity_data
+note the wildcard score name is the display itself (its own score is read)
+cmd scoreboard players set @e[type=minecraft:text_display,x=6.5,y=-59,z=3.5,distance=..0.1,limit=1] pts 3
+cmd data merge entity @e[type=minecraft:text_display,x=6.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{score:{name:"*",objective:"pts"}}}
+tick 1
+dump nbt:text_display#7 packets:A:set_entity_data
+note /data merge resolves with the display in the level: the nearest text display to itself is itself
+cmd data merge entity @e[type=minecraft:text_display,x=8.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{selector:"@e[type=minecraft:text_display,sort=nearest,limit=1]"}}
+tick 1
+dump nbt:text_display#9 packets:A:set_entity_data
 note a text that does not resolve to anything keeps the stored one
 cmd data merge entity @e[type=minecraft:text_display,x=8.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{selector:"@e[sort=bogus]"}}
 cmd data merge entity @e[type=minecraft:text_display,x=9.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{score:{name:"@e[type=minecraft:text_display]",objective:"pts"}}}
