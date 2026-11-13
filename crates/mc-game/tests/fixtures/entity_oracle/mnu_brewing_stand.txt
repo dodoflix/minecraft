@@ -1,0 +1,1011 @@
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+BE 0 -60 0 {BrewTime:0,Fuel:0,Items:[],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:0,total_fuel:0,x:0,y:-60,z:0}
+MENU A cid=1 type=minecraft:brewing_stand state=1 carried=empty
+MS 32 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 33 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 34 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 35 minecraft:nether_wart*3
+MS 36 minecraft:blaze_powder*3
+MS 37 minecraft:glistering_melon_slice*2
+MS 38 minecraft:dirt*4
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT A minecraft.custom:minecraft.interact_with_brewingstand 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:open_screen 3c010b0a0800097472616e736c6174650011636f6e7461696e65722e62726577696e6700
+PKT A minecraft:container_set_content 12010129000000000000000000000000000000000000000000000000000000000000000001f709010035010000000001f709010035010000000001f709010035010300000003f509000003fa09000002ff09000004370000000000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100010000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 130100030000
+# quick move: potions into the bottle slots, wart as the ingredient, blaze powder as the fuel, dirt nowhere but the other inventory half
+MENU A cid=1 type=minecraft:brewing_stand state=13 carried=empty
+MS 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 2 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 3 minecraft:nether_wart*3
+MS 4 minecraft:blaze_powder*3
+MS 5 minecraft:dirt*4
+MS 37 minecraft:glistering_melon_slice*2
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+B 0 -60 0 minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]
+BE 0 -60 0 {BrewTime:0,Fuel:0,Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"},{Slot:1b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"},{Slot:2b,components:{"minecraft:potion_contents":{potion:"minecraft:awkward"}},count:1,id:"minecraft:potion"},{Slot:3b,count:3,id:"minecraft:nether_wart"},{Slot:4b,count:3,id:"minecraft:blaze_powder"}],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:0,total_fuel:0,x:0,y:-60,z:0}
+PKT A minecraft:container_set_slot 140102000001f7090100350100000000
+PKT A minecraft:container_set_slot 140103002000
+PKT A minecraft:container_set_slot 140104000101f7090100350100000000
+PKT A minecraft:container_set_slot 140105002100
+PKT A minecraft:container_set_slot 140106000201f7090100350103000000
+PKT A minecraft:container_set_slot 140107002200
+PKT A minecraft:container_set_slot 140108000504370000
+PKT A minecraft:container_set_slot 140109002600
+PKT A minecraft:container_set_slot 14010a000303f5090000
+PKT A minecraft:container_set_slot 14010b002300
+PKT A minecraft:container_set_slot 14010c000403fa090000
+PKT A minecraft:container_set_slot 14010d002400
+# the fuel is burnt by the first stand tick, the menu learns about it with the next player tick
+MENU A cid=1 type=minecraft:brewing_stand state=13 carried=empty
+MS 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 2 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 3 minecraft:nether_wart*3
+MS 4 minecraft:blaze_powder*2
+MS 5 minecraft:dirt*4
+MS 37 minecraft:glistering_melon_slice*2
+MD 0 400
+MD 1 19
+MD 2 400
+MD 3 20
+B 0 -60 0 minecraft:brewing_stand[has_bottle_0=true,has_bottle_1=true,has_bottle_2=true]
+BE 0 -60 0 {BrewTime:400,Fuel:19,Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"},{Slot:1b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"},{Slot:2b,components:{"minecraft:potion_contents":{potion:"minecraft:awkward"}},count:1,id:"minecraft:potion"},{Slot:3b,count:3,id:"minecraft:nether_wart"},{Slot:4b,count:2,id:"minecraft:blaze_powder"}],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:400,total_fuel:20,x:0,y:-60,z:0}
+MENU A cid=1 type=minecraft:brewing_stand state=14 carried=empty
+MS 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 2 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 3 minecraft:nether_wart*3
+MS 4 minecraft:blaze_powder*2
+MS 5 minecraft:dirt*4
+MS 37 minecraft:glistering_melon_slice*2
+MD 0 399
+MD 1 19
+MD 2 400
+MD 3 20
+B 0 -60 0 minecraft:brewing_stand[has_bottle_0=true,has_bottle_1=true,has_bottle_2=true]
+BE 0 -60 0 {BrewTime:399,Fuel:19,Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"},{Slot:1b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"},{Slot:2b,components:{"minecraft:potion_contents":{potion:"minecraft:awkward"}},count:1,id:"minecraft:potion"},{Slot:3b,count:3,id:"minecraft:nether_wart"},{Slot:4b,count:2,id:"minecraft:blaze_powder"}],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:400,total_fuel:20,x:0,y:-60,z:0}
+PKT A minecraft:container_set_slot 14010e000402fa090000
+PKT A minecraft:container_set_data 130100000190
+PKT A minecraft:container_set_data 130100010013
+PKT A minecraft:container_set_data 130100020190
+PKT A minecraft:container_set_data 130100030014
+MENU A cid=1 type=minecraft:brewing_stand state=14 carried=empty
+MS 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+MS 2 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 3 minecraft:nether_wart*3
+MS 4 minecraft:blaze_powder*2
+MS 5 minecraft:dirt*4
+MS 37 minecraft:glistering_melon_slice*2
+MD 0 199
+MD 1 19
+MD 2 400
+MD 3 20
+BE 0 -60 0 {BrewTime:199,Fuel:19,Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"},{Slot:1b,components:{"minecraft:potion_contents":{potion:"minecraft:water"}},count:1,id:"minecraft:potion"},{Slot:2b,components:{"minecraft:potion_contents":{potion:"minecraft:awkward"}},count:1,id:"minecraft:potion"},{Slot:3b,count:3,id:"minecraft:nether_wart"},{Slot:4b,count:2,id:"minecraft:blaze_powder"}],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:400,total_fuel:20,x:0,y:-60,z:0}
+PKT A minecraft:container_set_data 13010000018f
+PKT A minecraft:container_set_data 13010000018e
+PKT A minecraft:container_set_data 13010000018d
+PKT A minecraft:container_set_data 13010000018c
+PKT A minecraft:container_set_data 13010000018b
+PKT A minecraft:container_set_data 13010000018a
+PKT A minecraft:container_set_data 130100000189
+PKT A minecraft:container_set_data 130100000188
+PKT A minecraft:container_set_data 130100000187
+PKT A minecraft:container_set_data 130100000186
+PKT A minecraft:container_set_data 130100000185
+PKT A minecraft:container_set_data 130100000184
+PKT A minecraft:container_set_data 130100000183
+PKT A minecraft:container_set_data 130100000182
+PKT A minecraft:container_set_data 130100000181
+PKT A minecraft:container_set_data 130100000180
+PKT A minecraft:container_set_data 13010000017f
+PKT A minecraft:container_set_data 13010000017e
+PKT A minecraft:container_set_data 13010000017d
+PKT A minecraft:container_set_data 13010000017c
+PKT A minecraft:container_set_data 13010000017b
+PKT A minecraft:container_set_data 13010000017a
+PKT A minecraft:container_set_data 130100000179
+PKT A minecraft:container_set_data 130100000178
+PKT A minecraft:container_set_data 130100000177
+PKT A minecraft:container_set_data 130100000176
+PKT A minecraft:container_set_data 130100000175
+PKT A minecraft:container_set_data 130100000174
+PKT A minecraft:container_set_data 130100000173
+PKT A minecraft:container_set_data 130100000172
+PKT A minecraft:container_set_data 130100000171
+PKT A minecraft:container_set_data 130100000170
+PKT A minecraft:container_set_data 13010000016f
+PKT A minecraft:container_set_data 13010000016e
+PKT A minecraft:container_set_data 13010000016d
+PKT A minecraft:container_set_data 13010000016c
+PKT A minecraft:container_set_data 13010000016b
+PKT A minecraft:container_set_data 13010000016a
+PKT A minecraft:container_set_data 130100000169
+PKT A minecraft:container_set_data 130100000168
+PKT A minecraft:container_set_data 130100000167
+PKT A minecraft:container_set_data 130100000166
+PKT A minecraft:container_set_data 130100000165
+PKT A minecraft:container_set_data 130100000164
+PKT A minecraft:container_set_data 130100000163
+PKT A minecraft:container_set_data 130100000162
+PKT A minecraft:container_set_data 130100000161
+PKT A minecraft:container_set_data 130100000160
+PKT A minecraft:container_set_data 13010000015f
+PKT A minecraft:container_set_data 13010000015e
+PKT A minecraft:container_set_data 13010000015d
+PKT A minecraft:container_set_data 13010000015c
+PKT A minecraft:container_set_data 13010000015b
+PKT A minecraft:container_set_data 13010000015a
+PKT A minecraft:container_set_data 130100000159
+PKT A minecraft:container_set_data 130100000158
+PKT A minecraft:container_set_data 130100000157
+PKT A minecraft:container_set_data 130100000156
+PKT A minecraft:container_set_data 130100000155
+PKT A minecraft:container_set_data 130100000154
+PKT A minecraft:container_set_data 130100000153
+PKT A minecraft:container_set_data 130100000152
+PKT A minecraft:container_set_data 130100000151
+PKT A minecraft:container_set_data 130100000150
+PKT A minecraft:container_set_data 13010000014f
+PKT A minecraft:container_set_data 13010000014e
+PKT A minecraft:container_set_data 13010000014d
+PKT A minecraft:container_set_data 13010000014c
+PKT A minecraft:container_set_data 13010000014b
+PKT A minecraft:container_set_data 13010000014a
+PKT A minecraft:container_set_data 130100000149
+PKT A minecraft:container_set_data 130100000148
+PKT A minecraft:container_set_data 130100000147
+PKT A minecraft:container_set_data 130100000146
+PKT A minecraft:container_set_data 130100000145
+PKT A minecraft:container_set_data 130100000144
+PKT A minecraft:container_set_data 130100000143
+PKT A minecraft:container_set_data 130100000142
+PKT A minecraft:container_set_data 130100000141
+PKT A minecraft:container_set_data 130100000140
+PKT A minecraft:container_set_data 13010000013f
+PKT A minecraft:container_set_data 13010000013e
+PKT A minecraft:container_set_data 13010000013d
+PKT A minecraft:container_set_data 13010000013c
+PKT A minecraft:container_set_data 13010000013b
+PKT A minecraft:container_set_data 13010000013a
+PKT A minecraft:container_set_data 130100000139
+PKT A minecraft:container_set_data 130100000138
+PKT A minecraft:container_set_data 130100000137
+PKT A minecraft:container_set_data 130100000136
+PKT A minecraft:container_set_data 130100000135
+PKT A minecraft:container_set_data 130100000134
+PKT A minecraft:container_set_data 130100000133
+PKT A minecraft:container_set_data 130100000132
+PKT A minecraft:container_set_data 130100000131
+PKT A minecraft:container_set_data 130100000130
+PKT A minecraft:container_set_data 13010000012f
+PKT A minecraft:container_set_data 13010000012e
+PKT A minecraft:container_set_data 13010000012d
+PKT A minecraft:container_set_data 13010000012c
+PKT A minecraft:container_set_data 13010000012b
+PKT A minecraft:container_set_data 13010000012a
+PKT A minecraft:container_set_data 130100000129
+PKT A minecraft:container_set_data 130100000128
+PKT A minecraft:container_set_data 130100000127
+PKT A minecraft:container_set_data 130100000126
+PKT A minecraft:container_set_data 130100000125
+PKT A minecraft:container_set_data 130100000124
+PKT A minecraft:container_set_data 130100000123
+PKT A minecraft:container_set_data 130100000122
+PKT A minecraft:container_set_data 130100000121
+PKT A minecraft:container_set_data 130100000120
+PKT A minecraft:container_set_data 13010000011f
+PKT A minecraft:container_set_data 13010000011e
+PKT A minecraft:container_set_data 13010000011d
+PKT A minecraft:container_set_data 13010000011c
+PKT A minecraft:container_set_data 13010000011b
+PKT A minecraft:container_set_data 13010000011a
+PKT A minecraft:container_set_data 130100000119
+PKT A minecraft:container_set_data 130100000118
+PKT A minecraft:container_set_data 130100000117
+PKT A minecraft:container_set_data 130100000116
+PKT A minecraft:container_set_data 130100000115
+PKT A minecraft:container_set_data 130100000114
+PKT A minecraft:container_set_data 130100000113
+PKT A minecraft:container_set_data 130100000112
+PKT A minecraft:container_set_data 130100000111
+PKT A minecraft:container_set_data 130100000110
+PKT A minecraft:container_set_data 13010000010f
+PKT A minecraft:container_set_data 13010000010e
+PKT A minecraft:container_set_data 13010000010d
+PKT A minecraft:container_set_data 13010000010c
+PKT A minecraft:container_set_data 13010000010b
+PKT A minecraft:container_set_data 13010000010a
+PKT A minecraft:container_set_data 130100000109
+PKT A minecraft:container_set_data 130100000108
+PKT A minecraft:container_set_data 130100000107
+PKT A minecraft:container_set_data 130100000106
+PKT A minecraft:container_set_data 130100000105
+PKT A minecraft:container_set_data 130100000104
+PKT A minecraft:container_set_data 130100000103
+PKT A minecraft:container_set_data 130100000102
+PKT A minecraft:container_set_data 130100000101
+PKT A minecraft:container_set_data 130100000100
+PKT A minecraft:container_set_data 1301000000ff
+PKT A minecraft:container_set_data 1301000000fe
+PKT A minecraft:container_set_data 1301000000fd
+PKT A minecraft:container_set_data 1301000000fc
+PKT A minecraft:container_set_data 1301000000fb
+PKT A minecraft:container_set_data 1301000000fa
+PKT A minecraft:container_set_data 1301000000f9
+PKT A minecraft:container_set_data 1301000000f8
+PKT A minecraft:container_set_data 1301000000f7
+PKT A minecraft:container_set_data 1301000000f6
+PKT A minecraft:container_set_data 1301000000f5
+PKT A minecraft:container_set_data 1301000000f4
+PKT A minecraft:container_set_data 1301000000f3
+PKT A minecraft:container_set_data 1301000000f2
+PKT A minecraft:container_set_data 1301000000f1
+PKT A minecraft:container_set_data 1301000000f0
+PKT A minecraft:container_set_data 1301000000ef
+PKT A minecraft:container_set_data 1301000000ee
+PKT A minecraft:container_set_data 1301000000ed
+PKT A minecraft:container_set_data 1301000000ec
+PKT A minecraft:container_set_data 1301000000eb
+PKT A minecraft:container_set_data 1301000000ea
+PKT A minecraft:container_set_data 1301000000e9
+PKT A minecraft:container_set_data 1301000000e8
+PKT A minecraft:container_set_data 1301000000e7
+PKT A minecraft:container_set_data 1301000000e6
+PKT A minecraft:container_set_data 1301000000e5
+PKT A minecraft:container_set_data 1301000000e4
+PKT A minecraft:container_set_data 1301000000e3
+PKT A minecraft:container_set_data 1301000000e2
+PKT A minecraft:container_set_data 1301000000e1
+PKT A minecraft:container_set_data 1301000000e0
+PKT A minecraft:container_set_data 1301000000df
+PKT A minecraft:container_set_data 1301000000de
+PKT A minecraft:container_set_data 1301000000dd
+PKT A minecraft:container_set_data 1301000000dc
+PKT A minecraft:container_set_data 1301000000db
+PKT A minecraft:container_set_data 1301000000da
+PKT A minecraft:container_set_data 1301000000d9
+PKT A minecraft:container_set_data 1301000000d8
+PKT A minecraft:container_set_data 1301000000d7
+PKT A minecraft:container_set_data 1301000000d6
+PKT A minecraft:container_set_data 1301000000d5
+PKT A minecraft:container_set_data 1301000000d4
+PKT A minecraft:container_set_data 1301000000d3
+PKT A minecraft:container_set_data 1301000000d2
+PKT A minecraft:container_set_data 1301000000d1
+PKT A minecraft:container_set_data 1301000000d0
+PKT A minecraft:container_set_data 1301000000cf
+PKT A minecraft:container_set_data 1301000000ce
+PKT A minecraft:container_set_data 1301000000cd
+PKT A minecraft:container_set_data 1301000000cc
+PKT A minecraft:container_set_data 1301000000cb
+PKT A minecraft:container_set_data 1301000000ca
+PKT A minecraft:container_set_data 1301000000c9
+PKT A minecraft:container_set_data 1301000000c8
+MENU A cid=1 type=minecraft:brewing_stand state=17 carried=empty
+MS 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 2 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 3 minecraft:nether_wart*2
+MS 4 minecraft:blaze_powder*2
+MS 5 minecraft:dirt*4
+MS 37 minecraft:glistering_melon_slice*2
+MD 0 0
+MD 1 19
+MD 2 400
+MD 3 20
+EV level_event r=64.0 ex=0 type=1035 pos=0,-60,0 data=0 global=0
+B 0 -60 0 minecraft:brewing_stand[has_bottle_0=true,has_bottle_1=true,has_bottle_2=true]
+BE 0 -60 0 {BrewTime:0,Fuel:19,Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:awkward"}},count:1,id:"minecraft:potion"},{Slot:1b,components:{"minecraft:potion_contents":{potion:"minecraft:awkward"}},count:1,id:"minecraft:potion"},{Slot:2b,components:{"minecraft:potion_contents":{potion:"minecraft:awkward"}},count:1,id:"minecraft:potion"},{Slot:3b,count:2,id:"minecraft:nether_wart"},{Slot:4b,count:2,id:"minecraft:blaze_powder"}],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:400,total_fuel:20,x:0,y:-60,z:0}
+PKT A minecraft:container_set_data 1301000000c7
+PKT A minecraft:container_set_data 1301000000c6
+PKT A minecraft:container_set_data 1301000000c5
+PKT A minecraft:container_set_data 1301000000c4
+PKT A minecraft:container_set_data 1301000000c3
+PKT A minecraft:container_set_data 1301000000c2
+PKT A minecraft:container_set_data 1301000000c1
+PKT A minecraft:container_set_data 1301000000c0
+PKT A minecraft:container_set_data 1301000000bf
+PKT A minecraft:container_set_data 1301000000be
+PKT A minecraft:container_set_data 1301000000bd
+PKT A minecraft:container_set_data 1301000000bc
+PKT A minecraft:container_set_data 1301000000bb
+PKT A minecraft:container_set_data 1301000000ba
+PKT A minecraft:container_set_data 1301000000b9
+PKT A minecraft:container_set_data 1301000000b8
+PKT A minecraft:container_set_data 1301000000b7
+PKT A minecraft:container_set_data 1301000000b6
+PKT A minecraft:container_set_data 1301000000b5
+PKT A minecraft:container_set_data 1301000000b4
+PKT A minecraft:container_set_data 1301000000b3
+PKT A minecraft:container_set_data 1301000000b2
+PKT A minecraft:container_set_data 1301000000b1
+PKT A minecraft:container_set_data 1301000000b0
+PKT A minecraft:container_set_data 1301000000af
+PKT A minecraft:container_set_data 1301000000ae
+PKT A minecraft:container_set_data 1301000000ad
+PKT A minecraft:container_set_data 1301000000ac
+PKT A minecraft:container_set_data 1301000000ab
+PKT A minecraft:container_set_data 1301000000aa
+PKT A minecraft:container_set_data 1301000000a9
+PKT A minecraft:container_set_data 1301000000a8
+PKT A minecraft:container_set_data 1301000000a7
+PKT A minecraft:container_set_data 1301000000a6
+PKT A minecraft:container_set_data 1301000000a5
+PKT A minecraft:container_set_data 1301000000a4
+PKT A minecraft:container_set_data 1301000000a3
+PKT A minecraft:container_set_data 1301000000a2
+PKT A minecraft:container_set_data 1301000000a1
+PKT A minecraft:container_set_data 1301000000a0
+PKT A minecraft:container_set_data 13010000009f
+PKT A minecraft:container_set_data 13010000009e
+PKT A minecraft:container_set_data 13010000009d
+PKT A minecraft:container_set_data 13010000009c
+PKT A minecraft:container_set_data 13010000009b
+PKT A minecraft:container_set_data 13010000009a
+PKT A minecraft:container_set_data 130100000099
+PKT A minecraft:container_set_data 130100000098
+PKT A minecraft:container_set_data 130100000097
+PKT A minecraft:container_set_data 130100000096
+PKT A minecraft:container_set_data 130100000095
+PKT A minecraft:container_set_data 130100000094
+PKT A minecraft:container_set_data 130100000093
+PKT A minecraft:container_set_data 130100000092
+PKT A minecraft:container_set_data 130100000091
+PKT A minecraft:container_set_data 130100000090
+PKT A minecraft:container_set_data 13010000008f
+PKT A minecraft:container_set_data 13010000008e
+PKT A minecraft:container_set_data 13010000008d
+PKT A minecraft:container_set_data 13010000008c
+PKT A minecraft:container_set_data 13010000008b
+PKT A minecraft:container_set_data 13010000008a
+PKT A minecraft:container_set_data 130100000089
+PKT A minecraft:container_set_data 130100000088
+PKT A minecraft:container_set_data 130100000087
+PKT A minecraft:container_set_data 130100000086
+PKT A minecraft:container_set_data 130100000085
+PKT A minecraft:container_set_data 130100000084
+PKT A minecraft:container_set_data 130100000083
+PKT A minecraft:container_set_data 130100000082
+PKT A minecraft:container_set_data 130100000081
+PKT A minecraft:container_set_data 130100000080
+PKT A minecraft:container_set_data 13010000007f
+PKT A minecraft:container_set_data 13010000007e
+PKT A minecraft:container_set_data 13010000007d
+PKT A minecraft:container_set_data 13010000007c
+PKT A minecraft:container_set_data 13010000007b
+PKT A minecraft:container_set_data 13010000007a
+PKT A minecraft:container_set_data 130100000079
+PKT A minecraft:container_set_data 130100000078
+PKT A minecraft:container_set_data 130100000077
+PKT A minecraft:container_set_data 130100000076
+PKT A minecraft:container_set_data 130100000075
+PKT A minecraft:container_set_data 130100000074
+PKT A minecraft:container_set_data 130100000073
+PKT A minecraft:container_set_data 130100000072
+PKT A minecraft:container_set_data 130100000071
+PKT A minecraft:container_set_data 130100000070
+PKT A minecraft:container_set_data 13010000006f
+PKT A minecraft:container_set_data 13010000006e
+PKT A minecraft:container_set_data 13010000006d
+PKT A minecraft:container_set_data 13010000006c
+PKT A minecraft:container_set_data 13010000006b
+PKT A minecraft:container_set_data 13010000006a
+PKT A minecraft:container_set_data 130100000069
+PKT A minecraft:container_set_data 130100000068
+PKT A minecraft:container_set_data 130100000067
+PKT A minecraft:container_set_data 130100000066
+PKT A minecraft:container_set_data 130100000065
+PKT A minecraft:container_set_data 130100000064
+PKT A minecraft:container_set_data 130100000063
+PKT A minecraft:container_set_data 130100000062
+PKT A minecraft:container_set_data 130100000061
+PKT A minecraft:container_set_data 130100000060
+PKT A minecraft:container_set_data 13010000005f
+PKT A minecraft:container_set_data 13010000005e
+PKT A minecraft:container_set_data 13010000005d
+PKT A minecraft:container_set_data 13010000005c
+PKT A minecraft:container_set_data 13010000005b
+PKT A minecraft:container_set_data 13010000005a
+PKT A minecraft:container_set_data 130100000059
+PKT A minecraft:container_set_data 130100000058
+PKT A minecraft:container_set_data 130100000057
+PKT A minecraft:container_set_data 130100000056
+PKT A minecraft:container_set_data 130100000055
+PKT A minecraft:container_set_data 130100000054
+PKT A minecraft:container_set_data 130100000053
+PKT A minecraft:container_set_data 130100000052
+PKT A minecraft:container_set_data 130100000051
+PKT A minecraft:container_set_data 130100000050
+PKT A minecraft:container_set_data 13010000004f
+PKT A minecraft:container_set_data 13010000004e
+PKT A minecraft:container_set_data 13010000004d
+PKT A minecraft:container_set_data 13010000004c
+PKT A minecraft:container_set_data 13010000004b
+PKT A minecraft:container_set_data 13010000004a
+PKT A minecraft:container_set_data 130100000049
+PKT A minecraft:container_set_data 130100000048
+PKT A minecraft:container_set_data 130100000047
+PKT A minecraft:container_set_data 130100000046
+PKT A minecraft:container_set_data 130100000045
+PKT A minecraft:container_set_data 130100000044
+PKT A minecraft:container_set_data 130100000043
+PKT A minecraft:container_set_data 130100000042
+PKT A minecraft:container_set_data 130100000041
+PKT A minecraft:container_set_data 130100000040
+PKT A minecraft:container_set_data 13010000003f
+PKT A minecraft:container_set_data 13010000003e
+PKT A minecraft:container_set_data 13010000003d
+PKT A minecraft:container_set_data 13010000003c
+PKT A minecraft:container_set_data 13010000003b
+PKT A minecraft:container_set_data 13010000003a
+PKT A minecraft:container_set_data 130100000039
+PKT A minecraft:container_set_data 130100000038
+PKT A minecraft:container_set_data 130100000037
+PKT A minecraft:container_set_data 130100000036
+PKT A minecraft:container_set_data 130100000035
+PKT A minecraft:container_set_data 130100000034
+PKT A minecraft:container_set_data 130100000033
+PKT A minecraft:container_set_data 130100000032
+PKT A minecraft:container_set_data 130100000031
+PKT A minecraft:container_set_data 130100000030
+PKT A minecraft:container_set_data 13010000002f
+PKT A minecraft:container_set_data 13010000002e
+PKT A minecraft:container_set_data 13010000002d
+PKT A minecraft:container_set_data 13010000002c
+PKT A minecraft:container_set_data 13010000002b
+PKT A minecraft:container_set_data 13010000002a
+PKT A minecraft:container_set_data 130100000029
+PKT A minecraft:container_set_data 130100000028
+PKT A minecraft:container_set_data 130100000027
+PKT A minecraft:container_set_data 130100000026
+PKT A minecraft:container_set_data 130100000025
+PKT A minecraft:container_set_data 130100000024
+PKT A minecraft:container_set_data 130100000023
+PKT A minecraft:container_set_data 130100000022
+PKT A minecraft:container_set_data 130100000021
+PKT A minecraft:container_set_data 130100000020
+PKT A minecraft:container_set_data 13010000001f
+PKT A minecraft:container_set_data 13010000001e
+PKT A minecraft:container_set_data 13010000001d
+PKT A minecraft:container_set_data 13010000001c
+PKT A minecraft:container_set_data 13010000001b
+PKT A minecraft:container_set_data 13010000001a
+PKT A minecraft:container_set_data 130100000019
+PKT A minecraft:container_set_data 130100000018
+PKT A minecraft:container_set_data 130100000017
+PKT A minecraft:container_set_data 130100000016
+PKT A minecraft:container_set_data 130100000015
+PKT A minecraft:container_set_data 130100000014
+PKT A minecraft:container_set_data 130100000013
+PKT A minecraft:container_set_data 130100000012
+PKT A minecraft:container_set_data 130100000011
+PKT A minecraft:container_set_data 130100000010
+PKT A minecraft:container_set_data 13010000000f
+PKT A minecraft:container_set_data 13010000000e
+PKT A minecraft:container_set_data 13010000000d
+PKT A minecraft:container_set_data 13010000000c
+PKT A minecraft:container_set_data 13010000000b
+PKT A minecraft:container_set_data 13010000000a
+PKT A minecraft:container_set_data 130100000009
+PKT A minecraft:container_set_data 130100000008
+PKT A minecraft:container_set_data 130100000007
+PKT A minecraft:container_set_data 130100000006
+PKT A minecraft:container_set_data 130100000005
+PKT A minecraft:container_set_data 130100000004
+PKT A minecraft:container_set_data 130100000003
+PKT A minecraft:container_set_data 130100000002
+PKT A minecraft:container_set_data 130100000001
+PKT A minecraft:container_set_slot 14010f000001f7090100350103000000
+PKT A minecraft:container_set_slot 140110000101f7090100350103000000
+PKT A minecraft:container_set_slot 140111000302f5090000
+PKT A minecraft:container_set_data 130100000000
+# taking a brewed potion out of its slot awards the brew_potion advancement
+MENU A cid=1 type=minecraft:brewing_stand state=18 carried=minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 2 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 3 minecraft:nether_wart*2
+MS 4 minecraft:blaze_powder*2
+MS 5 minecraft:dirt*4
+MS 37 minecraft:glistering_melon_slice*2
+MD 0 0
+MD 1 19
+MD 2 400
+MD 3 20
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:nether/brew_potion potion
+ADV A minecraft:recipes/brewing/magma_cream has_blaze_powder
+ADV A minecraft:recipes/building_blocks/nether_wart_block has_nether_wart
+ADV A minecraft:recipes/building_blocks/red_nether_bricks has_nether_wart
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/misc/ender_eye has_blaze_powder
+ADV A minecraft:recipes/misc/fire_charge has_blaze_powder
+PKT A minecraft:container_set_slot 140112000000
+PKT A minecraft:set_cursor_item 6201f7090100350103000000
+# a second brew: the melon slice as the ingredient
+MENU A cid=1 type=minecraft:brewing_stand state=21 carried=minecraft:nether_wart*2
+MS 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 2 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:awkward"}}
+MS 3 minecraft:glistering_melon_slice*2
+MS 4 minecraft:blaze_powder*2
+MS 5 minecraft:dirt*4
+MD 0 0
+MD 1 19
+MD 2 400
+MD 3 20
+PKT A minecraft:container_set_slot 140113000001f7090100350103000000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140114002500
+PKT A minecraft:set_cursor_item 6202ff090000
+PKT A minecraft:container_set_slot 140115000302ff090000
+PKT A minecraft:set_cursor_item 6202f5090000
+MENU A cid=1 type=minecraft:brewing_stand state=21 carried=minecraft:nether_wart*2
+MS 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:healing"}}
+MS 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:healing"}}
+MS 2 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:healing"}}
+MS 3 minecraft:glistering_melon_slice*1
+MS 4 minecraft:blaze_powder*2
+MS 5 minecraft:dirt*4
+MD 0 0
+MD 1 18
+MD 2 400
+MD 3 20
+EV level_event r=64.0 ex=0 type=1035 pos=0,-60,0 data=0 global=0
+BE 0 -60 0 {BrewTime:0,Fuel:18,Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:healing"}},count:1,id:"minecraft:potion"},{Slot:1b,components:{"minecraft:potion_contents":{potion:"minecraft:healing"}},count:1,id:"minecraft:potion"},{Slot:2b,components:{"minecraft:potion_contents":{potion:"minecraft:healing"}},count:1,id:"minecraft:potion"},{Slot:3b,count:1,id:"minecraft:glistering_melon_slice"},{Slot:4b,count:2,id:"minecraft:blaze_powder"}],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:400,total_fuel:20,x:0,y:-60,z:0}
+PKT A minecraft:container_set_data 130100000190
+PKT A minecraft:container_set_data 130100010012
+PKT A minecraft:container_set_data 13010000018f
+PKT A minecraft:container_set_data 13010000018e
+PKT A minecraft:container_set_data 13010000018d
+PKT A minecraft:container_set_data 13010000018c
+PKT A minecraft:container_set_data 13010000018b
+PKT A minecraft:container_set_data 13010000018a
+PKT A minecraft:container_set_data 130100000189
+PKT A minecraft:container_set_data 130100000188
+PKT A minecraft:container_set_data 130100000187
+PKT A minecraft:container_set_data 130100000186
+PKT A minecraft:container_set_data 130100000185
+PKT A minecraft:container_set_data 130100000184
+PKT A minecraft:container_set_data 130100000183
+PKT A minecraft:container_set_data 130100000182
+PKT A minecraft:container_set_data 130100000181
+PKT A minecraft:container_set_data 130100000180
+PKT A minecraft:container_set_data 13010000017f
+PKT A minecraft:container_set_data 13010000017e
+PKT A minecraft:container_set_data 13010000017d
+PKT A minecraft:container_set_data 13010000017c
+PKT A minecraft:container_set_data 13010000017b
+PKT A minecraft:container_set_data 13010000017a
+PKT A minecraft:container_set_data 130100000179
+PKT A minecraft:container_set_data 130100000178
+PKT A minecraft:container_set_data 130100000177
+PKT A minecraft:container_set_data 130100000176
+PKT A minecraft:container_set_data 130100000175
+PKT A minecraft:container_set_data 130100000174
+PKT A minecraft:container_set_data 130100000173
+PKT A minecraft:container_set_data 130100000172
+PKT A minecraft:container_set_data 130100000171
+PKT A minecraft:container_set_data 130100000170
+PKT A minecraft:container_set_data 13010000016f
+PKT A minecraft:container_set_data 13010000016e
+PKT A minecraft:container_set_data 13010000016d
+PKT A minecraft:container_set_data 13010000016c
+PKT A minecraft:container_set_data 13010000016b
+PKT A minecraft:container_set_data 13010000016a
+PKT A minecraft:container_set_data 130100000169
+PKT A minecraft:container_set_data 130100000168
+PKT A minecraft:container_set_data 130100000167
+PKT A minecraft:container_set_data 130100000166
+PKT A minecraft:container_set_data 130100000165
+PKT A minecraft:container_set_data 130100000164
+PKT A minecraft:container_set_data 130100000163
+PKT A minecraft:container_set_data 130100000162
+PKT A minecraft:container_set_data 130100000161
+PKT A minecraft:container_set_data 130100000160
+PKT A minecraft:container_set_data 13010000015f
+PKT A minecraft:container_set_data 13010000015e
+PKT A minecraft:container_set_data 13010000015d
+PKT A minecraft:container_set_data 13010000015c
+PKT A minecraft:container_set_data 13010000015b
+PKT A minecraft:container_set_data 13010000015a
+PKT A minecraft:container_set_data 130100000159
+PKT A minecraft:container_set_data 130100000158
+PKT A minecraft:container_set_data 130100000157
+PKT A minecraft:container_set_data 130100000156
+PKT A minecraft:container_set_data 130100000155
+PKT A minecraft:container_set_data 130100000154
+PKT A minecraft:container_set_data 130100000153
+PKT A minecraft:container_set_data 130100000152
+PKT A minecraft:container_set_data 130100000151
+PKT A minecraft:container_set_data 130100000150
+PKT A minecraft:container_set_data 13010000014f
+PKT A minecraft:container_set_data 13010000014e
+PKT A minecraft:container_set_data 13010000014d
+PKT A minecraft:container_set_data 13010000014c
+PKT A minecraft:container_set_data 13010000014b
+PKT A minecraft:container_set_data 13010000014a
+PKT A minecraft:container_set_data 130100000149
+PKT A minecraft:container_set_data 130100000148
+PKT A minecraft:container_set_data 130100000147
+PKT A minecraft:container_set_data 130100000146
+PKT A minecraft:container_set_data 130100000145
+PKT A minecraft:container_set_data 130100000144
+PKT A minecraft:container_set_data 130100000143
+PKT A minecraft:container_set_data 130100000142
+PKT A minecraft:container_set_data 130100000141
+PKT A minecraft:container_set_data 130100000140
+PKT A minecraft:container_set_data 13010000013f
+PKT A minecraft:container_set_data 13010000013e
+PKT A minecraft:container_set_data 13010000013d
+PKT A minecraft:container_set_data 13010000013c
+PKT A minecraft:container_set_data 13010000013b
+PKT A minecraft:container_set_data 13010000013a
+PKT A minecraft:container_set_data 130100000139
+PKT A minecraft:container_set_data 130100000138
+PKT A minecraft:container_set_data 130100000137
+PKT A minecraft:container_set_data 130100000136
+PKT A minecraft:container_set_data 130100000135
+PKT A minecraft:container_set_data 130100000134
+PKT A minecraft:container_set_data 130100000133
+PKT A minecraft:container_set_data 130100000132
+PKT A minecraft:container_set_data 130100000131
+PKT A minecraft:container_set_data 130100000130
+PKT A minecraft:container_set_data 13010000012f
+PKT A minecraft:container_set_data 13010000012e
+PKT A minecraft:container_set_data 13010000012d
+PKT A minecraft:container_set_data 13010000012c
+PKT A minecraft:container_set_data 13010000012b
+PKT A minecraft:container_set_data 13010000012a
+PKT A minecraft:container_set_data 130100000129
+PKT A minecraft:container_set_data 130100000128
+PKT A minecraft:container_set_data 130100000127
+PKT A minecraft:container_set_data 130100000126
+PKT A minecraft:container_set_data 130100000125
+PKT A minecraft:container_set_data 130100000124
+PKT A minecraft:container_set_data 130100000123
+PKT A minecraft:container_set_data 130100000122
+PKT A minecraft:container_set_data 130100000121
+PKT A minecraft:container_set_data 130100000120
+PKT A minecraft:container_set_data 13010000011f
+PKT A minecraft:container_set_data 13010000011e
+PKT A minecraft:container_set_data 13010000011d
+PKT A minecraft:container_set_data 13010000011c
+PKT A minecraft:container_set_data 13010000011b
+PKT A minecraft:container_set_data 13010000011a
+PKT A minecraft:container_set_data 130100000119
+PKT A minecraft:container_set_data 130100000118
+PKT A minecraft:container_set_data 130100000117
+PKT A minecraft:container_set_data 130100000116
+PKT A minecraft:container_set_data 130100000115
+PKT A minecraft:container_set_data 130100000114
+PKT A minecraft:container_set_data 130100000113
+PKT A minecraft:container_set_data 130100000112
+PKT A minecraft:container_set_data 130100000111
+PKT A minecraft:container_set_data 130100000110
+PKT A minecraft:container_set_data 13010000010f
+PKT A minecraft:container_set_data 13010000010e
+PKT A minecraft:container_set_data 13010000010d
+PKT A minecraft:container_set_data 13010000010c
+PKT A minecraft:container_set_data 13010000010b
+PKT A minecraft:container_set_data 13010000010a
+PKT A minecraft:container_set_data 130100000109
+PKT A minecraft:container_set_data 130100000108
+PKT A minecraft:container_set_data 130100000107
+PKT A minecraft:container_set_data 130100000106
+PKT A minecraft:container_set_data 130100000105
+PKT A minecraft:container_set_data 130100000104
+PKT A minecraft:container_set_data 130100000103
+PKT A minecraft:container_set_data 130100000102
+PKT A minecraft:container_set_data 130100000101
+PKT A minecraft:container_set_data 130100000100
+PKT A minecraft:container_set_data 1301000000ff
+PKT A minecraft:container_set_data 1301000000fe
+PKT A minecraft:container_set_data 1301000000fd
+PKT A minecraft:container_set_data 1301000000fc
+PKT A minecraft:container_set_data 1301000000fb
+PKT A minecraft:container_set_data 1301000000fa
+PKT A minecraft:container_set_data 1301000000f9
+PKT A minecraft:container_set_data 1301000000f8
+PKT A minecraft:container_set_data 1301000000f7
+PKT A minecraft:container_set_data 1301000000f6
+PKT A minecraft:container_set_data 1301000000f5
+PKT A minecraft:container_set_data 1301000000f4
+PKT A minecraft:container_set_data 1301000000f3
+PKT A minecraft:container_set_data 1301000000f2
+PKT A minecraft:container_set_data 1301000000f1
+PKT A minecraft:container_set_data 1301000000f0
+PKT A minecraft:container_set_data 1301000000ef
+PKT A minecraft:container_set_data 1301000000ee
+PKT A minecraft:container_set_data 1301000000ed
+PKT A minecraft:container_set_data 1301000000ec
+PKT A minecraft:container_set_data 1301000000eb
+PKT A minecraft:container_set_data 1301000000ea
+PKT A minecraft:container_set_data 1301000000e9
+PKT A minecraft:container_set_data 1301000000e8
+PKT A minecraft:container_set_data 1301000000e7
+PKT A minecraft:container_set_data 1301000000e6
+PKT A minecraft:container_set_data 1301000000e5
+PKT A minecraft:container_set_data 1301000000e4
+PKT A minecraft:container_set_data 1301000000e3
+PKT A minecraft:container_set_data 1301000000e2
+PKT A minecraft:container_set_data 1301000000e1
+PKT A minecraft:container_set_data 1301000000e0
+PKT A minecraft:container_set_data 1301000000df
+PKT A minecraft:container_set_data 1301000000de
+PKT A minecraft:container_set_data 1301000000dd
+PKT A minecraft:container_set_data 1301000000dc
+PKT A minecraft:container_set_data 1301000000db
+PKT A minecraft:container_set_data 1301000000da
+PKT A minecraft:container_set_data 1301000000d9
+PKT A minecraft:container_set_data 1301000000d8
+PKT A minecraft:container_set_data 1301000000d7
+PKT A minecraft:container_set_data 1301000000d6
+PKT A minecraft:container_set_data 1301000000d5
+PKT A minecraft:container_set_data 1301000000d4
+PKT A minecraft:container_set_data 1301000000d3
+PKT A minecraft:container_set_data 1301000000d2
+PKT A minecraft:container_set_data 1301000000d1
+PKT A minecraft:container_set_data 1301000000d0
+PKT A minecraft:container_set_data 1301000000cf
+PKT A minecraft:container_set_data 1301000000ce
+PKT A minecraft:container_set_data 1301000000cd
+PKT A minecraft:container_set_data 1301000000cc
+PKT A minecraft:container_set_data 1301000000cb
+PKT A minecraft:container_set_data 1301000000ca
+PKT A minecraft:container_set_data 1301000000c9
+PKT A minecraft:container_set_data 1301000000c8
+PKT A minecraft:container_set_data 1301000000c7
+PKT A minecraft:container_set_data 1301000000c6
+PKT A minecraft:container_set_data 1301000000c5
+PKT A minecraft:container_set_data 1301000000c4
+PKT A minecraft:container_set_data 1301000000c3
+PKT A minecraft:container_set_data 1301000000c2
+PKT A minecraft:container_set_data 1301000000c1
+PKT A minecraft:container_set_data 1301000000c0
+PKT A minecraft:container_set_data 1301000000bf
+PKT A minecraft:container_set_data 1301000000be
+PKT A minecraft:container_set_data 1301000000bd
+PKT A minecraft:container_set_data 1301000000bc
+PKT A minecraft:container_set_data 1301000000bb
+PKT A minecraft:container_set_data 1301000000ba
+PKT A minecraft:container_set_data 1301000000b9
+PKT A minecraft:container_set_data 1301000000b8
+PKT A minecraft:container_set_data 1301000000b7
+PKT A minecraft:container_set_data 1301000000b6
+PKT A minecraft:container_set_data 1301000000b5
+PKT A minecraft:container_set_data 1301000000b4
+PKT A minecraft:container_set_data 1301000000b3
+PKT A minecraft:container_set_data 1301000000b2
+PKT A minecraft:container_set_data 1301000000b1
+PKT A minecraft:container_set_data 1301000000b0
+PKT A minecraft:container_set_data 1301000000af
+PKT A minecraft:container_set_data 1301000000ae
+PKT A minecraft:container_set_data 1301000000ad
+PKT A minecraft:container_set_data 1301000000ac
+PKT A minecraft:container_set_data 1301000000ab
+PKT A minecraft:container_set_data 1301000000aa
+PKT A minecraft:container_set_data 1301000000a9
+PKT A minecraft:container_set_data 1301000000a8
+PKT A minecraft:container_set_data 1301000000a7
+PKT A minecraft:container_set_data 1301000000a6
+PKT A minecraft:container_set_data 1301000000a5
+PKT A minecraft:container_set_data 1301000000a4
+PKT A minecraft:container_set_data 1301000000a3
+PKT A minecraft:container_set_data 1301000000a2
+PKT A minecraft:container_set_data 1301000000a1
+PKT A minecraft:container_set_data 1301000000a0
+PKT A minecraft:container_set_data 13010000009f
+PKT A minecraft:container_set_data 13010000009e
+PKT A minecraft:container_set_data 13010000009d
+PKT A minecraft:container_set_data 13010000009c
+PKT A minecraft:container_set_data 13010000009b
+PKT A minecraft:container_set_data 13010000009a
+PKT A minecraft:container_set_data 130100000099
+PKT A minecraft:container_set_data 130100000098
+PKT A minecraft:container_set_data 130100000097
+PKT A minecraft:container_set_data 130100000096
+PKT A minecraft:container_set_data 130100000095
+PKT A minecraft:container_set_data 130100000094
+PKT A minecraft:container_set_data 130100000093
+PKT A minecraft:container_set_data 130100000092
+PKT A minecraft:container_set_data 130100000091
+PKT A minecraft:container_set_data 130100000090
+PKT A minecraft:container_set_data 13010000008f
+PKT A minecraft:container_set_data 13010000008e
+PKT A minecraft:container_set_data 13010000008d
+PKT A minecraft:container_set_data 13010000008c
+PKT A minecraft:container_set_data 13010000008b
+PKT A minecraft:container_set_data 13010000008a
+PKT A minecraft:container_set_data 130100000089
+PKT A minecraft:container_set_data 130100000088
+PKT A minecraft:container_set_data 130100000087
+PKT A minecraft:container_set_data 130100000086
+PKT A minecraft:container_set_data 130100000085
+PKT A minecraft:container_set_data 130100000084
+PKT A minecraft:container_set_data 130100000083
+PKT A minecraft:container_set_data 130100000082
+PKT A minecraft:container_set_data 130100000081
+PKT A minecraft:container_set_data 130100000080
+PKT A minecraft:container_set_data 13010000007f
+PKT A minecraft:container_set_data 13010000007e
+PKT A minecraft:container_set_data 13010000007d
+PKT A minecraft:container_set_data 13010000007c
+PKT A minecraft:container_set_data 13010000007b
+PKT A minecraft:container_set_data 13010000007a
+PKT A minecraft:container_set_data 130100000079
+PKT A minecraft:container_set_data 130100000078
+PKT A minecraft:container_set_data 130100000077
+PKT A minecraft:container_set_data 130100000076
+PKT A minecraft:container_set_data 130100000075
+PKT A minecraft:container_set_data 130100000074
+PKT A minecraft:container_set_data 130100000073
+PKT A minecraft:container_set_data 130100000072
+PKT A minecraft:container_set_data 130100000071
+PKT A minecraft:container_set_data 130100000070
+PKT A minecraft:container_set_data 13010000006f
+PKT A minecraft:container_set_data 13010000006e
+PKT A minecraft:container_set_data 13010000006d
+PKT A minecraft:container_set_data 13010000006c
+PKT A minecraft:container_set_data 13010000006b
+PKT A minecraft:container_set_data 13010000006a
+PKT A minecraft:container_set_data 130100000069
+PKT A minecraft:container_set_data 130100000068
+PKT A minecraft:container_set_data 130100000067
+PKT A minecraft:container_set_data 130100000066
+PKT A minecraft:container_set_data 130100000065
+PKT A minecraft:container_set_data 130100000064
+PKT A minecraft:container_set_data 130100000063
+PKT A minecraft:container_set_data 130100000062
+PKT A minecraft:container_set_data 130100000061
+PKT A minecraft:container_set_data 130100000060
+PKT A minecraft:container_set_data 13010000005f
+PKT A minecraft:container_set_data 13010000005e
+PKT A minecraft:container_set_data 13010000005d
+PKT A minecraft:container_set_data 13010000005c
+PKT A minecraft:container_set_data 13010000005b
+PKT A minecraft:container_set_data 13010000005a
+PKT A minecraft:container_set_data 130100000059
+PKT A minecraft:container_set_data 130100000058
+PKT A minecraft:container_set_data 130100000057
+PKT A minecraft:container_set_data 130100000056
+PKT A minecraft:container_set_data 130100000055
+PKT A minecraft:container_set_data 130100000054
+PKT A minecraft:container_set_data 130100000053
+PKT A minecraft:container_set_data 130100000052
+PKT A minecraft:container_set_data 130100000051
+PKT A minecraft:container_set_data 130100000050
+PKT A minecraft:container_set_data 13010000004f
+PKT A minecraft:container_set_data 13010000004e
+PKT A minecraft:container_set_data 13010000004d
+PKT A minecraft:container_set_data 13010000004c
+PKT A minecraft:container_set_data 13010000004b
+PKT A minecraft:container_set_data 13010000004a
+PKT A minecraft:container_set_data 130100000049
+PKT A minecraft:container_set_data 130100000048
+PKT A minecraft:container_set_data 130100000047
+PKT A minecraft:container_set_data 130100000046
+PKT A minecraft:container_set_data 130100000045
+PKT A minecraft:container_set_data 130100000044
+PKT A minecraft:container_set_data 130100000043
+PKT A minecraft:container_set_data 130100000042
+PKT A minecraft:container_set_data 130100000041
+PKT A minecraft:container_set_data 130100000040
+PKT A minecraft:container_set_data 13010000003f
+PKT A minecraft:container_set_data 13010000003e
+PKT A minecraft:container_set_data 13010000003d
+PKT A minecraft:container_set_data 13010000003c
+PKT A minecraft:container_set_data 13010000003b
+PKT A minecraft:container_set_data 13010000003a
+PKT A minecraft:container_set_data 130100000039
+PKT A minecraft:container_set_data 130100000038
+PKT A minecraft:container_set_data 130100000037
+PKT A minecraft:container_set_data 130100000036
+PKT A minecraft:container_set_data 130100000035
+PKT A minecraft:container_set_data 130100000034
+PKT A minecraft:container_set_data 130100000033
+PKT A minecraft:container_set_data 130100000032
+PKT A minecraft:container_set_data 130100000031
+PKT A minecraft:container_set_data 130100000030
+PKT A minecraft:container_set_data 13010000002f
+PKT A minecraft:container_set_data 13010000002e
+PKT A minecraft:container_set_data 13010000002d
+PKT A minecraft:container_set_data 13010000002c
+PKT A minecraft:container_set_data 13010000002b
+PKT A minecraft:container_set_data 13010000002a
+PKT A minecraft:container_set_data 130100000029
+PKT A minecraft:container_set_data 130100000028
+PKT A minecraft:container_set_data 130100000027
+PKT A minecraft:container_set_data 130100000026
+PKT A minecraft:container_set_data 130100000025
+PKT A minecraft:container_set_data 130100000024
+PKT A minecraft:container_set_data 130100000023
+PKT A minecraft:container_set_data 130100000022
+PKT A minecraft:container_set_data 130100000021
+PKT A minecraft:container_set_data 130100000020
+PKT A minecraft:container_set_data 13010000001f
+PKT A minecraft:container_set_data 13010000001e
+PKT A minecraft:container_set_data 13010000001d
+PKT A minecraft:container_set_data 13010000001c
+PKT A minecraft:container_set_data 13010000001b
+PKT A minecraft:container_set_data 13010000001a
+PKT A minecraft:container_set_data 130100000019
+PKT A minecraft:container_set_data 130100000018
+PKT A minecraft:container_set_data 130100000017
+PKT A minecraft:container_set_data 130100000016
+PKT A minecraft:container_set_data 130100000015
+PKT A minecraft:container_set_data 130100000014
+PKT A minecraft:container_set_data 130100000013
+PKT A minecraft:container_set_data 130100000012
+PKT A minecraft:container_set_data 130100000011
+PKT A minecraft:container_set_data 130100000010
+PKT A minecraft:container_set_data 13010000000f
+PKT A minecraft:container_set_data 13010000000e
+PKT A minecraft:container_set_data 13010000000d
+PKT A minecraft:container_set_data 13010000000c
+PKT A minecraft:container_set_data 13010000000b
+PKT A minecraft:container_set_data 13010000000a
+PKT A minecraft:container_set_data 130100000009
+PKT A minecraft:container_set_data 130100000008
+PKT A minecraft:container_set_data 130100000007
+PKT A minecraft:container_set_data 130100000006
+PKT A minecraft:container_set_data 130100000005
+PKT A minecraft:container_set_data 130100000004
+PKT A minecraft:container_set_data 130100000003
+PKT A minecraft:container_set_data 130100000002
+PKT A minecraft:container_set_data 130100000001
+MENU A cid=1 type=minecraft:brewing_stand state=25 carried=minecraft:nether_wart*2
+MS 0 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:healing"}}
+MS 1 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:healing"}}
+MS 2 minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:healing"}}
+MS 3 minecraft:glistering_melon_slice*1
+MS 4 minecraft:blaze_powder*2
+MS 5 minecraft:dirt*4
+MD 0 0
+MD 1 18
+MD 2 400
+MD 3 20
+BE 0 -60 0 {BrewTime:0,Fuel:18,Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:healing"}},count:1,id:"minecraft:potion"},{Slot:1b,components:{"minecraft:potion_contents":{potion:"minecraft:healing"}},count:1,id:"minecraft:potion"},{Slot:2b,components:{"minecraft:potion_contents":{potion:"minecraft:healing"}},count:1,id:"minecraft:potion"},{Slot:3b,count:1,id:"minecraft:glistering_melon_slice"},{Slot:4b,count:2,id:"minecraft:blaze_powder"}],components:{},id:"minecraft:brewing_stand",speed_multiplier:1.0f,total_brew_time:400,total_fuel:20,x:0,y:-60,z:0}
+PKT A minecraft:container_set_slot 140116000001f7090100350118000000
+PKT A minecraft:container_set_slot 140117000101f7090100350118000000
+PKT A minecraft:container_set_slot 140118000201f7090100350118000000
+PKT A minecraft:container_set_slot 140119000301ff090000
+PKT A minecraft:container_set_data 130100000000
+# breaking the block closes the menu and drops the stand's items
+DESTROY true
+MENU A cid=0 type=inventory state=9 carried=empty
+MS 9 minecraft:dirt*4
+MS 36 minecraft:nether_wart*2
+I A 0 minecraft:nether_wart*2
+I A 9 minecraft:dirt*4
+PKT A minecraft:container_set_slot 14011a000000
+PKT A minecraft:container_set_slot 14011b000100
+PKT A minecraft:container_set_slot 14011c000200
+PKT A minecraft:container_set_slot 14011d000300
+PKT A minecraft:container_set_slot 14011e000400
+PKT A minecraft:container_close 1101
+PKT A minecraft:container_set_slot 140009002402f5090000
+E item#1 minecraft:item pos=0.19824626219101427,-59.51073800238452,0.7475458700821563 delta=-0.07639538670732439,0.11446400521850592,0.0958313900750107 rot=53.898434,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:brewing_stand*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.1848812682590298,-59.12047645378138,0.7163994772220926 delta=-0.019743846170575043,0.10459121256826998,-0.03414942303203996 rot=219.35005,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=2 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.19948742438599532,-59.535493350287204,0.9002892554042252 delta=-0.05329811888610142,0.13178068053918968,0.06486566942832764 rot=145.64545,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=2 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.50929346145343,-59.30239548500746,0.6118005741726575 delta=-0.035835958715182206,0.07053351830476849,-2.789695360862813E-4 rot=64.54444,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=2 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=0.037627080131007136,-59.487119895939564,0.010583619436941 delta=-0.04262539189780324,0.12232129140095738,-0.05616749478378002 rot=78.89003,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glistering_melon_slice*1 age=2 pickup=0 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=0.9601625956713408,-59.23261794049359,0.7082701634363066 delta=0.047016633730952995,0.14758677233385845,0.02278199364382618 rot=77.07089,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:blaze_powder*2 age=2 pickup=0 health=5 owner=- thrower=-

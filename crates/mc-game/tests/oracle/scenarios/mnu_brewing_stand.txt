@@ -1,0 +1,52 @@
+# The brewing stand menu through the player's listener and the server's own tick order: the menu sees the fuel, the brewing progress and
+# the finished potions only after the stand ticked (block entities tick after the player), quick move into the three slot kinds, the
+# interact_with_brewingstand statistic, and what the stand keeps and drops when its block is broken.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+block 0 -60 0 minecraft:brewing_stand
+give A hotbar0 minecraft:potion[potion_contents={potion:"minecraft:water"}] 1
+give A hotbar1 minecraft:potion[potion_contents={potion:"minecraft:water"}] 1
+give A hotbar2 minecraft:potion[potion_contents={potion:"minecraft:awkward"}] 1
+give A hotbar3 minecraft:nether_wart 3
+give A hotbar4 minecraft:blaze_powder 3
+give A hotbar5 minecraft:glistering_melon_slice 2
+give A hotbar6 minecraft:dirt 4
+tick 2
+dump packets:A:none stats:A be:0,-60,0
+use_on A 0 -60 0 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+note quick move: potions into the bottle slots, wart as the ingredient, blaze powder as the fuel, dirt nowhere but the other inventory half
+click A 32 0 QUICK_MOVE
+click A 33 0 QUICK_MOVE
+click A 34 0 QUICK_MOVE
+click A 38 0 QUICK_MOVE
+click A 35 0 QUICK_MOVE
+click A 36 0 QUICK_MOVE
+dump menu:A blocks:0,-60,0,0,-60,0 be:0,-60,0 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the fuel is burnt by the first stand tick, the menu learns about it with the next player tick
+tick 1
+dump menu:A blocks:0,-60,0,0,-60,0 be:0,-60,0 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+tick 1
+dump menu:A blocks:0,-60,0,0,-60,0 be:0,-60,0 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+tick 200
+dump menu:A events be:0,-60,0 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+tick 201
+dump menu:A events blocks:0,-60,0,0,-60,0 be:0,-60,0 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note taking a brewed potion out of its slot awards the brew_potion advancement
+click A 0 0 PICKUP
+dump menu:A advancements:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 0 0 PICKUP
+note a second brew: the melon slice as the ingredient
+click A 37 0 PICKUP
+click A 3 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+tick 401
+dump menu:A events be:0,-60,0 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+tick 1
+dump menu:A be:0,-60,0 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note breaking the block closes the menu and drops the stand's items
+destroy 0 -60 0
+tick 2
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,container_close entities

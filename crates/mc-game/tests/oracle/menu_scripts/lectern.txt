@@ -1,0 +1,100 @@
+# The lectern menu: the book slot, page buttons (clamped by the block entity), the page-change pulse, taking the book (mayBuild,
+# full inventory), the slot's own click handling and the menu closing with the book. OPEN: shelves = pages, blockers = writable book.
+EVENTS on
+OPEN lectern 0 0 0 1 1 5 0
+BUTTON 2
+TICK 1
+BUTTON 2
+BUTTON 2
+TICK 3
+BUTTON 2
+BUTTON 2
+BUTTON 2
+BUTTON 1
+BUTTON 100
+BUTTON 103
+BUTTON 199
+BUTTON 0
+BUTTON 4
+BUTTON 99
+TICK 3
+EVENTS off
+# take the book: it lands in the player's inventory and the stand loses it
+BUTTON 3
+TICK 1
+OPEN lectern 0 0 0 1 1 3 0
+MAYBUILD 0
+BUTTON 3
+BUTTON 2
+MAYBUILD 1
+GIVE 0 stonex64
+GIVE 1 stonex64
+GIVE 2 stonex64
+GIVE 3 stonex64
+GIVE 4 stonex64
+GIVE 5 stonex64
+GIVE 6 stonex64
+GIVE 7 stonex64
+GIVE 8 stonex64
+GIVE 9 stonex64
+GIVE 10 stonex64
+GIVE 11 stonex64
+GIVE 12 stonex64
+GIVE 13 stonex64
+GIVE 14 stonex64
+GIVE 15 stonex64
+GIVE 16 stonex64
+GIVE 17 stonex64
+GIVE 18 stonex64
+GIVE 19 stonex64
+GIVE 20 stonex64
+GIVE 21 stonex64
+GIVE 22 stonex64
+GIVE 23 stonex64
+GIVE 24 stonex64
+GIVE 25 stonex64
+GIVE 26 stonex64
+GIVE 27 stonex64
+GIVE 28 stonex64
+GIVE 29 stonex64
+GIVE 30 stonex64
+GIVE 31 stonex64
+GIVE 32 stonex64
+GIVE 33 stonex64
+GIVE 34 stonex64
+GIVE 35 stonex64
+BUTTON 3
+TICK 1
+# a writable book, a single page
+OPEN lectern 0 0 0 1 1 4 1
+BUTTON 2
+BUTTON 2
+TICK 1
+BUTTON 3
+TICK 1
+OPEN lectern 0 0 0 1 1 1 0
+BUTTON 2
+BUTTON 1
+TICK 3
+# the slot of the book: pick it up, quick move, throw, clone. No swaps and no random sessions: vanilla hands the lectern's own stack object to the
+# player on a swap (one stack in two places), which stacks owned by their container cannot model.
+OPEN lectern 0 0 0 1 1 3 0
+SET 0 stone
+CLICK 0 0 QUICK_MOVE
+CLICK 0 0 PICKUP
+CLICK 0 0 PICKUP
+TICK 1
+OPEN lectern 0 0 0 1 1 3 0
+CLICK 0 0 CLONE
+CLICK 0 0 THROW
+TICK 1
+OPEN lectern 0 0 0 1 1 3 0
+GIVE 0 diamond
+GIVE 1 dirt
+CLICK 0 1 PICKUP
+CLICK 0 0 PICKUP_ALL
+TICK 1
+OPEN lectern 0 0 0 1 1 3 0
+GIVE 0 written_book
+CLICK 0 0 PICKUP_ALL
+CLICK 0 0 QUICK_MOVE

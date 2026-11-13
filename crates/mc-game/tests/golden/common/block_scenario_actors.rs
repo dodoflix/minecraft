@@ -1217,8 +1217,14 @@ impl Scenario {
                     .unwrap_or_else(|| panic!("no player {name}"));
                 let mut sent: Vec<(&'static str, Vec<u8>)> = Vec::new();
                 while let Ok(msg) = rx.try_recv() {
-                    let (Outbound::Payload(p) | Outbound::Write(p)) = msg else {
-                        continue;
+                    let p: Vec<u8> = match msg {
+                        Outbound::Payload(p) | Outbound::Write(p) => p.to_vec(),
+                        // the listener's `disconnect(reason)`: `send(ClientboundDisconnectPacket)`, then the connection closes
+                        Outbound::Disconnect(reason) => mc_protocol::packet::encode_packet(
+                            &mc_protocol::packets::play::ClientboundDisconnectPacket { reason },
+                        )
+                        .expect("disconnect reason encodes"),
+                        _ => continue,
                     };
                     let mut body: &[u8] = &p;
                     let id = read_varint(&mut body).expect("packet id");
@@ -1228,7 +1234,7 @@ impl Scenario {
                         id,
                     )
                     .unwrap_or("?");
-                    sent.push((ty, p.to_vec()));
+                    sent.push((ty, p));
                 }
                 for (ty, p) in chunk_order(sent) {
                     if only

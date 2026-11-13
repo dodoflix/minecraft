@@ -1,0 +1,104 @@
+# pages: next, past the end, back, jump, jump past the end, unknown buttons
+MENU A cid=1 type=minecraft:lectern state=1 carried=empty
+MS 0 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"one"},{raw:"two"},{raw:"three"}],resolved:1b,title:{raw:"T"}}}
+MD 0 0
+STAT A minecraft.custom:minecraft.interact_with_lectern 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:open_screen 3c01110a0800097472616e736c6174650011636f6e7461696e65722e6c65637465726e00
+PKT A minecraft:container_set_content 1201010101dc0a010039015400014100030800036f6e650008000374776f000800057468726565000100
+PKT A minecraft:container_set_data 130100000000
+MENU A cid=1 type=minecraft:lectern state=1 carried=empty
+MS 0 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"one"},{raw:"two"},{raw:"three"}],resolved:1b,title:{raw:"T"}}}
+MD 0 2
+BE 0 -60 0 {Book:{components:{"minecraft:written_book_content":{author:"A",pages:[{raw:"one"},{raw:"two"},{raw:"three"}],resolved:1b,title:{raw:"T"}}},count:1,id:"minecraft:written_book"},Page:2,components:{},id:"minecraft:lectern",x:0,y:-60,z:0}
+B 0 -60 0 minecraft:lectern[facing=south,has_book=true,powered=true]
+EV level_event r=64.0 ex=0 type=1043 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=1043 pos=0,-60,0 data=0 global=0
+PKT A minecraft:container_set_data 130100000001
+PKT A minecraft:container_set_data 130100000002
+MENU A cid=1 type=minecraft:lectern state=1 carried=empty
+MS 0 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"one"},{raw:"two"},{raw:"three"}],resolved:1b,title:{raw:"T"}}}
+MD 0 2
+BE 0 -60 0 {Book:{components:{"minecraft:written_book_content":{author:"A",pages:[{raw:"one"},{raw:"two"},{raw:"three"}],resolved:1b,title:{raw:"T"}}},count:1,id:"minecraft:written_book"},Page:2,components:{},id:"minecraft:lectern",x:0,y:-60,z:0}
+EV level_event r=64.0 ex=0 type=1043 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=1043 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=1043 pos=0,-60,0 data=0 global=0
+PKT A minecraft:container_set_data 130100000001
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100000002
+B 0 -60 0 minecraft:lectern[facing=south,has_book=true,powered=false]
+# an adventure player may not take the book
+MENU B cid=1 type=minecraft:lectern state=1 carried=empty
+MS 0 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"one"},{raw:"two"}],resolved:1b,title:{raw:"T"}}}
+MD 0 0
+PKT B minecraft:open_screen 3c01110a0800097472616e736c6174650011636f6e7461696e65722e6c65637465726e00
+PKT B minecraft:container_set_content 1201010101dc0a010039015400014100020800036f6e650008000374776f000100
+PKT B minecraft:container_set_data 130100000000
+MENU B cid=1 type=minecraft:lectern state=1 carried=empty
+MS 0 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"one"},{raw:"two"}],resolved:1b,title:{raw:"T"}}}
+MD 0 0
+BE 4 -60 0 {Book:{components:{"minecraft:written_book_content":{author:"A",pages:[{raw:"one"},{raw:"two"}],resolved:1b,title:{raw:"T"}}},count:1,id:"minecraft:written_book"},Page:0,components:{},id:"minecraft:lectern",x:4,y:-60,z:0}
+B 4 -60 0 minecraft:lectern[facing=south,has_book=true,powered=false]
+# a survival player takes the book: it moves to the inventory and the lectern is empty, the menu closes with the next tick
+MENU A cid=1 type=minecraft:lectern state=2 carried=empty
+MD 0 0
+BE 0 -60 0 {components:{},id:"minecraft:lectern",x:0,y:-60,z:0}
+I A 0 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"one"},{raw:"two"},{raw:"three"}],resolved:1b,title:{raw:"T"}}}
+B 0 -60 0 minecraft:lectern[facing=south,has_book=false,powered=false]
+PKT A minecraft:container_set_slot 140102000000
+PKT A minecraft:container_set_data 130100000000
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"one"},{raw:"two"},{raw:"three"}],resolved:1b,title:{raw:"T"}}}
+PKT A minecraft:container_close 1101
+# a full inventory: the book is dropped
+MENU C cid=1 type=minecraft:lectern state=1 carried=empty
+MS 0 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"x"}]}}
+MD 0 0
+PKT C minecraft:open_screen 3c01110a0800097472616e736c6174650011636f6e7461696e65722e6c65637465726e00
+PKT C minecraft:container_set_content 1201010101db0a0100380101780000
+PKT C minecraft:container_set_data 130100000000
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 9 minecraft:stone*64
+MS 10 minecraft:stone*64
+MS 11 minecraft:stone*64
+MS 12 minecraft:stone*64
+MS 13 minecraft:stone*64
+MS 14 minecraft:stone*64
+MS 15 minecraft:stone*64
+MS 16 minecraft:stone*64
+MS 17 minecraft:stone*64
+MS 18 minecraft:stone*64
+MS 19 minecraft:stone*64
+MS 20 minecraft:stone*64
+MS 21 minecraft:stone*64
+MS 22 minecraft:stone*64
+MS 23 minecraft:stone*64
+MS 24 minecraft:stone*64
+MS 25 minecraft:stone*64
+MS 26 minecraft:stone*64
+MS 27 minecraft:stone*64
+MS 28 minecraft:stone*64
+MS 29 minecraft:stone*64
+MS 30 minecraft:stone*64
+MS 31 minecraft:stone*64
+MS 32 minecraft:stone*64
+MS 33 minecraft:stone*64
+MS 34 minecraft:stone*64
+MS 35 minecraft:stone*64
+MS 36 minecraft:stone*64
+MS 37 minecraft:stone*64
+MS 38 minecraft:stone*64
+MS 39 minecraft:stone*64
+MS 40 minecraft:stone*64
+MS 41 minecraft:stone*64
+MS 42 minecraft:stone*64
+MS 43 minecraft:stone*64
+MS 44 minecraft:stone*64
+BE 8 -60 0 {components:{},id:"minecraft:lectern",x:8,y:-60,z:0}
+B 8 -60 0 minecraft:lectern[facing=south,has_book=false,powered=false]
+E item#1 minecraft:item pos=8.50184230332344,-58.692693063020705,3.219501631430003 delta=0.0018054572921094242,-0.012439194992886655,-0.27488840654867885 rot=309.34222,0.0 og=0 fall=0.012693055905401707 fire=0 air=300 alive=1 pose=standing item=minecraft:writable_book*1 age=1 pickup=39 health=5 owner=- thrower=-
+PKT C minecraft:container_set_slot 140102000000
+PKT C minecraft:container_close 1101

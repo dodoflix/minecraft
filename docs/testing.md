@@ -124,7 +124,7 @@ crate can use it as a dev-dependency.
   covers is behaviour that needs entities, items or menus that are not ported yet (README, Known gaps).
 - Menu coverage: `tests/oracle/MenuOracleBase.java` opens a menu through its block for a real `ServerPlayer` of the in-process vanilla
   level and records scripts (`crates/mc-game/tests/oracle/menu_scripts/NAME.txt`: open, set, click, drag, button, rename, close,
-  block, tick, recipe, gamerule, seed, map, seeded random sessions) with the menu, inventory, xp, drops, packets and level
+  block, tick, recipe, gamerule, seed, map, maybuild, setbeacon, seeded random sessions) with the menu, inventory, xp, drops, packets and level
   broadcasts after every op (`scripts/menu-oracle.sh NAME`, fixtures in `fixtures/menu_oracle/`). `golden/common/menu_oracle.rs`
   replays them on a stand-in player and names the first diverging op with both sides' state. A new menu is one entry in the kind
   table on each side and a script.

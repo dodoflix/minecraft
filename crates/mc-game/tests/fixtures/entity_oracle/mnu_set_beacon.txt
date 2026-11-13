@@ -1,0 +1,95 @@
+BE 0 -60 4 {Levels:1,components:{},id:"minecraft:beacon",x:0,y:-60,z:4}
+BE 12 -60 4 {Levels:4,components:{},id:"minecraft:beacon",x:12,y:-60,z:4}
+# a valid selection on a one level beacon: the payment is used up, the primary effect is stored
+MENU A cid=1 type=minecraft:beacon state=1 carried=empty
+MS 28 minecraft:iron_ingot*1
+MD 0 1
+MD 1 0
+MD 2 0
+PKT A minecraft:open_screen 3c01090a0800097472616e736c6174650010636f6e7461696e65722e626561636f6e00
+PKT A minecraft:container_set_content 120101250000000000000000000000000000000000000000000000000000000001fa070000000000000000000000
+PKT A minecraft:container_set_data 130100000001
+PKT A minecraft:container_set_data 130100010000
+PKT A minecraft:container_set_data 130100020000
+MENU A cid=1 type=minecraft:beacon state=3 carried=empty
+MS 0 minecraft:iron_ingot*1
+MD 0 1
+MD 1 0
+MD 2 0
+PKT A minecraft:container_set_slot 140102000001fa070000
+PKT A minecraft:container_set_slot 140103001c00
+MENU A cid=1 type=minecraft:beacon state=3 carried=empty
+MD 0 1
+MD 1 1
+MD 2 0
+BE 0 -60 4 {Levels:1,components:{},id:"minecraft:beacon",primary_effect:"minecraft:speed",x:0,y:-60,z:4}
+# a selection without payment disconnects the player
+MENU B cid=1 type=minecraft:beacon state=1 carried=empty
+MS 28 minecraft:gold_ingot*1
+MD 0 1
+MD 1 0
+MD 2 0
+PKT B minecraft:open_screen 3c01090a0800097472616e736c6174650010636f6e7461696e65722e626561636f6e00
+PKT B minecraft:container_set_content 120101250000000000000000000000000000000000000000000000000000000001fe070000000000000000000000
+PKT B minecraft:container_set_data 130100000001
+PKT B minecraft:container_set_data 130100010000
+PKT B minecraft:container_set_data 130100020000
+BE 4 -60 4 {Levels:1,components:{},id:"minecraft:beacon",x:4,y:-60,z:4}
+PKT B minecraft:disconnect 200a0800097472616e736c617465001e6d756c7469706c617965722e646973636f6e6e6563742e67656e6572696300
+# an effect the pyramid does not allow disconnects the player
+BE 8 -60 4 {Levels:1,components:{},id:"minecraft:beacon",x:8,y:-60,z:4}
+PKT C minecraft:container_set_content 120101250000000000000000000000000000000000000000000000000000000001f5070000000000000000000000
+PKT C minecraft:container_set_data 130100000001
+PKT C minecraft:container_set_data 130100010000
+PKT C minecraft:container_set_data 130100020000
+PKT C minecraft:container_set_slot 140102000001f5070000
+PKT C minecraft:container_set_slot 140103001c00
+PKT C minecraft:disconnect 200a0800097472616e736c617465001e6d756c7469706c617965722e646973636f6e6e6563742e67656e6572696300
+# four levels: a pair, then an invalid one (a secondary effect that is not the primary one)
+MENU D cid=1 type=minecraft:beacon state=3 carried=empty
+MS 0 minecraft:diamond*1
+MD 0 4
+MD 1 0
+MD 2 0
+PKT D minecraft:open_screen 3c01090a0800097472616e736c6174650010636f6e7461696e65722e626561636f6e00
+PKT D minecraft:container_set_content 120101250000000000000000000000000000000000000000000000000000000001f4070000000000000000000000
+PKT D minecraft:container_set_data 130100000004
+PKT D minecraft:container_set_data 130100010000
+PKT D minecraft:container_set_data 130100020000
+PKT D minecraft:container_set_slot 140102000001f4070000
+PKT D minecraft:container_set_slot 140103001c00
+MENU D cid=1 type=minecraft:beacon state=3 carried=empty
+MD 0 4
+MD 1 1
+MD 2 1
+BE 12 -60 4 {Levels:4,components:{},id:"minecraft:beacon",primary_effect:"minecraft:speed",secondary_effect:"minecraft:speed",x:12,y:-60,z:4}
+BE 12 -60 4 {Levels:4,components:{},id:"minecraft:beacon",primary_effect:"minecraft:speed",secondary_effect:"minecraft:speed",x:12,y:-60,z:4}
+PKT D minecraft:container_set_data 130100010001
+PKT D minecraft:container_set_data 130100020001
+PKT D minecraft:disconnect 200a0800097472616e736c617465001e6d756c7469706c617965722e646973636f6e6e6563742e67656e6572696300
+# no beacon menu open: ignored
+MENU E cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:netherite_ingot*1
+BE 16 -60 4 {Levels:1,components:{},id:"minecraft:beacon",x:16,y:-60,z:4}
+# the beacon is gone while the menu is open: ignored
+MENU E cid=1 type=minecraft:beacon state=3 carried=empty
+MS 0 minecraft:netherite_ingot*1
+MD 0 1
+MD 1 0
+MD 2 0
+PKT E minecraft:container_set_content 120101250000000000000000000000000000000000000000000000000000000001ff070000000000000000000000
+PKT E minecraft:container_set_data 130100000001
+PKT E minecraft:container_set_data 130100010000
+PKT E minecraft:container_set_data 130100020000
+PKT E minecraft:container_set_slot 140102000001ff070000
+PKT E minecraft:container_set_slot 140103001c00
+# the player walks out of range: the menu closes with the next tick and the packet is ignored
+MENU F cid=1 type=minecraft:beacon state=1 carried=empty
+MD 0 1
+MD 1 0
+MD 2 0
+PKT F minecraft:open_screen 3c01090a0800097472616e736c6174650010636f6e7461696e65722e626561636f6e00
+MENU F cid=0 type=inventory state=1 carried=empty
+PKT F minecraft:container_close 1101
+MENU F cid=0 type=inventory state=1 carried=empty
+BE 20 -60 4 {Levels:1,components:{},id:"minecraft:beacon",x:20,y:-60,z:4}

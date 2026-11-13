@@ -1,0 +1,111 @@
+# The brewing stand menu: slot kinds (potion / ingredient / fuel), quick move, drags, the brewing and fuel data slots and the bottle states.
+# Brewing needs real ticks (the block entity ticks the same way on both sides); TICK n runs n of them.
+OPEN brewing_stand 0 0 0 1 1
+GIVE 0 nether_wartx5
+GIVE 1 blaze_powderx7
+GIVE 2 potion,p=awkward
+GIVE 3 potion,p=water
+GIVE 4 glistering_melon_slicex3
+GIVE 5 glass_bottlex9
+GIVE 6 stone
+GIVE 7 splash_potion,p=mundane
+GIVE 8 redstonex4
+# the three potion slots and the ingredient slot only take what the slot kind allows
+CLICK 36 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 1 PICKUP
+CLICK 3 0 PICKUP
+CLICK 3 1 PICKUP
+CLICK 4 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 1 0 PICKUP
+CLICK 40 0 PICKUP
+CLICK 4 0 PICKUP
+CLICK 4 0 PICKUP
+# quick move from every region
+CLICK 32 0 QUICK_MOVE
+CLICK 33 0 QUICK_MOVE
+CLICK 34 0 QUICK_MOVE
+CLICK 35 0 QUICK_MOVE
+CLICK 36 0 QUICK_MOVE
+CLICK 37 0 QUICK_MOVE
+CLICK 38 0 QUICK_MOVE
+CLICK 39 0 QUICK_MOVE
+CLICK 40 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+# the stand ticks: the bottles show in the block state, blaze powder is burnt as fuel once it is there
+TICK 1
+SET 4 blaze_powderx3
+TICK 1
+SET 0 potion,p=awkward
+SET 1 potion,p=water
+SET 3 glistering_melon_slice
+TICK 1
+TICK 200
+TICK 201
+TICK 1
+CLICK 0 0 PICKUP
+CLICK 0 0 PICKUP
+SET 3 nether_wart
+TICK 401
+SET 3 gunpowder
+TICK 401
+SET 3 fermented_spider_eye
+SET 4 blaze_powder
+TICK 401
+SET 3 dragon_breath
+TICK 401
+CLOSE
+# a stand without fuel does not brew, the powder put in later starts it
+OPEN brewing_stand 0 0 0 1 1
+SET 0 potion,p=water
+SET 1 potion,p=water
+SET 3 nether_wart
+TICK 3
+SET 4 blaze_powder
+TICK 1
+TICK 5
+CLOSE
+# a fresh stand: clicks on every slot kind, drags, swaps and throws, then the block goes away under the open menu
+OPEN brewing_stand 0 0 0 1 1
+SET 0 potion,p=healing
+SET 1 splash_potion,p=swiftness
+SET 2 lingering_potion,p=water
+GIVE 0 potion,p=thick
+DRAG 0 0 1 2
+DRAG 1 0 1 2 3 4
+DRAG 2 0 1
+CLICK 5 0 PICKUP
+DRAG 0 5 6 7
+CLICK 2 0 SWAP
+CLICK 2 8 SWAP
+CLICK 3 40 SWAP
+CLICK 4 1 SWAP
+CLICK 0 0 THROW
+CLICK 0 1 THROW
+CLICK 1 0 CLONE
+CLICK 2 0 PICKUP_ALL
+CLICK -999 0 PICKUP
+CLICK -999 1 PICKUP
+# the menu closes when the stand is gone (empty stand: its drops would be picked up by the real player during the tick)
+SET 0 -
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+BLOCK 0 70 0 minecraft:air
+TICK 1
+# random sessions: clicks, drags, button ids and (ticks) up to 30 ticks between them; those with ticks never drop items next to the real player
+# (throw, click outside, dragon breath leftovers), which it would pick up and the replay's stand-in does not
+GEN brewing_stand 11 220 nether_wartx3|blaze_powderx5|redstonex2|glowstone_dustx2|gunpowderx3|fermented_spider_eyex2|sugarx2|stonex4|glass_bottlex5|stickx3|dragon_breathx2|blaze_rod|diamond|water_bucket|potion,p=water|potion,p=awkward|potion,p=mundane|potion,p=thick|potion,p=healing|potion,p=swiftness|potion,p=strong_healing|splash_potion,p=awkward|splash_potion,p=water|lingering_potion,p=water|potion|milk_bucket|spider_eyex2|ghast_tear|magma_creamx2|glistering_melon_slicex2|golden_carrotx2|rabbit_foot|pufferfish|turtle_helmet|phantom_membrane|-
+GEN brewing_stand 12 220 nether_wartx3|blaze_powderx5|redstonex2|glowstone_dustx2|gunpowderx3|fermented_spider_eyex2|sugarx2|stonex4|glass_bottlex5|stickx3|dragon_breathx2|blaze_rod|diamond|water_bucket|potion,p=water|potion,p=awkward|potion,p=mundane|potion,p=thick|potion,p=healing|potion,p=swiftness|potion,p=strong_healing|splash_potion,p=awkward|splash_potion,p=water|lingering_potion,p=water|potion|milk_bucket|spider_eyex2|ghast_tear|magma_creamx2|glistering_melon_slicex2|golden_carrotx2|rabbit_foot|pufferfish|turtle_helmet|phantom_membrane|-
+GEN brewing_stand 13 220 nether_wartx3|blaze_powderx5|redstonex2|glowstone_dustx2|gunpowderx3|fermented_spider_eyex2|sugarx2|stonex4|glass_bottlex5|stickx3|dragon_breathx2|blaze_rod|diamond|water_bucket|potion,p=water|potion,p=awkward|potion,p=mundane|potion,p=thick|potion,p=healing|potion,p=swiftness|potion,p=strong_healing|splash_potion,p=awkward|splash_potion,p=water|lingering_potion,p=water|potion|milk_bucket|spider_eyex2|ghast_tear|magma_creamx2|glistering_melon_slicex2|golden_carrotx2|rabbit_foot|pufferfish|turtle_helmet|phantom_membrane|-
+GEN brewing_stand 14 220 nether_wartx3|blaze_powderx5|redstonex2|glowstone_dustx2|gunpowderx3|fermented_spider_eyex2|sugarx2|stonex4|glass_bottlex5|stickx3|blaze_rod|diamond|potion,p=water|potion,p=awkward|potion,p=mundane|potion,p=thick|potion,p=healing|potion,p=swiftness|potion,p=strong_healing|splash_potion,p=awkward|splash_potion,p=water|lingering_potion,p=water|potion|milk_bucket|spider_eyex2|ghast_tear|magma_creamx2|glistering_melon_slicex2|golden_carrotx2|rabbit_foot|pufferfish|turtle_helmet|phantom_membrane|- ticks
+GEN brewing_stand 15 220 nether_wartx3|blaze_powderx5|redstonex2|glowstone_dustx2|gunpowderx3|fermented_spider_eyex2|sugarx2|stonex4|glass_bottlex5|stickx3|blaze_rod|diamond|potion,p=water|potion,p=awkward|potion,p=mundane|potion,p=thick|potion,p=healing|potion,p=swiftness|potion,p=strong_healing|splash_potion,p=awkward|splash_potion,p=water|lingering_potion,p=water|potion|milk_bucket|spider_eyex2|ghast_tear|magma_creamx2|glistering_melon_slicex2|golden_carrotx2|rabbit_foot|pufferfish|turtle_helmet|phantom_membrane|- ticks
+GEN brewing_stand 16 220 nether_wartx3|blaze_powderx5|redstonex2|glowstone_dustx2|gunpowderx3|fermented_spider_eyex2|sugarx2|stonex4|glass_bottlex5|stickx3|blaze_rod|diamond|potion,p=water|potion,p=awkward|potion,p=mundane|potion,p=thick|potion,p=healing|potion,p=swiftness|potion,p=strong_healing|splash_potion,p=awkward|splash_potion,p=water|lingering_potion,p=water|potion|milk_bucket|spider_eyex2|ghast_tear|magma_creamx2|glistering_melon_slicex2|golden_carrotx2|rabbit_foot|pufferfish|turtle_helmet|phantom_membrane|- ticks
+GEN brewing_stand 17 220 nether_wartx3|blaze_powderx5|redstonex2|glowstone_dustx2|gunpowderx3|fermented_spider_eyex2|sugarx2|stonex4|glass_bottlex5|stickx3|blaze_rod|diamond|potion,p=water|potion,p=awkward|potion,p=mundane|potion,p=thick|potion,p=healing|potion,p=swiftness|potion,p=strong_healing|splash_potion,p=awkward|splash_potion,p=water|lingering_potion,p=water|potion|milk_bucket|spider_eyex2|ghast_tear|magma_creamx2|glistering_melon_slicex2|golden_carrotx2|rabbit_foot|pufferfish|turtle_helmet|phantom_membrane|- ticks
+GEN brewing_stand 18 220 nether_wartx3|blaze_powderx5|redstonex2|glowstone_dustx2|gunpowderx3|fermented_spider_eyex2|sugarx2|stonex4|glass_bottlex5|stickx3|blaze_rod|diamond|potion,p=water|potion,p=awkward|potion,p=mundane|potion,p=thick|potion,p=healing|potion,p=swiftness|potion,p=strong_healing|splash_potion,p=awkward|splash_potion,p=water|lingering_potion,p=water|potion|milk_bucket|spider_eyex2|ghast_tear|magma_creamx2|glistering_melon_slicex2|golden_carrotx2|rabbit_foot|pufferfish|turtle_helmet|phantom_membrane|- ticks

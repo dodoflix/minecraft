@@ -44,12 +44,13 @@ import net.minecraft.world.phys.AABB;
  * Output: crates/mc-game/tests/fixtures/menu_oracle/NAME.txt.gz (the wrapper compresses stdout)
  *        other oracles (EnchantAnvilOracle) call boot(), the op methods and `script(...)` directly.
  *
- * Script lines (stacks are `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..]`;
+ * Script lines (stacks are `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..][,p=potion]`;
  * the printed ops carry the stack as `ItemStack.CODEC` SNBT, `-` = empty); `#` lines are copied:
  *   OPEN kind [xp [seed [creative [pseed [lseed [shelves [blockers]]]]]]]
- *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | chest | cartography): resets the world around TABLE,
- *        places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
- *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table.
+ *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | chest | cartography | brewing_stand | beacon | lectern): resets the
+ *        world around TABLE, places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
+ *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table,
+ *        the levels (0..4) of the iron pyramid under a beacon, the pages (at least 1) of the book on a lectern and whether that book is a writable one.
  *        Gravity blocks (anvils) fall when ticked: no support block is placed.
  *   SET slot STACK | GIVE slot STACK    menu slot / player inventory slot (menu.broadcastChanges afterwards)
  *   CLICK slot button INPUT             menu.clicked in sync (suppressRemoteUpdates, clicked, resumeRemoteUpdates, broadcastChanges)
@@ -57,15 +58,22 @@ import net.minecraft.world.phys.AABB;
  *   BUTTON id | NAME text | CLOSE
  *   BLOCK x y z id[props]               places a block (and its block entity) without resetting anything; undone by the next OPEN
  *   TICK n                              n real server ticks (the player's own tick: broadcastChanges, close when stillValid fails);
- *                                       ticks consume the level's random in a server dependent way: SEED level before the next draw
+ *                                       ticks consume the level's random in a server dependent way: SEED level before the next draw.
+ *                                       The stand-in player of the Rust twin ticks after the level (vanilla: before the block entities), so the
+ *                                       oracle broadcasts the menu once more after the ticks: block entity changes are sent in the TICK op
  *   RECIPE give|take id                 `/recipe give|take` for the player; `*` = every recipe
  *   GAMERULE name value | SEED player|level|enchant n | MAP id x z scale locked
  *   EVENTS on|off                       print the EV lines of every PlayerList.broadcast since the last op (see VanillaLevel.RecordingPlayerList)
- *   GEN kind seed n spec|spec|..        n random ops (SET/GIVE/CLICK/DRAG/BUTTON) on a fresh `kind` session, from java.util.Random(seed)
+ *   MAYBUILD 0|1                        `abilities.mayBuild` of the player (reset by OPEN)
+ *   SETBEACON primary secondary         handleSetBeaconPacket on the open beacon menu (effect path or `-`); prints `R true|false|npe` = updateEffects (false: the listener
+ *                                       disconnects; npe: validateEffects throws, the packet processor suppresses it) or `R skipped` when stillValid fails
+ *   GEN kind seed n spec|spec|.. [ticks]  n random ops (SET/GIVE/CLICK/DRAG/BUTTON) on a fresh `kind` session, from java.util.Random(seed);
+ *                                       `ticks` replaces half of the BUTTON ops by TICK 1..30 and never drops items (no throw, no click outside the window:
+ *                                       the real player would pick them up while ticking, the replay's stand-in does not)
  * Stdout: one "OP ..." line per op (replayed by Rust) followed by "OUT ..." lines, only those that changed since the last printed
  * line of the same kind (reset by OPEN):
  *   OUT S i=stack ..   menu slots (non-empty)   OUT D d0 d1 ..  data slots   OUT C carried   OUT I i=stack  player inventory
- *   OUT X level seed totalXp progressBits   OUT B state of the block at TABLE   OUT ORBS n  experience of the orbs near TABLE
+ *   OUT X level seed totalXp progressBits   OUT B state of the block at TABLE (+ has_bottle_N, has_book, powered when it has them)   OUT ORBS n  experience of the orbs near TABLE
  *   OUT DROPS id=n,..  dropped item entities (only when there are some)   OUT K ids  recipes the player knows (after a RECIPE op)
  *   OUT M id=cx,cz,scale,locked,colorHash ..  every map of the level, ids 0..63 (only when any)   OUT R b  result of BUTTON / NAME
  *   OUT PKT ...  container packets sent since the last op   OUT EV ...  broadcasts (EVENTS on)
@@ -115,6 +123,18 @@ public class MenuOracleBase {
       KINDS.put("loom", new Kind(Blocks.LOOM, NO_SETUP));
       KINDS.put("chest", new Kind(Blocks.CHEST, NO_SETUP));
       KINDS.put("cartography", new Kind(Blocks.CARTOGRAPHY_TABLE, NO_SETUP));
+      KINDS.put("brewing_stand", new Kind(Blocks.BREWING_STAND, NO_SETUP));
+      // shelves = levels of the iron pyramid under the beacon
+      KINDS.put("beacon", new Kind(Blocks.BEACON, (levels, unused) -> {
+         for (int i = 1; i <= Math.min(levels, 4); i++) {
+            for (int dx = -i; dx <= i; dx++) for (int dz = -i; dz <= i; dz++) put(TABLE.offset(dx, -i, dz), Blocks.IRON_BLOCK.defaultBlockState());
+         }
+      }));
+      // shelves = pages (>= 1) of the book, blockers != 0: a writable book instead of a written one
+      KINDS.put("lectern", new Kind(Blocks.LECTERN, (pages, writable) -> {
+         put(TABLE, Blocks.LECTERN.defaultBlockState().setValue(net.minecraft.world.level.block.LecternBlock.HAS_BOOK, true));
+         ((net.minecraft.world.level.block.entity.LecternBlockEntity) level.getBlockEntity(TABLE)).setBook(book(pages, writable != 0));
+      }));
    }
 
    static String st(ItemStack s) {
@@ -171,6 +191,8 @@ public class MenuOracleBase {
                }
                s.set(DataComponents.BANNER_PATTERNS, layers.build());
             }
+            case "p" -> s.set(DataComponents.POTION_CONTENTS, new net.minecraft.world.item.alchemy.PotionContents(
+               level.registryAccess().lookupOrThrow(Registries.POTION).getOrThrow(ResourceKey.create(Registries.POTION, Identifier.withDefaultNamespace(val)))));
             default -> throw new IllegalArgumentException(k);
          }
       }
@@ -227,7 +249,11 @@ public class MenuOracleBase {
       state("I", inv.toString());
       state("X", "X " + p.experienceLevel + " " + p.getEnchantmentSeed() + " " + p.totalExperience + " " + Float.floatToRawIntBits(p.experienceProgress));
       BlockState bs = level.getBlockState(TABLE);
-      state("B", "B " + bs.getBlock().builtInRegistryHolder().key().identifier().getPath() + (bs.hasProperty(HorizontalDirectionalBlock.FACING) ? " " + bs.getValue(HorizontalDirectionalBlock.FACING) : ""));
+      StringBuilder bstate = new StringBuilder("B " + bs.getBlock().builtInRegistryHolder().key().identifier().getPath() + (bs.hasProperty(HorizontalDirectionalBlock.FACING) ? " " + bs.getValue(HorizontalDirectionalBlock.FACING) : ""));
+      for (String name : List.of("has_bottle_0", "has_bottle_1", "has_bottle_2", "has_book", "powered")) {
+         for (var prop : bs.getProperties()) if (prop.getName().equals(name)) bstate.append(' ').append(name).append('=').append(bs.getValue(prop));
+      }
+      state("B", bstate.toString());
       List<ExperienceOrb> orbs = level.getEntitiesOfClass(ExperienceOrb.class, new AABB(TABLE).inflate(3.0));
       // orb merging depends on entity ids (not comparable across servers): compare the total experience
       int total = 0;
@@ -291,6 +317,7 @@ public class MenuOracleBase {
       p.experienceProgress = 0;
       setField(Player.class, p, "enchantmentSeed", seed);
       p.getAbilities().instabuild = creative;
+      p.getAbilities().mayBuild = true;
       p.getRandom().setSeed(pseed);
       level.getRandom().setSeed(lseed);
       put(TABLE, spec.block().defaultBlockState());
@@ -366,6 +393,7 @@ public class MenuOracleBase {
    static void tick(int n) {
       op("TICK " + n);
       for (int i = 0; i < n; i++) v.tick();
+      if (p.containerMenu != p.inventoryMenu) p.containerMenu.broadcastChanges();
       menu = p.containerMenu;
       dump();
    }
@@ -404,14 +432,55 @@ public class MenuOracleBase {
       dump();
    }
 
+   /** The book of a lectern: `pages` pages "page N" (SNBT shared with the Rust twin). */
+   static ItemStack book(int pages, boolean writable) {
+      StringBuilder list = new StringBuilder();
+      for (int i = 1; i <= pages; i++) list.append(i > 1 ? "," : "").append("\"page ").append(i).append('"');
+      String snbt = writable
+         ? "{id:\"minecraft:writable_book\",count:1,components:{\"minecraft:writable_book_content\":{pages:[" + list + "]}}}"
+         : "{id:\"minecraft:written_book\",count:1,components:{\"minecraft:written_book_content\":{title:\"T\",author:\"A\",resolved:1b,pages:[" + list + "]}}}";
+      try {
+         return ItemStack.CODEC.parse(ops, net.minecraft.nbt.TagParser.parseCompoundFully(snbt)).getOrThrow();
+      } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+         throw new IllegalArgumentException(snbt, e);
+      }
+   }
+
+   static void maybuild(boolean on) {
+      op("MAYBUILD " + (on ? 1 : 0));
+      p.getAbilities().mayBuild = on;
+      dump();
+   }
+
+   static Optional<Holder<net.minecraft.world.effect.MobEffect>> effect(String id) {
+      if (id.equals("-")) return Optional.empty();
+      return Optional.of(level.registryAccess().lookupOrThrow(Registries.MOB_EFFECT).getOrThrow(ResourceKey.create(Registries.MOB_EFFECT, Identifier.withDefaultNamespace(id))));
+   }
+
+   /** ServerGamePacketListenerImpl.handleSetBeaconPacket: `R false` = the listener would disconnect, `R npe` = validateEffects throws (the packet processor suppresses it). */
+   static void setBeacon(String primary, String secondary) {
+      op("SETBEACON " + primary + " " + secondary);
+      if (menu instanceof BeaconMenu beacon) {
+         if (!beacon.stillValid(p)) {
+            out("R skipped");
+         } else {
+            String r;
+            try { r = String.valueOf(beacon.updateEffects(effect(primary), effect(secondary))); } catch (NullPointerException e) { r = "npe"; }
+            menu.broadcastChanges();
+            out("R " + r);
+         }
+      }
+      dump();
+   }
+
    static void events(boolean on) {
       op("EVENTS " + (on ? "on" : "off"));
       events = on;
       dump();
    }
 
-   /** A random session on a fresh `k` menu: `count` random SET/GIVE/CLICK/DRAG/BUTTON ops over the stack specs of `pool`. */
-   static void generate(String k, long seed, int count, String[] pool) throws Exception {
+   /** A random session on a fresh `k` menu: `count` random SET/GIVE/CLICK/DRAG/BUTTON ops over the stack specs of `pool` (`ticks`: see the class comment). */
+   static void generate(String k, long seed, int count, String[] pool, boolean ticks) throws Exception {
       Random r = new Random(seed);
       OUT.println("# GEN " + k + " " + seed + " " + count);
       open(k, r.nextInt(31), r.nextInt(), r.nextInt(5) == 0, r.nextInt(1 << 24), r.nextInt(1 << 24), r.nextInt(16), 0);
@@ -423,8 +492,9 @@ public class MenuOracleBase {
             case 0, 1, 2 -> set(r.nextInt(size), mk(pool[r.nextInt(pool.length)]));
             case 3, 4 -> give(r.nextInt(41), mk(pool[r.nextInt(pool.length)]));
             case 5, 6, 7, 8, 9, 10, 11 -> {
-               boolean outside = r.nextInt(12) == 0; // only a pickup leaves the window (the other inputs index a slot)
+               boolean outside = r.nextInt(12) == 0 && !ticks; // only a pickup leaves the window (the other inputs index a slot)
                ContainerInput in = outside ? ContainerInput.PICKUP : inputs[r.nextInt(inputs.length)];
+               if (ticks && in == ContainerInput.THROW) in = ContainerInput.PICKUP; // the real player would pick the drops up while ticking
                int slot = outside ? -999 : r.nextInt(size);
                int button = switch (in) {
                   case SWAP -> r.nextInt(10) == 0 ? 40 : r.nextInt(9);
@@ -438,7 +508,10 @@ public class MenuOracleBase {
                int[] slots = r.ints(1 + r.nextInt(4), 0, size).distinct().toArray();
                drag(type, slots);
             }
-            default -> button(r.nextInt(4));
+            default -> {
+               if (ticks && r.nextBoolean()) tick(1 + r.nextInt(30));
+               else button(r.nextInt(4));
+            }
          }
       }
       close();
@@ -472,7 +545,9 @@ public class MenuOracleBase {
             case "SEED" -> seed(a[1], Long.parseLong(a[2]));
             case "MAP" -> map(Integer.parseInt(a[1]), Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]), a[5].equals("1"));
             case "EVENTS" -> events(a[1].equals("on"));
-            case "GEN" -> generate(a[1], Long.parseLong(a[2]), Integer.parseInt(a[3]), a[4].split("\\|"));
+            case "MAYBUILD" -> maybuild(a[1].equals("1"));
+            case "SETBEACON" -> setBeacon(a[1], a[2]);
+            case "GEN" -> generate(a[1], Long.parseLong(a[2]), Integer.parseInt(a[3]), a[4].split("\\|"), a.length > 5 && a[5].equals("ticks"));
             default -> throw new IllegalArgumentException("unknown script line: " + line);
          }
       }

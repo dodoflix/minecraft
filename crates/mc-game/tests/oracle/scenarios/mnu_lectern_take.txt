@@ -1,0 +1,84 @@
+# The lectern menu through the player's listener: page buttons (clamped, any id from 100 jumps), the take-book button for a survival
+# and an adventure player (mayBuild), a full inventory (the book drops) and what the menu does when the book is gone.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B adventure 4.5 -60 3.5 180 0
+spawn_player C survival 8.5 -60 3.5 180 0
+block 0 -60 0 minecraft:lectern[facing=south,has_book=true,powered=false]
+be_nbt 0 -60 0 {Book:{id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"T",author:"A",pages:[{text:"one"},{text:"two"},{text:"three"}]}}},Page:0}
+block 4 -60 0 minecraft:lectern[facing=south,has_book=true,powered=false]
+be_nbt 4 -60 0 {Book:{id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"T",author:"A",pages:[{text:"one"},{text:"two"}]}}},Page:0}
+block 8 -60 0 minecraft:lectern[facing=south,has_book=true,powered=false]
+be_nbt 8 -60 0 {Book:{id:"minecraft:writable_book",count:1,components:{"minecraft:writable_book_content":{pages:["x"]}}},Page:0}
+tick 2
+dump packets:A:none packets:B:none packets:C:none
+note pages: next, past the end, back, jump, jump past the end, unknown buttons
+use_on A 0 -60 0 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+button A 2
+button A 2
+button A 2
+dump menu:A be:0,-60,0 blocks:0,-60,0,0,-60,0 events packets:A:container_set_slot,container_set_content,container_set_data
+button A 1
+button A 100
+button A 199
+button A 0
+button A 4
+button A 99
+dump menu:A be:0,-60,0 events packets:A:container_set_slot,container_set_content,container_set_data
+tick 3
+dump blocks:0,-60,0,0,-60,0 events
+note an adventure player may not take the book
+use_on B 4 -60 0 up main
+dump menu:B packets:B:open_screen,container_set_content,container_set_data
+button B 3
+dump menu:B be:4,-60,0 inventory:B blocks:4,-60,0,4,-60,0 packets:B:container_set_slot,container_set_content,container_set_data
+note a survival player takes the book: it moves to the inventory and the lectern is empty, the menu closes with the next tick
+button A 3
+dump menu:A be:0,-60,0 inventory:A blocks:0,-60,0,0,-60,0 events packets:A:container_set_slot,container_set_content,container_set_data
+tick 1
+dump menu:A packets:A:container_close
+note a full inventory: the book is dropped
+give C inv0 minecraft:stone 64
+give C inv1 minecraft:stone 64
+give C inv2 minecraft:stone 64
+give C inv3 minecraft:stone 64
+give C inv4 minecraft:stone 64
+give C inv5 minecraft:stone 64
+give C inv6 minecraft:stone 64
+give C inv7 minecraft:stone 64
+give C inv8 minecraft:stone 64
+give C inv9 minecraft:stone 64
+give C inv10 minecraft:stone 64
+give C inv11 minecraft:stone 64
+give C inv12 minecraft:stone 64
+give C inv13 minecraft:stone 64
+give C inv14 minecraft:stone 64
+give C inv15 minecraft:stone 64
+give C inv16 minecraft:stone 64
+give C inv17 minecraft:stone 64
+give C inv18 minecraft:stone 64
+give C inv19 minecraft:stone 64
+give C inv20 minecraft:stone 64
+give C inv21 minecraft:stone 64
+give C inv22 minecraft:stone 64
+give C inv23 minecraft:stone 64
+give C inv24 minecraft:stone 64
+give C inv25 minecraft:stone 64
+give C inv26 minecraft:stone 64
+give C inv27 minecraft:stone 64
+give C inv28 minecraft:stone 64
+give C inv29 minecraft:stone 64
+give C inv30 minecraft:stone 64
+give C inv31 minecraft:stone 64
+give C inv32 minecraft:stone 64
+give C inv33 minecraft:stone 64
+give C inv34 minecraft:stone 64
+give C inv35 minecraft:stone 64
+use_on C 8 -60 0 up main
+dump menu:C packets:C:open_screen,container_set_content,container_set_data
+button C 3
+tick 1
+dump menu:C be:8,-60,0 blocks:8,-60,0,8,-60,0 entities packets:C:container_set_slot,container_set_content,container_set_data,container_close

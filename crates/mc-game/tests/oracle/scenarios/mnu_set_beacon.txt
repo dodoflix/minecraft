@@ -1,0 +1,79 @@
+# ServerboundSetBeaconPacket through the player's listener: the effect selection on a one level and a four level beacon, a selection without
+# payment or with a pair the pyramid does not allow (the listener disconnects the player), a menu that is not a beacon and a beacon that
+# stopped being valid. (Vanilla throws for a secondary effect of pyramid level 1-3 without a primary one; the packet processor around the listener suppresses it,
+# so only the in-process menu replay covers that.)
+command_env
+level flat
+preload 4
+spawn_player A survival 0.5 -60 6.5 180 0
+spawn_player B survival 4.5 -60 6.5 180 0
+spawn_player C survival 8.5 -60 6.5 180 0
+spawn_player D survival 12.5 -60 6.5 180 0
+spawn_player E survival 16.5 -60 6.5 180 0
+spawn_player F survival 20.5 -60 6.5 180 0
+block 0 -60 4 minecraft:beacon
+fill -1 -61 3 1 -61 5 minecraft:iron_block
+block 4 -60 4 minecraft:beacon
+fill 3 -61 3 5 -61 5 minecraft:iron_block
+block 8 -60 4 minecraft:beacon
+fill 7 -61 3 9 -61 5 minecraft:iron_block
+block 12 -60 4 minecraft:beacon
+fill 11 -61 3 13 -61 5 minecraft:iron_block
+fill 10 -62 2 14 -62 6 minecraft:iron_block
+fill 9 -63 1 15 -63 7 minecraft:iron_block
+fill 8 -64 0 16 -64 8 minecraft:iron_block
+block 16 -60 4 minecraft:beacon
+fill 15 -61 3 17 -61 5 minecraft:iron_block
+block 20 -60 4 minecraft:beacon
+fill 19 -61 3 21 -61 5 minecraft:iron_block
+give A hotbar0 minecraft:iron_ingot 1
+give B hotbar0 minecraft:gold_ingot 1
+give C hotbar0 minecraft:emerald 1
+give D hotbar0 minecraft:diamond 1
+give E hotbar0 minecraft:netherite_ingot 1
+tick 100
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none be:0,-60,4 be:12,-60,4
+note a valid selection on a one level beacon: the payment is used up, the primary effect is stored
+use_on A 0 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 28 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+set_beacon A minecraft:speed -
+dump menu:A be:0,-60,4 packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,disconnect
+note a selection without payment disconnects the player
+use_on B 4 -60 4 up main
+dump menu:B packets:B:open_screen,container_set_content,container_set_data
+set_beacon B minecraft:speed -
+dump be:4,-60,4 packets:B:container_set_slot,container_set_content,container_set_data,set_cursor_item,disconnect
+note an effect the pyramid does not allow disconnects the player
+use_on C 8 -60 4 up main
+click C 28 0 QUICK_MOVE
+set_beacon C minecraft:resistance -
+dump be:8,-60,4 packets:C:container_set_slot,container_set_content,container_set_data,set_cursor_item,disconnect
+note four levels: a pair, then an invalid one (a secondary effect that is not the primary one)
+use_on D 12 -60 4 up main
+click D 28 0 QUICK_MOVE
+dump menu:D packets:D:open_screen,container_set_content,container_set_data,container_set_slot
+set_beacon D minecraft:speed minecraft:speed
+dump menu:D be:12,-60,4 packets:D:container_set_slot,container_set_content,container_set_data,set_cursor_item,disconnect
+give D hotbar0 minecraft:diamond 1
+click D 28 0 QUICK_MOVE
+set_beacon D minecraft:speed minecraft:haste
+dump be:12,-60,4 packets:D:container_set_slot,container_set_content,container_set_data,set_cursor_item,disconnect
+note no beacon menu open: ignored
+set_beacon E minecraft:speed -
+dump menu:E be:16,-60,4 packets:E:disconnect
+note the beacon is gone while the menu is open: ignored
+use_on E 16 -60 4 up main
+click E 28 0 QUICK_MOVE
+block 16 -60 4 minecraft:air
+set_beacon E minecraft:speed -
+dump menu:E packets:E:container_set_slot,container_set_content,container_set_data,disconnect
+note the player walks out of range: the menu closes with the next tick and the packet is ignored
+use_on F 20 -60 4 up main
+dump menu:F packets:F:open_screen,container_close
+tp F 60.5 -60 6.5
+tick 1
+dump menu:F packets:F:open_screen,container_close
+set_beacon F minecraft:speed -
+dump menu:F be:20,-60,4 packets:F:disconnect

@@ -1,0 +1,664 @@
+# The beacon menu: payment items, quick move, `removed`, and SETBEACON (the effect selection of ServerboundSetBeaconPacket)
+# for every (primary, secondary) pair at pyramid levels 1 to 4 (and a sample without a pyramid). The level of the beacon (D slot 0) is computed by its own ticks,
+# every 80th tick of the level: TICK 80 always crosses one. Menu slots: 0 payment, 1-27 inventory, 28-36 hotbar (GIVE 0-8).
+OPEN beacon 0 0 0 1 1 1
+TICK 80
+SET 0 iron_ingot
+SETBEACON speed -
+# payment: only the beacon payment items fit the slot, one at a time
+GIVE 0 iron_ingotx5
+GIVE 1 gold_ingotx3
+GIVE 2 emerald
+GIVE 3 diamondx2
+GIVE 4 netherite_ingot
+GIVE 5 stonex7
+GIVE 6 copper_ingotx2
+GIVE 7 iron_ingot
+GIVE 8 nether_star
+GIVE 9 diamond
+GIVE 10 iron_ingotx2
+CLICK 28 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 28 0 PICKUP
+CLICK 0 1 PICKUP
+CLICK 0 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 33 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 0 QUICK_MOVE
+CLICK 28 0 QUICK_MOVE
+CLICK 28 0 QUICK_MOVE
+CLICK 29 0 QUICK_MOVE
+CLICK 30 0 QUICK_MOVE
+CLICK 31 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 32 0 QUICK_MOVE
+CLICK 33 0 QUICK_MOVE
+CLICK 34 0 QUICK_MOVE
+CLICK 35 0 QUICK_MOVE
+CLICK 36 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+DRAG 0 0 1 2 28
+DRAG 1 0 28 29
+CLICK 28 0 PICKUP
+DRAG 0 0 1
+CLICK 28 0 SWAP
+CLICK 7 0 SWAP
+CLICK 0 8 SWAP
+CLICK 0 40 SWAP
+CLICK 0 0 THROW
+CLICK 28 1 THROW
+CLICK 1 0 CLONE
+CLICK 0 0 PICKUP_ALL
+# the payment goes back to the player when the menu closes with room, and is dropped otherwise
+CLOSE
+OPEN beacon 0 0 0 1 1 2
+SET 0 diamond
+CLOSE
+OPEN beacon 0 0 0 1 1 2
+SET 0 emerald
+BLOCK 0 70 0 minecraft:air
+TICK 1
+OPEN beacon 0 0 0 1 1 3
+TICK 80
+SETBEACON speed haste
+SET 0 iron_ingot
+SETBEACON speed haste
+SETBEACON haste speed
+SETBEACON - -
+# without payment
+SETBEACON speed -
+# the beacon is gone while the menu is open: the packet is ignored, the next tick closes the menu
+SET 0 gold_ingot
+BLOCK 0 70 0 minecraft:stone
+SETBEACON speed -
+TICK 1
+# no pyramid
+OPEN beacon 0 0 0 1 1 0
+TICK 80
+SET 0 iron_ingot
+SETBEACON speed -
+SETBEACON - -
+SETBEACON slowness -
+SETBEACON luck luck
+OPEN beacon 0 0 0 1 1 1
+TICK 80
+SET 0 iron_ingot
+SETBEACON - -
+SET 0 iron_ingot
+SETBEACON - speed
+SET 0 iron_ingot
+SETBEACON - haste
+SET 0 iron_ingot
+SETBEACON - resistance
+SET 0 iron_ingot
+SETBEACON - jump_boost
+SET 0 iron_ingot
+SETBEACON - strength
+SET 0 iron_ingot
+SETBEACON - regeneration
+SET 0 iron_ingot
+SETBEACON - absorption
+SET 0 iron_ingot
+SETBEACON speed -
+SET 0 iron_ingot
+SETBEACON speed speed
+SET 0 iron_ingot
+SETBEACON speed haste
+SET 0 iron_ingot
+SETBEACON speed resistance
+SET 0 iron_ingot
+SETBEACON speed jump_boost
+SET 0 iron_ingot
+SETBEACON speed strength
+SET 0 iron_ingot
+SETBEACON speed regeneration
+SET 0 iron_ingot
+SETBEACON speed absorption
+SET 0 iron_ingot
+SETBEACON haste -
+SET 0 iron_ingot
+SETBEACON haste speed
+SET 0 iron_ingot
+SETBEACON haste haste
+SET 0 iron_ingot
+SETBEACON haste resistance
+SET 0 iron_ingot
+SETBEACON haste jump_boost
+SET 0 iron_ingot
+SETBEACON haste strength
+SET 0 iron_ingot
+SETBEACON haste regeneration
+SET 0 iron_ingot
+SETBEACON haste absorption
+SET 0 iron_ingot
+SETBEACON resistance -
+SET 0 iron_ingot
+SETBEACON resistance speed
+SET 0 iron_ingot
+SETBEACON resistance haste
+SET 0 iron_ingot
+SETBEACON resistance resistance
+SET 0 iron_ingot
+SETBEACON resistance jump_boost
+SET 0 iron_ingot
+SETBEACON resistance strength
+SET 0 iron_ingot
+SETBEACON resistance regeneration
+SET 0 iron_ingot
+SETBEACON resistance absorption
+SET 0 iron_ingot
+SETBEACON jump_boost -
+SET 0 iron_ingot
+SETBEACON jump_boost speed
+SET 0 iron_ingot
+SETBEACON jump_boost haste
+SET 0 iron_ingot
+SETBEACON jump_boost resistance
+SET 0 iron_ingot
+SETBEACON jump_boost jump_boost
+SET 0 iron_ingot
+SETBEACON jump_boost strength
+SET 0 iron_ingot
+SETBEACON jump_boost regeneration
+SET 0 iron_ingot
+SETBEACON jump_boost absorption
+SET 0 iron_ingot
+SETBEACON strength -
+SET 0 iron_ingot
+SETBEACON strength speed
+SET 0 iron_ingot
+SETBEACON strength haste
+SET 0 iron_ingot
+SETBEACON strength resistance
+SET 0 iron_ingot
+SETBEACON strength jump_boost
+SET 0 iron_ingot
+SETBEACON strength strength
+SET 0 iron_ingot
+SETBEACON strength regeneration
+SET 0 iron_ingot
+SETBEACON strength absorption
+SET 0 iron_ingot
+SETBEACON regeneration -
+SET 0 iron_ingot
+SETBEACON regeneration speed
+SET 0 iron_ingot
+SETBEACON regeneration haste
+SET 0 iron_ingot
+SETBEACON regeneration resistance
+SET 0 iron_ingot
+SETBEACON regeneration jump_boost
+SET 0 iron_ingot
+SETBEACON regeneration strength
+SET 0 iron_ingot
+SETBEACON regeneration regeneration
+SET 0 iron_ingot
+SETBEACON regeneration absorption
+SET 0 iron_ingot
+SETBEACON slowness -
+SET 0 iron_ingot
+SETBEACON slowness speed
+SET 0 iron_ingot
+SETBEACON slowness haste
+SET 0 iron_ingot
+SETBEACON slowness resistance
+SET 0 iron_ingot
+SETBEACON slowness jump_boost
+SET 0 iron_ingot
+SETBEACON slowness strength
+SET 0 iron_ingot
+SETBEACON slowness regeneration
+SET 0 iron_ingot
+SETBEACON slowness absorption
+CLOSE
+OPEN beacon 0 0 0 1 1 2
+TICK 80
+SET 0 iron_ingot
+SETBEACON - -
+SET 0 iron_ingot
+SETBEACON - speed
+SET 0 iron_ingot
+SETBEACON - haste
+SET 0 iron_ingot
+SETBEACON - resistance
+SET 0 iron_ingot
+SETBEACON - jump_boost
+SET 0 iron_ingot
+SETBEACON - strength
+SET 0 iron_ingot
+SETBEACON - regeneration
+SET 0 iron_ingot
+SETBEACON - absorption
+SET 0 iron_ingot
+SETBEACON speed -
+SET 0 iron_ingot
+SETBEACON speed speed
+SET 0 iron_ingot
+SETBEACON speed haste
+SET 0 iron_ingot
+SETBEACON speed resistance
+SET 0 iron_ingot
+SETBEACON speed jump_boost
+SET 0 iron_ingot
+SETBEACON speed strength
+SET 0 iron_ingot
+SETBEACON speed regeneration
+SET 0 iron_ingot
+SETBEACON speed absorption
+SET 0 iron_ingot
+SETBEACON haste -
+SET 0 iron_ingot
+SETBEACON haste speed
+SET 0 iron_ingot
+SETBEACON haste haste
+SET 0 iron_ingot
+SETBEACON haste resistance
+SET 0 iron_ingot
+SETBEACON haste jump_boost
+SET 0 iron_ingot
+SETBEACON haste strength
+SET 0 iron_ingot
+SETBEACON haste regeneration
+SET 0 iron_ingot
+SETBEACON haste absorption
+SET 0 iron_ingot
+SETBEACON resistance -
+SET 0 iron_ingot
+SETBEACON resistance speed
+SET 0 iron_ingot
+SETBEACON resistance haste
+SET 0 iron_ingot
+SETBEACON resistance resistance
+SET 0 iron_ingot
+SETBEACON resistance jump_boost
+SET 0 iron_ingot
+SETBEACON resistance strength
+SET 0 iron_ingot
+SETBEACON resistance regeneration
+SET 0 iron_ingot
+SETBEACON resistance absorption
+SET 0 iron_ingot
+SETBEACON jump_boost -
+SET 0 iron_ingot
+SETBEACON jump_boost speed
+SET 0 iron_ingot
+SETBEACON jump_boost haste
+SET 0 iron_ingot
+SETBEACON jump_boost resistance
+SET 0 iron_ingot
+SETBEACON jump_boost jump_boost
+SET 0 iron_ingot
+SETBEACON jump_boost strength
+SET 0 iron_ingot
+SETBEACON jump_boost regeneration
+SET 0 iron_ingot
+SETBEACON jump_boost absorption
+SET 0 iron_ingot
+SETBEACON strength -
+SET 0 iron_ingot
+SETBEACON strength speed
+SET 0 iron_ingot
+SETBEACON strength haste
+SET 0 iron_ingot
+SETBEACON strength resistance
+SET 0 iron_ingot
+SETBEACON strength jump_boost
+SET 0 iron_ingot
+SETBEACON strength strength
+SET 0 iron_ingot
+SETBEACON strength regeneration
+SET 0 iron_ingot
+SETBEACON strength absorption
+SET 0 iron_ingot
+SETBEACON regeneration -
+SET 0 iron_ingot
+SETBEACON regeneration speed
+SET 0 iron_ingot
+SETBEACON regeneration haste
+SET 0 iron_ingot
+SETBEACON regeneration resistance
+SET 0 iron_ingot
+SETBEACON regeneration jump_boost
+SET 0 iron_ingot
+SETBEACON regeneration strength
+SET 0 iron_ingot
+SETBEACON regeneration regeneration
+SET 0 iron_ingot
+SETBEACON regeneration absorption
+SET 0 iron_ingot
+SETBEACON slowness -
+SET 0 iron_ingot
+SETBEACON slowness speed
+SET 0 iron_ingot
+SETBEACON slowness haste
+SET 0 iron_ingot
+SETBEACON slowness resistance
+SET 0 iron_ingot
+SETBEACON slowness jump_boost
+SET 0 iron_ingot
+SETBEACON slowness strength
+SET 0 iron_ingot
+SETBEACON slowness regeneration
+SET 0 iron_ingot
+SETBEACON slowness absorption
+CLOSE
+OPEN beacon 0 0 0 1 1 3
+TICK 80
+SET 0 iron_ingot
+SETBEACON - -
+SET 0 iron_ingot
+SETBEACON - speed
+SET 0 iron_ingot
+SETBEACON - haste
+SET 0 iron_ingot
+SETBEACON - resistance
+SET 0 iron_ingot
+SETBEACON - jump_boost
+SET 0 iron_ingot
+SETBEACON - strength
+SET 0 iron_ingot
+SETBEACON - regeneration
+SET 0 iron_ingot
+SETBEACON - absorption
+SET 0 iron_ingot
+SETBEACON speed -
+SET 0 iron_ingot
+SETBEACON speed speed
+SET 0 iron_ingot
+SETBEACON speed haste
+SET 0 iron_ingot
+SETBEACON speed resistance
+SET 0 iron_ingot
+SETBEACON speed jump_boost
+SET 0 iron_ingot
+SETBEACON speed strength
+SET 0 iron_ingot
+SETBEACON speed regeneration
+SET 0 iron_ingot
+SETBEACON speed absorption
+SET 0 iron_ingot
+SETBEACON haste -
+SET 0 iron_ingot
+SETBEACON haste speed
+SET 0 iron_ingot
+SETBEACON haste haste
+SET 0 iron_ingot
+SETBEACON haste resistance
+SET 0 iron_ingot
+SETBEACON haste jump_boost
+SET 0 iron_ingot
+SETBEACON haste strength
+SET 0 iron_ingot
+SETBEACON haste regeneration
+SET 0 iron_ingot
+SETBEACON haste absorption
+SET 0 iron_ingot
+SETBEACON resistance -
+SET 0 iron_ingot
+SETBEACON resistance speed
+SET 0 iron_ingot
+SETBEACON resistance haste
+SET 0 iron_ingot
+SETBEACON resistance resistance
+SET 0 iron_ingot
+SETBEACON resistance jump_boost
+SET 0 iron_ingot
+SETBEACON resistance strength
+SET 0 iron_ingot
+SETBEACON resistance regeneration
+SET 0 iron_ingot
+SETBEACON resistance absorption
+SET 0 iron_ingot
+SETBEACON jump_boost -
+SET 0 iron_ingot
+SETBEACON jump_boost speed
+SET 0 iron_ingot
+SETBEACON jump_boost haste
+SET 0 iron_ingot
+SETBEACON jump_boost resistance
+SET 0 iron_ingot
+SETBEACON jump_boost jump_boost
+SET 0 iron_ingot
+SETBEACON jump_boost strength
+SET 0 iron_ingot
+SETBEACON jump_boost regeneration
+SET 0 iron_ingot
+SETBEACON jump_boost absorption
+SET 0 iron_ingot
+SETBEACON strength -
+SET 0 iron_ingot
+SETBEACON strength speed
+SET 0 iron_ingot
+SETBEACON strength haste
+SET 0 iron_ingot
+SETBEACON strength resistance
+SET 0 iron_ingot
+SETBEACON strength jump_boost
+SET 0 iron_ingot
+SETBEACON strength strength
+SET 0 iron_ingot
+SETBEACON strength regeneration
+SET 0 iron_ingot
+SETBEACON strength absorption
+SET 0 iron_ingot
+SETBEACON regeneration -
+SET 0 iron_ingot
+SETBEACON regeneration speed
+SET 0 iron_ingot
+SETBEACON regeneration haste
+SET 0 iron_ingot
+SETBEACON regeneration resistance
+SET 0 iron_ingot
+SETBEACON regeneration jump_boost
+SET 0 iron_ingot
+SETBEACON regeneration strength
+SET 0 iron_ingot
+SETBEACON regeneration regeneration
+SET 0 iron_ingot
+SETBEACON regeneration absorption
+SET 0 iron_ingot
+SETBEACON slowness -
+SET 0 iron_ingot
+SETBEACON slowness speed
+SET 0 iron_ingot
+SETBEACON slowness haste
+SET 0 iron_ingot
+SETBEACON slowness resistance
+SET 0 iron_ingot
+SETBEACON slowness jump_boost
+SET 0 iron_ingot
+SETBEACON slowness strength
+SET 0 iron_ingot
+SETBEACON slowness regeneration
+SET 0 iron_ingot
+SETBEACON slowness absorption
+CLOSE
+OPEN beacon 0 0 0 1 1 4
+TICK 80
+SET 0 iron_ingot
+SETBEACON - -
+SET 0 iron_ingot
+SETBEACON - speed
+SET 0 iron_ingot
+SETBEACON - haste
+SET 0 iron_ingot
+SETBEACON - resistance
+SET 0 iron_ingot
+SETBEACON - jump_boost
+SET 0 iron_ingot
+SETBEACON - strength
+SET 0 iron_ingot
+SETBEACON - regeneration
+SET 0 iron_ingot
+SETBEACON - absorption
+SET 0 iron_ingot
+SETBEACON speed -
+SET 0 iron_ingot
+SETBEACON speed speed
+SET 0 iron_ingot
+SETBEACON speed haste
+SET 0 iron_ingot
+SETBEACON speed resistance
+SET 0 iron_ingot
+SETBEACON speed jump_boost
+SET 0 iron_ingot
+SETBEACON speed strength
+SET 0 iron_ingot
+SETBEACON speed regeneration
+SET 0 iron_ingot
+SETBEACON speed absorption
+SET 0 iron_ingot
+SETBEACON haste -
+SET 0 iron_ingot
+SETBEACON haste speed
+SET 0 iron_ingot
+SETBEACON haste haste
+SET 0 iron_ingot
+SETBEACON haste resistance
+SET 0 iron_ingot
+SETBEACON haste jump_boost
+SET 0 iron_ingot
+SETBEACON haste strength
+SET 0 iron_ingot
+SETBEACON haste regeneration
+SET 0 iron_ingot
+SETBEACON haste absorption
+SET 0 iron_ingot
+SETBEACON resistance -
+SET 0 iron_ingot
+SETBEACON resistance speed
+SET 0 iron_ingot
+SETBEACON resistance haste
+SET 0 iron_ingot
+SETBEACON resistance resistance
+SET 0 iron_ingot
+SETBEACON resistance jump_boost
+SET 0 iron_ingot
+SETBEACON resistance strength
+SET 0 iron_ingot
+SETBEACON resistance regeneration
+SET 0 iron_ingot
+SETBEACON resistance absorption
+SET 0 iron_ingot
+SETBEACON jump_boost -
+SET 0 iron_ingot
+SETBEACON jump_boost speed
+SET 0 iron_ingot
+SETBEACON jump_boost haste
+SET 0 iron_ingot
+SETBEACON jump_boost resistance
+SET 0 iron_ingot
+SETBEACON jump_boost jump_boost
+SET 0 iron_ingot
+SETBEACON jump_boost strength
+SET 0 iron_ingot
+SETBEACON jump_boost regeneration
+SET 0 iron_ingot
+SETBEACON jump_boost absorption
+SET 0 iron_ingot
+SETBEACON strength -
+SET 0 iron_ingot
+SETBEACON strength speed
+SET 0 iron_ingot
+SETBEACON strength haste
+SET 0 iron_ingot
+SETBEACON strength resistance
+SET 0 iron_ingot
+SETBEACON strength jump_boost
+SET 0 iron_ingot
+SETBEACON strength strength
+SET 0 iron_ingot
+SETBEACON strength regeneration
+SET 0 iron_ingot
+SETBEACON strength absorption
+SET 0 iron_ingot
+SETBEACON regeneration -
+SET 0 iron_ingot
+SETBEACON regeneration speed
+SET 0 iron_ingot
+SETBEACON regeneration haste
+SET 0 iron_ingot
+SETBEACON regeneration resistance
+SET 0 iron_ingot
+SETBEACON regeneration jump_boost
+SET 0 iron_ingot
+SETBEACON regeneration strength
+SET 0 iron_ingot
+SETBEACON regeneration regeneration
+SET 0 iron_ingot
+SETBEACON regeneration absorption
+SET 0 iron_ingot
+SETBEACON slowness -
+SET 0 iron_ingot
+SETBEACON slowness speed
+SET 0 iron_ingot
+SETBEACON slowness haste
+SET 0 iron_ingot
+SETBEACON slowness resistance
+SET 0 iron_ingot
+SETBEACON slowness jump_boost
+SET 0 iron_ingot
+SETBEACON slowness strength
+SET 0 iron_ingot
+SETBEACON slowness regeneration
+SET 0 iron_ingot
+SETBEACON slowness absorption
+CLOSE
+# a full inventory: the payment is dropped on close
+OPEN beacon 0 0 0 1 1 4
+GIVE 0 stonex64
+GIVE 1 stonex64
+GIVE 2 stonex64
+GIVE 3 stonex64
+GIVE 4 stonex64
+GIVE 5 stonex64
+GIVE 6 stonex64
+GIVE 7 stonex64
+GIVE 8 stonex64
+GIVE 9 stonex64
+GIVE 10 stonex64
+GIVE 11 stonex64
+GIVE 12 stonex64
+GIVE 13 stonex64
+GIVE 14 stonex64
+GIVE 15 stonex64
+GIVE 16 stonex64
+GIVE 17 stonex64
+GIVE 18 stonex64
+GIVE 19 stonex64
+GIVE 20 stonex64
+GIVE 21 stonex64
+GIVE 22 stonex64
+GIVE 23 stonex64
+GIVE 24 stonex64
+GIVE 25 stonex64
+GIVE 26 stonex64
+GIVE 27 stonex64
+GIVE 28 stonex64
+GIVE 29 stonex64
+GIVE 30 stonex64
+GIVE 31 stonex64
+GIVE 32 stonex64
+GIVE 33 stonex64
+GIVE 34 stonex64
+GIVE 35 stonex64
+GIVE 36 stonex64
+GIVE 37 stonex64
+GIVE 38 stonex64
+GIVE 39 stonex64
+GIVE 40 stonex64
+SET 0 diamond
+CLOSE
+# random sessions
+GEN beacon 21 200 iron_ingotx3|gold_ingotx2|emerald|diamondx4|netherite_ingot|stonex9|copper_ingotx2|iron_ingot|nether_star|-
+GEN beacon 22 200 iron_ingotx3|gold_ingotx2|emerald|diamondx4|netherite_ingot|stonex9|copper_ingotx2|iron_ingot|nether_star|-
+GEN beacon 23 200 iron_ingotx3|gold_ingotx2|emerald|diamondx4|netherite_ingot|stonex9|copper_ingotx2|iron_ingot|nether_star|-

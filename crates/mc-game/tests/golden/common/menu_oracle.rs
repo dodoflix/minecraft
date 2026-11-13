@@ -24,6 +24,7 @@ use mc_core::ident::Identifier;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::{LegacyRandomSource, RandomSource};
+use mc_data::MobEffect;
 use mc_data::block::{Block, BlockState};
 use mc_game::registry::RegistryAccess;
 use mc_game::server::level::ServerLevel;
@@ -43,6 +44,7 @@ use mc_game::world::level::block::behaviour as block_behaviour;
 use mc_game::world::level::gamerules::{AnyGameRule, GameRules};
 use mc_game::world::level::saveddata::maps::MapItemSavedData;
 use mc_game::world::level::{BlockGetter, LevelAccessor};
+use mc_nbt::Tag;
 use mc_nbt::snbt;
 use mc_protocol::components::MapId;
 use mc_world::level_storage::{Difficulty, FeatureFlagSet};
@@ -86,6 +88,47 @@ fn enchanting_setup(s: &mut Session, shelves: usize, blockers: usize) {
     }
 }
 
+/// Iron pyramid of `levels` (0..=4) layers under the beacon.
+fn beacon_setup(s: &mut Session, levels: usize, _: usize) {
+    for i in 1..=levels.min(4) as i32 {
+        for dx in -i..=i {
+            for dz in -i..=i {
+                s.set_block(TABLE.offset(dx, -i, dz), Block::IRON_BLOCK.default_state());
+            }
+        }
+    }
+}
+
+/// A lectern holding a book of `pages` pages (a writable one when `writable != 0`, else a written one).
+fn lectern_setup(s: &mut Session, pages: usize, writable: usize) {
+    s.set_block(
+        TABLE,
+        Block::LECTERN
+            .default_state()
+            .set(mc_data::props::HAS_BOOK, true),
+    );
+    let list: Vec<String> = (1..=pages).map(|i| format!("\"page {i}\"")).collect();
+    let list = list.join(",");
+    let snbt = if writable != 0 {
+        format!(
+            "{{id:\"minecraft:writable_book\",count:1,components:{{\"minecraft:writable_book_content\":{{pages:[{list}]}}}}}}"
+        )
+    } else {
+        format!(
+            "{{id:\"minecraft:written_book\",count:1,components:{{\"minecraft:written_book_content\":{{title:\"T\",author:\"A\",resolved:1b,pages:[{list}]}}}}}}"
+        )
+    };
+    // `loadAdditional` of the block entity: page 0 and the page count of the book, like `setBook` (for a book with at least one page)
+    let Tag::Compound(tag) = snbt::parse(&format!("{{Book:{snbt},Page:0}}")).expect("book snbt")
+    else {
+        unreachable!("a compound");
+    };
+    assert!(
+        s.player.level.load_block_entity_in_level(TABLE, &tag),
+        "lectern block entity"
+    );
+}
+
 /// Twin of `MenuOracleBase.registerKinds`.
 pub const MENU_KINDS: &[MenuKind] = &[
     MenuKind {
@@ -127,6 +170,21 @@ pub const MENU_KINDS: &[MenuKind] = &[
         name: "cartography",
         block: Block::CARTOGRAPHY_TABLE,
         setup: no_setup,
+    },
+    MenuKind {
+        name: "brewing_stand",
+        block: Block::BREWING_STAND,
+        setup: no_setup,
+    },
+    MenuKind {
+        name: "beacon",
+        block: Block::BEACON,
+        setup: beacon_setup,
+    },
+    MenuKind {
+        name: "lectern",
+        block: Block::LECTERN,
+        setup: lectern_setup,
     },
 ];
 
@@ -177,6 +235,8 @@ fn eye() -> Vec3 {
 pub struct TestPlayer {
     pub inv: Inventory,
     pub creative: bool,
+    /// `abilities.mayBuild` (the `MAYBUILD` op, set again by `OPEN`).
+    pub may_build: bool,
     pub xp_level: i32,
     pub seed: i32,
     pub rng: LegacyRandomSource,
@@ -205,6 +265,9 @@ impl MenuPlayer for TestPlayer {
     }
     fn is_spectator(&self) -> bool {
         false
+    }
+    fn may_build(&self) -> bool {
+        self.may_build
     }
     /// `ServerPlayer.drop` without the swing, thrower and statistics: the item entity at the hand (`createItemStackToDrop`, which draws four
     /// floats from the player's random).
@@ -396,6 +459,7 @@ impl Session {
             player: TestPlayer {
                 inv: Inventory::new(),
                 creative: false,
+                may_build: true,
                 xp_level: 0,
                 seed: 0,
                 rng: LegacyRandomSource::new(0),
@@ -476,6 +540,7 @@ impl Session {
         self.player.xp_level = xp;
         self.player.seed = seed;
         self.player.creative = creative;
+        self.player.may_build = true;
         self.player.rng.set_seed(pseed);
         self.player.level.random().set_seed(lseed);
         self.set_block(TABLE, kind.block.default_state());
@@ -623,6 +688,17 @@ impl Session {
         let mut b = format!("B {}", bs.block().name().trim_start_matches("minecraft:"));
         if bs.has_property(mc_data::props::HORIZONTAL_FACING) {
             b += &format!(" {}", bs.get(mc_data::props::HORIZONTAL_FACING).get_name());
+        }
+        for name in [
+            "has_bottle_0",
+            "has_bottle_1",
+            "has_bottle_2",
+            "has_book",
+            "powered",
+        ] {
+            if let Some(value) = bs.get_property_str(name) {
+                b += &format!(" {name}={value}");
+            }
         }
         self.state(&mut out, "B", b);
         let mut total = 0;
@@ -807,6 +883,34 @@ impl Session {
             "EVENTS" => {
                 self.events = rest == "on";
                 self.dump()
+            }
+            "MAYBUILD" => {
+                self.player.may_build = rest == "1";
+                self.dump()
+            }
+            "SETBEACON" => {
+                let (primary, secondary) = rest.split_once(' ').unwrap();
+                let effect =
+                    |id: &str| (id != "-").then(|| MobEffect::by_name(id).expect("effect"));
+                let Session { player, menu, .. } = self;
+                let mut out = Vec::new();
+                if let Some(beacon) = menu
+                    .as_mut()
+                    .and_then(|m| m.as_any_mut().downcast_mut::<BeaconMenu>())
+                {
+                    if beacon.still_valid(player) {
+                        let r = beacon.update_effects(player, effect(primary), effect(secondary));
+                        beacon.broadcast_changes(player);
+                        out.push(match r {
+                            Some(r) => format!("R {r}"),
+                            None => "R npe".into(),
+                        });
+                    } else {
+                        out.push("R skipped".into());
+                    }
+                }
+                out.append(&mut self.dump());
+                out
             }
             other => panic!("unknown op {other}"),
         }

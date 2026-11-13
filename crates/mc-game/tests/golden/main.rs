@@ -132,6 +132,7 @@ mod map_golden;
 mod menu_golden;
 mod menu_oracle_golden;
 mod menu_registration_guards;
+mod menu_replay_golden;
 mod mineshaft_golden;
 mod mnu_click_parity_golden;
 mod mnu_crafting_golden;
