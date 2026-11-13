@@ -168,6 +168,23 @@ macro_rules! define_accessor {
     };
 }
 
+/// `Objects.equals(old, new)` of `SynchedEntityData`: floats (also those of a `Vector3f` and a `Quaternionf`) are equal
+/// when their `Float.floatToIntBits` are, so `-0.0` differs from `0.0` and a NaN equals every NaN.
+fn same_value(a: &EntityDataValue, b: &EntityDataValue) -> bool {
+    fn bits(f: f32) -> u32 {
+        if f.is_nan() { 0x7fc0_0000 } else { f.to_bits() }
+    }
+    fn same(a: &[f32], b: &[f32]) -> bool {
+        a.iter().zip(b).all(|(a, b)| bits(*a) == bits(*b))
+    }
+    match (a, b) {
+        (EntityDataValue::Float(a), EntityDataValue::Float(b)) => bits(*a) == bits(*b),
+        (EntityDataValue::Vector3(a), EntityDataValue::Vector3(b)) => same(a, b),
+        (EntityDataValue::Quaternion(a), EntityDataValue::Quaternion(b)) => same(a, b),
+        _ => a == b,
+    }
+}
+
 struct DataItem {
     value: EntityDataValue,
     initial_value: EntityDataValue,
@@ -179,7 +196,7 @@ struct DataItem {
 
 impl DataItem {
     fn is_set_to_default(&self) -> bool {
-        !self.replaced_object && self.initial_value == self.value
+        !self.replaced_object && same_value(&self.initial_value, &self.value)
     }
 }
 
@@ -267,10 +284,11 @@ impl SynchedEntityData {
     ) -> bool {
         let item = &mut self.items[accessor.id as usize];
         let value = S::wrap(value);
-        if force_dirty || value != item.value {
+        if force_dirty || !same_value(&value, &item.value) {
             item.value = value;
             item.dirty = true;
-            item.replaced_object |= force_dirty;
+            item.replaced_object |=
+                force_dirty && matches!(item.value, EntityDataValue::ItemStack(_));
             self.is_dirty = true;
             true
         } else {

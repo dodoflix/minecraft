@@ -169,6 +169,18 @@ fn resolve_contents(
                 }
                 ScoreName::Name(name) => super::arguments::scores::ScoreHolder::for_name_only(name),
             };
+            // `*` is the default scoreboard entity when the context has one
+            let holder = match &context.default_scoreboard_entity {
+                Some(entity)
+                    if holder.scoreboard_name
+                        == super::arguments::scores::ScoreHolder::WILDCARD_NAME =>
+                {
+                    source
+                        .with_server(|server| host::score_holder_of(server, entity))
+                        .unwrap_or(holder)
+                }
+                _ => holder,
+            };
             Ok(source
                 .with_server(|server| host::score_component(server, &holder, &score.objective)))
         }

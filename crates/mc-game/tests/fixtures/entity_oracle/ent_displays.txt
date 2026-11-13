@@ -1,0 +1,236 @@
+# a display that is never loaded sends only its defaults; one loaded from an empty tag is resent its start_interpolation
+E B0 minecraft:block_display pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I0 minecraft:item_display pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T0 minecraft:text_display pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N B0 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],billboard:"fixed",block_state:"minecraft:air",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I0 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item_display:"none",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N T0 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:"",text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+PKT A minecraft:add_entity 01a206ace5b312a5564f99a0ccaff11a485bf60f3fe0000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:add_entity 01a3060360bd12158a46b3bef9966b6a65cd69493ff8000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:add_entity 01a40682905465814b43a0aebd38418120229f87014004000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 65a406080100ff
+PKT A minecraft:set_entity_data 65a306080100ff
+# a block display with every field: the matrix form of the transformation (a shear and a translation), a state with properties
+# a bare block name, the decomposed form with an axis angle and a quaternion, the largest teleport duration
+# invalid values fall back to their defaults: an unknown billboard, a brightness out of range, a transformation with a missing part, a negative teleport duration, a block that does not exist
+# a state with an unknown property and a transformation of the wrong length
+E B0 minecraft:block_display pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I0 minecraft:item_display pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T0 minecraft:text_display pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B1 minecraft:block_display pos=0.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B2 minecraft:block_display pos=1.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B3 minecraft:block_display pos=2.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B4 minecraft:block_display pos=3.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N B1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,5.5d],Rotation:[0.0f,0.0f],billboard:"center",block_state:{id:"minecraft:oak_stairs",properties:{facing:"east",half:"top",shape:"straight",waterlogged:"false"}},brightness:{block:3,sky:12},fall_distance:0.0d,glow_color_override:16711680,height:3.0f,interpolation_duration:20,shadow_radius:1.5f,shadow_strength:0.5f,teleport_duration:59,transformation:{left_rotation:[-0.075092085f,0.04099742f,0.31830737f,0.9441191f],right_rotation:[0.03758149f,-0.026235266f,-0.43340784f,0.9000317f],scale:[1.2746029f,0.7763346f,2.0211864f],translation:[1.0f,2.0f,3.0f]},view_range:2.5f,width:2.0f}
+N B2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,5.5d],Rotation:[0.0f,0.0f],billboard:"vertical",block_state:"minecraft:gold_block",brightness:{block:15,sky:15},fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:59,transformation:{left_rotation:[0.0f,0.6816388f,0.0f,0.73168886f],right_rotation:[0.0f,0.7071068f,0.0f,0.7071068f],scale:[2.0f,0.5f,-1.0f],translation:[1.0f,2.0f,3.0f]},view_range:1.0f,width:0.0f}
+N B3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,5.5d],Rotation:[0.0f,0.0f],billboard:"fixed",block_state:"minecraft:air",fall_distance:0.0d,glow_color_override:1,height:0.0f,interpolation_duration:0,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[1.0f,2.0f,3.0f]},view_range:1.0f,width:0.0f}
+N B4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[3.5d,-60.0d,5.5d],Rotation:[0.0f,0.0f],billboard:"fixed",block_state:"minecraft:oak_stairs",fall_distance:0.0d,glow_color_override:-1,height:3.0f,interpolation_duration:0,shadow_radius:2.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:1.5f}
+PKT A minecraft:add_entity 01a5065f3bc15586e3409f9ce077cc38b9ff620f3fe0000000000000c04e00000000000040160000000000000000000000
+PKT A minecraft:set_entity_data 65a5060801050901140a013b0b273f80000040000000404000000c273fa326303f46bddd40015b1e0d28bd99c9e13d27ece93ea2f92f3f71b1ca0e283d19ef0cbcd6eb57bedde7a23f66687a0f00031001b080800611034020000012033fc0000013033f00000014034000000015034040000016018080fc07170e942bff
+PKT A minecraft:add_entity 01a6069ee9c783d2414def8e73cc60876cdef40f3ff8000000000000c04e00000000000040160000000000000000000000
+PKT A minecraft:set_entity_data 65a6060a013b0b273f80000040000000404000000c27400000003f000000bf8000000d28000000003f2e7fe1000000003f3b4ff60e28000000003f3504f4000000003f3504f40f00011001f081c007170ef61dff
+PKT A minecraft:add_entity 01a706945ae7fdb2f44b88896e0c559d85151f0f4004000000000000c04e00000000000040160000000000000000000000
+PKT A minecraft:set_entity_data 65a7060b273f8000004000000040400000160101ff
+PKT A minecraft:add_entity 01a8062493248e9b0a40d7ba6ff39374a533250f400c000000000000c04e00000000000040160000000000000000000000
+PKT A minecraft:set_entity_data 65a80612034000000014033fc00000150340400000170ee22aff
+PKT A minecraft:set_entity_data 65a6060801000a013b0b273f80000040000000404000000c27400000003f000000bf8000000d28000000003f2e7fe1000000003f3b4ff60e28000000003f3504f4000000003f3504f40f00011001f081c007170ef61dff
+PKT A minecraft:set_entity_data 65a80608010012034000000014033fc00000150340400000170ee22aff
+PKT A minecraft:set_entity_data 65a7060801000b273f8000004000000040400000160101ff
+PKT A minecraft:set_entity_data 65a5060801050901140a013b0b273f80000040000000404000000c273fa326303f46bddd40015b1e0d28bd99c9e13d27ece93ea2f92f3f71b1ca0e283d19ef0cbcd6eb57bedde7a23f66687a0f00031001b080800611034020000012033fc0000013033f00000014034000000015034040000016018080fc07170e942bff
+# an item display with an item with components, a decomposed transformation with a rotation as a quaternion list
+# every item display context
+# an unknown context, an item that does not exist, a stack of zero, a context given as a number
+E B0 minecraft:block_display pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I0 minecraft:item_display pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T0 minecraft:text_display pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B1 minecraft:block_display pos=0.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B2 minecraft:block_display pos=1.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B3 minecraft:block_display pos=2.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B4 minecraft:block_display pos=3.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I1 minecraft:item_display pos=0.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I2 minecraft:item_display pos=1.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I3 minecraft:item_display pos=2.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I4 minecraft:item_display pos=3.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I5 minecraft:item_display pos=4.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I6 minecraft:item_display pos=5.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I7 minecraft:item_display pos=6.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I8 minecraft:item_display pos=7.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I9 minecraft:item_display pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I10 minecraft:item_display pos=0.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I11 minecraft:item_display pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I12 minecraft:item_display pos=2.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N I1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"horizontal",fall_distance:0.0d,glow_color_override:255,height:0.0f,interpolation_duration:0,item:{components:{minecraft:custom_name:'"Blade"',minecraft:damage:5},count:1,id:"minecraft:diamond_sword"},item_display:"gui",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.5f,0.5f,0.5f,0.5f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.5f,0.0f]},view_range:0.5f,width:0.0f}
+N I2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:3,id:"minecraft:stone"},item_display:"thirdperson_lefthand",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:1,id:"minecraft:stone"},item_display:"thirdperson_righthand",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[3.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:1,id:"minecraft:stone"},item_display:"firstperson_lefthand",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:1,id:"minecraft:stone"},item_display:"firstperson_righthand",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I6 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[5.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:1,id:"minecraft:stone"},item_display:"head",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I7 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:1,id:"minecraft:stone"},item_display:"ground",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I8 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[7.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:1,id:"minecraft:stone"},item_display:"fixed",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I9 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:1,id:"minecraft:stone"},item_display:"on_shelf",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I10 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,9.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item_display:"none",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I11 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,9.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:1,id:"minecraft:stone"},item_display:"none",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N I12 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,9.5d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:1,id:"minecraft:stone"},item_display:"none",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+PKT A minecraft:add_entity 01a9063ca3248915f84ea4b76033bcb14b2718493fe0000000000000c04e000000000000401e0000000000000000000000
+PKT A minecraft:set_entity_data 65a9060b27000000003f000000000000000e283f0000003f0000003f0000003f0000000f000211033f0000001601ff011707019a08020003050608000722426c61646522180006ff
+PKT A minecraft:add_entity 01aa06d2c27eb6710f4ff48ab6fc522a6e6aa9493ff8000000000000c04e000000000000401e0000000000000000000000
+PKT A minecraft:set_entity_data 65aa06170703010000180001ff
+PKT A minecraft:add_entity 01ab064ab938fc9cb74da2bc9911d081afb993494004000000000000c04e000000000000401e0000000000000000000000
+PKT A minecraft:set_entity_data 65ab06170701010000180002ff
+PKT A minecraft:add_entity 01ac0674720d73e1804e9395d46422b9c4244149400c000000000000c04e000000000000401e0000000000000000000000
+PKT A minecraft:set_entity_data 65ac06170701010000180003ff
+PKT A minecraft:add_entity 01ad065367b3a0d81d4be4a80858b6bc9b23d3494012000000000000c04e000000000000401e0000000000000000000000
+PKT A minecraft:set_entity_data 65ad06170701010000180004ff
+PKT A minecraft:add_entity 01ae06b941b4e7f3544492ace88d360de9a5bc494016000000000000c04e000000000000401e0000000000000000000000
+PKT A minecraft:set_entity_data 65ae06170701010000180005ff
+PKT A minecraft:add_entity 01af06b42a5b16226841e2b3c781cadf8fa54e49401a000000000000c04e000000000000401e0000000000000000000000
+PKT A minecraft:set_entity_data 65af06170701010000180007ff
+PKT A minecraft:add_entity 01b00625582f8bf20242d3adffd41d315d0ffc49401e000000000000c04e000000000000401e0000000000000000000000
+PKT A minecraft:set_entity_data 65b006170701010000180008ff
+PKT A minecraft:add_entity 01b106ba189dd3874444818fa4bd9c590aa2e5494021000000000000c04e000000000000401e0000000000000000000000
+PKT A minecraft:set_entity_data 65b106170701010000180009ff
+PKT A minecraft:add_entity 01b206eba6f862f703458bbfff4649d6484fde493fe0000000000000c04e00000000000040230000000000000000000000
+PKT A minecraft:add_entity 01b3063938ce40f99c4e2398182fe701718f7e493ff8000000000000c04e00000000000040230000000000000000000000
+PKT A minecraft:set_entity_data 65b306170701010000ff
+PKT A minecraft:add_entity 01b40671f0d46e4a3c4b7392c5847b0c366f0f494004000000000000c04e00000000000040230000000000000000000000
+PKT A minecraft:set_entity_data 65b406170701010000ff
+PKT A minecraft:set_entity_data 65aa06080100170703010000180001ff
+PKT A minecraft:set_entity_data 65ae06080100170701010000180005ff
+PKT A minecraft:set_entity_data 65ac06080100170701010000180003ff
+PKT A minecraft:set_entity_data 65a9060801000b27000000003f000000000000000e283f0000003f0000003f0000003f0000000f000211033f0000001601ff011707019a08020003050608000722426c61646522180006ff
+PKT A minecraft:set_entity_data 65ab06080100170701010000180002ff
+PKT A minecraft:set_entity_data 65af06080100170701010000180007ff
+PKT A minecraft:set_entity_data 65ad06080100170701010000180004ff
+PKT A minecraft:set_entity_data 65b406080100170701010000ff
+PKT A minecraft:set_entity_data 65b006080100170701010000180008ff
+PKT A minecraft:set_entity_data 65b106080100170701010000180009ff
+PKT A minecraft:set_entity_data 65b306080100170701010000ff
+PKT A minecraft:set_entity_data 65b206080100ff
+# a text display with every field set
+# a plain string, a list, right alignment, an opacity that does not fit a byte, a negative width, a background that is a double
+# an unknown alignment, a text that is not a component, booleans given as strings
+E B0 minecraft:block_display pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I0 minecraft:item_display pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T0 minecraft:text_display pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B1 minecraft:block_display pos=0.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B2 minecraft:block_display pos=1.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B3 minecraft:block_display pos=2.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B4 minecraft:block_display pos=3.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I1 minecraft:item_display pos=0.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I2 minecraft:item_display pos=1.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I3 minecraft:item_display pos=2.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I4 minecraft:item_display pos=3.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I5 minecraft:item_display pos=4.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I6 minecraft:item_display pos=5.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I7 minecraft:item_display pos=6.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I8 minecraft:item_display pos=7.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I9 minecraft:item_display pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I10 minecraft:item_display pos=0.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I11 minecraft:item_display pos=1.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I12 minecraft:item_display pos=2.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T1 minecraft:text_display pos=0.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T2 minecraft:text_display pos=1.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T3 minecraft:text_display pos=2.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T4 minecraft:text_display pos=3.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T5 minecraft:text_display pos=4.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T6 minecraft:text_display pos=5.5,-60.0,11.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N T1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,11.5d],Rotation:[0.0f,0.0f],alignment:"left",background:805306368,billboard:"center",default_background:1b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:100,see_through:1b,shadow:1b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{bold:1b,color:"red",extra:[{italic:1b,text:" world"}],text:"hello"},text_opacity:127b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N T2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,11.5d],Rotation:[0.0f,0.0f],alignment:"right",background:1,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:-5,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:"plain",text_opacity:44b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N T3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,11.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:1b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{extra:[{color:"gold",text:"b"},"c"],text:"a"},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N T4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[3.5d,-60.0d,11.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:"",text_opacity:-128b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N T5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,11.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:1b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:"",text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N T6 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[5.5d,-60.0d,11.5d],Rotation:[0.0f,0.0f],alignment:"right",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:2147483647,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{translate:"chat.type.text",with:["Steve",{hover_event:{action:"show_text",value:"tip"},text:"hi"}]},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+PKT A minecraft:add_entity 01b5068442b4ad6d844be68491a112006908d287013fe0000000000000c04e00000000000040270000000000000000000000
+PKT A minecraft:set_entity_data 65b5060f000317050a080005636f6c6f72000372656409000565787472610a0000000108000474657874000620776f726c640100066974616c6963010008000474657874000568656c6c6f010004626f6c640100180164190180808080031a007f1b000fff
+PKT A minecraft:add_entity 01b606e6d8b3a6bf9b48e3be9aff809bd1656b87013ff8000000000000c04e00000000000040270000000000000000000000
+PKT A minecraft:set_entity_data 65b6061705080005706c61696e1801fbffffff0f1901011a002c1b0010ff
+PKT A minecraft:add_entity 01b7069578d05114c94a8f8a6cb3a7c53a0ec887014004000000000000c04e00000000000040270000000000000000000000
+PKT A minecraft:set_entity_data 65b70617050a09000565787472610a00000002080005636f6c6f720004676f6c6408000474657874000162000800000001630008000474657874000161001b0001ff
+PKT A minecraft:add_entity 01b80605f9367dabf947e0ba09683d6a2ace5a8701400c000000000000c04e00000000000040270000000000000000000000
+PKT A minecraft:set_entity_data 65b8061a0080ff
+PKT A minecraft:add_entity 01b906da479c922e4348d291af2fe6cc6a629487014012000000000000c04e00000000000040270000000000000000000000
+PKT A minecraft:set_entity_data 65b9061b0004ff
+PKT A minecraft:add_entity 01ba06f558520919154a2ca5408de81aa1a8f987014016000000000000c04e00000000000040270000000000000000000000
+PKT A minecraft:set_entity_data 65ba0617050a090004776974680a00000002080000000553746576650008000474657874000268690a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c7565000374697000000800097472616e736c617465000e636861742e747970652e74657874001801ffffffff071b0010ff
+PKT A minecraft:set_entity_data 65b8060801001a0080ff
+PKT A minecraft:set_entity_data 65b9060801001b0004ff
+PKT A minecraft:set_entity_data 65b70608010017050a09000565787472610a00000002080005636f6c6f720004676f6c6408000474657874000162000800000001630008000474657874000161001b0001ff
+PKT A minecraft:set_entity_data 65b6060801001705080005706c61696e1801fbffffff0f1901011a002c1b0010ff
+PKT A minecraft:set_entity_data 65b5060801000f000317050a080005636f6c6f72000372656409000565787472610a0000000108000474657874000620776f726c640100066974616c6963010008000474657874000568656c6c6f010004626f6c640100180164190180808080031a007f1b000fff
+PKT A minecraft:set_entity_data 65ba0608010017050a090004776974680a00000002080000000553746576650008000474657874000268690a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c7565000374697000000800097472616e736c617465000e636861742e747970652e74657874001801ffffffff071b0010ff
+# merging changes a few fields and loads the whole tag again: start_interpolation is resent even though it keeps its value
+N B1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,5.5d],Rotation:[0.0f,0.0f],billboard:"center",block_state:{id:"minecraft:oak_stairs",properties:{facing:"east",half:"top",shape:"straight",waterlogged:"false"}},brightness:{block:3,sky:12},fall_distance:0.0d,glow_color_override:16711680,height:3.0f,interpolation_duration:20,shadow_radius:1.5f,shadow_strength:0.25f,teleport_duration:59,transformation:{left_rotation:[-0.075092085f,0.04099742f,0.31830737f,0.9441191f],right_rotation:[0.03758149f,-0.026235266f,-0.43340784f,0.9000317f],scale:[1.2746029f,0.7763346f,2.0211864f],translation:[1.0f,2.0f,3.0f]},view_range:3.0f,width:2.0f}
+N I1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"horizontal",fall_distance:0.0d,glow_color_override:255,height:0.0f,interpolation_duration:0,item:{components:{minecraft:custom_name:'"Blade"',minecraft:damage:5},count:1,id:"minecraft:diamond_sword"},item_display:"head",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.5f,0.5f,0.5f,0.5f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.5f,0.0f]},view_range:0.5f,width:0.0f}
+N T1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,11.5d],Rotation:[0.0f,0.0f],alignment:"right",background:805306368,billboard:"center",default_background:1b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:50,see_through:1b,shadow:1b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{bold:1b,color:"red",extra:[{italic:1b,text:" world"}],text:"hello"},text_opacity:127b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+PKT A minecraft:set_entity_data 65a9060801001707019a08020003050608000722426c61646522180005ff
+PKT A minecraft:set_entity_data 65b5060801001801321b0017ff
+PKT A minecraft:set_entity_data 65a50608010011034040000013033e800000ff
+# negative zero is a different value from zero
+N B1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,5.5d],Rotation:[0.0f,0.0f],billboard:"center",block_state:{id:"minecraft:oak_stairs",properties:{facing:"east",half:"top",shape:"straight",waterlogged:"false"}},brightness:{block:3,sky:12},fall_distance:0.0d,glow_color_override:16711680,height:3.0f,interpolation_duration:20,shadow_radius:0.0f,shadow_strength:0.25f,teleport_duration:59,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:3.0f,width:2.0f}
+PKT A minecraft:set_entity_data 65a5060801000b270000000000000000000000000c273f8000003f8000003f8000000d280000000000000000000000003f8000000e280000000000000000000000003f800000120300000000ff
+N B1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,5.5d],Rotation:[0.0f,0.0f],billboard:"center",block_state:{id:"minecraft:oak_stairs",properties:{facing:"east",half:"top",shape:"straight",waterlogged:"false"}},brightness:{block:3,sky:12},fall_distance:0.0d,glow_color_override:16711680,height:3.0f,interpolation_duration:20,shadow_radius:0.0f,shadow_strength:0.25f,teleport_duration:59,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:3.0f,width:2.0f}
+PKT A minecraft:set_entity_data 65a506080100ff
+# the same through /data merge and /data get
+C Modified entity data of Item Display
+C Item Display has the following entity data: {components: {"minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 2, id: "minecraft:emerald"}
+C Block Display has the following entity data: {left_rotation: [0.0f, 0.6816388f, 0.0f, 0.73168886f], translation: [1.0f, 2.0f, 3.0f], right_rotation: [0.0f, 0.7071068f, 0.0f, 0.7071068f], scale: [2.0f, 0.5f, -1.0f]}
+N I1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",brightness:{block:1,sky:2},fall_distance:0.0d,glow_color_override:255,height:0.0f,interpolation_duration:0,item:{components:{minecraft:custom_name:'"Blade"',minecraft:damage:5},count:2,id:"minecraft:emerald"},item_display:"head",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.5f,0.5f,0.5f,0.5f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.5f,0.0f]},view_range:0.5f,width:0.0f}
+PKT A minecraft:set_entity_data 65a9060801000f0000100190808001170702f507020003050608000722426c61646522ff
+# a display is never hurt, pushed, or removed by anything but kill
+HURT B1 minecraft:generic 1000.0 -> false
+HURT T1 minecraft:out_of_world 1000.0 -> false
+E B0 minecraft:block_display pos=0.5,-60.0,3.5 delta=0.0,0.0,-0.75 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I0 minecraft:item_display pos=1.5,-60.0,3.5 delta=0.3222135954999579,0.0,-0.6444271909999159 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T0 minecraft:text_display pos=2.5,-60.0,3.5 delta=0.4571067811865475,0.0,-0.4571067811865475 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B1 minecraft:block_display pos=0.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B2 minecraft:block_display pos=1.5,-60.0,5.5 delta=0.875,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B3 minecraft:block_display pos=2.5,-60.0,5.5 delta=0.75,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B4 minecraft:block_display pos=3.5,-60.0,5.5 delta=0.625,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I1 minecraft:item_display pos=0.5,-60.0,7.5 delta=0.0,0.0,0.75 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I2 minecraft:item_display pos=1.5,-60.0,7.5 delta=0.3222135954999579,0.0,0.6444271909999159 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I3 minecraft:item_display pos=2.5,-60.0,7.5 delta=0.4571067811865475,0.0,0.4571067811865475 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I4 minecraft:item_display pos=3.5,-60.0,7.5 delta=0.45705029433784367,0.0,0.3047001962252291 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I5 minecraft:item_display pos=4.5,-60.0,7.5 delta=0.39442719099991586,0.0,0.19721359549995793 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I6 minecraft:item_display pos=5.5,-60.0,7.5 delta=0.30347669088525936,0.0,0.12139067635410374 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I7 minecraft:item_display pos=6.5,-60.0,7.5 delta=0.19868329805051374,0.0,0.06622776601683791 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I8 minecraft:item_display pos=7.5,-60.0,7.5 delta=0.08652394764082319,0.0,0.024721127897378056 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I9 minecraft:item_display pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I10 minecraft:item_display pos=0.5,-60.0,9.5 delta=0.0,0.0,0.5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I11 minecraft:item_display pos=1.5,-60.0,9.5 delta=0.11753562503633297,0.0,0.4701425001453319 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I12 minecraft:item_display pos=2.5,-60.0,9.5 delta=0.19721359549995793,0.0,0.39442719099991586 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T1 minecraft:text_display pos=0.5,-60.0,11.5 delta=0.0,0.0,0.25 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T2 minecraft:text_display pos=1.5,-60.0,11.5 delta=0.0393989873053573,0.0,0.23639392383214378 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T3 minecraft:text_display pos=2.5,-60.0,11.5 delta=0.06622776601683791,0.0,0.19868329805051374 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T4 minecraft:text_display pos=3.5,-60.0,11.5 delta=0.07221359549995791,0.0,0.14442719099991583 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T5 minecraft:text_display pos=4.5,-60.0,11.5 delta=0.05470019622522915,0.0,0.08205029433784372 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T6 minecraft:text_display pos=5.5,-60.0,11.5 delta=0.015184399664479903,0.0,0.01822127959737588 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=2.764710629547395,-62.506491239645854,5.819222154964735 delta=0.0936809378449009,0.11446400521850592,0.04513399624751077 rot=17.582352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*15 age=2 pickup=8 health=5 owner=- thrower=-
+PKT A minecraft:set_entity_data 65bb0608070f370000ff
+PKT A minecraft:set_entity_data 65bb0608070f370000ff
+PKT A minecraft:set_entity_data 65a106090340920000ff
+E B0 minecraft:block_display pos=0.5,-60.0,3.5 delta=0.0,0.0,-0.75 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I0 minecraft:item_display pos=1.5,-60.0,3.5 delta=0.3222135954999579,0.0,-0.6444271909999159 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T0 minecraft:text_display pos=2.5,-60.0,3.5 delta=0.4571067811865475,0.0,-0.4571067811865475 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B2 minecraft:block_display pos=1.5,-60.0,5.5 delta=0.875,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B3 minecraft:block_display pos=2.5,-60.0,5.5 delta=0.75,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E B4 minecraft:block_display pos=3.5,-60.0,5.5 delta=0.625,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I2 minecraft:item_display pos=1.5,-60.0,7.5 delta=0.3222135954999579,0.0,0.6444271909999159 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I3 minecraft:item_display pos=2.5,-60.0,7.5 delta=0.4571067811865475,0.0,0.4571067811865475 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I4 minecraft:item_display pos=3.5,-60.0,7.5 delta=0.45705029433784367,0.0,0.3047001962252291 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I5 minecraft:item_display pos=4.5,-60.0,7.5 delta=0.39442719099991586,0.0,0.19721359549995793 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I6 minecraft:item_display pos=5.5,-60.0,7.5 delta=0.30347669088525936,0.0,0.12139067635410374 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I7 minecraft:item_display pos=6.5,-60.0,7.5 delta=0.19868329805051374,0.0,0.06622776601683791 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I8 minecraft:item_display pos=7.5,-60.0,7.5 delta=0.08652394764082319,0.0,0.024721127897378056 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I9 minecraft:item_display pos=8.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I10 minecraft:item_display pos=0.5,-60.0,9.5 delta=0.0,0.0,0.5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I11 minecraft:item_display pos=1.5,-60.0,9.5 delta=0.11753562503633297,0.0,0.4701425001453319 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I12 minecraft:item_display pos=2.5,-60.0,9.5 delta=0.19721359549995793,0.0,0.39442719099991586 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T1 minecraft:text_display pos=0.5,-60.0,11.5 delta=0.0,0.0,0.25 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T2 minecraft:text_display pos=1.5,-60.0,11.5 delta=0.0393989873053573,0.0,0.23639392383214378 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T3 minecraft:text_display pos=2.5,-60.0,11.5 delta=0.06622776601683791,0.0,0.19868329805051374 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T4 minecraft:text_display pos=3.5,-60.0,11.5 delta=0.07221359549995791,0.0,0.14442719099991583 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T5 minecraft:text_display pos=4.5,-60.0,11.5 delta=0.05470019622522915,0.0,0.08205029433784372 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E T6 minecraft:text_display pos=5.5,-60.0,11.5 delta=0.015184399664479903,0.0,0.01822127959737588 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=2.858391567392296,-62.432027234427345,5.864356151212246 delta=0.09180732087482497,0.07297472653442398,0.04423131718342321 rot=17.582352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*15 age=3 pickup=7 health=5 owner=- thrower=-
+PKT A minecraft:remove_entities 4e01a506
+PKT A minecraft:remove_entities 4e01a906

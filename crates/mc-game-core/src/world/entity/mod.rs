@@ -17,6 +17,7 @@ pub mod crackiness;
 pub mod decoration;
 pub mod dimensions;
 pub mod dismount_helper;
+pub mod display;
 pub mod effect;
 pub mod entity;
 pub mod equipment;

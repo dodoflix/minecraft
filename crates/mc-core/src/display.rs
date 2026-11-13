@@ -1,5 +1,5 @@
-//! Small value types of display entities: `net.minecraft.util.Brightness` and
-//! `net.minecraft.world.entity.Display.BillboardConstraints`.
+//! Small value types of display entities: `net.minecraft.util.Brightness`,
+//! `net.minecraft.world.entity.Display.BillboardConstraints` and `net.minecraft.world.item.ItemDisplayContext`.
 
 /// `Brightness(block, sky)`: a light override with both levels in `0..=15` (the codec enforces the range).
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -60,5 +60,64 @@ impl BillboardConstraints {
             .ok()
             .and_then(|i| Self::ALL.get(i).copied())
             .unwrap_or(Self::Fixed)
+    }
+}
+
+/// `ItemDisplayContext` (ids are the declaration order).
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum ItemDisplayContext {
+    None,
+    ThirdPersonLeftHand,
+    ThirdPersonRightHand,
+    FirstPersonLeftHand,
+    FirstPersonRightHand,
+    Head,
+    Gui,
+    Ground,
+    Fixed,
+    OnShelf,
+}
+
+impl ItemDisplayContext {
+    pub const ALL: [ItemDisplayContext; 10] = [
+        Self::None,
+        Self::ThirdPersonLeftHand,
+        Self::ThirdPersonRightHand,
+        Self::FirstPersonLeftHand,
+        Self::FirstPersonRightHand,
+        Self::Head,
+        Self::Gui,
+        Self::Ground,
+        Self::Fixed,
+        Self::OnShelf,
+    ];
+
+    /// `getSerializedName()`.
+    pub const fn serialized_name(self) -> &'static str {
+        match self {
+            Self::None => "none",
+            Self::ThirdPersonLeftHand => "thirdperson_lefthand",
+            Self::ThirdPersonRightHand => "thirdperson_righthand",
+            Self::FirstPersonLeftHand => "firstperson_lefthand",
+            Self::FirstPersonRightHand => "firstperson_righthand",
+            Self::Head => "head",
+            Self::Gui => "gui",
+            Self::Ground => "ground",
+            Self::Fixed => "fixed",
+            Self::OnShelf => "on_shelf",
+        }
+    }
+
+    /// `getId()`.
+    pub const fn id(self) -> u8 {
+        self as u8
+    }
+
+    /// `BY_ID` (`ByIdMap.continuous(.., OutOfBoundsStrategy.ZERO)`).
+    pub fn by_id(id: i32) -> ItemDisplayContext {
+        usize::try_from(id)
+            .ok()
+            .and_then(|i| Self::ALL.get(i).copied())
+            .unwrap_or(Self::None)
     }
 }

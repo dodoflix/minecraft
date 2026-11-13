@@ -3,7 +3,7 @@
 use crate::builtin::*;
 use crate::codec::{Codec, Either};
 use crate::result::DataResult;
-use mc_core::display::{BillboardConstraints, Brightness};
+use mc_core::display::{BillboardConstraints, Brightness, ItemDisplayContext};
 use mc_core::math::matrix4f::Matrix4f;
 use mc_core::math::quaternionf::{AxisAngle4f, Quaternionf};
 use mc_core::math::transformation::Transformation;
@@ -419,6 +419,35 @@ pub static BILLBOARD_CONSTRAINTS: LazyLock<Codec<BillboardConstraints>> = LazyLo
         (BillboardConstraints::Vertical, "vertical"),
         (BillboardConstraints::Horizontal, "horizontal"),
         (BillboardConstraints::Center, "center"),
+    ];
+    string_enum_codec(&VALUES)
+});
+
+/// `ItemDisplayContext.CODEC` (`StringRepresentable.fromEnum`).
+pub static ITEM_DISPLAY_CONTEXT: LazyLock<Codec<ItemDisplayContext>> = LazyLock::new(|| {
+    static VALUES: [(ItemDisplayContext, &str); 10] = [
+        (ItemDisplayContext::None, "none"),
+        (
+            ItemDisplayContext::ThirdPersonLeftHand,
+            "thirdperson_lefthand",
+        ),
+        (
+            ItemDisplayContext::ThirdPersonRightHand,
+            "thirdperson_righthand",
+        ),
+        (
+            ItemDisplayContext::FirstPersonLeftHand,
+            "firstperson_lefthand",
+        ),
+        (
+            ItemDisplayContext::FirstPersonRightHand,
+            "firstperson_righthand",
+        ),
+        (ItemDisplayContext::Head, "head"),
+        (ItemDisplayContext::Gui, "gui"),
+        (ItemDisplayContext::Ground, "ground"),
+        (ItemDisplayContext::Fixed, "fixed"),
+        (ItemDisplayContext::OnShelf, "on_shelf"),
     ];
     string_enum_codec(&VALUES)
 });

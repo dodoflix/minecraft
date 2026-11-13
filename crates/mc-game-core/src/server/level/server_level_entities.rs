@@ -117,9 +117,11 @@ impl ServerLevel {
 
     // ---- lookups ----------------------------------------------------------------------------------------------
 
-    /// `getEntity(id)`: a tracked entity that is not currently taken out.
+    /// `getEntity(id)`: a tracked entity that is not currently taken out, or the entity that is loading.
     pub fn get_entity(&self, id: EntityId) -> Option<&dyn Entity> {
-        self.entity_manager.get(id)
+        self.entity_manager
+            .get(id)
+            .or_else(|| self.loading_entity.as_deref().filter(|e| e.id() == id))
     }
 
     pub fn get_entity_by_uuid(&self, uuid: Uuid) -> Option<&dyn Entity> {

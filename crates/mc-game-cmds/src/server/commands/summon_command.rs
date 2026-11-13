@@ -16,6 +16,7 @@ use mc_game_core::commands::synchronization::suggestion_providers;
 use mc_game_core::commands::{
     CommandEntity, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal,
 };
+use mc_game_core::world::entity::display::resolve_loaded_text;
 use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game_core::{register_command, translatable};
 use mc_nbt::CompoundTag;
@@ -117,6 +118,14 @@ pub fn create_entity(
         if loaded.is_empty() {
             return Err(ERROR_FAILED.create());
         }
+        // `TextDisplay.readAdditionalSaveData` resolves its text while it loads, before the move to `pos`
+        loaded = loaded
+            .into_iter()
+            .map(|entity| resolve_loaded_text(server, &dimension, entity))
+            .collect();
+        let Some(level) = server.level_mut(&dimension) else {
+            return Err(ERROR_FAILED.create());
+        };
         // the `postLoad` of the command: every entity of the tree is moved to `pos`, keeping its own rotation
         for entity in &mut loaded {
             let (y_rot, x_rot) = (entity.base().y_rot(), entity.base().x_rot());

@@ -942,7 +942,7 @@ pub fn entity_load_data(
     let Some(level) = server.level_mut(&entity.dimension) else {
         return Ok(());
     };
-    level
+    let result = level
         .with_entity(entity.id, |_, e| {
             let uuid = e.uuid();
             let result = e.load(data);
@@ -950,7 +950,15 @@ pub fn entity_load_data(
             e.post_data_manipulated();
             result
         })
-        .unwrap_or(Ok(()))
+        .unwrap_or(Ok(()));
+    if result.is_ok() {
+        crate::world::entity::display::resolve_loaded_text_in_level(
+            server,
+            &entity.dimension,
+            entity.id,
+        );
+    }
+    result
 }
 
 /// `level.getBlockEntity(pos) != null` (`LevelChunk.getBlockEntity(pos)`: `CHECK` creation).

@@ -65,6 +65,9 @@ pub struct ServerLevel {
     /// Dead players whose entity was removed from the level (`tickDeath` after 20 ticks): vanilla keeps the `ServerPlayer`
     /// alive through the player list and its connection (still ticked, respawned later); see `server_level_entities.rs`.
     pub dead_players: std::collections::HashMap<EntityId, Box<dyn crate::world::entity::Entity>>,
+    /// An entity that is loading and not part of the level yet, but whose own name resolution (`@s` in the text of a text
+    /// display) must find it; see `ServerLevel::get_entity`.
+    pub loading_entity: Option<Box<dyn crate::world::entity::Entity>>,
     /// Snapshots of the players that are currently taken out of the entity storage (see `tracker_players`).
     pub(super) taken_out_players: std::collections::HashMap<EntityId, super::TrackerPlayer>,
     /// The vibration-source facts of the players that are currently taken out (`GameEvent.Context.sourceEntity()` of
@@ -173,6 +176,7 @@ impl ServerLevel {
             entity_tracker: Default::default(),
             server_state: Default::default(),
             dead_players: Default::default(),
+            loading_entity: None,
             taken_out_players: Default::default(),
             taken_out_player_sources: Default::default(),
             registries: Default::default(),

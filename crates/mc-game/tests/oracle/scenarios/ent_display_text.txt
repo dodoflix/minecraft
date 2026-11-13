@@ -1,0 +1,67 @@
+# Text displays resolve the selector, score and NBT contents of their text while they load, with the display as the source
+# and game master permissions: through /summon (at the position of the tag, the origin here, before the move to the
+# summoned position), /execute summon and /data merge entity. The other load paths (spawn REF) keep the text as given.
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 900
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 40.5 -60 0.5 0 0
+tick 2
+dump packets:A:none packets:B:none
+cmd scoreboard objectives add pts dummy
+cmd scoreboard players set A pts 7
+cmd scoreboard players set B pts 11
+cmd data modify storage test:store line set value "from storage"
+cmd team add reds
+cmd team modify reds color red
+cmd team join reds A
+note selectors: every player, the nearest to the origin, a selector that finds nothing, a list around plain text
+cmd summon minecraft:text_display 0.5 -59 3.5 {text:{selector:"@a"}}
+cmd summon minecraft:text_display 1.5 -59 3.5 {text:{selector:"@p",color:"gold",bold:true}}
+cmd summon minecraft:text_display 2.5 -59 3.5 {text:{selector:"@e[type=minecraft:cow]",separator:" and "}}
+cmd summon minecraft:text_display 3.5 -59 3.5 {text:["x",{selector:"@a",separator:{text:" | ",color:"red"}},"y"]}
+note scores: by name, of a selected player, the default entity (the display), an unknown objective
+cmd summon minecraft:text_display 4.5 -59 3.5 {text:{score:{name:"A",objective:"pts"}}}
+cmd summon minecraft:text_display 5.5 -59 3.5 {text:{score:{name:"@p",objective:"pts"}}}
+cmd summon minecraft:text_display 6.5 -59 3.5 {text:{score:{name:"*",objective:"pts"}}}
+cmd summon minecraft:text_display 7.5 -59 3.5 {text:{score:{name:"A",objective:"missing"}}}
+note NBT: storage, an entity, a block, interpreted, with a separator, a path that finds nothing
+cmd summon minecraft:text_display 8.5 -59 3.5 {text:{nbt:"line",storage:"test:store"}}
+cmd summon minecraft:text_display 9.5 -59 3.5 {text:{nbt:"Pos",entity:"@a",separator:"; "}}
+cmd summon minecraft:text_display 10.5 -59 3.5 {text:{nbt:"Health",entity:"@p"}}
+cmd summon minecraft:text_display 11.5 -59 3.5 {text:{nbt:"nothing.here",entity:"@p"}}
+cmd data modify storage test:store comp set value {text:"interpreted",color:"green"}
+cmd summon minecraft:text_display 12.5 -59 3.5 {text:{nbt:"comp",storage:"test:store",interpret:true}}
+note translatable arguments and a hover text are resolved too
+cmd summon minecraft:text_display 13.5 -59 3.5 {text:{translate:"chat.type.text",with:[{selector:"@a"},{score:{name:"B",objective:"pts"}}]}}
+cmd summon minecraft:text_display 14.5 -59 3.5 {text:{text:"hover",hover_event:{action:"show_text",value:{selector:"@a"}}}}
+note the display itself as the source: @s, its name and position, a team does not apply to it
+cmd summon minecraft:text_display 15.5 -59 3.5 {text:{selector:"@s"}}
+cmd summon minecraft:text_display 16.5 -59 3.5 {text:{nbt:"Pos",entity:"@s"}}
+cmd summon minecraft:text_display 17.5 -59 3.5 {text:{selector:"@e[type=minecraft:text_display]"}}
+note a tag with a position and passengers: each passenger resolves at its own position
+cmd summon minecraft:text_display 18.5 -59 3.5 {Pos:[3.5d,-59.0d,0.5d],text:{selector:"@p"},Passengers:[{id:"minecraft:text_display",text:{selector:"@p"}}]}
+cmd summon minecraft:text_display 19.5 -59 3.5 {Pos:[39.5d,-59.0d,0.5d],text:{selector:"@p"}}
+cmd execute as A at A run summon minecraft:text_display ~ ~2 ~ {text:{selector:"@s"}}
+tick 2
+dump entities nbt:text_display#1 nbt:text_display#2 nbt:text_display#3 nbt:text_display#4 nbt:text_display#5 nbt:text_display#6 nbt:text_display#7 nbt:text_display#8 nbt:text_display#9 nbt:text_display#10 nbt:text_display#11 nbt:text_display#12 nbt:text_display#13 nbt:text_display#14 nbt:text_display#15 nbt:text_display#16 nbt:text_display#17 nbt:text_display#18 nbt:text_display#19 nbt:text_display#20 nbt:text_display#21 nbt:text_display#22 packets:A:add_entity,set_entity_data
+note /data merge resolves what it merges (and /data get shows the stored result)
+cmd data merge entity @e[type=minecraft:text_display,x=0.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{selector:"@a"}}
+cmd data merge entity @e[type=minecraft:text_display,x=2.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{score:{name:"B",objective:"pts"}}}
+cmd data merge entity @e[type=minecraft:text_display,x=4.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{selector:"@s"}}
+cmd data merge entity @e[type=minecraft:text_display,x=6.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{nbt:"Pos",entity:"@s"}}
+cmd data get entity @e[type=minecraft:text_display,x=0.5,y=-59,z=3.5,distance=..0.1,limit=1] text
+cmd data get entity @e[type=minecraft:text_display,x=2.5,y=-59,z=3.5,distance=..0.1,limit=1] text
+tick 1
+dump nbt:text_display#1 nbt:text_display#3 nbt:text_display#5 nbt:text_display#7 packets:A:set_entity_data
+note a text that does not resolve to anything keeps the stored one
+cmd data merge entity @e[type=minecraft:text_display,x=8.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{selector:"@e[sort=bogus]"}}
+cmd data merge entity @e[type=minecraft:text_display,x=9.5,y=-59,z=3.5,distance=..0.1,limit=1] {text:{score:{name:"@e[type=minecraft:text_display]",objective:"pts"}}}
+tick 1
+dump nbt:text_display#9 nbt:text_display#10 packets:A:set_entity_data
+note the team of a player does not show in a text display, and a team given to the display changes nothing in its data
+cmd team join reds @e[type=minecraft:text_display,x=0.5,y=-59,z=3.5,distance=..0.1,limit=1]
+tick 1
+dump nbt:text_display#1 packets:A:set_entity_data

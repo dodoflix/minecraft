@@ -8,7 +8,6 @@ use crate::world::level::block::BlockStateExt;
 use mc_core::direction::{Direction, Direction::*};
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
-use mc_data::EntityType;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::PushReaction;
 use mc_data::props;
@@ -345,16 +344,7 @@ impl<'a> PistonStructureResolver<'a> {
     }
 }
 
-/// `Entity.getPistonPushReaction()`: the trait method, plus the types whose Java class overrides it to `IGNORE_ENTITY` but
-/// whose entity implementation does not exist yet (`Display`).
+/// `Entity.getPistonPushReaction()`.
 pub fn entity_push_reaction(entity: &dyn Entity) -> PushReaction {
-    let ty = entity.get_type();
-    if ty == EntityType::BLOCK_DISPLAY
-        || ty == EntityType::ITEM_DISPLAY
-        || ty == EntityType::TEXT_DISPLAY
-    {
-        PushReaction::IgnoreEntity
-    } else {
-        entity.get_piston_push_reaction()
-    }
+    entity.get_piston_push_reaction()
 }

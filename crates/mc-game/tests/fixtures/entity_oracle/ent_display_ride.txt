@@ -1,0 +1,56 @@
+E V minecraft:oak_boat pos=0.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=D1;D2
+E D1 minecraft:text_display pos=0.5,-59.8125,5.700000002980232 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D2 minecraft:item_display pos=0.5,-59.8125,4.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D1 minecraft:text_display pos=0.5,-59.8125,5.700000002980232 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D2 minecraft:item_display pos=0.5,-59.8125,4.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N D1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-59.8125d,5.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:"rider",text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+PKT A minecraft:add_entity 01ea07ff05b4a855e7451fac07c20f4e22aa715a3fe0000000000000c04e00000000000040160000000000000000000000
+PKT A minecraft:add_entity 01eb07a7ccda759a2347e181fef7af04eb1b3187013fe0000000000000c04e00000000000040160000000000000000000000
+PKT A minecraft:set_entity_data 65eb0717050800057269646572ff
+PKT A minecraft:add_entity 01ec07cf8840888fd548d49359bf58d73baf6b493fe0000000000000c04e00000000000040160000000000000000000000
+PKT A minecraft:set_entity_data 65ec07170701010000ff
+PKT A minecraft:set_entity_data 65ec07080100170701010000ff
+PKT A minecraft:set_passengers 6dea0702eb07ec07
+PKT A minecraft:set_entity_data 65eb0708010017050800057269646572ff
+# the boat moves and takes its passengers along
+E V minecraft:oak_boat pos=4.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=D1;D2
+E D1 minecraft:text_display pos=4.5,-59.8125,5.700000002980232 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D2 minecraft:item_display pos=4.5,-59.8125,4.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT A minecraft:entity_position_sync 23ea07004012000000000000c04e0000000000004016000000000000000000000000000001
+# the boat is removed: the displays stop riding on their next tick
+E D1 minecraft:text_display pos=4.5,-59.8125,5.700000002980232 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D2 minecraft:item_display pos=4.5,-59.8125,4.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D1 minecraft:text_display pos=4.5,-59.8125,5.700000002980232 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D2 minecraft:item_display pos=4.5,-59.8125,4.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT A minecraft:remove_entities 4e01ea07
+# /item replace entity on an item display: slot 0 (contents) takes the item, others fail, an empty replace clears it
+C Replaced 1 slot(s) on Item Display with [Emerald]
+C The target does not have slot weapon.mainhand
+C The target does not have slot contents
+C Item Display has the following entity data: {count: 5, id: "minecraft:emerald"}
+N D2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-59.8125d,4.899999976158142d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:5,id:"minecraft:emerald"},item_display:"none",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+N D1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-59.8125d,5.700000002980232d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:"rider",text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+PKT A minecraft:set_entity_data 65ec07170705f5070000ff
+C Replaced 1 slot(s) on Item Display with [Air]
+C The target does not have slot contents
+C Replaced 1 slot(s) on Item Display with [Stone]
+C Modified 1 slot(s) on Item Display
+N D2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-59.8125d,4.899999976158142d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{components:{minecraft:custom_name:"shown"},count:64,id:"minecraft:stone"},item_display:"none",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
+PKT A minecraft:set_entity_data 65ec071707400101000608000573686f776eff
+# displays do not press plates or trip wires and are not moved by a piston
+B 4 -61 7 minecraft:stone_pressure_plate[powered=false]
+E D1 minecraft:text_display pos=4.5,-59.8125,5.700000002980232 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D2 minecraft:item_display pos=4.5,-59.8125,4.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D3 minecraft:block_display pos=4.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D4 minecraft:text_display pos=4.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+B 7 -60 9 minecraft:piston[extended=true,facing=east]
+B 8 -60 9 minecraft:piston_head[facing=east,short=false,type=normal]
+E D5 minecraft:block_display pos=8.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D1 minecraft:text_display pos=4.5,-59.8125,5.700000002980232 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D2 minecraft:item_display pos=4.5,-59.8125,4.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D3 minecraft:block_display pos=4.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D4 minecraft:text_display pos=4.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D5 minecraft:block_display pos=8.5,-60.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT A minecraft:move_entity_pos 36ee0700000000000000
+PKT A minecraft:move_entity_pos 36ed0700000000000000
+PKT A minecraft:move_entity_pos 36ef0700000000000000

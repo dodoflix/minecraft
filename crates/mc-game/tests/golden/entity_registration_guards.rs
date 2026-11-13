@@ -14,7 +14,6 @@ use std::path::{Path, PathBuf};
 /// Non-mob vanilla entity types without a Rust class (type, what is not implemented). Delete the line when the class lands.
 #[rustfmt::skip]
 const EXPECTED_MISSING: &[(&str, &str)] = &[
-    ("minecraft:block_display", "Display.BlockDisplay: block state, transformation, interpolation and the display data"),
     ("minecraft:chest_minecart", "MinecartChest: container items, loot table, open menu"),
     ("minecraft:command_block_minecart", "MinecartCommandBlock: command, last output, console tick"),
     ("minecraft:egg", "ThrownEgg: hit effects, chicken spawn"),
@@ -23,12 +22,10 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
     ("minecraft:fishing_bobber", "FishingHook: cast, bite, retrieve and loot"),
     ("minecraft:furnace_minecart", "MinecartFurnace: fuel, push and drive"),
     ("minecraft:hopper_minecart", "MinecartHopper: container pull and push"),
-    ("minecraft:item_display", "Display.ItemDisplay: item stack, transformation, interpolation and the display data"),
     ("minecraft:lingering_potion", "ThrownLingeringPotion: area effect cloud on hit"),
     ("minecraft:minecart", "Minecart: rail movement, riding, destroying"),
     ("minecraft:spawner_minecart", "MinecartSpawner: the spawner logic"),
     ("minecraft:splash_potion", "ThrownSplashPotion: splash effects on hit"),
-    ("minecraft:text_display", "Display.TextDisplay: component, line width, background and the display data"),
     ("minecraft:tnt_minecart", "MinecartTNT: fuse and explosion"),
 ];
 
@@ -198,7 +195,7 @@ fn a_non_mob_type_without_a_factory_fails_the_guard() {
     let vanilla = vanilla();
     let problems = problems(&vanilla.non_mob, &EXPECTED_MISSING[1..], &has);
     assert_eq!(problems.len(), 1, "{problems:?}");
-    assert!(problems[0].starts_with("minecraft:block_display: no factory"));
+    assert!(problems[0].starts_with(&format!("{}: no factory", EXPECTED_MISSING[0].0)));
 }
 
 #[test]

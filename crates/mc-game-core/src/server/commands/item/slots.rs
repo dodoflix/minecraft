@@ -11,6 +11,7 @@ use crate::commands::arguments::selector::EntityRef;
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::BlockEntity;
 use crate::world::container::Container;
+use crate::world::entity::display::Display;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::inventory::{InventoryMenu, equippable_slot};
@@ -141,6 +142,13 @@ fn set_entity_slot(level: &mut ServerLevel, entity: &mut dyn Entity, slot: i32, 
     {
         let old = living.equipment.set(equipment, stack.clone());
         entity.on_equip_item(level, equipment, &old, &stack);
+        return;
+    }
+    // `ItemDisplay.getSlot(0)`
+    if slot == 0
+        && let Some(display) = entity.as_any_mut().downcast_mut::<Display>()
+    {
+        display.set_item_stack(stack);
     }
 }
 

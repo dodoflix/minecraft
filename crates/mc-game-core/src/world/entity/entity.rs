@@ -4462,6 +4462,30 @@ pub trait Entity: Any {
     /// The level-dependent part of `readAdditionalSaveData` for an entity that was just loaded into the level (`Raider` joins
     /// its raid).
     fn after_loaded_to_level(&mut self, _level: &mut ServerLevel) {}
+    /// `Entity.createCommandSourceStackForNameResolution(level)`: the entity as a source without permissions, for resolving
+    /// the selector, score and NBT contents of a name or text it carries (`ComponentUtils.resolve`).
+    fn create_command_source_stack_for_name_resolution(
+        &self,
+        server: &crate::server::MinecraftServer,
+        dimension: &crate::world::level::DimensionKey,
+    ) -> crate::commands::CommandSourceStack {
+        let entity = crate::commands::host::command_entity_of(
+            server,
+            &crate::commands::arguments::selector::EntityRef {
+                dimension: dimension.clone(),
+                id: self.id(),
+            },
+            self.as_dyn(),
+        );
+        crate::commands::CommandSourceStack::for_entity(
+            crate::commands::command_source::null_source(),
+            self.position(),
+            Vec2::new(self.base().x_rot(), self.base().y_rot()),
+            dimension.clone(),
+            crate::server::permissions::PermissionSet::NoPermissions,
+            entity,
+        )
+    }
     /// `Entity.considersEntityAsAlly(other)` (team allies; tamed pets and illagers extend it).
     fn considers_entity_as_ally(&self, level: &ServerLevel, other: &dyn Entity) -> bool {
         super::mob::ext::considers_entity_as_ally_default(level, self.as_dyn(), other)
