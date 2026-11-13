@@ -237,7 +237,6 @@ impl EntitySubPredicateImpl for PlayerPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         _position: Option<Vec3>,
-        lent: &[&'a dyn Entity],
     ) -> bool {
         let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else {
             return false;
@@ -279,7 +278,7 @@ impl EntitySubPredicateImpl for PlayerPredicate {
             else {
                 return false;
             };
-            if !looking_at.matches_lent(level, Some(entity.position()), target, lent)
+            if !looking_at.matches(level, Some(entity.position()), target)
                 || !has_line_of_sight(level, entity, target)
             {
                 return false;

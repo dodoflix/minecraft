@@ -45,21 +45,20 @@ impl DamageSourcePredicate {
         entity: Option<&'a dyn Entity>,
         is_direct: bool,
     ) -> bool {
-        let lent: Vec<&'a dyn Entity> = direct_entity.into_iter().chain(entity).collect();
         if !self.tags.iter().all(|tag| tag.matches(level, damage_type)) {
             return false;
         }
         if self
             .direct_entity
             .as_ref()
-            .is_some_and(|p| !p.matches_nullable_lent(level, Some(position), direct_entity, &lent))
+            .is_some_and(|p| !p.matches_nullable(level, Some(position), direct_entity))
         {
             return false;
         }
         if self
             .source_entity
             .as_ref()
-            .is_some_and(|p| !p.matches_nullable_lent(level, Some(position), entity, &lent))
+            .is_some_and(|p| !p.matches_nullable(level, Some(position), entity))
         {
             return false;
         }

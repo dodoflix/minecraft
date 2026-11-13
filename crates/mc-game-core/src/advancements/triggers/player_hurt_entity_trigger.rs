@@ -84,15 +84,17 @@ impl Trigger<PlayerHurtEntityTriggerInstance> {
         actual_damage: f32,
         blocked: bool,
     ) {
-        let matches = self.matches(
-            &*level,
-            &*player,
-            victim,
-            source,
-            original_damage,
-            actual_damage,
-            blocked,
-        );
+        let matches = level.expose(&*player, |level| {
+            self.matches(
+                &*level,
+                &*player,
+                victim,
+                source,
+                original_damage,
+                actual_damage,
+                blocked,
+            )
+        });
         matches.award(level, player);
     }
 

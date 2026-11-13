@@ -385,7 +385,10 @@ pub fn fire_with_entity<F>(
     F: Fn(&ServerLevel, &ServerPlayer, &dyn Entity) -> TriggerMatches + 'static,
 {
     let fired = level.with_player(player_id, |level, player| {
-        let matches = matcher(&*level, &*player, entity);
+        // the player and the entity are out of the level while their code runs: nested predicates look them up by id
+        let matches = level.expose(&*player, |level| {
+            level.expose(entity, |level| matcher(&*level, &*player, entity))
+        });
         matches.award(level, player);
     });
     if fired.is_none() {

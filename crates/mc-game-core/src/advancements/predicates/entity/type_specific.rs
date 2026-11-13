@@ -35,21 +35,15 @@ impl EntitySubPredicateImpl for LightningBoltPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         position: Option<Vec3>,
-        lent: &[&'a dyn Entity],
     ) -> bool {
         let Some(bolt) = entity.lightning_bolt_state() else {
             return false;
         };
         self.blocks_set_on_fire.matches(bolt.blocks_set_on_fire)
             && self.entity_struck.as_ref().is_none_or(|struck| {
-                bolt.hit_entities.iter().any(|&id| {
-                    struck.matches_nullable_lent(
-                        level,
-                        position,
-                        super::support::resolve(level, lent, id),
-                        lent,
-                    )
-                })
+                bolt.hit_entities
+                    .iter()
+                    .any(|&id| struck.matches_nullable(level, position, level.get_entity(id)))
             })
     }
 }
@@ -76,7 +70,6 @@ impl EntitySubPredicateImpl for FishingHookPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         match self.in_open_water {
             None => true,
@@ -107,7 +100,6 @@ impl EntitySubPredicateImpl for CubeMobPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         entity
             .cube_mob_size()
@@ -139,7 +131,6 @@ impl EntitySubPredicateImpl for RaiderPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         crate::world::entity::raid::raider::raider_state(entity, level)
             == Some((self.has_raid, self.is_captain))
@@ -168,7 +159,6 @@ impl EntitySubPredicateImpl for SheepPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         entity
             .sheep_sheared()

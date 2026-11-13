@@ -80,7 +80,6 @@ impl EntitySubPredicateImpl for EntityFlagsPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         self.matches_entity(entity)
     }

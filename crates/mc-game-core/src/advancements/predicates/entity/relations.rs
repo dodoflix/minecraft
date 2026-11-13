@@ -1,7 +1,6 @@
 //! `VehiclePredicate`, `PassengerPredicate`, `TargetedEntityPredicate`: sub predicates that recurse into another entity.
 
 use super::entity_predicate::{EntityPredicate, EntitySubPredicateImpl};
-use super::support;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use mc_core::phys::Vec3;
@@ -26,13 +25,11 @@ impl EntitySubPredicateImpl for VehiclePredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         position: Option<Vec3>,
-        lent: &[&'a dyn Entity],
     ) -> bool {
-        self.vehicle.matches_nullable_lent(
+        self.vehicle.matches_nullable(
             level,
             position,
-            support::get_vehicle(level, lent, entity),
-            lent,
+            entity.base().vehicle.and_then(|id| level.get_entity(id)),
         )
     }
 }
@@ -56,15 +53,10 @@ impl EntitySubPredicateImpl for PassengerPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         position: Option<Vec3>,
-        lent: &[&'a dyn Entity],
     ) -> bool {
         entity.base().passengers.iter().any(|&id| {
-            self.passenger.matches_nullable_lent(
-                level,
-                position,
-                support::resolve(level, lent, id),
-                lent,
-            )
+            self.passenger
+                .matches_nullable(level, position, level.get_entity(id))
         })
     }
 }
@@ -88,15 +80,11 @@ impl EntitySubPredicateImpl for TargetedEntityPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         position: Option<Vec3>,
-        lent: &[&'a dyn Entity],
     ) -> bool {
-        self.targeted_entity.matches_nullable_lent(
+        self.targeted_entity.matches_nullable(
             level,
             position,
-            entity
-                .get_target()
-                .and_then(|id| support::resolve(level, lent, id)),
-            lent,
+            entity.get_target().and_then(|id| level.get_entity(id)),
         )
     }
 }

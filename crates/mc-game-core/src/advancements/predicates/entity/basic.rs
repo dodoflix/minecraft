@@ -36,7 +36,6 @@ impl EntitySubPredicateImpl for EntityTypePredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         self.types.contains(entity.get_type())
     }
@@ -61,7 +60,6 @@ impl EntitySubPredicateImpl for EntityLocationPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         let b = entity.base();
         self.predicate.matches(level, b.x(), b.y(), b.z())
@@ -96,7 +94,6 @@ impl EntitySubPredicateImpl for SteppingOnPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         if !entity.base().on_ground() {
             return false;
@@ -125,7 +122,6 @@ impl EntitySubPredicateImpl for MovementAffectedByPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         let on_pos = center_of(support::get_block_pos_below_that_affects_my_movement(
             level, entity,
@@ -153,7 +149,6 @@ impl EntitySubPredicateImpl for DistanceToPlayerPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         let b = entity.base();
         position.is_some_and(|p| self.distance.matches(p.x, p.y, p.z, b.x(), b.y(), b.z()))
@@ -179,7 +174,6 @@ impl EntitySubPredicateImpl for EntityEffectsPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         self.effects.matches_entity(entity)
     }
@@ -204,7 +198,6 @@ impl EntitySubPredicateImpl for EntityNbtPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         self.nbt.matches_entity(level, entity)
     }
@@ -229,7 +222,6 @@ impl EntitySubPredicateImpl for PeriodicEntityTickPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         entity.base().tick_count % self.periodic_tick == 0
     }
@@ -254,7 +246,6 @@ impl EntitySubPredicateImpl for TeamPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         support::get_team_name(level, entity).is_some_and(|name| name == self.team)
     }
@@ -279,7 +270,6 @@ impl EntitySubPredicateImpl for EntitySlotsPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         self.slots.matches(entity)
     }
@@ -304,7 +294,6 @@ impl EntitySubPredicateImpl for EntityExactDataComponentsPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         self.predicate.test(&entity.entity_components())
     }
@@ -329,7 +318,6 @@ impl EntitySubPredicateImpl for EntityPartialComponentsPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         let components = entity.entity_components();
         self.predicates.0.iter().all(|p| p.matches(&components))
@@ -386,7 +374,6 @@ impl EntitySubPredicateImpl for EntityTagPredicate {
         entity: &'a dyn Entity,
         _level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         self.matches_tags(&entity.base().tags)
     }

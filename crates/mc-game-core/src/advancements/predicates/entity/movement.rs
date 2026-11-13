@@ -90,7 +90,6 @@ impl EntitySubPredicateImpl for MovementPredicate {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         _position: Option<Vec3>,
-        _lent: &[&'a dyn Entity],
     ) -> bool {
         let m = entity.get_known_movement(level);
         let velocity = Vec3::new(m.x * 20.0, m.y * 20.0, m.z * 20.0);

@@ -109,30 +109,6 @@ pub fn is_fall_flying(entity: &dyn Entity) -> bool {
     entity.living().is_some_and(|l| l.is_fall_flying())
 }
 
-/// The entity with `id`: one of the `lent` entities (running entities are not in the level's storage) or the level's.
-pub fn resolve<'a>(
-    level: &'a ServerLevel,
-    lent: &[&'a dyn Entity],
-    id: EntityId,
-) -> Option<&'a dyn Entity> {
-    lent.iter()
-        .copied()
-        .find(|e| e.id() == id)
-        .or_else(|| level.get_entity(id))
-}
-
-/// `Entity.getVehicle()`.
-pub fn get_vehicle<'a>(
-    level: &'a ServerLevel,
-    lent: &[&'a dyn Entity],
-    entity: &dyn Entity,
-) -> Option<&'a dyn Entity> {
-    entity
-        .base()
-        .vehicle
-        .and_then(|id| resolve(level, lent, id))
-}
-
 /// `Entity.getOnPos()`.
 pub fn get_on_pos(level: &ServerLevel, entity: &dyn Entity) -> mc_core::pos::BlockPos {
     movement::get_on_pos(entity, level, 1.0E-5)

@@ -26,7 +26,6 @@ pub trait EntitySubPredicateImpl: Sized {
         entity: &'a dyn Entity,
         level: &'a ServerLevel,
         position: Option<Vec3>,
-        lent: &[&'a dyn Entity],
     ) -> bool;
 }
 
@@ -48,9 +47,9 @@ macro_rules! entity_sub_predicates {
             }
 
             /// `matches(entity, level, position)`.
-            pub fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
+            pub fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>) -> bool {
                 match self {
-                    $(Self::$variant(p) => EntitySubPredicateImpl::matches(p, entity, level, position, lent)),*
+                    $(Self::$variant(p) => EntitySubPredicateImpl::matches(p, entity, level, position)),*
                 }
             }
         }
@@ -131,8 +130,6 @@ fn type_key_codec() -> Codec<usize> {
 #[derive(Clone, Debug)]
 pub struct EntityPredicate {
     parts: Vec<EntitySubPredicate>,
-    /// Some part looks at other entities (vehicle, passenger, target, struck entities, looked-at entity).
-    recurses: bool,
     /// Indices into `parts` in `combine` order (stable sort by [`EntitySubPredicate::sort_rank`]).
     order: Vec<usize>,
 }
@@ -148,21 +145,7 @@ impl EntityPredicate {
     pub fn new(parts: Vec<EntitySubPredicate>) -> EntityPredicate {
         let mut order: Vec<usize> = (0..parts.len()).collect();
         order.sort_by_key(|&i| parts[i].sort_rank());
-        let recurses = parts.iter().any(|p| {
-            matches!(
-                p,
-                EntitySubPredicate::Vehicle(_)
-                    | EntitySubPredicate::Passenger(_)
-                    | EntitySubPredicate::TargetedEntity(_)
-                    | EntitySubPredicate::Lightning(_)
-                    | EntitySubPredicate::Player(_)
-            )
-        });
-        EntityPredicate {
-            parts,
-            recurses,
-            order,
-        }
+        EntityPredicate { parts, order }
     }
 
     /// `EntityPredicate.CODEC`.
@@ -204,37 +187,17 @@ impl EntityPredicate {
     }
 
     /// `matches(level, position, entity)` for a present entity; `position` is the origin of the distance checks
-    /// (`null` outside a player context).
+    /// (`null` outside a player context). An entity whose own code runs is found by the nested predicates when that
+    /// code lent it to the level (`ServerLevel::lend`).
     pub fn matches<'a>(
         &self,
         level: &'a ServerLevel,
         position: Option<Vec3>,
         entity: &'a dyn Entity,
     ) -> bool {
-        self.matches_lent(level, position, entity, &[])
-    }
-
-    /// `matches` with entities that are not in the level's storage because they are being ticked (`lent`); `entity`
-    /// itself is lent to the nested predicates automatically, so a vehicle/passenger/target lookup that leads back to
-    /// it finds it.
-    pub fn matches_lent<'a>(
-        &self,
-        level: &'a ServerLevel,
-        position: Option<Vec3>,
-        entity: &'a dyn Entity,
-        lent: &[&'a dyn Entity],
-    ) -> bool {
-        if self.recurses {
-            let mut all: Vec<&'a dyn Entity> = lent.to_vec();
-            all.push(entity);
-            self.order
-                .iter()
-                .all(|&i| self.parts[i].matches(entity, level, position, &all))
-        } else {
-            self.order
-                .iter()
-                .all(|&i| self.parts[i].matches(entity, level, position, lent))
-        }
+        self.order
+            .iter()
+            .all(|&i| self.parts[i].matches(entity, level, position))
     }
 
     /// `matches(level, position, @Nullable entity)`.
@@ -244,17 +207,7 @@ impl EntityPredicate {
         position: Option<Vec3>,
         entity: Option<&'a dyn Entity>,
     ) -> bool {
-        self.matches_nullable_lent(level, position, entity, &[])
-    }
-
-    pub fn matches_nullable_lent<'a>(
-        &self,
-        level: &'a ServerLevel,
-        position: Option<Vec3>,
-        entity: Option<&'a dyn Entity>,
-        lent: &[&'a dyn Entity],
-    ) -> bool {
-        entity.is_some_and(|e| self.matches_lent(level, position, e, lent))
+        entity.is_some_and(|e| self.matches(level, position, e))
     }
 
     /// `matches(ServerPlayer player, @Nullable Entity entity)`: distances are measured from the player.
@@ -264,6 +217,6 @@ impl EntityPredicate {
         player: &'a dyn Entity,
         entity: Option<&'a dyn Entity>,
     ) -> bool {
-        self.matches_nullable_lent(level, Some(player.position()), entity, &[player])
+        self.matches_nullable(level, Some(player.position()), entity)
     }
 }
