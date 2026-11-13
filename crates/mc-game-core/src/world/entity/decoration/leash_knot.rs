@@ -9,7 +9,7 @@ use crate::world::entity::entity::EntityData;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::mob::interact::entity_interact;
 use crate::world::entity::mob::leashable::{self, LeashHolder};
-use crate::world::entity::{Entity, EntityId, MoverType, ServerPlayer};
+use crate::world::entity::{Entity, EntityId, MoverType, RemovalReason, ServerPlayer};
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
@@ -175,8 +175,7 @@ impl Entity for LeashFenceKnotEntity {
     /// `notifyLeasheeRemoved(entity)`.
     fn notify_leashee_removed(&mut self, level: &mut ServerLevel, _leashee: EntityId) {
         if leashable::leashable_leashed_to(level, self.as_dyn()).is_empty() {
-            self.discard();
-            level.untrack_discarded_entity(self);
+            level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
         }
     }
     /// `interact(player, hand, location)`: shears, tying the player's mobs to the knot, or handing its mobs to the player.

@@ -2,7 +2,7 @@
 
 use super::entity::{Entity, EntityData, MovementEmission};
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
-use super::{EntityId, MoverType, ServerPlayer, movement};
+use super::{EntityId, MoverType, RemovalReason, ServerPlayer, movement};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
@@ -200,12 +200,12 @@ impl ExperienceOrb {
         can_merge_static(orb, self.base.id, self.get_value())
     }
 
-    /// `merge(orb)`: the merged orb is out of storage while its owner ticks, so it is untracked at the discard.
+    /// `merge(orb)`: the merged orb is out of storage while its owner ticks, so the removal path untracks it at the
+    /// discard.
     fn merge(&mut self, level: &mut ServerLevel, orb: &mut ExperienceOrb) {
         self.count += orb.count;
         self.age = self.age.min(orb.age);
-        orb.discard();
-        level.untrack_discarded_entity(orb);
+        level.remove_held_entity(orb.as_dyn_mut(), RemovalReason::Discarded);
     }
 
     fn scan_for_merges(&mut self, level: &mut ServerLevel) {
@@ -343,8 +343,7 @@ impl Entity for ExperienceOrb {
         self.mark_hurt();
         self.health = (self.health as f32 - damage) as i32;
         if self.health <= 0 {
-            self.discard();
-            level.untrack_discarded_entity(self);
+            level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
         }
         true
     }
@@ -410,8 +409,7 @@ impl Entity for ExperienceOrb {
         }
         self.age += 1;
         if self.age >= LIFETIME {
-            self.discard();
-            level.untrack_discarded_entity(self);
+            level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
         }
     }
 

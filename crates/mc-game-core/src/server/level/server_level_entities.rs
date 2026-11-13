@@ -228,10 +228,11 @@ impl ServerLevel {
         }
     }
 
-    /// `Entity.discard()` of the entity that is being ticked (so out of storage): vanilla's `Entity.setRemoved` runs
-    /// `ChunkMap.removeEntity` at once, so watchers get `remove_entities` before anything the rest of the tick
-    /// sends. Call it right after the discard; the callbacks that need no packet order follow when the entity is put back.
-    pub fn untrack_discarded_entity(&mut self, entity: &mut dyn Entity) {
+    /// The tracker part of `Entity.setRemoved` for an entity that is out of storage (it is being ticked or lent):
+    /// vanilla runs `ChunkMap.removeEntity` at once, so watchers get `remove_entities` before anything the rest of
+    /// the tick sends. [`ServerLevel::remove_held_entity`] calls it; the callbacks that need no packet order follow
+    /// when the entity is put back.
+    pub(super) fn untrack_discarded_entity(&mut self, entity: &mut dyn Entity) {
         debug_assert!(entity.is_removed() && !entity.is_player());
         let id = entity.id();
         self.entity_tracker.remove_entity(

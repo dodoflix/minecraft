@@ -3,7 +3,7 @@
 use super::entity::{Entity, EntityData, MovementEmission};
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::item::spawn_at_location;
-use super::{EntityId, MoverType, movement};
+use super::{EntityId, MoverType, RemovalReason, movement};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::server::level::server_entity::encode_payload;
@@ -166,10 +166,10 @@ impl FallingBlockEntity {
         self.drop_item && level.entity_drops()
     }
 
-    /// `discard()` during the tick: untracks at once, so watchers get `remove_entities` before what the landing sends.
+    /// `discard()` during the tick: the level's removal path untracks at once, so watchers get `remove_entities`
+    /// before what the landing sends.
     fn discard_in_tick(&mut self, level: &mut ServerLevel) {
-        self.discard();
-        level.untrack_discarded_entity(self);
+        level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
     }
 }
 

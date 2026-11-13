@@ -27,7 +27,7 @@ use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::item::ItemEntity;
 use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use crate::world::entity::{
-    Entity, EntityData, EntityId, MovementEmission, MoverType, ServerPlayer,
+    Entity, EntityData, EntityId, MovementEmission, MoverType, RemovalReason, ServerPlayer,
 };
 use crate::world::item::ItemStack;
 use crate::world::level::block::BlockStateExt;
@@ -209,8 +209,7 @@ impl FishingHook {
 
     /// `discard()` inside the hook's own tick: watchers get the removal before anything else the tick sends.
     fn stop(&mut self, level: &mut ServerLevel) {
-        self.discard();
-        level.untrack_discarded_entity(self);
+        level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
     }
 
     /// `catchingFish(blockPos)`.

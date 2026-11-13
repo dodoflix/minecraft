@@ -5,7 +5,8 @@ use crate::server::level::ServerLevel;
 use crate::server::level::level_explode::Explode;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::{
-    Entity, EntityData, EntityId, MoveSimulationType, MovementEmission, MoverType, entity,
+    Entity, EntityData, EntityId, MoveSimulationType, MovementEmission, MoverType, RemovalReason,
+    entity,
 };
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor;
@@ -225,8 +226,7 @@ impl Entity for PrimedTnt {
         let fuse = self.get_fuse() - 1;
         self.set_fuse(fuse);
         if fuse <= 0 {
-            self.discard();
-            level.untrack_discarded_entity(self);
+            level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
             self.explode(level);
         } else {
             self.update_fluid_interaction(level);

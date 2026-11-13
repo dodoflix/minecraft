@@ -8,7 +8,7 @@ use crate::world::damagesource::DamageSource;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::item::ItemEntity;
 use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
-use crate::world::entity::{Entity, EntityData, EntityId, entity};
+use crate::world::entity::{Entity, EntityData, EntityId, RemovalReason, entity};
 use crate::world::item::{ItemStack, load_item_stack};
 use crate::world::level::LevelAccessor;
 use linkme::distributed_slice;
@@ -148,8 +148,7 @@ impl Entity for EyeOfEnder {
         self.life += 1;
         if self.life > 80 {
             self.play_sound(level, SoundEvent::ENTITY_ENDER_EYE_DEATH, 1.0, 1.0);
-            self.discard();
-            level.untrack_discarded_entity(self);
+            level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Discarded);
             if self.survive_after_death {
                 let p = self.position();
                 let drop = ItemEntity::with_stack(level, p.x, p.y, p.z, self.get_item());
