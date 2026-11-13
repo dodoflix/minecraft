@@ -1,0 +1,30 @@
+# Primed TNT save data (fuse as short, block state, explosion power clamp, owner forms), fuse edge cases (0, negative, a huge
+# value), the merge into a live tnt, and the ominous item spawner save data / expiry (item missing, delay edge cases).
+command_env
+level flat
+preload 4
+level_seed 7
+entity_counter 900
+gamerule block_drops false
+spawn_player A survival 0.5 -60 30.5 0 0
+tick 2
+dump packets:A:none
+spawn n1 minecraft:tnt 20.5 -55 0.5 0 0 {fuse:100s,block_state:{id:"minecraft:gold_block"},explosion_power:1.0f}
+spawn n2 minecraft:tnt 24.5 -55 0.5 0 0 {fuse:70000,block_state:{id:"minecraft:nope"},explosion_power:500.0f}
+spawn n3 minecraft:tnt 28.5 -55 0.5 0 0 {fuse:"x",explosion_power:-3.0f,owner:[I;1,2,3,4]}
+spawn n4 minecraft:tnt 32.5 -55 0.5 0 0 {fuse:-5s,explosion_power:0.0f}
+spawn n5 minecraft:tnt 36.5 -55 0.5 0 0 {fuse:0s,explosion_power:1.5f}
+spawn o1 minecraft:ominous_item_spawner 20.5 -55 8.5 0 0 {item:{id:"minecraft:arrow",count:3},spawn_item_after_ticks:20L}
+spawn o2 minecraft:ominous_item_spawner 24.5 -55 8.5 0 0 {spawn_item_after_ticks:5L}
+spawn o3 minecraft:ominous_item_spawner 28.5 -55 8.5 0 0 {item:{id:"minecraft:nope",count:1},spawn_item_after_ticks:-5L}
+spawn o4 minecraft:ominous_item_spawner 32.5 -55 8.5 0 0 {item:{id:"minecraft:stone",count:1},spawn_item_after_ticks:"x"}
+tick 1
+dump xentities edata:n1 edata:n2 edata:n3 edata:n4 edata:n5 edata:o1 edata:o2 edata:o3 edata:o4 nbt:n1 nbt:n2 nbt:n3 nbt:n4 nbt:n5 nbt:o1 nbt:o2 nbt:o3 nbt:o4 packets:A:add_entity,set_entity_data,remove_entities
+note merge into live ones
+nbt n1 {fuse:40s,explosion_power:2.0f,block_state:{id:"minecraft:tnt"}}
+nbt o1 {spawn_item_after_ticks:3L}
+tick 1
+dump xentity:n1 edata:n1 nbt:n1 xentity:o1 nbt:o1 packets:A:set_entity_data
+note run them out, the packets and the dropped items
+watch xentities packets:A:remove_entities,explode,add_entity
+tick 60

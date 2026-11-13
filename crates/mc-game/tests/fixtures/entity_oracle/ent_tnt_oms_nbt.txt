@@ -1,0 +1,379 @@
+C Game rule block_drops is now set to false
+E n1 minecraft:tnt pos=20.5,-55.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=99
+E n2 minecraft:tnt pos=24.5,-55.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=4463
+E n3 minecraft:tnt pos=28.5,-55.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=79
+E o1 minecraft:ominous_item_spawner pos=20.5,-55.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:arrow*3 ticks=20
+E o2 minecraft:ominous_item_spawner pos=24.5,-55.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=empty ticks=5
+E item#1 minecraft:item pos=32.5,-55.0,8.5 delta=0.04930582917308696,0.2,-0.08547883299767874 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=0 pickup=0 health=5 owner=- thrower=-
+ED n1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:63 9:14:f61d
+ED n2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:ef22 9:14:fa1d
+ED n3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:4f 9:14:fa1d
+ED n4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:faffffff0f 9:14:fa1d
+ED n5 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:ffffffff0f 9:14:fa1d
+ED o1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:03f1070000
+ED o2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:00
+ED o3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:00
+ED o4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:00
+N n1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.03920000076293945d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[20.5d,-55.04d,0.5d],Rotation:[0.0f,0.0f],block_state:"minecraft:gold_block",explosion_power:1.0f,fall_distance:0.03999999910593033d,fuse:99s}
+N n2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.03920000076293945d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[24.5d,-55.04d,0.5d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",explosion_power:128.0f,fall_distance:0.03999999910593033d,fuse:4463s}
+N n3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.03920000076293945d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[28.5d,-55.04d,0.5d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",explosion_power:0.0f,fall_distance:0.03999999910593033d,fuse:79s,owner:[I;1,2,3,4]}
+N n4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.03920000076293945d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[32.5d,-55.04d,0.5d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",explosion_power:0.0f,fall_distance:0.03999999910593033d,fuse:-6s}
+N n5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.03920000076293945d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[36.5d,-55.04d,0.5d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",explosion_power:1.5f,fall_distance:0.03999999910593033d,fuse:-1s}
+N o1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[20.5d,-55.0d,8.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,item:{count:3,id:"minecraft:arrow"},spawn_item_after_ticks:20L}
+N o2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[24.5d,-55.0d,8.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,spawn_item_after_ticks:5L}
+N o3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[28.5d,-55.0d,8.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,spawn_item_after_ticks:-5L}
+N o4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[32.5d,-55.0d,8.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,spawn_item_after_ticks:0L}
+PKT A minecraft:add_entity 018b07b34aec1dcf7541e1a132f811b874e5065d4034800000000000c04b80000000000040210000000000000000000000
+PKT A minecraft:set_entity_data 658b07080703f1070000ff
+PKT A minecraft:set_entity_data 658b07080703f1070000ff
+# merge into live ones
+E n1 minecraft:tnt pos=20.5,-55.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing fuse=39
+ED n1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:27 9:14:fa1d
+N n1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.0776160022583008d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[20.5d,-55.11920000076294d,0.5d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",explosion_power:2.0f,fall_distance:0.11919999867677689d,fuse:39s}
+E o1 minecraft:ominous_item_spawner pos=20.5,-55.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:arrow*3 ticks=3
+N o1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[20.5d,-55.0d,8.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,item:{count:3,id:"minecraft:arrow"},spawn_item_after_ticks:3L}
+PKT A minecraft:set_entity_data 658b07080703f1070000ff
+# run them out, the packets and the dropped items
+T 5
+E n1 minecraft:tnt pos=20.5,-55.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing fuse=38
+E n2 minecraft:tnt pos=24.5,-55.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing fuse=4461
+E n3 minecraft:tnt pos=28.5,-55.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing fuse=77
+E o2 minecraft:ominous_item_spawner pos=24.5,-55.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=empty ticks=5
+E item#1 minecraft:item pos=32.59762554270315,-54.723199996948246,8.330751909034218 delta=0.047353320181083486,0.11446400521850592,-0.08209387440651422 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=2 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.5,-55.0,8.5 delta=0.05360950215977303,-1.0879844832586694,-0.0510483062378965 rot=133.59796,-86.10759 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=o1 leftowner=0 shot=0 canbreak=0
+PKT A minecraft:add_entity 019007eaa6bb06f2f545a488838929010b74b5064034800000000000c04b8000000000004021000000000000b20d7cba74bec25f0000
+PKT A minecraft:remove_entities 4e018b07
+T 6
+E n1 minecraft:tnt pos=20.5,-55.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing fuse=37
+E n2 minecraft:tnt pos=24.5,-55.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing fuse=4460
+E n3 minecraft:tnt pos=28.5,-55.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing fuse=76
+E o2 minecraft:ominous_item_spawner pos=24.5,-55.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=empty ticks=5
+E item#1 minecraft:item pos=32.64497886288423,-54.64873599172974,8.248658034627704 delta=0.04640625468065472,0.07297472653442398,-0.08045199848420033 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.553609502159773,-56.08798448325867,8.448951693762103 delta=0.053073407649435356,-1.1271046488019112,-0.05053782366235212 rot=133.59796,-86.10759 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 7
+E n1 minecraft:tnt pos=20.5,-55.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=36
+E n2 minecraft:tnt pos=24.5,-55.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=4459
+E n3 minecraft:tnt pos=28.5,-55.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=75
+E item#1 minecraft:item pos=32.691385117564884,-54.61576126519531,8.168206036143504 delta=0.04547813047217069,0.0323152326326785,-0.07884296004901642 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=4 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.60668290980921,-57.215089132060584,8.39841387009975 delta=0.05254267407908846,-1.1658336130627998,-0.050032445907694845 rot=133.59796,-86.14202 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 8
+E n1 minecraft:tnt pos=20.5,-55.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=0.0,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing fuse=35
+E n2 minecraft:tnt pos=24.5,-55.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=0.0,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing fuse=4458
+E n3 minecraft:tnt pos=28.5,-55.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=0.0,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing fuse=74
+E item#1 minecraft:item pos=32.736863248037054,-54.62344603256263,8.089363076094488 delta=0.044568568730153774,-0.0075310721665503766,-0.07726610235184621 rot=95.98285,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=5 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.659225583888297,-58.380922745123385,8.348381424192056 delta=0.052017247839383565,-1.2041752880504275,-0.049532121925764484 rot=133.59798,-86.20139 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 9
+E n1 minecraft:tnt pos=20.5,-56.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=0.0,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing fuse=34
+E n2 minecraft:tnt pos=24.5,-56.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=0.0,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing fuse=4457
+E n3 minecraft:tnt pos=28.5,-56.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=0.0,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing fuse=73
+E item#1 minecraft:item pos=32.78143181676721,-54.67097710472918,8.012096973742642 delta=0.04367719820562868,-0.04658045162980263,-0.07572078177854323 rot=95.98285,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=6 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.71124283172768,-59.585098033173814,8.29884930226629 delta=0.05149707585706486,-1.2421335466538337,-0.04903680117888196 rot=133.59799,-86.27841 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 10
+E n1 minecraft:tnt pos=20.5,-56.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=0.0,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing fuse=33
+E n2 minecraft:tnt pos=24.5,-56.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=0.0,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing fuse=4456
+E n3 minecraft:tnt pos=28.5,-56.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=0.0,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing fuse=72
+E item#1 minecraft:item pos=32.82510901497284,-54.75755755635898,7.936376191964099 delta=0.04280365507459255,-0.08484884424859764,-0.07420636758723166 rot=95.98285,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=7 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 11
+E n1 minecraft:tnt pos=20.5,-56.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=0.0,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing fuse=32
+E n2 minecraft:tnt pos=24.5,-56.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=0.0,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing fuse=4455
+E n3 minecraft:tnt pos=28.5,-56.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=0.0,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing fuse=71
+E item#1 minecraft:item pos=32.86791267004743,-54.88240640060758,7.862169824376867 delta=0.04194758278951563,-0.1223518697449284,-0.07272224165086116 rot=95.98285,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=8 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 12
+E n1 minecraft:tnt pos=20.5,-57.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=0.0,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing fuse=31
+E n2 minecraft:tnt pos=24.5,-57.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=0.0,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing fuse=4454
+E n3 minecraft:tnt pos=28.5,-57.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=0.0,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing fuse=70
+E item#1 minecraft:item pos=32.90986025283695,-55.04475827035251,7.789447582726006 delta=0.041108631933811965,-0.159104835446646,-0.07126779820491062 rot=95.98285,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=9 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 13
+E n1 minecraft:tnt pos=20.5,-57.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=0.0,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing fuse=30
+E n2 minecraft:tnt pos=24.5,-57.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=0.0,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing fuse=4453
+E n3 minecraft:tnt pos=28.5,-57.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=0.0,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing fuse=69
+E item#1 minecraft:item pos=32.95096888477076,-55.24386310579916,7.718179784521095 delta=0.040286460079220654,-0.19512274253533643,-0.06984244360013779 rot=95.98285,0.0 og=0 fall=0.6281018443405628 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=10 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 14
+E n1 minecraft:tnt pos=20.5,-57.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=0.0,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing fuse=29
+E n2 minecraft:tnt pos=24.5,-57.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=0.0,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing fuse=4452
+E n3 minecraft:tnt pos=28.5,-57.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=0.0,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing fuse=68
+E item#1 minecraft:item pos=32.99125534484998,-55.478985848334496,7.648337340920958 delta=0.039480731646039484,-0.23042029216924012,-0.06844559606027392 rot=95.98285,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=11 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 15
+E n1 minecraft:tnt pos=20.5,-58.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=0.0,0.0 og=0 fall=3.3641944229602814 fire=0 air=300 alive=1 pose=standing fuse=28
+E n2 minecraft:tnt pos=24.5,-58.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=0.0,0.0 og=0 fall=3.3641944229602814 fire=0 air=300 alive=1 pose=standing fuse=4451
+E n3 minecraft:tnt pos=28.5,-58.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=0.0,0.0 og=0 fall=3.3641944229602814 fire=0 air=300 alive=1 pose=standing fuse=67
+E item#1 minecraft:item pos=33.03073607649602,-55.74940614050374,7.579891744860684 delta=0.03869111776615389,-0.26501189148371307,-0.06707668544456459 rot=95.98285,0.0 og=0 fall=1.1336448676884174 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=12 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=5 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 16
+E n1 minecraft:tnt pos=20.5,-58.85691057265233,0.5 delta=0.0,-0.48286186211168425,0.0 rot=0.0,0.0 og=0 fall=3.8569105863571167 fire=0 air=300 alive=1 pose=standing fuse=27
+E n2 minecraft:tnt pos=24.5,-58.85691057265233,0.5 delta=0.0,-0.48286186211168425,0.0 rot=0.0,0.0 og=0 fall=3.8569105863571167 fire=0 air=300 alive=1 pose=standing fuse=4450
+E n3 minecraft:tnt pos=28.5,-58.85691057265233,0.5 delta=0.0,-0.48286186211168425,0.0 rot=0.0,0.0 og=0 fall=3.8569105863571167 fire=0 air=300 alive=1 pose=standing fuse=66
+E item#1 minecraft:item pos=33.069427194262175,-56.05441803198745,7.51281505941612 delta=0.03791729614880532,-0.2989116594716789,-0.06573515301505954 rot=95.98285,0.0 og=0 fall=1.4386567659676075 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=13 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 17
+E n1 minecraft:tnt pos=20.5,-59.379772434764014,0.5 delta=0.0,-0.5124046348422492,0.0 rot=0.0,0.0 og=0 fall=4.379772424697876 fire=0 air=300 alive=1 pose=standing fuse=26
+E n2 minecraft:tnt pos=24.5,-59.379772434764014,0.5 delta=0.0,-0.5124046348422492,0.0 rot=0.0,0.0 og=0 fall=4.379772424697876 fire=0 air=300 alive=1 pose=standing fuse=4449
+E n3 minecraft:tnt pos=28.5,-59.379772434764014,0.5 delta=0.0,-0.5124046348422492,0.0 rot=0.0,0.0 og=0 fall=4.379772424697876 fire=0 air=300 alive=1 pose=standing fuse=65
+E item#1 minecraft:item pos=33.10734449041098,-56.39332969145913,7.44707990640106 delta=0.03715895094904424,-0.3321334327464722,-0.0644204512085569 rot=95.98285,0.0 og=0 fall=1.77756841853261 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=14 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 18
+E n1 minecraft:tnt pos=20.5,-59.93217706960626,0.5 delta=0.0,-0.5413565526816865,0.0 rot=0.0,0.0 og=0 fall=4.9321770668029785 fire=0 air=300 alive=1 pose=standing fuse=25
+E n2 minecraft:tnt pos=24.5,-59.93217706960626,0.5 delta=0.0,-0.5413565526816865,0.0 rot=0.0,0.0 og=0 fall=4.9321770668029785 fire=0 air=300 alive=1 pose=standing fuse=4448
+E n3 minecraft:tnt pos=28.5,-59.93217706960626,0.5 delta=0.0,-0.5413565526816865,0.0 rot=0.0,0.0 og=0 fall=4.9321770668029785 fire=0 air=300 alive=1 pose=standing fuse=64
+E item#1 minecraft:item pos=33.14450344136002,-56.7654631242056,7.3826594551925036 delta=0.0364157726388141,-0.3646907711894247,-0.06313204341310835 rot=95.98285,0.0 og=0 fall=2.149701852351427 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=15 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 19
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=24
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4447
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=63
+E item#1 minecraft:item pos=33.180919213998834,-57.170153895395025,7.319527411779395 delta=0.03568745788061356,-0.3965969634845001,-0.06186940374899435 rot=95.98285,0.0 og=0 fall=2.5543926246464252 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=16 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=9 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 20
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=23
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4446
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=62
+E item#1 minecraft:item pos=33.21660667187945,-57.60675085887952,7.257658008030401 delta=0.03497370940368553,-0.4278650325422363,-0.060632016854079686 rot=95.98285,0.0 og=0 fall=2.9909895844757557 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=17 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 21
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=22
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4445
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=61
+E item#1 minecraft:item pos=33.251580381283134,-58.07461589142176,7.1970259911763215 delta=0.034274235882682386,-0.45850774081520884,-0.05941937767346204 rot=95.98285,0.0 og=0 fall=3.458854604512453 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=18 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 22
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=21
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4444
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=60
+E item#1 minecraft:item pos=33.28585461716582,-58.573123632236964,7.137606613502859 delta=0.03358875181875791,-0.48853759550718523,-0.05823099125332749 rot=95.98285,0.0 og=0 fall=3.9573623426258564 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=19 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=12 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 23
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=20
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4443
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=59
+E item#1 minecraft:item pos=33.31944336898457,-59.10166122774415,7.079375622249532 delta=0.03291697742303735,-0.5179668536780961,-0.057066372538928954 rot=95.98285,0.0 og=0 fall=4.485899914056063 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=20 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 24
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=19
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4442
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=58
+E item#1 minecraft:item pos=33.35236034640761,-59.65962808142225,7.022309249710602 delta=0.03225863850241812,-0.5468075272469074,-0.05592504617660505 rot=95.98285,0.0 og=0 fall=5.043866742402315 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=21 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 25
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=18
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4441
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=57
+E item#1 minecraft:item pos=33.38461898491003,-60.0,6.966384203533997 delta=0.018968081346804427,0.0,-0.03288393045856914 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=22 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=15 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 26
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=17
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4440
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=56
+E item#1 minecraft:item pos=33.40358706625683,-60.0,6.9335002730754285 delta=0.011153232953462067,0.0,-0.01933575305399337 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=23 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 27
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=16
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4439
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=55
+E item#1 minecraft:item pos=33.414740299210294,-60.0,6.914164520021435 delta=0.0065581016361019075,0.0,-0.011369423939028789 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=24 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=17 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 28
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=15
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4438
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=54
+E item#1 minecraft:item pos=33.421298400846396,-60.0,6.902795096082406 delta=0.0038561641497940934,0.0,-0.006685221948398039 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=25 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=18 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 29
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=14
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4437
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=53
+E item#1 minecraft:item pos=33.42515456499619,-60.0,6.896109874134008 delta=0.002267424748085459,0.0,-0.0039309109009405645 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=26 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=19 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 30
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=13
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4436
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=52
+E item#1 minecraft:item pos=33.427421989744275,-60.0,6.892178963233067 delta=0.0013332458859421042,0.0,-0.0023113758421791954 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=27 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=20 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 31
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=12
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4435
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=51
+E item#1 minecraft:item pos=33.427421989744275,-60.0,6.892178963233067 delta=0.0013332458859421042,-0.04,-0.0023113758421791954 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=28 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=21 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 32
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=11
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4434
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=50
+E item#1 minecraft:item pos=33.42875523563022,-60.0,6.889867587390888 delta=7.839486597658635E-4,0.0,-0.001359089131867953 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=29 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=22 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 33
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=10
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4433
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=49
+E item#1 minecraft:item pos=33.42875523563022,-60.0,6.889867587390888 delta=7.839486597658635E-4,-0.04,-0.001359089131867953 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=30 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=23 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 34
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=9
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4432
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=48
+E item#1 minecraft:item pos=33.42875523563022,-60.0,6.889867587390888 delta=7.839486597658635E-4,-0.08,-0.001359089131867953 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=31 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 35
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=8
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4431
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=47
+E item#1 minecraft:item pos=33.42875523563022,-60.0,6.889867587390888 delta=7.839486597658635E-4,-0.12,-0.001359089131867953 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=32 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=25 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 36
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=7
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4430
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=46
+E item#1 minecraft:item pos=33.429539184289986,-60.0,6.88850849825902 delta=4.609618582954933E-4,0.0,-7.99144489898317E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=33 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=26 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 37
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=6
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4429
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=45
+E item#1 minecraft:item pos=33.429539184289986,-60.0,6.88850849825902 delta=4.609618582954933E-4,-0.04,-7.99144489898317E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=34 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=27 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 38
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=5
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4428
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=44
+E item#1 minecraft:item pos=33.429539184289986,-60.0,6.88850849825902 delta=4.609618582954933E-4,-0.08,-7.99144489898317E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=35 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=28 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 39
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4427
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=43
+E item#1 minecraft:item pos=33.429539184289986,-60.0,6.88850849825902 delta=4.609618582954933E-4,-0.12,-7.99144489898317E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=36 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=29 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 40
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=3
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4426
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=42
+E item#1 minecraft:item pos=33.43000014614828,-60.0,6.887709353769122 delta=2.710455999334141E-4,0.0,-4.6989700731187207E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=37 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=30 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 41
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=2
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4425
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=41
+E item#1 minecraft:item pos=33.43000014614828,-60.0,6.887709353769122 delta=2.710455999334141E-4,-0.04,-4.6989700731187207E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=38 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=31 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 42
+E n1 minecraft:tnt pos=20.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=1
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4424
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=40
+E item#1 minecraft:item pos=33.43000014614828,-60.0,6.887709353769122 delta=2.710455999334141E-4,-0.08,-4.6989700731187207E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=39 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=32 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 43
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4423
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=39
+E item#1 minecraft:item pos=33.43000014614828,-60.0,6.887709353769122 delta=2.710455999334141E-4,-0.12,-4.6989700731187207E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=40 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=33 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+PKT A minecraft:explode 244034800000000000c04df828f5c000003fe00000000000004000000000000087001dc00502453f0000003f80000001483f8000003f8000000101
+T 44
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4422
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=38
+E item#1 minecraft:item pos=33.43027119174821,-60.0,6.88723945676181 delta=1.593748287871796E-4,0.0,-2.762994680833606E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=41 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=34 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 45
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4421
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=37
+E item#1 minecraft:item pos=33.43027119174821,-60.0,6.88723945676181 delta=1.593748287871796E-4,-0.04,-2.762994680833606E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=42 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=35 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 46
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4420
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=36
+E item#1 minecraft:item pos=33.43027119174821,-60.0,6.88723945676181 delta=1.593748287871796E-4,-0.08,-2.762994680833606E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=43 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=36 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 47
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4419
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=35
+E item#1 minecraft:item pos=33.43027119174821,-60.0,6.88723945676181 delta=1.593748287871796E-4,-0.12,-2.762994680833606E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=44 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=37 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 48
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4418
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=34
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=9.371240875034581E-5,0.0,-1.6246410356999784E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=45 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=38 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 49
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4417
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=33
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=9.371240875034581E-5,-0.04,-1.6246410356999784E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=46 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=39 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 50
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4416
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=32
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=9.371240875034581E-5,-0.08,-1.6246410356999784E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=47 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=40 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 51
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4415
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=31
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=9.371240875034581E-5,-0.12,-1.6246410356999784E-4 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=48 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=41 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 52
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4414
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=30
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=5.510290188621261E-5,0.0,-9.5528902505305E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=49 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 53
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4413
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=29
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=5.510290188621261E-5,-0.04,-9.5528902505305E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=50 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=43 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 54
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4412
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=28
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=5.510290188621261E-5,-0.08,-9.5528902505305E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=51 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=44 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 55
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4411
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=27
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=5.510290188621261E-5,-0.12,-9.5528902505305E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=52 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=45 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 56
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4410
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=26
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=3.24005095672068E-5,0.0,-5.6171000321533905E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=53 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=46 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 57
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4409
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=25
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=3.24005095672068E-5,-0.04,-5.6171000321533905E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=54 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=47 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 58
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4408
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=24
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=3.24005095672068E-5,-0.08,-5.6171000321533905E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=55 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=48 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 59
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4407
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=23
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=3.24005095672068E-5,-0.12,-5.6171000321533905E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=56 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=49 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 60
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4406
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=22
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=1.9051501541288695E-5,0.0,-3.3028551510330036E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=57 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=50 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 61
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4405
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=21
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=1.9051501541288695E-5,-0.04,-3.3028551510330036E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=58 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=51 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 62
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4404
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=20
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=1.9051501541288695E-5,-0.08,-3.3028551510330036E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=59 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=52 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 63
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4403
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=19
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=1.9051501541288695E-5,-0.12,-3.3028551510330036E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=60 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=53 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0
+T 64
+E n2 minecraft:tnt pos=24.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4402
+E n3 minecraft:tnt pos=28.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=18
+E item#1 minecraft:item pos=33.430430566577,-60.0,6.886963157293726 delta=1.120228403275127E-5,0.0,-1.94207902409799E-5 rot=95.98285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=61 pickup=0 health=5 owner=- thrower=-
+E arrow#1 minecraft:arrow pos=20.67844407163541,-59.94999999925494,8.332469852258415 delta=0.0,0.0,0.0 rot=133.598,-86.36741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=54 dmg=2.0 owner=o1 leftowner=1 shot=1 canbreak=0

@@ -142,3 +142,9 @@ fn primed_tnt_chain_matches_vanilla() {
         },
     );
 }
+
+/// Primed TNT save data, fuse and power edge cases and a merge into live ones, next to ominous item spawners.
+#[test]
+fn ent_tnt_oms_nbt_matches_vanilla() {
+    common::block_scenario::check("ent_tnt_oms_nbt");
+}
