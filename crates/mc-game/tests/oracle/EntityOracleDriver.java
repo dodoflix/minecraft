@@ -181,6 +181,12 @@ import net.minecraft.util.RandomSource;
  *                             Level.random.setSeed(SEED); NaturalSpawner.createState (like ServerChunkCache.tickChunks) + ONE
  *                             spawnForChunk pass for the chunk (default 0,0; categories default getFilteredSpawningCategories; persistent
  *                             default gameTime%400==0). Spawned mobs are named `type#n` and printed as rich `E` lines, then `SPAWNSTATE`.
+ * custom_spawner NAME SEED [enemies=B]   Level.random.setSeed(SEED); ONE CustomSpawner.tick(level, enemies) of the level's list (NAME = phantom|patrol|cat|siege|trader);
+ *                             prints `CUSTOMSPAWNER NAME seed=.. enemies=..` and the entities it spawned as rich `E` lines (named `type#n`)
+ * memory REF NAME VALUE|-     Brain.setMemory of a LivingEntity (NAME = memory type id; `-` = eraseMemory; VALUE = `entity:REF` for a memory that holds an entity,
+ *                             else the SNBT `{value:..,ttl:..}` of the memory type's ExpirableValue codec, `ttl` optional); nothing is printed (dump brain:REF shows it)
+ * rest PLAYER TICKS          the player's `time_since_rest` statistic (what PhantomSpawner reads), nothing printed
+ * activity REF NAME           Brain.setActiveActivityIfPossible(Activity NAME), nothing printed
  * raid_waves DIFFICULTY OMEN SEED   composition of every Raid wave (+ bonus wave when omen>1) with Raid's own RNG seeded: `RAID_WAVE` lines
  * raid_start PLAYER X Y Z [omen=N]  Raids.createOrExtendRaid (a village = POI blocks (bell, beds) placed by the script; the player needs
  *                             the raid_omen effect to carry an omen level; omen=N overrides)       dump raids   all raids (`RAID` lines)
@@ -924,6 +930,23 @@ public final class EntityOracleDriver {
             world();
             spawnPass(a);
          }
+         case "custom_spawner" -> {
+            world();
+            customSpawner(a);
+         }
+         case "memory" -> {
+            world();
+            memory(a);
+         }
+         case "rest" -> {
+            world();
+            ServerPlayer p = player(a.get(1));
+            p.getStats().setValue(p, net.minecraft.stats.Stats.CUSTOM.get(net.minecraft.stats.Stats.TIME_SINCE_REST), Integer.parseInt(a.get(2)));
+         }
+         case "activity" -> {
+            world();
+            ((LivingEntity)ref(a.get(1))).getBrain().setActiveActivityIfPossible(BuiltInRegistries.ACTIVITY.getValue(id(a.get(2))));
+         }
          case "raid_waves" -> {
             world();
             raidWaves(a);
@@ -1581,10 +1604,7 @@ public final class EntityOracleDriver {
          cats = NaturalSpawner.getFilteredSpawningCategories(state, Boolean.parseBoolean(o.getOrDefault("enemies", "true")),
             Boolean.parseBoolean(o.getOrDefault("persistent", String.valueOf(v.level.getGameTime() % 400L == 0L))));
       }
-      Set<Integer> before = new HashSet<>();
-      for (Entity e : v.level.getAllEntities()) {
-         before.add(e.getId());
-      }
+      Set<Integer> before = entityIds();
       LevelChunk chunk = v.level.getChunk(cx, cz);
       StringJoiner names = new StringJoiner(",");
       for (MobCategory c : cats) {
@@ -1595,6 +1615,20 @@ public final class EntityOracleDriver {
       if (!cats.isEmpty() && allowed) {
          NaturalSpawner.spawnForChunk(v.level, chunk, state, cats);
       }
+      printFreshEntities(before);
+      printSpawnState(state);
+   }
+
+   Set<Integer> entityIds() {
+      Set<Integer> ids = new HashSet<>();
+      for (Entity e : v.level.getAllEntities()) {
+         ids.add(e.getId());
+      }
+      return ids;
+   }
+
+   /** The entities created since `before` (ids), named `type#n`, as rich `E` lines in id order. */
+   void printFreshEntities(Set<Integer> before) {
       nameNewEntities();
       List<Map.Entry<String, Entity>> fresh = new ArrayList<>();
       for (var en : refs.entrySet()) {
@@ -1606,7 +1640,53 @@ public final class EntityOracleDriver {
       for (var en : fresh) {
          describe(en.getKey(), en.getValue(), true);
       }
-      printSpawnState(state);
+   }
+
+   @SuppressWarnings("unchecked")
+   void customSpawner(List<String> a) throws Exception {
+      v.level.getRandom().setSeed(Long.parseLong(a.get(2)));
+      boolean enemies = Boolean.parseBoolean(kv(a, 3).getOrDefault("enemies", "true"));
+      String want = switch (a.get(1)) {
+         case "phantom" -> "PhantomSpawner";
+         case "patrol" -> "PatrolSpawner";
+         case "cat" -> "CatSpawner";
+         case "siege" -> "VillageSiege";
+         case "trader" -> "WanderingTraderSpawner";
+         default -> throw new IllegalArgumentException("custom_spawner " + a.get(1));
+      };
+      Set<Integer> before = entityIds();
+      boolean found = false;
+      for (net.minecraft.world.level.CustomSpawner spawner : (List<net.minecraft.world.level.CustomSpawner>)priv(v.level, "customSpawners")) {
+         if (spawner.getClass().getSimpleName().equals(want)) {
+            spawner.tick(v.level, enemies);
+            found = true;
+         }
+      }
+      if (!found) {
+         throw new IllegalStateException("this level has no " + want);
+      }
+      out.println("CUSTOMSPAWNER " + a.get(1) + " seed=" + a.get(2) + " enemies=" + bool(enemies));
+      printFreshEntities(before);
+   }
+
+   @SuppressWarnings("unchecked")
+   void memory(List<String> a) throws Exception {
+      Brain<?> brain = ((LivingEntity)ref(a.get(1))).getBrain();
+      MemoryModuleType<Object> type = (MemoryModuleType<Object>)BuiltInRegistries.MEMORY_MODULE_TYPE.getValue(id(a.get(2)));
+      String value = a.get(3);
+      if (value.equals("-")) {
+         brain.eraseMemory(type);
+      } else if (value.startsWith("entity:")) {
+         brain.setMemory(type, ref(value.substring(7)));
+      } else {
+         var tag = net.minecraft.nbt.TagParser.create(NbtOps.INSTANCE).parseFully(value);
+         var ev = (net.minecraft.world.entity.ai.memory.ExpirableValue<Object>)type.getCodec().orElseThrow().parse(NbtOps.INSTANCE, tag).getOrThrow();
+         if (ev.timeToLive().isPresent()) {
+            brain.setMemoryWithExpiry(type, ev.value(), ev.timeToLive().get());
+         } else {
+            brain.setMemory(type, ev.value());
+         }
+      }
    }
 
    void raidWaves(List<String> a) throws Exception {

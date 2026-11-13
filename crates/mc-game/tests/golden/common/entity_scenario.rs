@@ -32,7 +32,9 @@
 //!   (the oracle's `Entity` counter) for entities the scenario creates.
 //! * Commands implemented: see [`Harness::run`] plus the mob verbs shared with the block replay (`mob_verbs.rs`: target love age breed tame leash
 //!   mob_attack nav path_query nav_stop, dumps goals: brain: path: attrs: nbt:) and the player actions shared with the block replay
-//!   (`player_actions.rs`: use use_on release interact drop swing swap stab dispense select, dumps use: cooldowns: stats: inventory:), the `events` dump (EV lines). Add a new verb family
+//!   (`player_actions.rs`: use use_on release interact drop swing swap stab dispense select, dumps use: cooldowns: stats: inventory:), the `events` dump (EV lines)
+//!   and the spawning verbs of `spawn_verbs.rs` (here only `memory`, `activity` and `raid_waves`: natural spawning, custom spawners, raids with a village, `rest` and
+//!   the local difficulty need the ticking level of the block replay). Add a new verb family
 //!   to one of those shared modules (not here: the block replay needs it too) and the replay forwards to it in the fallback arm of `run`. Entity ids come from the
 //!   level's private counter (`ServerLevel::entity_id_counter`, starts at 1 like the oracle's `Entity.ENTITY_COUNTER`), so auto-created entities
 //!   (babies, arrows, orbs) get the oracle's ids; ids matter for `(tickCount + id) % n` throttles. An unsupported command or dump kind PANICS with `scenario:line`; there is no
@@ -831,6 +833,7 @@ impl Harness {
             }
             other => {
                 if !(super::mob_verbs::command(self, &a)
+                    || super::spawn_verbs::command(self, &a)
                     || super::player_actions::command(self, &a))
                 {
                     self.fail(&format!("unsupported scenario command `{other}` (see the Harness::run doc, mob_verbs.rs and player_actions.rs for the implemented subset)"))
@@ -1224,6 +1227,7 @@ impl Harness {
                 }
                 _ => {
                     if !(super::mob_verbs::dump(self, kind, arg)
+                        || super::spawn_verbs::dump(self, kind, arg)
                         || super::player_actions::dump(self, kind, arg))
                     {
                         self.fail(&format!("unsupported dump kind `{w}` (replayed: player: entity: mob: all_players entities mobs goals: brain: path: attrs: nbt: use: cooldowns: stats: inventory:, see mob_verbs.rs and player_actions.rs)"))
@@ -1249,6 +1253,42 @@ impl Harness {
             uuids: &self.uuids,
         };
         super::entity_describe::describe(name, e, &self.level, &ctx, rich)
+    }
+}
+
+/// The replay has no ticking level: only the brain verbs and `raid_waves` of the spawning verbs run here.
+impl super::spawn_verbs::SpawnHost for Harness {
+    const TICKING: bool = false;
+
+    fn entity_names(&mut self) -> BTreeMap<EntityId, String> {
+        self.name_new_entities();
+        self.names.clone()
+    }
+
+    fn all_entity_ids(&mut self) -> BTreeSet<EntityId> {
+        self.level
+            .entity_manager
+            .all_visible_ids()
+            .into_iter()
+            .collect()
+    }
+
+    fn fresh_entity_lines(&mut self, before: &BTreeSet<EntityId>) -> Vec<String> {
+        self.name_new_entities();
+        let mut fresh: Vec<(EntityId, String)> = self
+            .names
+            .iter()
+            .filter(|(id, _)| !before.contains(id))
+            .map(|(id, n)| (*id, n.clone()))
+            .collect();
+        fresh.sort();
+        fresh
+            .into_iter()
+            .filter_map(|(id, n)| {
+                let e = self.level.get_entity(id)?;
+                Some(self.describe(&n, e, true))
+            })
+            .collect()
     }
 }
 

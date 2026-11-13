@@ -1160,6 +1160,36 @@ impl Raid {
         }
     }
 
+    /// Re-seeds the raid's own random (`random.setSeed(seed)`).
+    pub fn set_random_seed(&mut self, seed: i64) {
+        self.random = LegacyRandomSource::new(seed);
+    }
+
+    /// The raiders of wave `wav` per `RaiderType` (name, count) in enum order: `getDefaultNumSpawns` plus the bonus draw of
+    /// `getPotentialBonusSpawns`, the sum `spawnGroup` computes for each type.
+    pub fn wave_spawn_counts(
+        &mut self,
+        wav: i32,
+        difficulty: Difficulty,
+        is_bonus_wave: bool,
+    ) -> Vec<(&'static str, i32)> {
+        RaiderType::VALUES
+            .into_iter()
+            .map(|ty| {
+                let n = self.get_default_num_spawns(ty, wav, is_bonus_wave)
+                    + self.get_potential_bonus_spawns(ty, wav, difficulty, is_bonus_wave);
+                let name = match ty {
+                    RaiderType::Vindicator => "vindicator",
+                    RaiderType::Evoker => "evoker",
+                    RaiderType::Pillager => "pillager",
+                    RaiderType::Witch => "witch",
+                    RaiderType::Ravager => "ravager",
+                };
+                (name, n)
+            })
+            .collect()
+    }
+
     /// `getNumGroups(difficulty)`.
     pub fn get_num_groups(&self, difficulty: Difficulty) -> i32 {
         Raid::get_num_groups_for(difficulty)
@@ -1171,6 +1201,16 @@ impl Raid {
             Difficulty::Easy => 3,
             Difficulty::Normal => 5,
             Difficulty::Hard => 7,
+        }
+    }
+
+    /// `RaidStatus.toString()` (the enum constant name).
+    pub fn status_name(&self) -> &'static str {
+        match self.status {
+            RaidStatus::Ongoing => "ONGOING",
+            RaidStatus::Victory => "VICTORY",
+            RaidStatus::Loss => "LOSS",
+            RaidStatus::Stopped => "STOPPED",
         }
     }
 

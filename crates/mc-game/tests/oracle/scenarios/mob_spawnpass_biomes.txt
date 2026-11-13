@@ -2,14 +2,14 @@ level flat
 difficulty normal
 spawn_player Steve survival 60.5 -60 60.5 0 0
 time 18000
-biome -30 -64 -48 -23 320 -33 minecraft:desert
-biome -22 -64 -48 -15 320 -33 minecraft:swamp
-biome -14 -64 -48 -7 320 -33 minecraft:jungle
-biome -6 -64 -48 1 320 -33 minecraft:snowy_plains
-biome 2 -64 -48 9 320 -33 minecraft:mushroom_fields
-biome 10 -64 -48 17 320 -33 minecraft:dark_forest
-biome 18 -64 -48 25 320 -33 minecraft:savanna
-biome 26 -64 -48 33 320 -33 minecraft:cherry_grove
+biome -30 -64 -48 -23 64 -33 minecraft:desert
+biome -22 -64 -48 -15 64 -33 minecraft:swamp
+biome -14 -64 -48 -7 64 -33 minecraft:jungle
+biome -6 -64 -48 1 64 -33 minecraft:snowy_plains
+biome 2 -64 -48 9 64 -33 minecraft:mushroom_fields
+biome 10 -64 -48 17 64 -33 minecraft:dark_forest
+biome 18 -64 -48 25 64 -33 minecraft:savanna
+biome 26 -64 -48 33 64 -33 minecraft:cherry_grove
 tick 3
 spawnpass 100 chunk=-2,-3 cats=monster,creature
 tick 1

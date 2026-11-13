@@ -1,0 +1,7 @@
+C Game rule spawn_phantoms is now set to true
+C Set minecraft:overworld to 18000 tick(s)
+CUSTOMSPAWNER phantom seed=11 enemies=1
+E phantom#1 minecraft:phantom pos=8.5,-40.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.4199276 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:17.146775188258122
+RNG level 155513899567442
+CUSTOMSPAWNER phantom seed=12 enemies=1
+RNG level 25214903905

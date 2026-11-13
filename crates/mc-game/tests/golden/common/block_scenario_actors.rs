@@ -12,6 +12,7 @@
 //! connection (no batch is acknowledged: a player tracks entities only in the first batch of chunks).
 use super::Scenario;
 use crate::common::menu_actions::deliver;
+use crate::common::spawn_verbs;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -774,6 +775,7 @@ impl Scenario {
             }
             _ => {
                 return crate::common::mob_verbs::command(self, a)
+                    || spawn_verbs::command(self, a)
                     || crate::common::player_actions::command(self, a);
             }
         }
@@ -1527,6 +1529,7 @@ impl Scenario {
             }
             _ => {
                 return crate::common::mob_verbs::dump(self, kind, arg)
+                    || spawn_verbs::dump(self, kind, arg)
                     || crate::common::player_actions::dump(self, kind, arg);
             }
         }
@@ -1569,6 +1572,43 @@ impl Scenario {
             .get_entity_or_removed(id)
             .unwrap_or_else(|| panic!("entity {name} is gone"));
         super::super::entity_describe::describe(name, e, level, &ctx, rich)
+    }
+}
+
+impl spawn_verbs::SpawnHost for Scenario {
+    const TICKING: bool = true;
+
+    fn entity_names(&mut self) -> std::collections::BTreeMap<EntityId, String> {
+        self.name_new_entities();
+        self.actors
+            .refs
+            .iter()
+            .map(|(n, id)| (*id, n.clone()))
+            .collect()
+    }
+
+    fn all_entity_ids(&mut self) -> std::collections::BTreeSet<EntityId> {
+        self.level()
+            .entity_manager
+            .all_visible_ids()
+            .into_iter()
+            .collect()
+    }
+
+    fn fresh_entity_lines(&mut self, before: &std::collections::BTreeSet<EntityId>) -> Vec<String> {
+        self.name_new_entities();
+        let mut fresh: Vec<(String, EntityId)> = self
+            .actors
+            .refs
+            .iter()
+            .filter(|(_, id)| !before.contains(id))
+            .cloned()
+            .collect();
+        fresh.sort_by_key(|(_, id)| *id);
+        fresh
+            .into_iter()
+            .map(|(name, id)| self.describe(&name, id, true))
+            .collect()
     }
 }
 

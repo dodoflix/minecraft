@@ -1,0 +1,35 @@
+C Set minecraft:overworld to 6000 tick(s)
+BRAIN V acts=core;idle
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BRAIN V acts=core;idle
+BM V type=home value=minecraft:overworld@4,-60,4 ttl=200
+BM V type=interaction_target value=Steve ttl=inf
+BM V type=last_slept value=1234 ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BRAIN V acts=core;idle
+BM V type=home value=minecraft:overworld@4,-60,4 ttl=197
+BM V type=last_slept value=1234 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BRAIN V acts=core;panic
+BM V type=home value=minecraft:overworld@4,-60,4 ttl=197
+BM V type=last_slept value=1234 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BRAIN V acts=core;panic
+BM V type=last_slept value=1234 ttl=inf
+BM V type=mobs value=(Steve) ttl=inf
+BM V type=path value=path(0;3) ttl=inf
+BM V type=visible_mobs value=(Steve) ttl=inf
+BM V type=walk_target value=walk(pos(-2,-60,-1);0.75;0) ttl=inf
+BR V MoveToTargetSink
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+BR V RunOne: [DoNothing]
+E V minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=moving stuck=0 navspeed=0.75 ntarget=-2,-60,-1 path=0/3/1/-2,-60,-1 nodes=0,-60,0:WALKABLE:0.0;-1,-60,-1:WALKABLE:0.0;-2,-60,-1:WALKABLE:0.0 goals=- tgoals=- acts=core;panic mem=last_slept:1234:inf;mobs:(Steve):inf;path:path(0;3):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(-2,-60,-1);0.75;0):inf equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0

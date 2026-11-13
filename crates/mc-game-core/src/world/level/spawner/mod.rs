@@ -57,6 +57,8 @@ pub struct LevelSpawnData {
     pub gen_live: Arc<GenLiveState>,
     /// `ServerLevel.customSpawners`.
     pub custom_spawners: Vec<Box<dyn CustomSpawner>>,
+    /// The `custom_spawner::order` of each element of `custom_spawners`.
+    pub custom_spawner_orders: Vec<i32>,
     /// `dimensionType()` (set by the level factory).
     pub dimension_type: Option<Arc<DimensionType>>,
     /// The dimension type's constant layer of `natural_mob_spawns` / `creature_world_gen_spawn_probability`.

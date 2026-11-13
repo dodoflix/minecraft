@@ -47,6 +47,11 @@ impl PotentialCalculator {
         }
     }
 
+    /// The stored charges in insertion order (`charges` of vanilla's calculator).
+    pub fn charges(&self) -> Vec<(BlockPos, f64)> {
+        self.charges.iter().map(|c| (c.pos, c.charge)).collect()
+    }
+
     /// `getPotentialEnergyChange(pos, charge)`.
     pub fn get_potential_energy_change(&self, pos: BlockPos, charge: f64) -> f64 {
         if charge == 0.0 {

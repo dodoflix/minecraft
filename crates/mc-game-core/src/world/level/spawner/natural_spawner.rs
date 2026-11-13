@@ -84,6 +84,11 @@ impl SpawnState {
         self.spawnable_chunk_count
     }
 
+    /// The point charges of the spawn potential (`spawnPotential.charges`), in insertion order.
+    pub fn spawn_potential_charges(&self) -> Vec<(BlockPos, f64)> {
+        self.spawn_potential.charges()
+    }
+
     /// `getMobCategoryCounts()`: the count of `category`.
     pub fn get_mob_category_count(&self, category: MobCategory) -> i32 {
         self.mob_category_counts[category as usize]

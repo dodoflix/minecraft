@@ -89,5 +89,6 @@ pub mod menu_actions;
 pub mod menu_oracle;
 pub mod mob_verbs;
 pub mod player_actions;
+pub mod spawn_verbs;
 pub mod structure_golden;
 pub mod test_packs;

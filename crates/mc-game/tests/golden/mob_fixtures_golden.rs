@@ -1,4 +1,5 @@
 //! Replays of the recorded mob scenarios (`oracle/scenarios/mob_*.txt`, `aquatic_*.txt`) against their vanilla fixtures.
+use crate::common::block_scenario;
 use crate::common::entity_oracle::{Fixture, Options, lines_match};
 use crate::common::entity_scenario::{run_scenario, run_scenario_test};
 use std::collections::BTreeMap;
@@ -72,9 +73,8 @@ fn mob_finalize_equipment() {
 }
 
 #[test]
-#[ignore = "the scenario replay has no `dump difficulty:X,Y,Z` (`DIFFICULTY` lines)"]
 fn mob_local_difficulty() {
-    run_scenario_test("mob_local_difficulty");
+    block_scenario::check("mob_local_difficulty");
 }
 
 #[test]
@@ -127,31 +127,43 @@ fn aquatic_squid_swim() {
 }
 
 #[test]
-#[ignore = "the scenario replay has no `raid_start` verb or `dump raids`"]
+#[ignore = "deviation: the raid's first wave (tick 170) panics: the raiders are inert placeholder entities (patrolling_monster.rs:35)"]
 fn mob_raid_start() {
-    run_scenario_test("mob_raid_start");
+    block_scenario::check("mob_raid_start");
 }
 
 #[test]
-#[ignore = "the scenario replay has no `raid_waves` verb"]
 fn mob_raid_waves() {
     run_scenario_test("mob_raid_waves");
 }
 
 #[test]
-#[ignore = "the scenario replay has no `spawnpass` verb"]
+#[ignore = "deviation: the pass of seed 22 (chunk 1,-2) spawns pigs in vanilla (line 11: `E pig#1`), none here"]
 fn mob_spawnpass_plains_day() {
-    run_scenario_test("mob_spawnpass_plains_day");
+    block_scenario::check("mob_spawnpass_plains_day");
 }
 
 #[test]
-#[ignore = "the scenario replay has no `spawnpass` verb"]
+#[ignore = "deviation: the pass of seed 22 (chunk 1,-2) spawns nothing in vanilla (line 7: `SPAWNSTATE`), here a zombie, a spider and a skeleton"]
 fn mob_spawnpass_plains_night() {
-    run_scenario_test("mob_spawnpass_plains_night");
+    block_scenario::check("mob_spawnpass_plains_night");
 }
 
 #[test]
-#[ignore = "the scenario replay has no `spawnpass` or `biome` verb, and the fixture's `biome` blocks ran on plains (y=320 is outside the world)"]
+#[ignore = "deviation: the pass of seed 126 (chunk -1,-3) spawns nothing in vanilla (line 5: `SPAWNSTATE`), here pigs and horses"]
 fn mob_spawnpass_biomes() {
-    run_scenario_test("mob_spawnpass_biomes");
+    block_scenario::check("mob_spawnpass_biomes");
+}
+
+/// One `PhantomSpawner` tick with the level random seeded (block replay: the spawner runs on the ticking level).
+#[test]
+#[ignore = "deviation: the first PhantomSpawner tick spawns a phantom in vanilla (line 1: `E phantom#1 ... pos=8.5,-40.0,2.5`) and leaves `Level.random` at 155513899567442, here nothing and 205572635213177"]
+fn mob_custom_spawner_phantom() {
+    block_scenario::check("mob_custom_spawner_phantom");
+}
+
+/// Brain memories and activities set from the scenario (`memory`, `activity`).
+#[test]
+fn mob_brain_isolation() {
+    run_scenario_test("mob_brain_isolation");
 }

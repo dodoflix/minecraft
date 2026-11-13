@@ -1,0 +1,24 @@
+# Brain-level isolation of a villager: memories set through their codec (`memory`) or as an entity, a requested activity
+# (`activity`), and what the brain does with them over the next ticks.
+level flat
+difficulty normal
+time 6000
+entity_counter 0
+spawn_player Steve survival 0.5 -60 6.5 0 0
+mobspawn V minecraft:villager 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed V 7
+level_seed 9
+tick 2
+dump brain:V
+memory V minecraft:home {value:{dimension:"minecraft:overworld",pos:[I;4,-60,4]},ttl:200L}
+memory V minecraft:last_slept {value:1234L}
+memory V minecraft:interaction_target entity:Steve
+dump brain:V
+tick 3
+dump brain:V
+activity V panic
+dump brain:V
+memory V minecraft:home -
+memory V minecraft:interaction_target -
+tick 2
+dump brain:V mob:V
