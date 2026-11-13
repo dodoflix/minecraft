@@ -1,0 +1,48 @@
+# A vehicle packet that moves it further than ten blocks beyond what the server expects is refused: the vehicle stays and the client is told
+# where it is. Coordinates beyond the world limits are clamped first. The expected distance grows with the speed the server knows.
+level flat
+preload 6
+level_seed 511
+entity_counter 5100
+spawn_player O survival 6.5 -60 6.5 0 0
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player Q survival 40.5 -60 0.5 0 0
+tick 3
+spawn B minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed B 512
+spawn C minecraft:birch_boat 40.5 -60 2.5 0 0
+entity_seed C 513
+tick 3
+ride P B
+ride Q C
+accept_teleport P
+accept_teleport Q
+tick 2
+dump packets:P:none packets:Q:none packets:O:none xentity:B xentity:C
+note thirty blocks in one packet
+move_vehicle P 30.5 -60 2.5 0 0 true
+tick 1
+dump xentity:B player:P packets:P:move_vehicle,teleport_entity,move_entity_pos packets:O:move_entity_pos,teleport_entity,entity_position_sync
+note a packet that is accepted afterwards still counts from the old position
+move_vehicle P 0.5 -60 4.5 0 0 true
+tick 1
+dump xentity:B player:P packets:P:move_vehicle packets:O:move_entity_pos,teleport_entity
+note just over ten blocks in one tick is refused, just under is accepted
+move_vehicle P 0.5 -60 14.6 0 0 true
+tick 1
+dump xentity:B player:P packets:P:move_vehicle packets:O:move_entity_pos,teleport_entity
+move_vehicle P 0.5 -60 14.4 0 0 true
+tick 1
+dump xentity:B player:P packets:P:move_vehicle packets:O:move_entity_pos,teleport_entity
+note huge coordinates are clamped to the world limits and then refused
+move_vehicle P 1.0E30 -1.0E30 -1.0E30 0 0 true
+tick 1
+dump xentity:B player:P packets:P:move_vehicle
+note the speed the server knows widens the limit: the same packet is refused without it and accepted with it
+move_vehicle Q 40.5 -60 13.3 0 0 true
+tick 1
+dump xentity:C player:Q packets:Q:move_vehicle
+velocity C 0 0 9
+move_vehicle Q 40.5 -60 13.3 0 0 true
+tick 1
+dump xentity:C player:Q packets:Q:move_vehicle

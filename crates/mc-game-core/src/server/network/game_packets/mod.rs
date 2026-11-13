@@ -406,5 +406,6 @@ impl PlayCtx<'_> {
             return;
         }
         self.dispatch(packet, self.now_ms());
+        self.handle_disconnection_without_socket();
     }
 }

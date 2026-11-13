@@ -43,7 +43,7 @@ dump xentity:B1 player:P
 tp P 0.5 -60 14.5
 accept_teleport P
 tick 4
-dump xentity:B1 player:P xentities events packets:O:set_entity_link,sound,add_entity
+dump xentity:B1 player:P xentities events packets:O:set_entity_link,sound,add_entity packets:P:set_entity_link,add_entity,remove_entities
 tp P 0.5 -60 0.5
 accept_teleport P
 tick 2
@@ -53,7 +53,7 @@ tick 1
 dump xentity:B2 player:C events packets:O:set_entity_link,sound
 interact C B2 main
 tick 1
-dump xentity:B2 xentities events packets:O:set_entity_link,sound,add_entity
+dump xentity:B2 xentities events packets:O:set_entity_link,sound,add_entity packets:P:set_entity_link,add_entity,remove_entities
 note shears cut the lead of a chest boat
 give P mainhand minecraft:lead 4
 tp P 10.5 -60 0.5
@@ -65,7 +65,7 @@ dump xentity:B3 nbt:B3
 give P mainhand minecraft:shears
 interact P B3 main
 tick 2
-dump xentity:B3 xentities events inventory:P packets:O:set_entity_link,sound,add_entity
+dump xentity:B3 xentities events inventory:P packets:O:set_entity_link,sound,add_entity packets:P:set_entity_link,add_entity,remove_entities
 note an animal on the lead is tied to the boat by a sneaking click
 give P mainhand minecraft:lead 4
 tp P 4.5 -60 2.5

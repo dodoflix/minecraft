@@ -1,0 +1,72 @@
+# A vehicle packet whose result the server does not reproduce is undone: a move into a wall (the vehicle stops short of the target), a
+# move that ends in a block the vehicle was not in before, a small push into a block, a vehicle that is already stuck in a block (the
+# packet is applied), and a rider that does not control the vehicle (a minecart: the position is only reset).
+level flat
+preload 6
+level_seed 521
+entity_counter 5200
+spawn_player O survival 20.5 -60 20.5 0 0
+spawn_player P1 survival 0.5 -60 0.5 0 0
+spawn_player P2 survival 10.5 -60 0.5 0 0
+spawn_player P3 survival 20.5 -60 0.5 0 0
+spawn_player P4 survival 30.5 -60 0.5 0 0
+spawn_player P5 survival 40.5 -60 0.5 0 0
+tick 3
+fill 3 -60 -2 4 -58 6 minecraft:stone
+fill 13 -60 -2 14 -58 6 minecraft:stone
+fill 23 -60 -2 24 -58 6 minecraft:stone
+spawn B1 minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed B1 522
+spawn B2 minecraft:oak_boat 10.5 -60 2.5 0 0
+entity_seed B2 523
+spawn B3 minecraft:oak_boat 20.5 -60 2.5 0 0
+entity_seed B3 524
+spawn B4 minecraft:oak_boat 30.5 -60 2.5 0 0
+entity_seed B4 525
+spawn M minecraft:minecart 40.5 -60 2.5 0 0
+entity_seed M 526
+tick 3
+ride P1 B1
+ride P2 B2
+ride P3 B3
+ride P4 B4
+ride P5 M
+accept_teleport P1
+accept_teleport P2
+accept_teleport P3
+accept_teleport P4
+accept_teleport P5
+tick 2
+dump packets:P1:none packets:P2:none packets:P3:none packets:P4:none packets:P5:none packets:O:none xentity:B1 xentity:B2 xentity:B3 xentity:B4 xentity:M
+note P1 drives into a wall three blocks away, P2 ends a short move inside the wall, P3 pushes a little into it
+move_vehicle P1 3.5 -60 2.5 90 0 true
+move_vehicle P2 12.5 -60 2.5 90 0 true
+move_vehicle P3 22.45 -60 2.5 90 0 true
+tick 1
+dump xentity:B1 xentity:B2 xentity:B3 player:P1 player:P2 player:P3 packets:P1:move_vehicle packets:P2:move_vehicle packets:P3:move_vehicle packets:O:move_entity_pos,move_entity_pos_rot,teleport_entity,entity_position_sync
+note a packet that stays clear of the wall is applied
+move_vehicle P1 1.5 -60 2.5 90 0 true
+move_vehicle P3 22.0 -60 2.5 90 0 true
+tick 1
+dump xentity:B1 xentity:B3 player:P1 player:P3 packets:P1:move_vehicle packets:P3:move_vehicle
+note P4 sits in a block (placed over the boat) and moves away
+fill 30 -60 2 30 -60 2 minecraft:stone
+tick 1
+dump xentity:B4 player:P4
+move_vehicle P4 33.5 -60 2.5 0 0 true
+tick 1
+dump xentity:B4 player:P4 packets:P4:move_vehicle
+note the rider of a minecart does not control it: a packet far from the cart resets it, a packet right at it does nothing, and once a second at most
+move_vehicle P5 45.5 -60 2.5 0 0 true
+tick 1
+dump xentity:M player:P5 packets:P5:move_vehicle
+move_vehicle P5 45.5 -60 2.5 0 0 true
+tick 1
+dump xentity:M player:P5 packets:P5:move_vehicle
+move_vehicle P5 40.5 -60 2.5 0 0 true
+tick 1
+dump xentity:M player:P5 packets:P5:move_vehicle
+tick 20
+move_vehicle P5 40.5 -60 2.5 0 0 true
+tick 1
+dump xentity:M player:P5 packets:P5:move_vehicle

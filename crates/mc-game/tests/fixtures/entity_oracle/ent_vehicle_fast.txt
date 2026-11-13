@@ -1,0 +1,26 @@
+E B minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+E C minecraft:birch_boat pos=40.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Q mdir=west leash=- ooc=0.0
+# thirty blocks in one packet
+E B minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:move_vehicle 3a3fe0000000000000c04e00000000000040040000000000000000000000000000
+# a packet that is accepted afterwards still counts from the old position
+E B minecraft:oak_boat pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT O minecraft:move_entity_pos 36f02701000000002000
+# just over ten blocks in one tick is refused, just under is accepted
+E B minecraft:oak_boat pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:move_vehicle 3a3fe0000000000000c04e00000000000040120000000000000000000000000000
+E B minecraft:oak_boat pos=0.5,-60.0,14.4 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,14.4 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# huge coordinates are clamped to the world limits and then refused
+E B minecraft:oak_boat pos=0.5,-60.0,14.4 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,14.4 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:move_vehicle 3a3fe0000000000000c04e000000000000402ccccccccccccd0000000000000000
+# the speed the server knows widens the limit: the same packet is refused without it and accepted with it
+E C minecraft:birch_boat pos=40.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Q mdir=west leash=- ooc=0.0
+P Q minecraft:player pos=40.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT Q minecraft:move_vehicle 3a4044400000000000c04e00000000000040040000000000000000000000000000
+E C minecraft:birch_boat pos=40.5,-60.0,13.3 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Q mdir=west leash=- ooc=0.0
+P Q minecraft:player pos=40.5,-60.4125,13.3 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

@@ -1,0 +1,50 @@
+# A driver whose vehicle hangs over nothing is kicked for floating after the flying limit, which scales with the vehicle's gravity: 80
+# ticks at the gravity of a pig, twice that for a boat (half the gravity). Putting the vehicle back on the ground starts the count over.
+level flat
+preload 6
+level_seed 541
+entity_counter 5400
+spawn_player O survival 20.5 -60 8.5 0 0
+spawn_player P1 survival 0.5 -60 0.5 0 0
+spawn_player P2 survival 10.5 -60 0.5 0 0
+spawn_player P3 survival 20.5 -60 0.5 0 0
+tick 3
+spawn B1 minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed B1 542
+spawn B2 minecraft:oak_boat 10.5 -60 2.5 0 0
+entity_seed B2 543
+mobspawn pig minecraft:pig 20.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed pig 544
+give P3 mainhand minecraft:carrot_on_a_stick
+tick 3
+ride P1 B1
+ride P2 B2
+ride P3 pig
+accept_teleport P1
+accept_teleport P2
+accept_teleport P3
+tick 2
+dump packets:P1:none packets:P2:none packets:P3:none packets:O:none xentity:B1 xentity:B2 mob:pig
+note all three drivers lift their vehicle six blocks
+move_vehicle P1 0.5 -54 2.5 0 0 false
+move_vehicle P2 10.5 -54 2.5 0 0 false
+move_vehicle P3 20.5 -54 2.5 0 0 false
+tick 1
+dump xentity:B1 xentity:B2 mob:pig player:P1 player:P2 player:P3
+tick 76
+dump packets:P1:disconnect packets:P2:disconnect packets:P3:disconnect
+tick 3
+dump packets:P1:disconnect packets:P2:disconnect packets:P3:disconnect packets:O:remove_entities,set_passengers
+note P2 puts the boat down again after 100 ticks
+tick 20
+move_vehicle P2 10.5 -60 2.5 0 0 true
+tick 1
+dump xentity:B2 player:P2 packets:P2:disconnect,move_vehicle
+tick 100
+dump packets:P1:disconnect packets:P2:disconnect xentity:B1 xentity:B2
+note P2 lifts again: the count starts from zero
+move_vehicle P2 10.5 -54 2.5 0 0 false
+tick 150
+dump packets:P1:disconnect packets:P2:disconnect
+tick 20
+dump packets:P1:disconnect packets:P2:disconnect

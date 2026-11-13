@@ -1,0 +1,45 @@
+# Teleports while riding. Teleporting the boat takes the driver along: the driver is told with a position packet and its vehicle packets
+# are ignored until the teleport is acknowledged; after the acknowledgement the driver's packets move the boat again. Teleporting the
+# driver itself takes it off the boat (the boat stays).
+level flat
+preload 6
+level_seed 561
+entity_counter 5600
+spawn_player O survival 30.5 -60 8.5 0 0
+spawn_player P1 survival 0.5 -60 0.5 0 0
+spawn_player P2 survival 20.5 -60 0.5 0 0
+tick 3
+spawn B1 minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed B1 562
+spawn B2 minecraft:spruce_boat 20.5 -60 2.5 0 0
+entity_seed B2 563
+tick 3
+ride P1 B1
+ride P2 B2
+accept_teleport P1
+accept_teleport P2
+tick 2
+dump packets:O:none packets:P1:none packets:P2:none xentity:B1 xentity:B2 player:P1 player:P2
+note the boat is teleported with its driver; the packets of the driver wait for the acknowledgement
+tp B1 6.5 -60 4.5 90 0
+tick 1
+dump xentity:B1 player:P1 packets:P1:player_position,teleport_entity,set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot packets:O:teleport_entity,move_entity_pos,move_entity_pos_rot,set_passengers,player_position
+move_vehicle P1 7.5 -60 4.5 90 0 true
+tick 1
+dump xentity:B1 player:P1 packets:P1:move_vehicle,teleport_entity packets:O:teleport_entity,move_entity_pos,move_entity_pos_rot
+accept_teleport P1
+move_vehicle P1 7.5 -60 4.5 90 0 true
+tick 1
+dump xentity:B1 player:P1 packets:P1:move_vehicle,teleport_entity,player_position packets:O:teleport_entity,move_entity_pos,move_entity_pos_rot
+tick 1
+move_vehicle P1 8.5 -60 4.5 90 0 true
+tick 1
+dump xentity:B1 player:P1 packets:P1:move_vehicle packets:O:teleport_entity,move_entity_pos,move_entity_pos_rot
+note the driver is teleported: it leaves the boat
+tp P2 26.5 -60 6.5 180 0
+tick 1
+dump xentity:B2 player:P2 packets:P2:player_position,teleport_entity,set_passengers,move_vehicle packets:O:teleport_entity,move_entity_pos,set_passengers,player_position
+accept_teleport P2
+move_vehicle P2 20.5 -60 3.5 0 0 true
+tick 2
+dump xentity:B2 player:P2 packets:P2:move_vehicle,set_passengers packets:O:teleport_entity,move_entity_pos,set_passengers

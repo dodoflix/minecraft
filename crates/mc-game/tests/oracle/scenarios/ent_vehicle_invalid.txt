@@ -1,0 +1,37 @@
+# Vehicle packets with NaN or infinite values disconnect the player with the invalid vehicle movement text; the vehicle is left alone.
+level flat
+preload 6
+level_seed 531
+entity_counter 5300
+spawn_player O survival 20.5 -60 8.5 0 0
+spawn_player P1 survival 0.5 -60 0.5 0 0
+spawn_player P2 survival 10.5 -60 0.5 0 0
+spawn_player P3 survival 20.5 -60 0.5 0 0
+spawn_player P4 survival 30.5 -60 0.5 0 0
+tick 3
+spawn B1 minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed B1 532
+spawn B2 minecraft:oak_boat 10.5 -60 2.5 0 0
+entity_seed B2 533
+spawn B3 minecraft:oak_boat 20.5 -60 2.5 0 0
+entity_seed B3 534
+spawn B4 minecraft:oak_boat 30.5 -60 2.5 0 0
+entity_seed B4 535
+tick 3
+ride P1 B1
+ride P2 B2
+ride P3 B3
+ride P4 B4
+accept_teleport P1
+accept_teleport P2
+accept_teleport P3
+accept_teleport P4
+tick 2
+dump packets:P1:none packets:P2:none packets:P3:none packets:P4:none packets:O:none xentity:B1 xentity:B2 xentity:B3 xentity:B4
+note NaN position, infinite position, infinite rotation, NaN pitch
+move_vehicle P1 NaN -60 3.5 0 0 true
+move_vehicle P2 10.5 Infinity 3.5 0 0 true
+move_vehicle P3 20.5 -60 3.5 Infinity 0 true
+move_vehicle P4 30.5 -60 3.5 0 NaN true
+tick 1
+dump xentity:B1 xentity:B2 xentity:B3 xentity:B4 packets:P1:disconnect,move_vehicle packets:P2:disconnect,move_vehicle packets:P3:disconnect,move_vehicle packets:P4:disconnect,move_vehicle packets:O:move_entity_pos,teleport_entity,remove_entities,set_passengers

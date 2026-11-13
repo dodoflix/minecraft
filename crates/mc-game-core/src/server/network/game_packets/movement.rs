@@ -169,6 +169,12 @@ impl PlayCtx<'_> {
         };
         let (y_rot, x_rot) = (self.player.get_y_rot(), self.player.get_x_rot());
         self.player.abs_snap_to(fx, fy, fz, y_rot, x_rot);
+        self.finish_tick_player()
+    }
+
+    /// The half of `tickPlayer()` after the player's own tick (the replays tick the player themselves): the tick count, the
+    /// floating checks of the player and of its vehicle. Returns whether the player was kicked.
+    pub fn finish_tick_player(&mut self) -> bool {
         self.lis().tick_count += 1;
         let received = self.lis().received_move_packet_count;
         self.lis().known_move_packet_count = received;
@@ -202,7 +208,7 @@ impl PlayCtx<'_> {
 
     /// The vehicle half of `tickPlayer()`: the root vehicle the player controls and the positions its movement is checked
     /// against; returns whether the player was kicked for floating the vehicle too long.
-    pub fn tick_vehicle_tracking(&mut self) -> bool {
+    fn tick_vehicle_tracking(&mut self) -> bool {
         let root_vehicle = self.root_vehicle();
         let player_id = self.player.id();
         match root_vehicle {

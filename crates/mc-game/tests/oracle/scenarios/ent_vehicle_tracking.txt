@@ -1,0 +1,187 @@
+# What the trackers send for vehicles that players drive: pairing packets with the passenger, the vehicle moves with the update
+# interval of its kind (boat, saddled pig, a minecart nobody drives), the passenger's own rotation arrives as rotation-only packets, a
+# jump of more than eight blocks is a teleport, and the periodic position sync. The driver receives the same vehicle packets as the
+# observer, and in addition the vehicle reply of the listener.
+level flat
+preload 6
+level_seed 551
+entity_counter 5500
+spawn_player O survival 10.5 -60 14.5 0 0
+spawn_player P1 survival 0.5 -60 0.5 0 0
+spawn_player P2 survival 20.5 -60 0.5 0 0
+spawn_player P3 survival 10.5 -60 0.5 0 0
+tick 3
+spawn B minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed B 552
+spawn M minecraft:minecart 20.5 -60 2.5 0 0
+entity_seed M 553
+mobspawn pig minecraft:pig 10.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Silent:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed pig 554
+give P3 mainhand minecraft:carrot_on_a_stick
+tick 3
+dump packets:O:none packets:P1:none packets:P2:none packets:P3:none
+note the three players board: the observer and each rider get the pairing packets of the vehicles
+ride P1 B
+ride P2 M
+ride P3 pig
+accept_teleport P1
+accept_teleport P2
+accept_teleport P3
+tick 2
+dump xentity:B mob:pig xentity:M packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+note the boat and the pig are driven for 24 ticks while the riders turn; the cart is pushed once
+velocity M 0.3 0 0
+
+move_vehicle P1 0.5 -60 2.75 10 0 true
+move_vehicle P3 10.80 -60 2.5 -15 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 5 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 3.0 20 0 true
+move_vehicle P3 11.10 -60 2.5 -30 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 10 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 3.25 30 0 true
+move_vehicle P3 11.40 -60 2.5 -45 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 15 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 3.5 40 0 true
+move_vehicle P3 11.70 -60 2.5 -60 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 20 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 3.75 50 0 true
+move_vehicle P3 12.00 -60 2.5 -75 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 25 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 4.0 60 0 true
+move_vehicle P3 12.30 -60 2.5 -90 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 30 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 4.25 70 0 true
+move_vehicle P3 12.60 -60 2.5 -105 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 35 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 4.5 80 0 true
+move_vehicle P3 12.90 -60 2.5 -120 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 40 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 4.75 90 0 true
+move_vehicle P3 13.20 -60 2.5 -135 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 45 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 5.0 100 0 true
+move_vehicle P3 13.50 -60 2.5 -150 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 50 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 5.25 110 0 true
+move_vehicle P3 13.80 -60 2.5 -165 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 55 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 5.5 120 0 true
+move_vehicle P3 14.10 -60 2.5 -180 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 60 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 5.75 130 0 true
+move_vehicle P3 14.40 -60 2.5 -195 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 65 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 6.0 140 0 true
+move_vehicle P3 14.70 -60 2.5 -210 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 70 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 6.25 150 0 true
+move_vehicle P3 15.00 -60 2.5 -225 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 75 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 6.5 160 0 true
+move_vehicle P3 15.30 -60 2.5 -240 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 80 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 6.75 170 0 true
+move_vehicle P3 15.60 -60 2.5 -255 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 85 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 7.0 180 0 true
+move_vehicle P3 15.90 -60 2.5 -270 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 90 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 7.25 190 0 true
+move_vehicle P3 16.20 -60 2.5 -285 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 95 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 7.5 200 0 true
+move_vehicle P3 16.50 -60 2.5 -300 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 100 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 7.75 210 0 true
+move_vehicle P3 16.80 -60 2.5 -315 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 105 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 8.0 220 0 true
+move_vehicle P3 17.10 -60 2.5 -330 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 110 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 8.25 230 0 true
+move_vehicle P3 17.40 -60 2.5 -345 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 115 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+move_vehicle P1 0.5 -60 8.5 240 0 true
+move_vehicle P3 17.70 -60 2.5 -360 5 true
+client_tick_end P1
+move_packet P1 0.5 -60 0.5 true 120 0
+tick 1
+dump packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+dump xentity:B mob:pig xentity:M player:P1 player:P3
+note the boat jumps nine blocks sideways: a teleport packet
+move_vehicle P1 9.5 -60 8.5 0 0 true
+tick 1
+dump xentity:B packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+note idle for a while: the periodic position sync
+tick 130
+dump xentity:B mob:pig xentity:M packets:O:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P1:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P3:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data packets:P2:set_passengers,move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,set_entity_motion,rotate_head,set_entity_data
+

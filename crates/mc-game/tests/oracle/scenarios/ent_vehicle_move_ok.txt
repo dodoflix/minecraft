@@ -1,0 +1,64 @@
+# A player drives a boat with movement packets: the first packet of a tick moves it, later ones in the same tick are measured from the
+# last accepted position, rotations only turn it, a jump into the air and back down breaks nothing that is not meant to break, the paddle
+# packet sets the paddle state, and a packet that arrives before the server has seen the player ride is ignored. The observer sees the
+# boat move; the rider gets the vehicle packets of the tracker too.
+level flat
+preload 6
+level_seed 501
+entity_counter 5000
+spawn_player O survival 6.5 -60 6.5 0 0
+spawn_player P survival 0.5 -60 0.5 0 0
+tick 3
+spawn B minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed B 502
+tick 3
+dump packets:O:none packets:P:none
+note the player boards; a packet in the same tick is ignored because the vehicle is not tracked yet
+ride P B
+accept_teleport P
+move_vehicle P 0.5 -60 3.5 0 0 true
+dump xentity:B player:P packets:P:set_passengers,move_vehicle,player_position packets:O:set_passengers,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity
+tick 2
+dump xentity:B player:P
+note a first move packet
+move_vehicle P 0.5 -60 3.0 0 0 true
+tick 1
+dump xentity:B player:P packets:P:move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync packets:O:move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync
+note two packets in one tick: the second is measured from the first accepted position
+move_vehicle P 0.5 -60 3.5 30 0 true
+move_vehicle P 0.5 -60 4.0 60 0 true
+tick 1
+dump xentity:B player:P packets:P:move_vehicle,move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync packets:O:move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync
+note a turn without moving, then a pitch
+move_vehicle P 0.5 -60 4.0 120 0 true
+tick 4
+dump xentity:B player:P packets:P:move_vehicle,move_entity_rot,move_entity_pos_rot packets:O:move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync
+move_vehicle P 0.5 -60 4.0 -200 15 true
+tick 4
+dump xentity:B player:P packets:P:move_vehicle,move_entity_rot,move_entity_pos_rot packets:O:move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync
+note a hop into the air and back down: the fall distance is the boat's own
+move_vehicle P 0.5 -58 4.0 -200 15 false
+tick 1
+dump xentity:B player:P
+move_vehicle P 0.5 -57 4.5 -200 15 false
+tick 1
+dump xentity:B player:P
+move_vehicle P 0.5 -60 5.0 -200 15 true
+tick 2
+dump xentity:B player:P xentities events packets:P:move_vehicle,move_entity_pos,move_entity_pos_rot,teleport_entity,entity_position_sync packets:O:move_entity_pos,move_entity_pos_rot,move_entity_rot,teleport_entity,entity_position_sync,remove_entities,add_entity
+note the paddle packet sets the paddle state of the boat the player controls
+paddle P true false
+tick 1
+dump xentity:B nbt:B
+paddle P false true
+tick 1
+dump xentity:B
+paddle P false false
+tick 1
+dump xentity:B packets:O:set_entity_data
+note a plain player (not riding) sending the packets changes nothing
+dump xentity:B player:O
+paddle O true true
+move_vehicle O 6.5 -60 9.5 0 0 true
+tick 1
+dump xentity:B player:O

@@ -1,0 +1,26 @@
+E B1 minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P1 mdir=west leash=- ooc=0.0
+E B2 minecraft:spruce_boat pos=20.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P2 mdir=west leash=- ooc=0.0
+P P1 minecraft:player pos=0.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P2 minecraft:player pos=20.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the boat is teleported with its driver; the packets of the driver wait for the acknowledgement
+E B1 minecraft:oak_boat pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P1 mdir=north leash=- ooc=0.0
+P P1 minecraft:player pos=6.5,-60.4125,4.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P1 minecraft:player_position 4903401a000000000000c04e34cccccccccd401200000000000000000000000000000000000000000000000000000000000042b400000000000000000000
+PKT P1 minecraft:teleport_entity 8001e42b401a000000000000c04e000000000000401200000000000000000000000000000000000000000000000000000000000042b40000000000000000000001
+E B1 minecraft:oak_boat pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P1 mdir=north leash=- ooc=0.0
+P P1 minecraft:player pos=6.5,-60.4125,4.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT O minecraft:move_entity_pos_rot 37e42b016000000020004000
+E B1 minecraft:oak_boat pos=7.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P1 mdir=north leash=- ooc=0.0
+P P1 minecraft:player pos=7.5,-60.4125,4.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E B1 minecraft:oak_boat pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P1 mdir=north leash=- ooc=0.0
+P P1 minecraft:player pos=8.5,-60.4125,4.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT O minecraft:move_entity_pos 36e42b01200000000000
+# the driver is teleported: it leaves the boat
+E B2 minecraft:spruce_boat pos=20.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+P P2 minecraft:player pos=26.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P2 minecraft:set_passengers 6de52b00
+PKT P2 minecraft:player_position 4903403a800000000000c04e000000000000401a000000000000000000000000000000000000000000000000000000000000433400000000000000000000
+PKT P2 minecraft:set_passengers 6de52b00
+PKT O minecraft:set_passengers 6de52b00
+E B2 minecraft:spruce_boat pos=20.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+P P2 minecraft:player pos=26.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

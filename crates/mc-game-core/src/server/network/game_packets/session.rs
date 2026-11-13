@@ -256,6 +256,19 @@ impl PlayCtx<'_> {
         }
     }
 
+    /// A replay has no socket to close: once the listener has disconnected the player, the connection counts as closed and
+    /// `Connection.handleDisconnection` runs right away, like vanilla's `executeBlocking(connection::handleDisconnection)`.
+    pub fn handle_disconnection_without_socket(&mut self) {
+        let lis = self.lis();
+        if lis.pending_disconnect.is_none()
+            && lis.sender.handle().is_read_only()
+            && let Some(details) = lis.sender.handle().disconnection_details()
+        {
+            lis.pending_disconnect = Some(details.reason);
+        }
+        self.handle_disconnection_if_closed();
+    }
+
     /// `onDisconnect`.
     fn on_disconnect(&mut self, reason: &Component) {
         log::info!(

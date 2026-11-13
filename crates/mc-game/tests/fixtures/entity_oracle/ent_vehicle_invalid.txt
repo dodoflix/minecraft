@@ -1,0 +1,19 @@
+E B1 minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P1 mdir=west leash=- ooc=0.0
+E B2 minecraft:oak_boat pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P2 mdir=west leash=- ooc=0.0
+E B3 minecraft:oak_boat pos=20.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P3 mdir=west leash=- ooc=0.0
+E B4 minecraft:oak_boat pos=30.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P4 mdir=west leash=- ooc=0.0
+# NaN position, infinite position, infinite rotation, NaN pitch
+E B1 minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E B2 minecraft:oak_boat pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P2 mdir=west leash=- ooc=0.0
+E B3 minecraft:oak_boat pos=20.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E B4 minecraft:oak_boat pos=30.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+PKT P1 minecraft:disconnect 200a0800097472616e736c617465002f6d756c7469706c617965722e646973636f6e6e6563742e696e76616c69645f76656869636c655f6d6f76656d656e7400
+PKT P2 minecraft:move_vehicle 3a4025000000000000c04e00000000000040040000000000000000000000000000
+PKT P3 minecraft:disconnect 200a0800097472616e736c617465002f6d756c7469706c617965722e646973636f6e6e6563742e696e76616c69645f76656869636c655f6d6f76656d656e7400
+PKT P4 minecraft:disconnect 200a0800097472616e736c617465002f6d756c7469706c617965722e646973636f6e6e6563742e696e76616c69645f76656869636c655f6d6f76656d656e7400
+PKT O minecraft:remove_entities 4e01ba29
+PKT O minecraft:remove_entities 4e01b629
+PKT O minecraft:remove_entities 4e01bc29
+PKT O minecraft:remove_entities 4e01b829
+PKT O minecraft:remove_entities 4e01bd29
+PKT O minecraft:remove_entities 4e01b929

@@ -1,0 +1,54 @@
+# the player boards; a packet in the same tick is ignored because the vehicle is not tracked yet
+E B minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:player_position 49023fe0000000000000c04e34cccccccccd4004000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P minecraft:set_passengers 6d8b27018a27
+PKT O minecraft:set_passengers 6d8b27018a27
+E B minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# a first move packet
+E B minecraft:oak_boat pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,3.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:entity_position_sync 238b27003fe0000000000000c04e0000000000004004000000000000000000000000000001
+PKT O minecraft:entity_position_sync 238b27003fe0000000000000c04e0000000000004004000000000000000000000000000001
+# two packets in one tick: the second is measured from the first accepted position
+E B minecraft:oak_boat pos=0.5,-60.0,4.0 delta=0.0,0.0,0.0 rot=60.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=north leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,4.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:move_entity_pos_rot 378b27010000000018002a00
+PKT O minecraft:move_entity_pos_rot 378b27010000000018002a00
+# a turn without moving, then a pitch
+E B minecraft:oak_boat pos=0.5,-60.0,4.0 delta=0.0,0.0,0.0 rot=120.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=north leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,4.0 delta=0.0,-0.0784000015258789,0.0 rot=15.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:move_entity_rot 398b27015500
+PKT O minecraft:move_entity_rot 398b27015500
+PKT O minecraft:move_entity_rot 398a27000a00
+E B minecraft:oak_boat pos=0.5,-60.0,4.0 delta=0.0,0.0,0.0 rot=160.0,15.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=east leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,4.0 delta=0.0,-0.0784000015258789,0.0 rot=55.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:move_entity_rot 398b2701710a
+PKT O minecraft:move_entity_rot 398b2701710a
+PKT O minecraft:move_entity_rot 398a27002700
+# a hop into the air and back down: the fall distance is the boat's own
+E B minecraft:oak_boat pos=0.5,-58.0,4.0 delta=0.0,0.0,0.0 rot=160.0,15.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=east leash=- ooc=0.0
+P P minecraft:player pos=0.5,-58.4125,4.0 delta=0.0,-0.0784000015258789,0.0 rot=55.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E B minecraft:oak_boat pos=0.5,-57.0,4.5 delta=0.0,0.0,0.0 rot=160.0,15.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=east leash=- ooc=0.0
+P P minecraft:player pos=0.5,-57.4125,4.5 delta=0.0,-0.0784000015258789,0.0 rot=55.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E B minecraft:oak_boat pos=0.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=160.0,15.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=east leash=- ooc=0.0
+P P minecraft:player pos=0.5,-60.4125,5.0 delta=0.0,-0.0784000015258789,0.0 rot=55.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E B minecraft:oak_boat pos=0.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=160.0,15.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=east leash=- ooc=0.0
+PKT P minecraft:entity_position_sync 238b27003fe0000000000000c04d0000000000004010000000000000432000004170000000
+PKT P minecraft:entity_position_sync 238b27003fe0000000000000c04e0000000000004014000000000000432000004170000001
+PKT O minecraft:entity_position_sync 238b27003fe0000000000000c04d0000000000004010000000000000432000004170000000
+PKT O minecraft:entity_position_sync 238b27003fe0000000000000c04e0000000000004014000000000000432000004170000001
+# the paddle packet sets the paddle state of the boat the player controls
+E B minecraft:oak_boat pos=0.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=160.0,15.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=10 pass=P mdir=east leash=- ooc=0.0
+N B {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,5.0d],Rotation:[160.0f,15.0f],fall_distance:0.0d}
+E B minecraft:oak_boat pos=0.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=160.0,15.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=01 pass=P mdir=east leash=- ooc=0.0
+E B minecraft:oak_boat pos=0.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=160.0,15.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=east leash=- ooc=0.0
+PKT O minecraft:set_entity_data 658b270b0801ff
+PKT O minecraft:set_entity_data 658b270b08000c0801ff
+PKT O minecraft:set_entity_data 658b270c0800ff
+# a plain player (not riding) sending the packets changes nothing
+E B minecraft:oak_boat pos=0.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=160.0,15.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=east leash=- ooc=0.0
+P O minecraft:player pos=6.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E B minecraft:oak_boat pos=0.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=160.0,15.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=east leash=- ooc=0.0
+P O minecraft:player pos=6.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

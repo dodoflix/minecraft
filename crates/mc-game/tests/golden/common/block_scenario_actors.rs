@@ -579,8 +579,10 @@ impl Scenario {
                 self.level().with_entity(id, |level, e| {
                     let (yr, xr) = (e.base().y_rot(), e.base().x_rot());
                     if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
-                        // the driver calls `teleportTo(level, x, y, z, Set.of(), yRot, xRot, false)`: a client teleport that the client
-                        // has to confirm (`awaitingPositionFromClient`), which also wakes the player
+                        // the driver calls `teleportTo(level, x, y, z, Set.of(), yRot, xRot, false)`: `ServerPlayer.teleport(transition)`
+                        // takes the player off its vehicle, then sends a client teleport that the client has to confirm
+                        // (`awaitingPositionFromClient`); the player is also woken
+                        level.remove_vehicle(p);
                         if p.is_sleeping() {
                             p.stop_sleep_in_bed(level, true, true);
                         }
@@ -1278,7 +1280,9 @@ impl Scenario {
             return;
         }
         for name in self.actors.players.clone() {
-            self.with_player_named(&name, |level, p| {
+            let id = self.entity_id(&name);
+            // a player the listener disconnected is gone from the level
+            self.level().with_player(id, |level, p| {
                 p.send(&ClientboundSetTimePacket {
                     game_time: level.game_time(),
                     clock_updates: Vec::new(),
@@ -1292,7 +1296,7 @@ impl Scenario {
         for name in self.actors.players.clone() {
             let id = self.entity_id(&name);
             let mut tracked = self.actors.tracked_movement.get(&id).copied();
-            self.with_player_named(&name, |_, p| {
+            self.level().with_player(id, |_, p| {
                 if p.simulate_local_player {
                     if let Some(last) = tracked.as_mut() {
                         let pos = p.position();
@@ -1313,12 +1317,18 @@ impl Scenario {
         for name in self.actors.players.clone() {
             // `tickPlayer`: `resetPosition`, `xo/yo/zo`, `doTick`, then `absSnapTo(firstGood)`: a client-authoritative player
             // keeps the position it had, whatever the server-side tick did to it
-            self.with_player_named(&name, |level, p| {
+            // a player the listener disconnected is gone from the level
+            let id = self.entity_id(&name);
+            self.level().with_player(id, |level, p| {
                 if let Some(listener) = p.listener.as_mut() {
                     listener.send_block_changed_ack();
                     listener.tick_throttlers();
                 }
                 let pos = p.position();
+                // `resetPosition()`: the positions the client's packets of this tick are checked against
+                if let Some(listener) = p.listener.as_mut() {
+                    listener.reset_position(pos);
+                }
                 p.player.living.entity.set_old_pos(pos);
                 p.do_tick(level);
                 let (y_rot, x_rot) = (p.get_y_rot(), p.get_x_rot());
@@ -1326,15 +1336,17 @@ impl Scenario {
                 if !p.simulate_local_player {
                     p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
                 }
-                // `tickPlayer`'s vehicle tracking (the vehicle a `move_vehicle` packet is checked against)
+                // the rest of `tickPlayer`: the tick count, the floating kicks, the vehicle a `move_vehicle` packet is checked against
                 if mc_game::commands::server_access::has_server() {
                     mc_game::commands::server_access::with_server(|server| {
-                        mc_game::server::network::game_packets::PlayCtx {
+                        let mut ctx = mc_game::server::network::game_packets::PlayCtx {
                             server,
                             level,
                             player: p,
+                        };
+                        if ctx.finish_tick_player() {
+                            ctx.handle_disconnection_without_socket();
                         }
-                        .tick_vehicle_tracking();
                     });
                 }
             });
@@ -1345,7 +1357,8 @@ impl Scenario {
     /// oracle's connection never acknowledges a batch, so a player gets one batch of chunks and tracks entities in those only.
     pub(super) fn send_chunks(&mut self) {
         for name in self.actors.players.clone() {
-            self.with_player_named(&name, |level, p| {
+            let id = self.entity_id(&name);
+            self.level().with_player(id, |level, p| {
                 let sender = p
                     .listener
                     .as_ref()
