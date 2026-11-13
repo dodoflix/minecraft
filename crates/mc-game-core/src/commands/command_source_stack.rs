@@ -280,9 +280,10 @@ impl CommandSourceStack {
         let yd = pos.y() - from.y();
         let zd = pos.z() - from.z();
         let sd = (xd * xd + zd * zd).sqrt();
-        let pi = f64::from(std::f32::consts::PI);
-        let x_rot = mth::wrap_degrees_f32((-(mth::atan2(yd, sd) * 180.0 / pi)) as f32);
-        let y_rot = mth::wrap_degrees_f32((mth::atan2(zd, xd) * 180.0 / pi) as f32 - 90.0);
+        let x_rot =
+            mth::wrap_degrees_f32((-(mth::atan2(yd, sd) * f64::from(mth::RAD_TO_DEG))) as f32);
+        let y_rot =
+            mth::wrap_degrees_f32((mth::atan2(zd, xd) * f64::from(mth::RAD_TO_DEG)) as f32 - 90.0);
         self.with_rotation(Vec2::new(x_rot, y_rot))
     }
 

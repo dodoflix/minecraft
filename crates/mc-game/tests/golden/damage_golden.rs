@@ -274,6 +274,8 @@ struct Replay {
 impl Replay {
     fn new() -> Self {
         let mut level = ServerLevel::detached(overworld());
+        // the oracle's references keep a removed entity
+        level.removed_entities = Some(Default::default());
         level.registries = registries();
         // the level's own counter (the shared static drifts with every test in the binary): ids start at 1 like a pinned oracle
         level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
@@ -690,6 +692,29 @@ impl Replay {
         });
     }
 
+    /// An attacker named by a script: in the level, or removed earlier (the oracle's references keep it).
+    fn known_entity(&self, id: EntityId) -> &dyn Entity {
+        self.level
+            .get_entity_or_removed(id)
+            .expect("attacker entity")
+    }
+
+    /// `Mob.checkDespawn()` in peaceful: the attacker stand-ins vanish once the difficulty drops.
+    fn despawn_in_peaceful(&mut self) {
+        if self.level.difficulty() != Difficulty::Peaceful {
+            return;
+        }
+        for id in self.refs.values().copied().collect::<Vec<_>>() {
+            let Some(mut e) = self.level.take_entity(id) else {
+                continue;
+            };
+            if e.as_any().is::<Mob>() && !e.get_type().data().allowed_in_peaceful {
+                e.discard_in_level(&mut self.level);
+            }
+            self.level.put_back_entity(id, e);
+        }
+    }
+
     fn hurt(&mut self, t: &[String]) {
         let key = Identifier::parse(&if t[2].contains(':') {
             t[2].clone()
@@ -713,8 +738,8 @@ impl Replay {
         let source = DamageSource::new(
             key,
             std::sync::Arc::new(data),
-            direct.map(|id| self.level.get_entity(id).expect("direct entity")),
-            by.map(|id| self.level.get_entity(id).expect("causing entity")),
+            direct.map(|id| self.known_entity(id)),
+            by.map(|id| self.known_entity(id)),
             at,
         );
         let amount = t[3].parse::<f64>().unwrap() as f32;
@@ -779,6 +804,7 @@ impl Replay {
             });
         }
         self.level.tick_entity_tracker();
+        self.despawn_in_peaceful();
         self.level.for_each_ticking(|level, e| {
             if !e.is_removed() {
                 mc_game::world::entity::entity::common_tick(e);
@@ -1111,7 +1137,6 @@ fn shield_blocking() {
 }
 
 #[test]
-#[ignore = "deviation: hurt_animation yaw differs by one bit (#2)"]
 fn difficulty_scaling() {
     check("damage_difficulty");
 }
@@ -1132,7 +1157,6 @@ fn dead_player_experience_orbs() {
 }
 
 #[test]
-#[ignore = "deviation: hurt_animation yaw differs for hits without a source position (#28)"]
 fn death_messages_for_every_damage_type() {
     check("death_messages");
 }
