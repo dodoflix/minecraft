@@ -2,20 +2,11 @@
 //! vanilla level (scenarios `blk_pistons_entities`, `blk_pistons_entity_types`, `blk_slime_bounce`, `blk_honey_slide`,
 //! `blk_bubble_column_entities`, `blk_powder_snow_entities`, `blk_fluid_entities`, `blk_mud_soul_sand_entities`, `ent_blast_entities` and `ent_push_pairs`
 //! in `tests/oracle/scenarios/`; fixtures from `scripts/block-oracle.sh NAME`).
-use crate::common::block_scenario::{check, check_with};
-use crate::common::entity_oracle::Options;
+use crate::common::block_scenario::check;
 
 #[test]
 fn pistons_push_launch_and_carry_entities() {
-    // vanilla recomputes the dragged pig's path when a nearby block changes (`sendBlockUpdated` navigation hook), so its yaw
-    // turns again; the hook is not implemented, ours keeps the old path
-    check_with(
-        "blk_pistons_entities",
-        &Options {
-            ignore_fields: vec!["rot"],
-            ..Options::default()
-        },
-    );
+    check("blk_pistons_entities");
 }
 
 #[test]

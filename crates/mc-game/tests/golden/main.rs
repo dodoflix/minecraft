@@ -183,6 +183,7 @@ mod mob_fixtures_golden;
 mod mob_goat_golden;
 mod mob_harness_golden;
 mod mob_illager_golden;
+mod mob_nav_golden;
 mod mob_registration_guards;
 mod mob_spine_golden;
 mod mob_victim_golden;

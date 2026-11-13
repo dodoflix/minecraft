@@ -1,0 +1,46 @@
+# Navigation recomputation on a block change: three zombies walk one-block-wide corridors toward x=12; at tick 13 a block that changes the
+# collision shape appears in each path (a stone wall, an oak door, a fence gate) and at tick 48 they are removed again. A navigation
+# that was recomputed in the last 20 ticks delays the recomputation to a later tick. A fourth zombie follows a path with speed 0:
+# it never moves, so the stuck detection stops its navigation. `path=`, `nodes=`, `nav=` and `stuck=` of the watched mobs show it.
+level flat
+difficulty normal
+entity_counter 100
+time 18000
+fill -4 -60 -4 40 -40 40 minecraft:air
+fill -1 -60 -1 14 -59 -1 minecraft:stone
+fill -1 -60 1 14 -59 1 minecraft:stone
+fill -1 -60 5 14 -59 5 minecraft:stone
+fill -1 -60 7 14 -59 7 minecraft:stone
+fill -1 -60 11 14 -59 11 minecraft:stone
+fill -1 -60 13 14 -59 13 minecraft:stone
+mobspawn A minecraft:zombie 0.5 -60 0.5 270 0 {PersistenceRequired:1b}
+mobspawn B minecraft:zombie 0.5 -60 6.5 270 0 {PersistenceRequired:1b}
+mobspawn C minecraft:zombie 0.5 -60 12.5 270 0 {PersistenceRequired:1b}
+mobspawn D minecraft:zombie 0.5 -60 18.5 270 0 {PersistenceRequired:1b}
+entity_seed A 9
+entity_seed B 17
+entity_seed C 18
+entity_seed D 12
+tick 3
+nav A 12.5 -60 0.5 1.0
+nav B 12.5 -60 6.5 1.0
+nav C 12.5 -60 12.5 1.0
+nav D 12.5 -60 18.5 0.0
+watch mob:A mob:B mob:C mob:D
+tick 10
+block 6 -60 0 minecraft:stone
+block 6 -59 0 minecraft:stone
+block 6 -60 6 minecraft:oak_door[half=lower,facing=north,hinge=left,open=false,powered=false]
+block 6 -59 6 minecraft:oak_door[half=upper,facing=north,hinge=left,open=false,powered=false]
+block 6 -60 12 minecraft:oak_fence_gate[facing=north,open=false,in_wall=false,powered=false]
+tick 25
+dump path:A path:B path:C
+tick 10
+block 6 -60 0 minecraft:air
+block 6 -59 0 minecraft:air
+block 6 -60 6 minecraft:air
+block 6 -59 6 minecraft:air
+block 6 -60 12 minecraft:air
+tick 75
+watch off
+dump mobs path:A path:B path:C path:D

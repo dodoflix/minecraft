@@ -1,0 +1,26 @@
+# /tp of a navigating mob: the teleport command stops the navigation of a path finding mob (a zombie and a cow walking along a
+# path), so both stand still after the teleport with their navigation done, while a sheep that was not teleported keeps walking.
+command_env
+level flat
+preload 2
+difficulty normal
+entity_counter 100
+time 18000
+mobspawn Z minecraft:zombie 0.5 -60 0.5 270 0 {PersistenceRequired:1b}
+mobspawn Cow minecraft:cow 0.5 -60 6.5 270 0 {PersistenceRequired:1b}
+mobspawn Sheep minecraft:sheep 0.5 -60 12.5 270 0 {PersistenceRequired:1b}
+entity_seed Z 5
+entity_seed Cow 6
+entity_seed Sheep 7
+tick 3
+nav Z 12.5 -60 0.5 1.0
+nav Cow 12.5 -60 6.5 1.0
+nav Sheep 12.5 -60 12.5 1.0
+watch mob:Z mob:Cow mob:Sheep
+tick 10
+cmd tp @e[type=minecraft:zombie] 3.5 -60 0.5
+cmd tp @e[type=minecraft:cow] 3.5 -60 6.5
+dump path:Z path:Cow path:Sheep
+tick 20
+watch off
+dump mobs path:Z path:Cow path:Sheep

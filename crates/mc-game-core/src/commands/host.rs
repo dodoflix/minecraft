@@ -731,22 +731,24 @@ pub fn teleport_entity(
 }
 
 /// `TeleportCommand.performTeleport`'s tail for a successfully teleported `victim`: keeps only horizontal momentum and
-/// `setOnGround(true)` (with the supporting-block check) unless it is fall flying.
-/// Not implemented: vanilla also calls `getNavigation().stop()` when `victim` is a `PathfinderMob`.
+/// `setOnGround(true)` (with the supporting-block check) unless it is fall flying, and stops the navigation of a
+/// `PathfinderMob`.
 pub fn after_teleport(server: &mut MinecraftServer, victim: &EntityRef) {
     let Some(level) = server.level_mut(&victim.dimension) else {
         return;
     };
     level.with_entity(victim.id, |level, entity| {
-        if entity.living().is_some_and(|l| l.is_fall_flying()) {
-            return;
+        if !entity.living().is_some_and(|l| l.is_fall_flying()) {
+            let dm = entity.base().delta_movement();
+            entity
+                .base_mut()
+                .set_delta_movement(mc_core::phys::Vec3::new(dm.x, 0.0, dm.z));
+            entity.base_mut().set_on_ground_raw(true);
+            crate::world::entity::movement::check_supporting_block(entity, &*level, true, None);
         }
-        let dm = entity.base().delta_movement();
-        entity
-            .base_mut()
-            .set_delta_movement(mc_core::phys::Vec3::new(dm.x, 0.0, dm.z));
-        entity.base_mut().set_on_ground_raw(true);
-        crate::world::entity::movement::check_supporting_block(entity, &*level, true, None);
+        if entity.mob().is_some_and(|m| m.kind.is_pathfinder()) {
+            crate::world::entity::mob::navigation::stop(entity, level);
+        }
     });
 }
 

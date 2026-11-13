@@ -6,6 +6,7 @@ use super::FullChunkStatus;
 use super::ServerLevel;
 use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::PoiTypes;
+use crate::world::entity::mob::navigation;
 use crate::world::level::block::helpers::update_or_destroy_limited;
 use crate::world::level::block::{BlockStateExt, behaviour};
 use crate::world::level::flags::*;
@@ -17,6 +18,7 @@ use crate::world::level::storage::loot::block_drops::drop_resources_for_destroy;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::{Direction, Plane};
 use mc_core::phys::Vec3;
+use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
 use mc_data::GameEvent;
@@ -114,13 +116,43 @@ impl ServerLevel {
     pub fn send_block_updated(
         &mut self,
         pos: BlockPos,
-        _old: BlockState,
-        _current: BlockState,
+        old: BlockState,
+        current: BlockState,
         _flags: u32,
     ) {
         self.block_changed(pos);
         self.path_type_cache.lock().invalidate(pos);
-        // Navigation recomputation of mobs follows with the mobs (`navigatingMobs`).
+        if self.navigating_mobs.is_empty() {
+            return;
+        }
+        let old_shape = old.get_collision_shape(&*self, pos);
+        let new_shape = current.get_collision_shape(&*self, pos);
+        if !Shapes::join_is_not_empty(&old_shape, &new_shape, BooleanOp::NOT_SAME) {
+            return;
+        }
+        // `getNavigation()` of a mob that steers a `Mob` vehicle is the vehicle's, so that navigation is listed twice.
+        // shortcut: a mob that is out of its slot and not lent (it is running its own tick and changed the block itself) is
+        // not visited; `lend` it around such a block change if a case needs its own navigation recomputed.
+        let to_update: Vec<EntityId> = self
+            .navigating_mobs
+            .iter()
+            .filter_map(|&id| {
+                let mob = self.get_entity(id)?;
+                let owner = navigation::controlled_vehicle(mob, self)
+                    .and_then(|vehicle| self.get_entity(vehicle))
+                    .filter(|vehicle| vehicle.mob().is_some())
+                    .unwrap_or(mob);
+                let nav = owner.mob()?.navigation.as_deref()?;
+                nav.should_recompute_path(owner, pos).then(|| owner.id())
+            })
+            .collect();
+        for id in to_update {
+            self.try_with_entity(id, |level, mob| {
+                navigation::with_own_navigation(mob, level, |nav, mob, level| {
+                    nav.recompute_path(mob, &*level)
+                })
+            });
+        }
     }
 
     /// `updateNeighborsAt(pos, sourceBlock)`.

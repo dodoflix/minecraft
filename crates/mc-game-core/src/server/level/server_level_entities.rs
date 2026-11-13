@@ -436,6 +436,13 @@ impl ServerLevel {
                 if self
                     .entity_manager
                     .get_any(id)
+                    .is_some_and(|e| e.mob().is_some())
+                {
+                    self.navigating_mobs.insert(id);
+                }
+                if self
+                    .entity_manager
+                    .get_any(id)
                     .is_some_and(|e| e.is_player())
                     && !self.players.contains(&id)
                 {
@@ -482,6 +489,7 @@ impl ServerLevel {
                 self.update_dynamic_game_event_listener(id, DynamicListenerAction::Add);
             }
             EntityLevelEvent::TrackingEnd(id) => {
+                self.navigating_mobs.remove(&id);
                 if self.players.contains(&id) {
                     self.chunk_source.chunk_map.remove_player(id);
                 }

@@ -13,7 +13,7 @@ use crate::world::level::block::BlockStateExt;
 use crate::world::level::collision::{
     BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext, CollisionGetter,
 };
-use mc_core::direction::Axis;
+use mc_core::direction::{Axis, Direction};
 use mc_core::math::mth;
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
 use mc_core::phys::{AABB, Vec3};
@@ -130,22 +130,13 @@ pub fn collide_bounding_box<L: MovementLevel>(
     collide_with_shapes(movement, bounding_box, &colliders)
 }
 
-/// `Direction.axisStepOrder(movement)`.
-fn axis_step_order(movement: Vec3) -> [Axis; 3] {
-    if movement.y.abs() < movement.z.abs() {
-        [Axis::Y, Axis::Z, Axis::X]
-    } else {
-        [Axis::Y, Axis::X, Axis::Z]
-    }
-}
-
 /// `Entity.collideWithShapes`.
 pub fn collide_with_shapes(movement: Vec3, bounding_box: &AABB, shapes: &[VoxelShape]) -> Vec3 {
     if shapes.is_empty() {
         return movement;
     }
     let mut resolved = Vec3::ZERO;
-    for axis in axis_step_order(movement) {
+    for axis in Direction::axis_step_order(movement) {
         let axis_movement = movement.get(axis);
         if axis_movement != 0.0 {
             let collision = Shapes::collide(
@@ -1040,7 +1031,7 @@ mod tests {
 
     #[test]
     fn collide_with_shapes_resolves_axes_in_vanilla_order() {
-        // moving diagonally into a wall on +x: y first, then x (|y| >= |z|), x is clipped, z passes
+        // moving diagonally into a wall on +x: y first, then x (|x| >= |z|), x is clipped, z passes
         let bb = AABB::new(0.0, 0.0, 0.0, 0.6, 1.8, 0.6);
         let wall = Shapes::create(AABB::new(1.0, 0.0, -1.0, 2.0, 2.0, 2.0));
         let r = collide_with_shapes(Vec3::new(1.0, 0.0, 0.5), &bb, &[wall]);
@@ -1048,14 +1039,12 @@ mod tests {
     }
 
     #[test]
-    fn piston_axis_step_order() {
-        assert_eq!(
-            axis_step_order(Vec3::new(1.0, 0.1, 5.0)),
-            [Axis::Y, Axis::Z, Axis::X]
-        );
-        assert_eq!(
-            axis_step_order(Vec3::new(1.0, 5.0, 0.1)),
-            [Axis::Y, Axis::X, Axis::Z]
-        );
+    fn collide_with_shapes_steps_z_before_x_when_x_is_smaller() {
+        // |x| < |z|: z is resolved first at the original x, where the box still overlaps the wall's x range, so z is blocked
+        // although the later x movement would clear the wall
+        let bb = AABB::new(0.0, 0.0, 0.0, 0.6, 1.8, 0.6);
+        let wall = Shapes::create(AABB::new(0.58, 0.0, -1.0, 2.0, 2.0, 0.0));
+        let r = collide_with_shapes(Vec3::new(-0.04, -0.08, -0.05), &bb, &[wall]);
+        assert_eq!(r, Vec3::new(-0.04, -0.08, 0.0));
     }
 }
