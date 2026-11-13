@@ -12,3 +12,8 @@ fn every_class_dumps_like_vanilla() {
 fn entity_replay_dumps_like_vanilla() {
     common::entity_scenario::run_scenario_test("ent_dump_smoke");
 }
+
+#[test]
+fn level_and_player_random_streams_stay_on_the_vanilla_sequence() {
+    common::block_scenario::check("ent_rng_level");
+}

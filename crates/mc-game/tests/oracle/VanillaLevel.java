@@ -420,6 +420,7 @@ public final class VanillaLevel {
       // every tick restarts the entity-seed sequence: calls to RandomSource.create() made by main-thread housekeeping
       // (chunk tasks, light, ...) vary between runs and would otherwise shift the seeds of entities created later
       RandomSupport.reseedUniquifier(8682522807148012L ^ (ticks + 1) * 0x9E3779B97F4A7C15L);
+      awaitWorkers();
       for (FakePlayer p : players) {
          if (p.player instanceof SimPlayer sp && sp.sim) {
             if (sp.trackMovement) {
@@ -434,6 +435,34 @@ public final class VanillaLevel {
          if (p.pendingKeepAlive != null) {
             p.player.connection.handleKeepAlive(new ServerboundKeepAlivePacket(p.pendingKeepAlive));
             p.pendingKeepAlive = null;
+         }
+      }
+   }
+
+   /**
+    * Chunk loading and generation run on worker threads and hand their results to the main thread's task queue: whether a result is
+    * already queued when a tick polls that queue (and with it the number of chunks that tick, hence the Level.random draws of
+    * ServerChunkCache.tickChunks, which shuffles the spawning chunks) would depend on thread timing. Before a tick, let the
+    * worker pools finish what they hold; the main thread's own queue is left to the tick, as in the server loop.
+    */
+   private static void awaitWorkers() {
+      long deadline = System.nanoTime() + 60_000_000_000L;
+      int calm = 0;
+      while (calm < 5 && System.nanoTime() < deadline) {
+         boolean idle = true;
+         if (Util.backgroundExecutor().service() instanceof java.util.concurrent.ForkJoinPool fj) {
+            fj.awaitQuiescence(60, java.util.concurrent.TimeUnit.SECONDS);
+            idle = fj.isQuiescent();
+         }
+         if (Util.ioPool().service() instanceof java.util.concurrent.ThreadPoolExecutor io) {
+            idle &= io.getActiveCount() == 0 && io.getQueue().isEmpty();
+         }
+         calm = idle ? calm + 1 : 0;
+         try {
+            Thread.sleep(1);
+         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return;
          }
       }
    }

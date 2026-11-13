@@ -34,6 +34,11 @@ impl LegacyRandomSource {
             gaussian: MarsagliaPolarGaussian::new(),
         }
     }
+
+    /// The 48-bit internal state (`LegacyRandomSource.seed`), for replay dumps.
+    pub fn state(&self) -> i64 {
+        self.seed
+    }
 }
 
 impl BitRandomSource for LegacyRandomSource {

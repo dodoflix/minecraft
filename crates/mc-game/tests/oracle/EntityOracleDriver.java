@@ -206,7 +206,8 @@ import net.minecraft.util.RandomSource;
  *   (`BRAIN`/`BM`/`BR` lines), path:REF (`PATH`/`PN`), nbt:REF (`N REF {canonical sorted SNBT, UUID removed}`), offers:REF, trader:REF
  *   (`TRADER REF xp=villagerXp level=villagerLevel|- trading=REF|-`), difficulty:X,Y,Z, light:X,Y,Z, spawn_state (`SPAWNSTATE`), raids.
  * dump/watch kinds for every entity: xentity:REF / xentities (all live non-player entities): the normal `E` line + the fields of the classes registered in
- *   EntityExtras.java (`mob:REF` also carries them); edata:REF = `ED REF id:serializer:hex ..` for every synched data item (accessor id, serializer id, wire form of the value).
+ *   EntityExtras.java (`mob:REF` also carries them); edata:REF = `ED REF id:serializer:hex ..` for every synched data item (accessor id, serializer id, wire form of the value);
+ *   rng:level / rng:REF = `RNG level|REF STATE` (the 48-bit state of Level.random / of the entity's own random).
  * </pre>
  *
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
@@ -1709,6 +1710,11 @@ public final class EntityOracleDriver {
                }
             }
             case "edata" -> entityData(arg, ref(arg));
+            case "rng" -> {
+               // RNG level|REF STATE: the 48-bit state of Level.random or of the entity's own random
+               RandomSource random = arg.equals("level") ? v.level.getRandom() : ref(arg).getRandom();
+               out.println("RNG " + arg + " " + ((java.util.concurrent.atomic.AtomicLong)priv(random, net.minecraft.world.level.levelgen.LegacyRandomSource.class, "seed")).get());
+            }
             case "inventory" -> inventory(arg, (Player)ref(arg));
             case "use" -> {
                ServerPlayer p = (ServerPlayer)ref(arg);

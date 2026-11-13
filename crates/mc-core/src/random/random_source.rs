@@ -97,9 +97,13 @@ pub fn create_thread_local_instance(seed: i64) -> SingleThreadedRandomSource {
     SingleThreadedRandomSource::new(seed)
 }
 
-/// `createThreadLocalInstance()`: seeded from process entropy (vanilla: `ThreadLocalRandom.nextLong()`).
+/// `createThreadLocalInstance()`: seeded from process entropy (vanilla: `ThreadLocalRandom.nextLong()`); in oracle mode
+/// ([`super::reseed_uniquifier`]) from the reproducible unique-seed sequence, like the oracle's `RandomSource` shadow.
 pub fn create_thread_local_instance_new() -> SingleThreadedRandomSource {
     use std::hash::{BuildHasher, Hasher};
+    if super::oracle_uniquifier_active() {
+        return SingleThreadedRandomSource::new(super::generate_unique_seed());
+    }
     let seed = std::collections::hash_map::RandomState::new()
         .build_hasher()
         .finish() as i64;

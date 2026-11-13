@@ -251,12 +251,15 @@ pub fn take_old_player(
     reason: RemovalReason,
 ) -> Option<ServerPlayer> {
     level.with_player(id, |level, player| {
-        let mut dummy = ServerPlayer::new(
-            id,
-            player.dimension.clone(),
-            player.player.game_profile.clone(),
-            Default::default(),
-        );
+        // the stand-in does not exist in vanilla: it must not consume a unique seed
+        let mut dummy = mc_core::random::without_advancing_oracle_uniquifier(|| {
+            ServerPlayer::new(
+                id,
+                player.dimension.clone(),
+                player.player.game_profile.clone(),
+                Default::default(),
+            )
+        });
         dummy.remove(reason);
         let mut old = std::mem::replace(player, dummy);
         // `Player.remove`: the player is removed before its menus are closed, so a removed player drops the cursor stack

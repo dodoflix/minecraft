@@ -66,6 +66,11 @@ pub fn reseed_uniquifier(value: i64) {
     ORACLE_UNIQUIFIER.with(|c| c.set(Some(value)));
 }
 
+/// Whether the calling thread is in oracle mode (a [`reseed_uniquifier`] call is in effect).
+pub fn oracle_uniquifier_active() -> bool {
+    ORACLE_UNIQUIFIER.with(|c| c.get().is_some())
+}
+
 /// Runs `f` without advancing the calling thread's oracle uniquifier: for copies that vanilla does not create (a damage source
 /// refers to its entity, ours snapshots it), so the seeds of the entities created afterwards stay those of the oracle.
 pub fn without_advancing_oracle_uniquifier<R>(f: impl FnOnce() -> R) -> R {

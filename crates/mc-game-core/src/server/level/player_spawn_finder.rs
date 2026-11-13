@@ -169,7 +169,9 @@ impl PlayerSpawnFinder {
             radius = 1;
         }
         // `RandomSource.createThreadLocalInstance().nextInt(candidateCount)`
-        let offset = rand::random_range(0..SpawnCandidates::candidate_count_for(radius));
+        use mc_core::random::RandomSource;
+        let offset = mc_core::random::create_thread_local_instance_new()
+            .next_int_bounded(SpawnCandidates::candidate_count_for(radius));
         FindSpawn::Search(Self::with_offset(spawn_suggestion, radius, offset))
     }
 

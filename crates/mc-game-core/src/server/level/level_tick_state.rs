@@ -28,6 +28,11 @@ impl LevelRandom {
     pub fn new(random: LegacyRandomSource) -> Self {
         Self(Arc::new(Mutex::new(random)))
     }
+
+    /// The 48-bit state of the underlying `LegacyRandomSource`, for replay dumps.
+    pub fn state(&self) -> i64 {
+        self.0.lock().state()
+    }
 }
 
 impl RandomSource for LevelRandom {

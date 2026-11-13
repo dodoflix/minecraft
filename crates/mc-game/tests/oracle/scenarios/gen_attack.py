@@ -223,7 +223,8 @@ def armor():
     for item in ["minecraft:iron_sword", "minecraft:diamond_axe"]:
         for i, (x, z, ref) in enumerate(rows):
             s.add(f"snap A {x} -60 {z} 0 0", f"give A mainhand {item}", "tick 40")
-            s.add(f"attack A {ref}", f"dump player:A player:{ref} inventory:{ref}", "set A health 20", f"set {ref} health 20")
+            # the thorns rolls and the armor slot pick draw from the level random, which the attack replay does not tick
+            s.add(f"level_seed {5 + i}", f"attack A {ref}", f"dump player:A player:{ref} inventory:{ref}", "set A health 20", f"set {ref} health 20")
             s.add("tick 12")
     s.save("armor")
 

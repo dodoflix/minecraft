@@ -114,6 +114,7 @@ tick 2
 snap A 0.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 5
 attack A P0
 dump player:A player:P0 inventory:P0
 set A health 20
@@ -122,6 +123,7 @@ tick 12
 snap A 4.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 6
 attack A P1
 dump player:A player:P1 inventory:P1
 set A health 20
@@ -130,6 +132,7 @@ tick 12
 snap A 8.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 7
 attack A P2
 dump player:A player:P2 inventory:P2
 set A health 20
@@ -138,6 +141,7 @@ tick 12
 snap A 12.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 8
 attack A P3
 dump player:A player:P3 inventory:P3
 set A health 20
@@ -146,6 +150,7 @@ tick 12
 snap A 16.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 9
 attack A P4
 dump player:A player:P4 inventory:P4
 set A health 20
@@ -154,6 +159,7 @@ tick 12
 snap A 20.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 10
 attack A P5
 dump player:A player:P5 inventory:P5
 set A health 20
@@ -162,6 +168,7 @@ tick 12
 snap A 24.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 11
 attack A P6
 dump player:A player:P6 inventory:P6
 set A health 20
@@ -170,6 +177,7 @@ tick 12
 snap A 28.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 12
 attack A P7
 dump player:A player:P7 inventory:P7
 set A health 20
@@ -178,6 +186,7 @@ tick 12
 snap A 32.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 13
 attack A P8
 dump player:A player:P8 inventory:P8
 set A health 20
@@ -186,6 +195,7 @@ tick 12
 snap A 36.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 14
 attack A P9
 dump player:A player:P9 inventory:P9
 set A health 20
@@ -194,6 +204,7 @@ tick 12
 snap A 40.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 15
 attack A P10
 dump player:A player:P10 inventory:P10
 set A health 20
@@ -202,6 +213,7 @@ tick 12
 snap A 44.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 16
 attack A P11
 dump player:A player:P11 inventory:P11
 set A health 20
@@ -210,6 +222,7 @@ tick 12
 snap A 48.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 17
 attack A P12
 dump player:A player:P12 inventory:P12
 set A health 20
@@ -218,6 +231,7 @@ tick 12
 snap A 52.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 18
 attack A P13
 dump player:A player:P13 inventory:P13
 set A health 20
@@ -226,6 +240,7 @@ tick 12
 snap A 56.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 19
 attack A P14
 dump player:A player:P14 inventory:P14
 set A health 20
@@ -234,6 +249,7 @@ tick 12
 snap A 60.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 20
 attack A P15
 dump player:A player:P15 inventory:P15
 set A health 20
@@ -242,6 +258,7 @@ tick 12
 snap A 64.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 21
 attack A P16
 dump player:A player:P16 inventory:P16
 set A health 20
@@ -250,6 +267,7 @@ tick 12
 snap A 68.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 22
 attack A P17
 dump player:A player:P17 inventory:P17
 set A health 20
@@ -258,6 +276,7 @@ tick 12
 snap A 72.5 -60 0.5 0 0
 give A mainhand minecraft:iron_sword
 tick 40
+level_seed 23
 attack A P18
 dump player:A player:P18 inventory:P18
 set A health 20
@@ -266,6 +285,7 @@ tick 12
 snap A 0.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 5
 attack A P0
 dump player:A player:P0 inventory:P0
 set A health 20
@@ -274,6 +294,7 @@ tick 12
 snap A 4.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 6
 attack A P1
 dump player:A player:P1 inventory:P1
 set A health 20
@@ -282,6 +303,7 @@ tick 12
 snap A 8.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 7
 attack A P2
 dump player:A player:P2 inventory:P2
 set A health 20
@@ -290,6 +312,7 @@ tick 12
 snap A 12.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 8
 attack A P3
 dump player:A player:P3 inventory:P3
 set A health 20
@@ -298,6 +321,7 @@ tick 12
 snap A 16.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 9
 attack A P4
 dump player:A player:P4 inventory:P4
 set A health 20
@@ -306,6 +330,7 @@ tick 12
 snap A 20.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 10
 attack A P5
 dump player:A player:P5 inventory:P5
 set A health 20
@@ -314,6 +339,7 @@ tick 12
 snap A 24.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 11
 attack A P6
 dump player:A player:P6 inventory:P6
 set A health 20
@@ -322,6 +348,7 @@ tick 12
 snap A 28.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 12
 attack A P7
 dump player:A player:P7 inventory:P7
 set A health 20
@@ -330,6 +357,7 @@ tick 12
 snap A 32.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 13
 attack A P8
 dump player:A player:P8 inventory:P8
 set A health 20
@@ -338,6 +366,7 @@ tick 12
 snap A 36.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 14
 attack A P9
 dump player:A player:P9 inventory:P9
 set A health 20
@@ -346,6 +375,7 @@ tick 12
 snap A 40.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 15
 attack A P10
 dump player:A player:P10 inventory:P10
 set A health 20
@@ -354,6 +384,7 @@ tick 12
 snap A 44.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 16
 attack A P11
 dump player:A player:P11 inventory:P11
 set A health 20
@@ -362,6 +393,7 @@ tick 12
 snap A 48.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 17
 attack A P12
 dump player:A player:P12 inventory:P12
 set A health 20
@@ -370,6 +402,7 @@ tick 12
 snap A 52.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 18
 attack A P13
 dump player:A player:P13 inventory:P13
 set A health 20
@@ -378,6 +411,7 @@ tick 12
 snap A 56.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 19
 attack A P14
 dump player:A player:P14 inventory:P14
 set A health 20
@@ -386,6 +420,7 @@ tick 12
 snap A 60.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 20
 attack A P15
 dump player:A player:P15 inventory:P15
 set A health 20
@@ -394,6 +429,7 @@ tick 12
 snap A 64.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 21
 attack A P16
 dump player:A player:P16 inventory:P16
 set A health 20
@@ -402,6 +438,7 @@ tick 12
 snap A 68.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 22
 attack A P17
 dump player:A player:P17 inventory:P17
 set A health 20
@@ -410,6 +447,7 @@ tick 12
 snap A 72.5 -60 0.5 0 0
 give A mainhand minecraft:diamond_axe
 tick 40
+level_seed 23
 attack A P18
 dump player:A player:P18 inventory:P18
 set A health 20

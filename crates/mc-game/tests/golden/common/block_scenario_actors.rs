@@ -1358,6 +1358,22 @@ impl Scenario {
                 let line = self.describe(name, id, matches!(kind, "xentity" | "mob"));
                 self.out.push(line);
             }
+            // RNG level|REF STATE: the 48-bit state of `Level.random` or of the entity's own random
+            "rng" => {
+                let name = arg.expect("rng:level|REF");
+                let state = if name == "level" {
+                    self.level().tick_state.random.state()
+                } else {
+                    let id = self.entity_id(name);
+                    self.level()
+                        .get_entity(id)
+                        .unwrap_or_else(|| panic!("entity {name} is gone"))
+                        .base()
+                        .random
+                        .state()
+                };
+                self.out.push(format!("RNG {name} {state}"));
+            }
             // ED REF id:serializer:hex ..
             "edata" => {
                 let name = arg.expect("edata:REF");

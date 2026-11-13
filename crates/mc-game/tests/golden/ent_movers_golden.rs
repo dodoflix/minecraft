@@ -29,16 +29,7 @@ fn slime_blocks_bounce_what_lands_on_them() {
 
 #[test]
 fn honey_blocks_slow_slides_and_falls() {
-    // the slide sounds are drawn from the level random, whose draws between ticks the replay does not reproduce yet (level
-    // random drift): the entity rows, the slide advancement and the other events are compared
-    check_with(
-        "blk_honey_slide",
-        &Options {
-            ignore_fields: vec!["rot"],
-            ignore_containing: vec![".ambient", "honey_block.slide"],
-            ..Options::default()
-        },
-    );
+    check_ignoring_mob_ai("blk_honey_slide");
 }
 
 #[test]
