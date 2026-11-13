@@ -93,3 +93,69 @@ fn taking_a_furnace_result_pays_experience_and_unlocks_the_recipes_used() {
 fn the_recipe_book_places_recipes_into_the_furnaces() {
     common::block_scenario::check("mnu_place_recipe_furnace");
 }
+
+#[test]
+fn survival_players_open_dispensers_hoppers_shulker_boxes_barrels_and_crafters_and_locks_refuse_them()
+ {
+    common::block_scenario::check("mnu_container_open_locks");
+}
+
+#[test]
+fn a_double_chest_opens_the_nine_by_six_menu_and_breaking_a_half_closes_it() {
+    common::block_scenario::check("mnu_double_chest");
+}
+
+#[test]
+fn the_enchanting_offers_ignore_bookshelves_removed_after_they_were_computed() {
+    common::block_scenario::check("mnu_enchant_stale_power");
+}
+
+#[test]
+fn the_ender_chest_menu_persists_per_player_across_chests() {
+    common::block_scenario::check("mnu_ender_chest_menu");
+}
+
+#[test]
+fn a_dead_players_crafting_grids_drop_when_the_menu_is_removed() {
+    common::block_scenario::check("mnu_grid_death_drop");
+}
+
+#[test]
+fn hoppers_feeding_a_furnace_update_its_open_menu() {
+    common::block_scenario::check("mnu_hopper_furnace_open");
+}
+
+#[test]
+fn menus_close_beyond_the_block_interaction_range_plus_buffer() {
+    common::block_scenario::check("mnu_menu_range");
+}
+
+#[test]
+fn pick_block_moves_adds_or_ignores_items_by_game_mode_and_reach() {
+    common::block_scenario::check("mnu_pick_block_variants");
+}
+
+#[test]
+fn picking_items_up_unlocks_their_recipes() {
+    common::block_scenario::check("mnu_recipe_unlock_pickup");
+}
+
+#[test]
+fn sneaking_with_an_empty_hand_opens_menu_blocks_and_an_item_skips_them() {
+    common::block_scenario::check("mnu_sneak_use");
+}
+
+#[test]
+fn limited_crafting_at_a_crafting_table_needs_known_recipes_except_special_ones() {
+    common::block_scenario::check("mnu_table_limited_unlock");
+}
+
+#[test]
+fn taking_results_awards_statistics_recipes_and_advancements() {
+    common::block_scenario::check("mnu_take_awards");
+}
+
+#[test]
+fn villagers_that_cannot_trade_now_open_no_trade_screen() {
+    common::block_scenario::check("mnu_trade_two_players");
+}

@@ -1,0 +1,91 @@
+# The container menus survival players open (dispenser, dropper, hopper, shulker box, barrel, brewing stand, crafter, smoker, blast
+# furnace) with content and data packets and clicks through the listener, and the same blocks locked: refused without the key, opened with it.
+command_env
+level flat
+preload 4
+spawn_player A survival 5.5 -60 6.5 180 0
+spawn_player B survival 5.5 -60 8.5 180 0
+block 1 -60 4 minecraft:dispenser[facing=up,triggered=false]
+block 2 -60 4 minecraft:dropper[facing=up,triggered=false]
+block 3 -60 4 minecraft:hopper[facing=down,enabled=true]
+block 4 -60 4 minecraft:shulker_box[facing=up]
+block 5 -60 4 minecraft:barrel[facing=up,open=false]
+block 6 -60 4 minecraft:brewing_stand
+block 7 -60 4 minecraft:crafter
+block 8 -60 4 minecraft:smoker[facing=south,lit=false]
+block 9 -60 4 minecraft:blast_furnace[facing=south,lit=false]
+be_nbt 1 -60 4 {Items:[{Slot:0b,id:"minecraft:arrow",count:12},{Slot:4b,id:"minecraft:stone",count:3}],lock:{items:"minecraft:diamond"}}
+be_nbt 2 -60 4 {Items:[{Slot:0b,id:"minecraft:arrow",count:12},{Slot:4b,id:"minecraft:stone",count:3}]}
+be_nbt 3 -60 4 {Items:[{Slot:0b,id:"minecraft:coal",count:5},{Slot:2b,id:"minecraft:stone",count:3}],lock:{items:"minecraft:diamond"}}
+be_nbt 4 -60 4 {Items:[{Slot:0b,id:"minecraft:coal",count:5},{Slot:2b,id:"minecraft:stone",count:3}],lock:{items:"minecraft:diamond"}}
+be_nbt 5 -60 4 {Items:[{Slot:0b,id:"minecraft:coal",count:5},{Slot:2b,id:"minecraft:stone",count:3}],lock:{items:"minecraft:diamond"}}
+be_nbt 6 -60 4 {Items:[{Slot:3b,id:"minecraft:blaze_powder",count:5}],lock:{items:"minecraft:diamond"}}
+be_nbt 7 -60 4 {Items:[{Slot:0b,id:"minecraft:stone",count:5}],lock:{items:"minecraft:diamond"}}
+be_nbt 8 -60 4 {Items:[{Slot:0b,id:"minecraft:beef",count:5}],lock:{items:"minecraft:diamond"}}
+be_nbt 9 -60 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:5}],lock:{items:"minecraft:diamond"}}
+give A hotbar0 minecraft:stick 4
+give B hotbar0 minecraft:diamond 4
+tick 2
+dump stats:A stats:B packets:A:none packets:B:none
+level_seed 21
+note without the key
+use_on A 1 -60 4 up main
+use_on A 3 -60 4 up main
+use_on A 4 -60 4 up main
+use_on A 5 -60 4 up main
+use_on A 6 -60 4 up main
+use_on A 7 -60 4 up main
+use_on A 8 -60 4 up main
+use_on A 9 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data,system_chat,sound
+note with the key in the main hand
+use_on B 1 -60 4 up main
+dump menu:B stats:B packets:B:open_screen,container_set_content,container_set_data,system_chat
+click B 0 0 QUICK_MOVE
+click B 4 0 PICKUP
+click B 44 0 PICKUP
+dump menu:B packets:B:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu B
+use_on B 2 -60 4 up main
+dump menu:B stats:B packets:B:open_screen,container_set_content,container_set_data,system_chat
+click B 0 0 QUICK_MOVE
+click B 4 0 PICKUP
+click B 44 0 PICKUP
+dump menu:B packets:B:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu B
+use_on B 3 -60 4 up main
+dump menu:B stats:B packets:B:open_screen,container_set_content,container_set_data,system_chat
+click B 0 0 QUICK_MOVE
+click B 2 0 PICKUP
+click B 44 0 PICKUP
+dump menu:B packets:B:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu B
+use_on B 4 -60 4 up main
+dump menu:B stats:B packets:B:open_screen,container_set_content,container_set_data,system_chat
+click B 0 0 QUICK_MOVE
+click B 2 0 PICKUP
+click B 44 0 PICKUP
+dump menu:B packets:B:container_set_slot,container_set_content,container_set_data,set_cursor_item
+close_menu B
+use_on B 5 -60 4 up main
+dump menu:B stats:B packets:B:open_screen,container_set_content,container_set_data,system_chat
+click B 0 0 QUICK_MOVE
+close_menu B
+use_on B 6 -60 4 up main
+dump menu:B stats:B packets:B:open_screen,container_set_content,container_set_data,system_chat
+click B 3 0 QUICK_MOVE
+close_menu B
+use_on B 7 -60 4 up main
+dump menu:B stats:B packets:B:open_screen,container_set_content,container_set_data,system_chat
+click B 0 0 QUICK_MOVE
+close_menu B
+use_on B 8 -60 4 up main
+dump menu:B stats:B packets:B:open_screen,container_set_content,container_set_data,system_chat
+click B 0 0 QUICK_MOVE
+close_menu B
+use_on B 9 -60 4 up main
+dump menu:B stats:B packets:B:open_screen,container_set_content,container_set_data,system_chat
+click B 0 0 QUICK_MOVE
+close_menu B
+tick 20
+dump stats:A stats:B packets:A:none packets:B:none

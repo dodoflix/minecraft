@@ -55,33 +55,44 @@ EV sound at=-0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.close source=
 EV block_event r=64.0 ex=0 pos=-1,-60,0 block=minecraft:chest b0=1 b1=0
 EV block_event r=64.0 ex=0 pos=-1,-60,0 block=minecraft:chest b0=1 b1=0
 B -1 -60 0 minecraft:chest[facing=south,type=single,waterlogged=true]
-# double chest, right half
-EV sound at=4.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.97323114
-PKT A minecraft:open_screen 3c06020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
-B 3 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+# double chest, left half
+EV sound at=3.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.97323114
+PKT A minecraft:open_screen 3c06050a0800097472616e736c6174650015636f6e7461696e65722e6368657374446f75626c6500
+B 3 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=1
 EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=1
 EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=1
+TICK block 2 -60 0 minecraft:chest delay=2 prio=0
 TICK block 3 -60 0 minecraft:chest delay=2 prio=0
-B 3 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
-EV sound at=4.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.close source=block vol=0.5 pitch=0.9228711
+B 3 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
+EV sound at=3.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.close source=block vol=0.5 pitch=0.9228711
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=0
 EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=0
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=0
 EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=0
-B 3 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
-# double chest: A opens the right half, B opens the left half too, A closes, then B closes
-EV sound at=4.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.973258
-PKT A minecraft:open_screen 3c07020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
-PKT B minecraft:open_screen 3c01020a0800097472616e736c617465000f636f6e7461696e65722e636865737400
+B 3 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
+# double chest: A opens the left half, B opens the right half too, A closes, then B closes
+EV sound at=3.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.973258
+PKT A minecraft:open_screen 3c07050a0800097472616e736c6174650015636f6e7461696e65722e6368657374446f75626c6500
+PKT B minecraft:open_screen 3c01050a0800097472616e736c6174650015636f6e7461696e65722e6368657374446f75626c6500
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=2
+EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=2
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=2
+EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=2
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=1
 EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=1
 EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=1
 EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=1
 EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=1
-EV sound at=4.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.close source=block vol=0.5 pitch=0.98523915
-EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=0
-EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=0
-EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=1
-EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=1
+EV sound at=3.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.close source=block vol=0.5 pitch=0.9397676
 EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=0
+EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=0
 EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:chest b0=1 b1=0
+EV block_event r=64.0 ex=0 pos=3,-60,0 block=minecraft:chest b0=1 b1=0
 # a player who opened a chest and walks away: the recheck closes it
 EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.973249
 EV sound at=5.5,-59.0,0.5 r=16.0 ex=0 event=minecraft:block.barrel.open source=block vol=0.5 pitch=0.9257893

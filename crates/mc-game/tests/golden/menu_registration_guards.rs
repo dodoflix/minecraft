@@ -1,6 +1,6 @@
-//! Guard of the menu registrations (hermetic): every `MenuType` of the vanilla registry has a Rust menu that something
-//! opens (`MENU_OPENERS`), or is listed in `EXPECTED_MISSING` until its menu lands. Both lists only ever shrink: a menu
-//! that appears without an entry fails, and so does an entry that no longer matches the sources.
+//! Guard of the menu registrations (reads the vanilla registry report and the Rust sources): every `MenuType` of the vanilla
+//! registry has a Rust menu that something opens (`MENU_OPENERS`), or is listed in `EXPECTED_MISSING` until its menu lands.
+//! Both lists only ever shrink: a menu that appears without an entry fails, and so does an entry that no longer matches the sources.
 use crate::block_registration_guards::rust_files;
 use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};

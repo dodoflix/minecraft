@@ -1,0 +1,57 @@
+# Sneaking players using the menu blocks. Sneaking with an empty hand opens the menu; with an item in either hand the block use is
+# skipped (the item gets used on the block instead).
+command_env
+level flat
+preload 4
+spawn_player A survival 6.5 -60 6.5 0 0
+block 4 -60 4 minecraft:crafting_table
+block 6 -60 4 minecraft:furnace[facing=south,lit=false]
+block 8 -60 4 minecraft:stonecutter
+block 9 -60 6 minecraft:loom[facing=south]
+block 9 -60 8 minecraft:cartography_table
+block 8 -60 9 minecraft:smithing_table
+block 6 -60 9 minecraft:anvil[facing=north]
+block 4 -60 8 minecraft:grindstone[face=floor,facing=north]
+block 3 -60 6 minecraft:crafter
+block 5 -60 9 minecraft:enchanting_table
+give A hotbar1 minecraft:stick 3
+give A hotbar2 minecraft:dirt 5
+tick 2
+dump stats:A packets:A:none blocks:3,-60,4,9,-59,9
+input A sneak
+tick 1
+note sneaking with an empty hand opens the menu
+use_on A 4 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+close_menu A
+use_on A 6 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+close_menu A
+use_on A 3 -60 6 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data
+close_menu A
+note sneaking with a stick in the main hand: nothing opens
+select A 1
+use_on A 4 -60 4 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data inventory:A
+use_on A 8 -60 4 up main
+use_on A 5 -60 9 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data inventory:A
+note sneaking with dirt in the main hand places it on the block
+select A 2
+use_on A 9 -60 6 up main
+use_on A 9 -60 8 west main
+use_on A 6 -60 9 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data inventory:A blocks:3,-60,4,9,-59,9
+note an item in the off hand only suppresses the block use too
+select A 2
+swap A
+select A 0
+use_on A 8 -60 9 up main
+use_on A 4 -60 8 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data inventory:A
+note not sneaking any more with the item in hand: opens
+input A none
+tick 1
+use_on A 8 -60 9 up main
+dump menu:A stats:A packets:A:open_screen,container_set_content,container_set_data

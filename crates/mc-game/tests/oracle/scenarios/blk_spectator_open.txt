@@ -12,8 +12,8 @@ spawn_player S5 spectator 3.5 -60 53.5 180 0
 spawn_player Obs survival 1.5 -60 3.5 180 0
 block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
-block 2 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
-block 3 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+block 2 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+block 3 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
 block 4 -60 0 minecraft:trapped_chest[facing=south,type=single,waterlogged=false]
 block 6 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 block 6 -59 0 minecraft:stone

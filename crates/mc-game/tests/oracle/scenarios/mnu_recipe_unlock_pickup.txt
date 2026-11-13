@@ -1,0 +1,26 @@
+# Recipes unlocked by picking items up (the inventory_changed trigger from the item pickup) and by crafting in the grid, and
+# the recipe book packets that follow.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B survival 4.5 -60 3.5 180 0
+tick 3
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:A advancements:A
+note dropped items picked up: ingots unlock their recipes
+spawn_item i1 minecraft:iron_ingot 0.5 -60 3.5 0 0 0 3 rot=0
+spawn_item i2 minecraft:oak_log 4.5 -60 3.5 0 0 0 2 rot=0
+tick 2
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:A advancements:A inventory:A
+dump packets:B:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:B advancements:B inventory:B
+note craft planks from the log in the grid by shift-click, the planks unlock the recipes using them
+click B 36 0 PICKUP
+click B 1 0 PICKUP
+dump packets:B:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:B
+click B 0 0 QUICK_MOVE
+tick 1
+dump packets:B:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:B advancements:B stats:B inventory:B
+note more pickups of the same family do not repeat the unlocks
+spawn_item i3 minecraft:iron_ingot 0.5 -60 3.5 0 0 0 3 rot=0
+tick 2
+dump packets:A:recipe_book_add,recipe_book_remove,recipe_book_settings recipes:A

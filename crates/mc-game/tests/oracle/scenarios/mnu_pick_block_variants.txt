@@ -1,0 +1,75 @@
+# Pick block (middle click) variants: a survival player picks an item it holds elsewhere in the inventory (moves it to the hotbar),
+# one it does not hold (nothing), a creative player picks (adds it, replaces the held slot), block data only for creative players
+# with the data flag, out of reach, a block without an item (air, fire), a full hotbar.
+command_env
+level flat
+preload 4
+spawn_player S survival 3.5 -60 3.5 0 0
+spawn_player C creative 9.5 -60 3.5 0 0
+op C
+block 3 -60 6 minecraft:chest[facing=south,type=single,waterlogged=false]
+be_nbt 3 -60 6 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}],CustomName:'"Stash"'}
+block 4 -60 6 minecraft:oak_planks
+block 5 -60 6 minecraft:dirt
+block 6 -60 6 minecraft:fire
+block 9 -60 6 minecraft:light_gray_banner
+block 40 -60 6 minecraft:stone
+give S inv12 minecraft:dirt 7
+give S inv20 minecraft:chest 1
+give S hotbar0 minecraft:apple 3
+give S hotbar1 minecraft:apple 3
+give S hotbar2 minecraft:apple 3
+give S hotbar3 minecraft:apple 3
+give S hotbar4 minecraft:apple 3
+give S hotbar5 minecraft:apple 3
+give S hotbar6 minecraft:apple 3
+give S hotbar7 minecraft:apple 3
+give S hotbar8 minecraft:apple 3
+give C hotbar0 minecraft:apple 3
+give C hotbar1 minecraft:oak_planks 3
+tick 2
+dump inventory:S inventory:C packets:S:none packets:C:none
+note survival: held elsewhere in the inventory, not held, with the data flag
+pick_block S 5 -60 6
+dump inventory:S packets:S:set_held_slot,container_set_slot,container_set_content
+pick_block S 4 -60 6
+dump inventory:S packets:S:set_held_slot,container_set_slot,container_set_content
+pick_block S 3 -60 6 true
+dump inventory:S packets:S:set_held_slot,container_set_slot,container_set_content
+note survival with a chest in the inventory: the data flag is ignored
+select S 8
+pick_block S 3 -60 6 true
+dump inventory:S packets:S:set_held_slot,container_set_slot,container_set_content
+note air, fire (no item), out of reach, unloaded
+pick_block S 3 -60 5
+pick_block S 6 -60 6
+pick_block S 40 -60 6
+pick_block S 400 -60 6
+dump inventory:S packets:S:set_held_slot,container_set_slot,container_set_content
+note creative: already on the hotbar (selects), not in the inventory (added), data flag with a chest and a banner, full hotbar replaces the held slot
+pick_block C 1 -60 6 false
+dump inventory:C packets:C:set_held_slot,container_set_slot,container_set_content
+pick_block C 5 -60 6
+dump inventory:C packets:C:set_held_slot,container_set_slot,container_set_content
+pick_block C 3 -60 6 true
+dump inventory:C packets:C:set_held_slot,container_set_slot,container_set_content
+pick_block C 9 -60 6 true
+dump inventory:C packets:C:set_held_slot,container_set_slot,container_set_content
+pick_block C 9 -60 6 false
+dump inventory:C packets:C:set_held_slot,container_set_slot,container_set_content
+pick_block C 3 -60 6 false
+pick_block C 4 -60 6
+pick_block C 5 -60 6
+pick_block C 3 -60 6 true
+dump inventory:C packets:C:set_held_slot,container_set_slot,container_set_content
+creative_slot C 38 minecraft:stone 1
+creative_slot C 39 minecraft:stone 1
+creative_slot C 40 minecraft:stone 1
+creative_slot C 41 minecraft:stone 1
+creative_slot C 42 minecraft:stone 1
+creative_slot C 43 minecraft:stone 1
+creative_slot C 44 minecraft:stone 1
+creative_slot C 45 minecraft:stone 1
+pick_block C 6 -60 6
+pick_block C 9 -60 6
+dump inventory:C packets:C:set_held_slot,container_set_slot,container_set_content

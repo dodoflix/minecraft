@@ -1,0 +1,54 @@
+MENU A cid=0 type=inventory state=10 carried=empty
+MS 1 minecraft:oak_log*1
+MS 3 minecraft:stick*4
+MS 36 minecraft:oak_log*4
+I A 0 minecraft:oak_log*4
+PKT A minecraft:container_set_slot 140004002400
+PKT A minecraft:set_cursor_item 6205a3010000
+PKT A minecraft:container_set_slot 1400050000043f0000
+PKT A minecraft:container_set_slot 140006000101a3010000
+PKT A minecraft:set_cursor_item 6204a3010000
+PKT A minecraft:container_set_slot 140007002404a3010000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140008002500
+PKT A minecraft:set_cursor_item 6204a4080000
+PKT A minecraft:container_set_slot 140009000000
+PKT A minecraft:container_set_slot 14000a000304a4080000
+PKT A minecraft:set_cursor_item 6200
+MENU B cid=1 type=minecraft:crafting state=7 carried=empty
+MS 1 minecraft:oak_planks*9
+MS 9 minecraft:cobblestone*7
+PKT B minecraft:container_set_content 1201012e00000000000000000000000000000000000000000000000000000000000000000000000000093f0000073e00000000000000000000
+PKT B minecraft:container_set_slot 140102002500
+PKT B minecraft:set_cursor_item 62093f0000
+PKT B minecraft:container_set_slot 140103000001da060000
+PKT B minecraft:container_set_slot 1401040001093f0000
+PKT B minecraft:set_cursor_item 6200
+PKT B minecraft:container_set_slot 140105002600
+PKT B minecraft:set_cursor_item 62073e0000
+PKT B minecraft:container_set_slot 140106000000
+PKT B minecraft:container_set_slot 1401070009073e0000
+PKT B minecraft:set_cursor_item 6200
+HURT A generic 1000 -> true
+HURT B generic 1000 -> true
+MENU A cid=0 type=inventory state=11 carried=empty
+MS 1 minecraft:oak_log*1
+MS 3 minecraft:stick*4
+MENU B cid=1 type=minecraft:crafting state=7 carried=empty
+MS 1 minecraft:oak_planks*9
+MS 9 minecraft:cobblestone*7
+E item#1 minecraft:item pos=0.6433841288089752,-58.520000004172324,3.561708014458418 delta=0.14051644896763094,0.15680000597238544,0.060473855346236505 rot=47.39564,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*4 age=1 pickup=39 health=5 owner=- thrower=-
+MENU A cid=0 type=inventory state=11 carried=empty
+MENU B cid=0 type=inventory state=3 carried=empty
+E item#1 minecraft:item pos=2.4170573682061613,-60.0,4.325041130964264 delta=0.00267967277579548,0.0,0.0011532467907442885 rot=47.39564,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*4 age=20 pickup=20 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.014006796172119128,0.0934341549873352,-0.3028165077479649 rot=56.400524,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=0 pickup=40 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.009908186624301072,0.1315704584121704,-0.2957563515630251 rot=240.39496,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=0 pickup=40 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.5,-58.68000000715256,3.5 delta=-0.008970737207060524,0.07514463365077972,-0.3013747172724841 rot=70.166374,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*9 age=0 pickup=40 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=4.5,-58.68000000715256,3.5 delta=0.0015708180943427858,0.03538072854280472,-0.2958257669240474 rot=53.97158,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*7 age=0 pickup=40 health=5 owner=- thrower=-
+MENU A cid=0 type=inventory state=11 carried=empty
+MENU B cid=0 type=inventory state=3 carried=empty
+E item#1 minecraft:item pos=2.419737040981957,-60.0,4.326194377755009 delta=0.0015756477506109186,-0.08,6.781091811465961E-4 rot=47.39564,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*4 age=23 pickup=17 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.45881441574471193,-58.64208221557397,2.609598323521615 delta=-0.013183085272566045,-0.027324200121011933,-0.2850084912014614 rot=56.400524,0.0 og=0 fall=0.027881836518645287 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=3 pickup=37 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.47086596749051346,-58.52994622683051,2.6303580071664108 delta=-0.009325506529798912,0.00856938566777818,-0.278363528293458 rot=240.39496,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=3 pickup=37 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.473622443809894,-58.69586072514456,2.6138377643171187 delta=-0.008443186586370355,-0.04453815229189931,-0.2836514894610298 rot=70.166374,0.0 og=0 fall=0.05100535089150071 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*9 age=3 pickup=37 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=4.50461883361329,-58.812782513969026,2.630153898234942 delta=0.0014784415101742451,-0.08196362385349124,-0.27842886147974394 rot=53.97158,0.0 og=0 fall=0.13278250861912966 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*7 age=3 pickup=37 health=5 owner=- thrower=-

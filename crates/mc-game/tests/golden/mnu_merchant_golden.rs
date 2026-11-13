@@ -6,8 +6,8 @@
 use crate::common;
 use crate::common::menu_oracle::replay;
 
-/// Trade selection and auto-fill, taking results (uses, xp, map offers), shift-click, the screen closing when the villager is out of
-/// reach, busy or gone, and seeded random sessions (`oracle/menu_scripts/merchant.txt`, recorded with `scripts/menu-oracle.sh merchant`).
+/// Trade selection and auto-fill, taking results (uses, xp, map offers), shift-click, the menu closing when the villager is gone or the
+/// player dies or disconnects, and seeded random sessions (`oracle/menu_scripts/merchant.txt`, recorded with `scripts/menu-oracle.sh merchant`).
 #[test]
 fn merchant_menu_script_matches_vanilla() {
     let ops = replay("menu_oracle", "merchant");

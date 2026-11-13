@@ -8,8 +8,8 @@ spawn_player A survival 3.5 -60 1.5 180 0
 spawn_player B survival 4.5 -60 1.5 180 0
 block 0 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
 be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
-block 2 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
-block 3 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+block 2 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+block 3 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
 block 5 -60 0 minecraft:barrel[facing=up,open=false]
 block 6 -60 0 minecraft:ender_chest[facing=south,waterlogged=false]
 block 7 -60 0 minecraft:shulker_box[facing=up]
@@ -78,7 +78,7 @@ close_menu A
 dump events
 tick 8
 dump events ticks blocks:-1,-60,0,-1,-60,0
-note double chest, right half
+note double chest, left half
 level_seed 17
 use_on A 3 -60 0 south main
 dump events packets:A:open_screen,container_close blocks:3,-60,0,3,-60,0
@@ -88,7 +88,7 @@ close_menu A
 dump events
 tick 8
 dump events ticks blocks:3,-60,0,3,-60,0
-note double chest: A opens the right half, B opens the left half too, A closes, then B closes
+note double chest: A opens the left half, B opens the right half too, A closes, then B closes
 level_seed 18
 use_on A 3 -60 0 south main
 use_on B 2 -60 0 south main

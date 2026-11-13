@@ -1,0 +1,47 @@
+# Interacting with villagers that cannot trade now: a villager already trading, a baby, a villager without a profession (nitwit),
+# a villager without offers, a sleeping-free villager while the player sneaks.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 6.5 180 0
+spawn_player B survival 5.5 -60 6.5 180 0
+spawn V minecraft:villager 4.5 -60 4.5 0 0 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:2},Xp:10,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b}
+spawn W minecraft:villager 8.5 -60 4.5 0 0 {VillagerData:{type:"minecraft:plains",profession:"minecraft:nitwit",level:1},NoAI:1b}
+spawn X minecraft:villager 10.5 -60 4.5 0 0 {Age:-24000,VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1},Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b}
+spawn Y minecraft:villager 12.5 -60 4.5 0 0 {VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1},Offers:{Recipes:[]},NoAI:1b}
+entity_seed V 1
+entity_seed W 2
+entity_seed X 3
+entity_seed Y 4
+give A hotbar0 minecraft:emerald 5
+give B hotbar0 minecraft:emerald 5
+tick 2
+dump packets:A:none packets:B:none entities
+note A trades; B interacts with the same villager meanwhile
+level_seed 101
+interact A V main
+dump menu:A menu:B packets:A:open_screen,container_set_content,merchant_offers packets:B:open_screen,container_set_content,merchant_offers,sound,entity_event entities
+level_seed 102
+interact B V main
+dump menu:A menu:B packets:A:open_screen,container_set_content,merchant_offers packets:B:open_screen,container_set_content,merchant_offers,sound,entity_event entities
+tick 2
+dump menu:A menu:B packets:B:sound,entity_event,open_screen
+close_menu A
+level_seed 103
+interact B V main
+dump menu:A menu:B packets:B:open_screen,container_set_content,merchant_offers,sound,entity_event entities
+close_menu B
+note nitwit, baby, no offers
+tp A 8.5 -60 6.5
+tp B 10.5 -60 6.5
+level_seed 104
+interact A W main
+level_seed 105
+interact B X main
+tick 1
+dump menu:A menu:B packets:A:open_screen,sound,entity_event packets:B:open_screen,sound,entity_event
+tp A 12.5 -60 6.5
+level_seed 106
+interact A Y main
+tick 1
+dump menu:A packets:A:open_screen,container_set_content,merchant_offers,sound,entity_event

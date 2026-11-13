@@ -1,0 +1,36 @@
+# A player dying with items in the crafting grid (2x2 of the inventory menu and 3x3 of a crafting table): the items drop when the
+# dead player's menu is removed (twenty ticks after the death), not with the death loot.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B survival 4.5 -60 3.5 180 0
+block 4 -60 0 minecraft:crafting_table
+give A hotbar0 minecraft:oak_log 5
+give A hotbar1 minecraft:stick 4
+give B hotbar0 minecraft:oak_planks 9
+give B hotbar1 minecraft:cobblestone 7
+tick 2
+dump events packets:A:none packets:B:none
+click A 36 0 PICKUP
+click A 1 1 PICKUP
+click A 36 0 PICKUP
+click A 37 0 PICKUP
+click A 3 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+use_on B 4 -60 0 south main
+click B 37 0 PICKUP
+click B 1 0 PICKUP
+click B 38 0 PICKUP
+click B 9 0 PICKUP
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item
+level_seed 31
+hurt A generic 1000
+hurt B generic 1000
+tick 1
+dump menu:A menu:B entities inventory:A inventory:B
+tick 19
+dump menu:A menu:B entities inventory:A inventory:B
+level_seed 32
+tick 3
+dump menu:A menu:B entities inventory:A inventory:B packets:A:container_close packets:B:container_close

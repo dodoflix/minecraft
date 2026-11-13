@@ -1,6 +1,6 @@
 # Taking the result of a furnace through the click packets: the statistic of the crafted item, the recipes used pay out their
-# experience at the player (orbs, drawn from the level's random) and unlock their recipes with the recipe book packet, the
-# recipe_crafted trigger, shift-click on the result, and a second take that owes nothing.
+# experience at the player (orbs, drawn from the level's random) and unlock their recipes with the recipe book packet,
+# shift-click on the result, and a second take that owes nothing.
 command_env
 level flat
 preload 4

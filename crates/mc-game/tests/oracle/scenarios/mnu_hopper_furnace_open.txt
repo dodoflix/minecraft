@@ -1,0 +1,22 @@
+# Hoppers inserting into and extracting from a furnace while a player has its menu open: the menu follows the changes.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+block 3 -60 4 minecraft:furnace[facing=south,lit=false]
+block 3 -59 4 minecraft:hopper[facing=down]
+be_nbt 3 -59 4 {Items:[{Slot:0b,id:"minecraft:raw_iron",count:5}]}
+block 4 -60 4 minecraft:hopper[facing=west]
+be_nbt 4 -60 4 {Items:[{Slot:0b,id:"minecraft:coal",count:3}]}
+block 3 -61 4 minecraft:hopper[facing=down]
+block 3 -62 4 minecraft:chest[facing=south,type=single,waterlogged=false]
+level_seed 5
+tick 2
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_slot,container_set_content,container_set_data be:3,-60,4 be:3,-59,4 be:4,-60,4
+tick 10
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data be:3,-60,4 be:3,-59,4 be:4,-60,4
+tick 30
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data be:3,-60,4 be:3,-61,4
+tick 200
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data be:3,-60,4 be:3,-61,4 be:3,-62,4 entities

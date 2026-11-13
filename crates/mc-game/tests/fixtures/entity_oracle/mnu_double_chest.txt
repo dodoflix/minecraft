@@ -1,0 +1,56 @@
+B 2 -60 0 minecraft:chest[facing=south,type=right,waterlogged=false]
+B 3 -60 0 minecraft:chest[facing=south,type=left,waterlogged=false]
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=1 type=minecraft:generic_9x6 state=1 carried=empty
+MS 0 minecraft:stone*30
+MS 26 minecraft:dirt*5
+MS 27 minecraft:diamond*7
+MS 53 minecraft:gold_ingot*9
+MS 81 minecraft:apple*10
+STAT A minecraft.custom:minecraft.open_chest 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:open_screen 3c01050a0800097472616e736c6174650015636f6e7461696e65722e6368657374446f75626c6500
+PKT A minecraft:container_set_content 1201015a1e010000000000000000000000000000000000000000000000000000000537000007f40700000000000000000000000000000000000000000000000000000009fe0700000000000000000000000000000000000000000000000000000000000aef070000000000000000000000
+EV sound at=3.0,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.chest.open source=block vol=0.5 pitch=0.973034
+MENU A cid=1 type=minecraft:generic_9x6 state=7 carried=empty
+MS 26 minecraft:dirt*5
+MS 30 minecraft:stone*30
+MS 81 minecraft:apple*10
+MS 88 minecraft:diamond*7
+MS 89 minecraft:gold_ingot*9
+I A 0 minecraft:apple*10
+I A 7 minecraft:diamond*7
+I A 8 minecraft:gold_ingot*9
+PKT A minecraft:container_set_slot 140102000000
+PKT A minecraft:set_cursor_item 621e010000
+PKT A minecraft:container_set_slot 140103001e1e010000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140104003500
+PKT A minecraft:container_set_slot 140105005909fe070000
+PKT A minecraft:container_set_slot 140106001b00
+PKT A minecraft:container_set_slot 140107005807f4070000
+BE 2 -60 0 {Items:[{Slot:26b,count:5,id:"minecraft:dirt"}],components:{},id:"minecraft:chest",x:2,y:-60,z:0}
+BE 3 -60 0 {Items:[{Slot:3b,count:30,id:"minecraft:stone"}],components:{},id:"minecraft:chest",x:3,y:-60,z:0}
+MENU S cid=1 type=minecraft:generic_9x6 state=1 carried=empty
+MS 26 minecraft:dirt*5
+MS 30 minecraft:stone*30
+PKT S minecraft:open_screen 3c01050a0800097472616e736c6174650015636f6e7461696e65722e6368657374446f75626c6500
+PKT S minecraft:container_set_content 1201015a0000000000000000000000000000000000000000000000000000053700000000001e010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+# breaking one half closes the menu of the player using the double chest
+DESTROY true
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:apple*10
+MS 43 minecraft:diamond*7
+MS 44 minecraft:gold_ingot*9
+MENU S cid=0 type=inventory state=1 carried=empty
+PKT A minecraft:container_close 1101
+PKT S minecraft:container_close 1101
+E item#1 minecraft:item pos=3.627173634018379,-59.607996351201095,0.40788693175142277 delta=0.01944356595763894,0.1568000030517578,-0.04094949794921104 rot=152.45499,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chest*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.4631649462501404,-59.823638888253505,0.6883870135466013 delta=0.07270416373463058,0.1412870451037944,0.02330992745550359 rot=245.64009,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*23 age=1 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=3.3127606580694557,-59.76114272172484,0.6424318183579185 delta=-0.07469204155117443,0.2025332894939067,-0.02172616470593127 rot=58.245586,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*7 age=1 pickup=0 health=5 owner=- thrower=-

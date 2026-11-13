@@ -1,0 +1,51 @@
+E V minecraft:villager pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E W minecraft:villager pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:villager pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Y minecraft:villager pos=12.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+# A trades; B interacts with the same villager meanwhile
+MENU A cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*5
+MENU B cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*5
+PKT A minecraft:open_screen 3c01130a080009696e73657274696f6e002466663035623461382d353565372d343531662d616330372d6332306634653232616137310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650023656e746974792e6d696e6563726166742e76696c6c616765722e6c696272617269616e00080006616374696f6e000b73686f775f656e74697479080002696400126d696e6563726166743a76696c6c616765720b00047575696400000004ff05b4a855e7451fac07c20f4e22aa71000800097472616e736c6174650023656e746974792e6d696e6563726166742e76696c6c616765722e6c696272617269616e00
+PKT A minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000005f5070000000000000000000000
+PKT A minecraft:merchant_offers 350101f507010006ab0800000000000000000000000c00000002000000003d4ccccd00000000020a0101
+E V minecraft:villager pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E W minecraft:villager pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:villager pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Y minecraft:villager pos=12.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+MENU A cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*5
+MENU B cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*5
+E V minecraft:villager pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E W minecraft:villager pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:villager pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Y minecraft:villager pos=12.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+MENU A cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*5
+MENU B cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*5
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*5
+MENU B cid=1 type=minecraft:merchant state=1 carried=empty
+MS 30 minecraft:emerald*5
+PKT B minecraft:open_screen 3c01130a080009696e73657274696f6e002466663035623461382d353565372d343531662d616330372d6332306634653232616137310a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650023656e746974792e6d696e6563726166742e76696c6c616765722e6c696272617269616e00080006616374696f6e000b73686f775f656e74697479080002696400126d696e6563726166743a76696c6c616765720b00047575696400000004ff05b4a855e7451fac07c20f4e22aa71000800097472616e736c6174650023656e746974792e6d696e6563726166742e76696c6c616765722e6c696272617269616e00
+PKT B minecraft:container_set_content 1201012700000000000000000000000000000000000000000000000000000000000005f5070000000000000000000000
+PKT B minecraft:merchant_offers 350101f507010006ab0800000000000000000000000c00000002000000003d4ccccd00000000020a0101
+E V minecraft:villager pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E W minecraft:villager pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E X minecraft:villager pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E Y minecraft:villager pos=12.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+# nitwit, baby, no offers
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*5
+MENU B cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*5
+PKT A minecraft:sound 77a80d0600000044fffffe20000000243f8000003f6dad7be32d4fcf84a7860e
+PKT A minecraft:sound 77a80d0600000054fffffe20000000243f8000003fb2d2903dace6703e05bff8
+PKT B minecraft:sound 77a80d0600000044fffffe20000000243f8000003f6dad7be32d4fcf84a7860e
+PKT B minecraft:sound 77a80d0600000054fffffe20000000243f8000003fb2d2903dace6703e05bff8
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:emerald*5
+PKT A minecraft:sound 77a80d0600000064fffffe20000000243f8000003f685b866fd465a290351d3c

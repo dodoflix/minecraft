@@ -1,0 +1,68 @@
+MENU A cid=1 type=minecraft:enchantment state=5 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*10
+MS 31 minecraft:book*3
+MD 0 9
+MD 1 14
+MD 2 30
+MD 3 999
+MD 4 40
+MD 5 35
+MD 6 33
+MD 7 1
+MD 8 2
+MD 9 3
+PKT A minecraft:container_set_slot 1400020024019a080000
+PKT A minecraft:container_set_slot 14000300250af6070000
+PKT A minecraft:container_set_slot 140004002603fa080000
+PKT A minecraft:open_screen 3c010d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400
+PKT A minecraft:container_set_content 120101260000000000000000000000000000000000000000000000000000000000019a0800000af607000003fa08000000000000000000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100010000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 1301000303e7
+PKT A minecraft:container_set_data 13010004ffff
+PKT A minecraft:container_set_data 13010005ffff
+PKT A minecraft:container_set_data 13010006ffff
+PKT A minecraft:container_set_data 13010007ffff
+PKT A minecraft:container_set_data 13010008ffff
+PKT A minecraft:container_set_data 13010009ffff
+PKT A minecraft:container_set_slot 140102001d00
+PKT A minecraft:set_cursor_item 62019a080000
+PKT A minecraft:container_set_slot 1401030000019a080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130100000009
+PKT A minecraft:container_set_data 13010001000e
+PKT A minecraft:container_set_data 13010002001e
+PKT A minecraft:container_set_data 130100040028
+PKT A minecraft:container_set_data 130100050023
+PKT A minecraft:container_set_data 130100060021
+PKT A minecraft:container_set_data 130100070001
+PKT A minecraft:container_set_data 130100080002
+PKT A minecraft:container_set_data 130100090003
+PKT A minecraft:container_set_slot 140104001e00
+PKT A minecraft:set_cursor_item 620af6070000
+PKT A minecraft:container_set_slot 14010500010af6070000
+PKT A minecraft:set_cursor_item 6200
+# break all the shelves, the offers stay until the next slot change
+MENU A cid=0 type=inventory state=6 carried=empty
+MS 36 minecraft:diamond_sword*1
+MS 37 minecraft:lapis_lazuli*10
+MS 38 minecraft:book*3
+PKT A minecraft:container_set_slot 1400050024019a080000
+PKT A minecraft:container_set_slot 14000600250af6070000
+# a different item: recomputed without shelves
+MENU A cid=0 type=inventory state=6 carried=empty
+MS 36 minecraft:diamond_sword*1
+MS 37 minecraft:lapis_lazuli*10
+MS 38 minecraft:book*3
+# a button of a slot that no longer offers anything
+MENU A cid=0 type=inventory state=6 carried=empty
+MS 36 minecraft:diamond_sword*1
+MS 37 minecraft:lapis_lazuli*10
+MS 38 minecraft:book*3
+P A minecraft:player pos=3.5,-60.0,7.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=40/0/0.0 sel=0 main=minecraft:diamond_sword*1
+STAT A minecraft.custom:minecraft.play_time 5
+STAT A minecraft.custom:minecraft.time_since_death 5
+STAT A minecraft.custom:minecraft.time_since_rest 5
+STAT A minecraft.custom:minecraft.total_world_time 5

@@ -1,0 +1,188 @@
+C Took 20 recipe(s) from A
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
+ADV A minecraft:adventure/salvage_sherd has_sherd
+ADV A minecraft:recipes/building_blocks/brick_slab has_bricks
+ADV A minecraft:recipes/building_blocks/brick_slab_from_bricks_stonecutting has_bricks
+ADV A minecraft:recipes/building_blocks/brick_stairs has_bricks
+ADV A minecraft:recipes/building_blocks/brick_stairs_from_bricks_stonecutting has_bricks
+ADV A minecraft:recipes/building_blocks/oak_slab has_planks
+ADV A minecraft:recipes/building_blocks/oak_stairs has_planks
+ADV A minecraft:recipes/decorations/barrel has_planks
+ADV A minecraft:recipes/decorations/brick_wall has_bricks
+ADV A minecraft:recipes/decorations/brick_wall_from_bricks_stonecutting has_bricks
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/decorated_pot_simple has_brick
+ADV A minecraft:recipes/decorations/oak_fence has_planks
+ADV A minecraft:recipes/decorations/oak_sign has_planks
+ADV A minecraft:recipes/misc/field_masoned_banner_pattern has_bricks
+ADV A minecraft:recipes/misc/stick has_planks
+ADV A minecraft:recipes/redstone/oak_button has_planks
+ADV A minecraft:recipes/redstone/oak_door has_planks
+ADV A minecraft:recipes/redstone/oak_fence_gate has_planks
+ADV A minecraft:recipes/redstone/oak_pressure_plate has_planks
+ADV A minecraft:recipes/redstone/oak_trapdoor has_planks
+STAT A minecraft.custom:minecraft.play_time 3
+STAT A minecraft.custom:minecraft.time_since_death 3
+STAT A minecraft.custom:minecraft.time_since_rest 3
+STAT A minecraft.custom:minecraft.total_world_time 3
+C Game rule limited_crafting is now set to true
+# planks in two grid rows: the stick recipe is unknown, no result
+MENU A cid=1 type=minecraft:crafting state=7 carried=empty
+MS 1 minecraft:oak_planks*1
+MS 4 minecraft:oak_planks*1
+MS 37 minecraft:oak_planks*14
+MS 38 minecraft:arms_up_pottery_sherd*1
+MS 39 minecraft:angler_pottery_sherd*1
+MS 40 minecraft:archer_pottery_sherd*1
+MS 41 minecraft:blade_pottery_sherd*1
+MS 42 minecraft:bricks*4
+PKT A minecraft:container_set_content 1201012e00000000000000000000000000000000000000000000000000000000000000000000000000103f000001c00c000001be0c000001bf0c000001c10c000004f802000000000000
+PKT A minecraft:container_set_slot 140102002500
+PKT A minecraft:set_cursor_item 62103f0000
+PKT A minecraft:container_set_slot 140103000000
+PKT A minecraft:container_set_slot 1401040001013f0000
+PKT A minecraft:set_cursor_item 620f3f0000
+PKT A minecraft:container_set_slot 140105000000
+PKT A minecraft:container_set_slot 1401060004013f0000
+PKT A minecraft:set_cursor_item 620e3f0000
+PKT A minecraft:container_set_slot 14010700250e3f0000
+PKT A minecraft:set_cursor_item 6200
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
+# learn it: the next change of the grid shows the result, taking it counts and keeps the recipe known
+C Unlocked 1 recipe(s) for A
+MENU A cid=1 type=minecraft:crafting state=12 carried=empty
+MS 0 minecraft:stick*4
+MS 1 minecraft:oak_planks*1
+MS 4 minecraft:oak_planks*1
+MS 37 minecraft:oak_planks*14
+MS 38 minecraft:arms_up_pottery_sherd*1
+MS 39 minecraft:angler_pottery_sherd*1
+MS 40 minecraft:archer_pottery_sherd*1
+MS 41 minecraft:blade_pottery_sherd*1
+MS 42 minecraft:bricks*4
+PKT A minecraft:recipe_book_add 4b018d0b010102020600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b7305a4080400000495034a03010200106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730300
+PKT A minecraft:container_set_slot 140108000000
+PKT A minecraft:container_set_slot 140109000000
+PKT A minecraft:container_set_slot 14010a000400
+PKT A minecraft:set_cursor_item 62013f0000
+PKT A minecraft:container_set_slot 14010b000004a4080000
+PKT A minecraft:container_set_slot 14010c0004013f0000
+PKT A minecraft:set_cursor_item 6200
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:stick highlight=minecraft:stick
+MENU A cid=1 type=minecraft:crafting state=16 carried=minecraft:stick*4
+MS 37 minecraft:oak_planks*14
+MS 38 minecraft:arms_up_pottery_sherd*1
+MS 39 minecraft:angler_pottery_sherd*1
+MS 40 minecraft:archer_pottery_sherd*1
+MS 41 minecraft:blade_pottery_sherd*1
+MS 42 minecraft:bricks*4
+PKT A minecraft:container_set_slot 14010d000000
+PKT A minecraft:container_set_slot 14010e000000
+PKT A minecraft:container_set_slot 14010f000100
+PKT A minecraft:container_set_slot 140110000400
+PKT A minecraft:set_cursor_item 6204a4080000
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:stick highlight=minecraft:stick
+STAT A minecraft.crafted:minecraft.stick 4
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 3
+STAT A minecraft.custom:minecraft.time_since_death 3
+STAT A minecraft.custom:minecraft.time_since_rest 3
+STAT A minecraft.custom:minecraft.total_world_time 3
+ADV A minecraft:adventure/salvage_sherd has_sherd
+ADV A minecraft:recipes/building_blocks/brick_slab has_bricks
+ADV A minecraft:recipes/building_blocks/brick_slab_from_bricks_stonecutting has_bricks
+ADV A minecraft:recipes/building_blocks/brick_stairs has_bricks
+ADV A minecraft:recipes/building_blocks/brick_stairs_from_bricks_stonecutting has_bricks
+ADV A minecraft:recipes/building_blocks/oak_slab has_planks
+ADV A minecraft:recipes/building_blocks/oak_stairs has_planks
+ADV A minecraft:recipes/decorations/barrel has_planks
+ADV A minecraft:recipes/decorations/brick_wall has_bricks
+ADV A minecraft:recipes/decorations/brick_wall_from_bricks_stonecutting has_bricks
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/decorated_pot_simple has_brick
+ADV A minecraft:recipes/decorations/oak_fence has_planks
+ADV A minecraft:recipes/decorations/oak_sign has_planks
+ADV A minecraft:recipes/misc/field_masoned_banner_pattern has_bricks
+ADV A minecraft:recipes/misc/stick has_planks
+ADV A minecraft:recipes/redstone/oak_button has_planks
+ADV A minecraft:recipes/redstone/oak_door has_planks
+ADV A minecraft:recipes/redstone/oak_fence_gate has_planks
+ADV A minecraft:recipes/redstone/oak_pressure_plate has_planks
+ADV A minecraft:recipes/redstone/oak_trapdoor has_planks
+# four sherds around the middle make a decorated pot even without the recipe book
+MENU A cid=1 type=minecraft:crafting state=28 carried=empty
+MS 0 minecraft:decorated_pot*1{minecraft:pot_decorations:{back:{id:"minecraft:arms_up_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"},left:{id:"minecraft:angler_pottery_sherd"},right:{id:"minecraft:archer_pottery_sherd"}}}
+MS 2 minecraft:arms_up_pottery_sherd*1
+MS 4 minecraft:angler_pottery_sherd*1
+MS 6 minecraft:archer_pottery_sherd*1
+MS 8 minecraft:blade_pottery_sherd*1
+MS 37 minecraft:oak_planks*14
+MS 42 minecraft:bricks*4
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140111002600
+PKT A minecraft:set_cursor_item 6201c00c0000
+PKT A minecraft:container_set_slot 140112000000
+PKT A minecraft:container_set_slot 140113000201c00c0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140114002700
+PKT A minecraft:set_cursor_item 6201be0c0000
+PKT A minecraft:container_set_slot 140115000000
+PKT A minecraft:container_set_slot 140116000401be0c0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140117002800
+PKT A minecraft:set_cursor_item 6201bf0c0000
+PKT A minecraft:container_set_slot 140118000000
+PKT A minecraft:container_set_slot 140119000601bf0c0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14011a002900
+PKT A minecraft:set_cursor_item 6201c10c0000
+PKT A minecraft:container_set_slot 14011b000001880301004c01c00c01000001be0c01000001bf0c01000001c10c010000
+PKT A minecraft:container_set_slot 14011c000801c10c0000
+PKT A minecraft:set_cursor_item 6200
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:stick highlight=minecraft:stick
+MENU A cid=1 type=minecraft:crafting state=36 carried=minecraft:decorated_pot*1{minecraft:pot_decorations:{back:{id:"minecraft:arms_up_pottery_sherd"},front:{id:"minecraft:blade_pottery_sherd"},left:{id:"minecraft:angler_pottery_sherd"},right:{id:"minecraft:archer_pottery_sherd"}}}
+MS 37 minecraft:oak_planks*14
+MS 42 minecraft:bricks*4
+PKT A minecraft:container_set_slot 14011d000000
+PKT A minecraft:container_set_slot 14011e000000
+PKT A minecraft:container_set_slot 14011f000000
+PKT A minecraft:container_set_slot 140120000000
+PKT A minecraft:container_set_slot 140121000200
+PKT A minecraft:container_set_slot 140122000400
+PKT A minecraft:container_set_slot 140123000600
+PKT A minecraft:container_set_slot 140124000800
+PKT A minecraft:set_cursor_item 6201880301004c01c00c01000001be0c01000001bf0c01000001c10c010000
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:stick highlight=minecraft:stick
+STAT A minecraft.crafted:minecraft.decorated_pot 1
+STAT A minecraft.crafted:minecraft.stick 4
+STAT A minecraft.custom:minecraft.drop 1
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 3
+STAT A minecraft.custom:minecraft.time_since_death 3
+STAT A minecraft.custom:minecraft.time_since_rest 3
+STAT A minecraft.custom:minecraft.total_world_time 3
+STAT A minecraft.dropped:minecraft.stick 4
+ADV A minecraft:adventure/craft_decorated_pot_using_only_sherds pot_crafted_using_only_sherds
+ADV A minecraft:adventure/salvage_sherd has_sherd
+ADV A minecraft:recipes/building_blocks/brick_slab has_bricks
+ADV A minecraft:recipes/building_blocks/brick_slab_from_bricks_stonecutting has_bricks
+ADV A minecraft:recipes/building_blocks/brick_stairs has_bricks
+ADV A minecraft:recipes/building_blocks/brick_stairs_from_bricks_stonecutting has_bricks
+ADV A minecraft:recipes/building_blocks/oak_slab has_planks
+ADV A minecraft:recipes/building_blocks/oak_stairs has_planks
+ADV A minecraft:recipes/decorations/barrel has_planks
+ADV A minecraft:recipes/decorations/brick_wall has_bricks
+ADV A minecraft:recipes/decorations/brick_wall_from_bricks_stonecutting has_bricks
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/decorated_pot_simple has_brick
+ADV A minecraft:recipes/decorations/oak_fence has_planks
+ADV A minecraft:recipes/decorations/oak_sign has_planks
+ADV A minecraft:recipes/misc/field_masoned_banner_pattern has_bricks
+ADV A minecraft:recipes/misc/stick has_planks
+ADV A minecraft:recipes/redstone/oak_button has_planks
+ADV A minecraft:recipes/redstone/oak_door has_planks
+ADV A minecraft:recipes/redstone/oak_fence_gate has_planks
+ADV A minecraft:recipes/redstone/oak_pressure_plate has_planks
+ADV A minecraft:recipes/redstone/oak_trapdoor has_planks
+I A 0 minecraft:oak_planks*14
+I A 5 minecraft:bricks*4

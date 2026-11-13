@@ -1,0 +1,50 @@
+MENU A cid=1 type=minecraft:generic_9x3 state=7 carried=empty
+MS 3 minecraft:diamond*10
+MS 4 minecraft:dirt*20
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.open source=block vol=0.5 pitch=0.97314155
+PKT A minecraft:open_screen 3c01020a0800097472616e736c6174650014636f6e7461696e65722e656e646572636865737400
+PKT A minecraft:container_set_content 1201013f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000af4070000143700000000000000000000
+PKT A minecraft:container_set_slot 140102003600
+PKT A minecraft:set_cursor_item 620af4070000
+PKT A minecraft:container_set_slot 14010300030af4070000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14010400370a370000
+PKT A minecraft:set_cursor_item 620a370000
+PKT A minecraft:container_set_slot 14010500040a370000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140106000414370000
+PKT A minecraft:container_set_slot 140107003700
+MENU B cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 54 minecraft:emerald*5
+EV sound at=5.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.open source=block vol=0.5 pitch=0.94862795
+PKT B minecraft:open_screen 3c01020a0800097472616e736c6174650014636f6e7461696e65722e656e646572636865737400
+PKT B minecraft:container_set_content 1201013f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005f5070000000000000000000000
+MENU B cid=1 type=minecraft:generic_9x3 state=3 carried=empty
+MS 0 minecraft:emerald*5
+PKT B minecraft:container_set_slot 140102000005f5070000
+PKT B minecraft:container_set_slot 140103003600
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:ender_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=5,-60,0 block=minecraft:ender_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:ender_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=5,-60,0 block=minecraft:ender_chest b0=1 b1=1
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.close source=block vol=0.5 pitch=0.98440856
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:ender_chest b0=1 b1=0
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:ender_chest b0=1 b1=0
+EV block_event r=64.0 ex=0 pos=5,-60,0 block=minecraft:ender_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=5,-60,0 block=minecraft:ender_chest b0=1 b1=1
+MENU A cid=2 type=minecraft:generic_9x3 state=1 carried=empty
+MS 3 minecraft:diamond*10
+MS 4 minecraft:dirt*20
+PKT A minecraft:open_screen 3c02020a0800097472616e736c6174650014636f6e7461696e65722e656e646572636865737400
+PKT A minecraft:container_set_content 1202013f0000000af4070000143700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+MENU A cid=2 type=minecraft:generic_9x3 state=1 carried=empty
+MS 3 minecraft:diamond*10
+MS 4 minecraft:dirt*20
+# breaking the chest the second player uses
+DESTROY true
+MENU A cid=0 type=inventory state=3 carried=empty
+MENU B cid=0 type=inventory state=2 carried=empty
+PKT A minecraft:container_close 1102
+PKT B minecraft:container_close 1101
+EV level_event r=64.0 ex=0 type=2001 pos=5,-60,0 data=11320 global=0
+E item#1 minecraft:item pos=5.455722417696593,-59.309407282841896,0.34731681360959665 delta=-0.023447458311591177,0.11446400521850592,-0.015841434815580875 rot=29.213655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:obsidian*8 age=2 pickup=8 health=5 owner=- thrower=-

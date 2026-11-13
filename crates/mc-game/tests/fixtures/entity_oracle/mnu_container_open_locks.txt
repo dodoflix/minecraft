@@ -1,0 +1,307 @@
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+# without the key
+MENU A cid=0 type=inventory state=2 carried=empty
+MS 36 minecraft:stick*4
+STAT A minecraft.custom:minecraft.inspect_dispenser 1
+STAT A minecraft.custom:minecraft.inspect_hopper 1
+STAT A minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT A minecraft.custom:minecraft.interact_with_brewingstand 1
+STAT A minecraft.custom:minecraft.interact_with_smoker 1
+STAT A minecraft.custom:minecraft.open_barrel 1
+STAT A minecraft.custom:minecraft.open_shulker_box 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650013636f6e7461696e65722e64697370656e736572000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+PKT A minecraft:sound 77dd02040000000cfffffe24000000243f8000003f800000e32d4fcf84a7860e
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650010636f6e7461696e65722e686f70706572000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+PKT A minecraft:sound 77dd02040000001cfffffe24000000243f8000003f8000003dace6703e05bff8
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650014636f6e7461696e65722e7368756c6b6572426f78000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+PKT A minecraft:sound 77dd020400000024fffffe24000000243f8000003f8000006fd465a290351d3c
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650010636f6e7461696e65722e62617272656c000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+PKT A minecraft:sound 77dd02040000002cfffffe24000000243f8000003f8000004b970fd5e0db99e1
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650011636f6e7461696e65722e62726577696e67000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+PKT A minecraft:sound 77dd020400000034fffffe24000000243f8000003f800000e8168c54d2216418
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650011636f6e7461696e65722e63726166746572000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+PKT A minecraft:sound 77dd02040000003cfffffe24000000243f8000003f800000a3981763e0103683
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650010636f6e7461696e65722e736d6f6b6572000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+PKT A minecraft:sound 77dd020400000044fffffe24000000243f8000003f800000a1a24ca263725fe3
+PKT A minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c6174650017636f6e7461696e65722e626c6173745f6675726e616365000800097472616e736c6174650012636f6e7461696e65722e69734c6f636b65640001
+PKT A minecraft:sound 77dd02040000004cfffffe24000000243f8000003f80000029a8e9b76b35b192
+# with the key in the main hand
+MENU B cid=1 type=minecraft:generic_3x3 state=1 carried=empty
+MS 0 minecraft:arrow*12
+MS 4 minecraft:stone*3
+MS 36 minecraft:diamond*4
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+PKT B minecraft:open_screen 3c01060a0800097472616e736c6174650013636f6e7461696e65722e64697370656e73657200
+PKT B minecraft:container_set_content 1201012d0cf1070000000000030100000000000000000000000000000000000000000000000000000000000000000004f4070000000000000000000000
+MENU B cid=1 type=minecraft:generic_3x3 state=5 carried=minecraft:arrow*12
+MS 36 minecraft:diamond*4
+MS 44 minecraft:stone*3
+PKT B minecraft:container_set_slot 140102000000
+PKT B minecraft:container_set_slot 140103002c0cf1070000
+PKT B minecraft:container_set_slot 140104000400
+PKT B minecraft:set_cursor_item 6203010000
+PKT B minecraft:container_set_slot 140105002c03010000
+PKT B minecraft:set_cursor_item 620cf1070000
+MENU B cid=2 type=minecraft:generic_3x3 state=1 carried=empty
+MS 0 minecraft:arrow*12
+MS 4 minecraft:stone*3
+MS 36 minecraft:diamond*4
+MS 37 minecraft:arrow*12
+MS 44 minecraft:stone*3
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.inspect_dropper 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+PKT B minecraft:open_screen 3c02060a0800097472616e736c6174650011636f6e7461696e65722e64726f7070657200
+PKT B minecraft:container_set_content 1202012d0cf1070000000000030100000000000000000000000000000000000000000000000000000000000000000004f40700000cf10700000000000000000301000000
+MENU B cid=2 type=minecraft:generic_3x3 state=5 carried=empty
+MS 36 minecraft:diamond*4
+MS 37 minecraft:arrow*24
+MS 44 minecraft:stone*6
+PKT B minecraft:container_set_slot 140202000000
+PKT B minecraft:container_set_slot 140203002518f1070000
+PKT B minecraft:container_set_slot 140204000400
+PKT B minecraft:set_cursor_item 6203010000
+PKT B minecraft:container_set_slot 140205002c06010000
+PKT B minecraft:set_cursor_item 6200
+MENU B cid=3 type=minecraft:hopper state=1 carried=empty
+MS 0 minecraft:coal*5
+MS 2 minecraft:stone*3
+MS 32 minecraft:diamond*4
+MS 33 minecraft:arrow*24
+MS 40 minecraft:stone*6
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.inspect_dropper 1
+STAT B minecraft.custom:minecraft.inspect_hopper 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+PKT B minecraft:open_screen 3c03100a0800097472616e736c6174650010636f6e7461696e65722e686f7070657200
+PKT B minecraft:container_set_content 1203012905f20700000003010000000000000000000000000000000000000000000000000000000000000004f407000018f10700000000000000000601000000
+MENU B cid=3 type=minecraft:hopper state=4 carried=minecraft:stone*3
+MS 32 minecraft:diamond*4
+MS 33 minecraft:arrow*24
+MS 39 minecraft:coal*5
+MS 40 minecraft:stone*6
+PKT B minecraft:container_set_slot 140302000000
+PKT B minecraft:container_set_slot 140303002705f2070000
+PKT B minecraft:container_set_slot 140304000200
+PKT B minecraft:set_cursor_item 6203010000
+MENU B cid=4 type=minecraft:shulker_box state=1 carried=empty
+MS 0 minecraft:coal*5
+MS 2 minecraft:stone*3
+MS 54 minecraft:diamond*4
+MS 55 minecraft:arrow*24
+MS 61 minecraft:coal*5
+MS 62 minecraft:stone*9
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.inspect_dropper 1
+STAT B minecraft.custom:minecraft.inspect_hopper 1
+STAT B minecraft.custom:minecraft.open_shulker_box 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+PKT B minecraft:open_screen 3c04140a0800097472616e736c6174650014636f6e7461696e65722e7368756c6b6572426f7800
+PKT B minecraft:container_set_content 1204013f05f2070000000301000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004f407000018f1070000000000000005f20700000901000000
+MENU B cid=4 type=minecraft:shulker_box state=5 carried=empty
+MS 44 minecraft:stone*3
+MS 54 minecraft:diamond*4
+MS 55 minecraft:arrow*24
+MS 61 minecraft:coal*10
+MS 62 minecraft:stone*9
+PKT B minecraft:container_set_slot 140402000000
+PKT B minecraft:container_set_slot 140403003d0af2070000
+PKT B minecraft:container_set_slot 140404000200
+PKT B minecraft:set_cursor_item 6203010000
+PKT B minecraft:container_set_slot 140405002c03010000
+PKT B minecraft:set_cursor_item 6200
+MENU B cid=5 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:coal*5
+MS 2 minecraft:stone*3
+MS 44 minecraft:stone*3
+MS 54 minecraft:diamond*4
+MS 55 minecraft:arrow*24
+MS 61 minecraft:coal*10
+MS 62 minecraft:stone*9
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.inspect_dropper 1
+STAT B minecraft.custom:minecraft.inspect_hopper 1
+STAT B minecraft.custom:minecraft.open_barrel 1
+STAT B minecraft.custom:minecraft.open_shulker_box 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+PKT B minecraft:open_screen 3c05020a0800097472616e736c6174650010636f6e7461696e65722e62617272656c00
+PKT B minecraft:container_set_content 1205013f05f2070000000301000000000000000000000000000000000000000000000000000000000000000000000000000000000000000301000000000000000000000004f407000018f107000000000000000af20700000901000000
+MENU B cid=6 type=minecraft:brewing_stand state=1 carried=empty
+MS 3 minecraft:blaze_powder*5
+MS 22 minecraft:stone*3
+MS 32 minecraft:diamond*4
+MS 33 minecraft:arrow*24
+MS 39 minecraft:coal*15
+MS 40 minecraft:stone*9
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.inspect_dropper 1
+STAT B minecraft.custom:minecraft.inspect_hopper 1
+STAT B minecraft.custom:minecraft.interact_with_brewingstand 1
+STAT B minecraft.custom:minecraft.open_barrel 1
+STAT B minecraft.custom:minecraft.open_shulker_box 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+PKT B minecraft:open_screen 3c060b0a0800097472616e736c6174650011636f6e7461696e65722e62726577696e6700
+PKT B minecraft:container_set_content 1206012900000005fa0900000000000000000000000000000000000000000301000000000000000000000004f407000018f107000000000000000ff20700000901000000
+PKT B minecraft:container_set_data 130600000000
+PKT B minecraft:container_set_data 130600010000
+PKT B minecraft:container_set_data 130600020000
+PKT B minecraft:container_set_data 130600030000
+MENU B cid=7 type=minecraft:crafter_3x3 state=1 carried=empty
+MS 0 minecraft:stone*5
+MS 26 minecraft:stone*3
+MS 36 minecraft:diamond*4
+MS 37 minecraft:arrow*24
+MS 42 minecraft:blaze_powder*5
+MS 43 minecraft:coal*15
+MS 44 minecraft:stone*9
+MS 45 minecraft:stone_button*1
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.inspect_dropper 1
+STAT B minecraft.custom:minecraft.inspect_hopper 1
+STAT B minecraft.custom:minecraft.interact_with_brewingstand 1
+STAT B minecraft.custom:minecraft.open_barrel 1
+STAT B minecraft.custom:minecraft.open_shulker_box 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+PKT B minecraft:open_screen 3c07070a0800097472616e736c6174650011636f6e7461696e65722e6372616674657200
+PKT B minecraft:container_set_content 1207012e05010000000000000000000000000000000000000000000000000000000301000000000000000000000004f407000018f10700000000000005fa0900000ff20700000901000001d806000000
+PKT B minecraft:container_set_data 130700000000
+PKT B minecraft:container_set_data 130700010000
+PKT B minecraft:container_set_data 130700020000
+PKT B minecraft:container_set_data 130700030000
+PKT B minecraft:container_set_data 130700040000
+PKT B minecraft:container_set_data 130700050000
+PKT B minecraft:container_set_data 130700060000
+PKT B minecraft:container_set_data 130700070000
+PKT B minecraft:container_set_data 130700080000
+PKT B minecraft:container_set_data 130700090000
+MENU B cid=8 type=minecraft:smoker state=1 carried=empty
+MS 0 minecraft:beef*5
+MS 20 minecraft:stone*3
+MS 30 minecraft:diamond*4
+MS 31 minecraft:arrow*24
+MS 36 minecraft:blaze_powder*5
+MS 37 minecraft:coal*15
+MS 38 minecraft:stone*14
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.inspect_dropper 1
+STAT B minecraft.custom:minecraft.inspect_hopper 1
+STAT B minecraft.custom:minecraft.interact_with_brewingstand 1
+STAT B minecraft.custom:minecraft.interact_with_smoker 1
+STAT B minecraft.custom:minecraft.open_barrel 1
+STAT B minecraft.custom:minecraft.open_shulker_box 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+PKT B minecraft:open_screen 3c08160a0800097472616e736c6174650010636f6e7461696e65722e736d6f6b657200
+PKT B minecraft:container_set_content 1208012705ec090000000000000000000000000000000000000000000301000000000000000000000004f407000018f10700000000000005fa0900000ff20700000e01000000
+PKT B minecraft:container_set_data 130800000000
+PKT B minecraft:container_set_data 130800010000
+PKT B minecraft:container_set_data 130800020000
+PKT B minecraft:container_set_data 130800030000
+MENU B cid=9 type=minecraft:blast_furnace state=1 carried=empty
+MS 0 minecraft:raw_iron*5
+MS 3 minecraft:beef*5
+MS 20 minecraft:stone*3
+MS 30 minecraft:diamond*4
+MS 31 minecraft:arrow*24
+MS 36 minecraft:blaze_powder*5
+MS 37 minecraft:coal*15
+MS 38 minecraft:stone*14
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.inspect_dropper 1
+STAT B minecraft.custom:minecraft.inspect_hopper 1
+STAT B minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT B minecraft.custom:minecraft.interact_with_brewingstand 1
+STAT B minecraft.custom:minecraft.interact_with_smoker 1
+STAT B minecraft.custom:minecraft.open_barrel 1
+STAT B minecraft.custom:minecraft.open_shulker_box 1
+STAT B minecraft.custom:minecraft.play_time 2
+STAT B minecraft.custom:minecraft.time_since_death 2
+STAT B minecraft.custom:minecraft.time_since_rest 2
+STAT B minecraft.custom:minecraft.total_world_time 2
+PKT B minecraft:container_set_data 1308000300c8
+PKT B minecraft:open_screen 3c090a0a0800097472616e736c6174650017636f6e7461696e65722e626c6173745f6675726e61636500
+PKT B minecraft:container_set_content 1209012705f9070000000005ec090000000000000000000000000000000000000301000000000000000000000004f407000018f10700000000000005fa0900000ff20700000e01000000
+PKT B minecraft:container_set_data 130900000000
+PKT B minecraft:container_set_data 130900010000
+PKT B minecraft:container_set_data 130900020000
+PKT B minecraft:container_set_data 130900030000
+STAT A minecraft.custom:minecraft.inspect_dispenser 1
+STAT A minecraft.custom:minecraft.inspect_hopper 1
+STAT A minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT A minecraft.custom:minecraft.interact_with_brewingstand 1
+STAT A minecraft.custom:minecraft.interact_with_smoker 1
+STAT A minecraft.custom:minecraft.open_barrel 1
+STAT A minecraft.custom:minecraft.open_shulker_box 1
+STAT A minecraft.custom:minecraft.play_time 22
+STAT A minecraft.custom:minecraft.time_since_death 22
+STAT A minecraft.custom:minecraft.time_since_rest 22
+STAT A minecraft.custom:minecraft.total_world_time 22
+STAT B minecraft.custom:minecraft.inspect_dispenser 1
+STAT B minecraft.custom:minecraft.inspect_dropper 1
+STAT B minecraft.custom:minecraft.inspect_hopper 1
+STAT B minecraft.custom:minecraft.interact_with_blast_furnace 1
+STAT B minecraft.custom:minecraft.interact_with_brewingstand 1
+STAT B minecraft.custom:minecraft.interact_with_smoker 1
+STAT B minecraft.custom:minecraft.open_barrel 1
+STAT B minecraft.custom:minecraft.open_shulker_box 1
+STAT B minecraft.custom:minecraft.play_time 22
+STAT B minecraft.custom:minecraft.time_since_death 22
+STAT B minecraft.custom:minecraft.time_since_rest 22
+STAT B minecraft.custom:minecraft.total_world_time 22

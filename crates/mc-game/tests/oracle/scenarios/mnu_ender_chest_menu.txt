@@ -1,0 +1,39 @@
+# The ender chest container of a player: items moved in through clicks, persisting across a close and reopen at another ender chest, a
+# second player seeing only their own contents, the lid count with two openers, and a broken chest closing the menu of its opener.
+command_env
+level flat
+preload 4
+spawn_player A survival 2.5 -60 3.5 180 0
+spawn_player B survival 5.5 -60 3.5 180 0
+block 2 -60 0 minecraft:ender_chest[facing=south,waterlogged=false]
+block 5 -60 0 minecraft:ender_chest[facing=south,waterlogged=false]
+give A hotbar0 minecraft:diamond 10
+give A hotbar1 minecraft:dirt 20
+give B hotbar0 minecraft:emerald 5
+tick 2
+dump events packets:A:none packets:B:none
+level_seed 31
+use_on A 2 -60 0 south main
+click A 54 0 PICKUP
+click A 3 0 PICKUP
+click A 55 1 PICKUP
+click A 4 0 PICKUP
+click A 55 0 QUICK_MOVE
+dump menu:A inventory:A events packets:A:open_screen,container_set_slot,container_set_content,set_cursor_item
+use_on B 5 -60 0 south main
+dump menu:B events packets:B:open_screen,container_set_content
+click B 54 0 QUICK_MOVE
+dump menu:B inventory:B events packets:B:container_set_slot,container_set_content,set_cursor_item
+tick 8
+dump events
+close_menu A
+tick 8
+dump events
+use_on A 5 -60 0 south main
+dump menu:A events packets:A:open_screen,container_set_content
+click A 0 0 QUICK_MOVE
+dump menu:A inventory:A events packets:A:container_set_slot,container_set_content,set_cursor_item
+note breaking the chest the second player uses
+destroy 5 -60 0
+tick 2
+dump menu:A menu:B packets:A:container_close packets:B:container_close events entities

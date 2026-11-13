@@ -1,0 +1,61 @@
+# What taking a result awards through the listener: the stonecutter (shift-click and normal take), the smithing table (netherite
+# upgrade) and the crafting table with a special recipe (firework rocket, shift-click twice): crafted statistics, recipe unlocks (recipes:
+# and recipe_book_add) and advancements.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player B survival 9.5 -60 7.5 0 0
+spawn_player C survival 15.5 -60 7.5 0 0
+block 3 -60 4 minecraft:stonecutter
+block 9 -60 4 minecraft:smithing_table
+block 15 -60 4 minecraft:crafting_table
+give A hotbar0 minecraft:stone 20
+give B hotbar0 minecraft:netherite_upgrade_smithing_template 2
+give B hotbar1 minecraft:diamond_pickaxe 1
+give B hotbar2 minecraft:netherite_ingot 2
+give B hotbar3 minecraft:diamond_sword 1
+give C hotbar0 minecraft:paper 16
+give C hotbar1 minecraft:gunpowder 16
+give C hotbar2 minecraft:firework_rocket 3
+tick 3
+cmd recipe take A *
+cmd recipe take B *
+cmd recipe take C *
+tick 1
+dump packets:A:none packets:B:none packets:C:none recipes:A recipes:B recipes:C
+level_seed 41
+use_on A 3 -60 4 up main
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+button A 0
+dump menu:A packets:A:open_screen,container_set_slot,container_set_content,container_set_data
+click A 1 0 QUICK_MOVE
+dump menu:A recipes:A stats:A advancements:A packets:A:container_set_slot,container_set_content,container_set_data,recipe_book_add
+button A 2
+click A 1 0 PICKUP
+click A -999 0 PICKUP
+dump menu:A recipes:A stats:A packets:A:container_set_slot,container_set_content,container_set_data,recipe_book_add
+use_on B 9 -60 4 up main
+click B 31 0 PICKUP
+click B 0 0 PICKUP
+click B 32 0 PICKUP
+click B 1 0 PICKUP
+click B 33 0 PICKUP
+click B 2 0 PICKUP
+dump menu:B packets:B:open_screen,container_set_slot,container_set_content,container_set_data
+level_seed 42
+click B 3 0 QUICK_MOVE
+dump menu:B recipes:B stats:B advancements:B inventory:B packets:B:container_set_slot,container_set_content,container_set_data,recipe_book_add
+use_on C 15 -60 4 up main
+click C 37 0 PICKUP
+click C 2 1 PICKUP
+click C 37 0 PICKUP
+click C 38 0 PICKUP
+click C 5 1 PICKUP
+click C 38 0 PICKUP
+dump menu:C packets:C:open_screen,container_set_slot,container_set_content,container_set_data
+level_seed 43
+click C 0 0 QUICK_MOVE
+click C 0 0 QUICK_MOVE
+dump menu:C recipes:C stats:C advancements:C inventory:C packets:C:container_set_slot,container_set_content,container_set_data,recipe_book_add

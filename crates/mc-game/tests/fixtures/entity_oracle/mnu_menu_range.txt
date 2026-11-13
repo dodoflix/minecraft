@@ -1,0 +1,95 @@
+# crafting_table: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU A cid=1 type=minecraft:crafting state=1 carried=empty
+MENU A cid=0 type=inventory state=1 carried=empty
+PKT A minecraft:container_close 1101
+# anvil: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU B cid=1 type=minecraft:anvil state=1 carried=empty
+MD 0 0
+MENU B cid=0 type=inventory state=1 carried=empty
+PKT B minecraft:container_close 1101
+# chest: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU C cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MENU C cid=0 type=inventory state=1 carried=empty
+PKT C minecraft:container_close 1101
+# furnace: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU D cid=1 type=minecraft:furnace state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MENU D cid=0 type=inventory state=1 carried=empty
+PKT D minecraft:container_close 1101
+# grindstone: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU E cid=1 type=minecraft:grindstone state=1 carried=empty
+MENU E cid=0 type=inventory state=1 carried=empty
+PKT E minecraft:container_close 1101
+# loom: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU F cid=1 type=minecraft:loom state=1 carried=empty
+MD 0 0
+MENU F cid=0 type=inventory state=1 carried=empty
+PKT F minecraft:container_close 1101
+# lectern: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU G cid=0 type=inventory state=1 carried=empty
+MENU G cid=0 type=inventory state=1 carried=empty
+# hopper: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU H cid=1 type=minecraft:hopper state=1 carried=empty
+MENU H cid=0 type=inventory state=1 carried=empty
+PKT H minecraft:container_close 1101
+# brewing: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU I cid=1 type=minecraft:brewing_stand state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MENU I cid=0 type=inventory state=1 carried=empty
+PKT I minecraft:container_close 1101
+# stonecutter: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU J cid=1 type=minecraft:stonecutter state=1 carried=empty
+MD 0 0
+MENU J cid=0 type=inventory state=1 carried=empty
+PKT J minecraft:container_close 1101
+# enchanting: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU K cid=1 type=minecraft:enchantment state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+MENU K cid=0 type=inventory state=1 carried=empty
+PKT K minecraft:container_close 1101
+# dispenser: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU L cid=1 type=minecraft:generic_3x3 state=1 carried=empty
+MENU L cid=0 type=inventory state=1 carried=empty
+PKT L minecraft:container_close 1101
+# barrel: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU M cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MENU M cid=0 type=inventory state=1 carried=empty
+PKT M minecraft:container_close 1101
+# smithing: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU N cid=1 type=minecraft:smithing state=1 carried=empty
+MD 0 0
+MENU N cid=0 type=inventory state=1 carried=empty
+PKT N minecraft:container_close 1101
+# cartography: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU O cid=1 type=minecraft:cartography_table state=1 carried=empty
+MENU O cid=0 type=inventory state=1 carried=empty
+PKT O minecraft:container_close 1101
+# crafter: open, walk to 8.45 (still open), walk to 8.52 (closed)
+MENU P cid=1 type=minecraft:crafter_3x3 state=1 carried=empty
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+MD 4 0
+MD 5 0
+MD 6 0
+MD 7 0
+MD 8 0
+MD 9 0
+MENU P cid=0 type=inventory state=1 carried=empty
+PKT P minecraft:container_close 1101

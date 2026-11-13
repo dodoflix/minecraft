@@ -1,0 +1,163 @@
+C Took 19 recipe(s) from A
+C Took 15 recipe(s) from B
+C Took 6 recipe(s) from C
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
+RECIPES C crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
+MENU A cid=1 type=minecraft:stonecutter state=4 carried=empty
+MS 0 minecraft:stone*20
+MS 1 minecraft:chiseled_stone_bricks*1
+MD 0 0
+PKT A minecraft:open_screen 3c01180a0800097472616e736c6174650015636f6e7461696e65722e73746f6e6563757474657200
+PKT A minecraft:container_set_content 12010126000000000000000000000000000000000000000000000000000000000014010000000000000000000000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_slot 140102001d00
+PKT A minecraft:container_set_slot 140103000014010000
+PKT A minecraft:container_set_data 13010000ffff
+PKT A minecraft:container_set_slot 140104000101c4030000
+PKT A minecraft:container_set_data 130100000000
+MENU A cid=1 type=minecraft:stonecutter state=7 carried=empty
+MS 37 minecraft:chiseled_stone_bricks*20
+MD 0 -1
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:chiseled_stone_bricks,minecraft:chiseled_stone_bricks_from_stone_stonecutting,minecraft:stone_brick_slab,minecraft:stone_brick_stairs highlight=minecraft:chiseled_stone_bricks,minecraft:chiseled_stone_bricks_from_stone_stonecutting,minecraft:stone_brick_slab,minecraft:stone_brick_stairs
+STAT A minecraft.crafted:minecraft.air 0
+STAT A minecraft.custom:minecraft.interact_with_stonecutter 1
+STAT A minecraft.custom:minecraft.play_time 4
+STAT A minecraft.custom:minecraft.time_since_death 4
+STAT A minecraft.custom:minecraft.time_since_rest 4
+STAT A minecraft.custom:minecraft.total_world_time 4
+ADV A minecraft:recipes/building_blocks/chiseled_stone_bricks has_tag
+ADV A minecraft:recipes/building_blocks/chiseled_stone_bricks_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/cobblestone_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/cobblestone_slab_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/cobblestone_stairs_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/smooth_stone has_stone
+ADV A minecraft:recipes/building_blocks/stone_brick_slab has_stone_bricks
+ADV A minecraft:recipes/building_blocks/stone_brick_slab_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/stone_brick_stairs has_stone_bricks
+ADV A minecraft:recipes/building_blocks/stone_brick_stairs_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/stone_bricks has_stone
+ADV A minecraft:recipes/building_blocks/stone_bricks_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/stone_slab has_stone
+ADV A minecraft:recipes/building_blocks/stone_slab_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/stone_stairs has_stone
+ADV A minecraft:recipes/building_blocks/stone_stairs_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/decorations/cobblestone_wall_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/stone_brick_wall_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/decorations/stonecutter has_stone
+ADV A minecraft:recipes/redstone/stone_button has_stone
+ADV A minecraft:recipes/redstone/stone_pressure_plate has_stone
+PKT A minecraft:recipe_book_add 4b01d5010306020105c40301000004e90b000a010102010300
+PKT A minecraft:recipe_book_add 4b01d301010102020602ea020602ea0205c4030100000495030000010202ea0202ea020300
+PKT A minecraft:recipe_book_add 4b01920b010301030602c1030602c1030602c10305ea020600000495030000010302c10302c10302c1030300
+PKT A minecraft:recipe_book_add 4b01950b010303090602c10300000602c1030602c103000602c1030602c1030602c10305ee030400000495030000010602c10302c10302c10302c10302c10302c1030300
+PKT A minecraft:container_set_slot 140105000000
+PKT A minecraft:container_set_slot 140106000100
+PKT A minecraft:container_set_slot 140107002514c4030000
+PKT A minecraft:container_set_data 13010000ffff
+MENU A cid=1 type=minecraft:stonecutter state=7 carried=empty
+MS 37 minecraft:chiseled_stone_bricks*20
+MD 0 -1
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:chiseled_stone_bricks,minecraft:chiseled_stone_bricks_from_stone_stonecutting,minecraft:stone_brick_slab,minecraft:stone_brick_stairs highlight=minecraft:chiseled_stone_bricks,minecraft:chiseled_stone_bricks_from_stone_stonecutting,minecraft:stone_brick_slab,minecraft:stone_brick_stairs
+STAT A minecraft.crafted:minecraft.air 0
+STAT A minecraft.custom:minecraft.interact_with_stonecutter 1
+STAT A minecraft.custom:minecraft.play_time 4
+STAT A minecraft.custom:minecraft.time_since_death 4
+STAT A minecraft.custom:minecraft.time_since_rest 4
+STAT A minecraft.custom:minecraft.total_world_time 4
+MENU B cid=1 type=minecraft:smithing state=8 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*2
+MS 1 minecraft:diamond_pickaxe*1
+MS 2 minecraft:netherite_ingot*2
+MS 3 minecraft:netherite_pickaxe*1
+MS 34 minecraft:diamond_sword*1
+MD 0 0
+PKT B minecraft:open_screen 3c01150a0800097472616e736c6174650011636f6e7461696e65722e7570677261646500
+PKT B minecraft:container_set_content 120101280000000000000000000000000000000000000000000000000000000000000002ab0c0000019c08000002ff070000019a080000000000000000
+PKT B minecraft:container_set_data 130100000000
+PKT B minecraft:container_set_slot 140102001f00
+PKT B minecraft:container_set_slot 140103000002ab0c0000
+PKT B minecraft:container_set_slot 140104002000
+PKT B minecraft:container_set_slot 1401050001019c080000
+PKT B minecraft:container_set_slot 140106002100
+PKT B minecraft:container_set_slot 140107000202ff070000
+PKT B minecraft:container_set_slot 140108000301a1080000
+MENU B cid=1 type=minecraft:smithing state=13 carried=empty
+MS 0 minecraft:netherite_upgrade_smithing_template*1
+MS 2 minecraft:netherite_ingot*1
+MS 34 minecraft:diamond_sword*1
+MS 39 minecraft:netherite_pickaxe*1
+MD 0 0
+RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:netherite_pickaxe_smithing highlight=minecraft:netherite_pickaxe_smithing
+STAT B minecraft.crafted:minecraft.air 0
+STAT B minecraft.custom:minecraft.interact_with_smithing_table 1
+STAT B minecraft.custom:minecraft.play_time 4
+STAT B minecraft.custom:minecraft.time_since_death 4
+STAT B minecraft.custom:minecraft.time_since_rest 4
+STAT B minecraft.custom:minecraft.total_world_time 4
+ADV B minecraft:recipes/building_blocks/netherite_block has_netherite_ingot
+ADV B minecraft:recipes/combat/netherite_boots_smithing has_netherite_ingot
+ADV B minecraft:recipes/combat/netherite_chestplate_smithing has_netherite_ingot
+ADV B minecraft:recipes/combat/netherite_helmet_smithing has_netherite_ingot
+ADV B minecraft:recipes/combat/netherite_horse_armor_smithing has_netherite_ingot
+ADV B minecraft:recipes/combat/netherite_leggings_smithing has_netherite_ingot
+ADV B minecraft:recipes/combat/netherite_nautilus_armor_smithing has_netherite_ingot
+ADV B minecraft:recipes/combat/netherite_spear_smithing has_netherite_ingot
+ADV B minecraft:recipes/combat/netherite_sword_smithing has_netherite_ingot
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:recipes/misc/netherite_upgrade_smithing_template has_netherite_upgrade_smithing_template
+ADV B minecraft:recipes/tools/netherite_axe_smithing has_netherite_ingot
+ADV B minecraft:recipes/tools/netherite_hoe_smithing has_netherite_ingot
+ADV B minecraft:recipes/tools/netherite_pickaxe_smithing has_netherite_ingot
+ADV B minecraft:recipes/tools/netherite_shovel_smithing has_netherite_ingot
+I B 3 minecraft:diamond_sword*1
+I B 8 minecraft:netherite_pickaxe*1
+PKT B minecraft:recipe_book_add 4b01e507040602ab0c06029c080600226d696e6563726166743a6e65746865726974655f746f6f6c5f6d6174657269616c7305a10801000004e80b000b010302ab0c029c0800226d696e6563726166743a6e65746865726974655f746f6f6c5f6d6174657269616c730300
+PKT B minecraft:container_set_slot 140109000001ab0c0000
+PKT B minecraft:container_set_slot 14010a000100
+PKT B minecraft:container_set_slot 14010b000201ff070000
+PKT B minecraft:container_set_slot 14010c000300
+PKT B minecraft:container_set_slot 14010d002701a1080000
+MENU C cid=1 type=minecraft:crafting state=9 carried=empty
+MS 0 minecraft:firework_rocket*3
+MS 2 minecraft:paper*1
+MS 5 minecraft:gunpowder*1
+MS 37 minecraft:paper*15
+MS 38 minecraft:gunpowder*15
+MS 39 minecraft:firework_rocket*3
+PKT C minecraft:open_screen 3c010c0a0800097472616e736c6174650012636f6e7461696e65722e6372616674696e6700
+PKT C minecraft:container_set_content 1201012e0000000000000000000000000000000000000000000000000000000000000000000000000010f908000010a808000003f10a000000000000000000
+PKT C minecraft:container_set_slot 140102002500
+PKT C minecraft:container_set_slot 140103000000
+PKT C minecraft:container_set_slot 140104000201f9080000
+PKT C minecraft:container_set_slot 14010500250ff9080000
+PKT C minecraft:container_set_slot 140106002600
+PKT C minecraft:container_set_slot 140107000003f10a0000
+PKT C minecraft:container_set_slot 140108000501a8080000
+PKT C minecraft:container_set_slot 14010900260fa8080000
+MENU C cid=1 type=minecraft:crafting state=14 carried=empty
+MS 37 minecraft:paper*15
+MS 38 minecraft:gunpowder*15
+MS 39 minecraft:firework_rocket*6
+RECIPES C crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
+STAT C minecraft.crafted:minecraft.firework_rocket 3
+STAT C minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT C minecraft.custom:minecraft.play_time 4
+STAT C minecraft.custom:minecraft.time_since_death 4
+STAT C minecraft.custom:minecraft.time_since_rest 4
+STAT C minecraft.custom:minecraft.total_world_time 4
+ADV C minecraft:recipes/decorations/cartography_table has_paper
+ADV C minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV C minecraft:recipes/misc/book has_paper
+ADV C minecraft:recipes/misc/firework_rocket_simple has_gunpowder
+ADV C minecraft:recipes/redstone/tnt has_gunpowder
+ADV C minecraft:recipes/tools/name_tag has_paper
+I C 0 minecraft:paper*15
+I C 1 minecraft:gunpowder*15
+I C 2 minecraft:firework_rocket*6
+PKT C minecraft:container_set_slot 14010a000000
+PKT C minecraft:container_set_slot 14010b000000
+PKT C minecraft:container_set_slot 14010c000200
+PKT C minecraft:container_set_slot 14010d000500
+PKT C minecraft:container_set_slot 14010e002706f10a0000

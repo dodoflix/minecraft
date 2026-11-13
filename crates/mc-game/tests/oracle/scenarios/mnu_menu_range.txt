@@ -1,0 +1,168 @@
+# How far a player may walk from the block of an open menu: the menu stays open at 8.45 blocks from the block and closes at 8.52
+# (block interaction range 4.5 plus the buffer of 4 of the menus). 16 menu blocks in a grid, one player at each (a teleported player cannot
+# use blocks until its client confirms the teleport).
+command_env
+level flat
+preload 7
+block 0 -60 0 minecraft:crafting_table
+block 24 -60 0 minecraft:anvil[facing=north]
+block 48 -60 0 minecraft:chest[facing=south,type=single,waterlogged=false]
+block 72 -60 0 minecraft:furnace[facing=south,lit=false]
+block 0 -60 24 minecraft:grindstone[face=floor,facing=north]
+block 24 -60 24 minecraft:loom[facing=south]
+block 48 -60 24 minecraft:lectern[facing=south,has_book=false,powered=false]
+block 72 -60 24 minecraft:hopper[facing=down,enabled=true]
+block 0 -60 48 minecraft:brewing_stand
+block 24 -60 48 minecraft:stonecutter
+block 48 -60 48 minecraft:enchanting_table
+block 72 -60 48 minecraft:dispenser[facing=up,triggered=false]
+block 0 -60 72 minecraft:barrel[facing=up,open=false]
+block 24 -60 72 minecraft:smithing_table
+block 48 -60 72 minecraft:cartography_table
+block 72 -60 72 minecraft:crafter
+spawn_player A survival 0.5 -60 4.5 180 0
+spawn_player B survival 24.5 -60 4.5 180 0
+spawn_player C survival 48.5 -60 4.5 180 0
+spawn_player D survival 72.5 -60 4.5 180 0
+spawn_player E survival 0.5 -60 28.5 180 0
+spawn_player F survival 24.5 -60 28.5 180 0
+spawn_player G survival 48.5 -60 28.5 180 0
+spawn_player H survival 72.5 -60 28.5 180 0
+spawn_player I survival 0.5 -60 52.5 180 0
+spawn_player J survival 24.5 -60 52.5 180 0
+spawn_player K survival 48.5 -60 52.5 180 0
+spawn_player L survival 72.5 -60 52.5 180 0
+spawn_player M survival 0.5 -60 76.5 180 0
+spawn_player N survival 24.5 -60 76.5 180 0
+spawn_player O survival 48.5 -60 76.5 180 0
+spawn_player P survival 72.5 -60 76.5 180 0
+tick 2
+dump packets:A:none
+note crafting_table: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on A 0 -60 0 south main
+tp A 0.5 -60 9.45
+tick 1
+dump menu:A packets:A:container_close
+tp A 0.5 -60 9.52
+tick 1
+dump menu:A packets:A:container_close
+note anvil: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on B 24 -60 0 south main
+tp B 24.5 -60 9.45
+tick 1
+dump menu:B packets:B:container_close
+tp B 24.5 -60 9.52
+tick 1
+dump menu:B packets:B:container_close
+note chest: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on C 48 -60 0 south main
+tp C 48.5 -60 9.45
+tick 1
+dump menu:C packets:C:container_close
+tp C 48.5 -60 9.52
+tick 1
+dump menu:C packets:C:container_close
+note furnace: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on D 72 -60 0 south main
+tp D 72.5 -60 9.45
+tick 1
+dump menu:D packets:D:container_close
+tp D 72.5 -60 9.52
+tick 1
+dump menu:D packets:D:container_close
+note grindstone: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on E 0 -60 24 south main
+tp E 0.5 -60 33.45
+tick 1
+dump menu:E packets:E:container_close
+tp E 0.5 -60 33.52
+tick 1
+dump menu:E packets:E:container_close
+note loom: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on F 24 -60 24 south main
+tp F 24.5 -60 33.45
+tick 1
+dump menu:F packets:F:container_close
+tp F 24.5 -60 33.52
+tick 1
+dump menu:F packets:F:container_close
+note lectern: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on G 48 -60 24 south main
+tp G 48.5 -60 33.45
+tick 1
+dump menu:G packets:G:container_close
+tp G 48.5 -60 33.52
+tick 1
+dump menu:G packets:G:container_close
+note hopper: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on H 72 -60 24 south main
+tp H 72.5 -60 33.45
+tick 1
+dump menu:H packets:H:container_close
+tp H 72.5 -60 33.52
+tick 1
+dump menu:H packets:H:container_close
+note brewing: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on I 0 -60 48 south main
+tp I 0.5 -60 57.45
+tick 1
+dump menu:I packets:I:container_close
+tp I 0.5 -60 57.52
+tick 1
+dump menu:I packets:I:container_close
+note stonecutter: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on J 24 -60 48 south main
+tp J 24.5 -60 57.45
+tick 1
+dump menu:J packets:J:container_close
+tp J 24.5 -60 57.52
+tick 1
+dump menu:J packets:J:container_close
+note enchanting: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on K 48 -60 48 south main
+tp K 48.5 -60 57.45
+tick 1
+dump menu:K packets:K:container_close
+tp K 48.5 -60 57.52
+tick 1
+dump menu:K packets:K:container_close
+note dispenser: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on L 72 -60 48 south main
+tp L 72.5 -60 57.45
+tick 1
+dump menu:L packets:L:container_close
+tp L 72.5 -60 57.52
+tick 1
+dump menu:L packets:L:container_close
+note barrel: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on M 0 -60 72 south main
+tp M 0.5 -60 81.45
+tick 1
+dump menu:M packets:M:container_close
+tp M 0.5 -60 81.52
+tick 1
+dump menu:M packets:M:container_close
+note smithing: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on N 24 -60 72 south main
+tp N 24.5 -60 81.45
+tick 1
+dump menu:N packets:N:container_close
+tp N 24.5 -60 81.52
+tick 1
+dump menu:N packets:N:container_close
+note cartography: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on O 48 -60 72 south main
+tp O 48.5 -60 81.45
+tick 1
+dump menu:O packets:O:container_close
+tp O 48.5 -60 81.52
+tick 1
+dump menu:O packets:O:container_close
+note crafter: open, walk to 8.45 (still open), walk to 8.52 (closed)
+use_on P 72 -60 72 south main
+tp P 72.5 -60 81.45
+tick 1
+dump menu:P packets:P:container_close
+tp P 72.5 -60 81.52
+tick 1
+dump menu:P packets:P:container_close

@@ -1,0 +1,49 @@
+# The crafting table with limited_crafting: a normal recipe the player does not know gives no result, a known one does and taking
+# it counts the crafting statistic; a special recipe (decorated pot from four sherds) needs no knowledge and its take fires the
+# recipe_crafted trigger (advancement adventure/craft_decorated_pot_using_only_sherds).
+command_env
+level flat
+preload 2
+spawn_player A survival 3.5 -60 7.5 0 0
+block 3 -60 4 minecraft:crafting_table
+give A hotbar0 minecraft:oak_planks 16
+give A hotbar1 minecraft:arms_up_pottery_sherd 1
+give A hotbar2 minecraft:angler_pottery_sherd 1
+give A hotbar3 minecraft:archer_pottery_sherd 1
+give A hotbar4 minecraft:blade_pottery_sherd 1
+give A hotbar5 minecraft:bricks 4
+tick 2
+cmd recipe take A *
+tick 1
+dump packets:A:none recipes:A advancements:A stats:A
+gamerule limited_crafting true
+use_on A 3 -60 4 up main
+note planks in two grid rows: the stick recipe is unknown, no result
+click A 37 0 PICKUP
+click A 1 1 PICKUP
+click A 4 1 PICKUP
+click A 37 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:A
+note learn it: the next change of the grid shows the result, taking it counts and keeps the recipe known
+cmd recipe give A minecraft:stick
+click A 4 0 PICKUP
+click A 4 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:A
+level_seed 5
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:A stats:A advancements:A
+click A -999 0 PICKUP
+note four sherds around the middle make a decorated pot even without the recipe book
+click A 1 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+click A 38 0 PICKUP
+click A 2 1 PICKUP
+click A 39 0 PICKUP
+click A 4 1 PICKUP
+click A 40 0 PICKUP
+click A 6 1 PICKUP
+click A 41 0 PICKUP
+click A 8 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:A
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,recipe_book_add,recipe_book_remove recipes:A stats:A advancements:A inventory:A
