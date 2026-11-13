@@ -19,10 +19,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "use plays the throw sound and spawns a ThrownEgg (no egg entity yet)",
     ),
     (
-        "EndCrystalItem",
-        "useOn on obsidian or bedrock places an EndCrystal and tries to respawn the dragon fight (no end crystal entity, no dragon fight respawn yet)",
-    ),
-    (
         "FishingRodItem",
         "use casts a FishingHook or reels it in and damages the rod (no fishing hook entity yet)",
     ),

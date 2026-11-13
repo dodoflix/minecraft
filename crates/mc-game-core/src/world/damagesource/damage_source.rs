@@ -163,6 +163,26 @@ impl DamageSource {
         }
     }
 
+    /// `new DamageSource(type, direct, source.getEntity())`: the causing entity of `source` as it was captured when `source`
+    /// was built (it may be the running entity, out of the level); `None` when `source` has no causing entity.
+    pub(super) fn with_causing_of(
+        damage_type: Identifier,
+        data: Arc<DamageType>,
+        direct: &dyn Entity,
+        source: &DamageSource,
+    ) -> Option<DamageSource> {
+        let causing = source.causing.clone()?;
+        Some(DamageSource {
+            damage_type,
+            data,
+            direct_entity: Some(direct.id()),
+            causing_entity: source.causing_entity,
+            source_position: None,
+            direct: Some(Rc::new(DamageEntity::capture(direct))),
+            causing: Some(causing),
+        })
+    }
+
     /// `toString()`.
     pub fn to_debug_string(&self) -> String {
         format!("DamageSource ({})", self.data.msg_id)

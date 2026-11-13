@@ -22,6 +22,7 @@ pub mod dye_color;
 mod dye_item;
 pub mod enchantment;
 pub mod enchantment_helper;
+mod end_crystal_item;
 mod ender_eye_item;
 pub mod entity_items;
 mod fire_charge_item;

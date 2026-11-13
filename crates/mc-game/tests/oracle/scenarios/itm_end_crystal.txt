@@ -1,0 +1,77 @@
+# EndCrystalItem.useOn: only obsidian and bedrock take a crystal, the block above must be air and the 1x2x1 space above it free of entities
+# (also of the placing player), the placed crystal has no bottom slab; a solid block two above does not matter; the stack shrinks for a survival player only,
+# the placement is a vibration (a sculk sensor next to it hears ENTITY_PLACE).
+level flat
+preload 3
+level_seed 3
+entity_counter 900
+spawn_player P survival 4.5 -60 2.5 0 0
+spawn_player C creative 44.5 -60 2.5 0 0
+spawn_player O survival 3.5 -60 12.5 0 0
+give P mainhand minecraft:end_crystal 16
+give C mainhand minecraft:end_crystal 16
+block 4 -61 4 minecraft:obsidian
+block 8 -61 4 minecraft:bedrock
+block 12 -61 4 minecraft:stone
+block 16 -61 4 minecraft:obsidian
+block 16 -60 4 minecraft:stone_slab[type=bottom]
+block 4 -60 8 minecraft:sculk_sensor
+tick 3
+dump packets:O:none inventory:P blocks:4,-60,8,4,-60,8
+note obsidian: placed without bottom, the sculk sensor next to it hears the placement
+use_on P 4 -61 4 up
+tick 2
+dump entities edata:end_crystal#1 inventory:P blocks:4,-60,8,4,-60,8 packets:O:add_entity,set_entity_data,remove_entities
+tick 8
+dump blocks:4,-60,8,4,-60,8
+note bedrock takes one too, stone and obsidian with a slab above nothing
+snap P 8.5 -60 2.5
+use_on P 8 -61 4 up
+tick 1
+snap P 12.5 -60 2.5
+use_on P 12 -61 4 up
+tick 1
+snap P 16.5 -60 2.5
+use_on P 16 -61 4 up
+tick 1
+dump entities inventory:P
+note a crystal where another already stands is refused (obsidian below it is clicked again)
+snap P 4.5 -60 2.5
+use_on P 4 -61 4 up
+tick 1
+dump entities inventory:P
+note stone two above the obsidian does not block, an entity inside the 1x2x1 does
+block 24 -61 4 minecraft:obsidian
+block 24 -58 4 minecraft:stone
+block 28 -61 4 minecraft:obsidian
+mobspawn Cow minecraft:cow 28.5 -59.5 4.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+snap P 24.5 -60 2.5
+use_on P 24 -61 4 up
+tick 1
+snap P 28.5 -60 2.5
+use_on P 28 -61 4 up
+tick 1
+dump entities inventory:P
+note the placing player stands in the column: clicking the obsidian under his own feet is refused
+block 32 -61 4 minecraft:obsidian
+snap P 32.5 -60 4.5
+tick 1
+use_on P 32 -61 4 up
+tick 1
+dump entities inventory:P
+note water above is not an empty block, a block clicked on its side still uses the block clicked
+block 36 -61 4 minecraft:obsidian
+block 36 -60 4 minecraft:water[level=0]
+block 40 -61 4 minecraft:obsidian
+snap P 36.5 -60 2.5
+use_on P 36 -61 4 up
+tick 1
+snap P 40.5 -60 2.5
+use_on P 40 -61 4 east
+tick 1
+dump entities inventory:P
+note a creative player keeps the stack
+block 44 -61 4 minecraft:obsidian
+use_on C 44 -61 4 up
+tick 1
+dump entities inventory:C

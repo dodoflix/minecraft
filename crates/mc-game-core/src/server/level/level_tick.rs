@@ -88,6 +88,12 @@ fn sample(random: &mut dyn RandomSource, (min, max): (i32, i32)) -> i32 {
 }
 
 impl ServerLevel {
+    /// `getDragonFight() != null`: the level runs an `EnderDragonFight` (its tick hook is installed).
+    // Not implemented: the `EnderDragonFight` itself (`onCrystalDestroyed`, `tryRespawn`); no level installs the hook yet.
+    pub fn has_dragon_fight(&self) -> bool {
+        self.tick_state.dragon_fight_tick.is_some()
+    }
+
     // ------------------------------------------------------------------------------------------------ positions
 
     /// `Level.getBlockRandomPos(xo, yo, zo, yMask)` (the level's own LCG, not the `RandomSource`).

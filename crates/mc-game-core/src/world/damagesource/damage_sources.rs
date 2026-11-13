@@ -252,6 +252,17 @@ impl<'a> DamageSources<'a> {
         self.source(key, entity, cause)
     }
 
+    /// `explosion(entity, source.getEntity())` for a cause that is only known through `source`: `None` without a causing
+    /// entity.
+    pub fn explosion_caused_by(
+        &self,
+        entity: &dyn Entity,
+        source: &DamageSource,
+    ) -> Option<DamageSource> {
+        let (id, data) = self.resolve(DamageTypes::PLAYER_EXPLOSION);
+        DamageSource::with_causing_of(id, data, entity, source)
+    }
+
     /// `badRespawnPointExplosion(boomPos)`.
     pub fn bad_respawn_point_explosion(&self, boom_pos: Vec3) -> DamageSource {
         let (id, data) = self.resolve(DamageTypes::BAD_RESPAWN_POINT);

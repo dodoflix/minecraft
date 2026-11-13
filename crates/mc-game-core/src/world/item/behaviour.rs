@@ -375,7 +375,6 @@ fn build(item: Item) -> Box<dyn ItemBehaviour> {
     // Not implemented: `EggItem` (use plays the throw sound and spawns a `ThrownEgg`).
     // Not implemented: `FishingRodItem` (use casts a `FishingHook` or reels it in and damages the rod).
     // Not implemented: `MinecartItem` (useOn on a rail places the minecart entity of the item).
-    // Not implemented: `EndCrystalItem` (useOn on obsidian or bedrock places an `EndCrystal` and respawns the dragon).
     Box::new(PlainItem)
 }
 

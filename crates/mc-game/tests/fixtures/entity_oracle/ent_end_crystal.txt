@@ -1,0 +1,82 @@
+C Game rule block_drops is now set to false
+# a plain crystal and one with the worldgen NBT: defaults, synched data, save data, add_entity and set_entity_data
+E C1 minecraft:end_crystal pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E C2 minecraft:end_crystal pos=-3.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+ED C1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:00 9:8:01
+ED C2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000b000000afce 9:8:00
+N C1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],ShowBottom:1b,fall_distance:0.0d}
+N C2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[-3.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],ShowBottom:0b,beam_target:[I;44,-50,10],fall_distance:0.0d}
+PKT A minecraft:add_entity 01a306c490704e2ee04a6abaa6337bc61b318c2e4012000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:add_entity 01a406a22b31ab5da54b66a9d990933dc5c8992ec00c000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65a406080b0100000b000000afce090800ff
+PKT A minecraft:set_entity_data 65a406080b0100000b000000afce090800ff
+E C1 minecraft:end_crystal pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT A minecraft:remove_entities 4e01a406
+# a sword hit by a creative player: removed first, then the explosion (glass beside it is destroyed, the survival player out of its range only hears it)
+B 7 -60 3 minecraft:glass
+B 7 -60 4 minecraft:glass
+B 7 -60 5 minecraft:glass
+B 7 -59 3 minecraft:glass
+B 7 -59 4 minecraft:glass
+B 7 -59 5 minecraft:glass
+B 7 -58 3 minecraft:glass
+B 7 -58 4 minecraft:glass
+B 7 -58 5 minecraft:glass
+P A minecraft:player pos=4.5,-60.0,2.5 delta=0.0,0.27321985209372823,-0.32174334515371916 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+P V minecraft:player pos=25.5,-60.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+EV sound at=4.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.player.attack.weak source=player vol=1.0 pitch=1.0
+PKT A minecraft:remove_entities 4e01a306
+PKT A minecraft:explode 244012000000000000c04e000000000000401200000000000040c000000000067f0100000000000000003fe0c8da38dba706bfe4b8c18ddcf7361dc00502453f0000003f80000001483f8000003f8000000101
+PKT V minecraft:remove_entities 4e01a306
+PKT V minecraft:explode 244012000000000000c04e000000000000401200000000000040c000000000067f001dc00502453f0000003f80000001483f8000003f8000000101
+# an Invulnerable crystal ignores the survival player's sword hit, the creative player's goes through
+E C3 minecraft:end_crystal pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P V minecraft:player pos=4.5,-60.0,2.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+EV sound at=4.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.player.attack.nodamage source=player vol=1.0 pitch=1.0
+EV sound at=4.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.player.attack.weak source=player vol=1.0 pitch=1.0
+PKT A minecraft:remove_entities 4e01a506
+PKT A minecraft:explode 244012000000000000c04e000000000000401200000000000040c00000000007950100000000000000003fe0c8da38dba706bfe4b8c18ddcf7361dc00502453f0000003f80000001483f8000003f8000000101
+# damage types: generic is refused by an Invulnerable crystal, one that bypasses invulnerability explodes it, an explosion removes it without exploding
+HURT C4 generic 5 -> false
+HURT C4 out_of_world 1 -> true
+PKT A minecraft:remove_entities 4e01a606
+PKT A minecraft:explode 244012000000000000c04e000000000000401200000000000040c00000000008260100000000000000003fe0c8da38dba706bfe4b8c18ddcf7361dc00502453f0000003f80000001483f8000003f8000000101
+HURT C5 explosion 5 -> true
+PKT A minecraft:remove_entities 4e01a706
+# an unattributed hit explodes it, an attributed one credits the attacker (player_explosion)
+HURT C6 generic 5 -> true
+P V minecraft:player pos=14.5,-60.0,6.5 delta=0.044501828799804445,-0.0784000015258789,0.008900365759960888 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+EV sound at=14.5,-60.0,6.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+PKT A minecraft:remove_entities 4e01a806
+PKT A minecraft:explode 244012000000000000c04e000000000000401200000000000040c000000000082a0100000000000000003fe0c8da38dba706bfe4b8c18ddcf7361dc00502453f0000003f80000001483f8000003f8000000101
+PKT V minecraft:explode 244012000000000000c04e000000000000401200000000000040c0000000000795001dc00502453f0000003f80000001483f8000003f8000000101
+PKT V minecraft:damage_event 19a2060900a70600
+PKT V minecraft:explode 244012000000000000c04e000000000000401200000000000040c0000000000826013fc29d40391c12f13f981fc3e0b59daf3f9dc866c1c684b41dc00502453f0000003f80000001483f8000003f8000000101
+PKT V minecraft:explode 244012000000000000c04e000000000000401200000000000040c000000000082a013fc29d40391c12f13f981fc3e0b59daf3f9dc866c1c684b41dc00502453f0000003f80000001483f8000003f8000000101
+HURT C7 player_attack 1 -> true
+P V minecraft:player pos=14.5,-60.0,6.5 delta=0.05059683079235669,-0.0784000015258789,0.010119366158471338 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/9 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+PKT A minecraft:remove_entities 4e01a906
+PKT A minecraft:explode 244012000000000000c04e000000000000401200000000000040c00000000008650100000000000000003fe0c8da38dba706bfe4b8c18ddcf7361dc00502453f0000003f80000001483f8000003f8000000101
+PKT V minecraft:explode 244012000000000000c04e000000000000401200000000000040c0000000000865013fc29d40391c12f13f981fc3e0b59daf3f9dc866c1c684b41dc00502453f0000003f80000001483f8000003f8000000101
+# an arrow without an owner explodes a crystal, a wind charge flies through it (AbstractWindCharge.canHitEntity)
+P V minecraft:player pos=14.5,-60.0,6.5 delta=0.04784990793429504,-0.0784000015258789,0.009569981586859006 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.746077 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+PKT A minecraft:remove_entities 4e01aa06
+PKT A minecraft:explode 244012000000000000c04e000000000000401200000000000040c00000000008670100000000000000003fe0c8da38dba706bfe4b8c18ddcf7361dc00502453f0000003f80000001483f8000003f8000000101
+PKT A minecraft:remove_entities 4e01ab06
+PKT V minecraft:damage_event 19a20623ac06ab0600
+PKT V minecraft:explode 244012000000000000c04e000000000000401200000000000040c0000000000867013fc29d40391c12f13f981fc3e0b59daf3f9dc866c1c684b41dc00502453f0000003f80000001483f8000003f8000000101
+E C9 minecraft:end_crystal pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wind1 minecraft:wind_charge pos=0.5,-59.2,4.5 delta=-1.0,0.0,0.0 rot=276.18475,-7.1051063E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# a primed tnt next to two crystals: both are removed by its explosion, neither explodes by itself
+PKT A minecraft:remove_entities 4e01ad06
+PKT A minecraft:remove_entities 4e01ac06
+PKT A minecraft:remove_entities 4e01b006
+PKT A minecraft:remove_entities 4e01ae06
+PKT A minecraft:remove_entities 4e01af06
+PKT A minecraft:explode 244012000000000000c04e1678f25e12a54021000000000000408000000000037b0100000000000000003fb2533bc6549f15bfce9e07b782fd511dc00502453f0000003f80000001483f8000003f8000000101
+# /kill removes a crystal without the explosion
+C Killed End Crystal
+PKT A minecraft:remove_entities 4e01b106
+# the pick result of a crystal
+I A 0 minecraft:diamond_sword*1
+I A 1 minecraft:end_crystal*1

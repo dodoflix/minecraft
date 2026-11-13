@@ -83,6 +83,7 @@ mod enchant_golden;
 mod ent_aec_golden;
 mod ent_displays_golden;
 mod ent_dump_golden;
+mod ent_end_crystal_golden;
 mod ent_interact_golden;
 mod ent_leash_knot_golden;
 mod ent_lightning_golden;
