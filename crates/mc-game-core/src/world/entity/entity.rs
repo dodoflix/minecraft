@@ -4536,6 +4536,21 @@ pub trait Entity: Any {
     fn get_type_name(&self) -> mc_text::Component {
         mc_text::Component::translatable(self.get_type().data().description_id, Vec::new())
     }
+    /// `getName()`: the custom name, else the type name (item entities: the name of the item; players: the profile name,
+    /// which `commands::host::entity_name` resolves).
+    fn get_name(&self) -> mc_text::Component {
+        self.base()
+            .get_custom_name()
+            .unwrap_or_else(|| self.get_type_name())
+    }
+    /// `restoreFrom(oldEntity)`: copies the saved data of `old` (without its dimension and passengers) and the portal state;
+    /// subclasses copy what the save data does not carry.
+    fn restore_from(&mut self, old: &dyn Entity) {
+        restore_from_data(self, old);
+    }
+    /// What an overriding `teleport(transition)` does with the entity that exists afterwards (`ItemEntity`: merge with
+    /// the items around it).
+    fn after_teleport(&mut self, _level: &mut ServerLevel) {}
     /// `LivingEntity.wasHurtRecently()`.
     fn was_hurt_recently(&self) -> bool {
         self.living().is_some_and(|l| l.hurt_time > 0)
@@ -4827,6 +4842,18 @@ fn put_vec3_list(out: &mut CompoundTag, key: &str, v: Vec3) {
     list.push(Tag::double(v.y));
     list.push(Tag::double(v.z));
     out.put(key, list);
+}
+
+/// The body of `Entity.restoreFrom(oldEntity)`: the saved data of `old` without its dimension and passengers, then the portal
+/// state.
+pub fn restore_from_data<E: Entity + ?Sized>(new: &mut E, old: &dyn Entity) {
+    let mut tag = CompoundTag::new();
+    old.save_without_id(&mut tag, &|_| None);
+    tag.remove("Dimension");
+    tag.remove("Passengers");
+    let _ = new.load(&tag);
+    new.base_mut().portal_cooldown = old.base().portal_cooldown;
+    new.base_mut().portal_process = old.base().portal_process.clone();
 }
 
 /// `Entity.saveWithoutId`.

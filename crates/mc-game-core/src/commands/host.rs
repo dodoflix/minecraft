@@ -80,7 +80,7 @@ pub fn broadcast_to_admins(
 use crate::world::entity::Entity;
 use mc_text::Component;
 
-/// `Entity.getName()`: the custom name, else the type name; players: their profile name.
+/// `Entity.getName()`; players: their profile name.
 pub fn entity_name(entity: &dyn Entity) -> Component {
     if let Some(player) = entity
         .as_any()
@@ -88,10 +88,7 @@ pub fn entity_name(entity: &dyn Entity) -> Component {
     {
         return Component::literal(player.player.game_profile.name.clone());
     }
-    match entity.base().get_custom_name() {
-        Some(name) => name,
-        None => entity.get_type_name(),
-    }
+    entity.get_name()
 }
 
 /// `Entity.getPlainTextName()`.

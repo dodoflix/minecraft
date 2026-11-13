@@ -303,6 +303,41 @@ impl Entity for ItemEntity {
     fn tracking_kind(&self) -> super::TrackingKind {
         super::TrackingKind::ItemEntity
     }
+
+    /// `dampensVibrations()`: wool and carpet items (`ItemTags.DAMPENS_VIBRATIONS`).
+    fn dampens_vibrations(&self) -> bool {
+        mc_data::tags::get::<mc_data::Item>("dampens_vibrations")
+            .is_some_and(|tag| tag.contains(self.get_item().item()))
+    }
+
+    /// `getName()`: the custom name, else the name of the item.
+    fn get_name(&self) -> mc_text::Component {
+        self.base.get_custom_name().unwrap_or_else(|| {
+            let stack = self.get_item();
+            crate::world::item::behaviour(stack.item()).get_name(&stack)
+        })
+    }
+
+    /// `getSlot(slot)`: slot 0 is the item.
+    fn get_slot(&self, slot: i32) -> Option<ItemStack> {
+        if slot == 0 {
+            return Some(self.get_item());
+        }
+        crate::advancements::predicates::entity::support::get_slot(self, slot)
+    }
+
+    /// `restoreFrom(oldEntity)`: the thrower is copied too.
+    fn restore_from(&mut self, old: &dyn Entity) {
+        entity::restore_from_data(self, old);
+        if let Some(item) = old.as_any().downcast_ref::<ItemEntity>() {
+            self.thrower = item.thrower;
+        }
+    }
+
+    /// `teleport(transition)`: the item merges with the items where it arrives.
+    fn after_teleport(&mut self, level: &mut ServerLevel) {
+        self.merge_with_neighbours(level);
+    }
     fn get_movement_emission(&self) -> MovementEmission {
         MovementEmission::None
     }
@@ -457,11 +492,13 @@ impl Entity for ItemEntity {
         let item = stack.item();
         let org_count = stack.count();
         let infinite = player.player.abilities.instabuild;
-        if self.pickup_delay == 0
-            && self.target.is_none_or(|t| t == player.uuid())
-            && player.player.inventory.add(&mut stack, infinite)
-        {
+        if self.pickup_delay == 0 && self.target.is_none_or(|t| t == player.uuid()) {
+            let added = player.player.inventory.add(&mut stack, infinite);
+            // `Inventory.add` shrinks the entity's own stack, also when only part of it fits (then it reports no pickup)
             self.set_item_in_place(stack.clone());
+            if !added {
+                return;
+            }
             player.take(level, self, org_count);
             if stack.is_empty() {
                 self.discard();

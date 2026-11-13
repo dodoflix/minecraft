@@ -105,6 +105,7 @@ pub fn teleport_same_dimension(
         send_teleport_transition_to_players(level, entity, t);
     }
     t.post_teleport_transition.on_transition(level, entity);
+    entity.after_teleport(level);
 }
 
 /// The start of `ServerPlayer.teleport`: `NO_RESPAWN_BLOCK_AVAILABLE`, then `removeVehicle()` for a non-passenger move.
@@ -247,7 +248,7 @@ fn teleport_cross_dimension(
                     ignore_checks: true,
                 },
             )?;
-            restore_from(new.as_mut(), entity);
+            new.restore_from(&*entity);
             let current = position_move_rotation_of(entity);
             remove_after_changing_dimensions(old_level, entity);
             new.teleport_set_position_from(current, t.position_move_rotation(), t.relatives);
@@ -274,25 +275,14 @@ fn teleport_cross_dimension(
             }
             new_level.reset_empty_time();
             new_level.with_entity(new_id, |level, e| {
-                t.post_teleport_transition.on_transition(level, e)
+                t.post_teleport_transition.on_transition(level, e);
+                e.after_teleport(level);
             });
             Some(new_id)
         })
         .flatten()?;
     teleport_spectators(server, old_level, entity.id(), t);
     Some(new_id)
-}
-
-/// `Entity.restoreFrom(oldEntity)`: save + load, then the portal state.
-fn restore_from(new: &mut dyn Entity, old: &mut dyn Entity) {
-    let mut tag = mc_nbt::CompoundTag::new();
-    let none = |_| None;
-    old.save_without_id(&mut tag, &none);
-    tag.remove("Dimension");
-    tag.remove("Passengers");
-    let _ = new.load(&tag);
-    new.base_mut().portal_cooldown = old.base().portal_cooldown;
-    new.base_mut().portal_process = old.base().portal_process.clone();
 }
 
 /// `Entity.removeAfterChangingDimensions()`.
