@@ -1,0 +1,27 @@
+# Interaction NBT: defaults, a saved attack and use, the codec of the recorded player action (an int array of four, a long
+# timestamp; anything else loads as nothing), sizes given as other number types and a response given as a number.
+command_env
+level flat
+preload 2
+level_seed 5
+entity_counter 700
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 2
+dump packets:A:none
+spawn I1 minecraft:interaction 0.5 -60 3.5 0 0 {}
+entity_seed I1 31
+spawn I2 minecraft:interaction 1.5 -60 3.5 0 0 {width:2.0f,height:3.0f,response:1b,attack:{player:[I;1,2,3,4],timestamp:10L},interaction:{player:[I;5,6,7,8],timestamp:20L}}
+entity_seed I2 32
+spawn I3 minecraft:interaction 2.5 -60 3.5 0 0 {width:2,height:3d,response:2b,attack:{player:[I;1,2,3],timestamp:10L},interaction:{timestamp:20L}}
+entity_seed I3 33
+spawn I4 minecraft:interaction 3.5 -60 3.5 0 0 {width:"2",attack:{player:"00000000-0000-0000-0000-000000000001",timestamp:10L},interaction:{player:[I;5,6,7,8],timestamp:"x"}}
+entity_seed I4 34
+spawn I5 minecraft:interaction 4.5 -60 3.5 0 0 {attack:{player:[5,6,7,8],timestamp:3b},interaction:{player:[I;5,6,7,8]}}
+entity_seed I5 35
+tick 2
+dump entities nbt:I1 nbt:I2 nbt:I3 nbt:I4 nbt:I5 packets:A:add_entity,set_entity_data
+note merging changes the saved fields and the size
+nbt I2 {width:0.5f,attack:{timestamp:99L},response:0b}
+nbt I1 {height:4.0f,interaction:{player:[I;9,9,9,9],timestamp:1L}}
+tick 1
+dump nbt:I1 nbt:I2 packets:A:set_entity_data

@@ -1,0 +1,60 @@
+# Interaction entity: its size as synched entity data (the packets of its pairing), the player attack it records and swallows
+# while its response is off, the attack that goes through once the response is on, the use that is recorded, the `on attacker`
+# and `on target` relations of /execute, a /data merge that changes the box, and the removal.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 500
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player O survival 4.5 -60 2.5 90 0
+give A mainhand minecraft:diamond_sword
+tick 30
+dump packets:A:none packets:O:none inventory:A inventory:O
+note an interaction of 1.5 x 2.0 is paired with its width and height
+spawn I minecraft:interaction 0.5 -60 2.5 0 0 {width:1.5f,height:2.0f}
+entity_seed I 11
+tick 2
+dump entity:I nbt:I packets:A:add_entity,set_entity_data packets:O:add_entity,set_entity_data
+note the response is off: the attack is recorded and swallowed, nothing is hurt and no sound plays
+attack A I
+dump entity:I nbt:I player:A events packets:A:animate,entity_event,hurt_animation packets:O:animate,entity_event,hurt_animation
+tick 3
+note the use is recorded with the later game time
+interact A I main
+dump nbt:I player:A events
+tick 3
+note the relations reach the player of the last attack and of the last use
+cmd execute as @e[type=minecraft:interaction] on attacker run give @s minecraft:apple
+cmd execute as @e[type=minecraft:interaction] on target run give @s minecraft:cobblestone
+dump inventory:A inventory:O
+note turning the response on sends the data and lets the next attack through to the normal attack path
+cmd data merge entity @e[type=minecraft:interaction,limit=1] {response:1b}
+tick 1
+dump nbt:I packets:A:set_entity_data packets:O:set_entity_data
+attack A I
+dump entity:I nbt:I player:A events packets:A:animate,entity_event,hurt_animation
+tick 3
+note another player attacks and uses it: it remembers only the last one of each
+interact O I main
+attack O I
+tick 1
+cmd execute as @e[type=minecraft:interaction] on attacker run give @s minecraft:apple
+cmd execute as @e[type=minecraft:interaction] on target run give @s minecraft:cobblestone
+dump nbt:I inventory:A inventory:O
+note the box follows width and height (a selector box at x 2.5..3.5 meets it only when it is wide enough)
+cmd execute positioned 2.5 -60 2.5 if entity @e[type=minecraft:interaction,dx=0,dy=0,dz=0] run give A minecraft:stick
+dump inventory:A
+cmd data merge entity @e[type=minecraft:interaction,limit=1] {width:5.0f}
+tick 1
+cmd execute positioned 2.5 -60 2.5 if entity @e[type=minecraft:interaction,dx=0,dy=0,dz=0] run give A minecraft:stick
+dump inventory:A entity:I nbt:I packets:A:set_entity_data
+cmd data merge entity @e[type=minecraft:interaction,limit=1] {width:0.5f,height:0.5f}
+tick 1
+cmd execute positioned 2.5 -60 2.5 if entity @e[type=minecraft:interaction,dx=0,dy=0,dz=0] run give A minecraft:stick
+cmd execute positioned 0.5 -60 2.5 if entity @e[type=minecraft:interaction,dx=0,dy=0,dz=0] run give A minecraft:string
+dump inventory:A nbt:I packets:A:set_entity_data
+note it is removed
+kill I
+tick 1
+dump entities packets:A:remove_entities

@@ -1,0 +1,57 @@
+# Marker entity: never paired with a player (no tracking packets), takes no tick (lava, fire, void and suffocation leave it
+# alone), cannot be hurt, ridden or pushed by a piston, does not press a plate, and has no save data of its own (the base entity's `data` round-trips).
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 600
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player O survival 6.5 -60 6.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 30
+dump packets:A:none packets:O:none
+note a marker next to the players and one on the same column as a player: neither is sent to anybody
+spawn M1 minecraft:marker 0.5 -60 2.5 0 0 {}
+entity_seed M1 21
+spawn M2 minecraft:marker 6.5 -60 6.5 0 0 {data:{kept:1b}}
+entity_seed M2 22
+tick 2
+dump entities entity:M1 nbt:M1 nbt:M2 packets:A:add_entity,set_entity_data,remove_entities packets:O:add_entity,set_entity_data,remove_entities
+note lava, fire and the void do nothing to it
+block 2 -61 2 minecraft:lava[level=0]
+spawn M3 minecraft:marker 2.5 -60.5 2.5 0 0 {}
+entity_seed M3 23
+spawn M4 minecraft:marker 10.5 -60 2.5 0 0 {Fire:200s}
+entity_seed M4 24
+spawn M5 minecraft:marker 12.5 -300 2.5 0 0 {}
+entity_seed M5 25
+tick 40
+dump entity:M3 entity:M4 entity:M5 nbt:M3 nbt:M4 nbt:M5
+note it cannot be hurt, attacked, used or ridden
+hurt M1 generic 5
+hurt M1 out_of_world 100
+attack A M1
+interact A M1 main
+ride A M1
+tick 2
+dump entity:M1 nbt:M1 player:A events packets:A:set_passengers,entity_event,hurt_animation
+note a pressure plate under a marker stays off, a piston does not move it
+block 14 -61 2 minecraft:stone
+block 14 -60 2 minecraft:stone_pressure_plate[powered=false]
+spawn M6 minecraft:marker 14.5 -60 2.5 0 0 {}
+entity_seed M6 26
+block 20 -60 2 minecraft:piston[facing=east,extended=false]
+spawn M8 minecraft:marker 21.5 -59.5 2.5 0 0 {}
+entity_seed M8 28
+block 20 -61 2 minecraft:redstone_block
+tick 12
+dump blocks:14,-61,2,20,-59,2 entity:M6 entity:M8 events
+note a player on the plate presses it while the marker alone does not
+tp A 14.5 -60 2.5
+tick 5
+dump blocks:14,-60,2,14,-60,2 player:A events
+note it is removed without a packet
+kill M1
+kill M2
+tick 1
+dump entities packets:A:remove_entities packets:O:remove_entities

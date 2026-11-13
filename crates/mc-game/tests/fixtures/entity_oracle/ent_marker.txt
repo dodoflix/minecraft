@@ -1,0 +1,44 @@
+# a marker next to the players and one on the same column as a player: neither is sent to anybody
+E M1 minecraft:marker pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E M2 minecraft:marker pos=6.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E M1 minecraft:marker pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N M1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N M2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-60.0d,6.5d],Rotation:[0.0f,0.0f],data:{kept:1b},fall_distance:0.0d}
+# lava, fire and the void do nothing to it
+E M3 minecraft:marker pos=2.5,-60.5,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E M4 minecraft:marker pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=200 air=300 alive=1 pose=standing
+E M5 minecraft:marker pos=12.5,-300.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N M3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.5d,2.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N M4 {Air:300s,Fire:200s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[10.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N M5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[12.5d,-300.0d,2.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+# it cannot be hurt, attacked, used or ridden
+HURT M1 generic 5 -> false
+HURT M1 out_of_world 100 -> false
+E M1 minecraft:marker pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N M1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.attack.nodamage source=player vol=1.0 pitch=1.0
+# a pressure plate under a marker stays off, a piston does not move it
+B 14 -61 2 minecraft:stone
+B 14 -60 2 minecraft:stone_pressure_plate[powered=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 16 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:redstone_block
+B 20 -60 2 minecraft:piston[extended=true,facing=east]
+E M6 minecraft:marker pos=14.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E M8 minecraft:marker pos=21.5,-59.5,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=20.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.71149445
+EV block_event r=64.0 ex=0 pos=20,-60,2 block=minecraft:piston b0=0 b1=5
+# a player on the plate presses it while the marker alone does not
+B 14 -60 2 minecraft:stone_pressure_plate[powered=true]
+P A minecraft:player pos=14.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+EV sound at=14.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.stone_pressure_plate.click_on source=block vol=1.0 pitch=1.0
+# it is removed without a packet
+E M3 minecraft:marker pos=2.5,-60.5,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E M4 minecraft:marker pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=200 air=300 alive=1 pose=standing
+E M5 minecraft:marker pos=12.5,-300.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E M6 minecraft:marker pos=14.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E M8 minecraft:marker pos=21.5,-59.5,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing

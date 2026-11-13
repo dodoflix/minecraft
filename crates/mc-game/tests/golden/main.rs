@@ -79,6 +79,7 @@ mod dig_golden;
 mod dispenser_registry_guard;
 mod enchant_anvil_golden;
 mod enchant_golden;
+mod ent_marker_interaction_golden;
 mod entity_base_motion_golden;
 mod entity_items_orbs_golden;
 mod entity_registration_guards;

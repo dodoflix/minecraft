@@ -1,0 +1,24 @@
+E I1 minecraft:interaction pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I2 minecraft:interaction pos=1.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I3 minecraft:interaction pos=2.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I4 minecraft:interaction pos=3.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E I5 minecraft:interaction pos=4.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N I1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,height:1.0f,response:0b,width:1.0f}
+N I2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],attack:{player:[I;1,2,3,4],timestamp:10L},fall_distance:0.0d,height:3.0f,interaction:{player:[I;5,6,7,8],timestamp:20L},response:1b,width:2.0f}
+N I3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,height:3.0f,response:1b,width:2.0f}
+N I4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[3.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,height:1.0f,response:0b,width:1.0f}
+N I5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],attack:{player:[I;5,6,7,8],timestamp:3L},fall_distance:0.0d,height:1.0f,response:0b,width:1.0f}
+PKT A minecraft:add_entity 01be053ca3248915f84ea4b76033bcb14b2718463fe0000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:add_entity 01bf05d2c27eb6710f4ff48ab6fc522a6e6aa9463ff8000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 65bf050803400000000903404000000a0801ff
+PKT A minecraft:add_entity 01c0054ab938fc9cb74da2bc9911d081afb993464004000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 65c0050803400000000903404000000a0801ff
+PKT A minecraft:add_entity 01c10574720d73e1804e9395d46422b9c4244146400c000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:add_entity 01c2055367b3a0d81d4be4a80858b6bc9b23d3464012000000000000c04e000000000000400c0000000000000000000000
+PKT A minecraft:set_entity_data 65bf050803400000000903404000000a0801ff
+PKT A minecraft:set_entity_data 65c0050803400000000903404000000a0801ff
+# merging changes the saved fields and the size
+N I1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,height:4.0f,interaction:{player:[I;9,9,9,9],timestamp:1L},response:0b,width:1.0f}
+N I2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,3.5d],Rotation:[0.0f,0.0f],attack:{player:[I;1,2,3,4],timestamp:99L},fall_distance:0.0d,height:3.0f,interaction:{player:[I;5,6,7,8],timestamp:20L},response:0b,width:0.5f}
+PKT A minecraft:set_entity_data 65be05090340800000ff
+PKT A minecraft:set_entity_data 65bf0508033f0000000a0800ff

@@ -1,0 +1,51 @@
+# Interaction entity against the world: a spear stab reaches it (it needs no living target) and is recorded and swallowed
+# like an attack, a thrown snowball flies through it, it does not press a plate and a piston does not push it (a cow in
+# the next row is the control).
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 0.5 0 0
+give A mainhand minecraft:iron_spear
+tick 40
+dump packets:A:none
+spawn I minecraft:interaction 0.5 -60 3.0 0 0 {width:1.5f,height:2.0f}
+entity_seed I 41
+tick 2
+note a stab along the view line hits it: recorded, and swallowed while the response is off
+stab A
+dump entity:I nbt:I player:A events inventory:A
+tick 40
+note with the response on the stab goes through the normal attack path
+cmd data merge entity @e[type=minecraft:interaction,limit=1] {response:1b}
+tick 1
+stab A
+dump entity:I nbt:I player:A events inventory:A
+tick 40
+note a snowball flies through the box (it cannot be hit by a projectile)
+spawn S minecraft:snowball 0.5 -59.5 7.5 0 0 {Motion:[0.0,0.0,-0.8]}
+entity_seed S 42
+watch entity:S
+tick 5
+watch off
+dump nbt:I entity:I events
+note a pressure plate under it stays off
+kill I
+block 6 -61 2 minecraft:stone
+block 6 -60 2 minecraft:stone_pressure_plate[powered=false]
+spawn I2 minecraft:interaction 6.5 -60 2.5 0 0 {width:1.0f,height:1.0f}
+entity_seed I2 43
+tick 12
+dump blocks:6,-60,2,6,-60,2 entity:I2 events
+note a piston pushes the cow into the next block and leaves the interaction where it is
+block 10 -60 2 minecraft:piston[facing=east,extended=false]
+block 10 -60 4 minecraft:piston[facing=east,extended=false]
+spawn I3 minecraft:interaction 11.5 -60 2.5 0 0 {width:0.8f,height:0.8f}
+entity_seed I3 44
+spawn C minecraft:cow 11.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C 45
+block 10 -61 2 minecraft:redstone_block
+block 10 -61 4 minecraft:redstone_block
+tick 12
+dump blocks:10,-60,2,12,-60,4 entity:I3 entity:C events

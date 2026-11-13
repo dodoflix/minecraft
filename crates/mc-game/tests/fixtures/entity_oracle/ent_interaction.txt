@@ -1,0 +1,83 @@
+I A 0 minecraft:diamond_sword*1
+# an interaction of 1.5 x 2.0 is paired with its width and height
+E I minecraft:interaction pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N I {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,height:2.0f,response:0b,width:1.5f}
+PKT A minecraft:add_entity 01f703d724b91ddc7e48a3a3e62e28c208e81b463fe0000000000000c04e00000000000040040000000000000000000000
+PKT A minecraft:set_entity_data 65f70308033fc00000090340000000ff
+PKT A minecraft:set_entity_data 65f70308033fc00000090340000000ff
+PKT O minecraft:add_entity 01f703d724b91ddc7e48a3a3e62e28c208e81b463fe0000000000000c04e00000000000040040000000000000000000000
+PKT O minecraft:set_entity_data 65f70308033fc00000090340000000ff
+PKT O minecraft:set_entity_data 65f70308033fc00000090340000000ff
+# the response is off: the attack is recorded and swallowed, nothing is hurt and no sound plays
+E I minecraft:interaction pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N I {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],attack:{player:[I;-1217574189,-1929301680,-1288476465,-1272613004],timestamp:32L},fall_distance:0.0d,height:2.0f,response:0b,width:1.5f}
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+# the use is recorded with the later game time
+N I {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],attack:{player:[I;-1217574189,-1929301680,-1288476465,-1272613004],timestamp:32L},fall_distance:0.0d,height:2.0f,interaction:{player:[I;-1217574189,-1929301680,-1288476465,-1272613004],timestamp:35L},response:0b,width:1.5f}
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+# the relations reach the player of the last attack and of the last use
+C Gave 1 [Apple] to A
+C Gave 1 [Cobblestone] to A
+I A 0 minecraft:diamond_sword*1
+I A 1 minecraft:apple*1
+I A 2 minecraft:cobblestone*1
+# turning the response on sends the data and lets the next attack through to the normal attack path
+C Modified entity data of Interaction
+N I {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],attack:{player:[I;-1217574189,-1929301680,-1288476465,-1272613004],timestamp:32L},fall_distance:0.0d,height:2.0f,interaction:{player:[I;-1217574189,-1929301680,-1288476465,-1272613004],timestamp:35L},response:1b,width:1.5f}
+PKT A minecraft:set_entity_data 65f803080701ef070000ff
+PKT A minecraft:set_entity_data 65f9030807013e0000ff
+PKT A minecraft:set_entity_data 65f7030a0801ff
+PKT A minecraft:set_entity_data 65f9030807013e0000ff
+PKT A minecraft:set_entity_data 65f803080701ef070000ff
+PKT O minecraft:set_entity_data 65f803080701ef070000ff
+PKT O minecraft:set_entity_data 65f9030807013e0000ff
+PKT O minecraft:set_entity_data 65f7030a0801ff
+PKT O minecraft:set_entity_data 65f9030807013e0000ff
+PKT O minecraft:set_entity_data 65f803080701ef070000ff
+E I minecraft:interaction pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N I {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],attack:{player:[I;-1217574189,-1929301680,-1288476465,-1272613004],timestamp:39L},fall_distance:0.0d,height:2.0f,interaction:{player:[I;-1217574189,-1929301680,-1288476465,-1272613004],timestamp:35L},response:1b,width:1.5f}
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.item.pickup source=player vol=0.2 pitch=1.9080782
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.item.pickup source=player vol=0.2 pitch=2.563509
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.player.attack.nodamage source=player vol=1.0 pitch=1.0
+# another player attacks and uses it: it remembers only the last one of each
+C Gave 1 [Apple] to O
+C Gave 1 [Cobblestone] to O
+N I {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],attack:{player:[I;-12061472,1475558990,-1829403300,-851606953],timestamp:42L},fall_distance:0.0d,height:2.0f,interaction:{player:[I;-12061472,1475558990,-1829403300,-851606953],timestamp:42L},response:1b,width:1.5f}
+I A 0 minecraft:diamond_sword*1
+I A 1 minecraft:apple*1
+I A 2 minecraft:cobblestone*1
+I O 0 minecraft:apple*1
+I O 1 minecraft:cobblestone*1
+# the box follows width and height (a selector box at x 2.5..3.5 meets it only when it is wide enough)
+I A 0 minecraft:diamond_sword*1
+I A 1 minecraft:apple*1
+I A 2 minecraft:cobblestone*1
+C Modified entity data of Interaction
+C Gave 1 [Stick] to A
+I A 0 minecraft:diamond_sword*1
+I A 1 minecraft:apple*1
+I A 2 minecraft:cobblestone*1
+I A 3 minecraft:stick*1
+E I minecraft:interaction pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N I {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],attack:{player:[I;-12061472,1475558990,-1829403300,-851606953],timestamp:42L},fall_distance:0.0d,height:2.0f,interaction:{player:[I;-12061472,1475558990,-1829403300,-851606953],timestamp:42L},response:1b,width:5.0f}
+PKT A minecraft:set_entity_data 65fa03080701ef070000ff
+PKT A minecraft:set_entity_data 65fb030807013e0000ff
+PKT A minecraft:set_entity_data 65f703080340a00000ff
+PKT A minecraft:set_entity_data 65fb030807013e0000ff
+PKT A minecraft:set_entity_data 65fa03080701ef070000ff
+PKT A minecraft:set_entity_data 65fc03080701a4080000ff
+C Modified entity data of Interaction
+C Gave 1 [String] to A
+I A 0 minecraft:diamond_sword*1
+I A 1 minecraft:apple*1
+I A 2 minecraft:cobblestone*1
+I A 3 minecraft:stick*1
+I A 4 minecraft:string*1
+N I {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],attack:{player:[I;-12061472,1475558990,-1829403300,-851606953],timestamp:42L},fall_distance:0.0d,height:0.5f,interaction:{player:[I;-12061472,1475558990,-1829403300,-851606953],timestamp:42L},response:1b,width:0.5f}
+PKT A minecraft:set_entity_data 65f70308033f00000009033f000000ff
+PKT A minecraft:set_entity_data 65fc03080701a4080000ff
+PKT A minecraft:set_entity_data 65fd03080701a6080000ff
+# it is removed
+PKT A minecraft:remove_entities 4e01f703
+PKT A minecraft:remove_entities 4e01fd03
