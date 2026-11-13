@@ -387,7 +387,7 @@ impl ArmorStand {
 
     /// `kill(level, attributedTo)`.
     pub fn kill_attributed(&mut self, level: &mut ServerLevel, attributed_to: Option<EntityId>) {
-        self.remove(RemovalReason::Killed);
+        level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
         let position = self.data().position();
         match attributed_to {
             Some(source) => {

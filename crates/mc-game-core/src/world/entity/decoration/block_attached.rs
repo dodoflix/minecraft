@@ -83,8 +83,7 @@ pub fn tick<E: BlockAttached>(e: &mut E, level: &mut ServerLevel) {
         e.attached_mut().ticks_since_last_check = 0;
         e.tick_at_check_interval(level);
         if !e.is_removed() && !e.survives(level) {
-            e.discard();
-            level.untrack_discarded_entity(e.as_dyn_mut());
+            level.remove_held_entity(e.as_dyn_mut(), RemovalReason::Discarded);
             e.drop_item(level, None);
         }
     }
@@ -115,8 +114,7 @@ pub fn kill_self<E: BlockAttached>(e: &mut E, level: &mut ServerLevel) {
 /// `BlockAttachedEntity.kill(level, attributedTo)`.
 pub fn kill<E: BlockAttached>(e: &mut E, level: &mut ServerLevel, attributed_to: Option<EntityId>) {
     e.on_killed(level);
-    e.remove(RemovalReason::Killed);
-    level.untrack_discarded_entity(e.as_dyn_mut());
+    level.remove_held_entity(e.as_dyn_mut(), RemovalReason::Killed);
     let position = e.base().position();
     match attributed_to {
         Some(source) => level.game_event_from_entity(Some(source), GameEvent::ENTITY_DIE, position),
