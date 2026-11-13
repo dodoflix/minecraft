@@ -20,10 +20,12 @@
 //!
 //! # What the replay does
 //! * Level: `ServerLevel::detached` + the vanilla registries, flat world (bedrock -64, dirt -63..-62, grass -61) filled for
-//!   `x,z in [-64, 64]`; `level void` leaves it empty. `level normal` is not supported.
+//!   `x,z in [-64, 64]`; `level void` leaves it empty (the chunks exist). `level normal` is not supported.
 //! * Time: one `tick` = `HarnessEnv`-less entity pass of `ServerLevel.tick`'s entity part in creation order (no range checks),
-//!   then the connection tick of the players (`doTick`). Block ticks / fluid flow / random ticks / weather / chunk loading do NOT run
-//!   (scenarios enclose fluids in stone like the item scenarios do). `time` and `gamerule` only feed what the harness models.
+//!   then the connection tick of the players (`doTick`; a client-authoritative player is snapped back like `tickPlayer` does). Each tick
+//!   updates the sky and advances the game time first. Block ticks / fluid flow / random ticks / weather / chunk loading do NOT run
+//!   (scenarios enclose fluids in stone like the item scenarios do). `time N` sets the overworld clock (frozen like the oracle's quiet
+//!   world); `gamerule` sets the real rule on top of the oracle's quiet-world rules. `C` lines (command feedback) are never compared.
 //! * Randomness: before every command the entity-seed sequence is restarted with `hash(line)`, `spawn*` with `hash(name)` and every tick
 //!   with the oracle's per-tick seed (`mc_core::random::reseed_uniquifier`, the Rust twin of the oracle's `RandomSupport` shadow), so
 //!   freshly created entities draw the same random seeds as in the oracle. Entity ids are assigned `1, 2, 3, ...` in creation order
@@ -36,7 +38,7 @@
 //!   (babies, arrows, orbs) get the oracle's ids; ids matter for `(tickCount + id) % n` throttles. An unsupported command or dump kind PANICS with `scenario:line`; there is no
 //!   silent skipping (`ignore_kinds` of [`Options`] only drops output lines at comparison time).
 //! * Output: `T n`, `P`/`E` lines for `dump`/`watch` (`player:`, `entity:`, `mob:`, `xentity:`, `entities`, `mobs`, `xentities`, `all_players`), `ED`
-//!   (`edata:`), `HURT`, `EFFECT`, `# note`. The base fields are written by `entity_describe.rs` (shared with the block replay), the extra fields
+//!   (`edata:`), `RNG` (`rng:level|REF`), `HURT`, `EFFECT`, `# note`. The base fields are written by `entity_describe.rs` (shared with the block replay), the extra fields
 //!   of the rich dumps (`mob:`, `mobs`, `xentity:`, `xentities`) by the `SCENARIO_DUMP_EXTRA` registry.
 use super::entity_oracle::{Fixture, Options, scenario_dir};
 
@@ -64,7 +66,7 @@ use mc_game::world::level::LevelAccessor;
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::codec::GameProfile;
 use mc_protocol::packets::play::Input;
-use mc_world::level_storage::Difficulty;
+use mc_world::level_storage::{Difficulty, FeatureFlagSet};
 use std::collections::{BTreeMap, BTreeSet};
 
 // ------------------------------------------------------------------------------------------------ entry points
@@ -76,7 +78,11 @@ pub fn run_scenario_test(name: &str) {
 
 pub fn run_scenario_test_with(name: &str, opts: &Options) {
     let actual = run_scenario(name);
-    Fixture::load(name).assert_matches(&actual, opts);
+    // `C` lines are the command feedback of the driver's `time`/`gamerule`/`difficulty`/`cmd` verbs ("Set minecraft:overworld to N
+    // tick(s)"): the replay changes the same state without a command (the block replay compares the same way)
+    let mut opts = opts.clone();
+    opts.ignore_kinds.push("C");
+    Fixture::load(name).assert_matches(&actual, &opts);
 }
 
 /// Replay a scenario and return the lines the Java driver would have printed.
@@ -84,7 +90,16 @@ pub fn run_scenario(name: &str) -> Vec<String> {
     let path = scenario_dir().join(format!("{name}.txt"));
     let text = std::fs::read_to_string(&path)
         .unwrap_or_else(|e| panic!("scenario {}: {e}", path.display()));
-    run_scenario_text(name, &text)
+    let lines = run_scenario_text(name, &text);
+    // `ENTITY_SCENARIO_ACTUAL=DIR` writes the replay output to DIR/NAME.txt, to diff it against the fixture by hand
+    if let Some(dir) = std::env::var_os("ENTITY_SCENARIO_ACTUAL") {
+        std::fs::write(
+            std::path::Path::new(&dir).join(format!("{name}.txt")),
+            lines.join("\n") + "\n",
+        )
+        .expect("write the replay output");
+    }
+    lines
 }
 
 pub fn run_scenario_text(label: &str, text: &str) -> Vec<String> {
@@ -288,8 +303,11 @@ pub struct Harness {
     pub line_no: usize,
     pub line: String,
     flat: bool,
-    pub day_time: i64,
     sequences: super::player_actions::Sequences,
+    /// The oracle's rules: the quiet world of `VanillaLevel.boot` plus every `gamerule` verb so far.
+    game_rules: mc_game::world::level::gamerules::GameRules,
+    /// The overworld clock the `time` verb sets (`/time set`): the sky, the sun and the villager schedule follow it.
+    clocks: std::sync::Arc<mc_game::world::clock::ClockTotals>,
     /// The level's recorded broadcasts (sounds, level events) since the last `dump events`.
     broadcast_log: std::sync::Arc<
         parking_lot::Mutex<Vec<mc_game::server::level::level_events::BroadcastRecord>>,
@@ -319,8 +337,17 @@ impl Harness {
         level.server_state.loot.world_seed = 4242;
         let broadcast_log = std::sync::Arc::new(parking_lot::Mutex::new(Vec::new()));
         level.tick_state.broadcast_log = Some(broadcast_log.clone());
+        let game_rules = super::block_scenario::quiet_game_rules(FeatureFlagSet::DEFAULT_FLAGS);
+        level.server_state.rules.refresh(&game_rules);
+        let clocks = std::sync::Arc::<mc_game::world::clock::ClockTotals>::default();
+        level.tick_state.attributes = super::block_scenario::environment_attributes(
+            &super::block_scenario::load_dimension_type("overworld"),
+            clocks.clone(),
+        );
         Harness {
             level,
+            game_rules,
+            clocks,
             world,
             refs: BTreeMap::new(),
             names: BTreeMap::new(),
@@ -337,7 +364,6 @@ impl Harness {
             line_no: 0,
             line: String::new(),
             flat: true,
-            day_time: 0,
             sequences: Default::default(),
             broadcast_log,
         }
@@ -377,6 +403,13 @@ impl Harness {
             self.fill([-64, -64, -64], [64, -64, 64], bedrock);
             self.fill([-64, -63, -64], [64, -62, 64], dirt);
             self.fill([-64, -61, -64], [64, -61, 64], grass);
+        } else {
+            // the oracle preloads the chunks around the origin even when it leaves them empty: an entity in a chunk that was never
+            // created is not accessible. Touching one block per chunk creates it.
+            for (cx, cz) in (-4..=4).flat_map(|x| (-4..=4).map(move |z| (x, z))) {
+                self.set_block(cx * 16, -64, cz * 16, Block::BEDROCK.default_state());
+                self.set_block(cx * 16, -64, cz * 16, Block::AIR.default_state());
+            }
         }
         mc_core::random::reseed_uniquifier(8682522807148012);
     }
@@ -577,52 +610,16 @@ impl Harness {
             "note" => self.out.push(format!("# {}", self.line[4..].trim())),
             "gamerule" => {
                 self.world();
-                let v = a[2] == "true";
-                let name = a[1].clone();
-                let modelled = [
-                    "keep_inventory",
-                    "fall_damage",
-                    "fire_damage",
-                    "drowning_damage",
-                    "freeze_damage",
-                    "show_death_messages",
-                    "forgive_dead_players",
-                ];
-                // quiet-world defaults of the oracle that the replay never contradicts
-                let quiet = [
-                    "advance_time",
-                    "advance_weather",
-                    "spawn_mobs",
-                    "spawn_monsters",
-                    "spawn_patrols",
-                    "spawn_phantoms",
-                    "spawn_wandering_traders",
-                    "spawn_wardens",
-                    "raids",
-                    "log_admin_commands",
-                    "send_command_feedback",
-                    "random_tick_speed",
-                ];
-                if modelled.contains(&name.as_str()) {
-                    self.level
-                        .server_state
-                        .rules
-                        .update(|r| match name.as_str() {
-                            "keep_inventory" => r.keep_inventory = v,
-                            "fall_damage" => r.fall_damage = v,
-                            "fire_damage" => r.fire_damage = v,
-                            "drowning_damage" => r.drowning_damage = v,
-                            "freeze_damage" => r.freeze_damage = v,
-                            "show_death_messages" => r.show_death_messages = v,
-                            _ => r.forgive_dead_players = v,
-                        });
-                } else if !quiet.contains(&name.as_str()) {
-                    self.fail(&format!("gamerule {name} is not modelled by the replay"));
-                }
+                super::block_scenario::set_rule(&mut self.game_rules, &a[1], &a[2]);
+                self.level.server_state.rules.refresh(&self.game_rules);
             }
             "time" => {
                 self.world();
-                self.day_time = self.num(&a[1]) as i64;
+                // `/time set`: the sky follows from the next tick (`updateSkyBrightness`)
+                let ticks = self.num(&a[1]) as i64;
+                self.clocks
+                    .set(&Identifier::parse("minecraft:overworld").unwrap(), ticks);
+                self.level.tick_state.attributes.invalidate_tick_cache();
             }
             "reseed" => {
                 self.world();
@@ -1099,6 +1096,10 @@ impl Harness {
             8682522807148012i64
                 ^ ((self.ticks as i64 + 1).wrapping_mul(0x9E3779B97F4A7C15u64 as i64)),
         );
+        // `ServerLevel.tick`: the sky is updated, then `tickTime` advances the game time before the entities tick (`advance_time` only
+        // stops the day clock)
+        self.level.update_sky_brightness();
+        self.level.set_game_time(self.level.game_time() + 1);
         for (_, id) in self.players.clone() {
             self.level.with_player(id, |_, p| {
                 if p.simulate_local_player {
@@ -1112,9 +1113,14 @@ impl Harness {
         }
         for (_, id) in self.players.clone() {
             self.level.with_player(id, |level, p| {
-                let pos = p.base().position();
+                let (pos, y_rot, x_rot) = (p.base().position(), p.get_y_rot(), p.get_x_rot());
                 p.base_mut().set_old_pos(pos);
                 p.do_tick(level);
+                // `ServerGamePacketListenerImpl.tickPlayer`: a client-authoritative player's server-side motion (knockback) is thrown
+                // away, the next client packet decides where it is
+                if !p.simulate_local_player {
+                    p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
+                }
             });
         }
         self.ticks += 1;
@@ -1173,6 +1179,19 @@ impl Harness {
                         None => self.fail(&format!("entity {n} is not in the level")),
                     };
                     self.out.push(line);
+                }
+                // RNG level|REF STATE: the 48-bit state of `Level.random` or of the entity's own random
+                ("rng", Some(n)) => {
+                    let state = if n == "level" {
+                        self.level.tick_state.random.state()
+                    } else {
+                        let id = self.entity_ref(n);
+                        match self.level.get_entity_or_removed(id) {
+                            Some(e) => e.base().random.state(),
+                            None => self.fail(&format!("entity {n} is not in the level")),
+                        }
+                    };
+                    self.out.push(format!("RNG {n} {state}"));
                 }
                 ("all_players", None) => {
                     for (n, _) in self.players.clone() {

@@ -36,6 +36,7 @@ use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::mob::{self, MobData, MobKind};
 use crate::world::entity::npc::inventory_carrier::{self, InventoryCarrier};
 use crate::world::entity::player::ServerPlayer;
+use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use crate::world::entity::schedule::Activity;
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::{Entity, EntityId};
@@ -1320,6 +1321,24 @@ impl Entity for Villager {
         self.schedule_init_pending = true;
     }
 }
+
+/// The villager fields of the rich scenario `E` line: `vdata=type/profession/level vxp=xp` (order 14: after `TamableAnimal`).
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static VILLAGER_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 14,
+    applies: |e| e.as_any().is::<Villager>(),
+    fields: |e, _level, _ctx| {
+        let v = e.as_any().downcast_ref::<Villager>().expect("villager");
+        let d = v.get_villager_data();
+        vec![
+            (
+                "vdata".into(),
+                format!("{}/{}/{}", d.r#type.name(), d.profession.name(), d.level),
+            ),
+            ("vxp".into(), v.villager_xp.to_string()),
+        ]
+    },
+};
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static VILLAGER: EntityRegistration = EntityRegistration {

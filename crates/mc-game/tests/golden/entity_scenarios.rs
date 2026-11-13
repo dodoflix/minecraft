@@ -69,7 +69,7 @@ fn plain_entities_and_notes_replay() {
 
 /// Example mob golden (the recipe in the harness header): a zombie chasing a player.
 #[test]
-#[ignore = "deviation: the scenario replay lacks the mob_drops rule and command feedback lines (#7)"]
+#[ignore = "deviation: at the first overlap with the player (tick 93) the zombie keeps delta.x -0.0636 where vanilla shows -0.0276 (the player's pushEntities does not push it)"]
 fn example_mob_golden_zombie_chase() {
     run_scenario_test("mob_zombie_chase");
 }
@@ -142,14 +142,14 @@ fn mob_path_ground() {
 
 /// Piglin barter / admire / hostility toward a player without gold armor.
 #[test]
-#[ignore = "deviation: the scenario replay lacks the mob_drops rule and command feedback lines (#7)"]
+#[ignore = "deviation: from tick 122 vanilla's `target=` shows the brain's attack target (Piglin.getTarget reads ATTACK_TARGET) and the `look_target` memory, ours show neither"]
 fn mob_piglin_barter() {
     run_scenario_test("mob_piglin_barter");
 }
 
 /// Hoglin attack and throwTarget knockback against a player.
 #[test]
-#[ignore = "deviation: the scenario replay lacks the mob_drops rule and command feedback lines (#7)"]
+#[ignore = "deviation: from tick 3 vanilla's `target=` shows the brain's attack target (Hoglin.getTarget reads ATTACK_TARGET), ours stays empty"]
 fn mob_hoglin_vs_player() {
     run_scenario_test("mob_hoglin_vs_player");
 }

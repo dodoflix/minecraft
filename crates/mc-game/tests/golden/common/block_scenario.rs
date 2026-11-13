@@ -380,6 +380,42 @@ impl mc_game::registry::codec::RegistryLookup for AllKnown {
     }
 }
 
+/// The vanilla dimension type JSON of `dimension` (`overworld`, `the_nether`, `the_end`).
+pub(super) fn load_dimension_type(
+    dimension: &str,
+) -> mc_game::registry::typed::dimension_type::DimensionType {
+    let dimension_json: serde_json::Value = serde_json::from_str(
+        &mc_data::datapack::read_string(&format!("data/minecraft/dimension_type/{dimension}.json"))
+            .expect("dimension type json"),
+    )
+    .unwrap();
+    mc_game::registry::typed::dimension_type::DimensionType::from_json(
+        &dimension_json,
+        &mc_game::registry::codec::RegistryDecodeContext::new(&AllKnown),
+    )
+    .expect("dimension type")
+}
+
+/// The dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`) and the weather layers; no biome layers.
+pub(super) fn environment_attributes(
+    dimension_type: &mc_game::registry::typed::dimension_type::DimensionType,
+    clocks: Arc<mc_game::world::clock::ClockTotals>,
+) -> mc_game::world::attribute::EnvironmentAttributeSystem {
+    let timelines = match &dimension_type.timelines {
+        mc_game::registry::typed::HolderSetRef::Tag(tag) => timelines_of_tag(tag.path()),
+        mc_game::registry::typed::HolderSetRef::Elements(ids) => {
+            ids.iter().filter_map(|id| timeline(id.path())).collect()
+        }
+    };
+    mc_game::world::attribute::EnvironmentAttributeSystem::build(
+        &dimension_type.attributes,
+        &vec![None],
+        &timelines,
+        true,
+        clocks,
+    )
+}
+
 fn timeline(name: &str) -> Option<mc_game::world::attribute::Timeline> {
     let json = mc_data::datapack::read_string(&format!("data/minecraft/timeline/{name}.json"))?;
     mc_game::world::attribute::Timeline::from_json(&serde_json::from_str(&json).unwrap())
@@ -525,25 +561,7 @@ impl Scenario {
                 .as_ref()
                 .map_or_else(|| vec!["minecraft:plains".to_string()], |b| b.names()),
         );
-        let dimension_json: serde_json::Value = serde_json::from_str(
-            &mc_data::datapack::read_string(&format!(
-                "data/minecraft/dimension_type/{}.json",
-                self.opts.dimension
-            ))
-            .expect("dimension type json"),
-        )
-        .unwrap();
-        let dimension_type = mc_game::registry::typed::dimension_type::DimensionType::from_json(
-            &dimension_json,
-            &mc_game::registry::codec::RegistryDecodeContext::new(&AllKnown),
-        )
-        .expect("dimension type");
-        let timelines = match &dimension_type.timelines {
-            mc_game::registry::typed::HolderSetRef::Tag(tag) => timelines_of_tag(tag.path()),
-            mc_game::registry::typed::HolderSetRef::Elements(ids) => {
-                ids.iter().filter_map(|id| timeline(id.path())).collect()
-            }
-        };
+        let dimension_type = load_dimension_type(self.opts.dimension);
         // flat only exists in the overworld; the other dimensions are void here (scenarios fill what they dump)
         let generator: Arc<dyn ChunkGeneratorBackend> = if let Some((_, backend)) = &noise_world {
             backend.clone()
@@ -622,13 +640,7 @@ impl Scenario {
             )),
         });
         // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`) and the weather layers; no biome layers
-        level.tick_state.attributes = mc_game::world::attribute::EnvironmentAttributeSystem::build(
-            &dimension_type.attributes,
-            &vec![None],
-            &timelines,
-            true,
-            self.clocks.clone(),
-        );
+        level.tick_state.attributes = environment_attributes(&dimension_type, self.clocks.clone());
         // the level's own id sequence (starts at 1 like the oracle's `ENTITY_COUNTER`): parallel tests must not share ids
         level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
         level.tick_state.tick_time = true;
@@ -1277,7 +1289,7 @@ fn apply_spawn_settings(level: &mut ServerLevel, rules: &GameRules, difficulty: 
 }
 
 /// `VanillaLevel.boot`: the frozen, quiet world's rules (a rule that needs a feature flag exists only when the world enables it).
-fn quiet_game_rules(features: FeatureFlagSet) -> GameRules {
+pub(super) fn quiet_game_rules(features: FeatureFlagSet) -> GameRules {
     let mut game_rules = GameRules::new(features);
     for rule in [
         "advance_time",
@@ -1298,7 +1310,7 @@ fn quiet_game_rules(features: FeatureFlagSet) -> GameRules {
     game_rules
 }
 
-fn set_rule(rules: &mut GameRules, name: &str, value: &str) {
+pub(super) fn set_rule(rules: &mut GameRules, name: &str, value: &str) {
     let id = Identifier::parse(&format!("minecraft:{name}"))
         .unwrap_or_else(|_| panic!("gamerule {name}"));
     let rule = AnyGameRule::by_identifier(&id).unwrap_or_else(|| panic!("unknown gamerule {name}"));
