@@ -28,3 +28,9 @@ fn shield_blocks_with_hoglins_match_vanilla() {
 fn armored_mob_takes_reduced_damage_like_vanilla() {
     common::block_scenario::check("mob_hurt_armored");
 }
+
+/// A hoglin attacking a player: the damage roll and the throw knockback, on the ticking level.
+#[test]
+fn hoglin_attack_matches_vanilla() {
+    common::block_scenario::check("mob_hoglin_attack");
+}

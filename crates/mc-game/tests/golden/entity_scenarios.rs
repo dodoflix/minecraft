@@ -144,7 +144,7 @@ fn mob_piglin_barter() {
 
 /// Hoglin attack and throwTarget knockback against a player.
 #[test]
-#[ignore = "deviation: the player hit by the hoglin has hp=16.0 and delta=0.42,0.70,0.04 in vanilla (line 80), hp=17.0 and delta=0.06,0.70,0.01 here: damage and knockback of the attack differ"]
+#[ignore = "the hoglin's damage roll and throw knockback draw `Level.random`, which the real level also consumes for chunk ticking and the detached replay does not (replayed on the ticking level as `mob_hoglin_attack`)"]
 fn mob_hoglin_vs_player() {
     run_scenario_test("mob_hoglin_vs_player");
 }
