@@ -341,9 +341,17 @@ impl Sim {
             });
         }
         self.level.tick_entity_management();
-        // the connection phase of the server tick: `ServerPlayer.doTick`
+        // `ServerGamePacketListenerImpl.tickPlayer`: `doTick()`, then a client-authoritative player is snapped back to the
+        // position it had when the connection tick started (its server-side motion is thrown away)
         for id in self.players.clone() {
-            self.level.with_player(id, |level, p| p.do_tick(level));
+            self.level.with_player(id, |level, p| {
+                let (pos, y_rot, x_rot) = (p.position(), p.get_y_rot(), p.get_x_rot());
+                p.base_mut().set_old_pos(pos);
+                p.do_tick(level);
+                if !p.simulate_local_player {
+                    p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
+                }
+            });
         }
         self.ticks += 1;
         self.name_new_entities();
@@ -709,4 +717,9 @@ fn falling_blocks_match_vanilla() {
 #[test]
 fn falling_anvil_and_concrete_match_vanilla() {
     check("falling_special");
+}
+
+#[test]
+fn orb_award_inside_blocks_matches_vanilla() {
+    check("ent_orb_in_block");
 }

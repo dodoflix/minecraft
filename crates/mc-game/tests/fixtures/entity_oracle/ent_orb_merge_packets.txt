@@ -1,0 +1,164 @@
+T 31
+E m1 minecraft:experience_orb pos=8.499523817599684,-60.0,6.499285726399526 delta=-2.799952795416399E-4,0.0,-4.199929193124598E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=1 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.549554793696213,-60.0,6.499340435105501 delta=-2.6178133295070216E-4,0.0,-3.8782419696400315E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=1 health=5
+E value minecraft:experience_orb pos=8.499577772822928,-60.0,6.54936138139468 delta=-2.4826960508337074E-4,0.0,-3.7550777768859817E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=1 health=5
+T 32
+E m1 minecraft:experience_orb pos=8.49876654733736,-60.0,6.498149821006038 delta=-4.452749590231173E-4,0.0,-6.67912438534676E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=2 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.548846822475644,-60.0,6.498291588852805 delta=-4.1628711955581647E-4,0.0,-6.167216586012096E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=2 health=5
+E value minecraft:experience_orb pos=8.498906361049006,-60.0,6.548345871086621 delta=-3.947901627657588E-4,0.0,-5.971201211832101E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=2 health=5
+T 33
+E m1 minecraft:experience_orb pos=8.497842257296137,-60.0,6.496763385944205 delta=-5.434825988898911E-4,0.0,-8.152238983348368E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=3 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.547982779135037,-60.0,6.497011524644498 delta=-5.080575353659679E-4,0.0,-7.526778301718042E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=3 health=5
+E value minecraft:experience_orb pos=8.498086971693326,-60.0,6.547106544686155 delta=-4.818009895883469E-4,0.0,-7.287239967523746E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=3 health=5
+T 34
+E m1 minecraft:experience_orb pos=8.49681763144907,-60.0,6.495226447173606 delta=-6.02480058658635E-4,0.0,-9.037200879879525E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=4 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.547025050038506,-60.0,6.495592666723712 delta=-5.631447653885163E-4,0.0,-8.342885413163203E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=4 health=5
+E value minecraft:experience_orb pos=8.49717878997794,-60.0,6.545732919841635 delta=-5.340109023452847E-4,0.0,-8.076914897972432E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=4 health=5
+T 35
+E m1 minecraft:experience_orb pos=8.495731643456969,-60.0,6.493597465185453 delta=-6.385610035680822E-4,0.0,-9.578415053521233E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=5 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.546010105933021,-60.0,6.494089045826698 delta=-5.967871940362472E-4,0.0,-8.841291763499958E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=5 health=5
+E value minecraft:experience_orb pos=8.496216419416308,-60.0,6.544277334367167 delta=-5.658739471422722E-4,0.0,-8.558843450526867E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=5 health=5
+T 36
+E m1 minecraft:experience_orb pos=8.49460706191003,-60.0,6.491910592865045 delta=-6.612540160941979E-4,0.0,-9.918810241412966E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=6 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.544959259039224,-60.0,6.492532235613664 delta=-6.178980356873982E-4,0.0,-9.154044973146639E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=6 health=5
+E value minecraft:experience_orb pos=8.49522008381166,-60.0,6.542770376765136 delta=-5.858453944442561E-4,0.0,-8.860911590969374E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=6 health=5
+T 37
+E m1 minecraft:experience_orb pos=8.493457178604768,-60.0,6.4901857679071515 delta=-6.761314514842002E-4,0.0,-0.0010141971772263001 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=7 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.543884955058768,-60.0,6.490940674161136 delta=-6.316908040297234E-4,0.0,-9.358382281921827E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=7 health=5
+E value minecraft:experience_orb pos=8.494201595169345,-60.0,6.541229912693637 delta=-5.988713819014234E-4,0.0,-9.05792965125903E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=7 health=5
+T 38
+E m1 minecraft:experience_orb pos=8.492289743225177,-60.0,6.4884346148377645 delta=-6.864520722276935E-4,0.0,-0.0010296781083415402 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=8 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.542794453458592,-60.0,6.48932511623495 delta=-6.412150053821676E-4,0.0,-9.499481561217295E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=8 health=5
+E value minecraft:experience_orb pos=8.493167844758098,-60.0,6.5396663651966245 delta=-6.078453029371815E-4,0.0,-9.193660206924871E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=8 health=5
+T 39
+E m1 minecraft:experience_orb pos=8.491109264312765,-60.0,6.486663896469147 delta=-6.941216702970778E-4,0.0,-0.0010411825054456164 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=9 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.541691980101788,-60.0,6.4876918223730184 delta=-6.48254398987266E-4,0.0,-9.603768873885419E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=9 health=5
+E value minecraft:experience_orb pos=8.492122845265072,-60.0,6.5380858034634235 delta=-6.144597636876458E-4,0.0,-9.293703925775644E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=9 health=5
+T 40
+E m1 minecraft:experience_orb pos=8.489918354838359,-60.0,6.4848775322575385 delta=-7.002548413664074E-4,0.0,-0.0010503822620496108 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=10 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.540579986325746,-60.0,6.486044424186288 delta=-6.538524060632641E-4,0.0,-9.686702312048354E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=10 health=5
+E value minecraft:experience_orb pos=8.491068925375421,-60.0,6.536491749630326 delta=-6.197049574309883E-4,0.0,-9.373037481143698E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=10 health=5
+T 41
+E m1 minecraft:experience_orb pos=8.488718519060011,-60.0,6.483077778590016 delta=-7.055035086125182E-4,0.0,-0.0010582552629187772 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=11 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.539459885369409,-60.0,6.484385015362085 delta=-6.586194285552684E-4,0.0,-9.757324867485453E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=11 health=5
+E value minecraft:experience_orb pos=8.490007428544708,-60.0,6.534886235673871 delta=-6.241601992238815E-4,0.0,-9.440423013261209E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=11 health=5
+T 42
+E m1 minecraft:experience_orb pos=8.48751061265059,-60.0,6.481265918975884 delta=-7.102490401606579E-4,0.0,-0.0010653735602409867 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=12 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.538332483098397,-60.0,6.482714789775402 delta=-6.62912602015068E-4,0.0,-9.820927437260262E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=12 health=5
+E value minecraft:experience_orb pos=8.488939121741495,-60.0,6.533270421634013 delta=-6.281644634553478E-4,0.0,-9.500987509762136E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=12 health=5
+T 43
+E m1 minecraft:experience_orb pos=8.486295111759214,-60.0,6.479442667638819 delta=-7.147145959998421E-4,0.0,-0.0010720718939997629 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=13 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.537198229924956,-60.0,6.481034414703636 delta=-6.669409330497853E-4,0.0,-9.880606415552373E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=13 health=5
+E value minecraft:experience_orb pos=8.487864434534616,-60.0,6.531644957233608 delta=-6.319161411889399E-4,0.0,-9.557731635482715E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=13 health=5
+T 44
+E m1 minecraft:experience_orb pos=8.485072270342053,-60.0,6.477608405513077 delta=-7.190308255945859E-4,0.0,-0.0010785462383918788 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=14 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.53605736814609,-60.0,6.479344249105317 delta=-6.70826793429584E-4,0.0,-9.938174717475316E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=14 health=5
+E value minecraft:experience_orb pos=8.486783598940367,-60.0,6.530010193397306 delta=-6.355313933260012E-4,0.0,-9.612412324055768E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=14 health=5
+T 45
+E m1 minecraft:experience_orb pos=8.483842212156839,-60.0,6.475763318235255 delta=-7.232742856371507E-4,0.0,-0.0010849114284557258 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=15 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.534910018113395,-60.0,6.477644471279104 delta=-6.746418870640593E-4,0.0,-9.994694623171245E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=15 health=5
+E value minecraft:experience_orb pos=8.485696731219859,-60.0,6.528366305970038 delta=-6.39078283922699E-4,0.0,-9.666059044330824E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=15 health=5
+T 46
+E m1 minecraft:experience_orb pos=8.482604984551418,-60.0,6.473907476827123 delta=-7.274899051422103E-4,0.0,-0.001091234857713315 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=16 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.533756228626917,-60.0,6.47593515352136 delta=-6.784282862699972E-4,0.0,-0.0010050789426222179 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=16 health=5
+E value minecraft:experience_orb pos=8.484603879720895,-60.0,6.526713368077855 delta=-6.425967460084231E-4,0.0,-9.719275783377399E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=16 health=5
+T 47
+E m1 minecraft:experience_orb pos=8.48136058991139,-60.0,6.47204088486708 delta=-7.317041219152402E-4,0.0,-0.0010975561828728598 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=17 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.532596006404727,-60.0,6.474216305784782 delta=-6.822107352491503E-4,0.0,-0.001010682570739482 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=17 health=5
+E value minecraft:experience_orb pos=8.483505052858305,-60.0,6.525051392448187 delta=-6.461102601743652E-4,0.0,-9.772417685137275E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=17 health=5
+T 48
+E m1 minecraft:experience_orb pos=8.480109004044039,-60.0,6.470163506066053 delta=-7.359325640060372E-4,0.0,-0.0011038988460090552 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=18 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.531429333314676,-60.0,6.472487901206928 delta=-6.860038459331838E-4,0.0,-0.0010163019939750872 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=18 health=5
+E value minecraft:experience_orb pos=8.482400235476819,-60.0,6.52338035615869 delta=-6.496326856392176E-4,0.0,-9.825694370293168E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=18 health=5
+T 49
+E m1 minecraft:experience_orb pos=8.47885018692346,-60.0,6.4682752803851855 delta=-7.4018454133132E-4,0.0,-0.0011102768119969793 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=19 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.53025617644877,-60.0,6.470749891035216 delta=-6.898163065187399E-4,0.0,-0.0010219500837314666 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=19 health=5
+E value minecraft:experience_orb pos=8.481289398418712,-60.0,6.521700215108303 delta=-6.531722558482951E-4,0.0,-9.879230369705463E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=19 health=5
+T 50
+E m1 minecraft:experience_orb pos=8.47758408896903,-60.0,6.466376133453542 delta=-7.444656720657609E-4,0.0,-0.0011166985080986406 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=20 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.529076494011555,-60.0,6.4690022133504534 delta=-6.936533428341802E-4,0.0,-0.0010276345819765634 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=20 health=5
+E value minecraft:experience_orb pos=8.480172504116835,-60.0,6.520010912476715 delta=-6.56733915542769E-4,0.0,-9.933100472584383E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=20 health=5
+T 51
+E m1 minecraft:experience_orb pos=8.476310654712103,-60.0,6.464465982068151 delta=-7.487794183686709E-4,0.0,-0.0011231691275530053 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=21 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.527890238760321,-60.0,6.46724479816344 delta=-6.975181578661209E-4,0.0,-0.0010333602338757348 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=21 health=5
+E value minecraft:experience_orb pos=8.479049509862874,-60.0,6.518312383667597 delta=-6.603206877298688E-4,0.0,-9.987350401914267E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=21 health=5
+T 52
+E m1 minecraft:experience_orb pos=8.475029824935506,-60.0,6.462544737403254 delta=-7.531279843722744E-4,0.0,-0.0011296919765584107 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=22 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.526697360013495,-60.0,6.465477570390364 delta=-7.014127736663427E-4,0.0,-0.0010391300350612485 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=22 health=5
+E value minecraft:experience_orb pos=8.477920369715813,-60.0,6.516604559195167 delta=-6.639344732355636E-4,0.0,-0.0010042008907687901 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=22 health=5
+T 53
+E m1 minecraft:experience_orb pos=8.473741537920027,-60.0,6.460612306880037 delta=-7.575128412746964E-4,0.0,-0.0011362692619120438 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=23 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.525497804821622,-60.0,6.46370045158759 delta=-7.05338523748225E-4,0.0,-0.0010449459611084817 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=23 health=5
+E value minecraft:experience_orb pos=8.476785035615055,-60.0,6.51488736636777 delta=-6.675765183756766E-4,0.0,-0.0010097094840432108 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=23 health=5
+T 54
+E m1 minecraft:experience_orb pos=8.4724457301687,-60.0,6.458668595253045 delta=-7.619350343991845E-4,0.0,-0.001142902551598776 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=24 health=5
+E m2 minecraft:experience_orb pos=8.6,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=1 age=0 health=5
+E m3 minecraft:experience_orb pos=8.5,-60.0,6.7 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing value=7 count=2 age=0 health=5
+E other minecraft:experience_orb pos=8.524291518648571,-60.0,6.461913360960846 delta=-7.092963410795254E-4,0.0,-0.0010508093941918896 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=24 health=5
+E value minecraft:experience_orb pos=8.475643458028298,-60.0,6.513160730267797 delta=-6.712476885129339E-4,0.0,-0.0010152621288758124 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=24 health=5
+E m1 minecraft:experience_orb pos=8.4724457301687,-60.0,6.458668595253045 delta=-7.619350343991845E-4,0.0,-0.001142902551598776 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=4 age=24 health=5
+E other minecraft:experience_orb pos=8.524291518648571,-60.0,6.461913360960846 delta=-7.092963410795254E-4,0.0,-0.0010508093941918896 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=24 health=5
+E value minecraft:experience_orb pos=8.475643458028298,-60.0,6.513160730267797 delta=-6.712476885129339E-4,0.0,-0.0010152621288758124 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=1 age=24 health=5
+PKT Obs minecraft:add_entity 01b5108ce5439b1edf4da081ad648818219dc3324021000000000000c04e000000000000401a0000000000000000000000
+PKT Obs minecraft:set_entity_data 65b510080107ff
+PKT Obs minecraft:add_entity 01dd1066af0c2b2db54eef8ed9b7c3da59b7c9324021333333333333c04e000000000000401a0000000000000000000000
+PKT Obs minecraft:set_entity_data 65dd10080107ff
+PKT Obs minecraft:add_entity 018511fce0667364144c9db1076d42b38e26b2324021000000000000c04e000000000000401acccccccccccd0000000000
+PKT Obs minecraft:set_entity_data 658511080107ff
+PKT Obs minecraft:add_entity 01de104e641160284a44018cd8156d327e43aa32402119999999999ac04e000000000000401a0000000000000000000000
+PKT Obs minecraft:set_entity_data 65de10080107ff
+PKT Obs minecraft:add_entity 01ad11a88287f61160414bbe78dc3cc5fe55b7324021000000000000c04e000000000000401a3333333333330000000000
+PKT Obs minecraft:set_entity_data 65ad11080109ff
+PKT Obs minecraft:set_entity_data 658511080107ff
+PKT Obs minecraft:set_entity_data 65ad11080109ff
+PKT Obs minecraft:set_entity_data 65b510080107ff
+PKT Obs minecraft:set_entity_data 65de10080107ff
+PKT Obs minecraft:set_entity_data 65dd10080107ff
+PKT Obs minecraft:remove_entities 4e01dd10
+PKT Obs minecraft:remove_entities 4e018511

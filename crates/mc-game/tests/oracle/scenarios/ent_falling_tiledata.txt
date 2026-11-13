@@ -1,0 +1,23 @@
+# Falling blocks that keep their block entity data: TileEntityData is merged into the block entity of the placed block (chest items and
+# name, barrel, sign), is ignored for a block without a block entity, and the landing sends block_update and add_transient_block.
+level flat
+preload 3
+difficulty normal
+entity_counter 1700
+spawn_player Obs survival 0.5 -60 0.5 0 0
+tick 5
+dump packets:Obs:none
+level_seed 71
+spawn chest minecraft:falling_block 4.5 -58 4.5 {BlockState:{id:"minecraft:chest",properties:{facing:"north"}},Time:1,TileEntityData:{CustomName:'"Fallen chest"',Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:5b,id:"minecraft:stick",count:12}]}}
+entity_seed chest 7
+spawn barrel minecraft:falling_block 6.5 -58 4.5 {BlockState:{id:"minecraft:barrel",properties:{facing:"up"}},Time:1,TileEntityData:{Items:[{Slot:2b,id:"minecraft:apple",count:5}]}}
+entity_seed barrel 8
+spawn sand minecraft:falling_block 8.5 -58 4.5 {BlockState:"minecraft:sand",Time:1,TileEntityData:{Items:[{Slot:0b,id:"minecraft:apple",count:1}]}}
+entity_seed sand 9
+spawn sign minecraft:falling_block 10.5 -58 4.5 {BlockState:{id:"minecraft:oak_sign",properties:{rotation:"4"}},Time:1,TileEntityData:{front_text:{messages:['"fallen"','""','""','""']}}}
+entity_seed sign 10
+dump nbt:chest
+watch xentities
+tick 12
+watch off
+dump entities be:4,-60,4 be:6,-60,4 be:8,-60,4 be:10,-60,4 blocks:4,-61,4,10,-59,4 packets:Obs:add_entity,remove_entities,block_update,add_transient_block,block_entity_data,set_entity_data

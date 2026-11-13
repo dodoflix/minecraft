@@ -1,0 +1,31 @@
+# Orbs of the same value whose ids differ by a multiple of 40 merge when one of them scans (tickCount % 20 == 1): the merged orb is
+# discarded in the scanner's tick, so its remove_entities goes out before anything the same tick sends afterwards; one with another
+# value or another id stays. The merged count is not synchronised, the experience it gives is (picked up by Steve afterwards).
+level flat
+preload 3
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Obs survival 4.5 -60 0.5 90 0
+entity_seed Steve 111
+tick 30
+dump packets:Steve:none packets:Obs:none
+level_seed 111
+entity_counter 2100
+spawn m1 minecraft:experience_orb 8.5 -60 6.5 {Value:7s}
+entity_seed m1 41
+entity_counter 2140
+spawn m2 minecraft:experience_orb 8.6 -60 6.5 {Value:7s}
+entity_seed m2 42
+entity_counter 2180
+spawn m3 minecraft:experience_orb 8.5 -60 6.7 {Value:7s,Count:2}
+entity_seed m3 43
+entity_counter 2141
+spawn other minecraft:experience_orb 8.55 -60 6.5 {Value:7s}
+entity_seed other 44
+entity_counter 2220
+spawn value minecraft:experience_orb 8.5 -60 6.55 {Value:9s}
+entity_seed value 45
+watch xentity:m1 xentity:m2 xentity:m3 xentity:other xentity:value
+tick 24
+watch off
+dump entities packets:Obs:add_entity,remove_entities,set_entity_data,take_item_entity

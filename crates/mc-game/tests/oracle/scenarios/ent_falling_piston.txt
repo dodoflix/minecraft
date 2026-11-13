@@ -1,0 +1,35 @@
+# A falling block whose own position is a block in the middle of a piston extension (moving_piston) neither lands nor breaks: it keeps
+# its state, bounces on (motion multiplied by 0.7, -0.5, 0.7) and settles when the extension is over. The sand starts at a different
+# height above each stone so the landings straddle the two ticks of the moving piston.
+level flat
+preload 3
+difficulty normal
+entity_counter 2000
+spawn_player Obs survival 0.5 -60 0.5 0 0
+tick 5
+dump packets:Obs:none
+level_seed 101
+block 4 -60 4 minecraft:piston[facing=up]
+block 7 -60 4 minecraft:piston[facing=up]
+block 10 -60 4 minecraft:piston[facing=up]
+block 13 -60 4 minecraft:piston[facing=up]
+block 4 -59 4 minecraft:stone
+block 7 -59 4 minecraft:stone
+block 10 -59 4 minecraft:stone
+block 13 -59 4 minecraft:stone
+spawn p1 minecraft:falling_block 4.5 -57.9 4.5 {BlockState:"minecraft:sand",Time:1}
+entity_seed p1 31
+spawn p2 minecraft:falling_block 7.5 -57.5 4.5 {BlockState:"minecraft:sand",Time:1}
+entity_seed p2 32
+spawn p3 minecraft:falling_block 10.5 -57.0 4.5 {BlockState:"minecraft:sand",Time:1}
+entity_seed p3 33
+spawn p4 minecraft:falling_block 13.5 -56.5 4.5 {BlockState:"minecraft:sand",Time:1}
+entity_seed p4 34
+block 4 -60 5 minecraft:redstone_block
+block 7 -60 5 minecraft:redstone_block
+block 10 -60 5 minecraft:redstone_block
+block 13 -60 5 minecraft:redstone_block
+watch xentities
+tick 12
+watch off
+dump entities blocks:4,-60,4,13,-57,5 packets:Obs:add_entity,remove_entities,block_update,add_transient_block,block_event,set_entity_motion

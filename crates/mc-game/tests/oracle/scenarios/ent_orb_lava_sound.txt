@@ -1,0 +1,22 @@
+# Orbs in lava: Entity.lavaHurt burns the orb (4 damage against 5 health, the burn sound comes from the orb's own sound source,
+# ambient) and the lava throws the orb around with its own random. A second orb with 100 health survives long enough to keep burning.
+level flat
+preload 3
+difficulty normal
+entity_counter 1200
+fill 3 -62 3 7 -60 7 minecraft:stone
+fill 4 -61 4 6 -60 6 minecraft:lava
+spawn_player Obs survival 0.5 -60 0.5 0 0
+tick 5
+dump packets:Obs:none events
+level_seed 41
+spawn weak minecraft:experience_orb 4.5 -59.5 4.5 {Value:3s}
+entity_seed weak 5
+spawn strong minecraft:experience_orb 6.5 -59.5 6.5 {Value:7s,Health:100s}
+entity_seed strong 6
+watch xentity:weak xentity:strong
+tick 6
+dump events packets:Obs:sound,set_entity_data,remove_entities,entity_event
+watch off
+tick 20
+dump xentity:strong events edata:strong packets:Obs:sound,remove_entities

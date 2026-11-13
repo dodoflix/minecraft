@@ -1,0 +1,37 @@
+# Packets of falling blocks: add_entity carries the block state id, the start position travels in the entity data, the landing sends
+# block_update then add_transient_block to the trackers after remove_entities; a block that cannot land (on a torch) breaks and
+# drops, a column over a hole keeps falling, a slab landing in water becomes waterlogged.
+level flat
+preload 3
+difficulty normal
+entity_counter 1800
+spawn_player Obs survival 0.5 -60 0.5 0 0
+tick 5
+dump packets:Obs:none
+level_seed 81
+note sand lands on grass, on a replaceable plant, on a slab (stays), on a torch (breaks) and above a hole (keeps falling)
+block 4 -60 4 minecraft:short_grass
+block 6 -60 4 minecraft:stone_slab[type=bottom]
+block 8 -60 4 minecraft:torch
+block 12 -61 4 minecraft:air
+spawn s1 minecraft:falling_block 2.5 -56 4.5 {BlockState:"minecraft:sand",Time:1}
+entity_seed s1 11
+spawn s2 minecraft:falling_block 4.5 -56 4.5 {BlockState:"minecraft:gravel",Time:1}
+entity_seed s2 12
+spawn s3 minecraft:falling_block 6.5 -56 4.5 {BlockState:"minecraft:sand",Time:1}
+entity_seed s3 13
+spawn s4 minecraft:falling_block 8.5 -56 4.5 {BlockState:"minecraft:red_sand",Time:1}
+entity_seed s4 14
+spawn s5 minecraft:falling_block 12.5 -56 4.5 {BlockState:"minecraft:sand",Time:1}
+entity_seed s5 15
+watch xentities
+tick 14
+watch off
+dump entities blocks:2,-61,4,12,-59,4 packets:Obs:add_entity,remove_entities,block_update,add_transient_block,set_entity_data
+note a slab falling into a water pool lands waterlogged
+fill 14 -62 8 18 -60 12 minecraft:stone
+fill 15 -61 9 17 -60 11 minecraft:water
+spawn w1 minecraft:falling_block 16.5 -56 10.5 {BlockState:{id:"minecraft:oak_slab",properties:{type:"bottom",waterlogged:"false"}},Time:1}
+entity_seed w1 16
+tick 20
+dump entities blocks:15,-61,9,17,-59,11 packets:Obs:add_entity,remove_entities,block_update,add_transient_block

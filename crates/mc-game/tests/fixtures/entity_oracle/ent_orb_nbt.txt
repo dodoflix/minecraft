@@ -1,0 +1,44 @@
+E zero minecraft:experience_orb pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=0 health=5
+E neg minecraft:experience_orb pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=0 health=5
+E none minecraft:experience_orb pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=0 health=5
+E three minecraft:experience_orb pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=9 count=3 age=5990 health=2
+E wide minecraft:experience_orb pos=12.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=32767 count=7 age=0 health=-3
+E shortcount minecraft:experience_orb pos=14.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=11 count=2 age=0 health=5
+E bare minecraft:experience_orb pos=16.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=0 count=1 age=0 health=5
+N zero {Age:0s,Air:300s,Count:1,Fire:0s,Health:5s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Value:5s,fall_distance:0.0d}
+N neg {Age:0s,Air:300s,Count:1,Fire:0s,Health:5s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Value:5s,fall_distance:0.0d}
+N none {Age:0s,Air:300s,Count:1,Fire:0s,Health:5s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Value:5s,fall_distance:0.0d}
+N three {Age:5990s,Air:300s,Count:3,Fire:0s,Health:2s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[10.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Value:9s,fall_distance:0.0d}
+N wide {Age:0s,Air:300s,Count:7,Fire:0s,Health:-3s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[12.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Value:32767s,fall_distance:0.0d}
+N shortcount {Age:0s,Air:300s,Count:2,Fire:0s,Health:5s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[14.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Value:11s,fall_distance:0.0d}
+N bare {Age:0s,Air:300s,Count:1,Fire:0s,Health:5s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[16.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Value:0s,fall_distance:0.0d}
+ED three 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:09
+ED wide 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:ffff01
+ED bare 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00
+E zero minecraft:experience_orb pos=4.343248207333542,-60.0,4.343248207333542 delta=-0.009369569917629087,0.0,-0.009369569917629087 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=12 health=5
+E neg minecraft:experience_orb pos=6.481265918975884,-60.0,4.487510612650588 delta=-0.001065373560240989,0.0,-7.10249040160659E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=12 health=5
+E none minecraft:experience_orb pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=12 health=5
+E wide minecraft:experience_orb pos=12.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=32767 count=7 age=12 health=-3
+E shortcount minecraft:experience_orb pos=14.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=11 count=2 age=12 health=5
+E bare minecraft:experience_orb pos=16.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=0 count=1 age=12 health=5
+N wide {Age:12s,Air:300s,Count:7,Fire:0s,Health:-3s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[12.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Value:32767s,fall_distance:0.0d}
+PKT Obs minecraft:add_entity 01de0baa61282b660647948059213ff9f2f221324012000000000000c04e00000000000040120000000000000000000000
+PKT Obs minecraft:set_entity_data 65de0b080105ff
+PKT Obs minecraft:add_entity 01df0b09f66cfd984e43c1b28c5c87ce8d089e32401a000000000000c04e00000000000040120000000000000000000000
+PKT Obs minecraft:set_entity_data 65df0b080105ff
+PKT Obs minecraft:add_entity 01e00bbf6e02411df84f34a01c9fbe6ba4535c324021000000000000c04e00000000000040120000000000000000000000
+PKT Obs minecraft:set_entity_data 65e00b080105ff
+PKT Obs minecraft:add_entity 01e10bb5d98365b4e24079b3608cc4724f7be4324025000000000000c04e00000000000040120000000000000000000000
+PKT Obs minecraft:set_entity_data 65e10b080109ff
+PKT Obs minecraft:add_entity 01e20b059b5ac5bbd6422f8199000f836ac1f9324029000000000000c04e00000000000040120000000000000000000000
+PKT Obs minecraft:set_entity_data 65e20b0801ffff01ff
+PKT Obs minecraft:add_entity 01e30bb4e2bba3e96a40a6814732de6c8d51a432402d000000000000c04e00000000000040120000000000000000000000
+PKT Obs minecraft:set_entity_data 65e30b08010bff
+PKT Obs minecraft:add_entity 01e40bb232f7b44c0b41129b0d07dc28c7adeb324030800000000000c04e00000000000040120000000000000000000000
+PKT Obs minecraft:set_entity_data 65e10b080109ff
+PKT Obs minecraft:set_entity_data 65e30b08010bff
+PKT Obs minecraft:set_entity_data 65df0b080105ff
+PKT Obs minecraft:set_entity_data 65de0b080105ff
+PKT Obs minecraft:set_entity_data 65e00b080105ff
+PKT Obs minecraft:set_entity_data 65e20b0801ffff01ff
+PKT Obs minecraft:remove_entities 4e01e10b

@@ -1,0 +1,47 @@
+# Falling anvils from twenty blocks: the fall damage hurts living entities but never creative or spectator players, armor reduces it,
+# every landing damages the anvil (anvil -> chipped -> damaged -> destroyed with cancelDrop); the landing and destruction level events.
+level flat
+preload 3
+difficulty normal
+entity_counter 1900
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Iron survival 4.5 -60 0.5 0 0
+spawn_player Alex creative 8.5 -60 0.5 0 0
+spawn_player Spec spectator 12.5 -60 0.5 0 0
+entity_seed Steve 91
+entity_seed Iron 92
+give Iron head minecraft:iron_helmet
+give Iron chest minecraft:iron_chestplate
+give Iron legs minecraft:iron_leggings
+give Iron feet minecraft:iron_boots
+mobspawn cow minecraft:cow 16.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 30
+dump events packets:Steve:none
+level_seed 91
+note a plain anvil (damaged with certainty: 19 blocks of fall) lands on every kind of victim
+spawn a1 minecraft:falling_block 0.5 -40 0.5 {BlockState:{id:"minecraft:anvil",properties:{facing:"north"}},HurtEntities:1b,FallHurtAmount:0.4f,FallHurtMax:40}
+entity_seed a1 21
+spawn a2 minecraft:falling_block 4.5 -40 0.5 {BlockState:{id:"minecraft:anvil",properties:{facing:"north"}},HurtEntities:1b,FallHurtAmount:0.4f,FallHurtMax:40}
+entity_seed a2 22
+spawn a3 minecraft:falling_block 8.5 -40 0.5 {BlockState:{id:"minecraft:anvil",properties:{facing:"north"}},HurtEntities:1b,FallHurtAmount:0.4f,FallHurtMax:40}
+entity_seed a3 23
+spawn a4 minecraft:falling_block 12.5 -40 0.5 {BlockState:{id:"minecraft:anvil",properties:{facing:"north"}},HurtEntities:1b,FallHurtAmount:0.4f,FallHurtMax:40}
+entity_seed a4 24
+spawn a5 minecraft:falling_block 16.5 -40 0.5 {BlockState:{id:"minecraft:anvil",properties:{facing:"north"}},HurtEntities:1b,FallHurtAmount:0.4f,FallHurtMax:40}
+entity_seed a5 25
+watch xentities
+tick 26
+watch off
+dump entities events
+note the chain on an empty floor: chipped, damaged, then the anvil breaks and nothing drops
+spawn c1 minecraft:falling_block 24.5 -40 0.5 {BlockState:{id:"minecraft:chipped_anvil",properties:{facing:"east"}},HurtEntities:1b,FallHurtAmount:2.0f,FallHurtMax:40}
+entity_seed c1 26
+spawn c2 minecraft:falling_block 28.5 -40 0.5 {BlockState:{id:"minecraft:damaged_anvil",properties:{facing:"east"}},HurtEntities:1b,FallHurtAmount:2.0f,FallHurtMax:40}
+entity_seed c2 27
+spawn c3 minecraft:falling_block 32.5 -40 0.5 {BlockState:{id:"minecraft:damaged_anvil",properties:{facing:"east"}},HurtEntities:1b,FallHurtAmount:0.0f}
+entity_seed c3 28
+watch xentities
+tick 30
+watch off
+dump entities events blocks:24,-61,0,32,-59,0
+dump packets:Steve:damage_event,hurt_animation,entity_event,block_update,add_transient_block,remove_entities packets:Alex:damage_event,hurt_animation,block_update,add_transient_block,remove_entities

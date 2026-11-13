@@ -1,0 +1,15 @@
+# ExperienceOrb.award inside solid blocks: a new orb that overlaps a block first tries unstuckIfPossible (a free position inside a box of
+# its own size around the spawn point), and a stuck orb is pushed to the closest free space by its own tick.
+level flat
+entity_counter 1400
+level_seed 9
+fill 0 -60 0 6 -58 6 minecraft:stone
+fill 10 -60 0 12 -58 2 minecraft:stone
+award 3.5 -59.5 3.5 5
+award 0.1 -59.0 3.5 5
+award 6.9 -58.5 3.5 7 1 0 0
+award 11.0 -60.0 1.0 9 0 1 0
+award 11.5 -59.0 1.5 3
+watch entities
+tick 14
+dump entities

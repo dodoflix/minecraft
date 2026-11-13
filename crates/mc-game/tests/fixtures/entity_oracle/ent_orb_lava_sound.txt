@@ -1,0 +1,34 @@
+T 6
+E weak minecraft:experience_orb pos=4.6047704269365894,-59.299533979621216,4.389274929948293 delta=0.10267502039619464,0.19645670379479413,-0.10851057076258636 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=1 pose=standing value=3 count=1 age=1 health=1
+E strong minecraft:experience_orb pos=6.5722566395998,-59.29999999701977,6.574218168854713 delta=0.07081150818599014,0.19600000673532492,0.0727338068932184 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=1 pose=standing value=7 count=1 age=1 health=96
+T 7
+E weak minecraft:experience_orb pos=4.6951659793062905,-59.0993676801775,4.458912433866106 delta=0.08858764304646535,0.19616297727270884,0.06824475516768709 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=0 pose=standing value=3 count=1 age=2 health=-3
+E strong minecraft:experience_orb pos=6.701941251754761,-59.099999994039536,6.546770432963967 delta=0.1270909223853991,0.19600000673532492,-0.02689878169645521 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=1 pose=standing value=7 count=1 age=2 health=92
+T 8
+E weak minecraft:experience_orb pos=4.6951659793062905,-59.0993676801775,4.458912433866106 delta=0.08858764304646535,0.19616297727270884,0.06824475516768709 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=0 pose=standing value=3 count=1 age=2 health=-3
+E strong minecraft:experience_orb pos=6.827205210924149,-58.8999999910593,6.513990452513099 delta=0.12275868237522047,0.19600000673532492,-0.03212438146707974 rot=0.0,0.0 og=0 fall=0.0 fire=299 air=300 alive=1 pose=standing value=7 count=1 age=3 health=91
+T 9
+E weak minecraft:experience_orb pos=4.6951659793062905,-59.0993676801775,4.458912433866106 delta=0.08858764304646535,0.19616297727270884,0.06824475516768709 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=0 pose=standing value=3 count=1 age=2 health=-3
+E strong minecraft:experience_orb pos=6.949963893299369,-58.73399998432398,6.481866071046019 delta=0.12030351106915212,0.1626800097668173,-0.0314818944504621 rot=0.0,0.0 og=0 fall=0.0 fire=298 air=300 alive=1 pose=standing value=7 count=1 age=4 health=91
+T 10
+E weak minecraft:experience_orb pos=4.6951659793062905,-59.0993676801775,4.458912433866106 delta=0.08858764304646535,0.19616297727270884,0.06824475516768709 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=0 pose=standing value=3 count=1 age=2 health=-3
+E strong minecraft:experience_orb pos=7.070267404368521,-58.601319974557164,6.4503841765955565 delta=0.11789744314237645,0.1300264121021513,-0.030852257161922345 rot=0.0,0.0 og=0 fall=0.0 fire=297 air=300 alive=1 pose=standing value=7 count=1 age=5 health=91
+T 11
+E weak minecraft:experience_orb pos=4.6951659793062905,-59.0993676801775,4.458912433866106 delta=0.08858764304646535,0.19616297727270884,0.06824475516768709 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=0 pose=standing value=3 count=1 age=2 health=-3
+E strong minecraft:experience_orb pos=7.1881648475108975,-58.50129356245501,6.419531919433634 delta=0.11553949652824419,0.09802588576796067,-0.030235212607144003 rot=0.0,0.0 og=0 fall=0.0 fire=296 air=300 alive=1 pose=standing value=7 count=1 age=6 health=91
+EV sound at=4.6047704269365894,-59.299533979621216,4.389274929948293 r=16.0 ex=0 event=minecraft:entity.generic.burn source=ambient vol=0.4 pitch=2.195562
+EV sound at=6.5722566395998,-59.29999999701977,6.574218168854713 r=16.0 ex=0 event=minecraft:entity.generic.burn source=ambient vol=0.4 pitch=2.311205
+EV sound at=4.6951659793062905,-59.0993676801775,4.458912433866106 r=16.0 ex=0 event=minecraft:entity.generic.burn source=ambient vol=0.4 pitch=2.1710238
+EV sound at=6.701941251754761,-59.099999994039536,6.546770432963967 r=16.0 ex=0 event=minecraft:entity.generic.burn source=ambient vol=0.4 pitch=2.2559779
+PKT Obs minecraft:set_entity_data 65b209080103ff
+PKT Obs minecraft:set_entity_data 65b309080107ff
+PKT Obs minecraft:set_entity_data 65b209080103ff
+PKT Obs minecraft:set_entity_data 65b309080107ff
+PKT Obs minecraft:sound 77bc050800000024fffffe26000000233ecccccd400c8416e32d4fcf84a7860e
+PKT Obs minecraft:sound 77bc050800000034fffffe26000000343ecccccd4013eac83dace6703e05bff8
+PKT Obs minecraft:remove_entities 4e01b209
+PKT Obs minecraft:sound 77bc050800000025fffffe28000000233ecccccd400af20e6fd465a290351d3c
+PKT Obs minecraft:sound 77bc050800000035fffffe28000000343ecccccd401061f14b970fd5e0db99e1
+PKT Obs minecraft:set_entity_data 65b309000001ff
+E strong minecraft:experience_orb pos=8.7630036668513,-59.84998919195864,6.007416686500272 delta=0.04628107512917416,-0.2059354581310411,-0.012111167075024559 rot=0.0,0.0 og=0 fall=0.9131774539127946 fire=276 air=300 alive=1 pose=standing value=7 count=1 age=26 health=90
+ED strong 0:0:01 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:07

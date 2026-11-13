@@ -1,0 +1,27 @@
+# Mending repairs a random damaged item of any equipment slot (armor, offhand, mainhand) with the player's own random; what is left over
+# becomes experience.
+level flat
+preload 3
+difficulty normal
+entity_counter 1600
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 30
+give Steve head minecraft:iron_helmet[damage=100,enchantments={"minecraft:mending":1}]
+give Steve chest minecraft:iron_chestplate[damage=100,enchantments={"minecraft:mending":1}]
+give Steve legs minecraft:iron_leggings[damage=10,enchantments={"minecraft:mending":1}]
+give Steve feet minecraft:iron_boots[damage=100]
+give Steve offhand minecraft:shield[damage=200,enchantments={"minecraft:mending":1}]
+give Steve mainhand minecraft:diamond_sword[damage=300,enchantments={"minecraft:mending":1,"minecraft:unbreaking":2}]
+give Steve hotbar4 minecraft:iron_axe[damage=30,enchantments={"minecraft:mending":1}]
+dump inventory:Steve
+level_seed 62
+entity_seed Steve 61
+spawn a1 minecraft:experience_orb 0.5 -60 0.5 {Value:37s}
+spawn a2 minecraft:experience_orb 0.5 -60 0.5 {Value:37s}
+spawn a3 minecraft:experience_orb 0.5 -60 0.5 {Value:37s}
+spawn a4 minecraft:experience_orb 0.5 -60 0.5 {Value:149s}
+spawn a5 minecraft:experience_orb 0.5 -60 0.5 {Value:149s}
+watch inventory:Steve
+tick 16
+watch off
+dump entities inventory:Steve

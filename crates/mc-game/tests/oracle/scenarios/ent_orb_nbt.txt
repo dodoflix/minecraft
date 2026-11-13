@@ -1,0 +1,19 @@
+# ExperienceOrb NBT: Count must be a positive int (0, -1, a short or a missing tag fall back to 1), Value and Health and Age are shorts
+# that wrap, and the saved tag always carries all four fields.
+level flat
+preload 2
+difficulty normal
+entity_counter 1500
+spawn_player Obs survival 0.5 -60 0.5 0 0
+tick 3
+dump packets:Obs:none
+spawn zero minecraft:experience_orb 4.5 -60 4.5 {Value:5s,Count:0}
+spawn neg minecraft:experience_orb 6.5 -60 4.5 {Value:5s,Count:-1}
+spawn none minecraft:experience_orb 8.5 -60 4.5 {Value:5s}
+spawn three minecraft:experience_orb 10.5 -60 4.5 {Value:9s,Count:3,Age:5990s,Health:2s}
+spawn wide minecraft:experience_orb 12.5 -60 4.5 {Value:32767s,Count:7,Health:-3s}
+spawn shortcount minecraft:experience_orb 14.5 -60 4.5 {Value:11s,Count:2s}
+spawn bare minecraft:experience_orb 16.5 -60 4.5 {}
+dump xentities nbt:zero nbt:neg nbt:none nbt:three nbt:wide nbt:shortcount nbt:bare edata:three edata:wide edata:bare
+tick 12
+dump xentities nbt:wide packets:Obs:add_entity,set_entity_data,remove_entities

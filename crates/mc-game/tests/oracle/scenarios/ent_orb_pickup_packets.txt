@@ -1,0 +1,39 @@
+# Picking up orbs: take_item_entity per touch (one count per two ticks), set_experience, the level-up sound at multiples of five levels
+# (only once per 100 ticks), remove_entities after the last count; a second player only sees the take and the removal.
+level flat
+preload 3
+difficulty normal
+entity_counter 1300
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Obs survival 4.5 -60 0.5 90 0
+entity_seed Steve 31
+tick 30
+set Steve xp_level 4
+tick 1
+dump packets:Steve:none packets:Obs:none
+level_seed 31
+note one orb carries Steve over level 5
+spawn o1 minecraft:experience_orb 0.5 -60 0.5 {Value:37s}
+entity_seed o1 1
+tick 4
+dump entities xentity:o1 inventory:Steve packets:Steve:take_item_entity,set_experience,sound,remove_entities packets:Obs:take_item_entity,remove_entities
+note a stack of three counts is touched three times
+spawn o2 minecraft:experience_orb 0.5 -60 0.5 {Value:3s,Count:3}
+entity_seed o2 2
+tick 8
+dump entities xentity:o2 packets:Steve:take_item_entity,set_experience,sound,remove_entities packets:Obs:take_item_entity,remove_entities
+note level 9 to 10 more than a hundred ticks later plays the level-up sound again
+set Steve xp_level 9
+tick 110
+dump packets:Steve:none
+spawn o3 minecraft:experience_orb 0.5 -60 0.5 {Value:37s}
+entity_seed o3 3
+tick 4
+dump entities packets:Steve:take_item_entity,set_experience,sound,remove_entities
+note an orb hovering out of reach follows the nearest player instead
+spawn o4 minecraft:experience_orb 6.5 -60 0.5 {Value:5s}
+entity_seed o4 4
+watch xentity:o4
+tick 25
+watch off
+dump entities packets:Steve:take_item_entity,set_experience,remove_entities packets:Obs:take_item_entity,set_experience,remove_entities
