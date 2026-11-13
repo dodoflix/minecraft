@@ -1,0 +1,10 @@
+# Goat ramming a survival player: PrepareRamNearestTarget walks to the start position and lowers its head, RamTarget charges, hurts, knocks back and starts the cooldown.
+level flat
+difficulty normal
+entity_counter 400
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn G minecraft:goat 6.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,Brain:{memories:{"minecraft:ram_cooldown_ticks":{value:2},"minecraft:long_jump_cooling_down":{value:9000}}}}
+entity_seed G 11
+level_seed 77
+watch mob:G player:Steve events
+tick 90

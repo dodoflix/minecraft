@@ -43,10 +43,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "Evoker: spell casting illager with fangs and vexes",
     ),
     (
-        "minecraft:goat",
-        "Goat: brain, ramming and long jumps, horns",
-    ),
-    (
         "minecraft:happy_ghast",
         "HappyGhast: rideable harness flyer",
     ),
@@ -96,7 +92,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
 /// that have one (type, what is not implemented). Alphabetical.
 const EXPECTED_MISSING_PREDICATE: &[(&str, &str)] = &[
     ("minecraft:camel", "Camel.checkCamelSpawnRules"),
-    ("minecraft:goat", "Goat.checkGoatSpawnRules"),
     (
         "minecraft:nautilus",
         "AbstractNautilus.checkNautilusSpawnRules",

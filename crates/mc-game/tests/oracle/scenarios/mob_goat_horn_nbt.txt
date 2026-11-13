@@ -1,0 +1,27 @@
+# Goat horns: a goat that rams a log drops one horn (a random side, or the remaining one; the instrument comes from the regular or screaming tag with a random seeded by its UUID), a goat without horns drops none, and the horn state and screaming flag survive the entity NBT merge.
+level flat
+difficulty normal
+entity_counter 900
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn P minecraft:pig 0.5 -60 6.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn Q minecraft:pig 0.5 -60 12.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn G minecraft:goat 6.5 -60 0.5 90 0 nofinalize {PersistenceRequired:1b,Brain:{memories:{"minecraft:long_jump_cooling_down":{value:9000}}}}
+mobspawn H minecraft:goat 6.5 -60 6.5 90 0 nofinalize {PersistenceRequired:1b,IsScreamingGoat:1b,HasLeftHorn:0b,Brain:{memories:{"minecraft:long_jump_cooling_down":{value:9000}}}}
+mobspawn I minecraft:goat 6.5 -60 12.5 90 0 nofinalize {PersistenceRequired:1b,HasLeftHorn:0b,HasRightHorn:0b,Brain:{memories:{"minecraft:long_jump_cooling_down":{value:9000}}}}
+entity_seed G 12
+entity_seed H 13
+entity_seed I 14
+level_seed 78
+dump nbt:G nbt:H nbt:I
+watch mob:G mob:H mob:I events
+tick 39
+block 4 -60 6 minecraft:oak_log
+tick 2
+block 4 -60 12 minecraft:oak_log
+tick 5
+block 4 -60 0 minecraft:oak_log
+tick 20
+watch off
+dump entities nbt:G nbt:H nbt:I nbt:item#1 nbt:item#2 edata:item#1 edata:item#2
+nbt G {IsScreamingGoat:1b,HasLeftHorn:0b}
+dump mob:G nbt:G

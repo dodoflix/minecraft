@@ -1,0 +1,113 @@
+# Goat temptation by wheat, AnimalMakeLove through the brain (BREED_TARGET, kiss, offspring) and the baby following an adult.
+level flat
+difficulty normal
+entity_counter 600
+spawn_player Steve creative 0.5 -60 0.5 0 0
+give Steve mainhand minecraft:wheat 4
+mobspawn G1 minecraft:goat 5.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,Brain:{memories:{"minecraft:ram_cooldown_ticks":{value:9000},"minecraft:long_jump_cooling_down":{value:9000}}}}
+mobspawn G2 minecraft:goat 6.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,Brain:{memories:{"minecraft:ram_cooldown_ticks":{value:9000},"minecraft:long_jump_cooling_down":{value:9000}}}}
+mobspawn G3 minecraft:goat -5.5 -60 3.5 0 0 nofinalize {PersistenceRequired:1b,Brain:{memories:{"minecraft:ram_cooldown_ticks":{value:9000},"minecraft:long_jump_cooling_down":{value:9000}}}}
+entity_seed G1 21
+entity_seed G2 22
+entity_seed G3 23
+level_seed 5
+tick 2
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+love G1 Steve
+love G2 Steve
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+level_seed 9
+breed G1 G2
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs
+tick 4
+dump mobs

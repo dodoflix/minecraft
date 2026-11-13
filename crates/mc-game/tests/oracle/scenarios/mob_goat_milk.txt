@@ -1,0 +1,45 @@
+# Goat milking and feeding: a bucket on an adult gives milk (screaming sound for a screaming goat; the last bucket is replaced, creative players keep theirs and get one milk bucket), a baby gives none, wheat sets love and plays the eating sound again for the held stack.
+level flat
+difficulty normal
+entity_counter 1000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex creative 0.5 -60 6.5 0 0
+mobspawn A minecraft:goat 2.5 -60 0.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+mobspawn B minecraft:goat 2.5 -60 3.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,IsScreamingGoat:1b}
+mobspawn C minecraft:goat 2.5 -60 6.5 90 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+entity_seed A 51
+entity_seed B 52
+entity_seed C 53
+level_seed 61
+give Steve mainhand minecraft:bucket 2
+give Alex mainhand minecraft:bucket 2
+tick 1
+watch events
+interact Steve A main
+tick 1
+dump inventory:Steve
+interact Steve B main
+tick 1
+dump inventory:Steve
+give Steve mainhand minecraft:bucket 1
+interact Steve C main
+tick 1
+interact Alex B main
+tick 1
+dump inventory:Alex
+interact Alex B main
+tick 1
+dump inventory:Alex
+interact Alex C main
+tick 1
+give Steve mainhand minecraft:wheat 2
+interact Steve A main
+tick 1
+dump inventory:Steve mob:A
+interact Steve A main
+tick 1
+dump inventory:Steve mob:A
+give Steve mainhand minecraft:wheat 1
+interact Steve B main
+tick 1
+dump inventory:Steve mob:B

@@ -14,6 +14,8 @@ pub mod fish;
 
 pub mod fox;
 
+pub mod goat;
+
 pub mod golem;
 
 pub mod frog;

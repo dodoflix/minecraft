@@ -41,7 +41,6 @@ pub fn create(spawn_block: Block) -> OneShot {
                 let spawn_pos = relative_pos.above();
                 if level.get_block_state(spawn_pos).is_air() {
                     let new_state = spawn_block.default_state();
-                    let body_id = c.body.id();
                     c.level.set_block_and_update(spawn_pos, new_state);
                     c.level.game_event_from_entity_ref_in_state(
                         &*c.body,
@@ -51,7 +50,7 @@ pub fn create(spawn_block: Block) -> OneShot {
                     );
                     behavior_utils::play_sound_from_entity(
                         &mut *c.level,
-                        body_id,
+                        &*c.body,
                         SoundEvent::ENTITY_FROG_LAY_SPAWN,
                         SoundSource::Blocks,
                         1.0,

@@ -186,7 +186,7 @@ impl Behavior for RamTarget {
             self.finish_ram(level, body);
             behavior_utils::play_sound_from_entity(
                 level,
-                body.id(),
+                &*body,
                 (self.get_impact_sound)(&*body),
                 SoundSource::Neutral,
                 1.0,
@@ -195,7 +195,7 @@ impl Behavior for RamTarget {
         } else if Self::has_rammed_horn_breaking_block(level, &*body) {
             behavior_utils::play_sound_from_entity(
                 level,
-                body.id(),
+                &*body,
                 (self.get_impact_sound)(&*body),
                 SoundSource::Neutral,
                 1.0,
@@ -205,7 +205,7 @@ impl Behavior for RamTarget {
             if dropped {
                 behavior_utils::play_sound_from_entity(
                     level,
-                    body.id(),
+                    &*body,
                     (self.get_horn_break_sound)(&*body),
                     SoundSource::Neutral,
                     1.0,

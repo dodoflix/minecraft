@@ -64,7 +64,7 @@ impl Behavior for LongJumpMidJump {
             ));
             behavior_utils::play_sound_from_entity(
                 level,
-                body.id(),
+                &*body,
                 self.landing_sound,
                 SoundSource::Neutral,
                 2.0,

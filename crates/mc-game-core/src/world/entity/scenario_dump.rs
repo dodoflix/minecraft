@@ -238,7 +238,8 @@ pub fn memory_value_text(
             list(l)
         }
         V::BlockPos(p) => pos_text(*p),
-        V::Vec3(p) => format!("({}, {}, {})", jd(p.x), jd(p.y), jd(p.z)),
+        // `Vec3.toString()` with the driver's whitespace-to-underscore of the fallback
+        V::Vec3(p) => format!("({},_{},_{})", jd(p.x), jd(p.y), jd(p.z)),
         V::Uuid(u) => ctx.name_uuid(Some(*u)),
         V::UuidList(l) => list(l.iter().map(|u| ctx.name_uuid(Some(*u))).collect()),
         V::Entity(e) => ctx.name(e.0),

@@ -266,18 +266,25 @@ pub fn get_random_swimmable_pos(
     target_pos
 }
 
-/// `level.playSound(null, entity, sound, source, volume, pitch)` (seed drawn from the level's sound seed generator).
+/// `level.playSound(null, entity, sound, source, volume, pitch)` (seed drawn from the level's sound seed generator); the
+/// acting `entity` is out of the level's storage while its behaviors run, so its position comes from the entity itself.
 pub fn play_sound_from_entity(
     level: &mut ServerLevel,
-    entity: EntityId,
+    entity: &dyn Entity,
     sound: mc_data::SoundEvent,
     source: mc_protocol::packets::play::SoundSource,
     volume: f32,
     pitch: f32,
 ) {
-    use mc_core::random::RandomSource;
-    let seed = level.tick_state.sound_seed_generator.next_long();
-    level.play_seeded_sound_from_entity(None, entity, sound, source, volume, pitch, seed);
+    level.play_sound_from_entity_at(
+        None,
+        entity.id(),
+        entity.position(),
+        sound,
+        source,
+        volume,
+        pitch,
+    );
 }
 /// `isWithinAttackRange(body, target, projectileAttackRangeMargin)`.
 pub fn is_within_attack_range(

@@ -1,0 +1,20 @@
+# Goat finalizeSpawn: the memory cooldown draws, the screaming roll, the unihorn roll for adults only (left or right horn removed) and the attack damage of babies, each with its own level random seed.
+level flat
+difficulty normal
+entity_counter 800
+level_seed 1
+mobspawn GA minecraft:goat 0.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 3
+mobspawn GB minecraft:goat 3.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 17
+mobspawn GC minecraft:goat 6.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 38
+mobspawn GD minecraft:goat 9.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+level_seed 3
+mobspawn GE minecraft:goat 12.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+level_seed 38
+mobspawn GF minecraft:goat 15.5 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Age:-24000}
+tick 1
+dump mobs
+dump attrs:GA attrs:GE
+dump nbt:GD nbt:GE

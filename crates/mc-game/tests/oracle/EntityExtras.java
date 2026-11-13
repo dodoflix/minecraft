@@ -5,6 +5,7 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
+import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
@@ -64,6 +65,11 @@ final class EntityExtras {
          out.add("leftowner", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Projectile.class, "leftOwner")));
          out.add("shot", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Projectile.class, "hasBeenShot")));
          out.add("canbreak", EntityOracleDriver.bool(EntityOracleDriver.priv(e, Projectile.class, "canBreak") != null));
+      }));
+      ALL.add(new Extra(25, Goat.class, (d, e, out) -> {
+         Goat g = (Goat)e;
+         out.add("scream", EntityOracleDriver.bool(g.isScreamingGoat()));
+         out.add("lhorn", EntityOracleDriver.bool(g.hasLeftHorn())).add("rhorn", EntityOracleDriver.bool(g.hasRightHorn()));
       }));
       ALL.add(new Extra(30, AbstractMinecart.class, (d, e, out) -> {
          AbstractMinecart c = (AbstractMinecart)e;

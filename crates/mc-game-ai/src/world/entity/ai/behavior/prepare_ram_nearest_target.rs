@@ -213,7 +213,7 @@ impl Behavior for PrepareRamNearestTarget {
                     let pitch = body.get_voice_pitch();
                     behavior_utils::play_sound_from_entity(
                         level,
-                        body.id(),
+                        &*body,
                         sound,
                         SoundSource::Neutral,
                         1.0,
