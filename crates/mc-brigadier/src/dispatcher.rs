@@ -56,7 +56,7 @@ pub struct CommandDispatcher<S> {
 
 impl<S> Drop for CommandDispatcher<S> {
     fn drop(&mut self) {
-        self.root.dismantle(&mut std::collections::HashSet::new());
+        self.root.dismantle();
     }
 }
 

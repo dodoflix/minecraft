@@ -56,7 +56,11 @@ impl<S> CommandNode<S> {
     /// Detaches every child below this node (and below redirect targets). A tree whose nodes redirect to an ancestor (the
     /// `execute` family redirects to the root) is a cycle of `Arc`s that reference counting never frees, and its argument
     /// types keep the registries they were built with alive.
-    pub(crate) fn dismantle(self: &Arc<Self>, seen: &mut HashSet<*const Self>) {
+    pub fn dismantle(self: &Arc<Self>) {
+        self.dismantle_seen(&mut HashSet::new());
+    }
+
+    fn dismantle_seen(self: &Arc<Self>, seen: &mut HashSet<*const Self>) {
         if !seen.insert(Arc::as_ptr(self)) {
             return;
         }
@@ -68,10 +72,10 @@ impl<S> CommandNode<S> {
             std::mem::take(&mut state.children)
         };
         for child in &children {
-            child.dismantle(seen);
+            child.dismantle_seen(seen);
         }
         if let Some(redirect) = &self.redirect {
-            redirect.dismantle(seen);
+            redirect.dismantle_seen(seen);
         }
     }
 }

@@ -11,6 +11,7 @@ use mc_protocol::packets::play::{
     ClientboundCommandsPacket,
 };
 use std::collections::{HashMap, VecDeque};
+use std::ops::Deref;
 use std::sync::{Arc, LazyLock};
 
 type Node = Arc<CommandNode<CommandSourceStack>>;
@@ -44,13 +45,31 @@ pub fn fill_usable_commands(
     }
 }
 
+/// A pruned command tree. Redirects to the root (the `execute` family) make it a cycle of `Arc`s, so dropping it
+/// detaches the children to let reference counting free the nodes and the argument types they captured.
+pub struct UsableTree(Node);
+
+impl Deref for UsableTree {
+    type Target = Node;
+
+    fn deref(&self) -> &Node {
+        &self.0
+    }
+}
+
+impl Drop for UsableTree {
+    fn drop(&mut self) {
+        self.0.dismantle();
+    }
+}
+
 /// `Commands.sendCommands` without the sending: the pruned tree for a source.
-pub fn usable_root(dispatcher_root: &Node, source: &CommandSourceStack) -> Node {
+pub fn usable_root(dispatcher_root: &Node, source: &CommandSourceStack) -> UsableTree {
     let root = CommandNode::new_root();
     let mut converted = HashMap::new();
     converted.insert(ptr(dispatcher_root), root.clone());
     fill_usable_commands(dispatcher_root, &root, source, &mut converted);
-    root
+    UsableTree(root)
 }
 
 static NO_PERMISSION_SOURCE: LazyLock<CommandSourceStack> =
@@ -175,4 +194,36 @@ fn create_entry(node: &Node, ids: &mut NodeIds) -> ClientboundCommandsEntry {
         entry.flags |= COMMAND_NODE_RESTRICTED;
     }
     entry
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mc_brigadier::{CommandDispatcher, literal};
+
+    #[test]
+    fn usable_tree_is_freed_on_drop() {
+        let dispatcher = CommandDispatcher::<CommandSourceStack>::new();
+        dispatcher.register(literal("say"));
+        let root = dispatcher.get_root().clone();
+        dispatcher.register(literal("execute").then(literal("as").redirect(root)));
+        let source = CommandSourceStack::compilation_context(PermissionSet::NoPermissions);
+
+        let tree = usable_root(dispatcher.get_root(), &source);
+        let execute = tree
+            .get_children()
+            .into_iter()
+            .find(|c| c.get_name() == "execute")
+            .unwrap();
+        let redirecting = execute.get_children().into_iter().next().unwrap();
+        assert!(Arc::ptr_eq(redirecting.get_redirect().unwrap(), &*tree));
+        let probes = (Arc::downgrade(&execute), Arc::downgrade(&redirecting));
+        let root_probe = Arc::downgrade(&*tree);
+        drop((execute, redirecting));
+
+        drop(tree);
+        assert!(probes.0.upgrade().is_none());
+        assert!(probes.1.upgrade().is_none());
+        assert!(root_probe.upgrade().is_none());
+    }
 }
