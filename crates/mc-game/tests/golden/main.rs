@@ -77,6 +77,7 @@ mod decoration_common;
 mod default_world;
 mod dig_golden;
 mod dispenser_registry_guard;
+mod display_math_golden;
 mod enchant_anvil_golden;
 mod enchant_golden;
 mod ent_marker_interaction_golden;

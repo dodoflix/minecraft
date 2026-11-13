@@ -3,6 +3,10 @@
 use crate::builtin::*;
 use crate::codec::{Codec, Either};
 use crate::result::DataResult;
+use mc_core::display::{BillboardConstraints, Brightness};
+use mc_core::math::matrix4f::Matrix4f;
+use mc_core::math::quaternionf::{AxisAngle4f, Quaternionf};
+use mc_core::math::transformation::Transformation;
 use std::cmp::Ordering;
 use std::sync::LazyLock;
 
@@ -298,6 +302,125 @@ pub static VECTOR3F: LazyLock<Codec<[f32; 3]>> = LazyLock::new(|| {
         |l| fixed_size(l, 3).map(|v| [v[0], v[1], v[2]]),
         |v: &[f32; 3]| v.to_vec(),
     )
+});
+
+/// `ExtraCodecs.QUATERNIONF_COMPONENTS`: four floats `[x, y, z, w]`, normalised on decode.
+pub static QUATERNIONF_COMPONENTS: LazyLock<Codec<Quaternionf>> = LazyLock::new(|| {
+    FLOAT.list_of().comap_flat_map(
+        |l| {
+            fixed_size(l, 4).map(|d| {
+                let mut q = Quaternionf::new(d[0], d[1], d[2], d[3]);
+                q.normalize();
+                q
+            })
+        },
+        |q: &Quaternionf| vec![q.x, q.y, q.z, q.w],
+    )
+});
+
+struct AxisAngleFields {
+    angle: f32,
+    axis: [f32; 3],
+}
+
+/// `ExtraCodecs.AXISANGLE4F`: `{angle, axis}`.
+pub static AXISANGLE4F: LazyLock<Codec<AxisAngle4f>> = LazyLock::new(|| {
+    crate::record!(AxisAngleFields {
+        angle: FLOAT.field_of("angle"),
+        axis: VECTOR3F.field_of("axis"),
+    })
+    .codec()
+    .xmap(
+        |f| AxisAngle4f::new(f.angle, f.axis[0], f.axis[1], f.axis[2]),
+        |a: &AxisAngle4f| AxisAngleFields {
+            angle: a.angle,
+            axis: [a.x, a.y, a.z],
+        },
+    )
+});
+
+/// `ExtraCodecs.QUATERNIONF`: the components list, or an axis-angle object.
+pub static QUATERNIONF: LazyLock<Codec<Quaternionf>> = LazyLock::new(|| {
+    QUATERNIONF_COMPONENTS.with_alternative_conv(&AXISANGLE4F, |a| Quaternionf::from_axis_angle(&a))
+});
+
+/// `ExtraCodecs.MATRIX4F`: 16 floats in row-major order.
+pub static MATRIX4F: LazyLock<Codec<Matrix4f>> = LazyLock::new(|| {
+    FLOAT.list_of().comap_flat_map(
+        |l| {
+            fixed_size(l, 16).map(|l| {
+                let mut result = Matrix4f::default();
+                for (i, v) in l.into_iter().enumerate() {
+                    result.set_row_column(i >> 2, i & 3, v);
+                }
+                result.determine_properties();
+                result
+            })
+        },
+        |m: &Matrix4f| {
+            (0..16)
+                .map(|i| m.get_row_column(i >> 2, i & 3))
+                .collect::<Vec<f32>>()
+        },
+    )
+});
+
+struct TransformationFields {
+    translation: [f32; 3],
+    left_rotation: Quaternionf,
+    scale: [f32; 3],
+    right_rotation: Quaternionf,
+}
+
+/// `Transformation.CODEC`: `{translation, left_rotation, scale, right_rotation}`.
+pub static TRANSFORMATION: LazyLock<Codec<Transformation>> = LazyLock::new(|| {
+    crate::record!(TransformationFields {
+        translation: VECTOR3F.field_of("translation"),
+        left_rotation: QUATERNIONF.field_of("left_rotation"),
+        scale: VECTOR3F.field_of("scale"),
+        right_rotation: QUATERNIONF.field_of("right_rotation"),
+    })
+    .codec()
+    .xmap(
+        |f| {
+            Transformation::new(
+                Some(f.translation),
+                Some(f.left_rotation),
+                Some(f.scale),
+                Some(f.right_rotation),
+            )
+        },
+        |t: &Transformation| TransformationFields {
+            translation: t.translation(),
+            left_rotation: t.left_rotation(),
+            scale: t.scale(),
+            right_rotation: t.right_rotation(),
+        },
+    )
+});
+
+/// `Transformation.EXTENDED_CODEC`: [`TRANSFORMATION`], or a 16 float matrix.
+pub static TRANSFORMATION_EXTENDED: LazyLock<Codec<Transformation>> =
+    LazyLock::new(|| TRANSFORMATION.with_alternative_conv(&MATRIX4F, Transformation::from_matrix));
+
+/// `Brightness.LIGHT_VALUE_CODEC` / `Brightness.CODEC`: `{block, sky}` with both levels in `0..=15`.
+pub static BRIGHTNESS: LazyLock<Codec<Brightness>> = LazyLock::new(|| {
+    crate::record!(Brightness {
+        block: extra_int_range(0, 15).field_of("block"),
+        sky: extra_int_range(0, 15).field_of("sky"),
+    })
+    .codec()
+});
+
+/// `Display.BillboardConstraints.CODEC` (`StringRepresentable.fromEnum`).
+pub static BILLBOARD_CONSTRAINTS: LazyLock<Codec<BillboardConstraints>> = LazyLock::new(|| {
+    static VALUES: [(BillboardConstraints, &str); 4] = [
+        (BillboardConstraints::Fixed, "fixed"),
+        (BillboardConstraints::Vertical, "vertical"),
+        (BillboardConstraints::Horizontal, "horizontal"),
+        (BillboardConstraints::Center, "center"),
+    ];
+    string_enum_codec(&VALUES)
 });
 
 /// `ARGB.colorFromFloat(1.0F, r, g, b)` (channels `Mth.floor(v * 255.0F)`, masked to 8 bits).

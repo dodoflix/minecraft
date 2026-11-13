@@ -6,8 +6,8 @@
 /// ```ignore
 /// record!(Foo { a: INT.field_of("a"), b: STRING.optional_field_of("b") })
 /// ```
-/// Decoding evaluates every field, joins all error messages with `"; "`, and yields a partial result when every
-/// field has a result or partial value.
+/// Decoding evaluates every field, joins all error messages with `"; "` (last field first, like the nested `ap` of the
+/// Java applicative), and yields a partial result when every field has a result or partial value.
 #[macro_export]
 macro_rules! record {
     ($ty:ident $(<$($g:ty),+>)? { $($field:ident : $codec:expr),+ $(,)? }) => {{
@@ -26,7 +26,7 @@ macro_rules! record {
                 if errs.is_empty() {
                     $crate::DataResult::Success($ty { $( $field: $field.result().unwrap() ),+ })
                 } else {
-                    let message = $crate::Msg::new(move || errs.iter().map(|m| m.get()).collect::<Vec<_>>().join("; "));
+                    let message = $crate::Msg::new(move || errs.iter().rev().map(|m| m.get()).collect::<Vec<_>>().join("; "));
                     let partial = if all_partial { Some($ty { $( $field: $field.result_or_partial().unwrap() ),+ }) } else { None };
                     $crate::DataResult::Error { message, partial }
                 }

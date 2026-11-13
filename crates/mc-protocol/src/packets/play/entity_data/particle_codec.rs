@@ -135,8 +135,8 @@ fn safe_position_source_codec() -> Codec<PositionSource> {
                 },
             ),
             Kind::Entity => record!(EntityFields {
-                y_offset: FLOAT.optional_field_of_default("y_offset", 0.0f32),
-                source_entity: uuid.field_of("source_entity")
+                source_entity: uuid.field_of("source_entity"),
+                y_offset: FLOAT.optional_field_of_default("y_offset", 0.0f32)
             })
             .xmap(
                 |f| PositionSource::Entity {
@@ -286,8 +286,8 @@ impl ParticleOptions {
                     },
                 ),
             ParticleType::EFFECT | ParticleType::INSTANT_EFFECT => record!(SpellFields {
-                power: FLOAT.optional_field_of_default("power", 1.0f32),
                 color: RGB_COLOR_CODEC.optional_field_of_default("color", -1),
+                power: FLOAT.optional_field_of_default("power", 1.0f32),
             })
             .xmap(
                 move |f| ParticleOptions::Spell {
@@ -319,8 +319,8 @@ impl ParticleOptions {
                 )
             }
             ParticleType::GEYSER_BASE | ParticleType::GEYSER_POOF => record!(GeyserBaseFields {
-                burst_impulse_base: FLOAT.field_of("burst_impulse_base"),
                 water_blocks: POSITIVE_INT.field_of("water_blocks"),
+                burst_impulse_base: FLOAT.field_of("burst_impulse_base"),
             })
             .xmap(
                 move |f| ParticleOptions::GeyserBase {
@@ -344,8 +344,8 @@ impl ParticleOptions {
                 },
             ),
             ParticleType::DUST => record!(DustFields {
-                scale: SCALE.field_of("scale"),
-                color: RGB_COLOR_CODEC.field_of("color")
+                color: RGB_COLOR_CODEC.field_of("color"),
+                scale: SCALE.field_of("scale")
             })
             .xmap(
                 |f| ParticleOptions::Dust {
@@ -364,9 +364,9 @@ impl ParticleOptions {
                 },
             ),
             ParticleType::DUST_COLOR_TRANSITION => record!(DustTransitionFields {
-                scale: SCALE.field_of("scale"),
-                to_color: RGB_COLOR_CODEC.field_of("to_color"),
                 from_color: RGB_COLOR_CODEC.field_of("from_color"),
+                to_color: RGB_COLOR_CODEC.field_of("to_color"),
+                scale: SCALE.field_of("scale"),
             })
             .xmap(
                 |f| ParticleOptions::DustColorTransition {
@@ -412,8 +412,8 @@ impl ParticleOptions {
                 })
                 .field_of("item"),
             ParticleType::VIBRATION => record!(VibrationFields {
-                arrival_in_ticks: INT.field_of("arrival_in_ticks"),
                 destination: safe_position_source_codec().field_of("destination"),
+                arrival_in_ticks: INT.field_of("arrival_in_ticks"),
             })
             .xmap(
                 |f| ParticleOptions::Vibration {
@@ -435,9 +435,9 @@ impl ParticleOptions {
                 },
             ),
             ParticleType::TRAIL => record!(TrailFields {
-                duration: POSITIVE_INT.field_of("duration"),
-                color: RGB_COLOR_CODEC.field_of("color"),
                 target: vec3_codec().field_of("target"),
+                color: RGB_COLOR_CODEC.field_of("color"),
+                duration: POSITIVE_INT.field_of("duration"),
             })
             .xmap(
                 |f| ParticleOptions::Trail {
