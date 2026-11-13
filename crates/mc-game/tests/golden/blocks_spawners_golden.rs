@@ -109,13 +109,10 @@ fn trial_spawner_rules_match_vanilla() {
 
 #[test]
 fn vault_unlock_matches_vanilla() {
-    // Item entities resting on the ground move differently from ours (`delta.y` -0.04 vs 0, later positions):
-    // an `ItemEntity` motion difference that belongs to the entity port.
-    check_normalized(
-        "blk_vault_unlock",
-        &Options {
-            ignore_fields: vec!["pos", "delta"],
-            ..options()
-        },
-    );
+    check_normalized_default("blk_vault_unlock");
+}
+
+#[test]
+fn ominous_item_spawner_drops_plain_items_like_vanilla() {
+    crate::common::block_scenario::check("blk_ominous_item_plain");
 }

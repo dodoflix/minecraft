@@ -1,0 +1,31 @@
+# Experience dropped by dead players: Player.getBaseExperienceReward is min(level * 7, 100) and ExperienceOrb.award splits it into orbs of
+# the largest fitting value (levels 0, 1, 5, 12 and 40), the resting orbs, and observers standing by three of the piles collecting them
+# (take_item_entity, set_experience).
+level flat
+difficulty normal
+entity_counter 0
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 24.5 -60 0.5 0 0
+spawn_player C survival 48.5 -60 0.5 0 0
+spawn_player D survival 72.5 -60 0.5 0 0
+spawn_player E survival 96.5 -60 0.5 0 0
+spawn_player ObsC survival 52.5 -60 0.5 0 0
+spawn_player ObsD survival 76.5 -60 0.5 0 0
+spawn_player ObsE survival 100.5 -60 0.5 0 0
+set B xp_level 1
+set C xp_level 5
+set D xp_level 12
+set E xp_level 40
+tick 1
+dump packets:ObsC packets:ObsD packets:ObsE
+hurt A generic 1000
+hurt B generic 1000
+hurt C generic 1000
+hurt D generic 1000
+hurt E generic 1000
+tick 1
+dump entities packets:ObsC packets:ObsD packets:ObsE
+tick 30
+dump entities player:ObsC player:ObsD player:ObsE packets:ObsC packets:ObsD packets:ObsE
+tick 30
+dump entities player:ObsC player:ObsD player:ObsE packets:ObsC packets:ObsD packets:ObsE

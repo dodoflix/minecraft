@@ -114,8 +114,8 @@ T 98
 T 99
 BE 8 -60 12 {components:{},config:{key_item:{count:1,id:"minecraft:trial_key"}},id:"minecraft:vault",server_data:{items_to_eject:[{components:{"minecraft:damage":46},count:1,id:"minecraft:shield"}],rewarded_players:[[I;-1326943992,-2019279064,-1587751528,112070755]],state_updating_resumes_at:113L,total_ejections_needed:4},shared_data:{display_item:{components:{"minecraft:damage":46},count:1,id:"minecraft:shield"}},x:8,y:-60,z:12}
 B 8 -60 12 minecraft:vault[facing=north,ominous=false,vault_state=ejecting]
-E item#1 minecraft:item pos=8.388111684186988,-59.0,12.301797924255137 delta=-1.0066975128148655E-5,0.0,-1.7832919839507797E-5 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wind_charge*6 age=46 pickup=0 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=8.377076654748311,-59.0,12.383445335315592 delta=-2.4211294746117001E-4,-0.04,-2.2956903222337425E-4 rot=140.3865,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honey_bottle*2 age=26 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=8.388111684186988,-59.0,12.301797924255137 delta=-1.7120704278637662E-5,-0.12,-3.0328091915432332E-5 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wind_charge*6 age=46 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.377076654748311,-59.0,12.383445335315592 delta=-2.4211294746117001E-4,0.0,-2.2956903222337425E-4 rot=140.3865,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honey_bottle*2 age=26 pickup=0 health=5 owner=- thrower=-
 E item#3 minecraft:item pos=8.540668231082321,-58.50128870187972,12.473145325622207 delta=0.006311562104309565,-0.03188515460710934,-0.004167748156622712 rot=25.245895,0.0 og=0 fall=0.032535869628190994 fire=0 air=300 alive=1 pose=standing item=minecraft:wind_charge*2 age=6 pickup=0 health=5 owner=- thrower=-
 T 100
 T 101
@@ -163,9 +163,9 @@ T 138
 T 139
 BE 8 -60 12 {components:{},config:{key_item:{count:1,id:"minecraft:trial_key"}},id:"minecraft:vault",server_data:{rewarded_players:[[I;-1326943992,-2019279064,-1587751528,112070755]],state_updating_resumes_at:153L},shared_data:{},x:8,y:-60,z:12}
 B 8 -60 12 minecraft:vault[facing=north,ominous=false,vault_state=inactive]
-E item#1 minecraft:item pos=8.388111684186988,-59.0,12.301797924255137 delta=-4.973621057606692E-8,0.0,-8.810410724507196E-8 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wind_charge*8 age=46 pickup=0 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=8.37683454180085,-59.0,12.383215766283369 delta=-1.1961667119302295E-6,-0.04,-1.1341931000186562E-6 rot=140.3865,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honey_bottle*2 age=66 pickup=0 health=5 owner=- thrower=-
-E item#4 minecraft:item pos=8.46023921426341,-59.0,12.444430606689492 delta=-2.285759725039614E-4,-0.12,-3.194561647134474E-4 rot=127.454605,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shield*1/dmg=46 age=26 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=8.388111684186988,-59.0,12.301797924255137 delta=-8.458538363047386E-8,-0.12,-1.4983690201623205E-7 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wind_charge*8 age=46 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.37683454180085,-59.0,12.383215766283369 delta=-1.1961667119302295E-6,0.0,-1.1341931000186562E-6 rot=140.3865,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honey_bottle*2 age=66 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=8.460010638290907,-59.0,12.444111150524778 delta=-1.3440268534752544E-4,-0.08,-1.878402437402497E-4 rot=127.454605,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shield*1/dmg=46 age=26 pickup=0 health=5 owner=- thrower=-
 T 140
 T 141
 T 142
@@ -209,6 +209,6 @@ T 179
 I p 0 minecraft:trial_key*1
 BE 8 -60 12 {components:{},config:{key_item:{count:1,id:"minecraft:trial_key"}},id:"minecraft:vault",server_data:{rewarded_players:[[I;-1326943992,-2019279064,-1587751528,112070755]],state_updating_resumes_at:193L},shared_data:{},x:8,y:-60,z:12}
 B 8 -60 12 minecraft:vault[facing=north,ominous=false,vault_state=inactive]
-E item#1 minecraft:item pos=8.388111684186988,-59.0,12.301797924255137 delta=-2.4572332910112087E-10,0.0,-4.352811420289202E-10 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wind_charge*8 age=86 pickup=0 health=5 owner=- thrower=-
-E item#2 minecraft:item pos=8.37683454180085,-59.0,12.383215766283369 delta=-5.909699657675061E-9,-0.04,-5.60351705833846E-9 rot=140.3865,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honey_bottle*2 age=106 pickup=0 health=5 owner=- thrower=-
-E item#4 minecraft:item pos=8.460010638290907,-59.0,12.444111150524778 delta=-1.1292868569127977E-6,-0.12,-1.5782833349398253E-6 rot=127.454605,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shield*1/dmg=46 age=66 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=8.388111684186988,-59.0,12.301797924255137 delta=-4.1789677617653174E-10,-0.12,-7.402739766294948E-10 rot=343.0226,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wind_charge*8 age=86 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=8.37683454180085,-59.0,12.383215766283369 delta=-5.909699657675061E-9,0.0,-5.60351705833846E-9 rot=140.3865,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:honey_bottle*2 age=106 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=8.460010638290907,-59.0,12.444111150524778 delta=-6.640207386369811E-7,-0.08,-9.280306942650507E-7 rot=127.454605,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shield*1/dmg=46 age=66 pickup=0 health=5 owner=- thrower=-

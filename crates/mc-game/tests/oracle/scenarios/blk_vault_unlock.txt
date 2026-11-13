@@ -17,6 +17,7 @@ use_on p 8 -60 12 north main
 tick 2
 dump inventory:p
 give p mainhand minecraft:trial_key
+entity_counter 100
 level_seed 31
 use_on p 8 -60 12 north main
 dump inventory:p be:8,-60,12 blocks:8,-60,12,8,-60,12

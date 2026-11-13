@@ -1,0 +1,18 @@
+# OminousItemSpawner.spawnItem for an item that is not a projectile: it drops as an item entity at the spawner, then the spawn event 3021 and
+# the entity place game event; the items fall to the ground and rest there.
+level flat
+preload 2
+entity_counter 20
+spawn s1 minecraft:ominous_item_spawner 0.5 -55 0.5 0 0 {item:{id:"minecraft:stick",count:3},spawn_item_after_ticks:5L}
+spawn s2 minecraft:ominous_item_spawner 4.5 -55 0.5 0 0 {item:{id:"minecraft:diamond_sword",count:1,components:{"minecraft:enchantments":{"minecraft:sharpness":2}}},spawn_item_after_ticks:6L}
+level_seed 91
+tick 5
+dump entities events nbt:item#1
+tick 1
+dump entities events nbt:item#1 nbt:item#2
+tick 20
+dump entities events nbt:item#1 nbt:item#2
+tick 20
+dump entities
+tick 20
+dump entities

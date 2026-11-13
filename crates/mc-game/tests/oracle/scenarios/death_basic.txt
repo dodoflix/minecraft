@@ -1,6 +1,7 @@
 # Player deaths: keepInventory on/off (drops, xp), totem of undying, showDeathMessages false, death events/packets, respawn.
 level flat
 difficulty normal
+entity_counter 0
 spawn_player P1 survival 0.5 -60 0.5 0 0
 spawn_player P2 survival 4.5 -60 0.5 0 0
 spawn_player P3 survival 8.5 -60 0.5 0 0

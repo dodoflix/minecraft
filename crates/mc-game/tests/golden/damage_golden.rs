@@ -3,10 +3,10 @@
 //! `ServerPlayer`s + `ServerLevel` (real vanilla registries: damage types + tags, enchantments, loot tables) and compared line
 //! by line, nothing ignored but the `PKT` types listed in [`PKT_TYPES`] complement (the join burst, chunk/tracker traffic).
 //!
-//! Replay: `level`, `difficulty`, `gamerule`, `cmd difficulty`, `spawn` (a living stand-in `Mob` for any entity type: attackers
-//! only need name/equipment/position), `spawn_player`, `give` (item components via the command item parser), `effect`, `set`,
-//! `snap`, `use`, `hurt` (`by=`/`direct=`/`at=`), `respawn` (`PlayerList.respawn` core), `tick`, `watch`, `dump`
-//! (`player:`/`entity:`/`entities`/`inventory:`/`packets:`).
+//! Replay: `level`, `difficulty`, `gamerule`, `cmd difficulty`, `entity_counter` (the level's own id counter; the next entity gets
+//! id N + 1), `spawn` (a living stand-in `Mob` for any entity type: attackers only need name/equipment/position), `spawn_player`,
+//! `give` (item components via the command item parser), `effect`, `set`, `snap`, `use`, `hurt` (`by=`/`direct=`/`at=`),
+//! `respawn` (`PlayerList.respawn` core), `tick`, `watch`, `dump` (`player:`/`entity:`/`entities`/`inventory:`/`packets:`).
 use crate::common;
 
 use crate::common::entity_oracle::*;
@@ -17,6 +17,8 @@ use mc_data::block::Block;
 use mc_data::enums::GameType;
 use mc_data::{EntityType, Item, MobEffect};
 use mc_game::server::level::ServerLevel;
+use mc_game::server::level::chunk_map::PlayerTrackingInfo;
+use mc_game::server::level::chunk_send_sink::ChunkSendSink;
 use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::server::players::PlayerHandle;
 use mc_game::world::damagesource::DamageSource;
@@ -231,6 +233,7 @@ const PKT_TYPES: &[&str] = &[
     "minecraft:set_experience",
     "minecraft:update_mob_effect",
     "minecraft:remove_mob_effect",
+    "minecraft:take_item_entity",
 ];
 
 fn hex(bytes: &[u8]) -> String {
@@ -256,7 +259,6 @@ struct Replay {
     players: Vec<String>,
     rx: HashMap<String, UnboundedReceiver<Outbound>>,
     out: Vec<String>,
-    next_id: EntityId,
     ticks: i64,
     known: std::collections::HashSet<EntityId>,
     auto_counter: HashMap<String, i32>,
@@ -265,12 +267,16 @@ struct Replay {
     packet_names: HashMap<i32, &'static str>,
     /// the oracle world exists (first world command ran): every later command restarts the entity seed sequence
     booted: bool,
+    /// players whose first chunk batch goes out at the end of the current tick
+    unsent_chunks: Vec<std::sync::Arc<std::sync::atomic::AtomicBool>>,
 }
 
 impl Replay {
     fn new() -> Self {
         let mut level = ServerLevel::detached(overworld());
         level.registries = registries();
+        // the level's own counter (the shared static drifts with every test in the binary): ids start at 1 like a pinned oracle
+        level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
         let world = mc_game::server::level::level_data::default_world_data();
         level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
             world.clone(),
@@ -301,7 +307,6 @@ impl Replay {
             players: Vec::new(),
             rx: HashMap::new(),
             out: Vec::new(),
-            next_id: 1,
             ticks: 0,
             known: Default::default(),
             auto_counter: HashMap::new(),
@@ -309,7 +314,45 @@ impl Replay {
             world,
             packet_names,
             booted: false,
+            unsent_chunks: Vec::new(),
         }
+    }
+
+    /// `ChunkMap.addEntity(player)`: the player's chunk view, so entity trackers pair with it. The oracle's connections never
+    /// acknowledge a chunk batch: after the first tick only the nine chunks around the player were ever sent, every other
+    /// chunk of the view stays pending, so a tracker pairs with the player only inside them.
+    fn track_chunks(&mut self, p: &ServerPlayer) {
+        struct FirstBatch {
+            center: ChunkPos,
+            sent: std::sync::Arc<std::sync::atomic::AtomicBool>,
+        }
+        impl ChunkSendSink for FirstBatch {
+            fn mark_chunk_pending_to_send(&mut self, _: ChunkPos) {}
+            fn drop_chunk(&mut self, _: ChunkPos, _: bool) {}
+            fn is_pending(&self, pos: i64) -> bool {
+                let near = (ChunkPos::get_x(pos) - self.center.x).abs() <= 1
+                    && (ChunkPos::get_z(pos) - self.center.z).abs() <= 1;
+                !(near && self.sent.load(std::sync::atomic::Ordering::Relaxed))
+            }
+        }
+        let sent = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
+        self.unsent_chunks.push(sent.clone());
+        self.level
+            .chunk_source
+            .chunk_map
+            .add_player(PlayerTrackingInfo {
+                entity_id: p.base_id(),
+                uuid: p.uuid(),
+                connection: p.connection.clone().expect("connection"),
+                sink: Box::new(FirstBatch {
+                    center: p.chunk_position(),
+                    sent,
+                }),
+                position: p.position(),
+                requested_view_distance: p.requested_view_distance,
+                spectator: p.is_spectator(),
+                alive: p.is_alive(),
+            });
     }
 
     fn id_of(&self, name: &str) -> EntityId {
@@ -490,6 +533,12 @@ impl Replay {
                     p.use_item(level, hand);
                 });
             }
+            "entity_counter" => self
+                .level
+                .entity_id_counter
+                .as_ref()
+                .expect("per-level counter")
+                .store(t[1].parse().unwrap(), std::sync::atomic::Ordering::Relaxed),
             "hurt" => self.hurt(&t),
             "respawn" => self.respawn(&t[1]),
             "tick" => {
@@ -515,8 +564,7 @@ impl Replay {
     }
 
     fn spawn_player(&mut self, t: &[String]) {
-        let id = self.next_id;
-        self.next_id += 1;
+        let id = self.level.next_entity_id();
         let name = t[1].clone();
         mc_core::random::reseed_uniquifier(driver_hash(&name));
         let profile = GameProfile {
@@ -562,6 +610,7 @@ impl Replay {
         p.handle = Some(handle.clone());
         p.sync_handle();
         self.level.server_state.roster.add(handle);
+        self.track_chunks(&p);
         self.level.add_player(Box::new(p));
         self.refs.insert(name.clone(), id);
         self.players.push(name.clone());
@@ -571,8 +620,7 @@ impl Replay {
     }
 
     fn spawn(&mut self, t: &[String]) {
-        let id = self.next_id;
-        self.next_id += 1;
+        let id = self.level.next_entity_id();
         mc_core::random::reseed_uniquifier(driver_hash(&t[1]));
         let ty = EntityType::by_name(&t[2]).unwrap_or_else(|| panic!("entity type {}", t[2]));
         let mut mob = Mob::new(ty, id);
@@ -712,6 +760,7 @@ impl Replay {
             entity_id: id,
             event_id: 24,
         });
+        self.track_chunks(&new);
         self.level.add_player(Box::new(new));
         self.with_player(name, |level, p| p.init_inventory_menu(level));
     }
@@ -747,6 +796,9 @@ impl Replay {
                     p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
                 }
             });
+        }
+        for sent in self.unsent_chunks.drain(..) {
+            sent.store(true, std::sync::atomic::Ordering::Relaxed);
         }
         self.name_new_entities();
         if !self.watches.is_empty() {
@@ -1003,6 +1055,16 @@ fn replay(name: &str) -> Vec<String> {
     r.out
 }
 
+/// `removeAllEffects` walks a `HashMap` keyed by registry holders, whose order the real server leaves to the identity hash
+/// of each run: a run of consecutive `remove_mob_effect` packets compares sorted.
+fn with_sorted_effect_removals(mut lines: Vec<String>) -> Vec<String> {
+    let removal = |l: &String| l.contains(" minecraft:remove_mob_effect ");
+    for run in lines.chunk_by_mut(|a, b| removal(a) && removal(b)) {
+        run.sort_unstable();
+    }
+    lines
+}
+
 /// The fixture without the `PKT` lines of types the replay does not produce.
 fn check(name: &str) {
     let mut fixture = Fixture::load(name);
@@ -1010,11 +1072,12 @@ fn check(name: &str) {
         let mut it = l.split_whitespace();
         it.next() != Some("PKT") || PKT_TYPES.contains(&it.nth(1).unwrap_or(""))
     });
+    fixture.lines = with_sorted_effect_removals(fixture.lines);
     let opts = Options {
         ignore_kinds: vec!["#", "C"],
         ..Default::default()
     };
-    fixture.assert_matches(&replay(name), &opts);
+    fixture.assert_matches(&with_sorted_effect_removals(replay(name)), &opts);
 }
 
 #[test]
@@ -1059,9 +1122,13 @@ fn zombie_hits_player() {
 }
 
 #[test]
-#[ignore = "deviation: the respawn position, the death experience orbs and the dropped item motion differ (#27)"]
 fn player_death_drops_xp_totem_and_respawn() {
     check("death_basic");
+}
+
+#[test]
+fn dead_player_experience_orbs() {
+    check("ent_death_orbs");
 }
 
 #[test]
