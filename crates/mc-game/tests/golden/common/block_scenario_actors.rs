@@ -1,7 +1,7 @@
 //! Entities and players of the block scenario replay (`spawn`, `mobspawn`, `spawn_item`, `entity_seed`, `kill`, `nbt`, `hurt`, `effect`, `mob_attack`, `input` (sneak: the shift key), `op`, `pick_block`, `tp`, `snap`, `velocity`, `set`,
 //! `leash`, `spawn_player`, `sign_update`, `dig`, `explode`, `pcommand` (sprinting, stop_sleeping), `dump entities|xentities|entity:REF|xentity:REF|edata:REF|player:NAME|packets:NAME`). The player actions (`give select use use_on release interact drop swing swap dispense`
 //! and the dumps `use cooldowns stats inventory`) are shared with the entity replay: `player_actions.rs`; the `E` line of every dump is
-//! `entity_describe.rs`. `move_packet`, `move_vehicle`, `paddle` and `client_tick_end` hand the packet the Java verb builds to the player's
+//! `entity_describe.rs`. `move_packet`, `move_vehicle`, `paddle`, `accept_teleport` and `client_tick_end` hand the packet the Java verb builds to the player's
 //! listener; `respawn` replays the player list's respawn and then delivers the client's loaded report.
 //! Included by `block_scenario.rs` (private state of `Scenario`). Differences from the Java driver, all caused by the Rust level having no
 //! server: players act through `ServerPlayer::{use_item_on, use_item, handle_block_break_action}` and the replay re-does what the packet
@@ -36,11 +36,11 @@ use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_protocol::codec::{Decode, Encode, read_varint};
 use mc_protocol::packets::play::{
     AttributeModifierOperation, ClientboundSetTimePacket, ClientboundUpdateAttributesPacket,
-    PositionAndRotation, ServerboundClientTickEndPacket, ServerboundContainerButtonClickPacket,
-    ServerboundContainerClosePacket, ServerboundMovePlayerPosPacket,
-    ServerboundMovePlayerPosRotPacket, ServerboundMoveVehiclePacket, ServerboundPaddleBoatPacket,
-    ServerboundPickItemFromBlockPacket, ServerboundPlayPacket as P,
-    ServerboundSetCarriedItemPacket,
+    PositionAndRotation, ServerboundAcceptTeleportationPacket, ServerboundClientTickEndPacket,
+    ServerboundContainerButtonClickPacket, ServerboundContainerClosePacket,
+    ServerboundMovePlayerPosPacket, ServerboundMovePlayerPosRotPacket,
+    ServerboundMoveVehiclePacket, ServerboundPaddleBoatPacket, ServerboundPickItemFromBlockPacket,
+    ServerboundPlayPacket as P, ServerboundSetCarriedItemPacket,
 };
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
@@ -679,6 +679,23 @@ impl Scenario {
                     on_ground: a[7] == "true",
                 })
             }),
+            // accept_teleport PLAYER   ServerboundAcceptTeleportationPacket for the teleport the server waits on (nothing when none is pending)
+            "accept_teleport" => {
+                let pending = self.with_player_named(&a[1], |_, p| {
+                    let (id, at) = p.listener.as_ref()?.pending_teleport()?;
+                    Some(ServerboundAcceptTeleportationPacket {
+                        id,
+                        x: at.x,
+                        y: at.y,
+                        z: at.z,
+                        y_rot: p.get_y_rot(),
+                        x_rot: p.get_x_rot(),
+                    })
+                });
+                if let Some(packet) = pending {
+                    deliver(self, &a[1], |_, _| P::AcceptTeleportation(packet));
+                }
+            }
             // paddle PLAYER LEFT RIGHT   ServerboundPaddleBoatPacket (true|false)
             "paddle" => deliver(self, &a[1], |_, _| {
                 P::PaddleBoat(ServerboundPaddleBoatPacket {
@@ -1017,6 +1034,15 @@ impl Scenario {
         if let Some(l) = p.listener.as_mut() {
             l.confirm_teleport();
         }
+        // the accepted teleport goes through `handlePlayerPositionChange`, which wraps the client's rotation
+        let at = p.position();
+        p.abs_snap_to(
+            at.x,
+            at.y,
+            at.z,
+            mc_core::math::mth::wrap_degrees_f32(yaw),
+            mc_core::math::mth::wrap_degrees_f32(pitch),
+        );
         // `PlayerList.placeNewPlayer` broadcasts the join message before the new player joins the list: only the players
         // already in the level get it
         let joined =
@@ -1272,6 +1298,17 @@ impl Scenario {
                 // a simulated player keeps the position its own physics produced (`SimPlayer.absSnapTo`)
                 if !p.simulate_local_player {
                     p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
+                }
+                // `tickPlayer`'s vehicle tracking (the vehicle a `move_vehicle` packet is checked against)
+                if mc_game::commands::server_access::has_server() {
+                    mc_game::commands::server_access::with_server(|server| {
+                        mc_game::server::network::game_packets::PlayCtx {
+                            server,
+                            level,
+                            player: p,
+                        }
+                        .tick_vehicle_tracking();
+                    });
                 }
             });
         }

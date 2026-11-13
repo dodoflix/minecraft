@@ -153,6 +153,8 @@ import net.minecraft.util.RandomSource;
  * client_tick_end PLAYER    ServerboundClientTickEndPacket (re-arms the one position packet per tick; zeroes the known movement without one)
  * mob_attack MOB REF        Mob.doHurtTarget(level, REF); prints "MOBATTACK mob ref -> result"
  * paddle PLAYER LEFT RIGHT   ServerboundPaddleBoatPacket (true|false)       move_vehicle PLAYER X Y Z YROT XROT ONGROUND   ServerboundMoveVehiclePacket (the player controls the vehicle it rides)
+ * accept_teleport PLAYER    ServerboundAcceptTeleportationPacket for the teleport the server waits on (mounting a vehicle teleports the rider; its movement
+ *                             packets are ignored until the client acknowledged it, as a real client does at once); nothing when none is pending
  * drop PLAYER [all]           DROP_ITEM / DROP_ALL_ITEMS            respawn PLAYER   ServerboundClientCommandPacket
  * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING ...)
  * hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]    entity.hurtServer(level, source, amount); prints "HURT result"
@@ -734,6 +736,15 @@ public final class EntityOracleDriver {
             // move_vehicle PLAYER X Y Z YROT XROT ONGROUND: ServerboundMoveVehiclePacket of the vehicle the player controls
             player(a.get(1)).connection.handleMoveVehicle(new ServerboundMoveVehiclePacket(
                net.minecraft.core.PositionAndRotation.of(new Vec3(d(a.get(2)), d(a.get(3)), d(a.get(4))), (float)d(a.get(5)), (float)d(a.get(6))), Boolean.parseBoolean(a.get(7))));
+         }
+         case "accept_teleport" -> {
+            world();
+            ServerPlayer p = player(a.get(1));
+            Vec3 awaiting = (Vec3)VanillaLevel.getField(p.connection, "awaitingPositionFromClient");
+            if (awaiting != null) {
+               p.connection.handleAcceptTeleportPacket(new ServerboundAcceptTeleportationPacket((int)VanillaLevel.getField(p.connection, "awaitingTeleport"),
+                  awaiting.x, awaiting.y, awaiting.z, p.getYRot(), p.getXRot()));
+            }
          }
          case "swing" -> {
             world();

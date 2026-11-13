@@ -1,0 +1,21 @@
+# A click that carries the sneak flag sets the player's shift key; a player the server simulates takes the shift key of its input again on
+# the next tick, a player that only sends packets keeps it until a packet changes it.
+level flat
+preload 2
+entity_counter 1700
+level_seed 4
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0 sim
+spawn stand minecraft:armor_stand 0.5 -60 2.5 0 0
+entity_seed stand 71
+tick 2
+interact A stand main sneak
+interact B stand main sneak
+tick 1
+dump player:A player:B
+tick 2
+dump player:A player:B
+interact A stand main
+interact B stand main
+tick 1
+dump player:A player:B

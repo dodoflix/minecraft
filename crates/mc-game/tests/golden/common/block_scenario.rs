@@ -123,6 +123,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "pick_block"
                         | "move_packet"
                         | "move_vehicle"
+                        | "accept_teleport"
                         | "paddle"
                         | "client_tick_end"
                         | "respawn"

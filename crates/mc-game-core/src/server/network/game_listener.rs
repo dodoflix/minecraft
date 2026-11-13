@@ -238,6 +238,12 @@ impl ServerGamePacketListenerImpl {
         self.awaiting_position_from_client.is_some()
     }
 
+    /// The teleport the client has not confirmed yet: its id and the position it was sent for.
+    pub fn pending_teleport(&self) -> Option<(i32, Vec3)> {
+        self.awaiting_position_from_client
+            .map(|position| (self.awaiting_teleport, position))
+    }
+
     /// The listener half of `handleAcceptTeleportPacket`: the client confirmed the pending teleport.
     pub fn confirm_teleport(&mut self) {
         self.awaiting_position_from_client = None;

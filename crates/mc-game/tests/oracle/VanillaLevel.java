@@ -247,8 +247,17 @@ public final class VanillaLevel {
          super.absSnapTo(x, y, z, yRot, xRot);
       }
 
-      /** What LocalPlayer.aiStep does with KeyboardInput before LivingEntity.aiStep (movement vector, jump, sneak, sprint). */
+      /**
+       * What LocalPlayer.aiStep does with KeyboardInput before LivingEntity.aiStep (movement vector, jump, sneak, sprint). It
+       * overrides LivingEntity.applyInput, which aiStep calls: a player the server does not simulate keeps what its packets set
+       * (shift key, sprinting) and only gets vanilla's decay.
+       */
+      @Override
       public void applyInput() {
+         if (!sim) {
+            super.applyInput();
+            return;
+         }
          float f = (inForward ? 1f : 0f) - (inBack ? 1f : 0f);
          float s = (inLeft ? 1f : 0f) - (inRight ? 1f : 0f);
          this.setShiftKeyDown(inSneak);
@@ -613,6 +622,16 @@ public final class VanillaLevel {
          var f = o.getClass().getDeclaredField(name);
          f.setAccessible(true);
          f.set(o, value);
+      } catch (ReflectiveOperationException e) {
+         throw new IllegalStateException(e);
+      }
+   }
+
+   static Object getField(Object o, String name) {
+      try {
+         var f = o.getClass().getDeclaredField(name);
+         f.setAccessible(true);
+         return f.get(o);
       } catch (ReflectiveOperationException e) {
          throw new IllegalStateException(e);
       }

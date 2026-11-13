@@ -197,6 +197,12 @@ impl PlayCtx<'_> {
             lis.above_ground_tick_count = 0;
         }
 
+        self.tick_vehicle_tracking()
+    }
+
+    /// The vehicle half of `tickPlayer()`: the root vehicle the player controls and the positions its movement is checked
+    /// against; returns whether the player was kicked for floating the vehicle too long.
+    pub fn tick_vehicle_tracking(&mut self) -> bool {
         let root_vehicle = self.root_vehicle();
         let player_id = self.player.id();
         match root_vehicle {

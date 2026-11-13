@@ -19,3 +19,13 @@ fn respawn_matches_vanilla() {
         },
     );
 }
+
+#[test]
+fn spawned_player_yaw_matches_vanilla() {
+    common::block_scenario::check("ent_spawn_yaw");
+}
+
+#[test]
+fn sneaking_click_resets_with_the_next_tick_like_vanilla() {
+    common::block_scenario::check("ent_interact_sneak");
+}

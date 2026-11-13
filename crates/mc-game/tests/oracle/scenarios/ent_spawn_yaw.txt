@@ -1,0 +1,14 @@
+# A player joined at a yaw of 180, -180, 540 and -540 degrees: the rotation the player reports (the yaw is wrapped by whatever path
+# vanilla takes on the join and on the first tick) and the rotation saved to NBT.
+level flat
+preload 2
+entity_counter 1100
+level_seed 4
+spawn_player A survival 0.5 -60 0.5 180 0
+spawn_player B survival 4.5 -60 0.5 -180 0
+spawn_player C survival 8.5 -60 0.5 540 0
+spawn_player D survival 12.5 -60 0.5 -540 12
+tick 1
+dump player:A player:B player:C player:D nbt:A nbt:B nbt:C nbt:D
+tick 2
+dump player:A player:B player:C player:D
