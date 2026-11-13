@@ -75,7 +75,8 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
         if players == 0 {
             log::debug!("Removing player mount");
             level.stop_riding(player);
-            for id in members {
+            // the player itself is removed below
+            for id in members.into_iter().filter(|&id| id != player.id()) {
                 level.with_entity(id, |_, e| e.remove(RemovalReason::UnloadedWithPlayer));
             }
         }

@@ -346,7 +346,7 @@ fn drop_leash_impl(
         );
     }
     let leashee = e.id();
-    level.with_entity(holder, |level, h| h.notify_leashee_removed(level, leashee));
+    notify_holder_leashee_removed(level, holder, leashee);
 }
 
 /// `Leashable.tickLeash(level, entity)`.
@@ -591,6 +591,14 @@ pub fn get_leash_offset(e: &dyn Entity) -> Vec3 {
     )
 }
 
+/// `holder.notifyLeasheeRemoved(leashee)`. A player holder (taken out of the level while its own handler runs) has
+/// nothing to notify: only the leash knot overrides it.
+fn notify_holder_leashee_removed(level: &mut ServerLevel, holder: EntityId, leashee: EntityId) {
+    if level.player_record(holder).is_none() {
+        level.with_entity(holder, |level, h| h.notify_leashee_removed(level, leashee));
+    }
+}
+
 /// `setLeashedTo(holder, synch)`.
 pub fn set_leashed_to(
     e: &mut dyn Entity,
@@ -614,7 +622,7 @@ pub fn set_leashed_to(
     };
     if let Some(old) = old_holder.filter(|&o| o != holder.id) {
         let leashee = e.id();
-        level.with_entity(old, |level, h| h.notify_leashee_removed(level, leashee));
+        notify_holder_leashee_removed(level, old, leashee);
     }
     if synch {
         level.entity_tracker.send_to_tracking_players(

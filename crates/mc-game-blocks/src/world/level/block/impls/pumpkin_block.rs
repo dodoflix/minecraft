@@ -69,13 +69,16 @@ impl BlockBehaviour for PumpkinBlock {
             1.0,
             1.0,
         );
-        level.set_block_flags(
-            pos,
-            Block::CARVED_PUMPKIN
-                .default_state()
-                .set(props::HORIZONTAL_FACING, direction),
-            11,
-        );
+        // the carved pumpkin can summon a golem: the player is lent so the summon trigger finds it
+        level.lend(&mut *player, |level| {
+            level.set_block_flags(
+                pos,
+                Block::CARVED_PUMPKIN
+                    .default_state()
+                    .set(props::HORIZONTAL_FACING, direction),
+                11,
+            )
+        });
         let mut used = stack.clone();
         hurt_and_break(&mut used, 1, level, player, hand.as_equipment_slot());
         player.set_item_in_hand(hand, used);

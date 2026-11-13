@@ -211,8 +211,23 @@ impl ServerLevel {
 
     /// Take `id` out, run `f` with the level (the entity is absent from lookups), put it back. An entity that is
     /// out because its owner lent it (see [`ServerLevel::lend`]) is handed out as the lent `&mut` instead; its
-    /// tracking / listener callbacks still wait for the owner's [`ServerLevel::put_back_entity`].
+    /// tracking / listener callbacks still wait for the owner's [`ServerLevel::put_back_entity`]. `None` if the
+    /// entity is gone; an entity that is out of the level and not lent also yields `None`, which is a bug at the
+    /// caller (it needs a `lend`), so that asserts in debug builds and logs a warning otherwise.
     pub fn with_entity<R>(
+        &mut self,
+        id: EntityId,
+        f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R,
+    ) -> Option<R> {
+        let result = self.try_with_entity(id, f);
+        if result.is_none() {
+            self.note_unlent_target(id);
+        }
+        result
+    }
+
+    /// [`ServerLevel::with_entity`] for a caller that handles an entity it cannot reach (out and not lent) itself.
+    pub fn try_with_entity<R>(
         &mut self,
         id: EntityId,
         f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R,
@@ -292,6 +307,19 @@ impl ServerLevel {
         }
         #[cfg(not(debug_assertions))]
         let _ = (event, context);
+    }
+
+    /// A [`ServerLevel::with_entity`] that found nothing although `id` is still in the level: it is out of its slot
+    /// and its owner did not [`ServerLevel::lend`] it, so the award / trigger / effect aimed at it is lost (vanilla
+    /// finds it). A removed entity (slot gone) is fine: vanilla does nothing then either.
+    fn note_unlent_target(&self, id: EntityId) {
+        if self.entity_manager.has_entity_with_id(id) && !self.entity_manager.is_lent(id) {
+            let msg = format!(
+                "entity {id} is taken out of the level and not lent; the action aimed at it is lost"
+            );
+            log::warn!("{msg}");
+            debug_assert!(false, "{msg}");
+        }
     }
 
     /// `with_entity` for a player: `f` gets the `ServerPlayer` (taken out of the level while it runs).

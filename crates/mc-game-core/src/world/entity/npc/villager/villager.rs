@@ -533,7 +533,7 @@ impl Villager {
             return;
         };
         let reached = level
-            .with_entity(player_id, |level, e| {
+            .try_with_entity(player_id, |level, e| {
                 match e.as_any_mut().downcast_mut::<ServerPlayer>() {
                     Some(player) => {
                         self.update_special_prices(level, player);
