@@ -1,0 +1,12 @@
+# A removed entity keeps its scenario name in other entities' dumps: a snowball owned by a pig that is then killed still prints
+# `owner=pig`, and the dump of the removed pig itself still works.
+level flat
+preload 2
+spawn pig minecraft:pig 2.5 -60 2.5 0 0 {UUID:[I;1,2,3,4],NoAI:1b}
+spawn ball minecraft:snowball 8.5 -55 8.5 0 0 {Owner:[I;1,2,3,4],NoGravity:1b}
+tick 1
+dump xentity:ball
+kill pig
+dump xentity:ball xentity:pig
+tick 2
+dump xentity:ball xentity:pig

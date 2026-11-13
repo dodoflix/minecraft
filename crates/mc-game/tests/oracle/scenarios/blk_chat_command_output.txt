@@ -1,0 +1,26 @@
+# Chat and command output reach the players: /msg and /tell (the target gets the incoming line, a player sender the outgoing one),
+# /say, and /tellraw with a selector, a single target and a nested selector component.
+command_env
+level flat
+preload 2
+spawn_player A survival 3.5 -60 1.5 180 0
+spawn_player B survival 5.5 -60 1.5 180 0
+tick 2
+dump packets:A:none packets:B:none
+note console msg
+cmd msg A hello there
+dump packets:A:disguised_chat,system_chat packets:B:disguised_chat,system_chat
+note console tell with a selector in the text
+cmd tell B hi @a
+dump packets:A:disguised_chat,system_chat packets:B:disguised_chat,system_chat
+note console say
+cmd say hello world
+dump packets:A:disguised_chat,system_chat packets:B:disguised_chat,system_chat
+note tellraw to everyone, to one player, and with a selector component
+cmd tellraw @a {"text":"raw","color":"red"}
+cmd tellraw B ["only ",{"selector":"@a"}]
+dump packets:A:disguised_chat,system_chat packets:B:disguised_chat,system_chat
+note a player as the source
+cmd execute as A run msg B from A
+cmd execute as B run say from B
+dump packets:A:disguised_chat,system_chat,player_chat packets:B:disguised_chat,system_chat,player_chat

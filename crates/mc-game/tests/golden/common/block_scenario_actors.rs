@@ -1033,6 +1033,12 @@ impl Scenario {
             level.dimension.clone(),
         );
         level.server_state.roster.add(handle.clone());
+        // the command environment's own player list: `msg`, `say` and `tellraw` deliver through it
+        if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| {
+                server.player_list.add_player(handle.clone())
+            });
+        }
         // `PlayerList.placeNewPlayer`: the packet listener (teleports, block change acks), the join teleport and the client's
         // "loaded" report (`VanillaLevel.connect`: the driver accepts the teleport and sends `PlayerLoaded`)
         let (inbound_tx, inbound_rx) = std::sync::mpsc::channel();
@@ -1592,10 +1598,10 @@ impl Scenario {
         let level = self.level();
         let names: std::collections::BTreeMap<EntityId, String> =
             refs.iter().map(|(n, id)| (*id, n.clone())).collect();
-        // the driver's `uuidName`: a known entity prints as its scenario name
+        // the driver's `uuidName`: a known entity prints as its scenario name, a removed one too (`refs` keeps it)
         let uuids: std::collections::BTreeMap<uuid::Uuid, EntityId> = refs
             .iter()
-            .filter_map(|(_, id)| level.get_entity(*id).map(|e| (e.uuid(), *id)))
+            .filter_map(|(_, id)| level.get_entity_or_removed(*id).map(|e| (e.uuid(), *id)))
             .collect();
         let ctx = mc_game::world::entity::scenario_dump::ScenarioDumpCtx {
             names: &names,

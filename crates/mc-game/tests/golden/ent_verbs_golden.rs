@@ -27,3 +27,13 @@ fn sneaking_click_resets_with_the_next_tick_like_vanilla() {
 fn removed_entities_dump_like_vanilla() {
     common::block_scenario::check("ent_removed_dump");
 }
+
+#[test]
+fn removed_entities_keep_their_names_in_dumps() {
+    common::block_scenario::check("blk_removed_entity_names");
+}
+
+#[test]
+fn chat_and_command_output_reach_the_players() {
+    common::block_scenario::check("blk_chat_command_output");
+}
