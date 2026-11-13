@@ -74,11 +74,13 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
             .count();
         if players == 0 {
             log::debug!("Removing player mount");
+            level.stop_riding(player);
             for id in members {
                 level.with_entity(id, |_, e| e.remove(RemovalReason::UnloadedWithPlayer));
             }
         }
-        player.base_mut().vehicle = None;
+        // `unRide()`
+        level.remove_vehicle(player);
     }
     // Not implemented: pearls in another level than the player's (a level only sees its own entities).
     for pearl in std::mem::take(&mut player.ender_pearls) {
