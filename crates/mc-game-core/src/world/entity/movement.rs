@@ -571,7 +571,7 @@ pub fn move_entity(
         );
     }
     let factor =
-        f64::from(entity.modify_block_speed_factor(get_block_speed_factor(entity, &*level)));
+        f64::from(entity.modify_block_speed_factor(entity.get_block_speed_factor(&*level)));
     let dm = entity.base().delta_movement();
     entity
         .base_mut()

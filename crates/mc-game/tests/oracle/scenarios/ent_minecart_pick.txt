@@ -1,0 +1,20 @@
+# Pick block on a minecart: the creative player gets the minecart item, a survival player only selects a stack he carries.
+command_env
+level flat
+preload 2
+level_seed 4
+entity_counter 830
+spawn_player C creative 4.5 -60 4.5 180 0
+spawn_player A survival 4.5 -60 4.5 180 0
+spawn c1 minecraft:minecart 2.5 -59.9375 3.5 0 0
+entity_seed c1 71
+tick 2
+dump inventory:C inventory:A packets:C:none packets:A:none
+pick_entity C c1
+dump inventory:C packets:C:set_held_slot,container_set_slot
+pick_entity A c1
+dump inventory:A packets:A:set_held_slot,container_set_slot
+give A hotbar4 minecraft:minecart 1
+select A 0
+pick_entity A c1
+dump inventory:A packets:A:set_held_slot,container_set_slot

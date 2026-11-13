@@ -1,0 +1,35 @@
+# Rails up a hill (ascending east/north), over the top and down again; gravity-fed slides.
+level flat
+entity_counter 220
+fill -2 -60 -2 60 -40 20 minecraft:air
+fill 0 -60 0 3 -60 0 minecraft:rail[shape=east_west]
+block 4 -60 0 minecraft:stone
+block 4 -59 0 minecraft:rail[shape=ascending_east]
+block 3 -60 0 minecraft:rail[shape=ascending_east]
+block 5 -60 0 minecraft:stone
+block 5 -59 0 minecraft:rail[shape=east_west]
+block 6 -60 0 minecraft:stone
+block 6 -59 0 minecraft:rail[shape=east_west]
+block 7 -60 0 minecraft:stone
+block 7 -59 0 minecraft:rail[shape=ascending_west]
+block 8 -60 0 minecraft:rail[shape=east_west]
+fill 9 -60 0 14 -60 0 minecraft:rail[shape=east_west]
+# second hill: ascending north and south
+fill 0 -60 6 0 -60 6 minecraft:rail[shape=north_south]
+block 0 -60 5 minecraft:rail[shape=ascending_north]
+block 0 -60 4 minecraft:stone
+block 0 -59 4 minecraft:rail[shape=ascending_north]
+block 0 -60 3 minecraft:stone
+block 0 -59 3 minecraft:stone
+block 0 -58 3 minecraft:rail[shape=north_south]
+spawn c1 minecraft:minecart 0.5 -59.9375 0.5
+entity_seed c1 14
+velocity c1 0.4 0 0
+spawn c2 minecraft:minecart 0.5 -59.9375 7.5
+entity_seed c2 15
+velocity c2 0 0 -0.4
+spawn c3 minecraft:minecart 6.5 -58.9375 0.5
+entity_seed c3 16
+velocity c3 0 0 0
+watch xentities
+tick 100

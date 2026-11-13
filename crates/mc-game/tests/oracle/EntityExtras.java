@@ -8,6 +8,7 @@ import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ShulkerBullet;
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 
 /**
  * Per-class fields of the rich `E` lines (`dump xentity:REF`, `xentities`, `mob:REF`, `mobs`): the Java twin of the Rust registry
@@ -49,6 +50,12 @@ final class EntityExtras {
          out.add("leftowner", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Projectile.class, "leftOwner")));
          out.add("shot", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, Projectile.class, "hasBeenShot")));
          out.add("canbreak", EntityOracleDriver.bool(EntityOracleDriver.priv(e, Projectile.class, "canBreak") != null));
+      }));
+      ALL.add(new Extra(30, AbstractMinecart.class, (d, e, out) -> {
+         AbstractMinecart c = (AbstractMinecart)e;
+         out.add("rails", EntityOracleDriver.bool(c.isOnRails())).add("flipped", EntityOracleDriver.bool(c.isFlipped()));
+         out.add("vhurt", c.getHurtTime() + "/" + c.getHurtDir() + "/" + EntityOracleDriver.f(c.getDamage()));
+         out.add("mdir", c.getMotionDirection().getSerializedName()).add("rider", d.entName(c.getFirstPassenger()));
       }));
       ALL.add(new Extra(30, AreaEffectCloud.class, (d, e, out) -> {
          AreaEffectCloud c = (AreaEffectCloud)e;

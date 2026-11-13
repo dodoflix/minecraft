@@ -1,0 +1,180 @@
+T 1
+E c1 minecraft:minecart pos=3.5,-59.9375,0.5 delta=0.02,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 2
+E c1 minecraft:minecart pos=3.52,-59.9375,0.5 delta=0.07919999999999999,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 3
+E c1 minecraft:minecart pos=3.5992,-59.9375,0.5 delta=0.136032,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 4
+E c1 minecraft:minecart pos=3.7352320000000003,-59.9375,0.5 delta=0.19059072,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 5
+E c1 minecraft:minecart pos=3.92582272,-59.9375,0.5 delta=0.24296709119999998,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 6
+E c1 minecraft:minecart pos=4.1687898112,-59.9375,0.5 delta=0.293248407552,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 7
+E c1 minecraft:minecart pos=4.462038218752,-59.9375,0.5 delta=0.28151847124991997,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 8
+E c1 minecraft:minecart pos=4.74355669000192,-59.9375,0.5 delta=0.2702577323999232,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 9
+E c1 minecraft:minecart pos=5.013814422401843,-59.9375,0.5 delta=0.25944742310392627,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 10
+E c1 minecraft:minecart pos=5.273261845505769,-59.9375,0.5 delta=0.2490695261797692,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 11
+E c1 minecraft:minecart pos=5.522331371685539,-59.9375,0.5 delta=0.23910674513257843,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 12
+E c1 minecraft:minecart pos=5.761438116818117,-59.9375,0.5 delta=0.22954247532727529,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 13
+E c1 minecraft:minecart pos=5.990980592145393,-59.9375,0.5 delta=0.22036077631418427,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 14
+E c1 minecraft:minecart pos=6.211341368459577,-59.9375,0.5 delta=0.2115463452616169,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 15
+E c1 minecraft:minecart pos=6.4228877137211935,-59.9375,0.5 delta=0.2030844914511522,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 16
+E c1 minecraft:minecart pos=6.625972205172346,-59.9375,0.5 delta=0.1949611117931061,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 17
+E c1 minecraft:minecart pos=6.820933316965452,-59.9375,0.5 delta=0.18716266732138184,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 18
+E c1 minecraft:minecart pos=7.008095984286834,-59.9375,0.5 delta=0.17967616062852657,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 19
+E c1 minecraft:minecart pos=7.18777214491536,-59.9375,0.5 delta=0.1724891142033855,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 20
+E c1 minecraft:minecart pos=7.3602612591187455,-59.9375,0.5 delta=0.16558954963525008,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 21
+E c1 minecraft:minecart pos=7.5258508087539955,-59.9375,0.5 delta=0.15896596764984006,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 22
+E c1 minecraft:minecart pos=7.684816776403835,-59.9375,0.5 delta=0.15260732894384646,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 23
+E c1 minecraft:minecart pos=7.837424105347681,-59.9375,0.5 delta=0.14650303578609258,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 24
+E c1 minecraft:minecart pos=7.9839271411337736,-59.9375,0.5 delta=0.14064291435464887,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 25
+E c1 minecraft:minecart pos=8.124570055488423,-59.9375,0.5 delta=0.13501719778046292,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 26
+E c1 minecraft:minecart pos=8.259587253268887,-59.9375,0.5 delta=0.1296165098692444,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 27
+E c1 minecraft:minecart pos=8.38920376313813,-59.9375,0.5 delta=0.12443184947447461,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 28
+E c1 minecraft:minecart pos=8.513635612612605,-59.9375,0.5 delta=0.11945457549549562,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 29
+E c1 minecraft:minecart pos=8.6330901881081,-59.9375,0.5 delta=0.11467639247567579,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 30
+E c1 minecraft:minecart pos=8.747766580583777,-59.9375,0.5 delta=0.11008933677664876,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 31
+E c1 minecraft:minecart pos=8.857855917360427,-59.9375,0.5 delta=0.1056857633055828,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 32
+E c1 minecraft:minecart pos=8.96354168066601,-59.9375,0.5 delta=0.10145833277335949,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 33
+E c1 minecraft:minecart pos=9.06500001343937,-59.9375,0.5 delta=0.0973999994624251,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 34
+E c1 minecraft:minecart pos=9.162400012901795,-59.9375,0.5 delta=0.0935039994839281,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 35
+E c1 minecraft:minecart pos=9.255904012385724,-59.9375,0.5 delta=0.08976383950457097,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 36
+E c1 minecraft:minecart pos=9.345667851890294,-59.9375,0.5 delta=0.08617328592438812,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 37
+E c1 minecraft:minecart pos=9.431841137814683,-59.9375,0.5 delta=0.0827263544874126,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 38
+E c1 minecraft:minecart pos=9.514567492302096,-59.9375,0.5 delta=0.07941730030791609,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 39
+E c1 minecraft:minecart pos=9.593984792610012,-59.9375,0.5 delta=0.07624060829559945,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 40
+E c1 minecraft:minecart pos=9.670225400905611,-59.9375,0.5 delta=0.07319098396377546,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 41
+E c1 minecraft:minecart pos=9.743416384869386,-59.9375,0.5 delta=0.07026334460522445,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 42
+E c1 minecraft:minecart pos=9.813679729474611,-59.9375,0.5 delta=0.06745281082101547,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 43
+E c1 minecraft:minecart pos=9.881132540295626,-59.9375,0.5 delta=0.06475469838817484,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 44
+E c1 minecraft:minecart pos=9.9458872386838,-59.9375,0.5 delta=0.06216451045264784,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 45
+E c1 minecraft:minecart pos=10.008051749136449,-59.9375,0.5 delta=0.05967793003454193,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 46
+E c1 minecraft:minecart pos=10.067729679170991,-59.9375,0.5 delta=0.05729081283316025,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 47
+E c1 minecraft:minecart pos=10.125020492004152,-59.9375,0.5 delta=0.05499918031983384,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 48
+E c1 minecraft:minecart pos=10.180019672323986,-59.9375,0.5 delta=0.052799213107040485,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 49
+E c1 minecraft:minecart pos=10.232818885431026,-59.9375,0.5 delta=0.05068724458275886,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 50
+E c1 minecraft:minecart pos=10.283506130013786,-59.9375,0.5 delta=0.04865975479944851,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 51
+E c1 minecraft:minecart pos=10.332165884813234,-59.9375,0.5 delta=0.04671336460747057,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 52
+E c1 minecraft:minecart pos=10.378879249420704,-59.9375,0.5 delta=0.044844830023171744,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 53
+E c1 minecraft:minecart pos=10.423724079443875,-59.9375,0.5 delta=0.04305103682224487,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 54
+E c1 minecraft:minecart pos=10.46677511626612,-59.9375,0.5 delta=0.04132899534935507,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 55
+E c1 minecraft:minecart pos=10.508104111615475,-59.9375,0.5 delta=0.03967583553538087,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 56
+E c1 minecraft:minecart pos=10.547779947150856,-59.9375,0.5 delta=0.038088802113965634,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 57
+E c1 minecraft:minecart pos=10.585868749264822,-59.9375,0.5 delta=0.036565250029407005,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 58
+E c1 minecraft:minecart pos=10.622433999294229,-59.9375,0.5 delta=0.03510264002823072,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 59
+E c1 minecraft:minecart pos=10.65753663932246,-59.9375,0.5 delta=0.03369853442710149,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 60
+E c1 minecraft:minecart pos=10.691235173749561,-59.9375,0.5 delta=0.032350593050017425,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,4.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-

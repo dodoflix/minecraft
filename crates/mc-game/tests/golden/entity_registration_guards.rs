@@ -22,7 +22,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
     ("minecraft:furnace_minecart", "MinecartFurnace: fuel, push and drive"),
     ("minecraft:hopper_minecart", "MinecartHopper: container pull and push"),
     ("minecraft:lingering_potion", "ThrownLingeringPotion: area effect cloud on hit"),
-    ("minecraft:minecart", "Minecart: rail movement, riding, destroying"),
     ("minecraft:spawner_minecart", "MinecartSpawner: the spawner logic"),
     ("minecraft:splash_potion", "ThrownSplashPotion: splash effects on hit"),
     ("minecraft:tnt_minecart", "MinecartTNT: fuse and explosion"),

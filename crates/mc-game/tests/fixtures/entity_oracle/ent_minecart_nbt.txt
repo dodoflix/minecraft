@@ -1,0 +1,40 @@
+# before the first tick: HasTicked is the cart's first-tick flag
+E c1 minecraft:minecart pos=0.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c2 minecraft:minecart pos=3.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c3 minecraft:minecart pos=6.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c4 minecraft:minecart pos=9.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c5 minecraft:minecart pos=12.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c6 minecraft:minecart pos=15.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06
+ED c2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:942b 12:1:0c
+ED c3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06
+ED c4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:01 12:1:06
+ED c5 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:c734 12:1:fdffffff0f
+ED c6 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06
+N c1 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c2 {Air:300s,DisplayOffset:12,DisplayState:{id:"minecraft:oak_stairs",properties:{facing:"east",half:"top",shape:"straight",waterlogged:"false"}},Fire:0s,FlippedRotation:1b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[3.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c3 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c4 {Air:300s,DisplayState:"minecraft:stone",Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[9.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c5 {Air:300s,DisplayOffset:-3,DisplayState:"minecraft:redstone_wire",Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[12.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c6 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[15.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+# after two ticks
+E c1 minecraft:minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c2 minecraft:minecart pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E c3 minecraft:minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c4 minecraft:minecart pos=9.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c5 minecraft:minecart pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c6 minecraft:minecart pos=15.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+N c1 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c2 {Air:300s,DisplayOffset:12,DisplayState:{id:"minecraft:oak_stairs",properties:{facing:"east",half:"top",shape:"straight",waterlogged:"false"}},Fire:0s,FlippedRotation:1b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[3.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c6 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[15.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+# merging into live carts: the display block changes, a missing key keeps the field, the offset resets to its default
+E c1 minecraft:minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c2 minecraft:minecart pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c3 minecraft:minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:f61d 12:1:14
+ED c2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:942b 12:1:06
+ED c3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06
+N c1 {Air:300s,DisplayOffset:20,DisplayState:"minecraft:gold_block",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c2 {Air:300s,DisplayState:{id:"minecraft:oak_stairs",properties:{facing:"east",half:"top",shape:"straight",waterlogged:"false"}},Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[3.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c3 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[6.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N c3 {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[6.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}

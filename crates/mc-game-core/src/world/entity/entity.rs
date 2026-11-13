@@ -2383,15 +2383,7 @@ pub trait Entity: Any {
     }
     /// `getKnownMovement()`.
     fn get_known_movement(&self, level: &ServerLevel) -> Vec3 {
-        if let Some(controller) = self
-            .get_controlling_passenger()
-            .and_then(|id| level.entity_manager.get_any(id))
-            && controller.is_player()
-            && self.is_alive()
-        {
-            return controller.get_known_movement(level);
-        }
-        self.base().delta_movement()
+        default_known_movement(self.as_dyn(), level)
     }
     /// `getKnownSpeed()`.
     fn get_known_speed(&self, level: &ServerLevel) -> Vec3 {
@@ -2770,6 +2762,11 @@ pub trait Entity: Any {
             ),
             None => base,
         }
+    }
+    /// `getBlockSpeedFactor()` before the `LivingEntity` modifier: the speed factor of the block the entity is in or, when
+    /// that is 1, of the block it stands on (minecarts ignore the block below on rails).
+    fn get_block_speed_factor(&self, level: &ServerLevel) -> f32 {
+        super::movement::get_block_speed_factor(self.as_dyn(), level)
     }
     /// `setSprinting(isSprinting)` (`LivingEntity`: also toggles the sprinting speed modifier).
     fn set_sprinting(&mut self, sprinting: bool) {
@@ -4306,8 +4303,7 @@ pub trait Entity: Any {
         false
     }
     /// `getPickResult()`: the stack of a pick-block on the entity (`None`: nothing); `Mob`'s spawn egg by default.
-    // Not implemented: `getPickResult` of `AbstractMinecart` and its subclasses (the minecart items) and
-    // `EnderDragonPart` (its parent's).
+    // Not implemented: `getPickResult` of `EnderDragonPart` (its parent's).
     fn get_pick_result(&self) -> Option<crate::world::item::ItemStack> {
         crate::world::item::spawn_egg_item::by_id(self.get_type())
             .map(crate::world::item::ItemStack::new)
@@ -4387,9 +4383,14 @@ pub trait Entity: Any {
     }
     /// `removePassenger(passenger)`'s level-dependent part (the passenger list is already updated).
     fn on_passenger_removed(&mut self, _level: &mut ServerLevel, _passenger: EntityId) {}
-    /// `this instanceof AbstractMinecart minecart && minecart.isRideable()`.
-    fn is_rideable_minecart(&self) -> bool {
-        false
+    /// `this instanceof AbstractMinecart`: every minecart class returns itself.
+    fn as_abstract_minecart(&self) -> Option<&dyn super::vehicle::minecart::AbstractMinecart> {
+        None
+    }
+    fn as_abstract_minecart_mut(
+        &mut self,
+    ) -> Option<&mut dyn super::vehicle::minecart::AbstractMinecart> {
+        None
     }
     /// `Monster.isPreventingPlayerRest(level, player)` (read for the monster entity types only; `true` is the `Monster`
     /// default, `ZombifiedPiglin` overrides it with `isAngryAt(player)`).
@@ -5059,12 +5060,25 @@ pub fn load<E: Entity + ?Sized>(entity: &mut E, input: &CompoundTag) -> Result<(
 }
 
 /// `Entity.computeSpeed()`.
-fn compute_speed<E: Entity + ?Sized>(entity: &mut E) {
+pub(crate) fn compute_speed<E: Entity + ?Sized>(entity: &mut E) {
     let b = entity.base_mut();
     let pos = b.position();
     let last = *b.last_known_position.get_or_insert(pos);
     b.last_known_speed = pos.subtract(last);
     b.last_known_position = Some(pos);
+}
+
+/// `Entity.getKnownMovement()`: a player controlling the entity reports its own movement.
+pub fn default_known_movement(entity: &dyn Entity, level: &ServerLevel) -> Vec3 {
+    if let Some(controller) = entity
+        .get_controlling_passenger()
+        .and_then(|id| level.entity_manager.get_any(id))
+        && controller.is_player()
+        && entity.is_alive()
+    {
+        return controller.get_known_movement(level);
+    }
+    entity.base().delta_movement()
 }
 
 /// `Entity.baseTick()`.

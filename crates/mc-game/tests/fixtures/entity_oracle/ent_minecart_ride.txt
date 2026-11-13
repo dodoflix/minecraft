@@ -1,0 +1,172 @@
+# a sneaking player does not board
+T 3
+P Alice minecraft:player pos=2.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.5,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+# boarding, then the keys start the cart (it faces south: the intent is along the rail only after the facing turns)
+T 4
+P Alice minecraft:player pos=2.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.5,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 5
+P Alice minecraft:player pos=2.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.5,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+PKT Alice minecraft:player_position 49024004000000000000c04e2ccccccccccd3fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT Alice minecraft:set_passengers 6db70601b506
+T 6
+P Alice minecraft:player pos=2.50075,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.50075,-59.9375,0.5 delta=9.97E-4,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 7
+P Alice minecraft:player pos=2.50224775,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.50224775,-59.9375,0.5 delta=0.001991009,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 8
+P Alice minecraft:player pos=2.50449100675,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.50449100675,-59.9375,0.5 delta=0.002982035973,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 9
+P Alice minecraft:player pos=2.50747753372975,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.50747753372975,-59.9375,0.5 delta=0.003970089865081,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 10
+P Alice minecraft:player pos=2.5112051011285605,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.5112051011285605,-59.9375,0.5 delta=0.004955179595485758,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 11
+P Alice minecraft:player pos=2.515671485825175,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.515671485825175,-59.9375,0.5 delta=0.005937314056699301,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 12
+P Alice minecraft:player pos=2.5208744713676996,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.5208744713676996,-59.9375,0.5 delta=0.006916502114529203,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 13
+P Alice minecraft:player pos=2.5268118479535966,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.5268118479535966,-59.9375,0.5 delta=0.007892752608185616,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 14
+P Alice minecraft:player pos=2.533481412409736,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.533481412409736,-59.9375,0.5 delta=0.00886607435036106,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 15
+P Alice minecraft:player pos=2.5408809681725066,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.5408809681725066,-59.9375,0.5 delta=0.009836476127309975,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 16
+P Alice minecraft:player pos=2.549008325267989,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.549008325267989,-59.9375,0.5 delta=0.010803966698928046,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 17
+P Alice minecraft:player pos=2.5578613002921853,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.5578613002921853,-59.9375,0.5 delta=0.011768554798831262,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 18
+P Alice minecraft:player pos=2.567437716391309,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.567437716391309,-59.9375,0.5 delta=0.01273024913443477,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 19
+P Alice minecraft:player pos=2.577735403242135,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.577735403242135,-59.9375,0.5 delta=0.013689058387031465,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 20
+P Alice minecraft:player pos=2.5887521970324086,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.5887521970324086,-59.9375,0.5 delta=0.01464499121187037,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 21
+P Alice minecraft:player pos=2.6004859404413114,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.6004859404413114,-59.9375,0.5 delta=0.015598056238234757,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 22
+P Alice minecraft:player pos=2.6129344826199876,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.6129344826199876,-59.9375,0.5 delta=0.016548262069520054,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 23
+P Alice minecraft:player pos=2.6260956791721277,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.6260956791721277,-59.9375,0.5 delta=0.017495617283311494,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 24
+P Alice minecraft:player pos=2.6399673921346114,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.6399673921346114,-59.9375,0.5 delta=0.01844013043146156,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 25
+P Alice minecraft:player pos=2.6545474899582078,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.6545474899582078,-59.9375,0.5 delta=0.019381810040167174,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 26
+P Alice minecraft:player pos=2.669083847488333,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.669083847488333,-59.9375,0.5 delta=0.019323664610046674,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 27
+P Alice minecraft:player pos=2.6835765959458677,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.6835765959458677,-59.9375,0.5 delta=0.019265693616216533,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 28
+P Alice minecraft:player pos=2.69802586615803,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.69802586615803,-59.9375,0.5 delta=0.019207896535367884,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 29
+P Alice minecraft:player pos=2.712431788559556,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.712431788559556,-59.9375,0.5 delta=0.01915027284576178,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 30
+P Alice minecraft:player pos=2.7267944931938772,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.7267944931938772,-59.9375,0.5 delta=0.019092822027224492,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+# a second player cannot board a ridden cart
+T 31
+P Alice minecraft:player pos=2.7411141097142955,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.7411141097142955,-59.9375,0.5 delta=0.019035543561142818,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+T 32
+P Alice minecraft:player pos=2.7553907673851525,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.7553907673851525,-59.9375,0.5 delta=0.01897843693045939,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=Alice
+# sneaking leaves the cart
+T 33
+P Alice minecraft:player pos=2.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.769624595082997,-59.9375,0.5 delta=0.01892150161966801,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 34
+P Alice minecraft:player pos=2.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.788546096702665,-59.9375,0.5 delta=0.01816464155488129,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 35
+P Alice minecraft:player pos=2.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.8067107382575465,-59.9375,0.5 delta=0.017438055892686037,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+PKT Alice minecraft:set_passengers 6db70600
+PKT Alice minecraft:player_position 49034004000000000000c04e000000000000bfe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+T 36
+P Alice minecraft:player pos=2.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.8241487941502323,-59.9375,0.5 delta=0.016740533656978595,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+T 37
+P Alice minecraft:player pos=2.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=2.840889327807211,-59.9375,0.5 delta=0.016070912310699452,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+# the carts facing the other ways, riding by force
+T 38
+P Alice minecraft:player pos=6.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 39
+P Alice minecraft:player pos=6.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 40
+P Alice minecraft:player pos=6.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 41
+P Alice minecraft:player pos=7.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 42
+P Alice minecraft:player pos=7.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 43
+P Alice minecraft:player pos=7.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 44
+P Alice minecraft:player pos=10.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 45
+P Alice minecraft:player pos=10.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 46
+P Alice minecraft:player pos=10.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 47
+P Alice minecraft:player pos=10.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 48
+P Alice minecraft:player pos=10.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 49
+P Alice minecraft:player pos=10.5,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 50
+P Alice minecraft:player pos=14.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 51
+P Alice minecraft:player pos=14.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 52
+P Alice minecraft:player pos=14.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 53
+P Alice minecraft:player pos=13.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 54
+P Alice minecraft:player pos=13.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 55
+P Alice minecraft:player pos=13.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:minecart pos=3.049970556907388,-59.9375,0.5 delta=0.007707663146692373,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c2 minecraft:minecart pos=6.5,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=north rider=-
+E c3 minecraft:minecart pos=10.5,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=east rider=-
+E c4 minecraft:minecart pos=14.5,-59.9375,0.5 delta=0.0,-0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=south rider=-
+PKT Alice minecraft:player_position 4904401a000000000000c04e2ccccccccccd3fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT Alice minecraft:set_passengers 6db80601b506
+PKT Alice minecraft:set_passengers 6db80601b506
+PKT Alice minecraft:set_passengers 6db80600
+PKT Alice minecraft:player_position 4905401e000000000000c04e0000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT Alice minecraft:set_passengers 6db80600
+PKT Alice minecraft:player_position 49064025000000000000c04e2ccccccccccd3fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT Alice minecraft:set_passengers 6db90601b506
+PKT Alice minecraft:set_passengers 6db90601b506
+PKT Alice minecraft:set_passengers 6db90600
+PKT Alice minecraft:player_position 49074025000000000000c04e0000000000003ff80000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT Alice minecraft:set_passengers 6db90600
+PKT Alice minecraft:player_position 4908402d000000000000c04e2ccccccccccd3fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT Alice minecraft:set_passengers 6dba0601b506
+PKT Alice minecraft:set_passengers 6dba0601b506
+PKT Alice minecraft:set_passengers 6dba0600
+PKT Alice minecraft:player_position 4909402b000000000000c04e0000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT Alice minecraft:set_passengers 6dba0600

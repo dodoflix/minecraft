@@ -1,0 +1,10 @@
+# A minecart that falls into lava burns it (4 damage a tick until it breaks) and halves its fall distance; the rail in front of it does not matter.
+level flat
+entity_counter 350
+level_seed 11
+fill -2 -60 -2 30 -40 8 minecraft:air
+fill 2 -62 -1 6 -61 1 minecraft:lava[level=0]
+spawn c1 minecraft:minecart 4.5 -55 0.5
+entity_seed c1 91
+watch xentities
+tick 30

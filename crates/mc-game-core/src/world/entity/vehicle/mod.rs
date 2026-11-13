@@ -1,10 +1,11 @@
-//! `net.minecraft.world.entity.vehicle`: `VehicleEntity` (hurt/damage wobble, destroy), `ContainerEntity` (chest vehicles) and
-//! the boats. Data inheritance by composition like the rest of the entity layer: a vehicle struct embeds its `EntityData`,
+//! `net.minecraft.world.entity.vehicle`: `VehicleEntity` (hurt/damage wobble, destroy), `ContainerEntity` (chest vehicles), the
+//! boats and the minecarts. Data inheritance by composition like the rest of the entity layer: a vehicle struct embeds its `EntityData`,
 //! defines [`vehicle_entity::DATA_ID_HURT`] & co. through [`vehicle_entity::define_synched_data`] and calls the
 //! `vehicle_entity::*` free functions from its `Entity` overrides.
 
 pub mod boat;
 pub mod container_entity;
+pub mod minecart;
 pub mod vehicle_entity;
 
 use crate::server::level::ServerLevel;

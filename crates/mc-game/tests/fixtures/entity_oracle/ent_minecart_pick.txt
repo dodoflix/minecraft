@@ -1,0 +1,7 @@
+I C 0 minecraft:minecart*1
+PKT C minecraft:set_held_slot 6b00
+PKT C minecraft:container_set_slot 140002002401c6070000
+PKT A minecraft:set_held_slot 6b00
+I A 4 minecraft:minecart*1
+PKT A minecraft:set_held_slot 6b04
+PKT A minecraft:container_set_slot 140002002801c6070000

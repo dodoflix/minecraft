@@ -496,7 +496,9 @@ impl Entity for ArmorStand {
     fn push_entities(&mut self, level: &mut ServerLevel) {
         let bb = self.data().bounding_box();
         let id = self.data().id;
-        for target in level.get_entities(Some(id), &bb, |e| e.is_rideable_minecart()) {
+        for target in level.get_entities(Some(id), &bb, |e| {
+            e.as_abstract_minecart().is_some_and(|m| m.is_rideable())
+        }) {
             let dist = level
                 .get_entity(target)
                 .map(|e| self.data().distance_to_sqr_vec(e.base().position()));

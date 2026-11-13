@@ -1,0 +1,62 @@
+# Riding a minecart: a sneaking player does not board, boarding with interact, the rider's keys start a cart that stands still, a second
+# player cannot board, sneaking leaves the cart beside it (per facing), the activator rail ejects.
+level flat
+preload 3
+level_seed 12
+entity_counter 820
+fill -2 -60 -4 40 -40 12 minecraft:air
+fill 0 -60 0 30 -60 0 minecraft:rail[shape=east_west]
+spawn_player Alice survival 2.5 -60 3.5 -90 0
+spawn_player Bob survival 3.5 -60 3.5 90 0
+spawn c1 minecraft:minecart 2.5 -59.9375 0.5 0 0
+entity_seed c1 61
+spawn c2 minecraft:minecart 6.5 -59.9375 0.5 90 0
+entity_seed c2 62
+spawn c3 minecraft:minecart 10.5 -59.9375 0.5 180 0
+entity_seed c3 63
+spawn c4 minecraft:minecart 14.5 -59.9375 0.5 270 0
+entity_seed c4 64
+tick 2
+dump packets:Alice:none packets:Bob:none
+watch player:Alice xentity:c1
+note a sneaking player does not board
+input Alice sneak
+interact Alice c1 main sneak
+tick 1
+input Alice none
+note boarding, then the keys start the cart (it faces south: the intent is along the rail only after the facing turns)
+interact Alice c1
+tick 2
+dump packets:Alice:set_passengers,teleport_entity,player_position packets:Bob:set_passengers
+input Alice forward
+tick 20
+input Alice none
+tick 5
+note a second player cannot board a ridden cart
+interact Bob c1
+tick 2
+note sneaking leaves the cart
+input Alice sneak
+tick 3
+dump packets:Alice:set_passengers,teleport_entity,player_position packets:Bob:set_passengers
+input Alice none
+tick 2
+watch off
+watch player:Alice
+note the carts facing the other ways, riding by force
+ride Alice c2
+tick 3
+input Alice sneak
+tick 3
+input Alice none
+ride Alice c3
+tick 3
+input Alice sneak
+tick 3
+input Alice none
+ride Alice c4
+tick 3
+input Alice sneak
+tick 3
+input Alice none
+dump xentities packets:Alice:set_passengers,teleport_entity,player_position

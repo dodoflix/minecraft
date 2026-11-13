@@ -84,6 +84,24 @@ pub fn non_climbable_shape(level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape
     }
 }
 
+/// `findCeilingFrom(pos, blocks, shapeGetter)`: the height of the lowest collision shape in the `blocks` blocks from `pos`
+/// upwards, infinity when there is none.
+pub fn find_ceiling_from(
+    pos: BlockPos,
+    blocks: i32,
+    shape_getter: impl Fn(BlockPos) -> VoxelShape,
+) -> f64 {
+    let mut cursor = pos;
+    for y in 0..blocks {
+        let collision_shape = shape_getter(cursor);
+        if !collision_shape.is_empty() {
+            return f64::from(pos.y() + y) + collision_shape.min(mc_core::direction::Axis::Y);
+        }
+        cursor = cursor.above();
+    }
+    f64::INFINITY
+}
+
 /// `findSafeDismountLocation(type, level, blockPos, checkDangerous)`.
 pub fn find_safe_dismount_location(
     entity_type: EntityType,

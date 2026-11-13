@@ -270,6 +270,30 @@ impl ServerPlayer {
         self.game_mode.game_mode_for_player == GameType::Creative
     }
 
+    /// `getLastClientMoveIntent()`: the keys the client last reported as a horizontal direction in world space.
+    pub fn get_last_client_move_intent(&self) -> Vec3 {
+        let input = &self.last_client_input;
+        let left_intent = if input.left == input.right {
+            0.0
+        } else if input.left {
+            1.0
+        } else {
+            -1.0
+        };
+        let forward_intent = if input.forward == input.backward {
+            0.0
+        } else if input.forward {
+            1.0
+        } else {
+            -1.0
+        };
+        entity::get_input_vector(
+            Vec3::new(left_intent, 0.0, forward_intent),
+            1.0,
+            self.base().y_rot(),
+        )
+    }
+
     /// `loadAndSpawnParentVehicle` input: the `RootVehicle` tag of the saved data, if any.
     pub fn take_saved_root_vehicle(&mut self) -> Option<CompoundTag> {
         self.saved_root_vehicle.take()

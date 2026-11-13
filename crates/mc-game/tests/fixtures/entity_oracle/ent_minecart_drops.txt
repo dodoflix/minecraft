@@ -1,0 +1,48 @@
+# a named cart broken by a mob: the drop keeps the name
+HURT c1 mob_attack 50 -> true
+E c2 minecraft:minecart pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c3 minecraft:minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c4 minecraft:minecart pos=9.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=v1
+E v1 minecraft:pig pos=9.5,-59.8125,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=0.3689862025891343,-59.64873599172974,0.7464285346756057 delta=-0.04193617971871733,0.07297472653442398,0.0788792594536252 rot=305.2159,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=3 pickup=7 health=5 owner=- thrower=-
+PKT Alice minecraft:add_entity 01b2068d87186db6a546b0961ff4f680e60587483fe0000000000000c04e0000000000003fe000000000000029e98ab9333100d90000
+PKT Alice minecraft:set_entity_data 65b206080701c60701000608000722527573747922ff
+PKT Alice minecraft:set_entity_data 65b206080701c60701000608000722527573747922ff
+# a cart broken in two hits by a player
+HURT c2 player_attack 3 -> true
+E c2 minecraft:minecart pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=8/-1/28.0 mdir=west rider=-
+E c3 minecraft:minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c4 minecraft:minecart pos=9.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=v1
+E v1 minecraft:pig pos=9.5,-59.8125,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=0.28595256594620483,-59.62344603256263,0.902609469898286 delta=-0.040275508569599675,-0.0075310721665503766,0.07575564372808652 rot=305.2159,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=5 pickup=5 health=5 owner=- thrower=-
+HURT c2 player_attack 2 -> true
+E c3 minecraft:minecart pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c4 minecraft:minecart pos=9.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=v1
+E v1 minecraft:pig pos=9.5,-59.8125,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=0.16752645827429863,-59.88240640060758,1.1253613689933275 delta=-0.03790698867496029,-0.1223518697449284,0.07130060999484099 rot=305.2159,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.620141848988689,-59.64873599172974,0.775212933357194 delta=0.038456179963461005,0.07297472653442398,0.08809285176269135 rot=16.811935,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=3 pickup=7 health=5 owner=- thrower=-
+PKT Alice minecraft:add_entity 01b30630fb84bc26c7452682743405a395b66948400c000000000000c04e0000000000003fe0000000000000e1148bf93332000b0000
+PKT Alice minecraft:set_entity_data 65b306080701c6070000ff
+PKT Alice minecraft:set_entity_data 65b306080701c6070000ff
+# a creative player discards the named cart: no drop
+HURT c3 player_attack 1 -> true
+E c4 minecraft:minecart pos=9.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=v1
+E v1 minecraft:pig pos=9.5,-59.8125,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=0.09422404148883297,-60.0,1.2632385049408783 delta=-0.0077063972935596334,0.0,0.014495238136822778 rot=305.2159,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.73321840272439,-59.67097710472918,1.0342411596537155 delta=0.03619465104551108,-0.04658045162980263,0.08291229217733224 rot=16.811935,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=6 pickup=4 health=5 owner=- thrower=-
+# a cart with a rider breaks: the rider stays
+HURT c4 mob_attack 50 -> true
+E v1 minecraft:pig pos=9.5,-59.8125,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=0.07932184096927443,-60.0,1.2912685865815186 delta=-0.0015666915606359613,0.0,0.002946846158236294 rot=305.2159,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=14 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.839645156702071,-60.0,1.2780364682529657 delta=0.02043967245508208,0.0,0.04682183819022934 rot=16.811935,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=9 pickup=1 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=9.507124686276285,-59.64873599172974,0.21497795196474256 delta=0.0022805393784956587,0.07297472653442398,-0.09123264928135069 rot=201.3909,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=3 pickup=7 health=5 owner=- thrower=-
+PKT Alice minecraft:add_entity 01b40650edd1d9f101422ebf0b8ef8604e3b4d484023000000000000c04e0000000000003fe0000000000000390173973332008f0000
+# entity_drops off: nothing drops
+C Game rule entity_drops is now set to false
+HURT c5 mob_attack 50 -> true
+E v1 minecraft:pig pos=9.5,-59.8125,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=0.07683393467834948,-60.0,1.2959481784550384 delta=-5.41674315879329E-4,0.0,0.0010188545830401494 rot=305.2159,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=18 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=3.8833255882960387,-60.0,1.3780966871565048 delta=0.0024433372210954612,0.0,0.005597033918312703 rot=16.811935,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=13 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=9.51597680993762,-59.75755755635898,-0.13914997978897048 delta=0.002103497074109852,-0.08484884424859764,-0.08415009740073069 rot=201.3909,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=7 pickup=3 health=5 owner=- thrower=-
+PKT Alice minecraft:add_entity 01b506dfffc7eb618f4f68abe00a8532a14962564029000000000000c04df800000000003fe00000000000000000000000
+PKT Alice minecraft:remove_entities 4e01b506
