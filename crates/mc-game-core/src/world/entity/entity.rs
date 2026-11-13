@@ -1842,7 +1842,7 @@ pub trait Entity: Any {
     }
     /// `Leashable.tickLeash(level, this)` for leashable entities.
     fn tick_leash(&mut self, level: &mut ServerLevel) {
-        if self.mob().is_some() {
+        if self.is_leashable() {
             super::mob::leashable::tick_leash(self.as_dyn_mut(), level);
         }
     }
@@ -2396,6 +2396,11 @@ pub trait Entity: Any {
             return controller.get_known_speed(level);
         }
         self.base().last_known_speed
+    }
+    /// `getKnownMovement()` where no level is at hand (`PositionMoveRotation.of(entity)`): the motion a client reported for a
+    /// player, the entity's own motion otherwise (a vehicle's player controller is not looked up).
+    fn known_movement_snapshot(&self) -> Vec3 {
+        self.base().delta_movement()
     }
 
     // ---- teleport / push / look ---------------------------------------------------------------------------------
@@ -4112,6 +4117,23 @@ pub trait Entity: Any {
     fn play_eating_sound(&mut self, _level: &mut ServerLevel) {}
 
     // ---- leash ----
+    /// `this instanceof Leashable`: mobs and boats.
+    fn is_leashable(&self) -> bool {
+        self.mob().is_some()
+    }
+    /// `Leashable.getLeashData()`.
+    fn leash_data(&self) -> Option<&super::mob::leashable::LeashData> {
+        self.mob().and_then(|m| m.leash_data.as_ref())
+    }
+    fn leash_data_mut(&mut self) -> Option<&mut super::mob::leashable::LeashData> {
+        self.mob_mut().and_then(|m| m.leash_data.as_mut())
+    }
+    /// `Leashable.setLeashData(leashData)`; ignored by entities that are not leashable.
+    fn set_leash_data(&mut self, data: Option<super::mob::leashable::LeashData>) {
+        if let Some(m) = self.mob_mut() {
+            m.leash_data = data;
+        }
+    }
     /// `canBeLeashed()` (`Mob`: not an `Enemy`).
     fn can_be_leashed(&self) -> bool {
         self.mob().is_some_and(|m| !m.enemy || m.tamable.is_some())
@@ -5314,7 +5336,7 @@ pub fn position_move_rotation_of(
     let b = e.base();
     mc_protocol::packets::play::PositionMoveRotation {
         position: b.position(),
-        delta_movement: b.delta_movement(),
+        delta_movement: e.known_movement_snapshot(),
         y_rot: b.y_rot(),
         x_rot: b.x_rot(),
     }

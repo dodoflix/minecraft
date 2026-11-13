@@ -1,0 +1,48 @@
+# Passengers of boats: a boat takes the living entities that overlap it as passengers (a boat two, a chest boat one) unless a player
+# controls it, the entity is a player or one of the animals in the cannot_be_pushed_onto_boats tag, or it is too wide for the boat; the
+# others are pushed. The animals' bodies turn to the side when the boat is full.
+level flat
+preload 6
+level_seed 301
+entity_counter 3400
+spawn_player O survival 80.5 -60 8.5 0 0
+spawn B1 minecraft:oak_boat 0.5 -60 0.5 0 0
+entity_seed B1 311
+spawn B2 minecraft:oak_chest_boat 10.5 -60 0.5 0 0
+entity_seed B2 312
+spawn B3 minecraft:birch_boat 20.5 -60 0.5 0 0
+entity_seed B3 313
+spawn B4 minecraft:jungle_boat 30.5 -60 0.5 0 0
+entity_seed B4 314
+spawn B5 minecraft:acacia_boat 40.5 -60 0.5 0 0
+entity_seed B5 315
+spawn_player R survival 40.5 -60 -3.5 0 0
+tick 2
+dump packets:O:none packets:R:none
+mobspawn pig1 minecraft:pig 0.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed pig1 321
+mobspawn cow1 minecraft:cow 0.7 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed cow1 322
+mobspawn vil1 minecraft:sheep 0.4 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed vil1 323
+mobspawn pig2 minecraft:pig 10.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed pig2 324
+mobspawn cow2 minecraft:cow 10.7 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed cow2 325
+mobspawn horse minecraft:horse 20.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed horse 326
+mobspawn cod minecraft:cod 20.9 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed cod 327
+mobspawn zom minecraft:zombie 20.7 -60 0.7 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed zom 328
+spawn_player PL survival 30.5 -60 0.5 0 0
+tick 3
+dump entity:B1 mob:pig1 mob:cow1 mob:vil1 entity:B2 mob:pig2 mob:cow2 entity:B3 mob:horse mob:cod mob:zom entity:B4 player:PL packets:O:set_passengers,teleport_entity,move_entity_pos,set_entity_motion packets:R:none
+note a boat that a player controls takes nobody: the pig is pushed
+ride R B5
+accept_teleport R
+tick 2
+mobspawn pig3 minecraft:pig 40.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed pig3 329
+tick 3
+dump entity:B5 mob:pig3 player:R packets:O:set_passengers,teleport_entity,move_entity_pos,set_entity_motion

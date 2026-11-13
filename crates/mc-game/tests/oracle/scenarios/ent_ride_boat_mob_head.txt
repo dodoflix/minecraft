@@ -16,3 +16,10 @@ ride frog boat
 ride ax boat
 tick 2
 dump mob:frog mob:ax entity:boat
+note the boat turns: the passengers' bodies follow it, their heads stay within their own limit of the body
+tp boat 0.5 -60 2.5 40 0
+tick 2
+dump mob:frog mob:ax entity:boat
+tp boat 0.5 -60 2.5 200 0
+tick 2
+dump mob:frog mob:ax entity:boat

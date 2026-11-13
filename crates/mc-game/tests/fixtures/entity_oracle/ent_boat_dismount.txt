@@ -1,0 +1,108 @@
+# everyone boards
+P P1 minecraft:player pos=0.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P2 minecraft:player pos=20.5,-61.73292307703498,2.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=297 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P3 minecraft:player pos=40.5,-61.73292307703498,2.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=297 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P4 minecraft:player pos=60.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P5 minecraft:player pos=80.5,-60.4125,1.7020799840140346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P6 minecraft:player pos=100.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E B1 minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P1
+E B2 minecraft:spruce_boat pos=20.5,-61.32042307703498,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P2
+E B3 minecraft:birch_boat pos=40.5,-61.32042307703498,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P3
+E B4 minecraft:jungle_boat pos=60.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P4
+E B5 minecraft:acacia_boat pos=80.5,-60.0,1.7020799840140346 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P5
+E B6 minecraft:dark_oak_boat pos=100.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P6
+# the shift key goes down: the riders try to leave
+P P1 minecraft:player pos=0.5,-60.0,3.7722768119620014 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P2 minecraft:player pos=20.5,-60.75792307703498,2.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P3 minecraft:player pos=40.5,-60.75792307703498,2.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P4 minecraft:player pos=60.5,-60.0,3.7722768119620014 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P5 minecraft:player pos=80.5,-59.4375,1.7020799840140346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P6 minecraft:player pos=100.5,-59.4375,2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E B1 minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E B2 minecraft:spruce_boat pos=20.5,-61.32042307703498,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E B3 minecraft:birch_boat pos=40.5,-61.32042307703498,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E B4 minecraft:jungle_boat pos=60.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E B5 minecraft:acacia_boat pos=80.5,-60.0,1.7020799840140346 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E B6 minecraft:dark_oak_boat pos=100.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+EV sound at=20.5,-61.73292307703498,2.5 r=16.0 ex=1 event=minecraft:entity.player.splash source=player vol=0.0 pitch=1.1101637
+EV sound at=40.5,-61.73292307703498,2.5 r=16.0 ex=1 event=minecraft:entity.player.splash source=player vol=0.0 pitch=1.1383072
+P P1 minecraft:player pos=0.5,-60.0,3.7722768119620014 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P2 minecraft:player pos=20.5,-60.75792307703498,2.5 delta=0.0,-0.014760000269412998,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P3 minecraft:player pos=40.5,-60.75792307703498,2.5 delta=0.0,-0.014760000269412998,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P4 minecraft:player pos=60.5,-60.0,3.7722768119620014 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P5 minecraft:player pos=80.5,-59.4375,1.7020799840140346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P P6 minecraft:player pos=100.5,-59.4375,2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P1 minecraft:player_position 49023fe0000000000000c04e34cccccccccd4004000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P1 minecraft:set_passengers 6d981c01911c
+PKT P1 minecraft:set_passengers 6d991c01921c
+PKT P1 minecraft:set_passengers 6d981c01911c
+PKT P1 minecraft:set_passengers 6d991c01921c
+PKT P1 minecraft:set_passengers 6d981c01911c
+PKT P1 minecraft:set_passengers 6d991c01921c
+PKT P1 minecraft:set_passengers 6d981c00
+PKT P1 minecraft:player_position 49033fe0000000000000c04e000000000000400e2d9f7716b0000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P1 minecraft:set_passengers 6d981c00
+PKT P1 minecraft:set_passengers 6d991c00
+PKT P2 minecraft:player_position 49024034800000000000c04eddd06c632caa4004000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P2 minecraft:set_passengers 6d991c01921c
+PKT P2 minecraft:set_passengers 6d981c01911c
+PKT P2 minecraft:set_passengers 6d9a1c01931c
+PKT P2 minecraft:set_passengers 6d981c01911c
+PKT P2 minecraft:set_passengers 6d991c01921c
+PKT P2 minecraft:set_passengers 6d9a1c01931c
+PKT P2 minecraft:set_passengers 6d981c01911c
+PKT P2 minecraft:set_passengers 6d991c01921c
+PKT P2 minecraft:set_passengers 6d9a1c01931c
+PKT P2 minecraft:set_passengers 6d991c00
+PKT P2 minecraft:player_position 49034034800000000000c04e61039f965fdd40040000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P2 minecraft:set_passengers 6d981c00
+PKT P2 minecraft:set_passengers 6d991c00
+PKT P2 minecraft:set_passengers 6d9a1c00
+PKT P3 minecraft:player_position 49024044400000000000c04eddd06c632caa4004000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P3 minecraft:set_passengers 6d9a1c01931c
+PKT P3 minecraft:set_passengers 6d991c01921c
+PKT P3 minecraft:set_passengers 6d9b1c01941c
+PKT P3 minecraft:set_passengers 6d9b1c01941c
+PKT P3 minecraft:set_passengers 6d991c01921c
+PKT P3 minecraft:set_passengers 6d9a1c01931c
+PKT P3 minecraft:set_passengers 6d9b1c01941c
+PKT P3 minecraft:set_passengers 6d991c01921c
+PKT P3 minecraft:set_passengers 6d9a1c01931c
+PKT P3 minecraft:set_passengers 6d9a1c00
+PKT P3 minecraft:player_position 49034044400000000000c04e61039f965fdd40040000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P3 minecraft:set_passengers 6d9b1c00
+PKT P3 minecraft:set_passengers 6d991c00
+PKT P3 minecraft:set_passengers 6d9a1c00
+PKT P4 minecraft:player_position 4902404e400000000000c04e34cccccccccd4004000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P4 minecraft:set_passengers 6d9b1c01941c
+PKT P4 minecraft:set_passengers 6d9a1c01931c
+PKT P4 minecraft:set_passengers 6d9b1c01941c
+PKT P4 minecraft:set_passengers 6d9a1c01931c
+PKT P4 minecraft:set_passengers 6d9b1c01941c
+PKT P4 minecraft:set_passengers 6d9a1c01931c
+PKT P4 minecraft:set_passengers 6d9b1c00
+PKT P4 minecraft:player_position 4903404e400000000000c04e000000000000400e2d9f7716b0000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P4 minecraft:set_passengers 6d9b1c00
+PKT P4 minecraft:set_passengers 6d9a1c00
+PKT P5 minecraft:player_position 49024054200000000000c04e34cccccccccd3ffb3bb838a84382000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P5 minecraft:set_passengers 6d9c1c01951c
+PKT P5 minecraft:set_passengers 6d9d1c01961c
+PKT P5 minecraft:set_passengers 6d9d1c01961c
+PKT P5 minecraft:set_passengers 6d9c1c01951c
+PKT P5 minecraft:set_passengers 6d9d1c01961c
+PKT P5 minecraft:set_passengers 6d9c1c01951c
+PKT P5 minecraft:set_passengers 6d9c1c00
+PKT P5 minecraft:player_position 49034054200000000000c04db800000000003ffb3bb838a843820000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P5 minecraft:set_passengers 6d9d1c00
+PKT P5 minecraft:set_passengers 6d9c1c00
+PKT P6 minecraft:player_position 49024059200000000000c04e34cccccccccd4004000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P6 minecraft:set_passengers 6d9d1c01961c
+PKT P6 minecraft:set_passengers 6d9c1c01951c
+PKT P6 minecraft:set_passengers 6d9d1c01961c
+PKT P6 minecraft:set_passengers 6d9c1c01951c
+PKT P6 minecraft:set_passengers 6d9d1c01961c
+PKT P6 minecraft:set_passengers 6d9c1c01951c
+PKT P6 minecraft:set_passengers 6d9d1c00
+PKT P6 minecraft:player_position 49034059200000000000c04db8000000000040040000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P6 minecraft:set_passengers 6d9d1c00
+PKT P6 minecraft:set_passengers 6d9c1c00

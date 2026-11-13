@@ -1,0 +1,147 @@
+# the rider boards while the boat is in the pool
+E B minecraft:oak_boat pos=2.5,-61.64953846159069,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P;pig mdir=west leash=- ooc=8.0
+P P minecraft:player pos=2.5,-62.06203846159069,2.7000000029802322 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=295 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E pig minecraft:pig pos=2.5,-61.46203846159069,2.099999964237213 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=296 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=15.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+EV sound at=2.5,-62.06203846159069,2.7000000029802322 r=16.0 ex=1 event=minecraft:entity.player.splash source=player vol=0.0 pitch=1.0912566
+PKT P minecraft:player_position 49024004000000000000c04f07f0e055d026400599999a000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P minecraft:set_passengers 6daf1b02ae1bb01b
+PKT P minecraft:set_passengers 6daf1b02ae1bb01b
+PKT P minecraft:set_passengers 6daf1b02ae1bb01b
+PKT P minecraft:set_passengers 6daf1b02ae1bb01b
+PKT O minecraft:set_passengers 6daf1b02ae1bb01b
+E B minecraft:oak_boat pos=2.5,-61.64953846159069,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P;pig mdir=west leash=- ooc=38.0
+P P minecraft:player pos=2.5,-62.06203846159069,2.7000000029802322 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=265 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E pig minecraft:pig pos=2.5,-61.46203846159069,2.099999964237213 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=266 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=15.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E B minecraft:oak_boat pos=2.5,-61.799076923181374,2.5 delta=0.0,-0.06830769233154849,0.0 rot=0.0,0.0 og=0 fall=0.06830769032239914 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=62.0
+P P minecraft:player pos=2.5,-61.08703846159069,2.5 delta=0.0,-0.012200000154972078,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=241 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E pig minecraft:pig pos=2.5,-61.08703846159069,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=242 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=15.0 body=15.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+# after 60 ticks under water everyone is thrown off
+E B minecraft:oak_boat pos=2.5,-61.96996153862567,2.5 delta=0.0,-0.09011538464685705,0.0 rot=0.0,0.0 og=0 fall=0.09011538326740265 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=64.0
+P P minecraft:player pos=2.5,-61.08703846159069,2.5 delta=0.0,-0.016808000391483315,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=239 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E pig minecraft:pig pos=2.5,-61.08703846159069,2.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=240 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=15.0 body=15.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+PKT P minecraft:set_entity_data 65ae1b0101a702ff
+PKT P minecraft:set_entity_data 65b01b0101a802ff
+PKT P minecraft:set_entity_data 65ae1b0101a602ff
+PKT P minecraft:set_entity_data 65b01b0101a702ff
+PKT P minecraft:set_entity_data 65ae1b0101a502ff
+PKT P minecraft:set_entity_data 65b01b0101a602ff
+PKT P minecraft:set_entity_data 65ae1b0101a402ff
+PKT P minecraft:set_entity_data 65b01b0101a502ff
+PKT P minecraft:set_entity_data 65ae1b0101a302ff
+PKT P minecraft:set_entity_data 65b01b0101a402ff
+PKT P minecraft:set_entity_data 65ae1b0101a202ff
+PKT P minecraft:set_entity_data 65b01b0101a302ff
+PKT P minecraft:set_entity_data 65ae1b0101a102ff
+PKT P minecraft:set_entity_data 65b01b0101a202ff
+PKT P minecraft:set_entity_data 65ae1b0101a002ff
+PKT P minecraft:set_entity_data 65b01b0101a102ff
+PKT P minecraft:set_entity_data 65ae1b01019f02ff
+PKT P minecraft:set_entity_data 65b01b0101a002ff
+PKT P minecraft:set_entity_data 65ae1b01019e02ff
+PKT P minecraft:set_entity_data 65b01b01019f02ff
+PKT P minecraft:set_entity_data 65ae1b01019d02ff
+PKT P minecraft:set_entity_data 65b01b01019e02ff
+PKT P minecraft:set_entity_data 65ae1b01019c02ff
+PKT P minecraft:set_entity_data 65b01b01019d02ff
+PKT P minecraft:set_entity_data 65ae1b01019b02ff
+PKT P minecraft:set_entity_data 65b01b01019c02ff
+PKT P minecraft:set_entity_data 65ae1b01019a02ff
+PKT P minecraft:set_entity_data 65b01b01019b02ff
+PKT P minecraft:set_entity_data 65ae1b01019902ff
+PKT P minecraft:set_entity_data 65b01b01019a02ff
+PKT P minecraft:set_entity_data 65ae1b01019802ff
+PKT P minecraft:set_entity_data 65b01b01019902ff
+PKT P minecraft:set_entity_data 65ae1b01019702ff
+PKT P minecraft:set_entity_data 65b01b01019802ff
+PKT P minecraft:set_entity_data 65ae1b01019602ff
+PKT P minecraft:set_entity_data 65b01b01019702ff
+PKT P minecraft:set_entity_data 65ae1b01019502ff
+PKT P minecraft:set_entity_data 65b01b01019602ff
+PKT P minecraft:set_entity_data 65ae1b01019402ff
+PKT P minecraft:set_entity_data 65b01b01019502ff
+PKT P minecraft:set_entity_data 65ae1b01019302ff
+PKT P minecraft:set_entity_data 65b01b01019402ff
+PKT P minecraft:set_entity_data 65ae1b01019202ff
+PKT P minecraft:set_entity_data 65b01b01019302ff
+PKT P minecraft:set_entity_data 65ae1b01019102ff
+PKT P minecraft:set_entity_data 65b01b01019202ff
+PKT P minecraft:set_entity_data 65ae1b01019002ff
+PKT P minecraft:set_entity_data 65b01b01019102ff
+PKT P minecraft:set_entity_data 65ae1b01018f02ff
+PKT P minecraft:set_entity_data 65b01b01019002ff
+PKT P minecraft:set_entity_data 65ae1b01018e02ff
+PKT P minecraft:set_entity_data 65b01b01018f02ff
+PKT P minecraft:set_entity_data 65ae1b01018d02ff
+PKT P minecraft:set_entity_data 65b01b01018e02ff
+PKT P minecraft:set_entity_data 65ae1b01018c02ff
+PKT P minecraft:set_entity_data 65b01b01018d02ff
+PKT P minecraft:set_entity_data 65ae1b01018b02ff
+PKT P minecraft:set_entity_data 65b01b01018c02ff
+PKT P minecraft:set_entity_data 65ae1b01018a02ff
+PKT P minecraft:set_entity_data 65b01b01018b02ff
+PKT P minecraft:set_entity_data 65ae1b01018902ff
+PKT P minecraft:set_entity_data 65b01b01018a02ff
+PKT P minecraft:set_entity_data 65ae1b01018802ff
+PKT P minecraft:set_entity_data 65b01b01018902ff
+PKT P minecraft:set_entity_data 65ae1b01018702ff
+PKT P minecraft:set_entity_data 65b01b01018802ff
+PKT P minecraft:set_entity_data 65ae1b01018602ff
+PKT P minecraft:set_entity_data 65b01b01018702ff
+PKT P minecraft:set_entity_data 65ae1b01018502ff
+PKT P minecraft:set_entity_data 65b01b01018602ff
+PKT P minecraft:set_entity_data 65ae1b01018402ff
+PKT P minecraft:set_entity_data 65b01b01018502ff
+PKT P minecraft:set_entity_data 65ae1b01018302ff
+PKT P minecraft:set_entity_data 65b01b01018402ff
+PKT P minecraft:set_entity_data 65ae1b01018202ff
+PKT P minecraft:set_entity_data 65b01b01018302ff
+PKT P minecraft:set_entity_data 65ae1b01018102ff
+PKT P minecraft:set_entity_data 65b01b01018202ff
+PKT P minecraft:set_entity_data 65ae1b01018002ff
+PKT P minecraft:set_entity_data 65b01b01018102ff
+PKT P minecraft:set_entity_data 65ae1b0101ff01ff
+PKT P minecraft:set_entity_data 65b01b01018002ff
+PKT P minecraft:set_entity_data 65ae1b0101fe01ff
+PKT P minecraft:set_entity_data 65b01b0101ff01ff
+PKT P minecraft:set_entity_data 65ae1b0101fd01ff
+PKT P minecraft:set_entity_data 65b01b0101fe01ff
+PKT P minecraft:set_entity_data 65ae1b0101fc01ff
+PKT P minecraft:set_entity_data 65b01b0101fd01ff
+PKT P minecraft:set_entity_data 65ae1b0101fb01ff
+PKT P minecraft:set_entity_data 65b01b0101fc01ff
+PKT P minecraft:set_entity_data 65ae1b0101fa01ff
+PKT P minecraft:set_entity_data 65b01b0101fb01ff
+PKT P minecraft:set_entity_data 65ae1b0101f901ff
+PKT P minecraft:set_entity_data 65b01b0101fa01ff
+PKT P minecraft:set_entity_data 65ae1b0101f801ff
+PKT P minecraft:set_entity_data 65b01b0101f901ff
+PKT P minecraft:set_entity_data 65ae1b0101f701ff
+PKT P minecraft:set_entity_data 65b01b0101f801ff
+PKT P minecraft:set_entity_data 65ae1b0101f601ff
+PKT P minecraft:set_entity_data 65b01b0101f701ff
+PKT P minecraft:set_entity_data 65ae1b0101f501ff
+PKT P minecraft:set_entity_data 65b01b0101f601ff
+PKT P minecraft:set_entity_data 65ae1b0101f401ff
+PKT P minecraft:set_entity_data 65b01b0101f501ff
+PKT P minecraft:set_passengers 6daf1b00
+PKT P minecraft:player_position 49034004000000000000c04e8b241389035940040000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT P minecraft:set_entity_data 65ae1b0101f301ff
+PKT P minecraft:set_passengers 6daf1b00
+PKT P minecraft:set_entity_data 65b01b0101f401ff
+PKT P minecraft:set_entity_data 65ae1b0101f201ff
+PKT P minecraft:set_entity_data 65b01b0101f301ff
+PKT P minecraft:set_entity_data 65ae1b0101f101ff
+PKT P minecraft:set_entity_data 65b01b0101f201ff
+PKT P minecraft:set_entity_data 65ae1b0101f001ff
+PKT P minecraft:set_entity_data 65b01b0101f101ff
+# a boat that is out of control cannot be boarded
+E B minecraft:oak_boat pos=2.5,-62.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=66.0
+P P minecraft:player pos=2.5,-61.08703846159069,2.5 delta=0.0,-0.019757120630741136,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=237 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the pool is drained: the boat falls to the floor, the counter restarts at zero
+E B minecraft:oak_boat pos=2.5,-62.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+# the boat can be boarded again
+E B minecraft:oak_boat pos=2.5,-62.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P mdir=west leash=- ooc=0.0
+P P minecraft:player pos=2.5,-62.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=261 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:player_position 49044004000000000000c04f34cccccccccd4004000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P minecraft:set_passengers 6daf1b01ae1b
+PKT P minecraft:set_passengers 6daf1b01ae1b

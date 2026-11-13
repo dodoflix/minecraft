@@ -5,23 +5,14 @@
 
 use crate::common;
 
-// `og` of a player that only sends packets is left out: vanilla keeps the flag the ride set, the replay derives it again on the first
-// tick after the dismount (the position, pose and packets are compared)
-fn ignore_on_ground() -> common::entity_oracle::Options {
-    common::entity_oracle::Options {
-        ignore_fields: vec!["og"],
-        ..Default::default()
-    }
-}
-
 #[test]
 fn sneaking_rider_leaves_the_boat() {
-    common::block_scenario::check_with("ent_ride_boat_sneak", &ignore_on_ground());
+    common::block_scenario::check("ent_ride_boat_sneak");
 }
 
 #[test]
 fn sneaking_rider_leaves_the_pig_beside_it() {
-    common::block_scenario::check_with("ent_ride_pig_sneak", &ignore_on_ground());
+    common::block_scenario::check("ent_ride_pig_sneak");
 }
 
 #[test]

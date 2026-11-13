@@ -1,0 +1,63 @@
+# Leaving a boat by sneaking: the player steps to the side the player faces on solid ground (the floor of that block, or the one below);
+# where the target has water below (or is closed in) the player stays on the boat; under a low ceiling the player takes a lower pose.
+# Setups: P1 on a flat shore, P2 on open water, P3 from water to a shore on the side it faces, P4 under a ceiling above the exit,
+# P5 in a closed cell, P6 on the far side of a one-block step.
+level flat
+preload 6
+level_seed 351
+entity_counter 3600
+spawn_player P1 survival 0.5 -60 0.5 0 0
+spawn_player P2 survival 20.5 -60 0.5 0 0
+spawn_player P3 survival 40.5 -60 0.5 0 0
+spawn_player P4 survival 60.5 -60 0.5 0 0
+spawn_player P5 survival 80.5 -60 0.5 0 0
+spawn_player P6 survival 100.5 -60 0.5 90 0
+spawn stand minecraft:armor_stand 120.5 -60 20.5 0 0
+entity_seed stand 352
+fill 15 -62 -3 25 -61 7 minecraft:water
+fill 35 -62 -3 45 -61 3 minecraft:water
+fill 75 -60 -2 85 -57 4 minecraft:stone
+fill 80 -60 0 81 -58 2 minecraft:air
+fill 79 -60 0 79 -59 2 minecraft:air
+fill 96 -60 -3 99 -60 4 minecraft:stone
+spawn B1 minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed B1 361
+spawn B2 minecraft:spruce_boat 20.5 -61 2.5 0 0
+entity_seed B2 362
+spawn B3 minecraft:birch_boat 40.5 -61 2.5 0 0
+entity_seed B3 363
+spawn B4 minecraft:jungle_boat 60.5 -60 2.5 0 0
+entity_seed B4 364
+fill 59 -59 3 62 -59 4 minecraft:stone
+spawn B5 minecraft:acacia_boat 80.5 -60 1.5 0 0
+entity_seed B5 365
+spawn B6 minecraft:dark_oak_boat 100.5 -60 2.5 0 0
+entity_seed B6 366
+tick 5
+dump packets:P1:none packets:P2:none packets:P3:none packets:P4:none packets:P5:none packets:P6:none
+note everyone boards
+ride P1 B1
+ride P2 B2
+ride P3 B3
+ride P4 B4
+ride P5 B5
+ride P6 B6
+accept_teleport P1
+accept_teleport P2
+accept_teleport P3
+accept_teleport P4
+accept_teleport P5
+accept_teleport P6
+tick 3
+dump player:P1 player:P2 player:P3 player:P4 player:P5 player:P6 entity:B1 entity:B2 entity:B3 entity:B4 entity:B5 entity:B6
+note the shift key goes down: the riders try to leave
+interact P1 stand main sneak
+interact P2 stand main sneak
+interact P3 stand main sneak
+interact P4 stand main sneak
+interact P5 stand main sneak
+interact P6 stand main sneak
+tick 1
+dump player:P1 player:P2 player:P3 player:P4 player:P5 player:P6 entity:B1 entity:B2 entity:B3 entity:B4 entity:B5 entity:B6 events
+tick 3
+dump player:P1 player:P2 player:P3 player:P4 player:P5 player:P6 packets:P1:set_passengers,teleport_entity,player_position packets:P2:set_passengers,teleport_entity,player_position packets:P3:set_passengers,teleport_entity,player_position packets:P4:set_passengers,teleport_entity,player_position packets:P5:set_passengers,teleport_entity,player_position packets:P6:set_passengers,teleport_entity,player_position

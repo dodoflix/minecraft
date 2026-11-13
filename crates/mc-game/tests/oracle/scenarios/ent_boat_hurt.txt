@@ -1,0 +1,59 @@
+# Hitting boats: a light hit wobbles the boat (the hurt time counts down and the damage decays by one each tick, the direction flips with
+# every hit); hits that add up to more than 40 break it into its boat item (a named boat keeps its name); a creative player discards it
+# without a drop; a mob breaks it; with entity_drops off the boat item does not drop.
+command_env
+level flat
+preload 4
+level_seed 211
+entity_counter 3200
+difficulty normal
+spawn_player A survival 2.5 -60 6.5 180 0
+spawn_player B creative 22.5 -60 6.5 180 0
+give A mainhand minecraft:diamond_sword
+spawn H1 minecraft:oak_boat 2.5 -60 2.5 0 0
+entity_seed H1 221
+spawn H2 minecraft:spruce_boat 10.5 -60 2.5 0 0 {CustomName:'"Dory"'}
+entity_seed H2 222
+spawn H3 minecraft:bamboo_raft 18.5 -60 2.5 0 0 {CustomName:'"Pole"'}
+entity_seed H3 223
+spawn H4 minecraft:cherry_boat 26.5 -60 2.5 0 0
+entity_seed H4 224
+spawn H5 minecraft:mangrove_boat 34.5 -60 2.5 0 0
+entity_seed H5 225
+tick 3
+dump xentities packets:A:none packets:B:none
+note a light hit makes the boat wobble
+hurt H1 player_attack 1 by=A direct=A
+dump xentity:H1 events
+tick 2
+dump xentity:H1
+note a second hit flips the direction, the damage adds up
+hurt H1 player_attack 1 by=A direct=A
+tick 1
+dump xentity:H1
+tick 12
+dump xentity:H1
+note hits that add up to more than 40 break it
+hurt H1 player_attack 2 by=A direct=A
+hurt H1 player_attack 3 by=A direct=A
+tick 3
+dump xentities packets:A:add_entity,remove_entities,set_entity_data,entity_event events
+note a sword hit breaks a named boat: the item keeps the name
+attack A H2
+tick 3
+dump xentities packets:A:add_entity,remove_entities,set_entity_data,entity_event
+note a creative player discards the raft without a drop
+hurt H3 player_attack 1 by=B direct=B
+tick 3
+dump xentities packets:B:add_entity,remove_entities,set_entity_data,entity_event
+note a mob breaks a boat
+level_seed 212
+hurt H4 mob_attack 50
+tick 3
+dump xentities packets:A:add_entity,remove_entities,set_entity_data
+note entity_drops off: nothing drops
+gamerule entity_drops false
+level_seed 213
+hurt H5 player_attack 50 by=A direct=A
+tick 3
+dump xentities packets:A:add_entity,remove_entities

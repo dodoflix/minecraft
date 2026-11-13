@@ -1,0 +1,31 @@
+# A boat that drifts into lily pads destroys them (the block is broken with its drops and the destroy event); a pad the boat only
+# passes next to stays. A raft and a boat with a passenger in the second row.
+level flat
+preload 4
+level_seed 401
+entity_counter 3900
+spawn_player O survival 6.5 -60 12.5 0 0
+fill -2 -61 0 14 -61 8 minecraft:water
+block 3 -60 1 minecraft:lily_pad
+block 5 -60 1 minecraft:lily_pad
+block 8 -60 3 minecraft:lily_pad
+block 4 -60 6 minecraft:lily_pad
+block 6 -60 7 minecraft:lily_pad
+spawn b1 minecraft:oak_boat 0.5 -60.5 1.5 270 0
+entity_seed b1 411
+spawn b2 minecraft:bamboo_raft 0.5 -60.5 6.5 270 0
+entity_seed b2 412
+mobspawn pig minecraft:pig 0.5 -60 12.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed pig 413
+tick 10
+dump packets:O:none events
+note both boats are pushed east
+ride pig b2
+velocity b1 0.35 0 0
+velocity b2 0.35 0 0
+tick 4
+dump xentities blocks:2,-60,0,9,-60,8 events packets:O:block_update,level_event,add_entity,set_entity_motion
+tick 12
+dump xentities blocks:2,-60,0,9,-60,8 events packets:O:block_update,level_event,add_entity,set_entity_motion
+tick 12
+dump xentities blocks:2,-60,0,9,-60,8 events packets:O:block_update,level_event,add_entity

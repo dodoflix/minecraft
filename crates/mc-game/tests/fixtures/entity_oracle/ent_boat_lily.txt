@@ -1,0 +1,33 @@
+# both boats are pushed east
+E b1 minecraft:oak_boat pos=1.5832849320244806,-60.4748653285026,1.5 delta=0.22963497566700078,-7.477094367754848E-4,0.0 rot=270.0,0.0 og=0 fall=7.477094186469913E-4 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=south leash=- ooc=0.0
+E b2 minecraft:bamboo_raft pos=1.5832849320244806,-60.4748653285026,6.5 delta=0.22963497566700078,-7.477094367754848E-4,0.0 rot=270.0,0.0 og=0 fall=7.477094186469913E-4 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=pig mdir=south leash=- ooc=0.0
+E pig minecraft:pig pos=1.5832849320244806,-59.9748653285026,6.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-15.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+B 3 -60 1 minecraft:lily_pad
+B 4 -60 6 minecraft:lily_pad
+B 5 -60 1 minecraft:lily_pad
+B 6 -60 7 minecraft:lily_pad
+B 8 -60 3 minecraft:lily_pad
+E b1 minecraft:oak_boat pos=2.375,-60.47702469696524,1.5 delta=-0.0,1.4108588583429914E-4,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=south leash=- ooc=0.0
+E b2 minecraft:bamboo_raft pos=3.0662982080796315,-60.47702469696524,6.5 delta=0.06485567912038805,1.4108588583429914E-4,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=pig mdir=south leash=- ooc=0.0
+E pig minecraft:pig pos=3.0662982080796315,-59.97702469696524,6.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-15.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=2.8870635448946644,-59.26238364591006,0.9132893972049806 delta=-0.05102526778837172,-0.08484884424859764,-0.056984243547084076 rot=47.64352,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:lily_pad*1 age=7 pickup=3 health=5 owner=- thrower=-
+B 4 -60 6 minecraft:lily_pad
+B 5 -60 1 minecraft:lily_pad
+B 6 -60 7 minecraft:lily_pad
+B 8 -60 3 minecraft:lily_pad
+EV level_event r=64.0 ex=0 type=2001 pos=3,-60,1 data=10654 global=0
+PKT O minecraft:level_event 2f000007d1000000c000001fc40000299e00
+PKT O minecraft:add_entity 01c11e2ca907c941e24af1babdb7c735c6954948400a326b41ba1793c04dc09e242c650d3ff589a56f00fc53e1e17799333100210000
+PKT O minecraft:block_update 08000000c000001fc400
+E b1 minecraft:oak_boat pos=2.375,-60.47669297136106,1.5 delta=-0.0,-2.6090105954824222E-5,0.0 rot=270.0,0.0 og=0 fall=2.6090105166076683E-5 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=south leash=- ooc=0.0
+E b2 minecraft:bamboo_raft pos=3.48514482708328,-60.47669297136106,6.5 delta=0.018317153569264357,-2.6090105954824222E-5,0.0 rot=270.0,0.0 og=0 fall=2.6090105166076683E-5 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=pig mdir=south leash=- ooc=0.0
+E pig minecraft:pig pos=3.48514482708328,-59.97669297136106,6.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-15.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=2.651171451690596,-60.09553258484926,1.1040217551723397 delta=-4.0397080517244645E-5,0.010745966692079839,-0.105566311126843 rot=47.64352,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:lily_pad*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.543195660607899,-59.45707939457272,6.593719096243546 delta=0.016079271053594982,-0.04658045162980263,-0.015133966952487962 rot=314.98608,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:lily_pad*1 age=6 pickup=4 health=5 owner=- thrower=-
+B 5 -60 1 minecraft:lily_pad
+B 6 -60 7 minecraft:lily_pad
+B 8 -60 3 minecraft:lily_pad
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,6 data=10654 global=0
+PKT O minecraft:level_event 2f000007d10000010000006fc40000299e00
+PKT O minecraft:add_entity 01c21e03df439efcec422e9d67af46dd4ce401484011c223cccbf5c3c04de49efff51828401ac3d2db9ff56c41097dcf333200df0000
+PKT O minecraft:block_update 080000010000006fc400

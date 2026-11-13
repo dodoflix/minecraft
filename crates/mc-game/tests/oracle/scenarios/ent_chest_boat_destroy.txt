@@ -1,0 +1,63 @@
+# Breaking chest boats: a player who breaks one drops its contents and the boat and angers the piglins that see the player; a mob that
+# breaks one angers nobody; a creative player discards it (no contents); a boat with a pending loot table rolls it before the drops;
+# with entity_drops off the contents still drop on removal but the boat item and the anger do not. Each case has its own player and
+# piglin, far apart.
+command_env
+level flat
+preload 9
+level_seed 251
+entity_counter 3300
+difficulty normal
+fill -2 -60 -4 140 -40 12 minecraft:air
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B creative 40.5 -60 3.5 180 0
+spawn_player D survival 80.5 -60 3.5 180 0
+spawn_player E survival 120.5 -60 3.5 180 0
+give A head minecraft:golden_helmet
+give D head minecraft:golden_helmet
+give E head minecraft:golden_helmet
+give A mainhand minecraft:diamond_sword
+give D mainhand minecraft:diamond_sword
+give E mainhand minecraft:diamond_sword
+spawn C1 minecraft:oak_chest_boat 0.5 -60 0.5 0 0 {CustomName:'"Hold"',Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:13b,id:"minecraft:stick",count:64},{Slot:26b,id:"minecraft:cobblestone",count:64}]}
+entity_seed C1 261
+spawn C2 minecraft:bamboo_chest_raft 40.5 -60 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:emerald",count:2}]}
+entity_seed C2 262
+spawn C3 minecraft:birch_chest_boat 80.5 -60 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+entity_seed C3 263
+spawn C4 minecraft:dark_oak_chest_boat 84.5 -60 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:9L}
+entity_seed C4 264
+spawn C5 minecraft:spruce_chest_boat 120.5 -60 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+entity_seed C5 265
+spawn P1 minecraft:piglin 0.5 -60 8.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed P1 271
+spawn P2 minecraft:piglin 40.5 -60 8.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed P2 272
+spawn P3 minecraft:piglin 80.5 -60 8.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed P3 273
+spawn P4 minecraft:piglin 120.5 -60 8.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed P4 274
+tick 25
+dump packets:A:none packets:B:none packets:D:none packets:E:none nbt:P1 nbt:P2 nbt:P3 nbt:P4
+note a player breaks a named chest boat: contents and the boat item with its name, the piglin that sees the player is angry
+attack A C1
+tick 3
+dump entities packets:A:add_entity,remove_entities,set_entity_data,entity_event nbt:P1 nbt:P2 nbt:P3 nbt:P4
+note a creative player discards a raft chest: the contents do not drop, the piglin stays calm
+hurt C2 player_attack 1 by=B direct=B
+tick 3
+dump entities packets:B:add_entity,remove_entities nbt:P1 nbt:P2 nbt:P3 nbt:P4
+note a mob breaks a chest boat: nobody gets angry
+hurt C3 mob_attack 50
+tick 3
+dump entities packets:D:add_entity,remove_entities,set_entity_data nbt:P1 nbt:P2 nbt:P3 nbt:P4
+note a player breaks the one with a pending loot table: the loot is rolled before the drops, the piglin is angry now
+level_seed 252
+attack D C4
+tick 3
+dump entities packets:D:add_entity,remove_entities,set_entity_data nbt:P1 nbt:P2 nbt:P3 nbt:P4
+note entity_drops off: the break angers nobody
+gamerule entity_drops false
+attack E C5
+tick 3
+dump entities packets:E:add_entity,remove_entities nbt:P1 nbt:P2 nbt:P3 nbt:P4

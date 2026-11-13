@@ -1,0 +1,82 @@
+# Leads and boats: a boat takes a lead like a mob (a click with the lead item ties it to the player, a click by the holder unties it:
+# survival drops the lead, creative does not), shears cut it, the boat is dragged along by its holder and the lead snaps beyond 12
+# blocks, a player holding another animal on a lead can tie it to a boat with a sneaking click, and a broken boat lets go of what is tied to it and drops its own lead.
+level flat
+preload 6
+level_seed 421
+entity_counter 4000
+difficulty normal
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player C creative 20.5 -60 0.5 0 0
+spawn_player O survival 40.5 -60 8.5 0 0
+give P mainhand minecraft:lead 8
+give C mainhand minecraft:lead 8
+spawn B1 minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed B1 431
+spawn B2 minecraft:spruce_boat 20.5 -60 2.5 0 0
+entity_seed B2 432
+spawn B3 minecraft:oak_chest_boat 10.5 -60 2.5 0 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3}]}
+entity_seed B3 433
+mobspawn pig minecraft:pig 3.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed pig 435
+tick 3
+dump packets:P:none packets:C:none packets:O:none
+note a click with a lead item ties the boat to the player
+interact P B1 main
+tick 1
+dump xentity:B1 player:P inventory:P events packets:P:set_entity_link,sound,swing,set_entity_data packets:O:set_entity_link,sound nbt:B1
+note a click by the holder unties it, the lead drops
+interact P B1 main
+tick 2
+dump xentity:B1 xentities events packets:P:set_entity_link,sound,swing,add_entity packets:O:set_entity_link,sound,add_entity nbt:B1
+note tied again: the player walks away and drags the boat, then out of range and the lead snaps
+interact P B1 main
+tick 1
+tp P 6.5 -60 0.5
+accept_teleport P
+tick 6
+dump xentity:B1 player:P
+tp P 9.5 -60 0.5
+accept_teleport P
+tick 6
+dump xentity:B1 player:P
+tp P 0.5 -60 14.5
+accept_teleport P
+tick 4
+dump xentity:B1 player:P xentities events packets:O:set_entity_link,sound,add_entity
+tp P 0.5 -60 0.5
+accept_teleport P
+tick 2
+note a creative player unties without dropping the lead
+interact C B2 main
+tick 1
+dump xentity:B2 player:C events packets:O:set_entity_link,sound
+interact C B2 main
+tick 1
+dump xentity:B2 xentities events packets:O:set_entity_link,sound,add_entity
+note shears cut the lead of a chest boat
+give P mainhand minecraft:lead 4
+tp P 10.5 -60 0.5
+accept_teleport P
+tick 2
+interact P B3 main
+tick 1
+dump xentity:B3 nbt:B3
+give P mainhand minecraft:shears
+interact P B3 main
+tick 2
+dump xentity:B3 xentities events inventory:P packets:O:set_entity_link,sound,add_entity
+note an animal on the lead is tied to the boat by a sneaking click
+give P mainhand minecraft:lead 4
+tp P 4.5 -60 2.5
+accept_teleport P
+tick 2
+leash pig P
+tick 1
+interact P B1 main sneak
+tick 1
+dump xentity:B1 mob:pig player:P events packets:O:set_entity_link,sound
+note the boat breaks: the animal is let go and the lead drops
+hurt B1 player_attack 50 by=P direct=P
+tick 3
+dump xentities mob:pig events packets:O:set_entity_link,sound,add_entity,remove_entities

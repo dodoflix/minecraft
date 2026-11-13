@@ -115,8 +115,19 @@ impl SlotProvider for EntitySlots<'_> {
     }
 }
 
+/// `unpackChestVehicleLootTable(null)` of the chest vehicle `id`, which every `getChestVehicleSlot(slot).get()/.set()` does first
+/// (`/item` calls this for each target before it reads or writes `container.N`).
+pub fn unpack_chest_vehicle_loot(level: &mut ServerLevel, id: EntityId) {
+    level.with_entity(id, |level, entity| {
+        let position = entity.position();
+        if let Some(chest) = entity.chest_vehicle_mut() {
+            chest.unpack_for_access(level, position);
+        }
+    });
+}
+
 /// Performs `getSlot(slot).set(stack)` for each write on the entity (`ServerPlayer`: carried item, crafting grid, inventory,
-/// ender chest, equipment; other living entities: equipment).
+/// ender chest, equipment; other living entities: equipment; chest vehicles: their slots).
 pub fn apply_entity_writes(level: &mut ServerLevel, id: EntityId, writes: Vec<(i32, ItemStack)>) {
     if writes.is_empty() {
         return;
@@ -129,6 +140,15 @@ pub fn apply_entity_writes(level: &mut ServerLevel, id: EntityId, writes: Vec<(i
 }
 
 fn set_entity_slot(level: &mut ServerLevel, entity: &mut dyn Entity, slot: i32, stack: ItemStack) {
+    if let Some(chest) = entity.chest_vehicle_mut() {
+        // `setChestVehicleItem(slot, stack)` (the slot was checked against the container size by `getChestVehicleSlot`)
+        if let Ok(slot) = usize::try_from(slot)
+            && slot < chest.get_container_size()
+        {
+            chest.set_item(slot, stack);
+        }
+        return;
+    }
     if let Some(player) = entity.as_any_mut().downcast_mut::<ServerPlayer>() {
         if set_player_slot(level, player, slot, &stack) {
             return;

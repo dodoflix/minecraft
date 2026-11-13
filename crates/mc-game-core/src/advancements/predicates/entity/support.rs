@@ -60,8 +60,15 @@ pub(crate) fn equipment_slot_of(slot: i32) -> Option<EquipmentSlot> {
     .map(|(_, s)| s)
 }
 
-/// `Player.getSlot(slot).get()` / `LivingEntity.getSlot(slot).get()`; `Entity.getSlot` is `null`.
+/// `Player.getSlot(slot).get()` / `LivingEntity.getSlot(slot).get()` / `ContainerEntity.getChestVehicleSlot(slot).get()` (chest
+/// boats and carts, `container.N`); `Entity.getSlot` is `null`. A chest vehicle's loot table is unpacked by the callers that can.
 pub fn get_slot(entity: &dyn Entity, slot: i32) -> Option<ItemStack> {
+    if let Some(chest) = entity.chest_vehicle() {
+        return usize::try_from(slot)
+            .ok()
+            .filter(|&s| s < chest.get_container_size())
+            .map(|s| chest.get_item(s).clone());
+    }
     if let Some(player) = entity.player() {
         if slot == 499 {
             return entity

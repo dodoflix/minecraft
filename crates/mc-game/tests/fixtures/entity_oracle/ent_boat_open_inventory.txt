@@ -1,0 +1,40 @@
+C The difficulty did not change; it is already set to Normal
+N PG1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,CannotHunt:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,IsBaby:0b,IsImmuneToZombification:1b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,9.5d],Rotation:[0.0f,0.0f],TimeInOverworld:0,attributes:[{base:0.3499999940395355d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N PG3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,CannotHunt:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,IsBaby:0b,IsImmuneToZombification:1b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[40.5d,-60.0d,9.5d],Rotation:[0.0f,0.0f],TimeInOverworld:0,attributes:[{base:0.3499999940395355d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+# the riders board, one boat each
+# the open-inventory key
+PKT P1 minecraft:open_screen 3c01020a080009696e73657274696f6e002464366237336461632d343265362d343932392d623635332d3238326161373962306138610a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001f656e746974792e6d696e6563726166742e6f616b5f63686573745f626f617400080006616374696f6e000b73686f775f656e74697479080002696400186d696e6563726166743a6f616b5f63686573745f626f61740b00047575696400000004d6b73dac42e64929b653282aa79b0a8a000800097472616e736c617465001f656e746974792e6d696e6563726166742e6f616b5f63686573745f626f617400
+PKT P1 minecraft:container_set_content 1201013f03f40700000000000009a408000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT P1 minecraft:sound 77870a0500000004fffffe200000004c3f8000003f62b3c83dace6703e05bff8
+PKT P3 minecraft:open_screen 3c01020a080009696e73657274696f6e002463663039643665632d623532352d343364342d393332372d3763313965366163313630630a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650022656e746974792e6d696e6563726166742e6368657272795f63686573745f626f617400080006616374696f6e000b73686f775f656e746974790800026964001b6d696e6563726166743a6368657272795f63686573745f626f61740b00047575696400000004cf09d6ecb52543d493277c19e6ac160c000800097472616e736c6174650022656e746974792e6d696e6563726166742e6368657272795f63686573745f626f617400
+PKT P3 minecraft:container_set_content 1201013f000001a6080000000001fa07000004f00900000002a808000001800b0000000002a808000002f009000001ab0800000001fa0700000001a608000000000001f00900000001f009000001a808000001a608000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT P3 minecraft:sound 77870a0500000144fffffe200000004c3f8000003f9381656fd465a290351d3c
+EV sound at=0.5,-60.0,9.5 r=16.0 ex=0 event=minecraft:entity.piglin.ambient source=hostile vol=1.0 pitch=0.9647991
+EV sound at=0.5,-60.0,9.5 r=16.0 ex=0 event=minecraft:entity.piglin.angry source=hostile vol=1.0 pitch=0.88555574
+EV sound at=40.5,-60.0,9.5 r=16.0 ex=0 event=minecraft:entity.piglin.angry source=hostile vol=1.0 pitch=1.1523863
+E CB1 minecraft:oak_chest_boat pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P1 items=0:minecraft:diamond*3;5:minecraft:stick*9 mdir=west leash=- ooc=0.0 loot=- seed=0
+E CB3 minecraft:cherry_chest_boat pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P3 items=2:minecraft:string*1;5:minecraft:iron_ingot*1;6:minecraft:rotten_flesh*4;8:minecraft:gunpowder*2;9:minecraft:golden_horse_armor*1;12:minecraft:gunpowder*2;13:minecraft:rotten_flesh*2;14:minecraft:bread*1;16:minecraft:iron_ingot*1;18:minecraft:string*1;22:minecraft:rotten_flesh*1;24:minecraft:rotten_flesh*1;25:minecraft:gunpowder*1;26:minecraft:string*1 mdir=west leash=- ooc=0.0 loot=- seed=11
+N PG1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{minecraft:angry_at:{ttl:598L,value:[I;-1711819139,-11912927,-1424468521,-1414857598]}}},CanPickUpLoot:1b,CannotHunt:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,IsBaby:0b,IsImmuneToZombification:1b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,9.5d],Rotation:[0.0f,0.0f],TimeInOverworld:0,attributes:[{base:0.3499999940395355d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N PG3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{minecraft:angry_at:{ttl:598L,value:[I;-1404150041,1233271681,-2121863096,22402109]}}},CanPickUpLoot:1b,CannotHunt:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,IsBaby:0b,IsImmuneToZombification:1b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[40.5d,-60.0d,9.5d],Rotation:[0.0f,0.0f],TimeInOverworld:0,attributes:[{base:0.3499999940395355d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+MENU P1 cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 0 minecraft:diamond*3
+MS 5 minecraft:stick*9
+MENU P3 cid=1 type=minecraft:generic_9x3 state=1 carried=empty
+MS 2 minecraft:string*1
+MS 5 minecraft:iron_ingot*1
+MS 6 minecraft:rotten_flesh*4
+MS 8 minecraft:gunpowder*2
+MS 9 minecraft:golden_horse_armor*1
+MS 12 minecraft:gunpowder*2
+MS 13 minecraft:rotten_flesh*2
+MS 14 minecraft:bread*1
+MS 16 minecraft:iron_ingot*1
+MS 18 minecraft:string*1
+MS 22 minecraft:rotten_flesh*1
+MS 24 minecraft:rotten_flesh*1
+MS 25 minecraft:gunpowder*1
+MS 26 minecraft:string*1
+ADV P3 minecraft:adventure/adventuring_time minecraft:plains
+ADV P3 minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV P3 minecraft:recipes/misc/gold_nugget_from_blasting has_golden_helmet
+ADV P3 minecraft:recipes/misc/gold_nugget_from_smelting has_golden_helmet

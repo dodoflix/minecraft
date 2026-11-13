@@ -7,7 +7,7 @@
 //! `ServerboundMoveVehiclePacket` and `ServerboundPaddleBoatPacket`. `tickLerp` / the interpolation handler, `animateHurt`,
 //! `handleEntityEvent` (bubble wobble) and the particles are client-only and not modelled.
 //!
-//! Leash data (`Leashable`) is kept as the raw `leash` tag; the leash mechanics belong to the mob code.
+//! Leash data (`Leashable`) lives on the boat; the leash mechanics are shared with the mobs (`mob::leashable`).
 
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
@@ -17,6 +17,9 @@ use crate::world::entity::dimensions::EntityDimensions;
 use crate::world::entity::entity::MoveFunction;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::living_entity::push::pushable_entities_in;
+use crate::world::entity::mob::interact::entity_interact;
+use crate::world::entity::mob::leashable::{self, LeashData};
+use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use crate::world::entity::vehicle::container_entity::{
     ChestVehicleData, ChestVehicleMenuProvider, ContainerEntity,
 };
@@ -33,6 +36,7 @@ use crate::world::level::block::BlockStateExt;
 use crate::world::level::collision::BlockGetterExt;
 use crate::world::level::material::FluidStateExt;
 use linkme::distributed_slice;
+use mc_core::math::java::java_float_to_string;
 use mc_core::math::mth;
 use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::phys::{AABB, Vec3};
@@ -40,7 +44,7 @@ use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::{EntityType, GameEvent, Item, SoundEvent};
-use mc_nbt::{CompoundTag, Tag};
+use mc_nbt::CompoundTag;
 use std::any::Any;
 
 define_accessor!(DATA_ID_PADDLE_LEFT: Boolean = AbstractBoat);
@@ -96,8 +100,8 @@ pub struct AbstractBoat {
     last_yd: f64,
     is_above_bubble_column: bool,
     bubble_column_direction_is_down: bool,
-    /// `leashData` kept verbatim (`leash` tag).
-    leash: Option<Tag>,
+    /// `Leashable.getLeashData()`.
+    leash_data: Option<LeashData>,
     /// The player passengers, so that `getFirstPassenger() instanceof Player` needs no level lookup.
     player_passengers: Vec<EntityId>,
 }
@@ -131,7 +135,7 @@ impl AbstractBoat {
             last_yd: 0.0,
             is_above_bubble_column: false,
             bubble_column_direction_is_down: false,
-            leash: None,
+            leash_data: None,
             player_passengers: Vec::new(),
         }
     }
@@ -200,6 +204,11 @@ impl AbstractBoat {
 
     pub fn get_bubble_time(&self) -> i32 {
         self.base.entity_data.get(DATA_ID_BUBBLE_TIME)
+    }
+
+    /// The `outOfControlTicks` counter (ticks spent under water).
+    pub fn out_of_control_ticks(&self) -> f32 {
+        self.out_of_control_ticks
     }
 
     /// The `isAboveBubbleColumn` flag.
@@ -635,6 +644,39 @@ impl Entity for AbstractBoat {
         vehicle_entity::DIMENSION_CHANGING_DELAY
     }
 
+    /// `AbstractBoat.getLeashOffset()`: `(0, 0.88F * bbHeight, 0.64F * bbWidth)`.
+    fn get_leash_offset(&self) -> Vec3 {
+        Vec3::new(
+            0.0,
+            f64::from(0.88f32 * self.base.get_bb_height()),
+            f64::from(0.64f32 * self.base.get_bb_width()),
+        )
+    }
+
+    fn is_leashable(&self) -> bool {
+        true
+    }
+
+    fn can_be_leashed(&self) -> bool {
+        true
+    }
+
+    fn support_quad_leash(&self) -> bool {
+        true
+    }
+
+    fn leash_data(&self) -> Option<&LeashData> {
+        self.leash_data.as_ref()
+    }
+
+    fn leash_data_mut(&mut self) -> Option<&mut LeashData> {
+        self.leash_data.as_mut()
+    }
+
+    fn set_leash_data(&mut self, data: Option<LeashData>) {
+        self.leash_data = data;
+    }
+
     /// `AbstractBoat.getPassengerAttachmentPoint(passenger, dimensions, scale)`.
     fn get_passenger_attachment_point(
         &self,
@@ -976,10 +1018,13 @@ impl Entity for AbstractBoat {
         &mut self,
         level: &mut ServerLevel,
         player: &mut ServerPlayer,
-        _hand: InteractionHand,
+        hand: InteractionHand,
         _location: Vec3,
     ) -> InteractionResult {
-        // Not implemented: `Entity.interact` leash handling (lead item, shears, `Leashable`)
+        let super_interaction = entity_interact(self, level, player, hand);
+        if super_interaction != InteractionResult::PASS {
+            return super_interaction;
+        }
         let secondary = player.is_shift_key_down();
         let boarded = if secondary || !(self.out_of_control_ticks < TIME_TO_EJECT) {
             false
@@ -1003,20 +1048,20 @@ impl Entity for AbstractBoat {
         if reason.should_destroy() && self.chest.is_some() {
             self.drop_chest_contents(level);
         }
-        // Not implemented: `if (isLeashed()) dropLeash()`
+        if reason.should_destroy() {
+            leashable::drop_leash(self, level);
+        }
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
-        if let Some(leash) = &self.leash {
-            out.put("leash", leash.clone());
-        }
+        leashable::write_leash_data(self, out);
         if let Some(chest) = &self.chest {
             chest.add_chest_vehicle_save_data(out);
         }
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        self.leash = input.get("leash").cloned();
+        leashable::read_leash_data(self, None, input);
         if let Some(chest) = &mut self.chest {
             chest.read_chest_vehicle_save_data(input);
         }
@@ -1106,6 +1151,48 @@ fn create_boat(
     let (item, kind, chest) = boat_spec(ty).expect("boat entity type");
     Box::new(AbstractBoat::new(ty, id, item, kind, chest))
 }
+
+/// The scenario dump fields of every boat: `mdir leash ooc`, and of a chest boat `loot seed` (its items are in the plain line).
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static BOAT_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_any().is::<AbstractBoat>(),
+    fields: |e, _level, ctx| {
+        let boat = e.as_any().downcast_ref::<AbstractBoat>().expect("applies");
+        vec![
+            (
+                "mdir".into(),
+                e.get_motion_direction().get_serialized_name().to_string(),
+            ),
+            ("leash".into(), ctx.name_opt(leashable::get_leash_holder(e))),
+            (
+                "ooc".into(),
+                java_float_to_string(boat.out_of_control_ticks()),
+            ),
+        ]
+    },
+};
+
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static CHEST_BOAT_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 31,
+    applies: |e| e.as_any().is::<AbstractBoat>() && e.chest_vehicle().is_some(),
+    fields: |e, _level, _ctx| {
+        let chest = e.chest_vehicle().expect("applies");
+        vec![
+            (
+                "loot".into(),
+                chest
+                    .get_container_loot_table()
+                    .map_or_else(|| "-".into(), ToString::to_string),
+            ),
+            (
+                "seed".into(),
+                chest.get_container_loot_table_seed().to_string(),
+            ),
+        ]
+    },
+};
 
 macro_rules! register_boat {
     ($($name:ident = $ty:ident),* $(,)?) => {$(

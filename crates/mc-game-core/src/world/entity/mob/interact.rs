@@ -163,7 +163,7 @@ pub fn entity_interact(
     {
         return InteractionResult::SUCCESS;
     }
-    if e.is_alive() && e.mob().is_some() {
+    if e.is_alive() && e.is_leashable() {
         if leashable::get_leash_holder(e) == Some(player.id()) {
             if player.player.abilities.instabuild {
                 leashable::remove_leash(e, level);

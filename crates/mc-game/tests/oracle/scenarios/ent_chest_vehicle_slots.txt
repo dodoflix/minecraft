@@ -1,0 +1,45 @@
+# The container.N slots of chest boats and chest and hopper minecarts (ContainerEntity.getChestVehicleSlot) through /item replace entity,
+# /item replace from entity and `execute if items entity`: valid and out-of-range slots, the stack size limit, vehicles without a chest,
+# and a vehicle with a pending loot table that is unpacked before its slot is read or written.
+command_env
+level flat
+preload 3
+level_seed 441
+entity_counter 4100
+spawn CB minecraft:oak_chest_boat 0.5 -60 0.5 0 0 {Tags:["slotboat"],Items:[{Slot:2b,id:"minecraft:cobblestone",count:20}]}
+entity_seed CB 451
+spawn CM minecraft:chest_minecart 4.5 -59.9375 0.5 0 0 {Tags:["slotcart"]}
+entity_seed CM 452
+spawn HM minecraft:hopper_minecart 8.5 -59.9375 0.5 0 0 {Tags:["slothopper"]}
+entity_seed HM 453
+spawn LB minecraft:spruce_chest_boat 12.5 -60 0.5 0 0 {Tags:["slotloot"],LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:21L}
+entity_seed LB 454
+spawn PB minecraft:oak_boat 16.5 -60 0.5 0 0 {Tags:["plainboat"]}
+entity_seed PB 455
+tick 2
+cmd item replace entity @e[tag=slotboat] container.0 with minecraft:diamond 3
+cmd item replace entity @e[tag=slotboat] container.26 with minecraft:stick 64
+cmd item replace entity @e[tag=slotboat] container.27 with minecraft:stick
+cmd item replace entity @e[tag=slotcart] container.13 with minecraft:emerald 2
+cmd item replace entity @e[tag=slotcart] container.26 with minecraft:apple
+cmd item replace entity @e[tag=slothopper] container.4 with minecraft:gold_ingot
+cmd item replace entity @e[tag=slothopper] container.5 with minecraft:gold_ingot
+cmd item replace entity @e[tag=plainboat] container.0 with minecraft:diamond
+dump xentity:CB xentity:CM xentity:HM xentity:PB
+note a stack above the size limit of the item is cut, a slot is copied from another entity
+cmd item replace entity @e[tag=slotboat] container.5 with minecraft:ender_pearl 64
+cmd item replace entity @e[tag=slotcart] container.0 from entity @e[tag=slotboat] container.0
+cmd item replace entity @e[tag=slothopper] container.0 from entity @e[tag=slotboat] container.26
+cmd item replace entity @e[tag=slotboat] container.1 from entity @e[tag=slotcart] container.13
+dump xentity:CB xentity:CM xentity:HM
+note the slots are matched by `execute if items`
+cmd execute if items entity @e[tag=slotboat] container.0 minecraft:diamond
+cmd execute if items entity @e[tag=slotboat] container.1 minecraft:diamond
+cmd execute if items entity @e[tag=slotboat] container.* minecraft:stick
+cmd execute if items entity @e[tag=slotcart] container.13 minecraft:emerald
+cmd execute if items entity @e[tag=slothopper] container.* minecraft:gold_ingot
+cmd execute if items entity @e[tag=plainboat] container.* minecraft:diamond
+note a pending loot table is unpacked by the access
+level_seed 442
+cmd item replace entity @e[tag=slotloot] container.1 with minecraft:diamond 2
+dump xentity:LB

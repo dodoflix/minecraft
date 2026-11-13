@@ -1,0 +1,42 @@
+# A boat that is held under water (here by a ceiling) throws its passengers off after 60 ticks and cannot be boarded while it is out of
+# control; the time restarts from zero when the boat comes up. Passengers: a pig and a player (who leaves through the dismount search).
+level flat
+preload 4
+level_seed 331
+entity_counter 3500
+spawn_player O survival 20.5 -60 8.5 0 0
+spawn_player P survival 8.5 -60 3.5 0 0
+fill 0 -63 0 4 -59 4 minecraft:stone
+fill 1 -62 1 3 -60 3 minecraft:water
+spawn B minecraft:oak_boat 2.5 -61.5 2.5 0 0
+entity_seed B 341
+mobspawn pig minecraft:pig 8.5 -60 6.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed pig 342
+tick 3
+dump packets:O:none packets:P:none
+note the rider boards while the boat is in the pool
+ride pig B
+ride P B
+accept_teleport P
+tick 5
+dump xentity:B player:P mob:pig events packets:P:set_passengers,teleport_entity,player_position packets:O:set_passengers,teleport_entity
+tick 30
+dump xentity:B player:P mob:pig
+tick 24
+dump xentity:B player:P mob:pig
+note after 60 ticks under water everyone is thrown off
+tick 2
+dump xentity:B player:P mob:pig events packets:P:set_passengers,teleport_entity,player_position,set_entity_data packets:O:set_passengers,teleport_entity,move_entity_pos
+note a boat that is out of control cannot be boarded
+interact P B main
+tick 2
+dump xentity:B player:P events packets:P:set_passengers,teleport_entity,player_position
+note the pool is drained: the boat falls to the floor, the counter restarts at zero
+fill 1 -62 1 3 -59 3 minecraft:air
+tick 4
+dump xentity:B
+note the boat can be boarded again
+interact P B main
+accept_teleport P
+tick 2
+dump xentity:B player:P events packets:P:set_passengers,teleport_entity,player_position

@@ -2035,9 +2035,9 @@ public final class EntityOracleDriver {
          if (boat instanceof net.minecraft.world.entity.vehicle.boat.AbstractChestBoat cb) {
             b.append(" items=");
             int n = 0;
-            for (int i = 0; i < cb.getContainerSize(); i++) {
-               if (!cb.getItem(i).isEmpty()) {
-                  b.append(n++ > 0 ? ";" : "").append(i).append(':').append(item(cb.getItem(i)));
+            for (int i = 0; i < cb.getItemStacks().size(); i++) { // the raw list: getItem would unpack a pending loot table
+               if (!cb.getItemStacks().get(i).isEmpty()) {
+                  b.append(n++ > 0 ? ";" : "").append(i).append(':').append(item(cb.getItemStacks().get(i)));
                }
             }
             if (n == 0) {

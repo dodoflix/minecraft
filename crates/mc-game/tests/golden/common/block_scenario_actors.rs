@@ -589,13 +589,23 @@ impl Scenario {
                         }
                         return;
                     }
-                    e.teleport_to(level, num(&a[2]), num(&a[3]), num(&a[4]));
-                    if a.len() > 5 {
-                        e.set_rot(
-                            a.get(5).map_or(yr, |v| num(v) as f32),
-                            a.get(6).map_or(xr, |v| num(v) as f32),
-                        );
-                    }
+                    // the driver's `teleportTo(level, x, y, z, Set.of(), yRot, xRot, false)` is `Entity.teleport(transition)`: the entity
+                    // stops riding, its passengers move with it (and turn with the rotation), the motion is reset
+                    let rot = |i: usize, old: f32| a.get(i).map_or(old, |v| num(v) as f32);
+                    let transition = mc_game::server::players::dimension_change::TeleportTransition::new(
+                        level.dimension.clone(),
+                        Vec3::new(num(&a[2]), num(&a[3]), num(&a[4])),
+                        Vec3::ZERO,
+                        rot(5, yr),
+                        rot(6, xr),
+                        mc_game::server::players::dimension_change::PostTeleportTransition::DO_NOTHING,
+                    );
+                    level.stop_riding(e);
+                    mc_game::server::players::dimension_change::teleport_same_dimension(
+                        level,
+                        e,
+                        &transition,
+                    );
                 });
             }
             "velocity" => {

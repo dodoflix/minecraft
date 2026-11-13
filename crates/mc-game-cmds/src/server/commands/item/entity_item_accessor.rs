@@ -9,8 +9,9 @@ use mc_brigadier::CommandSyntaxException;
 use mc_game_core::commands::arguments::EntityArgument;
 use mc_game_core::commands::arguments::selector::EntityRef;
 use mc_game_core::commands::{CommandSourceStack, argument, host};
+use mc_game_core::server::MinecraftServer;
 use mc_game_core::server::commands::item::slots::{
-    EntitySlots, apply_entity_writes, entity_in, slot_params,
+    EntitySlots, apply_entity_writes, entity_in, slot_params, unpack_chest_vehicle_loot,
 };
 use mc_game_core::translatable;
 use mc_game_core::world::entity::Entity;
@@ -48,6 +49,15 @@ fn display_name(source: &CommandSourceStack, target: &ItemTarget) -> Component {
     })
 }
 
+/// `getChestVehicleSlot(slot).get()/.set()` unpack a chest vehicle's loot table before they touch the items.
+fn unpack_chest_vehicles(server: &mut MinecraftServer, entities: &[EntityRef]) {
+    for r in entities {
+        if let Some(level) = server.level_mut(&r.dimension) {
+            unpack_chest_vehicle_loot(level, r.id);
+        }
+    }
+}
+
 impl ItemAccessor for EntityItemAccessor {
     fn set_items(
         &self,
@@ -56,6 +66,7 @@ impl ItemAccessor for EntityItemAccessor {
         function: &mut Setter<'_>,
     ) -> Result<(), CommandSyntaxException> {
         source.with_server(|server| {
+            unpack_chest_vehicles(server, &self.entities);
             let (counts, writes) = {
                 let server = &*server;
                 let Some(level) = server.level(source.get_level()) else {
@@ -110,6 +121,7 @@ impl ItemAccessor for EntityItemAccessor {
         slot_source: &SlotSourceRef,
     ) -> Result<SlotSnapshot, CommandSyntaxException> {
         Ok(source.with_server(|server| {
+            unpack_chest_vehicles(server, &self.entities);
             let Some(level) = server.level(source.get_level()) else {
                 return SlotSnapshot::empty();
             };

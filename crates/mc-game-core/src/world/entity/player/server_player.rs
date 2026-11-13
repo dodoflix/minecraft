@@ -1056,6 +1056,9 @@ impl Entity for ServerPlayer {
     ) {
         self.attack_entity(level, target);
     }
+    fn known_movement_snapshot(&self) -> Vec3 {
+        self.last_known_client_movement
+    }
     fn get_known_movement(&self, level: &crate::server::level::ServerLevel) -> Vec3 {
         let vehicle = self
             .base()

@@ -1,0 +1,30 @@
+C Replaced 1 slot(s) on Oak Boat with Chest with [Diamond]
+C Replaced 1 slot(s) on Oak Boat with Chest with [Stick]
+C The target does not have slot container.27
+C Replaced 1 slot(s) on Minecart with Chest with [Emerald]
+C Replaced 1 slot(s) on Minecart with Chest with [Apple]
+C Replaced 1 slot(s) on Minecart with Hopper with [Gold Ingot]
+C The target does not have slot container.5
+C The target does not have slot container.0
+E CB minecraft:oak_chest_boat pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- items=0:minecraft:diamond*3;2:minecraft:cobblestone*20;26:minecraft:stick*64 mdir=west leash=- ooc=0.0 loot=- seed=0
+E CM minecraft:chest_minecart pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=13:minecraft:emerald*2;26:minecraft:apple*1 loot=- seed=0
+E HM minecraft:hopper_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=4:minecraft:gold_ingot*1 loot=- seed=0 enabled=1
+E PB minecraft:oak_boat pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+# a stack above the size limit of the item is cut, a slot is copied from another entity
+C minecraft:ender_pearl can only stack up to 16
+C Replaced 1 slot(s) on Minecart with Chest
+C Replaced 1 slot(s) on Minecart with Hopper
+C Replaced 1 slot(s) on Oak Boat with Chest
+E CB minecraft:oak_chest_boat pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- items=0:minecraft:diamond*3;1:minecraft:emerald*2;2:minecraft:cobblestone*20;26:minecraft:stick*64 mdir=west leash=- ooc=0.0 loot=- seed=0
+E CM minecraft:chest_minecart pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:diamond*3;13:minecraft:emerald*2;26:minecraft:apple*1 loot=- seed=0
+E HM minecraft:hopper_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=0:minecraft:stick*64;4:minecraft:gold_ingot*1 loot=- seed=0 enabled=1
+# the slots are matched by `execute if items`
+C Test passed. Count: 3
+C Test failed
+C Test passed. Count: 64
+C Test passed. Count: 2
+C Test passed. Count: 1
+C Test failed
+# a pending loot table is unpacked by the access
+C Replaced 1 slot(s) on Spruce Boat with Chest with [Diamond]
+E LB minecraft:spruce_chest_boat pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- items=0:minecraft:leather*1;1:minecraft:diamond*2;2:minecraft:string*1;3:minecraft:iron_ingot*1;4:minecraft:golden_horse_armor*1;5:minecraft:string*1;6:minecraft:leather*1;7:minecraft:string*1;8:minecraft:gunpowder*2;9:minecraft:leather*1;10:minecraft:melon_seeds*1;11:minecraft:leather*1;12:minecraft:iron_ingot*1;13:minecraft:gunpowder*1;14:minecraft:melon_seeds*1;15:minecraft:leather*1;16:minecraft:gunpowder*2;17:minecraft:gunpowder*1;18:minecraft:leather*1;19:minecraft:bread*1;20:minecraft:string*1;21:minecraft:iron_ingot*2;22:minecraft:gunpowder*4;23:minecraft:coal*1;24:minecraft:string*1;25:minecraft:string*1;26:minecraft:coal*1 mdir=west leash=- ooc=0.0 loot=- seed=21

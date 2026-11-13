@@ -160,11 +160,11 @@ impl Wrench {
 }
 
 fn data(e: &dyn Entity) -> Option<&LeashData> {
-    e.mob().and_then(|m| m.leash_data.as_ref())
+    e.leash_data()
 }
 
 fn data_mut(e: &mut dyn Entity) -> Option<&mut LeashData> {
-    e.mob_mut().and_then(|m| m.leash_data.as_mut())
+    e.leash_data_mut()
 }
 
 /// `isLeashed()`.
@@ -209,9 +209,7 @@ pub fn can_have_a_leash_attached_to(
 
 /// `setDelayedLeashHolderId(entityId)`.
 pub fn set_delayed_leash_holder_id(e: &mut dyn Entity, level: &mut ServerLevel, entity_id: i32) {
-    if let Some(m) = e.mob_mut() {
-        m.leash_data = Some(LeashData::of_delayed_id(entity_id));
-    }
+    e.set_leash_data(Some(LeashData::of_delayed_id(entity_id)));
     drop_leash_impl(e, level, false, false);
 }
 
@@ -244,9 +242,7 @@ pub fn read_leash_data(
     {
         remove_leash(e, level);
     }
-    if let Some(m) = e.mob_mut() {
-        m.leash_data = new_data;
-    }
+    e.set_leash_data(new_data);
 }
 
 /// `writeLeashData(output, leashData)`: the holder's UUID, the knot position, or the still-delayed info.
@@ -306,9 +302,7 @@ fn restore_leash_from_save(e: &mut dyn Entity, level: &mut ServerLevel) {
             crate::world::item::ItemStack::new(Item::LEAD),
             Vec3::ZERO,
         );
-        if let Some(m) = e.mob_mut() {
-            m.leash_data = None;
-        }
+        e.set_leash_data(None);
     }
 }
 
@@ -332,9 +326,7 @@ fn drop_leash_impl(
     let Some(holder) = data(e).and_then(|d| d.leash_holder) else {
         return;
     };
-    if let Some(m) = e.mob_mut() {
-        m.leash_data = None;
-    }
+    e.set_leash_data(None);
     e.on_leash_removed();
     if drop_lead {
         crate::world::entity::item::spawn_at_location(
@@ -611,9 +603,7 @@ pub fn set_leashed_to(
     }
     let old_holder = match data_mut(e) {
         None => {
-            if let Some(m) = e.mob_mut() {
-                m.leash_data = Some(LeashData::of_holder(&holder));
-            }
+            e.set_leash_data(Some(LeashData::of_holder(&holder)));
             None
         }
         Some(d) => {
@@ -647,7 +637,7 @@ pub fn leashable_in_area(
     test: impl Fn(&dyn Entity) -> bool,
 ) -> Vec<EntityId> {
     let scan_area = mc_core::phys::AABB::of_size(pos, 32.0, 32.0, 32.0);
-    level.get_entities_of_class(&scan_area, |x| x.mob().is_some(), |x| test(x))
+    level.get_entities_of_class(&scan_area, |x| x.is_leashable(), |x| test(x))
 }
 
 /// `Leashable.leashableLeashedTo(entity)`.

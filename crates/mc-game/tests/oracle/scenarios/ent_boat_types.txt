@@ -1,0 +1,79 @@
+# Every boat type (ten wood boats and chest boats, the bamboo raft and the chest raft): spawn with the entity data of a named,
+# damaged, half-filled boat, save and load round trip (`nbt:`), the plain fields, and the item each one drops when it breaks.
+level flat
+preload 4
+entity_counter 3000
+level_seed 8
+spawn_player A survival 0.5 -60 -6.5 0 0
+spawn_player O survival 20.5 -60 -6.5 0 0
+spawn oak_boat minecraft:oak_boat 2.5 -60 2.5 0 0 {CustomName:'"Vessel"'}
+entity_seed oak_boat 100
+spawn oak_chest minecraft:oak_chest_boat 6.5 -60 2.5 37 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed oak_chest 101
+spawn spruce_boat minecraft:spruce_boat 10.5 -60 2.5 74 0 {CustomName:'"Vessel"'}
+entity_seed spruce_boat 102
+spawn spruce_chest minecraft:spruce_chest_boat 14.5 -60 2.5 111 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed spruce_chest 103
+spawn birch_boat minecraft:birch_boat 18.5 -60 2.5 148 0 {CustomName:'"Vessel"'}
+entity_seed birch_boat 104
+spawn birch_chest minecraft:birch_chest_boat 22.5 -60 2.5 185 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed birch_chest 105
+spawn jungle_boat minecraft:jungle_boat 2.5 -60 6.5 222 0 {CustomName:'"Vessel"'}
+entity_seed jungle_boat 106
+spawn jungle_chest minecraft:jungle_chest_boat 6.5 -60 6.5 259 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed jungle_chest 107
+spawn acacia_boat minecraft:acacia_boat 10.5 -60 6.5 296 0 {CustomName:'"Vessel"'}
+entity_seed acacia_boat 108
+spawn acacia_chest minecraft:acacia_chest_boat 14.5 -60 6.5 333 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed acacia_chest 109
+spawn dark_oak_boat minecraft:dark_oak_boat 18.5 -60 6.5 10 0 {CustomName:'"Vessel"'}
+entity_seed dark_oak_boat 110
+spawn dark_oak_chest minecraft:dark_oak_chest_boat 22.5 -60 6.5 47 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed dark_oak_chest 111
+spawn cherry_boat minecraft:cherry_boat 2.5 -60 10.5 84 0 {CustomName:'"Vessel"'}
+entity_seed cherry_boat 112
+spawn cherry_chest minecraft:cherry_chest_boat 6.5 -60 10.5 121 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed cherry_chest 113
+spawn mangrove_boat minecraft:mangrove_boat 10.5 -60 10.5 158 0 {CustomName:'"Vessel"'}
+entity_seed mangrove_boat 114
+spawn mangrove_chest minecraft:mangrove_chest_boat 14.5 -60 10.5 195 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed mangrove_chest 115
+spawn pale_oak_boat minecraft:pale_oak_boat 18.5 -60 10.5 232 0 {CustomName:'"Vessel"'}
+entity_seed pale_oak_boat 116
+spawn pale_oak_chest minecraft:pale_oak_chest_boat 22.5 -60 10.5 269 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed pale_oak_chest 117
+spawn poplar_boat minecraft:poplar_boat 2.5 -60 14.5 306 0 {CustomName:'"Vessel"'}
+entity_seed poplar_boat 118
+spawn poplar_chest minecraft:poplar_chest_boat 6.5 -60 14.5 343 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed poplar_chest 119
+spawn bamboo_raft minecraft:bamboo_raft 10.5 -60 14.5 20 0 {CustomName:'"Vessel"'}
+entity_seed bamboo_raft 120
+spawn bamboo_chest_raft minecraft:bamboo_chest_raft 14.5 -60 14.5 57 0 {CustomName:'"Vessel"',Items:[{Slot:3b,id:"minecraft:cobweb",count:5}]}
+entity_seed bamboo_chest_raft 121
+tick 3
+dump xentities packets:A:none packets:O:none nbt:oak_boat nbt:oak_chest nbt:spruce_boat nbt:spruce_chest nbt:birch_boat nbt:birch_chest
+note every type breaks into its own boat item (chest boats drop their contents too)
+hurt oak_boat player_attack 50 by=A direct=A
+hurt oak_chest player_attack 50 by=A direct=A
+hurt spruce_boat player_attack 50 by=A direct=A
+hurt spruce_chest player_attack 50 by=A direct=A
+hurt birch_boat player_attack 50 by=A direct=A
+hurt birch_chest player_attack 50 by=A direct=A
+hurt jungle_boat player_attack 50 by=A direct=A
+hurt jungle_chest player_attack 50 by=A direct=A
+hurt acacia_boat player_attack 50 by=A direct=A
+hurt acacia_chest player_attack 50 by=A direct=A
+hurt dark_oak_boat player_attack 50 by=A direct=A
+hurt dark_oak_chest player_attack 50 by=A direct=A
+hurt cherry_boat player_attack 50 by=A direct=A
+hurt cherry_chest player_attack 50 by=A direct=A
+hurt mangrove_boat player_attack 50 by=A direct=A
+hurt mangrove_chest player_attack 50 by=A direct=A
+hurt pale_oak_boat player_attack 50 by=A direct=A
+hurt pale_oak_chest player_attack 50 by=A direct=A
+hurt poplar_boat player_attack 50 by=A direct=A
+hurt poplar_chest player_attack 50 by=A direct=A
+hurt bamboo_raft player_attack 50 by=A direct=A
+hurt bamboo_chest_raft player_attack 50 by=A direct=A
+tick 3
+dump entities packets:O:add_entity,remove_entities

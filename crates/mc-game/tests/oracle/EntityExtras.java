@@ -9,6 +9,8 @@ import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ShulkerBullet;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractChestBoat;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecartContainer;
 import net.minecraft.world.entity.vehicle.minecart.MinecartFurnace;
@@ -62,6 +64,11 @@ final class EntityExtras {
          out.add("vhurt", c.getHurtTime() + "/" + c.getHurtDir() + "/" + EntityOracleDriver.f(c.getDamage()));
          out.add("mdir", c.getMotionDirection().getSerializedName()).add("rider", d.entName(c.getFirstPassenger()));
       }));
+      ALL.add(new Extra(30, AbstractBoat.class, (d, e, out) -> {
+         AbstractBoat b = (AbstractBoat)e;
+         out.add("mdir", b.getMotionDirection().getSerializedName()).add("leash", d.entName(b.getLeashHolder()));
+         out.add("ooc", EntityOracleDriver.f((Float)EntityOracleDriver.priv(b, AbstractBoat.class, "outOfControlTicks")));
+      }));
       ALL.add(new Extra(30, AreaEffectCloud.class, (d, e, out) -> {
          AreaEffectCloud c = (AreaEffectCloud)e;
          out.add("radius", EntityOracleDriver.f(c.getRadius())).add("waiting", EntityOracleDriver.bool(c.isWaiting()));
@@ -97,6 +104,11 @@ final class EntityExtras {
          out.add("tyd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaY")));
          out.add("tzd", EntityOracleDriver.f((Double)EntityOracleDriver.priv(e, "targetDeltaZ")));
          out.add("target", d.uuidName(target == null ? null : target.getUUID()));
+      }));
+      ALL.add(new Extra(31, AbstractChestBoat.class, (d, e, out) -> {
+         AbstractChestBoat c = (AbstractChestBoat)e;
+         out.add("loot", c.getContainerLootTable() == null ? "-" : c.getContainerLootTable().identifier());
+         out.add("seed", c.getContainerLootTableSeed());
       }));
       ALL.add(new Extra(31, AbstractMinecartContainer.class, (d, e, out) -> {
          AbstractMinecartContainer c = (AbstractMinecartContainer)e;

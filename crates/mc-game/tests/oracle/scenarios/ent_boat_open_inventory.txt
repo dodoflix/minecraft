@@ -1,0 +1,44 @@
+# The open-inventory key while riding: a rider of a chest boat opens its menu (a pending loot table is rolled for the rider, the open
+# event is posted and the piglins that see the player get angry), the rider of a plain boat gets nothing, and a menu that is open is
+# closed again with the key's second press being just another open.
+level flat
+preload 6
+level_seed 381
+entity_counter 3800
+difficulty normal
+spawn_player P1 survival 0.5 -60 4.5 0 0
+spawn_player P2 survival 20.5 -60 4.5 0 0
+spawn_player P3 survival 40.5 -60 4.5 0 0
+give P1 head minecraft:golden_helmet
+give P3 head minecraft:golden_helmet
+spawn CB1 minecraft:oak_chest_boat 0.5 -60 0.5 0 0 {Items:[{Slot:0b,id:"minecraft:diamond",count:3},{Slot:5b,id:"minecraft:stick",count:9}]}
+entity_seed CB1 391
+spawn B2 minecraft:birch_boat 20.5 -60 0.5 0 0
+entity_seed B2 392
+spawn CB3 minecraft:cherry_chest_boat 40.5 -60 0.5 0 0 {LootTable:"minecraft:chests/simple_dungeon",LootTableSeed:11L}
+entity_seed CB3 393
+spawn PG1 minecraft:piglin 0.5 -60 9.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed PG1 394
+spawn PG3 minecraft:piglin 40.5 -60 9.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+entity_seed PG3 395
+tick 25
+dump packets:P1:none packets:P2:none packets:P3:none nbt:PG1 nbt:PG3
+note the riders board, one boat each
+ride P1 CB1
+ride P2 B2
+ride P3 CB3
+accept_teleport P1
+accept_teleport P2
+accept_teleport P3
+tick 2
+dump packets:P1:none packets:P2:none packets:P3:none
+note the open-inventory key
+pcommand P1 open_inventory
+pcommand P2 open_inventory
+pcommand P3 open_inventory
+tick 2
+dump packets:P1:open_screen,container_set_content,container_set_slot,game_event,sound packets:P2:open_screen,container_set_content,game_event packets:P3:open_screen,container_set_content,container_set_slot,game_event,sound events xentity:CB1 xentity:CB3 nbt:PG1 nbt:PG3 menu:P1 menu:P3 advancements:P3
+close_menu P1
+close_menu P3
+tick 1
+dump packets:P1:container_close,game_event,sound packets:P3:container_close,game_event,sound events

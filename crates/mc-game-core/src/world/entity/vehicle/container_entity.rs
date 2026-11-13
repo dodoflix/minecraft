@@ -4,12 +4,12 @@
 //! plus `Container` (what `ContainerKey::Entity` resolves through [`Entity::as_container_mut`]). [`ContainerEntity`] is the
 //! trait of the entities embedding it; its defaults are the interface's `default` methods that need the entity itself.
 //!
-//! Not implemented: `ContainerEntity.getChestVehicleSlot` (the `container.N` slots that `/item` and predicates address).
-//!
 //! The vanilla getters unpack a pending loot table lazily (`unpackChestVehicleLootTable(null)` on every `getItem`...). A `&self`
 //! container cannot do that without the level, so the paths that have it unpack explicitly: opening the menu
 //! ([`ChestVehicleMenuProvider`], with the player), dropping the contents on removal/destruction, a hopper reading or filling the
-//! container, a comparator reading it through a detector rail, `clearContent`.
+//! container, a comparator reading it through a detector rail, `clearContent`, and `/item` before it reads or writes
+//! `container.N` (`getChestVehicleSlot`, answered by `Entity::get_slot` through `chest_vehicle`). Not implemented: a `slots`
+//! predicate that reads `container.N` of a vehicle with a pending loot table sees the table's items as not yet generated.
 
 use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::level::ServerLevel;

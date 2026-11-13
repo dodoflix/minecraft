@@ -1,0 +1,55 @@
+C The difficulty did not change; it is already set to Normal
+E H1 minecraft:oak_boat pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H2 minecraft:spruce_boat pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H3 minecraft:bamboo_raft pos=18.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H4 minecraft:cherry_boat pos=26.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H5 minecraft:mangrove_boat pos=34.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+# a light hit makes the boat wobble
+HURT H1 player_attack 1 -> true
+E H1 minecraft:oak_boat pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=10.0 hurt=10/-1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H1 minecraft:oak_boat pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=8.0 hurt=8/-1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+# a second hit flips the direction, the damage adds up
+HURT H1 player_attack 1 -> true
+E H1 minecraft:oak_boat pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=17.0 hurt=9/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H1 minecraft:oak_boat pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=5.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+# hits that add up to more than 40 break it
+HURT H1 player_attack 2 -> true
+HURT H1 player_attack 3 -> true
+E H2 minecraft:spruce_boat pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H3 minecraft:bamboo_raft pos=18.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H4 minecraft:cherry_boat pos=26.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H5 minecraft:mangrove_boat pos=34.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E item#1 minecraft:item pos=2.3782825132488026,-59.64873599172974,2.212348549900457 delta=-0.03896052553382052,0.07297472653442398,-0.09207429405235774 rot=342.5444,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_boat*1 age=3 pickup=7 health=5 owner=- thrower=-
+PKT A minecraft:add_entity 0188196ef924bf23fb4efeb5fbaf26334be415484004000000000000c04e0000000000004004000000000000c9ea7379333100f30000
+PKT A minecraft:set_entity_data 658819080701cf070000ff
+PKT A minecraft:set_entity_data 658819080701cf070000ff
+# a sword hit breaks a named boat: the item keeps the name
+E H2 minecraft:spruce_boat pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H3 minecraft:bamboo_raft pos=18.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H4 minecraft:cherry_boat pos=26.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H5 minecraft:mangrove_boat pos=34.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E item#1 minecraft:item pos=2.2637229817695426,-59.67097710472918,1.941613290470618 delta=-0.03666933708928497,-0.04658045162980263,-0.08665959402762623 rot=342.5444,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_boat*1 age=6 pickup=4 health=5 owner=- thrower=-
+# a creative player discards the raft without a drop
+HURT H3 player_attack 1 -> true
+E H2 minecraft:spruce_boat pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H4 minecraft:cherry_boat pos=26.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H5 minecraft:mangrove_boat pos=34.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E item#1 minecraft:item pos=2.1559004609219494,-60.0,1.6867994152992003 delta=-0.020707734916619203,0.0,-0.04893799679924655 rot=342.5444,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_boat*1 age=9 pickup=1 health=5 owner=- thrower=-
+PKT B minecraft:add_entity 0188196ef924bf23fb4efeb5fbaf26334be415484004000000000000c04e0000000000004004000000000000c9ea7379333100f30000
+PKT B minecraft:set_entity_data 658819080701cf070000ff
+PKT B minecraft:set_entity_data 658819080701cf070000ff
+# a mob breaks a boat
+HURT H4 mob_attack 50 -> true
+E H2 minecraft:spruce_boat pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E H5 minecraft:mangrove_boat pos=34.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E item#1 minecraft:item pos=2.1158570001090458,-60.0,1.592165851320172 delta=-0.00420983142938488,0.0,-0.00994897403536206 rot=342.5444,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_boat*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=26.51591719658708,-59.64873599172974,2.263110104838541 delta=0.005094932212373836,0.07297472653442398,-0.07582603827507362 rot=107.273575,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cherry_boat*1 age=3 pickup=7 health=5 owner=- thrower=-
+PKT A minecraft:add_entity 018919f1c6f0fe2631485b8d4a40d30c56827448403a800000000000c04e0000000000004004000000000000c10275af3332004c0000
+PKT A minecraft:set_entity_data 658919080701d9070000ff
+PKT A minecraft:set_entity_data 658919080701d9070000ff
+# entity_drops off: nothing drops
+C Game rule entity_drops is now set to false
+HURT H5 player_attack 50 -> true
+E H2 minecraft:spruce_boat pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=- mdir=west leash=- ooc=0.0
+E item#1 minecraft:item pos=2.1077162632998157,-60.0,1.572927081193079 delta=-8.558483453259402E-4,0.0,-0.0020226018805459636 rot=342.5444,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_boat*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=26.53089833555199,-59.67097710472918,2.0401512176135648 delta=0.004795309718818161,-0.04658045162980263,-0.07136686478317737 rot=107.273575,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:cherry_boat*1 age=6 pickup=4 health=5 owner=- thrower=-

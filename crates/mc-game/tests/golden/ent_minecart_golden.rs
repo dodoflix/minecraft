@@ -4,15 +4,6 @@
 
 use crate::common;
 
-// `og` of a player that only sends packets is left out: vanilla keeps the flag the ride set, the replay derives it again on the first
-// tick after the dismount (the position, pose and packets are compared)
-fn ignore_on_ground() -> common::entity_oracle::Options {
-    common::entity_oracle::Options {
-        ignore_fields: vec!["og"],
-        ..Default::default()
-    }
-}
-
 #[test]
 fn flat_rails_boost_brake_and_derail() {
     common::block_scenario::check("mc_old_flat");
@@ -80,20 +71,12 @@ fn drops_and_the_entity_drops_rule() {
 
 #[test]
 fn riding_and_dismounting() {
-    common::block_scenario::check_with("ent_minecart_ride", &ignore_on_ground());
+    common::block_scenario::check("ent_minecart_ride");
 }
 
-// the replay applies a physics step to a rider in the tick it is dismounted, vanilla keeps the motion of the riding tick; position,
-// pose and packets are compared
 #[test]
 fn dismounting_where_the_sides_are_blocked() {
-    common::block_scenario::check_with(
-        "ent_minecart_dismount_blocked",
-        &common::entity_oracle::Options {
-            ignore_fields: vec!["og", "delta"],
-            ..Default::default()
-        },
-    );
+    common::block_scenario::check("ent_minecart_dismount_blocked");
 }
 
 #[test]

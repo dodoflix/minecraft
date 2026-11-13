@@ -1,0 +1,37 @@
+# Boats above a bubble column with riders: a column that pushes up ends in a bump after a while (entity event 72), one that drags down
+# throws the passengers off (entity event 71) and the bubble timer restarts. Rider of the first boat: a pig; of the second: a player.
+level flat
+preload 4
+level_seed 361
+entity_counter 3700
+spawn_player O survival 46.5 -60 8.5 0 0
+spawn_player P survival 44.5 -60 8.5 0 0
+fill 40 -63 0 44 -61 4 minecraft:water
+block 42 -63 2 minecraft:soul_sand
+block 42 -62 2 minecraft:bubble_column[drag=false]
+block 42 -61 2 minecraft:bubble_column[drag=false]
+fill 46 -63 0 50 -61 4 minecraft:water
+block 48 -63 2 minecraft:magma_block
+block 48 -62 2 minecraft:bubble_column[drag=true]
+block 48 -61 2 minecraft:bubble_column[drag=true]
+spawn b1 minecraft:oak_boat 42.5 -60.5 2.5 0 0
+entity_seed b1 371
+spawn b2 minecraft:oak_boat 48.5 -60.5 2.5 0 0
+entity_seed b2 372
+mobspawn pig minecraft:pig 40.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed pig 373
+tick 2
+dump packets:O:none packets:P:none
+ride pig b1
+ride P b2
+accept_teleport P
+tick 3
+dump xentity:b1 xentity:b2 mob:pig player:P
+tick 30
+dump xentity:b1 xentity:b2 mob:pig player:P packets:O:entity_event,set_passengers,set_entity_data
+tick 25
+dump xentity:b1 xentity:b2 mob:pig player:P packets:O:entity_event,set_passengers,set_entity_data
+tick 3
+dump xentity:b1 xentity:b2 mob:pig player:P packets:O:entity_event,set_passengers,set_entity_data events
+tick 30
+dump xentity:b1 xentity:b2 mob:pig player:P packets:O:entity_event,set_passengers,set_entity_data
