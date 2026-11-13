@@ -1,0 +1,75 @@
+# AbstractThrownPotion.onHitBlock: a potion tagged douses_fire (a water bottle) puts out fire around the face it hit: the block in front of the face and the
+# one behind it (the hit block itself), and the four horizontal neighbours of the block in front. Fire and soul fire are destroyed (no drops), lit candles and
+# candle cakes are extinguished, a lit campfire is doused (event 1009, the game event, LIT false). A poison potion does none of it. The same water potion
+# also hurts a blaze next to the splash and extinguishes a burning cow.
+level flat
+preload 4
+difficulty normal
+level_seed 3
+entity_counter 1500
+spawn_player A survival 0.5 -60 -8.5 0 0
+note set A: a campfire hit from above, a candle, a fire, a soul fire and a candle cake around the block above it
+block 0 -60 0 minecraft:campfire[lit=true,facing=north,waterlogged=false,signal_fire=false]
+block 1 -60 0 minecraft:stone
+block 1 -59 0 minecraft:candle[lit=true,candles=2,waterlogged=false]
+block 0 -60 1 minecraft:netherrack
+block 0 -59 1 minecraft:fire[age=0]
+block -1 -60 0 minecraft:soul_sand
+block -1 -59 0 minecraft:soul_fire
+block 0 -60 -1 minecraft:stone
+block 0 -59 -1 minecraft:white_candle_cake[lit=true]
+spawn burning minecraft:cow 0.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b,Fire:200s}
+mobspawn blaze minecraft:blaze 2.5 -60 -1.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed burning 1
+entity_seed blaze 2
+tick 2
+dump blocks:-2,-60,-2,2,-58,2 entities
+spawn pa minecraft:splash_potion 0.5 -58.5 0.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:water"}}}}
+entity_seed pa 11
+velocity pa 0 -0.3 0
+tick 3
+dump blocks:-2,-60,-2,2,-58,2 entities events
+tick 2
+dump blocks:-2,-60,-2,2,-58,2 entities events
+note set B: the same blocks, a poison potion douses nothing
+block 20 -60 0 minecraft:campfire[lit=true,facing=north,waterlogged=false,signal_fire=false]
+block 21 -60 0 minecraft:stone
+block 21 -59 0 minecraft:candle[lit=true,candles=2,waterlogged=false]
+block 20 -60 1 minecraft:netherrack
+block 20 -59 1 minecraft:fire[age=0]
+tick 1
+spawn pb minecraft:splash_potion 20.5 -58.5 0.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:poison"}}}}
+entity_seed pb 12
+velocity pb 0 -0.3 0
+tick 4
+dump blocks:18,-60,-2,22,-58,2 entities events
+note set C: a water bottle thrown at a wall hits its side: the fire is in front of the face, a campfire and a candle beside it
+block 40 -60 3 minecraft:netherrack
+block 40 -59 3 minecraft:fire[age=0]
+block 41 -60 3 minecraft:stone
+block 41 -59 3 minecraft:candle[lit=true,candles=1,waterlogged=false]
+block 39 -60 3 minecraft:stone
+block 39 -59 3 minecraft:campfire[lit=true,facing=north,waterlogged=false,signal_fire=true]
+block 40 -60 4 minecraft:stone
+block 40 -59 4 minecraft:stone
+block 40 -58 4 minecraft:stone
+tick 1
+spawn pc minecraft:splash_potion 40.5 -58.6 2.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:water"}}}}
+entity_seed pc 13
+velocity pc 0 0 1.5
+tick 4
+dump blocks:38,-60,2,42,-58,5 entities events
+note set D: a silent potion and a potion that is not plain water (a custom effect on top of water) leave the fire alone
+block 60 -60 0 minecraft:netherrack
+block 60 -59 0 minecraft:fire[age=0]
+block 62 -60 0 minecraft:netherrack
+block 62 -59 0 minecraft:fire[age=0]
+tick 1
+spawn pd minecraft:splash_potion 60.5 -58.5 0.5 0 0 {Silent:1b,Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:water"}}}}
+entity_seed pd 14
+velocity pd 0 -0.3 0
+spawn pe minecraft:splash_potion 62.5 -58.5 0.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:water",custom_effects:[{id:"minecraft:speed",duration:100,amplifier:0}]}}}}
+entity_seed pe 15
+velocity pe 0 -0.3 0
+tick 4
+dump blocks:59,-60,-1,63,-58,1 entities events

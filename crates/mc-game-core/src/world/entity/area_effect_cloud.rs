@@ -61,15 +61,6 @@ pub struct AreaEffectCloud {
     owner: Option<Uuid>,
 }
 
-fn empty_contents() -> PotionContents {
-    PotionContents {
-        potion: None,
-        custom_color: None,
-        custom_effects: Vec::new(),
-        custom_name: None,
-    }
-}
-
 impl AreaEffectCloud {
     /// `AreaEffectCloud(type, level)`.
     pub fn new(ty: EntityType, id: EntityId) -> Self {
@@ -82,7 +73,7 @@ impl AreaEffectCloud {
         Self {
             base,
             custom_particle: None,
-            potion_contents: empty_contents(),
+            potion_contents: potion_contents::empty_contents(),
             potion_duration_scale: 1.0,
             victims: HashMap::new(),
             duration: -1,
@@ -445,7 +436,7 @@ impl Entity for AreaEffectCloud {
                 mc_core::uuid_util::uuid_to_int_array(&owner).to_vec(),
             );
         }
-        if self.potion_contents != empty_contents()
+        if self.potion_contents != potion_contents::empty_contents()
             && let Ok(tag) =
                 mc_dfu::encode_nbt(&PotionContents::codec(), &self.potion_contents).into_result()
         {
@@ -478,7 +469,7 @@ impl Entity for AreaEffectCloud {
                     .into_result()
                     .ok()
             })
-            .unwrap_or_else(empty_contents);
+            .unwrap_or_else(potion_contents::empty_contents);
         self.set_potion_contents(contents);
         self.potion_duration_scale = input.get_float_or("potion_duration_scale", 1.0);
     }
@@ -527,7 +518,7 @@ mod tests {
                 &PotionContents::codec(),
                 &PotionContents {
                     potion: Some(mc_data::Potion::POISON),
-                    ..empty_contents()
+                    ..potion_contents::empty_contents()
                 },
             )
             .into_result()

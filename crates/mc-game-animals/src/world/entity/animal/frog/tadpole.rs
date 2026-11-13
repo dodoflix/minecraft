@@ -7,9 +7,7 @@ use super::tadpole_ai;
 use crate::world::entity::animal::fish::abstract_fish;
 use crate::world::entity::animal::fish::water_animal::water_creature_entity;
 use linkme::distributed_slice;
-use mc_core::phys::AABB;
 use mc_core::phys::Vec3;
-use mc_core::phys::shapes::Shapes;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{EntityType, Item, SoundEvent};
 use mc_game_core::define_accessor;
@@ -24,10 +22,10 @@ use mc_game_core::world::entity::ai::sensing::sensor_type::{
     FROG_TEMPTATIONS, HURT_BY, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS,
 };
 use mc_game_core::world::entity::bucketable::{self, Bucketable};
-use mc_game_core::world::entity::dimensions::EntityDimensions;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::mob::convert::{self, ConversionParams};
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable};
+use mc_game_core::world::entity::movement::fudge_position_after_size_change;
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
@@ -186,58 +184,6 @@ fn consume_one(player: &mut ServerPlayer, hand: InteractionHand) {
 /// `itemStack.is(ItemTags.FROG_FOOD)`.
 fn is_frog_food(stack: &ItemStack) -> bool {
     mc_data::tags::get::<Item>("frog_food").is_some_and(|t| t.contains(stack.item()))
-}
-
-/// `Entity.fudgePositionAfterSizeChange(previousDimensions)`.
-pub fn fudge_position_after_size_change(
-    e: &mut dyn Entity,
-    level: &ServerLevel,
-    previous: &EntityDimensions,
-) -> bool {
-    let new_dimensions = e.get_dimensions(e.base().get_pose());
-    let (new_width, new_height) = (
-        f64::from(new_dimensions.width),
-        f64::from(new_dimensions.height),
-    );
-    let (prev_width, prev_height) = (f64::from(previous.width), f64::from(previous.height));
-    let old_center = e.position().add(Vec3::new(0.0, prev_height / 2.0, 0.0));
-    let width_delta = f64::from((new_dimensions.width - previous.width).max(0.0)) + 1.0E-6;
-    let height_delta = f64::from((new_dimensions.height - previous.height).max(0.0)) + 1.0E-6;
-    let allowed_centers = Shapes::create(AABB::of_size(
-        old_center,
-        width_delta,
-        height_delta,
-        width_delta,
-    ));
-    if let Some(free) = level.find_free_position_for(
-        e,
-        &allowed_centers,
-        old_center,
-        new_width,
-        new_height,
-        new_width,
-    ) {
-        let p = free.add(Vec3::new(0.0, -new_height / 2.0, 0.0));
-        e.set_pos(p.x, p.y, p.z);
-        return true;
-    }
-    if new_width > prev_width && new_height > prev_height {
-        let allowed_centers_ignoring_y =
-            Shapes::create(AABB::of_size(old_center, width_delta, 1.0E-6, width_delta));
-        if let Some(free) = level.find_free_position_for(
-            e,
-            &allowed_centers_ignoring_y,
-            old_center,
-            new_width,
-            prev_height,
-            new_width,
-        ) {
-            let p = free.add(Vec3::new(0.0, -prev_height / 2.0 + 1.0E-6, 0.0));
-            e.set_pos(p.x, p.y, p.z);
-            return true;
-        }
-    }
-    false
 }
 
 impl Bucketable for Tadpole {

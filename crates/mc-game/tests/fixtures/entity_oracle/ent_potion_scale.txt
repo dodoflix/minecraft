@@ -1,0 +1,137 @@
+# row 1: poison at 0.5 -59 0.5, cows at growing distances, an armor stand and a baby cow
+E r1a minecraft:cow pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1b minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1c minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1d minecraft:cow pos=4.8,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1e minecraft:cow pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1f minecraft:armor_stand pos=-1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1g minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p1 minecraft:splash_potion pos=0.5,-59.0,0.5 delta=0.0,-0.2,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E r1a minecraft:cow pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1b minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1c minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1d minecraft:cow pos=4.8,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1e minecraft:cow pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1f minecraft:armor_stand pos=-1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1g minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p1 minecraft:splash_potion pos=0.5,-59.247500002384186,0.5 delta=0.0,-0.2475000023841858,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E r1a minecraft:cow pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1b minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1c minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1d minecraft:cow pos=4.8,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1e minecraft:cow pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1f minecraft:armor_stand pos=-1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1g minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p1 minecraft:splash_potion pos=0.5,-59.88310476601291,0.5 delta=0.0,-0.3410797584311963,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# row 2: instant harming and healing on cows at 1 and 2 blocks
+E r1a minecraft:cow pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/0/824
+E r1b minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/0/599
+E r1c minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/0/374
+E r1d minecraft:cow pos=4.8,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/81
+E r1e minecraft:cow pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1f minecraft:armor_stand pos=-1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1g minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/436
+E r2a minecraft:cow pos=21.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r2b minecraft:cow pos=22.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r2c minecraft:cow pos=19.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r2d minecraft:cow pos=20.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:splash_potion pos=20.5,-59.88310476601291,0.5 delta=0.0,-0.3410797584311963,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E p3 minecraft:splash_potion pos=20.5,-59.88310476601291,0.5 delta=0.0,-0.3410797584311963,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=2002 pos=0,-60,0 data=-7888029 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=0,-60,0 data=0 global=0
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.1442022
+EV sound at=2.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.1158522
+EV sound at=3.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.9501823
+E r1a minecraft:cow pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/0/822
+E r1b minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/0/597
+E r1c minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/0/372
+E r1d minecraft:cow pos=4.8,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/79
+E r1e minecraft:cow pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1f minecraft:armor_stand pos=-1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1g minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/434
+E r2a minecraft:cow pos=21.5,-60.0,0.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=9/19 death=0 fx=-
+E r2d minecraft:cow pos=20.5,-60.0,3.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=9/19 death=0 fx=-
+E item#1 minecraft:item pos=22.443937709093497,-59.84,0.5766735653673576 delta=-0.054941046157677725,0.1568000030517578,0.07514009552244261 rot=217.91444,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=19.58035731691599,-59.84,0.41773047333807717 delta=0.07875017211036514,0.1568000030517578,-0.08062413769785108 rot=121.87741,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=21.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0068179
+EV sound at=22.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=0.99911326
+EV sound at=19.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=0.9880942
+EV sound at=20.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0211513
+EV level_event r=64.0 ex=0 type=2007 pos=20,-60,0 data=-5675670 global=0
+EV level_event r=64.0 ex=0 type=1054 pos=20,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2007 pos=20,-60,0 data=-515037 global=0
+EV level_event r=64.0 ex=0 type=1054 pos=20,-60,0 data=0 global=0
+# row 3: custom effects: 60 ticks (scaled under 20 at the edge), 20 ticks, an amplifier
+E r1a minecraft:cow pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/0/818
+E r1b minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/0/593
+E r1c minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/0/368
+E r1d minecraft:cow pos=4.8,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/75
+E r1e minecraft:cow pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1f minecraft:armor_stand pos=-1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1g minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/430
+E r2a minecraft:cow pos=21.5,-60.0,0.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=5/15 death=0 fx=-
+E r2d minecraft:cow pos=20.5,-60.0,3.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=5/15 death=0 fx=-
+E item#1 minecraft:item pos=22.23067897773513,-59.62344603256263,0.8683367673980188 delta=-0.050675875598097886,-0.0075310721665503766,0.06930683704486347 rot=217.91444,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=5 pickup=5 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=19.886033363751924,-59.62344603256263,0.10478045646069953 delta=0.07263665700395433,-0.0075310721665503766,-0.0743651433293514 rot=121.87741,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=5 pickup=5 health=5 owner=- thrower=-
+E r3a minecraft:cow pos=41.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r3b minecraft:cow pos=43.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r3c minecraft:cow pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r3d minecraft:cow pos=40.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:splash_potion pos=40.5,-59.88310476601291,0.5 delta=0.0,-0.3410797584311963,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E r1a minecraft:cow pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/0/816
+E r1b minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/0/591
+E r1c minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/0/366
+E r1d minecraft:cow pos=4.8,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/0/73
+E r1e minecraft:cow pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1f minecraft:armor_stand pos=-1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1g minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/428
+E r2a minecraft:cow pos=21.5,-60.0,0.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=3/13 death=0 fx=-
+E r2d minecraft:cow pos=20.5,-60.0,3.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=3/13 death=0 fx=-
+E item#1 minecraft:item pos=22.130340743084332,-59.75755755635898,1.0055643060687716 delta=-0.048669112818881845,-0.08484884424859764,0.066562288888856 rot=217.91444,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=7 pickup=3 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=20.029853946005186,-59.75755755635898,-0.04246252874981879 delta=0.06976024810204896,-0.08484884424859764,-0.0714202864335781 rot=121.87741,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=7 pickup=3 health=5 owner=- thrower=-
+E r3a minecraft:cow pos=41.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/91;minecraft:speed/1/54
+E r3b minecraft:cow pos=43.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/53;minecraft:speed/1/32
+E r3c minecraft:cow pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r3d minecraft:cow pos=40.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/41;minecraft:speed/1/24
+EV sound at=4.8,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.9679465
+EV level_event r=64.0 ex=0 type=2002 pos=40,-60,0 data=-11479052 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=40,-60,0 data=0 global=0
+# row 4: duration scale 0.25 and an infinite effect (the scale leaves it alone)
+E r1a minecraft:cow pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/8 death=0 fx=minecraft:poison/0/812
+E r1b minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/8 death=0 fx=minecraft:poison/0/587
+E r1c minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/8 death=0 fx=minecraft:poison/0/362
+E r1d minecraft:cow pos=4.8,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/0/69
+E r1e minecraft:cow pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1f minecraft:armor_stand pos=-1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1g minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/0/424
+E r2a minecraft:cow pos=21.5,-60.0,0.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/9 death=0 fx=-
+E r2d minecraft:cow pos=20.5,-60.0,3.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/9 death=0 fx=-
+E item#1 minecraft:item pos=21.989440289532883,-60.0,1.1982667440352146 delta=-0.009696424562413118,0.0,0.013261310419078421 rot=217.91444,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=20.231814697457942,-60.0,-0.24922920618474065 delta=0.013898444906813922,0.0,-0.014229176977322133 rot=121.87741,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=11 pickup=0 health=5 owner=- thrower=-
+E r3a minecraft:cow pos=41.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/87;minecraft:speed/1/50
+E r3b minecraft:cow pos=43.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/49;minecraft:speed/1/28
+E r3c minecraft:cow pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r3d minecraft:cow pos=40.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/37;minecraft:speed/1/20
+E r4a minecraft:cow pos=61.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r4b minecraft:cow pos=62.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p5 minecraft:splash_potion pos=60.5,-59.88310476601291,0.5 delta=0.0,-0.3410797584311963,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=0.5,-60.0,3.0 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.513534
+E r1a minecraft:cow pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/6 death=0 fx=minecraft:poison/0/810
+E r1b minecraft:cow pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/6 death=0 fx=minecraft:poison/0/585
+E r1c minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/6 death=0 fx=minecraft:poison/0/360
+E r1d minecraft:cow pos=4.8,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/0/67
+E r1e minecraft:cow pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1f minecraft:armor_stand pos=-1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r1g minecraft:cow pos=0.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/0/422
+E r2a minecraft:cow pos=21.5,-60.0,0.5 delta=0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/7 death=0 fx=-
+E r2d minecraft:cow pos=20.5,-60.0,3.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/7 death=0 fx=-
+E item#1 minecraft:item pos=21.974042366754443,-60.0,1.2193257057648232 delta=-0.0033524812881411065,0.0,0.0045850194316498566 rot=217.91444,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=13 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=20.253885428791747,-60.0,-0.2718251400660682 delta=0.004805304902280183,0.0,-0.004919653554263199 rot=121.87741,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=13 pickup=0 health=5 owner=- thrower=-
+E r3a minecraft:cow pos=41.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/85;minecraft:speed/1/48
+E r3b minecraft:cow pos=43.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/47;minecraft:speed/1/26
+E r3c minecraft:cow pos=44.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E r3d minecraft:cow pos=40.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:glowing/0/35;minecraft:speed/1/18
+E r4a minecraft:cow pos=61.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:haste/0/-1;minecraft:speed/0/826
+E r4b minecraft:cow pos=62.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:haste/0/-1;minecraft:speed/0/601
+EV level_event r=64.0 ex=0 type=2002 pos=60,-60,0 data=-7940703 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=60,-60,0 data=0 global=0

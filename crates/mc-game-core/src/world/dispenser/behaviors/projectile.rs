@@ -1,9 +1,6 @@
 //! `ProjectileDispenseBehavior` (`DispenserBlock.registerProjectileBehavior`): one instance per item, built from the item's
 //! `ProjectileItem` and its `DispenseConfig`. The entity is shot with `Projectile.shoot` (`spawnProjectileUsingShoot`),
 //! not with `ProjectileItem.shoot`.
-//!
-//! Not implemented: the eggs and thrown potions that vanilla registers too, whose item classes are not `ProjectileItem`s
-//! yet.
 
 use crate::world::dispenser::{BlockSource, DispenseItemBehavior, DispenseTemplate, Templated};
 use crate::world::entity::projectile::spawn::spawn_projectile_using_shoot;
@@ -67,8 +64,13 @@ crate::register_dispense_behavior_per_item!(
         "minecraft:arrow",
         "minecraft:tipped_arrow",
         "minecraft:spectral_arrow",
+        "minecraft:egg",
+        "minecraft:blue_egg",
+        "minecraft:brown_egg",
         "minecraft:snowball",
         "minecraft:experience_bottle",
+        "minecraft:splash_potion",
+        "minecraft:lingering_potion",
         "minecraft:firework_rocket",
         "minecraft:fire_charge",
         "minecraft:wind_charge",

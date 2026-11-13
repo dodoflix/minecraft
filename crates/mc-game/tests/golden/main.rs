@@ -101,6 +101,7 @@ mod ent_projectile_tracking_golden;
 mod ent_ride_golden;
 mod ent_special_minecart_golden;
 mod ent_spit_bullet_fangs_golden;
+mod ent_thrown_egg_potion_golden;
 mod ent_tracking_golden;
 mod ent_verbs_golden;
 mod entity_base_motion_golden;

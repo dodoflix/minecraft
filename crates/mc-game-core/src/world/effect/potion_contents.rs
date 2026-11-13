@@ -59,6 +59,33 @@ pub fn is(contents: &PotionContents, potion: Potion) -> bool {
     is_potion_without_custom_effects(contents) && contents.potion == Some(potion)
 }
 
+/// `PotionContents.is(tag)`: a plain potion (no custom effects) whose potion is in the potion tag `tag`.
+pub fn is_in_tag(contents: &PotionContents, tag: &str) -> bool {
+    is_potion_without_custom_effects(contents)
+        && contents
+            .potion
+            .is_some_and(|p| mc_data::tags::get::<Potion>(tag).is_some_and(|set| set.contains(p)))
+}
+
+/// `PotionContents.EMPTY`.
+pub fn empty_contents() -> PotionContents {
+    PotionContents {
+        potion: None,
+        custom_color: None,
+        custom_effects: Vec::new(),
+        custom_name: None,
+    }
+}
+
+/// `Potion.hasInstantEffects()`.
+pub fn has_instant_effects(potion: Potion) -> bool {
+    potion
+        .data()
+        .effects
+        .iter()
+        .any(|e| e.effect.is_instantaneous())
+}
+
 /// `PotionContents.isPotionWithoutCustomEffects()`.
 pub fn is_potion_without_custom_effects(contents: &PotionContents) -> bool {
     contents.potion.is_some() && contents.custom_effects.is_empty()

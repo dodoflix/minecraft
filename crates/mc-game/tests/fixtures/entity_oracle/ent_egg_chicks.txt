@@ -1,0 +1,68 @@
+# four chicks in the open
+E cow minecraft:cow pos=20.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e1 minecraft:egg pos=4.5,-59.72770000219345,4.5 delta=0.0,-0.22770000219345093,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT A minecraft:add_entity 01cf089d27fef0e221426bbdb25a6d6dc7b976284012000000000000c04dc0000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65cf08080701fc080000ff
+PKT A minecraft:set_entity_data 65cf08080701fc080000ff
+E cow minecraft:cow pos=20.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED chicken#1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40800000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:01 17:8:00 18:30:01 19:31:00
+ED chicken#4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40800000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:01 17:8:00 18:30:01 19:31:00
+N chicken#1 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,EggLayTime:10899,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsChickenJockey:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+N chicken#4 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,EggLayTime:7999,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsChickenJockey:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+PKT A minecraft:add_entity 01d008eaa6bb06f2f545a488838929010b74b51a4012000000000000c04e00000000000040120000000000000000000200
+PKT A minecraft:set_entity_data 65d008090340800000100801ff
+PKT A minecraft:add_entity 01d108bd5a01a0a9374362bef612214b11bd851a4012000000000000c04e00000000000040120000000000000000000400
+PKT A minecraft:set_entity_data 65d108090340800000100801ff
+PKT A minecraft:add_entity 01d208b12265dbf2944c6f9e9ce32ba95fa06e1a4012000000000000c04e00000000000040120000000000000000000400
+PKT A minecraft:set_entity_data 65d208090340800000100801ff
+PKT A minecraft:add_entity 01d30852769c66c6624448a0e0258744fc03cf1a4012000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65d308090340800000100801ff
+PKT A minecraft:entity_event 220000044f03
+PKT A minecraft:remove_entities 4e01cf08
+# one chick of each variant, an egg that rolls nothing
+E cow minecraft:cow pos=20.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.04704000091552734,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.04704000091552734,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.04704000091552734,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.04704000091552734,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e2 minecraft:egg pos=6.5,-59.72770000219345,4.5 delta=0.0,-0.22770000219345093,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e3 minecraft:egg pos=8.5,-59.72770000219345,4.5 delta=0.0,-0.22770000219345093,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e4 minecraft:egg pos=10.5,-59.72770000219345,4.5 delta=0.0,-0.22770000219345093,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e5 minecraft:egg pos=14.5,-59.72770000219345,4.5 delta=0.0,-0.22770000219345093,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cow minecraft:cow pos=20.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#7 minecraft:chicken pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED chicken#5 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40800000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:01 17:8:00 18:30:01 19:31:00
+ED chicken#6 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40800000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:01 17:8:00 18:30:00 19:31:00
+ED chicken#7 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40800000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:01 17:8:00 18:30:02 19:31:00
+N chicken#5 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,EggLayTime:6852,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsChickenJockey:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[6.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+N chicken#6 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,EggLayTime:9758,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsChickenJockey:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[8.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:cold"}
+N chicken#7 {AbsorptionAmount:0.0f,Age:-24000,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,EggLayTime:9727,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,InLove:0,Invulnerable:0b,IsChickenJockey:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[10.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:warm"}
+# no room: the egg is inside a solid block
+E cow minecraft:cow pos=20.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=6.5,-60.0,4.5 delta=0.0,-0.04704000091552734,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=8.5,-60.0,4.5 delta=0.0,-0.04704000091552734,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#7 minecraft:chicken pos=10.5,-60.0,4.5 delta=0.0,-0.04704000091552734,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+# a cow is hit (damage 0), the egg rolls at the cow
+E cow minecraft:cow pos=20.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#1 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-13.314646 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=6.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=8.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#7 minecraft:chicken pos=10.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#8 minecraft:chicken pos=20.5,-60.0,-0.43121078210196484 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-

@@ -1,0 +1,60 @@
+# SplashPotionItem / LingeringPotionItem.use: the throw sound (splash: players, lingering: neutral; 0.5 / 0.4 / (random * 0.4 + 0.8)), the potion thrown at eye
+# height - 0.1 with the pitch lowered by 20 degrees at power 0.5, the item-used statistic and the stack consumed (not in creative). Alice's poison splash lands
+# on cows and on herself, Bob's lingering regeneration (creative) leaves an area effect cloud that heals what stands in it, Carol's water bottle hurts a blaze and
+# an enderman, rehydrates an axolotl and puts out a burning cow, Dave's healing potion hits a wall (a block hit splashes at the potion's own position).
+level flat
+preload 4
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 45
+spawn_player Bob creative 20.5 -60 0.5 0 45
+spawn_player Carol survival 40.5 -60 0.5 0 45
+spawn_player Dave survival 60.5 -60 0.5 0 0
+give Alice mainhand minecraft:splash_potion[potion_contents={potion:"minecraft:poison"}]
+give Bob mainhand minecraft:lingering_potion[potion_contents={potion:"minecraft:regeneration"}]
+give Carol mainhand minecraft:splash_potion[potion_contents={potion:"minecraft:water"}]
+give Dave mainhand minecraft:splash_potion[potion_contents={potion:"minecraft:strong_healing"}]
+spawn c1 minecraft:cow 0.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn c2 minecraft:cow 2.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn c3 minecraft:cow 20.5 -60 3.0 0 0 {NoAI:1b,PersistenceRequired:1b,Health:4f}
+mobspawn blaze minecraft:blaze 40.5 -60 3.0 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn enderman minecraft:enderman 42.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn axolotl minecraft:axolotl 38.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b,Air:50s}
+spawn burning minecraft:cow 40.5 -60 5.0 0 0 {NoAI:1b,PersistenceRequired:1b,Fire:200s}
+mobspawn d1 minecraft:villager 60.5 -60 -2.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:3f}
+fill 58 -60 3 62 -58 3 minecraft:stone
+entity_seed c1 1
+entity_seed c2 2
+entity_seed c3 3
+entity_seed blaze 4
+entity_seed enderman 5
+entity_seed axolotl 6
+entity_seed burning 7
+entity_seed d1 8
+tick 3
+entity_counter 500
+level_seed 11
+dump packets:Alice:none packets:Bob:none packets:Carol:none packets:Dave:none
+note Alice: poison splash
+use Alice
+dump inventory:Alice stats:Alice packets:Alice:add_entity,container_set_content,remove_entities,set_entity_data,set_entity_motion,sound,level_event
+tick 6
+dump all_players entities events inventory:Alice stats:Alice packets:Alice:add_entity,remove_entities,level_event,sound,update_mob_effect
+tick 2
+dump all_players entities events
+note Bob: lingering regeneration, creative keeps the potion
+use Bob
+dump inventory:Bob stats:Bob packets:Bob:add_entity,container_set_content,remove_entities,set_entity_data,set_entity_motion,sound
+tick 6
+dump all_players entities events xentity:area_effect_cloud#1 packets:Bob:add_entity,remove_entities,level_event,sound,set_entity_data
+tick 40
+dump all_players entities events xentity:area_effect_cloud#1
+note Carol: water bottle
+use Carol
+tick 6
+dump entities events all_players
+tick 4
+dump entities events
+note Dave: healing potion into a wall
+use Dave
+tick 14
+dump all_players entities events

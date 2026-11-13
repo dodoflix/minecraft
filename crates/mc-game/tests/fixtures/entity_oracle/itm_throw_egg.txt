@@ -1,0 +1,100 @@
+I Alice 0 minecraft:egg*15
+I Alice 40 minecraft:blue_egg*6
+STAT Alice minecraft.custom:minecraft.play_time 3
+STAT Alice minecraft.custom:minecraft.time_since_death 3
+STAT Alice minecraft.custom:minecraft.time_since_rest 3
+STAT Alice minecraft.custom:minecraft.total_world_time 3
+STAT Alice minecraft.used:minecraft.egg 1
+PKT Alice minecraft:sound 77c1040700000004fffffe20000000043f0000003ebb85bbe32d4fcf84a7860e
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:add_entity 01f503a2f8a8ad2f064bb2929be669a186f6db283fe0000000000000c04d3d70a3d000003fe000000000000042fcb0ae5949d5ff0001
+PKT Alice minecraft:set_entity_data 65f503080701fc080000ff
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:container_set_content 1200042e0000000000000000000000000000000000000000000000000000000000000000000000000ffc080000000000000000000006fd08000000
+T 4
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.36625466
+E egg#1 minecraft:egg pos=0.4855668975792904,-59.79912587865083,1.2532097917848857 delta=-0.014433102420709614,-1.3191258819290805,0.7532097917848858 rot=-1.0978029,-59.81741 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:egg*15
+T 5
+E chicken#1 minecraft:chicken pos=0.48341792333905337,-60.0,1.3653567434837457 delta=0.0,0.0,0.0 rot=-1.0978017,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:egg*15
+T 6
+E chicken#1 minecraft:chicken pos=0.48341792333905337,-60.0,1.3653567434837457 delta=0.0,-0.04704000091552734,0.0 rot=-1.0978017,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:egg*15
+T 7
+E chicken#1 minecraft:chicken pos=0.48341792333905337,-60.0,1.3653567434837457 delta=0.0,-0.0784000015258789,0.0 rot=-1.0978017,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:egg*15
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:egg*15
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:brown_egg*4
+E chicken#1 minecraft:chicken pos=0.48341792333905337,-60.0,1.3653567434837457 delta=0.0,-0.0784000015258789,0.0 rot=-1.0978017,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+I Alice 0 minecraft:egg*15
+I Alice 40 minecraft:blue_egg*6
+STAT Alice minecraft.custom:minecraft.play_time 7
+STAT Alice minecraft.custom:minecraft.time_since_death 7
+STAT Alice minecraft.custom:minecraft.time_since_rest 7
+STAT Alice minecraft.custom:minecraft.total_world_time 7
+STAT Alice minecraft.used:minecraft.egg 1
+# creative: the egg is not consumed, the statistic is still counted
+I Bob 0 minecraft:brown_egg*4
+STAT Bob minecraft.custom:minecraft.play_time 7
+STAT Bob minecraft.custom:minecraft.time_since_death 7
+STAT Bob minecraft.custom:minecraft.time_since_rest 7
+STAT Bob minecraft.custom:minecraft.total_world_time 7
+STAT Bob minecraft.used:minecraft.brown_egg 1
+E chicken#1 minecraft:chicken pos=0.48341792333905337,-60.0,1.3653567434837457 delta=0.0,-0.0784000015258789,0.0 rot=-1.0978017,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E egg#2 minecraft:egg pos=20.5,-58.479999996721745,0.5 delta=-0.0013784379393902229,-1.3124650332602024,0.752966020912754 rot=-0.10476395,-60.157032 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.47238696
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:egg*15
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:brown_egg*4
+E chicken#1 minecraft:chicken pos=0.48341792333905337,-60.0,1.3653567434837457 delta=0.0,-0.0784000015258789,0.0 rot=-1.0978017,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+# a dozen eggs in one tick (no cooldown): each line rolls its own chick chance
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:egg*3
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:brown_egg*4
+E chicken#1 minecraft:chicken pos=0.4693011823680376,-59.172735650389804,2.2194365278442425 delta=-0.004119171990794817,0.10905472940649964,0.19688248009922665 rot=-1.0978017,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=7/17 death=0 fx=-
+E chicken#2 minecraft:chicken pos=0.5137162897938098,-60.0,2.273464084634152 delta=0.004137340808903392,-0.0784000015258789,0.17121106150928062 rot=-0.6921332,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=7/17 death=0 fx=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3842017
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.36272588
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.41135332
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.42710507
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.46594056
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.46430868
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4051335
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.41082862
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.46156287
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.49780357
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.364004
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.34553918
+EV sound at=0.48341792333905337,-60.0,1.3653567434837457 r=16.0 ex=0 event=minecraft:entity.baby_chicken.hurt source=neutral vol=1.0 pitch=1.4073386
+EV sound at=0.4913578909035178,-59.96238899921293,1.2153567375232812 r=16.0 ex=0 event=minecraft:entity.baby_chicken.hurt source=neutral vol=1.0 pitch=1.385714
+I Alice 0 minecraft:egg*3
+I Alice 40 minecraft:blue_egg*6
+STAT Alice minecraft.custom:minecraft.play_time 15
+STAT Alice minecraft.custom:minecraft.time_since_death 15
+STAT Alice minecraft.custom:minecraft.time_since_rest 15
+STAT Alice minecraft.custom:minecraft.total_world_time 15
+STAT Alice minecraft.used:minecraft.egg 13
+# blue eggs from the off hand and brown eggs: the chick carries the egg's variant
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:egg*3
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,60.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:brown_egg*4
+E chicken#1 minecraft:chicken pos=0.4549183884107458,-59.13035972162211,2.9068854014032697 delta=-0.0028247209118423323,-0.08517470227392657,0.1350120995079784 rot=-1.0978017,0.0 og=0 fall=0.09515243768692017 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=3/13 death=0 fx=-
+E chicken#2 minecraft:chicken pos=-0.0655495306133996,-60.0,2.2016397467600064 delta=-0.08474061879635841,-0.0784000015258789,-0.08379118563852052 rot=145.4111,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=3/13 death=0 fx=-
+E chicken#3 minecraft:chicken pos=0.5005735928775628,-60.0,2.1492931107079167 delta=-0.005396466397163904,-0.0784000015258789,0.3311960622784837 rot=0.8425923,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=8/18 death=0 fx=-
+E chicken#4 minecraft:chicken pos=20.509000437848968,-60.0,1.3407355882429313 delta=0.0,-0.0784000015258789,0.0 rot=0.61340123,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3667176
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.36065802
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3411784
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.42217293
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.49656567
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4691287
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.3618563
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.33593693
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.egg.throw source=player vol=0.5 pitch=0.4072293
+EV sound at=0.5130204596400366,-60.0,1.3853944859332334 r=16.0 ex=0 event=minecraft:entity.baby_chicken.hurt source=neutral vol=1.0 pitch=1.5494636
+EV sound at=-0.0655495306133996,-60.0,2.2016397467600064 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+I Alice 0 minecraft:egg*3
+STAT Alice minecraft.custom:minecraft.play_time 19
+STAT Alice minecraft.custom:minecraft.time_since_death 19
+STAT Alice minecraft.custom:minecraft.time_since_rest 19
+STAT Alice minecraft.custom:minecraft.total_world_time 19
+STAT Alice minecraft.used:minecraft.blue_egg 6
+STAT Alice minecraft.used:minecraft.egg 13

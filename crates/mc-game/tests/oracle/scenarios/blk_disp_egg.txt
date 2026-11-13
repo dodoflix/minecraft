@@ -1,0 +1,42 @@
+# Dispensers shooting eggs (ProjectileDispenseBehavior of EggItem): egg, blue egg and brown egg each facing east, one facing the wall next to it. The
+# egg is built at the configured position and shot with the default power/uncertainty (level random), one item consumed, event 1002 and the smoke
+# animation 2000. The egg's own random is pinned after the dispense so the chick rolls (4104: four chicks, 4096: one, 1: none) happen on landing.
+level flat
+preload 3
+difficulty normal
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:egg",count:2}]}
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:blue_egg",count:2}]}
+block 0 -60 8 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:brown_egg",count:2}]}
+block 0 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 12 {Items:[{Slot:0b,id:"minecraft:egg",count:1}]}
+block 1 -60 12 minecraft:stone
+entity_counter 700
+level_seed 51
+dispense 0 -60 0
+entity_seed egg#1 4104
+dump be:0,-60,0 entities events nbt:egg#1
+level_seed 52
+dispense 0 -60 4
+entity_seed egg#2 4096
+dump be:0,-60,4 entities events
+level_seed 53
+dispense 0 -60 8
+entity_seed egg#3 4096
+dump be:0,-60,8 entities events
+level_seed 54
+dispense 0 -60 12
+entity_seed egg#4 4104
+dump be:0,-60,12 entities events
+tick 1
+dump entities events
+tick 39
+dump entities events
+level_seed 55
+dispense 0 -60 0
+dispense 0 -60 4
+dispense 0 -60 8
+tick 40
+dump entities events be:0,-60,0 be:0,-60,4 be:0,-60,8

@@ -1,9 +1,8 @@
 //! Item side of the thrown potions and the experience bottle: `ThrowablePotionItem.use`, `SplashPotionItem.use`,
 //! `LingeringPotionItem.use`, `ExperienceBottleItem.use`.
 //!
-//! Only `ThrownExperienceBottle` is spawned (`Projectile.spawnProjectileFromRotation`); the splash and lingering potion
-//! projectile entities do not exist, so those items are still used up (sound, stat, consumption) without an entity.
-//! `ProjectileItem.asProjectile` (dispenser) is the other entry point of the same entities.
+//! The thrown entity is spawned with `Projectile.spawnProjectileFromRotation`; `ProjectileItem.asProjectile`
+//! (dispenser) is the other entry point of the same entities.
 
 use super::{
     DispenseConfig, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt,
@@ -13,6 +12,8 @@ use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::projectile::spawn::spawn_projectile_from_rotation;
 use crate::world::entity::projectile::throwableitemprojectile::thrown_experience_bottle::ThrownExperienceBottle;
+use crate::world::entity::projectile::throwableitemprojectile::thrown_lingering_potion::ThrownLingeringPotion;
+use crate::world::entity::projectile::throwableitemprojectile::thrown_splash_potion::ThrownSplashPotion;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::LevelAccessor;
 use mc_core::direction::Direction;
@@ -63,17 +64,25 @@ pub fn throw_item(
     };
     let pitch = 0.4 / (level.random().next_float() * 0.4 + 0.8);
     level.play_sound_at(None, x, y, z, sound, source, 0.5, pitch);
-    if kind == ThrowKind::ExperienceBottle {
-        spawn_projectile_from_rotation(
-            level,
-            |level, source, item| Box::new(ThrownExperienceBottle::with_owner(level, source, item)),
-            &stack,
-            player,
-            -20.0,
-            kind.power(),
-            1.0,
-        );
-    }
+    spawn_projectile_from_rotation(
+        level,
+        |level, source, item| match kind {
+            ThrowKind::SplashPotion => {
+                Box::new(ThrownSplashPotion::with_owner(level, source, item))
+            }
+            ThrowKind::LingeringPotion => {
+                Box::new(ThrownLingeringPotion::with_owner(level, source, item))
+            }
+            ThrowKind::ExperienceBottle => {
+                Box::new(ThrownExperienceBottle::with_owner(level, source, item))
+            }
+        },
+        &stack,
+        player,
+        -20.0,
+        kind.power(),
+        1.0,
+    );
     player.award_stat_once(level, Stat::Used(stack.item()));
     let infinite = player.player.abilities.instabuild;
     stack.consume(1, infinite);

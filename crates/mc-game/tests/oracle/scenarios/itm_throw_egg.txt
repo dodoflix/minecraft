@@ -1,0 +1,53 @@
+# EggItem.use: the throw sound (players, 0.5 / 0.4 / (random * 0.4 + 0.8)), a ThrownEgg at eye height - 0.1 shot at 1.5 blocks per tick, the item-used
+# statistic and one egg consumed (not in creative); there is no cooldown. Eggs thrown at the ground roll for chicks as they land (the egg's own random
+# is seeded from the text of the throw line, so every line below is a different roll); blue and brown eggs carry their chicken variant.
+level flat
+preload 3
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 60
+spawn_player Bob creative 20.5 -60 0.5 0 60
+give Alice mainhand minecraft:egg 16
+give Alice offhand minecraft:blue_egg 6
+give Bob mainhand minecraft:brown_egg 4
+tick 3
+entity_counter 500
+level_seed 11
+dump packets:Alice:none packets:Bob:none
+watch events entities player:Alice
+use Alice
+dump inventory:Alice stats:Alice packets:Alice:add_entity,container_set_content,cooldown,remove_entities,set_entity_data,set_entity_motion,sound,bundle_delimiter
+tick 4
+watch off
+dump all_players entities events inventory:Alice stats:Alice
+note creative: the egg is not consumed, the statistic is still counted
+use Bob
+dump inventory:Bob stats:Bob entities events
+tick 4
+dump all_players entities events
+note a dozen eggs in one tick (no cooldown): each line rolls its own chick chance
+use Alice main 1
+use Alice main 2
+use Alice main 3
+use Alice main 4
+use Alice main 5
+use Alice main 6
+use Alice main 7
+use Alice main 8
+use Alice main 9
+use Alice main 10
+use Alice main 11
+use Alice main 12
+tick 4
+dump all_players entities events inventory:Alice stats:Alice
+note blue eggs from the off hand and brown eggs: the chick carries the egg's variant
+use Alice off 1
+use Alice off 2
+use Alice off 3
+use Alice off 4
+use Alice off 5
+use Alice off 6
+use Bob main 2
+use Bob main 3
+use Bob main 4
+tick 4
+dump all_players entities events inventory:Alice stats:Alice

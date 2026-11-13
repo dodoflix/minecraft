@@ -1,0 +1,72 @@
+# set A: a campfire hit from above, a candle, a fire, a soul fire and a candle cake around the block above it
+B -1 -60 0 minecraft:soul_sand
+B -1 -59 0 minecraft:soul_fire
+B 0 -60 -1 minecraft:stone
+B 0 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 0 -60 1 minecraft:netherrack
+B 0 -59 -1 minecraft:white_candle_cake[lit=true]
+B 0 -59 1 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 1 -60 0 minecraft:stone
+B 1 -59 0 minecraft:candle[candles=2,lit=true,waterlogged=false]
+E burning minecraft:cow pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=198 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=-
+E blaze minecraft:blaze pos=2.5,-60.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+B -1 -60 0 minecraft:soul_sand
+B 0 -60 -1 minecraft:stone
+B 0 -60 0 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+B 0 -60 1 minecraft:netherrack
+B 0 -59 -1 minecraft:white_candle_cake[lit=false]
+B 1 -60 0 minecraft:stone
+B 1 -59 0 minecraft:candle[candles=2,lit=false,waterlogged=false]
+E burning minecraft:cow pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=5/15 death=0 fx=-
+E blaze minecraft:blaze pos=2.5,-60.0,-1.5 delta=0.28284271668930383,0.0,-0.28284271668930383 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=10/20 death=0 fx=-
+EV sound at=0.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.126081
+EV level_event r=64.0 ex=0 type=1009 pos=0,-60,0 data=0 global=0
+EV sound at=0.5,-58.5,-0.5 r=16.0 ex=0 event=minecraft:block.candle.extinguish source=block vol=1.0 pitch=1.0
+EV sound at=1.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.candle.extinguish source=block vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.generic.extinguish_fire source=neutral vol=0.7 pitch=1.4764446
+EV sound at=2.5,-60.0,-1.5 r=16.0 ex=0 event=minecraft:entity.blaze.hurt source=hostile vol=1.0 pitch=0.9737608
+EV level_event r=64.0 ex=0 type=2002 pos=0,-60,0 data=-13083194 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=0,-60,0 data=0 global=0
+B -1 -60 0 minecraft:soul_sand
+B 0 -60 -1 minecraft:stone
+B 0 -60 0 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+B 0 -60 1 minecraft:netherrack
+B 0 -59 -1 minecraft:white_candle_cake[lit=false]
+B 1 -60 0 minecraft:stone
+B 1 -59 0 minecraft:candle[candles=2,lit=false,waterlogged=false]
+E burning minecraft:cow pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=3/13 death=0 fx=-
+E blaze minecraft:blaze pos=2.5,-60.0,-1.5 delta=0.28284271668930383,0.0,-0.28284271668930383 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/18 death=0 fx=-
+# set B: the same blocks, a poison potion douses nothing
+B 20 -60 0 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 20 -60 1 minecraft:netherrack
+B 20 -59 1 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 21 -60 0 minecraft:stone
+B 21 -59 0 minecraft:candle[candles=2,lit=true,waterlogged=false]
+E burning minecraft:cow pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/8 death=0 fx=-
+E blaze minecraft:blaze pos=2.5,-60.0,-1.5 delta=0.28284271668930383,0.0,-0.28284271668930383 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=3/13 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2002 pos=20,-60,0 data=-7888029 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=20,-60,0 data=0 global=0
+# set C: a water bottle thrown at a wall hits its side: the fire is in front of the face, a campfire and a candle beside it
+B 39 -60 3 minecraft:stone
+B 39 -59 3 minecraft:campfire[facing=north,lit=false,signal_fire=true,waterlogged=false]
+B 40 -60 3 minecraft:netherrack
+B 40 -60 4 minecraft:stone
+B 40 -59 4 minecraft:stone
+B 40 -58 4 minecraft:stone
+B 41 -60 3 minecraft:stone
+B 41 -59 3 minecraft:candle[candles=1,lit=false,waterlogged=false]
+E burning minecraft:cow pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/3 death=0 fx=-
+E blaze minecraft:blaze pos=2.5,-60.0,-1.5 delta=0.28284271668930383,0.0,-0.28284271668930383 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/8 death=0 fx=-
+EV sound at=41.5,-58.5,3.5 r=16.0 ex=0 event=minecraft:block.candle.extinguish source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1009 pos=39,-59,3 data=0 global=0
+EV level_event r=64.0 ex=0 type=2002 pos=40,-59,4 data=-13083194 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=40,-59,4 data=0 global=0
+# set D: a silent potion and a potion that is not plain water (a custom effect on top of water) leave the fire alone
+B 60 -60 0 minecraft:netherrack
+B 62 -60 0 minecraft:netherrack
+B 62 -59 0 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+E burning minecraft:cow pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze minecraft:blaze pos=2.5,-60.0,-1.5 delta=0.28284271668930383,0.0,-0.28284271668930383 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/3 death=0 fx=-
+EV level_event r=64.0 ex=0 type=2002 pos=60,-59,0 data=-13083194 global=0
+EV level_event r=64.0 ex=0 type=2002 pos=62,-59,0 data=-13374465 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=62,-59,0 data=0 global=0

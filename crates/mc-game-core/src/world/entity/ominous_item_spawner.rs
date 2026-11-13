@@ -1,8 +1,5 @@
 //! `net.minecraft.world.entity.OminousItemSpawner`: spawned above a player by an ominous trial spawner, it drops its item
 //! 60-120 ticks later.
-//!
-//! Not implemented: lingering and splash potions are `ProjectileItem`s in vanilla but not here yet, so they drop as
-//! plain item entities.
 
 use super::EntityId;
 use super::entity::{self, Entity, EntityData};

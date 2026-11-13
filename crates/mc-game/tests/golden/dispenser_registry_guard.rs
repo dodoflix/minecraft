@@ -101,11 +101,6 @@ const VANILLA: &[&str] = &[
 /// Vanilla items whose behaviour no registration implements yet (item, the missing behaviour).
 #[rustfmt::skip]
 const NOT_IMPLEMENTED: &[(&str, &str)] = &[
-    ("minecraft:egg", "the projectile entity is created from the item's ProjectileItem and shot with ProjectileDispenseBehavior (the item class is not a ProjectileItem yet, so there is nothing to register)"),
-    ("minecraft:blue_egg", "the projectile entity is created from the item's ProjectileItem and shot with ProjectileDispenseBehavior (the item class is not a ProjectileItem yet, so there is nothing to register)"),
-    ("minecraft:brown_egg", "the projectile entity is created from the item's ProjectileItem and shot with ProjectileDispenseBehavior (the item class is not a ProjectileItem yet, so there is nothing to register)"),
-    ("minecraft:splash_potion", "the projectile entity is created from the item's ProjectileItem and shot with ProjectileDispenseBehavior (the item class is not a ProjectileItem yet, so there is nothing to register)"),
-    ("minecraft:lingering_potion", "the projectile entity is created from the item's ProjectileItem and shot with ProjectileDispenseBehavior (the item class is not a ProjectileItem yet, so there is nothing to register)"),
     ("minecraft:brush", "brushes a scute off an armadillo in front (Armadillo.brushOffScute) and damages the brush"),
     ("minecraft:minecart", "MinecartDispenseItemBehavior: places the minecart on a rail in front (no minecart entities yet)"),
     ("minecraft:chest_minecart", "MinecartDispenseItemBehavior: places the minecart on a rail in front (no minecart entities yet)"),

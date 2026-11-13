@@ -4,20 +4,23 @@
 
 use super::throwable::{ThrowKind, throw_item};
 use super::{
-    InteractionHand, InteractionResult, ItemBehaviour, ItemStack, PlainItem, UseOnContext,
-    create_filled_result, may_interact, player_pov_hit_result,
+    DispenseConfig, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, PlainItem,
+    ProjectileItem, UseOnContext, create_filled_result, may_interact, player_pov_hit_result,
 };
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::effect::potion_contents;
 use crate::world::entity::area_effect_cloud::AreaEffectCloud;
 use crate::world::entity::player::menu_ctx::PlayerCtx;
+use crate::world::entity::projectile::throwableitemprojectile::thrown_lingering_potion::ThrownLingeringPotion;
+use crate::world::entity::projectile::throwableitemprojectile::thrown_splash_potion::ThrownSplashPotion;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::state::BlockStateExt;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::material::FluidStateExt;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
+use mc_core::phys::Vec3;
 use mc_data::{EntityType, GameEvent, Item, ParticleType, Potion, SoundEvent};
 use mc_protocol::components::{POTION_CONTENTS, PotionContents};
 use mc_protocol::packets::play::ParticleOptions;
@@ -143,6 +146,37 @@ impl ItemBehaviour for PotionItem {
 
     fn get_name(&self, stack: &ItemStack) -> Component {
         potion_name(self.description_id, stack)
+    }
+
+    fn as_projectile_item(&self) -> Option<&dyn ProjectileItem> {
+        self.throw.map(|_| self as &dyn ProjectileItem)
+    }
+}
+
+/// `ThrowablePotionItem.asProjectile` / `createDispenseConfig`.
+impl ProjectileItem for PotionItem {
+    fn as_projectile(
+        &self,
+        level: &mut ServerLevel,
+        position: Vec3,
+        item_stack: &ItemStack,
+        _direction: Direction,
+    ) -> Box<dyn Entity> {
+        let (x, y, z) = (position.x, position.y, position.z);
+        match self.throw {
+            Some(ThrowKind::LingeringPotion) => {
+                Box::new(ThrownLingeringPotion::at(level, x, y, z, item_stack))
+            }
+            _ => Box::new(ThrownSplashPotion::at(level, x, y, z, item_stack)),
+        }
+    }
+
+    fn create_dispense_config(&self) -> DispenseConfig {
+        DispenseConfig {
+            uncertainty: DispenseConfig::DEFAULT.uncertainty * 0.5,
+            power: DispenseConfig::DEFAULT.power * 1.25,
+            ..DispenseConfig::DEFAULT
+        }
     }
 }
 

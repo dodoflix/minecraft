@@ -14,10 +14,7 @@ use std::path::{Path, PathBuf};
 /// Non-mob vanilla entity types without a Rust class (type, what is not implemented). Delete the line when the class lands.
 #[rustfmt::skip]
 const EXPECTED_MISSING: &[(&str, &str)] = &[
-    ("minecraft:egg", "ThrownEgg: hit effects, chicken spawn"),
     ("minecraft:fishing_bobber", "FishingHook: cast, bite, retrieve and loot"),
-    ("minecraft:lingering_potion", "ThrownLingeringPotion: area effect cloud on hit"),
-    ("minecraft:splash_potion", "ThrownSplashPotion: splash effects on hit"),
 ];
 
 /// The vanilla boat entity types, each with `(drop item, kind, chest)` from its `boatFactory`/`chestBoatFactory`/

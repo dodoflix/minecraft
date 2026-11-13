@@ -1,0 +1,52 @@
+# ThrownEgg.onHit: one in eight eggs rolls for chicks, one in 32 of those rolls four. The roll comes from the egg's own random (pinned with
+# entity_seed: 4104 rolls four chicks, 4096 one, 1 none). The chicks are babies (age -24000) at the egg's position carrying the egg item's chicken
+# variant (egg temperate, blue_egg cold, brown_egg warm). An egg inside a solid block hits it at once and finds no free position for even the
+# first chick (the loop stops). An egg that hits a cow hurts it for 0 damage and rolls at the cow.
+level flat
+preload 3
+difficulty normal
+level_seed 3
+entity_counter 1100
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn cow minecraft:cow 20.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed cow 3
+fill 12 -60 4 12 -60 4 minecraft:stone
+fill 30 -60 4 30 -60 4 minecraft:stone
+tick 2
+dump packets:A:none
+note four chicks in the open
+spawn e1 minecraft:egg 4.5 -59.5 4.5 0 0 {Item:{id:"minecraft:egg",count:1}}
+entity_seed e1 4104
+velocity e1 0 -0.2 0
+tick 1
+dump entities events packets:A:add_entity,set_entity_data,entity_event,remove_entities,level_event
+tick 2
+dump entities edata:chicken#1 edata:chicken#4 nbt:chicken#1 nbt:chicken#4 events packets:A:add_entity,set_entity_data,entity_event,remove_entities
+note one chick of each variant, an egg that rolls nothing
+spawn e2 minecraft:egg 6.5 -59.5 4.5 0 0 {Item:{id:"minecraft:egg",count:1}}
+entity_seed e2 4096
+velocity e2 0 -0.2 0
+spawn e3 minecraft:egg 8.5 -59.5 4.5 0 0 {Item:{id:"minecraft:blue_egg",count:1}}
+entity_seed e3 4096
+velocity e3 0 -0.2 0
+spawn e4 minecraft:egg 10.5 -59.5 4.5 0 0 {Item:{id:"minecraft:brown_egg",count:1}}
+entity_seed e4 4096
+velocity e4 0 -0.2 0
+spawn e5 minecraft:egg 14.5 -59.5 4.5 0 0 {Item:{id:"minecraft:egg",count:1}}
+entity_seed e5 1
+velocity e5 0 -0.2 0
+tick 1
+dump entities events
+tick 2
+dump entities edata:chicken#5 edata:chicken#6 edata:chicken#7 nbt:chicken#5 nbt:chicken#6 nbt:chicken#7 events
+note no room: the egg is inside a solid block
+spawn e6 minecraft:egg 12.5 -59.5 4.5 0 0 {Item:{id:"minecraft:egg",count:1}}
+entity_seed e6 4104
+tick 1
+dump entities events
+note a cow is hit (damage 0), the egg rolls at the cow
+spawn e7 minecraft:egg 20.5 -58.5 -4.5 0 0 {Item:{id:"minecraft:egg",count:1}}
+entity_seed e7 4096
+velocity e7 0 -0.2 0.8
+tick 8
+dump entities events

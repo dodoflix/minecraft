@@ -1,0 +1,65 @@
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:egg"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E egg#1 minecraft:egg pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+N egg#1 {Air:300s,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:egg"},Motion:[1.055224571632522d,0.031699803845020955d,-0.03773711095696074d],OnGround:0b,PortalCooldown:0,Pos:[1.2d,-59.4d,0.5d],Rotation:[92.04814f,1.719606f],fall_distance:0.0d}
+BE 0 -60 4 {Items:[{Slot:0b,count:1,id:"minecraft:blue_egg"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+E egg#1 minecraft:egg pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E egg#2 minecraft:egg pos=1.2,-59.4,4.5 delta=1.0476496555583072,0.046981378829465285,-0.07148957805457981 rot=93.90367,2.5617127 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=5 global=0
+BE 0 -60 8 {Items:[{Slot:0b,count:1,id:"minecraft:brown_egg"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+E egg#1 minecraft:egg pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E egg#2 minecraft:egg pos=1.2,-59.4,4.5 delta=1.0476496555583072,0.046981378829465285,-0.07148957805457981 rot=93.90367,2.5617127 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E egg#3 minecraft:egg pos=1.2,-59.4,8.5 delta=0.9968078152190852,-0.046885012269237594,-0.0379771811735095 rot=92.18194,-2.6909745 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+BE 0 -60 12 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+E egg#1 minecraft:egg pos=1.2,-59.4,0.5 delta=1.055224571632522,0.031699803845020955,-0.03773711095696074 rot=92.04814,1.719606 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E egg#2 minecraft:egg pos=1.2,-59.4,4.5 delta=1.0476496555583072,0.046981378829465285,-0.07148957805457981 rot=93.90367,2.5617127 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E egg#3 minecraft:egg pos=1.2,-59.4,8.5 delta=0.9968078152190852,-0.046885012269237594,-0.0379771811735095 rot=92.18194,-2.6909745 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E egg#4 minecraft:egg pos=1.2,-59.4,12.5 delta=1.1156488522249726,0.04760854607585787,-0.013555897163353064 rot=90.69614,2.4433467 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0
+E egg#1 minecraft:egg pos=2.2446723359796024,-59.39831719417722,0.4626402597927197 delta=1.0446723359796024,0.0016828058227813388,-0.037359740207280265 rot=92.04814,1.3941264 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E egg#2 minecraft:egg pos=2.23717316899389,-59.38318843479688,4.429225317044188 delta=1.03717316899389,0.016811565203117683,-0.07077468295581175 rot=93.90367,2.2346623 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E egg#3 minecraft:egg pos=2.1868397465731944,-59.47611616287978,8.462402590276048 delta=0.9868397465731945,-0.07611616287977784,-0.03759740972395303 rot=92.18194,-3.0342793 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E chicken#1 minecraft:chicken pos=5.702028564276858,-60.0,8.328478116018502 delta=0.0,-0.0784000015258789,0.0 rot=92.18192,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=8.285659037997013,-60.0,0.24660152112795636 delta=0.0,-0.0784000015258789,0.0 rot=92.0481,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=8.285659037997013,-60.0,0.24660152112795636 delta=0.0,-0.0784000015258789,0.0 rot=92.0481,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=8.285659037997013,-60.0,0.24660152112795636 delta=0.0,-0.0784000015258789,0.0 rot=92.0481,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=8.285659037997013,-60.0,0.24660152112795636 delta=0.0,-0.0784000015258789,0.0 rot=92.0481,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=8.769627031278912,-60.0,3.9834633509154505 delta=0.0,-0.0784000015258789,0.0 rot=93.90357,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=8.285659037997013,-60.0,0.24660152112795636 r=16.0 ex=0 event=minecraft:entity.baby_chicken.ambient source=neutral vol=1.0 pitch=1.5878549
+E chicken#1 minecraft:chicken pos=10.755730355336304,-60.0,11.760013234353185 delta=0.10442325858229182,-0.0784000015258789,0.10391548017058001 rot=314.8397,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#2 minecraft:chicken pos=8.1664683270611,-60.0,0.8136810805885782 delta=0.0,-0.0784000015258789,0.004898339242846229 rot=92.0481,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#3 minecraft:chicken pos=8.11162920334041,-60.0,0.4270125135074635 delta=-0.03391029030296536,-0.0784000015258789,0.059500365059457105 rot=29.683823,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#4 minecraft:chicken pos=11.960001754789216,-60.0,-2.9718590892480443 delta=0.05374174943804339,-0.0784000015258789,-0.052551122830608976 rot=225.6369,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#5 minecraft:chicken pos=6.900440117584341,-60.0,0.9954342688021525 delta=-0.10404358180330464,-0.0784000015258789,0.09805620356987765 rot=40.821503,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E chicken#6 minecraft:chicken pos=7.439781651608445,-60.0,2.6831390079376707 delta=-0.12579388480976517,-0.0784000015258789,0.06276515781439869 rot=51.469635,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=5 global=0
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+EV sound at=8.285659037997013,-60.0,0.24660152112795636 r=16.0 ex=0 event=minecraft:entity.baby_chicken.ambient source=neutral vol=1.0 pitch=1.5170355
+EV sound at=5.702028564276858,-60.0,8.328478116018502 r=16.0 ex=0 event=minecraft:entity.baby_chicken.hurt source=neutral vol=1.0 pitch=1.4737638
+EV sound at=8.278766611197634,-60.0,0.31409557636897345 r=16.0 ex=0 event=minecraft:entity.baby_chicken.hurt source=neutral vol=1.0 pitch=1.5192497
+EV sound at=8.769627031278912,-60.0,3.9834633509154505 r=16.0 ex=0 event=minecraft:entity.baby_chicken.hurt source=neutral vol=1.0 pitch=1.5624259
+EV sound at=9.488883515420058,-60.0,-0.7905442422324435 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.937374184224368,-60.0,8.253602293500157 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.309596013127972,-60.0,0.07965195284054315 r=16.0 ex=0 event=minecraft:entity.baby_chicken.ambient source=neutral vol=1.0 pitch=1.4850845
+EV sound at=10.471800690838158,-60.0,0.567453331042476 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=10.791441789249024,-60.0,2.713424820367321 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.539898926196043,-60.0,9.420240057500312 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=10.768840063271595,-60.0,-1.8274626978343689 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=9.911684847005876,-60.0,2.50681758818901 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=9.283998392617764,-60.0,0.51598265708811 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=9.611081701602282,-60.0,10.615769804237164 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.745701301070785,-60.0,0.44971804472256716 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.184895845175436,-60.0,2.496854016188783 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+EV sound at=10.755730355336304,-60.0,11.760013234353185 r=16.0 ex=0 event=minecraft:entity.baby_chicken.step source=neutral vol=0.15 pitch=1.0
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+BE 0 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+BE 0 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}

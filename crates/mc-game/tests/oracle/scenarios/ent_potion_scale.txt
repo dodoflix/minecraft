@@ -1,0 +1,86 @@
+# Splash potions: every living entity within 4 blocks of the box the potion had at the hit location gets the effects scaled by 1 - sqrt(distanceSq) / 4
+# (duration: (int) (scale * duration * durationScale + 0.5), instant effects by the scale itself). Effects that would end within 20 ticks are not
+# applied, an armor stand is not affected, an entity out of range is not (a cow at 3.9 blocks is, one at 5 is not). Four rows: poison, instant harming and
+# healing, short custom effects, a potion with a duration scale and an infinite effect.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 3
+entity_counter 1300
+spawn_player A survival 0.5 -60 -6.5 0 0
+tick 2
+note row 1: poison at 0.5 -59 0.5, cows at growing distances, an armor stand and a baby cow
+spawn r1a minecraft:cow 1.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r1b minecraft:cow 2.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r1c minecraft:cow 3.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r1d minecraft:cow 4.8 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r1e minecraft:cow 6.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r1f minecraft:armor_stand -1.5 -60 0.5 0 0
+spawn r1g minecraft:cow 0.5 -60 3.0 0 0 {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+entity_seed r1a 11
+entity_seed r1b 12
+entity_seed r1c 13
+entity_seed r1d 14
+entity_seed r1e 15
+entity_seed r1f 16
+entity_seed r1g 17
+tick 1
+spawn p1 minecraft:splash_potion 0.5 -59 0.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:poison"}}}}
+entity_seed p1 21
+velocity p1 0 -0.2 0
+dump entities
+tick 1
+dump entities events
+tick 2
+dump entities events
+note row 2: instant harming and healing on cows at 1 and 2 blocks
+spawn r2a minecraft:cow 21.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r2b minecraft:cow 22.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:3f}
+spawn r2c minecraft:cow 19.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:3f}
+spawn r2d minecraft:cow 20.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed r2a 31
+entity_seed r2b 32
+entity_seed r2c 33
+entity_seed r2d 34
+tick 1
+spawn p2 minecraft:splash_potion 20.5 -59 0.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:harming"}}}}
+entity_seed p2 22
+velocity p2 0 -0.2 0
+spawn p3 minecraft:splash_potion 20.5 -59 0.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:strong_healing"}}}}
+entity_seed p3 23
+velocity p3 0 -0.2 0
+tick 3
+dump entities events
+tick 2
+dump entities events
+note row 3: custom effects: 60 ticks (scaled under 20 at the edge), 20 ticks, an amplifier
+spawn r3a minecraft:cow 41.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r3b minecraft:cow 43 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r3c minecraft:cow 44.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r3d minecraft:cow 40.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed r3a 41
+entity_seed r3b 42
+entity_seed r3c 43
+entity_seed r3d 44
+tick 1
+spawn p4 minecraft:splash_potion 40.5 -59 0.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{custom_effects:[{id:"minecraft:speed",duration:60,amplifier:1},{id:"minecraft:slowness",duration:20,amplifier:0},{id:"minecraft:glowing",duration:100,amplifier:0,show_particles:0b}]}}}}
+entity_seed p4 24
+velocity p4 0 -0.2 0
+tick 3
+dump entities events
+tick 2
+dump entities events
+note row 4: duration scale 0.25 and an infinite effect (the scale leaves it alone)
+spawn r4a minecraft:cow 61.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn r4b minecraft:cow 62.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed r4a 51
+entity_seed r4b 52
+tick 1
+spawn p5 minecraft:splash_potion 60.5 -59 0.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_duration_scale":0.25f,"minecraft:potion_contents":{potion:"minecraft:swiftness",custom_effects:[{id:"minecraft:haste",duration:-1,amplifier:0}]}}}}
+entity_seed p5 25
+velocity p5 0 -0.2 0
+tick 3
+dump entities events
+tick 2
+dump entities events

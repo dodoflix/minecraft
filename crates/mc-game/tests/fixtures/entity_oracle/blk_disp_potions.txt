@@ -1,0 +1,82 @@
+BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E c1 minecraft:cow pos=4.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze minecraft:blaze pos=4.0,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3 minecraft:cow pos=4.0,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E splash_potion#1 minecraft:splash_potion pos=1.2,-59.4,0.5 delta=1.3470153429757161,0.019812376973716392,-0.023585693836894316 rot=91.003,0.8425957 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+BE 0 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+E c1 minecraft:cow pos=4.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze minecraft:blaze pos=4.0,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3 minecraft:cow pos=4.0,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E splash_potion#1 minecraft:splash_potion pos=1.2,-59.4,0.5 delta=1.3470153429757161,0.019812376973716392,-0.023585693836894316 rot=91.003,0.8425957 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E lingering_potion#1 minecraft:lingering_potion pos=1.2,-59.4,4.5 delta=1.3422810205319455,0.02936336113198209,-0.0446809853156781 rot=91.90664,1.2525985 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=5 global=0
+BE 0 -60 8 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:8}
+E c1 minecraft:cow pos=4.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze minecraft:blaze pos=4.0,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3 minecraft:cow pos=4.0,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E splash_potion#1 minecraft:splash_potion pos=1.2,-59.4,0.5 delta=1.3470153429757161,0.019812376973716392,-0.023585693836894316 rot=91.003,0.8425957 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E lingering_potion#1 minecraft:lingering_potion pos=1.2,-59.4,4.5 delta=1.3422810205319455,0.02936336113198209,-0.0446809853156781 rot=91.90664,1.2525985 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E splash_potion#2 minecraft:splash_potion pos=1.2,-59.4,8.5 delta=1.3105048710086613,-0.029303132033145215,-0.023735737718985173 rot=91.037735,-1.2808124 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,8 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,8 data=5 global=0
+BE 0 -60 12 {Items:[{Slot:0b,components:{"minecraft:potion_contents":{potion:"minecraft:harming"}},count:1,id:"minecraft:splash_potion"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+E c1 minecraft:cow pos=4.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze minecraft:blaze pos=4.0,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3 minecraft:cow pos=4.0,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E splash_potion#1 minecraft:splash_potion pos=1.2,-59.4,0.5 delta=1.3470153429757161,0.019812376973716392,-0.023585693836894316 rot=91.003,0.8425957 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E lingering_potion#1 minecraft:lingering_potion pos=1.2,-59.4,4.5 delta=1.3422810205319455,0.02936336113198209,-0.0446809853156781 rot=91.90664,1.2525985 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E splash_potion#2 minecraft:splash_potion pos=1.2,-59.4,8.5 delta=1.3105048710086613,-0.029303132033145215,-0.023735737718985173 rot=91.037735,-1.2808124 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E splash_potion#3 minecraft:splash_potion pos=1.2,-59.4,12.5 delta=1.3847805175274597,0.02975534065248153,-0.00847243554346057 rot=90.3506,1.2308558 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0
+E c1 minecraft:cow pos=4.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:cow pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze minecraft:blaze pos=4.0,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3 minecraft:cow pos=4.0,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E splash_potion#1 minecraft:splash_potion pos=2.5335452023920983,-59.42988574708391,0.47665016287654394 delta=1.3335452023920984,-0.02988574708391238,-0.023349837123456077 rot=91.003,0.41733554 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E lingering_potion#1 minecraft:lingering_potion pos=2.5288582231276155,-59.42043027267614,4.455765824111368 delta=1.3288582231276154,-0.02043027267614406,-0.044234175888632404 rot=91.90665,0.8260097 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E splash_potion#2 minecraft:splash_potion pos=2.497399834796523,-59.478510101469105,8.476501619431843 delta=1.297399834796523,-0.07851010146910738,-0.023498380568156955 rot=91.037735,-1.717093 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E splash_potion#3 minecraft:splash_potion pos=2.570932725558481,-59.42004221294711,12.491612288731174 delta=1.3709327255584811,-0.020042212947111407,-0.008387711268825407 rot=90.3506,0.8171644 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:cow pos=4.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/0/897
+E c2 minecraft:cow pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/117
+E blaze minecraft:blaze pos=4.0,-60.0,8.5 delta=0.39552027527713973,0.0,0.059696872724350085 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/17 death=0 fx=-
+E c3 minecraft:cow pos=4.0,-60.0,12.5 delta=0.39979599052596887,0.0,0.012773829798889493 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=7/17 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=2002 pos=3,-60,0 data=-7888029 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=3,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2002 pos=3,-60,4 data=-7622688 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=3,-60,4 data=0 global=0
+EV sound at=4.0,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.blaze.hurt source=hostile vol=1.0 pitch=0.89705086
+EV level_event r=64.0 ex=0 type=2002 pos=3,-60,8 data=-13083194 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=3,-60,8 data=0 global=0
+EV sound at=4.0,-60.0,12.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.1401634
+EV level_event r=64.0 ex=0 type=2007 pos=3,-60,12 data=-5675670 global=0
+EV level_event r=64.0 ex=0 type=1054 pos=3,-60,12 data=0 global=0
+EV sound at=4.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0342959
+E c1 minecraft:cow pos=4.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/877
+E c2 minecraft:cow pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/0/97;minecraft:slowness/0/437
+E blaze minecraft:blaze pos=4.0,-60.0,8.5 delta=0.39552027527713973,0.0,0.059696872724350085 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3 minecraft:cow pos=4.0,-60.0,12.5 delta=0.39979599052596887,0.0,0.012773829798889493 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=4.0,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0948343
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.4299984 waiting=0 duration=600 age=23
+BE 0 -60 12 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:12}
+E c1 minecraft:cow pos=4.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/0/869
+E c2 minecraft:cow pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/0/89;minecraft:slowness/0/449
+E blaze minecraft:blaze pos=4.0,-60.0,8.5 delta=0.24263733658031472,0.0,-0.3676261436847943 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=4/14 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=4.0,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=4.440595014522318,-59.67097710472918,12.374240338864858 delta=0.06837874977590423,-0.04658045162980263,-0.019517443723201487 rot=103.15705,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=6 pickup=4 health=5 owner=- thrower=-
+EV level_event r=64.0 ex=0 type=1002 pos=0,-60,12 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,12 data=5 global=0
+EV sound at=4.0,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.blaze.hurt source=hostile vol=1.0 pitch=0.9986914
+EV sound at=4.0,-60.0,12.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=1.0636935
+EV level_event r=64.0 ex=0 type=2007 pos=3,-60,12 data=-5675670 global=0
+EV level_event r=64.0 ex=0 type=1054 pos=3,-60,12 data=0 global=0
+EV sound at=4.0,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.9846922

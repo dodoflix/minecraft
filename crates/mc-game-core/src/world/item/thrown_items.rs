@@ -1,4 +1,4 @@
-//! `SnowballItem` and `EnderpearlItem` (+ the shared throw sound of the throwable items).
+//! `EggItem`, `SnowballItem` and `EnderpearlItem` (+ the shared throw sound of the throwable items).
 
 use super::{
     InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, ProjectileItem,
@@ -7,6 +7,7 @@ use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::projectile::spawn::spawn_projectile_from_rotation;
 use crate::world::entity::projectile::throwableitemprojectile::snowball::Snowball;
+use crate::world::entity::projectile::throwableitemprojectile::thrown_egg::ThrownEgg;
 use crate::world::entity::projectile::throwableitemprojectile::thrown_enderpearl::ThrownEnderpearl;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::LevelAccessor;
@@ -41,6 +42,55 @@ pub fn finish_throw(
     player.set_item_in_hand(hand, stack);
     InteractionResult::SUCCESS
 }
+
+struct EggItem;
+
+impl ItemBehaviour for EggItem {
+    fn use_item(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        hand: InteractionHand,
+    ) -> InteractionResult {
+        let stack = player.get_item_in_hand(hand);
+        play_throw_sound(
+            level,
+            player,
+            SoundEvent::ENTITY_EGG_THROW,
+            SoundSource::Players,
+        );
+        spawn_projectile_from_rotation(
+            level,
+            |level, source, item| Box::new(ThrownEgg::with_owner(level, source, item)),
+            &stack,
+            player,
+            0.0,
+            1.5,
+            1.0,
+        );
+        finish_throw(level, player, hand, stack)
+    }
+
+    fn as_projectile_item(&self) -> Option<&dyn ProjectileItem> {
+        Some(self)
+    }
+}
+
+impl ProjectileItem for EggItem {
+    fn as_projectile(
+        &self,
+        level: &mut ServerLevel,
+        position: Vec3,
+        item_stack: &ItemStack,
+        _direction: Direction,
+    ) -> Box<dyn Entity> {
+        Box::new(ThrownEgg::at(
+            level, position.x, position.y, position.z, item_stack,
+        ))
+    }
+}
+
+register_item_class!("EggItem", |_| Box::new(EggItem));
 
 struct SnowballItem;
 

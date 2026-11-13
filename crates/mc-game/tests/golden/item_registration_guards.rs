@@ -15,10 +15,6 @@ const EXPECTED_PLAIN: &[&str] = &["Item", "SmithingTemplateItem", "DiscFragmentI
 /// entry goes away with the commit that registers the class.
 const EXPECTED_MISSING: &[(&str, &str)] = &[
     (
-        "EggItem",
-        "use plays the throw sound and spawns a ThrownEgg (no egg entity yet)",
-    ),
-    (
         "FishingRodItem",
         "use casts a FishingHook or reels it in and damages the rod (no fishing hook entity yet)",
     ),
@@ -30,16 +26,7 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
 
 /// Classes that ARE registered but only implement part of the vanilla class (class, the missing behaviour). Registering
 /// the class cannot tell these from a complete one, so the entry is deleted by hand with the commit that completes it.
-const EXPECTED_INCOMPLETE: &[(&str, &str)] = &[
-    (
-        "LingeringPotionItem",
-        "use spawns a ThrownLingeringPotion (no potion entity yet: the stack is consumed and nothing is thrown)",
-    ),
-    (
-        "SplashPotionItem",
-        "use spawns a ThrownSplashPotion (no potion entity yet: the stack is consumed and nothing is thrown)",
-    ),
-];
+const EXPECTED_INCOMPLETE: &[(&str, &str)] = &[];
 
 /// Whether `item` is bound to a registration (`behaviour::build`).
 fn registered(item: Item) -> bool {

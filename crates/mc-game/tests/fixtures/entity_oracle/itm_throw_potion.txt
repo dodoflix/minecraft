@@ -1,0 +1,163 @@
+# Alice: poison splash
+STAT Alice minecraft.custom:minecraft.play_time 3
+STAT Alice minecraft.custom:minecraft.time_since_death 3
+STAT Alice minecraft.custom:minecraft.time_since_rest 3
+STAT Alice minecraft.custom:minecraft.total_world_time 3
+STAT Alice minecraft.used:minecraft.splash_potion 1
+PKT Alice minecraft:sound 77b40c0700000004fffffe20000000043f0000003ebb85bb3dace6703e05bff8
+PKT Alice minecraft:add_entity 01f503a2f8a8ad2f064bb2929be669a186f6db6c3fe0000000000000c04d3d70a3d000003fe000000000000079fdb762be09eaff0001
+PKT Alice minecraft:set_entity_data 65f503080701a20b010035011c000000ff
+PKT Alice minecraft:container_set_content 1200032e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/643 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:lingering_potion*1{minecraft:potion_contents:{potion:"minecraft:regeneration"}}
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+P Dave minecraft:player pos=60.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:strong_healing"}}
+E c1 minecraft:cow pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/772
+E c2 minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/608
+E c3 minecraft:cow pos=20.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze minecraft:blaze pos=40.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E enderman minecraft:enderman pos=42.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=86 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=191 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=1/11 death=0 fx=-
+E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=40.5,-60.0,5.0 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0184323
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.splash_potion.throw source=player vol=0.5 pitch=0.36625466
+EV level_event r=64.0 ex=0 type=2002 pos=0,-60,2 data=-7888029 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=0,-60,2 data=0 global=0
+STAT Alice minecraft.custom:minecraft.play_time 9
+STAT Alice minecraft.custom:minecraft.time_since_death 9
+STAT Alice minecraft.custom:minecraft.time_since_rest 9
+STAT Alice minecraft.custom:minecraft.total_world_time 9
+STAT Alice minecraft.used:minecraft.splash_potion 1
+PKT Alice minecraft:update_mob_effect 870101120085050e
+PKT Alice minecraft:level_event 2f000007d20000000000002fc4ff87a36300
+PKT Alice minecraft:level_event 2f0000041d0000000000002fc40000000000
+PKT Alice minecraft:remove_entities 4e01f503
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/641 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:lingering_potion*1{minecraft:potion_contents:{potion:"minecraft:regeneration"}}
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+P Dave minecraft:player pos=60.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:strong_healing"}}
+E c1 minecraft:cow pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/770
+E c2 minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/606
+E c3 minecraft:cow pos=20.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze minecraft:blaze pos=40.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E enderman minecraft:enderman pos=42.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=94 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=189 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/9 death=0 fx=-
+E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=60.5,-60.0,-2.5 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0527904
+# Bob: lingering regeneration, creative keeps the potion
+I Bob 0 minecraft:lingering_potion*1{minecraft:potion_contents:{potion:"minecraft:regeneration"}}
+STAT Bob minecraft.custom:minecraft.play_time 11
+STAT Bob minecraft.custom:minecraft.time_since_death 11
+STAT Bob minecraft.custom:minecraft.time_since_rest 11
+STAT Bob minecraft.custom:minecraft.total_world_time 11
+STAT Bob minecraft.used:minecraft.lingering_potion 1
+PKT Bob minecraft:add_entity 01f503a2f8a8ad2f064bb2929be669a186f6db6c3fe0000000000000c04d3d70a3d000003fe000000000000079fdb762be09eaff0001
+PKT Bob minecraft:set_entity_data 65f503080701a20b010035011c000000ff
+PKT Bob minecraft:set_entity_data 65f503080701a20b010035011c000000ff
+PKT Bob minecraft:remove_entities 4e01f503
+PKT Bob minecraft:sound 77af0706000000a4fffffe20000000043f0000003eacdd6e4b970fd5e0db99e1
+PKT Bob minecraft:add_entity 01f603b289f54573ae44879cab60bcbbbf161e6d4034800000000000c04d3d70a3d000003fe0000000000000b9ffb70cbd2de9ff0002
+PKT Bob minecraft:set_entity_data 65f603080701a50b010035011f000000ff
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/635 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:lingering_potion*1{minecraft:potion_contents:{potion:"minecraft:regeneration"}}
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+P Dave minecraft:player pos=60.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:strong_healing"}}
+E c1 minecraft:cow pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/764
+E c2 minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/600
+E c3 minecraft:cow pos=20.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E blaze minecraft:blaze pos=40.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E enderman minecraft:enderman pos=42.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=118 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=183 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/3 death=0 fx=-
+E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.lingering_potion.throw source=neutral vol=0.5 pitch=0.33762687
+EV level_event r=64.0 ex=0 type=2002 pos=20,-60,2 data=-3318613 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=20,-60,2 data=0 global=0
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=600 age=1
+PKT Bob minecraft:set_entity_data 65f603080701a50b010035011f000000ff
+PKT Bob minecraft:add_entity 01f703d909b5bc4b89434689a731bcd0f589400340347f89d85a634ac04e000000000000400180a70c17735c0000000000
+PKT Bob minecraft:set_entity_data 65f7030a101cffcd5cabff
+PKT Bob minecraft:level_event 2f000007d20000050000002fc4ffcd5cab00
+PKT Bob minecraft:level_event 2f0000041d0000050000002fc40000000000
+PKT Bob minecraft:remove_entities 4e01f603
+PKT Bob minecraft:set_entity_data 65f7030a101cffcd5cabff
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/0/595 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/0/213 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:lingering_potion*1{minecraft:potion_contents:{potion:"minecraft:regeneration"}}
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:water"}}
+P Dave minecraft:player pos=60.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:strong_healing"}}
+E c1 minecraft:cow pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/0/724
+E c2 minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/6 death=0 fx=minecraft:poison/0/560
+E c3 minecraft:cow pos=20.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/0/214
+E blaze minecraft:blaze pos=40.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E enderman minecraft:enderman pos=42.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=-
+E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=278 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=143 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/3 death=0 fx=-
+E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=2.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.85955226
+EV sound at=38.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.axolotl.idle_air source=neutral vol=1.0 pitch=1.0269434
+EV sound at=42.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.enderman.ambient source=hostile vol=1.0 pitch=0.96909475
+EV sound at=40.5,-60.0,5.0 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0085385
+EV sound at=40.5,-60.0,3.0 r=16.0 ex=0 event=minecraft:entity.blaze.ambient source=hostile vol=1.0 pitch=1.138857
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.9846922
+EV sound at=40.5,-60.0,5.0 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.9855445
+EV sound at=2.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.9980691
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.98616886
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=0.84000003 waiting=0 duration=600 age=41
+# Carol: water bottle
+E c1 minecraft:cow pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/0/718
+E c2 minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/554
+E c3 minecraft:cow pos=20.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/0/208
+E blaze minecraft:blaze pos=40.5,-60.0,3.0 delta=0.008241804917480893,0.0,0.39991508776248214 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=9/19 death=0 fx=-
+E enderman minecraft:enderman pos=72.29056318586045,-60.0,23.840923087720064 delta=0.39517992892359827,0.0,0.06190984206337 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=39.0 abs=0.0 hurt=9/19 death=0 fx=-
+E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=2102 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=7/17 death=0 fx=-
+E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=40.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.splash_potion.throw source=player vol=0.5 pitch=0.422924
+EV sound at=40.5,-60.0,5.0 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.8912482
+EV sound at=40.5,-60.0,3.0 r=16.0 ex=0 event=minecraft:entity.blaze.hurt source=hostile vol=1.0 pitch=1.0712719
+EV sound at=42.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.enderman.hurt source=hostile vol=1.0 pitch=1.006552
+EV level_event r=64.0 ex=0 type=2018 pos=42,-60,2 data=10321812 global=0
+EV sound at=72.29056318586045,-60.0,23.840923087720064 r=16.0 ex=0 event=minecraft:entity.enderman.teleport source=hostile vol=1.0 pitch=1.0
+EV sound at=72.29056318586045,-60.0,23.840923087720064 r=16.0 ex=0 event=minecraft:entity.enderman.teleport source=hostile vol=1.0 pitch=1.0
+EV sound at=40.5,-60.0,5.0 r=16.0 ex=0 event=minecraft:entity.generic.extinguish_fire source=neutral vol=0.7 pitch=1.8264775
+EV level_event r=64.0 ex=0 type=2002 pos=40,-60,2 data=-13083194 global=0
+EV level_event r=64.0 ex=0 type=1053 pos=40,-60,2 data=0 global=0
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/0/589 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/0/207 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:lingering_potion*1{minecraft:potion_contents:{potion:"minecraft:regeneration"}}
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Dave minecraft:player pos=60.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:splash_potion*1{minecraft:potion_contents:{potion:"minecraft:strong_healing"}}
+E c1 minecraft:cow pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/0/714
+E c2 minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/550
+E c3 minecraft:cow pos=20.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/0/204
+E blaze minecraft:blaze pos=40.5,-60.0,3.0 delta=0.008241804917480893,0.0,0.39991508776248214 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/15 death=0 fx=-
+E enderman minecraft:enderman pos=72.29056318586045,-60.0,23.840923087720064 delta=0.39517992892359827,0.0,0.06190984206337 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=39.0 abs=0.0 hurt=5/15 death=0 fx=-
+E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=2118 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=3/13 death=0 fx=-
+E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# Dave: healing potion into a wall
+P Alice minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/0/571 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
+P Bob minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/0/189 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:lingering_potion*1{minecraft:potion_contents:{potion:"minecraft:regeneration"}}
+P Carol minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,45.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Dave minecraft:player pos=60.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:cow pos=0.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/700
+E c2 minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=0/7 death=0 fx=minecraft:poison/0/536
+E c3 minecraft:cow pos=20.5,-60.0,3.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/0/190
+E blaze minecraft:blaze pos=40.5,-60.0,3.0 delta=0.008241804917480893,0.0,0.39991508776248214 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/1 death=0 fx=-
+E enderman minecraft:enderman pos=72.29056318586045,-60.0,23.840923087720064 delta=0.39517992892359827,0.0,0.06190984206337 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=39.0 abs=0.0 hurt=0/1 death=0 fx=-
+E axolotl minecraft:axolotl pos=38.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=2174 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=-
+E burning minecraft:cow pos=40.5,-60.0,5.0 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E d1 minecraft:villager pos=60.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=-
+E area_effect_cloud#1 minecraft:area_effect_cloud pos=20.498197099749895,-60.0,2.18781861731115 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=60.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.splash_potion.throw source=player vol=0.5 pitch=0.36094186
+EV sound at=2.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0961143
+EV level_event r=64.0 ex=0 type=2007 pos=60,-59,3 data=-515037 global=0
+EV level_event r=64.0 ex=0 type=1054 pos=60,-59,3 data=0 global=0
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0

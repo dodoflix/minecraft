@@ -170,6 +170,16 @@ impl Chicken {
         }
     }
 
+    /// `Optional.ofNullable(stack.get(DataComponents.CHICKEN_VARIANT)).ifPresent(this::setVariant)`.
+    pub fn apply_variant_component(&mut self, stack: &ItemStack) {
+        let registries = self.registries.clone();
+        if let Some(Holder::Reference(key)) = stack.get(&CHICKEN_VARIANT)
+            && let Some(id) = id_of(&registries, keys::CHICKEN_VARIANT, key)
+        {
+            self.set_variant(&registries, id as u32);
+        }
+    }
+
     /// `getVariant()` (registry id).
     pub fn get_variant(&self) -> i32 {
         self.mob.living.entity.entity_data.get(DATA_VARIANT_ID)
@@ -425,11 +435,7 @@ impl Entity for Chicken {
 
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
         let registries = self.registries.clone();
-        if let Some(Holder::Reference(key)) = stack.get(&CHICKEN_VARIANT)
-            && let Some(id) = id_of(&registries, keys::CHICKEN_VARIANT, key)
-        {
-            self.set_variant(&registries, id as u32);
-        }
+        self.apply_variant_component(stack);
         if let Some(Holder::Reference(key)) = stack.get(&CHICKEN_SOUND_VARIANT)
             && let Some(id) = id_of(&registries, keys::CHICKEN_SOUND_VARIANT, key)
         {
