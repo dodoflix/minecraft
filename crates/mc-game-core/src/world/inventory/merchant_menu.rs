@@ -9,12 +9,11 @@ use super::{
     AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, Prediction, Slot, SlotBehavior,
     SlotEnv, place_item_back_in_inventory,
 };
-use crate::stats::Stat;
 use crate::stats::stats::Stats;
 use crate::world::container::{Container, helper};
 use crate::world::entity::EntityId;
-use crate::world::item::trading::{ItemCost, MerchantOffers, with_merchant};
-use crate::world::item::{ItemStack, behaviour};
+use crate::world::item::trading::{ItemCost, MerchantOffers, notify_trade, with_merchant};
+use crate::world::item::{ItemStack, on_crafted_by};
 use mc_data::MenuType;
 use std::any::Any;
 use std::cell::Cell;
@@ -150,14 +149,10 @@ struct MerchantResultSlot {
 }
 
 impl MerchantResultSlot {
-    /// `checkTakeAchievements(carried)`: `carried.onCraftedBy(player, removeCount)`.
-    fn check_take_achievements(&self, env: &mut SlotEnv, carried: &ItemStack) {
+    /// `checkTakeAchievements(carried)`: `carried.onCraftedBy(player, removeCount)` on the stack that was taken itself.
+    fn check_take_achievements(&self, env: &mut SlotEnv, carried: &mut ItemStack) {
         let count = self.remove_count.get();
-        let item = carried.item();
-        env.player
-            .with_server_player(&mut |level, p| p.award_stat(&*level, Stat::Crafted(item), count));
-        let mut copy = carried.clone();
-        behaviour(item).on_crafted_by(&mut copy, &mut *env.player);
+        on_crafted_by(carried, &mut *env.player, count);
         self.remove_count.set(0);
     }
 }
@@ -178,7 +173,8 @@ impl SlotBehavior for MerchantResultSlot {
 
     fn on_quick_craft(&self, _slot: &Slot, env: &mut SlotEnv, picked: &ItemStack, count: i32) {
         self.remove_count.set(self.remove_count.get() + count);
-        self.check_take_achievements(env, picked);
+        // `picked` is the `clicked` copy of the quick move, which the caller only compares by item afterwards: a clone is equivalent.
+        self.check_take_achievements(env, &mut picked.clone());
     }
 
     fn may_pickup(&self, _slot: &Slot, env: &mut SlotEnv) -> bool {
@@ -205,15 +201,12 @@ impl SlotBehavior for MerchantResultSlot {
         let taken = with_merchant(&mut *env.player, self.merchant, |level, m| {
             let offer = m.get_offers(level).get(index)?;
             let taken = offer.take(&mut buy_a, &mut buy_b) || offer.take(&mut buy_b, &mut buy_a);
-            let xp = offer.get_xp();
-            if taken {
-                m.notify_trade(level, index);
-            }
-            Some((taken, xp))
+            Some((taken, offer.get_xp()))
         })
         .flatten();
         let Some((taken, xp)) = taken else { return };
         if taken {
+            notify_trade(&mut *env.player, self.merchant, index);
             env.player.with_server_player(&mut |level, p| {
                 p.award_stat_once(&*level, Stats::TRADED_WITH_VILLAGER)
             });

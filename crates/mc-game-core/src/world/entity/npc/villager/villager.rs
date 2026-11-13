@@ -891,7 +891,7 @@ impl Merchant for Villager {
         }
         abstract_villager::reset_ambient_sound_time(self);
         self.reward_trade_xp(level, offer_index);
-        // CriteriaTriggers::TRADE.trigger(tradingPlayer, this, offer.getResult())
+        // the `CriteriaTriggers.TRADE` trigger of `AbstractVillager.notifyTrade` runs in `trading::notify_trade` (it needs the player)
     }
 
     fn notify_trade_updated(&mut self, level: &mut ServerLevel, stack: &ItemStack) {

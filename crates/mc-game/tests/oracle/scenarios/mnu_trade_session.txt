@@ -1,0 +1,109 @@
+# A trading session with villagers whose offers are pinned: the screen packets, selecting an offer fills the payment slots from the
+# inventory, taking the result uses the offer and pays experience, the statistics and the villager_trade advancement, an offer out
+# of stock, payments in swapped order, shift-click, selection hints, a villager that levels up, closing with payments inside, a
+# creative player and a spectator.
+command_env
+level flat
+preload 4
+spawn_player A survival 0.5 -60 6.5 180 0
+spawn_player C creative 6.5 -60 6.5 180 0
+spawn_player S spectator 12.5 -60 6.5 180 0
+spawn V minecraft:villager 0.5 -60 4.5 0 0 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:12,uses:6,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:paper",count:24},sell:{id:"minecraft:emerald",count:1},maxUses:16,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:8},buyB:{id:"minecraft:book",count:1},sell:{id:"minecraft:iron_sword",count:1},maxUses:12,uses:0,xp:2,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:stone",count:1},sell:{id:"minecraft:diamond",count:1},maxUses:4,uses:4,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:arrow",count:16},maxUses:2,uses:0,xp:1,rewardExp:0b,priceMultiplier:0.05f,specialPrice:0,demand:0},{buy:{id:"minecraft:emerald",count:20},sell:{id:"minecraft:diamond",count:2},maxUses:7,uses:1,xp:3,priceMultiplier:0.2f,specialPrice:-5,demand:3}]},NoAI:1b}
+spawn W minecraft:villager 6.5 -60 4.5 0 0 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1},Xp:9,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:2},sell:{id:"minecraft:cookie",count:4},maxUses:9,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b}
+spawn X minecraft:villager 12.5 -60 4.5 0 0 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:1},Xp:0,Offers:{Recipes:[{buy:{id:"minecraft:emerald",count:2},sell:{id:"minecraft:cookie",count:4},maxUses:9,uses:0,xp:1,priceMultiplier:0.05f,specialPrice:0,demand:0}]},NoAI:1b}
+give A hotbar0 minecraft:emerald 40
+give A hotbar1 minecraft:paper 64
+give A hotbar2 minecraft:paper 64
+give A hotbar3 minecraft:book 3
+give A hotbar4 minecraft:stone 70
+give A inv9 minecraft:stick 5
+give A inv10 minecraft:emerald 30
+give C hotbar0 minecraft:emerald 5
+give S hotbar0 minecraft:emerald 5
+entity_seed V 31
+entity_seed W 32
+level_seed 5
+tick 1
+dump packets:A:none packets:C:none packets:S:none
+note the screen: the container packets and the offers with the experience, level and the progress bar
+interact A V main
+dump menu:A packets:A:open_screen,merchant_offers,container_set_content stats:A trader:V offers:V
+note a villager that is being traded with does not open a second screen, a spectator talks to nothing
+interact C V main
+interact S X main
+dump menu:C menu:S packets:C:open_screen,merchant_offers,container_set_content packets:S:open_screen,merchant_offers,container_set_content stats:S
+note selecting the first offer moves two emerald stacks from the inventory into the first payment slot and fills the result
+select_trade A 0
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item events
+note taking the result: uses, experience for the villager and the orb, statistics and the advancement; the next result is ready at once
+click A 2 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item stats:A advancements:A trader:V offers:V entities events
+note a second take adds to the stack in the cursor, then shift-click trades until the offer is out of stock
+click A 2 0 PICKUP
+click A 3 0 PICKUP
+click A 2 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item stats:A trader:V offers:V entities
+note nothing is left to take: the result slot is empty while the offer is out of stock
+click A 2 0 PICKUP
+click A 2 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the paper offer: the emeralds go back into the inventory first, two paper stacks fill the payment slot, one trade takes 24
+select_trade A 1
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 2 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item stats:A offers:V
+click A 4 0 PICKUP
+note half of the cost gives no result, the other half does
+click A 0 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 0 0 PICKUP
+click A 5 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note two payments, then the same payments swapped between the two slots
+select_trade A 2
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 0 0 PICKUP
+click A 1 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 2 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item stats:A trader:V offers:V
+click A 6 0 PICKUP
+note an offer that is out of stock: the payment moves in, there is no result and nothing to take
+select_trade A 3
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 2 0 PICKUP
+click A 2 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item offers:V
+note selecting another offer returns the payment of the first one before it fills the new one
+select_trade A 4
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note both offers want one emerald: the selection hint decides which one is found; the arrows pay no orb
+click A 2 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item stats:A trader:V offers:V entities
+select_trade A 0
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the offer with a price change and demand: the cost is computed; an index that does not exist changes nothing
+select_trade A 5
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+select_trade A 6
+select_trade A -1
+select_trade A 99
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note closing hands the payments back
+close_menu A
+dump menu:A inventory:A packets:A:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item trader:V
+note a select_trade packet without an open trading screen does nothing
+select_trade A 0
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a creative player trades like a survival player, and the trade that reaches the experience for the next level levels the villager up
+interact C W main
+dump menu:C packets:C:open_screen,merchant_offers,container_set_content
+click C 30 0 PICKUP
+click C 0 0 PICKUP
+dump menu:C packets:C:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click C 2 0 QUICK_MOVE
+dump menu:C inventory:C packets:C:container_set_slot,container_set_content,container_set_data,set_cursor_item stats:C advancements:C trader:W offers:W
+close_menu C
+dump menu:C inventory:C packets:C:container_close,container_set_slot,container_set_content,container_set_data,set_cursor_item

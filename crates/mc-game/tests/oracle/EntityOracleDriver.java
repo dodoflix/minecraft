@@ -201,8 +201,8 @@ import net.minecraft.util.RandomSource;
  *                             VanillaLevel.RecordingPlayerList; also valid in `watch`, printed after each tick)
 
  * dump/watch kinds for mobs: mob:REF (rich E line), mobs (all live Mobs, rich), attrs:REF, goals:REF (`G` lines, every registered goal), brain:REF
- *   (`BRAIN`/`BM`/`BR` lines), path:REF (`PATH`/`PN`), nbt:REF (`N REF {canonical sorted SNBT, UUID removed}`), offers:REF, difficulty:X,Y,Z,
- *   light:X,Y,Z, spawn_state (`SPAWNSTATE`), raids.
+ *   (`BRAIN`/`BM`/`BR` lines), path:REF (`PATH`/`PN`), nbt:REF (`N REF {canonical sorted SNBT, UUID removed}`), offers:REF, trader:REF
+ *   (`TRADER REF xp=villagerXp level=villagerLevel|- trading=REF|-`), difficulty:X,Y,Z, light:X,Y,Z, spawn_state (`SPAWNSTATE`), raids.
  * </pre>
  *
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
@@ -1827,6 +1827,11 @@ public final class EntityOracleDriver {
             }
             case "nbt" -> nbtDump(arg, ref(arg));
             case "offers" -> offersDump(arg, ((AbstractVillager)ref(arg)).getOffers());
+            case "trader" -> {
+               var trader = (AbstractVillager)ref(arg);
+               out.println("TRADER " + arg + " xp=" + trader.getVillagerXp() + " level=" + (trader instanceof net.minecraft.world.entity.npc.villager.Villager vil ? String.valueOf(vil.getVillagerData().level()) : "-")
+                  + " trading=" + entName(trader.getTradingPlayer()));
+            }
             case "difficulty" -> localDifficulty(arg);
             case "light" -> lightDump(arg);
             case "spawn_state" -> {

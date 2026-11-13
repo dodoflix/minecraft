@@ -41,7 +41,7 @@ pub use generation::{
     add_offers_from_trade_set, add_offers_from_trade_set_in, generate_offers,
 };
 pub use item_cost::ItemCost;
-pub use merchant::{Merchant, open_trading_screen, with_merchant};
+pub use merchant::{Merchant, notify_trade, open_trading_screen, with_merchant};
 pub use merchant_offer::{MerchantOffer, MerchantOffers};
 pub use trade_cost::TradeCost;
 pub use trade_set::{TradeSet, get_trade, get_trade_set};

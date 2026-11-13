@@ -1195,6 +1195,49 @@ impl Scenario {
                     self.out.push(format!("ADV {name} {id} {criteria}"));
                 }
             }
+            "offers" => {
+                let name = arg.expect("offers:REF");
+                let id = self.entity_id(name);
+                let offers = self
+                    .level()
+                    .with_entity(id, |level, e| {
+                        e.as_merchant_mut()
+                            .expect("merchant")
+                            .get_offers(level)
+                            .clone()
+                    })
+                    .unwrap_or_else(|| panic!("entity {name} is gone"));
+                self.out
+                    .extend(super::super::entity_scenario::offer_lines(name, &offers));
+            }
+            // TRADER REF xp=N level=N|- trading=REF|-
+            "trader" => {
+                let name = arg.expect("trader:REF");
+                let id = self.entity_id(name);
+                let (xp, villager_level, trading) = self
+                    .level()
+                    .with_entity(id, |_, e| {
+                        let m = e.as_merchant().expect("merchant");
+                        (
+                            m.get_villager_xp(),
+                            mc_game::world::entity::npc::villager::villager_ref(e)
+                                .map(|v| v.get_villager_data().level),
+                            m.get_trading_player(),
+                        )
+                    })
+                    .unwrap_or_else(|| panic!("entity {name} is gone"));
+                let trading = trading.map_or("-".to_owned(), |t| {
+                    self.actors
+                        .refs
+                        .iter()
+                        .find(|(_, id)| *id == t)
+                        .map_or("?".to_owned(), |(n, _)| n.clone())
+                });
+                self.out.push(format!(
+                    "TRADER {name} xp={xp} level={} trading={trading}",
+                    villager_level.map_or("-".to_owned(), |l| l.to_string())
+                ));
+            }
             "all_players" => {
                 for name in self.actors.players.clone() {
                     let id = self.entity_id(&name);

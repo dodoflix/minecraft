@@ -57,6 +57,28 @@ pub fn with_merchant<R>(
         .flatten()
 }
 
+/// `Merchant.notifyTrade(offer)` as `AbstractVillager.notifyTrade` runs it: the merchant's own part, then
+/// `CriteriaTriggers.TRADE` for the trading player when that is a `ServerPlayer`. The trigger needs the player entity and the
+/// merchant at once, so it runs here, where the player is at hand, and not inside [`Merchant::notify_trade`].
+pub fn notify_trade(player: &mut dyn MenuPlayer, id: EntityId, offer_index: usize) {
+    let mut ran = false;
+    player.with_server_player(&mut |level, p| {
+        ran = true;
+        level.with_entity(id, |level, e| {
+            let result = {
+                let m = e.as_merchant_mut()?;
+                m.notify_trade(level, offer_index);
+                m.get_offers(level).get(offer_index)?.get_result().clone()
+            };
+            crate::advancements::triggers::CriteriaTriggers::TRADE.trigger(level, p, &*e, &result);
+            Some(())
+        });
+    });
+    if !ran {
+        with_merchant(player, id, |level, m| m.notify_trade(level, offer_index));
+    }
+}
+
 /// `Merchant.openTradingScreen(player, title, level)`.
 pub fn open_trading_screen(
     player: &mut ServerPlayer,

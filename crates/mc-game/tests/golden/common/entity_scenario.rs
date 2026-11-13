@@ -146,6 +146,30 @@ fn jf32(v: f32) -> String {
     mc_core::math::java::java_float_to_string(v)
 }
 
+/// The `OFFERS` / `OFFER` lines of the driver's `offers:REF` dump.
+pub fn offer_lines(
+    name: &str,
+    offers: &mc_game::world::item::trading::MerchantOffers,
+) -> Vec<String> {
+    let mut lines = vec![format!("OFFERS {name} count={}", offers.0.len())];
+    for (i, o) in offers.0.iter().enumerate() {
+        let cost_b = o.get_cost_b();
+        lines.push(format!(
+            "OFFER {name} {i} buyA={} buyB={} sell={} uses={} max={} xp={} mult={} demand={} special={}",
+            item_full(o.get_base_cost_a()),
+            if cost_b.is_empty() { "-".to_string() } else { item_full(&cost_b) },
+            item_full(o.get_result()),
+            o.get_uses(),
+            o.get_max_uses(),
+            o.get_xp(),
+            jf32(o.get_price_multiplier()),
+            o.get_demand(),
+            o.get_special_price_diff()
+        ));
+    }
+    lines
+}
+
 fn jf64(v: f64) -> String {
     format!("{v:?}")
 }
@@ -916,23 +940,7 @@ impl Harness {
                 .get_offers(level)
                 .clone()
         });
-        self.out
-            .push(format!("OFFERS {name} count={}", offers.0.len()));
-        for (i, o) in offers.0.iter().enumerate() {
-            let cost_b = o.get_cost_b();
-            self.out.push(format!(
-                "OFFER {name} {i} buyA={} buyB={} sell={} uses={} max={} xp={} mult={} demand={} special={}",
-                item_full(o.get_base_cost_a()),
-                if cost_b.is_empty() { "-".to_string() } else { item_full(&cost_b) },
-                item_full(o.get_result()),
-                o.get_uses(),
-                o.get_max_uses(),
-                o.get_xp(),
-                jf32(o.get_price_multiplier()),
-                o.get_demand(),
-                o.get_special_price_diff()
-            ));
-        }
+        self.out.extend(offer_lines(name, &offers));
     }
 
     fn spawn_player(&mut self, a: &[String]) {
