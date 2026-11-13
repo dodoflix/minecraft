@@ -132,6 +132,11 @@ pub trait Projectile: Entity {
         false
     }
 
+    /// The refusal in a subclass's `deflect` override (`WindCharge.noDeflectTicks`): `deflect` returns `false` untouched.
+    fn refuses_deflection(&self) -> bool {
+        false
+    }
+
     /// `onDeflection(byAttack)`.
     fn on_deflection(&mut self, _level: &mut ServerLevel, _by_attack: bool) {}
 
@@ -313,7 +318,7 @@ macro_rules! impl_projectile_entity {
     (hurting) => {
         $crate::impl_projectile_entity!(@base);
         fn snapshot_for_damage(&self) -> Option<Box<dyn $crate::world::entity::Entity>> {
-            $crate::world::entity::projectile::snapshot_for_damage(self, Box::new(Self::new(self.get_type(), self.id())))
+            $crate::world::entity::projectile::snapshot_for_damage(self, || Box::new(Self::new(self.get_type(), self.id())))
         }
         fn hurting_projectile_power(&self) -> Option<f64> {
             Some($crate::world::entity::projectile::hurting::AbstractHurtingProjectile::hurting_data(self).acceleration_power)
@@ -390,12 +395,14 @@ macro_rules! impl_projectile_entity {
     };
 }
 
-/// `Entity::snapshot_for_damage` of an arrow or hurting projectile: `copy` (a fresh projectile of the same type) takes over the saved state and the
-/// synched data, so predicates can read the projectile that hit while it is the running, taken-out entity.
+/// `Entity::snapshot_for_damage` of an arrow or hurting projectile: `new_copy` (a fresh projectile of the same type) takes over the saved
+/// state and the synched data, so predicates can read the projectile that hit while it is the running, taken-out entity. Vanilla creates
+/// no such copy, so building it does not advance the oracle's entity seed sequence.
 pub fn snapshot_for_damage(
     arrow: &dyn Entity,
-    mut copy: Box<dyn Entity>,
+    new_copy: impl FnOnce() -> Box<dyn Entity>,
 ) -> Option<Box<dyn Entity>> {
+    let mut copy = mc_core::random::without_advancing_oracle_uniquifier(new_copy);
     let mut tag = mc_nbt::CompoundTag::new();
     arrow.save_without_id(&mut tag, &|_| None);
     copy.load(&tag).ok()?;
@@ -575,6 +582,9 @@ pub fn deflect_by(
     by_attack: bool,
     power: Vec3,
 ) -> bool {
+    if projectile.refuses_deflection() {
+        return false;
+    }
     deflection.deflect(projectile, deflector.as_ref(), power);
     projectile.set_owner_uuid(new_owner);
     projectile.on_deflection(level, by_attack);

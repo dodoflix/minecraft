@@ -5,9 +5,7 @@ use super::{AbstractHurtingProjectile, HurtingProjectileData};
 use crate::server::level::ServerLevel;
 use crate::server::level::level_explode::Explode;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::projectile::{
-    EntityHitResult, HitResult, Projectile, ProjectileData, ProjectileDeflection,
-};
+use crate::world::entity::projectile::{EntityHitResult, HitResult, Projectile, ProjectileData};
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::level::BlockGetter as _;
@@ -20,7 +18,6 @@ use mc_data::{EntityType, ParticleType, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::{ParticleOptions, SoundEventHolder, WeightedList};
 use std::any::Any;
-use uuid::Uuid;
 
 pub const JUMP_SCALE: f64 = 0.25;
 const DEFAULT_NO_DEFLECT_TICKS: i32 = 5;
@@ -339,28 +336,8 @@ impl WindCharge {
 
 impl Projectile for WindCharge {
     wind_charge_projectile!();
-    fn deflect(
-        &mut self,
-        level: &mut ServerLevel,
-        deflection: ProjectileDeflection,
-        deflecting_entity: Option<EntityId>,
-        new_owner: Option<Uuid>,
-        by_attack: bool,
-        power: Vec3,
-    ) -> bool {
-        if self.no_deflect_ticks > 0 {
-            false
-        } else {
-            crate::world::entity::projectile::deflect_base(
-                self,
-                level,
-                deflection,
-                deflecting_entity,
-                new_owner,
-                by_attack,
-                power,
-            )
-        }
+    fn refuses_deflection(&self) -> bool {
+        self.no_deflect_ticks > 0
     }
 }
 

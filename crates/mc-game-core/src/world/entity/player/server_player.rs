@@ -387,6 +387,14 @@ impl Entity for ServerPlayer {
     fn is_player(&self) -> bool {
         true
     }
+    /// `Player.setRemainingFireTicks(remainingTicks)`: an invulnerable player never burns for more than a tick.
+    fn set_remaining_fire_ticks(&mut self, remaining_ticks: i32) {
+        self.player.living.entity.remaining_fire_ticks = if self.player.abilities.invulnerable {
+            remaining_ticks.min(1)
+        } else {
+            remaining_ticks
+        };
+    }
     /// `ServerPlayer.pushEntities()`: only while the tick rate manager runs normally.
     fn push_entities(&mut self, level: &mut crate::server::level::ServerLevel) {
         if level.tick_state.runs_normally {
