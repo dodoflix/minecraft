@@ -5,11 +5,13 @@ use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::level::{BlockGetter, LevelReader};
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
+use mc_core::math::java::java_double_to_string;
 use mc_core::math::mth;
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
@@ -404,7 +406,7 @@ impl Entity for ShulkerBullet {
             );
         }
         if let Some(dir) = self.current_move_direction {
-            out.put_int("Dir", dir.get_3d_data_value() as i32);
+            out.put_byte("Dir", dir.get_3d_data_value() as i8);
         }
         out.put_int("Steps", self.flight_steps);
         out.put_double("TXD", self.target_delta_x);
@@ -421,7 +423,7 @@ impl Entity for ShulkerBullet {
         self.current_move_direction = input
             .get("Dir")
             .and_then(|t| t.as_number())
-            .map(|n| Direction::from_3d_data_value(n.int_value()));
+            .map(|n| Direction::from_3d_data_value(i32::from(n.boxed_byte_value())));
         self.final_target = entity::read_uuid(input.get("Target"));
     }
 }
@@ -430,4 +432,28 @@ impl Entity for ShulkerBullet {
 static SHULKER_BULLET_FACTORY: EntityRegistration = EntityRegistration {
     entity_type: EntityType::SHULKER_BULLET,
     create: |ty, id, _registries| Box::new(ShulkerBullet::new(ty, id)),
+};
+
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static SHULKER_BULLET_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_any().is::<ShulkerBullet>(),
+    fields: |e, _level, ctx| {
+        let b = e
+            .as_any()
+            .downcast_ref::<ShulkerBullet>()
+            .expect("shulker bullet");
+        vec![
+            ("steps".into(), b.flight_steps.to_string()),
+            (
+                "dir".into(),
+                b.current_move_direction
+                    .map_or_else(|| "-".to_string(), |d| d.get_name().to_string()),
+            ),
+            ("txd".into(), java_double_to_string(b.target_delta_x)),
+            ("tyd".into(), java_double_to_string(b.target_delta_y)),
+            ("tzd".into(), java_double_to_string(b.target_delta_z)),
+            ("target".into(), ctx.name_uuid(b.final_target)),
+        ]
+    },
 };

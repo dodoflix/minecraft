@@ -10,6 +10,7 @@ use crate::world::entity::entity::{TOTAL_AIR_SUPPLY, calculate_view_vector};
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::inside_block_effects::NoopApplier;
 use crate::world::entity::movement::collision_context;
+use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use crate::world::entity::{Entity, EntityData, EntityId, MoverType};
 use crate::world::item::{ItemStack, load_item_stack};
 use crate::world::level::BlockGetter;
@@ -64,7 +65,7 @@ impl FireworkRocketEntity {
         r.set_pos(x, y, z);
         r.base
             .entity_data
-            .set(DATA_ID_FIREWORKS_ITEM, source_item_stack.copy());
+            .set_force(DATA_ID_FIREWORKS_ITEM, source_item_stack.copy(), true);
         let mut flight_count = 1;
         if let Some(fireworks) = source_item_stack.get(&FIREWORKS) {
             flight_count += fireworks.flight_duration;
@@ -421,7 +422,9 @@ impl Entity for FireworkRocketEntity {
             .get_compound("FireworksItem")
             .and_then(load_item_stack)
             .unwrap_or_else(|| ItemStack::new(Item::FIREWORK_ROCKET));
-        self.base.entity_data.set(DATA_ID_FIREWORKS_ITEM, item);
+        self.base
+            .entity_data
+            .set_force(DATA_ID_FIREWORKS_ITEM, item, true);
         self.base.entity_data.set(
             DATA_SHOT_AT_ANGLE,
             input.get_boolean_or("ShotAtAngle", false),
@@ -433,4 +436,22 @@ impl Entity for FireworkRocketEntity {
 static FIREWORK_ROCKET_FACTORY: EntityRegistration = EntityRegistration {
     entity_type: EntityType::FIREWORK_ROCKET,
     create: |ty, id, _| Box::new(FireworkRocketEntity::new(ty, id)),
+};
+
+#[distributed_slice(SCENARIO_DUMP_EXTRA)]
+static FIREWORK_ROCKET_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
+    order: 30,
+    applies: |e| e.as_any().is::<FireworkRocketEntity>(),
+    fields: |e, _level, ctx| {
+        let r = e
+            .as_any()
+            .downcast_ref::<FireworkRocketEntity>()
+            .expect("firework rocket");
+        vec![
+            ("life".into(), r.life.to_string()),
+            ("lifetime".into(), r.lifetime.to_string()),
+            ("attached".into(), ctx.name_opt(r.attached_to_entity)),
+            ("angle".into(), u8::from(r.is_shot_at_angle()).to_string()),
+        ]
+    },
 };
