@@ -189,7 +189,7 @@ struct DataItem {
     value: EntityDataValue,
     initial_value: EntityDataValue,
     dirty: bool,
-    /// Set by a forced `set` of an `ItemStack`: vanilla compares stacks by identity, so the new object is never the
+    /// Set by a `set` of a non-empty `ItemStack`: vanilla compares stacks by identity, so the new object is never the
     /// default one even when both stacks are equal.
     replaced_object: bool,
 }
@@ -271,11 +271,13 @@ impl SynchedEntityData {
         }
     }
 
-    /// `set(accessor, value)`; returns whether the value was changed (marked dirty).
+    /// `set(accessor, value)`; returns whether the value was changed (marked dirty). `ItemStack` has no `equals`, so
+    /// vanilla's `ObjectUtils.notEqual` sees every new stack object as a change; only the shared empty stack equals itself.
     pub fn set<S: Serializer>(&mut self, accessor: EntityDataAccessor<S>, value: S::Value) -> bool {
         self.set_force(accessor, value, false)
     }
 
+    /// `set(accessor, value, force)`.
     pub fn set_force<S: Serializer>(
         &mut self,
         accessor: EntityDataAccessor<S>,
@@ -284,11 +286,11 @@ impl SynchedEntityData {
     ) -> bool {
         let item = &mut self.items[accessor.id as usize];
         let value = S::wrap(value);
-        if force_dirty || !same_value(&value, &item.value) {
+        let new_stack_object = matches!(&value, EntityDataValue::ItemStack(s) if !s.is_empty());
+        if force_dirty || new_stack_object || !same_value(&value, &item.value) {
             item.value = value;
             item.dirty = true;
-            item.replaced_object |=
-                force_dirty && matches!(item.value, EntityDataValue::ItemStack(_));
+            item.replaced_object = new_stack_object;
             self.is_dirty = true;
             true
         } else {

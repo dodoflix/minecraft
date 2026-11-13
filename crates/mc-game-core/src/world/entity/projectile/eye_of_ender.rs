@@ -56,14 +56,14 @@ impl EyeOfEnder {
         eye
     }
 
-    /// `setItem(source)`: a new stack object each time, so the synched value is always sent.
+    /// `setItem(source)`.
     pub fn set_item(&mut self, source: &ItemStack) {
         let item = if source.is_empty() {
             ItemStack::new(Item::ENDER_EYE)
         } else {
             source.copy_with_count(1)
         };
-        self.base.entity_data.set_force(DATA_ITEM_STACK, item, true);
+        self.base.entity_data.set(DATA_ITEM_STACK, item);
     }
 
     /// `getItem()`.

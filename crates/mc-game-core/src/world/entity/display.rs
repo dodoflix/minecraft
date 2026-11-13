@@ -212,14 +212,7 @@ impl Display {
 
     /// `ItemDisplay.setItemStack(item)` (what `SlotAccess` of slot 0 writes).
     pub fn set_item_stack(&mut self, stack: ItemStack) {
-        // a stack is a new object each time and `ItemStack` has no `equals`: every write of a stack counts as a change (the
-        // empty stack is one shared object)
-        let changed = !stack.is_empty();
-        if self
-            .base
-            .entity_data
-            .set_force(DATA_ITEM_STACK_ID, stack, changed)
-        {
+        if self.base.entity_data.set(DATA_ITEM_STACK_ID, stack) {
             self.on_synced_data_updated(DATA_ITEM_STACK_ID.id());
         }
     }

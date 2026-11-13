@@ -220,12 +220,7 @@ impl ItemFrame {
             stack.copy_with_count(1)
         };
         self.recalculate_bounding_box(); // `onItemChanged(itemStack)`
-        // a non-empty stack is a fresh copy: vanilla compares stacks by identity, so storing it always marks the data dirty
-        if self
-            .base
-            .entity_data
-            .set_force(DATA_ITEM, stored.clone(), !stored.is_empty())
-        {
+        if self.base.entity_data.set(DATA_ITEM, stored.clone()) {
             self.on_synced_data_updated(DATA_ITEM.id());
         }
         stored

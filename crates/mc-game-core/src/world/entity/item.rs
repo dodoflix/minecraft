@@ -99,10 +99,9 @@ impl ItemEntity {
         self.base.entity_data.get(DATA_ITEM)
     }
 
-    /// `setItem(stack)`: vanilla stores the caller's object, which never equals the previous one, so this always
-    /// marks the data dirty.
+    /// `setItem(stack)`.
     pub fn set_item(&mut self, stack: ItemStack) {
-        self.base.entity_data.set_force(DATA_ITEM, stack, true);
+        self.base.entity_data.set(DATA_ITEM, stack);
     }
 
     /// Vanilla mutates the stored stack object in place (`merge`'s `fromStack.shrink`, `Inventory.add`): the new

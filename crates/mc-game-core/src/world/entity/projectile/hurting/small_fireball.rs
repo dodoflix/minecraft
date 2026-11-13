@@ -58,7 +58,7 @@ impl SmallFireball {
         // a new stack object: vanilla's identity comparison always sees a change
         self.base
             .entity_data
-            .set_force(DATA_ITEM_STACK, fireball::item_to_store(source), true);
+            .set(DATA_ITEM_STACK, fireball::item_to_store(source));
     }
 
     /// `getItem()`.

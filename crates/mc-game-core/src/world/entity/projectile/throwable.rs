@@ -153,7 +153,7 @@ pub fn position_at_owner(p: &mut dyn Entity, owner: &dyn Entity) {
 pub fn set_item(base: &mut EntityData, source: &ItemStack) {
     // a new stack object: vanilla's identity comparison always sees a change
     base.entity_data
-        .set_force(DATA_ITEM_STACK, source.copy_with_count(1), true);
+        .set(DATA_ITEM_STACK, source.copy_with_count(1));
 }
 
 /// `ThrowableItemProjectile.getItem()`.
