@@ -1,4 +1,4 @@
-//! Menu verbs of the scenario DSL: `click`, `creative_slot`, `pick_entity`, `rename`, `select_trade`, `set_beacon`, `slot_state`, `place_recipe`,
+//! Menu verbs of the scenario DSL: `click`, `button`, `creative_slot`, `pick_entity`, `rename`, `select_trade`, `set_beacon`, `slot_state`, `place_recipe`,
 //! `recipe_seen`, `recipe_settings` and the dump kinds `menu:REF`, `recipes:REF` (the grammar of the Java driver's `MenuVerbs.java`, which lists
 //! every verb and option).
 //!
@@ -17,11 +17,12 @@ use mc_game::world::item::ItemStack;
 use mc_protocol::components::HashedStack;
 use mc_protocol::components::hashed::component_hash;
 use mc_protocol::packets::play::{
-    ContainerInput, RecipeBookType, ServerboundContainerClickPacket,
-    ServerboundContainerSlotStateChangedPacket, ServerboundPickItemFromEntityPacket,
-    ServerboundPlaceRecipePacket, ServerboundPlayPacket, ServerboundRecipeBookChangeSettingsPacket,
-    ServerboundRecipeBookSeenRecipePacket, ServerboundRenameItemPacket,
-    ServerboundSelectTradePacket, ServerboundSetBeaconPacket, ServerboundSetCreativeModeSlotPacket,
+    ContainerInput, RecipeBookType, ServerboundContainerButtonClickPacket,
+    ServerboundContainerClickPacket, ServerboundContainerSlotStateChangedPacket,
+    ServerboundPickItemFromEntityPacket, ServerboundPlaceRecipePacket, ServerboundPlayPacket,
+    ServerboundRecipeBookChangeSettingsPacket, ServerboundRecipeBookSeenRecipePacket,
+    ServerboundRenameItemPacket, ServerboundSelectTradePacket, ServerboundSetBeaconPacket,
+    ServerboundSetCreativeModeSlotPacket,
 };
 
 /// `ITEM[components][*COUNT]`, `-` = empty.
@@ -159,6 +160,15 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
     use ServerboundPlayPacket as P;
     match a[0].as_str() {
         "click" => deliver(h, &a[1], |_, p| click(p, a)),
+        "button" => deliver(h, &a[1], |_, p| {
+            P::ContainerButtonClick(ServerboundContainerButtonClickPacket {
+                container_id: option(a, 3, "cid")
+                    .map_or(p.player.menus.current_container_id(), |c| {
+                        c.parse().expect("cid")
+                    }),
+                button_id: a[2].parse().expect("button id"),
+            })
+        }),
         "creative_slot" => deliver(h, &a[1], |_, _| {
             let mut stack = stack(&a[3]);
             if let Some(count) = a.get(4).filter(|_| !stack.is_empty()) {

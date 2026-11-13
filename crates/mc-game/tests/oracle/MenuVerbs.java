@@ -31,6 +31,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayId;
  *                             ServerboundContainerClickPacket for the open menu (INPUT = ContainerInput name). Defaults: `cid` the open menu's container id,
  *                             `state` its state id (`stale` = the previous one), `changed` none, `carried` the stack on the menu's cursor before the click
  *                             (what the client believes). A click that throws a ReportedException is logged to stderr and the script goes on. STACK = ITEM[components][*COUNT] (`-` = empty); a wrong hash makes the server resend the slot.
+ * button PLAYER ID [cid=N]   ServerboundContainerButtonClickPacket for the open menu (or container id N)
  * creative_slot PLAYER SLOT STACK [count]   ServerboundSetCreativeModeSlotPacket (a negative SLOT drops the stack)
  * pick_entity PLAYER REF [data]   ServerboundPickItemFromEntityPacket (`data` = include the profile print)
  * rename PLAYER TEXT          ServerboundRenameItemPacket                     select_trade PLAYER N   ServerboundSelectTradePacket (= trade_select)
@@ -51,6 +52,12 @@ final class MenuVerbs {
    static boolean run(EntityOracleDriver d, List<String> a) throws Exception {
       switch (a.get(0)) {
          case "click" -> click(d, a);
+         case "button" -> {
+            d.world();
+            ServerPlayer p = d.player(a.get(1));
+            int cid = d.kv(a, 3).containsKey("cid") ? Integer.parseInt(d.kv(a, 3).get("cid")) : p.containerMenu.containerId;
+            p.connection.handleContainerButtonClick(new ServerboundContainerButtonClickPacket(cid, Integer.parseInt(a.get(2))));
+         }
          case "creative_slot" -> {
             d.world();
             ServerPlayer p = d.player(a.get(1));

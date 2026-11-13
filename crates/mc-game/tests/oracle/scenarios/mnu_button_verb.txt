@@ -1,0 +1,30 @@
+# The menu button packet through the listener: a button for the open menu (enchanting table offers), a button for another container id
+# is ignored, a button that the menu rejects (no lapis) changes nothing.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+block 3 -60 4 minecraft:enchanting_table
+set A xp_level 30
+set A enchant_seed 4242
+entity_seed A 77
+give A hotbar0 minecraft:diamond_sword
+give A hotbar1 minecraft:lapis_lazuli 10
+tick 2
+dump packets:A:none
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+click A 30 0 PICKUP
+click A 1 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a button for a container that is not open is ignored
+button A 0 cid=9
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the first offer
+button A 0
+dump menu:A inventory:A stats:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note an unknown button id does nothing
+button A 7
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item

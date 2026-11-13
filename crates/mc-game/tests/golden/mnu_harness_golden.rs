@@ -63,3 +63,8 @@ fn picking_an_entity_selects_or_adds_its_pick_result_and_prints_avatar_profiles(
 fn the_loom_opens_takes_its_result_and_returns_its_inputs() {
     common::block_scenario::check("mnu_open_loom");
 }
+
+#[test]
+fn button_packets_reach_the_open_menu_only() {
+    common::block_scenario::check("mnu_button_verb");
+}

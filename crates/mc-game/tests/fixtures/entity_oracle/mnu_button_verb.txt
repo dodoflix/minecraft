@@ -1,0 +1,108 @@
+MENU A cid=1 type=minecraft:enchantment state=1 carried=empty
+MS 29 minecraft:diamond_sword*1
+MS 30 minecraft:lapis_lazuli*10
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 4242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+PKT A minecraft:open_screen 3c010d0a0800097472616e736c6174650011636f6e7461696e65722e656e6368616e7400
+PKT A minecraft:container_set_content 120101260000000000000000000000000000000000000000000000000000000000019a0800000af60700000000000000000000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100010000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 130100031092
+PKT A minecraft:container_set_data 13010004ffff
+PKT A minecraft:container_set_data 13010005ffff
+PKT A minecraft:container_set_data 13010006ffff
+PKT A minecraft:container_set_data 13010007ffff
+PKT A minecraft:container_set_data 13010008ffff
+PKT A minecraft:container_set_data 13010009ffff
+MENU A cid=1 type=minecraft:enchantment state=5 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*10
+MD 0 1
+MD 1 0
+MD 2 4
+MD 3 4242
+MD 4 35
+MD 5 -1
+MD 6 40
+MD 7 1
+MD 8 -1
+MD 9 1
+PKT A minecraft:container_set_slot 140102001d00
+PKT A minecraft:set_cursor_item 62019a080000
+PKT A minecraft:container_set_slot 1401030000019a080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130100000001
+PKT A minecraft:container_set_data 130100020004
+PKT A minecraft:container_set_data 130100040023
+PKT A minecraft:container_set_data 130100060028
+PKT A minecraft:container_set_data 130100070001
+PKT A minecraft:container_set_data 130100090001
+PKT A minecraft:container_set_slot 140104001e00
+PKT A minecraft:set_cursor_item 620af6070000
+PKT A minecraft:container_set_slot 14010500010af6070000
+PKT A minecraft:set_cursor_item 6200
+# a button for a container that is not open is ignored
+MENU A cid=1 type=minecraft:enchantment state=5 carried=empty
+MS 0 minecraft:diamond_sword*1
+MS 1 minecraft:lapis_lazuli*10
+MD 0 1
+MD 1 0
+MD 2 4
+MD 3 4242
+MD 4 35
+MD 5 -1
+MD 6 40
+MD 7 1
+MD 8 -1
+MD 9 1
+# the first offer
+MENU A cid=1 type=minecraft:enchantment state=7 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:smite:1}}
+MS 1 minecraft:lapis_lazuli*9
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
+STAT A minecraft.custom:minecraft.enchant_item 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+PKT A minecraft:container_set_slot 1401060000019a0801000d012301
+PKT A minecraft:container_set_slot 140107000109f6070000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_data 130100020000
+PKT A minecraft:container_set_data 13010003a71e
+PKT A minecraft:container_set_data 13010004ffff
+PKT A minecraft:container_set_data 13010006ffff
+PKT A minecraft:container_set_data 13010007ffff
+PKT A minecraft:container_set_data 13010009ffff
+# an unknown button id does nothing
+MENU A cid=1 type=minecraft:enchantment state=7 carried=empty
+MS 0 minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:smite:1}}
+MS 1 minecraft:lapis_lazuli*9
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 -1185110242
+MD 4 -1
+MD 5 -1
+MD 6 -1
+MD 7 -1
+MD 8 -1
+MD 9 -1
