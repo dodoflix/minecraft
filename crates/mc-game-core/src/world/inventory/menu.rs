@@ -270,10 +270,20 @@ impl MenuBase {
         self.suppress_remote_updates = false;
     }
 
-    /// `addSlotListener` without the initial `broadcastChanges` (the trait method `add_slot_listener` runs it).
-    pub(crate) fn push_slot_listener(&mut self, listener: Box<dyn ContainerListener>) {
-        // Vanilla de-duplicates by identity; a listener is only ever attached once per menu by the owner.
+    /// `addSlotListener` without the initial `broadcastChanges` (the trait method `add_slot_listener` runs it):
+    /// false when the listener is already attached.
+    pub(crate) fn push_slot_listener(&mut self, listener: Box<dyn ContainerListener>) -> bool {
+        let identity = listener.identity();
+        if identity.is_some()
+            && self
+                .container_listeners
+                .iter()
+                .any(|l| l.identity() == identity)
+        {
+            return false;
+        }
         self.container_listeners.push(listener);
+        true
     }
 
     pub fn set_synchronizer(
@@ -588,8 +598,9 @@ pub trait AbstractContainerMenu: Any {
         listener: Box<dyn ContainerListener>,
         player: &mut dyn MenuPlayer,
     ) {
-        self.base_mut().push_slot_listener(listener);
-        self.broadcast_changes(player);
+        if self.base_mut().push_slot_listener(listener) {
+            self.broadcast_changes(player);
+        }
     }
 
     /// `broadcastChanges()`.
@@ -1015,11 +1026,10 @@ pub trait AbstractContainerMenu: Any {
             }
         } else if input == ContainerInput::PickupAll && slot_index >= 0 {
             let idx = slot_checked(slot_index)?;
-            let mut carried = self.base().carried.clone();
             let blocked = self
                 .base_mut()
                 .with_slot(player, idx, |s, e| !s.has_item(e) || !s.may_pickup(e));
-            if !carried.is_empty() && blocked {
+            if !self.base().carried.is_empty() && blocked {
                 let n = self.base().slots.len() as i64;
                 let (start, step) = if button_num == 0 {
                     (0i64, 1i64)
@@ -1028,7 +1038,13 @@ pub trait AbstractContainerMenu: Any {
                 };
                 for pass in 0..2 {
                     let mut i = start;
-                    while i >= 0 && i < n && carried.count() < carried.get_max_stack_size() {
+                    // vanilla grows the very stack `getCarried()` returns: what the loop and the broadcasts of
+                    // `slotsChanged` see is the carried stack as grown so far
+                    while i >= 0
+                        && i < n
+                        && self.base().carried.count() < self.base().carried.get_max_stack_size()
+                    {
+                        let carried = self.base().carried.clone();
                         let may_take = self
                             .can_take_item_for_pick_all(&carried, &self.base().slots[i as usize]);
                         let base = self.base_mut();
@@ -1052,13 +1068,13 @@ pub trait AbstractContainerMenu: Any {
                             None
                         });
                         if let Some(removed) = removed {
-                            carried.grow(removed.count());
+                            // the container's `slotsChanged` ran inside `safeTake`, before the stack grew
                             self.flush_container_events(player);
+                            self.base_mut().get_carried_mut().grow(removed.count());
                         }
                         i += step;
                     }
                 }
-                self.base_mut().set_carried(carried);
             }
         }
         Ok(())

@@ -155,6 +155,10 @@ pub struct ServerPlayerMenuInit {
 
 struct NoopListener;
 impl ContainerListener for NoopListener {
+    /// `ServerPlayer.containerListener`: the player's one listener object, attached at most once per menu.
+    fn identity(&self) -> Option<usize> {
+        Some(0)
+    }
     /// `ServerPlayer.containerListener.slotChanged` (INVENTORY_CHANGED) runs in `AbstractContainerMenu::dispatch_slot_events`.
     fn slot_changed(&mut self, _slot: &Slot, _slot_index: usize, _stack: &ItemStack) {}
 }

@@ -111,6 +111,11 @@ pub trait ContainerSynchronizer {
 
 /// `ContainerListener`.
 pub trait ContainerListener {
+    /// Which Java object this listener stands for: `addSlotListener` ignores a listener that is already attached
+    /// (`containerListeners.contains` compares references). `None` is a listener that is never the same as another.
+    fn identity(&self) -> Option<usize> {
+        None
+    }
     fn slot_changed(&mut self, slot: &Slot, slot_index: usize, stack: &ItemStack);
     fn data_changed(&mut self, _id: usize, _value: i32) {}
 }
