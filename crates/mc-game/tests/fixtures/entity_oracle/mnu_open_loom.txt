@@ -52,8 +52,48 @@ MS 3 minecraft:red_banner*1{minecraft:banner_patterns:[{color:"white",pattern:"m
 MD 0 0
 PKT A minecraft:container_set_slot 140109002200
 PKT A minecraft:set_cursor_item 6201a4080000
+# without the pattern item a button picks one of the patterns that need none; ids outside the list are refused
+MENU A cid=1 type=minecraft:loom state=14 carried=empty
+MS 0 minecraft:red_banner*3
+MS 1 minecraft:white_dye*2
+MS 3 minecraft:red_banner*1{minecraft:banner_patterns:[{color:"white",pattern:"minecraft:stripe_top"}]}
+MS 34 minecraft:stick*1
+MS 36 minecraft:creeper_banner_pattern*1
+MD 0 5
+PKT A minecraft:container_set_slot 14010a002201a4080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14010b000200
+PKT A minecraft:container_set_slot 14010c000300
+PKT A minecraft:set_cursor_item 6201d70b0000
+PKT A minecraft:container_set_data 13010000ffff
+PKT A minecraft:container_set_slot 14010d002401d70b0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14010e000301970b01004a012700
+PKT A minecraft:container_set_data 130100000005
+MENU A cid=1 type=minecraft:loom state=15 carried=empty
+MS 0 minecraft:red_banner*3
+MS 1 minecraft:white_dye*2
+MS 3 minecraft:red_banner*1{minecraft:banner_patterns:[{color:"white",pattern:"minecraft:gradient_up"}]}
+MS 34 minecraft:stick*1
+MS 36 minecraft:creeper_banner_pattern*1
+MD 0 31
+PKT A minecraft:container_set_slot 14010f000301970b01004a011000
+PKT A minecraft:container_set_data 13010000001f
+MENU A cid=1 type=minecraft:loom state=18 carried=empty
+MS 0 minecraft:red_banner*3
+MS 1 minecraft:white_dye*2
+MS 2 minecraft:creeper_banner_pattern*1
+MS 3 minecraft:red_banner*1{minecraft:banner_patterns:[{color:"white",pattern:"minecraft:creeper"}]}
+MS 34 minecraft:stick*1
+MD 0 0
+PKT A minecraft:container_set_slot 140110002400
+PKT A minecraft:set_cursor_item 6201d70b0000
+PKT A minecraft:container_set_slot 140111000201d70b0000
+PKT A minecraft:container_set_slot 140112000301970b01004a010500
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 130100000000
 # taking the result uses one banner and one dye, the sound plays
-MENU A cid=1 type=minecraft:loom state=12 carried=minecraft:red_banner*1{minecraft:banner_patterns:[{color:"white",pattern:"minecraft:creeper"}]}
+MENU A cid=1 type=minecraft:loom state=20 carried=minecraft:red_banner*1{minecraft:banner_patterns:[{color:"white",pattern:"minecraft:creeper"}]}
 MS 0 minecraft:red_banner*2
 MS 1 minecraft:white_dye*1
 MS 2 minecraft:creeper_banner_pattern*1
@@ -61,33 +101,31 @@ MS 3 minecraft:red_banner*1{minecraft:banner_patterns:[{color:"white",pattern:"m
 MS 34 minecraft:stick*1
 MD 0 0
 EV sound at=3.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:ui.loom.take_result source=block vol=1.0 pitch=1.0
-PKT A minecraft:container_set_slot 14010a002201a4080000
-PKT A minecraft:set_cursor_item 6200
-PKT A minecraft:container_set_slot 14010b000002970b0000
-PKT A minecraft:container_set_slot 14010c000101af090000
+PKT A minecraft:container_set_slot 140113000002970b0000
+PKT A minecraft:container_set_slot 140114000101af090000
 PKT A minecraft:set_cursor_item 6201970b01004a010500
 # shift-click: the result goes to the inventory, a banner back to its slot
-MENU A cid=1 type=minecraft:loom state=17 carried=empty
+MENU A cid=1 type=minecraft:loom state=25 carried=empty
 MS 0 minecraft:red_banner*1
 MS 2 minecraft:creeper_banner_pattern*1
 MS 34 minecraft:stick*1
 MS 35 minecraft:red_banner*2{minecraft:banner_patterns:[{color:"white",pattern:"minecraft:creeper"}]}
 MD 0 -1
-PKT A minecraft:container_set_slot 14010d002301970b01004a010500
+PKT A minecraft:container_set_slot 140115002301970b01004a010500
 PKT A minecraft:set_cursor_item 6200
-PKT A minecraft:container_set_slot 14010e000001970b0000
-PKT A minecraft:container_set_slot 14010f000100
-PKT A minecraft:container_set_slot 140110000300
-PKT A minecraft:container_set_slot 140111002302970b01004a010500
+PKT A minecraft:container_set_slot 140116000001970b0000
+PKT A minecraft:container_set_slot 140117000100
+PKT A minecraft:container_set_slot 140118000300
+PKT A minecraft:container_set_slot 140119002302970b01004a010500
 PKT A minecraft:container_set_data 13010000ffff
-MENU A cid=1 type=minecraft:loom state=19 carried=empty
+MENU A cid=1 type=minecraft:loom state=27 carried=empty
 MS 2 minecraft:creeper_banner_pattern*1
 MS 4 minecraft:red_banner*1
 MS 34 minecraft:stick*1
 MS 35 minecraft:red_banner*2{minecraft:banner_patterns:[{color:"white",pattern:"minecraft:creeper"}]}
 MD 0 -1
-PKT A minecraft:container_set_slot 140112000000
-PKT A minecraft:container_set_slot 140113000401970b0000
+PKT A minecraft:container_set_slot 14011a000000
+PKT A minecraft:container_set_slot 14011b000401970b0000
 # closing returns the three input slots
 MENU A cid=0 type=inventory state=1 carried=empty
 MS 9 minecraft:red_banner*1

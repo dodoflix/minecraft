@@ -33,6 +33,18 @@ click A 34 0 PICKUP
 click A 2 0 PICKUP
 dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
 click A 34 0 PICKUP
+note without the pattern item a button picks one of the patterns that need none; ids outside the list are refused
+click A 2 0 PICKUP
+click A 36 0 PICKUP
+button A 5
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+button A 31
+button A 32
+button A -1
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+click A 36 0 PICKUP
+click A 2 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
 note taking the result uses one banner and one dye, the sound plays
 click A 3 0 PICKUP
 dump menu:A events packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
