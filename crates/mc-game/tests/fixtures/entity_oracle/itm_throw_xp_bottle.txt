@@ -51,7 +51,7 @@ STAT Bob minecraft.custom:minecraft.total_world_time 9
 STAT Bob minecraft.used:minecraft.experience_bottle 1
 E experience_orb#2 minecraft:experience_orb pos=0.8042155842733636,-58.8697151747109,1.143174347716704 delta=0.08637507885745732,0.254677484905768,-0.18349729284027574 rot=198.11224,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=3 health=5
 E experience_bottle#2 minecraft:experience_bottle pos=20.5,-58.479999996721745,0.5 delta=-6.432710274272635E-4,-0.5587707080262868,0.431186225100018 rot=-0.0853956,-52.34373 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.experience_bottle.throw source=neutral vol=0.5 pitch=0.43713197
+EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.experience_bottle.throw source=neutral vol=0.5 pitch=0.37098655
 PKT Bob minecraft:add_entity 01f503a2f8a8ad2f064bb2929be669a186f6db313fe0000000000000c04d3d70a3d000003fe000000000000081fcb7a67225dbff0001
 PKT Bob minecraft:set_entity_data 65f503080701d80a0000ff
 PKT Bob minecraft:set_entity_data 65f503080701d80a0000ff

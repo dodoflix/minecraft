@@ -129,8 +129,8 @@ STAT G minecraft.custom:minecraft.time_since_death 190
 STAT G minecraft.custom:minecraft.time_since_rest 190
 STAT G minecraft.custom:minecraft.total_world_time 190
 STAT G minecraft.used:minecraft.trident 1
-EV sound at=48.5,-58.065371962805706,1.1318596955147138 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.2754853 pitch=0.9894425
-EV sound at=48.5,-58.43607046320167,0.8235121785656544 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.13707171 pitch=0.79463756
+EV sound at=48.5,-58.065371962805706,1.1318596955147138 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.2754853 pitch=1.1131012
+EV sound at=48.5,-58.43607046320167,0.8235121785656544 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.13707171 pitch=0.8650408
 EV packet at=36.5,-58.800000071525574,0.5 r=16.0 ex=0 id=minecraft:sound_entity
 P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,0.9823110246658325,1.0606093406677246 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:1}}
 P G minecraft:player pos=36.5,-58.800000071525574,0.5 delta=0.0,0.8842648213827329,0.9651545278232163 rot=0.0,-45.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:1}}

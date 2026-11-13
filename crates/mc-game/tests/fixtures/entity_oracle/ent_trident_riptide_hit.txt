@@ -80,14 +80,14 @@ STAT F minecraft.used:minecraft.trident 2
 I D 0 minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:3}}
 I E 0 minecraft:trident*1/dmg=2{minecraft:damage:2,minecraft:enchantments:{minecraft:riptide:2}}
 EV sound at=24.5,-58.805000071525576,3.5 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.46957755 pitch=0.839733
-EV sound at=48.5,-58.805000071525576,2.75 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.35218504 pitch=0.9757656
+EV sound at=48.5,-58.805000071525576,2.75 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.35218504 pitch=1.2327095
 EV sound at=24.5,-58.814000071585184,5.900000035762787 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.37567264 pitch=0.7618031
 EV sound at=24.5,-60.0,5.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0072489
 EV sound at=24.5,-58.814000071585184,5.900000035762787 r=16.0 ex=0 event=minecraft:entity.player.attack.weak source=player vol=1.0 pitch=1.0
 EV sound at=36.5,-58.814000071585184,3.2000000178813934 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.18785612 pitch=1.1462024
-EV sound at=48.5,-58.814000071585184,4.55000002682209 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.28176218 pitch=1.1168894
+EV sound at=48.5,-58.814000071585184,4.55000002682209 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.28176218 pitch=1.0805316
 EV sound at=36.5,-58.82620007174015,4.160000046491623 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.15032443 pitch=0.98208034
-EV sound at=48.5,-58.82620007174015,5.990000069737435 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.2254361 pitch=0.7865536
+EV sound at=48.5,-58.82620007174015,5.990000069737435 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.2254361 pitch=0.876165
 EV sound at=48.5,-60.0,5.5 r=16.0 ex=0 event=minecraft:entity.zombie.hurt source=hostile vol=1.0 pitch=1.045516
 EV sound at=48.5,-58.82620007174015,5.990000069737435 r=16.0 ex=0 event=minecraft:entity.player.attack.weak source=player vol=1.0 pitch=1.0
 EV sound at=36.5,-58.85776807240105,5.542400117444994 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.09634858 pitch=1.0807145
@@ -95,16 +95,16 @@ EV sound at=36.5,-60.0,6.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source
 EV sound at=36.5,-58.876214472914604,6.033920154066089 r=16.0 ex=0 event=minecraft:entity.player.attack.strong source=player vol=1.0 pitch=1.0
 EV sound at=24.5,-58.854960072069176,4.623011646354546 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.042328097 pitch=1.1252593
 EV sound at=26.5,-60.0,11.5 r=16.0 ex=0 event=minecraft:entity.cow_moody.ambient source=neutral vol=0.4 pitch=1.138857
-EV sound at=48.5,-59.03307202603451,6.738727222750481 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.011016393 pitch=0.9195533
+EV sound at=48.5,-59.03307202603451,6.738727222750481 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.011016393 pitch=0.95205456
 PKT G minecraft:sound 77ae0a07000000c4fffffe2a0000001c3ef06c783f56f8be4b970fd5e0db99e1
-PKT G minecraft:sound 77ae0a0700000184fffffe2a000000163eb451993f79cbc6e8168c54d2216418
+PKT G minecraft:sound 77ae0a0700000184fffffe2a000000163eb451993f9dc96de8168c54d2216418
 PKT G minecraft:sound 77ae0a07000000c4fffffe2a0000002f3ec0582a3f430587a3981763e0103683
 PKT G minecraft:sound 77c40306000000c4fffffe200000002c3ecccccd3f80ed88a1a24ca263725fe3
 PKT G minecraft:sound 77a00a07000000c4fffffe2a0000002f3f8000003f80000029a8e9b76b35b192
 PKT G minecraft:sound 77ae0a0700000124fffffe2a000000193e405d5b3f92b6c3ec866a92984bf066
-PKT G minecraft:sound 77ae0a0700000184fffffe2a000000243e9043223f8ef63b5ac3b5cd447e2ff6
+PKT G minecraft:sound 77ae0a0700000184fffffe2a000000243e9043223f8a4edc5ac3b5cd447e2ff6
 PKT G minecraft:sound 77ae0a0700000124fffffe2a000000213e19eea63f7b699e5ae586ec5969c658
-PKT G minecraft:sound 77ae0a0700000184fffffe2a0000002f3e66d8b93f495b94d55fad91ece1d6ce
+PKT G minecraft:sound 77ae0a0700000184fffffe2a0000002f3e66d8b93f604c59d55fad91ece1d6ce
 PKT G minecraft:sound 77de0e0500000184fffffe200000002c3f8000003f85d378d8bde3e82cd7dc02
 PKT G minecraft:sound 77a00a0700000184fffffe2a0000002f3f8000003f8000003b8fbbb9f9feaeb8
 PKT G minecraft:sound 77ae0a0700000124fffffe2a0000002c3dc552683f8a54dadd1c412737275425
@@ -116,7 +116,7 @@ PKT G minecraft:set_health 6a414000001440a00000
 PKT G minecraft:sound 77ae0a07000000c4fffffe2a000000243d2d603a3f90087f9f4d398f7d66aef4
 PKT G minecraft:sound 77c70306000000d4fffffe200000005c3ecccccd3f91c61127061872648c263b
 PKT G minecraft:set_health 6a414d55551440a00000
-PKT G minecraft:sound 77ae0a0700000184fffffe28000000353c347e1a3f6b67d8e86338715c8952d1
+PKT G minecraft:sound 77ae0a0700000184fffffe28000000353c347e1a3f73b9d9e86338715c8952d1
 PKT H minecraft:sound 77ae0a07000000c4fffffe2a0000001c3ef06c783f56f8be4b970fd5e0db99e1
 PKT H minecraft:sound 77ae0a07000000c4fffffe2a0000002f3ec0582a3f430587a3981763e0103683
 PKT H minecraft:sound 77c40306000000c4fffffe200000002c3ecccccd3f80ed88a1a24ca263725fe3
