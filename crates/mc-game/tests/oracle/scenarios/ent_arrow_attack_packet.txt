@@ -1,0 +1,29 @@
+# ServerboundAttackPacket aimed at an arrow, a spectral arrow or a trident is rejected with the invalid-entity disconnect (an
+# AbstractArrow is not attackable); the same packet at a pig is a normal attack.
+command_env
+level flat
+preload 3
+difficulty normal
+level_seed 5
+entity_counter 1300
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+spawn_player C survival 12.5 -60 0.5 0 0
+spawn_player D survival 18.5 -60 0.5 0 0
+spawn pig minecraft:pig 18.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed pig 1
+spawn arrow minecraft:arrow 0.5 -59.5 2.0 0 0 {NoGravity:1b}
+entity_seed arrow 2
+spawn spectral minecraft:spectral_arrow 6.5 -59.5 2.0 0 0 {NoGravity:1b}
+entity_seed spectral 3
+spawn trident minecraft:trident 12.5 -59.5 2.0 0 0 {NoGravity:1b}
+entity_seed trident 4
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+attack A arrow
+attack B spectral
+attack C trident
+attack D pig
+tick 2
+dump entities packets:A:disconnect packets:B:disconnect packets:C:disconnect packets:D:disconnect,damage_event,hurt_animation
+dump stats:D

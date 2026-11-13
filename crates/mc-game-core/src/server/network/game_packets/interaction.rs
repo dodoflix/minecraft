@@ -6,7 +6,7 @@
 
 use super::PlayCtx;
 use super::hooks::InteractionHand as Hand;
-use crate::world::entity::{Entity, EntityId};
+use crate::world::entity::{Entity, EntityId, TrackingKind};
 use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
@@ -31,6 +31,8 @@ pub(super) struct TargetInfo {
     pub is_item_entity: bool,
     pub is_experience_orb: bool,
     pub is_pickable: bool,
+    /// `instanceof AbstractArrow && !isAttackable()`.
+    pub is_unattackable_arrow: bool,
 }
 
 impl TargetInfo {
@@ -43,6 +45,8 @@ impl TargetInfo {
             is_item_entity: ty == mc_data::EntityType::ITEM,
             is_experience_orb: ty == mc_data::EntityType::EXPERIENCE_ORB,
             is_pickable: entity.is_pickable(),
+            is_unattackable_arrow: entity.tracking_kind() == TrackingKind::Arrow
+                && !entity.is_attackable(),
         }
     }
 }
@@ -300,12 +304,10 @@ impl PlayCtx<'_> {
         {
             return;
         }
-        // `AbstractArrow && !isAttackable()`: not implemented; the target info has no arrow flag, so no arrow is rejected here.
-        let unattackable_arrow = false;
         if target.is_item_entity
             || target.is_experience_orb
             || target.id == self.player.id()
-            || unattackable_arrow
+            || target.is_unattackable_arrow
         {
             self.disconnect(Component::translatable(
                 "multiplayer.disconnect.invalid_entity_attacked",

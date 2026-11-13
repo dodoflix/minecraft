@@ -3383,6 +3383,9 @@ pub trait Entity: Any {
     fn get_slot(&self, slot: i32) -> Option<crate::world::item::ItemStack> {
         crate::advancements::predicates::entity::support::get_slot(self.as_dyn(), slot)
     }
+    /// The write half of `getSlot(slot)` for entities whose numbered slot is not an equipment slot (the stack of arrows and
+    /// fireballs): `SlotAccess.set`.
+    fn set_slot(&mut self, _slot: i32, _stack: crate::world::item::ItemStack) {}
     /// `Entity.get(DataComponentType)` as a map (`CUSTOM_NAME`, `CUSTOM_DATA`); subclasses add their components.
     fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
         crate::advancements::predicates::entity::support::base_entity_components(self.base())
@@ -4459,6 +4462,9 @@ pub trait Entity: Any {
     fn get_celebrate_sound(&self) -> Option<mc_data::SoundEvent> {
         None
     }
+    /// The part of `readAdditionalSaveData` that needs the level (a thrown trident's loyalty comes from its enchantments),
+    /// run before the loaded or freshly created entity is added to the level and so before any tracker pairs it.
+    fn read_level_dependent_data(&mut self, _level: &mut ServerLevel) {}
     /// The level-dependent part of `readAdditionalSaveData` for an entity that was just loaded into the level (`Raider` joins
     /// its raid).
     fn after_loaded_to_level(&mut self, _level: &mut ServerLevel) {}

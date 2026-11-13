@@ -1,0 +1,32 @@
+# Tracking packets of dispensed projectiles: the pairing (add_entity with the shooter-less owner id 0, synched data), the motion
+# packets (only a fireball and a wind charge send the power packet bundled with the motion), the move packets and the update
+# interval of each type (arrow 20 ticks with a forced position and rotation every time it is sent, snowball 10, fireball and wind
+# charge every tick), the landing of the arrow and the removal of the snowball. The observer stands beside the dispensers.
+command_env
+level flat
+preload 4
+level_seed 7
+entity_counter 1100
+spawn_player P survival 0.5 -60 9.5 0 0
+tick 2
+dump packets:P:none
+block 2 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 0 {Items:[{Slot:0b,id:"minecraft:arrow",count:2}]}
+block 2 -60 6 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 6 {Items:[{Slot:0b,id:"minecraft:snowball",count:2}]}
+block 2 -60 12 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 12 {Items:[{Slot:0b,id:"minecraft:fire_charge",count:2}]}
+block 2 -60 18 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 2 -60 18 {Items:[{Slot:0b,id:"minecraft:wind_charge",count:2}]}
+level_seed 71
+dispense 2 -60 0
+level_seed 72
+dispense 2 -60 6
+level_seed 73
+dispense 2 -60 12
+level_seed 74
+dispense 2 -60 18
+watch entities packets:P:add_entity,set_entity_motion,projectile_power,move_entity_pos,move_entity_pos_rot,entity_position_sync,set_entity_data,entity_event,remove_entities
+tick 25
+watch off
+dump entities packets:P:add_entity,set_entity_motion,projectile_power,move_entity_pos,move_entity_pos_rot,entity_position_sync,set_entity_data,entity_event,remove_entities

@@ -312,6 +312,12 @@ macro_rules! impl_projectile_entity {
     // Projectiles that override `hurtServer` themselves (hurting projectiles).
     (hurting) => {
         $crate::impl_projectile_entity!(@base);
+        fn snapshot_for_damage(&self) -> Option<Box<dyn $crate::world::entity::Entity>> {
+            $crate::world::entity::projectile::snapshot_for_damage(self, Box::new(Self::new(self.get_type(), self.id())))
+        }
+        fn hurting_projectile_power(&self) -> Option<f64> {
+            Some($crate::world::entity::projectile::hurting::AbstractHurtingProjectile::hurting_data(self).acceleration_power)
+        }
         fn is_pickable(&self) -> bool {
             $crate::world::entity::projectile::is_pickable(self.get_type())
         }
@@ -382,6 +388,22 @@ macro_rules! impl_projectile_entity {
             2
         }
     };
+}
+
+/// `Entity::snapshot_for_damage` of an arrow or hurting projectile: `copy` (a fresh projectile of the same type) takes over the saved state and the
+/// synched data, so predicates can read the projectile that hit while it is the running, taken-out entity.
+pub fn snapshot_for_damage(
+    arrow: &dyn Entity,
+    mut copy: Box<dyn Entity>,
+) -> Option<Box<dyn Entity>> {
+    let mut tag = mc_nbt::CompoundTag::new();
+    arrow.save_without_id(&mut tag, &|_| None);
+    copy.load(&tag).ok()?;
+    let _ = copy
+        .base_mut()
+        .entity_data
+        .assign_values(&arrow.base().entity_data.pack_all());
+    Some(copy)
 }
 
 /// `Projectile.isPickable()`: `is(EntityTypeTags.REDIRECTABLE_PROJECTILE)`.

@@ -1,0 +1,56 @@
+# The owner id of a projectile's add_entity packet: an owner set from a UUID (saved data) is resolved when the projectile is
+# paired, so a living owner (a pig, the observer itself) gives its entity id, an owner that is not in the level or no owner gives 0;
+# a projectile whose owner is removed before another player starts tracking it is paired with 0. Every projectile type that
+# keeps its owner is loaded once, and the fireball types also send their power next to the first motion.
+command_env
+level flat
+preload 6
+level_seed 7
+entity_counter 1200
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 90.5 -60 0.5 0 0
+tick 2
+dump packets:A:none packets:B:none
+spawn pig minecraft:pig 3.5 -60 6.5 0 0 {UUID:[I;21,22,23,24],NoAI:1b,PersistenceRequired:1b}
+entity_seed pig 1
+note arrows saved with the pig, with the observer, with a missing owner and without owner
+spawn arrow1 minecraft:arrow 6.5 -55 2.5 0 0 {NoGravity:1b,Owner:[I;21,22,23,24]}
+entity_seed arrow1 2
+spawn arrow2 minecraft:arrow 8.5 -55 2.5 0 0 {NoGravity:1b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed arrow2 3
+spawn arrow3 minecraft:arrow 10.5 -55 2.5 0 0 {NoGravity:1b,Owner:[I;91,92,93,94]}
+entity_seed arrow3 4
+spawn arrow4 minecraft:arrow 12.5 -55 2.5 0 0 {NoGravity:1b}
+entity_seed arrow4 5
+note the other projectile types owned by the pig
+spawn spectral minecraft:spectral_arrow 6.5 -55 4.5 0 0 {NoGravity:1b,Owner:[I;21,22,23,24]}
+entity_seed spectral 6
+spawn ball minecraft:snowball 8.5 -55 4.5 0 0 {NoGravity:1b,Owner:[I;21,22,23,24]}
+entity_seed ball 7
+spawn fireball minecraft:fireball 10.5 -55 4.5 0 0 {Owner:[I;21,22,23,24],acceleration_power:0.1d,Motion:[0.0d,0.0d,0.1d]}
+entity_seed fireball 8
+spawn small minecraft:small_fireball 12.5 -55 4.5 0 0 {Owner:[I;21,22,23,24],acceleration_power:0.1d,Motion:[0.0d,0.0d,0.1d]}
+entity_seed small 9
+spawn skull minecraft:wither_skull 14.5 -55 4.5 0 0 {Owner:[I;21,22,23,24],acceleration_power:0.1d,Motion:[0.0d,0.0d,0.1d]}
+entity_seed skull 10
+spawn wind minecraft:wind_charge 16.5 -55 4.5 0 0 {Owner:[I;21,22,23,24],acceleration_power:0.1d,Motion:[0.0d,0.0d,0.1d]}
+entity_seed wind 11
+spawn trident minecraft:trident 18.5 -55 4.5 0 0 {NoGravity:1b,Owner:[I;21,22,23,24]}
+entity_seed trident 12
+note a projectile owned by the pig, then the pig is removed before the second player gets in range
+spawn arrow5 minecraft:arrow 6.5 -55 8.5 0 0 {NoGravity:1b,Owner:[I;21,22,23,24]}
+entity_seed arrow5 13
+tick 3
+dump xentities packets:A:add_entity,set_entity_motion,projectile_power packets:B:add_entity,set_entity_motion,projectile_power
+kill pig
+tick 1
+move_packet B 82.5 -60 0.5 true
+client_tick_end B
+tick 1
+move_packet B 74.5 -60 0.5 true
+client_tick_end B
+tick 1
+move_packet B 66.5 -60 0.5 true
+client_tick_end B
+tick 2
+dump packets:A:add_entity,set_entity_motion,projectile_power packets:B:add_entity,set_entity_motion,projectile_power

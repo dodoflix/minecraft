@@ -1,0 +1,100 @@
+T 3
+E arrow#1 minecraft:arrow pos=4.296609819248365,-59.40607830912279,0.5841734647554908 delta=1.0856437315139675,-0.05601752608952835,0.08333173091067662 rot=85.610695,-0.31664187 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=4.254730237864389,-59.431370377361375,6.42388794067018 delta=1.0547302378643888,-0.03137037736137799,-0.07611205932982025 rot=94.12745,-0.4122432 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#1 minecraft:small_fireball pos=4.5354973502629825,-59.552887585145925,12.483012423202593 delta=1.0354973502629823,-0.052887585145927174,-0.016987576797406187 rot=90.563866,-1.7540392 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=4.538685495067039,-59.54404828554976,18.573617731998414 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=87.567535,-1.4533646 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT P minecraft:add_entity 01ce08a2321cf452094a4abd9d1b83661c5a9a06400999999999999ac04db333333333333fe0000000000000b2188562ff37ff3c0000
+PKT P minecraft:add_entity 01cf0887104817a15b4d7292c13eaffc3d36857b400999999999999ac04db33333333333401a000000000000b2107b12ffc7ff420000
+PKT P minecraft:set_entity_data 65cf08080701ec080000ff
+PKT P minecraft:add_entity 01d008c5d797c75c524967a3060fed169d0af179400c000000000000c04dc000000000004029000000000000e1fa7deaf30bfd400000
+PKT P minecraft:set_entity_data 65d008080701d90a0000ff
+PKT P minecraft:add_entity 01d1087d645c9e46714046966e1bb8738cd4439301400c000000000000c04dc000000000004032800000000000da0984b4fa5bfe3d0000
+PKT P minecraft:move_entity_pos 36d10800000000000000
+PKT P minecraft:move_entity_pos_rot 37ce08000000000000003cff
+PKT P minecraft:move_entity_pos 36cf0800000000000000
+PKT P minecraft:set_entity_data 65cf08080701ec080000ff
+PKT P minecraft:move_entity_pos 36d00800000000000000
+PKT P minecraft:set_entity_data 65d008080701d90a0000ff
+T 4
+E arrow#1 minecraft:arrow pos=5.382253550762333,-59.46209583521232,0.6675051956661674 delta=1.0747873045523333,-0.10545735136285783,0.08249841439628318 rot=85.610695,-0.84233457 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=5.298913183408825,-59.49212705153441,6.348537001207797 delta=1.0441829455444362,-0.060756674173037734,-0.0753509394623832 rot=94.12744,-0.9940827 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#1 minecraft:small_fireball pos=5.614083420970258,-59.60797590829543,12.465317965844399 delta=1.0785860707072754,-0.05508832314950375,-0.01769445735819516 rot=90.26312,-0.8185481 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=5.577370990134078,-59.58809657109953,18.64723546399683 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=88.864845,-0.6782373 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 5
+E arrow#1 minecraft:arrow pos=6.457040855314666,-59.567553186575175,0.7500036100624505 delta=1.0640394417567804,-0.15440277885494894,0.08167343103908653 rot=85.610695,-1.7913778 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=6.332654309455921,-59.58197615983124,6.273939570421435 delta=1.0337411260470966,-0.08984910829683045,-0.07459743078636193 rot=94.12743,-1.7861927 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#1 minecraft:small_fireball pos=6.733603775585954,-59.6651549325221,12.44695197196188 delta=1.1195203546156962,-0.05717902422666666,-0.018365993882518014 rot=90.02253,-0.0701552 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=6.616056485201117,-59.63214485664929,18.720853195995243 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=89.902695,-0.05813545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT P minecraft:set_entity_motion 67d00812147edcf8f3
+PKT P minecraft:projectile_power 8a01d0083fb999999999999a
+PKT P minecraft:move_entity_pos_rot 37d0080021d3fe46ff7240ff
+PKT P minecraft:set_entity_data 65d008000001ff
+T 6
+E arrow#1 minecraft:arrow pos=7.521080297071447,-59.721955965430126,0.8316770411015371 delta=1.0533990574866836,-0.20285875253889907,0.0808566975075942 rot=85.610695,-3.0796375 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=7.35605803410107,-59.700626778188074,6.20008811323152 delta=1.0234037246451493,-0.1186506183568323,-0.07385145718991484 rot=94.127426,-2.7481818 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#1 minecraft:small_fireball pos=7.892011699426675,-59.72432012274715,12.42794801838926 delta=1.1584079238407212,-0.05916519022504833,-0.019003953572619383 rot=89.830055,0.52855754 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=7.654741980268156,-59.676193142199054,18.794470927993657 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=90.73298,0.437946 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 7
+E arrow#1 minecraft:arrow pos=8.57447935455813,-59.92481471796903,0.9125337386091312 delta=1.042865076957813,-0.2508301669481219,0.08004813130362781 rot=85.610695,-4.6375318 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E snowball#1 minecraft:snowball pos=8.369227731259707,-59.84779089177898,6.126975169909202 delta=1.0131696971586364,-0.14716411359090675,-0.07311294332231807 rot=94.12741,-3.8472238 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E small_fireball#1 minecraft:small_fireball pos=9.087362813567594,-59.78537217064699,12.40833800311865 delta=1.195351114140919,-0.06105204789983397,-0.019610015270610612 rot=89.67608,1.0075277 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=8.693427475335195,-59.72024142774882,18.868088659992072 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=91.3972,0.83481115 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 8
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=7 life=0 dmg=2.0
+E small_fireball#1 minecraft:small_fireball pos=10.317809958053305,-59.848216733315375,12.388152229242174 delta=1.23044714448571,-0.06284456266838723,-0.02018577387647746 rot=89.5529,1.3907024 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=9.732112970402234,-59.76428971329858,18.941706391990486 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=91.92858,1.1523032 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT P minecraft:entity_event 220000044f03
+PKT P minecraft:remove_entities 4e01cf08
+T 9
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=6 life=1 dmg=2.0
+E small_fireball#1 minecraft:small_fireball pos=11.58159833094819,-59.91276418499252,12.367419484696986 delta=1.263788372894884,-0.06454745167714439,-0.02073274454518739 rot=89.45436,1.697242 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=10.770798465469273,-59.808337998848344,19.0153241239889 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=92.35368,1.406297 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT P minecraft:set_entity_motion 67ce0800
+PKT P minecraft:move_entity_pos_rot 37ce08005a32f733062f3cfb
+PKT P minecraft:set_entity_data 65ce080a0801ff
+T 10
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=5 life=2 dmg=2.0
+E small_fireball#1 minecraft:small_fireball pos=12.877060870434331,-59.978929381207685,12.346167118023045 delta=1.2954625394861408,-0.06616519621516366,-0.021252366673941425 rot=89.37553,1.9424738 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing
+E wind_charge#1 minecraft:wind_charge pos=11.809483960536312,-59.85238628439811,19.088941855987315 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=92.69376,1.609492 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 11
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=4 life=3 dmg=2.0
+E wind_charge#1 minecraft:wind_charge pos=12.848169455603351,-59.89643456994787,19.16255958798573 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=92.96583,1.7720479 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT P minecraft:remove_entities 4e01d008
+T 12
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=3 life=4 dmg=2.0
+E wind_charge#1 minecraft:wind_charge pos=13.88685495067039,-59.940482855497635,19.236177319984144 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=93.18348,1.9020927 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 13
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=2 life=5 dmg=2.0
+E wind_charge#1 minecraft:wind_charge pos=14.925540445737429,-59.9845311410474,19.309795051982558 delta=1.0386854950670392,-0.044048285549761534,0.07361773199841434 rot=93.357605,2.0061285 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT P minecraft:entity_position_sync 23d10800402bc611da22d99cc04df861be0167d040333c761de9638a42ba5df13ff377c600
+T 14
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=1 life=6 dmg=2.0
+PKT P minecraft:remove_entities 4e01d108
+T 15
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=7 dmg=2.0
+T 16
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=8 dmg=2.0
+T 17
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=9 dmg=2.0
+T 18
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=10 dmg=2.0
+T 19
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=11 dmg=2.0
+T 20
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=12 dmg=2.0
+T 21
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=13 dmg=2.0
+T 22
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=14 dmg=2.0
+T 23
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=15 dmg=2.0
+PKT P minecraft:move_entity_pos_rot 37ce08000000000000003cfb
+T 24
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=16 dmg=2.0
+T 25
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=17 dmg=2.0
+T 26
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=18 dmg=2.0
+T 27
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=19 dmg=2.0
+E arrow#1 minecraft:arrow pos=8.837073751390227,-59.94999999925494,0.8865278267782681 delta=0.0,0.0,0.0 rot=85.61069,-6.4071655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=19 dmg=2.0

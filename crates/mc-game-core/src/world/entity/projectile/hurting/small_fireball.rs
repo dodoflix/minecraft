@@ -55,9 +55,10 @@ impl SmallFireball {
 
     /// `setItem(source)`.
     pub fn set_item(&mut self, source: &ItemStack) {
+        // a new stack object: vanilla's identity comparison always sees a change
         self.base
             .entity_data
-            .set(DATA_ITEM_STACK, fireball::item_to_store(source));
+            .set_force(DATA_ITEM_STACK, fireball::item_to_store(source), true);
     }
 
     /// `getItem()`.
@@ -122,6 +123,19 @@ impl Entity for SmallFireball {
     }
 
     fn play_entity_on_fire_extinguished_sound(&mut self, _level: &mut ServerLevel) {}
+
+    fn get_slot(&self, slot: i32) -> Option<ItemStack> {
+        if slot == 0 {
+            return Some(self.get_item());
+        }
+        crate::advancements::predicates::entity::support::get_slot(self, slot)
+    }
+
+    fn set_slot(&mut self, slot: i32, stack: ItemStack) {
+        if slot == 0 {
+            self.set_item(&stack);
+        }
+    }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         super::add_additional_save_data(self, out);

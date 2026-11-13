@@ -1,0 +1,33 @@
+# arrows saved with the pig, with the observer, with a missing owner and without owner
+# the other projectile types owned by the pig
+# a projectile owned by the pig, then the pig is removed before the second player gets in range
+E pig minecraft:pig pos=3.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E arrow1 minecraft:arrow pos=6.5,-55.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
+E arrow2 minecraft:arrow pos=8.5,-55.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=A leftowner=1 shot=1 canbreak=0
+E arrow3 minecraft:arrow pos=10.5,-55.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=0000005b-0000-005c-0000-005d0000005e leftowner=1 shot=1 canbreak=0
+E arrow4 minecraft:arrow pos=12.5,-55.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E spectral minecraft:spectral_arrow pos=6.5,-55.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
+E ball minecraft:snowball pos=8.5,-55.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=pig leftowner=1 shot=1 canbreak=0
+E fireball minecraft:fireball pos=10.5,-55.0,5.322224981981516 delta=0.0,0.0,0.35672499008774766 rot=272.16,-3.7231448E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=pig leftowner=1 shot=1 canbreak=0
+E small minecraft:small_fireball pos=12.5,-55.0,5.322224981981516 delta=0.0,0.0,0.35672499008774766 rot=272.16,-3.7231448E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=pig leftowner=1 shot=1 canbreak=0
+E skull minecraft:wither_skull pos=14.5,-55.0,5.322224981981516 delta=0.0,0.0,0.35672499008774766 rot=272.16,-3.7231448E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=pig leftowner=1 shot=1 canbreak=0
+E wind minecraft:wind_charge pos=16.5,-55.0,5.4 delta=0.0,0.0,0.4 rot=272.16,-3.7231448E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=pig leftowner=1 shot=1 canbreak=0
+E trident minecraft:trident pos=18.5,-55.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
+E arrow5 minecraft:arrow pos=6.5,-55.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
+PKT A minecraft:add_entity 01b3090000001500000016000000170000001865400c000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01b4095c50348b55f54d5280ddb1f42047b15306401a000000000000c04b800000000000400400000000000000000000b309
+PKT A minecraft:add_entity 01b509bfe47b9d909e4eada577854d79f02144064021000000000000c04b800000000000400400000000000000000000b109
+PKT A minecraft:add_entity 01b6097bcb8db269714b9fb173d8f736d1517e064025000000000000c04b80000000000040040000000000000000000000
+PKT A minecraft:add_entity 01b709ef97b642ad8a4cee81598c346e374b84064029000000000000c04b80000000000040040000000000000000000000
+PKT A minecraft:add_entity 01b8096447064f5c904925b83a9256ce59e3fd7e401a000000000000c04b800000000000401200000000000000000000b309
+PKT A minecraft:add_entity 01b9098fb48f42ecd94f2b8e6c57fd2df5a63e7b4021000000000000c04b800000000000401200000000000000000000b309
+PKT A minecraft:add_entity 01ba09f2a203705c45479b9032ae349b17acc3354025000000000000c04b8000000000004012000000000000f9ff8ccafffd000000b309
+PKT A minecraft:add_entity 01bb095c2ee95888d8461ebbe19f97dfa4d30a794029000000000000c04b8000000000004012000000000000f9ff8ccafffd000000b309
+PKT A minecraft:add_entity 01bc09c8d6cc0b84654ba3b550a8acdc524a619701402d000000000000c04b8000000000004012000000000000f9ff8ccafffd000000b309
+PKT A minecraft:add_entity 01bd097b95e8dc4c364f69b0c8d225c481350993014030800000000000c04b8000000000004012000000000000f9ff8ccafffd000000b309
+PKT A minecraft:add_entity 01be09977cc18b27a647668e7e90098a7c42618b014032800000000000c04b800000000000401200000000000000000000b309
+PKT A minecraft:add_entity 01bf09fc0cf78a345b459cac6700b2e84a0d6d06401a000000000000c04b800000000000402100000000000000000000b309
+PKT A minecraft:set_entity_motion 67ba09f9ffa342fffd
+PKT A minecraft:projectile_power 8a01ba093fb999999999999a
+PKT A minecraft:set_entity_motion 67bb09f9ffa342fffd
+PKT A minecraft:projectile_power 8a01bb093fb999999999999a

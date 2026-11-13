@@ -1,0 +1,36 @@
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+# the trident thrown straight ahead hits the cow
+E cow1 minecraft:cow pos=0.5,-60.0,8.5 delta=0.0,0.0,0.3999938661079474 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=7/17 death=0 fx=-
+E cow2 minecraft:cow pos=6.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cow3 minecraft:cow pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E trident#1 minecraft:trident pos=0.4588491252630861,-58.92444746949849,7.926943209410541 delta=1.3224039711081983E-4,-0.18649693293596337,-0.02386685400033398 rot=181.48459,-35.814976 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+ADV A minecraft:adventure/throw_trident shot_trident
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT A minecraft.custom:minecraft.play_time 18
+STAT A minecraft.custom:minecraft.time_since_death 18
+STAT A minecraft.custom:minecraft.time_since_rest 18
+STAT A minecraft.custom:minecraft.total_world_time 18
+STAT A minecraft.used:minecraft.trident 1
+PKT A minecraft:add_entity 01e10b949fca6a21ba49c6977b1d8090531fc98b013fe0000000000000c04d3d70a3d000003fe000000000000093fdec26ff1dffff00dd0b
+# an arrow shot by the player hits the second cow
+E cow1 minecraft:cow pos=0.5,-60.0,8.5 delta=0.0,0.0,0.3999938661079474 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=3/13 death=0 fx=-
+E cow2 minecraft:cow pos=6.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E cow3 minecraft:cow pos=12.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E trident#1 minecraft:trident pos=0.4593702051990875,-59.957324809969926,7.832898280426948 delta=1.2702960272021114E-4,-0.3761681693815349,-0.022926405607380372 rot=180.42072,-64.760864 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:adventure/shoot_arrow shot_arrow
+ADV A minecraft:adventure/throw_trident shot_trident
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT A minecraft:add_entity 01e20b5c50348b55f54d5280ddb1f42047b15306401a000000000000c04dc00000000000400400000000000000000000dd0b
+PKT A minecraft:remove_entities 4e01e20b
+# an arrow without owner hits the third cow
+E cow1 minecraft:cow pos=0.5,-60.0,8.5 delta=0.0,0.0,0.3999938661079474 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/9 death=0 fx=-
+E cow2 minecraft:cow pos=6.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=5/15 death=0 fx=-
+E cow3 minecraft:cow pos=12.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=-
+E trident#1 minecraft:trident pos=0.40938461559478184,-59.94999999925494,7.8802973468143485 delta=0.0,0.0,0.0 rot=180.27309,-69.111115 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=4 life=3 dmg=2.0
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:adventure/shoot_arrow shot_arrow
+ADV A minecraft:adventure/throw_trident shot_trident
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT A minecraft:add_entity 01e30bbfe47b9d909e4eada577854d79f02144064029000000000000c04dc0000000000040040000000000000000000000
+PKT A minecraft:remove_entities 4e01e30b

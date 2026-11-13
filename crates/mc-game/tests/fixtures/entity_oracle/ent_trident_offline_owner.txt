@@ -1,0 +1,98 @@
+# A touches a trident of a player that is not in the level (picked up), B one owned by A (left alone), C one without owner (picked up), A one of its own
+# loyalty from the item: a loyal trident whose owner is not in the level stays in the ground; E, standing in range, gets it with the loyalty in its data
+E t1 minecraft:trident pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=0000005b-0000-005c-0000-005d0000005e leftowner=0 shot=0 canbreak=0
+E t2 minecraft:trident pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E t3 minecraft:trident pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=- leftowner=0 shot=0 canbreak=0
+E t5 minecraft:trident pos=0.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E t4 minecraft:trident pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=0000005b-0000-005c-0000-005d0000005e leftowner=0 shot=0 canbreak=0
+ED t4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:0:00 10:8:01 11:0:03 12:8:00
+ED t1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:0:00 10:8:01 11:0:00 12:8:00
+N t4 {Air:300s,DealtDamage:1b,Fire:0s,HasBeenShot:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;91,92,93,94],PierceLevel:0b,PortalCooldown:0,Pos:[40.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],SoundEvent:"minecraft:item.trident.hit_ground",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:1b,item:{components:{minecraft:enchantments:{minecraft:loyalty:3}},count:1,id:"minecraft:trident"},life:0s,pickup:1b,shake:0b}
+E t2 minecraft:trident pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=3 dmg=2.0
+E t4 minecraft:trident pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+I A 0 minecraft:trident*1
+I A 1 minecraft:trident*1
+I C 0 minecraft:trident*1
+E t2 minecraft:trident pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=3 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E t4 minecraft:trident pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=0000005b-0000-005c-0000-005d0000005e leftowner=0 shot=0 canbreak=0
+PKT A minecraft:add_entity 01fd0a1f9f00cf840649ef8f01ed5d3e6a7ebf8b013fe0000000000000c04e0000000000003fe00000000000000000000000
+PKT A minecraft:set_entity_data 65fd0a0a0801ff
+PKT A minecraft:add_entity 01fe0a19a8a11467384953bb1675f8178a54628b01401a000000000000c04e0000000000003fe000000000000000000000f90a
+PKT A minecraft:set_entity_data 65fe0a0a0801ff
+PKT A minecraft:add_entity 01ff0a08b0dda48dde4ea2af685d3437ba72678b014029000000000000c04e0000000000003fe00000000000000000000000
+PKT A minecraft:set_entity_data 65ff0a0a0801ff
+PKT A minecraft:add_entity 01800b499f0fb2f61148fa8f9f5afc32011af18b013fe0000000000000c04e0000000000003ff800000000000000000000f90a
+PKT A minecraft:set_entity_data 65800b0a0801ff
+PKT A minecraft:set_entity_data 65800b0a0801ff
+PKT A minecraft:set_entity_data 65ff0a0a0801ff
+PKT A minecraft:set_entity_data 65fd0a0a0801ff
+PKT A minecraft:set_entity_data 65fe0a0a0801ff
+PKT A minecraft:take_item_entity 7ffd0af90a01
+PKT A minecraft:remove_entities 4e01fd0a
+PKT A minecraft:take_item_entity 7f800bf90a01
+PKT A minecraft:remove_entities 4e01800b
+PKT A minecraft:take_item_entity 7fff0afb0a01
+PKT A minecraft:remove_entities 4e01ff0a
+PKT B minecraft:add_entity 01fd0a1f9f00cf840649ef8f01ed5d3e6a7ebf8b013fe0000000000000c04e0000000000003fe00000000000000000000000
+PKT B minecraft:set_entity_data 65fd0a0a0801ff
+PKT B minecraft:add_entity 01fe0a19a8a11467384953bb1675f8178a54628b01401a000000000000c04e0000000000003fe000000000000000000000f90a
+PKT B minecraft:set_entity_data 65fe0a0a0801ff
+PKT B minecraft:add_entity 01ff0a08b0dda48dde4ea2af685d3437ba72678b014029000000000000c04e0000000000003fe00000000000000000000000
+PKT B minecraft:set_entity_data 65ff0a0a0801ff
+PKT B minecraft:add_entity 01800b499f0fb2f61148fa8f9f5afc32011af18b013fe0000000000000c04e0000000000003ff800000000000000000000f90a
+PKT B minecraft:set_entity_data 65800b0a0801ff
+PKT B minecraft:set_entity_data 65800b0a0801ff
+PKT B minecraft:set_entity_data 65ff0a0a0801ff
+PKT B minecraft:set_entity_data 65fd0a0a0801ff
+PKT B minecraft:set_entity_data 65fe0a0a0801ff
+PKT B minecraft:take_item_entity 7ffd0af90a01
+PKT B minecraft:remove_entities 4e01fd0a
+PKT B minecraft:take_item_entity 7f800bf90a01
+PKT B minecraft:remove_entities 4e01800b
+PKT B minecraft:take_item_entity 7fff0afb0a01
+PKT B minecraft:remove_entities 4e01ff0a
+PKT C minecraft:add_entity 01fd0a1f9f00cf840649ef8f01ed5d3e6a7ebf8b013fe0000000000000c04e0000000000003fe00000000000000000000000
+PKT C minecraft:set_entity_data 65fd0a0a0801ff
+PKT C minecraft:add_entity 01fe0a19a8a11467384953bb1675f8178a54628b01401a000000000000c04e0000000000003fe000000000000000000000f90a
+PKT C minecraft:set_entity_data 65fe0a0a0801ff
+PKT C minecraft:add_entity 01ff0a08b0dda48dde4ea2af685d3437ba72678b014029000000000000c04e0000000000003fe00000000000000000000000
+PKT C minecraft:set_entity_data 65ff0a0a0801ff
+PKT C minecraft:add_entity 01800b499f0fb2f61148fa8f9f5afc32011af18b013fe0000000000000c04e0000000000003ff800000000000000000000f90a
+PKT C minecraft:set_entity_data 65800b0a0801ff
+PKT C minecraft:set_entity_data 65800b0a0801ff
+PKT C minecraft:set_entity_data 65ff0a0a0801ff
+PKT C minecraft:set_entity_data 65fd0a0a0801ff
+PKT C minecraft:set_entity_data 65fe0a0a0801ff
+PKT C minecraft:take_item_entity 7ffd0af90a01
+PKT C minecraft:remove_entities 4e01fd0a
+PKT C minecraft:take_item_entity 7f800bf90a01
+PKT C minecraft:remove_entities 4e01800b
+PKT C minecraft:take_item_entity 7fff0afb0a01
+PKT C minecraft:remove_entities 4e01ff0a
+E t2 minecraft:trident pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=6 dmg=2.0
+E t4 minecraft:trident pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E t2 minecraft:trident pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=6 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E t4 minecraft:trident pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=0000005b-0000-005c-0000-005d0000005e leftowner=0 shot=0 canbreak=0
+ED t4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:0:00 10:8:01 11:0:03 12:8:00
+PKT E minecraft:add_entity 01fd0a1f9f00cf840649ef8f01ed5d3e6a7ebf8b013fe0000000000000c04e0000000000003fe00000000000000000000000
+PKT E minecraft:set_entity_data 65fd0a0a0801ff
+PKT E minecraft:add_entity 01fe0a19a8a11467384953bb1675f8178a54628b01401a000000000000c04e0000000000003fe000000000000000000000f90a
+PKT E minecraft:set_entity_data 65fe0a0a0801ff
+PKT E minecraft:add_entity 01ff0a08b0dda48dde4ea2af685d3437ba72678b014029000000000000c04e0000000000003fe00000000000000000000000
+PKT E minecraft:set_entity_data 65ff0a0a0801ff
+PKT E minecraft:add_entity 01800b499f0fb2f61148fa8f9f5afc32011af18b013fe0000000000000c04e0000000000003ff800000000000000000000f90a
+PKT E minecraft:set_entity_data 65800b0a0801ff
+PKT E minecraft:add_entity 01810bd5810984b7044baabc1c0668101e3b608b014044400000000000c04e0000000000003fe00000000000000000000000
+PKT E minecraft:set_entity_data 65810b0a08010b0003ff
+PKT E minecraft:set_entity_data 65800b0a0801ff
+PKT E minecraft:set_entity_data 65810b0a08010b0003ff
+PKT E minecraft:set_entity_data 65ff0a0a0801ff
+PKT E minecraft:set_entity_data 65fd0a0a0801ff
+PKT E minecraft:set_entity_data 65fe0a0a0801ff
+PKT E minecraft:remove_entities 4e01fd0a
+PKT E minecraft:remove_entities 4e01800b
+PKT E minecraft:remove_entities 4e01ff0a
+E t2 minecraft:trident pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=16 dmg=2.0
+E t4 minecraft:trident pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
+E t2 minecraft:trident pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=16 dmg=2.0 owner=A leftowner=0 shot=0 canbreak=0
+E t4 minecraft:trident pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0 owner=0000005b-0000-005c-0000-005d0000005e leftowner=0 shot=0 canbreak=0

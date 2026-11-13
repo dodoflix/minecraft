@@ -1,0 +1,35 @@
+# A thrown trident in the ground is picked up by its owner, by anybody when it has no owner or its owner is not in the level
+# (getOwner() is null), but not by another player while the owner is around. A loaded trident takes its loyalty from the
+# enchantments of its item right away (the loyalty byte is in its first set_entity_data), and a loyal trident whose owner is gone
+# stays where it is instead of flying back.
+command_env
+level flat
+preload 4
+difficulty normal
+level_seed 5
+entity_counter 1400
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+spawn_player C survival 12.5 -60 0.5 0 0
+spawn_player E survival 24.5 -60 0.5 0 0
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:E:none
+note A touches a trident of a player that is not in the level (picked up), B one owned by A (left alone), C one without owner (picked up), A one of its own
+spawn t1 minecraft:trident 0.5 -60 0.5 0 0 {inGround:1b,pickup:1b,Owner:[I;91,92,93,94],item:{id:"minecraft:trident",count:1},DealtDamage:1b}
+entity_seed t1 1
+spawn t2 minecraft:trident 6.5 -60 0.5 0 0 {inGround:1b,pickup:1b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],item:{id:"minecraft:trident",count:1},DealtDamage:1b}
+entity_seed t2 2
+spawn t3 minecraft:trident 12.5 -60 0.5 0 0 {inGround:1b,pickup:1b,item:{id:"minecraft:trident",count:1},DealtDamage:1b}
+entity_seed t3 3
+spawn t5 minecraft:trident 0.5 -60 1.5 0 0 {inGround:1b,pickup:1b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],item:{id:"minecraft:trident",count:1},DealtDamage:1b}
+entity_seed t5 5
+note loyalty from the item: a loyal trident whose owner is not in the level stays in the ground; E, standing in range, gets it with the loyalty in its data
+spawn t4 minecraft:trident 40.5 -60 0.5 0 0 {inGround:1b,pickup:1b,Owner:[I;91,92,93,94],item:{id:"minecraft:trident",count:1,components:{"minecraft:enchantments":{"minecraft:loyalty":3}}},DealtDamage:1b}
+entity_seed t4 4
+dump xentities edata:t4 edata:t1 nbt:t4
+tick 3
+dump entities inventory:A inventory:B inventory:C xentities packets:A:take_item_entity,remove_entities,add_entity,set_entity_data packets:B:take_item_entity,remove_entities,add_entity,set_entity_data packets:C:take_item_entity,remove_entities,add_entity,set_entity_data
+tick 3
+dump entities xentities edata:t4 packets:E:add_entity,set_entity_data,remove_entities
+tick 10
+dump entities xentities packets:E:add_entity,set_entity_data,set_entity_motion,move_entity_pos,entity_position_sync,remove_entities

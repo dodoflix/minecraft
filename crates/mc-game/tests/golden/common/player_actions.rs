@@ -316,8 +316,8 @@ fn interact(level: &mut ServerLevel, p: &mut ServerPlayer, target: EntityId, a: 
     swing_on_success(level, p, hand, animation, &result);
 }
 
-/// `handleAttack`: range checks, then `Player.attack(target)` (an item entity, an orb or the player itself as target is a protocol
-/// violation that vanilla answers with a disconnect: a scenario never does that).
+/// `handleAttack` without a server environment: range checks, then `Player.attack(target)` (an item entity, an orb or the player
+/// itself as target is a protocol violation that vanilla answers with a disconnect: such a scenario needs `command_env`).
 fn attack(level: &mut ServerLevel, p: &mut ServerPlayer, target: EntityId) {
     if p.is_spectator() {
         return;
@@ -461,7 +461,16 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
         "attack" => {
             h.boot();
             let target = h.action_ref(&a[2]);
-            with_player(h, &a[1], |level, p| attack(level, p, target));
+            if mc_game::commands::server_access::has_server() {
+                // the listener's `handleAttack`, which also disconnects a player attacking an arrow
+                super::menu_actions::deliver(h, &a[1], |_, _| {
+                    mc_protocol::packets::play::ServerboundPlayPacket::Attack(
+                        mc_protocol::packets::play::ServerboundAttackPacket { entity_id: target },
+                    )
+                });
+            } else {
+                with_player(h, &a[1], |level, p| attack(level, p, target));
+            }
         }
         // DROP_ITEM / DROP_ALL_ITEMS (a spectator cannot drop)
         "drop" => {

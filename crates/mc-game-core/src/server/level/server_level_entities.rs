@@ -64,6 +64,7 @@ impl ServerLevel {
             return false;
         }
         let mut entity = entity;
+        entity.read_level_dependent_data(self);
         // `addFreshEntityWithPassengers`: passengers created by `finalizeSpawn` (spider jockey) follow their vehicle
         let passengers = entity
             .mob_mut()
@@ -296,11 +297,12 @@ impl ServerLevel {
     /// `processPendingLoads()`: instantiate the entities of chunks whose entity data arrived and add them.
     pub fn process_pending_entity_loads(&mut self) {
         for chunk in self.entity_manager.take_loaded_chunks() {
-            let entities = crate::world::entity::factory::load_entities_recursive(
+            let mut entities = crate::world::entity::factory::load_entities_recursive(
                 chunk.get_entities(),
                 self,
                 mc_data::enums::EntitySpawnReason::Load,
             );
+            crate::world::entity::factory::read_level_dependent_data(&mut entities, self);
             let loaded_ids: Vec<EntityId> = entities
                 .iter()
                 .filter(|e| e.raider().is_some())

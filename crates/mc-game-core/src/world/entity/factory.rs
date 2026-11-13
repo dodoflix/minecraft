@@ -181,3 +181,10 @@ pub fn load_entities_recursive(
     }
     out
 }
+
+/// `readAdditionalSaveData` parts that need the level, for entities of a chunk load before they are added.
+pub fn read_level_dependent_data(entities: &mut LoadedEntities, level: &mut ServerLevel) {
+    for entity in entities {
+        entity.read_level_dependent_data(level);
+    }
+}

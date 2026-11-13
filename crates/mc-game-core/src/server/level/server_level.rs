@@ -364,11 +364,12 @@ impl ServerLevel {
             }
             ChunkMapEvent::Unload(chunk) => self.unload(chunk),
             ChunkMapEvent::LegacyEntities(_pos, tags) => {
-                let entities = crate::world::entity::factory::load_entities_recursive(
+                let mut entities = crate::world::entity::factory::load_entities_recursive(
                     &tags,
                     self,
                     mc_data::enums::EntitySpawnReason::Load,
                 );
+                crate::world::entity::factory::read_level_dependent_data(&mut entities, self);
                 self.entity_manager.add_legacy_chunk_entities(entities);
                 self.process_entity_events();
             }

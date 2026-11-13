@@ -1080,6 +1080,29 @@ macro_rules! impl_abstract_arrow_entity {
         fn is_attackable(&self) -> bool {
             $crate::world::entity::projectile::is_pickable(self.get_type())
         }
+        fn get_slot(&self, slot: i32) -> Option<$crate::world::item::ItemStack> {
+            if slot == 0 {
+                return Some(
+                    $crate::world::entity::projectile::arrow::AbstractArrow::arrow_data(self)
+                        .pickup_item_stack
+                        .clone(),
+                );
+            }
+            $crate::advancements::predicates::entity::support::get_slot(self, slot)
+        }
+        fn set_slot(&mut self, slot: i32, stack: $crate::world::item::ItemStack) {
+            if slot == 0 {
+                $crate::world::entity::projectile::arrow::AbstractArrow::set_pickup_item_stack(
+                    self, stack,
+                );
+            }
+        }
+        fn snapshot_for_damage(&self) -> Option<Box<dyn $crate::world::entity::Entity>> {
+            $crate::world::entity::projectile::snapshot_for_damage(
+                self,
+                Box::new(Self::new(self.get_type(), self.id())),
+            )
+        }
         fn get_movement_emission(&self) -> $crate::world::entity::MovementEmission {
             $crate::world::entity::MovementEmission::None
         }

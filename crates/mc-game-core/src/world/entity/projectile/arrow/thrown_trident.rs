@@ -29,7 +29,7 @@ pub struct ThrownTrident {
     dealt_damage: bool,
     pub client_side_return_trident_tick_count: i32,
     /// The loyalty is derived from the pickup stack through the enchantments (needs the level): after a load it is
-    /// recomputed on the first tick.
+    /// recomputed by `read_level_dependent_data` before the trident is added.
     loyalty_pending: bool,
 }
 
@@ -293,13 +293,16 @@ impl Entity for ThrownTrident {
         Some(self.arrow.pickup_item_stack.clone())
     }
 
-    fn tick(&mut self, level: &mut ServerLevel) {
+    fn read_level_dependent_data(&mut self, level: &mut ServerLevel) {
         if self.loyalty_pending {
             self.loyalty_pending = false;
             let stack = self.arrow.pickup_item_stack.clone();
             let loyalty = self.get_loyalty_from_item(level, &stack);
             self.base.entity_data.set(ID_LOYALTY, loyalty);
         }
+    }
+
+    fn tick(&mut self, level: &mut ServerLevel) {
         if self.arrow.in_ground_time > 4 {
             self.dealt_damage = true;
         }
@@ -353,7 +356,7 @@ impl Entity for ThrownTrident {
     }
 
     fn player_touch(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer) {
-        if self.owned_by(player) || self.projectile.owner.is_none() {
+        if self.owned_by(player) || self.get_owner(level).is_none() {
             super::player_touch(self, level, player);
         }
     }
