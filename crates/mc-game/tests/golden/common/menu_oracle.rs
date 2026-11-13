@@ -162,6 +162,11 @@ pub const MENU_KINDS: &[MenuKind] = &[
         setup: no_setup,
     },
     MenuKind {
+        name: "crafting",
+        block: Block::CRAFTING_TABLE,
+        setup: no_setup,
+    },
+    MenuKind {
         name: "chest",
         block: Block::CHEST,
         setup: no_setup,
@@ -213,6 +218,10 @@ fn parse_stack(text: &str) -> ItemStack {
 /// The registries and recipes of the default data pack, loaded once per test binary.
 fn data() -> (RegistryAccess, RecipeManager) {
     static DATA: LazyLock<(RegistryAccess, RecipeManager)> = LazyLock::new(|| {
+        // The server registers it when it starts; the stand-in player has no server (`MapExtendingRecipe.matches`).
+        mc_game::world::item::crafting::set_map_scale_lookup(
+            mc_game::world::item::map_item::map_scale_lookup,
+        );
         let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
         let dir = tempfile::tempdir().unwrap();
         let (_, stem) = common::load_world(

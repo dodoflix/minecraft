@@ -1,4 +1,4 @@
-OP scenario 0 creative=false
+OP scenario 0 creative=false table=false
 OP grid 3 dirt 3
 OUT action -
 OUT grid - - dirtx3 -
@@ -723,7 +723,7 @@ OUT SYNC slot 272 0 -
 OUT SYNC slot 273 0 -
 OUT SYNC slot 274 0 -
 OUT SYNC slot 275 0 -
-OP scenario 1 creative=false
+OP scenario 1 creative=false table=false
 OP place minecraft:oak_wood true
 OUT action PLACE_GHOST_RECIPE
 OUT grid - - - -
@@ -1441,7 +1441,7 @@ OUT SYNC slot 265 0 -
 OUT SYNC slot 266 0 -
 OUT SYNC slot 267 0 gold_nuggetx9
 OUT SYNC slot 268 0 light_weighted_pressure_platex1
-OP scenario 2 creative=true
+OP scenario 2 creative=true table=false
 OP place minecraft:crafting_table true
 OUT action PLACE_GHOST_RECIPE
 OUT grid - - - -
@@ -2158,7 +2158,7 @@ OUT SYNC slot 264 0 iron_nuggetx9
 OUT SYNC slot 265 0 iron_nuggetx9
 OUT SYNC slot 266 0 -
 OUT SYNC slot 267 0 -
-OP scenario 3 creative=false
+OP scenario 3 creative=false table=false
 OP inv 31 string 4
 OUT action -
 OUT grid - - - -
@@ -2821,7 +2821,7 @@ OUT action -
 OUT grid stickx1 - cobblestonex1 -
 OUT result leverx1
 OUT inv 0:cobblestonex62 1:gold_ingotx56 4:diamondx20 11:coalx34 15:iron_ingotx42 19:stringx62 22:gold_ingotx24 25:stringx51 26:stickx61 27:stringx62 35:cobblestonex3
-OP scenario 4 creative=false
+OP scenario 4 creative=false table=false
 OP place minecraft:crafting_table true
 OUT action PLACE_GHOST_RECIPE
 OUT grid - - - -
@@ -3524,7 +3524,7 @@ OUT SYNC slot 250 0 -
 OUT SYNC slot 251 0 -
 OUT SYNC slot 252 0 -
 OUT SYNC slot 253 0 torchx4
-OP scenario 5 creative=true
+OP scenario 5 creative=true table=false
 OP place minecraft:iron_nugget false
 OUT action PLACE_GHOST_RECIPE
 OUT grid - - - -
@@ -4248,3 +4248,3044 @@ OUT action -
 OUT grid oak_planksx1 - - -
 OUT result oak_buttonx1
 OUT inv 0:stringx40 1:iron_ingotx27 3:stringx42 4:iron_ingotx34 5:diamondx12 6:paperx4 12:stickx61 18:stickx43 21:oak_planksx24 29:coalx53 30:diamondx46 33:oak_planksx31
+OP scenario 6 creative=false table=true
+OP inv 35 stick 17
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 35:stickx17
+OP place minecraft:gold_block false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 35:stickx17
+OUT SYNC slot 2 0 -
+OP inv 17 diamond 62
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 17:diamondx62 35:stickx17
+OP place minecraft:iron_trapdoor false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 17:diamondx62 35:stickx17
+OUT SYNC slot 3 0 -
+OP inv 22 coal 49
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 17:diamondx62 22:coalx49 35:stickx17
+OP inv 1 oak_planks 36
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 1:oak_planksx36 17:diamondx62 22:coalx49 35:stickx17
+OP place minecraft:wooden_shovel false
+OUT action NOTHING
+OUT grid - oak_planksx1 - - stickx1 - - stickx1 -
+OUT result wooden_shovelx1
+OUT inv 1:oak_planksx35 17:diamondx62 22:coalx49 35:stickx15
+OUT SYNC slot 4 0 wooden_shovelx1
+OP place minecraft:chest true
+OUT action NOTHING
+OUT grid oak_planksx4 oak_planksx4 oak_planksx4 oak_planksx4 - oak_planksx4 oak_planksx4 oak_planksx4 oak_planksx4
+OUT result chestx1
+OUT inv 1:oak_planksx4 17:diamondx62 22:coalx49 35:stickx17
+OUT SYNC slot 5 0 chestx1
+OP clearinv
+OUT action -
+OUT grid oak_planksx4 oak_planksx4 oak_planksx4 oak_planksx4 - oak_planksx4 oak_planksx4 oak_planksx4 oak_planksx4
+OUT result chestx1
+OUT inv
+OP inv 18 coal 14
+OUT action -
+OUT grid oak_planksx4 oak_planksx4 oak_planksx4 oak_planksx4 - oak_planksx4 oak_planksx4 oak_planksx4 oak_planksx4
+OUT result chestx1
+OUT inv 18:coalx14
+OP place minecraft:oak_fence_gate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 18:coalx14
+OUT SYNC slot 6 0 -
+OP place minecraft:gold_nugget true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 18:coalx14
+OUT SYNC slot 7 0 -
+OP place minecraft:ladder true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 18:coalx14
+OUT SYNC slot 8 0 -
+OP place minecraft:diamond_chestplate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 18:coalx14
+OUT SYNC slot 9 0 -
+OP inv 17 diamond 24
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 17:diamondx24 18:coalx14
+OP place minecraft:iron_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 17:diamondx24 18:coalx14
+OUT SYNC slot 10 0 -
+OP place minecraft:oak_sign false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 17:diamondx24 18:coalx14
+OUT SYNC slot 11 0 -
+OP inv 5 gold_ingot 52
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 5:gold_ingotx52 17:diamondx24 18:coalx14
+OP grid 6 dirt 4
+OUT action -
+OUT grid - - - - - dirtx4 - - -
+OUT result -
+OUT inv 0:oak_planksx32 5:gold_ingotx52 17:diamondx24 18:coalx14
+OUT SYNC slot 12 0 -
+OP place minecraft:golden_axe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 1:dirtx4 5:gold_ingotx52 17:diamondx24 18:coalx14
+OUT SYNC slot 13 0 -
+OP inv 10 iron_ingot 20
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 1:dirtx4 5:gold_ingotx52 10:iron_ingotx20 17:diamondx24 18:coalx14
+OP inv 33 stick 26
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 1:dirtx4 5:gold_ingotx52 10:iron_ingotx20 17:diamondx24 18:coalx14 33:stickx26
+OP inv 20 string 55
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx32 1:dirtx4 5:gold_ingotx52 10:iron_ingotx20 17:diamondx24 18:coalx14 20:stringx55 33:stickx26
+OP place minecraft:iron_block true
+OUT action NOTHING
+OUT grid iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2
+OUT result iron_blockx1
+OUT inv 0:oak_planksx32 1:dirtx4 5:gold_ingotx52 10:iron_ingotx2 17:diamondx24 18:coalx14 20:stringx55 33:stickx26
+OUT SYNC slot 14 0 iron_blockx1
+OP inv 20 stick 42
+OUT action -
+OUT grid iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2
+OUT result iron_blockx1
+OUT inv 0:oak_planksx32 1:dirtx4 5:gold_ingotx52 10:iron_ingotx2 17:diamondx24 18:coalx14 20:stickx42 33:stickx26
+OP grid 9 coal 7
+OUT action -
+OUT grid iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 iron_ingotx2 coalx7
+OUT result -
+OUT inv 0:oak_planksx32 1:dirtx4 5:gold_ingotx52 10:iron_ingotx2 17:diamondx24 18:coalx14 20:stickx42 33:stickx26
+OUT SYNC slot 15 0 -
+OP place minecraft:iron_shovel true
+OUT action NOTHING
+OUT grid - iron_ingotx18 - - stickx18 - - stickx18 -
+OUT result iron_shovelx1
+OUT inv 0:oak_planksx32 1:dirtx4 5:gold_ingotx52 17:diamondx24 18:coalx21 20:stickx6 33:stickx26
+OUT SYNC slot 16 0 iron_shovelx1
+OP place minecraft:oak_fence true
+OUT action NOTHING
+OUT grid oak_planksx8 stickx8 oak_planksx8 oak_planksx8 stickx8 oak_planksx8 - - -
+OUT result oak_fencex3
+OUT inv 1:dirtx4 2:iron_ingotx18 5:gold_ingotx52 17:diamondx24 18:coalx21 20:stickx26 33:stickx26
+OUT SYNC slot 17 0 oak_fencex3
+OP place minecraft:wooden_sword true
+OUT action NOTHING
+OUT grid - oak_planksx16 - - oak_planksx16 - - stickx16 -
+OUT result wooden_swordx1
+OUT inv 1:dirtx4 2:iron_ingotx18 5:gold_ingotx52 17:diamondx24 18:coalx21 20:stickx26 33:stickx26
+OUT SYNC slot 18 0 wooden_swordx1
+OP place minecraft:bucket true
+OUT action NOTHING
+OUT grid iron_ingotx6 - iron_ingotx6 - iron_ingotx6 - - - -
+OUT result bucketx1
+OUT inv 0:oak_planksx32 1:dirtx4 5:gold_ingotx52 17:diamondx24 18:coalx21 20:stickx42 33:stickx26
+OUT SYNC slot 19 0 bucketx1
+OP clearinv
+OUT action -
+OUT grid iron_ingotx6 - iron_ingotx6 - iron_ingotx6 - - - -
+OUT result bucketx1
+OUT inv
+OP clearinv
+OUT action -
+OUT grid iron_ingotx6 - iron_ingotx6 - iron_ingotx6 - - - -
+OUT result bucketx1
+OUT inv
+OP clearinv
+OUT action -
+OUT grid iron_ingotx6 - iron_ingotx6 - iron_ingotx6 - - - -
+OUT result bucketx1
+OUT inv
+OP inv 16 diamond 62
+OUT action -
+OUT grid iron_ingotx6 - iron_ingotx6 - iron_ingotx6 - - - -
+OUT result bucketx1
+OUT inv 16:diamondx62
+OP inv 10 gold_ingot 52
+OUT action -
+OUT grid iron_ingotx6 - iron_ingotx6 - iron_ingotx6 - - - -
+OUT result bucketx1
+OUT inv 10:gold_ingotx52 16:diamondx62
+OP inv 25 gold_ingot 31
+OUT action -
+OUT grid iron_ingotx6 - iron_ingotx6 - iron_ingotx6 - - - -
+OUT result bucketx1
+OUT inv 10:gold_ingotx52 16:diamondx62 25:gold_ingotx31
+OP inv 15 gold_ingot 56
+OUT action -
+OUT grid iron_ingotx6 - iron_ingotx6 - iron_ingotx6 - - - -
+OUT result bucketx1
+OUT inv 10:gold_ingotx52 15:gold_ingotx56 16:diamondx62 25:gold_ingotx31
+OP inv 11 cobblestone 5
+OUT action -
+OUT grid iron_ingotx6 - iron_ingotx6 - iron_ingotx6 - - - -
+OUT result bucketx1
+OUT inv 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 25:gold_ingotx31
+OP grid 4 string 5
+OUT action -
+OUT grid iron_ingotx6 - iron_ingotx6 stringx5 iron_ingotx6 - - - -
+OUT result -
+OUT inv 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 25:gold_ingotx31
+OUT SYNC slot 20 0 -
+OP place minecraft:oak_door true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx5 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 25:gold_ingotx31
+OUT SYNC slot 21 0 -
+OP inv 24 cobblestone 2
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx5 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31
+OP inv 32 coal 33
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx5 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OP place minecraft:smithing_table true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx5 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 22 0 -
+OP place minecraft:shield true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx5 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 23 0 -
+OP grid 8 dirt 3
+OUT action -
+OUT grid - - - - - - - dirtx3 -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx5 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 24 0 -
+OP place minecraft:oak_button false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx5 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 25 0 -
+OP place minecraft:crafting_table false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx5 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 26 0 -
+OP grid 4 string 2
+OUT action -
+OUT grid - - - stringx2 - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx5 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 27 0 -
+OP place minecraft:jukebox true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 28 0 -
+OP place minecraft:oak_fence false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 29 0 -
+OP place minecraft:jukebox false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 30 0 -
+OP place minecraft:golden_leggings false
+OUT action NOTHING
+OUT grid gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 - gold_ingotx1 gold_ingotx1 - gold_ingotx1
+OUT result golden_leggingsx1
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx45 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 31 0 golden_leggingsx1
+OP place minecraft:oak_boat false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 32 0 -
+OP place minecraft:iron_shovel false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 33 0 -
+OP place minecraft:golden_apple true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 34 0 -
+OP place minecraft:torch false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 35 0 -
+OP place minecraft:iron_sword true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:gold_ingotx56 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OUT SYNC slot 36 0 -
+OP inv 15 oak_planks 10
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 10:gold_ingotx52 11:cobblestonex5 15:oak_planksx10 16:diamondx62 24:cobblestonex2 25:gold_ingotx31 32:coalx33
+OP place minecraft:gold_block true
+OUT action NOTHING
+OUT grid gold_ingotx9 gold_ingotx9 gold_ingotx9 gold_ingotx9 gold_ingotx9 gold_ingotx9 gold_ingotx9 gold_ingotx9 gold_ingotx9
+OUT result gold_blockx1
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 11:cobblestonex5 15:oak_planksx10 16:diamondx62 24:cobblestonex2 25:gold_ingotx2 32:coalx33
+OUT SYNC slot 37 0 gold_blockx1
+OP place minecraft:cobblestone_stairs false
+OUT action NOTHING
+OUT grid cobblestonex1 - - cobblestonex1 cobblestonex1 - cobblestonex1 cobblestonex1 cobblestonex1
+OUT result cobblestone_stairsx4
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 3:gold_ingotx19 15:oak_planksx10 16:diamondx62 24:cobblestonex1 25:gold_ingotx64 32:coalx33
+OUT SYNC slot 38 0 cobblestone_stairsx4
+OP place minecraft:diamond_chestplate true
+OUT action NOTHING
+OUT grid diamondx7 - diamondx7 diamondx7 diamondx7 diamondx7 diamondx7 diamondx7 diamondx7
+OUT result diamond_chestplatex1
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 3:gold_ingotx19 15:oak_planksx10 16:diamondx6 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OUT SYNC slot 39 0 diamond_chestplatex1
+OP inv 5 string 13
+OUT action -
+OUT grid diamondx7 - diamondx7 diamondx7 diamondx7 diamondx7 diamondx7 diamondx7 diamondx7
+OUT result diamond_chestplatex1
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 3:gold_ingotx19 5:stringx13 15:oak_planksx10 16:diamondx6 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OP place minecraft:golden_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 3:gold_ingotx19 5:stringx13 15:oak_planksx10 16:diamondx62 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OUT SYNC slot 40 0 -
+OP grid 2 diamond 4
+OUT action -
+OUT grid - diamondx4 - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 3:gold_ingotx19 5:stringx13 15:oak_planksx10 16:diamondx62 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OUT SYNC slot 41 0 -
+OP place minecraft:iron_door false
+OUT action NOTHING
+OUT grid iron_ingotx1 iron_ingotx1 - iron_ingotx1 iron_ingotx1 - iron_ingotx1 iron_ingotx1 -
+OUT result iron_doorx3
+OUT inv 0:iron_ingotx12 1:stringx7 2:dirtx3 3:gold_ingotx19 4:diamondx2 5:stringx13 15:oak_planksx10 16:diamondx64 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OUT SYNC slot 42 0 iron_doorx3
+OP inv 9 gold_ingot 11
+OUT action -
+OUT grid iron_ingotx1 iron_ingotx1 - iron_ingotx1 iron_ingotx1 - iron_ingotx1 iron_ingotx1 -
+OUT result iron_doorx3
+OUT inv 0:iron_ingotx12 1:stringx7 2:dirtx3 3:gold_ingotx19 4:diamondx2 5:stringx13 9:gold_ingotx11 15:oak_planksx10 16:diamondx64 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OP place minecraft:diamond_chestplate true
+OUT action NOTHING
+OUT grid diamondx8 - diamondx8 diamondx8 diamondx8 diamondx8 diamondx8 diamondx8 diamondx8
+OUT result diamond_chestplatex1
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 3:gold_ingotx19 5:stringx13 9:gold_ingotx11 15:oak_planksx10 16:diamondx2 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OUT SYNC slot 43 0 diamond_chestplatex1
+OP inv 7 string 55
+OUT action -
+OUT grid diamondx8 - diamondx8 diamondx8 diamondx8 diamondx8 diamondx8 diamondx8 diamondx8
+OUT result diamond_chestplatex1
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 3:gold_ingotx19 5:stringx13 7:stringx55 9:gold_ingotx11 15:oak_planksx10 16:diamondx2 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OP place minecraft:bucket false
+OUT action NOTHING
+OUT grid iron_ingotx1 - iron_ingotx1 - iron_ingotx1 - - - -
+OUT result bucketx1
+OUT inv 0:iron_ingotx15 1:stringx7 2:dirtx3 3:gold_ingotx19 4:diamondx2 5:stringx13 7:stringx55 9:gold_ingotx11 15:oak_planksx10 16:diamondx64 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OUT SYNC slot 44 0 bucketx1
+OP place minecraft:oak_fence_gate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx18 1:stringx7 2:dirtx3 3:gold_ingotx19 4:diamondx2 5:stringx13 7:stringx55 9:gold_ingotx11 15:oak_planksx10 16:diamondx64 24:cobblestonex7 25:gold_ingotx64 32:coalx33
+OUT SYNC slot 45 0 -
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:golden_shovel true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 46 0 -
+OP place minecraft:golden_leggings false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 47 0 -
+OP inv 3 stick 13
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:stickx13
+OP place minecraft:cobblestone_slab true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:stickx13
+OUT SYNC slot 48 0 -
+OP place minecraft:oak_slab true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:stickx13
+OUT SYNC slot 49 0 -
+OP place minecraft:wooden_axe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:stickx13
+OUT SYNC slot 50 0 -
+OP place minecraft:crafting_table true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:stickx13
+OUT SYNC slot 51 0 -
+OP place minecraft:ladder false
+OUT action NOTHING
+OUT grid stickx1 - stickx1 stickx1 stickx1 stickx1 stickx1 - stickx1
+OUT result ladderx3
+OUT inv 3:stickx6
+OUT SYNC slot 52 0 ladderx3
+OP inv 13 gold_ingot 49
+OUT action -
+OUT grid stickx1 - stickx1 stickx1 stickx1 stickx1 stickx1 - stickx1
+OUT result ladderx3
+OUT inv 3:stickx6 13:gold_ingotx49
+OP inv 6 oak_log 22
+OUT action -
+OUT grid stickx1 - stickx1 stickx1 stickx1 stickx1 stickx1 - stickx1
+OUT result ladderx3
+OUT inv 3:stickx6 6:oak_logx22 13:gold_ingotx49
+OP place minecraft:diamond_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:stickx13 6:oak_logx22 13:gold_ingotx49
+OUT SYNC slot 53 0 -
+OP grid 6 paper 7
+OUT action -
+OUT grid - - - - - paperx7 - - -
+OUT result -
+OUT inv 3:stickx13 6:oak_logx22 13:gold_ingotx49
+OUT SYNC slot 54 0 -
+OP place minecraft:oak_button false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:paperx7 3:stickx13 6:oak_logx22 13:gold_ingotx49
+OUT SYNC slot 55 0 -
+OP inv 3 gold_ingot 6
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:paperx7 3:gold_ingotx6 6:oak_logx22 13:gold_ingotx49
+OP place minecraft:gold_block false
+OUT action NOTHING
+OUT grid gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1
+OUT result gold_blockx1
+OUT inv 0:paperx7 6:oak_logx22 13:gold_ingotx46
+OUT SYNC slot 56 0 gold_blockx1
+OP inv 6 gold_ingot 24
+OUT action -
+OUT grid gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1
+OUT result gold_blockx1
+OUT inv 0:paperx7 6:gold_ingotx24 13:gold_ingotx46
+OP place minecraft:white_wool_from_string true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:paperx7 6:gold_ingotx33 13:gold_ingotx46
+OUT SYNC slot 57 0 -
+OP place minecraft:iron_sword true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:paperx7 6:gold_ingotx33 13:gold_ingotx46
+OUT SYNC slot 58 0 -
+OP place minecraft:golden_sword false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:paperx7 6:gold_ingotx33 13:gold_ingotx46
+OUT SYNC slot 59 0 -
+OP scenario 7 creative=false table=true
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:diamond_axe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 2 0 -
+OP inv 26 cobblestone 19
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 26:cobblestonex19
+OP place minecraft:iron_spear false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 26:cobblestonex19
+OUT SYNC slot 3 0 -
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP inv 24 oak_log 45
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 24:oak_logx45
+OP inv 17 stick 23
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 17:stickx23 24:oak_logx45
+OP inv 22 oak_log 34
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 17:stickx23 22:oak_logx34 24:oak_logx45
+OP place minecraft:oak_trapdoor false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 17:stickx23 22:oak_logx34 24:oak_logx45
+OUT SYNC slot 4 0 -
+OP inv 7 string 57
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 24:oak_logx45
+OP place minecraft:iron_door false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 24:oak_logx45
+OUT SYNC slot 5 0 -
+OP place minecraft:rail true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 24:oak_logx45
+OUT SYNC slot 6 0 -
+OP inv 29 string 40
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 24:oak_logx45 29:stringx40
+OP place minecraft:golden_sword false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 24:oak_logx45 29:stringx40
+OUT SYNC slot 7 0 -
+OP place minecraft:chest true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 24:oak_logx45 29:stringx40
+OUT SYNC slot 8 0 -
+OP inv 23 coal 39
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 23:coalx39 24:oak_logx45 29:stringx40
+OP place minecraft:oak_fence_gate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 23:coalx39 24:oak_logx45 29:stringx40
+OUT SYNC slot 9 0 -
+OP place minecraft:cobblestone_wall false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 23:coalx39 24:oak_logx45 29:stringx40
+OUT SYNC slot 10 0 -
+OP inv 35 iron_ingot 33
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:stringx57 17:stickx23 22:oak_logx34 23:coalx39 24:oak_logx45 29:stringx40 35:iron_ingotx33
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:wooden_axe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 11 0 -
+OP inv 25 oak_log 42
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 25:oak_logx42
+OP place minecraft:diamond_boots true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 25:oak_logx42
+OUT SYNC slot 12 0 -
+OP place minecraft:golden_hoe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 25:oak_logx42
+OUT SYNC slot 13 0 -
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:oak_stairs false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 14 0 -
+OP inv 21 oak_planks 63
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 21:oak_planksx63
+OP place minecraft:stone_spear true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 21:oak_planksx63
+OUT SYNC slot 15 0 -
+OP place minecraft:bowl true
+OUT action NOTHING
+OUT grid oak_planksx21 - oak_planksx21 - oak_planksx21 - - - -
+OUT result bowlx4
+OUT inv
+OUT SYNC slot 16 0 bowlx4
+OP inv 33 gold_ingot 48
+OUT action -
+OUT grid oak_planksx21 - oak_planksx21 - oak_planksx21 - - - -
+OUT result bowlx4
+OUT inv 33:gold_ingotx48
+OP place minecraft:oak_slab true
+OUT action NOTHING
+OUT grid - - - oak_planksx21 oak_planksx21 oak_planksx21 - - -
+OUT result oak_slabx6
+OUT inv 33:gold_ingotx48
+OUT SYNC slot 17 0 oak_slabx6
+OP place minecraft:shears false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx63 33:gold_ingotx48
+OUT SYNC slot 18 0 -
+OP place minecraft:iron_block false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx63 33:gold_ingotx48
+OUT SYNC slot 19 0 -
+OP place minecraft:oak_stairs false
+OUT action NOTHING
+OUT grid oak_planksx1 - - oak_planksx1 oak_planksx1 - oak_planksx1 oak_planksx1 oak_planksx1
+OUT result oak_stairsx4
+OUT inv 0:oak_planksx57 33:gold_ingotx48
+OUT SYNC slot 20 0 oak_stairsx4
+OP place minecraft:coal_block false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx63 33:gold_ingotx48
+OUT SYNC slot 21 0 -
+OP place minecraft:diamond_shovel false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx63 33:gold_ingotx48
+OUT SYNC slot 22 0 -
+OP grid 3 oak_planks 6
+OUT action -
+OUT grid - - oak_planksx6 - - - - - -
+OUT result oak_buttonx1
+OUT inv 0:oak_planksx63 33:gold_ingotx48
+OUT SYNC slot 23 0 oak_buttonx1
+OP inv 20 iron_ingot 56
+OUT action -
+OUT grid - - oak_planksx6 - - - - - -
+OUT result oak_buttonx1
+OUT inv 0:oak_planksx63 20:iron_ingotx56 33:gold_ingotx48
+OP place minecraft:diamond_boots false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 20:iron_ingotx56 33:gold_ingotx48
+OUT SYNC slot 24 0 -
+OP place minecraft:stone_sword true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 20:iron_ingotx56 33:gold_ingotx48
+OUT SYNC slot 25 0 -
+OP inv 4 gold_ingot 25
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 20:iron_ingotx56 33:gold_ingotx48
+OP place minecraft:fishing_rod true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 20:iron_ingotx56 33:gold_ingotx48
+OUT SYNC slot 26 0 -
+OP place minecraft:campfire false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 20:iron_ingotx56 33:gold_ingotx48
+OUT SYNC slot 27 0 -
+OP place minecraft:bow false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 20:iron_ingotx56 33:gold_ingotx48
+OUT SYNC slot 28 0 -
+OP inv 11 coal 37
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 11:coalx37 20:iron_ingotx56 33:gold_ingotx48
+OP place minecraft:iron_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 11:coalx37 20:iron_ingotx56 33:gold_ingotx48
+OUT SYNC slot 29 0 -
+OP place minecraft:stone_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 11:coalx37 20:iron_ingotx56 33:gold_ingotx48
+OUT SYNC slot 30 0 -
+OP place minecraft:stone_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 11:coalx37 20:iron_ingotx56 33:gold_ingotx48
+OUT SYNC slot 31 0 -
+OP place minecraft:iron_nugget true
+OUT action NOTHING
+OUT grid iron_ingotx56 - - - - - - - -
+OUT result iron_nuggetx9
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 11:coalx37 33:gold_ingotx48
+OUT SYNC slot 32 0 iron_nuggetx9
+OP grid 8 coal 2
+OUT action -
+OUT grid iron_ingotx56 - - - - - - coalx2 -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 11:coalx37 33:gold_ingotx48
+OUT SYNC slot 33 0 -
+OP inv 18 oak_log 11
+OUT action -
+OUT grid iron_ingotx56 - - - - - - coalx2 -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 11:coalx37 18:oak_logx11 33:gold_ingotx48
+OP inv 32 oak_log 47
+OUT action -
+OUT grid iron_ingotx56 - - - - - - coalx2 -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 4:gold_ingotx25 11:coalx37 18:oak_logx11 32:oak_logx47 33:gold_ingotx48
+OP place minecraft:diamond_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 4:gold_ingotx25 11:coalx39 18:oak_logx11 32:oak_logx47 33:gold_ingotx48
+OUT SYNC slot 34 0 -
+OP place minecraft:oak_slab true
+OUT action NOTHING
+OUT grid - - - oak_planksx23 oak_planksx23 oak_planksx23 - - -
+OUT result oak_slabx6
+OUT inv 2:iron_ingotx56 4:gold_ingotx25 11:coalx39 18:oak_logx11 32:oak_logx47 33:gold_ingotx48
+OUT SYNC slot 35 0 oak_slabx6
+OP place minecraft:loom false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 4:gold_ingotx25 11:coalx39 18:oak_logx11 32:oak_logx47 33:gold_ingotx48
+OUT SYNC slot 36 0 -
+OP place minecraft:campfire true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 4:gold_ingotx25 11:coalx39 18:oak_logx11 32:oak_logx47 33:gold_ingotx48
+OUT SYNC slot 37 0 -
+OP inv 15 string 36
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 4:gold_ingotx25 11:coalx39 15:stringx36 18:oak_logx11 32:oak_logx47 33:gold_ingotx48
+OP place minecraft:diamond_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 4:gold_ingotx25 11:coalx39 15:stringx36 18:oak_logx11 32:oak_logx47 33:gold_ingotx48
+OUT SYNC slot 38 0 -
+OP place minecraft:iron_bars true
+OUT action NOTHING
+OUT grid iron_ingotx9 iron_ingotx9 iron_ingotx9 iron_ingotx9 iron_ingotx9 iron_ingotx9 - - -
+OUT result iron_barsx16
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx2 4:gold_ingotx25 11:coalx39 15:stringx36 18:oak_logx11 32:oak_logx47 33:gold_ingotx48
+OUT SYNC slot 39 0 iron_barsx16
+OP place minecraft:light_weighted_pressure_plate true
+OUT action NOTHING
+OUT grid - - - gold_ingotx36 gold_ingotx36 - - - -
+OUT result light_weighted_pressure_platex1
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 11:coalx39 15:stringx36 18:oak_logx11 32:oak_logx47 33:gold_ingotx1
+OUT SYNC slot 40 0 light_weighted_pressure_platex1
+OP place minecraft:torch false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 3:gold_ingotx9 11:coalx39 15:stringx36 18:oak_logx11 32:oak_logx47 33:gold_ingotx64
+OUT SYNC slot 41 0 -
+OP place minecraft:wooden_spear true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 3:gold_ingotx9 11:coalx39 15:stringx36 18:oak_logx11 32:oak_logx47 33:gold_ingotx64
+OUT SYNC slot 42 0 -
+OP inv 32 string 44
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 3:gold_ingotx9 11:coalx39 15:stringx36 18:oak_logx11 32:stringx44 33:gold_ingotx64
+OP place minecraft:golden_axe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx64 1:oak_planksx5 2:iron_ingotx56 3:gold_ingotx9 11:coalx39 15:stringx36 18:oak_logx11 32:stringx44 33:gold_ingotx64
+OUT SYNC slot 43 0 -
+OP place minecraft:oak_stairs true
+OUT action NOTHING
+OUT grid oak_planksx11 - - oak_planksx11 oak_planksx11 - oak_planksx11 oak_planksx11 oak_planksx11
+OUT result oak_stairsx4
+OUT inv 1:oak_planksx3 2:iron_ingotx56 3:gold_ingotx9 11:coalx39 15:stringx36 18:oak_logx11 32:stringx44 33:gold_ingotx64
+OUT SYNC slot 44 0 oak_stairsx4
+OP inv 7 oak_log 25
+OUT action -
+OUT grid oak_planksx11 - - oak_planksx11 oak_planksx11 - oak_planksx11 oak_planksx11 oak_planksx11
+OUT result oak_stairsx4
+OUT inv 1:oak_planksx3 2:iron_ingotx56 3:gold_ingotx9 7:oak_logx25 11:coalx39 15:stringx36 18:oak_logx11 32:stringx44 33:gold_ingotx64
+OP place minecraft:diamond_sword false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx5 1:oak_planksx64 2:iron_ingotx56 3:gold_ingotx9 7:oak_logx25 11:coalx39 15:stringx36 18:oak_logx11 32:stringx44 33:gold_ingotx64
+OUT SYNC slot 45 0 -
+OP inv 3 cobblestone 1
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx5 1:oak_planksx64 2:iron_ingotx56 3:cobblestonex1 7:oak_logx25 11:coalx39 15:stringx36 18:oak_logx11 32:stringx44 33:gold_ingotx64
+OP place minecraft:iron_hoe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx5 1:oak_planksx64 2:iron_ingotx56 3:cobblestonex1 7:oak_logx25 11:coalx39 15:stringx36 18:oak_logx11 32:stringx44 33:gold_ingotx64
+OUT SYNC slot 46 0 -
+OP inv 31 stick 49
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx5 1:oak_planksx64 2:iron_ingotx56 3:cobblestonex1 7:oak_logx25 11:coalx39 15:stringx36 18:oak_logx11 31:stickx49 32:stringx44 33:gold_ingotx64
+OP inv 32 coal 48
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx5 1:oak_planksx64 2:iron_ingotx56 3:cobblestonex1 7:oak_logx25 11:coalx39 15:stringx36 18:oak_logx11 31:stickx49 32:coalx48 33:gold_ingotx64
+OP inv 16 coal 63
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx5 1:oak_planksx64 2:iron_ingotx56 3:cobblestonex1 7:oak_logx25 11:coalx39 15:stringx36 16:coalx63 18:oak_logx11 31:stickx49 32:coalx48 33:gold_ingotx64
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:diamond_hoe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 47 0 -
+OP inv 35 cobblestone 63
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 35:cobblestonex63
+OP place minecraft:smithing_table false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 35:cobblestonex63
+OUT SYNC slot 48 0 -
+OP inv 12 diamond 38
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 12:diamondx38 35:cobblestonex63
+OP inv 18 coal 29
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 12:diamondx38 18:coalx29 35:cobblestonex63
+OP inv 20 string 55
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 12:diamondx38 18:coalx29 20:stringx55 35:cobblestonex63
+OP inv 35 stick 41
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 12:diamondx38 18:coalx29 20:stringx55 35:stickx41
+OP place minecraft:iron_leggings false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 12:diamondx38 18:coalx29 20:stringx55 35:stickx41
+OUT SYNC slot 49 0 -
+OP grid 3 oak_planks 4
+OUT action -
+OUT grid - - oak_planksx4 - - - - - -
+OUT result oak_buttonx1
+OUT inv 12:diamondx38 18:coalx29 20:stringx55 35:stickx41
+OUT SYNC slot 50 0 oak_buttonx1
+OP inv 10 iron_ingot 9
+OUT action -
+OUT grid - - oak_planksx4 - - - - - -
+OUT result oak_buttonx1
+OUT inv 10:iron_ingotx9 12:diamondx38 18:coalx29 20:stringx55 35:stickx41
+OP place minecraft:iron_leggings true
+OUT action NOTHING
+OUT grid iron_ingotx1 iron_ingotx1 iron_ingotx1 iron_ingotx1 - iron_ingotx1 iron_ingotx1 - iron_ingotx1
+OUT result iron_leggingsx1
+OUT inv 0:oak_planksx4 10:iron_ingotx2 12:diamondx38 18:coalx29 20:stringx55 35:stickx41
+OUT SYNC slot 51 0 iron_leggingsx1
+OP place minecraft:iron_shovel true
+OUT action NOTHING
+OUT grid - iron_ingotx9 - - stickx9 - - stickx9 -
+OUT result iron_shovelx1
+OUT inv 0:oak_planksx4 12:diamondx38 18:coalx29 20:stringx55 35:stickx23
+OUT SYNC slot 52 0 iron_shovelx1
+OP place minecraft:stone_sword false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx4 1:iron_ingotx9 12:diamondx38 18:coalx29 20:stringx55 35:stickx41
+OUT SYNC slot 53 0 -
+OP place minecraft:golden_boots false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx4 1:iron_ingotx9 12:diamondx38 18:coalx29 20:stringx55 35:stickx41
+OUT SYNC slot 54 0 -
+OP place minecraft:golden_leggings false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx4 1:iron_ingotx9 12:diamondx38 18:coalx29 20:stringx55 35:stickx41
+OUT SYNC slot 55 0 -
+OP inv 25 gold_ingot 60
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx4 1:iron_ingotx9 12:diamondx38 18:coalx29 20:stringx55 25:gold_ingotx60 35:stickx41
+OP place minecraft:golden_axe true
+OUT action NOTHING
+OUT grid gold_ingotx20 gold_ingotx20 - gold_ingotx20 stickx20 - - stickx20 -
+OUT result golden_axex1
+OUT inv 0:oak_planksx4 1:iron_ingotx9 12:diamondx38 18:coalx29 20:stringx55 35:stickx1
+OUT SYNC slot 56 0 golden_axex1
+OP scenario 8 creative=true table=true
+OP place minecraft:oak_fence false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 2 0 -
+OP place minecraft:stone_axe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 3 0 -
+OP place minecraft:golden_axe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 4 0 -
+OP place minecraft:iron_chestplate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 5 0 -
+OP place minecraft:golden_sword true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 6 0 -
+OP place minecraft:iron_nugget false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 7 0 -
+OP place minecraft:fishing_rod true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 8 0 -
+OP place minecraft:iron_sword false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 9 0 -
+OP place minecraft:stone_sword true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 10 0 -
+OP inv 12 diamond 44
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 12:diamondx44
+OP place minecraft:stone_spear false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 12:diamondx44
+OUT SYNC slot 11 0 -
+OP inv 5 string 19
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 5:stringx19 12:diamondx44
+OP inv 11 string 5
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 5:stringx19 11:stringx5 12:diamondx44
+OP place minecraft:oak_button false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 5:stringx19 11:stringx5 12:diamondx44
+OUT SYNC slot 12 0 -
+OP place minecraft:cobblestone_slab true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 5:stringx19 11:stringx5 12:diamondx44
+OUT SYNC slot 13 0 -
+OP place minecraft:iron_spear true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 5:stringx19 11:stringx5 12:diamondx44
+OUT SYNC slot 14 0 -
+OP place minecraft:light_weighted_pressure_plate false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 5:stringx19 11:stringx5 12:diamondx44
+OUT SYNC slot 15 0 -
+OP inv 25 oak_planks 14
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 5:stringx19 11:stringx5 12:diamondx44 25:oak_planksx14
+OP place minecraft:oak_trapdoor false
+OUT action NOTHING
+OUT grid oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1 - - -
+OUT result oak_trapdoorx2
+OUT inv 5:stringx19 11:stringx5 12:diamondx44 25:oak_planksx8
+OUT SYNC slot 16 0 oak_trapdoorx2
+OP place minecraft:iron_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 5:stringx19 11:stringx5 12:diamondx44 25:oak_planksx14
+OUT SYNC slot 17 0 -
+OP place minecraft:chest false
+OUT action NOTHING
+OUT grid oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1 - oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1
+OUT result chestx1
+OUT inv 5:stringx19 11:stringx5 12:diamondx44 25:oak_planksx6
+OUT SYNC slot 18 0 chestx1
+OP inv 17 oak_planks 27
+OUT action -
+OUT grid oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1 - oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1
+OUT result chestx1
+OUT inv 5:stringx19 11:stringx5 12:diamondx44 17:oak_planksx27 25:oak_planksx6
+OP inv 8 oak_log 57
+OUT action -
+OUT grid oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1 - oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1
+OUT result chestx1
+OUT inv 5:stringx19 8:oak_logx57 11:stringx5 12:diamondx44 17:oak_planksx27 25:oak_planksx6
+OP inv 17 oak_planks 55
+OUT action -
+OUT grid oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1 - oak_planksx1 oak_planksx1 oak_planksx1 oak_planksx1
+OUT result chestx1
+OUT inv 5:stringx19 8:oak_logx57 11:stringx5 12:diamondx44 17:oak_planksx55 25:oak_planksx6
+OP place minecraft:rail true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 5:stringx19 8:oak_logx57 11:stringx5 12:diamondx44 17:oak_planksx63 25:oak_planksx6
+OUT SYNC slot 19 0 -
+OP inv 3 coal 12
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:coalx12 5:stringx19 8:oak_logx57 11:stringx5 12:diamondx44 17:oak_planksx63 25:oak_planksx6
+OP inv 12 cobblestone 26
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:coalx12 5:stringx19 8:oak_logx57 11:stringx5 12:cobblestonex26 17:oak_planksx63 25:oak_planksx6
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:shears false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 20 0 -
+OP place minecraft:golden_shovel false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 21 0 -
+OP inv 2 oak_log 56
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56
+OP place minecraft:wooden_sword false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56
+OUT SYNC slot 22 0 -
+OP place minecraft:diamond_spear true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56
+OUT SYNC slot 23 0 -
+OP inv 4 coal 36
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36
+OP place minecraft:jukebox false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36
+OUT SYNC slot 24 0 -
+OP inv 29 string 13
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 29:stringx13
+OP place minecraft:chest true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 29:stringx13
+OUT SYNC slot 25 0 -
+OP inv 6 gold_ingot 51
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 29:stringx13
+OP place minecraft:jukebox true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 29:stringx13
+OUT SYNC slot 26 0 -
+OP place minecraft:stick false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 29:stringx13
+OUT SYNC slot 27 0 -
+OP place minecraft:diamond_hoe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 29:stringx13
+OUT SYNC slot 28 0 -
+OP inv 16 oak_planks 62
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 16:oak_planksx62 29:stringx13
+OP inv 12 cobblestone 36
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 12:cobblestonex36 16:oak_planksx62 29:stringx13
+OP place minecraft:chest true
+OUT action NOTHING
+OUT grid oak_planksx7 oak_planksx7 oak_planksx7 oak_planksx7 - oak_planksx7 oak_planksx7 oak_planksx7 oak_planksx7
+OUT result chestx1
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 12:cobblestonex36 16:oak_planksx6 29:stringx13
+OUT SYNC slot 29 0 chestx1
+OP place minecraft:gold_block false
+OUT action NOTHING
+OUT grid gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1
+OUT result gold_blockx1
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx42 12:cobblestonex36 16:oak_planksx62 29:stringx13
+OUT SYNC slot 30 0 gold_blockx1
+OP inv 8 diamond 12
+OUT action -
+OUT grid gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1
+OUT result gold_blockx1
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx42 8:diamondx12 12:cobblestonex36 16:oak_planksx62 29:stringx13
+OP inv 10 oak_planks 25
+OUT action -
+OUT grid gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1
+OUT result gold_blockx1
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx42 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_planksx62 29:stringx13
+OP place minecraft:stone_shovel true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_planksx62 29:stringx13
+OUT SYNC slot 31 0 -
+OP place minecraft:iron_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_planksx62 29:stringx13
+OUT SYNC slot 32 0 -
+OP place minecraft:iron_axe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:oak_logx56 4:coalx36 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_planksx62 29:stringx13
+OUT SYNC slot 33 0 -
+OP inv 2 coal 5
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:coalx5 4:coalx36 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_planksx62 29:stringx13
+OP place minecraft:diamond_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:coalx5 4:coalx36 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_planksx62 29:stringx13
+OUT SYNC slot 34 0 -
+OP inv 20 oak_log 59
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:coalx5 4:coalx36 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_planksx62 20:oak_logx59 29:stringx13
+OP place minecraft:rail false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:coalx5 4:coalx36 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_planksx62 20:oak_logx59 29:stringx13
+OUT SYNC slot 35 0 -
+OP inv 16 oak_log 9
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:coalx5 4:coalx36 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_logx9 20:oak_logx59 29:stringx13
+OP inv 19 coal 53
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:coalx5 4:coalx36 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_logx9 19:coalx53 20:oak_logx59 29:stringx13
+OP inv 4 stick 26
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:coalx5 4:stickx26 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_logx9 19:coalx53 20:oak_logx59 29:stringx13
+OP place minecraft:golden_pickaxe false
+OUT action NOTHING
+OUT grid gold_ingotx1 gold_ingotx1 gold_ingotx1 - stickx1 - - stickx1 -
+OUT result golden_pickaxex1
+OUT inv 2:coalx5 4:stickx24 6:gold_ingotx48 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_logx9 19:coalx53 20:oak_logx59 29:stringx13
+OUT SYNC slot 36 0 golden_pickaxex1
+OP place minecraft:bow true
+OUT action NOTHING
+OUT grid - stickx4 stringx4 stickx4 - stringx4 - stickx4 stringx4
+OUT result bowx1
+OUT inv 2:coalx5 4:stickx14 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_logx9 19:coalx53 20:oak_logx59 29:stringx1
+OUT SYNC slot 37 0 bowx1
+OP inv 3 string 64
+OUT action -
+OUT grid - stickx4 stringx4 stickx4 - stringx4 - stickx4 stringx4
+OUT result bowx1
+OUT inv 2:coalx5 3:stringx64 4:stickx14 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_logx9 19:coalx53 20:oak_logx59 29:stringx1
+OP place minecraft:ladder true
+OUT action NOTHING
+OUT grid stickx3 - stickx3 stickx3 stickx3 stickx3 stickx3 - stickx3
+OUT result ladderx3
+OUT inv 2:coalx5 3:stringx64 4:stickx5 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_logx9 19:coalx53 20:oak_logx59 29:stringx13
+OUT SYNC slot 38 0 ladderx3
+OP inv 31 cobblestone 6
+OUT action -
+OUT grid stickx3 - stickx3 stickx3 stickx3 stickx3 stickx3 - stickx3
+OUT result ladderx3
+OUT inv 2:coalx5 3:stringx64 4:stickx5 6:gold_ingotx51 8:diamondx12 10:oak_planksx25 12:cobblestonex36 16:oak_logx9 19:coalx53 20:oak_logx59 29:stringx13 31:cobblestonex6
+OP clearinv
+OUT action -
+OUT grid stickx3 - stickx3 stickx3 stickx3 stickx3 stickx3 - stickx3
+OUT result ladderx3
+OUT inv
+OP place minecraft:golden_boots false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stickx21
+OUT SYNC slot 39 0 -
+OP place minecraft:diamond_chestplate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stickx21
+OUT SYNC slot 40 0 -
+OP place minecraft:golden_apple true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stickx21
+OUT SYNC slot 41 0 -
+OP place minecraft:rail true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stickx21
+OUT SYNC slot 42 0 -
+OP inv 3 diamond 31
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stickx21 3:diamondx31
+OP place minecraft:cobblestone_stairs true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stickx21 3:diamondx31
+OUT SYNC slot 43 0 -
+OP inv 17 diamond 31
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stickx21 3:diamondx31 17:diamondx31
+OP place minecraft:diamond_hoe false
+OUT action NOTHING
+OUT grid diamondx1 diamondx1 - - stickx1 - - stickx1 -
+OUT result diamond_hoex1
+OUT inv 0:stickx19 3:diamondx29 17:diamondx31
+OUT SYNC slot 44 0 diamond_hoex1
+OP inv 2 stick 8
+OUT action -
+OUT grid diamondx1 diamondx1 - - stickx1 - - stickx1 -
+OUT result diamond_hoex1
+OUT inv 0:stickx19 2:stickx8 3:diamondx29 17:diamondx31
+OP inv 35 diamond 30
+OUT action -
+OUT grid diamondx1 diamondx1 - - stickx1 - - stickx1 -
+OUT result diamond_hoex1
+OUT inv 0:stickx19 2:stickx8 3:diamondx29 17:diamondx31 35:diamondx30
+OP inv 32 iron_ingot 59
+OUT action -
+OUT grid diamondx1 diamondx1 - - stickx1 - - stickx1 -
+OUT result diamond_hoex1
+OUT inv 0:stickx19 2:stickx8 3:diamondx29 17:diamondx31 32:iron_ingotx59 35:diamondx30
+OP place minecraft:light_weighted_pressure_plate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stickx21 2:stickx8 3:diamondx31 17:diamondx31 32:iron_ingotx59 35:diamondx30
+OUT SYNC slot 45 0 -
+OP place minecraft:iron_axe true
+OUT action NOTHING
+OUT grid iron_ingotx14 iron_ingotx14 - iron_ingotx14 stickx14 - - stickx14 -
+OUT result iron_axex1
+OUT inv 2:stickx1 3:diamondx31 17:diamondx31 32:iron_ingotx17 35:diamondx30
+OUT SYNC slot 46 0 iron_axex1
+OP place minecraft:golden_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:stickx29 3:diamondx31 17:diamondx31 32:iron_ingotx59 35:diamondx30
+OUT SYNC slot 47 0 -
+OP place minecraft:stone_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 2:stickx29 3:diamondx31 17:diamondx31 32:iron_ingotx59 35:diamondx30
+OUT SYNC slot 48 0 -
+OP place minecraft:shears false
+OUT action NOTHING
+OUT grid - iron_ingotx1 - iron_ingotx1 - - - - -
+OUT result shearsx1
+OUT inv 2:stickx29 3:diamondx31 17:diamondx31 32:iron_ingotx57 35:diamondx30
+OUT SYNC slot 49 0 shearsx1
+OP inv 1 string 10
+OUT action -
+OUT grid - iron_ingotx1 - iron_ingotx1 - - - - -
+OUT result shearsx1
+OUT inv 1:stringx10 2:stickx29 3:diamondx31 17:diamondx31 32:iron_ingotx57 35:diamondx30
+OP place minecraft:smithing_table false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 1:stringx10 2:stickx29 3:diamondx31 17:diamondx31 32:iron_ingotx59 35:diamondx30
+OUT SYNC slot 50 0 -
+OP place minecraft:golden_boots false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 1:stringx10 2:stickx29 3:diamondx31 17:diamondx31 32:iron_ingotx59 35:diamondx30
+OUT SYNC slot 51 0 -
+OP inv 8 gold_ingot 56
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 1:stringx10 2:stickx29 3:diamondx31 8:gold_ingotx56 17:diamondx31 32:iron_ingotx59 35:diamondx30
+OP inv 15 iron_ingot 50
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 1:stringx10 2:stickx29 3:diamondx31 8:gold_ingotx56 15:iron_ingotx50 17:diamondx31 32:iron_ingotx59 35:diamondx30
+OP grid 1 gold_ingot 7
+OUT action -
+OUT grid gold_ingotx7 - - - - - - - -
+OUT result gold_nuggetx9
+OUT inv 1:stringx10 2:stickx29 3:diamondx31 8:gold_ingotx56 15:iron_ingotx50 17:diamondx31 32:iron_ingotx59 35:diamondx30
+OUT SYNC slot 52 0 gold_nuggetx9
+OP inv 32 cobblestone 31
+OUT action -
+OUT grid gold_ingotx7 - - - - - - - -
+OUT result gold_nuggetx9
+OUT inv 1:stringx10 2:stickx29 3:diamondx31 8:gold_ingotx56 15:iron_ingotx50 17:diamondx31 32:cobblestonex31 35:diamondx30
+OP place minecraft:ladder false
+OUT action NOTHING
+OUT grid stickx1 - stickx1 stickx1 stickx1 stickx1 stickx1 - stickx1
+OUT result ladderx3
+OUT inv 1:stringx10 2:stickx22 3:diamondx31 8:gold_ingotx63 15:iron_ingotx50 17:diamondx31 32:cobblestonex31 35:diamondx30
+OUT SYNC slot 53 0 ladderx3
+OP place minecraft:diamond_hoe true
+OUT action NOTHING
+OUT grid diamondx14 diamondx14 - - stickx14 - - stickx14 -
+OUT result diamond_hoex1
+OUT inv 1:stringx10 2:stickx1 3:diamondx3 8:gold_ingotx63 15:iron_ingotx50 17:diamondx31 32:cobblestonex31 35:diamondx30
+OUT SYNC slot 54 0 diamond_hoex1
+OP inv 35 oak_planks 5
+OUT action -
+OUT grid diamondx14 diamondx14 - - stickx14 - - stickx14 -
+OUT result diamond_hoex1
+OUT inv 1:stringx10 2:stickx1 3:diamondx3 8:gold_ingotx63 15:iron_ingotx50 17:diamondx31 32:cobblestonex31 35:oak_planksx5
+OP inv 13 oak_log 18
+OUT action -
+OUT grid diamondx14 diamondx14 - - stickx14 - - stickx14 -
+OUT result diamond_hoex1
+OUT inv 1:stringx10 2:stickx1 3:diamondx3 8:gold_ingotx63 13:oak_logx18 15:iron_ingotx50 17:diamondx31 32:cobblestonex31 35:oak_planksx5
+OP scenario 9 creative=false table=true
+OP place minecraft:oak_planks true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 2 0 -
+OP place minecraft:oak_sign true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 3 0 -
+OP inv 21 oak_log 16
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 21:oak_logx16
+OP place minecraft:diamond_hoe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 21:oak_logx16
+OUT SYNC slot 4 0 -
+OP inv 35 cobblestone 18
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 21:oak_logx16 35:cobblestonex18
+OP place minecraft:oak_fence_gate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 21:oak_logx16 35:cobblestonex18
+OUT SYNC slot 5 0 -
+OP place minecraft:fishing_rod false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 21:oak_logx16 35:cobblestonex18
+OUT SYNC slot 6 0 -
+OP inv 17 oak_planks 12
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 17:oak_planksx12 21:oak_logx16 35:cobblestonex18
+OP grid 8 apple 3
+OUT action -
+OUT grid - - - - - - - applex3 -
+OUT result -
+OUT inv 17:oak_planksx12 21:oak_logx16 35:cobblestonex18
+OUT SYNC slot 7 0 -
+OP place minecraft:loom true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex3 17:oak_planksx12 21:oak_logx16 35:cobblestonex18
+OUT SYNC slot 8 0 -
+OP place minecraft:oak_stairs true
+OUT action NOTHING
+OUT grid oak_planksx2 - - oak_planksx2 oak_planksx2 - oak_planksx2 oak_planksx2 oak_planksx2
+OUT result oak_stairsx4
+OUT inv 0:applex3 21:oak_logx16 35:cobblestonex18
+OUT SYNC slot 9 0 oak_stairsx4
+OP inv 34 oak_log 13
+OUT action -
+OUT grid oak_planksx2 - - oak_planksx2 oak_planksx2 - oak_planksx2 oak_planksx2 oak_planksx2
+OUT result oak_stairsx4
+OUT inv 0:applex3 21:oak_logx16 34:oak_logx13 35:cobblestonex18
+OP place minecraft:diamond_boots true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex3 1:oak_planksx12 21:oak_logx16 34:oak_logx13 35:cobblestonex18
+OUT SYNC slot 10 0 -
+OP inv 14 diamond 16
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex3 1:oak_planksx12 14:diamondx16 21:oak_logx16 34:oak_logx13 35:cobblestonex18
+OP inv 21 iron_ingot 36
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex3 1:oak_planksx12 14:diamondx16 21:iron_ingotx36 34:oak_logx13 35:cobblestonex18
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:golden_sword false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 11 0 -
+OP place minecraft:stone_sword false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 12 0 -
+OP place minecraft:iron_boots false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 13 0 -
+OP inv 26 string 2
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 26:stringx2
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP inv 10 coal 52
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 10:coalx52
+OP inv 4 stick 13
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 4:stickx13 10:coalx52
+OP grid 8 coal 7
+OUT action -
+OUT grid - - - - - - - coalx7 -
+OUT result -
+OUT inv 4:stickx13 10:coalx52
+OUT SYNC slot 14 0 -
+OP inv 13 stick 16
+OUT action -
+OUT grid - - - - - - - coalx7 -
+OUT result -
+OUT inv 4:stickx13 10:coalx52 13:stickx16
+OP place minecraft:iron_nugget false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 4:stickx13 10:coalx59 13:stickx16
+OUT SYNC slot 15 0 -
+OP inv 33 coal 44
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 4:stickx13 10:coalx59 13:stickx16 33:coalx44
+OP inv 34 iron_ingot 18
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 4:stickx13 10:coalx59 13:stickx16 33:coalx44 34:iron_ingotx18
+OP grid 2 iron_ingot 6
+OUT action -
+OUT grid - iron_ingotx6 - - - - - - -
+OUT result iron_nuggetx9
+OUT inv 4:stickx13 10:coalx59 13:stickx16 33:coalx44 34:iron_ingotx18
+OUT SYNC slot 16 0 iron_nuggetx9
+OP place minecraft:iron_boots false
+OUT action NOTHING
+OUT grid iron_ingotx1 - iron_ingotx1 iron_ingotx1 - iron_ingotx1 - - -
+OUT result iron_bootsx1
+OUT inv 4:stickx13 10:coalx59 13:stickx16 33:coalx44 34:iron_ingotx20
+OUT SYNC slot 17 0 iron_bootsx1
+OP inv 4 gold_ingot 23
+OUT action -
+OUT grid iron_ingotx1 - iron_ingotx1 iron_ingotx1 - iron_ingotx1 - - -
+OUT result iron_bootsx1
+OUT inv 4:gold_ingotx23 10:coalx59 13:stickx16 33:coalx44 34:iron_ingotx20
+OP clearinv
+OUT action -
+OUT grid iron_ingotx1 - iron_ingotx1 iron_ingotx1 - iron_ingotx1 - - -
+OUT result iron_bootsx1
+OUT inv
+OP place minecraft:bucket true
+OUT action NOTHING
+OUT grid iron_ingotx1 - iron_ingotx1 - iron_ingotx1 - - - -
+OUT result bucketx1
+OUT inv 0:iron_ingotx1
+OUT SYNC slot 18 0 bucketx1
+OP place minecraft:oak_slab true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx4
+OUT SYNC slot 19 0 -
+OP inv 6 gold_ingot 36
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx4 6:gold_ingotx36
+OP inv 13 coal 51
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:iron_ingotx4 6:gold_ingotx36 13:coalx51
+OP inv 0 diamond 64
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 13:coalx51
+OP place minecraft:oak_boat true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 13:coalx51
+OUT SYNC slot 20 0 -
+OP place minecraft:shears false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 13:coalx51
+OUT SYNC slot 21 0 -
+OP inv 8 coal 62
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51
+OP inv 30 coal 7
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 30:coalx7
+OP place minecraft:golden_chestplate true
+OUT action NOTHING
+OUT grid gold_ingotx4 - gold_ingotx4 gold_ingotx4 gold_ingotx4 gold_ingotx4 gold_ingotx4 gold_ingotx4 gold_ingotx4
+OUT result golden_chestplatex1
+OUT inv 0:diamondx64 6:gold_ingotx4 8:coalx62 13:coalx51 30:coalx7
+OUT SYNC slot 22 0 golden_chestplatex1
+OP place minecraft:golden_sword true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 30:coalx7
+OUT SYNC slot 23 0 -
+OP place minecraft:furnace false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 30:coalx7
+OUT SYNC slot 24 0 -
+OP place minecraft:crafting_table true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 30:coalx7
+OUT SYNC slot 25 0 -
+OP inv 17 cobblestone 52
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 17:cobblestonex52 30:coalx7
+OP place minecraft:iron_axe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 17:cobblestonex52 30:coalx7
+OUT SYNC slot 26 0 -
+OP place minecraft:golden_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 17:cobblestonex52 30:coalx7
+OUT SYNC slot 27 0 -
+OP place minecraft:bucket true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 17:cobblestonex52 30:coalx7
+OUT SYNC slot 28 0 -
+OP inv 35 coal 34
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 17:cobblestonex52 30:coalx7 35:coalx34
+OP place minecraft:oak_door false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx64 6:gold_ingotx36 8:coalx62 13:coalx51 17:cobblestonex52 30:coalx7 35:coalx34
+OUT SYNC slot 29 0 -
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:tripwire_hook true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 30 0 -
+OP inv 26 oak_planks 57
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 26:oak_planksx57
+OP place minecraft:golden_helmet false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 26:oak_planksx57
+OUT SYNC slot 31 0 -
+OP place minecraft:golden_boots true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 26:oak_planksx57
+OUT SYNC slot 32 0 -
+OP place minecraft:minecart false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 26:oak_planksx57
+OUT SYNC slot 33 0 -
+OP place minecraft:stone_axe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 26:oak_planksx57
+OUT SYNC slot 34 0 -
+OP place minecraft:shield true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 26:oak_planksx57
+OUT SYNC slot 35 0 -
+OP inv 19 oak_log 53
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 19:oak_logx53 26:oak_planksx57
+OP place minecraft:lever false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 19:oak_logx53 26:oak_planksx57
+OUT SYNC slot 36 0 -
+OP grid 5 string 5
+OUT action -
+OUT grid - - - - stringx5 - - - -
+OUT result -
+OUT inv 19:oak_logx53 26:oak_planksx57
+OUT SYNC slot 37 0 -
+OP clearinv
+OUT action -
+OUT grid - - - - stringx5 - - - -
+OUT result -
+OUT inv
+OP grid 3 gold_ingot 1
+OUT action -
+OUT grid - - gold_ingotx1 - stringx5 - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 38 0 -
+OP place minecraft:bow true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:gold_ingotx1 1:stringx5
+OUT SYNC slot 39 0 -
+OP place minecraft:furnace false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:gold_ingotx1 1:stringx5
+OUT SYNC slot 40 0 -
+OP place minecraft:oak_stairs false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:gold_ingotx1 1:stringx5
+OUT SYNC slot 41 0 -
+OP inv 15 diamond 7
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:gold_ingotx1 1:stringx5 15:diamondx7
+OP place minecraft:furnace false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:gold_ingotx1 1:stringx5 15:diamondx7
+OUT SYNC slot 42 0 -
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:gold_block false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 43 0 -
+OP place minecraft:diamond_helmet false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 44 0 -
+OP place minecraft:diamond_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 45 0 -
+OP inv 11 oak_planks 58
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 11:oak_planksx58
+OP place minecraft:oak_slab true
+OUT action NOTHING
+OUT grid - - - oak_planksx19 oak_planksx19 oak_planksx19 - - -
+OUT result oak_slabx6
+OUT inv 11:oak_planksx1
+OUT SYNC slot 46 0 oak_slabx6
+OP inv 6 iron_ingot 29
+OUT action -
+OUT grid - - - oak_planksx19 oak_planksx19 oak_planksx19 - - -
+OUT result oak_slabx6
+OUT inv 6:iron_ingotx29 11:oak_planksx1
+OP place minecraft:diamond_block false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 6:iron_ingotx29 11:oak_planksx58
+OUT SYNC slot 47 0 -
+OP place minecraft:minecart false
+OUT action NOTHING
+OUT grid iron_ingotx1 - iron_ingotx1 iron_ingotx1 iron_ingotx1 iron_ingotx1 - - -
+OUT result minecartx1
+OUT inv 6:iron_ingotx24 11:oak_planksx58
+OUT SYNC slot 48 0 minecartx1
+OP inv 0 coal 30
+OUT action -
+OUT grid iron_ingotx1 - iron_ingotx1 iron_ingotx1 iron_ingotx1 iron_ingotx1 - - -
+OUT result minecartx1
+OUT inv 0:coalx30 6:iron_ingotx24 11:oak_planksx58
+OP place minecraft:cobblestone_slab false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:coalx30 6:iron_ingotx29 11:oak_planksx58
+OUT SYNC slot 49 0 -
+OP place minecraft:heavy_weighted_pressure_plate true
+OUT action NOTHING
+OUT grid - - - iron_ingotx14 iron_ingotx14 - - - -
+OUT result heavy_weighted_pressure_platex1
+OUT inv 0:coalx30 6:iron_ingotx1 11:oak_planksx58
+OUT SYNC slot 50 0 heavy_weighted_pressure_platex1
+OP inv 13 diamond 27
+OUT action -
+OUT grid - - - iron_ingotx14 iron_ingotx14 - - - -
+OUT result heavy_weighted_pressure_platex1
+OUT inv 0:coalx30 6:iron_ingotx1 11:oak_planksx58 13:diamondx27
+OP place minecraft:diamond_boots true
+OUT action NOTHING
+OUT grid diamondx6 - diamondx6 diamondx6 - diamondx6 - - -
+OUT result diamond_bootsx1
+OUT inv 0:coalx30 6:iron_ingotx29 11:oak_planksx58 13:diamondx3
+OUT SYNC slot 51 0 diamond_bootsx1
+OP inv 34 cobblestone 28
+OUT action -
+OUT grid diamondx6 - diamondx6 diamondx6 - diamondx6 - - -
+OUT result diamond_bootsx1
+OUT inv 0:coalx30 6:iron_ingotx29 11:oak_planksx58 13:diamondx3 34:cobblestonex28
+OP place minecraft:diamond_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:coalx30 6:iron_ingotx29 11:oak_planksx58 13:diamondx27 34:cobblestonex28
+OUT SYNC slot 52 0 -
+OP place minecraft:light_weighted_pressure_plate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:coalx30 6:iron_ingotx29 11:oak_planksx58 13:diamondx27 34:cobblestonex28
+OUT SYNC slot 53 0 -
+OP place minecraft:stone_sword true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:coalx30 6:iron_ingotx29 11:oak_planksx58 13:diamondx27 34:cobblestonex28
+OUT SYNC slot 54 0 -
+OP place minecraft:oak_button true
+OUT action NOTHING
+OUT grid oak_planksx58 - - - - - - - -
+OUT result oak_buttonx1
+OUT inv 0:coalx30 6:iron_ingotx29 13:diamondx27 34:cobblestonex28
+OUT SYNC slot 55 0 oak_buttonx1
+OP clearinv
+OUT action -
+OUT grid oak_planksx58 - - - - - - - -
+OUT result oak_buttonx1
+OUT inv
+OP inv 4 coal 29
+OUT action -
+OUT grid oak_planksx58 - - - - - - - -
+OUT result oak_buttonx1
+OUT inv 4:coalx29
+OP scenario 10 creative=false table=true
+OP inv 35 oak_log 30
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 35:oak_logx30
+OP inv 14 coal 49
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:coalx49 35:oak_logx30
+OP place minecraft:loom true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:coalx49 35:oak_logx30
+OUT SYNC slot 2 0 -
+OP place minecraft:iron_block false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:coalx49 35:oak_logx30
+OUT SYNC slot 3 0 -
+OP place minecraft:diamond_hoe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:coalx49 35:oak_logx30
+OUT SYNC slot 4 0 -
+OP place minecraft:oak_planks false
+OUT action NOTHING
+OUT grid oak_logx1 - - - - - - - -
+OUT result oak_planksx4
+OUT inv 14:coalx49 35:oak_logx29
+OUT SYNC slot 5 0 oak_planksx4
+OP place minecraft:stone_spear false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:coalx49 35:oak_logx30
+OUT SYNC slot 6 0 -
+OP place minecraft:iron_block true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:coalx49 35:oak_logx30
+OUT SYNC slot 7 0 -
+OP place minecraft:iron_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:coalx49 35:oak_logx30
+OUT SYNC slot 8 0 -
+OP place minecraft:iron_shovel true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:coalx49 35:oak_logx30
+OUT SYNC slot 9 0 -
+OP place minecraft:coal_block true
+OUT action NOTHING
+OUT grid coalx5 coalx5 coalx5 coalx5 coalx5 coalx5 coalx5 coalx5 coalx5
+OUT result coal_blockx1
+OUT inv 14:coalx4 35:oak_logx30
+OUT SYNC slot 10 0 coal_blockx1
+OP grid 2 cobblestone 3
+OUT action -
+OUT grid coalx5 cobblestonex3 coalx5 coalx5 coalx5 coalx5 coalx5 coalx5 coalx5
+OUT result -
+OUT inv 14:coalx4 35:oak_logx30
+OUT SYNC slot 11 0 -
+OP grid 2 apple 6
+OUT action -
+OUT grid coalx5 applex6 coalx5 coalx5 coalx5 coalx5 coalx5 coalx5 coalx5
+OUT result -
+OUT inv 14:coalx4 35:oak_logx30
+OUT SYNC slot 12 0 -
+OP inv 4 diamond 2
+OUT action -
+OUT grid coalx5 applex6 coalx5 coalx5 coalx5 coalx5 coalx5 coalx5 coalx5
+OUT result -
+OUT inv 4:diamondx2 14:coalx4 35:oak_logx30
+OP place minecraft:iron_door false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 4:diamondx2 14:coalx44 35:oak_logx30
+OUT SYNC slot 13 0 -
+OP inv 11 oak_planks 36
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 4:diamondx2 11:oak_planksx36 14:coalx44 35:oak_logx30
+OP grid 1 stick 4
+OUT action -
+OUT grid stickx4 - - - - - - - -
+OUT result -
+OUT inv 0:applex6 4:diamondx2 11:oak_planksx36 14:coalx44 35:oak_logx30
+OUT SYNC slot 14 0 -
+OP place minecraft:golden_spear true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 1:stickx4 4:diamondx2 11:oak_planksx36 14:coalx44 35:oak_logx30
+OUT SYNC slot 15 0 -
+OP inv 28 oak_log 51
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 1:stickx4 4:diamondx2 11:oak_planksx36 14:coalx44 28:oak_logx51 35:oak_logx30
+OP place minecraft:wooden_axe true
+OUT action NOTHING
+OUT grid oak_planksx2 oak_planksx2 - oak_planksx2 stickx2 - - stickx2 -
+OUT result wooden_axex1
+OUT inv 0:applex6 4:diamondx2 11:oak_planksx30 14:coalx44 28:oak_logx51 35:oak_logx30
+OUT SYNC slot 16 0 wooden_axex1
+OP inv 24 gold_ingot 8
+OUT action -
+OUT grid oak_planksx2 oak_planksx2 - oak_planksx2 stickx2 - - stickx2 -
+OUT result wooden_axex1
+OUT inv 0:applex6 4:diamondx2 11:oak_planksx30 14:coalx44 24:gold_ingotx8 28:oak_logx51 35:oak_logx30
+OP place minecraft:coal_block false
+OUT action NOTHING
+OUT grid coalx1 coalx1 coalx1 coalx1 coalx1 coalx1 coalx1 coalx1 coalx1
+OUT result coal_blockx1
+OUT inv 0:applex6 1:stickx4 4:diamondx2 11:oak_planksx36 14:coalx35 24:gold_ingotx8 28:oak_logx51 35:oak_logx30
+OUT SYNC slot 17 0 coal_blockx1
+OP inv 17 stick 9
+OUT action -
+OUT grid coalx1 coalx1 coalx1 coalx1 coalx1 coalx1 coalx1 coalx1 coalx1
+OUT result coal_blockx1
+OUT inv 0:applex6 1:stickx4 4:diamondx2 11:oak_planksx36 14:coalx35 17:stickx9 24:gold_ingotx8 28:oak_logx51 35:oak_logx30
+OP place minecraft:cartography_table false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 1:stickx4 4:diamondx2 11:oak_planksx36 14:coalx44 17:stickx9 24:gold_ingotx8 28:oak_logx51 35:oak_logx30
+OUT SYNC slot 18 0 -
+OP inv 6 cobblestone 33
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 1:stickx4 4:diamondx2 6:cobblestonex33 11:oak_planksx36 14:coalx44 17:stickx9 24:gold_ingotx8 28:oak_logx51 35:oak_logx30
+OP place minecraft:iron_door false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 1:stickx4 4:diamondx2 6:cobblestonex33 11:oak_planksx36 14:coalx44 17:stickx9 24:gold_ingotx8 28:oak_logx51 35:oak_logx30
+OUT SYNC slot 19 0 -
+OP place minecraft:diamond_axe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 1:stickx4 4:diamondx2 6:cobblestonex33 11:oak_planksx36 14:coalx44 17:stickx9 24:gold_ingotx8 28:oak_logx51 35:oak_logx30
+OUT SYNC slot 20 0 -
+OP place minecraft:golden_boots true
+OUT action NOTHING
+OUT grid gold_ingotx2 - gold_ingotx2 gold_ingotx2 - gold_ingotx2 - - -
+OUT result golden_bootsx1
+OUT inv 0:applex6 1:stickx4 4:diamondx2 6:cobblestonex33 11:oak_planksx36 14:coalx44 17:stickx9 28:oak_logx51 35:oak_logx30
+OUT SYNC slot 21 0 golden_bootsx1
+OP place minecraft:shears true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 4:diamondx2 6:cobblestonex33 11:oak_planksx36 14:coalx44 17:stickx9 28:oak_logx51 35:oak_logx30
+OUT SYNC slot 22 0 -
+OP place minecraft:furnace true
+OUT action NOTHING
+OUT grid cobblestonex4 cobblestonex4 cobblestonex4 cobblestonex4 - cobblestonex4 cobblestonex4 cobblestonex4 cobblestonex4
+OUT result furnacex1
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 4:diamondx2 6:cobblestonex1 11:oak_planksx36 14:coalx44 17:stickx9 28:oak_logx51 35:oak_logx30
+OUT SYNC slot 23 0 furnacex1
+OP inv 35 string 48
+OUT action -
+OUT grid cobblestonex4 cobblestonex4 cobblestonex4 cobblestonex4 - cobblestonex4 cobblestonex4 cobblestonex4 cobblestonex4
+OUT result furnacex1
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 4:diamondx2 6:cobblestonex1 11:oak_planksx36 14:coalx44 17:stickx9 28:oak_logx51 35:stringx48
+OP inv 9 oak_log 1
+OUT action -
+OUT grid cobblestonex4 cobblestonex4 cobblestonex4 cobblestonex4 - cobblestonex4 cobblestonex4 cobblestonex4 cobblestonex4
+OUT result furnacex1
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 4:diamondx2 6:cobblestonex1 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 28:oak_logx51 35:stringx48
+OP inv 30 diamond 55
+OUT action -
+OUT grid cobblestonex4 cobblestonex4 cobblestonex4 cobblestonex4 - cobblestonex4 cobblestonex4 cobblestonex4 cobblestonex4
+OUT result furnacex1
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 4:diamondx2 6:cobblestonex1 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 28:oak_logx51 30:diamondx55 35:stringx48
+OP grid 9 dirt 6
+OUT action -
+OUT grid cobblestonex4 cobblestonex4 cobblestonex4 cobblestonex4 - cobblestonex4 cobblestonex4 cobblestonex4 dirtx6
+OUT result -
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 4:diamondx2 6:cobblestonex1 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 28:oak_logx51 30:diamondx55 35:stringx48
+OUT SYNC slot 24 0 -
+OP place minecraft:cobblestone_slab true
+OUT action NOTHING
+OUT grid - - - cobblestonex9 cobblestonex9 cobblestonex9 - - -
+OUT result cobblestone_slabx6
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 3:dirtx6 4:diamondx2 6:cobblestonex2 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 28:oak_logx51 30:diamondx55 35:stringx48
+OUT SYNC slot 25 0 cobblestone_slabx6
+OP inv 20 stick 41
+OUT action -
+OUT grid - - - cobblestonex9 cobblestonex9 cobblestonex9 - - -
+OUT result cobblestone_slabx6
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 3:dirtx6 4:diamondx2 6:cobblestonex2 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 20:stickx41 28:oak_logx51 30:diamondx55 35:stringx48
+OP place minecraft:chest true
+OUT action NOTHING
+OUT grid oak_planksx4 oak_planksx4 oak_planksx4 oak_planksx4 - oak_planksx4 oak_planksx4 oak_planksx4 oak_planksx4
+OUT result chestx1
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 3:dirtx6 4:diamondx2 6:cobblestonex29 9:oak_logx1 11:oak_planksx4 14:coalx44 17:stickx9 20:stickx41 28:oak_logx51 30:diamondx55 35:stringx48
+OUT SYNC slot 26 0 chestx1
+OP place minecraft:golden_spear false
+OUT action NOTHING
+OUT grid - - gold_ingotx1 - stickx1 - stickx1 - -
+OUT result golden_spearx1
+OUT inv 0:applex6 1:stickx2 2:gold_ingotx7 3:dirtx6 4:diamondx2 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 20:stickx41 28:oak_logx51 30:diamondx55 35:stringx48
+OUT SYNC slot 27 0 golden_spearx1
+OP inv 18 oak_log 19
+OUT action -
+OUT grid - - gold_ingotx1 - stickx1 - stickx1 - -
+OUT result golden_spearx1
+OUT inv 0:applex6 1:stickx2 2:gold_ingotx7 3:dirtx6 4:diamondx2 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 18:oak_logx19 20:stickx41 28:oak_logx51 30:diamondx55 35:stringx48
+OP place minecraft:fishing_rod false
+OUT action NOTHING
+OUT grid - - stickx1 - stickx1 stringx1 stickx1 - stringx1
+OUT result fishing_rodx1
+OUT inv 0:applex6 1:stickx1 2:gold_ingotx8 3:dirtx6 4:diamondx2 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 18:oak_logx19 20:stickx41 28:oak_logx51 30:diamondx55 35:stringx46
+OUT SYNC slot 28 0 fishing_rodx1
+OP place minecraft:rail true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 3:dirtx6 4:diamondx2 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 18:oak_logx19 20:stickx41 28:oak_logx51 30:diamondx55 35:stringx48
+OUT SYNC slot 29 0 -
+OP place minecraft:cartography_table false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 3:dirtx6 4:diamondx2 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 18:oak_logx19 20:stickx41 28:oak_logx51 30:diamondx55 35:stringx48
+OUT SYNC slot 30 0 -
+OP place minecraft:diamond_leggings true
+OUT action NOTHING
+OUT grid diamondx8 diamondx8 diamondx8 diamondx8 - diamondx8 diamondx8 - diamondx8
+OUT result diamond_leggingsx1
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 3:dirtx6 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 18:oak_logx19 20:stickx41 28:oak_logx51 30:diamondx1 35:stringx48
+OUT SYNC slot 31 0 diamond_leggingsx1
+OP inv 18 oak_planks 16
+OUT action -
+OUT grid diamondx8 diamondx8 diamondx8 diamondx8 - diamondx8 diamondx8 - diamondx8
+OUT result diamond_leggingsx1
+OUT inv 0:applex6 1:stickx4 2:gold_ingotx8 3:dirtx6 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 14:coalx44 17:stickx9 18:oak_planksx16 20:stickx41 28:oak_logx51 30:diamondx1 35:stringx48
+OP place minecraft:torch true
+OUT action NOTHING
+OUT grid - coalx44 - - stickx44 - - - -
+OUT result torchx4
+OUT inv 0:applex6 2:gold_ingotx8 3:dirtx6 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 18:oak_planksx16 20:stickx10 28:oak_logx51 30:diamondx57 35:stringx48
+OUT SYNC slot 32 0 torchx4
+OP place minecraft:diamond_boots true
+OUT action NOTHING
+OUT grid diamondx14 - diamondx14 diamondx14 - diamondx14 - - -
+OUT result diamond_bootsx1
+OUT inv 0:applex6 1:coalx44 2:gold_ingotx8 3:dirtx6 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 18:oak_planksx16 20:stickx54 28:oak_logx51 30:diamondx1 35:stringx48
+OUT SYNC slot 33 0 diamond_bootsx1
+OP inv 14 gold_ingot 32
+OUT action -
+OUT grid diamondx14 - diamondx14 diamondx14 - diamondx14 - - -
+OUT result diamond_bootsx1
+OUT inv 0:applex6 1:coalx44 2:gold_ingotx8 3:dirtx6 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 14:gold_ingotx32 18:oak_planksx16 20:stickx54 28:oak_logx51 30:diamondx1 35:stringx48
+OP place minecraft:white_wool_from_string true
+OUT action NOTHING
+OUT grid stringx12 stringx12 - stringx12 stringx12 - - - -
+OUT result white_woolx1
+OUT inv 0:applex6 1:coalx44 2:gold_ingotx8 3:dirtx6 6:cobblestonex29 9:oak_logx1 11:oak_planksx36 14:gold_ingotx32 18:oak_planksx16 20:stickx54 28:oak_logx51 30:diamondx57
+OUT SYNC slot 34 0 white_woolx1
+OP clearinv
+OUT action -
+OUT grid stringx12 stringx12 - stringx12 stringx12 - - - -
+OUT result white_woolx1
+OUT inv
+OP clearinv
+OUT action -
+OUT grid stringx12 stringx12 - stringx12 stringx12 - - - -
+OUT result white_woolx1
+OUT inv
+OP place minecraft:diamond_axe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48
+OUT SYNC slot 35 0 -
+OP place minecraft:loom true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48
+OUT SYNC slot 36 0 -
+OP place minecraft:golden_chestplate false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48
+OUT SYNC slot 37 0 -
+OP inv 27 gold_ingot 49
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 27:gold_ingotx49
+OP place minecraft:tripwire_hook false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 27:gold_ingotx49
+OUT SYNC slot 38 0 -
+OP place minecraft:bow false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 27:gold_ingotx49
+OUT SYNC slot 39 0 -
+OP place minecraft:iron_spear false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 27:gold_ingotx49
+OUT SYNC slot 40 0 -
+OP place minecraft:torch true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 27:gold_ingotx49
+OUT SYNC slot 41 0 -
+OP inv 24 string 30
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 24:stringx30 27:gold_ingotx49
+OP inv 18 diamond 41
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 18:diamondx41 24:stringx30 27:gold_ingotx49
+OP place minecraft:lead false
+OUT action NOTHING
+OUT grid stringx1 stringx1 - stringx1 stringx1 - - - stringx1
+OUT result leadx2
+OUT inv 0:stringx43 18:diamondx41 24:stringx30 27:gold_ingotx49
+OUT SYNC slot 42 0 leadx2
+OP place minecraft:bowl false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 18:diamondx41 24:stringx30 27:gold_ingotx49
+OUT SYNC slot 43 0 -
+OP place minecraft:iron_shovel false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 18:diamondx41 24:stringx30 27:gold_ingotx49
+OUT SYNC slot 44 0 -
+OP place minecraft:light_weighted_pressure_plate true
+OUT action NOTHING
+OUT grid - - - gold_ingotx24 gold_ingotx24 - - - -
+OUT result light_weighted_pressure_platex1
+OUT inv 0:stringx48 18:diamondx41 24:stringx30 27:gold_ingotx1
+OUT SYNC slot 45 0 light_weighted_pressure_platex1
+OP place minecraft:cobblestone_wall true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 18:diamondx41 24:stringx30 27:gold_ingotx49
+OUT SYNC slot 46 0 -
+OP grid 1 cobblestone 2
+OUT action -
+OUT grid cobblestonex2 - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 18:diamondx41 24:stringx30 27:gold_ingotx49
+OUT SYNC slot 47 0 -
+OP place minecraft:chest true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 1:cobblestonex2 18:diamondx41 24:stringx30 27:gold_ingotx49
+OUT SYNC slot 48 0 -
+OP inv 16 gold_ingot 63
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:stringx48 1:cobblestonex2 16:gold_ingotx63 18:diamondx41 24:stringx30 27:gold_ingotx49
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:golden_spear false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 49 0 -
+OP place minecraft:lead false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 50 0 -
+OP inv 0 diamond 40
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40
+OP inv 21 coal 20
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 21:coalx20
+OP inv 29 string 60
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 21:coalx20 29:stringx60
+OP place minecraft:iron_shovel false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 21:coalx20 29:stringx60
+OUT SYNC slot 51 0 -
+OP place minecraft:fishing_rod false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 21:coalx20 29:stringx60
+OUT SYNC slot 52 0 -
+OP inv 19 gold_ingot 17
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 19:gold_ingotx17 21:coalx20 29:stringx60
+OP place minecraft:iron_boots false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 19:gold_ingotx17 21:coalx20 29:stringx60
+OUT SYNC slot 53 0 -
+OP place minecraft:wooden_sword true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 19:gold_ingotx17 21:coalx20 29:stringx60
+OUT SYNC slot 54 0 -
+OP place minecraft:stone_spear true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 19:gold_ingotx17 21:coalx20 29:stringx60
+OUT SYNC slot 55 0 -
+OP inv 10 cobblestone 21
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 10:cobblestonex21 19:gold_ingotx17 21:coalx20 29:stringx60
+OP place minecraft:cauldron false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 10:cobblestonex21 19:gold_ingotx17 21:coalx20 29:stringx60
+OUT SYNC slot 56 0 -
+OP inv 22 stick 9
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 10:cobblestonex21 19:gold_ingotx17 21:coalx20 22:stickx9 29:stringx60
+OP inv 12 coal 23
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 10:cobblestonex21 12:coalx23 19:gold_ingotx17 21:coalx20 22:stickx9 29:stringx60
+OP inv 1 iron_ingot 17
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 1:iron_ingotx17 10:cobblestonex21 12:coalx23 19:gold_ingotx17 21:coalx20 22:stickx9 29:stringx60
+OP place minecraft:cobblestone_wall true
+OUT action NOTHING
+OUT grid cobblestonex3 cobblestonex3 cobblestonex3 cobblestonex3 cobblestonex3 cobblestonex3 - - -
+OUT result cobblestone_wallx6
+OUT inv 0:diamondx40 1:iron_ingotx17 10:cobblestonex3 12:coalx23 19:gold_ingotx17 21:coalx20 22:stickx9 29:stringx60
+OUT SYNC slot 57 0 cobblestone_wallx6
+OP place minecraft:golden_leggings true
+OUT action NOTHING
+OUT grid gold_ingotx2 gold_ingotx2 gold_ingotx2 gold_ingotx2 - gold_ingotx2 gold_ingotx2 - gold_ingotx2
+OUT result golden_leggingsx1
+OUT inv 0:diamondx40 1:iron_ingotx17 10:cobblestonex21 12:coalx23 19:gold_ingotx3 21:coalx20 22:stickx9 29:stringx60
+OUT SYNC slot 58 0 golden_leggingsx1
+OP place minecraft:wooden_hoe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 1:iron_ingotx17 10:cobblestonex21 12:coalx23 19:gold_ingotx17 21:coalx20 22:stickx9 29:stringx60
+OUT SYNC slot 59 0 -
+OP place minecraft:oak_door true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:diamondx40 1:iron_ingotx17 10:cobblestonex21 12:coalx23 19:gold_ingotx17 21:coalx20 22:stickx9 29:stringx60
+OUT SYNC slot 60 0 -
+OP grid 4 dirt 1
+OUT action -
+OUT grid - - - dirtx1 - - - - -
+OUT result -
+OUT inv 0:diamondx40 1:iron_ingotx17 10:cobblestonex21 12:coalx23 19:gold_ingotx17 21:coalx20 22:stickx9 29:stringx60
+OUT SYNC slot 61 0 -
+OP scenario 11 creative=true table=true
+OP place minecraft:oak_fence true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 2 0 -
+OP inv 18 oak_planks 23
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 18:oak_planksx23
+OP place minecraft:golden_axe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 18:oak_planksx23
+OUT SYNC slot 3 0 -
+OP place minecraft:wooden_hoe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 18:oak_planksx23
+OUT SYNC slot 4 0 -
+OP inv 3 cobblestone 45
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex45 18:oak_planksx23
+OP place minecraft:rail true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex45 18:oak_planksx23
+OUT SYNC slot 5 0 -
+OP grid 7 cobblestone 6
+OUT action -
+OUT grid - - - - - - cobblestonex6 - -
+OUT result -
+OUT inv 3:cobblestonex45 18:oak_planksx23
+OUT SYNC slot 6 0 -
+OP place minecraft:diamond_spear false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 18:oak_planksx23
+OUT SYNC slot 7 0 -
+OP place minecraft:iron_hoe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 18:oak_planksx23
+OUT SYNC slot 8 0 -
+OP place minecraft:furnace false
+OUT action NOTHING
+OUT grid cobblestonex1 cobblestonex1 cobblestonex1 cobblestonex1 - cobblestonex1 cobblestonex1 cobblestonex1 cobblestonex1
+OUT result furnacex1
+OUT inv 3:cobblestonex43 18:oak_planksx23
+OUT SYNC slot 9 0 furnacex1
+OP place minecraft:wooden_axe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 18:oak_planksx23
+OUT SYNC slot 10 0 -
+OP place minecraft:oak_button false
+OUT action NOTHING
+OUT grid oak_planksx1 - - - - - - - -
+OUT result oak_buttonx1
+OUT inv 3:cobblestonex51 18:oak_planksx22
+OUT SYNC slot 11 0 oak_buttonx1
+OP place minecraft:light_weighted_pressure_plate false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 18:oak_planksx23
+OUT SYNC slot 12 0 -
+OP place minecraft:white_wool_from_string false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 18:oak_planksx23
+OUT SYNC slot 13 0 -
+OP inv 4 stick 46
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 4:stickx46 18:oak_planksx23
+OP inv 26 oak_planks 1
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 4:stickx46 18:oak_planksx23 26:oak_planksx1
+OP inv 15 stick 61
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 4:stickx46 15:stickx61 18:oak_planksx23 26:oak_planksx1
+OP place minecraft:cartography_table false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 4:stickx46 15:stickx61 18:oak_planksx23 26:oak_planksx1
+OUT SYNC slot 14 0 -
+OP place minecraft:diamond_shovel true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 4:stickx46 15:stickx61 18:oak_planksx23 26:oak_planksx1
+OUT SYNC slot 15 0 -
+OP inv 35 oak_planks 10
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 3:cobblestonex51 4:stickx46 15:stickx61 18:oak_planksx23 26:oak_planksx1 35:oak_planksx10
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:diamond_chestplate false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 16 0 -
+OP place minecraft:golden_axe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 17 0 -
+OP inv 19 oak_planks 1
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 19:oak_planksx1
+OP inv 9 cobblestone 16
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 9:cobblestonex16 19:oak_planksx1
+OP place minecraft:iron_boots false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 9:cobblestonex16 19:oak_planksx1
+OUT SYNC slot 18 0 -
+OP inv 31 string 14
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 9:cobblestonex16 19:oak_planksx1 31:stringx14
+OP inv 7 oak_planks 12
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:oak_planksx12 9:cobblestonex16 19:oak_planksx1 31:stringx14
+OP grid 3 cobblestone 6
+OUT action -
+OUT grid - - cobblestonex6 - - - - - -
+OUT result -
+OUT inv 7:oak_planksx12 9:cobblestonex16 19:oak_planksx1 31:stringx14
+OUT SYNC slot 19 0 -
+OP place minecraft:fishing_rod true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:oak_planksx12 9:cobblestonex22 19:oak_planksx1 31:stringx14
+OUT SYNC slot 20 0 -
+OP inv 21 cobblestone 30
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:oak_planksx12 9:cobblestonex22 19:oak_planksx1 21:cobblestonex30 31:stringx14
+OP place minecraft:jukebox false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 7:oak_planksx12 9:cobblestonex22 19:oak_planksx1 21:cobblestonex30 31:stringx14
+OUT SYNC slot 21 0 -
+OP place minecraft:oak_trapdoor true
+OUT action NOTHING
+OUT grid oak_planksx2 oak_planksx2 oak_planksx2 oak_planksx2 oak_planksx2 oak_planksx2 - - -
+OUT result oak_trapdoorx2
+OUT inv 9:cobblestonex22 19:oak_planksx1 21:cobblestonex30 31:stringx14
+OUT SYNC slot 22 0 oak_trapdoorx2
+OP place minecraft:iron_nugget false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 9:cobblestonex22 19:oak_planksx13 21:cobblestonex30 31:stringx14
+OUT SYNC slot 23 0 -
+OP place minecraft:bowl true
+OUT action NOTHING
+OUT grid oak_planksx4 - oak_planksx4 - oak_planksx4 - - - -
+OUT result bowlx4
+OUT inv 9:cobblestonex22 19:oak_planksx1 21:cobblestonex30 31:stringx14
+OUT SYNC slot 24 0 bowlx4
+OP place minecraft:torch false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 9:cobblestonex22 19:oak_planksx13 21:cobblestonex30 31:stringx14
+OUT SYNC slot 25 0 -
+OP place minecraft:oak_fence_gate false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 9:cobblestonex22 19:oak_planksx13 21:cobblestonex30 31:stringx14
+OUT SYNC slot 26 0 -
+OP inv 17 oak_planks 58
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 9:cobblestonex22 17:oak_planksx58 19:oak_planksx13 21:cobblestonex30 31:stringx14
+OP place minecraft:loom false
+OUT action NOTHING
+OUT grid stringx1 stringx1 - oak_planksx1 oak_planksx1 - - - -
+OUT result loomx1
+OUT inv 9:cobblestonex22 17:oak_planksx56 19:oak_planksx13 21:cobblestonex30 31:stringx12
+OUT SYNC slot 27 0 loomx1
+OP inv 29 oak_planks 54
+OUT action -
+OUT grid stringx1 stringx1 - oak_planksx1 oak_planksx1 - - - -
+OUT result loomx1
+OUT inv 9:cobblestonex22 17:oak_planksx56 19:oak_planksx13 21:cobblestonex30 29:oak_planksx54 31:stringx12
+OP place minecraft:oak_stairs true
+OUT action NOTHING
+OUT grid oak_planksx20 - - oak_planksx20 oak_planksx20 - oak_planksx20 oak_planksx20 oak_planksx20
+OUT result oak_stairsx4
+OUT inv 9:cobblestonex22 21:cobblestonex30 29:oak_planksx5 31:stringx14
+OUT SYNC slot 28 0 oak_stairsx4
+OP inv 32 cobblestone 26
+OUT action -
+OUT grid oak_planksx20 - - oak_planksx20 oak_planksx20 - oak_planksx20 oak_planksx20 oak_planksx20
+OUT result oak_stairsx4
+OUT inv 9:cobblestonex22 21:cobblestonex30 29:oak_planksx5 31:stringx14 32:cobblestonex26
+OP place minecraft:iron_chestplate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx61 9:cobblestonex22 21:cobblestonex30 29:oak_planksx64 31:stringx14 32:cobblestonex26
+OUT SYNC slot 29 0 -
+OP place minecraft:diamond_boots false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx61 9:cobblestonex22 21:cobblestonex30 29:oak_planksx64 31:stringx14 32:cobblestonex26
+OUT SYNC slot 30 0 -
+OP place minecraft:iron_trapdoor true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx61 9:cobblestonex22 21:cobblestonex30 29:oak_planksx64 31:stringx14 32:cobblestonex26
+OUT SYNC slot 31 0 -
+OP grid 9 dirt 5
+OUT action -
+OUT grid - - - - - - - - dirtx5
+OUT result -
+OUT inv 0:oak_planksx61 9:cobblestonex22 21:cobblestonex30 29:oak_planksx64 31:stringx14 32:cobblestonex26
+OUT SYNC slot 32 0 -
+OP place minecraft:stone_axe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_planksx61 1:dirtx5 9:cobblestonex22 21:cobblestonex30 29:oak_planksx64 31:stringx14 32:cobblestonex26
+OUT SYNC slot 33 0 -
+OP grid 5 oak_log 4
+OUT action -
+OUT grid - - - - oak_logx4 - - - -
+OUT result oak_planksx4
+OUT inv 0:oak_planksx61 1:dirtx5 9:cobblestonex22 21:cobblestonex30 29:oak_planksx64 31:stringx14 32:cobblestonex26
+OUT SYNC slot 34 0 oak_planksx4
+OP inv 29 cobblestone 59
+OUT action -
+OUT grid - - - - oak_logx4 - - - -
+OUT result oak_planksx4
+OUT inv 0:oak_planksx61 1:dirtx5 9:cobblestonex22 21:cobblestonex30 29:cobblestonex59 31:stringx14 32:cobblestonex26
+OP clearinv
+OUT action -
+OUT grid - - - - oak_logx4 - - - -
+OUT result oak_planksx4
+OUT inv
+OP inv 27 iron_ingot 9
+OUT action -
+OUT grid - - - - oak_logx4 - - - -
+OUT result oak_planksx4
+OUT inv 27:iron_ingotx9
+OP inv 34 diamond 49
+OUT action -
+OUT grid - - - - oak_logx4 - - - -
+OUT result oak_planksx4
+OUT inv 27:iron_ingotx9 34:diamondx49
+OP place minecraft:iron_leggings false
+OUT action NOTHING
+OUT grid iron_ingotx1 iron_ingotx1 iron_ingotx1 iron_ingotx1 - iron_ingotx1 iron_ingotx1 - iron_ingotx1
+OUT result iron_leggingsx1
+OUT inv 0:oak_logx4 27:iron_ingotx2 34:diamondx49
+OUT SYNC slot 35 0 iron_leggingsx1
+OP place minecraft:bucket true
+OUT action NOTHING
+OUT grid iron_ingotx3 - iron_ingotx3 - iron_ingotx3 - - - -
+OUT result bucketx1
+OUT inv 0:oak_logx4 34:diamondx49
+OUT SYNC slot 36 0 bucketx1
+OP inv 3 gold_ingot 44
+OUT action -
+OUT grid iron_ingotx3 - iron_ingotx3 - iron_ingotx3 - - - -
+OUT result bucketx1
+OUT inv 0:oak_logx4 3:gold_ingotx44 34:diamondx49
+OP inv 23 string 29
+OUT action -
+OUT grid iron_ingotx3 - iron_ingotx3 - iron_ingotx3 - - - -
+OUT result bucketx1
+OUT inv 0:oak_logx4 3:gold_ingotx44 23:stringx29 34:diamondx49
+OP inv 22 coal 8
+OUT action -
+OUT grid iron_ingotx3 - iron_ingotx3 - iron_ingotx3 - - - -
+OUT result bucketx1
+OUT inv 0:oak_logx4 3:gold_ingotx44 22:coalx8 23:stringx29 34:diamondx49
+OP place minecraft:oak_planks false
+OUT action NOTHING
+OUT grid oak_logx1 - - - - - - - -
+OUT result oak_planksx4
+OUT inv 0:oak_logx3 1:iron_ingotx9 3:gold_ingotx44 22:coalx8 23:stringx29 34:diamondx49
+OUT SYNC slot 37 0 oak_planksx4
+OP grid 6 gold_ingot 4
+OUT action -
+OUT grid oak_logx1 - - - - gold_ingotx4 - - -
+OUT result -
+OUT inv 0:oak_logx3 1:iron_ingotx9 3:gold_ingotx44 22:coalx8 23:stringx29 34:diamondx49
+OUT SYNC slot 38 0 -
+OP inv 8 string 10
+OUT action -
+OUT grid oak_logx1 - - - - gold_ingotx4 - - -
+OUT result -
+OUT inv 0:oak_logx3 1:iron_ingotx9 3:gold_ingotx44 8:stringx10 22:coalx8 23:stringx29 34:diamondx49
+OP place minecraft:golden_helmet false
+OUT action NOTHING
+OUT grid gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 - gold_ingotx1 - - -
+OUT result golden_helmetx1
+OUT inv 0:oak_logx4 1:iron_ingotx9 3:gold_ingotx43 8:stringx10 22:coalx8 23:stringx29 34:diamondx49
+OUT SYNC slot 39 0 golden_helmetx1
+OP inv 24 cobblestone 12
+OUT action -
+OUT grid gold_ingotx1 gold_ingotx1 gold_ingotx1 gold_ingotx1 - gold_ingotx1 - - -
+OUT result golden_helmetx1
+OUT inv 0:oak_logx4 1:iron_ingotx9 3:gold_ingotx43 8:stringx10 22:coalx8 23:stringx29 24:cobblestonex12 34:diamondx49
+OP place minecraft:minecart true
+OUT action NOTHING
+OUT grid iron_ingotx1 - iron_ingotx1 iron_ingotx1 iron_ingotx1 iron_ingotx1 - - -
+OUT result minecartx1
+OUT inv 0:oak_logx4 1:iron_ingotx4 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:cobblestonex12 34:diamondx49
+OUT SYNC slot 40 0 minecartx1
+OP inv 24 oak_planks 49
+OUT action -
+OUT grid iron_ingotx1 - iron_ingotx1 iron_ingotx1 iron_ingotx1 iron_ingotx1 - - -
+OUT result minecartx1
+OUT inv 0:oak_logx4 1:iron_ingotx4 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:oak_planksx49 34:diamondx49
+OP place minecraft:ladder false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:iron_ingotx9 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:oak_planksx49 34:diamondx49
+OUT SYNC slot 41 0 -
+OP place minecraft:wooden_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:iron_ingotx9 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:oak_planksx49 34:diamondx49
+OUT SYNC slot 42 0 -
+OP inv 24 stick 40
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:iron_ingotx9 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:stickx40 34:diamondx49
+OP inv 1 stick 60
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:stickx60 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:stickx40 34:diamondx49
+OP inv 2 stick 18
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:stickx60 2:stickx18 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:stickx40 34:diamondx49
+OP inv 34 cobblestone 51
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:stickx60 2:stickx18 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:stickx40 34:cobblestonex51
+OP inv 28 gold_ingot 21
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:stickx60 2:stickx18 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:stickx40 28:gold_ingotx21 34:cobblestonex51
+OP inv 30 gold_ingot 14
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:stickx60 2:stickx18 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:stickx40 28:gold_ingotx21 30:gold_ingotx14 34:cobblestonex51
+OP place minecraft:stone_pickaxe true
+OUT action NOTHING
+OUT grid cobblestonex17 cobblestonex17 cobblestonex17 - stickx17 - - stickx17 -
+OUT result stone_pickaxex1
+OUT inv 0:oak_logx4 1:stickx26 2:stickx18 3:gold_ingotx48 8:stringx10 22:coalx8 23:stringx29 24:stickx40 28:gold_ingotx21 30:gold_ingotx14
+OUT SYNC slot 43 0 stone_pickaxex1
+OP place minecraft:golden_pickaxe true
+OUT action NOTHING
+OUT grid gold_ingotx27 gold_ingotx27 gold_ingotx27 - stickx27 - - stickx27 -
+OUT result golden_pickaxex1
+OUT inv 0:oak_logx4 1:stickx6 2:stickx18 4:cobblestonex51 8:stringx10 22:coalx8 23:stringx29 24:stickx40 30:gold_ingotx2
+OUT SYNC slot 44 0 golden_pickaxex1
+OP place minecraft:cauldron false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:stickx60 2:stickx18 3:gold_ingotx19 4:cobblestonex51 8:stringx10 22:coalx8 23:stringx29 24:stickx40 30:gold_ingotx64
+OUT SYNC slot 45 0 -
+OP place minecraft:wooden_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 0:oak_logx4 1:stickx60 2:stickx18 3:gold_ingotx19 4:cobblestonex51 8:stringx10 22:coalx8 23:stringx29 24:stickx40 30:gold_ingotx64
+OUT SYNC slot 46 0 -
+OP clearinv
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OP place minecraft:diamond_helmet false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 47 0 -
+OP place minecraft:diamond_helmet true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 48 0 -
+OP place minecraft:loom false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 49 0 -
+OP place minecraft:golden_sword false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 50 0 -
+OP place minecraft:wooden_pickaxe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 51 0 -
+OP place minecraft:iron_axe false
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 52 0 -
+OP place minecraft:golden_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 53 0 -
+OP place minecraft:light_weighted_pressure_plate true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv
+OUT SYNC slot 54 0 -
+OP inv 14 stick 15
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:stickx15
+OP inv 29 cobblestone 49
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:stickx15 29:cobblestonex49
+OP inv 18 cobblestone 47
+OUT action -
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:stickx15 18:cobblestonex47 29:cobblestonex49
+OP place minecraft:diamond_pickaxe true
+OUT action PLACE_GHOST_RECIPE
+OUT grid - - - - - - - - -
+OUT result -
+OUT inv 14:stickx15 18:cobblestonex47 29:cobblestonex49
+OUT SYNC slot 55 0 -
+OP place minecraft:stone_shovel false
+OUT action NOTHING
+OUT grid - cobblestonex1 - - stickx1 - - stickx1 -
+OUT result stone_shovelx1
+OUT inv 14:stickx13 18:cobblestonex46 29:cobblestonex49
+OUT SYNC slot 56 0 stone_shovelx1

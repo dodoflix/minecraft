@@ -33,3 +33,11 @@ fn cartography_menu_script_matches_vanilla() {
     let ops = replay("menu_oracle", "cartography");
     assert!(ops > 300, "fixture has {ops} ops");
 }
+
+/// The crafting table: shaped, mirrored, shapeless, remainder and special recipes in the 3x3 grid, taking the result by every click, shift-clicks
+/// into and out of the grid with the drop of what does not fit, drags, closing, the menu closing when its block is replaced and random sessions.
+#[test]
+fn crafting_table_menu_script_matches_vanilla() {
+    let ops = replay("menu_oracle", "crafting_table");
+    assert!(ops > 1000, "fixture has {ops} ops");
+}

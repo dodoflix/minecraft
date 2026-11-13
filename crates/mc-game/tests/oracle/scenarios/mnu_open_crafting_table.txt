@@ -1,0 +1,173 @@
+# The crafting table opened with use_on: the screen packet with its title and the 46 slots, the statistic, a spectator, then recipes of
+# the 3x3 grid made through the click packets (every grid change recomputes the result and sends one container_set_slot of slot 0), shift-clicking
+# the result, remainders, closing, and the menu closing by itself when the table is replaced or the player walks away. Slots: 0 result, 1-9 grid,
+# 10-36 inventory (inventory slot + 1), 37-45 hotbar. Player A is the survival case, S a spectator, C creative, D walks away, E loses the table.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+spawn_player S spectator 9.5 -60 7.5 0 0
+spawn_player C creative 6.5 -60 7.5 0 0
+spawn_player D survival 15.5 -60 7.5 0 0
+spawn_player E survival 21.5 -60 7.5 0 0
+block 3 -60 4 minecraft:crafting_table
+block 6 -60 4 minecraft:crafting_table
+block 9 -60 4 minecraft:crafting_table
+block 15 -60 4 minecraft:crafting_table
+block 21 -60 4 minecraft:crafting_table
+tick 2
+note an empty table: the screen with 46 slots, the statistic counts once per use
+give A hotbar0 minecraft:oak_planks 64
+give A hotbar1 minecraft:stick 8
+give A hotbar2 minecraft:iron_ingot 8
+give A inv9 minecraft:oak_log 8
+give A inv10 minecraft:honey_bottle 16
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content,container_set_data stats:A
+note an iron pickaxe: three ingots in the top row, two sticks in the middle column, every placement recomputes the result
+click A 39 0 PICKUP
+click A 1 1 PICKUP
+click A 2 1 PICKUP
+click A 3 1 PICKUP
+click A 39 0 PICKUP
+click A 38 0 PICKUP
+click A 5 1 PICKUP
+click A 8 1 PICKUP
+click A 38 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+note taking the result: the ingredients shrink one by one, each change recomputes the result
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 40 0 PICKUP
+note the planks and the sticks in the other places: a stick needs two planks in a column, anywhere in the grid
+click A 37 0 PICKUP
+click A 3 1 PICKUP
+click A 6 1 PICKUP
+click A 37 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 41 0 PICKUP
+click A 3 0 QUICK_MOVE
+click A 6 0 QUICK_MOVE
+note shapeless: logs shift-clicked into the grid make planks, shift-click on the result crafts until the grid is empty
+click A 10 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+note a honey bottle becomes three sugar and leaves a glass bottle: shift-click repeats it for the whole stack
+click A 11 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 QUICK_MOVE
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 1 0 QUICK_MOVE
+note four honey bottles in a square become a honey block, the bottles are put back into the grid
+give A inv10 minecraft:honey_bottle 16
+click A 11 0 PICKUP
+click A 1 1 PICKUP
+click A 2 1 PICKUP
+click A 4 1 PICKUP
+click A 5 1 PICKUP
+click A 11 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 42 0 PICKUP
+click A 0 0 QUICK_MOVE
+note swap-craft into an occupied and an empty hotbar slot, and throwing the result out
+give A hotbar4 minecraft:dirt 5
+give A hotbar5 minecraft:air
+click A 1 0 QUICK_MOVE
+click A 2 0 QUICK_MOVE
+click A 4 0 QUICK_MOVE
+click A 5 0 QUICK_MOVE
+click A 37 0 PICKUP
+click A 3 1 PICKUP
+click A 6 1 PICKUP
+click A 37 0 PICKUP
+click A 0 4 SWAP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 0 5 SWAP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 37 0 PICKUP
+click A 3 1 PICKUP
+click A 6 1 PICKUP
+click A 37 0 PICKUP
+level_seed 7
+click A 0 1 THROW
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A entities
+note a drag over one grid slot and two inventory slots recomputes once; a drag over several grid slots places in the order of a Java identity hash set, so only its final
+note state is compared. A double click gathers everything but the result.
+give A inv12 minecraft:oak_planks 64
+click A 13 0 PICKUP
+click A -999 0 QUICK_CRAFT
+click A 5 1 QUICK_CRAFT
+click A 20 1 QUICK_CRAFT
+click A 21 1 QUICK_CRAFT
+click A -999 2 QUICK_CRAFT
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 20 0 PICKUP
+click A -999 0 QUICK_CRAFT
+click A 5 1 QUICK_CRAFT
+click A 6 1 QUICK_CRAFT
+click A -999 2 QUICK_CRAFT
+dump menu:A packets:A:none stats:A
+click A 20 0 PICKUP
+click A 20 0 PICKUP_ALL
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item stats:A
+click A 20 0 PICKUP
+click A 13 0 PICKUP
+note closing returns the grid items to the inventory and sends the close packet
+give A hotbar6 minecraft:cobblestone 10
+click A 43 0 PICKUP
+click A 5 0 PICKUP
+click A 38 0 PICKUP
+click A 1 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+close_menu A
+dump menu:A inventory:A packets:A:container_close,container_set_slot,container_set_content,set_cursor_item stats:A
+
+note a spectator only sees the menu: nothing is moved and no statistic counts
+give S hotbar0 minecraft:oak_planks 4
+use_on S 9 -60 4 up main
+dump menu:S packets:S:open_screen,container_set_content,container_set_data stats:S
+click S 37 0 PICKUP
+click S 1 0 PICKUP
+dump menu:S packets:S:container_set_slot,container_set_content,set_cursor_item
+close_menu S
+
+note creative: the result is taken like survival, a clone of it does not use the grid up
+give C hotbar0 minecraft:oak_planks 64
+use_on C 6 -60 4 up main
+click C 37 0 PICKUP
+click C 1 0 PICKUP
+click C 2 0 PICKUP
+click C 4 0 PICKUP
+click C 5 0 PICKUP
+dump menu:C packets:C:container_set_slot,container_set_content,set_cursor_item stats:C
+click C 0 0 CLONE
+dump menu:C packets:C:container_set_slot,container_set_content,set_cursor_item
+click C -999 0 PICKUP
+click C 0 0 QUICK_MOVE
+dump menu:C inventory:C packets:C:container_set_slot,container_set_content,set_cursor_item stats:C
+close_menu C
+
+note walking away closes the menu on the next tick, the grid goes back to the inventory
+give D hotbar0 minecraft:oak_planks 4
+use_on D 15 -60 4 up main
+click D 37 0 PICKUP
+click D 5 0 PICKUP
+dump menu:D packets:D:open_screen,container_set_content,container_set_data,container_set_slot,set_cursor_item
+tp D 15.5 -60 40.5
+tick 1
+dump menu:D inventory:D packets:D:container_close,container_set_slot,container_set_content,set_cursor_item
+
+note the table replaced by another block closes the menu on the next tick
+give E hotbar0 minecraft:oak_log 4
+use_on E 21 -60 4 up main
+click E 37 0 PICKUP
+click E 5 0 PICKUP
+dump menu:E packets:E:open_screen,container_set_content,container_set_data,container_set_slot,set_cursor_item
+block 21 -60 4 minecraft:stone
+tick 1
+dump menu:E inventory:E packets:E:container_close,container_set_slot,container_set_content,set_cursor_item

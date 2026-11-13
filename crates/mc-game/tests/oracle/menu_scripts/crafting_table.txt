@@ -1,0 +1,775 @@
+# The crafting table: shaped recipes at every position of the 3x3 grid, mirrored and shapeless ones, recipes with remainders, every kind of
+# special recipe, taking the result (pick up, half, quick move, swap, throw, clone), moving items into the grid with shift-click and drags, closing,
+# and the menu closing when its block is replaced. Slots: 0 result, 1-9 grid, 10-36 inventory, 37-45 hotbar.
+OPEN crafting 0 0 0 1 2
+# shaped recipes: a ring of planks (chest), a ring of cobblestone (furnace), a row of ingots over sticks (pickaxe), bookshelf, piston
+SET 1 oak_planksx32
+SET 2 oak_planksx32
+SET 3 oak_planksx32
+SET 4 oak_planksx32
+SET 6 oak_planksx32
+SET 7 oak_planksx32
+SET 8 oak_planksx32
+SET 9 oak_planksx32
+CLICK 0 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 38 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 39 0 PICKUP
+CLICK 0 1 PICKUP
+CLICK 40 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 cobblestonex16
+SET 2 cobblestonex16
+SET 3 cobblestonex16
+SET 4 cobblestonex16
+SET 6 cobblestonex16
+SET 7 cobblestonex16
+SET 8 cobblestonex16
+SET 9 cobblestonex16
+CLICK 0 0 PICKUP
+CLICK 41 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 41 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 iron_ingotx3
+SET 2 iron_ingotx3
+SET 3 iron_ingotx3
+SET 5 stickx3
+SET 8 stickx3
+CLICK 0 0 PICKUP
+CLICK 42 0 PICKUP
+# the same shape one column to the right is the same recipe; a stick column in the wrong place is none
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 oak_planksx4
+SET 4 oak_planksx4
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 3 oak_planksx4
+SET 6 oak_planksx4
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 oak_planksx4
+SET 9 oak_planksx4
+SET 1 oak_planksx4
+SET 2 oak_planksx4
+SET 4 oak_planksx4
+SET 5 oak_planksx4
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# bookshelf, piston (a pattern with items of three kinds)
+SET 1 oak_planksx6
+SET 2 oak_planksx6
+SET 3 oak_planksx6
+SET 4 bookx6
+SET 5 bookx6
+SET 6 bookx6
+SET 7 oak_planksx6
+SET 8 oak_planksx6
+SET 9 oak_planksx6
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 oak_planksx2
+SET 2 oak_planksx2
+SET 3 oak_planksx2
+SET 4 cobblestonex2
+SET 5 iron_ingotx2
+SET 6 cobblestonex2
+SET 7 cobblestonex2
+SET 8 redstonex2
+SET 9 cobblestonex2
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# mirrored shapes: the axe on both sides
+SET 1 iron_ingotx2
+SET 2 iron_ingotx2
+SET 4 iron_ingotx2
+SET 5 stickx2
+SET 8 stickx2
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 2 iron_ingotx2
+SET 3 iron_ingotx2
+SET 5 stickx2
+SET 6 iron_ingotx2
+SET 8 stickx2
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# shapeless: one log gives four planks, two dyes mix, a book from paper and leather
+SET 5 oak_logx3
+CLICK 0 0 PICKUP
+CLICK 43 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 2 red_dyex2
+SET 8 yellow_dyex2
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 paperx3
+SET 4 paperx3
+SET 9 paperx3
+SET 3 leatherx3
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# recipes with remainders: milk buckets leave buckets, honey bottles leave glass bottles (the remainder goes back into the grid slot, or the inventory)
+SET 1 milk_bucket
+SET 2 milk_bucket
+SET 3 milk_bucket
+SET 4 sugarx4
+SET 5 eggx2
+SET 6 sugarx4
+SET 7 wheatx4
+SET 8 wheatx4
+SET 9 wheatx4
+CLICK 0 0 PICKUP
+CLICK 44 0 PICKUP
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 honey_bottlex8
+SET 2 honey_bottlex8
+SET 4 honey_bottlex8
+SET 5 honey_bottlex8
+CLICK 0 0 PICKUP
+CLICK 45 0 PICKUP
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 5 honey_bottlex3
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# special recipes: banner duplication, shield decoration, repair, rocket, star, star fade, dye armor, pots, map extend and clone, book cloning, tipped arrows, shulker box dyes
+SET 4 white_banner,b=border@black
+SET 5 white_banner
+CLICK 0 0 PICKUP
+CLICK 10 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 2 shield
+SET 5 blue_banner
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 iron_pickaxe,d=100
+SET 9 iron_pickaxe,d=200
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 iron_pickaxe,d=100
+SET 2 iron_pickaxe,d=200
+SET 3 iron_pickaxe,d=300
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 4 paper
+SET 5 gunpowder
+SET 6 gunpowderx2
+CLICK 0 0 PICKUP
+CLICK 11 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 gunpowder
+SET 2 red_dye
+SET 3 blue_dye
+CLICK 0 0 PICKUP
+CLICK 12 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 @minecraft:firework_star[firework_explosion={shape:"small_ball",colors:[I;16711680]}]
+SET 2 lime_dye
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 leather_helmet
+SET 2 red_dye
+SET 3 blue_dye
+SET 4 green_dye
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 leather_chestplate,d=5
+SET 5 white_dye
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 2 brick
+SET 4 brick
+SET 6 brick
+SET 8 brick
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+MAP 7 0 0 0 0
+MAP 8 64 64 1 0
+MAP 9 0 0 2 1
+SET 1 paper
+SET 2 paper
+SET 3 paper
+SET 4 paper
+SET 5 filled_map,m=7
+SET 6 paper
+SET 7 paper
+SET 8 paper
+SET 9 paper
+CLICK 0 0 PICKUP
+CLICK 13 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 filled_map,m=8
+SET 2 map
+CLICK 0 0 PICKUP
+CLICK 14 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 filled_map,m=9
+SET 2 map
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 paper
+SET 2 paper
+SET 3 paper
+SET 4 paper
+SET 5 filled_map,m=9
+SET 6 paper
+SET 7 paper
+SET 8 paper
+SET 9 paper
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 @minecraft:written_book[written_book_content={title:"Old",author:"Me",pages:["hello"]}]
+SET 2 writable_bookx2
+CLICK 0 0 PICKUP
+CLICK 15 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 arrowx8
+SET 2 arrowx8
+SET 3 arrowx8
+SET 4 arrowx8
+SET 5 @minecraft:lingering_potion[potion_contents={potion:"minecraft:poison"}]
+SET 6 arrowx8
+SET 7 arrowx8
+SET 8 arrowx8
+SET 9 arrowx8
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 shulker_box
+SET 2 red_dye
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 2 red_dye
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# taking the result: right click takes half of the stack, a taken result with the cursor occupied does nothing, a cursor with other items cannot place into it
+SET 1 oak_planksx64
+SET 2 oak_planksx64
+GIVE 20 oak_planksx64
+CLICK 0 1 PICKUP
+CLICK 0 0 PICKUP
+CLICK 0 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 29 0 PICKUP
+CLICK 0 0 PICKUP_ALL
+CLICK 1 0 PICKUP_ALL
+CLICK 0 0 CLONE
+CLICK 0 0 THROW
+CLICK 0 1 THROW
+SEED player 1234
+CLICK 0 2 SWAP
+CLICK 0 5 SWAP
+CLICK 0 40 SWAP
+CLICK 0 1 SWAP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# shift-click from the inventory fills the grid first, then the other half of the inventory; from the grid back into the inventory
+GIVE 30 oak_planksx64
+GIVE 31 oak_logx64
+GIVE 0 stickx64
+CLICK 40 0 QUICK_MOVE
+CLICK 41 0 QUICK_MOVE
+CLICK 38 0 QUICK_MOVE
+CLICK 1 0 QUICK_MOVE
+CLICK 2 0 QUICK_MOVE
+CLICK 5 0 QUICK_MOVE
+CLICK 3 0 QUICK_MOVE
+CLICK 4 0 QUICK_MOVE
+CLICK 9 0 QUICK_MOVE
+CLICK 37 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# drags over one grid slot and inventory slots (the slots of a drag are placed in the order of a Java identity hash set, so a drag over several grid slots cannot be compared)
+GIVE 3 oak_planksx64
+CLICK 40 0 PICKUP
+DRAG 0 1 20 21
+DRAG 1 5 22 23 24
+DRAG 0 25 26 27
+CLICK 40 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# shift-click with a full inventory: nothing moves; with room for part of the result the rest is dropped
+GIVE 0 stonex64
+GIVE 1 stonex64
+GIVE 2 stonex64
+GIVE 3 stonex64
+GIVE 4 stonex64
+GIVE 5 stonex64
+GIVE 6 stonex64
+GIVE 7 stonex64
+GIVE 8 stonex64
+GIVE 9 stonex64
+GIVE 10 stonex64
+GIVE 11 stonex64
+GIVE 12 stonex64
+GIVE 13 stonex64
+GIVE 14 stonex64
+GIVE 15 stonex64
+GIVE 16 stonex64
+GIVE 17 stonex64
+GIVE 18 stonex64
+GIVE 19 stonex64
+GIVE 20 stonex64
+GIVE 21 stonex64
+GIVE 22 stonex64
+GIVE 23 stonex64
+GIVE 24 stonex64
+GIVE 25 stonex64
+GIVE 26 stonex64
+GIVE 27 stonex64
+GIVE 28 stonex64
+GIVE 29 stonex64
+GIVE 30 stonex64
+GIVE 31 stonex64
+GIVE 32 stonex64
+GIVE 33 stonex64
+GIVE 34 stonex64
+GIVE 35 stonex64
+GIVE 8 oak_planksx62
+GIVE 20 -
+SET 1 oak_logx3
+CLICK 0 0 QUICK_MOVE
+GIVE 20 stonex64
+SET 1 oak_logx3
+CLICK 0 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+GIVE 8 stonex64
+SET 1 oak_logx3
+CLICK 0 0 QUICK_MOVE
+CLICK 0 0 PICKUP
+CLICK 1 0 QUICK_MOVE
+CLICK 37 0 QUICK_MOVE
+# a remainder with a full inventory is dropped
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 5 honey_bottlex3
+CLICK 0 0 PICKUP
+CLICK 0 0 QUICK_MOVE
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+SET 1 milk_bucket
+SET 2 milk_bucket
+SET 3 milk_bucket
+SET 4 sugar
+SET 5 egg
+SET 6 sugar
+SET 7 wheat
+SET 8 wheat
+SET 9 wheat
+CLICK 0 0 PICKUP
+CLICK 0 0 QUICK_MOVE
+# a crafted map is post-processed on the result slot even when a shift-click finds no room, and again when it is taken
+GIVE 0 stonex64
+GIVE 1 stonex64
+GIVE 2 stonex64
+GIVE 3 stonex64
+GIVE 4 stonex64
+GIVE 5 stonex64
+GIVE 6 stonex64
+GIVE 7 stonex64
+GIVE 8 stonex64
+GIVE 9 stonex64
+GIVE 10 stonex64
+GIVE 11 stonex64
+GIVE 12 stonex64
+GIVE 13 stonex64
+GIVE 14 stonex64
+GIVE 15 stonex64
+GIVE 16 stonex64
+GIVE 17 stonex64
+GIVE 18 stonex64
+GIVE 19 stonex64
+GIVE 20 stonex64
+GIVE 21 stonex64
+GIVE 22 stonex64
+GIVE 23 stonex64
+GIVE 24 stonex64
+GIVE 25 stonex64
+GIVE 26 stonex64
+GIVE 27 stonex64
+GIVE 28 stonex64
+GIVE 29 stonex64
+GIVE 30 stonex64
+GIVE 31 stonex64
+GIVE 32 stonex64
+GIVE 33 stonex64
+GIVE 34 stonex64
+GIVE 35 stonex64
+MAP 20 0 0 0 0
+SET 1 paper
+SET 2 paper
+SET 3 paper
+SET 4 paper
+SET 5 filled_map,m=20
+SET 6 paper
+SET 7 paper
+SET 8 paper
+SET 9 paper
+CLICK 0 0 QUICK_MOVE
+CLICK 0 0 QUICK_MOVE
+GIVE 8 -
+CLICK 0 0 QUICK_MOVE
+CLICK 0 0 PICKUP
+CLICK 37 0 PICKUP
+SET 1 -
+SET 2 -
+SET 3 -
+SET 4 -
+SET 5 -
+SET 6 -
+SET 7 -
+SET 8 -
+SET 9 -
+# closing returns the grid and the cursor, dropping what does not fit
+CLICK 3 0 PICKUP
+SET 7 diamondx3
+SET 5 oak_logx3
+CLOSE
+# creative: the result is cloned or taken like survival
+OPEN crafting 3 4 1 5 6
+SET 1 oak_planksx64
+SET 2 oak_planksx64
+SET 4 oak_planksx64
+SET 5 oak_planksx64
+CLICK 0 0 CLONE
+CLICK 0 0 PICKUP
+CLICK 37 0 PICKUP
+CLICK 0 0 QUICK_MOVE
+CLICK 0 1 THROW
+CLICK 0 0 PICKUP_ALL
+CLOSE
+# the menu closes by itself when its block is replaced, and keeps open while the table stands
+OPEN crafting 0 0 0 1 2
+SET 1 oak_logx3
+SET 9 diamondx2
+GIVE 0 oak_planksx4
+TICK 2
+BLOCK 0 70 0 stone
+TICK 1
+# a table replaced by another block closes the menu, and a new session starts with the table in place
+OPEN crafting 0 0 0 1 2
+SET 5 oak_logx3
+BLOCK 0 70 0 smithing_table
+TICK 1
+OPEN crafting 7 8 0 3 4
+SET 1 oak_planksx2
+SET 2 oak_planksx2
+CLICK 0 0 PICKUP
+GIVE 4 stick
+SET 1 oak_planksx2
+SET 2 oak_planksx2
+CLICK 0 0 PICKUP
+CLICK 37 0 PICKUP
+# random sessions over the ingredients of the common recipes
+GEN crafting 1 200 oak_planksx8|oak_planksx8|oak_planks|oak_logx4|stickx4|cobblestonex8|iron_ingotx4|coal|string|paper|diamond|milk_bucket|honey_bottlex4|sugarx4|eggx2|wheatx8|leather|red_dyex4|blue_dye|white_banner|white_banner,b=border@black|iron_pickaxe,d=100|iron_pickaxe,d=500|shield|bookx4|writable_book|-
+GEN crafting 2 200 oak_planksx8|oak_planksx8|oak_planks|oak_logx4|stickx4|cobblestonex8|iron_ingotx4|coal|string|paper|diamond|milk_bucket|honey_bottlex4|sugarx4|eggx2|wheatx8|leather|red_dyex4|blue_dye|white_banner|white_banner,b=border@black|iron_pickaxe,d=100|iron_pickaxe,d=500|shield|bookx4|writable_book|-
+GEN crafting 3 200 oak_planksx8|oak_planksx8|oak_planks|oak_logx4|stickx4|cobblestonex8|iron_ingotx4|coal|string|paper|diamond|milk_bucket|honey_bottlex4|sugarx4|eggx2|wheatx8|leather|red_dyex4|blue_dye|white_banner|white_banner,b=border@black|iron_pickaxe,d=100|iron_pickaxe,d=500|shield|bookx4|writable_book|-
+GEN crafting 4 300 oak_planksx8|oak_planksx8|oak_planks|oak_logx4|stickx4|cobblestonex8|iron_ingotx4|coal|string|paper|diamond|milk_bucket|honey_bottlex4|sugarx4|eggx2|wheatx8|leather|red_dyex4|blue_dye|white_banner|white_banner,b=border@black|iron_pickaxe,d=100|iron_pickaxe,d=500|shield|bookx4|writable_book|-

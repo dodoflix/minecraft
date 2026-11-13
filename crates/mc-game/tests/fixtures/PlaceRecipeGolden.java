@@ -36,9 +36,9 @@ import java.util.concurrent.Executor;
 import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.stats.ServerRecipeBook;
 import net.minecraft.world.level.gamerules.GameRules;
-// Golden generator for crates/mc-game/tests/golden/place_recipe_golden.rs: the REAL vanilla InventoryMenu.handlePlacement
-// (ServerPlaceRecipe + StackedItemContents, with the grid recompute `slotsChanged` runs for every grid change and its
-// result slot packets) over random inventories, using the real RecipeManager.
+// Golden generator for crates/mc-game/tests/golden/place_recipe_golden.rs: the REAL vanilla InventoryMenu and CraftingMenu handlePlacement
+// (ServerPlaceRecipe + StackedItemContents, with the grid recompute `slotsChanged` runs for every grid change, the one
+// `finishPlacingRecipe` runs after a placement and the result slot packets) over random inventories, using the real RecipeManager.
 // Usage: scripts/golden-recipes.sh
 // Output: crates/mc-game/tests/fixtures/place_recipe_golden.txt
 // Format: "OP ..." lines (replayed by Rust) each followed by "OUT ..." lines (state after the op).
@@ -95,10 +95,10 @@ public class PlaceRecipeGolden {
    static final String[] PALETTE = {"oak_planks", "oak_log", "stick", "cobblestone", "iron_ingot", "gold_ingot", "diamond", "coal", "string", "paper", "dirt", "apple"};
    static final Set<Item> PALETTE_ITEMS = new HashSet<>();
 
-   static void dump(InventoryMenu menu, Player p, String action) {
+   static void dump(AbstractCraftingMenu menu, Player p, String action) {
       out("action " + action);
       StringBuilder b = new StringBuilder("grid");
-      for (int i = 1; i <= 4; i++) b.append(' ').append(st(menu.getSlot(i).getItem()));
+      for (int i = 1; i <= menu.getInputGridSlots().size(); i++) b.append(' ').append(st(menu.getSlot(i).getItem()));
       out(b.toString());
       out("result " + st(menu.getSlot(0).getItem()));
       b = new StringBuilder("inv");
@@ -138,23 +138,29 @@ public class PlaceRecipeGolden {
       Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe"); uf.setAccessible(true); U = (sun.misc.Unsafe) uf.get(null);
       for (String n : PALETTE) PALETTE_ITEMS.add(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(n)));
 
-      // recipes of the 2x2 grid whose ingredients each accept exactly one palette item
+      // recipes of the crafting grids (2x2 of the inventory menu, 3x3 of the crafting table) whose ingredients each accept exactly one palette item
       List<RecipeHolder<?>> candidates = new ArrayList<>();
+      List<RecipeHolder<?>> tableCandidates = new ArrayList<>();
       for (RecipeHolder<?> h : rm.getRecipes()) {
          Recipe<?> r = h.value();
          if (r.isSpecial() || r.getType() != RecipeType.CRAFTING) continue;
          boolean fits = r instanceof ShapedRecipe sr ? sr.getWidth() <= 2 && sr.getHeight() <= 2 : r instanceof ShapelessRecipe && r.placementInfo().ingredients().size() <= 4;
-         if (!fits || r.placementInfo().isImpossibleToPlace()) continue;
+         boolean fitsTable = r instanceof ShapedRecipe || r instanceof ShapelessRecipe;
+         if (!fitsTable || r.placementInfo().isImpossibleToPlace()) continue;
          boolean ok = true;
          for (Ingredient i : r.placementInfo().ingredients()) {
             long n = i.items().filter(x -> PALETTE_ITEMS.contains(x.value())).count();
             if (n != 1) ok = false;
          }
-         if (ok) candidates.add(h);
+         if (ok) {
+            tableCandidates.add(h);
+            if (fits) candidates.add(h);
+         }
       }
-      System.err.println("candidates " + candidates.size());
+      System.err.println("candidates " + candidates.size() + " table " + tableCandidates.size());
 
-      for (int scenario = 0; scenario < 6; scenario++) {
+      for (int scenario = 0; scenario < 12; scenario++) {
+         boolean table = scenario >= 6;
          creative = scenario % 3 == 2;
          Random r = new Random(77 + scenario);
          FakePlayer p = (FakePlayer) U.allocateInstance(FakePlayer.class);
@@ -175,7 +181,7 @@ public class PlaceRecipeGolden {
          p.connection = (RecListener) U.allocateInstance(RecListener.class);
          final List<String> sync = new ArrayList<>();
          syncLines = sync;
-         InventoryMenu menu = new InventoryMenu(inv, true, p);
+         AbstractCraftingMenu menu = table ? new CraftingMenu(1, inv, ContainerLevelAccess.create(lvl, BlockPos.ZERO)) : new InventoryMenu(inv, true, p);
          menu.setSynchronizer(new ContainerSynchronizer() {
             public void sendInitialData(AbstractContainerMenu c, List<ItemStack> items, ItemStack carried, int[] data) { c.incrementStateId(); }
             public void sendSlotChange(AbstractContainerMenu c, int i, ItemStack s) { sync.add("SYNC slot " + c.incrementStateId() + " " + i + " " + st(s)); }
@@ -184,9 +190,9 @@ public class PlaceRecipeGolden {
             public RemoteSlot createSlot() { return new RemoteSlot.Synchronized(comp -> 0); }
          });
          sync.clear();
-         set(Player.class, p, "inventoryMenu", menu);
+         if (!table) set(Player.class, p, "inventoryMenu", menu);
          set(Player.class, p, "containerMenu", menu);
-         op("scenario " + scenario + " creative=" + creative);
+         op("scenario " + scenario + " creative=" + creative + " table=" + table);
          for (int step = 0; step < 90; step++) {
             int kind = r.nextInt(20);
             if (kind < 7) {
@@ -196,7 +202,7 @@ public class PlaceRecipeGolden {
                op("inv " + slot + " " + name + " " + count);
                inv.setItem(slot, new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(name)), count));
             } else if (kind < 8) {
-               int slot = 1 + r.nextInt(4);
+               int slot = 1 + r.nextInt(table ? 9 : 4);
                String name = PALETTE[r.nextInt(PALETTE.length)];
                int count = 1 + r.nextInt(8);
                op("grid " + slot + " " + name + " " + count);
@@ -205,7 +211,7 @@ public class PlaceRecipeGolden {
                op("clearinv");
                for (int i = 0; i < 36; i++) inv.setItem(i, ItemStack.EMPTY);
             } else {
-               RecipeHolder<?> h = candidates.get(r.nextInt(candidates.size()));
+               RecipeHolder<?> h = (table ? tableCandidates : candidates).get(r.nextInt((table ? tableCandidates : candidates).size()));
                boolean useMax = r.nextBoolean();
                op("place " + h.id().identifier() + " " + useMax);
                var action = menu.handlePlacement(useMax, p.isCreative(), h, lvl, inv);

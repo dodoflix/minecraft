@@ -123,6 +123,12 @@ const MENU_OPENERS: &[(&str, &str, &str, &str)] = &[
         "StonecutterMenu::new",
         "mc-game-blocks/src/world/level/block/impls/stonecutter_block.rs",
     ),
+    (
+        "minecraft:crafting",
+        "mc-game-core/src/world/inventory/crafting_menu.rs",
+        "CraftingMenu::new",
+        "mc-game-blocks/src/world/level/block/impls/crafting_table_block.rs",
+    ),
 ];
 
 const CONTAINER_MENUS: &str = "mc-game-core/src/world/inventory/container_menus.rs";
@@ -132,7 +138,6 @@ const BLOCKS_CONTAINER_PROVIDER: &str =
 
 /// Menus without a Rust menu yet (menu, what is not implemented). Delete the line when the menu lands.
 const EXPECTED_MISSING: &[(&str, &str)] = &[
-    ("minecraft:crafting", "crafting table menu"),
     ("minecraft:furnace", "furnace menu"),
     ("minecraft:smoker", "smoker menu"),
     ("minecraft:blast_furnace", "blast furnace menu"),

@@ -1,0 +1,732 @@
+# an empty table: the screen with 46 slots, the statistic counts once per use
+MENU A cid=1 type=minecraft:crafting state=1 carried=empty
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:honey_bottle*16
+MS 37 minecraft:oak_planks*64
+MS 38 minecraft:stick*8
+MS 39 minecraft:iron_ingot*8
+PKT A minecraft:open_screen 3c010c0a0800097472616e736c6174650012636f6e7461696e65722e6372616674696e6700
+PKT A minecraft:container_set_content 1201012e0000000000000000000008a301000010fd0b000000000000000000000000000000000000000000000000000000403f000008a408000008fa07000000000000000000
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# an iron pickaxe: three ingots in the top row, two sticks in the middle column, every placement recomputes the result
+MENU A cid=1 type=minecraft:crafting state=15 carried=empty
+MS 0 minecraft:iron_pickaxe*1
+MS 1 minecraft:iron_ingot*1
+MS 2 minecraft:iron_ingot*1
+MS 3 minecraft:iron_ingot*1
+MS 5 minecraft:stick*1
+MS 8 minecraft:stick*1
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:honey_bottle*16
+MS 37 minecraft:oak_planks*64
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+PKT A minecraft:container_set_slot 140102002700
+PKT A minecraft:set_cursor_item 6208fa070000
+PKT A minecraft:container_set_slot 140103000009b00b0000
+PKT A minecraft:container_set_slot 140104000101fa070000
+PKT A minecraft:set_cursor_item 6207fa070000
+PKT A minecraft:container_set_slot 140105000001ea060000
+PKT A minecraft:container_set_slot 140106000201fa070000
+PKT A minecraft:set_cursor_item 6206fa070000
+PKT A minecraft:container_set_slot 140107000000
+PKT A minecraft:container_set_slot 140108000301fa070000
+PKT A minecraft:set_cursor_item 6205fa070000
+PKT A minecraft:container_set_slot 140109002705fa070000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14010a002600
+PKT A minecraft:set_cursor_item 6208a4080000
+PKT A minecraft:container_set_slot 14010b000000
+PKT A minecraft:container_set_slot 14010c000501a4080000
+PKT A minecraft:set_cursor_item 6207a4080000
+PKT A minecraft:container_set_slot 14010d00000197080000
+PKT A minecraft:container_set_slot 14010e000801a4080000
+PKT A minecraft:set_cursor_item 6206a4080000
+PKT A minecraft:container_set_slot 14010f002606a4080000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# taking the result: the ingredients shrink one by one, each change recomputes the result
+MENU A cid=1 type=minecraft:crafting state=25 carried=minecraft:iron_pickaxe*1
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:honey_bottle*16
+MS 37 minecraft:oak_planks*64
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+PKT A minecraft:container_set_slot 14011000000199080000
+PKT A minecraft:container_set_slot 140111000000
+PKT A minecraft:container_set_slot 140112000000
+PKT A minecraft:container_set_slot 140113000000
+PKT A minecraft:container_set_slot 140114000000
+PKT A minecraft:container_set_slot 140115000100
+PKT A minecraft:container_set_slot 140116000200
+PKT A minecraft:container_set_slot 140117000300
+PKT A minecraft:container_set_slot 140118000500
+PKT A minecraft:container_set_slot 140119000800
+PKT A minecraft:set_cursor_item 620197080000
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# the planks and the sticks in the other places: a stick needs two planks in a column, anywhere in the grid
+MENU A cid=1 type=minecraft:crafting state=32 carried=empty
+MS 0 minecraft:stick*4
+MS 3 minecraft:oak_planks*1
+MS 6 minecraft:oak_planks*1
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:honey_bottle*16
+MS 37 minecraft:oak_planks*62
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+PKT A minecraft:container_set_slot 14011a00280197080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14011b002500
+PKT A minecraft:set_cursor_item 62403f0000
+PKT A minecraft:container_set_slot 14011c000001da060000
+PKT A minecraft:container_set_slot 14011d0003013f0000
+PKT A minecraft:set_cursor_item 623f3f0000
+PKT A minecraft:container_set_slot 14011e000004a4080000
+PKT A minecraft:container_set_slot 14011f0006013f0000
+PKT A minecraft:set_cursor_item 623e3f0000
+PKT A minecraft:container_set_slot 14012000253e3f0000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=1 type=minecraft:crafting state=36 carried=minecraft:stick*4
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:honey_bottle*16
+MS 37 minecraft:oak_planks*62
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+PKT A minecraft:container_set_slot 140121000001da060000
+PKT A minecraft:container_set_slot 140122000000
+PKT A minecraft:container_set_slot 140123000300
+PKT A minecraft:container_set_slot 140124000600
+PKT A minecraft:set_cursor_item 6204a4080000
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# shapeless: logs shift-clicked into the grid make planks, shift-click on the result crafts until the grid is empty
+MENU A cid=1 type=minecraft:crafting state=40 carried=empty
+MS 0 minecraft:oak_planks*4
+MS 1 minecraft:oak_log*8
+MS 11 minecraft:honey_bottle*16
+MS 37 minecraft:oak_planks*62
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:stick*4
+PKT A minecraft:container_set_slot 140125002904a4080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 1401260000043f0000
+PKT A minecraft:container_set_slot 140127000108a3010000
+PKT A minecraft:container_set_slot 140128000a00
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=1 type=minecraft:crafting state=51 carried=empty
+MS 11 minecraft:honey_bottle*16
+MS 37 minecraft:oak_planks*64
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:stick*4
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 1401290000043f0000
+PKT A minecraft:container_set_slot 14012a0000043f0000
+PKT A minecraft:container_set_slot 14012b0000043f0000
+PKT A minecraft:container_set_slot 14012c0000043f0000
+PKT A minecraft:container_set_slot 14012d0000043f0000
+PKT A minecraft:container_set_slot 14012e0000043f0000
+PKT A minecraft:container_set_slot 14012f0000043f0000
+PKT A minecraft:container_set_slot 140130000000
+PKT A minecraft:container_set_slot 140131000100
+PKT A minecraft:container_set_slot 1401320025403f0000
+PKT A minecraft:container_set_slot 140133002d1e3f0000
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# a honey bottle becomes three sugar and leaves a glass bottle: shift-click repeats it for the whole stack
+MENU A cid=1 type=minecraft:crafting state=54 carried=empty
+MS 0 minecraft:sugar*3
+MS 1 minecraft:honey_bottle*16
+MS 37 minecraft:oak_planks*64
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:stick*4
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 140134000003c1090000
+PKT A minecraft:container_set_slot 140135000110fd0b0000
+PKT A minecraft:container_set_slot 140136000b00
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=1 type=minecraft:crafting state=74 carried=empty
+MS 1 minecraft:glass_bottle*1
+MS 37 minecraft:oak_planks*64
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:stick*4
+MS 42 minecraft:glass_bottle*15
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 140137000003c1090000
+PKT A minecraft:container_set_slot 140138000003c1090000
+PKT A minecraft:container_set_slot 140139000003c1090000
+PKT A minecraft:container_set_slot 14013a000003c1090000
+PKT A minecraft:container_set_slot 14013b000003c1090000
+PKT A minecraft:container_set_slot 14013c000003c1090000
+PKT A minecraft:container_set_slot 14013d000003c1090000
+PKT A minecraft:container_set_slot 14013e000003c1090000
+PKT A minecraft:container_set_slot 14013f000003c1090000
+PKT A minecraft:container_set_slot 140140000003c1090000
+PKT A minecraft:container_set_slot 140141000003c1090000
+PKT A minecraft:container_set_slot 140142000003c1090000
+PKT A minecraft:container_set_slot 140143000003c1090000
+PKT A minecraft:container_set_slot 140144000003c1090000
+PKT A minecraft:container_set_slot 140145000003c1090000
+PKT A minecraft:container_set_slot 140146000000
+PKT A minecraft:container_set_slot 140147000000
+PKT A minecraft:container_set_slot 140148000101f6090000
+PKT A minecraft:container_set_slot 140149002a0ff6090000
+PKT A minecraft:container_set_slot 14014a002c30c1090000
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# four honey bottles in a square become a honey block, the bottles are put back into the grid
+MENU A cid=1 type=minecraft:crafting state=86 carried=empty
+MS 0 minecraft:honey_block*1
+MS 1 minecraft:honey_bottle*1
+MS 2 minecraft:honey_bottle*1
+MS 4 minecraft:honey_bottle*1
+MS 5 minecraft:honey_bottle*1
+MS 11 minecraft:honey_bottle*12
+MS 37 minecraft:oak_planks*64
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:stick*4
+MS 42 minecraft:glass_bottle*16
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 14014b000000
+PKT A minecraft:container_set_slot 14014c000100
+PKT A minecraft:container_set_slot 14014d002a10f6090000
+PKT A minecraft:set_cursor_item 6210fd0b0000
+PKT A minecraft:container_set_slot 14014e000003c1090000
+PKT A minecraft:container_set_slot 14014f000101fd0b0000
+PKT A minecraft:set_cursor_item 620ffd0b0000
+PKT A minecraft:container_set_slot 140150000000
+PKT A minecraft:container_set_slot 140151000201fd0b0000
+PKT A minecraft:set_cursor_item 620efd0b0000
+PKT A minecraft:container_set_slot 140152000000
+PKT A minecraft:container_set_slot 140153000401fd0b0000
+PKT A minecraft:set_cursor_item 620dfd0b0000
+PKT A minecraft:container_set_slot 140154000001c0060000
+PKT A minecraft:container_set_slot 140155000501fd0b0000
+PKT A minecraft:set_cursor_item 620cfd0b0000
+PKT A minecraft:container_set_slot 140156000b0cfd0b0000
+PKT A minecraft:set_cursor_item 6200
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=1 type=minecraft:crafting state=98 carried=minecraft:honey_block*1
+MS 1 minecraft:glass_bottle*1
+MS 2 minecraft:glass_bottle*1
+MS 4 minecraft:glass_bottle*1
+MS 5 minecraft:glass_bottle*1
+MS 11 minecraft:honey_bottle*12
+MS 37 minecraft:oak_planks*64
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:stick*4
+MS 42 minecraft:glass_bottle*16
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 140157000000
+PKT A minecraft:container_set_slot 140158000000
+PKT A minecraft:container_set_slot 140159000000
+PKT A minecraft:container_set_slot 14015a000000
+PKT A minecraft:container_set_slot 14015b000000
+PKT A minecraft:container_set_slot 14015c000000
+PKT A minecraft:container_set_slot 14015d000000
+PKT A minecraft:container_set_slot 14015e000000
+PKT A minecraft:container_set_slot 14015f000101f6090000
+PKT A minecraft:container_set_slot 140160000201f6090000
+PKT A minecraft:container_set_slot 140161000401f6090000
+PKT A minecraft:container_set_slot 140162000501f6090000
+PKT A minecraft:set_cursor_item 6201c0060000
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# swap-craft into an occupied and an empty hotbar slot, and throwing the result out
+MENU A cid=1 type=minecraft:crafting state=119 carried=minecraft:glass_bottle*16
+MS 0 minecraft:stick*4
+MS 3 minecraft:oak_planks*1
+MS 6 minecraft:oak_planks*1
+MS 10 minecraft:glass_bottle*4
+MS 11 minecraft:honey_bottle*12
+MS 37 minecraft:oak_planks*62
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:dirt*5
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 140163002a01c0060000
+PKT A minecraft:set_cursor_item 6210f6090000
+PKT A minecraft:container_set_slot 140164000000
+PKT A minecraft:container_set_slot 140165000100
+PKT A minecraft:container_set_slot 140166000a01f6090000
+PKT A minecraft:container_set_slot 140167002905370000
+PKT A minecraft:container_set_slot 140168002a00
+PKT A minecraft:container_set_slot 140169000000
+PKT A minecraft:container_set_slot 14016a000200
+PKT A minecraft:container_set_slot 14016b000a02f6090000
+PKT A minecraft:container_set_slot 14016c000000
+PKT A minecraft:container_set_slot 14016d000400
+PKT A minecraft:container_set_slot 14016e000a03f6090000
+PKT A minecraft:container_set_slot 14016f000000
+PKT A minecraft:container_set_slot 140170000500
+PKT A minecraft:container_set_slot 140171000a04f6090000
+PKT A minecraft:container_set_slot 140172002510f6090000
+PKT A minecraft:set_cursor_item 62403f0000
+PKT A minecraft:container_set_slot 140173000001da060000
+PKT A minecraft:container_set_slot 1401740003013f0000
+PKT A minecraft:set_cursor_item 623f3f0000
+PKT A minecraft:container_set_slot 140175000004a4080000
+PKT A minecraft:container_set_slot 1401760006013f0000
+PKT A minecraft:set_cursor_item 623e3f0000
+PKT A minecraft:container_set_slot 14017700253e3f0000
+PKT A minecraft:set_cursor_item 6210f6090000
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 2
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=1 type=minecraft:crafting state=124 carried=minecraft:glass_bottle*16
+MS 10 minecraft:glass_bottle*4
+MS 11 minecraft:honey_bottle*12
+MS 37 minecraft:oak_planks*62
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:dirt*5
+MS 42 minecraft:stick*4
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 140178000001da060000
+PKT A minecraft:container_set_slot 140179000000
+PKT A minecraft:container_set_slot 14017a000300
+PKT A minecraft:container_set_slot 14017b000600
+PKT A minecraft:container_set_slot 14017c002a04a4080000
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=1 type=minecraft:crafting state=130 carried=minecraft:glass_bottle*16
+MS 0 minecraft:stick*4
+MS 3 minecraft:oak_planks*1
+MS 6 minecraft:oak_planks*1
+MS 10 minecraft:glass_bottle*4
+MS 11 minecraft:honey_bottle*12
+MS 37 minecraft:oak_planks*60
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:dirt*5
+MS 42 minecraft:stick*4
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 14017d002510f6090000
+PKT A minecraft:set_cursor_item 623e3f0000
+PKT A minecraft:container_set_slot 14017e000001da060000
+PKT A minecraft:container_set_slot 14017f0003013f0000
+PKT A minecraft:set_cursor_item 623d3f0000
+PKT A minecraft:container_set_slot 14018001000004a4080000
+PKT A minecraft:container_set_slot 140181010006013f0000
+PKT A minecraft:set_cursor_item 623c3f0000
+PKT A minecraft:container_set_slot 1401820100253c3f0000
+PKT A minecraft:set_cursor_item 6210f6090000
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# a drag over one grid slot and two inventory slots recomputes once; a drag over several grid slots places in the order of a Java identity hash set, so only its final
+# state is compared. A double click gathers everything but the result.
+MENU A cid=1 type=minecraft:crafting state=135 carried=minecraft:oak_planks*1
+MS 3 minecraft:oak_planks*1
+MS 5 minecraft:oak_planks*21
+MS 6 minecraft:oak_planks*1
+MS 10 minecraft:glass_bottle*4
+MS 11 minecraft:honey_bottle*12
+MS 13 minecraft:glass_bottle*16
+MS 20 minecraft:oak_planks*21
+MS 21 minecraft:oak_planks*21
+MS 37 minecraft:oak_planks*60
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:dirt*5
+MS 42 minecraft:stick*4
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 14018301000d10f6090000
+PKT A minecraft:set_cursor_item 62403f0000
+PKT A minecraft:container_set_slot 14018401000000
+PKT A minecraft:container_set_slot 140185010005153f0000
+PKT A minecraft:container_set_slot 140186010014153f0000
+PKT A minecraft:container_set_slot 140187010015153f0000
+PKT A minecraft:set_cursor_item 62013f0000
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=1 type=minecraft:crafting state=136 carried=empty
+MS 3 minecraft:oak_planks*1
+MS 5 minecraft:oak_planks*21
+MS 6 minecraft:oak_planks*1
+MS 10 minecraft:glass_bottle*4
+MS 11 minecraft:honey_bottle*12
+MS 13 minecraft:glass_bottle*16
+MS 20 minecraft:oak_planks*22
+MS 21 minecraft:oak_planks*21
+MS 37 minecraft:oak_planks*60
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:dirt*5
+MS 42 minecraft:stick*4
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+MENU A cid=1 type=minecraft:crafting state=147 carried=minecraft:oak_planks*64
+MS 10 minecraft:glass_bottle*4
+MS 11 minecraft:honey_bottle*12
+MS 13 minecraft:glass_bottle*16
+MS 21 minecraft:oak_planks*2
+MS 37 minecraft:oak_planks*60
+MS 38 minecraft:stick*6
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:dirt*5
+MS 42 minecraft:stick*4
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 14018901001400
+PKT A minecraft:set_cursor_item 62163f0000
+PKT A minecraft:container_set_slot 14018a01000001eb060000
+PKT A minecraft:container_set_slot 14018b01000001eb060000
+PKT A minecraft:container_set_slot 14018c01000001da060000
+PKT A minecraft:container_set_slot 14018d01000001da060000
+PKT A minecraft:container_set_slot 14018e01000000
+PKT A minecraft:container_set_slot 14018f01000000
+PKT A minecraft:container_set_slot 14019001000300
+PKT A minecraft:container_set_slot 14019101000500
+PKT A minecraft:container_set_slot 14019201000600
+PKT A minecraft:container_set_slot 140193010015023f0000
+PKT A minecraft:set_cursor_item 62403f0000
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# closing returns the grid items to the inventory and sends the close packet
+MENU A cid=1 type=minecraft:crafting state=155 carried=minecraft:stick*5
+MS 1 minecraft:stick*1
+MS 5 minecraft:cobblestone*10
+MS 10 minecraft:glass_bottle*4
+MS 11 minecraft:honey_bottle*12
+MS 20 minecraft:oak_planks*64
+MS 21 minecraft:oak_planks*2
+MS 37 minecraft:oak_planks*60
+MS 39 minecraft:iron_ingot*5
+MS 40 minecraft:iron_pickaxe*1
+MS 41 minecraft:dirt*5
+MS 42 minecraft:stick*4
+MS 43 minecraft:glass_bottle*16
+MS 44 minecraft:sugar*48
+MS 45 minecraft:oak_planks*30
+PKT A minecraft:container_set_slot 140194010014403f0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14019501000d00
+PKT A minecraft:set_cursor_item 6210f6090000
+PKT A minecraft:container_set_slot 14019601002b10f6090000
+PKT A minecraft:set_cursor_item 620a3e0000
+PKT A minecraft:container_set_slot 14019701000000
+PKT A minecraft:container_set_slot 1401980100050a3e0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14019901002600
+PKT A minecraft:set_cursor_item 6206a4080000
+PKT A minecraft:container_set_slot 14019a01000000
+PKT A minecraft:container_set_slot 14019b01000101a4080000
+PKT A minecraft:set_cursor_item 6205a4080000
+MENU A cid=0 type=inventory state=1 carried=empty
+MS 9 minecraft:glass_bottle*4
+MS 10 minecraft:honey_bottle*12
+MS 19 minecraft:oak_planks*64
+MS 20 minecraft:oak_planks*2
+MS 36 minecraft:oak_planks*60
+MS 37 minecraft:cobblestone*10
+MS 38 minecraft:iron_ingot*5
+MS 39 minecraft:iron_pickaxe*1
+MS 40 minecraft:dirt*5
+MS 41 minecraft:stick*10
+MS 42 minecraft:glass_bottle*16
+MS 43 minecraft:sugar*48
+MS 44 minecraft:oak_planks*30
+I A 0 minecraft:oak_planks*60
+I A 1 minecraft:cobblestone*10
+I A 2 minecraft:iron_ingot*5
+I A 3 minecraft:iron_pickaxe*1
+I A 4 minecraft:dirt*5
+I A 5 minecraft:stick*10
+I A 6 minecraft:glass_bottle*16
+I A 7 minecraft:sugar*48
+I A 8 minecraft:oak_planks*30
+I A 9 minecraft:glass_bottle*4
+I A 10 minecraft:honey_bottle*12
+I A 19 minecraft:oak_planks*64
+I A 20 minecraft:oak_planks*2
+STAT A minecraft.crafted:minecraft.honey_block 1
+STAT A minecraft.crafted:minecraft.iron_pickaxe 1
+STAT A minecraft.crafted:minecraft.oak_planks 32
+STAT A minecraft.crafted:minecraft.stick 6
+STAT A minecraft.crafted:minecraft.sugar 48
+STAT A minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT A minecraft.custom:minecraft.play_time 2
+STAT A minecraft.custom:minecraft.time_since_death 2
+STAT A minecraft.custom:minecraft.time_since_rest 2
+STAT A minecraft.custom:minecraft.total_world_time 2
+# a spectator only sees the menu: nothing is moved and no statistic counts
+MENU S cid=1 type=minecraft:crafting state=1 carried=empty
+MS 37 minecraft:oak_planks*4
+PKT S minecraft:open_screen 3c010c0a0800097472616e736c6174650012636f6e7461696e65722e6372616674696e6700
+PKT S minecraft:container_set_content 1201012e00000000000000000000000000000000000000000000000000000000000000000000000000043f0000000000000000000000
+STAT S minecraft.custom:minecraft.play_time 2
+STAT S minecraft.custom:minecraft.time_since_death 2
+STAT S minecraft.custom:minecraft.time_since_rest 2
+STAT S minecraft.custom:minecraft.total_world_time 2
+MENU S cid=1 type=minecraft:crafting state=3 carried=empty
+MS 37 minecraft:oak_planks*4
+PKT S minecraft:container_set_content 1201022e00000000000000000000000000000000000000000000000000000000000000000000000000043f0000000000000000000000
+PKT S minecraft:container_set_content 1201032e00000000000000000000000000000000000000000000000000000000000000000000000000043f0000000000000000000000
+# creative: the result is taken like survival, a clone of it does not use the grid up
+MENU C cid=1 type=minecraft:crafting state=4 carried=empty
+MS 0 minecraft:oak_button*1
+MS 1 minecraft:oak_planks*64
+PKT C minecraft:container_set_content 1201012e00000000000000000000000000000000000000000000000000000000000000000000000000403f0000000000000000000000
+PKT C minecraft:container_set_slot 140102002500
+PKT C minecraft:set_cursor_item 62403f0000
+PKT C minecraft:container_set_slot 140103000001da060000
+PKT C minecraft:container_set_slot 1401040001403f0000
+PKT C minecraft:set_cursor_item 6200
+STAT C minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT C minecraft.custom:minecraft.play_time 2
+STAT C minecraft.custom:minecraft.time_since_death 2
+STAT C minecraft.custom:minecraft.time_since_rest 2
+STAT C minecraft.custom:minecraft.total_world_time 2
+MENU C cid=1 type=minecraft:crafting state=4 carried=minecraft:oak_button*64
+MS 0 minecraft:oak_button*1
+MS 1 minecraft:oak_planks*64
+PKT C minecraft:set_cursor_item 6240da060000
+MENU C cid=1 type=minecraft:crafting state=70 carried=empty
+MS 45 minecraft:oak_button*64
+I C 8 minecraft:oak_button*64
+PKT C minecraft:set_cursor_item 6200
+PKT C minecraft:container_set_slot 140105000001da060000
+PKT C minecraft:container_set_slot 140106000001da060000
+PKT C minecraft:container_set_slot 140107000001da060000
+PKT C minecraft:container_set_slot 140108000001da060000
+PKT C minecraft:container_set_slot 140109000001da060000
+PKT C minecraft:container_set_slot 14010a000001da060000
+PKT C minecraft:container_set_slot 14010b000001da060000
+PKT C minecraft:container_set_slot 14010c000001da060000
+PKT C minecraft:container_set_slot 14010d000001da060000
+PKT C minecraft:container_set_slot 14010e000001da060000
+PKT C minecraft:container_set_slot 14010f000001da060000
+PKT C minecraft:container_set_slot 140110000001da060000
+PKT C minecraft:container_set_slot 140111000001da060000
+PKT C minecraft:container_set_slot 140112000001da060000
+PKT C minecraft:container_set_slot 140113000001da060000
+PKT C minecraft:container_set_slot 140114000001da060000
+PKT C minecraft:container_set_slot 140115000001da060000
+PKT C minecraft:container_set_slot 140116000001da060000
+PKT C minecraft:container_set_slot 140117000001da060000
+PKT C minecraft:container_set_slot 140118000001da060000
+PKT C minecraft:container_set_slot 140119000001da060000
+PKT C minecraft:container_set_slot 14011a000001da060000
+PKT C minecraft:container_set_slot 14011b000001da060000
+PKT C minecraft:container_set_slot 14011c000001da060000
+PKT C minecraft:container_set_slot 14011d000001da060000
+PKT C minecraft:container_set_slot 14011e000001da060000
+PKT C minecraft:container_set_slot 14011f000001da060000
+PKT C minecraft:container_set_slot 140120000001da060000
+PKT C minecraft:container_set_slot 140121000001da060000
+PKT C minecraft:container_set_slot 140122000001da060000
+PKT C minecraft:container_set_slot 140123000001da060000
+PKT C minecraft:container_set_slot 140124000001da060000
+PKT C minecraft:container_set_slot 140125000001da060000
+PKT C minecraft:container_set_slot 140126000001da060000
+PKT C minecraft:container_set_slot 140127000001da060000
+PKT C minecraft:container_set_slot 140128000001da060000
+PKT C minecraft:container_set_slot 140129000001da060000
+PKT C minecraft:container_set_slot 14012a000001da060000
+PKT C minecraft:container_set_slot 14012b000001da060000
+PKT C minecraft:container_set_slot 14012c000001da060000
+PKT C minecraft:container_set_slot 14012d000001da060000
+PKT C minecraft:container_set_slot 14012e000001da060000
+PKT C minecraft:container_set_slot 14012f000001da060000
+PKT C minecraft:container_set_slot 140130000001da060000
+PKT C minecraft:container_set_slot 140131000001da060000
+PKT C minecraft:container_set_slot 140132000001da060000
+PKT C minecraft:container_set_slot 140133000001da060000
+PKT C minecraft:container_set_slot 140134000001da060000
+PKT C minecraft:container_set_slot 140135000001da060000
+PKT C minecraft:container_set_slot 140136000001da060000
+PKT C minecraft:container_set_slot 140137000001da060000
+PKT C minecraft:container_set_slot 140138000001da060000
+PKT C minecraft:container_set_slot 140139000001da060000
+PKT C minecraft:container_set_slot 14013a000001da060000
+PKT C minecraft:container_set_slot 14013b000001da060000
+PKT C minecraft:container_set_slot 14013c000001da060000
+PKT C minecraft:container_set_slot 14013d000001da060000
+PKT C minecraft:container_set_slot 14013e000001da060000
+PKT C minecraft:container_set_slot 14013f000001da060000
+PKT C minecraft:container_set_slot 140140000001da060000
+PKT C minecraft:container_set_slot 140141000001da060000
+PKT C minecraft:container_set_slot 140142000001da060000
+PKT C minecraft:container_set_slot 140143000001da060000
+PKT C minecraft:container_set_slot 140144000000
+PKT C minecraft:container_set_slot 140145000100
+PKT C minecraft:container_set_slot 140146002d40da060000
+STAT C minecraft.crafted:minecraft.oak_button 64
+STAT C minecraft.custom:minecraft.drop 1
+STAT C minecraft.custom:minecraft.interact_with_crafting_table 1
+STAT C minecraft.custom:minecraft.play_time 2
+STAT C minecraft.custom:minecraft.time_since_death 2
+STAT C minecraft.custom:minecraft.time_since_rest 2
+STAT C minecraft.custom:minecraft.total_world_time 2
+STAT C minecraft.dropped:minecraft.oak_button 64
+# walking away closes the menu on the next tick, the grid goes back to the inventory
+MENU D cid=1 type=minecraft:crafting state=4 carried=empty
+MS 0 minecraft:oak_button*1
+MS 5 minecraft:oak_planks*4
+PKT D minecraft:open_screen 3c010c0a0800097472616e736c6174650012636f6e7461696e65722e6372616674696e6700
+PKT D minecraft:container_set_content 1201012e00000000000000000000000000000000000000000000000000000000000000000000000000043f0000000000000000000000
+PKT D minecraft:container_set_slot 140102002500
+PKT D minecraft:set_cursor_item 62043f0000
+PKT D minecraft:container_set_slot 140103000001da060000
+PKT D minecraft:container_set_slot 1401040005043f0000
+PKT D minecraft:set_cursor_item 6200
+MENU D cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:oak_planks*4
+I D 0 minecraft:oak_planks*4
+PKT D minecraft:container_close 1101
+# the table replaced by another block closes the menu on the next tick
+MENU E cid=1 type=minecraft:crafting state=4 carried=empty
+MS 0 minecraft:oak_planks*4
+MS 5 minecraft:oak_log*4
+PKT E minecraft:open_screen 3c010c0a0800097472616e736c6174650012636f6e7461696e65722e6372616674696e6700
+PKT E minecraft:container_set_content 1201012e0000000000000000000000000000000000000000000000000000000000000000000000000004a3010000000000000000000000
+PKT E minecraft:container_set_slot 140102002500
+PKT E minecraft:set_cursor_item 6204a3010000
+PKT E minecraft:container_set_slot 1401030000043f0000
+PKT E minecraft:container_set_slot 140104000504a3010000
+PKT E minecraft:set_cursor_item 6200
+MENU E cid=0 type=inventory state=1 carried=empty
+MS 36 minecraft:oak_log*4
+I E 0 minecraft:oak_log*4
+PKT E minecraft:container_close 1101

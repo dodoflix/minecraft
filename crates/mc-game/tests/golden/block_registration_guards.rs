@@ -1070,17 +1070,16 @@ fn every_block_scenario_has_a_fixture_and_a_replay() {
 }
 
 /// Known shadowed ancestor overrides (key as in the failure text, why).
-const ACCEPTED_SHADOWS: &[(&str, &str)] = &[];
+const ACCEPTED_SHADOWS: &[(&str, &str)] = &[(
+    "SmithingTableBlock lacks get_menu_provider of its ancestor CraftingTableBlock (CraftingTableBlock)",
+    "the smithing table menu is not implemented yet",
+)];
 
 /// Known hooks without a Rust override (key as in the failure text, why).
 const ACCEPTED_HOOKS: &[(&str, &str)] = &[
     (
         "getAnalogOutputSignal@DetectorRailBlock -> DetectorRailBlock (registered as DetectorRailBlock)",
         "minecart detection needs minecart entities",
-    ),
-    (
-        "getMenuProvider@CraftingTableBlock -> CraftingTableBlock (registered as CraftingTableBlock)",
-        "menus are not implemented yet",
     ),
     (
         "getMenuProvider@SmithingTableBlock -> SmithingTableBlock (registered as SmithingTableBlock)",

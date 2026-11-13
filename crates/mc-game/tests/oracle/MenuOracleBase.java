@@ -44,10 +44,10 @@ import net.minecraft.world.phys.AABB;
  * Output: crates/mc-game/tests/fixtures/menu_oracle/NAME.txt.gz (the wrapper compresses stdout)
  *        other oracles (EnchantAnvilOracle) call boot(), the op methods and `script(...)` directly.
  *
- * Script lines (stacks are `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..][,p=potion]`;
+ * Script lines (stacks are `@item[components]` (the command syntax, no spaces, count 1) or `name[xCOUNT][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..][,p=potion]`;
  * the printed ops carry the stack as `ItemStack.CODEC` SNBT, `-` = empty); `#` lines are copied:
  *   OPEN kind [xp [seed [creative [pseed [lseed [shelves [blockers]]]]]]]
- *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | chest | cartography | brewing_stand | beacon | lectern | stonecutter): resets the
+ *        kind from KINDS (enchant | anvil | chipped_anvil | damaged_anvil | grindstone | loom | crafting | chest | cartography | brewing_stand | beacon | lectern | stonecutter): resets the
  *        world around TABLE, places the kind's block and opens the menu it provides. xp = experience level, seed = enchantment seed, creative 0|1,
  *        pseed/lseed = seeds of the player's and the level's random, shelves/blockers = bookshelves/obstructions of an enchanting table,
  *        the levels (0..4) of the iron pyramid under a beacon, the pages (at least 1) of the book on a lectern and whether that book is a writable one.
@@ -121,6 +121,7 @@ public class MenuOracleBase {
       KINDS.put("damaged_anvil", new Kind(Blocks.DAMAGED_ANVIL, NO_SETUP));
       KINDS.put("grindstone", new Kind(Blocks.GRINDSTONE, NO_SETUP));
       KINDS.put("loom", new Kind(Blocks.LOOM, NO_SETUP));
+      KINDS.put("crafting", new Kind(Blocks.CRAFTING_TABLE, NO_SETUP));
       KINDS.put("chest", new Kind(Blocks.CHEST, NO_SETUP));
       KINDS.put("cartography", new Kind(Blocks.CARTOGRAPHY_TABLE, NO_SETUP));
       KINDS.put("brewing_stand", new Kind(Blocks.BREWING_STAND, NO_SETUP));
@@ -167,6 +168,13 @@ public class MenuOracleBase {
    /** name[count][,d=damage][,rc=repairCost][,n=custom name][,e=ench@lvl;..][,s=stored ench@lvl;..][,m=map id][,b=pattern@color;..] */
    static ItemStack mk(String spec) {
       if (spec.equals("-")) return ItemStack.EMPTY;
+      if (spec.startsWith("@")) {
+         try {
+            return new net.minecraft.commands.arguments.item.ItemParser(level.registryAccess()).parse(new com.mojang.brigadier.StringReader(spec.substring(1))).createItemStack(1);
+         } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+            throw new IllegalArgumentException(spec, e);
+         }
+      }
       String[] parts = spec.split(",");
       String head = parts[0];
       int count = 1;
@@ -507,6 +515,16 @@ public class MenuOracleBase {
             case 12 -> {
                int type = r.nextInt(p.getAbilities().instabuild ? 3 : 2);
                int[] slots = r.ints(1 + r.nextInt(4), 0, size).distinct().toArray();
+               // the slots of a drag are placed in the order of an identity hash set: a crafting grid recomputes its result per slot, so keep one grid slot
+               if (k.equals("crafting")) {
+                  boolean[] seen = {false};
+                  slots = java.util.stream.IntStream.of(slots).filter(s -> {
+                     if (s < 1 || s > 9) return true;
+                     boolean keep = !seen[0];
+                     seen[0] = true;
+                     return keep;
+                  }).toArray();
+               }
                drag(type, slots);
             }
             default -> {
