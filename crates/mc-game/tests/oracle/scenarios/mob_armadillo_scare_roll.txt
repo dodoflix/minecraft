@@ -1,0 +1,45 @@
+# Armadillo: the scare sensor (every 5 ticks) sets DANGER_DETECTED_RECENTLY for 80 ticks while a sprinting player is within 7x2x7;
+# the brain then rolls the armadillo up (idle -> rolling -> scared), peeks, unrolls (unrolling -> scared while danger returns) and
+# rolls out when the memory is gone. A hit by a living attacker rolls it up and halves the damage while rolled up.
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+mobspawn ar minecraft:armadillo 4.5 -60 0.5 0 0 {PersistenceRequired:1b}
+level_seed 11
+entity_seed ar 77
+tick 25
+note idle: nothing scary around (a walking player is not scary)
+dump mob:ar brain:ar
+note a sprinting player within range scares it
+pcommand A START_SPRINTING
+tick 6
+dump mob:ar brain:ar events
+tick 12
+dump mob:ar brain:ar
+tick 40
+dump mob:ar brain:ar events
+note the player stops sprinting: the danger memory runs out (peek, unrolling, rolling out)
+pcommand A STOP_SPRINTING
+tick 40
+dump mob:ar brain:ar
+tick 40
+dump mob:ar brain:ar
+tick 20
+dump mob:ar brain:ar events
+note a living attacker rolls it up at once, rolled up damage is (d - 1) / 2
+mobspawn ar2 minecraft:armadillo 10.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed ar2 78
+spawn_player B creative 12.5 -60 0.5 0 0
+tick 3
+hurt ar2 player_attack 4 by=B
+tick 2
+dump mob:ar2 brain:ar2 events
+tick 20
+hurt ar2 player_attack 4 by=B
+tick 2
+dump mob:ar2 events
+note saved state round trips
+dump nbt:ar nbt:ar2

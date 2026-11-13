@@ -1,12 +1,11 @@
 //! The concrete dispense behaviors of `net.minecraft.core.dispenser` and `DispenseItemBehavior.bootStrap()`.
 //!
-//! Not implemented: the brush on an armadillo (`Armadillo.brushOffScute` on an armadillo in front) has no behavior, so
-//! the item is dropped like any other item. Equipment, spawn eggs and sulfur cube swallowing come from the
-//! component-based defaults.
+//! Equipment, spawn eggs and sulfur cube swallowing come from the component-based defaults.
 
 mod armor_stand;
 mod boat;
 mod bone_meal;
+mod brush;
 mod bucket;
 mod chest;
 mod equipment;

@@ -4,6 +4,7 @@ import java.util.List;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
+import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
@@ -52,6 +53,11 @@ final class EntityExtras {
    static final List<Extra> ALL = new ArrayList<>();
 
    static {
+      ALL.add(new Extra(20, Armadillo.class, (d, e, out) -> {
+         out.add("astate", ((Armadillo)e).getState().getSerializedName());
+         out.add("astateticks", EntityOracleDriver.priv(e, Armadillo.class, "inStateTicks"));
+         out.add("scute", EntityOracleDriver.priv(e, Armadillo.class, "scuteTime"));
+      }));
       ALL.add(new Extra(20, Projectile.class, (d, e, out) -> {
          var owner = (net.minecraft.world.entity.EntityReference<?>)EntityOracleDriver.priv(e, Projectile.class, "owner");
          out.add("owner", d.uuidName(owner == null ? null : owner.getUUID()));

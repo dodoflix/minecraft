@@ -101,7 +101,6 @@ const VANILLA: &[&str] = &[
 /// Vanilla items whose behaviour no registration implements yet (item, the missing behaviour).
 #[rustfmt::skip]
 const NOT_IMPLEMENTED: &[(&str, &str)] = &[
-    ("minecraft:brush", "brushes a scute off an armadillo in front (Armadillo.brushOffScute) and damages the brush"),
 ];
 
 /// Registered items that only implement part of the vanilla behaviour (item, the missing part). The entry is deleted by

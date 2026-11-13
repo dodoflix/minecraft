@@ -179,7 +179,7 @@ impl BehaviorControl for GateBehavior {
             .filter(|g| g.get_status() == Status::Running)
             .map(|b| b.debug_string())
             .collect();
-        format!("{}: {:?}", self.name, running)
+        format!("{}: [{}]", self.name, running.join(", "))
     }
 }
 

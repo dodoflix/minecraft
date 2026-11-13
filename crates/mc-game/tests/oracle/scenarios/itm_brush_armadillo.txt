@@ -1,0 +1,40 @@
+# Armadillo.mobInteract: a brush takes a scute off an adult (brush loot table, brush sound, entity-interact event, 16 durability
+# from the used hand); a baby cannot be brushed; a rolled-up armadillo can be brushed but refuses everything else; a spider eye
+# feeds an idle one.
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player C creative 0.5 -60 8.5 0 0
+give A mainhand minecraft:brush
+give A offhand minecraft:brush
+give C mainhand minecraft:brush
+mobspawn ar minecraft:armadillo 1.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn baby minecraft:armadillo 1.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+mobspawn rolled minecraft:armadillo 1.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,state:"scared"}
+mobspawn cr minecraft:armadillo 1.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+level_seed 41
+tick 2
+note adult, main hand brush
+interact A ar main
+dump inventory:A entities events mob:ar
+note adult again, off hand brush
+interact A ar off
+dump inventory:A entities events
+note baby: not brushed, brush untouched
+interact A baby main
+dump inventory:A entities events mob:baby
+note rolled up: brushed
+interact A rolled main
+dump inventory:A entities events mob:rolled
+note creative player: no durability loss
+interact C cr main
+dump inventory:C entities events
+note feeding: spider eye feeds an idle armadillo, a rolled up one refuses
+give A mainhand minecraft:spider_eye 8
+interact A ar main
+dump inventory:A events mob:ar
+interact A rolled main
+dump inventory:A events mob:rolled

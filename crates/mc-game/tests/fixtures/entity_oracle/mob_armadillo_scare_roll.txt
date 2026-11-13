@@ -1,0 +1,92 @@
+C Set minecraft:overworld to 6000 tick(s)
+# idle: nothing scary around (a walking player is not scary)
+E ar minecraft:armadillo pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-12.277054 body=-12.277054 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=gaze_cooldown_ticks:165:inf;look_target:pos(4,-60,1):inf;mobs:(A):inf;visible_mobs:(A):inf equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=idle astateticks=25 scute=6058
+BRAIN ar acts=core;idle
+BM ar type=gaze_cooldown_ticks value=165 ttl=inf
+BM ar type=look_target value=pos(4,-60,1) ttl=inf
+BM ar type=mobs value=(A) ttl=inf
+BM ar type=visible_mobs value=(A) ttl=inf
+BR ar LookAtTargetSink
+BR ar RunOne: [DoNothing]
+BR ar CountDownCooldownTicks
+# a sprinting player within range scares it
+E ar minecraft:armadillo pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-12.277054 body=-12.277054 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;panic mem=danger_detected_recently:1:80;gaze_cooldown_ticks:159:inf;look_target:pos(4,-60,1):inf;mobs:(A):inf;visible_mobs:(A):inf equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=rolling astateticks=5 scute=6052
+BRAIN ar acts=core;panic
+BM ar type=danger_detected_recently value=1 ttl=80
+BM ar type=gaze_cooldown_ticks value=159 ttl=inf
+BM ar type=look_target value=pos(4,-60,1) ttl=inf
+BM ar type=mobs value=(A) ttl=inf
+BM ar type=visible_mobs value=(A) ttl=inf
+BR ar ArmadilloBallUp
+BR ar LookAtTargetSink
+BR ar RunOne: [DoNothing]
+BR ar CountDownCooldownTicks
+EV sound at=4.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.ambient source=neutral vol=1.0 pitch=0.9110679
+EV sound at=4.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.roll source=neutral vol=1.0 pitch=1.1665183
+E ar minecraft:armadillo pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-12.277054 body=-12.277054 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;panic mem=danger_detected_recently:1:78;gaze_cooldown_ticks:147:inf;look_target:pos(4,-60,1):inf;mobs:(A):inf;visible_mobs:(A):inf equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=scared astateticks=6 scute=6040
+BRAIN ar acts=core;panic
+BM ar type=danger_detected_recently value=1 ttl=78
+BM ar type=gaze_cooldown_ticks value=147 ttl=inf
+BM ar type=look_target value=pos(4,-60,1) ttl=inf
+BM ar type=mobs value=(A) ttl=inf
+BM ar type=visible_mobs value=(A) ttl=inf
+BR ar ArmadilloBallUp
+BR ar LookAtTargetSink
+BR ar RunOne: [DoNothing]
+BR ar CountDownCooldownTicks
+E ar minecraft:armadillo pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-12.277054 body=-12.277054 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;panic mem=danger_detected_recently:1:78;gaze_cooldown_ticks:107:inf;look_target:pos(4,-60,1):inf;mobs:(A):inf;visible_mobs:(A):inf equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=scared astateticks=46 scute=6000
+BRAIN ar acts=core;panic
+BM ar type=danger_detected_recently value=1 ttl=78
+BM ar type=gaze_cooldown_ticks value=107 ttl=inf
+BM ar type=look_target value=pos(4,-60,1) ttl=inf
+BM ar type=mobs value=(A) ttl=inf
+BM ar type=visible_mobs value=(A) ttl=inf
+BR ar ArmadilloBallUp
+BR ar LookAtTargetSink
+BR ar CountDownCooldownTicks
+EV sound at=4.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.land source=neutral vol=1.0 pitch=1.0
+# the player stops sprinting: the danger memory runs out (peek, unrolling, rolling out)
+E ar minecraft:armadillo pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-12.277054 body=-12.277054 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;panic mem=danger_detected_recently:1:38;gaze_cooldown_ticks:67:inf;mobs:(A):inf;visible_mobs:(A):inf equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=scared astateticks=86 scute=5960
+BRAIN ar acts=core;panic
+BM ar type=danger_detected_recently value=1 ttl=38
+BM ar type=gaze_cooldown_ticks value=67 ttl=inf
+BM ar type=mobs value=(A) ttl=inf
+BM ar type=visible_mobs value=(A) ttl=inf
+BR ar ArmadilloBallUp
+BR ar CountDownCooldownTicks
+E ar minecraft:armadillo pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-12.277054 body=-12.277054 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=gaze_cooldown_ticks:27:inf;mobs:(A):inf;visible_mobs:(A):inf equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=idle astateticks=2 scute=5920
+BRAIN ar acts=core;idle
+BM ar type=gaze_cooldown_ticks value=27 ttl=inf
+BM ar type=mobs value=(A) ttl=inf
+BM ar type=visible_mobs value=(A) ttl=inf
+BR ar RunOne: [DoNothing]
+BR ar CountDownCooldownTicks
+E ar minecraft:armadillo pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-12.277054 body=-12.277054 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=gaze_cooldown_ticks:7:inf;mobs:(A):inf;visible_mobs:(A):inf equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=idle astateticks=22 scute=5900
+BRAIN ar acts=core;idle
+BM ar type=gaze_cooldown_ticks value=7 ttl=inf
+BM ar type=mobs value=(A) ttl=inf
+BM ar type=visible_mobs value=(A) ttl=inf
+BR ar RunOne: [DoNothing]
+BR ar CountDownCooldownTicks
+EV sound at=4.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.unroll_start source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.unroll_finish source=neutral vol=1.0 pitch=0.9850496
+# a living attacker rolls it up at once, rolled up damage is (d - 1) / 2
+HURT ar2 player_attack 4 -> true
+E ar2 minecraft:armadillo pos=9.881599965417385,-59.28639999389649,0.5 delta=-0.1987440317739259,0.22892801043701183,0.0 rot=0.0,22.600294 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=8/18 death=0 fx=- target=- hurtby=B aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;panic mem=danger_detected_recently:1:78;gaze_cooldown_ticks:179:inf;look_target:pos(10,-60,1):inf equip=- attrs=minecraft:follow_range:16.638447456505208;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=rolling astateticks=2 scute=10062
+BRAIN ar2 acts=core;panic
+BM ar2 type=danger_detected_recently value=1 ttl=78
+BM ar2 type=gaze_cooldown_ticks value=179 ttl=inf
+BM ar2 type=look_target value=pos(10,-60,1) ttl=inf
+BR ar2 LookAtTargetSink
+BR ar2 RunOne: [DoNothing]
+BR ar2 CountDownCooldownTicks
+EV sound at=10.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.roll source=neutral vol=1.0 pitch=1.1085376
+EV sound at=10.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.hurt_reduced source=neutral vol=1.0 pitch=1.0051832
+HURT ar2 player_attack 4 -> true
+E ar2 minecraft:armadillo pos=7.817547754514612,-59.36401598435307,0.5 delta=-0.1987440317739259,0.19128033396326094,0.0 rot=0.0,8.658177 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.5 abs=0.0 hurt=8/18 death=0 fx=- target=- hurtby=B aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;panic mem=danger_detected_recently:1:78;gaze_cooldown_ticks:157:inf;hurt_by:damage(player):inf;hurt_by_entity:B:inf;look_target:pos(10,-60,1):inf;mobs:(B;ar;A):inf;nearest_visible_adult:ar:inf;visible_mobs:(B;ar;A):inf equip=- attrs=minecraft:follow_range:16.638447456505208;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=scared astateticks=13 scute=10040
+EV sound at=8.618316087071713,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.618316087071713,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.land source=neutral vol=1.0 pitch=1.0
+EV sound at=8.435947789097227,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.hurt_reduced source=neutral vol=1.0 pitch=0.9904153
+# saved state round trips
+N ar {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{minecraft:gaze_cooldown_ticks:{value:223}}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:12.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.05217612096954312d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.14d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,scute_time:5873,state:"idle"}
+N ar2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{minecraft:danger_detected_recently:{ttl:78L,value:1b},minecraft:gaze_cooldown_ticks:{value:157}}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:6.5f,HurtTime:8s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[-0.1987440317739259d,0.19128033396326094d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[7.817547754514612d,-59.36401598435307d,0.5d],Rotation:[0.0f,8.658177f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.03990296603157547d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.14d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,last_hurt_by_mob:[I;-196291187,2030186727,-1948358755,2017388081],last_hurt_by_player:[I;-196291187,2030186727,-1948358755,2017388081],last_hurt_by_player_memory_time:98,scute_time:10040,state:"scared",ticks_since_last_hurt_by_mob:2}

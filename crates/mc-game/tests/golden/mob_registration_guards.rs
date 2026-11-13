@@ -19,10 +19,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "Allay: item fetching flyer, brain, duplication",
     ),
     (
-        "minecraft:armadillo",
-        "Armadillo: scared roll-up state machine, scute shedding, brushing",
-    ),
-    (
         "minecraft:bee",
         "Bee: hive, pollination, anger and sting behaviours",
     ),
@@ -99,7 +95,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
 /// Mob types with a vanilla spawn placement whose predicate is not registered: exactly the types of `EXPECTED_MISSING`
 /// that have one (type, what is not implemented). Alphabetical.
 const EXPECTED_MISSING_PREDICATE: &[(&str, &str)] = &[
-    ("minecraft:armadillo", "Armadillo.checkArmadilloSpawnRules"),
     ("minecraft:camel", "Camel.checkCamelSpawnRules"),
     ("minecraft:goat", "Goat.checkGoatSpawnRules"),
     (

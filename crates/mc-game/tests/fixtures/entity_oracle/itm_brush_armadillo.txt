@@ -1,0 +1,62 @@
+C Set minecraft:overworld to 6000 tick(s)
+# adult, main hand brush
+I A 0 minecraft:brush*1/dmg=16{minecraft:damage:16}
+I A 40 minecraft:brush*1
+E ar minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E baby minecraft:armadillo pos=1.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rolled minecraft:armadillo pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cr minecraft:armadillo pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5,-60.0,0.5 delta=0.09204211750779029,0.2,0.07372235368216046 rot=353.42435,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.brush source=neutral vol=1.0 pitch=1.0
+E ar minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=idle astateticks=2 scute=6083
+# adult again, off hand brush
+I A 0 minecraft:brush*1/dmg=16{minecraft:damage:16}
+I A 40 minecraft:brush*1/dmg=16{minecraft:damage:16}
+E ar minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E baby minecraft:armadillo pos=1.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rolled minecraft:armadillo pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cr minecraft:armadillo pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5,-60.0,0.5 delta=0.09204211750779029,0.2,0.07372235368216046 rot=353.42435,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.5,-60.0,0.5 delta=-0.0859907416094905,0.2,0.09842073844954888 rot=329.91077,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.brush source=neutral vol=1.0 pitch=1.0
+# baby: not brushed, brush untouched
+I A 0 minecraft:brush*1/dmg=16{minecraft:damage:16}
+I A 40 minecraft:brush*1/dmg=16{minecraft:damage:16}
+E ar minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E baby minecraft:armadillo pos=1.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rolled minecraft:armadillo pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cr minecraft:armadillo pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5,-60.0,0.5 delta=0.09204211750779029,0.2,0.07372235368216046 rot=353.42435,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.5,-60.0,0.5 delta=-0.0859907416094905,0.2,0.09842073844954888 rot=329.91077,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E baby minecraft:armadillo pos=1.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.005722993917475;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=-23998 baby=1 forcedage=0 love=0 lovecause=- astate=idle astateticks=2 scute=7837
+# rolled up: brushed
+I A 0 minecraft:brush*1/dmg=32{minecraft:damage:32}
+I A 40 minecraft:brush*1/dmg=16{minecraft:damage:16}
+E ar minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E baby minecraft:armadillo pos=1.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rolled minecraft:armadillo pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cr minecraft:armadillo pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5,-60.0,0.5 delta=0.09204211750779029,0.2,0.07372235368216046 rot=353.42435,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.5,-60.0,0.5 delta=-0.0859907416094905,0.2,0.09842073844954888 rot=329.91077,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.5,-60.0,4.5 delta=0.047610138532956425,0.2,0.07133442640174387 rot=89.48774,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=1.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.armadillo.brush source=neutral vol=1.0 pitch=1.0
+E rolled minecraft:armadillo pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.867832293293686;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=scared astateticks=2 scute=11571
+# creative player: no durability loss
+I C 0 minecraft:brush*1
+E ar minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E baby minecraft:armadillo pos=1.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rolled minecraft:armadillo pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E cr minecraft:armadillo pos=1.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5,-60.0,0.5 delta=0.09204211750779029,0.2,0.07372235368216046 rot=353.42435,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.5,-60.0,0.5 delta=-0.0859907416094905,0.2,0.09842073844954888 rot=329.91077,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.5,-60.0,4.5 delta=0.047610138532956425,0.2,0.07133442640174387 rot=89.48774,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=1.5,-60.0,8.5 delta=0.030631593698515758,0.2,0.01884625820245596 rot=189.15942,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=1.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.armadillo.brush source=neutral vol=1.0 pitch=1.0
+# feeding: spider eye feeds an idle armadillo, a rolled up one refuses
+I A 0 minecraft:spider_eye*7
+I A 40 minecraft:brush*1/dmg=16{minecraft:damage:16}
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.eat source=neutral vol=1.0 pitch=0.9914083
+E ar minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=600 lovecause=A astate=idle astateticks=2 scute=6083
+I A 0 minecraft:spider_eye*7
+I A 40 minecraft:brush*1/dmg=16{minecraft:damage:16}
+E rolled minecraft:armadillo pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.867832293293686;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=scared astateticks=2 scute=11571

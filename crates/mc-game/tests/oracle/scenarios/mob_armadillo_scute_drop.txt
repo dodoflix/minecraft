@@ -1,0 +1,27 @@
+# Armadillo: scute_time counts down in customServerAiStep; at zero (and mob_drops) the shed loot table drops a scute with the
+# scute-drop sound and an entity-place game event and the timer is redrawn (5 to 10 minutes); babies drop nothing; with mob_drops
+# off the counter keeps running below zero.
+level flat
+preload 2
+difficulty normal
+time 6000
+entity_counter 1000
+mobspawn ar minecraft:armadillo 4.5 -60 0.5 0 0 {PersistenceRequired:1b,scute_time:12}
+mobspawn baby minecraft:armadillo 8.5 -60 0.5 0 0 {PersistenceRequired:1b,scute_time:12,Age:-24000}
+mobspawn off minecraft:armadillo 12.5 -60 0.5 0 0 {PersistenceRequired:1b,scute_time:12}
+level_seed 31
+entity_seed ar 91
+entity_seed baby 92
+entity_seed off 93
+gamerule mob_drops false
+tick 5
+dump mob:ar mob:baby mob:off
+tick 10
+dump mob:ar mob:baby mob:off entities events
+gamerule mob_drops true
+tick 2
+dump mob:ar mob:baby mob:off entities events
+tick 5
+dump mob:ar mob:baby mob:off entities events
+note a stored scute_time and state round trip
+dump nbt:ar nbt:off

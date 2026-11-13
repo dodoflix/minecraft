@@ -44,6 +44,25 @@ impl RandomLookAround {
             },
         )
     }
+
+    /// `new RandomLookAround(UniformInt.of(min, max), maxYaw, minPitch, maxPitch)`.
+    pub fn new_uniform(
+        min_inclusive: i32,
+        max_inclusive: i32,
+        max_yaw: f32,
+        min_pitch: f32,
+        max_pitch: f32,
+    ) -> BehaviorBase<RandomLookAround> {
+        Self::new(
+            IntProvider::Uniform {
+                min_inclusive,
+                max_inclusive,
+            },
+            max_yaw,
+            min_pitch,
+            max_pitch,
+        )
+    }
 }
 
 impl Behavior for RandomLookAround {

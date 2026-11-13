@@ -1,0 +1,27 @@
+C Set minecraft:overworld to 6000 tick(s)
+# c1 empty block in front: fails
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:brush"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+# c2 an armadillo in front: a scute drops, brush damaged by 16
+BE 0 -60 0 {Items:[{Slot:0b,components:{"minecraft:damage":16},count:1,id:"minecraft:brush"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E ar minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=1.5,-60.0,0.5 delta=0.098388525103453,0.2,0.03201121448669561 rot=98.34523,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armadillo.brush source=neutral vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+# c3 only a baby in front: nothing brushed
+BE 0 -60 0 {Items:[{Slot:0b,components:{"minecraft:damage":16},count:1,id:"minecraft:brush"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+E item#1 minecraft:item pos=1.5,-60.0,0.5 delta=0.098388525103453,0.2,0.03201121448669561 rot=98.34523,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E baby minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+# c4 a fresh dispenser brushes a rolled up armadillo
+BE 0 -60 4 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:4}
+E item#1 minecraft:item pos=1.5,-60.0,0.5 delta=0.098388525103453,0.2,0.03201121448669561 rot=98.34523,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+E baby minecraft:armadillo pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E rolled minecraft:armadillo pos=1.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=1.5,-60.0,4.5 delta=-0.03614010411036321,0.2,0.021025417956812967 rot=286.98245,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armadillo_scute*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=1.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.armadillo.brush source=neutral vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1001 pos=0,-60,4 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,4 data=5 global=0

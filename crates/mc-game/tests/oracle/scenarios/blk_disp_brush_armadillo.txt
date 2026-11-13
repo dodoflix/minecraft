@@ -1,0 +1,31 @@
+# DispenseItemBehavior brush: an armadillo (not a spectator's, not a baby) in the block in front loses a scute to the brush
+# (brushOffScute(null, brush)) and the brush loses 16 durability; nothing to brush fails with the failure click, and the shared
+# success flag of the behaviour keeps reporting failure afterwards.
+level flat
+preload 2
+time 6000
+entity_counter 1000
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:brush",count:1}]}
+level_seed 51
+note c1 empty block in front: fails
+dispense 0 -60 0 c1
+dump be:0,-60,0 entities events
+note c2 an armadillo in front: a scute drops, brush damaged by 16
+mobspawn ar minecraft:armadillo 1.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+level_seed 52
+dispense 0 -60 0 c2
+dump be:0,-60,0 entities events
+note c3 only a baby in front: nothing brushed
+kill ar
+mobspawn baby minecraft:armadillo 1.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+level_seed 53
+dispense 0 -60 0 c3
+dump be:0,-60,0 entities events
+note c4 a fresh dispenser brushes a rolled up armadillo
+block 0 -60 4 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:brush",count:1,components:{"minecraft:damage":340}}]}
+mobspawn rolled minecraft:armadillo 1.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,state:"scared"}
+level_seed 54
+dispense 0 -60 4 c4
+dump be:0,-60,4 entities events

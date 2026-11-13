@@ -18,8 +18,8 @@ use mc_game_core::world::entity::mob::navigation;
 use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::block::state::BlockStateExt;
 
-const PANIC_MIN_DURATION: i32 = 100;
-const PANIC_MAX_DURATION: i32 = 120;
+pub const PANIC_MIN_DURATION: i32 = 100;
+pub const PANIC_MAX_DURATION: i32 = 120;
 const PANIC_DISTANCE_HORIZONTAL: i32 = 5;
 const PANIC_DISTANCE_VERTICAL: i32 = 4;
 
