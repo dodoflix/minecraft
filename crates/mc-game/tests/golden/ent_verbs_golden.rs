@@ -53,3 +53,8 @@ fn tp_resets_motion_and_turns_in_the_entity_replay() {
     common::block_scenario::check("ent_tp_resets_motion");
     common::entity_scenario::run_scenario_test("ent_tp_resets_motion");
 }
+
+#[test]
+fn a_kicked_player_leaves_the_level_and_the_player_list() {
+    common::block_scenario::check("blk_disconnect_removes_player");
+}

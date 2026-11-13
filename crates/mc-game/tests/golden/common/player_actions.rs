@@ -434,7 +434,8 @@ fn teleport(
         x_rot.unwrap_or_else(|| e.base().x_rot()),
     );
     if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
-        level.stop_riding(p);
+        // `ServerPlayer.teleport(transition)` takes the player off its vehicle without the dismount relocation
+        level.remove_vehicle(p);
         if p.is_sleeping() {
             p.stop_sleep_in_bed(level, true, true);
         }

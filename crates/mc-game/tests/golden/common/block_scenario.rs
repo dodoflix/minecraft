@@ -491,6 +491,7 @@ impl Scenario {
                 commands.perform_prefixed_command(server, source, &command)
             });
         });
+        self.handle_disconnections();
         self.out
             .extend(output.0.lock().drain(..).map(|line| format!("C {line}")));
     }

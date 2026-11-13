@@ -1,0 +1,17 @@
+# A player the server disconnects is removed from the level and the player list: the others are told, `@a` no longer reaches it,
+# its boat loses the rider, and the dump of the removed player still prints (the name stays known).
+command_env
+level flat
+preload 2
+spawn_player A survival 3.5 -60 1.5 180 0
+spawn_player B survival 5.5 -60 1.5 180 0
+spawn boat minecraft:oak_boat 3.5 -60 4.5
+ride A boat
+tick 2
+dump packets:A:none packets:B:none
+cmd kick A bye
+dump packets:A:disconnect player:A xentities
+tick 2
+dump packets:B:player_info_remove,remove_entities,set_passengers
+cmd tellraw @a "after"
+dump packets:A packets:B:system_chat

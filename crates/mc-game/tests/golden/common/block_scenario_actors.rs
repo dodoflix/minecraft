@@ -575,47 +575,6 @@ impl Scenario {
                     );
                 });
             }
-            "tp" => {
-                self.world();
-                let id = self.entity_id(&a[1]);
-                self.level().with_entity(id, |level, e| {
-                    let (yr, xr) = (e.base().y_rot(), e.base().x_rot());
-                    if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
-                        // the driver calls `teleportTo(level, x, y, z, Set.of(), yRot, xRot, false)`: `ServerPlayer.teleport(transition)`
-                        // takes the player off its vehicle, then sends a client teleport that the client has to confirm
-                        // (`awaitingPositionFromClient`); the player is also woken
-                        level.remove_vehicle(p);
-                        if p.is_sleeping() {
-                            p.stop_sleep_in_bed(level, true, true);
-                        }
-                        let rot = |i: usize, old: f32| a.get(i).map_or(old, |v| num(v) as f32);
-                        let (y_rot, x_rot) = (rot(5, yr), rot(6, xr));
-                        p.connection_teleport(num(&a[2]), num(&a[3]), num(&a[4]), y_rot, x_rot);
-                        p.set_y_head_rot(y_rot);
-                        if let Some(l) = p.listener.as_mut() {
-                            l.reset_flying_ticks();
-                        }
-                        return;
-                    }
-                    // the driver's `teleportTo(level, x, y, z, Set.of(), yRot, xRot, false)` is `Entity.teleport(transition)`: the entity
-                    // stops riding, its passengers move with it (and turn with the rotation), the motion is reset
-                    let rot = |i: usize, old: f32| a.get(i).map_or(old, |v| num(v) as f32);
-                    let transition = mc_game::server::players::dimension_change::TeleportTransition::new(
-                        level.dimension.clone(),
-                        Vec3::new(num(&a[2]), num(&a[3]), num(&a[4])),
-                        Vec3::ZERO,
-                        rot(5, yr),
-                        rot(6, xr),
-                        mc_game::server::players::dimension_change::PostTeleportTransition::DO_NOTHING,
-                    );
-                    level.stop_riding(e);
-                    mc_game::server::players::dimension_change::teleport_same_dimension(
-                        level,
-                        e,
-                        &transition,
-                    );
-                });
-            }
             "velocity" => {
                 self.world();
                 let id = self.entity_id(&a[1]);
@@ -1338,6 +1297,24 @@ impl Scenario {
             if let Some(t) = tracked {
                 self.actors.tracked_movement.insert(id, t);
             }
+        }
+    }
+
+    /// `Connection.handleDisconnection` of every player whose connection the server closed outside a packet handler or the tick (a console
+    /// command's `kick`): a replay has no socket, so the closed connection is noticed here.
+    pub(super) fn handle_disconnections(&mut self) {
+        for name in self.actors.players.clone() {
+            let id = self.entity_id(&name);
+            self.level().with_player(id, |level, p| {
+                mc_game::commands::server_access::with_server(|server| {
+                    mc_game::server::network::game_packets::PlayCtx {
+                        server,
+                        level,
+                        player: p,
+                    }
+                    .handle_disconnection_without_socket()
+                });
+            });
         }
     }
 

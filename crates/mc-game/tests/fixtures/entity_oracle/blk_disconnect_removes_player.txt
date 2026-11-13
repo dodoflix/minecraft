@@ -1,0 +1,5 @@
+C Kicked A: bye
+PKT A minecraft:disconnect 20080003627965
+P A minecraft:player pos=4.772276811962001,-60.0,4.159181634481322 delta=0.0,0.0,0.0 rot=-105.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B minecraft:player_info_remove 4601b76d4ad38d013150b33368cfb4257774
+PKT B minecraft:system_chat 7c080005616674657200
