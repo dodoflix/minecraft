@@ -1,0 +1,25 @@
+# Entity ticking range without players: only the forced chunks (preload 1: chunks -1..1, blocks -16..31) tick entities. An item, an
+# arrow and a firework rocket that fly out of that area stop ticking in the first tick after they cross the border (they keep their
+# position and motion in the border chunk); a boat that starts in the border chunk never falls, a boat inside falls onto the ground.
+level flat
+preload 1
+difficulty normal
+entity_counter 900
+level_seed 31
+tick 2
+spawn_item stay minecraft:stone 5.5 -58 0.5 0 0 0.2
+spawn_item out minecraft:dirt 28.5 -60 0.5 1.2 0.1 0
+spawn arrow minecraft:arrow 28.5 -58 0.5 0 0
+entity_seed arrow 3
+velocity arrow 2 0.2 0
+spawn fw minecraft:firework_rocket 28.5 -58 6.5 0 0 {FireworksItem:{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:30}}},Life:0,LifeTime:60}
+entity_seed fw 4
+velocity fw 0.4 0.05 0
+spawn boat_in minecraft:oak_boat 20.5 -58 5.5 0 0
+spawn boat_out minecraft:oak_boat 40.5 -58 5.5 0 0
+entity_seed boat_in 5
+entity_seed boat_out 6
+dump entities
+watch entities
+tick 10
+watch off

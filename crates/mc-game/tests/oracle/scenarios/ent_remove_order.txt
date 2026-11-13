@@ -1,0 +1,67 @@
+# Order of remove_entities against the packets of the same tick: an entity that discards itself while it ticks is untracked at the
+# discard (before the explosion of a primed tnt, before the drop of a landing falling block, after the damage of the arrow and
+# snowball hits); a picked up item or orb sends take_item_entity first. The observer sees everything from 4 blocks away.
+level flat
+command_env
+preload 3
+difficulty normal
+entity_counter 700
+spawn_player Obs survival 0.5 -60 0.5 0 0
+spawn_player Alice survival 4.5 -60 0.5 0 0
+tick 30
+dump packets:Obs:none packets:Alice:none
+level_seed 11
+note a primed tnt explodes on its last fuse tick
+spawn tnt minecraft:tnt 8.5 -60 8.5 0 0 {fuse:3s}
+entity_seed tnt 5
+tick 4
+dump entities packets:Obs:remove_entities,explode,damage_event,add_entity
+cmd kill @e[type=item]
+dump packets:Obs:none
+note a falling sand lands on a torch: it breaks and drops itself as an item, after the remove_entities of the sand
+block 12 -60 3 minecraft:torch
+spawn sand minecraft:falling_block 12.5 -56 3.5 0 0 {BlockState:"minecraft:sand",Time:1}
+entity_seed sand 6
+level_seed 12
+tick 20
+dump entities packets:Obs:remove_entities,add_entity,block_update,add_transient_block,take_item_entity
+note a falling sand lands on the ground and becomes a block
+spawn sand2 minecraft:falling_block 14.5 -56 3.5 0 0 {BlockState:"minecraft:sand",Time:1}
+entity_seed sand2 7
+tick 20
+dump entities blocks:14,-61,3,14,-59,3 packets:Obs:remove_entities,add_entity,block_update,add_transient_block
+note an arrow hits a cow
+mobspawn cow1 minecraft:cow 16.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn arrow1 minecraft:arrow 16.5 -57 3.5 0 90
+entity_seed arrow1 8
+velocity arrow1 0 -1 0
+level_seed 13
+tick 5
+dump entities packets:Obs:remove_entities,damage_event,hurt_animation,entity_event,add_entity
+note a snowball hits a cow
+mobspawn cow2 minecraft:cow 20.5 -60 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+spawn ball minecraft:snowball 20.5 -57 3.5 0 90
+entity_seed ball 9
+velocity ball 0 -1 0
+tick 5
+dump entities packets:Obs:remove_entities,damage_event,hurt_animation,entity_event,add_entity
+dump packets:Alice:none
+note Alice picks up an item
+spawn_item itm minecraft:stone 4.5 -60 0.5 0 0 0
+tick 3
+dump entities inventory:Alice packets:Obs:take_item_entity,remove_entities,add_entity packets:Alice:take_item_entity,remove_entities,container_set_slot
+note Alice picks up an experience orb
+level_seed 14
+spawn orb minecraft:experience_orb 4.5 -60 0.5 0 0 {Value:3s}
+entity_seed orb 10
+tick 3
+dump entities packets:Obs:take_item_entity,remove_entities,add_entity packets:Alice:take_item_entity,remove_entities,set_experience,sound
+note an item frame loses its support block: remove_entities before the break sound and the dropped frame
+block 6 -60 10 minecraft:stone
+spawn frame minecraft:item_frame 6.5 -59.5 10.5 0 0 {Facing:5b}
+entity_seed frame 11
+dump packets:Obs:none
+level_seed 15
+block 6 -60 10 minecraft:air
+tick 105
+dump entities packets:Obs:remove_entities,add_entity,sound

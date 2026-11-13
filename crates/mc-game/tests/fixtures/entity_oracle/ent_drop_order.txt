@@ -1,0 +1,29 @@
+# drop one item
+E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=0.0029838519299140906,0.08879449963569641,0.29605368306316254 rot=134.99127,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=0 pickup=40 health=5 owner=- thrower=Alice
+I Alice 0 minecraft:stone*4
+I Alice 1 minecraft:dirt*3
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:add_entity 01a3068be6fe1efb7049b98fc8f6e82300bcd5483fe0000000000000c04d570a3d8000003fe00000000000008101a5e316ba005f0000
+PKT Alice minecraft:set_entity_data 65a306080701010000ff
+PKT Alice minecraft:bundle_delimiter 00
+PKT Obs minecraft:add_entity 01a3068be6fe1efb7049b98fc8f6e82300bcd5483fe0000000000000c04d570a3d8000003fe00000000000008101a5e316ba005f0000
+PKT Obs minecraft:set_entity_data 65a306080701010000ff
+E item#1 minecraft:item pos=0.5029838519299141,-58.63120550751686,0.7960536830631626 delta=0.002924174948228268,0.047818610573663704,0.29013261504867516 rot=134.99127,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=39 health=5 owner=- thrower=Alice
+PKT Alice minecraft:move_entity_pos 36a30600000000000000
+PKT Alice minecraft:set_entity_data 65a306080701010000ff
+PKT Obs minecraft:set_entity_data 65a306080701010000ff
+# drop the whole stack
+E item#1 minecraft:item pos=0.5029838519299141,-58.63120550751686,0.7960536830631626 delta=0.002924174948228268,0.047818610573663704,0.29013261504867516 rot=134.99127,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=39 health=5 owner=- thrower=Alice
+E item#2 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=0.0035839662790661617,0.10851301997900009,0.29945016350442655 rot=56.283775,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*4 age=0 pickup=40 health=5 owner=- thrower=Alice
+I Alice 1 minecraft:dirt*3
+PKT Alice minecraft:bundle_delimiter 00
+PKT Alice minecraft:add_entity 01a406cfa286153cc84740ac530853ed49de00483fe0000000000000c04d570a3d8000003fe0000000000000d101a6531bc600280000
+PKT Alice minecraft:set_entity_data 65a406080704010000ff
+PKT Alice minecraft:bundle_delimiter 00
+PKT Obs minecraft:add_entity 01a406cfa286153cc84740ac530853ed49de00483fe0000000000000c04d570a3d8000003fe0000000000000d101a6531bc600280000
+PKT Obs minecraft:set_entity_data 65a406080704010000ff
+E item#2 minecraft:item pos=0.5035839662790662,-58.611486987173556,0.7994501635044265 delta=0.00351228702184357,0.06714276088620223,0.2934611659458966 rot=56.283775,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=1 pickup=39 health=5 owner=- thrower=Alice
+PKT Alice minecraft:move_entity_pos 36a40600000000000000
+PKT Alice minecraft:set_entity_data 65a406080704010000ff
+PKT Alice minecraft:remove_entities 4e01a306
+PKT Obs minecraft:set_entity_data 65a406080704010000ff

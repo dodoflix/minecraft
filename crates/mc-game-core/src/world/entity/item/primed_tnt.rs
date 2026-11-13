@@ -226,6 +226,7 @@ impl Entity for PrimedTnt {
         self.set_fuse(fuse);
         if fuse <= 0 {
             self.discard();
+            level.untrack_discarded_entity(self);
             self.explode(level);
         } else {
             self.update_fluid_interaction(level);

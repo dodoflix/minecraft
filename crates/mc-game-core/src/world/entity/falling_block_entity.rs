@@ -165,6 +165,12 @@ impl FallingBlockEntity {
     fn drops_enabled(&self, level: &ServerLevel) -> bool {
         self.drop_item && level.entity_drops()
     }
+
+    /// `discard()` during the tick: untracks at once, so watchers get `remove_entities` before what the landing sends.
+    fn discard_in_tick(&mut self, level: &mut ServerLevel) {
+        self.discard();
+        level.untrack_discarded_entity(self);
+    }
 }
 
 impl Entity for FallingBlockEntity {
@@ -313,7 +319,7 @@ impl Entity for FallingBlockEntity {
                                         block_state: placed,
                                     }),
                                 );
-                                self.discard();
+                                self.discard_in_tick(level);
                                 behaviour(block).on_land(
                                     level,
                                     pos,
@@ -339,19 +345,19 @@ impl Entity for FallingBlockEntity {
                                     }
                                 }
                             } else if self.drops_enabled(level) {
-                                self.discard();
+                                self.discard_in_tick(level);
                                 self.call_on_broken_after_fall(level, block, pos);
                                 self.spawn_block_item(level, block);
                             }
                         } else {
-                            self.discard();
+                            self.discard_in_tick(level);
                             if self.drops_enabled(level) {
                                 self.call_on_broken_after_fall(level, block, pos);
                                 self.spawn_block_item(level, block);
                             }
                         }
                     } else {
-                        self.discard();
+                        self.discard_in_tick(level);
                         self.call_on_broken_after_fall(level, block, pos);
                     }
                 }

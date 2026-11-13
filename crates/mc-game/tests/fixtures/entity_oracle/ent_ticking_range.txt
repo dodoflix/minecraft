@@ -1,0 +1,76 @@
+E stay minecraft:item pos=5.5,-58.0,0.5 delta=0.0,0.0,0.2 rot=233.56732,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=0 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=28.5,-60.0,0.5 delta=1.2,0.1,0.0 rot=77.169106,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=0 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=28.5,-58.0,0.5 delta=2.0,0.2,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=28.5,-58.0,6.5 delta=0.4,0.05,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 3
+E stay minecraft:item pos=5.5,-58.04,0.7 delta=0.0,-0.03920000076293945,0.1960000038146973 rot=233.56732,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=29.7,-59.94,0.5 delta=1.1760000228881835,0.058800001144409184,0.0 rot=77.169106,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=1 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=30.5,-57.8,0.5 delta=1.9800000190734863,0.14800000190734863,0.0 rot=17.999998,1.1420873 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=28.96,-57.91,6.5 delta=0.45999999999999996,0.09,0.0 rot=17.999998,2.2140388 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-58.04,5.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 4
+E stay minecraft:item pos=5.5,-58.11920000076294,0.8960000038146972 delta=0.0,-0.0776160022583008,0.19208000747680673 rot=233.56732,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=2 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=30.87600002288818,-59.92119999885559,0.5 delta=1.15248004486084,0.018424001480102564,0.0 rot=77.169106,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=2 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=32.480000019073486,-57.65199999809265,0.5 delta=1.9602000377655031,0.09652000329971315,0.0 rot=32.399998,1.7686167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=29.489,-57.779999999999994,6.5 delta=0.5289999999999999,0.13,0.0 rot=32.399998,4.532562 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-58.12,5.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=0 fall=0.11999999731779099 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 5
+E stay minecraft:item pos=5.5,-58.23681600302124,1.088080011291504 delta=0.0,-0.115263684456482,0.188238410990906 rot=233.56732,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=32.02848006774902,-59.94277599737549,0.5 delta=1.1294304659454357,-0.021144478961029,0.0 rot=77.169106,0.0 og=0 fall=0.02157599851489067 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=32.480000019073486,-57.65199999809265,0.5 delta=1.9602000377655031,0.09652000329971315,0.0 rot=32.399998,1.7686167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=30.097350000000002,-57.60999999999999,6.5 delta=0.6083499999999998,0.17,0.0 rot=43.92,6.7486014 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-58.239999999999995,5.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=0 fall=0.23999999463558197 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 6
+E stay minecraft:item pos=5.5,-58.39207968747772,1.2763184222824098 delta=0.0,-0.15215841372877212,0.18447364636145064 rot=233.56732,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=4 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=32.02848006774902,-59.94277599737549,0.5 delta=1.1294304659454357,-0.021144478961029,0.0 rot=77.169106,0.0 og=0 fall=0.02157599851489067 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=32.480000019073486,-57.65199999809265,0.5 delta=1.9602000377655031,0.09652000329971315,0.0 rot=32.399998,1.7686167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=30.796952500000003,-57.39999999999999,6.5 delta=0.6996024999999998,0.21000000000000002,0.0 rot=53.135998,8.740536 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-58.39999999999999,5.5 delta=0.0,-0.16,0.0 rot=0.0,0.0 og=0 fall=0.3999999910593033 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 7
+E stay minecraft:item pos=5.5,-58.58423810120649,1.4607920686438605 delta=0.0,-0.18831524911932757,0.1807841769527772 rot=233.56732,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=5 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=32.02848006774902,-59.94277599737549,0.5 delta=1.1294304659454357,-0.021144478961029,0.0 rot=77.169106,0.0 og=0 fall=0.02157599851489067 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=32.480000019073486,-57.65199999809265,0.5 delta=1.9602000377655031,0.09652000329971315,0.0 rot=32.399998,1.7686167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=31.601495375000002,-57.14999999999999,6.5 delta=0.8045428749999997,0.25,0.0 rot=60.508797,10.444805 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-58.599999999999994,5.5 delta=0.0,-0.2,0.0 rot=0.0,0.0 og=0 fall=0.5999999940395355 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 8
+E stay minecraft:item pos=5.5,-58.812553350325814,1.6415762455966376 delta=0.0,-0.22374894849170882,0.1771684968619062 rot=233.56732,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=6 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=32.02848006774902,-59.94277599737549,0.5 delta=1.1294304659454357,-0.021144478961029,0.0 rot=77.169106,0.0 og=0 fall=0.02157599851489067 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=32.480000019073486,-57.65199999809265,0.5 delta=1.9602000377655031,0.09652000329971315,0.0 rot=32.399998,1.7686167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=32.52671968125,-56.85999999999999,6.5 delta=0.9252243062499995,0.29,0.0 rot=66.407036,11.836388 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-58.839999999999996,5.5 delta=0.0,-0.24000000000000002,0.0 rot=0.0,0.0 og=0 fall=0.8399999886751175 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 9
+E stay minecraft:item pos=5.5,-59.076302298817524,1.818744742458544 delta=0.0,-0.2584739745524866,0.17362513030388899 rot=233.56732,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=7 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=32.02848006774902,-59.94277599737549,0.5 delta=1.1294304659454357,-0.021144478961029,0.0 rot=77.169106,0.0 og=0 fall=0.02157599851489067 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=32.480000019073486,-57.65199999809265,0.5 delta=1.9602000377655031,0.09652000329971315,0.0 rot=32.399998,1.7686167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=32.52671968125,-56.85999999999999,6.5 delta=0.9252243062499995,0.29,0.0 rot=66.407036,11.836388 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-59.12,5.5 delta=0.0,-0.28,0.0 rot=0.0,0.0 og=0 fall=1.1199999898672104 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 10
+E stay minecraft:item pos=5.5,-59.37477627337001,1.9923698727624328 delta=0.0,-0.2925045007543761,0.17015263100944775 rot=233.56732,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=8 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=32.02848006774902,-59.94277599737549,0.5 delta=1.1294304659454357,-0.021144478961029,0.0 rot=77.169106,0.0 og=0 fall=0.02157599851489067 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=32.480000019073486,-57.65199999809265,0.5 delta=1.9602000377655031,0.09652000329971315,0.0 rot=32.399998,1.7686167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=32.52671968125,-56.85999999999999,6.5 delta=0.9252243062499995,0.29,0.0 rot=66.407036,11.836388 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-59.44,5.5 delta=0.0,-0.32,0.0 rot=0.0,0.0 og=0 fall=1.439999982714653 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 11
+E stay minecraft:item pos=5.5,-59.707280774124385,2.1625225037718807 delta=0.0,-0.32585441708130863,0.16674958163466266 rot=233.56732,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=9 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=32.02848006774902,-59.94277599737549,0.5 delta=1.1294304659454357,-0.021144478961029,0.0 rot=77.169106,0.0 og=0 fall=0.02157599851489067 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=32.480000019073486,-57.65199999809265,0.5 delta=1.9602000377655031,0.09652000329971315,0.0 rot=32.399998,1.7686167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=32.52671968125,-56.85999999999999,6.5 delta=0.9252243062499995,0.29,0.0 rot=66.407036,11.836388 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-59.8,5.5 delta=0.0,-0.36,0.0 rot=0.0,0.0 og=0 fall=1.7999999970197678 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+T 12
+E stay minecraft:item pos=5.5,-60.0,2.329272085406543 delta=0.0,0.0,0.09804876386071883 rot=233.56732,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=10 pickup=0 health=5 owner=- thrower=-
+E out minecraft:item pos=32.02848006774902,-59.94277599737549,0.5 delta=1.1294304659454357,-0.021144478961029,0.0 rot=77.169106,0.0 og=0 fall=0.02157599851489067 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E arrow minecraft:arrow pos=32.480000019073486,-57.65199999809265,0.5 delta=1.9602000377655031,0.09652000329971315,0.0 rot=32.399998,1.7686167 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E fw minecraft:firework_rocket pos=32.52671968125,-56.85999999999999,6.5 delta=0.9252243062499995,0.29,0.0 rot=66.407036,11.836388 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E boat_in minecraft:oak_boat pos=20.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E boat_out minecraft:oak_boat pos=40.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=- dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-

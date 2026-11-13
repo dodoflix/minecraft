@@ -339,6 +339,9 @@ impl ServerLevel {
         }
         self.eject_passengers(e);
         e.remove(reason);
+        if !e.is_player() {
+            self.untrack_discarded_entity(e);
+        }
     }
 
     /// `ServerLevel.tick`'s per-entity step for an entry of the tick list: `checkDespawn`, the riding checks and

@@ -1,0 +1,25 @@
+# A dropped item's add_entity against the inventory packets of the dropping player and the packets an observer gets.
+level flat
+preload 3
+difficulty normal
+entity_counter 800
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Obs survival 3.5 -60 0.5 90 0
+tick 30
+dump packets:Alice:none packets:Obs:none
+level_seed 21
+give Alice mainhand minecraft:stone 5
+give Alice hotbar1 minecraft:dirt 3
+tick 1
+dump packets:Alice:none packets:Obs:none
+note drop one item
+drop Alice
+dump entities inventory:Alice packets:Alice packets:Obs:add_entity,set_entity_data,set_entity_motion,set_equipment
+tick 1
+dump entities packets:Alice packets:Obs:add_entity,set_entity_data,set_entity_motion,set_equipment
+note drop the whole stack
+level_seed 22
+drop Alice all
+dump entities inventory:Alice packets:Alice packets:Obs:add_entity,set_entity_data,set_entity_motion,set_equipment
+tick 1
+dump entities packets:Alice packets:Obs:add_entity,set_entity_data,set_entity_motion,set_equipment
