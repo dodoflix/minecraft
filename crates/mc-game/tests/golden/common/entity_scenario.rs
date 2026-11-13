@@ -774,14 +774,6 @@ impl Harness {
                     e.snap_to(x, y, z, yr, xr);
                 });
             }
-            "tp" => {
-                self.world();
-                let (x, y, z) = (self.num(&a[2]), self.num(&a[3]), self.num(&a[4]));
-                if a.len() > 5 {
-                    self.fail("`tp` with rotation is not replayed");
-                }
-                self.with_entity(&a[1], |level, e| e.teleport_to(level, x, y, z));
-            }
             "velocity" => {
                 self.world();
                 let (x, y, z) = (self.num(&a[2]), self.num(&a[3]), self.num(&a[4]));

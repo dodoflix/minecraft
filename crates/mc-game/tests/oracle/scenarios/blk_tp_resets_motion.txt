@@ -1,0 +1,21 @@
+# `tp` is `Entity.teleport(transition)` for everything that is not a player: the motion resets, the entity stops riding, its passengers move
+# with it, and the rotation is applied.
+level flat
+preload 2
+level_seed 11
+spawn_item chip minecraft:gold_ingot 3.5 -59 3.5 0.3 0.2 0.1
+spawn pig minecraft:pig 6.5 -60 3.5 0 0 {NoAI:1b}
+spawn boat minecraft:oak_boat 9.5 -60 3.5
+spawn rider minecraft:pig 12.5 -60 3.5 0 0 {NoAI:1b}
+ride rider boat
+velocity pig 0.3 0.2 0.1
+velocity boat 0.1 0 0.1
+dump entity:chip entity:pig entity:boat entity:rider
+tp chip 4.5 -58 4.5
+tp pig 6.5 -59 6.5 90 10
+tp boat 9.5 -60 8.5 45 0
+dump entity:chip entity:pig entity:boat entity:rider
+tp rider 12.5 -60 6.5
+dump entity:boat entity:rider
+tick 2
+dump entity:chip entity:pig entity:boat entity:rider

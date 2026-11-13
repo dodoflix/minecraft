@@ -419,6 +419,60 @@ fn select(level: &mut ServerLevel, p: &mut ServerPlayer, slot: i32) {
         .expect("hotbar slot");
 }
 
+/// The driver's `teleportTo(level, x, y, z, Set.of(), yRot, xRot, false)`, which is `Entity.teleport(transition)`: the entity stops riding, its
+/// passengers move with it (and turn with the rotation) and the motion resets. A player is also woken and, with a listener, gets a client
+/// teleport that the client has to confirm (`awaitingPositionFromClient`).
+fn teleport(
+    level: &mut ServerLevel,
+    e: &mut dyn mc_game::world::entity::Entity,
+    to: Vec3,
+    y_rot: Option<f32>,
+    x_rot: Option<f32>,
+) {
+    let (y_rot, x_rot) = (
+        y_rot.unwrap_or_else(|| e.base().y_rot()),
+        x_rot.unwrap_or_else(|| e.base().x_rot()),
+    );
+    if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
+        level.stop_riding(p);
+        if p.is_sleeping() {
+            p.stop_sleep_in_bed(level, true, true);
+        }
+        if p.listener.is_some() {
+            p.connection_teleport(to.x, to.y, to.z, y_rot, x_rot);
+            p.set_y_head_rot(y_rot);
+            if let Some(l) = p.listener.as_mut() {
+                l.reset_flying_ticks();
+            }
+        } else {
+            // the entity replay's players have no connection to confirm anything
+            p.teleport_set_position(
+                mc_protocol::packets::play::PositionMoveRotation {
+                    position: to,
+                    delta_movement: Vec3::ZERO,
+                    y_rot,
+                    x_rot,
+                },
+                mc_protocol::packets::play::Relatives::NONE,
+            );
+        }
+        return;
+    }
+    use mc_game::server::players::dimension_change::{
+        PostTeleportTransition, TeleportTransition, teleport_same_dimension,
+    };
+    let transition = TeleportTransition::new(
+        level.dimension.clone(),
+        to,
+        Vec3::ZERO,
+        y_rot,
+        x_rot,
+        PostTeleportTransition::DO_NOTHING,
+    );
+    level.stop_riding(e);
+    teleport_same_dimension(level, e, &transition);
+}
+
 /// Run a player action command; `false` when `a[0]` is not one of them.
 pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
     match a[0].as_str() {
@@ -427,6 +481,19 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
             h.boot();
             let stack = item_stack(&a[3], a.get(4).map_or(1, |c| c.parse().unwrap()));
             with_player(h, &a[1], |_, p| give(p, &a[2], stack));
+        }
+        // tp REF X Y Z [YAW PITCH]
+        "tp" => {
+            h.boot();
+            let id = h.action_ref(&a[1]);
+            let num = |i: usize| {
+                a[i].parse::<f64>()
+                    .unwrap_or_else(|_| panic!("not a number: {}", a[i]))
+            };
+            let rot = |i: usize| (i < a.len()).then(|| num(i) as f32);
+            let to = Vec3::new(num(2), num(3), num(4));
+            h.action_level()
+                .with_entity(id, |level, e| teleport(level, e, to, rot(5), rot(6)));
         }
         "select" => {
             h.boot();

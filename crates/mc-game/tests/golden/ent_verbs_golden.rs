@@ -42,3 +42,14 @@ fn chat_and_command_output_reach_the_players() {
 fn a_player_joining_in_flowing_water_is_pushed_from_the_first_tick() {
     common::block_scenario::check("blk_join_in_flowing_water");
 }
+
+#[test]
+fn tp_resets_motion_dismounts_and_turns_in_the_block_replay() {
+    common::block_scenario::check("blk_tp_resets_motion");
+}
+
+#[test]
+fn tp_resets_motion_and_turns_in_the_entity_replay() {
+    common::block_scenario::check("ent_tp_resets_motion");
+    common::entity_scenario::run_scenario_test("ent_tp_resets_motion");
+}

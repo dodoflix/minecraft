@@ -1,0 +1,13 @@
+# `tp` is `Entity.teleport(transition)`: the motion resets and the rotation is applied (both replays).
+level flat
+preload 2
+level_seed 11
+spawn_item chip minecraft:gold_ingot 3.5 -59 3.5 0.3 0.2 0.1
+spawn pig minecraft:pig 6.5 -60 3.5 0 0 {NoAI:1b}
+velocity pig 0.3 0.2 0.1
+dump entity:chip entity:pig
+tp chip 4.5 -58 4.5
+tp pig 6.5 -59 6.5 90 10
+dump entity:chip entity:pig
+tick 2
+dump entity:chip entity:pig
