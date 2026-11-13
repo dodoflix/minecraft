@@ -200,11 +200,12 @@ impl ExperienceOrb {
         can_merge_static(orb, self.base.id, self.get_value())
     }
 
-    /// `merge(orb)`.
-    fn merge(&mut self, orb: &mut ExperienceOrb) {
+    /// `merge(orb)`: the merged orb is out of storage while its owner ticks, so it is untracked at the discard.
+    fn merge(&mut self, level: &mut ServerLevel, orb: &mut ExperienceOrb) {
         self.count += orb.count;
         self.age = self.age.min(orb.age);
         orb.discard();
+        level.untrack_discarded_entity(orb);
     }
 
     fn scan_for_merges(&mut self, level: &mut ServerLevel) {
@@ -219,9 +220,9 @@ impl ExperienceOrb {
             },
         );
         for id in orbs {
-            level.with_entity(id, |_, e| {
+            level.with_entity(id, |level, e| {
                 if let Some(orb) = e.as_any_mut().downcast_mut::<ExperienceOrb>() {
-                    self.merge(orb);
+                    self.merge(level, orb);
                 }
             });
         }
@@ -318,6 +319,10 @@ impl Entity for ExperienceOrb {
     fn is_attackable(&self) -> bool {
         false
     }
+    /// `getSoundSource()`.
+    fn get_sound_source(&self) -> mc_protocol::packets::play::SoundSource {
+        mc_protocol::packets::play::SoundSource::Ambient
+    }
     fn block_pos_below_offset(&self) -> f32 {
         0.999999
     }
@@ -339,6 +344,7 @@ impl Entity for ExperienceOrb {
         self.health = (self.health as f32 - damage) as i32;
         if self.health <= 0 {
             self.discard();
+            level.untrack_discarded_entity(self);
         }
         true
     }
@@ -405,6 +411,7 @@ impl Entity for ExperienceOrb {
         self.age += 1;
         if self.age >= LIFETIME {
             self.discard();
+            level.untrack_discarded_entity(self);
         }
     }
 

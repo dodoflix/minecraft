@@ -208,6 +208,19 @@ impl Entity for FallingBlockEntity {
         super::MoveSimulationType::ServerAndClient
     }
 
+    /// `getTypeName()`: "Falling <block>".
+    fn get_type_name(&self) -> mc_text::Component {
+        mc_text::Component::translatable(
+            "entity.minecraft.falling_block_type",
+            vec![mc_text::TranslatableArg::Component(
+                mc_text::Component::translatable(
+                    self.block_state.block().data().description_id,
+                    Vec::new(),
+                ),
+            )],
+        )
+    }
+
     /// `getAddEntityPacket(serverEntity)`: the data is the block state id.
     fn get_add_entity_packet(
         &self,
@@ -455,3 +468,15 @@ static FALLING_BLOCK_FACTORY: EntityRegistration = EntityRegistration {
     entity_type: EntityType::FALLING_BLOCK,
     create: |ty, id, _registries| Box::new(FallingBlockEntity::new(ty, id)),
 };
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn type_name_names_the_block() {
+        let mut e = FallingBlockEntity::new(EntityType::FALLING_BLOCK, 1);
+        e.block_state = Block::RED_SAND.default_state();
+        assert_eq!(e.get_type_name().get_string(), "Falling Red Sand");
+    }
+}
