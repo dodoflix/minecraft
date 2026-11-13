@@ -4,7 +4,7 @@
 use super::ServerLevel;
 use super::entity_tracker::{Entities, TrackerPlayer};
 use crate::world::entity::{Entity, EntityId, RemovalReason};
-use crate::world::level::entity::EntityLevelEvent;
+use crate::world::level::entity::{EntityLevelEvent, PersistentEntitySectionManager};
 use crate::world::level::gameevent::DynamicListenerAction;
 use mc_core::phys::AABB;
 use mc_data::EntityType;
@@ -196,13 +196,16 @@ impl ServerLevel {
         }
     }
 
-    /// Run `f` on entity `id` now if it is in storage (returns its result); if the entity is taken out (it is the
-    /// one running, e.g. the attacker whose hit kills the victim) `f` runs when it is put back and `None` is returned.
+    /// Run `f` on entity `id` now if it is in storage or lent (returns its result); if the entity is taken out (it is
+    /// the one running and no call-out lent it) `f` runs when it is put back and `None` is returned.
     pub fn with_entity_or_defer<R: 'static>(
         &mut self,
         id: EntityId,
         f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R + 'static,
     ) -> Option<R> {
+        if self.entity_manager.can_reenter_lent(id) {
+            return self.with_entity(id, f);
+        }
         match self.take_entity(id) {
             Some(mut entity) => {
                 let result = f(self, entity.as_mut());
@@ -253,16 +256,68 @@ impl ServerLevel {
         self.process_waypoint_state(id);
     }
 
-    /// Take `id` out, run `f` with the level (the entity is absent from lookups), put it back.
+    /// Take `id` out, run `f` with the level (the entity is absent from lookups), put it back. An entity that is
+    /// out because its owner lent it (see [`ServerLevel::lend`]) is handed out as the lent `&mut` instead; its
+    /// tracking / listener callbacks still wait for the owner's [`ServerLevel::put_back_entity`].
     pub fn with_entity<R>(
         &mut self,
         id: EntityId,
         f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R,
     ) -> Option<R> {
-        let mut entity = self.take_entity(id)?;
+        let Some(mut entity) = self.take_entity(id) else {
+            return PersistentEntitySectionManager::with_lent_mut(
+                self,
+                |level| &mut level.entity_manager,
+                id,
+                f,
+            );
+        };
         let result = f(self, entity.as_mut());
         self.put_back_entity(id, entity);
         Some(result)
+    }
+
+    /// Run `f` while `me`, the entity whose code is running (taken out of its slot), is visible to the level: by id,
+    /// UUID, box, class and player queries, and `with_entity(me.id())` hands its `&mut` back, so effects on `me` run
+    /// where vanilla runs them. Wrap exactly the call-out that looks `me` up (a hit, an explosion, a trigger, a block
+    /// reading entities inside it); `me` cannot be used inside `f`.
+    pub fn lend<R>(&mut self, me: &mut dyn Entity, f: impl FnOnce(&mut ServerLevel) -> R) -> R {
+        PersistentEntitySectionManager::lend_in(self, |level| &mut level.entity_manager, me, f)
+    }
+
+    /// [`ServerLevel::lend`] for a read-only call-out (queries, predicates, game events): `me` is visible but
+    /// `with_entity(me.id())` does not re-enter.
+    pub fn expose<R>(&mut self, me: &dyn Entity, f: impl FnOnce(&mut ServerLevel) -> R) -> R {
+        PersistentEntitySectionManager::expose_in(self, |level| &mut level.entity_manager, me, f)
+    }
+
+    /// Debug detector for call-outs that miss a [`ServerLevel::lend`]: a hit whose causing or direct entity exists in
+    /// the level but is out of its slot and not lent cannot be found by anything `victim`'s code looks up. Builds
+    /// without debug assertions skip it. When `MC_LEND_DETECTOR` names a file, each distinct attacker / victim / call
+    /// path is appended once per process as `attacker type <- victim type | frames`.
+    pub fn note_unlent_attacker(
+        &self,
+        source: &crate::world::damagesource::DamageSource,
+        victim: &dyn Entity,
+    ) {
+        #[cfg(debug_assertions)]
+        for (id, info) in [
+            (source.get_entity(), source.causing_info()),
+            (source.get_direct_entity(), source.direct_info()),
+        ] {
+            let Some(id) = id.filter(|&id| id != victim.id()) else {
+                continue;
+            };
+            if self.entity_manager.has_entity_with_id(id)
+                && self.entity_manager.get_any(id).is_none()
+                && !self.entity_manager.is_lent(id)
+            {
+                let attacker = info.map_or("?", |i| i.entity_type.data().name);
+                report_unlent_attacker(attacker, victim.get_type().data().name);
+            }
+        }
+        #[cfg(not(debug_assertions))]
+        let _ = (source, victim);
     }
 
     /// `with_entity` for a player: `f` gets the `ServerPlayer` (taken out of the level while it runs).
@@ -781,5 +836,43 @@ impl ServerLevel {
             id
         };
         root(a) == root(b)
+    }
+}
+
+/// Appends the call path of a hit that missed a lend to the file named by `MC_LEND_DETECTOR` (once per distinct line).
+#[cfg(debug_assertions)]
+fn report_unlent_attacker(attacker: &str, victim: &str) {
+    use std::io::Write as _;
+    use std::sync::{Mutex, OnceLock};
+    static SEEN: OnceLock<Mutex<std::collections::HashSet<String>>> = OnceLock::new();
+    let Some(path) = std::env::var_os("MC_LEND_DETECTOR") else {
+        return;
+    };
+    // frames of this crate between the hit and the driver; the first ones are the detector and the hurt itself
+    let trace = std::backtrace::Backtrace::force_capture().to_string();
+    let frames: Vec<&str> = trace
+        .lines()
+        .filter_map(|l| l.trim().split_once(": ").map(|(_, name)| name))
+        .filter(|n| {
+            n.starts_with("mc_game")
+                && !n.contains("note_unlent_attacker")
+                && !n.contains("report_unlent")
+        })
+        .take(6)
+        .collect();
+    let line = format!("{attacker} <- {victim} | {}", frames.join(" < "));
+    if !SEEN
+        .get_or_init(Default::default)
+        .lock()
+        .is_ok_and(|mut seen| seen.insert(line.clone()))
+    {
+        return;
+    }
+    if let Ok(mut file) = std::fs::OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(path)
+    {
+        let _ = writeln!(file, "{line}");
     }
 }

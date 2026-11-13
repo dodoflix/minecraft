@@ -208,6 +208,11 @@ the inventory menu rather than by calling the recipe matcher. Review.
 A stub in `src` that skips vanilla behaviour needs a matching `#[ignore = "deviation: ..."]` test, or a stated
 absence of an oracle in the stub's doc comment. Review.
 
+An entity that acts (a hit, an explosion, a block effect) is out of its storage slot while its code runs, so the code
+it calls into only finds it when the call is wrapped in `ServerLevel::lend`. In debug builds, `MC_LEND_DETECTOR=<file>`
+makes every hit whose attacker is out of the level and not lent append one line (`attacker <- victim | call path`) to
+that file; run the golden tests with it set to list the call-outs that are still missing a wrap.
+
 ## 7. Untrusted input
 
 Input from the network and from data packs is hostile. Existing corpora are replayed as ordinary tests:

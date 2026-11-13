@@ -92,6 +92,7 @@ pub fn hurt_server(
     if entity.living().is_none() {
         return false;
     }
+    level.note_unlent_attacker(source, &*entity);
     if entity.is_invulnerable_to(level, source) {
         return false;
     }

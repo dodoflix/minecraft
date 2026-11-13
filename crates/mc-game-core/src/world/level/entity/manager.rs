@@ -9,6 +9,8 @@ use mc_nbt::CompoundTag;
 use mc_world::region::entity_storage::{ChunkEntities, EntityStorage};
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::ops::ControlFlow;
+use std::panic::{AssertUnwindSafe, catch_unwind, resume_unwind};
+use std::ptr::NonNull;
 use uuid::Uuid;
 
 /// `PersistentEntitySectionManager.ChunkLoadStatus`.
@@ -33,6 +35,17 @@ pub enum EntityLevelEvent {
 
 /// A change applied to an entity that was taken out of storage when it was requested.
 pub type DeferredEntityOp = Box<dyn FnOnce(&mut dyn Entity)>;
+
+/// An entity that is out of its slot (its owner is running) but published for lookups while one call-out runs.
+struct Lent {
+    id: EntityId,
+    /// Derived from the owner's reborrow; used only while the entry is on the stack.
+    ptr: NonNull<dyn Entity>,
+    /// Lent with `&mut`: `with_entity(id)` may re-enter and get it back.
+    exclusive: bool,
+    /// The `&mut` is currently handed out by a re-entry: lookups of the id return `None` meanwhile.
+    busy: bool,
+}
 
 struct EntitySlot {
     /// `None` while the entity is taken out (it ticks / a packet for it is handled).
@@ -69,6 +82,11 @@ pub struct PersistentEntitySectionManager {
     /// Entities removed from storage whose events are still being processed.
     limbo: HashMap<EntityId, Box<dyn Entity>>,
     deferred: HashMap<EntityId, Vec<DeferredEntityOp>>,
+    /// Entities currently lent to the level (see [`Self::lend_in`]); empty almost always, newest last.
+    lent: Vec<Lent>,
+    /// Section moves of lent entities (`previous`, `new` status), applied by `put_back` once the entity is in its slot
+    /// again: the status callbacks need the entity itself.
+    lent_moves: HashMap<EntityId, Vec<(Visibility, Visibility)>>,
 }
 
 impl PersistentEntitySectionManager {
@@ -88,6 +106,8 @@ impl PersistentEntitySectionManager {
             events: Vec::new(),
             limbo: HashMap::new(),
             deferred: HashMap::new(),
+            lent: Vec::new(),
+            lent_moves: HashMap::new(),
         }
     }
 
@@ -580,6 +600,16 @@ impl PersistentEntitySectionManager {
 
     /// `Callback.onMove`.
     fn on_move(&mut self, id: EntityId, new_section_pos: i64) {
+        let (previous_status, new_status) = self.move_between_sections(id, new_section_pos);
+        self.update_status(id, previous_status, new_status);
+    }
+
+    /// The section bookkeeping of `onMove`: returns the status of the old and the new section.
+    fn move_between_sections(
+        &mut self,
+        id: EntityId,
+        new_section_pos: i64,
+    ) -> (Visibility, Visibility) {
         let old_key = self.entities[&id].section_key;
         let previous_status = self
             .section_storage
@@ -608,7 +638,7 @@ impl PersistentEntitySectionManager {
         if let Some(slot) = self.entities.get_mut(&id) {
             slot.section_key = new_section_pos;
         }
-        self.update_status(id, previous_status, new_status);
+        (previous_status, new_status)
     }
 
     fn update_status(&mut self, id: EntityId, previous_status: Visibility, new_status: Visibility) {
@@ -695,13 +725,158 @@ impl PersistentEntitySectionManager {
         }
         self.remove_section_if_empty(slot.section_key);
         self.deferred.remove(&id);
+        self.lent_moves.remove(&id);
     }
 
     // ---- access -----------------------------------------------------------------------------------------------
 
-    /// The entity if it exists (even in a hidden section) and is not taken out.
+    /// The entity if it exists (even in a hidden section) and is in its slot or lent (see [`Self::lend_in`]).
     pub fn get_any(&self, id: EntityId) -> Option<&dyn Entity> {
-        self.entities.get(&id).and_then(|s| s.entity.as_deref())
+        let slot = self.entities.get(&id)?;
+        slot.entity.as_deref().or_else(|| self.lent_ref(id))
+    }
+
+    // ---- lending (an entity that is out of its slot stays visible to the call-outs it makes) ---------------------
+
+    /// Publish `me`, which its owner took out of its slot, for the duration of `f`: lookups by id / uuid / box /
+    /// class / player loop find it, and `with_entity(id)` hands the `&mut` out again so effects on `me` happen where
+    /// vanilla runs them. `me` is reborrowed for the whole call, so the owner cannot touch it meanwhile; the entry
+    /// is popped (also when `f` panics). `ctx` reaches the manager through `manager` (the level owns it).
+    ///
+    /// Section moves of `me` are applied to the section index before and after `f`; the tracking / ticking /
+    /// listener callbacks they imply wait for `put_back`.
+    pub fn lend_in<C, R>(
+        ctx: &mut C,
+        manager: impl Fn(&mut C) -> &mut Self,
+        me: &mut dyn Entity,
+        f: impl FnOnce(&mut C) -> R,
+    ) -> R {
+        let id = me.id();
+        let depth = {
+            let m = manager(ctx);
+            m.sync_lent(id, me);
+            m.lent.len()
+        };
+        // SAFETY: `Entity: Any` makes every `dyn Entity` `'static`, so only the trait object's lifetime bound is
+        // erased. The pointer is used while `me` is reborrowed here and popped before this function returns.
+        let ptr = unsafe {
+            std::mem::transmute::<NonNull<dyn Entity + '_>, NonNull<dyn Entity>>(NonNull::from(
+                &mut *me,
+            ))
+        };
+        manager(ctx).lent.push(Lent {
+            id,
+            ptr,
+            exclusive: true,
+            busy: false,
+        });
+        let result = catch_unwind(AssertUnwindSafe(|| f(ctx)));
+        let m = manager(ctx);
+        m.lent.truncate(depth);
+        m.sync_lent(id, me);
+        result.unwrap_or_else(|panic| resume_unwind(panic))
+    }
+
+    /// [`Self::lend_in`] for a read-only call-out: lookups find `me`, `with_entity(id)` does not re-enter. Its section
+    /// is not synced (it cannot be changed through `&`), so a box query sees it in its registered section.
+    pub fn expose_in<C, R>(
+        ctx: &mut C,
+        manager: impl Fn(&mut C) -> &mut Self,
+        me: &dyn Entity,
+        f: impl FnOnce(&mut C) -> R,
+    ) -> R {
+        let depth = manager(ctx).lent.len();
+        // SAFETY: as in `lend_in`; the pointer is only read through (`exclusive` is false).
+        let ptr = unsafe {
+            std::mem::transmute::<NonNull<dyn Entity + '_>, NonNull<dyn Entity>>(NonNull::from(me))
+        };
+        manager(ctx).lent.push(Lent {
+            id: me.id(),
+            ptr,
+            exclusive: false,
+            busy: false,
+        });
+        let result = catch_unwind(AssertUnwindSafe(|| f(ctx)));
+        manager(ctx).lent.truncate(depth);
+        result.unwrap_or_else(|panic| resume_unwind(panic))
+    }
+
+    /// The newest lent entry of `id` (older ones of the same id are shadowed), as an index.
+    fn lent_index(&self, id: EntityId) -> Option<usize> {
+        self.lent.iter().rposition(|l| l.id == id)
+    }
+
+    /// The lent entity `id`, unless a re-entry holds its `&mut` or it was removed (vanilla's `setRemoved` leaves
+    /// the storage; the owner completes the removal when it puts the entity back).
+    fn lent_ref(&self, id: EntityId) -> Option<&dyn Entity> {
+        let l = &self.lent[self.lent_index(id)?];
+        if l.busy {
+            return None;
+        }
+        // SAFETY: the entry is on the stack, so its owner is blocked inside `lend_in` / `expose_in` and the entity
+        // is not otherwise accessed; no `&mut` is out (`busy`). The result borrows `self`, which a re-entry needs
+        // `&mut` to start.
+        let entity = unsafe { l.ptr.as_ref() };
+        (!entity.is_removed()).then_some(entity)
+    }
+
+    /// Is `id` lent right now (even if its `&mut` is out)?
+    pub fn is_lent(&self, id: EntityId) -> bool {
+        self.lent_index(id).is_some()
+    }
+
+    /// The stack index of the entry `with_lent_mut` would hand out: lent with `&mut`, not out in a re-entry, and
+    /// registered here with an empty slot (the owner took it out).
+    fn reenterable(&self, id: EntityId) -> Option<usize> {
+        let index = self.lent_index(id)?;
+        let lent = &self.lent[index];
+        (lent.exclusive && !lent.busy && self.entities.get(&id).is_some_and(|s| s.entity.is_none()))
+            .then_some(index)
+    }
+
+    /// Can `with_lent_mut` hand out `id`'s `&mut` now?
+    pub fn can_reenter_lent(&self, id: EntityId) -> bool {
+        self.reenterable(id).is_some()
+    }
+
+    /// Re-enter a lent entity: the `&mut` goes to `f` (`ServerLevel::with_entity`), afterwards its section is synced.
+    /// `None` if `id` is not lent with `&mut`, or its `&mut` is already out.
+    pub fn with_lent_mut<C, R>(
+        ctx: &mut C,
+        manager: impl Fn(&mut C) -> &mut Self,
+        id: EntityId,
+        f: impl FnOnce(&mut C, &mut dyn Entity) -> R,
+    ) -> Option<R> {
+        let m = manager(ctx);
+        let index = m.reenterable(id)?;
+        let lent = &mut m.lent[index];
+        lent.busy = true;
+        let mut ptr = lent.ptr;
+        // SAFETY: the owner is blocked inside `lend_in`, which holds the only `&mut`; `busy` stops a second one and
+        // every shared read until it is released below.
+        let entity = unsafe { ptr.as_mut() };
+        let result = catch_unwind(AssertUnwindSafe(|| f(ctx, &mut *entity)));
+        let m = manager(ctx);
+        m.lent[index].busy = false;
+        m.sync_lent(id, entity);
+        Some(result.unwrap_or_else(|panic| resume_unwind(panic)))
+    }
+
+    /// Section index update of a lent entity that moved (`Entity.setPosRaw` -> `Callback.onMove`): the move is
+    /// applied now, its status callbacks at `put_back`. Removal is never completed here (the box is not ours).
+    fn sync_lent(&mut self, id: EntityId, entity: &mut dyn Entity) {
+        if entity.base().is_removed() || !entity.base().moved_since_sync {
+            return;
+        }
+        let Some(slot) = self.entities.get(&id) else {
+            return;
+        };
+        entity.base_mut().moved_since_sync = false;
+        let new_key = SectionPos::as_long_block_pos(&entity.block_position());
+        if new_key != slot.section_key {
+            let moved = self.move_between_sections(id, new_key);
+            self.lent_moves.entry(id).or_default().push(moved);
+        }
     }
 
     /// `LevelEntityGetter.get(int id)`: tracked (visible) entities only; `None` while taken out.
@@ -772,6 +947,11 @@ impl PersistentEntitySectionManager {
                 // the entity was destroyed while out (its slot is gone): keep it for the caller's events
                 self.limbo.insert(id, entity);
                 return;
+            }
+        }
+        if let Some(moves) = self.lent_moves.remove(&id) {
+            for (previous, new) in moves {
+                self.update_status(id, previous, new);
             }
         }
         self.sync_entity(id);
@@ -999,5 +1179,193 @@ mod tests {
         b.base_mut().uuid = a.uuid();
         m.add_new_entity(a).ok().unwrap();
         assert!(m.add_new_entity(Box::new(b)).is_err());
+    }
+
+    // ---- lending ---------------------------------------------------------------------------------------------
+
+    type M = PersistentEntitySectionManager;
+
+    fn this(m: &mut M) -> &mut M {
+        m
+    }
+
+    /// Chunk (0,0) ticking, chunk (1,0) tracked, the given pigs added and `ids[0]` taken out.
+    fn lend_setup(pigs: &[(EntityId, f64)]) -> (M, Box<dyn Entity>) {
+        let mut m = M::new(None);
+        m.update_chunk_status(ChunkPos::new(0, 0), Visibility::Ticking);
+        m.update_chunk_status(ChunkPos::new(1, 0), Visibility::Tracked);
+        for &(id, x) in pigs {
+            m.add_new_entity(pig(id, x, 64.0, 1.0)).ok().unwrap();
+        }
+        m.take_events();
+        let taken = m.take(pigs[0].0).unwrap();
+        (m, taken)
+    }
+
+    const AREA: AABB = AABB {
+        min_x: 0.0,
+        min_y: 60.0,
+        min_z: 0.0,
+        max_x: 10.0,
+        max_y: 70.0,
+        max_z: 10.0,
+    };
+
+    #[test]
+    fn lent_entity_is_found_by_id_uuid_box_and_class_and_hidden_again_afterwards() {
+        let (mut m, mut e) = lend_setup(&[(1, 1.0), (2, 2.0)]);
+        let uuid = e.uuid();
+        assert!(m.get(1).is_none());
+        M::lend_in(&mut m, this, e.as_mut(), |m| {
+            assert!(m.get(1).is_some() && m.get_any(1).is_some());
+            assert_eq!(m.get_by_uuid(uuid).map(|e| e.id()), Some(1));
+            assert_eq!(collect(m, &AREA), vec![1, 2]);
+            assert!(m.get_all().any(|e| e.id() == 1));
+            let mut pigs = vec![];
+            m.for_each_in_aabb(&AREA, |id, e| {
+                if e.get_type() == EntityType::PIG {
+                    pigs.push(id);
+                }
+                ControlFlow::Continue(())
+            });
+            assert_eq!(pigs, vec![1, 2]);
+        });
+        assert!(m.get(1).is_none() && collect(&m, &AREA) == vec![2]);
+        m.put_back(1, e);
+        assert!(m.get(1).is_some());
+    }
+
+    #[test]
+    fn reentry_hands_out_the_lent_mut_once() {
+        let (mut m, mut e) = lend_setup(&[(1, 1.0)]);
+        M::lend_in(&mut m, this, e.as_mut(), |m| {
+            let inner = M::with_lent_mut(m, this, 1, |m, entity| {
+                assert!(
+                    m.get_any(1).is_none(),
+                    "busy: nothing else may alias the &mut"
+                );
+                assert!(M::with_lent_mut(m, this, 1, |_, _| ()).is_none());
+                entity.set_pos(3.0, 64.0, 3.0);
+                7
+            });
+            assert_eq!(inner, Some(7));
+            assert_eq!(m.get_any(1).unwrap().position().x, 3.0);
+            assert!(
+                M::with_lent_mut(m, this, 2, |_, _| ()).is_none(),
+                "not lent"
+            );
+        });
+        assert_eq!(e.position().x, 3.0, "the owner reads the mutated entity");
+    }
+
+    #[test]
+    fn exposed_entity_is_visible_but_not_reentered() {
+        let (mut m, e) = lend_setup(&[(1, 1.0)]);
+        M::expose_in(&mut m, this, e.as_ref(), |m| {
+            assert!(m.get(1).is_some());
+            assert!(M::with_lent_mut(m, this, 1, |_, _| ()).is_none());
+        });
+        assert!(m.get(1).is_none());
+    }
+
+    #[test]
+    fn nested_lends_form_a_stack_and_the_newest_entry_of_an_id_wins() {
+        let (mut m, mut a) = lend_setup(&[(1, 1.0), (2, 2.0)]);
+        let mut b = m.take(2).unwrap();
+        M::lend_in(&mut m, this, a.as_mut(), |m| {
+            assert!(m.get_any(2).is_none());
+            M::lend_in(m, this, b.as_mut(), |m| {
+                assert!(m.get_any(1).is_some() && m.get_any(2).is_some());
+                // the same id lent again through its own re-entry: the inner `&mut` is a new entry
+                M::with_lent_mut(m, this, 1, |m, a| {
+                    assert!(m.get_any(1).is_none());
+                    M::lend_in(m, this, a, |m| {
+                        assert!(m.get_any(1).is_some());
+                        assert!(M::with_lent_mut(m, this, 1, |_, _| ()).is_some());
+                    });
+                    assert!(
+                        m.get_any(1).is_none(),
+                        "outer re-entry still holds the &mut"
+                    );
+                });
+                assert!(m.get_any(1).is_some());
+            });
+            assert!(m.get_any(1).is_some() && m.get_any(2).is_none());
+        });
+        assert!(m.get_any(1).is_none() && !m.is_lent(1) && !m.is_lent(2));
+    }
+
+    #[test]
+    fn lend_is_popped_when_the_closure_panics() {
+        let (mut m, mut e) = lend_setup(&[(1, 1.0)]);
+        let panicked = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            M::lend_in(&mut m, this, e.as_mut(), |m| {
+                M::with_lent_mut(m, this, 1, |_, _| panic!("boom"));
+            });
+        }));
+        assert!(panicked.is_err());
+        assert!(!m.is_lent(1) && m.get_any(1).is_none());
+        // the entry can be lent again: the aborted re-entry left no `busy` behind
+        M::lend_in(&mut m, this, e.as_mut(), |m| {
+            assert!(m.get_any(1).is_some())
+        });
+    }
+
+    #[test]
+    fn removed_lent_entity_is_invisible_and_removal_completes_on_put_back() {
+        let (mut m, mut e) = lend_setup(&[(1, 1.0)]);
+        M::lend_in(&mut m, this, e.as_mut(), |m| {
+            assert!(M::with_lent_mut(m, this, 1, |_, e| e.discard()).is_some());
+            assert!(m.get_any(1).is_none());
+        });
+        m.put_back(1, e);
+        assert!(m.get_removed(1).is_some() && m.get_any(1).is_none());
+    }
+
+    #[test]
+    fn section_move_is_visible_at_once_and_its_callbacks_wait_for_put_back() {
+        let (mut m, mut e) = lend_setup(&[(1, 1.0)]);
+        let tracked_only = AABB::new(16.0, 60.0, 0.0, 20.0, 70.0, 4.0);
+        e.set_pos(17.5, 64.0, 1.0);
+        M::lend_in(&mut m, this, e.as_mut(), |m| {
+            assert_eq!(
+                collect(m, &tracked_only),
+                vec![1],
+                "moved before the closure"
+            );
+            M::with_lent_mut(m, this, 1, |_, e| e.set_pos(3.0, 64.0, 1.0));
+            assert_eq!(
+                collect(m, &tracked_only),
+                Vec::<EntityId>::new(),
+                "moved back by the re-entry"
+            );
+            assert_eq!(collect(m, &AREA), vec![1]);
+            M::with_lent_mut(m, this, 1, |_, e| e.set_pos(17.5, 64.0, 1.0));
+            assert!(!m.take_events().iter().any(|e| {
+                matches!(
+                    e,
+                    EntityLevelEvent::SectionChange(_) | EntityLevelEvent::TickingEnd(_)
+                )
+            }));
+        });
+        assert!(
+            m.take_events().is_empty(),
+            "nothing is queued while the entity is out"
+        );
+        assert!(
+            m.tick_list.contains(1),
+            "ticking until the status callbacks run"
+        );
+        m.put_back(1, e);
+        let ev = m.take_events();
+        assert!(ev.contains(&EntityLevelEvent::TickingEnd(1)));
+        assert_eq!(
+            ev.iter()
+                .filter(|e| **e == EntityLevelEvent::SectionChange(1))
+                .count(),
+            3
+        );
+        assert!(!m.tick_list.contains(1));
+        assert_eq!(collect(&m, &tracked_only), vec![1]);
     }
 }

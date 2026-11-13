@@ -209,6 +209,10 @@ impl TrackedEntity {
         if player.id == self.entity_id {
             return;
         }
+        // a lent entity cannot be paired (`get_any_mut` is empty): the next tracker pass after its put-back does
+        if entities.manager.is_lent(self.entity_id) {
+            return;
+        }
         let Some(entity) = entities.get_any(self.entity_id) else {
             return;
         };
