@@ -74,7 +74,9 @@ impl Projectile for LlamaSpit {
             .damage_sources()
             .spit(self.as_dyn(), level.get_entity(owner_id));
         level.with_entity(victim, |level, target| {
-            if target.hurt_server(level, &source, 1.0) {
+            if level.lend(self.as_dyn_mut(), |level| {
+                target.hurt_server(level, &source, 1.0)
+            }) {
                 crate::world::item::enchantment_helper::do_post_attack_effects(
                     level,
                     &mut Actors::of(&mut *target),

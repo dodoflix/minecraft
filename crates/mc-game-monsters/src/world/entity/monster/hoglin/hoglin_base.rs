@@ -33,7 +33,9 @@ pub fn hurt_and_throw_target(
         attack_damage
     };
     let damage_source = level.damage_sources().mob_attack(&*body);
-    let was_hurt = target.hurt_server(level, &damage_source, actual_damage);
+    let was_hurt = level.lend(&mut *body, |level| {
+        target.hurt_server(level, &damage_source, actual_damage)
+    });
     if was_hurt {
         let target_id = target.id();
         enchantment_helper::do_post_attack_effects(

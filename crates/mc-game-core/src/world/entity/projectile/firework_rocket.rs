@@ -183,7 +183,9 @@ impl FireworkRocketEntity {
                 .damage_sources()
                 .fireworks(self.as_dyn(), self.get_owner(level));
             level.with_entity(attached, |level, e| {
-                e.hurt_server(level, &source, 5.0 + (explosions.len() * 2) as f32)
+                level.expose(self.as_dyn(), |level| {
+                    e.hurt_server(level, &source, 5.0 + (explosions.len() * 2) as f32)
+                })
             });
         }
         let rocket_pos = self.base.position();
@@ -232,7 +234,9 @@ impl FireworkRocketEntity {
                 let source = level
                     .damage_sources()
                     .fireworks(self.as_dyn(), self.get_owner(level));
-                level.with_entity(id, |level, e| e.hurt_server(level, &source, damage));
+                level.with_entity(id, |level, e| {
+                    level.expose(self.as_dyn(), |level| e.hurt_server(level, &source, damage))
+                });
             }
         }
     }

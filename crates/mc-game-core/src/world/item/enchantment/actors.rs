@@ -54,16 +54,29 @@ impl<'a> Actors<'a> {
         self.explicit.iter().find(|e| e.id() == id).map(|e| &**e)
     }
 
-    /// Runs `f` with `id` mutably borrowed (taken out of the level unless explicit).
+    /// Runs `f` with `id` mutably borrowed (taken out of the level unless explicit). The explicit entities other than
+    /// `id` are lent to the level meanwhile, so whatever `f` runs finds them by id (a thorns hit credited to the
+    /// wearer, who is out of the level).
     pub fn with<R>(
         &mut self,
         level: &mut ServerLevel,
         id: EntityId,
         f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R,
     ) -> Option<R> {
-        match self.explicit.iter_mut().find(|e| e.id() == id) {
-            Some(e) => Some(f(level, &mut **e)),
-            None => level.with_entity(id, f),
+        let mut f = Some(f);
+        match self.explicit.iter().position(|e| e.id() == id) {
+            Some(at) => {
+                let (before, rest) = self.explicit.split_at_mut(at);
+                let (target, after) = rest.split_first_mut().expect("position found it");
+                Some(lend_all(level, before, &mut |level| {
+                    lend_all(level, &mut *after, &mut |level| {
+                        (f.take().expect("called once"))(level, &mut **target)
+                    })
+                }))
+            }
+            None => lend_all(level, &mut self.explicit, &mut |level| {
+                level.with_entity(id, f.take().expect("called once"))
+            }),
         }
     }
 
@@ -82,5 +95,17 @@ impl<'a> Actors<'a> {
         }
         use crate::world::level::LevelAccessor;
         (f.take().expect("not consumed when the entity was missing"))(level.random())
+    }
+}
+
+/// Lends every entity of `entities` to `level` while `f` runs.
+fn lend_all<R>(
+    level: &mut ServerLevel,
+    entities: &mut [&mut dyn Entity],
+    f: &mut dyn FnMut(&mut ServerLevel) -> R,
+) -> R {
+    match entities.split_first_mut() {
+        None => f(level),
+        Some((first, rest)) => level.lend(&mut **first, |level| lend_all(level, rest, f)),
     }
 }

@@ -238,7 +238,9 @@ impl Entity for IronGolem {
             attack_damage
         };
         let damage_source = level.damage_sources().mob_attack(&*self);
-        let hurt = target.hurt_server(level, &damage_source, damage);
+        let hurt = level.lend(&mut *self, |level| {
+            target.hurt_server(level, &damage_source, damage)
+        });
         if hurt {
             let knockback_resistance = target.living().map_or(0.0, |l| {
                 l.get_attribute_value(Attribute::KNOCKBACK_RESISTANCE)

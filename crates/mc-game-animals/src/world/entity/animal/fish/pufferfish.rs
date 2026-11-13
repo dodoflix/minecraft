@@ -96,7 +96,9 @@ impl Pufferfish {
         let me = self.id();
         let stung = level
             .with_entity(target, |level, m| {
-                if m.hurt_server(level, &source, (1 + puff_state) as f32) {
+                if level.lend(&mut *self, |level| {
+                    m.hurt_server(level, &source, (1 + puff_state) as f32)
+                }) {
                     m.add_effect(
                         level,
                         MobEffectInstance::of(MobEffect::POISON, 60 * puff_state, 0),
@@ -186,7 +188,11 @@ impl Entity for Pufferfish {
         if mc_game_core::world::entity::team::do_teams_allow_damage(level, self, player) {
             let puff_state = self.get_puff_state();
             let source = level.damage_sources().mob_attack(self);
-            if puff_state > 0 && player.hurt_server(level, &source, (1 + puff_state) as f32) {
+            if puff_state > 0
+                && level.lend(&mut *self, |level| {
+                    player.hurt_server(level, &source, (1 + puff_state) as f32)
+                })
+            {
                 if !self.base().is_silent() {
                     player.send(&ClientboundGameEventPacket {
                         event: ClientboundGameEventPacket::PUFFER_FISH_STING,

@@ -180,7 +180,9 @@ impl Projectile for ShulkerBullet {
         );
         let effect_source = owner_id.unwrap_or(self.id());
         level.with_entity(victim, |level, target| {
-            if target.hurt_server(level, &source, 4.0) {
+            if level.lend(self.as_dyn_mut(), |level| {
+                target.hurt_server(level, &source, 4.0)
+            }) {
                 crate::world::item::enchantment_helper::do_post_attack_effects(
                     level,
                     &mut Actors::of(&mut *target),

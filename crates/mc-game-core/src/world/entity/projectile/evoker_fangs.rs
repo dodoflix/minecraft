@@ -83,7 +83,11 @@ impl EvokerFangs {
         match owner_id.and_then(|id| level.get_entity(id)) {
             None => {
                 let source = level.damage_sources().magic();
-                level.with_entity(victim, |level, t| t.hurt_server(level, &source, 6.0));
+                level.with_entity(victim, |level, t| {
+                    level.lend(self.as_dyn_mut(), |level| {
+                        t.hurt_server(level, &source, 6.0)
+                    })
+                });
             }
             Some(owner) => {
                 if crate::world::entity::mob::ext::is_allied_to(level, owner, target) {
@@ -93,7 +97,9 @@ impl EvokerFangs {
                     .damage_sources()
                     .indirect_magic(self.as_dyn(), Some(owner));
                 level.with_entity(victim, |level, t| {
-                    if t.hurt_server(level, &source, 6.0) {
+                    if level.lend(self.as_dyn_mut(), |level| {
+                        t.hurt_server(level, &source, 6.0)
+                    }) {
                         crate::world::item::enchantment_helper::do_post_attack_effects(
                             level,
                             &mut Actors::of(&mut *t),

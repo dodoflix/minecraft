@@ -630,7 +630,9 @@ pub fn deal_damage<T: CubeMob + ?Sized>(
     {
         let damage_source: DamageSource = level.damage_sources().mob_attack(this.as_dyn());
         let damage = this.get_attack_damage();
-        if target.hurt_server(level, &damage_source, damage) {
+        if level.lend(this.as_dyn_mut(), |level| {
+            target.hurt_server(level, &damage_source, damage)
+        }) {
             let pitch = {
                 let random = &mut this.base_mut().random;
                 (random.next_float() - random.next_float()) * 0.2 + 1.0

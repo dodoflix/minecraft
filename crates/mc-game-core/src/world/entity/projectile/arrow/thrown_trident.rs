@@ -202,7 +202,9 @@ impl AbstractArrow for ThrownTrident {
         self.dealt_damage = true;
         let mut outcome = OnHitEntityOutcome::default();
         level.with_entity(victim, |level, target| {
-            outcome.was_hurt = target.hurt_server(level, &source, dmg);
+            outcome.was_hurt = level.lend(self.as_dyn_mut(), |level| {
+                target.hurt_server(level, &source, dmg)
+            });
             if outcome.was_hurt {
                 let broke = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
                 let flag = broke.clone();

@@ -84,7 +84,9 @@ impl Projectile for SmallFireball {
         level.with_entity(victim, |level, target| {
             let remaining_fire_ticks = target.get_remaining_fire_ticks();
             target.ignite_for_seconds(5.0);
-            if !target.hurt_server(level, &source, 5.0) {
+            if !level.lend(self.as_dyn_mut(), |level| {
+                target.hurt_server(level, &source, 5.0)
+            }) {
                 target.set_remaining_fire_ticks(remaining_fire_ticks);
             } else {
                 crate::world::item::enchantment_helper::do_post_attack_effects(

@@ -104,7 +104,11 @@ impl Projectile for ThrownEnderpearl {
         let source = level
             .damage_sources()
             .thrown(self.as_dyn(), self.get_owner(level));
-        level.with_entity(hit.entity, |level, e| e.hurt_server(level, &source, 0.0));
+        level.with_entity(hit.entity, |level, e| {
+            level.lend(self.as_dyn_mut(), |level| {
+                e.hurt_server(level, &source, 0.0)
+            })
+        });
     }
 
     fn on_hit(&mut self, level: &mut ServerLevel, hit: &HitResult) {

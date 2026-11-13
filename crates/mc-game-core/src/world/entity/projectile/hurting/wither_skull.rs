@@ -96,8 +96,9 @@ impl Projectile for WitherSkull {
         };
         let was_hurt = level
             .with_entity(victim, |level, target| {
-                let was_hurt =
-                    target.hurt_server(level, &source, if owner_id.is_some() { 8.0 } else { 5.0 });
+                let was_hurt = level.lend(self.as_dyn_mut(), |level| {
+                    target.hurt_server(level, &source, if owner_id.is_some() { 8.0 } else { 5.0 })
+                });
                 let mut owner_heal = false;
                 if was_hurt && owner_id.is_some() {
                     if target.is_alive() {

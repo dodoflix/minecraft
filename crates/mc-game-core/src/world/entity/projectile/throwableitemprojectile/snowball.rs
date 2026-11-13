@@ -62,7 +62,11 @@ impl Projectile for Snowball {
         let source = level
             .damage_sources()
             .thrown(self.as_dyn(), self.get_owner(level));
-        level.with_entity(hit.entity, |level, e| e.hurt_server(level, &source, damage));
+        level.with_entity(hit.entity, |level, e| {
+            level.lend(self.as_dyn_mut(), |level| {
+                e.hurt_server(level, &source, damage)
+            })
+        });
     }
 
     fn on_hit(&mut self, level: &mut ServerLevel, hit: &HitResult) {

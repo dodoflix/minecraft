@@ -676,7 +676,9 @@ pub fn on_hit_entity(
         if on_fire {
             target.ignite_for_seconds(5.0);
         }
-        if target.hurt_server(level, &source, damage as f32) {
+        if level.lend(arrow.as_dyn_mut(), |level| {
+            target.hurt_server(level, &source, damage as f32)
+        }) {
             if target.living().is_some() {
                 if pierce_level <= 0 {
                     let count = target

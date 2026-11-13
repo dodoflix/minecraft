@@ -107,7 +107,10 @@ fn on_hit_entity(
             .wind_charge(wind_charge.as_dyn(), owner)
     };
     level.with_entity(victim, |level, target| {
-        if target.hurt_server(level, &source, 1.0) && target.living().is_some() {
+        if level.lend(wind_charge.as_dyn_mut(), |level| {
+            target.hurt_server(level, &source, 1.0)
+        }) && target.living().is_some()
+        {
             crate::world::item::enchantment_helper::do_post_attack_effects(
                 level,
                 &mut Actors::of(&mut *target).and(wind_charge.as_dyn_mut()),

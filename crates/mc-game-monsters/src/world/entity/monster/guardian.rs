@@ -252,8 +252,10 @@ impl Entity for Guardian {
             })
         {
             let thorns = level.damage_sources().thorns(self);
-            level.with_entity_or_defer(cause, move |level, e| {
-                e.hurt_server(level, &thorns, 2.0);
+            level.lend(&mut *self, |level| {
+                level.with_entity_or_defer(cause, move |level, e| {
+                    e.hurt_server(level, &thorns, 2.0);
+                })
             });
         }
         self.stroll_trigger.store(true, Ordering::Relaxed);
@@ -477,7 +479,9 @@ impl Goal for GuardianAttackGoal {
                 .damage_sources()
                 .indirect_magic(mob.as_dyn(), Some(mob.as_dyn()));
             level.with_entity(target_id, |level, target| {
-                target.hurt_server(level, &source, magic_damage);
+                level.lend(&mut *mob, |level| {
+                    target.hurt_server(level, &source, magic_damage)
+                });
             });
             mob::combat::do_hurt_target(mob, level, target_id);
             mob.set_target(level, None);

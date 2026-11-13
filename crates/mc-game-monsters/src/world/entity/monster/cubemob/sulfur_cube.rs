@@ -326,7 +326,9 @@ impl SulfurCube {
                 source_entity,
             );
             let amount = damage.amount.sample(&mut self.base_mut().random);
-            entity.hurt_server(level, &source, amount);
+            level.lend(self.as_dyn_mut(), |level| {
+                entity.hurt_server(level, &source, amount)
+            });
         }
     }
 

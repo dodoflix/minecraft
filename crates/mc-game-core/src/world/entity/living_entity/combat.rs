@@ -156,8 +156,10 @@ pub fn stab_attack(
         base_damage,
     );
     let old_movement = target.base().delta_movement();
-    let dealt_damage =
-        deals_damage && target.hurt_server(level, &damage_source, post_enchantment_damage);
+    let dealt_damage = deals_damage
+        && level.lend(&mut *attacker, |level| {
+            target.hurt_server(level, &damage_source, post_enchantment_damage)
+        });
     let mut affected = deals_knockback || dealt_damage;
     if deals_knockback {
         attacker.cause_extra_knockback(
@@ -236,7 +238,9 @@ pub fn mob_do_hurt_target(
         &mut *attacker,
     );
     let old_movement = target.base().delta_movement();
-    let was_hurt = target.hurt_server(level, &damage_source, dmg);
+    let was_hurt = level.lend(&mut *attacker, |level| {
+        target.hurt_server(level, &damage_source, dmg)
+    });
     if was_hurt {
         let knockback = get_knockback(&mut *attacker, level, &mut *target, &damage_source);
         attacker.cause_extra_knockback(

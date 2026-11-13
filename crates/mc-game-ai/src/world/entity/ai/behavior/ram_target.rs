@@ -155,7 +155,9 @@ impl Behavior for RamTarget {
             let ram_direction = self.ram_direction;
             let source = level.damage_sources().mob_attack(&*body);
             level.with_entity(ram_target, |level, target| {
-                if target.hurt_server(level, &damage_source, damage) {
+                if level.lend(&mut *body, |level| {
+                    target.hurt_server(level, &damage_source, damage)
+                }) {
                     enchantment_helper::do_post_attack_effects(
                         level,
                         &mut Actors::of(body).and(target),

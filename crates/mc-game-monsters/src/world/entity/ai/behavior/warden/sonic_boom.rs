@@ -154,7 +154,9 @@ impl Behavior for SonicBoom {
             let damage_source = level.damage_sources().sonic_boom(&*body);
             let hurt = level
                 .with_entity(target, |level, t| {
-                    t.hurt_server(level, &damage_source, 10.0)
+                    level.lend(&mut *body, |level| {
+                        t.hurt_server(level, &damage_source, 10.0)
+                    })
                 })
                 .unwrap_or(false);
             if hurt {

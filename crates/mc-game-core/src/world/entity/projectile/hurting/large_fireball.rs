@@ -101,7 +101,9 @@ impl Projectile for LargeFireball {
             .damage_sources()
             .fireball(self.as_dyn(), owner_id.and_then(|id| level.get_entity(id)));
         level.with_entity(victim, |level, target| {
-            target.hurt_server(level, &source, 6.0);
+            level.lend(self.as_dyn_mut(), |level| {
+                target.hurt_server(level, &source, 6.0)
+            });
             crate::world::item::enchantment_helper::do_post_attack_effects(
                 level,
                 &mut Actors::of(&mut *target),

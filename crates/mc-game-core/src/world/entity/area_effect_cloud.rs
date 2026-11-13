@@ -304,27 +304,36 @@ impl AreaEffectCloud {
         let lent_owner = owner_id
             .filter(|_| !owner_is_victim)
             .and_then(|o| level.take_entity(o).map(|e| (o, e)));
-        level.with_entity(victim, |level, entity| {
-            let owner_cause = match (&lent_owner, owner_is_victim) {
-                (Some((_, owner)), _) => Some(EffectCause::Entity(owner.as_ref())),
-                (None, true) => Some(EffectCause::Mob),
-                (None, false) => None,
-            };
-            for effect in effects {
-                if effect.effect.is_instantaneous() {
-                    effect.effect.apply_instantaneous_effect(
-                        level,
-                        Some(EffectCause::Entity(self)),
-                        owner_cause,
-                        entity,
-                        effect.amplifier,
-                        0.5,
-                    );
-                } else {
-                    entity.add_effect(level, effect.clone(), Some(self.base.id));
-                }
-            }
-        });
+        // the cloud and its owner are out of the level while the effect runs: both stay visible to what it reads
+        let apply = |level: &mut ServerLevel| {
+            level.expose(self, |level| {
+                level.with_entity(victim, |level, entity| {
+                    let owner_cause = match (&lent_owner, owner_is_victim) {
+                        (Some((_, owner)), _) => Some(EffectCause::Entity(owner.as_ref())),
+                        (None, true) => Some(EffectCause::Mob),
+                        (None, false) => None,
+                    };
+                    for effect in effects {
+                        if effect.effect.is_instantaneous() {
+                            effect.effect.apply_instantaneous_effect(
+                                level,
+                                Some(EffectCause::Entity(self)),
+                                owner_cause,
+                                entity,
+                                effect.amplifier,
+                                0.5,
+                            );
+                        } else {
+                            entity.add_effect(level, effect.clone(), Some(self.base.id));
+                        }
+                    }
+                })
+            })
+        };
+        match &lent_owner {
+            Some((_, owner)) => level.expose(owner.as_ref(), apply),
+            None => apply(level),
+        };
         if let Some((id, owner)) = lent_owner {
             level.put_back_entity(id, owner);
         }
