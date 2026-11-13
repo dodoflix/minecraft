@@ -33,7 +33,9 @@ impl BlockBehaviour for SculkShriekerBlock {
         entity: &mut dyn Entity,
     ) {
         if let Some(player) = SculkShriekerBlockEntity::try_get_player(level, entity) {
-            SculkShriekerBlockEntity::try_shriek(level, pos, Some(player));
+            level.lend(entity, |level| {
+                SculkShriekerBlockEntity::try_shriek(level, pos, Some(player))
+            });
         }
     }
 

@@ -12,7 +12,6 @@ use mc_game_core::world::entity::ai::memory::memory_module_type::{
 };
 use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::block::state::BlockStateExt;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::level_access::LevelAccessor;
 use mc_protocol::packets::play::SoundSource;
 
@@ -44,10 +43,11 @@ pub fn create(spawn_block: Block) -> OneShot {
                     let new_state = spawn_block.default_state();
                     let body_id = c.body.id();
                     c.level.set_block_and_update(spawn_pos, new_state);
-                    c.level.game_event_at_block(
+                    c.level.game_event_from_entity_ref_in_state(
+                        &*c.body,
+                        Some(new_state),
                         GameEvent::BLOCK_PLACE,
-                        spawn_pos,
-                        &GameEventContext::of(Some(body_id), Some(new_state)),
+                        mc_core::phys::Vec3::at_center_of(&spawn_pos),
                     );
                     behavior_utils::play_sound_from_entity(
                         &mut *c.level,

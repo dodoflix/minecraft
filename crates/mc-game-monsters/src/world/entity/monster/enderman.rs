@@ -35,7 +35,6 @@ use mc_game_core::world::level::block::state::{decode_block_state, encode_block_
 use mc_game_core::world::level::collision::{
     BlockGetterExt as _, ClipBlock, ClipContext, ClipFluid,
 };
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::storage::loot::LootParams;
 use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
@@ -568,10 +567,11 @@ impl Goal for EndermanLeaveBlockGoal {
         let carried = update_from_neighbour_shapes(carried, level, pos);
         if Self::can_place_block(level, mob, pos, carried, target_state, below_state, below) {
             level.set_block_and_update(pos, carried);
-            level.game_event_at_block(
+            level.game_event_from_entity_ref_in_state(
+                &*mob,
+                Some(carried),
                 GameEvent::BLOCK_PLACE,
-                pos,
-                &GameEventContext::of(Some(mob.id()), Some(carried)),
+                Vec3::at_center_of(&pos),
             );
             enderman_mut(mob).set_carried_block(None);
         }
@@ -625,10 +625,11 @@ impl Goal for EndermanTakeBlockGoal {
         let reachable = result.block_pos == pos;
         if block_state.block().is_in_tag("enderman_holdable") && reachable {
             level.remove_block(pos, false);
-            level.game_event_at_block(
+            level.game_event_from_entity_ref_in_state(
+                &*mob,
+                Some(block_state),
                 GameEvent::BLOCK_DESTROY,
-                pos,
-                &GameEventContext::of(Some(mob.id()), Some(block_state)),
+                Vec3::at_center_of(&pos),
             );
             enderman_mut(mob).set_carried_block(Some(block_state.block().default_state()));
         }

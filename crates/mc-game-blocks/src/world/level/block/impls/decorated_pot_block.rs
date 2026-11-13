@@ -8,13 +8,12 @@ use mc_data::fluid::Fluid;
 use mc_data::{GameEvent, Item, ParticleType, SoundEvent};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::stats::Stat;
+use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::entity::projectile::Projectile;
-use mc_game_core::world::entity::{Entity, ServerPlayer};
 use mc_game_core::world::item::{
     BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, ItemStackExt,
 };
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::storage::loot::block_drops::default_get_drops;
 use mc_game_core::world::level::storage::loot::context::LootParamsBuilder;
 use mc_game_core::{register_block_class, update_shape};
@@ -137,10 +136,11 @@ impl BlockBehaviour for DecoratedPotBlock {
                 0.0,
             );
             mc_game_core::world::block_entity::set_changed(level, pos, level.get_block_state(pos));
-            level.game_event_at_block(
+            level.game_event_from_entity_ref_in_state(
+                &*player,
+                None,
                 GameEvent::BLOCK_CHANGE,
-                pos,
-                &GameEventContext::of_entity(Some(player.id())),
+                mc_core::phys::Vec3::at_center_of(&pos),
             );
             InteractionResult::SUCCESS
         } else {
@@ -173,10 +173,11 @@ impl BlockBehaviour for DecoratedPotBlock {
                     pot.wobble(level, WobbleStyle::Negative);
                 }
             });
-            level.game_event_at_block(
+            level.game_event_from_entity_ref_in_state(
+                &*player,
+                None,
                 GameEvent::BLOCK_CHANGE,
-                pos,
-                &GameEventContext::of_entity(Some(player.id())),
+                mc_core::phys::Vec3::at_center_of(&pos),
             );
             InteractionResult::SUCCESS
         } else {

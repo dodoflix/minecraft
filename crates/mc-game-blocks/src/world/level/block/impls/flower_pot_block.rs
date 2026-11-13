@@ -5,7 +5,6 @@ use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::inventory::Prediction;
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::{register_block_class, update_shape};
 use mc_protocol::packets::play::level::SoundSource;
 use std::sync::OnceLock;
@@ -85,10 +84,11 @@ impl BlockBehaviour for FlowerPotBlock {
             return InteractionResult::CONSUME;
         }
         level.set_block_and_update(pos, new_contents.default_state());
-        level.game_event_at_block(
+        level.game_event_from_entity_ref_in_state(
+            &*player,
+            None,
             GameEvent::BLOCK_CHANGE,
-            pos,
-            &GameEventContext::of(Some(player.base_id()), None),
+            mc_core::phys::Vec3::at_center_of(&pos),
         );
         player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::POT_FLOWER);
         let mut held = player.get_item_in_hand(hand);
@@ -116,10 +116,11 @@ impl BlockBehaviour for FlowerPotBlock {
             player.drop(level, plant, false, Prediction::Predicted);
         }
         level.set_block_and_update(pos, Block::FLOWER_POT.default_state());
-        level.game_event_at_block(
+        level.game_event_from_entity_ref_in_state(
+            &*player,
+            None,
             GameEvent::BLOCK_CHANGE,
-            pos,
-            &GameEventContext::of(Some(player.base_id()), None),
+            mc_core::phys::Vec3::at_center_of(&pos),
         );
         InteractionResult::SUCCESS
     }

@@ -1,0 +1,26 @@
+# Entities whose own code is running as vibration sources: a snow golem laying its trail next to a sensor (the sensor keeps the golem's UUID as the
+# source of the vibration), and two players walking over ground near sensors 40 blocks apart: the walker sets its sensor off with its steps, the
+# sneaker is ignored (stepping carefully) and is granted the avoid-vibration advancement.
+level flat
+preload 4
+level_seed 11
+spawn_player Walker survival -1.5 -60 -6.5 0 0 sim
+spawn_player Sneaker survival 38.5 -60 -6.5 0 0 sim
+block 0 -60 0 minecraft:sculk_sensor
+block 40 -60 0 minecraft:sculk_sensor
+tick 40
+note snow golem next to the sensor
+spawn g minecraft:snow_golem 3.5 -60 0.5 0 0 {NoAI:1b,Silent:1b,UUID:[I;7,8,9,10]}
+entity_seed g 5
+watch be:0,-60,0 blocks:0,-60,0,0,-60,0
+tick 6
+watch off
+dump be:0,-60,0 blocks:0,-60,0,0,-60,0 entities events ticks
+tick 80
+note players walking
+input Walker forward
+input Sneaker sneak,forward
+watch be:0,-60,0 be:40,-60,0 blocks:0,-60,0,0,-60,0 blocks:40,-60,0,40,-60,0
+tick 24
+watch off
+dump be:0,-60,0 be:40,-60,0 blocks:0,-60,0,0,-60,0 blocks:40,-60,0,40,-60,0 advancements:Sneaker advancements:Walker events ticks

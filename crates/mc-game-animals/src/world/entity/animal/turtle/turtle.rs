@@ -39,7 +39,6 @@ use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::BlockGetter as _;
 use mc_game_core::world::level::LevelReader;
 use mc_game_core::world::level::block::impls::turtle_egg_block;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::level_access::LevelAccessor as _;
 use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
@@ -578,10 +577,11 @@ impl Goal for TurtleLayEggGoal {
                 let eggs = mob.base_mut().random.next_int_bounded(4) + 1;
                 let egg_state = Block::TURTLE_EGG.default_state().set(props::EGGS, eggs);
                 level.set_block_and_update(egg_pos, egg_state);
-                level.game_event_at_block(
+                level.game_event_from_entity_ref_in_state(
+                    &*mob,
+                    Some(egg_state),
                     GameEvent::BLOCK_PLACE,
-                    egg_pos,
-                    &GameEventContext::of(Some(mob.id()), Some(egg_state)),
+                    mc_core::phys::Vec3::at_center_of(&egg_pos),
                 );
                 let t = turtle_mut(mob);
                 t.set_has_egg(false);

@@ -161,7 +161,7 @@ impl Entity for EndCrystal {
         let generic = level.damage_sources().generic();
         self.on_destroyed_by(level, &generic);
         level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
-        level.game_event_from_entity(Some(self.id()), GameEvent::ENTITY_DIE, self.position());
+        level.game_event_from_entity_ref(self.as_dyn(), GameEvent::ENTITY_DIE, self.position());
     }
 
     fn get_pick_result(&self) -> Option<ItemStack> {

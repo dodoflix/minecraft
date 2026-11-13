@@ -91,7 +91,7 @@ impl SculkShriekerBlockEntity {
 
     /// `tryGetPlayer(sourceEntity)` for an entity given directly (`SculkShriekerBlock.stepOn`).
     pub fn try_get_player(level: &ServerLevel, entity: &dyn Entity) -> Option<EntityId> {
-        crate::world::level::gameevent::vibrations::capture_source_entity(level, entity).player
+        crate::world::level::gameevent::vibrations::source_entity_info(level, entity).player
     }
 
     /// `tryShriek(level, player)` of the block entity at `pos`.
@@ -131,12 +131,7 @@ impl SculkShriekerBlockEntity {
         );
         level.schedule_tick_block(pos, state.block(), SHRIEKING_TICKS);
         level.level_event_impl(None, 3007, pos, 0);
-        let context = match level.get_entity(source_entity) {
-            Some(entity) => GameEventContext::of_captured(
-                crate::world::level::gameevent::vibrations::capture_source_entity(level, entity),
-            ),
-            None => GameEventContext::of_entity(Some(source_entity)),
-        };
+        let context = GameEventContext::of_entity(Some(source_entity));
         level.game_event_at_block(GameEvent::SHRIEK, pos, &context);
     }
 

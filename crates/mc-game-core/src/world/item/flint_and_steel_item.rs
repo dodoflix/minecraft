@@ -7,7 +7,6 @@ use crate::world::entity::ServerPlayer;
 use crate::world::level::block::impls::{
     base_fire_block, campfire_block, candle_block, candle_cake_block,
 };
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::phys::Vec3;
 use mc_data::{GameEvent, SoundEvent, props};
@@ -41,10 +40,10 @@ impl ItemBehaviour for FlintAndSteelItem {
             play_use_sound(level, player_id, relative_pos);
             let fire_state = base_fire_block::get_state(&*level, relative_pos);
             level.set_block_flags(relative_pos, fire_state, 11);
-            level.game_event(
+            level.game_event_from_entity_ref(
+                &*player,
                 GameEvent::BLOCK_PLACE,
                 Vec3::at_center_of(&pos),
-                &GameEventContext::of(player_id, None),
             );
             crate::advancements::triggers::CriteriaTriggers::PLACED_BLOCK.trigger(
                 level,
@@ -57,10 +56,10 @@ impl ItemBehaviour for FlintAndSteelItem {
         } else {
             play_use_sound(level, player_id, pos);
             level.set_block_flags(pos, state.set(props::LIT, true), 11);
-            level.game_event(
+            level.game_event_from_entity_ref(
+                &*player,
                 GameEvent::BLOCK_CHANGE,
                 Vec3::at_center_of(&pos),
-                &GameEventContext::of(player_id, None),
             );
             hurt_and_break(&mut context.item_stack, 1, level, player, slot);
             InteractionResult::SUCCESS

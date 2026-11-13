@@ -158,11 +158,7 @@ impl BlockBehaviour for FenceGateBlock {
         } else {
             GameEvent::BLOCK_CLOSE
         };
-        level.game_event(
-            event,
-            Vec3::at_center_of(&pos),
-            &GameEventContext::of(id, None),
-        );
+        level.game_event_from_entity_ref_in_state(&*player, None, event, Vec3::at_center_of(&pos));
         InteractionResult::SUCCESS
     }
     fn neighbor_changed(

@@ -4,11 +4,10 @@ use mc_core::math::mth;
 use mc_data::GameEvent;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::{Entity as _, ServerPlayer};
+use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::item::InteractionResult;
 use mc_game_core::world::level::LightLayer;
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::gameevent::GameEventContext;
 
 pub struct DaylightDetectorBlock;
 
@@ -50,10 +49,11 @@ impl BlockBehaviour for DaylightDetectorBlock {
         }
         let new_state = state.cycle(props::INVERTED);
         level.set_block_flags(pos, new_state, 2);
-        level.game_event_at_block(
+        level.game_event_from_entity_ref_in_state(
+            &*player,
+            Some(new_state),
             GameEvent::BLOCK_CHANGE,
-            pos,
-            &GameEventContext::of(Some(player.id()), Some(new_state)),
+            mc_core::phys::Vec3::at_center_of(&pos),
         );
         update_signal_strength(new_state, level, pos);
         InteractionResult::SUCCESS

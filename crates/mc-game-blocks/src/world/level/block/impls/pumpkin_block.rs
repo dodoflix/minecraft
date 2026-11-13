@@ -9,7 +9,6 @@ use mc_game_core::world::entity::{Entity, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, hurt_and_break};
 use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::storage::loot::block_drops::block_interact_drops;
 use mc_protocol::packets::play::level::SoundSource;
 
@@ -80,10 +79,11 @@ impl BlockBehaviour for PumpkinBlock {
         let mut used = stack.clone();
         hurt_and_break(&mut used, 1, level, player, hand.as_equipment_slot());
         player.set_item_in_hand(hand, used);
-        level.game_event_at_block(
+        level.game_event_from_entity_ref_in_state(
+            &*player,
+            None,
             GameEvent::SHEAR,
-            pos,
-            &GameEventContext::of_entity(Some(player.id())),
+            mc_core::phys::Vec3::at_center_of(&pos),
         );
         player.award_stat_once(level, Stat::Used(Item::SHEARS));
         InteractionResult::SUCCESS

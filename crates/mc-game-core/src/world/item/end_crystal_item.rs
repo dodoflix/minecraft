@@ -49,8 +49,8 @@ impl ItemBehaviour for EndCrystalItem {
         let mut crystal = EndCrystal::at(level, x + 0.5, y, z + 0.5);
         crystal.set_show_bottom(false);
         level.add_fresh_entity(Box::new(crystal));
-        level.game_event_from_entity(
-            Some(player.id()),
+        level.game_event_from_entity_ref(
+            &*player,
             GameEvent::ENTITY_PLACE,
             Vec3::at_center_of(&above),
         );

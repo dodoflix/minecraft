@@ -1,6 +1,7 @@
 # What a bolt makes of the mobs it strikes: a pig turns into a zombified piglin, a mushroom cow swaps its variant (once per bolt), a
 # creeper becomes charged, other mobs are set on fire and hurt,
-# an armor stand ignores it, and the bolt's own sound and event reach the player.
+# an armor stand ignores it, and the bolt's own sound and event reach the player. The strike is a vibration whose source is the bolt itself
+# (the sensor above it keeps its UUID). A villager inside the radius would turn into a witch, so the villager stays out of it.
 command_env
 level flat
 preload 3
@@ -25,11 +26,12 @@ spawn farpig minecraft:pig 8.5 -60 0.5 0 0 {NoAI:1b}
 entity_seed farpig 37
 spawn farvil minecraft:villager 8.5 -60 2.5 0 0 {NoAI:1b}
 entity_seed farvil 38
+block 1 -58 0 minecraft:sculk_sensor
 tick 3
 dump entities nbt:cow nbt:cr
-spawn b1 minecraft:lightning_bolt 1.5 -60 0.5
+spawn b1 minecraft:lightning_bolt 1.5 -60 0.5 0 0 {UUID:[I;11,12,13,14]}
 entity_seed b1 39
 tick 1
-dump entities nbt:cow nbt:cr packets:A:none events
+dump entities nbt:cow nbt:cr packets:A:none events be:1,-58,0
 tick 12
-dump entities nbt:cow nbt:cr nbt:farpig
+dump entities nbt:cow nbt:cr nbt:farpig be:1,-58,0 blocks:1,-58,0,1,-58,0

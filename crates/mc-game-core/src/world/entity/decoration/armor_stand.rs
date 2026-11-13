@@ -388,11 +388,15 @@ impl ArmorStand {
     /// `kill(level, attributedTo)`.
     pub fn kill_attributed(&mut self, level: &mut ServerLevel, attributed_to: Option<EntityId>) {
         self.remove(RemovalReason::Killed);
-        level.game_event_from_entity(
-            Some(attributed_to.unwrap_or(self.data().id)),
-            GameEvent::ENTITY_DIE,
-            self.data().position(),
-        );
+        let position = self.data().position();
+        match attributed_to {
+            Some(source) => {
+                level.game_event_from_entity(Some(source), GameEvent::ENTITY_DIE, position)
+            }
+            None => {
+                level.game_event_from_entity_ref(self.as_dyn(), GameEvent::ENTITY_DIE, position)
+            }
+        }
     }
 
     fn dimensions_marker(&self, is_marker: bool) -> EntityDimensions {

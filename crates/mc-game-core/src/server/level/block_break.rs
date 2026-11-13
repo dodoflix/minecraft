@@ -8,7 +8,6 @@ use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::item::ItemStack;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::{BlockStateExt, behaviour};
-use crate::world::level::gameevent::GameEventContext;
 use mc_core::pos::BlockPos;
 use mc_data::GameEvent;
 use mc_data::block::BlockState;
@@ -47,10 +46,11 @@ pub fn player_will_destroy(
     if state.is_tag("guarded_by_piglins") {
         anger_nearby_piglins(level, player, false);
     }
-    level.game_event_at_block(
+    level.game_event_from_entity_ref_in_state(
+        player,
+        Some(state),
         GameEvent::BLOCK_DESTROY,
-        pos,
-        &GameEventContext::of_entity_ref(level, player, Some(state)),
+        mc_core::phys::Vec3::at_center_of(&pos),
     );
     state
 }

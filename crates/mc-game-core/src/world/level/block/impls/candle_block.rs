@@ -30,7 +30,9 @@ impl BlockBehaviour for CandleBlock {
         _hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         if stack.is_empty() && player.player.abilities.may_build && state.get(props::LIT) {
-            abstract_candle_block::extinguish(Some(player.base_id()), state, level, pos);
+            level.expose(&*player, |level| {
+                abstract_candle_block::extinguish(Some(player.base_id()), state, level, pos)
+            });
             InteractionResult::SUCCESS
         } else {
             InteractionResult::TRY_WITH_EMPTY_HAND

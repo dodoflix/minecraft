@@ -240,11 +240,7 @@ impl ItemBehaviour for BottleItem {
                 1.0,
                 1.0,
             );
-            level.game_event_from_entity(
-                Some(player.id()),
-                GameEvent::FLUID_PICKUP,
-                player.position(),
-            );
+            level.game_event_from_entity_ref(&*player, GameEvent::FLUID_PICKUP, player.position());
             if let Some(cloud_entity) = level.get_entity(cloud) {
                 let matches =
                     crate::advancements::triggers::CriteriaTriggers::PLAYER_INTERACTED_WITH_ENTITY
@@ -283,10 +279,10 @@ impl ItemBehaviour for BottleItem {
             1.0,
             1.0,
         );
-        level.game_event_at_block(
+        level.game_event_from_entity_ref(
+            &*player,
             GameEvent::FLUID_PICKUP,
-            pos,
-            &GameEventContext::of_entity(Some(player.id())),
+            mc_core::phys::Vec3::at_center_of(&pos),
         );
         let water = create_potion_item_stack(Item::POTION, Potion::WATER);
         let InteractionResult::Success(success) = InteractionResult::SUCCESS else {

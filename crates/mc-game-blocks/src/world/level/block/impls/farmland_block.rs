@@ -81,13 +81,11 @@ impl BlockBehaviour for FarmlandBlock {
                     Some(&mut *entity),
                 );
                 level.set_block(pos, new_state, 3, 512);
-                level.game_event_at_block(
+                level.game_event_from_entity_ref_in_state(
+                    &*entity,
+                    Some(new_state),
                     mc_data::GameEvent::BLOCK_CHANGE,
-                    pos,
-                    &mc_game_core::world::level::gameevent::GameEventContext::of(
-                        Some(entity.id()),
-                        Some(new_state),
-                    ),
+                    mc_core::phys::Vec3::at_center_of(&pos),
                 );
             }
         }

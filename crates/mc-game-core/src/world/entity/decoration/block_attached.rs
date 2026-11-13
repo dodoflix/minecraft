@@ -117,8 +117,11 @@ pub fn kill<E: BlockAttached>(e: &mut E, level: &mut ServerLevel, attributed_to:
     e.on_killed(level);
     e.remove(RemovalReason::Killed);
     level.untrack_discarded_entity(e.as_dyn_mut());
-    let source = attributed_to.unwrap_or_else(|| e.id());
-    level.game_event_from_entity(Some(source), GameEvent::ENTITY_DIE, e.base().position());
+    let position = e.base().position();
+    match attributed_to {
+        Some(source) => level.game_event_from_entity(Some(source), GameEvent::ENTITY_DIE, position),
+        None => level.game_event_from_entity_ref(e.as_dyn(), GameEvent::ENTITY_DIE, position),
+    }
 }
 
 /// `BlockAttachedEntity.hurtServer(level, source, damage)`.

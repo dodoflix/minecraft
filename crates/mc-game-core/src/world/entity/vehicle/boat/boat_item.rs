@@ -110,7 +110,7 @@ impl ItemBehaviour for BoatItem {
             return InteractionResult::FAIL;
         }
         level.add_fresh_entity(boat);
-        level.game_event_from_entity(Some(player.id()), GameEvent::ENTITY_PLACE, hit.location);
+        level.game_event_from_entity_ref(&*player, GameEvent::ENTITY_PLACE, hit.location);
         stack.consume(1, player.player.abilities.instabuild);
         player.set_item_in_hand_slot(level, hand, stack);
         player.award_stat_once(level, Stat::Used(self.item));

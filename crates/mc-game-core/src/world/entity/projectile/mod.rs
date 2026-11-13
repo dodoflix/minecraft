@@ -23,7 +23,6 @@ use super::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra};
 use super::{Entity, EntityId};
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
-use crate::world::level::gameevent::GameEventContext;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::{BlockHitResult, Vec3};
@@ -660,15 +659,22 @@ pub fn on_hit_base(projectile: &mut dyn Projectile, level: &mut ServerLevel, hit
                 projectile.on_redirect_projectile(level, id);
             }
             projectile.on_hit_entity(level, entity_hit);
-            let context = GameEventContext::of_entity_ref(level, &*projectile, None);
-            level.post_game_event(GameEvent::PROJECTILE_LAND, entity_hit.location, &context);
+            level.game_event_from_entity_ref(
+                &*projectile,
+                GameEvent::PROJECTILE_LAND,
+                entity_hit.location,
+            );
         }
         HitResult::Block(block_hit) if !block_hit.miss => {
             projectile.on_hit_block(level, block_hit);
             let target = block_hit.block_pos;
             let state = level.get_block_state(target);
-            let context = GameEventContext::of_entity_ref(level, &*projectile, Some(state));
-            level.game_event_at_block(GameEvent::PROJECTILE_LAND, target, &context);
+            level.game_event_from_entity_ref_in_state(
+                &*projectile,
+                Some(state),
+                GameEvent::PROJECTILE_LAND,
+                mc_core::phys::Vec3::at_center_of(&target),
+            );
         }
         HitResult::Block(_) => {}
     }

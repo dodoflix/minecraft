@@ -1,7 +1,6 @@
 //! `MovementPredicate`.
 
 use super::entity_predicate::EntitySubPredicateImpl;
-use super::support;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use mc_core::math::mth;
@@ -93,7 +92,7 @@ impl EntitySubPredicateImpl for MovementPredicate {
         _position: Option<Vec3>,
         _lent: &[&'a dyn Entity],
     ) -> bool {
-        let m = support::get_known_movement(level, entity);
+        let m = entity.get_known_movement(level);
         let velocity = Vec3::new(m.x * 20.0, m.y * 20.0, m.z * 20.0);
         self.matches_values(
             velocity.x,

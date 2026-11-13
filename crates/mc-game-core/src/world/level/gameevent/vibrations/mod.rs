@@ -14,8 +14,8 @@ use crate::world::entity::player::ServerPlayer;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::level::gameevent::SourceEntityInfo;
 
-/// Capture what the vibration system reads from `entity` (see [`SourceEntityInfo`]).
-pub fn capture_source_entity(level: &ServerLevel, entity: &dyn Entity) -> SourceEntityInfo {
+/// What the vibration system reads from the visible entity `entity` (see [`SourceEntityInfo`]).
+pub fn source_entity_info(level: &ServerLevel, entity: &dyn Entity) -> SourceEntityInfo {
     let is_server_player = entity.as_any().is::<ServerPlayer>();
     let projectile_owner = entity
         .as_projectile()

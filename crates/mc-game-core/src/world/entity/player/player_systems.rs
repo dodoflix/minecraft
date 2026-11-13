@@ -106,8 +106,8 @@ impl PlayerSystems for ServerPlayerSystems {
         };
         ctx.player
             .open_menu(ctx.level, &ChestVehicleMenuProvider::new(vehicle, title));
-        ctx.level.game_event_from_entity(
-            Some(ctx.player.base_id()),
+        ctx.level.game_event_from_entity_ref(
+            &*ctx.player,
             mc_data::GameEvent::CONTAINER_OPEN,
             position,
         );

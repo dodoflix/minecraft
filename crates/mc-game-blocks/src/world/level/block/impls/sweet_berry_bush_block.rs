@@ -94,10 +94,11 @@ impl BlockBehaviour for SweetBerryBushBlock {
             );
             let new_state = state.set(props::AGE_3, 1);
             level.set_block_flags(pos, new_state, 2);
-            level.game_event_at_block(
+            level.game_event_from_entity_ref_in_state(
+                &*player,
+                Some(new_state),
                 GameEvent::BLOCK_CHANGE,
-                pos,
-                &GameEventContext::of(Some(player.base_id()), Some(new_state)),
+                mc_core::phys::Vec3::at_center_of(&pos),
             );
             InteractionResult::SUCCESS
         } else {

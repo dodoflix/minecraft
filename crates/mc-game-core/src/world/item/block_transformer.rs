@@ -9,7 +9,6 @@ use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::helpers;
 use crate::world::level::block::impls::chest_block;
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::levelgen::codec::{
     Fields, LoadError, LoadResult, parse_bool, parse_direction, parse_identifier, parse_int,
     parse_list, parse_str,
@@ -321,10 +320,11 @@ pub fn transform_block(
             1.0,
         );
         data.particle.send(level, Some(player_id), pos);
-        level.game_event(
+        level.game_event_from_entity_ref_in_state(
+            &*player,
+            Some(updated_shape),
             GameEvent::BLOCK_CHANGE,
             Vec3::at_center_of(&pos),
-            &GameEventContext::of(Some(player_id), Some(updated_shape)),
         );
         if data.transform_type == TransformType::CopperChest
             && old_state
@@ -336,10 +336,11 @@ pub fn transform_block(
         {
             let neighbor_pos = pos.relative(chest_block::get_connected_direction(old_state));
             let neighbor_state = level.get_block_state(neighbor_pos);
-            level.game_event(
+            level.game_event_from_entity_ref_in_state(
+                &*player,
+                Some(neighbor_state),
                 GameEvent::BLOCK_CHANGE,
                 Vec3::at_center_of(&neighbor_pos),
-                &GameEventContext::of(Some(player_id), Some(neighbor_state)),
             );
             data.particle.send(level, Some(player_id), neighbor_pos);
         }

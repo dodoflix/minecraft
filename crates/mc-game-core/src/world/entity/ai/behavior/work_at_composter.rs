@@ -44,7 +44,9 @@ fn compost_items(
     let pos = job_site_pos.pos;
     let source = body.id();
     if block_state.get(props::LEVEL_COMPOSTER) == 8 {
-        block_state = composter_block::extract_produce(Some(source), block_state, level, pos);
+        block_state = level.expose(&*body, |level| {
+            composter_block::extract_produce(Some(source), block_state, level, pos)
+        });
     }
     let mut total_items_to_use = 20;
     let min_stack_size = 10;

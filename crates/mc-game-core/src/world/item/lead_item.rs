@@ -68,11 +68,7 @@ pub fn bind_player_mobs(
         level.with_entity(knot, |level, k| {
             k.play_sound(level, SoundEvent::ITEM_LEAD_TIED, 1.0, 1.0)
         });
-        level.game_event_from_entity(
-            Some(player_id),
-            GameEvent::BLOCK_ATTACH,
-            Vec3::at_center_of(&pos),
-        );
+        level.game_event_from_entity_ref(player, GameEvent::BLOCK_ATTACH, Vec3::at_center_of(&pos));
         InteractionResult::SUCCESS_SERVER
     } else {
         if existing_knot.is_none() {

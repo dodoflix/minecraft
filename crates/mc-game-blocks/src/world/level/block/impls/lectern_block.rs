@@ -72,7 +72,9 @@ fn place_book(
         }
     });
     if placed == Some(true) {
-        reset_book_state(Some(player.id()), level, pos, state, true);
+        level.expose(&*player, |level| {
+            reset_book_state(Some(player.id()), level, pos, state, true)
+        });
         level.play_sound(
             None,
             pos,

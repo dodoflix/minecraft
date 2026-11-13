@@ -14,7 +14,6 @@ use crate::world::entity::projectile::hurting::small_fireball::SmallFireball;
 use crate::world::level::block::impls::{
     base_fire_block, campfire_block, candle_block, candle_cake_block,
 };
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
@@ -31,7 +30,6 @@ impl ItemBehaviour for FireChargeItem {
         level: &mut ServerLevel,
         player: &mut ServerPlayer,
     ) -> InteractionResult {
-        let player_id = Some(player.base_id());
         let mut pos = context.get_clicked_pos();
         let state = level.get_block_state(pos);
         if !campfire_block::can_light(state)
@@ -45,18 +43,18 @@ impl ItemBehaviour for FireChargeItem {
             play_sound(level, pos);
             let fire_state = base_fire_block::get_state(&*level, pos);
             level.set_block_and_update(pos, fire_state);
-            level.game_event(
+            level.game_event_from_entity_ref(
+                &*player,
                 GameEvent::BLOCK_PLACE,
                 Vec3::at_center_of(&pos),
-                &GameEventContext::of(player_id, None),
             );
         } else {
             play_sound(level, pos);
             level.set_block_and_update(pos, state.set(props::LIT, true));
-            level.game_event(
+            level.game_event_from_entity_ref(
+                &*player,
                 GameEvent::BLOCK_CHANGE,
                 Vec3::at_center_of(&pos),
-                &GameEventContext::of(player_id, None),
             );
         }
         context.item_stack.shrink(1);

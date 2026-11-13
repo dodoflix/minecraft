@@ -82,11 +82,7 @@ impl InstrumentItem {
             volume,
             1.0,
         );
-        level.game_event_from_entity(
-            Some(player.id()),
-            GameEvent::INSTRUMENT_PLAY,
-            player.position(),
-        );
+        level.game_event_from_entity_ref(player, GameEvent::INSTRUMENT_PLAY, player.position());
     }
 }
 

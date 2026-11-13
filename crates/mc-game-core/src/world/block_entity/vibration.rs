@@ -89,7 +89,6 @@ fn handle_game_event(
     event: GameEvent,
     context: &GameEventContext,
     source_position: Vec3,
-    _live: Option<&mut dyn crate::world::entity::Entity>,
 ) -> bool {
     match BlockEntityVibration::at(level, pos) {
         Some(mut system) => {

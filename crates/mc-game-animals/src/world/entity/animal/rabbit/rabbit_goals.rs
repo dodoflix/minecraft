@@ -11,7 +11,6 @@ use mc_game_core::world::entity::ai::goal::move_to_block::{self, MoveToBlock, Mo
 use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, PanicGoal};
 use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::block::helpers::is_instance_of;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::level_access::{BlockGetter, LevelAccessor as _};
 use mc_protocol::components::RabbitVariant;
 use std::cell::Cell;
@@ -203,13 +202,16 @@ impl Goal for RaidGardenGoal {
                 let age = state.get(props::AGE_7);
                 if age == 0 {
                     level.set_block_flags(crops_pos, Block::AIR.default_state(), 2);
-                    level.destroy_block_impl(crops_pos, true, Some(mob.id()), 512);
+                    level.expose(&*mob, |level| {
+                        level.destroy_block_impl(crops_pos, true, Some(mob.id()), 512)
+                    });
                 } else {
                     level.set_block_flags(crops_pos, state.set(props::AGE_7, age - 1), 2);
-                    level.game_event_at_block(
+                    level.game_event_from_entity_ref_in_state(
+                        &*mob,
+                        None,
                         GameEvent::BLOCK_CHANGE,
-                        crops_pos,
-                        &GameEventContext::of(Some(mob.id()), None),
+                        mc_core::phys::Vec3::at_center_of(&crops_pos),
                     );
                     level.level_event_impl(None, 2001, crops_pos, state.id() as i32);
                 }

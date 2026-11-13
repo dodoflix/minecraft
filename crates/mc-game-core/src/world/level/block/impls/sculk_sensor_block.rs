@@ -158,15 +158,16 @@ pub fn step_on_sensor(
             &GameEventContext::of_state(Some(on_state)),
         )
     {
-        let context =
-            GameEventContext::of_captured(vibrations::capture_source_entity(level, entity));
-        vibrations::force_schedule_vibration(
-            level,
-            &mut sensor,
-            GameEvent::STEP,
-            &context,
-            entity.position(),
-        );
+        let context = GameEventContext::of_entity(Some(entity.id()));
+        level.expose(&*entity, |level| {
+            vibrations::force_schedule_vibration(
+                level,
+                &mut sensor,
+                GameEvent::STEP,
+                &context,
+                entity.position(),
+            )
+        });
     }
 }
 

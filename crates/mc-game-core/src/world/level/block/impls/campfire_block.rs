@@ -86,12 +86,14 @@ impl BlockBehaviour for CampfireBlock {
             let source = player.base_id();
             let infinite = player.has_infinite_materials();
             let success = level
-                .with_block_entity(pos, |level, be| {
-                    be.as_any_mut()
-                        .downcast_mut::<CampfireBlockEntity>()
-                        .is_some_and(|campfire| {
-                            campfire.place_food(level, Some(source), infinite, &mut placed)
-                        })
+                .expose(&*player, |level| {
+                    level.with_block_entity(pos, |level, be| {
+                        be.as_any_mut()
+                            .downcast_mut::<CampfireBlockEntity>()
+                            .is_some_and(|campfire| {
+                                campfire.place_food(level, Some(source), infinite, &mut placed)
+                            })
+                    })
                 })
                 .unwrap_or(false);
             if success {
@@ -105,7 +107,9 @@ impl BlockBehaviour for CampfireBlock {
             .is_some_and(|tag| tag.contains(stack.item()));
         if douses && state.get(props::LIT) {
             level.level_event(None, 1009, pos, 0);
-            douse(Some(player.base_id()), level, pos);
+            level.expose(&*player, |level| {
+                douse(Some(player.base_id()), level, pos);
+            });
             level.set_block_and_update(pos, state.set(props::LIT, false));
             let mut used = stack.clone();
             crate::world::item::hurt_and_break(

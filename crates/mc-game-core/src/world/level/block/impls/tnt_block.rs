@@ -133,7 +133,10 @@ impl BlockBehaviour for TntBlock {
         }
         let blocked = player.game_mode.game_mode_for_player == GameType::Adventure
             && !crate::world::item::can_break_block_in_adventure_mode(stack, level, pos);
-        if prime_by(level, pos, Some((player.base_id(), player.uuid())), blocked) {
+        let primed = level.expose(&*player, |level| {
+            prime_by(level, pos, Some((player.base_id(), player.uuid())), blocked)
+        });
+        if primed {
             level.set_block_flags(pos, air(), 11);
             let mut used = stack.clone();
             if used.is(Item::FLINT_AND_STEEL) {

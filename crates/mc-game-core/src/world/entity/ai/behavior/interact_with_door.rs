@@ -55,7 +55,9 @@ pub fn create() -> OneShot {
             let from_state = c.level.get_block_state(from_pos);
             if is_interactable_door(from_state) {
                 if !from_state.get(props::OPEN) {
-                    set_open_at(Some(c.body().id()), c.level, from_state, from_pos, true);
+                    c.level.expose(&*c.body, |level| {
+                        set_open_at(Some(c.body.id()), level, from_state, from_pos, true)
+                    });
                 }
                 doors = Some(remember_door_to_close(
                     c,
@@ -68,7 +70,9 @@ pub fn create() -> OneShot {
         let to_pos = to_node.as_block_pos();
         let to_state = c.level.get_block_state(to_pos);
         if is_interactable_door(to_state) && !to_state.get(props::OPEN) {
-            set_open_at(Some(c.body().id()), c.level, to_state, to_pos, true);
+            c.level.expose(&*c.body, |level| {
+                set_open_at(Some(c.body.id()), level, to_state, to_pos, true)
+            });
             doors = Some(remember_door_to_close(
                 c,
                 &doors_memory,
@@ -119,7 +123,9 @@ pub fn close_doors_that_i_have_opened_or_passed_through(
                     && state.get(props::OPEN)
                     && !are_other_mobs_coming_through_door(level, body, door_pos, nearest_entities)
                 {
-                    set_open_at(Some(body.id()), level, state, door_pos, false);
+                    level.expose(&*body, |level| {
+                        set_open_at(Some(body.id()), level, state, door_pos, false)
+                    });
                 }
             }
             doors.remove(&door_global_pos);

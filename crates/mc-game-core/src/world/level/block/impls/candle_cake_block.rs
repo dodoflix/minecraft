@@ -36,7 +36,9 @@ impl BlockBehaviour for CandleCakeBlock {
             && stack.is_empty()
             && state.get(props::LIT)
         {
-            abstract_candle_block::extinguish(Some(player.base_id()), state, level, pos);
+            level.expose(&*player, |level| {
+                abstract_candle_block::extinguish(Some(player.base_id()), state, level, pos)
+            });
             InteractionResult::SUCCESS
         } else {
             InteractionResult::TRY_WITH_EMPTY_HAND

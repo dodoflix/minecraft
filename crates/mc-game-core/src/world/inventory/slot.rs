@@ -190,7 +190,7 @@ impl ContainerKey {
             interaction_range: player.container_interaction_range(),
         };
         let notify_be = |player: &mut dyn MenuPlayer, pos: BlockPos| {
-            if let Some(level) = player.level() {
+            player.with_level_seen(&mut |level| {
                 level.with_block_entity(pos, |level, be| {
                     if open {
                         be.start_open(level, &container_user)
@@ -198,7 +198,7 @@ impl ContainerKey {
                         be.stop_open(level, &container_user)
                     }
                 });
-            }
+            });
         };
         match self {
             ContainerKey::PlayerInventory
@@ -213,9 +213,9 @@ impl ContainerKey {
             }
             ContainerKey::BlockEntity(pos) => notify_be(player, *pos),
             ContainerKey::Entity(id) => {
-                if let Some(level) = player.level() {
+                player.with_level_seen(&mut |level| {
                     level.with_entity(*id, |level, e| e.container_open_close(level, user, open));
-                }
+                });
             }
             ContainerKey::PlayerEnderChest => {
                 let active = player.ender_chest().and_then(|c| c.active_chest());

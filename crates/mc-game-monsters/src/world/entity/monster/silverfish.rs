@@ -270,7 +270,9 @@ impl Goal for SilverfishWakeUpFriendsGoal {
                     let state = level.get_block_state(test_pos);
                     if is_instance_of(state, "InfestedBlock") {
                         if level.mob_griefing() {
-                            level.destroy_block_impl(test_pos, true, Some(mob.id()), 512);
+                            level.expose(&*mob, |level| {
+                                level.destroy_block_impl(test_pos, true, Some(mob.id()), 512)
+                            });
                         } else {
                             level.set_block_and_update(
                                 test_pos,

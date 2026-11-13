@@ -122,7 +122,9 @@ impl BlockBehaviour for TrapDoorBlock {
         if !self.set_type.can_open_by_hand {
             InteractionResult::PASS
         } else {
-            self.toggle(state, level, pos, Some(player.base_id()));
+            level.expose(&*player, |level| {
+                self.toggle(state, level, pos, Some(player.base_id()))
+            });
             InteractionResult::SUCCESS
         }
     }

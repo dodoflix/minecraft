@@ -84,17 +84,32 @@ fn handle_game_event(
     level: &mut ServerLevel,
     pos: BlockPos,
     event: GameEvent,
-    _context: &GameEventContext,
+    context: &GameEventContext,
     source_position: Vec3,
-    live: Option<&mut dyn Entity>,
 ) -> bool {
     if event != GameEvent::ENTITY_DIE {
         return false;
     }
-    // `context.sourceEntity() instanceof LivingEntity mob`
-    let Some(mob) = live.filter(|mob| mob.living().is_some()) else {
+    // `context.sourceEntity() instanceof LivingEntity mob`: the dying entity is lent by the code that posts the event
+    let Some(id) = context.source_entity else {
         return false;
     };
+    level
+        .with_entity(id, |level, mob| {
+            on_mob_death(level, pos, mob, source_position)
+        })
+        .unwrap_or(false)
+}
+
+fn on_mob_death(
+    level: &mut ServerLevel,
+    pos: BlockPos,
+    mob: &mut dyn Entity,
+    source_position: Vec3,
+) -> bool {
+    if mob.living().is_none() {
+        return false;
+    }
     // `!mob.wasExperienceConsumed()`
     if mob
         .living()

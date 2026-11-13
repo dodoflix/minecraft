@@ -972,7 +972,7 @@ impl Entity for SulfurCube {
             if held.is(Item::SHEARS) && self.has_body_item() {
                 let sheared = self.get_item_by_slot(EquipmentSlot::Body);
                 self.eject_body_item(level);
-                level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, self.position());
+                level.game_event_from_entity_ref(&*player, GameEvent::SHEAR, self.position());
                 mob::interact::with_hand_stack(player, hand, |s, p| {
                     mc_game_core::world::item::hurt_and_break(
                         s,

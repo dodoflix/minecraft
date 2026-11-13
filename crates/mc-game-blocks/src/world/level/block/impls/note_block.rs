@@ -122,7 +122,9 @@ impl BlockBehaviour for NoteBlock {
     ) -> InteractionResult {
         let state = state.cycle(props::NOTE);
         level.set_block_and_update(pos, state);
-        play_note(Some(player.id()), state, level, pos);
+        level.expose(&*player, |level| {
+            play_note(Some(player.id()), state, level, pos)
+        });
         player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::TUNE_NOTEBLOCK);
         InteractionResult::SUCCESS
     }
@@ -133,7 +135,9 @@ impl BlockBehaviour for NoteBlock {
         pos: BlockPos,
         player: &mut ServerPlayer,
     ) {
-        play_note(Some(player.id()), state, level, pos);
+        level.expose(&*player, |level| {
+            play_note(Some(player.id()), state, level, pos)
+        });
         player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::PLAY_NOTEBLOCK);
     }
     fn trigger_event(

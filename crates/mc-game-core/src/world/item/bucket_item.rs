@@ -12,7 +12,6 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::player::menu_ctx::PlayerCtx;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::{BlockStateExt, behaviour as block_behaviour};
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
@@ -167,11 +166,16 @@ impl BucketItem {
             SoundEvent::ITEM_BUCKET_EMPTY
         };
         level.play_sound(user_id, pos, sound, SoundSource::Blocks, 1.0, 1.0);
-        level.game_event(
-            GameEvent::FLUID_PLACE,
-            Vec3::at_center_of(&pos),
-            &GameEventContext::of_entity(user_id),
-        );
+        match user {
+            Some(user) => level.game_event_from_entity_ref(
+                user,
+                GameEvent::FLUID_PLACE,
+                Vec3::at_center_of(&pos),
+            ),
+            None => {
+                level.game_event_from_entity(None, GameEvent::FLUID_PLACE, Vec3::at_center_of(&pos))
+            }
+        }
     }
 
     /// `BucketItem.emptyContents` (the fluid placing part, shared by mob buckets).
@@ -288,11 +292,18 @@ impl DispensibleContainerItem for BucketItem {
     ) {
         if let Some(mob) = &self.mob {
             super::mob_bucket::spawn_from_bucket(mob.entity_type, level, stack, pos);
-            level.game_event(
-                GameEvent::ENTITY_PLACE,
-                Vec3::at_center_of(&pos),
-                &GameEventContext::of_entity(user.map(|u| u.id())),
-            );
+            match user {
+                Some(user) => level.game_event_from_entity_ref(
+                    user,
+                    GameEvent::ENTITY_PLACE,
+                    Vec3::at_center_of(&pos),
+                ),
+                None => level.game_event_from_entity(
+                    None,
+                    GameEvent::ENTITY_PLACE,
+                    Vec3::at_center_of(&pos),
+                ),
+            }
         }
     }
 
@@ -357,10 +368,10 @@ impl ItemBehaviour for BucketItem {
                     if let Some(sound) = behaviour.get_pickup_sound() {
                         player_play_sound(level, player, sound, 1.0, 1.0);
                     }
-                    level.game_event(
+                    level.game_event_from_entity_ref(
+                        &*player,
                         GameEvent::FLUID_PICKUP,
                         Vec3::at_center_of(&pos),
-                        &GameEventContext::of_entity(Some(player.base_id())),
                     );
                     let result = create_filled_result(
                         stack,

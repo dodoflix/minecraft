@@ -9,13 +9,12 @@ use mc_data::enums::CopperGolemStatueBlockPose;
 use mc_data::fluid::Fluid;
 use mc_data::{GameEvent, Item, SoundEvent};
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::{Entity as _, ServerPlayer};
+use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::item::{
     BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, hurt_and_break,
 };
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::block::weathering_copper::{self, WeatherState};
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::{register_block_class, update_shape};
 use mc_protocol::packets::play::level::SoundSource;
 
@@ -51,10 +50,11 @@ fn update_pose(level: &mut ServerLevel, state: BlockState, pos: BlockPos, player
             next_pose(state.get(props::COPPER_GOLEM_POSE)),
         ),
     );
-    level.game_event_at_block(
+    level.game_event_from_entity_ref_in_state(
+        player,
+        None,
         GameEvent::BLOCK_CHANGE,
-        pos,
-        &GameEventContext::of_entity(Some(player.id())),
+        mc_core::phys::Vec3::at_center_of(&pos),
     );
 }
 

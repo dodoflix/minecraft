@@ -22,7 +22,9 @@ pub fn create() -> OneShot {
             let state = c.level.get_block_state(pos);
             if state.block() == Block::BELL {
                 let source = c.body().id();
-                bell_block::attempt_to_ring(c.level, Some(source), pos, None);
+                c.level.expose(&*c.body, |level| {
+                    bell_block::attempt_to_ring(level, Some(source), pos, None)
+                });
             }
         }
         true

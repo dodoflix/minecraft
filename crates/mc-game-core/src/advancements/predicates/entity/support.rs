@@ -8,7 +8,6 @@ use crate::world::entity::movement;
 use crate::world::entity::{Entity, EntityData, EntityId, ServerPlayer};
 use crate::world::inventory::InventoryMenu;
 use crate::world::item::ItemStack;
-use mc_core::phys::Vec3;
 use mc_protocol::components::{CUSTOM_DATA, CUSTOM_NAME, DataComponentMap};
 
 /// `LightningBolt` as seen by `LightningBoltPredicate`.
@@ -125,21 +124,6 @@ pub fn get_vehicle<'a>(
         .base()
         .vehicle
         .and_then(|id| resolve(level, lent, id))
-}
-
-/// `Entity.getKnownMovement()` (`ServerPlayer` overrides it with the last client movement).
-// shortcut: a vehicle that is the entity currently being ticked (taken out of the level) is not found; upgrade when the
-// level can hand out the running entity.
-pub fn get_known_movement(level: &ServerLevel, entity: &dyn Entity) -> Vec3 {
-    if let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() {
-        return match get_vehicle(level, &[], entity) {
-            Some(vehicle) if vehicle.get_controlling_passenger() != Some(entity.id()) => {
-                get_known_movement(level, vehicle)
-            }
-            _ => player.last_known_client_movement,
-        };
-    }
-    entity.get_known_movement(level)
 }
 
 /// `Entity.getOnPos()`.

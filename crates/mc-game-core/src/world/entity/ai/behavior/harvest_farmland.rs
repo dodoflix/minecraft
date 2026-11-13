@@ -134,7 +134,9 @@ impl Behavior for HarvestFarmland {
                 let block_state = level.get_block_state(pos);
                 let block_below = level.get_block_state(pos.below()).block();
                 if crop_block::is_max_age(block_state) == Some(true) {
-                    level.destroy_block_impl(pos, true, Some(body.id()), 512);
+                    level.expose(&*body, |level| {
+                        level.destroy_block_impl(pos, true, Some(body.id()), 512)
+                    });
                 }
                 if block_state.is_air()
                     && block_below == Block::FARMLAND
@@ -152,13 +154,11 @@ impl Behavior for HarvestFarmland {
                         {
                             let place = block.default_state();
                             level.set_block_and_update(pos, place);
-                            level.game_event_at_block(
+                            level.game_event_from_entity_ref_in_state(
+                                &*body,
+                                Some(place),
                                 GameEvent::BLOCK_PLACE,
-                                pos,
-                                &crate::world::level::gameevent::GameEventContext::of(
-                                    Some(body.id()),
-                                    Some(place),
-                                ),
+                                mc_core::phys::Vec3::at_center_of(&pos),
                             );
                             ok = true;
                         }

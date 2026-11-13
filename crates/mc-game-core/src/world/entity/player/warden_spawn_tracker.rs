@@ -90,11 +90,8 @@ impl WardenSpawnTracker {
         }
         spawn_tracker.increase_warning_level();
         for id in players {
-            if let Some(entity) = level.get_entity_mut(id)
-                && let Some(player) = entity.as_any_mut().downcast_mut::<ServerPlayer>()
-            {
-                player.warden_spawn_tracker = spawn_tracker;
-            }
+            // the trigger player may be the lent entity that is stepping on the shrieker
+            level.with_player(id, |_, player| player.warden_spawn_tracker = spawn_tracker);
         }
         Some(spawn_tracker.warning_level)
     }

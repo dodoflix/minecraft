@@ -92,7 +92,12 @@ pub fn shear_off_all_leash_connections(
     level: &mut ServerLevel,
     player: Option<&ServerPlayer>,
 ) -> bool {
-    let dropped = drop_all_leash_connections(e, level, player.map(|p| p.id()));
+    let dropped = match player {
+        Some(p) => level.expose(p, |level| {
+            drop_all_leash_connections(e, level, Some(p.id()))
+        }),
+        None => drop_all_leash_connections(e, level, None),
+    };
     if dropped {
         let source = player.map_or_else(|| e.get_sound_source(), |p| p.get_sound_source());
         level.play_sound(
@@ -135,11 +140,7 @@ pub fn entity_interact(
                 }
             }
             if any_leashed {
-                level.game_event_from_entity(
-                    Some(player.id()),
-                    GameEvent::ENTITY_ACTION,
-                    e.position(),
-                );
+                level.game_event_from_entity_ref(&*player, GameEvent::ENTITY_ACTION, e.position());
                 e.play_sound_default(level, SoundEvent::ITEM_LEAD_TIED);
                 return match InteractionResult::SUCCESS_SERVER {
                     InteractionResult::Success(s) => InteractionResult::Success(s.without_item()),
@@ -229,7 +230,7 @@ pub fn attempt_to_shear_equipment(
                 .get_attachments()
                 .get_average(crate::world::entity::EntityAttachment::Passenger);
             super::equipment::set_item_slot(e, level, slot, ItemStack::empty());
-            level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, e.position());
+            level.game_event_from_entity_ref(&*player, GameEvent::SHEAR, e.position());
             crate::world::entity::item::spawn_at_location(level, e, item_stack.clone(), offset);
             ext::trigger_player_sheared_equipment(level, player.id(), &item_stack, &*e);
             if let Some(sound) = shearing_sound {

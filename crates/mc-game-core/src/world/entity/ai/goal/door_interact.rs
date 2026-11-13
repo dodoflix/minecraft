@@ -61,7 +61,9 @@ impl DoorInteractData {
         if self.has_door {
             let state = level.get_block_state(self.door_pos);
             if is_instance_of(state, "DoorBlock") {
-                door_block::set_open_at(Some(mob.id()), level, state, self.door_pos, open);
+                level.expose(mob, |level| {
+                    door_block::set_open_at(Some(mob.id()), level, state, self.door_pos, open)
+                });
             }
         }
     }

@@ -82,7 +82,7 @@ impl ItemBehaviour for ArmorStandItem {
                 0.75,
                 0.8,
             );
-            level.game_event_from_entity(Some(player.id()), GameEvent::ENTITY_PLACE, p);
+            level.game_event_from_entity_ref(&*player, GameEvent::ENTITY_PLACE, p);
             context.item_stack.shrink(1);
             InteractionResult::SUCCESS
         } else {
@@ -148,8 +148,8 @@ impl ItemBehaviour for HangingEntityItem {
         let survives = survives_dyn(entity.as_ref(), level);
         if survives {
             play_placement_sound(entity.as_ref(), level);
-            level.game_event_from_entity(
-                Some(player.id()),
+            level.game_event_from_entity_ref(
+                &*player,
                 GameEvent::ENTITY_PLACE,
                 entity.base().position(),
             );
@@ -307,7 +307,7 @@ impl ItemBehaviour for CushionItem {
             0.75,
             0.8,
         );
-        level.game_event_from_entity(Some(player.id()), GameEvent::ENTITY_PLACE, entity_pos);
+        level.game_event_from_entity_ref(&*player, GameEvent::ENTITY_PLACE, entity_pos);
         super::ItemStackExt::consume(&mut context.item_stack, 1, player.has_infinite_materials());
         InteractionResult::SUCCESS
     }

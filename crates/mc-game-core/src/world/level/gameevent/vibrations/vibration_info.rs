@@ -45,7 +45,7 @@ impl VibrationInfo {
         self.entity.or_else(|| {
             self.source
                 .and_then(|uuid| level.get_entity_by_uuid(uuid))
-                .map(|e| super::capture_source_entity(level, e))
+                .map(|e| super::source_entity_info(level, e))
         })
     }
 
@@ -55,7 +55,7 @@ impl VibrationInfo {
             .and_then(|e| e.projectile_owner)
             .or(self.projectile_owner)
             .and_then(|uuid| level.get_entity_by_uuid(uuid))
-            .map(|e| super::capture_source_entity(level, e))
+            .map(|e| super::source_entity_info(level, e))
     }
 }
 

@@ -306,11 +306,19 @@ impl ServerLevel {
             update_limit,
         );
         if destroyed {
-            self.game_event_at_block(
-                GameEvent::BLOCK_DESTROY,
-                pos,
-                &GameEventContext::of(breaker, Some(block_state)),
-            );
+            match breaker_entity {
+                Some(entity) => self.game_event_from_entity_ref_in_state(
+                    entity,
+                    Some(block_state),
+                    GameEvent::BLOCK_DESTROY,
+                    Vec3::at_center_of(&pos),
+                ),
+                None => self.game_event_at_block(
+                    GameEvent::BLOCK_DESTROY,
+                    pos,
+                    &GameEventContext::of(breaker, Some(block_state)),
+                ),
+            }
         }
         destroyed
     }

@@ -191,7 +191,9 @@ impl BlockBehaviour for RespawnAnchorBlock {
         _hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         if stack.is(Item::GLOWSTONE) && can_be_charged(state) {
-            charge(Some(player.base_id()), level, pos, state);
+            level.expose(&*player, |level| {
+                charge(Some(player.base_id()), level, pos, state)
+            });
             let mut held = stack.clone();
             mc_game_core::world::item::ItemStackExt::consume(
                 &mut held,

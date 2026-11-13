@@ -5,10 +5,9 @@ use mc_data::GameEvent;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::stats::stats::Stats;
-use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_protocol::components::{BLOCK_ENTITY_DATA, JUKEBOX_PLAYABLE};
 
 pub struct JukeboxBlock;
@@ -84,10 +83,11 @@ impl BlockBehaviour for JukeboxBlock {
                     .is_some()
             });
             if found == Some(true) {
-                level.game_event_at_block(
+                level.game_event_from_entity_ref_in_state(
+                    &*player,
+                    Some(state),
                     GameEvent::BLOCK_CHANGE,
-                    pos,
-                    &GameEventContext::of(Some(player.id()), Some(state)),
+                    mc_core::phys::Vec3::at_center_of(&pos),
                 );
             }
             player.award_stat_once(&*level, Stats::PLAY_RECORD);

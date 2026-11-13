@@ -568,14 +568,20 @@ impl BlockItem {
             (sound_type.volume + 1.0) / 2.0,
             sound_type.pitch * 0.8,
         );
-        level.game_event(
-            GameEvent::BLOCK_PLACE,
-            mc_core::phys::Vec3::at_center_of(&pos),
-            &match player.as_deref() {
-                Some(player) => GameEventContext::of_entity_ref(level, player, Some(placed_state)),
-                None => GameEventContext::of_state(Some(placed_state)),
-            },
-        );
+        let center = mc_core::phys::Vec3::at_center_of(&pos);
+        match player.as_deref() {
+            Some(player) => level.game_event_from_entity_ref_in_state(
+                player,
+                Some(placed_state),
+                GameEvent::BLOCK_PLACE,
+                center,
+            ),
+            None => level.game_event(
+                GameEvent::BLOCK_PLACE,
+                center,
+                &GameEventContext::of_state(Some(placed_state)),
+            ),
+        }
         let infinite = player
             .as_deref()
             .is_some_and(|p| p.player.abilities.instabuild);
@@ -904,11 +910,18 @@ impl DispensibleContainerItem for BlockItem {
         }
         level.set_block_and_update(pos, self.block.default_state());
         let user_id = user.map(|u| u.id());
-        level.game_event(
-            GameEvent::FLUID_PLACE,
-            Vec3::at_center_of(&pos),
-            &GameEventContext::of_entity(user_id),
-        );
+        match user {
+            Some(user) => level.game_event_from_entity_ref(
+                user,
+                GameEvent::FLUID_PLACE,
+                Vec3::at_center_of(&pos),
+            ),
+            None => level.game_event(
+                GameEvent::FLUID_PLACE,
+                Vec3::at_center_of(&pos),
+                &GameEventContext::of_entity(None),
+            ),
+        }
         level.play_sound(user_id, pos, sound, SoundSource::Blocks, 1.0, 1.0);
         true
     }

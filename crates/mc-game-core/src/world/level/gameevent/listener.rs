@@ -1,14 +1,14 @@
 use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, EntityId};
+use crate::world::entity::EntityId;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::GameEvent;
 use mc_data::block::BlockState;
 use uuid::Uuid;
 
-/// What the vibration system reads from `GameEvent.Context.sourceEntity()` (vanilla keeps the entity object; here the
-/// entity may be out of the level's slot while it ticks, so the facts are captured when the context is built, see
-/// `vibrations::capture_source_entity`).
+/// What the vibration system reads from `GameEvent.Context.sourceEntity()`. Vanilla keeps the entity object, which a
+/// delayed vibration still reads after the entity was removed, so the facts are read from the visible entity (stored
+/// or lent, see `ServerLevel::expose`) when a vibration is scheduled and kept with it (`vibrations::source_entity_info`).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct SourceEntityInfo {
     /// `getId()`.
@@ -34,7 +34,7 @@ pub struct SourceEntityInfo {
 pub struct GameEventContext {
     pub source_entity: Option<EntityId>,
     pub affected_state: Option<BlockState>,
-    /// Captured facts of `source_entity` (see [`SourceEntityInfo`]); `None` = resolve through the level when needed.
+    /// Facts a delayed vibration carries from the entity it saw; `None` = read the entity through the level.
     pub source_info: Option<SourceEntityInfo>,
 }
 
@@ -58,25 +58,6 @@ impl GameEventContext {
             source_entity,
             affected_state: state,
             source_info: None,
-        }
-    }
-    /// `Context.of(entity, state)` with the entity's facts captured (the entity may be out of the level's slot).
-    pub fn of_entity_ref(
-        level: &ServerLevel,
-        entity: &dyn Entity,
-        state: Option<BlockState>,
-    ) -> Self {
-        Self {
-            affected_state: state,
-            ..Self::of_captured(super::vibrations::capture_source_entity(level, entity))
-        }
-    }
-    /// `Context.of(entity)` with the entity's facts captured.
-    pub fn of_captured(info: SourceEntityInfo) -> Self {
-        Self {
-            source_entity: Some(info.id),
-            affected_state: None,
-            source_info: Some(info),
         }
     }
 }
@@ -134,16 +115,9 @@ pub trait GameEventListener {
 
 /// `handleGameEvent` of a block entity listener. Block entities stay in their chunk while they listen (their logic
 /// changes the block, whose neighbours read the block entity again, e.g. comparators reading a sculk sensor), so the
-/// handler is a function of the level and the block entity position instead of a method of the taken-out entity. The
-/// last argument is the source entity itself when it is at hand (`ENTITY_DIE`).
-pub type BlockEntityGameEventHandler = fn(
-    &mut ServerLevel,
-    BlockPos,
-    GameEvent,
-    &GameEventContext,
-    Vec3,
-    Option<&mut dyn crate::world::entity::Entity>,
-) -> bool;
+/// handler is a function of the level and the block entity position instead of a method of the taken-out entity.
+pub type BlockEntityGameEventHandler =
+    fn(&mut ServerLevel, BlockPos, GameEvent, &GameEventContext, Vec3) -> bool;
 
 /// `EntityBlock.getListener(level, blockEntity)`: the `GameEventListener` of a block entity.
 #[derive(Clone, Copy)]

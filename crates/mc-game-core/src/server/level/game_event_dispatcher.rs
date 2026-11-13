@@ -3,13 +3,14 @@
 
 use super::ServerLevel;
 use crate::world::entity::{Entity, EntityId};
-use crate::world::level::gameevent::vibrations::capture_source_entity;
+use crate::world::level::gameevent::vibrations::source_entity_info;
 use crate::world::level::gameevent::{
     DeliveryMode, GameEventContext, ListenerOwner, RegisteredListener,
 };
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::GameEvent;
+use mc_data::block::BlockState;
 use uuid::Uuid;
 
 impl ServerLevel {
@@ -23,7 +24,8 @@ impl ServerLevel {
         self.post_game_event(event, Vec3::at_center_of(&pos), context);
     }
 
-    /// `gameEvent(sourceEntity, event, pos)`.
+    /// `gameEvent(sourceEntity, event, pos)` for a source that is visible to the level (stored). The entity whose code
+    /// is running goes through [`game_event_from_entity_ref`](Self::game_event_from_entity_ref).
     pub fn game_event_from_entity(
         &mut self,
         source: Option<EntityId>,
@@ -33,28 +35,47 @@ impl ServerLevel {
         self.post_game_event(event, position, &GameEventContext::of_entity(source));
     }
 
-    /// `gameEvent(sourceEntity, event, pos)` with the source entity at hand: its facts for the vibration system are
-    /// captured (the entity may be out of the level's slot, e.g. while it ticks).
+    /// `gameEvent(sourceEntity, event, pos)` with the source entity at hand (the entity whose code is running is out
+    /// of the level's slot): it is exposed to the listeners for the call.
     pub fn game_event_from_entity_ref(
         &mut self,
         entity: &dyn Entity,
         event: GameEvent,
         position: Vec3,
     ) {
-        let context = GameEventContext::of_captured(capture_source_entity(self, entity));
-        self.post_game_event(event, position, &context);
+        self.game_event_from_entity_ref_in_state(entity, None, event, position);
     }
 
-    /// Like [`game_event_from_entity_ref`](Self::game_event_from_entity_ref) for listeners that act on the source entity
-    /// itself (`ENTITY_DIE` listened to by sculk catalysts): the listeners get the entity.
+    /// `gameEvent(event, pos, Context.of(entity, state))` with the source entity at hand.
+    pub fn game_event_from_entity_ref_in_state(
+        &mut self,
+        entity: &dyn Entity,
+        state: Option<BlockState>,
+        event: GameEvent,
+        position: Vec3,
+    ) {
+        let mut context = GameEventContext::of(Some(entity.id()), state);
+        self.expose(entity, |level| {
+            // a removed or not yet added entity is invisible to the level, vanilla's context still holds the object
+            if level.get_entity(entity.id()).is_none() {
+                context.source_info = Some(source_entity_info(level, entity));
+            }
+            level.post_game_event(event, position, &context);
+        });
+    }
+
+    /// [`game_event_from_entity_ref`](Self::game_event_from_entity_ref) for the listeners that act on the source entity
+    /// itself (`ENTITY_DIE` listened to by sculk catalysts): it is lent, so they re-enter it with `with_entity`.
     pub fn game_event_from_live_entity(
         &mut self,
         entity: &mut dyn Entity,
         event: GameEvent,
         position: Vec3,
     ) {
-        let context = GameEventContext::of_captured(capture_source_entity(self, entity));
-        self.post_game_event_with(event, position, &context, Some(entity));
+        let context = GameEventContext::of_entity(Some(entity.id()));
+        self.lend(entity, |level| {
+            level.post_game_event(event, position, &context);
+        });
     }
 
     /// `GameEventDispatcher.post(event, position, context)`.
@@ -64,17 +85,7 @@ impl ServerLevel {
         position: Vec3,
         context: &GameEventContext,
     ) {
-        self.post_game_event_with(event, position, context, None);
-    }
-
-    /// `post` with the live source entity (see [`game_event_from_live_entity`](Self::game_event_from_live_entity)).
-    pub fn post_game_event_with(
-        &mut self,
-        event: GameEvent,
-        position: Vec3,
-        context: &GameEventContext,
-        mut live: Option<&mut dyn Entity>,
-    ) {
+        self.note_unlent_event_source(event, context);
         let radius = event.data().notification_radius;
         let center = BlockPos::containing_position(&position);
         let section_min_x = (center.x() - radius) >> 4;
@@ -109,13 +120,7 @@ impl ServerLevel {
                             section,
                             listener.owner,
                         ) {
-                            self.deliver_game_event(
-                                listener.owner,
-                                event,
-                                context,
-                                position,
-                                live.as_deref_mut(),
-                            );
+                            self.deliver_game_event(listener.owner, event, context, position);
                         }
                     }
                 }
@@ -124,13 +129,7 @@ impl ServerLevel {
         // `Collections.sort` is stable: equal distances keep visiting order.
         to_handle_by_distance.sort_by(|a, b| a.0.total_cmp(&b.0));
         for (_, listener) in to_handle_by_distance {
-            self.deliver_game_event(
-                listener.owner,
-                event,
-                context,
-                position,
-                live.as_deref_mut(),
-            );
+            self.deliver_game_event(listener.owner, event, context, position);
         }
     }
 
@@ -154,7 +153,6 @@ impl ServerLevel {
         event: GameEvent,
         context: &GameEventContext,
         position: Vec3,
-        live: Option<&mut dyn Entity>,
     ) {
         match owner {
             ListenerOwner::BlockEntity(pos) => {
@@ -163,7 +161,7 @@ impl ServerLevel {
                     .and_then(|block_entity| block_entity.game_event_listener())
                     .map(|listener| listener.handle);
                 if let Some(handle) = handler {
-                    handle(self, pos, event, context, position, live);
+                    handle(self, pos, event, context, position);
                 }
             }
             ListenerOwner::Entity(id) => {

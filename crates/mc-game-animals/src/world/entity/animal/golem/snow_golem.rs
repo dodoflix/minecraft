@@ -24,7 +24,6 @@ use mc_game_core::world::entity::projectile::throwableitemprojectile::snowball::
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, hurt_and_break};
 use mc_game_core::world::level::block::BlockStateExt as _;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::{BlockGetter as _, LevelAccessor as _};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::SoundSource;
@@ -140,10 +139,11 @@ impl Entity for SnowGolem {
             let snow_pos = BlockPos::new(xx, yy, zz);
             if level.get_block_state(snow_pos).is_air() && snow.can_survive(level, snow_pos) {
                 level.set_block_and_update(snow_pos, snow);
-                level.game_event_at_block(
+                level.game_event_from_entity_ref_in_state(
+                    &*self,
+                    Some(snow),
                     GameEvent::BLOCK_PLACE,
-                    snow_pos,
-                    &GameEventContext::of(Some(self.id()), Some(snow)),
+                    mc_core::phys::Vec3::at_center_of(&snow_pos),
                 );
             }
         }
@@ -184,7 +184,7 @@ impl Entity for SnowGolem {
         let item_stack = player.get_item_in_hand(hand);
         if item_stack.is(Item::SHEARS) && self.ready_for_shearing() {
             self.shear(level, SoundSource::Players, &item_stack);
-            level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, self.position());
+            level.game_event_from_entity_ref(&*player, GameEvent::SHEAR, self.position());
             mob::interact::with_hand_stack(player, hand, |s, p| {
                 hurt_and_break(s, 1, level, p, hand.as_equipment_slot())
             });

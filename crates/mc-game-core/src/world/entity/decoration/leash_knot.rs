@@ -235,8 +235,8 @@ impl Entity for LeashFenceKnotEntity {
         if !attached_mob && !any_dropped {
             entity_interact(self, level, player, hand)
         } else {
-            level.game_event_from_entity(
-                Some(player.id()),
+            level.game_event_from_entity_ref(
+                &*player,
                 GameEvent::BLOCK_ATTACH,
                 self.base.position(),
             );

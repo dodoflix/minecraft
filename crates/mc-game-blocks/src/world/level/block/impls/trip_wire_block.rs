@@ -156,16 +156,14 @@ impl BlockBehaviour for TripWireBlock {
         pos: BlockPos,
         player: &mut mc_game_core::world::entity::ServerPlayer,
     ) -> BlockState {
-        use mc_game_core::world::entity::Entity as _;
         let held = player.get_item_in_hand(mc_game_core::world::item::InteractionHand::MainHand);
         if !held.is_empty() && held.is(mc_data::Item::SHEARS) {
             level.set_block_flags(pos, state.set(props::DISARMED, true), 260);
-            level.game_event_at_block(
+            level.game_event_from_entity_ref_in_state(
+                &*player,
+                None,
                 mc_data::GameEvent::SHEAR,
-                pos,
-                &mc_game_core::world::level::gameevent::GameEventContext::of_entity(Some(
-                    player.id(),
-                )),
+                mc_core::phys::Vec3::at_center_of(&pos),
             );
         }
         mc_game_core::server::level::block_break::player_will_destroy(level, pos, state, player)

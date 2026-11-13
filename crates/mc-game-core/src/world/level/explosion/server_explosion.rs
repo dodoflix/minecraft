@@ -402,7 +402,12 @@ impl<'a> ServerExplosion<'a> {
         level: &mut ServerLevel,
         participants: &mut [&mut dyn Entity],
     ) -> usize {
-        level.game_event_from_entity(self.source.map(|s| s.id()), GameEvent::EXPLODE, self.center);
+        match self.source {
+            Some(source) => {
+                level.game_event_from_entity_ref(source, GameEvent::EXPLODE, self.center);
+            }
+            None => level.game_event_from_entity(None, GameEvent::EXPLODE, self.center),
+        }
         let mut to_blow = self.calculate_exploded_positions(level);
         self.hurt_entities(level, participants);
         if self.interacts_with_blocks() {

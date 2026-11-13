@@ -5,7 +5,6 @@ use crate::stats::stat::Stat;
 use crate::stats::stats::Stats;
 use crate::world::entity::ServerPlayer;
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
-use crate::world::level::gameevent::GameEventContext;
 use mc_data::{GameEvent, SoundEvent};
 use mc_protocol::packets::play::level::SoundSource;
 
@@ -32,19 +31,21 @@ pub fn eat(
     player.award_stat_once(level, Stats::EAT_CAKE_SLICE);
     player.player.food_data.eat(2, 0.1);
     let bites = state.get(props::BITES);
-    level.game_event_at_block(
+    level.game_event_from_entity_ref_in_state(
+        &*player,
+        None,
         GameEvent::EAT,
-        pos,
-        &GameEventContext::of_entity(Some(player.base_id())),
+        mc_core::phys::Vec3::at_center_of(&pos),
     );
     if bites < 6 {
         level.set_block_and_update(pos, state.set(props::BITES, bites + 1));
     } else {
         level.remove_block(pos, false);
-        level.game_event_at_block(
+        level.game_event_from_entity_ref_in_state(
+            &*player,
+            None,
             GameEvent::BLOCK_DESTROY,
-            pos,
-            &GameEventContext::of_entity(Some(player.base_id())),
+            mc_core::phys::Vec3::at_center_of(&pos),
         );
     }
     InteractionResult::SUCCESS
@@ -83,10 +84,11 @@ impl BlockBehaviour for CakeBlock {
                 if let Some(candle_cake) = super::candle_cake_block::by_candle(candle) {
                     level.set_block_and_update(pos, candle_cake);
                 }
-                level.game_event_at_block(
+                level.game_event_from_entity_ref_in_state(
+                    &*player,
+                    None,
                     GameEvent::BLOCK_CHANGE,
-                    pos,
-                    &GameEventContext::of_entity(Some(player.base_id())),
+                    mc_core::phys::Vec3::at_center_of(&pos),
                 );
                 player.award_stat_once(level, Stat::Used(item));
                 InteractionResult::SUCCESS

@@ -126,7 +126,9 @@ impl BlockBehaviour for BellBlock {
         player: &mut ServerPlayer,
         hit: &BlockHitResult,
     ) -> InteractionResult {
-        let (proper, did_ring) = on_hit(level, state, hit, Some(player.base_id()), true);
+        let (proper, did_ring) = level.expose(&*player, |level| {
+            on_hit(level, state, hit, Some(player.base_id()), true)
+        });
         if did_ring {
             player.award_stat_once(level, Stats::BELL_RING);
         }

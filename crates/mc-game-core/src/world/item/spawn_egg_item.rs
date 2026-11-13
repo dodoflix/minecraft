@@ -9,9 +9,8 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::entity::spawn_config::{apply_default_stack_config, spawn_at};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
+use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -71,10 +70,10 @@ fn spawn_mob(
         return InteractionResult::FAIL;
     }
     stack.consume(1, user.player.abilities.instabuild);
-    level.game_event(
+    level.game_event_from_entity_ref(
+        user,
         GameEvent::ENTITY_PLACE,
         Vec3::at_center_of(&spawn_pos),
-        &GameEventContext::of_entity(Some(user.base_id())),
     );
     InteractionResult::SUCCESS
 }
@@ -147,10 +146,10 @@ fn spawner_use_on(
         }
     });
     level.send_block_updated(pos, block_state, block_state, 3);
-    level.game_event_at_block(
+    level.game_event_from_entity_ref(
+        &*player,
         GameEvent::BLOCK_CHANGE,
-        pos,
-        &GameEventContext::of_entity(Some(player.base_id())),
+        mc_core::phys::Vec3::at_center_of(&pos),
     );
     context.item_stack.shrink(1);
     InteractionResult::SUCCESS

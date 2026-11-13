@@ -14,7 +14,6 @@ use crate::world::level::LevelAccessor;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::helpers::is_instance_of;
 use crate::world::level::block::impls::campfire_block::CampfireBlock;
-use crate::world::level::gameevent::GameEventContext;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
@@ -269,7 +268,6 @@ fn release_occupant(
     let Some(entity) = create_entity(level, occupant) else {
         return false;
     };
-    let id = entity.id();
     level.play_sound(
         None,
         pos,
@@ -278,10 +276,12 @@ fn release_occupant(
         1.0,
         1.0,
     );
-    level.game_event_at_block(
+    let state = level.get_block_state(pos);
+    level.game_event_from_entity_ref_in_state(
+        &*entity,
+        Some(state),
         GameEvent::BLOCK_CHANGE,
-        pos,
-        &GameEventContext::of(Some(id), Some(level.get_block_state(pos))),
+        mc_core::phys::Vec3::at_center_of(&pos),
     );
     level.add_fresh_entity(entity)
 }

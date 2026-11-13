@@ -111,15 +111,21 @@ impl ButtonBlock {
             level.set_block_and_update(pos, state.set(props::POWERED, should_be_pressed));
             update_neighbours(state, level, pos);
             self.play_sound(None, level, pos, should_be_pressed);
-            level.game_event_at_block(
-                if should_be_pressed {
-                    GameEvent::BLOCK_ACTIVATE
-                } else {
-                    GameEvent::BLOCK_DEACTIVATE
-                },
-                pos,
-                &GameEventContext::of_entity(first_arrow),
-            );
+            let emit = |level: &mut ServerLevel| {
+                level.game_event_at_block(
+                    if should_be_pressed {
+                        GameEvent::BLOCK_ACTIVATE
+                    } else {
+                        GameEvent::BLOCK_DEACTIVATE
+                    },
+                    pos,
+                    &GameEventContext::of_entity(first_arrow),
+                )
+            };
+            match inside {
+                Some(entity) => level.expose(entity, emit),
+                None => emit(level),
+            }
         }
         if should_be_pressed {
             level.schedule_tick_block(pos, state.block(), self.ticks_to_stay_pressed);
@@ -161,7 +167,9 @@ impl BlockBehaviour for ButtonBlock {
         if state.get(props::POWERED) {
             InteractionResult::CONSUME
         } else {
-            self.press(state, level, pos, Some(player.id()));
+            level.expose(&*player, |level| {
+                self.press(state, level, pos, Some(player.id()))
+            });
             InteractionResult::SUCCESS
         }
     }

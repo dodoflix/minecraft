@@ -8,13 +8,12 @@ use mc_data::{GameEvent, Item, SoundEvent};
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::stats::Stat;
-use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::inventory::Prediction;
 use mc_game_core::world::item::{
     BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, ItemStackExt,
 };
 use mc_game_core::world::level::block::impls::prelude::*;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_protocol::packets::play::level::SoundSource;
 
 pub struct ChiseledBookShelfBlock;
@@ -72,10 +71,11 @@ fn remove_book(level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer
     if !player.player.inventory.add(&mut retrieved, infinite) {
         player.drop(level, retrieved, false, Prediction::ServerOnly);
     }
-    level.game_event_at_block(
+    level.game_event_from_entity_ref_in_state(
+        &*player,
+        None,
         GameEvent::BLOCK_CHANGE,
-        pos,
-        &GameEventContext::of_entity(Some(player.id())),
+        mc_core::phys::Vec3::at_center_of(&pos),
     );
 }
 

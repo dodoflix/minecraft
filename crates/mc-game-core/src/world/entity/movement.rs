@@ -12,7 +12,6 @@ use crate::world::level::block::BlockStateExt;
 use crate::world::level::collision::{
     BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext, CollisionGetter,
 };
-use crate::world::level::gameevent::GameEventContext;
 use mc_core::direction::Axis;
 use mc_core::math::mth;
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
@@ -726,8 +725,12 @@ fn vibration_and_sound_effects_from_block(
         }
         if should_vibrate {
             let position = entity.base().position();
-            let context = GameEventContext::of_entity_ref(level, &*entity, Some(block_state));
-            level.post_game_event(mc_data::GameEvent::STEP, position, &context);
+            level.game_event_from_entity_ref_in_state(
+                &*entity,
+                Some(block_state),
+                mc_data::GameEvent::STEP,
+                position,
+            );
         }
         true
     } else {

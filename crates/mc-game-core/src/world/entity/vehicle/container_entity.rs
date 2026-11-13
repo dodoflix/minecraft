@@ -332,8 +332,8 @@ pub trait ContainerEntity: Entity {
     ) -> InteractionResult {
         let result = self.interact_with_container_vehicle(level, player);
         if result.consumes_action() {
-            level.game_event_from_entity(
-                Some(player.id()),
+            level.game_event_from_entity_ref(
+                &*player,
                 GameEvent::CONTAINER_OPEN,
                 self.base().position(),
             );

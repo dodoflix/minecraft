@@ -9,7 +9,6 @@ use crate::world::item::{
     InteractionHand, InteractionResult, ItemStack, ItemStackExt, behaviour as item_behaviour,
 };
 use crate::world::level::block::rotation_segment;
-use crate::world::level::gameevent::GameEventContext;
 use mc_core::phys::Vec3;
 use mc_data::GameEvent;
 use mc_protocol::packets::play::ClientboundOpenSignEditorPacket;
@@ -94,10 +93,11 @@ pub fn use_item_on(
                 {
                     sign.execute_click_commands_if_present(level, player, pos, slot);
                     player.award_stat_once(level, crate::stats::Stat::Used(stack.item()));
-                    level.game_event_at_block(
+                    level.game_event_from_entity_ref_in_state(
+                        &*player,
+                        Some(sign.get_block_state()),
                         GameEvent::BLOCK_CHANGE,
-                        sign.get_block_pos(),
-                        &GameEventContext::of(Some(player.base_id()), Some(sign.get_block_state())),
+                        mc_core::phys::Vec3::at_center_of(&sign.get_block_pos()),
                     );
                     let mut held = stack.clone();
                     held.consume(1, player.player.abilities.instabuild);

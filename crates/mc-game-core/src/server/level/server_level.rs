@@ -74,10 +74,6 @@ pub struct ServerLevel {
         Option<std::collections::HashMap<EntityId, Box<dyn crate::world::entity::Entity>>>,
     /// Snapshots of the players that are currently taken out of the entity storage (see `tracker_players`).
     pub(super) taken_out_players: std::collections::HashMap<EntityId, super::TrackerPlayer>,
-    /// The vibration-source facts of the players that are currently taken out (`GameEvent.Context.sourceEntity()` of
-    /// events the player causes while it is handled).
-    pub(crate) taken_out_player_sources:
-        std::collections::HashMap<EntityId, crate::world::level::gameevent::SourceEntityInfo>,
     /// `registryAccess()`: the server's registries (damage types, enchantments, tags, ...). Empty until the level
     /// factory installs them (`detached` levels stay empty).
     pub registries: crate::registry::RegistryAccess,
@@ -183,7 +179,6 @@ impl ServerLevel {
             loading_entity: None,
             removed_entities: None,
             taken_out_players: Default::default(),
-            taken_out_player_sources: Default::default(),
             registries: Default::default(),
             chunk_source,
             shared: params.shared,

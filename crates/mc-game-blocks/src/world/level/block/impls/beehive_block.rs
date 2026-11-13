@@ -14,7 +14,6 @@ use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionR
 use mc_game_core::world::level::block::impls::campfire_block::CampfireBlock;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::explosion::{Explosion, default_on_explosion_hit};
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::storage::loot::block_drops::block_interact_drops;
 use mc_game_core::{register_block_class, update_shape};
 use mc_protocol::packets::play::level::SoundSource;
@@ -128,10 +127,11 @@ impl BlockBehaviour for BeehiveBlock {
                 );
                 player.set_item_in_hand(hand, held);
                 hive_emptied = true;
-                level.game_event(
+                level.game_event_from_entity_ref_in_state(
+                    &*player,
+                    None,
                     GameEvent::SHEAR,
                     Vec3::at_center_of(&pos),
-                    &GameEventContext::of(Some(player.base_id()), None),
                 );
             } else if stack.is(Item::GLASS_BOTTLE) {
                 held.shrink(1);
@@ -161,10 +161,11 @@ impl BlockBehaviour for BeehiveBlock {
                     }
                 }
                 hive_emptied = true;
-                level.game_event(
+                level.game_event_from_entity_ref_in_state(
+                    &*player,
+                    None,
                     GameEvent::FLUID_PICKUP,
                     Vec3::at_center_of(&pos),
-                    &GameEventContext::of(Some(player.base_id()), None),
                 );
             }
             if hive_emptied {

@@ -4,7 +4,6 @@ use crate::world::entity::Entity;
 use crate::world::item::{InteractionResult, ItemStack};
 use crate::world::level::LevelAccessor;
 use crate::world::level::block::helpers;
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::storage::loot::block_drops::block_interact_drops;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
@@ -51,10 +50,11 @@ pub fn use_(
     );
     let new_state = state.set(props::BERRIES, false);
     level.set_block_flags(pos, new_state, 2);
-    level.game_event_at_block(
+    level.game_event_from_entity_ref_in_state(
+        source_entity,
+        Some(new_state),
         GameEvent::BLOCK_CHANGE,
-        pos,
-        &GameEventContext::of(Some(source_entity.id()), Some(new_state)),
+        mc_core::phys::Vec3::at_center_of(&pos),
     );
     InteractionResult::SUCCESS
 }

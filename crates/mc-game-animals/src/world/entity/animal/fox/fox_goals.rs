@@ -25,7 +25,6 @@ use mc_game_core::world::entity::mob::{
 };
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::level::LevelReader;
-use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::level_access::{BlockGetter, LevelAccessor as _};
 use std::sync::Arc;
 
@@ -497,10 +496,11 @@ impl FoxEatBerriesGoal {
         );
         let new_state = state.set(props::AGE_3, 1);
         level.set_block_flags(block_pos, new_state, 2);
-        level.game_event_at_block(
+        level.game_event_from_entity_ref_in_state(
+            &*mob,
+            None,
             GameEvent::BLOCK_CHANGE,
-            block_pos,
-            &GameEventContext::of(Some(mob.id()), None),
+            mc_core::phys::Vec3::at_center_of(&block_pos),
         );
     }
 }

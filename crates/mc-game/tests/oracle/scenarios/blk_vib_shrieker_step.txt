@@ -1,0 +1,13 @@
+# SculkShriekerBlock.stepOn by a walking player: the shrieker shrieks for the player and raises the player's warden warning level; a second
+# step right after is on cooldown. The shriek is a vibration whose source is the player.
+level flat
+preload 3
+level_seed 12
+spawn_player Walker survival -1.5 -60 -6.5 0 0 sim
+block -2 -60 -4 minecraft:sculk_shrieker[can_summon=true]
+tick 20
+input Walker forward
+watch be:-2,-60,-4 blocks:-2,-60,-4,-2,-60,-4
+tick 30
+watch off
+dump be:-2,-60,-4 blocks:-2,-60,-4,-2,-60,-4 nbt:Walker events ticks

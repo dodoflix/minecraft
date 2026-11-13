@@ -269,7 +269,7 @@ impl Entity for LightningBolt {
             self.power_lightning_rod(level);
             clear_copper_on_lightning_strike(level, self.get_strike_position());
             let position = self.base.position();
-            level.game_event_from_entity(Some(self.base.id), GameEvent::LIGHTNING_STRIKE, position);
+            level.game_event_from_entity_ref(&*self, GameEvent::LIGHTNING_STRIKE, position);
         }
         self.life -= 1;
         if self.life < 0 {
@@ -293,10 +293,13 @@ impl Entity for LightningBolt {
                 p.y + 6.0 + DAMAGE_RADIUS,
                 p.z + DAMAGE_RADIUS,
             );
-            let entities = level.get_entities(Some(self.base.id), &area, |e| e.is_alive());
-            for &id in &entities {
-                level.with_entity(id, |level, e| e.thunder_hit_by(level, self));
-            }
+            let entities = level.expose(&*self, |level| {
+                let entities = level.get_entities(Some(self.base.id), &area, |e| e.is_alive());
+                for &id in &entities {
+                    level.with_entity(id, |level, e| e.thunder_hit_by(level, self));
+                }
+                entities
+            });
             self.hit_entities.extend(entities.iter().copied());
             if let Some(cause) = self.cause {
                 let matches = {

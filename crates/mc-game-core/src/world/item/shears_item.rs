@@ -6,7 +6,6 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::level::block::{BlockStateExt, helpers};
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -72,10 +71,11 @@ impl ItemBehaviour for ShearsItem {
             );
             let new_state = state.set(props::AGE_25, MAX_AGE);
             level.set_block_and_update(pos, new_state);
-            level.game_event(
+            level.game_event_from_entity_ref_in_state(
+                &*player,
+                Some(new_state),
                 GameEvent::BLOCK_CHANGE,
                 Vec3::at_center_of(&pos),
-                &GameEventContext::of(player_id, Some(new_state)),
             );
             hurt_and_break(
                 &mut context.item_stack,

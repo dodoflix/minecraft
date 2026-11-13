@@ -8,7 +8,6 @@ use crate::world::block_entity::sign_block_entity::{SignBlockEntity, SignText, S
 use crate::world::entity::ServerPlayer;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::chest_block;
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::phys::Vec3;
 use mc_data::block::{Block, BlockState};
@@ -110,10 +109,11 @@ impl ItemBehaviour for HoneycombItem {
         );
         context.item_stack.shrink(1);
         level.set_block_flags(pos, waxed_state, 11);
-        level.game_event(
+        level.game_event_from_entity_ref_in_state(
+            &*player,
+            Some(waxed_state),
             GameEvent::BLOCK_CHANGE,
             Vec3::at_center_of(&pos),
-            &GameEventContext::of(player_id, Some(waxed_state)),
         );
         level.level_event(player_id, 3003, pos, 0);
         level.play_sound(
@@ -129,10 +129,11 @@ impl ItemBehaviour for HoneycombItem {
         {
             let neighbor_pos = pos.relative(chest_block::get_connected_direction(old_state));
             let neighbor_state = level.get_block_state(neighbor_pos);
-            level.game_event(
+            level.game_event_from_entity_ref_in_state(
+                &*player,
+                Some(neighbor_state),
                 GameEvent::BLOCK_CHANGE,
                 Vec3::at_center_of(&neighbor_pos),
-                &GameEventContext::of(player_id, Some(neighbor_state)),
             );
             level.level_event(player_id, 3003, neighbor_pos, 0);
             level.play_sound(

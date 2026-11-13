@@ -3000,8 +3000,8 @@ pub trait Entity: Any {
             self.hurt_server(level, &source, f32::MAX);
         } else {
             level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
-            level.game_event_from_entity(
-                Some(self.id()),
+            level.game_event_from_entity_ref(
+                self.as_dyn(),
                 mc_data::GameEvent::ENTITY_DIE,
                 self.position(),
             );
@@ -4758,15 +4758,11 @@ pub fn check_fall_damage_base(
                 Some(p) => level.get_block_state(p),
                 None => on_state,
             };
-            let context = crate::world::level::gameevent::GameEventContext::of_entity_ref(
-                level,
+            level.game_event_from_entity_ref_in_state(
                 &*this,
                 Some(ctx_state),
-            );
-            level.post_game_event(
                 mc_data::GameEvent::HIT_GROUND,
                 this.base().position(),
-                &context,
             );
         }
         this.reset_fall_distance();

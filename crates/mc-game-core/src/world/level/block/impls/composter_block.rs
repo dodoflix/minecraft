@@ -58,11 +58,19 @@ fn add_layer(
         let new_level = (fill_level + layers).clamp(0, MAX_LEVEL);
         let new_state = state.set(props::LEVEL_COMPOSTER, new_level);
         level.set_block_and_update(pos, new_state);
-        level.game_event_at_block(
-            GameEvent::BLOCK_CHANGE,
-            pos,
-            &GameEventContext::of(source.map(|e| e.id()), Some(new_state)),
-        );
+        match source {
+            Some(source) => level.game_event_from_entity_ref_in_state(
+                source,
+                Some(new_state),
+                GameEvent::BLOCK_CHANGE,
+                Vec3::at_center_of(&pos),
+            ),
+            None => level.game_event_at_block(
+                GameEvent::BLOCK_CHANGE,
+                pos,
+                &GameEventContext::of(None, Some(new_state)),
+            ),
+        }
         if new_level == 7 {
             level.schedule_tick_block(pos, state.block(), 20);
         }
@@ -348,7 +356,9 @@ impl BlockBehaviour for ComposterBlock {
         _hit: &BlockHitResult,
     ) -> InteractionResult {
         if state.get(props::LEVEL_COMPOSTER) == READY {
-            extract_produce(Some(player.id()), state, level, pos);
+            level.expose(&*player, |level| {
+                extract_produce(Some(player.id()), state, level, pos)
+            });
             InteractionResult::SUCCESS
         } else {
             InteractionResult::PASS

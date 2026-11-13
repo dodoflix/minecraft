@@ -128,7 +128,7 @@ impl ServerLevel {
             }
         };
         if send_event_and_triggers {
-            self.game_event_from_entity(Some(rider_id), GameEvent::ENTITY_MOUNT, position);
+            self.game_event_from_entity_ref(&*rider, GameEvent::ENTITY_MOUNT, position);
             self.trigger_start_riding(rider, &passengers);
         }
         // `Mob.startRiding`: a leashed mob drops its leash when it starts riding
@@ -204,7 +204,7 @@ impl ServerLevel {
             .is_none_or(|r| r.should_destroy())
             && let Some(p) = vehicle_position
         {
-            self.game_event_from_entity(Some(rider_id), GameEvent::ENTITY_DISMOUNT, p);
+            self.game_event_from_entity_ref(&*rider, GameEvent::ENTITY_DISMOUNT, p);
         }
         if rider.is_player() {
             rider.base_mut().boarding_cooldown = 0;

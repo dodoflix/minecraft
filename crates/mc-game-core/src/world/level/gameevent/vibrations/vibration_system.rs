@@ -228,18 +228,16 @@ fn state_is_tag(state: mc_data::block::BlockState, tag: &str) -> bool {
     state.block().is_in_tag(tag)
 }
 
-/// `context.sourceEntity()`: the captured facts, else the entity as the level has it right now.
+/// `context.sourceEntity()`: the facts a delayed vibration carries, else the entity as the level has it right now
+/// (stored or lent by the code that acts).
 pub fn resolve_source_entity(
     level: &ServerLevel,
     context: &GameEventContext,
 ) -> Option<SourceEntityInfo> {
     context.source_info.or_else(|| {
-        let id = context.source_entity?;
-        match level.get_entity(id) {
-            Some(entity) => Some(super::capture_source_entity(level, entity)),
-            // a player that is being handled is out of the level's entity storage
-            None => level.taken_out_player_sources.get(&id).copied(),
-        }
+        level
+            .get_entity(context.source_entity?)
+            .map(|entity| super::source_entity_info(level, entity))
     })
 }
 

@@ -126,6 +126,13 @@ pub trait MenuPlayer {
     fn level(&mut self) -> Option<&mut ServerLevel> {
         None
     }
+    /// Runs `f` with the player's level while the player itself is visible to it (the real player runs outside the
+    /// level's entity storage); nothing for level-less test players.
+    fn with_level_seen(&mut self, f: &mut dyn FnMut(&mut ServerLevel)) {
+        if let Some(level) = self.level() {
+            f(level);
+        }
+    }
     /// `player.experienceLevel`.
     fn experience_level(&self) -> i32 {
         0

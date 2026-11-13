@@ -64,7 +64,7 @@ impl ServerPlayer {
             if let Some(Some((result, position))) = result
                 && result.consumes_action()
             {
-                level.game_event_from_entity(Some(self.id()), GameEvent::ENTITY_INTERACT, position);
+                level.game_event_from_entity_ref(&*self, GameEvent::ENTITY_INTERACT, position);
                 if !infinite {
                     let emptied = stack.is_empty();
                     self.set_item_in_hand(hand, if emptied { ItemStack::empty() } else { stack });

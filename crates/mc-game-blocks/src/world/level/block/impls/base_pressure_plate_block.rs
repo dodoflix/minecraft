@@ -4,7 +4,7 @@ use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_data::GameEvent;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::Entity;
 use mc_game_core::world::level::block::block_set_type::{BlockSetType, PressurePlateSensitivity};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::gameevent::GameEventContext;
@@ -125,7 +125,6 @@ impl BasePressurePlateBlock {
         state: BlockState,
         old_signal: i32,
     ) {
-        let source_entity: Option<EntityId> = inside.map(|e| e.id());
         let signal = self.get_signal_strength(level, pos, inside);
         let was_pressed = old_signal > 0;
         let is_pressed = signal > 0;
@@ -143,11 +142,7 @@ impl BasePressurePlateBlock {
                 1.0,
                 1.0,
             );
-            level.game_event_at_block(
-                GameEvent::BLOCK_DEACTIVATE,
-                pos,
-                &GameEventContext::of_entity(source_entity),
-            );
+            Self::emit(level, inside, GameEvent::BLOCK_DEACTIVATE, pos);
         } else if is_pressed && !was_pressed {
             level.play_sound(
                 None,
@@ -157,14 +152,23 @@ impl BasePressurePlateBlock {
                 1.0,
                 1.0,
             );
-            level.game_event_at_block(
-                GameEvent::BLOCK_ACTIVATE,
-                pos,
-                &GameEventContext::of_entity(source_entity),
-            );
+            Self::emit(level, inside, GameEvent::BLOCK_ACTIVATE, pos);
         }
         if is_pressed {
             level.schedule_tick_block(pos, state.block(), self.get_pressed_time());
+        }
+    }
+
+    /// `gameEvent(event, pos, Context.of(sourceEntity))`: the source entity is running, so it is exposed to the listeners.
+    fn emit(level: &mut ServerLevel, inside: Option<&dyn Entity>, event: GameEvent, pos: BlockPos) {
+        match inside {
+            Some(entity) => level.game_event_from_entity_ref_in_state(
+                entity,
+                None,
+                event,
+                mc_core::phys::Vec3::at_center_of(&pos),
+            ),
+            None => level.game_event_at_block(event, pos, &GameEventContext::of_entity(None)),
         }
     }
 

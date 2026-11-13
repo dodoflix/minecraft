@@ -49,6 +49,11 @@ impl<'a> Actors<'a> {
         }
     }
 
+    /// `id` when it is one of the explicit (out of the level) entities.
+    pub fn explicit(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.explicit.iter().find(|e| e.id() == id).map(|e| &**e)
+    }
+
     /// Runs `f` with `id` mutably borrowed (taken out of the level unless explicit).
     pub fn with<R>(
         &mut self,

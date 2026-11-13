@@ -92,6 +92,9 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn level(&mut self) -> Option<&mut ServerLevel> {
         Some(self.level)
     }
+    fn with_level_seen(&mut self, f: &mut dyn FnMut(&mut ServerLevel)) {
+        self.level.expose(&*self.player, |level| f(level));
+    }
     fn container_interaction_range(&self) -> f64 {
         self.player
             .player

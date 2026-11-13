@@ -168,8 +168,6 @@ impl ServerLevel {
         {
             self.taken_out_players
                 .insert(id, super::TrackerPlayer::of(p));
-            let source = crate::world::level::gameevent::vibrations::capture_source_entity(self, p);
-            self.taken_out_player_sources.insert(id, source);
         }
         Some(entity)
     }
@@ -177,7 +175,6 @@ impl ServerLevel {
     /// Put a taken-out entity back and apply removal / section moves (`EntityInLevelCallback`).
     pub fn put_back_entity(&mut self, id: EntityId, entity: Box<dyn Entity>) {
         self.taken_out_players.remove(&id);
-        self.taken_out_player_sources.remove(&id);
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
         self.process_waypoint_state(id);
@@ -318,6 +315,27 @@ impl ServerLevel {
         }
         #[cfg(not(debug_assertions))]
         let _ = (source, victim);
+    }
+
+    /// Debug detector like [`ServerLevel::note_unlent_attacker`] for a game event whose source entity exists but is
+    /// out of its slot and not exposed: listeners cannot read it. Appended as `event <- game event | frames`.
+    pub(super) fn note_unlent_event_source(
+        &self,
+        event: mc_data::GameEvent,
+        context: &crate::world::level::gameevent::GameEventContext,
+    ) {
+        #[cfg(debug_assertions)]
+        if let Some(id) = context
+            .source_entity
+            .filter(|_| context.source_info.is_none())
+            && self.entity_manager.has_entity_with_id(id)
+            && self.entity_manager.get_any(id).is_none()
+            && !self.entity_manager.is_lent(id)
+        {
+            report_unlent_attacker(&event.identifier().to_string(), "game event");
+        }
+        #[cfg(not(debug_assertions))]
+        let _ = (event, context);
     }
 
     /// `with_entity` for a player: `f` gets the `ServerPlayer` (taken out of the level while it runs).
@@ -862,13 +880,16 @@ fn report_unlent_attacker(attacker: &str, victim: &str) {
         .lines()
         .filter_map(|l| l.trim().split_once(": ").map(|(_, name)| name))
         .filter(|n| {
-            n.contains("mc_game")
-                && !n.contains("note_unlent_attacker")
-                && !n.contains("report_unlent")
+            n.contains("mc_game") && !n.contains("note_unlent_") && !n.contains("report_unlent")
         })
         .take(6)
         .collect();
-    let line = format!("{attacker} <- {victim} | {}", frames.join(" < "));
+    let thread = std::thread::current();
+    let line = format!(
+        "{attacker} <- {victim} | {} | {}",
+        frames.join(" < "),
+        thread.name().unwrap_or("?")
+    );
     if !SEEN
         .get_or_init(Default::default)
         .lock()

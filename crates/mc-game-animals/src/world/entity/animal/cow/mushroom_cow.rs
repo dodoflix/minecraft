@@ -236,7 +236,7 @@ impl Entity for MushroomCow {
             InteractionResult::SUCCESS
         } else if item_stack.is(Item::SHEARS) && self.ready_for_shearing() {
             self.shear(level, SoundSource::Players, &item_stack);
-            level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, self.position());
+            level.game_event_from_entity_ref(&*player, GameEvent::SHEAR, self.position());
             mob::interact::with_hand_stack(player, hand, |s, p| {
                 hurt_and_break(s, 1, level, p, hand.as_equipment_slot())
             });

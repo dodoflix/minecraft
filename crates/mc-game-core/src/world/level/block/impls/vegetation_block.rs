@@ -109,6 +109,8 @@ pub fn ravager_destroys_crop(
     entity: &dyn crate::world::entity::Entity,
 ) {
     if entity.get_type() == mc_data::EntityType::RAVAGER && level.mob_griefing() {
-        level.destroy_block(pos, true, Some(entity.id()), 512);
+        level.expose(entity, |level| {
+            level.destroy_block(pos, true, Some(entity.id()), 512);
+        });
     }
 }

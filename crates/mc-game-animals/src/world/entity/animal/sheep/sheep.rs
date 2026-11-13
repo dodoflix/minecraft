@@ -422,7 +422,7 @@ impl Sheep {
         level: &mut ServerLevel,
         player: &mc_game_core::world::entity::ServerPlayer,
     ) {
-        level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, self.position());
+        level.game_event_from_entity_ref(player, GameEvent::SHEAR, self.position());
     }
 }
 

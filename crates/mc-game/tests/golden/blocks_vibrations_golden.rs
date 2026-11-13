@@ -20,10 +20,12 @@ golden!(
     calibrated,
     shrieker,
     shrieker_sources,
+    shrieker_step,
     wool,
     catalyst,
     catalyst_multi,
-    be_nbt
+    be_nbt,
+    running_sources
 );
 
 /// The arrow's own state (`ground`, `crit`, ...) is covered by the arrow golden and not part of this one, nor is the

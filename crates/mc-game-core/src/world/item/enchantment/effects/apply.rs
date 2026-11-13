@@ -20,7 +20,6 @@ use crate::world::entity::EntityId;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::item::enchantment::enchanted_item_in_use::{EnchantedItemInUse, OnBreak};
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_protocol::components::{Holder, RegistrySet};
 
@@ -358,8 +357,18 @@ fn play_sound(
     );
 }
 
-fn game_event_at(level: &mut ServerLevel, entity: EntityId, event: GameEvent, pos: BlockPos) {
-    level.game_event_at_block(event, pos, &GameEventContext::of_entity(Some(entity)));
+fn game_event_at(
+    level: &mut ServerLevel,
+    actors: &Actors<'_>,
+    entity: EntityId,
+    event: GameEvent,
+    pos: BlockPos,
+) {
+    let center = Vec3::at_center_of(&pos);
+    match actors.explicit(entity) {
+        Some(e) => level.game_event_from_entity_ref(e, event, center),
+        None => level.game_event_from_entity(Some(entity), event, center),
+    }
 }
 
 fn replace_block(
@@ -386,7 +395,7 @@ fn replace_block(
     if level.set_block_and_update(pos, state)
         && let Some(event) = e.trigger_game_event
     {
-        game_event_at(level, entity, event, pos);
+        game_event_at(level, actors, entity, event, pos);
     }
 }
 
@@ -422,7 +431,7 @@ fn replace_disk(
             if level.set_block_and_update(pos, state)
                 && let Some(event) = e.trigger_game_event
             {
-                game_event_at(level, entity, event, pos);
+                game_event_at(level, actors, entity, event, pos);
             }
         }
     }
@@ -447,7 +456,7 @@ fn provider_of(
 fn set_block_properties(
     e: &SetBlockProperties,
     level: &mut ServerLevel,
-    _actors: &mut Actors<'_>,
+    actors: &mut Actors<'_>,
     entity: EntityId,
     position: Vec3,
 ) {
@@ -458,7 +467,7 @@ fn set_block_properties(
         && level.set_block_and_update(pos, modified)
         && let Some(event) = e.trigger_game_event
     {
-        game_event_at(level, entity, event, pos);
+        game_event_at(level, actors, entity, event, pos);
     }
 }
 

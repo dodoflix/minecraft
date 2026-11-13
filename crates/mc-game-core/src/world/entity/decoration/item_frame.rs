@@ -578,8 +578,8 @@ impl Entity for ItemFrame {
                     return InteractionResult::FAIL;
                 }
                 self.set_item(level, &held, true);
-                level.game_event_from_entity(
-                    Some(player.id()),
+                level.game_event_from_entity_ref(
+                    &*player,
                     GameEvent::BLOCK_CHANGE,
                     self.base.position(),
                 );
@@ -594,8 +594,8 @@ impl Entity for ItemFrame {
             self.play_sound(level, sound, 1.0, 1.0);
             let rotation = self.get_rotation() + 1;
             self.set_rotation(Some(level), rotation);
-            level.game_event_from_entity(
-                Some(player.id()),
+            level.game_event_from_entity_ref(
+                &*player,
                 GameEvent::BLOCK_CHANGE,
                 self.base.position(),
             );
