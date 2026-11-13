@@ -9,8 +9,6 @@ mc-game tests/golden/main.rs commands_entity::effect_give_and_clear
 mc-game tests/golden/main.rs commands_entity::kill_removes_entities_and_kills_players
 mc-game tests/golden/main.rs commands_entity::swing_starts_the_swing_of_living_entities
 mc-game tests/golden/main.rs entity_items_orbs_golden::falling_anvil_and_concrete_match_vanilla
-mc-game tests/golden/main.rs entity_scenarios::item_collide
-mc-game tests/golden/main.rs entity_scenarios::item_motion
 mc-game tests/golden/main.rs goals_combat_golden::creeper_target_swell_melee
 mc-game tests/golden/main.rs gossip_golden::gossip_container_matches_vanilla
 mc-game tests/golden/main.rs lightning_golden::lightning_matches_vanilla

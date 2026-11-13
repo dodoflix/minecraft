@@ -81,6 +81,7 @@ mod enchant_anvil_golden;
 mod enchant_golden;
 mod entity_base_motion_golden;
 mod entity_items_orbs_golden;
+mod entity_registration_guards;
 mod entity_scenarios;
 mod exploration_map_golden;
 mod explosion_entities_golden;

@@ -197,10 +197,13 @@ fn full_player_cannot_eat_ordinary_food() {
 }
 
 #[test]
-fn poplar_boats_build_behaviours_and_place() {
+fn every_boat_item_places_its_boat() {
     // the first `behaviour` call builds the table for every item: a boat item without a boat type must not fail it
     let _ = mc_game::world::item::behaviour(Item::POPLAR_BOAT);
-    for item in [Item::POPLAR_BOAT, Item::POPLAR_CHEST_BOAT] {
+    let boat_items = mc_data::EntityType::iter()
+        .filter_map(mc_game::world::entity::vehicle::boat::abstract_boat::boat_spec)
+        .map(|(item, _, _)| item);
+    for item in boat_items {
         let mut level = level();
         let mut p = player();
         level.set_block(

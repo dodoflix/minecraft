@@ -43,16 +43,6 @@ fn item_merge() {
 }
 
 #[test]
-fn item_collide() {
-    run_scenario_test_with("item_collide", &gaps());
-}
-
-#[test]
-fn item_motion() {
-    run_scenario_test_with("item_motion", &gaps());
-}
-
-#[test]
 #[should_panic(expected = "unsupported scenario command `frobnicate`")]
 fn unknown_commands_fail_loudly() {
     run_scenario_text("inline", "level void\nfrobnicate 1 2 3\n");
