@@ -3378,9 +3378,29 @@ pub trait Entity: Any {
     fn get_slot(&self, slot: i32) -> Option<crate::world::item::ItemStack> {
         crate::advancements::predicates::entity::support::get_slot(self.as_dyn(), slot)
     }
-    /// The write half of `getSlot(slot)` for entities whose numbered slot is not an equipment slot (the stack of arrows and
-    /// fireballs): `SlotAccess.set`.
-    fn set_slot(&mut self, _slot: i32, _stack: crate::world::item::ItemStack) {}
+    /// Whether `getSlot(slot).set(stack)` takes `stack` (its `SlotAccess` validator): `false` leaves the slot unchanged.
+    fn can_set_slot(&self, slot: i32, stack: &crate::world::item::ItemStack) -> bool {
+        crate::advancements::predicates::entity::support::can_set_equipment_slot(
+            self.as_dyn(),
+            slot,
+            stack,
+        )
+    }
+    /// The write half of `getSlot(slot)`: `SlotAccess.set` of the numbered slot (nothing when the entity has no such slot).
+    /// Mirrors [`Entity::get_slot`]: overrides handle their own slots and fall back to the player / living / chest vehicle slots.
+    fn set_slot(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        slot: i32,
+        stack: crate::world::item::ItemStack,
+    ) {
+        crate::advancements::predicates::entity::support::set_slot(
+            level,
+            self.as_dyn_mut(),
+            slot,
+            stack,
+        );
+    }
     /// `Entity.get(DataComponentType)` as a map (`CUSTOM_NAME`, `CUSTOM_DATA`); subclasses add their components.
     fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
         crate::advancements::predicates::entity::support::base_entity_components(self.base())

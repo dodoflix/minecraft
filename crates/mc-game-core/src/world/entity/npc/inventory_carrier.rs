@@ -2,7 +2,7 @@
 //! up items (villagers, allays, piglins).
 
 use crate::server::level::ServerLevel;
-use crate::world::container::SimpleContainer;
+use crate::world::container::{Container, SimpleContainer};
 use crate::world::entity::Entity;
 use crate::world::entity::EntityId;
 use crate::world::entity::item::ItemEntity;
@@ -18,6 +18,42 @@ pub trait InventoryCarrier: Entity + Sized {
     /// `getInventory()`.
     fn get_inventory(&self) -> &SimpleContainer;
     fn get_inventory_mut(&mut self) -> &mut SimpleContainer;
+}
+
+/// Slot id of the first inventory slot in `getSlot(slot)` of `Piglin`, `Pillager`, `AbstractVillager` (`SlotRanges.MOB_INVENTORY`).
+const INVENTORY_SLOT_OFFSET: i32 = 300;
+
+fn inventory_slot_index<M: InventoryCarrier>(mob: &M, slot: i32) -> Option<usize> {
+    let index = usize::try_from(slot - INVENTORY_SLOT_OFFSET).ok()?;
+    (index < mob.get_inventory().get_container_size()).then_some(index)
+}
+
+/// `getSlot(slot).get()` of the mobs that expose their inventory as `inventory.N`; the other slots are `LivingEntity`'s.
+pub fn get_slot<M: InventoryCarrier>(mob: &M, slot: i32) -> Option<ItemStack> {
+    match inventory_slot_index(mob, slot) {
+        Some(i) => Some(mob.get_inventory().get_item(i).clone()),
+        None => crate::advancements::predicates::entity::support::get_slot(mob.as_dyn(), slot),
+    }
+}
+
+/// `getSlot(slot).set(stack)` of the mobs that expose their inventory as `inventory.N`.
+pub fn set_slot<M: InventoryCarrier>(
+    mob: &mut M,
+    level: &mut ServerLevel,
+    slot: i32,
+    stack: ItemStack,
+) {
+    match inventory_slot_index(mob, slot) {
+        Some(i) => mob.get_inventory_mut().set_item(i, stack),
+        None => {
+            crate::advancements::predicates::entity::support::set_slot(
+                level,
+                mob.as_dyn_mut(),
+                slot,
+                stack,
+            );
+        }
+    }
 }
 
 /// `InventoryCarrier.pickUpItem(level, mob, inventoryCarrier, itemEntity)`.

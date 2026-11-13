@@ -1092,10 +1092,19 @@ macro_rules! impl_abstract_arrow_entity {
             }
             $crate::advancements::predicates::entity::support::get_slot(self, slot)
         }
-        fn set_slot(&mut self, slot: i32, stack: $crate::world::item::ItemStack) {
+        fn set_slot(
+            &mut self,
+            level: &mut $crate::server::level::ServerLevel,
+            slot: i32,
+            stack: $crate::world::item::ItemStack,
+        ) {
             if slot == 0 {
                 $crate::world::entity::projectile::arrow::AbstractArrow::set_pickup_item_stack(
                     self, stack,
+                );
+            } else {
+                $crate::advancements::predicates::entity::support::set_slot(
+                    level, self, slot, stack,
                 );
             }
         }

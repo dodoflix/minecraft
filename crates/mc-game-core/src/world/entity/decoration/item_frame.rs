@@ -421,6 +421,13 @@ impl Entity for ItemFrame {
         }
         crate::advancements::predicates::entity::support::get_slot(self, slot)
     }
+    fn set_slot(&mut self, level: &mut ServerLevel, slot: i32, stack: ItemStack) {
+        if slot == 0 {
+            self.set_item(level, &stack, true);
+        } else {
+            crate::advancements::predicates::entity::support::set_slot(level, self, slot, stack);
+        }
+    }
     fn set_pos(&mut self, x: f64, y: f64, z: f64) {
         block_attached::set_pos(self, x, y, z);
     }

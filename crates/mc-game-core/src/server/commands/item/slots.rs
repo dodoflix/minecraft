@@ -5,17 +5,12 @@
 //! borrowed shared (it may be the `THIS_ENTITY` of the same loot context), so `set` validates like vanilla
 //! (`SlotAccess.forEquipmentSlot`'s validator), remembers the stack, and later reads see it. The caller applies the writes
 //! with `apply_entity_writes` / `apply_container_writes` once the loot context is gone.
-use crate::advancements::predicates::entity::support::equipment_slot_of;
 use crate::commands::CommandSourceStack;
 use crate::commands::arguments::selector::EntityRef;
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::BlockEntity;
 use crate::world::container::Container;
-use crate::world::entity::decoration::item_frame::ItemFrame;
-use crate::world::entity::display::Display;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::item::ItemEntity;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
+use crate::world::entity::{Entity, EntityId};
 use crate::world::inventory::InventoryMenu;
 use crate::world::item::slot::{SlotAccess, SlotProvider};
 use crate::world::level::storage::loot::LootContextParamSets;
@@ -66,26 +61,6 @@ impl<'a> EntitySlots<'a> {
         }
         self.entity.get_slot(slot)
     }
-
-    /// The validator of `LivingEntity.createEquipmentSlotAccess`: armor slots below the head and the body/saddle slots only
-    /// take items that go there (or nothing).
-    fn accepts(&self, slot: i32, stack: &ItemStack) -> bool {
-        if self.entity.living().is_none() {
-            return true;
-        }
-        match equipment_slot_of(slot) {
-            Some(equipment)
-                if !matches!(
-                    equipment,
-                    EquipmentSlot::Head | EquipmentSlot::MainHand | EquipmentSlot::OffHand
-                ) =>
-            {
-                // `getEquipmentSlotForItem` (the equippable's slot when the entity can use it, else the main hand)
-                stack.is_empty() || self.entity.get_equipment_slot_for_item(stack) == equipment
-            }
-            _ => true,
-        }
-    }
 }
 
 struct EntitySlot<'p, 'a> {
@@ -99,7 +74,7 @@ impl SlotAccess for EntitySlot<'_, '_> {
     }
 
     fn set(&self, stack: ItemStack) -> bool {
-        if !self.owner.accepts(self.slot, &stack) {
+        if !self.owner.entity.can_set_slot(self.slot, &stack) {
             return false;
         }
         self.owner.writes.borrow_mut().push((self.slot, stack));
@@ -126,103 +101,16 @@ pub fn unpack_chest_vehicle_loot(level: &mut ServerLevel, id: EntityId) {
     });
 }
 
-/// Performs `getSlot(slot).set(stack)` for each write on the entity (`ServerPlayer`: carried item, crafting grid, inventory,
-/// ender chest, equipment; other living entities: equipment; chest vehicles: their slots).
+/// Performs `getSlot(slot).set(stack)` for each write on the entity (`Entity::set_slot`).
 pub fn apply_entity_writes(level: &mut ServerLevel, id: EntityId, writes: Vec<(i32, ItemStack)>) {
     if writes.is_empty() {
         return;
     }
     level.with_entity(id, |level, entity| {
         for (slot, stack) in writes {
-            set_entity_slot(level, entity, slot, stack);
+            entity.set_slot(level, slot, stack);
         }
     });
-}
-
-fn set_entity_slot(level: &mut ServerLevel, entity: &mut dyn Entity, slot: i32, stack: ItemStack) {
-    if let Some(chest) = entity.chest_vehicle_mut() {
-        // `setChestVehicleItem(slot, stack)` (the slot was checked against the container size by `getChestVehicleSlot`)
-        if let Ok(slot) = usize::try_from(slot)
-            && slot < chest.get_container_size()
-        {
-            chest.set_item(slot, stack);
-        }
-        return;
-    }
-    if let Some(player) = entity.as_any_mut().downcast_mut::<ServerPlayer>() {
-        if set_player_slot(level, player, slot, &stack) {
-            return;
-        }
-        if let Some(equipment) = equipment_slot_of(slot) {
-            player.set_item_slot(level, equipment, stack);
-        }
-        return;
-    }
-    if let Some(equipment) = equipment_slot_of(slot)
-        && let Some(living) = entity.living_mut()
-    {
-        let old = living.equipment.set(equipment, stack.clone());
-        entity.on_equip_item(level, equipment, &old, &stack);
-        return;
-    }
-    // `ItemDisplay.getSlot(0)`, `ItemEntity.getSlot(0)`, `ItemFrame.getSlot(0)`
-    if slot == 0 {
-        if let Some(display) = entity.as_any_mut().downcast_mut::<Display>() {
-            display.set_item_stack(stack);
-        } else if let Some(item) = entity.as_any_mut().downcast_mut::<ItemEntity>() {
-            item.set_item(stack);
-        } else if let Some(frame) = entity.as_any_mut().downcast_mut::<ItemFrame>() {
-            frame.set_item(level, &stack, true);
-        }
-    }
-}
-
-/// `Player.getSlot(slot)` before the `LivingEntity` fallback; `false` when `slot` is not one of the player's own.
-fn set_player_slot(
-    level: &mut ServerLevel,
-    player: &mut ServerPlayer,
-    slot: i32,
-    stack: &ItemStack,
-) -> bool {
-    if slot == 499 {
-        player
-            .player
-            .menus
-            .current_mut()
-            .base_mut()
-            .set_carried(stack.clone());
-        return true;
-    }
-    let craft_slot = slot - 500;
-    if (0..4).contains(&craft_slot) {
-        let menu = player
-            .player
-            .menus
-            .inventory_menu_mut()
-            .as_any_mut()
-            .downcast_mut::<InventoryMenu>()
-            .expect("inventory menu");
-        menu.get_craft_slots_mut()
-            .set_item(craft_slot as usize, stack.clone());
-        player.inventory_menu_slots_changed(level);
-        return true;
-    }
-    if slot >= 0 && (slot as usize) < player.player.inventory.get_non_equipment_items().len() {
-        player
-            .player
-            .inventory
-            .set_item(slot as usize, stack.clone());
-        return true;
-    }
-    let ender_slot = slot - 200;
-    if ender_slot >= 0 && (ender_slot as usize) < player.player.ender_chest.get_container_size() {
-        player
-            .player
-            .ender_chest
-            .set_item(ender_slot as usize, stack.clone());
-        return true;
-    }
-    false
 }
 
 // ---- containers ------------------------------------------------------------------------------------------------------------

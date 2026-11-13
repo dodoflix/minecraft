@@ -457,6 +457,13 @@ impl Entity for Display {
     fn get_slot(&self, slot: i32) -> Option<ItemStack> {
         (matches!(self.kind, Kind::Item) && slot == 0).then(|| self.item_stack())
     }
+    fn set_slot(&mut self, level: &mut ServerLevel, slot: i32, stack: ItemStack) {
+        if matches!(self.kind, Kind::Item) && slot == 0 {
+            self.set_item_stack(stack);
+        } else {
+            crate::advancements::predicates::entity::support::set_slot(level, self, slot, stack);
+        }
+    }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         self.add_display_save_data(out);

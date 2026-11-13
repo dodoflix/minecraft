@@ -1372,10 +1372,60 @@ pub fn finalize_spawn_prepare(
 }
 
 /// `getSlot(slot)` of `AbstractHorse`: the inventory index of an inventory slot id.
-pub fn inventory_slot_index(e: &(impl AbstractHorse + ?Sized), slot: i32) -> Option<usize> {
+fn inventory_slot_index(e: &(impl AbstractHorse + ?Sized), slot: i32) -> Option<usize> {
     let inventory_slot = slot - INVENTORY_SLOT_OFFSET;
     (inventory_slot >= 0 && (inventory_slot as usize) < e.horse().inventory.get_container_size())
         .then_some(inventory_slot as usize)
+}
+
+/// `getSlot(slot).get()` of `AbstractChestedHorse` (the chest, slot 499) and `AbstractHorse` (the inventory).
+pub fn get_slot(e: &(impl AbstractHorse + ?Sized), slot: i32) -> Option<ItemStack> {
+    if slot == CHEST_SLOT_OFFSET
+        && let Some(has_chest) = e.chested_horse_has_chest()
+    {
+        return Some(if has_chest {
+            ItemStack::new(Item::CHEST)
+        } else {
+            ItemStack::empty()
+        });
+    }
+    match inventory_slot_index(e, slot) {
+        Some(i) => Some(e.horse().inventory.get_item(i).clone()),
+        None => crate::advancements::predicates::entity::support::get_slot(e.as_dyn(), slot),
+    }
+}
+
+/// `getSlot(slot).set(stack)`: the chest slot only takes a chest or nothing.
+pub fn can_set_slot(e: &(impl AbstractHorse + ?Sized), slot: i32, stack: &ItemStack) -> bool {
+    if slot == CHEST_SLOT_OFFSET && e.chested_horse_has_chest().is_some() {
+        return stack.is_empty() || stack.is(Item::CHEST);
+    }
+    crate::advancements::predicates::entity::support::can_set_equipment_slot(
+        e.as_dyn(),
+        slot,
+        stack,
+    )
+}
+
+/// `getSlot(slot).set(stack)`.
+pub fn set_slot(
+    e: &mut (impl AbstractHorse + ?Sized),
+    level: &mut ServerLevel,
+    slot: i32,
+    stack: ItemStack,
+) {
+    if slot == CHEST_SLOT_OFFSET && e.chested_horse_has_chest().is_some() {
+        e.chested_horse_set_chest_slot(&stack);
+    } else if let Some(i) = inventory_slot_index(e, slot) {
+        e.horse_mut().inventory.set_item(i, stack);
+    } else {
+        crate::advancements::predicates::entity::support::set_slot(
+            level,
+            e.as_dyn_mut(),
+            slot,
+            stack,
+        );
+    }
 }
 
 /// `Entity.getMaxSpawnClusterSize()`.
@@ -1510,6 +1560,15 @@ fn get_dismount_location_in_direction(
 #[macro_export]
 macro_rules! abstract_horse_entity {
     () => {
+        fn get_slot(&self, slot: i32) -> Option<$crate::world::item::ItemStack> {
+            $crate::world::entity::animal::equine::abstract_horse::get_slot(self, slot)
+        }
+        fn can_set_slot(&self, slot: i32, stack: &$crate::world::item::ItemStack) -> bool {
+            $crate::world::entity::animal::equine::abstract_horse::can_set_slot(self, slot, stack)
+        }
+        fn set_slot(&mut self, level: &mut $crate::server::level::ServerLevel, slot: i32, stack: $crate::world::item::ItemStack) {
+            $crate::world::entity::animal::equine::abstract_horse::set_slot(self, level, slot, stack);
+        }
         fn can_dispenser_equip_into_slot(&self, slot: $crate::world::entity::equipment::EquipmentSlot) -> bool {
             use $crate::world::entity::equipment::EquipmentSlot;
             ((slot == EquipmentSlot::Body || slot == EquipmentSlot::Saddle)

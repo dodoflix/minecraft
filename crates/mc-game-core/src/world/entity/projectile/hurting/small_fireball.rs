@@ -133,9 +133,11 @@ impl Entity for SmallFireball {
         crate::advancements::predicates::entity::support::get_slot(self, slot)
     }
 
-    fn set_slot(&mut self, slot: i32, stack: ItemStack) {
+    fn set_slot(&mut self, level: &mut ServerLevel, slot: i32, stack: ItemStack) {
         if slot == 0 {
             self.set_item(&stack);
+        } else {
+            crate::advancements::predicates::entity::support::set_slot(level, self, slot, stack);
         }
     }
 

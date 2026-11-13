@@ -53,7 +53,6 @@ const MAX_PASSENGERS_ON_ONE_HOGLIN: i32 = 3;
 const PROBABILITY_OF_SPAWNING_AS_BABY: f32 = 0.2;
 const PROBABILITY_OF_SPAWNING_WITH_CROSSBOW_INSTEAD_OF_SWORD: f64 = 0.5;
 const CHANCE_OF_WEARING_EACH_ARMOUR_ITEM: f32 = 0.1;
-const INVENTORY_SLOT_OFFSET: i32 = 300;
 const INVENTORY_SIZE: usize = 8;
 
 /// `SPEED_MODIFIER_BABY`.
@@ -401,12 +400,11 @@ impl Entity for Piglin {
     }
 
     fn get_slot(&self, slot: i32) -> Option<ItemStack> {
-        let inventory_slot = slot - INVENTORY_SLOT_OFFSET;
-        if inventory_slot >= 0 && (inventory_slot as usize) < self.inventory.get_items().len() {
-            Some(self.inventory.get_items()[inventory_slot as usize].clone())
-        } else {
-            mc_game_core::advancements::predicates::entity::support::get_slot(self.as_dyn(), slot)
-        }
+        inventory_carrier::get_slot(self, slot)
+    }
+
+    fn set_slot(&mut self, level: &mut ServerLevel, slot: i32, stack: ItemStack) {
+        inventory_carrier::set_slot(self, level, slot, stack);
     }
 
     fn finalize_spawn(

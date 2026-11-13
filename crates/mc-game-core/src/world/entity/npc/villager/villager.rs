@@ -935,6 +935,14 @@ impl Merchant for Villager {
 }
 
 impl Entity for Villager {
+    fn get_slot(&self, slot: i32) -> Option<ItemStack> {
+        inventory_carrier::get_slot(self, slot)
+    }
+
+    fn set_slot(&mut self, level: &mut ServerLevel, slot: i32, stack: ItemStack) {
+        inventory_carrier::set_slot(self, level, slot, stack);
+    }
+
     crate::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
