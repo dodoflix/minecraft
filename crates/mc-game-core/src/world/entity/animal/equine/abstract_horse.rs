@@ -233,6 +233,8 @@ pub trait AbstractHorse: Entity {
     fn create_inventory(&mut self) {
         create_inventory(self);
     }
+    /// `SkeletonHorse.setTrap(trap)`: only the skeleton horse keeps the flag.
+    fn set_trap(&mut self, _trap: bool) {}
 }
 
 impl<T: AbstractHorse + ?Sized> crate::world::inventory::MountInventory for T {
@@ -316,6 +318,9 @@ impl<T: AbstractHorse + ?Sized> crate::world::entity::ai::goal::AbstractHorseAcc
     }
     fn get_inventory_columns(&self) -> i32 {
         AbstractHorse::get_inventory_columns(self)
+    }
+    fn set_trap(&mut self, trap: bool) {
+        AbstractHorse::set_trap(self, trap);
     }
 }
 

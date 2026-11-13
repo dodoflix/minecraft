@@ -35,4 +35,6 @@ pub trait AbstractHorseAccess {
     fn set_tamed(&mut self, flag: bool);
     /// `getInventoryColumns()`.
     fn get_inventory_columns(&self) -> i32;
+    /// `SkeletonHorse.setTrap(trap)`.
+    fn set_trap(&mut self, trap: bool);
 }

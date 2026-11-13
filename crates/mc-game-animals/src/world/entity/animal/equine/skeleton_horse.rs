@@ -76,11 +76,6 @@ impl SkeletonHorse {
         self.is_trap
     }
 
-    /// `setTrap(trap)`.
-    pub fn set_trap(&mut self, trap: bool) {
-        self.is_trap = trap;
-    }
-
     /// `getSwimSound()` (counts gallop steps while ridden).
     fn next_swim_sound(&mut self) -> SoundEvent {
         if self.base().on_ground() {
@@ -123,6 +118,10 @@ mc_game_core::register_spawn_placement!(
 impl AbstractHorse for SkeletonHorse {
     fn horse(&self) -> &AbstractHorseData {
         &self.horse
+    }
+    /// `setTrap(trap)`.
+    fn set_trap(&mut self, trap: bool) {
+        self.is_trap = trap;
     }
     fn horse_mut(&mut self) -> &mut AbstractHorseData {
         &mut self.horse

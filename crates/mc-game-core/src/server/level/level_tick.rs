@@ -12,6 +12,7 @@ use super::level_tick_state::{EMPTY_TIME_NO_TICK, MAX_SCHEDULED_TICKS_PER_TICK};
 use super::sleep_status::SleepInfo;
 use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::Entity;
+use crate::world::entity::ai::village::poi::{Occupancy, PoiTypes};
 use crate::world::level::biome_ext::{should_freeze, should_snow};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::material::FluidStateExt;
@@ -558,16 +559,27 @@ impl ServerLevel {
         )
     }
 
-    /// `findLightningTargetAround(pos)`: lightning rods (point of interest lookup) are the POI slice's; entities in the
-    /// column are the fallback.
+    /// `findLightningRod(center)`: the closest lightning rod (within 128 blocks) that is the topmost block of its column,
+    /// one block above it.
+    fn find_lightning_rod(&self, center: BlockPos) -> Option<BlockPos> {
+        self.poi_manager()
+            .find_closest_filtered(
+                &|t| t.is(PoiTypes::LIGHTNING_ROD),
+                &|rod| {
+                    rod.y() == self.get_height_at(HeightmapType::WorldSurface, rod.x(), rod.z()) - 1
+                },
+                center,
+                128,
+                Occupancy::Any,
+            )
+            .map(|rod| rod.above())
+    }
+
+    /// `findLightningTargetAround(pos)`.
     fn find_lightning_target_around(&mut self, pos: BlockPos) -> BlockPos {
         let mut center = self.get_heightmap_pos(HeightmapType::MotionBlocking, pos);
-        if let Some(rod) = self
-            .tick_state
-            .find_lightning_rod
-            .and_then(|find| find(self, center))
-        {
-            return rod.above();
+        if let Some(rod) = self.find_lightning_rod(center) {
+            return rod;
         }
         let search = mc_core::phys::AABB::encapsulating_full_blocks(
             &center,

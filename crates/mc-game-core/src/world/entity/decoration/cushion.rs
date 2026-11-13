@@ -8,6 +8,7 @@ use crate::world::entity::entity::EntityData;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::inside_block_effects::collided_with_fluid;
 use crate::world::entity::item::ItemEntity;
+use crate::world::entity::lightning_bolt::LightningBolt;
 use crate::world::entity::{Entity, EntityId, MoverType, ServerPlayer};
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
 use crate::world::level::BlockGetter;
@@ -300,7 +301,8 @@ impl Entity for Cushion {
     /// `thunderHit(level, lightningBolt)` without the bolt: unreachable (lightning calls `thunder_hit_by`).
     fn thunder_hit(&mut self, _level: &mut ServerLevel) {}
     /// `thunderHit(level, lightningBolt)`.
-    fn thunder_hit_by(&mut self, level: &mut ServerLevel, bolt: EntityId) {
+    fn thunder_hit_by(&mut self, level: &mut ServerLevel, bolt: &LightningBolt) {
+        let bolt = bolt.id();
         if !self.is_removed() {
             block_attached::kill(self, level, Some(bolt));
             self.drop_item(level, Some(&Cause::lightning(bolt)));

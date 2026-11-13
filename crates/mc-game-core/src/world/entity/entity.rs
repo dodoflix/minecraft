@@ -4344,8 +4344,12 @@ pub trait Entity: Any {
         let difficulty = crate::world::level::server_level_accessor::ServerLevelAccessor::get_current_difficulty_at(&*level, self.block_position());
         self.finalize_spawn(level, difficulty, reason, None);
     }
-    /// `thunderHit(level, lightningBolt)` (the bolt is the cause of what the entity does).
-    fn thunder_hit_by(&mut self, level: &mut ServerLevel, _bolt: EntityId) {
+    /// `thunderHit(level, lightningBolt)` (the bolt is the cause of what the entity does; it is not in the level while it ticks).
+    fn thunder_hit_by(
+        &mut self,
+        level: &mut ServerLevel,
+        _bolt: &crate::world::entity::lightning_bolt::LightningBolt,
+    ) {
         self.thunder_hit(level);
     }
     /// `removePassenger(passenger)`'s level-dependent part (the passenger list is already updated).

@@ -1,7 +1,8 @@
 //! `net.minecraft.world.entity.LightningBolt` (server side: fire, rod power, copper cleaning, damage; the flash and the
 //! sounds are client work triggered by the add-entity packet) and the `ServerLevel.tickThunder` spawn.
 
-use super::factory::{ENTITY_FACTORIES, EntityRegistration};
+use super::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use super::mob::ageable;
 use super::{Entity, EntityData, EntityId, entity};
 use crate::server::level::ServerLevel;
 use crate::world::level::block::BlockStateExt;
@@ -13,6 +14,7 @@ use linkme::distributed_slice;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_data::enums::EntitySpawnReason;
 use mc_data::{EntityType, GameEvent};
 use mc_world::level_storage::Difficulty;
 use std::any::Any;
@@ -303,9 +305,8 @@ impl Entity for LightningBolt {
                 p.z + DAMAGE_RADIUS,
             );
             let entities = level.get_entities(Some(self.base.id), &area, |e| e.is_alive());
-            let bolt_id = self.base.id;
             for &id in &entities {
-                level.with_entity(id, |level, e| e.thunder_hit_by(level, bolt_id));
+                level.with_entity(id, |level, e| e.thunder_hit_by(level, self));
             }
             self.hit_entities.extend(entities.iter().copied());
             if let Some(cause) = self.cause {
@@ -332,6 +333,17 @@ impl Entity for LightningBolt {
         }
     }
 
+    fn lightning_bolt_state(
+        &self,
+    ) -> Option<crate::advancements::predicates::entity::support::LightningBoltState> {
+        Some(
+            crate::advancements::predicates::entity::support::LightningBoltState {
+                blocks_set_on_fire: self.blocks_set_on_fire,
+                hit_entities: self.hit_entities.iter().copied().collect(),
+            },
+        )
+    }
+
     fn hurt_server(
         &mut self,
         _level: &mut ServerLevel,
@@ -348,9 +360,26 @@ static LIGHTNING_BOLT_FACTORY: EntityRegistration = EntityRegistration {
     create: |ty, id, _registries| Box::new(LightningBolt::new(ty, id)),
 };
 
-/// The spawn half of `ServerLevel.tickThunder` (`LevelTickState::lightning_spawn`). Not implemented: for a trap
-/// (`is_trap`) the bolt is only made visual; the trap skeleton horse vanilla spawns with it is not.
+/// The spawn half of `ServerLevel.tickThunder` (`LevelTickState::lightning_spawn`): for a trap the skeleton trap horse,
+/// then the bolt (made visual only for a trap).
 pub fn spawn_from_thunder(level: &mut ServerLevel, pos: BlockPos, is_trap: bool) {
+    if is_trap
+        && let Some(mut horse) = factory::create(
+            EntityType::SKELETON_HORSE,
+            level,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Event,
+                ignore_checks: false,
+            },
+        )
+    {
+        if let Some(h) = horse.as_abstract_horse_mut() {
+            h.set_trap(true);
+            ageable::set_age(horse.as_mut(), 0);
+        }
+        horse.set_pos(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()));
+        level.add_fresh_entity(horse);
+    }
     let mut bolt = LightningBolt::new(EntityType::LIGHTNING_BOLT, level.next_entity_id());
     let at = Vec3::at_bottom_center_of(&pos);
     bolt.snap_to_pos(at.x, at.y, at.z);

@@ -129,10 +129,8 @@ impl Goal for SkeletonTrapGoal {
     fn tick(&mut self, horse: &mut dyn Entity, level: &mut ServerLevel) {
         let difficulty =
             ServerLevelAccessor::get_current_difficulty_at(&*level, horse.block_position());
-        if let Some(h) = horse.as_any_mut().downcast_mut::<SkeletonHorse>() {
-            h.set_trap(false);
-        }
         if let Some(h) = horse.as_abstract_horse_mut() {
+            h.set_trap(false);
             h.set_tamed(true);
         }
         ageable::set_age_in_level(horse, level, 0);

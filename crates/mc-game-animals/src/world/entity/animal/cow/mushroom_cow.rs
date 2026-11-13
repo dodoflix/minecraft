@@ -18,6 +18,7 @@ use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimension
 use mc_game_core::world::entity::factory::{
     ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
 };
+use mc_game_core::world::entity::lightning_bolt::LightningBolt;
 use mc_game_core::world::entity::mob::convert::{self, ConversionParams};
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ext};
 use mc_game_core::world::entity::player::menu_ctx::PlayerCtx;
@@ -191,10 +192,8 @@ impl Entity for MushroomCow {
 
     fn thunder_hit(&mut self, _level: &mut ServerLevel) {}
 
-    fn thunder_hit_by(&mut self, level: &mut ServerLevel, bolt: EntityId) {
-        let Some(uuid) = level.get_entity(bolt).map(|b| b.uuid()) else {
-            return;
-        };
+    fn thunder_hit_by(&mut self, level: &mut ServerLevel, bolt: &LightningBolt) {
+        let uuid = bolt.uuid();
         if self.last_lightning_bolt_uuid != Some(uuid) {
             let next = if self.get_variant() == MushroomCowVariant::Red {
                 MushroomCowVariant::Brown

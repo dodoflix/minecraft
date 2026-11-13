@@ -29,6 +29,7 @@ use mc_game_core::world::entity::experience_orb::ExperienceOrb;
 use mc_game_core::world::entity::factory::{
     ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest,
 };
+use mc_game_core::world::entity::lightning_bolt::LightningBolt;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
 use mc_game_core::world::entity::movement::MovementLevel as _;
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
@@ -924,7 +925,7 @@ impl Entity for Turtle {
         false
     }
 
-    fn thunder_hit_by(&mut self, level: &mut ServerLevel, _bolt: EntityId) {
+    fn thunder_hit_by(&mut self, level: &mut ServerLevel, _bolt: &LightningBolt) {
         let source = level.damage_sources().lightning_bolt();
         self.hurt_server(level, &source, f32::MAX);
     }

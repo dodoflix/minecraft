@@ -146,8 +146,6 @@ pub struct LevelTickState {
     pub biome_zoom_seed: i64,
     /// `tickThunder` spawn of the lightning bolt (and the skeleton horse of a trap): `(level, pos, is_trap)`.
     pub lightning_spawn: Option<fn(&mut ServerLevel, BlockPos, bool)>,
-    /// `findLightningRod(center)` (point of interest lookup): the rod's block position.
-    pub find_lightning_rod: Option<fn(&mut ServerLevel, BlockPos) -> Option<BlockPos>>,
     /// `dragonFight.tick()`.
     pub dragon_fight_tick: Option<fn(&mut ServerLevel)>,
     /// `environmentAttributes`: dimension constants + timelines + weather layers (set at level creation).
@@ -199,7 +197,6 @@ impl LevelTickState {
             biomes: None,
             biome_zoom_seed: 0,
             lightning_spawn: Some(crate::world::entity::lightning_bolt::spawn_from_thunder),
-            find_lightning_rod: None,
             dragon_fight_tick: None,
             attributes: crate::world::attribute::EnvironmentAttributeSystem::build(
                 &Default::default(),
