@@ -9,7 +9,9 @@
 
 use super::ServerLevel;
 use super::level_tick::LevelTickEnv;
+use crate::advancements::triggers::CriteriaTriggers;
 use crate::world::entity::EntityId;
+use crate::world::entity::ServerPlayer;
 use crate::world::entity::entity::{BOARDING_COOLDOWN, Entity};
 use crate::world::level::BlockGetter;
 use crate::world::level::collision::CollisionGetter;
@@ -53,7 +55,7 @@ impl ServerLevel {
         &mut self,
         rider: &mut dyn Entity,
         vehicle_id: EntityId,
-        held_vehicle: Option<&mut dyn Entity>,
+        mut held_vehicle: Option<&mut dyn Entity>,
         force: bool,
         send_event_and_triggers: bool,
     ) -> bool {
@@ -102,11 +104,16 @@ impl ServerLevel {
         let first_is_player = first_passenger
             .and_then(|p| self.entity_manager.get_any(p))
             .is_some_and(|p| p.is_player());
-        let position = match held_vehicle {
+        let rider_authoritative = rider.is_client_authoritative();
+        let rider_id = rider.id();
+        let (position, passengers) = match held_vehicle.as_deref_mut() {
             Some(v) => {
                 v.add_passenger(&*rider, first_is_player);
                 v.after_add_passenger(rider);
-                v.base().position()
+                if v.base().passengers.first() == Some(&rider_id) {
+                    v.base_mut().first_passenger_client_authoritative = rider_authoritative;
+                }
+                (v.base().position(), v.base().passengers.clone())
             }
             None => {
                 let Some(v) = self.entity_manager.get_any_mut(vehicle_id) else {
@@ -114,19 +121,21 @@ impl ServerLevel {
                 };
                 v.add_passenger(&*rider, first_is_player);
                 v.after_add_passenger(rider);
-                v.base().position()
+                if v.base().passengers.first() == Some(&rider_id) {
+                    v.base_mut().first_passenger_client_authoritative = rider_authoritative;
+                }
+                (v.base().position(), v.base().passengers.clone())
             }
         };
         if send_event_and_triggers {
-            self.game_event_from_entity(Some(rider.id()), GameEvent::ENTITY_MOUNT, position);
-            // `CriteriaTriggers.START_RIDING_TRIGGER` for the players among the vehicle's indirect passengers is not modelled
-            // (no advancement triggers in the entity layer yet)
+            self.game_event_from_entity(Some(rider_id), GameEvent::ENTITY_MOUNT, position);
+            self.trigger_start_riding(rider, &passengers);
         }
         // `Mob.startRiding`: a leashed mob drops its leash when it starts riding
         if rider.mob().is_some() && crate::world::entity::mob::leashable::is_leashed(rider) {
             crate::world::entity::mob::leashable::drop_leash(rider, self);
         }
-        rider.on_vehicle_started(self, vehicle_id);
+        rider.on_vehicle_started(self, vehicle_id, held_vehicle.as_deref());
         true
     }
 
@@ -171,6 +180,7 @@ impl ServerLevel {
             Some(v) => {
                 v.remove_passenger(rider_id);
                 v.on_passenger_removed(self, rider_id);
+                v.refresh_first_passenger_authority(self);
                 Some(v.base().position())
             }
             None => {
@@ -179,7 +189,8 @@ impl ServerLevel {
                     Box::new(move |v: &mut dyn Entity| v.remove_passenger(rider_id)),
                 );
                 self.with_entity(old_vehicle_id, |level, v| {
-                    v.on_passenger_removed(level, rider_id)
+                    v.on_passenger_removed(level, rider_id);
+                    v.refresh_first_passenger_authority(level);
                 });
                 self.entity_manager
                     .get_any(old_vehicle_id)
@@ -378,6 +389,7 @@ impl ServerLevel {
                 self.stop_riding(entity.as_mut());
             }
             crate::world::entity::entity::common_tick(entity.as_mut());
+            entity.refresh_first_passenger_authority(self);
             entity.tick(self);
             if self.take_portal_teleport(id) {
                 env.teleport_through_portal(self, entity.as_mut());
@@ -402,6 +414,7 @@ impl ServerLevel {
         }
         if passenger.is_player() || self.entity_manager.tick_list.contains(passenger_id) {
             crate::world::entity::entity::common_tick(passenger.as_mut());
+            passenger.refresh_first_passenger_authority(self);
             self.ride_tick(passenger.as_mut());
             let sub_passengers = passenger.base().passengers.clone();
             self.put_back_entity(passenger_id, passenger);
@@ -413,15 +426,88 @@ impl ServerLevel {
         }
     }
 
-    /// `Entity.rideTick()`: `passenger` rides the vehicle it points at (which is in storage).
+    /// `Entity.rideTick()` with the overrides of `Player` (a rider that wants to stop riding leaves), `LivingEntity` (the
+    /// fall distance is reset) and `ServerPlayer` (the riding statistics of the position change): `passenger` rides the
+    /// vehicle it points at (which is in storage).
     pub fn ride_tick(&mut self, passenger: &mut dyn Entity) {
-        passenger.base_mut().set_delta_movement(Vec3::ZERO);
-        passenger.tick(self);
-        if let Some(vehicle_id) = passenger.base().vehicle
-            && let Some(vehicle) = self.entity_manager.get_any(vehicle_id)
+        let before = passenger.base().position();
+        // `Player.rideTick`: `wantsToStopRiding` is the shift key
+        if passenger.is_player() && passenger.is_shift_key_down() && passenger.base().is_passenger()
         {
-            vehicle.position_rider(passenger);
+            self.stop_riding(passenger);
+        } else {
+            passenger.base_mut().set_delta_movement(Vec3::ZERO);
+            passenger.tick(self);
+            if let Some(vehicle_id) = passenger.base().vehicle
+                && let Some(vehicle) = self.entity_manager.get_any(vehicle_id)
+            {
+                vehicle.position_rider(passenger);
+            }
+            if passenger.living().is_some() {
+                passenger.reset_fall_distance();
+            }
+        }
+        if let Some(player) = passenger.as_any_mut().downcast_mut::<ServerPlayer>() {
+            let moved = player.base().position().subtract(before);
+            player.check_riding_statistics(self, moved.x, moved.y, moved.z);
         }
         passenger.after_ride_tick(self);
+    }
+
+    /// `CriteriaTriggers.START_RIDING_TRIGGER` for every player among the indirect passengers of the vehicle (pre-order);
+    /// `rider` is at hand, the other passengers are in storage.
+    fn trigger_start_riding(&mut self, rider: &mut dyn Entity, vehicle_passengers: &[EntityId]) {
+        fn collect(
+            level: &ServerLevel,
+            rider: &dyn Entity,
+            ids: &[EntityId],
+            players: &mut Vec<EntityId>,
+        ) {
+            for &id in ids {
+                let Some(entity) = (if id == rider.id() {
+                    Some(rider)
+                } else {
+                    level.entity_manager.get_any(id)
+                }) else {
+                    continue;
+                };
+                if entity.is_player() {
+                    players.push(id);
+                }
+                collect(level, rider, &entity.base().passengers, players);
+            }
+        }
+        let mut players = Vec::new();
+        collect(self, &*rider, vehicle_passengers, &mut players);
+        let rider_id = rider.id();
+        let mut others = Vec::new();
+        for id in players {
+            if id == rider_id {
+                if let Some(player) = rider.as_any_mut().downcast_mut::<ServerPlayer>() {
+                    CriteriaTriggers::START_RIDING_TRIGGER.trigger(self, player);
+                }
+            } else {
+                others.push(id);
+            }
+        }
+        if others.is_empty() {
+            return;
+        }
+        let trigger_others = move |level: &mut ServerLevel| {
+            for id in others {
+                level.with_player(id, |level, player| {
+                    CriteriaTriggers::START_RIDING_TRIGGER.trigger(level, player);
+                });
+            }
+        };
+        // the other players' conditions look the rider up in the level: wait until it is back in storage
+        if self.entity_manager.has_entity_with_id(rider_id) {
+            self.after_put_back_ops
+                .entry(rider_id)
+                .or_default()
+                .push(Box::new(trigger_others));
+        } else {
+            trigger_others(self);
+        }
     }
 }

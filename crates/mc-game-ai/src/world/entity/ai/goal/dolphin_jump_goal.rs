@@ -67,7 +67,7 @@ impl Goal for DolphinJumpGoal {
         if mob.base_mut().random.next_int_bounded(self.interval) != 0 {
             return false;
         }
-        let motion = mob.get_direction();
+        let motion = mob.get_motion_direction();
         let (step_x, step_z) = (motion.get_step_x(), motion.get_step_z());
         let dolphin_pos = mob.block_position();
         for i in STEPS_TO_CHECK {
@@ -95,7 +95,7 @@ impl Goal for DolphinJumpGoal {
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let direction = mob.get_direction();
+        let direction = mob.get_motion_direction();
         let dm = mob.base().delta_movement().add(Vec3::new(
             f64::from(direction.get_step_x()) * 0.6,
             0.7,

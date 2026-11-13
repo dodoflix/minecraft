@@ -113,8 +113,6 @@ pub struct AbstractHorseData {
     /// `getFirstPassenger() instanceof Player` / `instanceof Mob` (kept by `add_passenger` / `on_passenger_removed`).
     pub first_passenger_is_player: bool,
     pub first_passenger_is_mob: bool,
-    /// `getFirstPassenger().isClientAuthoritative()`.
-    pub first_passenger_client_authoritative: bool,
     /// Bumped by `createInventory()` (`MountInventory::inventory_epoch`).
     pub inventory_epoch: u32,
 }
@@ -143,7 +141,6 @@ impl AbstractHorseData {
             owner: None,
             first_passenger_is_player: false,
             first_passenger_is_mob: false,
-            first_passenger_client_authoritative: false,
             inventory_epoch: 0,
         }
     }
@@ -1306,7 +1303,6 @@ pub fn add_passenger(
         let h = e.horse_mut();
         h.first_passenger_is_player = is_player;
         h.first_passenger_is_mob = is_mob;
-        h.first_passenger_client_authoritative = passenger.is_client_authoritative();
     }
 }
 
@@ -1318,17 +1314,10 @@ pub fn on_passenger_removed(e: &mut (impl AbstractHorse + ?Sized), level: &Serve
         .first()
         .copied()
         .and_then(|id| level.get_entity(id));
-    let (is_player, is_mob, authoritative) = first.map_or((false, false, false), |p| {
-        (
-            p.is_player(),
-            p.mob().is_some(),
-            p.is_client_authoritative(),
-        )
-    });
+    let (is_player, is_mob) = first.map_or((false, false), |p| (p.is_player(), p.mob().is_some()));
     let h = e.horse_mut();
     h.first_passenger_is_player = is_player;
     h.first_passenger_is_mob = is_mob;
-    h.first_passenger_client_authoritative = authoritative;
 }
 
 /// `addPassenger(passenger)`: `passenger.absSnapRotationTo(getViewYRot(0), getViewXRot(0))`.
@@ -1560,10 +1549,6 @@ macro_rules! abstract_horse_entity {
         fn get_ridden_speed(&self, _level: &$crate::server::level::ServerLevel, _controller: $crate::world::entity::EntityId) -> f32 {
             $crate::world::entity::living_entity::util::l(self).get_attribute_value(::mc_data::Attribute::MOVEMENT_SPEED) as f32
         }
-        fn is_client_authoritative(&self) -> bool {
-            $crate::world::entity::animal::equine::abstract_horse::get_controlling_passenger(self).is_some()
-                && $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse(self).first_passenger_client_authoritative
-        }
         fn get_controlling_passenger(&self) -> Option<$crate::world::entity::EntityId> {
             $crate::world::entity::animal::equine::abstract_horse::get_controlling_passenger(self)
         }
@@ -1581,6 +1566,9 @@ macro_rules! abstract_horse_entity {
         }
         fn get_dismount_location_for_passenger(&self, level: &$crate::server::level::ServerLevel, passenger: &dyn $crate::world::entity::Entity) -> ::mc_core::phys::Vec3 {
             $crate::world::entity::animal::equine::abstract_horse::get_dismount_location_for_passenger(self, level, passenger)
+        }
+        fn get_dismount_location_for_passenger_setting_pose(&self, level: &$crate::server::level::ServerLevel, passenger: &mut dyn $crate::world::entity::Entity) -> ::mc_core::phys::Vec3 {
+            $crate::world::entity::animal::equine::abstract_horse::get_dismount_location_for_passenger(self, level, &*passenger)
         }
         fn open_custom_inventory_screen(&mut self, level: &mut $crate::server::level::ServerLevel, player: &mut $crate::world::entity::ServerPlayer) {
             $crate::world::entity::animal::equine::abstract_horse::open_custom_inventory_screen(self, level, player);

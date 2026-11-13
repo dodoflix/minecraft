@@ -1,0 +1,18 @@
+# A frog and an axolotl riding a boat: the boat clamps the passenger's head to its body by the passenger's own head rotation limit.
+level flat
+preload 4
+entity_counter 1600
+level_seed 4
+spawn boat minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed boat 61
+mobspawn frog minecraft:frog 2.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed frog 62
+mobspawn ax minecraft:axolotl 4.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed ax 63
+mobspawn z minecraft:zombie 6.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed z 64
+tick 2
+ride frog boat
+ride ax boat
+tick 2
+dump mob:frog mob:ax entity:boat

@@ -42,6 +42,31 @@ pub fn is_block_dangerous(entity_type: EntityType, state: BlockState) -> bool {
     }
 }
 
+/// `DismountHelper.offsetsForDirection(forward)`: the block offsets around a vehicle facing `forward`, in the order a rider
+/// tries them (right, left, behind right, behind left, ahead right, ahead left, behind, ahead).
+pub fn offsets_for_direction(forward: mc_core::direction::Direction) -> [[i32; 2]; 8] {
+    let right = forward.get_clockwise();
+    let left = right.get_opposite();
+    let back = forward.get_opposite();
+    let step = |d: mc_core::direction::Direction| [d.get_step_x(), d.get_step_z()];
+    let sum = |a: mc_core::direction::Direction, b: mc_core::direction::Direction| {
+        [
+            a.get_step_x() + b.get_step_x(),
+            a.get_step_z() + b.get_step_z(),
+        ]
+    };
+    [
+        step(right),
+        step(left),
+        sum(back, right),
+        sum(back, left),
+        sum(forward, right),
+        sum(forward, left),
+        step(back),
+        step(forward),
+    ]
+}
+
 /// `isBlockFloorValid(blockFloorHeight)`.
 pub fn is_block_floor_valid(block_floor_height: f64) -> bool {
     !block_floor_height.is_infinite() && block_floor_height < 1.0

@@ -252,6 +252,89 @@ impl Strider {
         }
         Some(Box::new(AgeableMobGroupData::with_chance(0.0)))
     }
+
+    /// `Strider.getDismountLocationForPassenger` up to the fallback to `super`.
+    fn find_dismount_location(&self, level: &ServerLevel, passenger: &dyn Entity) -> Option<Vec3> {
+        let (bb_width, passenger_width, y_rot) = (
+            self.base().get_bb_width(),
+            passenger.base().get_bb_width(),
+            passenger.base().y_rot(),
+        );
+        let directions = [
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot,
+            ),
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot - 22.5,
+            ),
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot + 22.5,
+            ),
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot - 45.0,
+            ),
+            dismount_helper::get_collision_horizontal_escape_vector(
+                bb_width,
+                passenger_width,
+                y_rot + 45.0,
+            ),
+        ];
+        let mut target_block_positions: Vec<BlockPos> = Vec::new();
+        let collider_top = self.base().bounding_box().max_y;
+        let collider_bottom = self.base().bounding_box().min_y - 0.5;
+        for direction in directions {
+            let mut block_pos = BlockPos::containing(
+                self.base().x() + direction.x,
+                collider_top,
+                self.base().z() + direction.z,
+            );
+            let mut y = collider_top;
+            while y > collider_bottom {
+                if !target_block_positions.contains(&block_pos) {
+                    target_block_positions.push(block_pos);
+                }
+                block_pos = block_pos.below();
+                y -= 1.0;
+            }
+        }
+        for target_block_pos in target_block_positions {
+            if !level.get_fluid_state(target_block_pos).is_tag("lava") {
+                let block_floor_height = level.get_block_floor_height(target_block_pos);
+                if dismount_helper::is_block_floor_valid(block_floor_height) {
+                    let location =
+                        Vec3::up_from_bottom_center_of(&target_block_pos, block_floor_height);
+                    for dismount_pose in dismount_helper::get_dismount_poses(passenger) {
+                        let pose_collision_box =
+                            dismount_helper::get_local_bounds_for_pose(passenger, *dismount_pose);
+                        if dismount_helper::can_dismount_to(
+                            level,
+                            passenger,
+                            &pose_collision_box.move_vec(location),
+                        ) {
+                            return Some(location);
+                        }
+                    }
+                }
+            }
+        }
+        None
+    }
+
+    fn above_dismount_location(&self) -> Vec3 {
+        Vec3::new(
+            self.base().x(),
+            self.base().bounding_box().max_y,
+            self.base().z(),
+        )
+    }
 }
 
 /// `player.isHolding(Items.WARPED_FUNGUS_ON_A_STICK)` for a player entity.
@@ -330,81 +413,19 @@ impl Entity for Strider {
         level: &ServerLevel,
         passenger: &dyn Entity,
     ) -> Vec3 {
-        let (bb_width, passenger_width, y_rot) = (
-            self.base().get_bb_width(),
-            passenger.base().get_bb_width(),
-            passenger.base().y_rot(),
-        );
-        let directions = [
-            dismount_helper::get_collision_horizontal_escape_vector(
-                bb_width,
-                passenger_width,
-                y_rot,
-            ),
-            dismount_helper::get_collision_horizontal_escape_vector(
-                bb_width,
-                passenger_width,
-                y_rot - 22.5,
-            ),
-            dismount_helper::get_collision_horizontal_escape_vector(
-                bb_width,
-                passenger_width,
-                y_rot + 22.5,
-            ),
-            dismount_helper::get_collision_horizontal_escape_vector(
-                bb_width,
-                passenger_width,
-                y_rot - 45.0,
-            ),
-            dismount_helper::get_collision_horizontal_escape_vector(
-                bb_width,
-                passenger_width,
-                y_rot + 45.0,
-            ),
-        ];
-        let mut target_block_positions: Vec<BlockPos> = Vec::new();
-        let collider_top = self.base().bounding_box().max_y;
-        let collider_bottom = self.base().bounding_box().min_y - 0.5;
-        for direction in directions {
-            let mut block_pos = BlockPos::containing(
-                self.base().x() + direction.x,
-                collider_top,
-                self.base().z() + direction.z,
-            );
-            let mut y = collider_top;
-            while y > collider_bottom {
-                if !target_block_positions.contains(&block_pos) {
-                    target_block_positions.push(block_pos);
-                }
-                block_pos = block_pos.below();
-                y -= 1.0;
-            }
-        }
-        for target_block_pos in target_block_positions {
-            if !level.get_fluid_state(target_block_pos).is_tag("lava") {
-                let block_floor_height = level.get_block_floor_height(target_block_pos);
-                if dismount_helper::is_block_floor_valid(block_floor_height) {
-                    let location =
-                        Vec3::up_from_bottom_center_of(&target_block_pos, block_floor_height);
-                    for dismount_pose in dismount_helper::get_dismount_poses(passenger) {
-                        let pose_collision_box =
-                            dismount_helper::get_local_bounds_for_pose(passenger, *dismount_pose);
-                        if dismount_helper::can_dismount_to(
-                            level,
-                            passenger,
-                            &pose_collision_box.move_vec(location),
-                        ) {
-                            return location;
-                        }
-                    }
-                }
-            }
-        }
-        Vec3::new(
-            self.base().x(),
-            self.base().bounding_box().max_y,
-            self.base().z(),
-        )
+        self.find_dismount_location(level, passenger)
+            .unwrap_or_else(|| self.above_dismount_location())
+    }
+
+    /// The dismount spot of the strider's own search, then `Animal`'s (which also sets the pose), then the spot above it.
+    fn get_dismount_location_for_passenger_setting_pose(
+        &self,
+        level: &ServerLevel,
+        passenger: &mut dyn Entity,
+    ) -> Vec3 {
+        self.find_dismount_location(level, &*passenger)
+            .or_else(|| self.animal_dismount_location(level, passenger))
+            .unwrap_or_else(|| self.above_dismount_location())
     }
 
     fn tick_ridden(&mut self, level: &mut ServerLevel, controller: EntityId, _ridden_input: Vec3) {

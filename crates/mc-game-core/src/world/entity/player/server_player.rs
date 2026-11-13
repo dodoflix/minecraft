@@ -498,14 +498,19 @@ impl Entity for ServerPlayer {
         &mut self,
         level: &mut crate::server::level::ServerLevel,
         vehicle_id: crate::world::entity::EntityId,
+        held: Option<&dyn Entity>,
     ) {
         use mc_protocol::packets::play::{
             ClientboundSetPassengersPacket, PositionMoveRotation, Relatives,
         };
-        let Some(vehicle) = level.entity_manager.get_any(vehicle_id) else {
+        let Some(vehicle) = held.or_else(|| level.entity_manager.get_any(vehicle_id)) else {
             return;
         };
         vehicle.position_rider(self);
+        // a player without a connection (the entity replay's) has no client to tell
+        if self.listener.is_none() {
+            return;
+        }
         let position = self.position();
         self.connection_teleport_pmr(
             PositionMoveRotation {

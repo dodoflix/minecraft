@@ -1,0 +1,35 @@
+# Starting to ride triggers started_riding for every player among the indirect passengers of the vehicle: boarding a boat that
+# carries a goat awards the advancement, and so does a goat boarding a boat that carries the player.
+level flat
+preload 4
+entity_counter 1500
+level_seed 4
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player Q survival 8.5 -60 0.5 0 0
+spawn boat minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed boat 51
+spawn boat2 minecraft:oak_boat 8.5 -60 2.5 0 0
+entity_seed boat2 52
+mobspawn goat minecraft:goat 2.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed goat 53
+mobspawn goat2 minecraft:goat 6.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Silent:1b}
+entity_seed goat2 54
+tick 2
+dump advancements:P advancements:Q events
+note a boat without a goat
+ride P boat
+accept_teleport P
+tick 1
+dump advancements:P events
+note the goat boards the boat that carries the player
+ride goat boat
+tick 1
+dump advancements:P entity:boat events
+note the goat first, then the player
+ride goat2 boat2
+tick 1
+dump advancements:Q events
+ride Q boat2
+accept_teleport Q
+tick 1
+dump advancements:Q entity:boat2 events

@@ -1,0 +1,38 @@
+# Boarding a boat with a click and leaving it again by sneaking: the rider's own tick stops riding while the shift key is down (game
+# events, the passenger and teleport packets, the position the player lands on); a rider that does not sneak stays. The shift key of
+# a player that only sends packets is set by the click's sneak flag (here on an armor stand) and stays until the next click.
+level flat
+preload 4
+entity_counter 1200
+level_seed 4
+spawn_player P survival 0.5 -60 0.5 0 0
+spawn_player O survival 4.5 -60 4.5 0 0
+spawn boat minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed boat 21
+spawn stand minecraft:armor_stand 8.5 -60 0.5 0 0
+entity_seed stand 22
+tick 2
+dump packets:P:none packets:O:none events
+note a click boards the boat
+interact P boat main
+accept_teleport P
+tick 2
+dump entity:boat player:P events packets:P:set_passengers,teleport_entity,player_position,set_entity_data packets:O:set_passengers,teleport_entity,player_position,rotate_head
+note nothing happens while the player rides without sneaking
+tick 3
+dump entity:boat player:P events packets:P:set_passengers,teleport_entity,player_position packets:O:set_passengers,teleport_entity,player_position
+note a click with the sneak flag sets the shift key, the rider leaves the boat in its own tick
+interact P stand main sneak
+tick 1
+dump entity:boat player:P events packets:P:set_passengers,teleport_entity,player_position,set_entity_data packets:O:set_passengers,teleport_entity,player_position,set_entity_data,move_entity_pos
+tick 3
+dump entity:boat player:P events packets:P:set_passengers,teleport_entity,player_position packets:O:set_passengers,teleport_entity,player_position
+note a click that carries the sneak flag does not board: canRide refuses the shift key
+interact P boat main sneak
+tick 2
+dump entity:boat player:P events packets:P:set_passengers,teleport_entity,player_position
+note a click without the flag releases the shift key and boards; the rider stays
+interact P boat main
+accept_teleport P
+tick 3
+dump entity:boat player:P events packets:P:set_passengers,teleport_entity,player_position

@@ -1,0 +1,33 @@
+# A rider that sneaks leaves a saddled pig: the animal's dismount spot (the free block beside the pig the rider finds first, the pose it
+# lands in), then with the blocks beside the pig filled. The shift key is set by a click with the sneak flag on an armor stand.
+level flat
+preload 4
+entity_counter 1900
+level_seed 4
+spawn_player P survival 0.5 -60 0.5 0 0
+mobspawn pig minecraft:pig 0.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed pig 91
+spawn stand minecraft:armor_stand 8.5 -60 0.5 0 0
+entity_seed stand 92
+tick 2
+ride P pig
+accept_teleport P
+tick 2
+dump player:P mob:pig
+interact P stand main sneak
+tick 1
+dump player:P mob:pig
+tick 2
+dump player:P mob:pig
+note back on the pig, with the blocks beside it filled
+interact P stand main
+ride P pig
+accept_teleport P
+tick 2
+fill 1 -60 2 1 -59 2 minecraft:stone
+fill -1 -60 2 -1 -59 2 minecraft:stone
+interact P stand main sneak
+tick 1
+dump player:P mob:pig
+tick 2
+dump player:P mob:pig

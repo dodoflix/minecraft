@@ -88,6 +88,7 @@ mod ent_lightning_golden;
 mod ent_marker_interaction_golden;
 mod ent_movers_golden;
 mod ent_players_golden;
+mod ent_ride_golden;
 mod ent_spit_bullet_fangs_golden;
 mod ent_tracking_golden;
 mod ent_verbs_golden;

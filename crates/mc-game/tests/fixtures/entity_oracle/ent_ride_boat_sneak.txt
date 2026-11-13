@@ -1,0 +1,32 @@
+# a click boards the boat
+E boat minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P
+P P minecraft:player pos=0.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:player_position 49023fe0000000000000c04e34cccccccccd4004000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P minecraft:set_passengers 6db30901b109
+PKT P minecraft:set_entity_data 65b409090341a00000ff
+PKT P minecraft:set_entity_data 65b209090341a00000ff
+PKT P minecraft:set_passengers 6db30901b109
+PKT P minecraft:set_passengers 6db30901b109
+PKT O minecraft:set_passengers 6db30901b109
+# nothing happens while the player rides without sneaking
+E boat minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P
+P P minecraft:player pos=0.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# a click with the sneak flag sets the shift key, the rider leaves the boat in its own tick
+E boat minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P P minecraft:player pos=0.5,-60.0,3.7722768119620014 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:set_entity_data 65b109000002ff
+PKT P minecraft:set_passengers 6db30900
+PKT P minecraft:player_position 49033fe0000000000000c04e000000000000400e2d9f7716b0000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT O minecraft:set_entity_data 65b109000002ff
+E boat minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P P minecraft:player pos=0.5,-60.0,3.7722768119620014 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:set_passengers 6db30900
+# a click that carries the sneak flag does not board: canRide refuses the shift key
+E boat minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P P minecraft:player pos=0.5,-60.0,3.7722768119620014 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# a click without the flag releases the shift key and boards; the rider stays
+E boat minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P
+P P minecraft:player pos=0.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:player_position 49043fe0000000000000c04e34cccccccccd4004000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P minecraft:set_passengers 6db30901b109
+PKT P minecraft:set_passengers 6db30901b109

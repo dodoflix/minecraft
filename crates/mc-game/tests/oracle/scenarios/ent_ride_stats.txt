@@ -1,0 +1,46 @@
+# The distance a player travels as a passenger counts towards the statistic of the vehicle's kind: boat, pig, strider and horse
+# driven by movement packets of the controlling rider (the position change the rider's own tick sees).
+level flat
+preload 4
+entity_counter 1800
+level_seed 4
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 10.5 -60 0.5 0 0
+spawn_player C survival 20.5 -60 0.5 0 0
+spawn_player D survival 30.5 -60 0.5 0 0
+spawn boat minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed boat 81
+mobspawn pig minecraft:pig 10.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed pig 82
+mobspawn strider minecraft:strider 20.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed strider 83
+mobspawn horse minecraft:horse 30.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Tame:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed horse 84
+give B mainhand minecraft:carrot_on_a_stick
+give C mainhand minecraft:warped_fungus_on_a_stick
+tick 2
+ride A boat
+ride B pig
+ride C strider
+ride D horse
+accept_teleport A
+accept_teleport B
+accept_teleport C
+accept_teleport D
+tick 2
+dump stats:A stats:B stats:C stats:D
+note the vehicles are driven by the riders' packets
+move_vehicle A 0.5 -60 3.5 0 0 true
+move_vehicle B 10.5 -60 3.0 0 0 true
+move_vehicle C 20.5 -60 3.25 0 0 true
+move_vehicle D 30.5 -60 3.75 0 0 true
+tick 1
+dump stats:A stats:B stats:C stats:D entity:boat mob:pig mob:strider mob:horse
+move_vehicle A 1.5 -60 3.5 0 0 true
+move_vehicle B 10.5 -60 4.0 0 0 true
+move_vehicle C 20.5 -60 4.0 0 0 true
+move_vehicle D 31.5 -60 3.75 0 0 true
+tick 1
+dump stats:A stats:B stats:C stats:D entity:boat mob:pig mob:strider mob:horse
+tick 2
+dump stats:A stats:B stats:C stats:D

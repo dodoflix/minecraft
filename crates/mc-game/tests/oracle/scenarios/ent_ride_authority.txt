@@ -1,0 +1,46 @@
+# A pig, a strider and a horse ridden by a player that is not simulated by the server (it only sends movement packets, like every
+# vanilla client): the client is authoritative over the controlled vehicle, the server does not run its travel. A boat ridden by a
+# simulated player is moved by the server.
+level flat
+preload 4
+entity_counter 1300
+level_seed 4
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 10.5 -60 0.5 0 0
+spawn_player C survival 20.5 -60 0.5 0 0
+spawn_player D survival 30.5 -60 0.5 0 0 sim
+mobspawn pig minecraft:pig 0.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed pig 31
+mobspawn strider minecraft:strider 10.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed strider 32
+mobspawn horse minecraft:horse 20.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Tame:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed horse 33
+spawn boat minecraft:oak_boat 30.5 -60 2.5 0 0
+entity_seed boat 34
+give A mainhand minecraft:carrot_on_a_stick
+give B mainhand minecraft:warped_fungus_on_a_stick
+tick 2
+note the riders board
+ride A pig
+ride B strider
+ride C horse
+ride D boat
+accept_teleport A
+accept_teleport B
+accept_teleport C
+accept_teleport D
+tick 1
+dump mob:pig mob:strider mob:horse entity:boat player:A player:B player:C player:D
+note the vehicles are pushed: a controlled one is left to the client
+velocity pig 0.3 0 0.3
+velocity strider 0.3 0 0.3
+velocity horse 0.3 0 0.3
+velocity boat 0.3 0 0.3
+tick 3
+dump mob:pig mob:strider mob:horse entity:boat player:A player:B player:C player:D
+note the rider's packets move the vehicle
+move_vehicle A 0.5 -60 3.5 90 0 true
+move_vehicle B 10.5 -60 3.5 90 0 true
+move_vehicle C 20.5 -60 3.5 90 0 true
+tick 2
+dump mob:pig mob:strider mob:horse entity:boat player:A player:B player:C player:D

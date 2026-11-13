@@ -1,0 +1,24 @@
+# A rider's fall distance is reset every tick it rides (LivingEntity.rideTick), the fall-from-height trigger state of a server player
+# included; the dump shows the fall distance of the mount and of the passenger, and the player falls on leaving.
+level flat
+preload 4
+entity_counter 1400
+level_seed 4
+spawn_player P survival 0.5 -60 0.5 0 0 sim
+spawn boat minecraft:oak_boat 0.5 -60 2.5 0 0
+entity_seed boat 41
+mobspawn z minecraft:zombie 3.5 -60 2.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed z 42
+tick 2
+set P fall_distance 6
+set z fall_distance 7
+dump player:P entity:z
+ride P boat
+ride z boat
+accept_teleport P
+tick 1
+dump player:P entity:z entity:boat
+set P fall_distance 5
+set z fall_distance 4
+tick 2
+dump player:P entity:z entity:boat

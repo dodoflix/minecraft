@@ -104,6 +104,8 @@ pub struct EntityData {
     pub blocks_building: bool,
     /// `passengers` (ids; first element is a player passenger if any, see `add_passenger`).
     pub passengers: Vec<EntityId>,
+    /// `getFirstPassenger().isClientAuthoritative()`, the part of `Entity.isClientAuthoritative` that needs the level.
+    pub first_passenger_client_authoritative: bool,
     pub boarding_cooldown: i32,
     pub vehicle: Option<EntityId>,
     pub xo: f64,
@@ -219,6 +221,7 @@ impl EntityData {
             id,
             blocks_building: false,
             passengers: Vec::new(),
+            first_passenger_client_authoritative: false,
             boarding_cooldown: 0,
             vehicle: None,
             xo: 0.0,
@@ -836,9 +839,22 @@ pub trait Entity: Any {
     fn can_stand_on_fluid_fn(&self) -> Option<crate::world::level::collision::CanStandOnFluid> {
         None
     }
-    /// `isClientAuthoritative()`: the client simulates this entity's movement (players, entities they control).
+    /// `isClientAuthoritative()`: the controlling passenger is client authoritative (the passenger's side is cached in
+    /// `first_passenger_client_authoritative`, refreshed when the passengers change and before the vehicle ticks; players
+    /// override).
     fn is_client_authoritative(&self) -> bool {
-        false
+        self.get_controlling_passenger().is_some()
+            && self.base().first_passenger_client_authoritative
+    }
+    /// Refreshes `first_passenger_client_authoritative` from the first passenger in the level.
+    fn refresh_first_passenger_authority(&mut self, level: &ServerLevel) {
+        let authoritative = self
+            .base()
+            .passengers
+            .first()
+            .and_then(|&p| level.entity_manager.get_any(p))
+            .is_some_and(|p| p.is_client_authoritative());
+        self.base_mut().first_passenger_client_authoritative = authoritative;
     }
     /// `getMoveSimulationType()`.
     fn move_simulation_type(&self) -> MoveSimulationType {
@@ -2176,11 +2192,15 @@ pub trait Entity: Any {
             self.base().position(),
             &self.get_dimensions(self.base().get_pose()),
         );
-        if self.living().is_some() {
+        if self.resets_forward_portal_offset() {
             super::portal::reset_forward_direction_of_relative_portal_position(offsets)
         } else {
             offsets
         }
+    }
+    /// Whether `getRelativePortalPosition` resets the forward offset (`LivingEntity`, `AbstractBoat`, `AbstractMinecart`).
+    fn resets_forward_portal_offset(&self) -> bool {
+        self.living().is_some()
     }
     /// `canTeleport(from, to)`: no player passenger that has not seen the credits may leave the End for the overworld.
     fn can_teleport(
@@ -2553,9 +2573,15 @@ pub trait Entity: Any {
         _held: Option<&dyn Entity>,
     ) {
     }
-    /// What `ServerPlayer.startRiding(...)` adds after the base `startRiding` succeeded: `vehicle` (in storage) gained this
-    /// entity as a passenger.
-    fn on_vehicle_started(&mut self, _level: &mut ServerLevel, _vehicle: EntityId) {}
+    /// What `ServerPlayer.startRiding(...)` adds after the base `startRiding` succeeded: the vehicle gained this entity as a
+    /// passenger (`held` is the vehicle when it is out of storage, e.g. while its own `interact` runs).
+    fn on_vehicle_started(
+        &mut self,
+        _level: &mut ServerLevel,
+        _vehicle: EntityId,
+        _held: Option<&dyn Entity>,
+    ) {
+    }
     /// `isSteppingCarefully()`.
     fn is_stepping_carefully(&self) -> bool {
         self.is_shift_key_down()
@@ -4287,6 +4313,10 @@ pub trait Entity: Any {
     fn get_direction(&self) -> mc_core::direction::Direction {
         mc_core::direction::Direction::from_y_rot(f64::from(self.base().y_rot()))
     }
+    /// `getMotionDirection()`: the direction the entity moves in (boats: a quarter turn from the one they face).
+    fn get_motion_direction(&self) -> mc_core::direction::Direction {
+        self.get_direction()
+    }
     /// `rotate(rotation)`: the new `yRot` for structure placement.
     fn rotate(&mut self, rotation: mc_core::rotation::Rotation) -> f32 {
         use mc_core::rotation::Rotation;
@@ -4560,7 +4590,52 @@ pub trait Entity: Any {
         level: &ServerLevel,
         passenger: &mut dyn Entity,
     ) -> Vec3 {
+        if self.mob().is_some_and(|m| m.kind.is_animal())
+            && let Some(location) = self.animal_dismount_location(level, passenger)
+        {
+            return location;
+        }
         self.get_dismount_location_for_passenger(level, &*passenger)
+    }
+    /// `Animal.getDismountLocationForPassenger(passenger)`: the first free block beside or behind the animal for the rider's
+    /// poses (sets the pose); `None` when there is none (the caller falls back to the spot above the animal).
+    fn animal_dismount_location(
+        &self,
+        level: &ServerLevel,
+        passenger: &mut dyn Entity,
+    ) -> Option<Vec3> {
+        use super::dismount_helper;
+        use crate::world::level::collision::BlockGetterExt as _;
+        let forward = self.get_motion_direction();
+        if forward.get_axis() == mc_core::direction::Axis::Y {
+            return None;
+        }
+        let offsets = dismount_helper::offsets_for_direction(forward);
+        let vehicle_pos = self.block_position();
+        for &pose in passenger.get_dismount_poses() {
+            let bounds = dismount_helper::get_local_bounds_for_pose(passenger.as_dyn(), pose);
+            for [dx, dz] in offsets {
+                let target =
+                    BlockPos::new(vehicle_pos.x() + dx, vehicle_pos.y(), vehicle_pos.z() + dz);
+                let floor = level.get_block_floor_height(target);
+                if dismount_helper::is_block_floor_valid(floor) {
+                    let location = Vec3::new(
+                        f64::from(target.x()) + 0.5,
+                        f64::from(target.y()) + floor,
+                        f64::from(target.z()) + 0.5,
+                    );
+                    if dismount_helper::can_dismount_to(
+                        level,
+                        passenger.as_dyn(),
+                        &bounds.move_vec(location),
+                    ) {
+                        passenger.set_pose(pose);
+                        return Some(location);
+                    }
+                }
+            }
+        }
+        None
     }
     /// The `ContainerEntity` state of chest vehicles (chest boats, chest/hopper minecarts).
     fn chest_vehicle(&self) -> Option<&super::vehicle::container_entity::ChestVehicleData> {

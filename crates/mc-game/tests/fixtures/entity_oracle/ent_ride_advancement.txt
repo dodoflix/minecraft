@@ -1,0 +1,13 @@
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Q minecraft:recipes/decorations/crafting_table unlock_right_away
+# a boat without a goat
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+# the goat boards the boat that carries the player
+ADV P minecraft:husbandry/ride_a_boat_with_a_goat ride_a_boat_with_a_goat
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+E boat minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P;goat
+# the goat first, then the player
+ADV Q minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Q minecraft:husbandry/ride_a_boat_with_a_goat ride_a_boat_with_a_goat
+ADV Q minecraft:recipes/decorations/crafting_table unlock_right_away
+E boat2 minecraft:oak_boat pos=8.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Q;goat2

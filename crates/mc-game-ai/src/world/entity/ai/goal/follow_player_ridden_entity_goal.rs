@@ -125,10 +125,13 @@ impl Goal for FollowPlayerRiddenEntityGoal {
             let Some(following) = self.following else {
                 return;
             };
-            let Some((pos, direction, motion_direction)) = level
-                .get_entity(following)
-                .map(|f| (f.block_position(), f.get_direction(), f.get_direction()))
-            else {
+            let Some((pos, direction, motion_direction)) = level.get_entity(following).map(|f| {
+                (
+                    f.block_position(),
+                    f.get_direction(),
+                    f.get_motion_direction(),
+                )
+            }) else {
                 return;
             };
             let far = level.get_entity(following).map(|f| distance_to(mob, f));

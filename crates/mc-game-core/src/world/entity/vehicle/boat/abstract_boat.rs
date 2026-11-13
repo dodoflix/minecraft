@@ -548,7 +548,7 @@ impl AbstractBoat {
         passenger.set_y_body_rot(passenger_body_y_rot);
         if vehicle_entity::is_mob(passenger.as_dyn()) {
             passenger.set_y_rot(passenger_body_y_rot);
-            clamp_head_rotation_to_body(passenger);
+            crate::world::entity::mob::tick::clamp_head_rotation_to_body(passenger);
             mth::wrap_degrees_f32(passenger_body_y_rot - passenger.base().y_rot())
         } else {
             let delta = mth::wrap_degrees_f32(passenger.base().y_rot() - passenger_body_y_rot);
@@ -558,16 +558,6 @@ impl AbstractBoat {
             target_delta - delta
         }
     }
-}
-
-/// `Mob.clampHeadRotationToBody()` (`getMaxHeadYRot()` 75).
-fn clamp_head_rotation_to_body(mob: &mut dyn Entity) {
-    let limit = 75.0f32;
-    let Some(l) = mob.living() else { return };
-    let (body, head) = (l.y_body_rot, l.y_head_rot);
-    let delta = mth::wrap_degrees_f32(body - head);
-    let target_delta = mth::clamp_f32(mth::wrap_degrees_f32(body - head), -limit, limit);
-    mob.set_y_head_rot(head + delta - target_delta);
 }
 
 impl VehicleEntity for AbstractBoat {
@@ -836,9 +826,13 @@ impl Entity for AbstractBoat {
             .filter(|p| self.player_passengers.contains(p))
     }
 
-    /// `isClientAuthoritative()`: the controlling passenger is a player.
-    fn is_client_authoritative(&self) -> bool {
-        self.first_passenger_is_player()
+    /// `getMotionDirection()`.
+    fn get_motion_direction(&self) -> mc_core::direction::Direction {
+        self.get_direction().get_clockwise()
+    }
+
+    fn resets_forward_portal_offset(&self) -> bool {
+        true
     }
 
     fn add_passenger(&mut self, passenger: &dyn Entity, first_passenger_is_player: bool) {

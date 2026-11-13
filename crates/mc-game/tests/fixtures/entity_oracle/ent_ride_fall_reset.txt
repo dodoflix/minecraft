@@ -1,0 +1,8 @@
+P P minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=6.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E z minecraft:zombie pos=3.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=7.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+P P minecraft:player pos=0.5,-60.4125,2.7000000029802322 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E z minecraft:zombie pos=0.5,-60.51249998807907,1.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P;z
+P P minecraft:player pos=0.5,-60.4125,2.7000000029802322 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E z minecraft:zombie pos=0.5,-60.51249998807907,1.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=P;z
