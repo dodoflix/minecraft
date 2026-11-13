@@ -1,0 +1,14 @@
+# EnderEyeItem.use where no stronghold can be located (a flat world without structures): the use is accepted without a swing, nothing is thrown,
+# consumed or counted.
+level flat
+preload 3
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 0
+give Alice mainhand minecraft:ender_eye 3
+tick 3
+entity_counter 600
+level_seed 5
+dump packets:Alice:none
+use Alice
+tick 2
+dump inventory:Alice stats:Alice entities events packets:Alice:add_entity,sound,container_set_content,swing,block_changed_ack

@@ -1,0 +1,28 @@
+# EyeOfEnder: signalTo clamps a target more than 12 blocks away horizontally to 12 blocks towards it and 8 blocks up (life 0, the survive roll), a
+# nearer target is kept. The eye flies on its own for 80 ticks (it lerps its horizontal speed towards the distance, bends upwards or downwards by 1.5 %
+# of the gap per tick and slows down within a block of the target), and tells the observer through the packets of its tracker; an `Item` tag with a
+# count keeps one eye, a missing one the default eye.
+level flat
+preload 3
+difficulty normal
+level_seed 3
+entity_counter 300
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 8.5 -60 8.5 0 0
+tick 3
+dump packets:Bob:none
+spawn eye1 minecraft:eye_of_ender 0.5 -58.5 0.5 0 0
+entity_seed eye1 1
+signal eye1 100.5 -60 40.5
+spawn eye2 minecraft:eye_of_ender 20.5 -58.5 0.5 0 0
+entity_seed eye2 1
+signal eye2 26.5 -50 4.5
+spawn eye3 minecraft:eye_of_ender 30.5 -58.5 0.5 0 0 {Item:{id:"minecraft:ender_pearl",count:3}}
+entity_seed eye3 1
+signal eye3 30.5 -58.5 -40.5
+spawn eye4 minecraft:eye_of_ender 40.5 -58.5 0.5 0 0
+dump xentities edata:eye1 edata:eye3 edata:eye4 nbt:eye1 nbt:eye3 nbt:eye4
+watch xentities
+tick 80
+watch off
+dump xentities edata:eye1 nbt:eye1 packets:Bob:add_entity,set_entity_data,set_entity_motion,move_entity_pos,teleport_entity,entity_position_sync,remove_entities,sound,level_event

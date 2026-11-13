@@ -1,0 +1,29 @@
+# EnderEyeItem.use in a seeded normal world with structures: the nearest stronghold is located (the ring placement scans every ring position, so
+# one exists), the eye spawns at half the player's height, flies towards it (the target is clamped 12 blocks out and 8 up), the launch sound plays
+# at the player with pitch lerp(random, 0.33, 0.5), one eye is consumed (not in creative; Alice throws her last one) and the item-used statistic is counted. Entity ids and
+# the level random are pinned (the world's own entities, such as mineshaft minecarts, are never dumped); the text of a use line seeds the eye's own random (the survive roll).
+level normal
+structures true
+seed 4242
+preload 1
+difficulty normal
+fill -3 119 -3 3 119 3 minecraft:stone
+entity_counter 90
+spawn_player Alice survival 0.5 120 0.5 0 0
+spawn_player Bob creative 2.5 120 0.5 0 0
+give Alice mainhand minecraft:ender_eye 1
+give Bob mainhand minecraft:ender_eye 2
+tick 5
+entity_counter 500
+level_seed 11
+dump packets:Alice:none
+use Alice
+dump events xentity:eye_of_ender#1 inventory:Alice stats:Alice advancements:Alice packets:Alice:add_entity,set_entity_data,set_entity_motion,sound,container_set_content,set_cursor_item,set_player_inventory,swing
+use Bob
+dump events xentity:eye_of_ender#2 inventory:Bob stats:Bob
+tick 2
+dump packets:Alice:set_entity_data,sound
+watch events xentity:eye_of_ender#1 xentity:eye_of_ender#2
+tick 85
+watch off
+dump xentity:item#1 inventory:Alice

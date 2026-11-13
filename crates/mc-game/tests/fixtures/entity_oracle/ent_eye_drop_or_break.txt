@@ -1,0 +1,69 @@
+E drop minecraft:eye_of_ender pos=0.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=10.5,-58.5,0.5 life=0 survive=1
+E brk minecraft:eye_of_ender pos=20.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-58.5,0.5 life=0 survive=0
+E drop minecraft:eye_of_ender pos=10.499992532116162,-58.420684517629375,0.5 delta=6.456101650953844E-6,0.023059286170977987,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=10.5,-58.5,0.5 life=80 survive=1
+E brk minecraft:eye_of_ender pos=30.499992532116167,-58.420684517629375,0.5 delta=6.456101650949855E-6,0.023059286170977987,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-58.5,0.5 life=80 survive=0
+E item#1 minecraft:item pos=10.499998988217813,-58.3976252314584,0.5 delta=0.06104725049585155,0.2,-0.020978981507892347 rot=146.92255,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ender_eye*1 age=0 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=10.499998988217813,-58.3976252314584,0.5 delta=0.06104725049585155,0.2,-0.020978981507892347 rot=146.92255,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ender_eye*1 age=0 pickup=0 health=5 owner=- thrower=-
+EV sound at=10.499998988217813,-58.3976252314584,0.5 r=16.0 ex=0 event=minecraft:entity.ender_eye.death source=neutral vol=1.0 pitch=1.0
+EV sound at=30.49999898821782,-58.3976252314584,0.5 r=16.0 ex=0 event=minecraft:entity.ender_eye.death source=neutral vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=2003 pos=30,-59,0 data=0 global=0
+PKT Bob minecraft:add_entity 01ae02ab557d8bef2b4226a6fe4fd327fe94ec333fe0000000000000c04d4000000000003fe00000000000000000000000
+PKT Bob minecraft:add_entity 01af02f858164fa2fa48d2b179a81ebcf6857b334034800000000000c04d4000000000003fe00000000000000000000000
+PKT Bob minecraft:set_entity_motion 67af02a9327fff003a
+PKT Bob minecraft:set_entity_motion 67ae02a9327fff003a
+PKT Bob minecraft:set_entity_motion 67af02d1627fff0f3a
+PKT Bob minecraft:set_entity_motion 67ae02d1627fff0f3a
+PKT Bob minecraft:set_entity_motion 67af02998e7ffeff4e
+PKT Bob minecraft:set_entity_motion 67ae02998e7ffeff4e
+PKT Bob minecraft:set_entity_motion 67af0241b47ffef056
+PKT Bob minecraft:set_entity_motion 67ae0241b47ffef056
+PKT Bob minecraft:set_entity_motion 67af0261d27ffef17a
+PKT Bob minecraft:set_entity_motion 67ae0261d27ffef17a
+PKT Bob minecraft:set_entity_motion 67af02d9e77fff015a
+PKT Bob minecraft:set_entity_motion 67ae02d9e77fff015a
+PKT Bob minecraft:set_entity_motion 67af02e1f37fff104a
+PKT Bob minecraft:set_entity_motion 67ae02e1f37fff104a
+PKT Bob minecraft:set_entity_motion 67af02a19d7fff156a
+PKT Bob minecraft:set_entity_motion 67ae02a19d7fff156a
+PKT Bob minecraft:set_entity_motion 67af02b9bf7ffefd1d
+PKT Bob minecraft:set_entity_motion 67ae02b9bf7ffefd1d
+PKT Bob minecraft:set_entity_motion 67af02c9e57ffef3c1
+PKT Bob minecraft:set_entity_motion 67ae02c9e57ffef3c1
+PKT Bob minecraft:set_entity_motion 67af02a10a7ffef7d2
+PKT Bob minecraft:set_entity_motion 67ae02a10a7ffef7d2
+PKT Bob minecraft:set_entity_motion 67af02a1fb7fff07f9
+PKT Bob minecraft:set_entity_motion 67ae02a1fb7fff07f9
+PKT Bob minecraft:set_entity_motion 67af0231fe7fff0685
+PKT Bob minecraft:set_entity_motion 67ae0231fe7fff0685
+PKT Bob minecraft:set_entity_motion 67af02b1007ffef762
+PKT Bob minecraft:set_entity_motion 67ae02b1007ffef762
+PKT Bob minecraft:set_entity_motion 67af0241007ffeff46
+PKT Bob minecraft:set_entity_motion 67ae0241007ffeff46
+PKT Bob minecraft:set_entity_motion 67af02d9ff7fff0ad9
+PKT Bob minecraft:set_entity_motion 67ae02d9ff7fff0ad9
+PKT Bob minecraft:set_entity_motion 67af0209007ffefcce
+PKT Bob minecraft:set_entity_motion 67ae0209007ffefcce
+PKT Bob minecraft:set_entity_motion 67af0201007ffef3a2
+PKT Bob minecraft:set_entity_motion 67ae0201007ffef3a2
+PKT Bob minecraft:set_entity_motion 67af02f9ff7fff0659
+PKT Bob minecraft:set_entity_motion 67ae02f9ff7fff0659
+PKT Bob minecraft:set_entity_motion 67af02f9ff7fff05e5
+PKT Bob minecraft:set_entity_motion 67ae02f9ff7fff05e5
+PKT Bob minecraft:sound 77d5040600000053fffffe2d000000043f8000003f800000e32d4fcf84a7860e
+PKT Bob minecraft:remove_entities 4e01ae02
+PKT Bob minecraft:add_entity 01b00262a6118059e441cb8fbc85eb057d4766484024ffffde0cdb71c04d32e5623296d13fe0000000000000391f7d4f333200680000
+PKT Bob minecraft:set_entity_data 65b002080701fe090000ff
+PKT Bob minecraft:remove_entities 4e01af02
+PKT Bob minecraft:level_event 2f000007d30000078000000fc50000000000
+E item#1 minecraft:item pos=11.363090865111062,-60.0,0.20339714929199007 delta=1.3365412092921483E-4,0.0,-4.593044418303727E-5 rot=146.92255,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ender_eye*1 age=40 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=11.363090865111062,-60.0,0.20339714929199007 delta=1.3365412092921483E-4,0.0,-4.593044418303727E-5 rot=146.92255,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:ender_eye*1 age=40 pickup=0 health=5 owner=- thrower=-
+PKT Bob minecraft:move_entity_pos 36b00200000000000000
+PKT Bob minecraft:set_entity_data 65b002080701fe090000ff
+PKT Bob minecraft:set_entity_motion 67b002d10d7ecefffe
+PKT Bob minecraft:entity_position_sync 23b0020040269890f606f64ac04e0000000000003fcce61b0aac348f4312ec2c0000000001
+PKT Bob minecraft:set_entity_motion 67b002f1007fe8fffe
+PKT Bob minecraft:entity_position_sync 23b002004026b7d26cb9953bc04e0000000000003fca36ad43541caa4312ec2c0000000001
+PKT Bob minecraft:set_entity_motion 67b00289007ff2fffe
+PKT Bob minecraft:set_entity_motion 67b00251007ff6fffe
+PKT Bob minecraft:entity_position_sync 23b002004026b95e34e52ba6c04e0000000000003fca14ac8e0f73ec4312ec2c0000000001
+PKT Bob minecraft:set_entity_motion 67b00219007ffcfffe

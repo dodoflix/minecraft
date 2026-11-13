@@ -23,6 +23,7 @@ use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
 use mc_game::server::level::world_gen::{GenChunk, WorldGenRegion};
+use mc_game::server::level::worldgen_adapter::NoiseWorldGenerator;
 use mc_game::server::packs::repository::PackSource;
 use mc_game::server::packs::resource_manager::MultiPackResourceManager;
 use mc_game::server::packs::resources::PathPackResources;
@@ -33,6 +34,7 @@ use mc_game::world::level::levelgen::GenEnv;
 use mc_game::world::level::levelgen::gen_level::GenLevel;
 use mc_game::world::level::levelgen::registries::GenRegistries;
 use mc_game::world::level::levelgen::structure::check::{NoChunkScan, StructureCheck};
+use mc_game::world::level::levelgen::structure::generation::create_structure_state;
 use mc_game::world::level::levelgen::structure::registries::{StartCache, StructureRegistries};
 use mc_game::world::level::levelgen::structure::templatesystem::StructureTemplateManager;
 use mc_text::Component;
@@ -330,6 +332,53 @@ pub fn gen_env(seed: i64) -> Arc<GenEnv> {
         generate_structures: true,
         level_height: level_height(),
     })
+}
+
+/// The overworld of a seeded `normal` world as the server builds it (`level_lifecycle::create_level`): the real noise
+/// generator behind the chunk source and the generation environment. With `structures` the environment carries the
+/// structure placement state (`generate-structures`), which the structure search needs.
+pub fn noise_world(seed: i64, structures: bool) -> (Arc<GenEnv>, Arc<NoiseWorldGenerator>) {
+    let w = &*WORLD;
+    let random_state = Arc::new(RandomState::create(
+        w.worldgen.clone(),
+        seed,
+        w.generator.settings(),
+    ));
+    let structure_state = structures.then(|| {
+        create_structure_state(
+            w.generator.as_ref(),
+            w.generator.biome_source_arc().clone(),
+            None,
+            random_state.clone(),
+            seed,
+            &w.worldgen,
+            &w.biomes,
+        )
+        .expect("structure state")
+    });
+    let env = Arc::new(GenEnv {
+        dimension: Identifier::with_default_namespace("overworld").unwrap(),
+        seed,
+        generator: w.generator.clone(),
+        random_state: random_state.clone(),
+        biomes: w.biomes.clone(),
+        registries: w.registries.clone(),
+        structure_template_manager: w.templates.clone(),
+        structures: w.structures.clone(),
+        start_cache: StartCache::default(),
+        structure_state,
+        structure_check: StructureCheck::new(Box::new(NoChunkScan)),
+        generate_structures: structures,
+        level_height: level_height(),
+    });
+    let backend = Arc::new(NoiseWorldGenerator::new(
+        w.generator.clone(),
+        random_state,
+        seed,
+        Identifier::parse("minecraft:noise").ok(),
+    ));
+    backend.set_gen_env(env.clone());
+    (env, backend)
 }
 
 fn biome_id(name: &str) -> BiomeId {

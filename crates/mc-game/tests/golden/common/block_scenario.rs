@@ -11,7 +11,7 @@
 //! ```
 //! Generate the fixture with `scripts/block-oracle.sh blk_redstone_lever_lamp` (runs the REAL vanilla level).
 //!
-//! Supported commands (same text as the Java driver, see its header): `level flat|void`, `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
+//! Supported commands (same text as the Java driver, see its header): `level flat|void|normal` (`normal`: the overworld's real noise generator), `structures true|false` (`generate-structures`: placed structures and the structure search), `dimension overworld|the_nether|the_end`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
 //! `command_env` (a real command environment around the whole scenario; `cmd COMMAND...` then runs any other command as the console, its feedback printed as `C` lines), `jigsaw_generate PLAYER X Y Z LEVELS KEEP`, `menu_button PLAYER N`, `close_menu PLAYER`, `move_packet`, `move_vehicle`, `paddle`, `client_tick_end`, `respawn`, `effect`, `mobspawn`, `mob_attack` (the actor verbs of `block_scenario_actors.rs`),
 //! `note`, `cmd weather rain|clear TICKS`, `gamerule NAME VALUE`, `time N` (the overworld clock: sky light and sun angle follow from the next tick), `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `entity_counter N` (the next entity gets id N+1; the level's own counter starts at 0), `rand_value N`,
 //! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `biome X1 Y1 Z1 X2 Y2 Z2 BIOME` (`/fillbiome`: loads the real biome registry), `destroy X Y Z` (`Level.destroyBlock`, `DESTROY true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
@@ -354,6 +354,10 @@ impl mc_game::commands::CommandSource for CommandOutput {
 
 struct Options_ {
     flat: bool,
+    /// `level normal`: the overworld's real noise generator.
+    normal: bool,
+    /// `structures true`: `generate-structures` (placed structures and the structure search).
+    structures: bool,
     difficulty: Difficulty,
     preload: i32,
     features: mc_world::level_storage::FeatureFlagSet,
@@ -454,6 +458,8 @@ impl Scenario {
             watches: Vec::new(),
             opts: Options_ {
                 flat: true,
+                normal: false,
+                structures: false,
                 difficulty: Difficulty::Normal,
                 preload: 6,
                 features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS,
@@ -520,7 +526,14 @@ impl Scenario {
         let (shared, _rx) = ServerShared::new();
         // the scenario thread is the server thread: tasks the game submits (point of interest updates) run inline like in vanilla
         shared.bind_game_thread();
-        let worldgen_biomes = self.real_biomes.then(actors::worldgen_biomes);
+        // `level normal`: the overworld's generator (nether and end keep the void here)
+        let noise_world = (self.opts.normal && self.opts.dimension == "overworld")
+            .then(|| super::feature_harness::noise_world(self.opts.seed, self.opts.structures));
+        let worldgen_biomes = if noise_world.is_some() {
+            Some(super::feature_harness::WORLD.biomes.clone())
+        } else {
+            self.real_biomes.then(actors::worldgen_biomes)
+        };
         let biomes = BiomeRegistry::new(
             worldgen_biomes
                 .as_ref()
@@ -546,12 +559,13 @@ impl Scenario {
             }
         };
         // flat only exists in the overworld; the other dimensions are void here (scenarios fill what they dump)
-        let generator: Arc<dyn ChunkGeneratorBackend> =
-            if self.opts.flat && self.opts.dimension == "overworld" {
-                Arc::new(FlatGenerator::default_layers())
-            } else {
-                Arc::new(FlatGenerator { layers: Vec::new() })
-            };
+        let generator: Arc<dyn ChunkGeneratorBackend> = if let Some((_, backend)) = &noise_world {
+            backend.clone()
+        } else if self.opts.flat && self.opts.dimension == "overworld" {
+            Arc::new(FlatGenerator::default_layers())
+        } else {
+            Arc::new(FlatGenerator { layers: Vec::new() })
+        };
         // `VanillaLevel.boot` reseeds the uniquifier before the server exists: the level's sound seed generator is deterministic.
         // The vanilla server creates the overworld first, then the other dimensions in the iteration order of its resource key
         // keyed registry map (the oracle's shadow `ResourceKey.hashCode` fixes it to the end, then the nether; a real server's
@@ -597,10 +611,22 @@ impl Scenario {
             has_sky_light: dimension_type.has_sky_light,
             factory: Arc::new(PalettedContainerFactory::create(biomes).expect("plains registered")),
             generator,
-            generate_structures: false,
-            hooks: Arc::new(mc_game::server::level::world_gen::NoWorldGenHooks),
+            generate_structures: self.opts.structures && noise_world.is_some(),
+            hooks: match &noise_world {
+                Some((env, _)) => Arc::new(
+                    mc_game::world::level::levelgen::hooks::VanillaWorldGenHooks::new(env.clone()),
+                ),
+                None => Arc::new(mc_game::server::level::world_gen::NoWorldGenHooks),
+            },
             seed: self.opts.seed,
-            is_known_structure: Arc::new(|_| false),
+            is_known_structure: if noise_world.is_some() {
+                let structures = super::feature_harness::WORLD.structures.clone();
+                Arc::new(move |id| {
+                    Identifier::try_parse(id).is_some_and(|id| structures.get(&id).is_some())
+                })
+            } else {
+                Arc::new(|_| false)
+            },
             view_distance: 4,
             simulation_distance: 4,
             sync_writes: false,
@@ -623,10 +649,17 @@ impl Scenario {
         if let Some(biomes) = worldgen_biomes {
             level.tick_state.biomes = Some(biomes);
             level.tick_state.biome_zoom_seed =
-                mc_worldgen::biome::BiomeManager::obfuscate_seed(4242);
+                mc_worldgen::biome::BiomeManager::obfuscate_seed(if noise_world.is_some() {
+                    self.opts.seed
+                } else {
+                    4242
+                });
             // the generation environment bone meal reads (feature lists, biome tags); the grown features never consult the generator
             level.gen_env = Some(super::feature_harness::gen_env(4242));
-        } else if self.gen_env {
+        }
+        if let Some((env, _)) = &noise_world {
+            level.gen_env = Some(env.clone());
+        } else if level.gen_env.is_none() && self.gen_env {
             level.gen_env = Some(super::feature_harness::gen_env(4242));
         }
         // `Level.canHaveWeather()`
@@ -724,13 +757,23 @@ impl Scenario {
                     self.level.is_none(),
                     "`level` only before the first world command"
                 );
+                self.opts.normal = a[1] == "normal";
                 self.opts.flat = match a[1].as_str() {
                     "flat" => true,
-                    "void" => false,
+                    "void" | "normal" => false,
                     other => {
-                        panic!("level type {other} is not supported by the Rust replay (flat|void)")
+                        panic!(
+                            "level type {other} is not supported by the Rust replay (flat|void|normal)"
+                        )
                     }
                 };
+            }
+            "structures" => {
+                assert!(
+                    self.level.is_none(),
+                    "`structures` only before the first world command"
+                );
+                self.opts.structures = a[1].parse().expect("structures true|false");
             }
             "dimension" => {
                 assert!(

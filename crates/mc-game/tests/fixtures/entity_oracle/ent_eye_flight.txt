@@ -1,0 +1,538 @@
+E eye1 minecraft:eye_of_ender pos=0.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=0 survive=0
+E eye2 minecraft:eye_of_ender pos=20.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=0 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=0 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=0 survive=0
+ED eye1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:01fe090000
+ED eye3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:01f1090000
+ED eye4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:01fe090000
+N eye1 {Air:300s,Fire:0s,Invulnerable:0b,Item:{count:1,id:"minecraft:ender_eye"},Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-58.5d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N eye3 {Air:300s,Fire:0s,Invulnerable:0b,Item:{count:1,id:"minecraft:ender_pearl"},Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[30.5d,-58.5d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N eye4 {Air:300s,Fire:0s,Invulnerable:0b,Item:{count:1,id:"minecraft:ender_eye"},Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[40.5d,-58.5d,0.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+T 4
+E eye1 minecraft:eye_of_ender pos=0.5,-58.5,0.5 delta=0.02785430072655778,0.015,0.011141720290623111 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=1 survive=0
+E eye2 minecraft:eye_of_ender pos=20.5,-58.5,0.5 delta=0.015,0.015,0.01 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=1 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-58.5,0.5 delta=0.0,0.015,-0.03 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=1 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=1 survive=0
+T 5
+E eye1 minecraft:eye_of_ender pos=0.5278543007265578,-58.485,0.5111417202906231 delta=0.05556932994948277,0.029775,0.02222773197979311 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=2 survive=0
+E eye2 minecraft:eye_of_ender pos=20.515,-58.485,0.51 delta=0.029924999999999997,0.029775,0.019950000000000002 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=2 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-58.485,0.47 delta=0.0,0.029775,-0.05985000000000001 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=2 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=2 survive=0
+T 6
+E eye1 minecraft:eye_of_ender pos=0.5834236306760405,-58.455225,0.5333694522704162 delta=0.08307614827447674,0.044328375,0.0332304593097907 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=3 survive=0
+E eye2 minecraft:eye_of_ender pos=20.544925,-58.455225,0.52995 delta=0.044737875,0.044328375,0.02982525 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=3 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-58.455225,0.41014999999999996 delta=0.0,0.044328375,-0.08947575 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=3 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=3 survive=0
+T 7
+E eye1 minecraft:eye_of_ender pos=0.6664997789505173,-58.410896625,0.566599911580207 delta=0.11030650918297204,0.058663449375,0.04412260367318881 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=4 survive=0
+E eye2 minecraft:eye_of_ender pos=20.589662875,-58.410896625,0.5597752500000001 delta=0.05940187312500001,0.058663449375,0.03960124875 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=4 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-58.410896625,0.32067424999999994 delta=0.0,0.058663449375,-0.11880374625000001 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=4 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=4 survive=0
+T 8
+E eye1 minecraft:eye_of_ender pos=0.7768062881334893,-58.352233175625,0.6107225152533957 delta=0.13719302791623866,0.072783497634375,0.054877211166495465 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=5 survive=0
+E eye2 minecraft:eye_of_ender pos=20.649064748125,-58.352233175625,0.5993764987500001 delta=0.07388070657187501,0.072783497634375,0.04925380438125 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=5 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-58.352233175625,0.20187050374999993 delta=0.0,0.072783497634375,-0.14776141314375002 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=5 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=5 survive=0
+T 9
+E eye1 minecraft:eye_of_ender pos=0.913999316049728,-58.27944967799063,0.6655997264198912 delta=0.16366934778288153,0.08669174516985938,0.0654677391131526 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=6 survive=0
+E eye2 minecraft:eye_of_ender pos=20.722945454696873,-58.27944967799063,0.6486303031312501 delta=0.08813864116870315,0.08669174516985938,0.05875909411246874 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=6 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-58.27944967799063,0.05410909060624991 delta=0.0,0.08669174516985938,-0.17627728233740628 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=6 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=6 survive=0
+T 10
+E eye1 minecraft:eye_of_ender pos=1.0776686638326094,-58.19275793282077,0.7310674655330438 delta=0.1896703034804006,0.10039136899231149,0.07586812139216023 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=7 survive=0
+E eye2 minecraft:eye_of_ender pos=20.811084095865578,-58.19275793282077,0.7073893972437189 delta=0.10214058432611745,0.10039136899231149,0.06809372288407829 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=7 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-58.19275793282077,-0.12216819173115637 delta=0.0,0.10039136899231149,-0.20428116865223483 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=7 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=7 survive=0
+T 11
+E eye1 minecraft:eye_of_ender pos=1.26733896731301,-58.092366563828456,0.8069355869252041 delta=0.21513208102997483,0.11388549845742682,0.08605283241198994 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=8 survive=0
+E eye2 minecraft:eye_of_ender pos=20.913224680191696,-58.092366563828456,0.7754831201277972 delta=0.1158521711648229,0.11388549845742682,0.0772347807765486 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=8 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-58.092366563828456,-0.32644936038339123 delta=0.0,0.11388549845742682,-0.2317043423296458 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=8 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=8 survive=0
+T 12
+E eye1 minecraft:eye_of_ender pos=1.4824710483429848,-57.97848106537103,0.892988419337194 delta=0.2399923739331002,0.12717721598056542,0.09599694957324006 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=9 survive=0
+E eye2 minecraft:eye_of_ender pos=21.029076851356518,-57.97848106537103,0.8527179009043457 delta=0.12923984860851953,0.12717721598056542,0.08615989907234634 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=9 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-57.97848106537103,-0.558153702713037 delta=0.0,0.12717721598056542,-0.25847969721703906 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=9 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=9 survive=0
+T 13
+E eye1 minecraft:eye_of_ender pos=1.722463422276085,-57.85130384939046,0.988985368910434 delta=0.264190535169135,0.14026955774085692,0.105676214067654 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=10 survive=0
+E eye2 minecraft:eye_of_ender pos=21.158316699965038,-57.85130384939046,0.9388777999766921 delta=0.1422709572370856,0.14026955774085692,0.09484730482472374 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=10 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-57.85130384939046,-0.8166333999300761 delta=0.0,0.14026955774085692,-0.28454191447417126 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=10 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=10 survive=0
+T 14
+E eye1 minecraft:eye_of_ender pos=1.98665395744522,-57.711034291649604,1.094661582978088 delta=0.2876677246641569,0.15316551437474407,0.11506708986566276 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=11 survive=0
+E eye2 minecraft:eye_of_ender pos=21.300587657202122,-57.711034291649604,1.0337251048014158 delta=0.15491381070098761,0.15316551437474407,0.10327587380065838 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=11 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-57.711034291649604,-1.1011753144042473 delta=0.0,0.15316551437474407,-0.30982762140197523 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=11 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=11 survive=0
+T 15
+E eye1 minecraft:eye_of_ender pos=2.274321682109377,-57.55786877727486,1.2097286728437506 delta=0.31036705187378083,0.16586803165912292,0.12414682074951233 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=12 survive=0
+E eye2 minecraft:eye_of_ender pos=21.455501467903108,-57.55786877727486,1.137000978602074 delta=0.16713777250447737,0.16586803165912292,0.11142518166965151 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=12 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-57.55786877727486,-1.4110029358062226 delta=0.0,0.16586803165912292,-0.33427554500895473 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=12 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=12 survive=0
+T 16
+E eye1 minecraft:eye_of_ender pos=2.5846887339831577,-57.39200074561574,1.333875493593263 delta=0.3322337131356963,0.17838001118423608,0.1328934852542785 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=13 survive=0
+E eye2 minecraft:eye_of_ender pos=21.622639240407587,-57.39200074561574,1.2484261602717255 delta=0.17891332997219717,0.17838001118423608,0.11927555331479807 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=13 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-57.39200074561574,-1.7452784808151773 delta=0.0,0.17838001118423608,-0.3578266599443944 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=13 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=13 survive=0
+T 17
+E eye1 minecraft:eye_of_ender pos=2.916922447118854,-57.2136207344315,1.4667689788475415 delta=0.35321512346161765,0.19070431101647253,0.14128604938464703 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=14 survive=0
+E eye2 minecraft:eye_of_ender pos=21.801552570379783,-57.2136207344315,1.3677017135865235 delta=0.19021216522131723,0.19070431101647253,0.12680811014754478 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=14 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-57.2136207344315,-2.103105140759572 delta=0.0,0.19070431101647253,-0.38042433044263446 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=14 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=14 survive=0
+T 18
+E eye1 minecraft:eye_of_ender pos=3.270137570580472,-57.022916423415026,1.6080550282321886 delta=0.37326104245307024,0.20284374635122546,0.1493044169812281 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=15 survive=0
+E eye2 minecraft:eye_of_ender pos=21.9917647356011,-57.022916423415026,1.4945098237340684 delta=0.20100722296926116,0.20284374635122546,0.13400481531284075 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=15 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-57.022916423415026,-2.483529471202206 delta=0.0,0.20284374635122546,-0.40201444593852237 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=15 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=15 survive=0
+T 19
+E eye1 minecraft:eye_of_ender pos=3.643398613033542,-56.8200726770638,1.7573594452134167 delta=0.39232369404091144,0.21480109015595708,0.15692947761636455 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=16 survive=0
+E eye2 minecraft:eye_of_ender pos=22.19277195857036,-56.8200726770638,1.6285146390469092 delta=0.2112727750154121,0.21480109015595708,0.14084851667694132 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=16 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-56.8200726770638,-2.8855439171407284 delta=0.0,0.21480109015595708,-0.42254555003082417 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=16 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=16 survive=0
+T 20
+E eye1 minecraft:eye_of_ender pos=4.035722307074454,-56.60527158690784,1.9142889228297812 delta=0.41035787976468086,0.22657907380361772,0.16414315190587234 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=17 survive=0
+E eye2 minecraft:eye_of_ender pos=22.404044733585774,-56.60527158690784,1.7693631557238505 delta=0.22098448124390913,0.22657907380361772,0.14732298749593936 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=17 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-56.60527158690784,-3.308089467171553 delta=0.0,0.22657907380361772,-0.44196896248781825 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=17 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=17 survive=0
+T 21
+E eye1 minecraft:eye_of_ender pos=4.446080186839135,-56.37869251310422,2.0784320747356535 delta=0.42732108532472907,0.23818038769656347,0.17092843412989164 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=18 survive=0
+E eye2 minecraft:eye_of_ender pos=22.625029214829684,-56.37869251310422,1.91668614321979 delta=0.23011944700372514,0.23818038769656347,0.15341296466915005 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=18 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-56.37869251310422,-3.7500584296593713 delta=0.0,0.23818038769656347,-0.46023889400745027 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=18 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=18 survive=0
+T 22
+E eye1 minecraft:eye_of_ender pos=4.873401272163863,-56.14051212540765,2.249360508865545 delta=0.44317358015756536,0.249607681881115,0.17726943206302614 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=19 survive=0
+E eye2 minecraft:eye_of_ender pos=22.85514866183341,-56.14051212540765,2.07009910788894 delta=0.2386562767316322,0.249607681881115,0.15910418448775485 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=19 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-56.14051212540765,-4.210297323666822 delta=0.0,0.249607681881115,-0.4773125534632646 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=19 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=19 survive=0
+T 23
+E eye1 minecraft:eye_of_ender pos=5.316574852321429,-55.89090444352654,2.426629940928571 delta=0.4578785098029257,0.2608635666528983,0.18315140392117027 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=20 survive=0
+E eye2 minecraft:eye_of_ender pos=23.093804938565043,-55.89090444352654,2.229203292376695 delta=0.24657512369339052,0.2608635666528983,0.1643834157955937 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=20 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-55.89090444352654,-4.687609877130087 delta=0.0,0.2608635666528983,-0.49315024738678126 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=20 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=20 survive=0
+T 24
+E eye1 minecraft:eye_of_ender pos=5.774453362124355,-55.630040876873636,2.6097813448497416 delta=0.47140198084966534,0.2719506131531048,0.18856079233986614 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=21 survive=0
+E eye2 minecraft:eye_of_ender pos=23.340380062258433,-55.630040876873636,2.393586708172289 delta=0.25385773572851095,0.2719506131531048,0.16923849048567394 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=21 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-55.630040876873636,-5.180760124516868 delta=0.0,0.2719506131531048,-0.5077154714570221 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=21 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=21 survive=0
+T 25
+E eye1 minecraft:eye_of_ender pos=6.2458553429740205,-55.358090263720534,2.7983421371896076 delta=0.4837131382666639,0.28287135395580826,0.19348525530666558 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=22 survive=0
+E eye2 minecraft:eye_of_ender pos=23.594237797986942,-55.358090263720534,2.5628251986579627 delta=0.2604874968942224,0.28287135395580826,0.1736583312628148 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=22 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-55.358090263720534,-5.68847559597389 delta=0.0,0.28287135395580826,-0.5209749937884448 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=22 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=22 survive=0
+T 26
+E eye1 minecraft:eye_of_ender pos=6.729568481240684,-55.07521890976473,2.991827392496273 delta=0.4947842349444532,0.29362828364647114,0.1979136939777813 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=23 survive=0
+E eye2 minecraft:eye_of_ender pos=23.854725294881163,-55.07521890976473,2.7364835299207773 delta=0.26644946491478394,0.29362828364647114,0.17763297660985577 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=23 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-55.07521890976473,-6.209450589762335 delta=0.0,0.29362828364647114,-0.5328989298295679 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=23 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=23 survive=0
+T 27
+E eye1 minecraft:eye_of_ender pos=7.2243527161851375,-54.78159062611826,3.1897410864740543 delta=0.5045906932931871,0.3042238593917741,0.20183627731727485 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=24 survive=0
+E eye2 minecraft:eye_of_ender pos=24.12117475979595,-54.78159062611826,2.914116506530633 delta=0.27173040435300705,0.3042238593917741,0.18115360290200466 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=24 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-54.78159062611826,-6.742349519591903 delta=0.0,0.3042238593917741,-0.5434608087060142 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=24 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=24 survive=0
+T 28
+E eye1 minecraft:eye_of_ender pos=7.728943409478324,-54.47736676672648,3.3915773637913293 delta=0.5131111587628161,0.31466050150089747,0.20524446350512643 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=25 survive=0
+E eye2 minecraft:eye_of_ender pos=24.392905164148956,-54.47736676672648,3.0952701094326374 delta=0.2763188154317521,0.31466050150089747,0.1842125436211681 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=25 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-54.47736676672648,-7.2858103282979165 delta=0.0,0.31466050150089747,-0.5526376308635044 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=25 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=25 survive=0
+T 29
+E eye1 minecraft:eye_of_ender pos=8.24205456824114,-54.16270626522559,3.5968218272964556 delta=0.520327545171864,0.324940593978384,0.20813101806874565 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=26 survive=0
+E eye2 minecraft:eye_of_ender pos=24.669223979580707,-54.16270626522559,3.2794826530538055 delta=0.280204958444221,0.324940593978384,0.18680330562948055 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=26 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-54.16270626522559,-7.838447959161421 delta=0.0,0.324940593978384,-0.5604099168884421 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=26 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=26 survive=0
+T 30
+E eye1 minecraft:eye_of_ender pos=8.762382113413004,-53.837765671247205,3.804952845365201 delta=0.5262250717519596,0.33506648506870823,0.2104900287007839 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=27 survive=0
+E eye2 minecraft:eye_of_ender pos=24.949428938024926,-53.837765671247205,3.466285958683286 delta=0.2833808737030482,0.33506648506870823,0.18892058246869844 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=27 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-53.837765671247205,-8.398857876049863 delta=0.0,0.33506648506870823,-0.5667617474060963 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=27 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=27 survive=0
+T 31
+E eye1 minecraft:eye_of_ender pos=9.288607185164963,-53.502699186178496,4.015442874065985 delta=0.530792291836225,0.3450404877926776,0.21231691673448996 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=28 survive=0
+E eye2 minecraft:eye_of_ender pos=25.232809811727975,-53.502699186178496,3.6552065411519847 delta=0.2858403969894706,0.3450404877926776,0.19056026465964676 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=28 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-53.502699186178496,-8.965619623455959 delta=0.0,0.3450404877926776,-0.5716807939789411 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=28 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=28 survive=0
+T 32
+E eye1 minecraft:eye_of_ender pos=9.819399477001188,-53.157658698385816,4.227759790800475 delta=0.5340211131406892,0.35486488047578746,0.21360844525627568 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=29 survive=0
+E eye2 minecraft:eye_of_ender pos=25.518650208717446,-53.157658698385816,3.8457668058116314 delta=0.2875791704752032,0.35486488047578746,0.1917194469834686 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=29 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-53.157658698385816,-9.537300417434901 delta=0.0,0.35486488047578746,-0.5751583409504065 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=29 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=29 survive=0
+T 33
+E eye1 minecraft:eye_of_ender pos=10.353420590141877,-52.80279381791003,4.441368236056751 delta=0.5359068096090406,0.36454190726865066,0.21436272384361602 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=30 survive=0
+E eye2 minecraft:eye_of_ender pos=25.80622937919265,-52.80279381791003,4.0374862527951 delta=0.23087571928082673,0.2946335258149205,0.15391714618721802 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=30 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-52.80279381791003,-10.112458758385307 delta=0.0,0.36454190726865066,-0.5771892982020672 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=30 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=30 survive=0
+T 34
+E eye1 minecraft:eye_of_ender pos=10.889327399750917,-52.43825191064138,4.6557309599003665 delta=0.4291584198497588,0.30225902292769674,0.17166336793990342 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=31 survive=0
+E eye2 minecraft:eye_of_ender pos=26.03710509847348,-52.508160292095106,4.191403398982318 delta=0.18516461378915258,0.24717121834215738,0.12344307585943563 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=31 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-52.43825191064138,-10.689648056587373 delta=0.0,0.30225902292769674,-0.4622177638520749 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=31 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=31 survive=0
+T 35
+E eye1 minecraft:eye_of_ender pos=11.318485819600676,-52.13599288771368,4.82739432784027 delta=0.3431148879821522,0.25318011006702507,0.13724595519286142 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=32 survive=0
+E eye2 minecraft:eye_of_ender pos=26.22226971226263,-52.260989073752945,4.314846474841754 delta=0.14831682237921878,0.20977092005362002,0.0988778815861457 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=32 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-52.13599288771368,-11.151865820439449 delta=0.0,0.25318011006702507,-0.36954604391307694 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=32 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=32 survive=0
+T 36
+E eye1 minecraft:eye_of_ender pos=11.661600707582828,-51.88281277764665,4.964640283033131 delta=-0.2738454414436745,0.21450592673281577,-0.10953817657747715 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=33 survive=0
+E eye2 minecraft:eye_of_ender pos=26.37058653464185,-52.051218153699324,4.413724356427899 delta=0.11861565118933284,0.1802994850022526,0.07907710079288857 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=33 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-51.88281277764665,-11.521411864352526 delta=0.0,0.21450592673281577,0.29494056677134045 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=33 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=33 survive=0
+T 37
+E eye1 minecraft:eye_of_ender pos=11.387755266139154,-51.66830685091384,4.8551021064556545 delta=0.21903659232102027,0.18403067026545883,0.08761463692841377 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=34 survive=0
+E eye2 minecraft:eye_of_ender pos=26.489202185831182,-51.87091866869707,4.4928014572207875 delta=0.09467688527742286,0.15707599418177506,0.0631179235182871 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=34 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-51.66830685091384,-11.226471297581186 delta=0.0,0.18403067026545883,-0.23590962968836734 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=34 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=34 survive=0
+T 38
+E eye1 minecraft:eye_of_ender pos=11.606791858460173,-51.48427618064838,4.942716743384068 delta=0.17486105753649978,0.16001616816918154,0.06994442301460525 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=35 survive=0
+E eye2 minecraft:eye_of_ender pos=26.583879071108605,-51.7138426745153,4.555919380739074 delta=-0.07571991259360071,0.13877588341523875,-0.05047994172907115 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=35 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-51.48427618064838,-11.462380927269553 delta=0.0,0.16001616816918154,-0.18833112263677804 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=35 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=35 survive=0
+T 39
+E eye1 minecraft:eye_of_ender pos=11.781652915996673,-51.3242600124792,5.012661166398673 delta=-0.13981898916487404,0.14109274051731505,-0.0559275956659537 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=36 survive=0
+E eye2 minecraft:eye_of_ender pos=26.508159158515003,-51.575066791100056,4.505439439010003 delta=-0.06044080856671979,0.12435539613120813,-0.040293872377824155 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=36 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-51.3242600124792,-11.650712049906332 delta=0.0,0.14109274051731505,0.15058965996396156 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=36 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=36 survive=0
+T 40
+E eye1 minecraft:eye_of_ender pos=11.641833926831799,-51.183167271961885,4.95673357073272 delta=-0.11157578062586772,0.12618107952764426,-0.04463031225069592 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=37 survive=0
+E eye2 minecraft:eye_of_ender pos=26.447718349948282,-51.45071139496885,4.465145566632179 delta=0.04833632853634609,0.112992052151392,0.032224219024238936 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=37 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-51.183167271961885,-11.500122389942371 delta=0.0,0.12618107952764426,0.12017079343112608 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=37 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=37 survive=0
+T 41
+E eye1 minecraft:eye_of_ender pos=11.53025814620593,-51.05698619243424,4.9121032584820234 delta=0.08926039722827679,0.11443069066778368,0.035704158891589816 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=38 survive=0
+E eye2 minecraft:eye_of_ender pos=26.49605467848463,-51.33771934281746,4.497369785656418 delta=0.03858028081503126,0.1040377370952969,0.025720187210035318 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=38 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-51.05698619243424,-11.379951596511244 delta=0.0,0.11443069066778368,-0.09613638996501613 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=38 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=38 survive=0
+T 42
+E eye1 minecraft:eye_of_ender pos=11.619518543434207,-50.942555501766456,4.947807417373613 delta=0.07127420048254265,0.10517138424621354,0.02850968019324003 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=39 survive=0
+E eye2 minecraft:eye_of_ender pos=26.53463495929966,-51.23368160572216,4.523089972866454 delta=-0.030856334008993642,0.09698173683109396,-0.020570889339342018 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=39 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.942555501766456,-11.47608798647626 delta=0.0,0.10517138424621354,-0.07676466321913035 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=39 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=39 survive=0
+T 43
+E eye1 minecraft:eye_of_ender pos=11.69079274391675,-50.837384117520244,4.976317097566853 delta=-0.0569749568916564,0.09787505078601627,-0.02278998275684055 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=40 survive=0
+E eye2 minecraft:eye_of_ender pos=26.503778625290664,-51.136699868891064,4.502519083527112 delta=-0.024630911789755888,0.09142160862290205,-0.016420607859852696 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=40 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.837384117520244,-11.55285264969539 delta=0.0,0.09787505078601627,0.0613639065482568 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=40 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=40 survive=0
+T 44
+E eye1 minecraft:eye_of_ender pos=11.633817787025095,-50.73950906673423,4.953527114810012 delta=0.04548182060673714,0.09212554001938082,0.018192728242839008 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=41 survive=0
+E eye2 minecraft:eye_of_ender pos=26.479147713500907,-51.04527826026816,4.4860984756672595 delta=0.019697172181223792,0.08704022759484682,0.013131448120827326 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=41 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.73950906673423,-11.491488743147134 delta=0.0,0.09212554001938082,-0.04898541993921466 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=41 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=41 survive=0
+T 45
+E eye1 minecraft:eye_of_ender pos=11.679299607631831,-50.64738352671485,4.971719843052852 delta=-0.03636965147819353,0.0875949255352721,-0.014547860591393113 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=42 survive=0
+E eye2 minecraft:eye_of_ender pos=26.498844885682132,-50.958238032673314,4.499229923788087 delta=0.01572065362924725,0.0835876993447393,0.010480435752851645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=42 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.64738352671485,-11.540474163086348 delta=0.0,0.0875949255352721,0.039171313437666 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=42 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=42 survive=0
+T 46
+E eye1 minecraft:eye_of_ender pos=11.642929956153639,-50.55978860117958,4.957171982461459 delta=-0.02902540121066194,0.0840248013217944,-0.011610160484350021 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=43 survive=0
+E eye2 minecraft:eye_of_ender pos=26.51456553931138,-50.874650333328574,4.5097103595409385 delta=-0.012574212674762306,0.08086710708365456,-0.008382808449857128 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=43 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.55978860117958,-11.501302849648681 delta=0.0,0.0840248013217944,0.031261313822554836 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=43 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=43 survive=0
+T 47
+E eye1 minecraft:eye_of_ender pos=11.613904554942977,-50.47576379985778,4.945561821977108 delta=0.023217901637468386,0.081211543441574,0.009287160655055858 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=44 survive=0
+E eye2 minecraft:eye_of_ender pos=26.501991326636617,-50.79378322624492,4.501327551091081 delta=-0.010038204367731722,0.07872328038191981,-0.006692136245170898 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=44 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.47576379985778,-11.470041535826127 delta=0.0,0.081211543441574,-0.025006445358746507 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=44 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=44 survive=0
+T 48
+E eye1 minecraft:eye_of_ender pos=11.637122456580444,-50.394552256416205,4.954848982632164 delta=0.018537081174785697,0.048994696231960316,0.007414832469967276 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=45 survive=0
+E eye2 minecraft:eye_of_ender pos=26.491953122268885,-50.715059945863,4.49463541484591 delta=0.008026580840912071,0.07703394494095281,0.0053510538939546696 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=45 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.394552256416205,-11.495047981184873 delta=0.0,0.048994696231960316,-0.019965047433909967 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=45 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=45 survive=0
+T 49
+E eye1 minecraft:eye_of_ender pos=11.65565953775523,-50.34555756018425,4.962263815102132 delta=-0.014820469271743247,0.02360782063078473,-0.005928187708739605 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=46 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499979703109798,-50.638026000922046,4.4999864687398645 delta=0.006405252104746888,0.07570274861347082,0.0042701680700181184 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=46 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.34555756018425,-11.515013028618784 delta=0.0,0.02360782063078473,0.01596213390949772 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=46 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=46 survive=0
+T 50
+E eye1 minecraft:eye_of_ender pos=11.640839068483487,-50.32194973955346,4.956335627393392 delta=0.01182849692312885,0.0036029626570583725,0.00473139876928969 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=47 survive=0
+E eye2 minecraft:eye_of_ender pos=26.506384955214546,-50.56232325230857,4.504256636809883 delta=-0.005124161090017456,0.07465376590741502,-0.003416107393493707 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=47 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.32194973955346,-11.499050894709287 delta=0.0,0.0036029626570583725,-0.012739681070360607 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=47 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=47 survive=0
+T 51
+E eye1 minecraft:eye_of_ender pos=11.652667565406617,-50.318346776896405,4.961067026162682 delta=-0.00946103509422382,-0.012160865426238001,-0.003784414037720078 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=48 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50126079412453,-50.48766948640116,4.500840529416389 delta=-0.004091602138084148,0.07382716753504304,-0.0027277347588390206 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=48 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.318346776896405,-11.511790575779647 delta=0.0,-0.012160865426238001,0.01018984664570706 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=48 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=48 survive=0
+T 52
+E eye1 minecraft:eye_of_ender pos=11.643206530312392,-50.330507642322644,4.957282612124962 delta=-0.00755287848456886,-0.024582761955875547,-0.0030211513938528203 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=49 survive=0
+E eye2 minecraft:eye_of_ender pos=26.497169191986444,-50.413842318866116,4.49811279465755 delta=0.003270760122218998,0.07317580801761392,0.002180506748237332 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=49 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.330507642322644,-11.50160072913394 delta=0.0,-0.024582761955875547,0.008134699081542116 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=49 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=49 survive=0
+T 53
+E eye1 minecraft:eye_of_ender pos=11.635653651827823,-50.35509040427852,4.954261460731109 delta=0.006039330308276669,-0.034371216421229936,0.0024157321233304733 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=50 survive=0
+E eye2 minecraft:eye_of_ender pos=26.500439952108664,-50.3406665108485,4.5002933014057875 delta=-0.0026109464817501127,0.07266253671787977,-0.0017406309879019314 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=50 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.35509040427852,-11.493466030052398 delta=0.0,-0.034371216421229936,-0.006504557806965814 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=50 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=50 survive=0
+T 54
+E eye1 minecraft:eye_of_ender pos=11.6416929821361,-50.38946162069975,4.95667719285444 delta=0.004819440203016689,-0.042084518539929186,0.0019277760811126274 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=51 survive=0
+E eye2 minecraft:eye_of_ender pos=26.497829005626915,-50.26800397413062,4.498552670417886 delta=0.002087877281182425,0.07225807893368925,0.0013919181875104716 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=51 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.38946162069975,-11.499970587859364 delta=0.0,-0.042084518539929186,-0.005190695954239991 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=51 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=51 survive=0
+T 55
+E eye1 minecraft:eye_of_ender pos=11.646512422339116,-50.43154613923968,4.9586049689355525 delta=-0.003855497545439352,-0.0481626006094642,-0.001542199018100424 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=52 survive=0
+E eye2 minecraft:eye_of_ender pos=26.4999168829081,-50.195745895196936,4.499944588605397 delta=0.0016662923045604344,0.07193936619974714,0.0011108615364329756 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=52 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.43154613923968,-11.505161283813605 delta=0.0,-0.0481626006094642,0.004152497939110723 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=52 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=52 survive=0
+T 56
+E eye1 minecraft:eye_of_ender pos=11.642656924793677,-50.479708739849144,4.957062769917452 delta=-0.003078560309601731,-0.0529521292802578,-0.001231424123780555 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=53 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50158317521266,-50.123806528997186,4.50105545014183 delta=-0.0013328676094642546,0.07168822056540075,-8.885784063576085E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=53 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.479708739849144,-11.501008785874495 delta=0.0,-0.0529521292802578,0.003315710927159347 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=53 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=53 survive=0
+T 57
+E eye1 minecraft:eye_of_ender pos=11.639578364484075,-50.5326608691294,4.955831345793672 delta=0.0024609749793403583,-0.05672627787284315,9.843899916877727E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=54 survive=0
+E eye2 minecraft:eye_of_ender pos=26.500250307603196,-50.05211830843179,4.500166871735472 delta=-0.0010641289675597458,0.0714903178055358,-7.094193117429975E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=54 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.5326608691294,-11.497693074947335 delta=0.0,-0.05672627787284315,-0.0026505511699784884 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=54 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=54 survive=0
+T 58
+E eye1 minecraft:eye_of_ender pos=11.642039339463416,-50.58938714700224,4.9568157357853595 delta=-0.001964496131194853,-0.029700306963800407,-7.85798452437472E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=55 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499186178635636,-49.98062799062625,4.499457452423729 delta=8.508025588413034E-4,0.07133437043076221,5.67201705923606E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=55 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.58938714700224,-11.500343626117314 delta=0.0,-0.029700306963800407,0.0021158270858774608 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=55 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=55 survive=0
+T 59
+E eye1 minecraft:eye_of_ender pos=11.640074843332222,-50.619087453966046,4.956029937332922 delta=0.001570958807275284,-0.008403841887474721,6.283835228777211E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=56 survive=0
+E eye2 minecraft:eye_of_ender pos=26.500036981194476,-49.90929362019549,4.5000246541296525 delta=-6.790144043425997E-4,0.041211483899440626,-4.5267626958891293E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=56 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.619087453966046,-11.498227799031437 delta=0.0,-0.008403841887474721,-0.0016919744164673408 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=56 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=56 survive=0
+T 60
+E eye1 minecraft:eye_of_ender pos=11.641645802139497,-50.62749129585352,4.9566583208558 delta=0.0012537741051722423,0.008377772592669919,5.015096420449774E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=57 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499357966790132,-49.86808213629605,4.499571977860064 delta=5.431375610855689E-4,0.017474649312759216,3.620917074111671E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=57 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.62749129585352,-11.499919773447903 delta=0.0,0.008377772592669919,-0.0013503560374451315 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=57 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=57 survive=0
+T 61
+E eye1 minecraft:eye_of_ender pos=11.64289957624467,-50.61911352326085,4.957159830497845 delta=-0.0010028703071706855,0.021601684803023897,-4.011481228487871E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=58 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499901104351217,-49.85060748698329,4.499934069567475 delta=4.3362156504551794E-4,-0.0012299763415457368,2.8908104337665975E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=58 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.61911352326085,-11.501270129485349 delta=0.0,0.021601684803023897,0.001080124376851912 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=58 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=58 survive=0
+T 62
+E eye1 minecraft:eye_of_ender pos=11.6418967059375,-50.59751183845783,4.956758682374995 delta=-8.0064333575201E-4,0.032022127624782834,-3.202573342822618E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=59 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50033472591626,-49.85183746332484,4.500223150610852 delta=-3.466994607382584E-4,-0.01596922135713804,-2.3113297383715832E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=59 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.59751183845783,-11.500190005108497 delta=0.0,0.032022127624782834,8.623192629448193E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=59 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=59 survive=0
+T 63
+E eye1 minecraft:eye_of_ender pos=11.641096062601747,-50.56548971083304,4.956438425040713 delta=6.401618379729365E-4,0.040233436568328874,2.5606473517405447E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=60 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499988026455522,-49.86780668468198,4.499992017637014 delta=2.766901167560627E-4,-0.027583746429424776,1.8446007785105813E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=60 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.56548971083304,-11.499327685845552 delta=0.0,0.040233436568328874,-6.894754001388618E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=60 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=60 survive=0
+T 64
+E eye1 minecraft:eye_of_ender pos=11.64173622443972,-50.52525627426471,4.956694489775887 delta=-5.108810143373492E-4,0.046703948015843155,-2.0435240571785323E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=61 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50026471657228,-49.8953904311114,4.500176477714866 delta=-2.2132814631580574E-4,-0.03673599218638673,-1.4755209755500952E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=61 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.52525627426471,-11.50001716124569 delta=0.0,0.046703948015843155,5.502356918021923E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=61 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=61 survive=0
+T 65
+E eye1 minecraft:eye_of_ender pos=11.641225343425383,-50.47855232624887,4.956490137370169 delta=4.0867294383660415E-4,0.05180271103648441,1.6346917752114784E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=62 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50004338842596,-49.93212642329779,4.50002892561731 delta=-1.767066376110323E-4,-0.04394796184287274,-1.178044250848733E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=62 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.47855232624887,-11.499466925553888 delta=0.0,0.05180271103648441,-4.40154230950374E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=62 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=62 survive=0
+T 66
+E eye1 minecraft:eye_of_ender pos=11.641634016369219,-50.42674961521238,4.9566536065476905 delta=3.26293557690084E-4,0.025820536296749713,1.305174230632689E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=63 survive=0
+E eye2 minecraft:eye_of_ender pos=26.49986668178835,-49.97607438514066,4.499911121192225 delta=1.4127853323656262E-4,-0.04963099393218372,9.41856888337872E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=63 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.42674961521238,-11.499907079784839 delta=0.0,0.025820536296749713,-3.5142891672872124E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=63 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=63 survive=0
+T 67
+E eye1 minecraft:eye_of_ender pos=11.641960309926908,-50.40092907891563,4.9567841239707535 delta=-2.608622976442879E-4,0.005346582601838774,-1.043449190474829E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=64 survive=0
+E eye2 minecraft:eye_of_ender pos=26.500007960321586,-50.025705379072846,4.500005306881059 delta=-1.1275619015780388E-4,-0.05410922321856077,-7.517079346369762E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=64 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.40092907891563,-11.500258508701567 delta=0.0,0.005346582601838774,2.8095729295265305E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=64 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=64 survive=0
+T 68
+E eye1 minecraft:eye_of_ender pos=11.641699447629264,-50.39558249631379,4.956679779051706 delta=2.0820979950746953E-4,-0.010786892909751045,8.32839197958899E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=65 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499895204131427,-50.07981460229141,4.499930136087595 delta=9.018903148342446E-5,-0.02763806789622589,6.012602100831395E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=65 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.39558249631379,-11.499977551408614 delta=0.0,-0.010786892909751045,-2.2424881695898868E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=65 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=65 survive=0
+T 69
+E eye1 minecraft:eye_of_ender pos=11.641907657428773,-50.40636938922354,4.956763062971502 delta=-1.66526153618283E-4,-0.023500071612883824,-6.661046144162962E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=66 survive=0
+E eye2 minecraft:eye_of_ender pos=26.49998539316291,-50.107452670187634,4.499990262108604 delta=7.200006079970056E-5,-0.0067787975022260034,4.8000040544808404E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=66 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.40636938922354,-11.500201800225573 delta=0.0,-0.023500071612883824,1.7935415638441993E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=66 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=66 survive=0
+T 70
+E eye1 minecraft:eye_of_ender pos=11.641741131275154,-50.42986946083643,4.9566964525100605 delta=-1.3292955189147105E-4,-0.03351805643095246,-5.317182075205631E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=67 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50005739322371,-50.11423146768986,4.500038262149149 delta=-5.75708349657763E-5,0.009658307568245908,-3.8380556652760136E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=67 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.42986946083643,-11.500022446069188 delta=0.0,-0.03351805643095246,1.4316950893314355E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=67 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=67 survive=0
+T 71
+E eye1 minecraft:eye_of_ender pos=11.641608201723262,-50.46338751726738,4.956643280689309 delta=1.063019602092974E-4,-0.04141222846759054,4.252078407950734E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=68 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499999822388745,-50.10457316012162,4.499999881592496 delta=4.594188145779281E-5,0.022610746363777773,3.062792112502254E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=68 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.46338751726738,-11.499879276560256 delta=0.0,-0.04141222846759054,-1.1449071500813746E-4 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=68 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=68 survive=0
+T 72
+E eye1 minecraft:eye_of_ender pos=11.64171450368347,-50.50479974573497,4.956685801473388 delta=8.484053812783841E-5,-0.04763283603246135,3.393621524332258E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=69 survive=0
+E eye2 minecraft:eye_of_ender pos=26.5000457642702,-50.08196241375784,4.50003050951362 delta=-3.675314994353789E-5,0.032817268134656886,-2.4502100085282835E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=69 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.50479974573497,-11.499993767275264 delta=0.0,-0.04763283603246135,-9.137605602596635E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=69 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=69 survive=0
+T 73
+E eye1 minecraft:eye_of_ender pos=11.641799344221598,-50.552432581767434,4.956719737688632 delta=-6.786085662293382E-5,-0.022534674793579547,-2.714434264307412E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=70 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50000901112026,-50.049145145623186,4.5000060074135355 delta=-2.9347035896260975E-5,0.04086000729010963,-1.9564690693926716E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=70 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.552432581767434,-11.50008514333129 delta=0.0,-0.022534674793579547,7.308837937130172E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=70 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=70 survive=0
+T 74
+E eye1 minecraft:eye_of_ender pos=11.641731483364975,-50.57496725656102,4.956692593345989 delta=-5.417534906862906E-5,-0.002757323737340684,-2.1670139623152643E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=71 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499979664084364,-50.00828513833308,4.499986442722841 delta=2.3459606475807573E-5,0.04719768574460639,1.5639737729091565E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=71 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.57496725656102,-11.500012054951918 delta=0.0,-0.002757323737340684,5.834863664213572E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=71 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=71 survive=0
+T 75
+E eye1 minecraft:eye_of_ender pos=11.641677308015906,-50.57772458029836,4.9566709232063655 delta=4.3317893771228826E-5,0.012827228894975541,1.7327157504911107E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=72 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50000312369084,-49.96108745258847,4.50000208246057 delta=-1.872701334718403E-5,0.052191776366749834,-1.2484675632236414E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=72 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.57772458029836,-11.499953706315276 delta=0.0,0.012827228894975541,-4.6654799409872036E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=72 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=72 survive=0
+T 76
+E eye1 minecraft:eye_of_ender pos=11.641720625909677,-50.56489735140338,4.956688250363871 delta=-3.456834979526965E-5,0.025107856369240726,-1.3827339936422261E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=73 survive=0
+E eye2 minecraft:eye_of_ender pos=26.49998439667749,-49.908895676221725,4.499989597784938 delta=1.497536329644059E-5,0.026127119776998872,9.983575584095415E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=73 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.56489735140338,-11.500000361114687 delta=0.0,0.025107856369240726,3.7231252158451085E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=73 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=73 survive=0
+T 77
+E eye1 minecraft:eye_of_ender pos=11.641686057559882,-50.53978949503414,4.956674423023935 delta=2.7654009263140246E-5,0.03478499081896169,1.1061603719749287E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=74 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499999372040786,-49.882768556444724,4.499999581360522 delta=1.1951595830354049E-5,0.005588170384275113,7.967730593012503E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=74 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.53978949503414,-11.499963129862529 delta=0.0,0.03478499081896169,-2.978427949738619E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=74 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=74 survive=0
+T 78
+E eye1 minecraft:eye_of_ender pos=11.641713711569146,-50.50500450421518,4.956685484627655 delta=2.208105750000329E-5,0.04241057276534181,8.832423011328977E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=75 survive=0
+E eye2 minecraft:eye_of_ender pos=26.500011323636617,-49.877180386060445,4.500007549091115 delta=-9.560020745997398E-6,-0.010596521737191208,-6.373347195241924E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=75 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.50500450421518,-11.499992914142027 delta=0.0,0.04241057276534181,-2.3782026754860714E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=75 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=75 survive=0
+T 79
+E eye1 minecraft:eye_of_ender pos=11.641735792626646,-50.46259393144984,4.956694317050666 delta=-1.765168789191387E-5,0.04841953133908935,-7.0606751662721745E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=76 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50000176361587,-49.88777690779764,4.50000117574392 delta=-7.632423785549957E-6,-0.02335005912890667,-5.088282551887702E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=76 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.46259393144984,-11.500016696168782 delta=0.0,0.04841953133908935,1.9011449687942348E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=76 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=76 survive=0
+T 80
+E eye1 minecraft:eye_of_ender pos=11.641718140938753,-50.414174400110745,4.9566872563755 delta=1.409034630707519E-5,0.023154590695202412,5.636138528651741E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=77 survive=0
+E eye2 minecraft:eye_of_ender pos=26.499994131192086,-49.911126966926545,4.499996087461368 delta=6.102411796443608E-6,-0.033399846593578454,4.0682745540506995E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=77 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.414174400110745,-11.499997684719094 delta=0.0,0.023154590695202412,-1.5175767412789319E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=77 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=77 survive=0
+T 81
+E eye1 minecraft:eye_of_ender pos=11.64173223128506,-50.391019809415546,4.956692892514028 delta=-1.1267977676985008E-5,0.0032458174678195017,-4.5071910753199715E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=78 survive=0
+E eye2 minecraft:eye_of_ender pos=26.50000023360388,-49.94452681352012,4.500000155735922 delta=-4.870191818433983E-6,-0.04131907911573982,-3.246794570311739E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=78 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.391019809415546,-11.500012860486507 delta=0.0,0.0032458174678195017,1.2135983368419554E-5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=78 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=78 survive=0
+T 82
+E eye1 minecraft:eye_of_ender pos=11.641720963307383,-50.387773991947725,4.956688385322953 delta=-8.993191556840148E-6,-0.012442295835358233,-3.597276620361228E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=79 survive=0
+E eye2 minecraft:eye_of_ender pos=26.49999536341206,-49.98584589263586,4.499996908941352 delta=3.895686247375812E-6,-0.047559434343202985,2.597124183822267E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=79 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.387773991947725,-11.500000724503138 delta=0.0,-0.012442295835358233,9.68596373427555E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=79 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=79 survive=0
+T 83
+E eye1 minecraft:eye_of_ender pos=11.641711970115827,-50.40021628778308,4.956684788046332 delta=7.193207876857766E-6,-0.024804529118262288,2.8772831490538494E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=80 survive=0
+E eye2 minecraft:eye_of_ender pos=26.49999925909831,-50.033405326979064,4.499999506065536 delta=3.110239428295785E-6,-0.052476834262443955,2.0734929683539976E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=80 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.40021628778308,-11.499991038539404 delta=0.0,-0.024804529118262288,-7.747321981143515E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=80 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=80 survive=0
+E eye1 minecraft:eye_of_ender pos=11.641711970115827,-50.40021628778308,4.956684788046332 delta=7.193207876857766E-6,-0.024804529118262288,2.8772831490538494E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=11.641720290623113,-50.5,4.956688116249245 life=80 survive=0
+E eye2 minecraft:eye_of_ender pos=26.49999925909831,-50.033405326979064,4.499999506065536 delta=3.110239428295785E-6,-0.052476834262443955,2.0734929683539976E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=26.5,-50.0,4.5 life=80 survive=0
+E eye3 minecraft:eye_of_ender pos=30.5,-50.40021628778308,-11.499991038539404 delta=0.0,-0.024804529118262288,-7.747321981143515E-6 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=30.5,-50.5,-11.5 life=80 survive=0
+E eye4 minecraft:eye_of_ender pos=40.5,-58.5,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing target=- life=80 survive=0
+ED eye1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:01fe090000
+N eye1 {Air:300s,Fire:0s,Invulnerable:0b,Item:{count:1,id:"minecraft:ender_eye"},Motion:[7.193207876857766E-6d,-0.024804529118262288d,2.8772831490538494E-6d],OnGround:0b,PortalCooldown:0,Pos:[11.641711970115827d,-50.40021628778308d,4.956684788046332d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+PKT Bob minecraft:add_entity 01af02e566ab2f571f41e1b1709b84cba0e5df333fe0000000000000c04d4000000000003fe00000000000000000000000
+PKT Bob minecraft:add_entity 01b002d28ede0ed00949e8928523b92d9da1d7334034800000000000c04d4000000000003fe00000000000000000000000
+PKT Bob minecraft:add_entity 01b102edfaadb5d19e464cb6575ffb4c81c2ee33403e800000000000c04d4000000000003fe00000000000000000000000
+PKT Bob minecraft:set_entity_data 65b102080701f1090000ff
+PKT Bob minecraft:move_entity_pos 36af0200000000000000
+PKT Bob minecraft:move_entity_pos 36b10200000000000000
+PKT Bob minecraft:set_entity_data 65b102080701f1090000ff
+PKT Bob minecraft:move_entity_pos 36b00200000000000000
+PKT Bob minecraft:set_entity_motion 67af02713885a50f02
+PKT Bob minecraft:move_entity_pos 36af020002aa016d0111
+PKT Bob minecraft:set_entity_motion 67b102f9ff70cb0f01
+PKT Bob minecraft:move_entity_pos 36b102000000016dfd21
+PKT Bob minecraft:set_entity_motion 67b002611e85110f02
+PKT Bob minecraft:move_entity_pos 36b00200016f016d00f5
+PKT Bob minecraft:set_entity_motion 67af02216e8b031d26
+PKT Bob minecraft:move_entity_pos 36af0200099d051903d8
+PKT Bob minecraft:set_entity_motion 67b102f9ff62571d25
+PKT Bob minecraft:move_entity_pos 36b1020000000519f5a6
+PKT Bob minecraft:set_entity_motion 67b002493b89e11d26
+PKT Bob minecraft:move_entity_pos 36b00200052e05190373
+PKT Bob minecraft:set_entity_motion 67af02e19e8fe32a72
+PKT Bob minecraft:move_entity_pos 36af0200101d088d0672
+PKT Bob minecraft:set_entity_motion 67b102f9ff55372a71
+PKT Bob minecraft:move_entity_pos 36b102000000088deea6
+PKT Bob minecraft:set_entity_motion 67b00289558e412a72
+PKT Bob minecraft:move_entity_pos 36b0020008ad088d05c9
+PKT Bob minecraft:set_entity_motion 67af02d1c8941536fa
+PKT Bob minecraft:move_entity_pos 36af020015e70bce08c3
+PKT Bob minecraft:set_entity_motion 67b102f9ff49e936f9
+PKT Bob minecraft:move_entity_pos 36b1020000000bcee868
+PKT Bob minecraft:set_entity_motion 67b002216c920736fa
+PKT Bob minecraft:move_entity_pos 36b002000bcc0bce07dd
+PKT Bob minecraft:set_entity_motion 67af0261ea977142c6
+PKT Bob minecraft:move_entity_pos 36af02001ac60ede0ab5
+PKT Bob minecraft:set_entity_motion 67b102f9ff40e142c5
+PKT Bob minecraft:move_entity_pos 36b1020000000edee32b
+PKT Bob minecraft:set_entity_motion 67b002397e950942c6
+PKT Bob minecraft:move_entity_pos 36b002000e6a0ede099d
+PKT Bob minecraft:set_entity_motion 67af02510299d54ddf
+PKT Bob minecraft:move_entity_pos 36af02001e8611c00c36
+PKT Bob minecraft:set_entity_motion 67b102f9ff3a6f4ddd
+PKT Bob minecraft:move_entity_pos 36b10200000011c0df1f
+PKT Bob minecraft:set_entity_motion 67b002198b972f4dde
+PKT Bob minecraft:move_entity_pos 36b00200107011c00af5
+PKT Bob minecraft:set_entity_motion 67af02b90f9b2b5853
+PKT Bob minecraft:move_entity_pos 36af0200210714760d36
+PKT Bob minecraft:set_entity_motion 67b102f9ff36d35851
+PKT Bob minecraft:move_entity_pos 36b1020000001476dc6e
+PKT Bob minecraft:set_entity_motion 67b002519298635852
+PKT Bob minecraft:move_entity_pos 36b0020011ca14760bdc
+PKT Bob minecraft:set_entity_motion 67af02a1af919140ce
+PKT Bob minecraft:move_entity_pos 36af0200207b15de0cfe
+PKT Bob minecraft:set_entity_motion 67b102f9ff50b340cd
+PKT Bob minecraft:move_entity_pos 36b10200000015dedd05
+PKT Bob minecraft:set_entity_motion 67b002e94b8ca735b2
+PKT Bob minecraft:move_entity_pos 36b002000fd413de0a8e
+PKT Bob minecraft:set_entity_motion 67af0261b878d7241d
+PKT Bob minecraft:move_entity_pos 36af020007690cfd02f7
+PKT Bob minecraft:set_entity_motion 67b102f9ff9345241d
+PKT Bob minecraft:move_entity_pos 36b1020000000cfdf805
+PKT Bob minecraft:set_entity_motion 67b00209e17ad71fd1
+PKT Bob minecraft:move_entity_pos 36b0020004930afa030c
+PKT Bob minecraft:set_entity_motion 67af02d1e27d151909
+PKT Bob minecraft:move_entity_pos 36af0200fe8b07caff6b
+PKT Bob minecraft:set_entity_motion 67b102f9ff87d91909
+PKT Bob minecraft:move_entity_pos 36b10200000007ca0191
+PKT Bob minecraft:set_entity_motion 67b00259f37de51765
+PKT Bob minecraft:move_entity_pos 36b00200ffee0703fff4
+PKT Bob minecraft:set_entity_motion 67af02d90b812f14c6
+PKT Bob minecraft:move_entity_pos 36af0200fec605c9ff82
+PKT Bob minecraft:set_entity_motion 67b102f9ff7ccb14c5
+PKT Bob minecraft:move_entity_pos 36b10200000005c90153
+PKT Bob minecraft:set_entity_motion 67b002d9fa7f231425
+PKT Bob minecraft:move_entity_pos 36b00200fff9057dfffb
+PKT Bob minecraft:set_entity_motion 67af0221fb7f82fce1
+PKT Bob minecraft:move_entity_pos 36af0200009e02850040
+PKT Bob minecraft:set_entity_motion 67b102f9ff814cfce1
+PKT Bob minecraft:move_entity_pos 36b1020000000285ff55
+PKT Bob minecraft:set_entity_motion 67b002e1fd7fa512e5
+PKT Bob minecraft:move_entity_pos 36b00200fffd04e6fffe
+PKT Bob minecraft:set_entity_motion 67af0201fe7fccf3a9
+PKT Bob minecraft:move_entity_pos 36af0200ffe7fe30fff5
+PKT Bob minecraft:set_entity_motion 67b102f9ff8086f3a9
+PKT Bob minecraft:move_entity_pos 36b102000000fe30001b
+PKT Bob minecraft:set_entity_motion 67b002d1008023126a
+PKT Bob minecraft:move_entity_pos 36b00200fffb04abfffd
+PKT Bob minecraft:set_entity_motion 67af02c9008012fdd6
+PKT Bob minecraft:move_entity_pos 36af0200ffe6fd00fff6
+PKT Bob minecraft:set_entity_motion 67b102f9ff7fc6fdd5
+PKT Bob minecraft:move_entity_pos 36b102000000fd00001c
+PKT Bob minecraft:set_entity_motion 67b002a1ff7ff10a89
+PKT Bob minecraft:move_entity_pos 36b00200000004960000
+PKT Bob minecraft:set_entity_motion 67af02490080070a4a
+PKT Bob minecraft:move_entity_pos 36af0200000400dc0002
+PKT Bob minecraft:set_entity_motion 67b102f9ff7fe90a49
+PKT Bob minecraft:move_entity_pos 36b10200000000dcfffc
+PKT Bob minecraft:set_entity_motion 67b00221008004f8ee
+PKT Bob minecraft:move_entity_pos 36b00200000000a90000
+PKT Bob minecraft:set_entity_motion 67af02d9ff7ffb015d
+PKT Bob minecraft:move_entity_pos 36af0200000302a20001
+PKT Bob minecraft:set_entity_motion 67b102f9ff8009015d
+PKT Bob minecraft:move_entity_pos 36b10200000002a2fffc
+PKT Bob minecraft:set_entity_motion 67b002e9ff7ffcf225
+PKT Bob minecraft:move_entity_pos 36b002000000fd7a0000
+PKT Bob minecraft:set_entity_motion 67af0209008000f566
+PKT Bob minecraft:move_entity_pos 36af0200ffffff00ffff
+PKT Bob minecraft:set_entity_motion 67b102f9ff7ffaf565
+PKT Bob minecraft:move_entity_pos 36b102000000ff000001
+PKT Bob minecraft:set_entity_motion 67b0020100800105c6
+PKT Bob minecraft:move_entity_pos 36b002000000febd0000
+PKT Bob minecraft:set_entity_motion 67af0201007fff0346
+PKT Bob minecraft:move_entity_pos 36af02000000fe2c0001
+PKT Bob minecraft:set_entity_motion 67b102f9ff7ffd0345
+PKT Bob minecraft:move_entity_pos 36b102000000fe2c0000
+PKT Bob minecraft:set_entity_motion 67b002f9ff7fff0d59
+PKT Bob minecraft:move_entity_pos 36b002000000024b0000
+PKT Bob minecraft:set_entity_motion 67af02f9ff7fff0c61
+PKT Bob minecraft:move_entity_pos 36af0200000101d70000
+PKT Bob minecraft:set_entity_motion 67b102f9ff7fff0c61
+PKT Bob minecraft:move_entity_pos 36b10200000001d70000
+PKT Bob minecraft:set_entity_motion 67b002f9ff7ffefa01
+PKT Bob minecraft:move_entity_pos 36b002000000012d0000

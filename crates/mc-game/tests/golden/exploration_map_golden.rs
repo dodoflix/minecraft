@@ -5,7 +5,7 @@
 //! map's saved data (center, scale, colors digest, decorations).
 
 use crate::common;
-use crate::common::feature_harness::{WORLD, level_height};
+use crate::common::feature_harness::{WORLD, level_height, noise_world};
 use crate::trades_golden::TestMerchant;
 
 use std::sync::Arc;
@@ -16,16 +16,11 @@ use mc_core::pos::BlockPos;
 use mc_game::server::level::ServerLevel;
 use mc_game::server::level::ServerLevelParams;
 use mc_game::server::level::level_data::{PrimaryServerLevelData, default_world_data};
-use mc_game::server::level::worldgen_adapter::NoiseWorldGenerator;
 use mc_game::server::shared::ServerShared;
 use mc_game::world::entity::Entity;
 use mc_game::world::item::ItemStack;
 use mc_game::world::item::trading::get_trade;
-use mc_game::world::level::levelgen::GenEnv;
 use mc_game::world::level::levelgen::hooks::VanillaWorldGenHooks;
-use mc_game::world::level::levelgen::structure::check::{NoChunkScan, StructureCheck};
-use mc_game::world::level::levelgen::structure::generation::create_structure_state;
-use mc_game::world::level::levelgen::structure::registries::StartCache;
 use mc_game::world::level::storage::loot::loading::get_loot_table;
 use mc_game::world::level::storage::loot::{LootContext, LootContextParamSets, LootParams};
 use mc_protocol::components::{MAP_DECORATIONS, MAP_ID};
@@ -33,7 +28,6 @@ use mc_world::level_storage::WorldDataConfiguration;
 use mc_world::palette::PalettedContainerFactory;
 use mc_worldgen::biome::BiomeManager;
 use mc_worldgen::generator::ChunkGenerator;
-use mc_worldgen::random_state::RandomState;
 use sha1::{Digest, Sha1};
 
 const SEED: i64 = 4242;
@@ -43,43 +37,7 @@ const SEED: i64 = 4242;
 fn open_level(dir: &std::path::Path) -> ServerLevel {
     let w = &*WORLD;
     let dimension = Identifier::parse("minecraft:overworld").unwrap();
-    let random_state = Arc::new(RandomState::create(
-        w.worldgen.clone(),
-        SEED,
-        w.generator.settings(),
-    ));
-    let structure_state = create_structure_state(
-        w.generator.as_ref(),
-        w.generator.biome_source_arc().clone(),
-        None,
-        random_state.clone(),
-        SEED,
-        &w.worldgen,
-        &w.biomes,
-    )
-    .expect("structure state");
-    let env = Arc::new(GenEnv {
-        dimension: dimension.clone(),
-        seed: SEED,
-        generator: w.generator.clone(),
-        random_state: random_state.clone(),
-        biomes: w.biomes.clone(),
-        registries: w.registries.clone(),
-        structure_template_manager: w.templates.clone(),
-        structures: w.structures.clone(),
-        start_cache: StartCache::default(),
-        structure_state: Some(structure_state),
-        structure_check: StructureCheck::new(Box::new(NoChunkScan)),
-        generate_structures: true,
-        level_height: level_height(),
-    });
-    let backend = Arc::new(NoiseWorldGenerator::new(
-        w.generator.clone(),
-        random_state,
-        SEED,
-        Identifier::parse("minecraft:noise").ok(),
-    ));
-    backend.set_gen_env(env.clone());
+    let (env, backend) = noise_world(SEED, true);
     let (shared, _rx) = ServerShared::new();
     shared.bind_game_thread();
     let structures = w.structures.clone();

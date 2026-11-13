@@ -5,6 +5,7 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OminousItemSpawner;
 import net.minecraft.world.entity.projectile.EvokerFangs;
+import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ShulkerBullet;
@@ -72,6 +73,12 @@ final class EntityExtras {
          out.add("spike", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, "sentSpikeEvent")));
          out.add("life", EntityOracleDriver.priv(e, "lifeTicks"));
          out.add("owner", d.uuidName(owner == null ? null : owner.getUUID()));
+      }));
+      ALL.add(new Extra(30, EyeOfEnder.class, (d, e, out) -> {
+         var target = (net.minecraft.world.phys.Vec3)EntityOracleDriver.priv(e, "target");
+         out.add("target", target == null ? "-" : EntityOracleDriver.f(target.x) + "," + EntityOracleDriver.f(target.y) + "," + EntityOracleDriver.f(target.z));
+         out.add("life", EntityOracleDriver.priv(e, "life"));
+         out.add("survive", EntityOracleDriver.bool((Boolean)EntityOracleDriver.priv(e, "surviveAfterDeath")));
       }));
       ALL.add(new Extra(30, FireworkRocketEntity.class, (d, e, out) -> {
          out.add("life", EntityOracleDriver.priv(e, "life")).add("lifetime", EntityOracleDriver.priv(e, "lifetime"));

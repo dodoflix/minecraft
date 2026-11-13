@@ -1,0 +1,24 @@
+# EyeOfEnder: after 80 ticks of flight it plays the death sound and disappears; with the survive roll (`random.nextInt(5) > 0`, taken when it is
+# signalled) it drops as an item entity at its position, otherwise the break level event (2003) plays there. Entity seed 2 rolls a survival (drops), seed 1
+# does not (breaks).
+level flat
+preload 3
+difficulty normal
+level_seed 3
+entity_counter 300
+spawn_player Bob survival 8.5 -60 8.5 0 0
+tick 3
+dump packets:Bob:none
+spawn drop minecraft:eye_of_ender 0.5 -58.5 0.5 0 0
+entity_seed drop 2
+signal drop 10.5 -58.5 0.5
+spawn brk minecraft:eye_of_ender 20.5 -58.5 0.5 0 0
+entity_seed brk 1
+signal brk 30.5 -58.5 0.5
+dump xentities
+tick 80
+dump xentities
+tick 1
+dump xentities entities events packets:Bob:add_entity,set_entity_data,set_entity_motion,remove_entities,sound,level_event,take_item_entity
+tick 40
+dump xentities entities packets:Bob:add_entity,set_entity_data,set_entity_motion,move_entity_pos,teleport_entity,entity_position_sync,remove_entities,sound,level_event

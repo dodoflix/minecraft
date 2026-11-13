@@ -29,6 +29,7 @@ use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::mob::leashable;
+use mc_game::world::entity::projectile::eye_of_ender::EyeOfEnder;
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::item::InteractionHand;
 use mc_game::world::level::BlockGetter;
@@ -542,6 +543,17 @@ impl Scenario {
                 self.world();
                 let id = self.entity_id(&a[1]);
                 self.level().with_entity(id, |_, e| e.discard());
+            }
+            "signal" => {
+                self.world();
+                let id = self.entity_id(&a[1]);
+                let target = Vec3::new(num(&a[2]), num(&a[3]), num(&a[4]));
+                self.level().with_entity(id, |_, e| {
+                    e.as_any_mut()
+                        .downcast_mut::<EyeOfEnder>()
+                        .expect("signal targets an eye of ender")
+                        .signal_to(target)
+                });
             }
             "snap" => {
                 self.world();

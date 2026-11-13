@@ -1,0 +1,6 @@
+I Alice 0 minecraft:ender_eye*3
+STAT Alice minecraft.custom:minecraft.play_time 5
+STAT Alice minecraft.custom:minecraft.time_since_death 5
+STAT Alice minecraft.custom:minecraft.time_since_rest 5
+STAT Alice minecraft.custom:minecraft.total_world_time 5
+PKT Alice minecraft:block_changed_ack 0401

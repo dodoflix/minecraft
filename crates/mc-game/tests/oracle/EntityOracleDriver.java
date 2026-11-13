@@ -128,6 +128,7 @@ import net.minecraft.util.RandomSource;
  * attribute REF ATTRIBUTE BASEVALUE               setBaseValue
  * set REF health|food|saturation|exhaustion|air|fire|fall_distance|ticks_frozen|xp_level|enchant_seed|absorption|invulnerable|no_gravity|on_ground|tag VALUE
  * nbt REF SNBT                merge SNBT into the entity (Entity.load of the merged save data)
+ * signal REF X Y Z           EyeOfEnder.signalTo(target)
  * snap REF X Y Z [yaw pitch]  Entity.snapTo (no packets)          tp REF X Y Z [yaw pitch]   teleportTo
  * velocity REF X Y Z          setDeltaMovement
  * kill REF                    discard (no death logic)
@@ -575,6 +576,10 @@ public final class EntityOracleDriver {
                CompoundTag merged = o.buildResult().merge(TagParser.parseCompoundFully(line.substring(line.indexOf(a.get(2)))));
                e.load(TagValueInput.create(rep, v.server.registryAccess(), merged));
             }
+         }
+         case "signal" -> {
+            world();
+            ((net.minecraft.world.entity.projectile.EyeOfEnder)ref(a.get(1))).signalTo(new net.minecraft.world.phys.Vec3(d(a.get(2)), d(a.get(3)), d(a.get(4))));
          }
          case "snap" -> {
             world();
