@@ -1,0 +1,92 @@
+E s1 minecraft:armor_stand pos=2.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E s2 minecraft:armor_stand pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E s3 minecraft:armor_stand pos=6.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E s4 minecraft:armor_stand pos=8.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E s5 minecraft:armor_stand pos=10.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E s6 minecraft:armor_stand pos=12.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+# commands on a stand with every slot usable
+C Replaced 1 slot(s) on Armor Stand with [Iron Chestplate]
+C Replaced 1 slot(s) on Armor Stand with [Iron Boots]
+C Replaced 1 slot(s) on Armor Stand with [Stone]
+C Replaced 1 slot(s) on Armor Stand with [Iron Boots]
+C Replaced 1 slot(s) on Armor Stand with [Iron Helmet]
+C Can't find element 'minecraft:horse.saddle' in registry 'minecraft:slot_source'
+C ...rse.saddle with minecraft:saddle<--[HERE]
+E s1 minecraft:armor_stand pos=2.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,4.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["open"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{count:1,id:"minecraft:stone"},mainhand:{count:1,id:"minecraft:iron_boots"},offhand:{count:1,id:"minecraft:iron_helmet"}},fall_distance:0.0d}
+PKT A minecraft:set_equipment 68ae078001bb0800008101b80800008201bb0800008401b90800000501010000
+EV sound at=2.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_iron source=neutral vol=1.0 pitch=1.0
+EV sound at=2.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_iron source=neutral vol=1.0 pitch=1.0
+# a disabled chest slot refuses armor, then the empty stack
+C Replaced 1 slot(s) on Armor Stand with [Iron Leggings]
+C Replaced 1 slot(s) on Armor Stand with [Air]
+E s2 minecraft:armor_stand pos=4.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:8,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,4.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["chest_off"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{legs:{count:1,id:"minecraft:iron_leggings"}},fall_distance:0.0d}
+PKT A minecraft:set_equipment 68af070301ba080000
+EV sound at=4.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_iron source=neutral vol=1.0 pitch=1.0
+# a disabled head slot still takes the command (head, hands and the empty stack have no validator)
+C Replaced 1 slot(s) on Armor Stand with [Iron Helmet]
+C Replaced 1 slot(s) on Armor Stand with [Air]
+C Replaced 1 slot(s) on Armor Stand with [Iron Helmet]
+E s3 minecraft:armor_stand pos=6.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:16,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[6.5d,-60.0d,4.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["head_off"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:iron_helmet"}},fall_distance:0.0d}
+PKT A minecraft:set_equipment 68b0078001b808000084000501b8080000
+EV sound at=6.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_iron source=neutral vol=1.0 pitch=1.0
+# disabled legs and feet slots
+C Replaced 1 slot(s) on Armor Stand with [Iron Chestplate]
+E s4 minecraft:armor_stand pos=8.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s4 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:6,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,4.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["legs_feet_off"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"}},fall_distance:0.0d}
+PKT A minecraft:set_equipment 68b1070401b9080000
+EV sound at=8.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_iron source=neutral vol=1.0 pitch=1.0
+# hidden arms with disabled hand slots
+C Replaced 1 slot(s) on Armor Stand with [Iron Sword]
+C Replaced 1 slot(s) on Armor Stand with [Shield]
+C Replaced 1 slot(s) on Armor Stand with [Iron Boots]
+E s5 minecraft:armor_stand pos=10.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s5 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:33,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[10.5d,-60.0d,4.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["hands_off"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{feet:{count:1,id:"minecraft:iron_boots"},mainhand:{count:1,id:"minecraft:iron_sword"},offhand:{count:1,id:"minecraft:shield"}},fall_distance:0.0d}
+PKT A minecraft:set_equipment 68b2078001950800008101a60b00000201bb080000
+EV sound at=10.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_generic source=neutral vol=1.0 pitch=1.0
+EV sound at=10.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_iron source=neutral vol=1.0 pitch=1.0
+# everything disabled
+C Replaced 1 slot(s) on Armor Stand with [Iron Helmet]
+C Replaced 1 slot(s) on Armor Stand with [Iron Sword]
+E s6 minecraft:armor_stand pos=12.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N s6 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[12.5d,-60.0d,4.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["all_off"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:iron_sword"}},fall_distance:0.0d}
+PKT A minecraft:set_equipment 68b3078001950800000501b8080000
+EV sound at=12.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:item.armor.equip_iron source=neutral vol=1.0 pitch=1.0
+# dispensers: armor goes to the stand in front only through a slot the stand can use
+E d1 minecraft:armor_stand pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N d1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["d_open"],attributes:[],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"}},fall_distance:0.0d}
+BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:iron_chestplate"},{Slot:1b,count:3,id:"minecraft:iron_helmet"},{Slot:2b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+E d1 minecraft:armor_stand pos=1.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N d1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["d_open"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{count:1,id:"minecraft:carved_pumpkin"}},fall_distance:0.0d}
+BE 0 -60 0 {Items:[{Slot:1b,count:1,id:"minecraft:iron_helmet"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
+EV sound at=1.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.armor.equip_generic source=neutral vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,0 data=5 global=0
+PKT A minecraft:set_equipment 68b4078201bb0800000401b9080000
+# a stand with the chest and head slots disabled and one with the feet slot disabled
+E d2 minecraft:armor_stand pos=1.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N d2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:24,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,2.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["d_off"],attributes:[],current_impulse_context_reset_grace_time:0,equipment:{feet:{count:1,id:"minecraft:iron_boots"}},fall_distance:0.0d}
+BE 0 -60 2 {Items:[{Slot:0b,count:1,id:"minecraft:iron_chestplate"},{Slot:1b,count:1,id:"minecraft:iron_helmet"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:2}
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,2 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,2 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,2 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,2 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,2 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,2 data=5 global=0
+EV level_event r=64.0 ex=0 type=1000 pos=0,-60,2 data=0 global=0
+EV level_event r=64.0 ex=0 type=2000 pos=0,-60,2 data=5 global=0
+E d2 minecraft:armor_stand pos=1.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT A minecraft:set_equipment 68b4070501af030000
+PKT A minecraft:set_equipment 68b8070201bb080000

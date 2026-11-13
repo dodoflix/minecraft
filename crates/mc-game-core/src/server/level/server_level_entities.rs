@@ -559,10 +559,18 @@ impl ServerLevel {
     /// `ChunkMap.tick()`'s entity half (`updateTrackedEntities` + `sendChanges`).
     pub fn tick_entity_tracker(&mut self) {
         let players = self.tracker_players();
+        let shared = self.shared.clone();
+        let maps = super::FrameMapEnv {
+            map_storage: &shared.map_storage,
+            dimension: &self.dimension,
+            game_time: self.game_time(),
+            tick_count: shared.tick_count(),
+        };
         self.entity_tracker.tick(
             &mut Entities::new(&mut self.entity_manager),
             &self.chunk_source.chunk_map,
             &players,
+            &maps,
         );
     }
 

@@ -11,11 +11,12 @@ use crate::commands::arguments::selector::EntityRef;
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::BlockEntity;
 use crate::world::container::Container;
+use crate::world::entity::decoration::item_frame::ItemFrame;
 use crate::world::entity::display::Display;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::item::ItemEntity;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::inventory::{InventoryMenu, equippable_slot};
+use crate::world::inventory::InventoryMenu;
 use crate::world::item::slot::{SlotAccess, SlotProvider};
 use crate::world::level::storage::loot::LootContextParamSets;
 use crate::world::level::storage::loot::context::{LootParams, LootParamsBuilder};
@@ -79,9 +80,8 @@ impl<'a> EntitySlots<'a> {
                     EquipmentSlot::Head | EquipmentSlot::MainHand | EquipmentSlot::OffHand
                 ) =>
             {
-                // `getEquipmentSlotForItem`: the equippable's slot (`canUseSlot` is always true for the entities modelled), else the main hand
-                stack.is_empty()
-                    || equippable_slot(stack).unwrap_or(EquipmentSlot::MainHand) == equipment
+                // `getEquipmentSlotForItem` (the equippable's slot when the entity can use it, else the main hand)
+                stack.is_empty() || self.entity.get_equipment_slot_for_item(stack) == equipment
             }
             _ => true,
         }
@@ -145,12 +145,14 @@ fn set_entity_slot(level: &mut ServerLevel, entity: &mut dyn Entity, slot: i32, 
         entity.on_equip_item(level, equipment, &old, &stack);
         return;
     }
-    // `ItemDisplay.getSlot(0)`, `ItemEntity.getSlot(0)`
+    // `ItemDisplay.getSlot(0)`, `ItemEntity.getSlot(0)`, `ItemFrame.getSlot(0)`
     if slot == 0 {
         if let Some(display) = entity.as_any_mut().downcast_mut::<Display>() {
             display.set_item_stack(stack);
         } else if let Some(item) = entity.as_any_mut().downcast_mut::<ItemEntity>() {
             item.set_item(stack);
+        } else if let Some(frame) = entity.as_any_mut().downcast_mut::<ItemFrame>() {
+            frame.set_item(level, &stack, true);
         }
     }
 }

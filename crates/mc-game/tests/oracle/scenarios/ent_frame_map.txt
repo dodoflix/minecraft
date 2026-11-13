@@ -1,0 +1,83 @@
+# Item frames that hold a filled map: the frame lets every player of the level tick the map every ten ticks (the frame
+# marker joins the map data, players that only see the frame get the map data too), and the map data forgets the frame when
+# the item is knocked out, the frame is killed or a data merge replaces the item. A second frame on the same map, a new frame
+# at the position of a killed one, and a frame that refuses a map whose data already tracks too many markers.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 900
+spawn_player A survival 5.5 -60 2.5 90 0
+spawn_player B survival 24.5 -60 2.5 90 0
+op A
+block 3 -60 0 minecraft:stone
+block 3 -60 2 minecraft:stone
+block 3 -60 4 minecraft:stone
+block 3 -60 6 minecraft:stone
+tick 2
+dump packets:A:none packets:B:none
+note the first map of the world goes to A (the second empty map stays in the first slot)
+give A hotbar0 minecraft:map 2
+select A 0
+use A main
+tick 1
+dump inventory:A packets:A:map_item_data packets:B:map_item_data
+spawn f1 minecraft:item_frame 4.5 -59.5 0.5 0 0 {Facing:5b,Tags:[one]}
+entity_seed f1 21
+spawn f2 minecraft:item_frame 4.5 -59.5 2.5 0 0 {Facing:5b,Tags:[two]}
+entity_seed f2 22
+tick 1
+dump packets:A:none packets:B:none edata:f1
+note the map goes into the first frame: the frame joins the map data at its next update tick, A and B both get the data
+select A 1
+interact A f1 main
+dump inventory:A edata:f1 packets:A:set_entity_data,map_item_data packets:B:set_entity_data,map_item_data
+tick 12
+dump edata:f1 packets:A:map_item_data,set_entity_data packets:B:map_item_data,set_entity_data
+tick 10
+dump packets:A:map_item_data,set_entity_data packets:B:map_item_data,set_entity_data
+note a second frame holds the same map: its own marker, then the frame turns
+spawn f3 minecraft:item_frame 4.5 -59.5 4.5 0 0 {Facing:5b,Tags:[three],Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}},ItemRotation:2b}
+entity_seed f3 23
+tick 12
+dump edata:f3 packets:A:map_item_data,set_entity_data packets:B:map_item_data,set_entity_data
+interact A f3 main
+tick 12
+dump edata:f3 packets:A:map_item_data,set_entity_data packets:B:map_item_data,set_entity_data
+note A hits the first frame: the map drops out, the map data forgets the frame
+level_seed 6
+attack A f1
+dump xentities edata:f1 packets:A:map_item_data,set_entity_data,remove_entities packets:B:map_item_data,set_entity_data
+tick 12
+dump xentities packets:A:map_item_data,set_entity_data packets:B:map_item_data,set_entity_data
+note kill the third frame: the map data forgets it, then a new frame takes its place with the same map
+cmd kill @e[type=minecraft:item_frame,tag=three]
+tick 12
+dump xentities packets:A:map_item_data,set_entity_data,remove_entities packets:B:map_item_data,set_entity_data,remove_entities
+spawn f4 minecraft:item_frame 4.5 -59.5 4.5 0 0 {Facing:5b,Tags:[four],Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+entity_seed f4 24
+tick 12
+dump edata:f4 packets:A:map_item_data,set_entity_data packets:B:map_item_data,set_entity_data
+note a frame that is discarded without its kill logic leaves its marker in the map data until a frame at the same place replaces it
+kill f4
+spawn f5 minecraft:item_frame 4.5 -59.5 4.5 0 0 {Facing:5b,Tags:[five],Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+entity_seed f5 25
+tick 12
+dump edata:f5 packets:A:map_item_data,set_entity_data packets:B:map_item_data,set_entity_data
+note a data merge that replaces the framed item makes the map data forget the frame; A takes the map back to learn it
+cmd data merge entity @e[type=minecraft:item_frame,tag=five,limit=1] {Item:{id:"minecraft:stick",count:1}}
+give A hotbar2 minecraft:filled_map[minecraft:map_id=0]
+tick 12
+dump xentities edata:f5 packets:A:map_item_data,set_entity_data packets:B:map_item_data,set_entity_data
+note a frame with a map in a world without data for it: nothing is sent
+spawn f6 minecraft:item_frame 4.5 -59.5 6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":77}}}
+entity_seed f6 26
+tick 12
+dump edata:f6 packets:A:map_item_data,set_entity_data packets:B:map_item_data,set_entity_data
+note a creative player breaking a frame with a map: the map data forgets it, no item drops
+spawn_player C creative 5.5 -60 7.5 90 0
+tick 1
+dump packets:C:none
+attack C f6
+tick 12
+dump xentities packets:A:map_item_data packets:C:map_item_data,remove_entities

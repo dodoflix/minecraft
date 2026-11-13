@@ -10,6 +10,9 @@ use indexmap::IndexMap;
 use mc_core::phys::Vec3;
 use mc_core::pos::SectionPos;
 
+mod frame_maps;
+pub use frame_maps::FrameMapEnv;
+
 impl TrackingEnv for super::chunk_map::ChunkMap {
     fn player_view_distance(&self, _player_id: EntityId, requested_view_distance: i32) -> i32 {
         mc_core::math::mth::clamp_i32(requested_view_distance, 2, self.server_view_distance())
@@ -406,6 +409,7 @@ impl EntityTracker {
         entities: &mut Entities<'_>,
         env: &dyn TrackingEnv,
         players: &[TrackerPlayer],
+        maps: &FrameMapEnv<'_>,
     ) {
         let mut moved_players: Vec<TrackerPlayer> = Vec::new();
         for id in self.entity_map.keys() {
@@ -432,6 +436,9 @@ impl EntityTracker {
             }
             if section_changed || needs_sync || env.in_entity_ticking_range(new_pos.chunk().pack())
             {
+                if t.server_entity.is_frame_sync_tick() {
+                    frame_maps::sync_framed_map(entities, players, maps, t.entity_id);
+                }
                 let Some(entity) = entities.get_any_mut(t.entity_id) else {
                     continue;
                 };
@@ -604,7 +611,20 @@ mod tests {
         e.set_pos(2.0, 64.0, 1.0);
         m.put_back(2, e);
         for _ in 0..3 {
-            tracker.tick(&mut Entities::new(&mut m), &Env, std::slice::from_ref(&tp));
+            let storage = crate::world::level::saveddata::maps::MapStorage::default();
+            let dimension = mc_core::ident::Identifier::new("minecraft", "overworld").unwrap();
+            let maps = FrameMapEnv {
+                map_storage: &storage,
+                dimension: &dimension,
+                game_time: 0,
+                tick_count: 0,
+            };
+            tracker.tick(
+                &mut Entities::new(&mut m),
+                &Env,
+                std::slice::from_ref(&tp),
+                &maps,
+            );
         }
         let got = ids(&mut rx);
         assert!(got.contains(&ClientboundMoveEntityPosPacket::ID), "{got:?}");

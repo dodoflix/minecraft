@@ -4,6 +4,7 @@
 //! Packets are encoded once into `Arc<[u8]>` payloads and handed to a [`Synchronizer`] (the tracked entity's
 //! `seenBy` fan-out).
 
+use crate::world::entity::decoration::item_frame::ItemFrame;
 use crate::world::entity::interpolation::end_position;
 use crate::world::entity::vec_delta_codec::{self, VecDeltaCodec};
 use crate::world::entity::{Entity, EntityId, TrackingKind};
@@ -148,6 +149,11 @@ impl ServerEntity {
         }
     }
 
+    /// `tickCount % 10 == 0`, when `sendChanges` runs the item frame branch.
+    pub fn is_frame_sync_tick(&self) -> bool {
+        self.tick_count % 10 == 0
+    }
+
     /// `sendChanges()`.
     pub fn send_changes(&mut self, entity: &mut dyn Entity, sync: &mut dyn Synchronizer) {
         entity.update_data_before_sync();
@@ -158,6 +164,12 @@ impl ServerEntity {
                 passengers: passengers.clone(),
             }));
             self.last_passengers = passengers;
+        }
+        // `entity instanceof ItemFrame frame && tickCount % 10 == 0`: the map updates went out in the tracker (it sees the
+        // players); the frame's own changed data follows. Not implemented: the map updates of a frame that gains a passenger
+        // in the same tick precede its set-passengers packet (vanilla sends that first).
+        if self.is_frame_sync_tick() && entity.as_any().is::<ItemFrame>() {
+            self.send_dirty_entity_data(entity, sync);
         }
 
         let current_position = entity.tracking_position();

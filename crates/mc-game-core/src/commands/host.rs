@@ -940,9 +940,10 @@ pub fn entity_load_data(
         return Ok(());
     };
     let result = level
-        .with_entity(entity.id, |_, e| {
+        .with_entity(entity.id, |level, e| {
             let uuid = e.uuid();
             let result = e.load(data);
+            e.read_level_dependent_data(level);
             e.base_mut().uuid = uuid;
             e.post_data_manipulated();
             result

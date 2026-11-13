@@ -1,0 +1,97 @@
+# Armor stands with disabled slots against `canUseSlot`: a dispenser puts armor on a stand only into a slot the stand can use
+# and that is empty, `/item replace entity` takes armor only in the slot the item belongs to (a disabled slot, the body and
+# saddle slots turn the item into a main hand item that the chest, legs and feet slots refuse) and the hands and head take any
+# item. Slots are disabled by `DisabledSlots` bits (one per slot), the hands also by hidden arms.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 940
+spawn_player A creative 0.5 -60 12.5 0 0
+op A
+tick 2
+dump packets:A:none
+spawn s1 minecraft:armor_stand 2.5 -60 4.5 0 0 {Tags:[open],ShowArms:1b}
+entity_seed s1 41
+spawn s2 minecraft:armor_stand 4.5 -60 4.5 0 0 {Tags:[chest_off],ShowArms:1b,DisabledSlots:8}
+entity_seed s2 42
+spawn s3 minecraft:armor_stand 6.5 -60 4.5 0 0 {Tags:[head_off],DisabledSlots:16,equipment:{chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed s3 43
+spawn s4 minecraft:armor_stand 8.5 -60 4.5 0 0 {Tags:[legs_feet_off],DisabledSlots:6,ShowArms:1b}
+entity_seed s4 44
+spawn s5 minecraft:armor_stand 10.5 -60 4.5 0 0 {Tags:[hands_off],DisabledSlots:33}
+entity_seed s5 45
+spawn s6 minecraft:armor_stand 12.5 -60 4.5 0 0 {Tags:[all_off],ShowArms:1b,DisabledSlots:-1}
+entity_seed s6 46
+tick 2
+dump xentities packets:A:none
+note commands on a stand with every slot usable
+cmd execute as A run item replace entity @e[type=armor_stand,tag=open,limit=1] armor.chest with minecraft:iron_chestplate
+cmd execute as A run item replace entity @e[type=armor_stand,tag=open,limit=1] armor.legs with minecraft:iron_chestplate
+cmd execute as A run item replace entity @e[type=armor_stand,tag=open,limit=1] armor.feet with minecraft:iron_boots
+cmd execute as A run item replace entity @e[type=armor_stand,tag=open,limit=1] armor.head with minecraft:stone
+cmd execute as A run item replace entity @e[type=armor_stand,tag=open,limit=1] weapon.mainhand with minecraft:iron_boots
+cmd execute as A run item replace entity @e[type=armor_stand,tag=open,limit=1] weapon.offhand with minecraft:iron_helmet
+cmd execute as A run item replace entity @e[type=armor_stand,tag=open,limit=1] armor.body with minecraft:leather_horse_armor
+cmd execute as A run item replace entity @e[type=armor_stand,tag=open,limit=1] horse.saddle with minecraft:saddle
+tick 1
+dump xentity:s1 nbt:s1 packets:A:set_equipment events
+note a disabled chest slot refuses armor, then the empty stack
+cmd execute as A run item replace entity @e[type=armor_stand,tag=chest_off,limit=1] armor.chest with minecraft:iron_chestplate
+cmd execute as A run item replace entity @e[type=armor_stand,tag=chest_off,limit=1] armor.legs with minecraft:iron_leggings
+cmd execute as A run item replace entity @e[type=armor_stand,tag=chest_off,limit=1] armor.chest with minecraft:air
+tick 1
+dump xentity:s2 nbt:s2 packets:A:set_equipment events
+note a disabled head slot still takes the command (head, hands and the empty stack have no validator)
+cmd execute as A run item replace entity @e[type=armor_stand,tag=head_off,limit=1] armor.head with minecraft:iron_helmet
+cmd execute as A run item replace entity @e[type=armor_stand,tag=head_off,limit=1] armor.chest with minecraft:air
+cmd execute as A run item replace entity @e[type=armor_stand,tag=head_off,limit=1] weapon.mainhand with minecraft:iron_helmet
+tick 1
+dump xentity:s3 nbt:s3 packets:A:set_equipment events
+note disabled legs and feet slots
+cmd execute as A run item replace entity @e[type=armor_stand,tag=legs_feet_off,limit=1] armor.legs with minecraft:iron_leggings
+cmd execute as A run item replace entity @e[type=armor_stand,tag=legs_feet_off,limit=1] armor.feet with minecraft:iron_boots
+cmd execute as A run item replace entity @e[type=armor_stand,tag=legs_feet_off,limit=1] armor.chest with minecraft:iron_chestplate
+tick 1
+dump xentity:s4 nbt:s4 packets:A:set_equipment events
+note hidden arms with disabled hand slots
+cmd execute as A run item replace entity @e[type=armor_stand,tag=hands_off,limit=1] weapon.mainhand with minecraft:iron_sword
+cmd execute as A run item replace entity @e[type=armor_stand,tag=hands_off,limit=1] weapon.offhand with minecraft:shield
+cmd execute as A run item replace entity @e[type=armor_stand,tag=hands_off,limit=1] armor.feet with minecraft:iron_boots
+tick 1
+dump xentity:s5 nbt:s5 packets:A:set_equipment events
+note everything disabled
+cmd execute as A run item replace entity @e[type=armor_stand,tag=all_off,limit=1] armor.chest with minecraft:iron_chestplate
+cmd execute as A run item replace entity @e[type=armor_stand,tag=all_off,limit=1] armor.feet with minecraft:iron_boots
+cmd execute as A run item replace entity @e[type=armor_stand,tag=all_off,limit=1] armor.head with minecraft:iron_helmet
+cmd execute as A run item replace entity @e[type=armor_stand,tag=all_off,limit=1] weapon.mainhand with minecraft:iron_sword
+tick 1
+dump xentity:s6 nbt:s6 packets:A:set_equipment events
+note dispensers: armor goes to the stand in front only through a slot the stand can use
+block 0 -60 0 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 0 {Items:[{Slot:0b,id:"minecraft:iron_chestplate",count:3},{Slot:1b,id:"minecraft:iron_helmet",count:3},{Slot:2b,id:"minecraft:carved_pumpkin",count:1},{Slot:3b,id:"minecraft:elytra",count:1},{Slot:4b,id:"minecraft:iron_boots",count:1}]}
+spawn d1 minecraft:armor_stand 1.5 -60 0.5 0 0 {Tags:[d_open]}
+entity_seed d1 47
+level_seed 7
+dispense 0 -60 0 n1
+dispense 0 -60 0 n2
+dispense 0 -60 0 n3
+dump xentity:d1 nbt:d1 be:0,-60,0 events packets:A:set_equipment
+tick 1
+dispense 0 -60 0 n4
+dispense 0 -60 0 n5
+dispense 0 -60 0 n6
+dump xentity:d1 nbt:d1 be:0,-60,0 events packets:A:set_equipment
+note a stand with the chest and head slots disabled and one with the feet slot disabled
+block 0 -60 2 minecraft:dispenser[facing=east,triggered=false]
+be_nbt 0 -60 2 {Items:[{Slot:0b,id:"minecraft:iron_chestplate",count:2},{Slot:1b,id:"minecraft:iron_helmet",count:2},{Slot:2b,id:"minecraft:iron_boots",count:2}]}
+spawn d2 minecraft:armor_stand 1.5 -60 2.5 0 0 {Tags:[d_off],DisabledSlots:24}
+entity_seed d2 48
+level_seed 8
+dispense 0 -60 2 n7
+dispense 0 -60 2 n8
+dispense 0 -60 2 n9
+dispense 0 -60 2 n10
+dump xentity:d2 nbt:d2 be:0,-60,2 events packets:A:set_equipment
+tick 1
+dump xentity:d2 packets:A:set_equipment

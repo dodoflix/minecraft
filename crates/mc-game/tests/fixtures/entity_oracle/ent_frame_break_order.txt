@@ -1,0 +1,77 @@
+I Obs 0 minecraft:filled_map*1{minecraft:map_id:0}
+# a frame with the map hit twice: the map drops out, then the frame breaks
+PKT Obs minecraft:map_item_data 340000000102000d1904000108000c0000
+E f1 minecraft:item_frame pos=4.03125,-59.5,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=4.1812500059604645,-59.5,0.5 delta=0.05465043742187345,0.2,0.0771783766626675 rot=171.91003,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=0 pickup=10 health=5 owner=- thrower=-
+PKT Hit minecraft:add_entity 01d907fd588608c07f4e5bb53a7f2c9b7707e8484010b9999a000000c04dc000000000003fe0000000000000f11b89df3332007a0000
+PKT Hit minecraft:set_entity_data 65d907080701d60901003000ff
+PKT Hit minecraft:sound 7791070600000020fffffe24000000043f8000003f8000006fd465a290351d3c
+PKT Obs minecraft:add_entity 01d907fd588608c07f4e5bb53a7f2c9b7707e8484010b9999a000000c04dc000000000003fe0000000000000f11b89df3332007a0000
+PKT Obs minecraft:set_entity_data 65d907080701d60901003000ff
+PKT Obs minecraft:sound 7791070600000020fffffe24000000043f8000003f8000006fd465a290351d3c
+E f1 minecraft:item_frame pos=4.03125,-59.5,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=4.769516327053149,-60.0,1.3307607742784757 delta=0.02573107541884067,0.0,0.036337909160374875 rot=171.91003,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=12 pickup=0 health=5 owner=- thrower=-
+PKT Obs minecraft:set_entity_data 65d807090700ff
+PKT Obs minecraft:set_entity_data 65d907080701d60901003000ff
+PKT Obs minecraft:map_item_data 340000000101000d19040000
+E item#1 minecraft:item pos=4.769516327053149,-60.0,1.3307607742784757 delta=0.02573107541884067,0.0,0.036337909160374875 rot=171.91003,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.1812500059604645,-59.5,0.5 delta=-0.05889384111875484,0.2,-0.03535458202768041 rot=249.91534,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+PKT Hit minecraft:set_entity_data 65d807090700ff
+PKT Hit minecraft:set_entity_data 65d907080701d60901003000ff
+PKT Hit minecraft:remove_entities 4e01d807
+PKT Hit minecraft:sound 778f070600000020fffffe24000000043f8000003f8000004b970fd5e0db99e1
+PKT Hit minecraft:add_entity 01da07f7243860838a43d9bf3bba9f5d1b4b48484010b9999a000000c04dc000000000003fe0000000000000d1e17b79333100b10000
+PKT Hit minecraft:set_entity_data 65da07080701df0a0000ff
+PKT Obs minecraft:remove_entities 4e01d807
+PKT Obs minecraft:sound 778f070600000020fffffe24000000043f8000003f8000004b970fd5e0db99e1
+PKT Obs minecraft:add_entity 01da07f7243860838a43d9bf3bba9f5d1b4b48484010b9999a000000c04dc000000000003fe0000000000000d1e17b79333100b10000
+PKT Obs minecraft:set_entity_data 65da07080701df0a0000ff
+E item#1 minecraft:item pos=4.830452645120434,-60.0,1.4168161899365155 delta=6.253159781502376E-4,-0.04,8.830829975305429E-4 rot=171.91003,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=24 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.125,-60.0,0.11943744854878492 delta=0.0,0.0,-0.016646004304289936 rot=249.91534,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=12 pickup=0 health=5 owner=- thrower=-
+PKT Obs minecraft:set_entity_data 65da07080701df0a0000ff
+# a frame with the map loses its support block
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+E item#1 minecraft:item pos=4.831661846221741,-60.0,1.4185238464981114 delta=1.282458288238787E-10,-0.08,1.81111174023719E-10 rot=171.91003,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=141 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.125,-60.0,0.07961185989308918 delta=0.0,-0.12,-6.940421309019484E-10 rot=249.91534,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=129 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=4.855063866381358,-60.0,9.528041277103286 delta=0.0032219914823133967,0.0,-0.004647637738376668 rot=228.42426,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=16 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.986061508908544,-60.0,9.92739331753143 delta=0.003848385970788413,0.0,-0.0027380467544508955 rot=63.17602,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=16 pickup=0 health=5 owner=- thrower=-
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+PKT Obs minecraft:map_item_data 340000000102000d1904000108140c0000
+PKT Obs minecraft:remove_entities 4e01db07
+PKT Obs minecraft:sound 778f070600000020fffffe24000000543f8000003f800000a3981763e0103683
+PKT Obs minecraft:add_entity 01dc074760abd07d4e4a90b633fd02f1155a29484010b9999a000000c04dc000000000004025000000000000491d756d333200a20000
+PKT Obs minecraft:set_entity_data 65dc07080701df0a0000ff
+PKT Obs minecraft:add_entity 01dd078fc8867615794a9d8500cd38263ed77e484010b9999a000000c04dc000000000004025000000000000f92279c53332002c0000
+PKT Obs minecraft:set_entity_data 65dd07080701d60901003000ff
+PKT Obs minecraft:set_entity_data 65dc07080701df0a0000ff
+PKT Obs minecraft:set_entity_data 65dd07080701d60901003000ff
+PKT Obs minecraft:map_item_data 340000000101000d19040000
+# a creative player breaks a frame holding a map: no drops
+PKT Obs minecraft:map_item_data 340000000102000d1904000108280c0000
+E item#1 minecraft:item pos=4.831661846221741,-60.0,1.4185238464981114 delta=2.6072060659661094E-11,-0.08,3.681945493738848E-11 rot=171.91003,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=153 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.125,-60.0,0.07961185989308918 delta=0.0,-0.12,-1.4109705323894971E-10 rot=249.91534,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=141 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=4.862334549929781,-60.0,9.51755350783731 delta=2.2647029026256997E-4,0.0,-3.266774209128895E-4 rot=228.42426,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=28 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.994285670059543,-60.0,9.921541997544688 delta=4.600320628538742E-4,-0.04,-3.2730326588898534E-4 rot=63.17602,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=28 pickup=0 health=5 owner=- thrower=-
+E f3 minecraft:item_frame pos=4.03125,-59.5,20.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT Cre minecraft:sound 7791070600000020fffffe24000000a43f8000003f80000029a8e9b76b35b192
+PKT Obs minecraft:sound 7791070600000020fffffe24000000a43f8000003f80000029a8e9b76b35b192
+E item#1 minecraft:item pos=4.831661846221741,-60.0,1.4185238464981114 delta=2.6072060659661094E-11,-0.08,3.681945493738848E-11 rot=171.91003,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=153 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.125,-60.0,0.07961185989308918 delta=0.0,-0.12,-1.4109705323894971E-10 rot=249.91534,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=141 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=4.862334549929781,-60.0,9.51755350783731 delta=2.2647029026256997E-4,0.0,-3.266774209128895E-4 rot=228.42426,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=28 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.994285670059543,-60.0,9.921541997544688 delta=4.600320628538742E-4,-0.04,-3.2730326588898534E-4 rot=63.17602,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=28 pickup=0 health=5 owner=- thrower=-
+PKT Cre minecraft:remove_entities 4e01de07
+PKT Cre minecraft:sound 778f070600000020fffffe24000000a43f8000003f800000ec866a92984bf066
+PKT Obs minecraft:remove_entities 4e01de07
+PKT Obs minecraft:sound 778f070600000020fffffe24000000a43f8000003f800000ec866a92984bf066
+E item#1 minecraft:item pos=4.831661846221741,-60.0,1.4185238464981114 delta=5.300385620919947E-12,-0.08,7.485304367298933E-12 rot=171.91003,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=165 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=4.125,-60.0,0.07961185989308918 delta=0.0,-0.12,-2.8684682883505796E-11 rot=249.91534,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=153 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=4.862561020220044,-60.0,9.517226830416396 delta=4.604085138274208E-5,0.0,-6.641271386595496E-5 rot=228.42426,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=40 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.995016201002556,-60.0,9.921022239939104 delta=9.352338363056387E-5,-0.04,-6.653994660584176E-5 rot=63.17602,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:filled_map*1 age=40 pickup=0 health=5 owner=- thrower=-
+PKT Obs minecraft:map_item_data 340000000101000d19040000

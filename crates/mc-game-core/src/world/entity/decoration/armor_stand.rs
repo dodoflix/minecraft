@@ -16,7 +16,7 @@ use mc_core::phys::Vec3;
 use mc_data::enums::{Pose, PushReaction};
 use mc_data::{Attribute, EntityType, GameEvent, Item, SoundEvent};
 use mc_nbt::{CompoundTag, ListTag, Tag};
-use mc_protocol::components::{CUSTOM_NAME, EQUIPPABLE};
+use mc_protocol::components::CUSTOM_NAME;
 use mc_protocol::packets::play::{ParticleOptions, Rotations};
 use std::any::Any;
 
@@ -214,23 +214,6 @@ impl ArmorStand {
         self.set_right_arm_pose(pose[3]);
         self.set_left_leg_pose(pose[4]);
         self.set_right_leg_pose(pose[5]);
-    }
-
-    /// `canUseSlot(slot)`: no body armor, no saddle, nothing disabled.
-    pub fn can_use_slot(&self, slot: EquipmentSlot) -> bool {
-        slot != EquipmentSlot::Body && slot != EquipmentSlot::Saddle && !self.is_disabled(slot)
-    }
-
-    /// `LivingEntity.getEquipmentSlotForItem(stack)`.
-    fn get_equipment_slot_for_item(&self, stack: &ItemStack) -> EquipmentSlot {
-        match stack.get(&EQUIPPABLE) {
-            Some(equippable)
-                if self.can_use_slot(EquipmentSlot::from_protocol(equippable.slot)) =>
-            {
-                EquipmentSlot::from_protocol(equippable.slot)
-            }
-            _ => EquipmentSlot::MainHand,
-        }
     }
 
     fn has_item_in_slot(&self, slot: EquipmentSlot) -> bool {
@@ -471,6 +454,11 @@ impl Entity for ArmorStand {
     }
     fn living_mut(&mut self) -> Option<&mut LivingEntityData> {
         Some(&mut self.living)
+    }
+
+    /// `canUseSlot(slot)`: no body armor, no saddle, nothing disabled.
+    fn can_use_slot(&self, slot: EquipmentSlot) -> bool {
+        slot != EquipmentSlot::Body && slot != EquipmentSlot::Saddle && !self.is_disabled(slot)
     }
 
     /// `refreshDimensions()`: the position is put back after the size change (no push out of blocks).

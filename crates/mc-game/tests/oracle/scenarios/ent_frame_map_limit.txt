@@ -1,0 +1,546 @@
+# The tracked decoration limit of a map: item frames refuse a map whose data tracks more than 256 markers. 256 frames hold one map,
+# a 257th frame takes it (the data then tracks 257 markers) and the 258th frame refuses it.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 960
+spawn_player A survival 41.5 -60 2.5 90 0
+tick 2
+dump packets:A:none
+give A hotbar0 minecraft:map 1
+select A 0
+use A main
+tick 1
+dump inventory:A packets:A:map_item_data
+block -30 -60 -22 minecraft:stone
+spawn f1 minecraft:item_frame -28.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 -19 minecraft:stone
+spawn f2 minecraft:item_frame -28.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 -16 minecraft:stone
+spawn f3 minecraft:item_frame -28.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 -13 minecraft:stone
+spawn f4 minecraft:item_frame -28.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 -10 minecraft:stone
+spawn f5 minecraft:item_frame -28.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 -7 minecraft:stone
+spawn f6 minecraft:item_frame -28.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 -4 minecraft:stone
+spawn f7 minecraft:item_frame -28.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 -1 minecraft:stone
+spawn f8 minecraft:item_frame -28.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 2 minecraft:stone
+spawn f9 minecraft:item_frame -28.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 5 minecraft:stone
+spawn f10 minecraft:item_frame -28.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 8 minecraft:stone
+spawn f11 minecraft:item_frame -28.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 11 minecraft:stone
+spawn f12 minecraft:item_frame -28.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 14 minecraft:stone
+spawn f13 minecraft:item_frame -28.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 17 minecraft:stone
+spawn f14 minecraft:item_frame -28.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 20 minecraft:stone
+spawn f15 minecraft:item_frame -28.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -30 -60 23 minecraft:stone
+spawn f16 minecraft:item_frame -28.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 -22 minecraft:stone
+spawn f17 minecraft:item_frame -24.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 -19 minecraft:stone
+spawn f18 minecraft:item_frame -24.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 -16 minecraft:stone
+spawn f19 minecraft:item_frame -24.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 -13 minecraft:stone
+spawn f20 minecraft:item_frame -24.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 -10 minecraft:stone
+spawn f21 minecraft:item_frame -24.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 -7 minecraft:stone
+spawn f22 minecraft:item_frame -24.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 -4 minecraft:stone
+spawn f23 minecraft:item_frame -24.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 -1 minecraft:stone
+spawn f24 minecraft:item_frame -24.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 2 minecraft:stone
+spawn f25 minecraft:item_frame -24.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 5 minecraft:stone
+spawn f26 minecraft:item_frame -24.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 8 minecraft:stone
+spawn f27 minecraft:item_frame -24.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 11 minecraft:stone
+spawn f28 minecraft:item_frame -24.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 14 minecraft:stone
+spawn f29 minecraft:item_frame -24.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 17 minecraft:stone
+spawn f30 minecraft:item_frame -24.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 20 minecraft:stone
+spawn f31 minecraft:item_frame -24.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -26 -60 23 minecraft:stone
+spawn f32 minecraft:item_frame -24.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 -22 minecraft:stone
+spawn f33 minecraft:item_frame -20.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 -19 minecraft:stone
+spawn f34 minecraft:item_frame -20.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 -16 minecraft:stone
+spawn f35 minecraft:item_frame -20.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 -13 minecraft:stone
+spawn f36 minecraft:item_frame -20.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 -10 minecraft:stone
+spawn f37 minecraft:item_frame -20.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 -7 minecraft:stone
+spawn f38 minecraft:item_frame -20.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 -4 minecraft:stone
+spawn f39 minecraft:item_frame -20.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 -1 minecraft:stone
+spawn f40 minecraft:item_frame -20.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 2 minecraft:stone
+spawn f41 minecraft:item_frame -20.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 5 minecraft:stone
+spawn f42 minecraft:item_frame -20.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 8 minecraft:stone
+spawn f43 minecraft:item_frame -20.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 11 minecraft:stone
+spawn f44 minecraft:item_frame -20.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 14 minecraft:stone
+spawn f45 minecraft:item_frame -20.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 17 minecraft:stone
+spawn f46 minecraft:item_frame -20.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 20 minecraft:stone
+spawn f47 minecraft:item_frame -20.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -22 -60 23 minecraft:stone
+spawn f48 minecraft:item_frame -20.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 -22 minecraft:stone
+spawn f49 minecraft:item_frame -16.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 -19 minecraft:stone
+spawn f50 minecraft:item_frame -16.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 -16 minecraft:stone
+spawn f51 minecraft:item_frame -16.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 -13 minecraft:stone
+spawn f52 minecraft:item_frame -16.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 -10 minecraft:stone
+spawn f53 minecraft:item_frame -16.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 -7 minecraft:stone
+spawn f54 minecraft:item_frame -16.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 -4 minecraft:stone
+spawn f55 minecraft:item_frame -16.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 -1 minecraft:stone
+spawn f56 minecraft:item_frame -16.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 2 minecraft:stone
+spawn f57 minecraft:item_frame -16.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 5 minecraft:stone
+spawn f58 minecraft:item_frame -16.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 8 minecraft:stone
+spawn f59 minecraft:item_frame -16.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 11 minecraft:stone
+spawn f60 minecraft:item_frame -16.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 14 minecraft:stone
+spawn f61 minecraft:item_frame -16.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 17 minecraft:stone
+spawn f62 minecraft:item_frame -16.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 20 minecraft:stone
+spawn f63 minecraft:item_frame -16.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -18 -60 23 minecraft:stone
+spawn f64 minecraft:item_frame -16.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 -22 minecraft:stone
+spawn f65 minecraft:item_frame -12.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 -19 minecraft:stone
+spawn f66 minecraft:item_frame -12.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 -16 minecraft:stone
+spawn f67 minecraft:item_frame -12.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 -13 minecraft:stone
+spawn f68 minecraft:item_frame -12.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 -10 minecraft:stone
+spawn f69 minecraft:item_frame -12.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 -7 minecraft:stone
+spawn f70 minecraft:item_frame -12.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 -4 minecraft:stone
+spawn f71 minecraft:item_frame -12.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 -1 minecraft:stone
+spawn f72 minecraft:item_frame -12.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 2 minecraft:stone
+spawn f73 minecraft:item_frame -12.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 5 minecraft:stone
+spawn f74 minecraft:item_frame -12.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 8 minecraft:stone
+spawn f75 minecraft:item_frame -12.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 11 minecraft:stone
+spawn f76 minecraft:item_frame -12.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 14 minecraft:stone
+spawn f77 minecraft:item_frame -12.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 17 minecraft:stone
+spawn f78 minecraft:item_frame -12.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 20 minecraft:stone
+spawn f79 minecraft:item_frame -12.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -14 -60 23 minecraft:stone
+spawn f80 minecraft:item_frame -12.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 -22 minecraft:stone
+spawn f81 minecraft:item_frame -8.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 -19 minecraft:stone
+spawn f82 minecraft:item_frame -8.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 -16 minecraft:stone
+spawn f83 minecraft:item_frame -8.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 -13 minecraft:stone
+spawn f84 minecraft:item_frame -8.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 -10 minecraft:stone
+spawn f85 minecraft:item_frame -8.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 -7 minecraft:stone
+spawn f86 minecraft:item_frame -8.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 -4 minecraft:stone
+spawn f87 minecraft:item_frame -8.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 -1 minecraft:stone
+spawn f88 minecraft:item_frame -8.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 2 minecraft:stone
+spawn f89 minecraft:item_frame -8.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 5 minecraft:stone
+spawn f90 minecraft:item_frame -8.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 8 minecraft:stone
+spawn f91 minecraft:item_frame -8.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 11 minecraft:stone
+spawn f92 minecraft:item_frame -8.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 14 minecraft:stone
+spawn f93 minecraft:item_frame -8.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 17 minecraft:stone
+spawn f94 minecraft:item_frame -8.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 20 minecraft:stone
+spawn f95 minecraft:item_frame -8.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -10 -60 23 minecraft:stone
+spawn f96 minecraft:item_frame -8.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 -22 minecraft:stone
+spawn f97 minecraft:item_frame -4.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 -19 minecraft:stone
+spawn f98 minecraft:item_frame -4.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 -16 minecraft:stone
+spawn f99 minecraft:item_frame -4.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 -13 minecraft:stone
+spawn f100 minecraft:item_frame -4.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 -10 minecraft:stone
+spawn f101 minecraft:item_frame -4.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 -7 minecraft:stone
+spawn f102 minecraft:item_frame -4.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 -4 minecraft:stone
+spawn f103 minecraft:item_frame -4.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 -1 minecraft:stone
+spawn f104 minecraft:item_frame -4.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 2 minecraft:stone
+spawn f105 minecraft:item_frame -4.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 5 minecraft:stone
+spawn f106 minecraft:item_frame -4.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 8 minecraft:stone
+spawn f107 minecraft:item_frame -4.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 11 minecraft:stone
+spawn f108 minecraft:item_frame -4.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 14 minecraft:stone
+spawn f109 minecraft:item_frame -4.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 17 minecraft:stone
+spawn f110 minecraft:item_frame -4.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 20 minecraft:stone
+spawn f111 minecraft:item_frame -4.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -6 -60 23 minecraft:stone
+spawn f112 minecraft:item_frame -4.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 -22 minecraft:stone
+spawn f113 minecraft:item_frame -0.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 -19 minecraft:stone
+spawn f114 minecraft:item_frame -0.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 -16 minecraft:stone
+spawn f115 minecraft:item_frame -0.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 -13 minecraft:stone
+spawn f116 minecraft:item_frame -0.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 -10 minecraft:stone
+spawn f117 minecraft:item_frame -0.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 -7 minecraft:stone
+spawn f118 minecraft:item_frame -0.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 -4 minecraft:stone
+spawn f119 minecraft:item_frame -0.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 -1 minecraft:stone
+spawn f120 minecraft:item_frame -0.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 2 minecraft:stone
+spawn f121 minecraft:item_frame -0.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 5 minecraft:stone
+spawn f122 minecraft:item_frame -0.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 8 minecraft:stone
+spawn f123 minecraft:item_frame -0.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 11 minecraft:stone
+spawn f124 minecraft:item_frame -0.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 14 minecraft:stone
+spawn f125 minecraft:item_frame -0.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 17 minecraft:stone
+spawn f126 minecraft:item_frame -0.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 20 minecraft:stone
+spawn f127 minecraft:item_frame -0.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block -2 -60 23 minecraft:stone
+spawn f128 minecraft:item_frame -0.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 -22 minecraft:stone
+spawn f129 minecraft:item_frame 3.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 -19 minecraft:stone
+spawn f130 minecraft:item_frame 3.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 -16 minecraft:stone
+spawn f131 minecraft:item_frame 3.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 -13 minecraft:stone
+spawn f132 minecraft:item_frame 3.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 -10 minecraft:stone
+spawn f133 minecraft:item_frame 3.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 -7 minecraft:stone
+spawn f134 minecraft:item_frame 3.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 -4 minecraft:stone
+spawn f135 minecraft:item_frame 3.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 -1 minecraft:stone
+spawn f136 minecraft:item_frame 3.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 2 minecraft:stone
+spawn f137 minecraft:item_frame 3.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 5 minecraft:stone
+spawn f138 minecraft:item_frame 3.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 8 minecraft:stone
+spawn f139 minecraft:item_frame 3.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 11 minecraft:stone
+spawn f140 minecraft:item_frame 3.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 14 minecraft:stone
+spawn f141 minecraft:item_frame 3.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 17 minecraft:stone
+spawn f142 minecraft:item_frame 3.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 20 minecraft:stone
+spawn f143 minecraft:item_frame 3.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 2 -60 23 minecraft:stone
+spawn f144 minecraft:item_frame 3.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 -22 minecraft:stone
+spawn f145 minecraft:item_frame 7.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 -19 minecraft:stone
+spawn f146 minecraft:item_frame 7.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 -16 minecraft:stone
+spawn f147 minecraft:item_frame 7.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 -13 minecraft:stone
+spawn f148 minecraft:item_frame 7.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 -10 minecraft:stone
+spawn f149 minecraft:item_frame 7.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 -7 minecraft:stone
+spawn f150 minecraft:item_frame 7.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 -4 minecraft:stone
+spawn f151 minecraft:item_frame 7.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 -1 minecraft:stone
+spawn f152 minecraft:item_frame 7.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 2 minecraft:stone
+spawn f153 minecraft:item_frame 7.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 5 minecraft:stone
+spawn f154 minecraft:item_frame 7.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 8 minecraft:stone
+spawn f155 minecraft:item_frame 7.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 11 minecraft:stone
+spawn f156 minecraft:item_frame 7.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 14 minecraft:stone
+spawn f157 minecraft:item_frame 7.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 17 minecraft:stone
+spawn f158 minecraft:item_frame 7.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 20 minecraft:stone
+spawn f159 minecraft:item_frame 7.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 6 -60 23 minecraft:stone
+spawn f160 minecraft:item_frame 7.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 -22 minecraft:stone
+spawn f161 minecraft:item_frame 11.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 -19 minecraft:stone
+spawn f162 minecraft:item_frame 11.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 -16 minecraft:stone
+spawn f163 minecraft:item_frame 11.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 -13 minecraft:stone
+spawn f164 minecraft:item_frame 11.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 -10 minecraft:stone
+spawn f165 minecraft:item_frame 11.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 -7 minecraft:stone
+spawn f166 minecraft:item_frame 11.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 -4 minecraft:stone
+spawn f167 minecraft:item_frame 11.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 -1 minecraft:stone
+spawn f168 minecraft:item_frame 11.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 2 minecraft:stone
+spawn f169 minecraft:item_frame 11.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 5 minecraft:stone
+spawn f170 minecraft:item_frame 11.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 8 minecraft:stone
+spawn f171 minecraft:item_frame 11.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 11 minecraft:stone
+spawn f172 minecraft:item_frame 11.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 14 minecraft:stone
+spawn f173 minecraft:item_frame 11.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 17 minecraft:stone
+spawn f174 minecraft:item_frame 11.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 20 minecraft:stone
+spawn f175 minecraft:item_frame 11.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 10 -60 23 minecraft:stone
+spawn f176 minecraft:item_frame 11.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 -22 minecraft:stone
+spawn f177 minecraft:item_frame 15.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 -19 minecraft:stone
+spawn f178 minecraft:item_frame 15.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 -16 minecraft:stone
+spawn f179 minecraft:item_frame 15.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 -13 minecraft:stone
+spawn f180 minecraft:item_frame 15.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 -10 minecraft:stone
+spawn f181 minecraft:item_frame 15.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 -7 minecraft:stone
+spawn f182 minecraft:item_frame 15.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 -4 minecraft:stone
+spawn f183 minecraft:item_frame 15.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 -1 minecraft:stone
+spawn f184 minecraft:item_frame 15.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 2 minecraft:stone
+spawn f185 minecraft:item_frame 15.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 5 minecraft:stone
+spawn f186 minecraft:item_frame 15.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 8 minecraft:stone
+spawn f187 minecraft:item_frame 15.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 11 minecraft:stone
+spawn f188 minecraft:item_frame 15.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 14 minecraft:stone
+spawn f189 minecraft:item_frame 15.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 17 minecraft:stone
+spawn f190 minecraft:item_frame 15.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 20 minecraft:stone
+spawn f191 minecraft:item_frame 15.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 14 -60 23 minecraft:stone
+spawn f192 minecraft:item_frame 15.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 -22 minecraft:stone
+spawn f193 minecraft:item_frame 19.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 -19 minecraft:stone
+spawn f194 minecraft:item_frame 19.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 -16 minecraft:stone
+spawn f195 minecraft:item_frame 19.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 -13 minecraft:stone
+spawn f196 minecraft:item_frame 19.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 -10 minecraft:stone
+spawn f197 minecraft:item_frame 19.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 -7 minecraft:stone
+spawn f198 minecraft:item_frame 19.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 -4 minecraft:stone
+spawn f199 minecraft:item_frame 19.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 -1 minecraft:stone
+spawn f200 minecraft:item_frame 19.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 2 minecraft:stone
+spawn f201 minecraft:item_frame 19.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 5 minecraft:stone
+spawn f202 minecraft:item_frame 19.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 8 minecraft:stone
+spawn f203 minecraft:item_frame 19.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 11 minecraft:stone
+spawn f204 minecraft:item_frame 19.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 14 minecraft:stone
+spawn f205 minecraft:item_frame 19.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 17 minecraft:stone
+spawn f206 minecraft:item_frame 19.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 20 minecraft:stone
+spawn f207 minecraft:item_frame 19.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 18 -60 23 minecraft:stone
+spawn f208 minecraft:item_frame 19.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 -22 minecraft:stone
+spawn f209 minecraft:item_frame 23.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 -19 minecraft:stone
+spawn f210 minecraft:item_frame 23.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 -16 minecraft:stone
+spawn f211 minecraft:item_frame 23.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 -13 minecraft:stone
+spawn f212 minecraft:item_frame 23.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 -10 minecraft:stone
+spawn f213 minecraft:item_frame 23.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 -7 minecraft:stone
+spawn f214 minecraft:item_frame 23.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 -4 minecraft:stone
+spawn f215 minecraft:item_frame 23.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 -1 minecraft:stone
+spawn f216 minecraft:item_frame 23.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 2 minecraft:stone
+spawn f217 minecraft:item_frame 23.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 5 minecraft:stone
+spawn f218 minecraft:item_frame 23.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 8 minecraft:stone
+spawn f219 minecraft:item_frame 23.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 11 minecraft:stone
+spawn f220 minecraft:item_frame 23.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 14 minecraft:stone
+spawn f221 minecraft:item_frame 23.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 17 minecraft:stone
+spawn f222 minecraft:item_frame 23.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 20 minecraft:stone
+spawn f223 minecraft:item_frame 23.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 22 -60 23 minecraft:stone
+spawn f224 minecraft:item_frame 23.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 -22 minecraft:stone
+spawn f225 minecraft:item_frame 27.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 -19 minecraft:stone
+spawn f226 minecraft:item_frame 27.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 -16 minecraft:stone
+spawn f227 minecraft:item_frame 27.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 -13 minecraft:stone
+spawn f228 minecraft:item_frame 27.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 -10 minecraft:stone
+spawn f229 minecraft:item_frame 27.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 -7 minecraft:stone
+spawn f230 minecraft:item_frame 27.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 -4 minecraft:stone
+spawn f231 minecraft:item_frame 27.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 -1 minecraft:stone
+spawn f232 minecraft:item_frame 27.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 2 minecraft:stone
+spawn f233 minecraft:item_frame 27.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 5 minecraft:stone
+spawn f234 minecraft:item_frame 27.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 8 minecraft:stone
+spawn f235 minecraft:item_frame 27.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 11 minecraft:stone
+spawn f236 minecraft:item_frame 27.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 14 minecraft:stone
+spawn f237 minecraft:item_frame 27.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 17 minecraft:stone
+spawn f238 minecraft:item_frame 27.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 20 minecraft:stone
+spawn f239 minecraft:item_frame 27.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 26 -60 23 minecraft:stone
+spawn f240 minecraft:item_frame 27.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 -22 minecraft:stone
+spawn f241 minecraft:item_frame 31.5 -59.5 -21.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 -19 minecraft:stone
+spawn f242 minecraft:item_frame 31.5 -59.5 -18.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 -16 minecraft:stone
+spawn f243 minecraft:item_frame 31.5 -59.5 -15.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 -13 minecraft:stone
+spawn f244 minecraft:item_frame 31.5 -59.5 -12.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 -10 minecraft:stone
+spawn f245 minecraft:item_frame 31.5 -59.5 -9.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 -7 minecraft:stone
+spawn f246 minecraft:item_frame 31.5 -59.5 -6.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 -4 minecraft:stone
+spawn f247 minecraft:item_frame 31.5 -59.5 -3.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 -1 minecraft:stone
+spawn f248 minecraft:item_frame 31.5 -59.5 -0.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 2 minecraft:stone
+spawn f249 minecraft:item_frame 31.5 -59.5 2.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 5 minecraft:stone
+spawn f250 minecraft:item_frame 31.5 -59.5 5.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 8 minecraft:stone
+spawn f251 minecraft:item_frame 31.5 -59.5 8.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 11 minecraft:stone
+spawn f252 minecraft:item_frame 31.5 -59.5 11.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 14 minecraft:stone
+spawn f253 minecraft:item_frame 31.5 -59.5 14.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 17 minecraft:stone
+spawn f254 minecraft:item_frame 31.5 -59.5 17.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 20 minecraft:stone
+spawn f255 minecraft:item_frame 31.5 -59.5 20.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+block 30 -60 23 minecraft:stone
+spawn f256 minecraft:item_frame 31.5 -59.5 23.5 0 0 {Facing:5b,Item:{id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":0}}}
+tick 12
+dump packets:A:map_item_data,set_entity_data
+note the 257th frame takes the map: the data tracks 256 markers, which is not over the limit
+block 38 -60 0 minecraft:stone
+block 38 -60 4 minecraft:stone
+spawn g1 minecraft:item_frame 39.5 -59.5 0.5 0 0 {Facing:5b}
+spawn g2 minecraft:item_frame 39.5 -59.5 4.5 0 0 {Facing:5b}
+tick 1
+dump packets:A:none
+interact A g1 main
+dump inventory:A edata:g1 packets:A:set_entity_data,map_item_data
+tick 12
+dump packets:A:map_item_data,set_entity_data
+note with 257 markers the next frame refuses the map
+give A hotbar0 minecraft:filled_map[minecraft:map_id=0]
+interact A g2 main
+dump inventory:A edata:g2 packets:A:set_entity_data,map_item_data
+tick 12
+dump inventory:A edata:g2 packets:A:map_item_data,set_entity_data

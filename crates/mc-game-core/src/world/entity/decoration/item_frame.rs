@@ -35,8 +35,12 @@ pub struct ItemFrame {
     attached: Attached,
     drop_chance: f32,
     fixed: bool,
-    /// The add-item sound `setItem(item, false)` plays while loading an entity (needs the level): played on the first tick.
-    pending_load_sound: bool,
+    /// Where the add-item sound `setItem(item, false)` played while loading (it needs the level): played by
+    /// [`Entity::read_level_dependent_data`].
+    load_sound_pos: Option<Vec3>,
+    /// The map of the item an NBT load replaced: `removeFramedMap(currentItem)` needs the level, so the map data forgets
+    /// this frame in [`Entity::read_level_dependent_data`].
+    replaced_map: Option<MapId>,
 }
 
 impl ItemFrame {
@@ -57,7 +61,8 @@ impl ItemFrame {
             attached: Attached::default(),
             drop_chance: 1.0,
             fixed: false,
-            pending_load_sound: false,
+            load_sound_pos: None,
+            replaced_map: None,
         };
         frame.set_pos(0.0, 0.0, 0.0); // `Entity(type, level)`: `setPos(0, 0, 0)`
         frame.base.set_shared_flag(FLAG_INVISIBLE, false);
@@ -215,7 +220,12 @@ impl ItemFrame {
             stack.copy_with_count(1)
         };
         self.recalculate_bounding_box(); // `onItemChanged(itemStack)`
-        if self.base.entity_data.set(DATA_ITEM, stored.clone()) {
+        // a non-empty stack is a fresh copy: vanilla compares stacks by identity, so storing it always marks the data dirty
+        if self
+            .base
+            .entity_data
+            .set_force(DATA_ITEM, stored.clone(), !stored.is_empty())
+        {
             self.on_synced_data_updated(DATA_ITEM.id());
         }
         stored
@@ -246,10 +256,6 @@ impl ItemFrame {
         }
     }
 
-    // Not implemented: the per-tick sync of a framed map (`ServerEntity.sendChanges` for an `ItemFrame` holding a map:
-    // `MapItemSavedData.tickCarriedBy` for every player tracking the frame with the frame as `placedInFrame`, which adds
-    // the frame decoration, and the `ClientboundMapItemDataPacket` updates sent to those players). Map data therefore
-    // never gets a frame marker and a framed map is not sent to players who only see the frame.
     /// `removeFramedMap(itemStack)`: the map data forgets this frame.
     fn remove_framed_map(&self, level: &mut ServerLevel, stack: &ItemStack) {
         if let Some(map_id) = Self::get_framed_map_id(stack) {
@@ -397,11 +403,28 @@ impl Entity for ItemFrame {
         self.get_hanging_direction()
     }
     fn tick(&mut self, level: &mut ServerLevel) {
-        if std::mem::take(&mut self.pending_load_sound) {
-            let sound = self.get_add_item_sound();
-            self.play_sound(level, sound, 1.0, 1.0);
-        }
         block_attached::tick(self, level);
+    }
+    /// The part of `readAdditionalSaveData` that needs the level: the add-item sound `setItem(item, false)` plays at the
+    /// position the frame had while loading, and `removeFramedMap(currentItem)` of a replaced item (`/data merge entity`).
+    fn read_level_dependent_data(&mut self, level: &mut ServerLevel) {
+        if let Some(map_id) = self.replaced_map.take() {
+            super::map_tracking::removed_from_frame(level, map_id, self.attached.pos, self.base.id);
+        }
+        if let Some(p) = self.load_sound_pos.take()
+            && !self.base.is_silent()
+        {
+            let sound = self.get_add_item_sound();
+            let source = self.get_sound_source();
+            level.play_sound_at(None, p.x, p.y, p.z, sound, source, 1.0, 1.0);
+        }
+    }
+    /// `getSlot(slot)`: slot 0 is the framed item.
+    fn get_slot(&self, slot: i32) -> Option<ItemStack> {
+        if slot == 0 {
+            return Some(self.get_item());
+        }
+        crate::advancements::predicates::entity::support::get_slot(self, slot)
     }
     fn set_pos(&mut self, x: f64, y: f64, z: f64) {
         block_attached::set_pos(self, x, y, z);
@@ -513,10 +536,14 @@ impl Entity for ItemFrame {
             .get("Item")
             .and_then(|t| ItemStack::from_tag(t).into_result().ok())
             .unwrap_or_else(ItemStack::empty);
-        // `removeFramedMap(currentItem)` of a replaced item needs the level: loading happens before the frame knows one, and
-        // a frame that is freshly created has no item, so nothing is registered with a map yet.
+        let current = self.get_item();
+        if !current.is_empty() && !ItemStack::matches(&stack, &current) {
+            self.replaced_map = Self::get_framed_map_id(&current);
+        }
         let stored = self.set_item_data(&stack);
-        self.pending_load_sound |= !stored.is_empty();
+        if !stored.is_empty() {
+            self.load_sound_pos = Some(self.base.position());
+        }
         let rotation = i32::from(input.get_byte_or("ItemRotation", 0));
         self.set_rotation(None, rotation);
         self.drop_chance = input.get_float_or("ItemDropChance", 1.0);
@@ -594,6 +621,30 @@ pub fn analog_output_of(entity: &dyn Entity) -> Option<(Direction, i32)> {
         .as_any()
         .downcast_ref::<ItemFrame>()
         .map(|frame| (frame.get_hanging_direction(), frame.get_analog_output()))
+}
+
+/// `entity instanceof ItemFrame frame && frame.getItem().getItem() instanceof MapItem`: the framed map's id, the stack and
+/// what `MapItemSavedData.tickCarriedBy` records of the frame.
+pub fn framed_map_of(
+    entity: &dyn Entity,
+) -> Option<(
+    MapId,
+    ItemStack,
+    crate::world::level::saveddata::maps::FrameInfo,
+)> {
+    let frame = entity.as_any().downcast_ref::<ItemFrame>()?;
+    let framed = frame.base.entity_data.get_ref(DATA_ITEM);
+    if framed.item() != Item::FILLED_MAP {
+        return None;
+    }
+    let stack = framed.clone();
+    let map_id = ItemFrame::get_framed_map_id(&stack)?;
+    let info = crate::world::level::saveddata::maps::FrameInfo {
+        pos: frame.attached.pos,
+        direction_2d: frame.get_hanging_direction().get_2d_data_value(),
+        entity_id: frame.base.id,
+    };
+    Some((map_id, stack, info))
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
