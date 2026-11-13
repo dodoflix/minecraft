@@ -1,0 +1,873 @@
+# paintings: real attacks (survival hits, creative hit, adventure), a named painting drops a named item
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E n1 minecraft:painting pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E n2 minecraft:painting pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E n3 minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+ED n1 0:0:00 1:1:ac02 2:6:01080006224d6f6e6122 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:03 9:34:19
+PKT O minecraft:add_entity 018f27642b40d5b904487282b4281299b8b3595e4010000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 658f27092202ff
+PKT O minecraft:add_entity 0190273fb4d09a130e4a149db83174e8d610575e4020000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 658f27092202ff
+E n1 minecraft:painting pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N n1 {Air:300s,CustomName:'"Mona"',Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-59.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["n1"],block_pos:[I;0,-60,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E n2 minecraft:painting pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E n3 minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=0.4094701091704088,-59.34,-0.875 delta=-0.08871929473971997,0.1568000030517578,0.0 rot=223.46771,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=0.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+C Killed Painting
+C No entity was found
+E n2 minecraft:painting pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N n2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-59.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["n2"],block_pos:[I;4,-60,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:aztec"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E n3 minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e018f27
+C No entity was found
+C No entity was found
+E n3 minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N n3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-59.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["n3"],block_pos:[I;8,-60,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:alban"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#2 minecraft:item pos=8.482297536433476,-59.34,-0.8004049657726169 delta=-0.017348414632841293,0.1568000030517578,0.017978128051483938 rot=28.315716,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=8.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019027
+PKT O minecraft:add_entity 019227788d3289c9d64ff3957d1b39cf8467e0484021000000000000c04dc00000000000bfea333330000000e9f68259333100140000
+PKT O minecraft:set_entity_data 659227080701cb080000ff
+PKT O minecraft:set_entity_data 659227080701cb080000ff
+C Killed Painting
+C No entity was found
+# damage types on paintings
+PKT O minecraft:add_entity 019327179ed4f007714ce79b9e4428cd16b5c75e4000000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659327092219ff
+PKT O minecraft:add_entity 0194271f9f00cf840649ef8f01ed5d3e6a7ebf5e4014000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659427092219ff
+PKT O minecraft:add_entity 01952719a8a11467384953bb1675f8178a54625e4020000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659527092219ff
+PKT O minecraft:add_entity 01962708b0dda48dde4ea2af685d3437ba72675e4026000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659627092219ff
+PKT O minecraft:add_entity 019727d5810984b7044baabc1c0668101e3b605e402c000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659727092219ff
+PKT O minecraft:add_entity 019827499f0fb2f61148fa8f9f5afc32011af15e4031000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659827092219ff
+PKT O minecraft:add_entity 019927e3ee129017a44a92a511b999375f2b915e4034000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659927092219ff
+PKT O minecraft:add_entity 019a277a89ffbd17d842e2a93ecd2e27225e225e4037000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659a27092219ff
+PKT O minecraft:add_entity 019b27c0c1eb9e28aa4fe98f003661c4e0e71b5e403a000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659b27092219ff
+PKT O minecraft:add_entity 019c2763468e7b76d241819ab134fee6a917ba5e403d000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659c27092219ff
+PKT O minecraft:add_entity 019d274ec6865cf46a4b77886beea5902809265e4040000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659d27092219ff
+PKT O minecraft:add_entity 019e27c30bf3bd6a8b491a8e87995fb4b44bb05e4041800000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659e27092219ff
+PKT O minecraft:add_entity 019f2718ec693406524a749eceb76126ce52155e4043000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 659f27092219ff
+PKT O minecraft:add_entity 01a0277b7c5c2dd70e4b7199e529cfa4c032ae5e4044800000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65a027092219ff
+PKT O minecraft:add_entity 01a127861dd5756d8a48b790c4d3a07e39c5e15e4046000000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65a127092219ff
+PKT O minecraft:add_entity 01a2272b08bc85a4294130b61d26c513c805415e4047800000000000c04d800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65a227092219ff
+PKT O minecraft:set_entity_data 659527092219ff
+PKT O minecraft:set_entity_data 659727092219ff
+PKT O minecraft:set_entity_data 659b27092219ff
+PKT O minecraft:set_entity_data 659d27092219ff
+PKT O minecraft:set_entity_data 659f27092219ff
+PKT O minecraft:set_entity_data 659327092219ff
+PKT O minecraft:set_entity_data 65a127092219ff
+PKT O minecraft:set_entity_data 65a027092219ff
+PKT O minecraft:set_entity_data 65a227092219ff
+PKT O minecraft:set_entity_data 659427092219ff
+PKT O minecraft:set_entity_data 659e27092219ff
+PKT O minecraft:set_entity_data 659a27092219ff
+PKT O minecraft:set_entity_data 659627092219ff
+PKT O minecraft:set_entity_data 659c27092219ff
+PKT O minecraft:set_entity_data 659927092219ff
+PKT O minecraft:set_entity_data 659827092219ff
+HURT t0 generic 3 -> true
+E t0 minecraft:painting pos=2.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t0 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t0"],block_pos:[I;2,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t1 minecraft:painting pos=5.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t2 minecraft:painting pos=8.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t3 minecraft:painting pos=11.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t4 minecraft:painting pos=14.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t5 minecraft:painting pos=17.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t6 minecraft:painting pos=20.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t7 minecraft:painting pos=23.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t8 minecraft:painting pos=26.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-55.0,-30.5 delta=0.0,-0.05,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E item#3 minecraft:item pos=2.425069000939326,-58.34,-0.8679022011968405 delta=-0.07343238050865596,0.1568000030517578,-0.048169163951662805 rot=107.83062,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=2.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019327
+PKT O minecraft:add_entity 01a5277018f791d22b48ac9cf9feb6955be25c484004000000000000c04d400000000000bfea33333000000099d979b53331004c0000
+PKT O minecraft:set_entity_data 65a527080701cb080000ff
+PKT O minecraft:set_entity_data 65a527080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t1 in_fire 3 -> true
+E t1 minecraft:painting pos=5.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[5.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t1"],block_pos:[I;5,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t2 minecraft:painting pos=8.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t3 minecraft:painting pos=11.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t4 minecraft:painting pos=14.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t5 minecraft:painting pos=17.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t6 minecraft:painting pos=20.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t7 minecraft:painting pos=23.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t8 minecraft:painting pos=26.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-55.149500000476834,-30.5 delta=0.0,-0.14850500142097472,0.0 rot=0.0,-32.399998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E item#4 minecraft:item pos=5.502086018589049,-58.34,-0.8352450628336237 delta=0.002044298257055884,0.1568000030517578,-0.016165167732824864 rot=127.6619,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=5.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019427
+PKT O minecraft:add_entity 01a627aefd5a3652754be19979a2db3807a98b484016000000000000c04d400000000000bfea33333000000009017de33332005a0000
+PKT O minecraft:set_entity_data 65a627080701cb080000ff
+PKT O minecraft:set_entity_data 65a627080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t2 on_fire 3 -> true
+E t2 minecraft:painting pos=8.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t2"],block_pos:[I;8,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t3 minecraft:painting pos=11.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t4 minecraft:painting pos=14.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t5 minecraft:painting pos=17.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t6 minecraft:painting pos=20.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t7 minecraft:painting pos=23.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t8 minecraft:painting pos=26.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-55.495024954720826,-30.5 delta=0.0,-0.24504975517371752,0.0 rot=0.0,-53.135998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E item#5 minecraft:item pos=8.530241513736868,-58.34,-0.8220353194390442 delta=0.029636684038941447,0.1568000030517578,-0.0032196189541810493 rot=332.4826,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=8.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019527
+PKT O minecraft:add_entity 01a727d431c572f5fb4c5a9bbd89db6f06a52d484021000000000000c04d400000000000bfea333330000000710f7f93333200ec0000
+PKT O minecraft:set_entity_data 65a727080701cb080000ff
+PKT O minecraft:set_entity_data 65a727080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t3 lava 3 -> true
+E t3 minecraft:painting pos=11.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[11.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t3"],block_pos:[I;11,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t4 minecraft:painting pos=14.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t5 minecraft:painting pos=17.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t6 minecraft:painting pos=20.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t7 minecraft:painting pos=23.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t8 minecraft:painting pos=26.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-56.0326739698535,-30.5 delta=0.0,-0.3396732701498113,0.0 rot=0.0,-66.407036 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E item#6 minecraft:item pos=11.561444761218475,-58.34,-0.8588837612109219 delta=0.06021586716607156,0.1568000030517578,-0.0393310925934495 rot=181.98726,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=11.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019627
+PKT O minecraft:add_entity 01a827f64acecf09a3471aa8cec8f1bd28f8a5484027000000000000c04d400000000000bfea333330000000711f7adb333200810000
+PKT O minecraft:set_entity_data 65a827080701cb080000ff
+PKT O minecraft:set_entity_data 65a827080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t4 explosion 3 -> true
+E t4 minecraft:painting pos=14.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[14.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t4"],block_pos:[I;14,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t5 minecraft:painting pos=17.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t6 minecraft:painting pos=20.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t7 minecraft:painting pos=23.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t8 minecraft:painting pos=26.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-56.758623780690996,-30.5 delta=0.0,-0.4324137789646332,0.0 rot=0.0,-74.9005 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E item#7 minecraft:item pos=14.527306138251895,-58.34,-0.8524821331177016 delta=0.02676001600767996,0.1568000030517578,-0.03305749693999225 rot=43.125717,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=14.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019727
+PKT O minecraft:add_entity 01a92752475638e08242ec94469e35ff93557a48402d000000000000c04d400000000000bfea333330000000f10d7bad3332001e0000
+PKT O minecraft:set_entity_data 65a927080701cb080000ff
+PKT O minecraft:set_entity_data 65a927080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t5 player_explosion 3 -> true
+E t5 minecraft:painting pos=17.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[17.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t5"],block_pos:[I;17,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t6 minecraft:painting pos=20.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t7 minecraft:painting pos=23.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t8 minecraft:painting pos=26.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-57.669127204954435,-30.5 delta=0.0,-0.5233087534052361,0.0 rot=0.0,-80.33631 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E item#8 minecraft:item pos=17.59874496720804,-58.34,-0.7900061778999805 delta=0.09677006974729047,0.1568000030517578,0.028168940365008697 rot=333.53458,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=17.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019827
+PKT O minecraft:add_entity 01aa278e62f1b14b8c480d8fce487b198ecc64484031800000000000c04d400000000000bfea333330000000893283ad333200ed0000
+PKT O minecraft:set_entity_data 65aa27080701cb080000ff
+PKT O minecraft:set_entity_data 65aa27080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t6 magic 3 -> true
+E t6 minecraft:painting pos=20.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t6 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[20.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t6"],block_pos:[I;20,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t7 minecraft:painting pos=23.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t8 minecraft:painting pos=26.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-58.76051162922152,-30.5 delta=0.0,-0.6123949195708184,0.0 rot=0.0,-83.81524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E item#9 minecraft:item pos=20.598822089087616,-58.34,-0.875 delta=0.09684564919074544,0.1568000030517578,0.0 rot=331.1858,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=20.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019927
+PKT O minecraft:add_entity 01ab2787f483eddd8348fd9ef085fd9ae71e2e484034800000000000c04d400000000000bfea33333000000091327635333200eb0000
+PKT O minecraft:set_entity_data 65ab27080701cb080000ff
+PKT O minecraft:set_entity_data 65ab27080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t7 generic_kill 3 -> true
+E t7 minecraft:painting pos=23.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t7 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[23.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t7"],block_pos:[I;23,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t8 minecraft:painting pos=26.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0
+E item#10 minecraft:item pos=23.44818574346147,-58.34,-0.7982489948589393 delta=-0.050777972396040524,0.1568000030517578,0.0200909795880098 rot=182.40443,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=23.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=20.5,-59.94999999925494,-30.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.3100588
+PKT O minecraft:remove_entities 4e019a27
+PKT O minecraft:sound 77ac0906000000bcfffffe2cfffffff93f8000003f8000005ae586ec5969c658
+PKT O minecraft:add_entity 01ac27dfc3d748aaa8497d88792545a326d0d7484037800000000000c04d400000000000bfea33333000000071e5829f333100810000
+PKT O minecraft:set_entity_data 65ac27080701cb080000ff
+PKT O minecraft:set_entity_data 65ac27080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t8 out_of_world 3 -> true
+E t8 minecraft:painting pos=26.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t8 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[26.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t8"],block_pos:[I;26,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0
+E item#11 minecraft:item pos=26.503268914455013,-58.34,-0.7214212146705462 delta=0.0032035362282612717,0.1568000030517578,0.0953822056380087 rot=155.779,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=26.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019b27
+PKT O minecraft:sound 77ac0906000000d4fffffe2cfffffff93f8000003f800000d8bde3e82cd7dc02
+PKT O minecraft:add_entity 01ad27c3e933a0d8744d9799d704ec7a8f8d5c48403a800000000000c04d400000000000bfea333330000000a9018c753332006e0000
+PKT O minecraft:set_entity_data 65ad27080701cb080000ff
+PKT O minecraft:set_entity_data 65ad27080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t9 cactus 3 -> true
+E t9 minecraft:painting pos=29.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t9 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[29.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t9"],block_pos:[I;29,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0
+E item#12 minecraft:item pos=29.49522916681308,-58.34,-0.7420781226296005 delta=-0.004675416614177677,0.1568000030517578,0.07513843544413625 rot=322.29178,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=29.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019c27
+PKT O minecraft:sound 77ac0906000000ecfffffe2cfffffff93f8000003f8000003b8fbbb9f9feaeb8
+PKT O minecraft:add_entity 01ae27df67211509b74b238c6d0611b762ed3a48403d800000000000c04d400000000000bfea33333000000089fd89cf333100e50000
+PKT O minecraft:set_entity_data 65ae27080701cb080000ff
+PKT O minecraft:set_entity_data 65ae27080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t10 fall 3 -> true
+E t10 minecraft:painting pos=32.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t10 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[32.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t10"],block_pos:[I;32,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0
+E item#13 minecraft:item pos=32.460132966727336,-58.34,-0.7315166967870568 delta=-0.03906969336761659,0.1568000030517578,0.08548863297127225 rot=332.72205,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=32.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019d27
+PKT O minecraft:sound 77ac090600000104fffffe2cfffffff93f8000003f800000dd1c412737275425
+PKT O minecraft:add_entity 01af27f51ea166df9f487ba48e9b7f4bed27db484040400000000000c04d400000000000bfea33333000000091eb8b29333100ec0000
+PKT O minecraft:set_entity_data 65af27080701cb080000ff
+PKT O minecraft:set_entity_data 65af27080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t11 arrow 3 -> true
+E t11 minecraft:painting pos=35.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t11 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[35.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t11"],block_pos:[I;35,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0
+E item#14 minecraft:item pos=35.40012094971474,-58.34,-0.7482912968011115 delta=-0.09788147118459381,0.1568000030517578,0.06904952463754853 rot=30.016773,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=35.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019e27
+PKT O minecraft:sound 77ac09060000011cfffffe2cfffffff93f8000003f80000068f642d08afcf74f
+PKT O minecraft:add_entity 01b027195baf57f6624f669033a6e58bd6c809484041c00000000000c04d400000000000bfea333330000000d9cc8903333100150000
+PKT O minecraft:set_entity_data 65b027080701cb080000ff
+PKT O minecraft:set_entity_data 65b027080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t12 thrown 3 -> true
+E t12 minecraft:painting pos=38.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t12 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[38.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t12"],block_pos:[I;38,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0
+E item#15 minecraft:item pos=38.40534354911153,-58.34,-0.875 delta=-0.0927633236761293,0.1568000030517578,0.0 rot=207.9843,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=38.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019f27
+PKT O minecraft:sound 77ac090600000134fffffe2cfffffff93f8000003f800000c80c02e739d7e31b
+PKT O minecraft:add_entity 01b12739c5c2f5624f417fb2438eb9162194b2484043400000000000c04d400000000000bfea33333000000081cf750f333100930000
+PKT O minecraft:set_entity_data 65b127080701cb080000ff
+PKT O minecraft:set_entity_data 65b127080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t13 mob_attack 3 -> true
+E t13 minecraft:painting pos=41.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t13 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[41.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t13"],block_pos:[I;41,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=12 dmg=2.0
+E item#16 minecraft:item pos=41.42207779798678,-58.34,-0.7342021123052735 delta=-0.07636375945920475,0.1568000030517578,0.08285692571219955 rot=68.25237,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=41.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01a027
+PKT O minecraft:add_entity 01b227837c3808d45d45f89d3266cd49463056484044c00000000000c04d400000000000bfea33333000000011d88ad1333100300000
+PKT O minecraft:set_entity_data 65b227080701cb080000ff
+PKT O minecraft:set_entity_data 65b227080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t14 player_attack 3 -> true
+E t14 minecraft:painting pos=44.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t14 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[44.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t14"],block_pos:[I;44,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0
+E item#17 minecraft:item pos=44.58384356860452,-58.34,-0.7936171806327492 delta=0.08216669883162049,0.1568000030517578,0.024630157618020922 rot=71.057014,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=44.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01a127
+PKT O minecraft:add_entity 01b32758b4b789a7474169bc8a26a07171cf70484046400000000000c04d400000000000bfea333330000000e92a8337333200320000
+PKT O minecraft:set_entity_data 65b327080701cb080000ff
+PKT O minecraft:set_entity_data 65b327080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t15 lightning_bolt 3 -> true
+E t15 minecraft:painting pos=47.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t15 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[47.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t15"],block_pos:[I;47,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0
+E item#18 minecraft:item pos=47.40462675747354,-58.34,-0.772827106947712 delta=-0.09346577949503083,0.1568000030517578,0.04500443022589666 rot=283.75705,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=47.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01a227
+PKT O minecraft:add_entity 01b427a8551655563d44df8865a8f279b18416484047c00000000000c04d400000000000bfea33333000000029cf85df333100c90000
+PKT O minecraft:set_entity_data 65b427080701cb080000ff
+PKT O minecraft:set_entity_data 65b427080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT t16 fireball 3 -> true
+E t16 minecraft:painting pos=50.5,-58.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N t16 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[50.5d,-58.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["t16"],block_pos:[I;50,-59,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=18 dmg=2.0
+E item#19 minecraft:item pos=50.57032678222402,-58.34,-0.875 delta=0.06892024792091704,0.1568000030517578,0.0 rot=89.8987,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=50.5,-58.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+C Killed Painting
+C No entity was found
+# mob_griefing off, entity_drops off, a player who may not build
+C Game rule mob_griefing is now set to false
+HURT g1 mob_attack 1 -> false
+E g1 minecraft:painting pos=2.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N g1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-56.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["g1"],block_pos:[I;2,-57,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=21 dmg=2.0
+E g1 minecraft:painting pos=2.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g2 minecraft:painting pos=5.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g3 minecraft:painting pos=8.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g4 minecraft:painting pos=11.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g5 minecraft:painting pos=14.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01b627f04a9dc3cbd449658a5f8eee78e89eac5e4000000000000000c04c800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65b627092219ff
+PKT O minecraft:add_entity 01b727dfb1732158754e61bf0f20048d2d59b95e4014000000000000c04c800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65b727092219ff
+PKT O minecraft:add_entity 01b827712b2c67a2844ba7b72109d4ce8c2ceb5e4020000000000000c04c800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65b827092219ff
+PKT O minecraft:add_entity 01b9274a8986aee10c4955a8c3bf539a919bd55e4026000000000000c04c800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65b927092219ff
+PKT O minecraft:add_entity 01ba27f58d33dbc7ec41a598fe92e8e6af8e665e402c000000000000c04c800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ba27092219ff
+PKT O minecraft:set_entity_data 65b627092219ff
+PKT O minecraft:set_entity_data 65ba27092219ff
+PKT O minecraft:set_entity_data 65b827092219ff
+PKT O minecraft:set_entity_data 65b727092219ff
+PKT O minecraft:set_entity_data 65b927092219ff
+HURT g1 player_attack 1 -> true
+E g1 minecraft:painting pos=2.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N g1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-56.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["g1"],block_pos:[I;2,-57,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=22 dmg=2.0
+E g2 minecraft:painting pos=5.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g3 minecraft:painting pos=8.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g4 minecraft:painting pos=11.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g5 minecraft:painting pos=14.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#20 minecraft:item pos=2.517725452102089,-56.34,-0.7416220864141952 delta=0.017370943398133287,0.1568000030517578,0.0755853509439316 rot=183.0992,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=2.5,-56.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01b627
+PKT O minecraft:add_entity 01bb27991228d9762741959cd5266b9f5be155484004000000000000c04c400000000000bfea333330000000090989df333200820000
+PKT O minecraft:set_entity_data 65bb27080701cb080000ff
+PKT O minecraft:set_entity_data 65bb27080701cb080000ff
+C Killed Painting
+C No entity was found
+C Game rule mob_griefing is now set to true
+C Game rule entity_drops is now set to false
+HURT g2 generic 1 -> true
+E g2 minecraft:painting pos=5.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N g2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[5.5d,-56.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["g2"],block_pos:[I;5,-57,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0
+E g3 minecraft:painting pos=8.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g4 minecraft:painting pos=11.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g5 minecraft:painting pos=14.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:remove_entities 4e01b727
+C No entity was found
+C No entity was found
+HURT g3 player_attack 1 -> true
+E g3 minecraft:painting pos=8.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N g3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-56.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["g3"],block_pos:[I;8,-57,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=26 dmg=2.0
+E g4 minecraft:painting pos=11.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E g5 minecraft:painting pos=14.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:remove_entities 4e01b827
+C No entity was found
+C No entity was found
+C Game rule entity_drops is now set to true
+HURT g4 player_attack 1 -> true
+E g4 minecraft:painting pos=11.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N g4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[11.5d,-56.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["g4"],block_pos:[I;11,-57,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=28 dmg=2.0
+E g5 minecraft:painting pos=14.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#21 minecraft:item pos=11.518555581657074,-56.34,-0.875 delta=0.01818447037785246,0.1568000030517578,0.0 rot=285.18356,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=11.5,-56.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01b927
+PKT O minecraft:add_entity 01bc27bf6a2718496448519b844b95cb595efe484027000000000000c04c400000000000bfea333330000000790973b1333200ca0000
+PKT O minecraft:set_entity_data 65bc27080701cb080000ff
+PKT O minecraft:set_entity_data 65bc27080701cb080000ff
+C Killed Painting
+C No entity was found
+HURT g5 player_attack 1 -> true
+E g5 minecraft:painting pos=14.5,-56.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N g5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[14.5d,-56.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["g5"],block_pos:[I;14,-57,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=30 dmg=2.0
+EV sound at=14.5,-56.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01ba27
+C No entity was found
+C No entity was found
+# painting variants placed on walls with different free areas, a painting that does not fit and one with a bad wall
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=32 dmg=2.0
+E painting#1 minecraft:painting pos=1.5,-59.5,21.03125 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=1.5,-59.5,21.03125 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01bd276abf9e33a0d94b7ba8c439f2e30bdb0f5e3ff0000000000000c04e00000000000040350000000000000000000003
+PKT O minecraft:add_entity 018a2714075747e1463809a16183abe512191e9f013fe0000000000000c04e000000000000400c0000000000000000000000
+PKT O minecraft:set_entity_data 658a27090341a00000ff
+PKT O minecraft:set_entity_data 65bd27092201ff
+C Killed Painting
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=34 dmg=2.0
+E painting#2 minecraft:painting pos=5.0,-59.5,21.03125 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=5.0,-59.5,21.03125 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01be279309da06faec420eb366137d54fef1945e4010000000000000c04e00000000000040350000000000000000000003
+PKT O minecraft:set_entity_data 65be2709220eff
+PKT O minecraft:set_entity_data 65be2709220eff
+C Killed Painting
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=36 dmg=2.0
+E painting#3 minecraft:painting pos=8.5,-59.0,21.03125 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=8.5,-59.0,21.03125 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01bf274ebf5967cf044dd0a3b41663919d12b85e4020000000000000c04e00000000000040350000000000000000000003
+PKT O minecraft:set_entity_data 65bf27092225ff
+PKT O minecraft:set_entity_data 65bf27092225ff
+C Killed Painting
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=38 dmg=2.0
+E painting#4 minecraft:painting pos=12.0,-59.0,21.03125 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=12.0,-59.0,21.03125 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01c027b1a4e74b556d45bf9698f56c3cc2b5df5e4026000000000000c04e00000000000040350000000000000000000003
+PKT O minecraft:set_entity_data 65c027092218ff
+PKT O minecraft:set_entity_data 65c027092218ff
+C Killed Painting
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=40 dmg=2.0
+E painting#5 minecraft:painting pos=16.0,-59.0,21.03125 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=16.0,-59.0,21.03125 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01c127ff851e7d51f3416d9ee25823624ca7d05e402e000000000000c04e00000000000040350000000000000000000003
+PKT O minecraft:set_entity_data 65c127092233ff
+PKT O minecraft:set_entity_data 65c127092233ff
+C Killed Painting
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0
+E painting#6 minecraft:painting pos=21.0,-59.0,21.03125 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=21.0,-59.0,21.03125 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:sound 77ad0906000000a8fffffe28000000a83f8000003f800000a7c5ddce8c02b335
+PKT O minecraft:add_entity 01c2274e93c12246fe43ce9fee6081d0f38cd65e4034000000000000c04e00000000000040350000000000000000000003
+PKT O minecraft:set_entity_data 65c227092228ff
+PKT O minecraft:set_entity_data 65c227092228ff
+C Killed Painting
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=44 dmg=2.0
+E painting#7 minecraft:painting pos=27.0,-59.0,21.03125 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=27.0,-59.0,21.03125 r=16.0 ex=0 event=minecraft:entity.painting.place source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:sound 77ad0906000000d8fffffe28000000a83f8000003f800000c8b3e3156ef5b6f0
+PKT O minecraft:add_entity 01c327ee15ff7815134832a19913af4caaee6e5e403a000000000000c04e00000000000040350000000000000000000003
+PKT O minecraft:set_entity_data 65c327092233ff
+PKT O minecraft:set_entity_data 65c327092233ff
+C Killed Painting
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=46 dmg=2.0
+C No entity was found
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=48 dmg=2.0
+C No entity was found
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=50 dmg=2.0
+C No entity was found
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=52 dmg=2.0
+PKT O minecraft:remove_entities 4e018a27
+C No entity was found
+# cushions placed on stone, sat on, left, hit
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=54 dmg=2.0
+E cushion#1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=52.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cushion.place source=block vol=0.75 pitch=0.8
+I P 0 minecraft:red_cushion*15{minecraft:custom_name:"Seat"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=55 dmg=2.0
+E cushion#1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=54.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=54.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cushion.place source=block vol=0.75 pitch=0.8
+I P 0 minecraft:red_cushion*14{minecraft:custom_name:"Seat"}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=56 dmg=2.0
+E cushion#1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#2 minecraft:cushion pos=54.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E cushion#3 minecraft:cushion pos=56.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=56.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cushion.place source=block vol=0.75 pitch=0.8
+I P 0 minecraft:red_cushion*13{minecraft:custom_name:"Seat"}
+C Killed 3 entities
+# cushion entities spawned for the cases below
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=58 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u2 minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+ED u1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:43:0b
+ED u2 0:0:00 1:1:ac02 2:6:010800082250696c6c6f7722 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:43:0d
+N u1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[52.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],Tags:["u1"],block_pos:[I;52,-60,2],color:"blue",fall_distance:0.0d}
+N u2 {Air:300s,CustomName:'"Pillow"',Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[54.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["u2"],block_pos:[I;54,-60,4],color:"green",fall_distance:0.0d}
+# sit down: interact with a free cushion, a second interact, sneaking, a taken cushion
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N u1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[52.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],Tags:["u1"],block_pos:[I;52,-60,2],color:"blue",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=59 dmg=2.0
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u2 minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N u1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[52.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],Tags:["u1"],block_pos:[I;52,-60,2],color:"blue",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=60 dmg=2.0
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u2 minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=52.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cushion.sit source=neutral vol=1.0 pitch=1.0
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N u1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[52.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],Tags:["u1"],block_pos:[I;52,-60,2],color:"blue",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=61 dmg=2.0
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u2 minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N u1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[52.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],Tags:["u1"],block_pos:[I;52,-60,2],color:"blue",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=62 dmg=2.0
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u2 minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# get up (the sound plays only while the cushion stays) and sit down again
+C P stopped riding Cushion
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N u1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[52.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],Tags:["u1"],block_pos:[I;52,-60,2],color:"blue",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=63 dmg=2.0
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u2 minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=52.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cushion.get_up source=neutral vol=1.0 pitch=1.0
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N u1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[52.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],Tags:["u1"],block_pos:[I;52,-60,2],color:"blue",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=64 dmg=2.0
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u2 minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=52.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cushion.sit source=neutral vol=1.0 pitch=1.0
+# killing a cushion with a rider: the rider is dismounted without the sound
+HURT u1 player_attack 1 -> true
+E u1 minecraft:cushion pos=52.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N u1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[52.5d,-60.0d,2.5d],Rotation:[0.0f,0.0f],Tags:["u1"],block_pos:[I;52,-60,2],color:"blue",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=65 dmg=2.0
+E u2 minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#22 minecraft:item pos=52.42238045854335,-59.84,2.521085710994965 delta=-0.07606715210799221,0.1568000030517578,0.020663997177243605 rot=331.10693,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:blue_cushion*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=52.5,-60.0,2.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:level_particles 3001f4120000404a400000000000c04deaaaaaaaaaab40040000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+C Killed Blue Cushion
+C No entity was found
+# hits: a survival player (named cushion drops named), creative, other damage
+E u2 minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N u2 {Air:300s,CustomName:'"Pillow"',Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[54.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["u2"],block_pos:[I;54,-60,4],color:"green",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=67 dmg=2.0
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=54.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:level_particles 3001f6120000404b400000000000c04deaaaaaaaaaab40120000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+C No entity was found
+C No entity was found
+HURT u2b explosion 4 -> true
+E u2b minecraft:cushion pos=54.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N u2b {Air:300s,CustomName:'"Pillow"',Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[54.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["u2b"],block_pos:[I;54,-60,4],color:"green",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=70 dmg=2.0
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#23 minecraft:item pos=54.510846594051635,-59.84,4.478772578166872 delta=0.01062966237748725,0.1568000030517578,-0.02080287380134677 rot=176.01868,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:green_cushion*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=54.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:level_particles 3001f6120000404b400000000000c04deaaaaaaaaaab40120000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+C Killed Green Cushion
+C No entity was found
+HURT u3 magic 1 -> true
+E u3 minecraft:cushion pos=56.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N u3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[56.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["u3"],block_pos:[I;56,-60,4],color:"pink",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=72 dmg=2.0
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#24 minecraft:item pos=56.49477044654448,-59.84,4.550024341378719 delta=-0.005124962486155166,0.1568000030517578,0.04902385550528256 rot=208.70537,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pink_cushion*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=56.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:level_particles 3001ef120000404c400000000000c04deaaaaaaaaaab40120000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+C Killed Pink Cushion
+C No entity was found
+# mob_griefing off, entity_drops off
+C Game rule mob_griefing is now set to false
+HURT u4 mob_attack 1 -> false
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N u4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[58.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["u4"],block_pos:[I;58,-60,4],color:"black",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=74 dmg=2.0
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+C Game rule mob_griefing is now set to true
+C Game rule entity_drops is now set to false
+HURT u4 generic 1 -> true
+E u4 minecraft:cushion pos=58.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+N u4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[58.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["u4"],block_pos:[I;58,-60,4],color:"black",fall_distance:0.0d}
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=75 dmg=2.0
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=58.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:level_particles 3001f8120000404d400000000000c04deaaaaaaaaaab40120000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+C No entity was found
+C No entity was found
+C Game rule entity_drops is now set to true
+# lightning kills a cushion and the dropped item cannot be burnt
+E u5 minecraft:cushion pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=79 dmg=2.0
+E bolt1 minecraft:lightning_bolt pos=60.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=1 flashes=0 seed=-1980728390478101098 fires=3
+E item#25 minecraft:item pos=60.46806352979467,-59.723199996948246,4.352657556984764 delta=-0.015490801456387343,0.11446400521850592,-0.07146852849340087 rot=126.823105,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing item=minecraft:white_cushion*1 age=2 pickup=8 health=5 owner=- thrower=-
+EV sound at=60.5,-60.0,4.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:level_particles 3001e9120000404e400000000000c04deaaaaaaaaaab40120000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=109 dmg=2.0
+E item#25 minecraft:item pos=60.346433807101086,-60.0,3.791505357955891 delta=-3.9864053753568745E-5,-0.04,-1.8391722788330288E-4 rot=126.823105,0.0 og=1 fall=0.0 fire=138 air=300 alive=1 pose=standing item=minecraft:white_cushion*1 age=32 pickup=0 health=4 owner=- thrower=-
+C Killed White Cushion
+# fire and fluids around a cushion, the check at tick 101
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=210 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E z0 minecraft:cushion pos=52.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z1 minecraft:cushion pos=54.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z2 minecraft:cushion pos=56.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z3 minecraft:cushion pos=58.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z4 minecraft:cushion pos=60.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z5 minecraft:cushion pos=52.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=210 dmg=2.0
+E z0 minecraft:cushion pos=52.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z1 minecraft:cushion pos=54.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z2 minecraft:cushion pos=56.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z3 minecraft:cushion pos=58.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z4 minecraft:cushion pos=60.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z5 minecraft:cushion pos=52.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV level_event r=64.0 ex=0 type=1501 pos=54,-60,24 data=0 global=0
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=211 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E z0 minecraft:cushion pos=52.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z2 minecraft:cushion pos=56.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z3 minecraft:cushion pos=58.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z4 minecraft:cushion pos=60.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z5 minecraft:cushion pos=52.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#26 minecraft:item pos=54.5,-60.0,24.5 delta=-0.07262637987113994,0.2,-0.07049214082942151 rot=156.78716,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=0 pickup=10 health=5 owner=- thrower=-
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=211 dmg=2.0
+E z0 minecraft:cushion pos=52.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z2 minecraft:cushion pos=56.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z3 minecraft:cushion pos=58.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z4 minecraft:cushion pos=60.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z5 minecraft:cushion pos=52.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#26 minecraft:item pos=54.5,-60.0,24.5 delta=-0.07262637987113994,0.2,-0.07049214082942151 rot=156.78716,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=54.5,-60.0,24.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:level_particles 3001f7120000404b400000000000c04deaaaaaaaaaab40388000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=221 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E z0 minecraft:cushion pos=52.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z2 minecraft:cushion pos=56.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z3 minecraft:cushion pos=58.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z4 minecraft:cushion pos=60.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z5 minecraft:cushion pos=52.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#26 minecraft:item pos=53.41095771323678,-59.607042480245156,22.641355837977482 delta=-0.1779984139223564,-0.03864314403376622,-0.17066596968536613 rot=156.78716,0.0 og=0 fall=0.03943178057670593 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=10 pickup=0 health=5 owner=- thrower=-
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=221 dmg=2.0
+E z0 minecraft:cushion pos=52.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z2 minecraft:cushion pos=56.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z3 minecraft:cushion pos=58.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z4 minecraft:cushion pos=60.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E z5 minecraft:cushion pos=52.5,-60.0,28.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#26 minecraft:item pos=53.41095771323678,-59.607042480245156,22.641355837977482 delta=-0.1779984139223564,-0.03864314403376622,-0.17066596968536613 rot=156.78716,0.0 og=0 fall=0.03943178057670593 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=10 pickup=0 health=5 owner=- thrower=-
+EV sound at=54.40549492241348,-59.82179999828339,24.000319570302963 r=16.0 ex=0 event=minecraft:entity.generic.splash source=ambient vol=0.025303578 pitch=0.8970919
+C Killed Red Cushion
+C Killed 5 entities
+# the anchor below goes away: the cushion drops at the check, a cushion over a half block stays
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=327 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a3 minecraft:cushion pos=58.5,-60.0,34.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#27 minecraft:item pos=52.834438705264915,-59.61576126519531,34.429381318879926 delta=0.0794714200691453,0.0323152326326785,-0.016780853363180078 rot=343.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=55.37532480489582,-59.11576126519531,34.27346317522949 delta=-0.029626100826095663,0.0323152326326785,-0.05383109932867218 rot=172.6879,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=61.53456662296855,-59.836501533893035,33.592896685705995 delta=0.006394488790688872,-0.026928967473947803,-0.23477703333638741 rot=149.31973,0.0 og=0 fall=0.02747853845357895 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=4 pickup=6 health=5 owner=- thrower=-
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=327 dmg=2.0
+E a3 minecraft:cushion pos=58.5,-60.0,34.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#27 minecraft:item pos=52.834438705264915,-59.61576126519531,34.429381318879926 delta=0.0794714200691453,0.0323152326326785,-0.016780853363180078 rot=343.95752,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=55.37532480489582,-59.11576126519531,34.27346317522949 delta=-0.029626100826095663,0.0323152326326785,-0.05383109932867218 rot=172.6879,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=61.53456662296855,-59.836501533893035,33.592896685705995 delta=0.006394488790688872,-0.026928967473947803,-0.23477703333638741 rot=149.31973,0.0 og=0 fall=0.02747853845357895 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=4 pickup=6 health=5 owner=- thrower=-
+EV sound at=52.5,-60.0,34.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+EV sound at=55.5,-59.5,34.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+EV sound at=61.5,-60.0,34.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:level_particles 3001ed120000404a400000000000c04deaaaaaaaaaab40414000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=332 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a3 minecraft:cushion pos=58.5,-60.0,34.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#27 minecraft:item pos=53.216216255696416,-60.0,34.34876676479783 delta=0.043101529300714155,0.0,-0.009101139029537823 rot=343.95752,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=9 pickup=1 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=55.23300219140304,-59.54475827035251,34.01486070882264 delta=-0.026779651270828483,-0.159104835446646,-0.04865905493298598 rot=172.6879,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=9 pickup=1 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=61.55435309519367,-60.0,32.86642590731167 delta=7.491027536950364E-4,0.0,-0.02750370325658083 rot=149.31973,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=9 pickup=1 health=5 owner=- thrower=-
+E Cow minecraft:cow pos=40.5,-60.0,12.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=332 dmg=2.0
+E a3 minecraft:cushion pos=58.5,-60.0,34.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#27 minecraft:item pos=53.216216255696416,-60.0,34.34876676479783 delta=0.043101529300714155,0.0,-0.009101139029537823 rot=343.95752,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=9 pickup=1 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=55.23300219140304,-59.54475827035251,34.01486070882264 delta=-0.026779651270828483,-0.159104835446646,-0.04865905493298598 rot=172.6879,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=9 pickup=1 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=61.55435309519367,-60.0,32.86642590731167 delta=7.491027536950364E-4,0.0,-0.02750370325658083 rot=149.31973,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:yellow_cushion*1 age=9 pickup=1 health=5 owner=- thrower=-

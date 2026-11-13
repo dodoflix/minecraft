@@ -1,0 +1,446 @@
+# Item frames (ItemFrame.interact, hurtServer, dropItem, survives, kill paths): putting an item in (a stack of five, a creative player), the
+# rotation through nine uses, fixed and invisible frames, glow frames, a hit that pops the item and a hit that breaks the frame,
+# ItemDropChance with a pinned entity random, explosions, arrows, mob_griefing, entity_drops, creative players and the six facings.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 3000
+fill 3 -60 -1 3 -59 45 minecraft:stone
+spawn_player P survival 7.5 -60 0.5 90 0
+spawn_player C creative 9.5 -60 0.5 90 0
+spawn_player O survival 7.5 -60 20.5 90 0
+mobspawn Cow minecraft:cow 12.5 -60 20.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+give P mainhand minecraft:diamond_sword
+tick 2
+dump packets:P:none packets:C:none packets:O:none
+note an empty frame and an empty hand: nothing happens; a stack of five dirt: one goes in
+spawn f1 minecraft:item_frame 4.5 -59.5 0.5 0 0 {Facing:5b,Tags:[f1]}
+entity_seed f1 301
+tick 1
+dump xentity:f1 edata:f1 nbt:f1 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+tp P 7.5 -60 0.5 90 0
+tick 1
+dump packets:P:none packets:O:none
+give P mainhand minecraft:air
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+give P mainhand minecraft:dirt 5
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+note nine uses rotate the item through eight positions and back
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+note the frame is full: a held item changes nothing but rotates
+give P mainhand minecraft:stick 2
+interact P f1 main sneak
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f1 off
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+give P mainhand minecraft:air
+interact P f1 main
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=f1]
+tick 1
+dump packets:O:none
+note a creative player puts an item in without using it up, an offhand item goes in too
+spawn f2 minecraft:item_frame 4.5 -59.5 2.5 0 0 {Facing:5b,Tags:[f2]}
+entity_seed f2 302
+tick 1
+tp C 7.5 -60 2.5 90 0
+tick 1
+dump packets:C:none packets:O:none
+give C mainhand minecraft:diamond 5
+interact C f2 main
+tick 1
+dump xentity:f2 nbt:f2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact C f2 main
+tick 1
+dump xentity:f2 nbt:f2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=f2]
+tick 1
+dump packets:O:none
+spawn f3 minecraft:item_frame 4.5 -59.5 4.5 0 0 {Facing:5b,Tags:[f3]}
+entity_seed f3 303
+tick 1
+tp P 7.5 -60 4.5 90 0
+tick 1
+dump packets:P:none packets:O:none
+give P offhand minecraft:apple 3
+give P mainhand minecraft:air
+interact P f3 off
+tick 1
+dump xentity:f3 nbt:f3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f3 main
+tick 1
+dump xentity:f3 nbt:f3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=f3]
+tick 1
+dump packets:O:none
+note the items a frame holds: a tool with a name and damage, a block and a stack of 64
+spawn f4 minecraft:item_frame 4.5 -59.5 6.5 0 0 {Facing:5b,Tags:[f4]}
+entity_seed f4 304
+tick 1
+tp P 7.5 -60 6.5 90 0
+tick 1
+dump packets:P:none packets:O:none
+give P mainhand minecraft:iron_pickaxe[custom_name="Pick",damage=7] 1
+interact P f4 main
+tick 1
+dump xentity:f4 nbt:f4 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+interact P f4 main
+tick 1
+dump xentity:f4 nbt:f4 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=f4]
+tick 1
+dump packets:O:none
+spawn f5 minecraft:item_frame 4.5 -59.5 8.5 0 0 {Facing:5b,Tags:[f5]}
+entity_seed f5 305
+tick 1
+tp P 7.5 -60 8.5 90 0
+tick 1
+dump packets:P:none packets:O:none
+give P mainhand minecraft:cobblestone 64
+interact P f5 main
+tick 1
+dump xentity:f5 nbt:f5 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+dump inventory:P
+interact P f5 main
+tick 1
+dump xentity:f5 nbt:f5 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=f5]
+tick 1
+dump packets:O:none
+note fixed frames: no use, no damage, only a creative player or an unblockable source removes them, nothing drops
+spawn x1 minecraft:item_frame 4.5 -59.5 10.5 0 0 {Facing:5b,Tags:[x1],Fixed:1b,Item:{id:"minecraft:diamond",count:1},ItemRotation:2b}
+entity_seed x1 306
+spawn x2 minecraft:item_frame 4.5 -59.5 12.5 0 0 {Facing:5b,Tags:[x2],Fixed:1b,Item:{id:"minecraft:diamond",count:1},ItemRotation:2b}
+entity_seed x2 307
+spawn x3 minecraft:glow_item_frame 4.5 -59.5 14.5 0 0 {Facing:5b,Tags:[x3],Fixed:1b,Item:{id:"minecraft:diamond",count:1},ItemRotation:2b}
+entity_seed x3 308
+tick 1
+dump xentities packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+tp P 7.5 -60 10.5 90 0
+tick 1
+dump packets:P:none packets:O:none
+give P mainhand minecraft:stick 1
+interact P x1 main
+tick 1
+dump xentity:x1 nbt:x1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 60
+attack P x1
+tick 1
+dump xentity:x1 nbt:x1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 61
+hurt x1 player_attack 1 by=P
+tick 1
+dump xentity:x1 nbt:x1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 62
+hurt x1 explosion 5
+tick 1
+dump xentity:x1 nbt:x1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 63
+hurt x1 arrow 5 by=P
+tick 1
+dump xentity:x1 nbt:x1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+tp C 7.5 -60 10.5 90 0
+tick 1
+dump packets:C:none packets:O:none
+level_seed 64
+hurt x1 player_attack 1 by=C
+tick 1
+dump xentity:x1 nbt:x1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=x1]
+tick 1
+dump packets:O:none
+level_seed 65
+hurt x2 generic_kill 1
+tick 1
+dump xentity:x2 nbt:x2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=x2]
+tick 1
+dump packets:O:none
+level_seed 66
+hurt x3 out_of_world 1
+tick 1
+dump xentity:x3 nbt:x3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=x3]
+tick 1
+dump packets:O:none
+note a hit pops the item, the next hit breaks the frame (survival), real attacks through the listener
+spawn h1 minecraft:item_frame 4.5 -59.5 16.5 0 0 {Facing:5b,Tags:[h1],Item:{id:"minecraft:diamond",count:1}}
+entity_seed h1 309
+tick 1
+tp P 7.5 -60 16.5 90 0
+tick 1
+dump packets:P:none packets:O:none
+level_seed 67
+attack P h1
+tick 1
+dump xentity:h1 nbt:h1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 68
+attack P h1 second
+tick 1
+dump xentity:h1 nbt:h1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=h1]
+tick 1
+dump packets:O:none
+note a glow frame, an invisible frame, a named frame
+spawn h2 minecraft:glow_item_frame 4.5 -59.5 18.5 0 0 {Facing:5b,Tags:[h2],Item:{id:"minecraft:emerald",count:1},CustomName:'"Glowy"'}
+entity_seed h2 310
+tick 1
+tp P 7.5 -60 18.5 90 0
+tick 1
+dump packets:P:none packets:O:none
+level_seed 69
+attack P h2
+tick 1
+dump xentity:h2 nbt:h2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 70
+attack P h2 second
+tick 1
+dump xentity:h2 nbt:h2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=h2]
+tick 1
+dump packets:O:none
+spawn h3 minecraft:item_frame 4.5 -59.5 20.5 0 0 {Facing:5b,Tags:[h3],Invisible:1b,Item:{id:"minecraft:emerald",count:1}}
+entity_seed h3 311
+tick 1
+tp P 7.5 -60 20.5 90 0
+tick 1
+dump packets:P:none packets:O:none
+give P mainhand minecraft:stick 1
+interact P h3 main
+tick 1
+dump xentity:h3 nbt:h3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 71
+attack P h3
+tick 1
+dump xentity:h3 nbt:h3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 72
+attack P h3 second
+tick 1
+dump xentity:h3 nbt:h3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=h3]
+tick 1
+dump packets:O:none
+note ItemDropChance 0, 0.5 (pinned random) and 1 on a break that is not a plain pop
+spawn p0 minecraft:item_frame 4.5 -59.5 22.5 0 0 {Facing:5b,Tags:[p0],ItemDropChance:0.0f,Item:{id:"minecraft:gold_ingot",count:1}}
+entity_seed p0 312
+entity_seed p0 11
+spawn p1 minecraft:item_frame 4.5 -59.5 24.5 0 0 {Facing:5b,Tags:[p1],ItemDropChance:0.5f,Item:{id:"minecraft:gold_ingot",count:1}}
+entity_seed p1 313
+entity_seed p1 12
+spawn p2 minecraft:item_frame 4.5 -59.5 26.5 0 0 {Facing:5b,Tags:[p2],ItemDropChance:0.5f,Item:{id:"minecraft:gold_ingot",count:1}}
+entity_seed p2 314
+entity_seed p2 13
+spawn p3 minecraft:item_frame 4.5 -59.5 28.5 0 0 {Facing:5b,Tags:[p3],ItemDropChance:1.0f,Item:{id:"minecraft:gold_ingot",count:1}}
+entity_seed p3 315
+entity_seed p3 14
+tick 1
+level_seed 73
+hurt p0 generic 1
+tick 1
+dump xentity:p0 nbt:p0 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=p0]
+tick 1
+dump packets:O:none
+level_seed 74
+hurt p1 generic 1
+tick 1
+dump xentity:p1 nbt:p1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=p1]
+tick 1
+dump packets:O:none
+level_seed 75
+hurt p2 generic 1
+tick 1
+dump xentity:p2 nbt:p2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=p2]
+tick 1
+dump packets:O:none
+level_seed 76
+hurt p3 generic 1
+tick 1
+dump xentity:p3 nbt:p3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=p3]
+tick 1
+dump packets:O:none
+note creative player: no drop, survival hit on an empty frame breaks it at once
+spawn e1 minecraft:item_frame 4.5 -59.5 30.5 0 0 {Facing:5b,Tags:[e1]}
+entity_seed e1 316
+spawn e2 minecraft:item_frame 4.5 -59.5 32.5 0 0 {Facing:5b,Tags:[e2],Item:{id:"minecraft:diamond",count:1}}
+entity_seed e2 317
+tick 1
+tp P 7.5 -60 30.5 90 0
+tick 1
+dump packets:P:none packets:O:none
+level_seed 77
+attack P e1
+tick 1
+dump xentity:e1 nbt:e1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=e1]
+tick 1
+dump packets:O:none
+tp C 7.5 -60 32.5 90 0
+tick 1
+dump packets:C:none packets:O:none
+level_seed 78
+attack C e2
+tick 1
+dump xentity:e2 nbt:e2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=e2]
+tick 1
+dump packets:O:none
+note explosions: the item is not popped but the frame breaks, drops by chance
+spawn b1 minecraft:item_frame 4.5 -59.5 34.5 0 0 {Facing:5b,Tags:[b1],Item:{id:"minecraft:diamond",count:1}}
+entity_seed b1 318
+spawn b2 minecraft:item_frame 4.5 -59.5 36.5 0 0 {Facing:5b,Tags:[b2]}
+entity_seed b2 319
+spawn b3 minecraft:item_frame 4.5 -59.5 38.5 0 0 {Facing:5b,Tags:[b3],Item:{id:"minecraft:diamond",count:1},ItemDropChance:0.0f}
+entity_seed b3 320
+tick 1
+level_seed 79
+hurt b1 explosion 5
+tick 1
+dump xentity:b1 nbt:b1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=b1]
+tick 1
+dump packets:O:none
+level_seed 80
+hurt b2 explosion 5
+tick 1
+dump xentity:b2 nbt:b2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=b2]
+tick 1
+dump packets:O:none
+level_seed 81
+hurt b3 player_explosion 5
+tick 1
+dump xentity:b3 nbt:b3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=b3]
+tick 1
+dump packets:O:none
+note arrows, thrown, mob_griefing and entity_drops
+spawn m1 minecraft:item_frame 4.5 -59.5 40.5 0 0 {Facing:5b,Tags:[m1],Item:{id:"minecraft:diamond",count:1}}
+entity_seed m1 321
+spawn m2 minecraft:item_frame 4.5 -59.5 42.5 0 0 {Facing:5b,Tags:[m2],Item:{id:"minecraft:diamond",count:1}}
+entity_seed m2 322
+spawn m3 minecraft:item_frame 4.5 -59.5 44.5 0 0 {Facing:5b,Tags:[m3],Item:{id:"minecraft:diamond",count:1}}
+entity_seed m3 323
+spawn m4 minecraft:item_frame 4.5 -59.5 46.5 0 0 {Facing:5b,Tags:[m4],Item:{id:"minecraft:diamond",count:1}}
+entity_seed m4 324
+spawn m5 minecraft:item_frame 4.5 -59.5 48.5 0 0 {Facing:5b,Tags:[m5],Item:{id:"minecraft:diamond",count:1}}
+entity_seed m5 325
+tick 1
+spawn ar2 minecraft:arrow 20.5 -55 -30.5
+level_seed 82
+hurt m1 arrow 2 by=P direct=ar2
+tick 1
+dump xentity:m1 nbt:m1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 83
+hurt m1 arrow 2 by=P direct=ar2
+tick 1
+dump xentity:m1 nbt:m1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=m1]
+tick 1
+dump packets:O:none
+level_seed 84
+hurt m2 mob_attack 2 by=Cow
+tick 1
+dump xentity:m2 nbt:m2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+gamerule mob_griefing false
+level_seed 85
+hurt m2 mob_attack 2 by=Cow
+tick 1
+dump xentity:m2 nbt:m2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+gamerule mob_griefing true
+level_seed 86
+hurt m2 mob_attack 2 by=Cow
+tick 1
+dump xentity:m2 nbt:m2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=m2]
+tick 1
+dump packets:O:none
+gamerule entity_drops false
+level_seed 87
+hurt m3 generic 1
+tick 1
+dump xentity:m3 nbt:m3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+level_seed 88
+hurt m3 generic 1
+tick 1
+dump xentity:m3 nbt:m3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=m3]
+tick 1
+dump packets:O:none
+gamerule entity_drops true
+level_seed 89
+hurt m4 thrown 1
+tick 1
+dump xentity:m4 nbt:m4 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=m4]
+tick 1
+dump packets:O:none
+level_seed 90
+hurt m5 magic 1
+tick 1
+dump xentity:m5 nbt:m5 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=m5]
+tick 1
+dump packets:O:none

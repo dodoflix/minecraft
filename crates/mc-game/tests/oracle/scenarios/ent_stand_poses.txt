@@ -1,0 +1,143 @@
+# Armor stand state: the pose and flag NBT (poses of every limb, small, marker, no base plate, arms, invisible, no gravity), the
+# entity data of the pairing, the bounding boxes after toggling small and marker through /data merge, physics (fall, landing sound,
+# velocity, water, lava, ice, a marker or no-gravity stand staying put), pushing by players and minecarts, potion effects.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 7000
+spawn_player O survival 20.5 -60 12.5 0 0
+spawn_player P survival 40.5 -60 12.5 0 0
+tick 2
+dump packets:O:none packets:P:none
+spawn a0 minecraft:armor_stand 0.5 -60 0.5 0 0 {Tags:[a0]}
+entity_seed a0 701
+spawn a1 minecraft:armor_stand 4.5 -60 0.5 0 0 {Tags:[a1],Pose:{Head:[10f,20f,30f],Body:[1f,2f,3f],LeftArm:[-90f,45f,0f],RightArm:[190f,-190f,720f],LeftLeg:[5f,5f,5f],RightLeg:[-5f,0f,-1f]},ShowArms:1b}
+entity_seed a1 702
+spawn a2 minecraft:armor_stand 8.5 -60 0.5 0 0 {Tags:[a2],Small:1b,NoBasePlate:1b,Pose:{Head:[10f,20f,30f],Body:[1f,2f,3f],LeftArm:[-90f,45f,0f],RightArm:[190f,-190f,720f],LeftLeg:[5f,5f,5f],RightLeg:[-5f,0f,-1f]}}
+entity_seed a2 703
+spawn a3 minecraft:armor_stand 12.5 -60 0.5 0 0 {Tags:[a3],Marker:1b,Invisible:1b,ShowArms:1b}
+entity_seed a3 704
+spawn a4 minecraft:armor_stand 16.5 -60 0.5 0 0 {Tags:[a4],NoBasePlate:1b,CustomName:'"Statue"',CustomNameVisible:1b}
+entity_seed a4 705
+spawn a5 minecraft:armor_stand 20.5 -60 0.5 0 0 {Tags:[a5],NoGravity:1b,Silent:1b,Glowing:1b,Pose:{Head:[1f]}}
+entity_seed a5 706
+spawn a6 minecraft:armor_stand 24.5 -60 0.5 0 0 {Tags:[a6],Pose:{LeftArm:[1f,2f]},DisabledSlots:-1,Small:1b,ShowArms:1b}
+entity_seed a6 707
+spawn a7 minecraft:armor_stand 28.5 -60 0.5 0 0 {Tags:[a7],Invulnerable:1b,Rotation:[135f,10f],Pose:{}}
+entity_seed a7 708
+tick 3
+dump xentity:a0 edata:a0 nbt:a0 xentity:a1 edata:a1 nbt:a1 xentity:a2 edata:a2 nbt:a2 xentity:a3 edata:a3 nbt:a3 xentity:a4 edata:a4 nbt:a4 xentity:a5 edata:a5 nbt:a5 xentity:a6 edata:a6 nbt:a6 xentity:a7 edata:a7 nbt:a7 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+note bounding boxes: the selector box at the stand reaches only as high as the stand does
+cmd execute positioned 0.5 -59.95 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 0.5 -59.5 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 0.5 -59.0 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 0.5 -58.5 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 0.5 -58.1 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -59.95 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -59.5 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -59.0 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -58.5 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -58.1 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -59.95 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -59.5 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -59.0 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -58.5 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -58.1 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+note small, marker and the pose merged through the command: new boxes, new data
+cmd data merge entity @e[tag=a0,limit=1] {Small:1b,ShowArms:1b,Pose:{Head:[45f,0f,0f]}}
+cmd data merge entity @e[tag=a2,limit=1] {Small:0b,Marker:1b}
+cmd data merge entity @e[tag=a3,limit=1] {Marker:0b,Invisible:0b}
+tick 2
+dump xentity:a0 edata:a0 nbt:a0 xentity:a2 nbt:a2 xentity:a3 nbt:a3 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+cmd execute positioned 0.5 -59.95 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 0.5 -59.5 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 0.5 -59.0 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 0.5 -58.5 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 0.5 -58.1 0.5 if entity @e[tag=a0,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -59.95 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -59.5 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -59.0 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -58.5 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 8.5 -58.1 0.5 if entity @e[tag=a2,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -59.95 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -59.5 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -59.0 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -58.5 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+cmd execute positioned 12.5 -58.1 0.5 if entity @e[tag=a3,dx=0,dy=0,dz=0]
+note physics: falling from 20 blocks (the landing sound), a marker and a no gravity stand stay in the air
+spawn f1 minecraft:armor_stand 4.5 -40 8.5 0 0 {Tags:[f1]}
+entity_seed f1 709
+spawn f2 minecraft:armor_stand 8.5 -40 8.5 0 0 {Tags:[f2],Marker:1b}
+entity_seed f2 710
+spawn f3 minecraft:armor_stand 12.5 -40 8.5 0 0 {Tags:[f3],NoGravity:1b}
+entity_seed f3 711
+spawn f4 minecraft:armor_stand 16.5 -40 8.5 0 0 {Tags:[f4],Small:1b}
+entity_seed f4 712
+tick 10
+dump xentity:f1 xentity:f2 xentity:f3 xentity:f4 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+tick 30
+dump xentity:f1 xentity:f2 xentity:f3 xentity:f4 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+note velocity on the ground, on ice and in the air: friction, travel only with physics
+fill 20 -61 8 36 -61 20 minecraft:ice
+spawn v1 minecraft:armor_stand 4.5 -60 12.5 0 0 {Tags:[v1]}
+entity_seed v1 713
+spawn v2 minecraft:armor_stand 8.5 -60 12.5 0 0 {Tags:[v2],Marker:1b}
+entity_seed v2 714
+spawn v3 minecraft:armor_stand 22.5 -60 12.5 0 0 {Tags:[v3]}
+entity_seed v3 715
+spawn v4 minecraft:armor_stand 26.5 -60 12.5 0 0 {Tags:[v4],NoGravity:1b}
+entity_seed v4 716
+tick 2
+velocity v1 0.8 0.3 0.2
+velocity v2 0.8 0.3 0.2
+velocity v3 0.8 0.3 0.2
+velocity v4 0.8 0.3 0.2
+tick 1
+dump xentity:v1 xentity:v2 xentity:v3 xentity:v4 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+tick 40
+dump xentity:v1 xentity:v2 xentity:v3 xentity:v4 events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+note water, flowing water and lava
+fill 0 -60 24 12 -60 24 minecraft:water[level=0]
+block 16 -60 24 minecraft:lava[level=0]
+block 20 -60 24 minecraft:water[level=0]
+block 21 -60 24 minecraft:water[level=1]
+spawn w1 minecraft:armor_stand 0.5 -60 24.5 0 0 {Tags:[w1]}
+entity_seed w1 717
+spawn w2 minecraft:armor_stand 4.5 -60 24.5 0 0 {Tags:[w2],Marker:1b}
+entity_seed w2 718
+spawn w3 minecraft:armor_stand 8.5 -60 24.5 0 0 {Tags:[w3],NoGravity:1b}
+entity_seed w3 719
+spawn w4 minecraft:armor_stand 16.5 -60 24.5 0 0 {Tags:[w4]}
+entity_seed w4 720
+spawn w5 minecraft:armor_stand 21.5 -60 24.5 0 0 {Tags:[w5]}
+entity_seed w5 721
+tick 20
+dump xentity:w1 xentity:w2 xentity:w3 xentity:w4 xentity:w5 events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+tick 80
+dump xentity:w1 xentity:w2 xentity:w3 xentity:w4 xentity:w5 events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+note a player walking into a stand: stands are not pushable; a minecart beside a stand is pushed
+spawn p1 minecraft:armor_stand 40.5 -60 16.5 0 0 {Tags:[p1]}
+entity_seed p1 722
+tick 1
+snap P 40.5 -60 16.2 0 0
+tick 5
+dump xentity:p1 entity:P packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+fill 60 -61 0 70 -61 4 minecraft:grass_block
+spawn c1 minecraft:armor_stand 62.5 -60 2.5 0 0 {Tags:[c1]}
+entity_seed c1 723
+spawn mc1 minecraft:minecart 62.7 -60 2.5 0 0 {Tags:[mc1]}
+entity_seed mc1 724
+spawn mc2 minecraft:minecart 66.2 -60 2.5 0 0 {Tags:[mc2]}
+entity_seed mc2 725
+spawn c2 minecraft:armor_stand 66.5 -60 2.5 0 0 {Tags:[c2]}
+entity_seed c2 726
+tick 20
+dump xentity:c1 xentity:mc1 xentity:mc2 xentity:c2 events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment
+note potion effects do not touch a stand
+cmd effect give @e[tag=a7] minecraft:speed 30 3
+cmd effect give @e[tag=a7] minecraft:instant_damage 1 2
+cmd effect give @e[tag=a7] minecraft:poison 30 3
+cmd effect give @e[tag=a7] minecraft:invisibility 30 0
+tick 3
+dump xentity:a7 edata:a7 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,teleport_entity,move_entity_pos,move_entity_pos_rot,set_entity_motion,rotate_head,move_entity_rot,entity_position_sync,set_equipment

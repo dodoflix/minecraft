@@ -84,6 +84,7 @@ mod ent_aec_golden;
 mod ent_arrow_trident_golden;
 mod ent_boat_golden;
 mod ent_container_minecart_golden;
+mod ent_decoration_golden;
 mod ent_displays_golden;
 mod ent_dump_golden;
 mod ent_end_crystal_golden;

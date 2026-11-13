@@ -1,0 +1,553 @@
+# supports of an item frame facing south: solid, glass, slab, diode, ice, chest, leaves, button
+ED s0 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:03 9:7:01a4080000 10:1:00
+ED s1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:03 9:7:01a4080000 10:1:00
+ED s2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:03 9:7:01a4080000 10:1:00
+E s0 minecraft:item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s1 minecraft:item_frame pos=3.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s2 minecraft:item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s3 minecraft:item_frame pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s4 minecraft:item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s5 minecraft:item_frame pos=15.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s6 minecraft:item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s7 minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s8 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s9 minecraft:item_frame pos=27.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s10 minecraft:item_frame pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s11 minecraft:item_frame pos=33.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s12 minecraft:item_frame pos=36.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s13 minecraft:item_frame pos=39.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s14 minecraft:item_frame pos=42.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s15 minecraft:item_frame pos=45.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s16 minecraft:item_frame pos=48.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s17 minecraft:item_frame pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01a41fcbb189a90fb343778488d42a4278641a4a4008000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65a41f090701a4080000ff
+PKT O minecraft:add_entity 01a51f4498b96d085b451a93337d8bc347e1184a4018000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65a51f090701a4080000ff
+PKT O minecraft:add_entity 01a61f95a732b389404260aec8275bdbd2744b4a4022000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65a61f090701a4080000ff
+PKT O minecraft:add_entity 01a71f35ee129451a843679a33a49020f381434a4028000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65a71f090701a4080000ff
+PKT O minecraft:add_entity 01a81f47612f217b624fd5ab124b96a15aaeb94a402e000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65a81f090701a4080000ff
+PKT O minecraft:add_entity 01a91f7a593b678acd441baf324067069630eb4a4032000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65a91f090701a4080000ff
+PKT O minecraft:add_entity 01aa1f15f12e61d3f145189e90b2d5f73011854a4035000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65aa1f090701a4080000ff
+PKT O minecraft:sound 778e0706000000c4fffffe24fffffff93f8000003f800000ec866a92984bf066
+PKT O minecraft:add_entity 01ab1ff8f243d9565d4671977970d76bdb37e94a4038000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ab1f090701a4080000ff
+PKT O minecraft:sound 778e0706000000dcfffffe24fffffff93f8000003f8000005ac3b5cd447e2ff6
+PKT O minecraft:add_entity 01ac1fec77113a6ab9441588537b91cdb65a744a403b000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ac1f090701a4080000ff
+PKT O minecraft:sound 778e0706000000f4fffffe24fffffff93f8000003f8000005ae586ec5969c658
+PKT O minecraft:add_entity 01ad1fb16f042cee7248fa8b5b721754ed939c4a403e000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ad1f090701a4080000ff
+PKT O minecraft:sound 778e07060000010cfffffe24fffffff93f8000003f800000d55fad91ece1d6ce
+PKT O minecraft:add_entity 01ae1f2352ea26b63e40f7b75e8f866d4643354a4040800000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ae1f090701a4080000ff
+PKT O minecraft:sound 778e070600000124fffffe24fffffff93f8000003f800000d8bde3e82cd7dc02
+PKT O minecraft:add_entity 01af1f748ca36e250e4e3d95307956416516684a4042000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65af1f090701a4080000ff
+PKT O minecraft:add_entity 01b01f80e89331caeb4fdfae3de2b7e6c053664a4043800000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65b01f090701a4080000ff
+PKT O minecraft:add_entity 01b11fb621d31340c640e6a8d2bfebccbf405e4a4045000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65b11f090701a4080000ff
+PKT O minecraft:add_entity 01b21fe0cb8c58e4464e2c9594a9bc1d0e13914a4046800000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65b21f090701a4080000ff
+PKT O minecraft:set_entity_data 65a51f090701a4080000ff
+PKT O minecraft:set_entity_data 65a71f090701a4080000ff
+PKT O minecraft:set_entity_data 65ad1f090701a4080000ff
+PKT O minecraft:set_entity_data 65af1f090701a4080000ff
+PKT O minecraft:set_entity_data 65b21f090701a4080000ff
+PKT O minecraft:set_entity_data 65b11f090701a4080000ff
+PKT O minecraft:set_entity_data 65b01f090701a4080000ff
+PKT O minecraft:set_entity_data 65a41f090701a4080000ff
+PKT O minecraft:set_entity_data 65a61f090701a4080000ff
+PKT O minecraft:set_entity_data 65ac1f090701a4080000ff
+PKT O minecraft:set_entity_data 65ae1f090701a4080000ff
+PKT O minecraft:set_entity_data 65ab1f090701a4080000ff
+PKT O minecraft:set_entity_data 65aa1f090701a4080000ff
+PKT O minecraft:set_entity_data 65a81f090701a4080000ff
+PKT O minecraft:set_entity_data 65a91f090701a4080000ff
+E s0 minecraft:item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s1 minecraft:item_frame pos=3.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s2 minecraft:item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s3 minecraft:item_frame pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s4 minecraft:item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s5 minecraft:item_frame pos=15.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s6 minecraft:item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s7 minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s8 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s9 minecraft:item_frame pos=27.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s10 minecraft:item_frame pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s11 minecraft:item_frame pos=33.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s12 minecraft:item_frame pos=36.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s13 minecraft:item_frame pos=39.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s14 minecraft:item_frame pos=42.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s15 minecraft:item_frame pos=45.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s16 minecraft:item_frame pos=48.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s17 minecraft:item_frame pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=0.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=3.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=6.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=9.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=12.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=15.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=18.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=21.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=24.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=27.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=30.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=33.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=36.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=39.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=42.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=45.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=48.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=51.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+E s0 minecraft:item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s1 minecraft:item_frame pos=3.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s2 minecraft:item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s3 minecraft:item_frame pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s4 minecraft:item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s5 minecraft:item_frame pos=15.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s6 minecraft:item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s7 minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s8 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s9 minecraft:item_frame pos=27.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E s10 minecraft:item_frame pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s11 minecraft:item_frame pos=33.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s12 minecraft:item_frame pos=36.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s13 minecraft:item_frame pos=39.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E s14 minecraft:item_frame pos=42.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E s15 minecraft:item_frame pos=45.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s16 minecraft:item_frame pos=48.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E s17 minecraft:item_frame pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s0 minecraft:item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s1 minecraft:item_frame pos=3.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s2 minecraft:item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s3 minecraft:item_frame pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s4 minecraft:item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s5 minecraft:item_frame pos=15.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s6 minecraft:item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s7 minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s8 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s10 minecraft:item_frame pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s11 minecraft:item_frame pos=33.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s12 minecraft:item_frame pos=36.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s15 minecraft:item_frame pos=45.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E s17 minecraft:item_frame pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#1 minecraft:item pos=27.5,-59.5,-0.8187499940395355 delta=-0.08016163933584444,0.2,-0.052821753079990576 rot=127.20707,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=27.5,-59.5,-0.8187499940395355 delta=-0.05890209178331316,0.2,-0.01939649344790824 rot=264.65646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=39.5,-59.5,-0.8187499940395355 delta=-0.015800096487384493,0.2,0.009263570754849806 rot=71.35603,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=39.5,-59.5,-0.8187499940395355 delta=0.09737378238021507,0.2,-0.045287866409072855 rot=49.653698,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=42.5,-59.5,-0.8187499940395355 delta=-0.08736074183326628,0.2,0.04951680758582236 rot=167.24155,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=42.5,-59.5,-0.8187499940395355 delta=-0.03211931846246863,0.2,0.06602818078713932 rot=9.612865,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=48.5,-59.5,-0.8187499940395355 delta=-0.04593484131139065,0.2,-0.06375812525658206 rot=235.27748,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=48.5,-59.5,-0.8187499940395355 delta=0.0391596221508142,0.2,-0.02994552459888225 rot=93.2209,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=27.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
+EV sound at=39.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
+EV sound at=42.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
+EV sound at=48.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01ac1f
+PKT O minecraft:sound 778f0706000000dcfffffe24fffffff93f8000003f80000027061872648c263b
+PKT O minecraft:add_entity 01b51f5d2e23fbb51044d2a915f2edca8f882e48403b800000000000c04dc00000000000bfea333330000000f1d6793d3331005a0000
+PKT O minecraft:set_entity_data 65b51f080701df0a0000ff
+PKT O minecraft:add_entity 01b61fae03b5178f9c44a697e244cee3285a6348403b800000000000c04dc00000000000bfea333330000000d1e17d83333100bc0000
+PKT O minecraft:set_entity_data 65b61f080701a4080000ff
+PKT O minecraft:remove_entities 4e01b01f
+PKT O minecraft:add_entity 01b71fe6377ed0b70746e0b67784f3caa082ee484043c00000000000c04dc00000000000bfea333330000000e1f7812f333100320000
+PKT O minecraft:set_entity_data 65b71f080701df0a0000ff
+PKT O minecraft:add_entity 01b81fb50bb3b69a654033aba4c261fb1845db484043c00000000000c04dc00000000000bfea333330000000d1317a33333200230000
+PKT O minecraft:set_entity_data 65b81f080701a4080000ff
+PKT O minecraft:remove_entities 4e01b11f
+PKT O minecraft:add_entity 01b91f4e2a9d38511143e187fb33a90270a510484045400000000000c04dc00000000000bfea33333000000041d38655333100760000
+PKT O minecraft:set_entity_data 65b91f080701df0a0000ff
+PKT O minecraft:add_entity 01ba1ff7464b3b17a7423a92ca89a3b464b44e484045400000000000c04dc00000000000bfea33333000000089ef8873333100060000
+PKT O minecraft:set_entity_data 65ba1f080701a4080000ff
+C Killed 8 entities
+C Killed 14 entities
+# blocks in the cell of a frame (the popping box)
+E b0 minecraft:glow_item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b1 minecraft:glow_item_frame pos=3.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b2 minecraft:glow_item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b3 minecraft:glow_item_frame pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b4 minecraft:glow_item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b5 minecraft:glow_item_frame pos=15.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b6 minecraft:glow_item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b7 minecraft:glow_item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b8 minecraft:glow_item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b9 minecraft:glow_item_frame pos=27.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b10 minecraft:glow_item_frame pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b11 minecraft:glow_item_frame pos=33.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01be1fe24bcde0d77945e6b7dbefb372f88e8a3d4008000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01bf1f740068f107b142609cf716d6e8f311eb3d4018000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01c01fb010cf1eab324fb0aaa3cb6bbab3d17d3d4022000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01c11f27144396648140a1a1babdbdfb0b5c2b3d4028000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01c21f4344f0c2e98a48f1bf6a9151bffa4ebd3d402e000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01c31f1d694b0a605f469fbe4346d0affdbda63d4032000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01c41f9ee3ac66bf1b479ba06f43e87b4474b33d4035000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01c51f908225adfd5044e1b713edb8599f07e63d4038000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01c61f864033f53c4f468f88ff7736831ebacf3d403b000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01c71f2366ce62f728418fa89d3db04194144b3d403e000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01c81fd9ab3e0cb3e04a3ba212fcd5dfb76ca93d4040800000000000c04e000000000000bff00000000000000000000003
+E b0 minecraft:glow_item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E b1 minecraft:glow_item_frame pos=3.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E b2 minecraft:glow_item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b3 minecraft:glow_item_frame pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b4 minecraft:glow_item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b5 minecraft:glow_item_frame pos=15.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b6 minecraft:glow_item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b7 minecraft:glow_item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E b8 minecraft:glow_item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b9 minecraft:glow_item_frame pos=27.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b10 minecraft:glow_item_frame pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b11 minecraft:glow_item_frame pos=33.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E b2 minecraft:glow_item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b3 minecraft:glow_item_frame pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b4 minecraft:glow_item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b5 minecraft:glow_item_frame pos=15.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b6 minecraft:glow_item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b8 minecraft:glow_item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b9 minecraft:glow_item_frame pos=27.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E b10 minecraft:glow_item_frame pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#9 minecraft:item pos=0.5,-59.5,-0.8187499940395355 delta=0.0894707464788577,0.2,-0.01095152739053376 rot=26.785526,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glow_item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=3.5,-59.5,-0.8187499940395355 delta=-0.08972121419474684,0.2,0.0651576956699027 rot=201.49075,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glow_item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#11 minecraft:item pos=21.5,-59.5,-0.8187499940395355 delta=-0.056405237835621236,0.2,0.00769994301277703 rot=358.04562,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glow_item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=33.5,-59.5,-0.8187499940395355 delta=-0.02659185023134665,0.2,0.08010851308230091 rot=337.84122,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:glow_item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.break source=neutral vol=1.0 pitch=1.0
+EV sound at=3.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.break source=neutral vol=1.0 pitch=1.0
+EV sound at=21.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.break source=neutral vol=1.0 pitch=1.0
+EV sound at=33.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01be1f
+PKT O minecraft:add_entity 01ca1f9f2e95ae45a7422fa55e297f7a8fb9f748400c000000000000c04dc00000000000bfea33333000000009d288553331008f0000
+PKT O minecraft:set_entity_data 65ca1f080701e00a0000ff
+PKT O minecraft:remove_entities 4e01c41f
+PKT O minecraft:add_entity 01cb1f0f60935cb99d45608f8090effcc0251a484035800000000000c04dc00000000000bfea33333000000019e380fb333100fe0000
+PKT O minecraft:set_entity_data 65cb1f080701e00a0000ff
+PKT O minecraft:remove_entities 4e01c81f
+PKT O minecraft:sound 77dc05060000010cfffffe24fffffff93f8000003f8000009aac6523cb10d05e
+PKT O minecraft:add_entity 01cc1f07debc376e094ca890097472bf37a792484040c00000000000c04dc00000000000bfea33333000000059f28a3f333100f00000
+PKT O minecraft:set_entity_data 65cc1f080701e00a0000ff
+C Killed 4 entities
+C Killed 8 entities
+# two hanging entities in the same cell: same direction both break, opposite directions coexist, different types
+E c1 minecraft:item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c2 minecraft:item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c3 minecraft:item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c4 minecraft:glow_item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c5 minecraft:item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c6 minecraft:item_frame pos=12.5,-59.5,-0.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c7 minecraft:painting pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c8 minecraft:item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c9 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c10 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c11 minecraft:painting pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c12 minecraft:painting pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=24.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01cf1fa6f23945b1b64d27b2a98f9e312cbb224a4018000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01d01f51118b5981fb4a19a6382347ecd32b5c3d4018000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01d11fdfffc7eb618f4f68abe00a8532a149624a4028000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01d21fee4ab53238e34416b0490b044876a74b4a4028000000000000c04e000000000000bff00000000000000000800002
+PKT O minecraft:set_entity_data 65d21f080c02ff
+PKT O minecraft:add_entity 01d31fcaf16e78f31c415cbfcff4d424a67a7e5e4032000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65d31f092219ff
+PKT O minecraft:add_entity 01d41f275843d5e8bc4658a97f85ea49eb358b4a4032000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:sound 778e0706000000c4fffffe24fffffff93f8000003f8000006e2e33e9d033ccf7
+PKT O minecraft:add_entity 01d51fe6873e1cf0d8440683f3db688cf1c4744a4038000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65d51f090701a4080000ff
+PKT O minecraft:add_entity 01d61f611e942932e54dc687537bbaf2354ff94a4038000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:add_entity 01d71f16f7793d3f4041b8a9bd5a64ca9caf335e403e000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65d71f092219ff
+PKT O minecraft:add_entity 01d81f8d0e93698d5343098731e2f9cceab2c45e403e000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65d71f092219ff
+PKT O minecraft:set_entity_data 65d51f090701a4080000ff
+PKT O minecraft:set_entity_data 65d21f080c02ff
+PKT O minecraft:set_entity_data 65d31f092219ff
+E c1 minecraft:item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c2 minecraft:item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c3 minecraft:item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c4 minecraft:glow_item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c5 minecraft:item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c6 minecraft:item_frame pos=12.5,-59.5,-0.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c7 minecraft:painting pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c8 minecraft:item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c9 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c10 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c11 minecraft:painting pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c12 minecraft:painting pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c2 minecraft:item_frame pos=0.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c4 minecraft:glow_item_frame pos=6.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c5 minecraft:item_frame pos=12.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c6 minecraft:item_frame pos=12.5,-59.5,-0.03125 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c8 minecraft:item_frame pos=18.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c9 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c10 minecraft:item_frame pos=24.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c12 minecraft:painting pos=30.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#13 minecraft:item pos=0.5,-59.5,-0.8187499940395355 delta=0.036363223128574346,0.2,0.09657491621514352 rot=73.31992,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=6.5,-59.5,-0.8187499940395355 delta=-0.04832104027636939,0.2,0.010426659185203094 rot=231.72592,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=18.5,-59.5,-0.8187499940395355 delta=-0.07937921442659238,0.2,0.04394964604099122 rot=28.298227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#16 minecraft:item pos=30.5,-59.5,-0.8187499940395355 delta=-0.03772541290586837,0.2,-0.07323075644688529 rot=310.39478,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=0.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
+EV sound at=6.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
+EV sound at=18.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=30.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01cf1f
+PKT O minecraft:add_entity 01da1fa58d9f15fdfe4bdbb4c318700fd3ec7e48401a000000000000c04dc00000000000bfea33333000000039e78155333100a40000
+PKT O minecraft:set_entity_data 65da1f080701df0a0000ff
+PKT O minecraft:remove_entities 4e01d31f
+PKT O minecraft:add_entity 01db1f458734a96cac4e25a32ca1f42e5bbae7484032800000000000c04dc00000000000bfea33333000000059d7859f333100140000
+PKT O minecraft:set_entity_data 65db1f080701cb080000ff
+PKT O minecraft:remove_entities 4e01d71f
+PKT O minecraft:sound 77ac0906000000f4fffffe24fffffff93f8000003f800000c8b3e3156ef5b6f0
+PKT O minecraft:add_entity 01dc1f578cdffc4bc14a7189e18e0f4e45177d48403e800000000000c04dc00000000000bfea333330000000a9ec769f333100dc0000
+PKT O minecraft:set_entity_data 65dc1f080701cb080000ff
+C Killed 4 entities
+C Killed 6 entities
+C Killed Glow Item Frame
+C Killed Painting
+# frames on the floor and the ceiling
+E y0 minecraft:item_frame pos=40.5,-59.96875,4.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E y1 minecraft:item_frame pos=43.5,-59.03125,4.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+ED y0 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:01 9:7:01f4070000 10:1:03
+ED y1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:00 9:7:01f4070000 10:1:03
+N y0 {Air:300s,Facing:1b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:diamond"},ItemDropChance:1.0f,ItemRotation:3b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[40.5d,-59.96875d,4.5d],Rotation:[0.0f,-90.0f],Tags:["y0"],block_pos:[I;40,-60,4],fall_distance:0.0d}
+N y1 {Air:300s,Facing:0b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:diamond"},ItemDropChance:1.0f,ItemRotation:3b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[43.5d,-59.03125d,4.5d],Rotation:[0.0f,90.0f],Tags:["y1"],block_pos:[I;43,-60,4],fall_distance:0.0d}
+PKT O minecraft:sound 778e070600000144fffffe24000000203f8000003f8000005d2b33aadd70f981
+PKT O minecraft:add_entity 01dd1f97aed66b80864fc0b25137192b93fff74a4044000000000000c04e000000000000401000000000000000c0000001
+PKT O minecraft:set_entity_data 65dd1f080c01090701f40700000a0103ff
+PKT O minecraft:sound 778e07060000015cfffffe24000000203f8000003f80000083cbf119740d27de
+PKT O minecraft:add_entity 01de1f63f71949d8b94158837ed5b5db2c50964a4045800000000000c04e00000000000040100000000000000040000000
+PKT O minecraft:set_entity_data 65de1f080c00090701f40700000a0103ff
+PKT O minecraft:set_entity_data 65de1f080c00090701f40700000a0103ff
+PKT O minecraft:set_entity_data 65dd1f080c01090701f40700000a0103ff
+E y0 minecraft:item_frame pos=40.5,-59.96875,4.5 delta=0.0,0.0,0.0 rot=0.0,-90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E y1 minecraft:item_frame pos=43.5,-59.03125,4.5 delta=0.0,0.0,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=40.5,-59.5,4.03125 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=43.5,-59.5,4.03125 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+C Killed 2 entities
+# painting variants of every size: wall intact (they stay), one block missing (they drop)
+E v0 minecraft:painting pos=2.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v1 minecraft:painting pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v2 minecraft:painting pos=13.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v3 minecraft:painting pos=18.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v4 minecraft:painting pos=23.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v5 minecraft:painting pos=28.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v6 minecraft:painting pos=33.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v7 minecraft:painting pos=38.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v8 minecraft:painting pos=43.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v9 minecraft:painting pos=48.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v10 minecraft:painting pos=53.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v11 minecraft:painting pos=58.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v12 minecraft:painting pos=2.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v13 minecraft:painting pos=7.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v14 minecraft:painting pos=13.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v15 minecraft:painting pos=18.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v16 minecraft:painting pos=23.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v17 minecraft:painting pos=28.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v18 minecraft:painting pos=32.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v19 minecraft:painting pos=37.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v20 minecraft:painting pos=43.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v21 minecraft:painting pos=47.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v22 minecraft:painting pos=52.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v23 minecraft:painting pos=57.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+ED v0 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:03 9:34:19
+ED v8 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:03 9:34:22
+N v0 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-59.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["v0"],block_pos:[I;2,-60,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:kebab"}
+N v8 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[43.0d,-59.0d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["v8"],block_pos:[I;42,-60,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:pointer"}
+N v11 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[58.0d,-59.5d,-0.96875d],Rotation:[0.0f,0.0f],Tags:["v11"],block_pos:[I;57,-60,-1],facing:0b,fall_distance:0.0d,variant:"minecraft:donkey_kong"}
+PKT O minecraft:add_entity 01df1f73d1008bcc024eacb4bc16506b5f6b745e4000000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65df1f092219ff
+PKT O minecraft:add_entity 01e01f0a4661e89b9d4fa8bfdb1366381d22815e401c000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65e01f092202ff
+PKT O minecraft:add_entity 01e11ffdb92f2fd4b240eea1de313639e719b45e4028000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65e11f092224ff
+PKT O minecraft:add_entity 01e21fa230fc9092854e92a4633bf0c3913c3e5e4031000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65e21f09220dff
+PKT O minecraft:add_entity 01e31f528222a4bdf342ec832a8649af7f572f5e4036000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65e31f09221bff
+PKT O minecraft:add_entity 01e41f74dc0b1b074a47dea13f0c9bccc6e5dd5e403b000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65e41f092228ff
+PKT O minecraft:add_entity 01e51f152a114936c8452eb4726130ec99c56f5e4040000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65e51f092209ff
+PKT O minecraft:add_entity 01e61f79590b907fe342dcbbe6b6afd8a054585e4042800000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65e61f092214ff
+PKT O minecraft:add_entity 01e71fb9602ced750c43d7854d73c5a06acb655e4045000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65e71f092222ff
+PKT O minecraft:add_entity 01eb1f47a48890663148f5ac3165f90642ca505e4000000000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65eb1f092230ff
+PKT O minecraft:add_entity 01ec1f39e6daa45f5d45e7941af9a28ea83a8a5e401c000000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ec1f092217ff
+PKT O minecraft:add_entity 01ed1fa9ab633392774736b0a00cded62a14905e4028000000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ed1f092233ff
+PKT O minecraft:add_entity 01ee1f8195047ac8164fe49a28e15f0304b6795e4031000000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ee1f092208ff
+PKT O minecraft:add_entity 01ef1feaadaaa9019a4d34b2b7d5f37c9ab60b5e4036000000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ef1f092205ff
+PKT O minecraft:add_entity 01f01fbd9bdf1ec65d4e2688978844f4ec00b95e403b000000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65f01f092218ff
+PKT O minecraft:add_entity 01f11f345b1a2f87db4a9f894e4f69bde9a41a5e4040000000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65f11f09221cff
+PKT O minecraft:add_entity 01f21fed76205d74a247ef8a96a3fe5aad83ab5e4042800000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65f21f092225ff
+PKT O minecraft:add_entity 01f31f71e60fdfb0da476f95ca616fbdd36b065e4045000000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65f31f09222dff
+PKT O minecraft:add_entity 01f41f67c685576ca148c886117f714fed716b5e4047800000000000c04b800000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65f41f092204ff
+PKT O minecraft:set_entity_data 65e51f092209ff
+PKT O minecraft:set_entity_data 65e11f092224ff
+PKT O minecraft:set_entity_data 65ed1f092233ff
+PKT O minecraft:set_entity_data 65f11f09221cff
+PKT O minecraft:set_entity_data 65f21f092225ff
+PKT O minecraft:set_entity_data 65e71f092222ff
+PKT O minecraft:set_entity_data 65eb1f092230ff
+PKT O minecraft:set_entity_data 65ef1f092205ff
+PKT O minecraft:set_entity_data 65e31f09221bff
+PKT O minecraft:set_entity_data 65f41f092204ff
+PKT O minecraft:set_entity_data 65df1f092219ff
+PKT O minecraft:set_entity_data 65f01f092218ff
+PKT O minecraft:set_entity_data 65f31f09222dff
+PKT O minecraft:set_entity_data 65e61f092214ff
+PKT O minecraft:set_entity_data 65e41f092228ff
+PKT O minecraft:set_entity_data 65e01f092202ff
+PKT O minecraft:set_entity_data 65ee1f092208ff
+PKT O minecraft:set_entity_data 65ec1f092217ff
+PKT O minecraft:set_entity_data 65e21f09220dff
+E v0 minecraft:painting pos=2.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v1 minecraft:painting pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v2 minecraft:painting pos=13.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v3 minecraft:painting pos=18.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v4 minecraft:painting pos=23.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v5 minecraft:painting pos=28.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v6 minecraft:painting pos=33.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v7 minecraft:painting pos=38.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v8 minecraft:painting pos=43.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v9 minecraft:painting pos=48.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v10 minecraft:painting pos=53.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v11 minecraft:painting pos=58.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v12 minecraft:painting pos=2.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v13 minecraft:painting pos=7.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v14 minecraft:painting pos=13.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v15 minecraft:painting pos=18.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v16 minecraft:painting pos=23.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v17 minecraft:painting pos=28.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v18 minecraft:painting pos=32.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v19 minecraft:painting pos=37.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v20 minecraft:painting pos=43.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v21 minecraft:painting pos=47.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v22 minecraft:painting pos=52.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v23 minecraft:painting pos=57.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v0 minecraft:painting pos=2.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v1 minecraft:painting pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v2 minecraft:painting pos=13.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v3 minecraft:painting pos=18.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v4 minecraft:painting pos=23.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v5 minecraft:painting pos=28.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v6 minecraft:painting pos=33.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v7 minecraft:painting pos=38.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v8 minecraft:painting pos=43.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v9 minecraft:painting pos=48.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v10 minecraft:painting pos=53.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v11 minecraft:painting pos=58.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v12 minecraft:painting pos=2.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v13 minecraft:painting pos=7.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v14 minecraft:painting pos=13.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v15 minecraft:painting pos=18.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v16 minecraft:painting pos=23.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v17 minecraft:painting pos=28.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v18 minecraft:painting pos=32.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v19 minecraft:painting pos=37.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v20 minecraft:painting pos=43.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v21 minecraft:painting pos=47.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v22 minecraft:painting pos=52.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E v23 minecraft:painting pos=57.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v1 minecraft:painting pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v3 minecraft:painting pos=18.0,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v5 minecraft:painting pos=28.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v7 minecraft:painting pos=38.0,-59.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v13 minecraft:painting pos=7.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v15 minecraft:painting pos=18.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v17 minecraft:painting pos=28.0,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v19 minecraft:painting pos=37.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v21 minecraft:painting pos=47.5,-54.0,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E v23 minecraft:painting pos=57.5,-54.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#17 minecraft:item pos=2.5,-59.5,-0.8187499940395355 delta=0.0410449078814262,0.2,-0.016583434030845765 rot=45.503246,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#18 minecraft:item pos=13.0,-59.5,-0.8187499940395355 delta=0.025986138124949515,0.2,0.05292931189512953 rot=335.59595,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#19 minecraft:item pos=23.0,-59.0,-0.8187499940395355 delta=0.04092454305198362,0.2,0.058469935536236084 rot=50.65049,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#20 minecraft:item pos=33.0,-59.0,-0.8187499940395355 delta=0.009562509229185112,0.2,0.02356747802051247 rot=40.558735,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#21 minecraft:item pos=43.0,-59.0,-0.8187499940395355 delta=0.017097148868144202,0.2,0.09870944705106155 rot=228.41707,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#22 minecraft:item pos=48.0,-59.0,-0.8187499940395355 delta=0.06682050779717827,0.2,-0.06645759702407636 rot=111.02191,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#23 minecraft:item pos=53.0,-59.5,-0.8187499940395355 delta=-0.09896965475105751,0.2,0.06588113154891992 rot=26.151087,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#24 minecraft:item pos=58.0,-59.5,-0.8187499940395355 delta=0.0876388514171301,0.2,-0.06374570494001952 rot=279.32806,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#25 minecraft:item pos=2.5,-54.5,-0.8187499940395355 delta=0.014536722221037038,0.2,-0.058559201901253036 rot=269.92633,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#26 minecraft:item pos=13.0,-54.0,-0.8187499940395355 delta=-0.09068709760221097,0.2,-0.09012648406288909 rot=295.9503,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#27 minecraft:item pos=23.0,-54.0,-0.8187499940395355 delta=-0.029758351841720737,0.2,-0.03676577296146981 rot=304.6924,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=32.5,-54.5,-0.8187499940395355 delta=-0.030938908023544112,0.2,-0.04813736607214025 rot=255.71736,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=43.0,-54.0,-0.8187499940395355 delta=0.03216664867216898,0.2,-0.03921009281296944 rot=346.19327,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+E item#30 minecraft:item pos=52.5,-54.5,-0.8187499940395355 delta=0.04463863505089388,0.2,-0.058467659596554734 rot=17.183304,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=0 pickup=10 health=5 owner=- thrower=-
+EV sound at=2.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=13.0,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=23.0,-59.0,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=33.0,-59.0,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=43.0,-59.0,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=48.0,-59.0,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=53.0,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=58.0,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=2.5,-54.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=13.0,-54.0,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=23.0,-54.0,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=32.5,-54.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=43.0,-54.0,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=52.5,-54.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01df1f
+PKT O minecraft:add_entity 01f71f48b3bfc781574636b58eee478e82c3f2484004000000000000c04dc00000000000bfea333330000000f9147ddf333200200000
+PKT O minecraft:set_entity_data 65f71f080701cb080000ff
+PKT O minecraft:remove_entities 4e01e11f
+PKT O minecraft:add_entity 01f81fbde98d5ce96f4c1a83ccd41bc058ad2a48402a000000000000c04dc00000000000bfea333330000000490d86c5333200ee0000
+PKT O minecraft:set_entity_data 65f81f080701cb080000ff
+PKT O minecraft:remove_entities 4e01e31f
+PKT O minecraft:sound 77ac0906000000b8fffffe28fffffff93f8000003f800000f86f53c7e06d3c3d
+PKT O minecraft:add_entity 01f91f0edb2aeffb644bfa8b06dc35cccaca5b484037000000000000c04d800000000000bfea333330000000e914877b333200240000
+PKT O minecraft:set_entity_data 65f91f080701cb080000ff
+PKT O minecraft:remove_entities 4e01e51f
+PKT O minecraft:sound 77ac090600000108fffffe28fffffff93f8000003f800000df64141eada66804
+PKT O minecraft:add_entity 01fa1fd157b57f8dfb478598fafe3b100697d1484040800000000000c04d800000000000bfea333330000000e10483033332001c0000
+PKT O minecraft:set_entity_data 65fa1f080701cb080000ff
+PKT O minecraft:remove_entities 4e01e71f
+PKT O minecraft:add_entity 01fb1fbc0cfcfdb6c543f88ab7050ea704df32484045800000000000c04d800000000000bfea333330000000b9088ca1333200a20000
+PKT O minecraft:set_entity_data 65fb1f080701cb080000ff
+PKT O minecraft:remove_entities 4e01eb1f
+PKT O minecraft:add_entity 01ff1f1d8f14df18fa4d5687eefc1639e8b14d484004000000000000c04b400000000000bfea33333000000069077881333200bf0000
+PKT O minecraft:set_entity_data 65ff1f080701cb080000ff
+PKT O minecraft:remove_entities 4e01ed1f
+PKT O minecraft:add_entity 01802064745dfd31fe40808dd033ab9559c87448402a000000000000c04b000000000000bfea33333000000089d17475333100d20000
+PKT O minecraft:set_entity_data 658020080701cb080000ff
+PKT O minecraft:remove_entities 4e01ef1f
+PKT O minecraft:add_entity 018120d6ee7ba496634ccca1ae13019c7a1813484037000000000000c04b000000000000bfea333330000000b9f07b4b333100d80000
+PKT O minecraft:set_entity_data 658120080701cb080000ff
+PKT O minecraft:remove_entities 4e01f11f
+PKT O minecraft:sound 77ac090600000104fffffe4cfffffff93f8000003f800000b84c9240c7b3400a
+PKT O minecraft:add_entity 018220764e5eeaf5734643b81f5c60d8ede94b484040400000000000c04b400000000000bfea33333000000021f079d5333100b50000
+PKT O minecraft:set_entity_data 658220080701cb080000ff
+PKT O minecraft:remove_entities 4e01f31f
+PKT O minecraft:add_entity 018320b2def17726ea4aec95b2e7a5007128ce484045800000000000c04b000000000000bfea33333000000071107afb333200f60000
+PKT O minecraft:set_entity_data 658320080701cb080000ff
+C Killed 14 entities
+C Killed 10 entities
+# a piston moves its stone into a frame, a painting and a fixed frame
+E m2 minecraft:item_frame pos=58.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#31 minecraft:item pos=50.73811849593065,-59.375,-2.078328107719612 delta=0.005500265084642266,0.0,-0.05021595571903476 rot=94.11142,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=7 pickup=3 health=5 owner=- thrower=-
+E item#32 minecraft:item pos=54.38615020463665,-59.375,-1.8404372883915936 delta=-0.0026298001416618887,0.0,-0.04871229733097472 rot=125.521484,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=7 pickup=3 health=5 owner=- thrower=-
+E m2 minecraft:item_frame pos=58.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#31 minecraft:item pos=50.73811849593065,-59.375,-2.078328107719612 delta=0.005500265084642266,0.0,-0.05021595571903476 rot=94.11142,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=7 pickup=3 health=5 owner=- thrower=-
+E item#32 minecraft:item pos=54.38615020463665,-59.375,-1.8404372883915936 delta=-0.0026298001416618887,0.0,-0.04871229733097472 rot=125.521484,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=7 pickup=3 health=5 owner=- thrower=-
+EV sound at=58.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=50.5,-59.5,-2.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.7432703
+EV block_event r=64.0 ex=0 pos=50,-60,-3 block=minecraft:piston b0=0 b1=3
+EV sound at=54.5,-59.5,-2.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.7315859
+EV block_event r=64.0 ex=0 pos=54,-60,-3 block=minecraft:piston b0=0 b1=3
+EV sound at=58.5,-59.5,-2.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6537764
+EV block_event r=64.0 ex=0 pos=58,-60,-3 block=minecraft:piston b0=0 b1=3
+EV sound at=50.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
+EV sound at=54.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0

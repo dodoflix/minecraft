@@ -1,0 +1,176 @@
+# passengers on cushions
+E Cow minecraft:cow pos=0.5,-59.75,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E st1 minecraft:armor_stand pos=4.5,-59.75,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mn1 minecraft:mannequin pos=8.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+P P minecraft:player pos=12.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:cushion pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c2 minecraft:cushion pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c3 minecraft:cushion pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c4 minecraft:cushion pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N c1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Passengers:[{AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-59.75d,0.5d],Rotation:[0.0f,0.0f],Silent:1b,UUID:[I;900747789,1831420253,-1962259097,1858350936],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cow",sound_variant:"minecraft:classic",variant:"minecraft:temperate"}],PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Tags:["c1"],block_pos:[I;0,-60,0],color:"red",fall_distance:0.0d}
+N c2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Passengers:[{AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[4.5d,-59.75d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["st1"],UUID:[I;1762007552,1320110018,-1446052180,-714132009],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:armor_stand"}],PortalCooldown:0,Pos:[4.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Tags:["c2"],block_pos:[I;4,-60,0],color:"blue",fall_distance:0.0d}
+N c3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Passengers:[{AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-60.35d,0.5d],Rotation:[0.0f,0.0f],Tags:["mn1"],UUID:[I;269480728,1569934291,-1101718877,2015675039],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,hidden_layers:[],id:"minecraft:mannequin",immovable:0b,main_hand:"right",pose:"standing",profile:{}}],PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Tags:["c3"],block_pos:[I;8,-60,0],color:"green",fall_distance:0.0d}
+N c4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[12.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Tags:["c4"],block_pos:[I;12,-60,0],color:"white",fall_distance:0.0d}
+PKT O minecraft:add_entity 01ab46426c566ea4ed4e2a8ae6c6e2f4a67233213fe0000000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65ab46082b0eff
+PKT O minecraft:add_entity 01ac46b9673318d13f4fd78f713b08c138db90214012000000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65ac46082b0bff
+PKT O minecraft:add_entity 01ad46a6f23945b1b64d27b2a98f9e312cbb22214021000000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65ad46082b0dff
+PKT O minecraft:add_entity 01ae4651118b5981fb4a19a6382347ecd32b5c214029000000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:add_entity 01af4635b0520d6d29415d8b0a4d676ec42f581e3fe0000000000000c04b8000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65af460408010903412000000f0001ff
+PKT O minecraft:add_entity 01b04669061a004eaf47c2a9cefeacd56f35d7054012000000000000c04b8000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65b046090341a000000f0004ff
+PKT O minecraft:add_entity 01b146100ff3185d934bd3be551aa37824c29f544021000000000000c04b8000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65b146090341a0000010007fff
+PKT O minecraft:move_entity_pos 36b04600000000000000
+PKT O minecraft:set_entity_data 65b046090341a000000f0004ff
+PKT O minecraft:move_entity_pos 36b14600000000000000
+PKT O minecraft:set_entity_data 65b146090341a0000010007fff
+PKT O minecraft:move_entity_pos 36ab4600000000000000
+PKT O minecraft:set_entity_data 65ab46082b0eff
+PKT O minecraft:move_entity_pos 36af4600000000000000
+PKT O minecraft:set_entity_data 65af460408010903412000000f0001ff
+PKT O minecraft:move_entity_pos 36ae4600000000000000
+PKT O minecraft:move_entity_pos 36ad4600000000000000
+PKT O minecraft:set_entity_data 65ad46082b0dff
+PKT O minecraft:move_entity_pos 36ac4600000000000000
+PKT O minecraft:set_entity_data 65ac46082b0bff
+PKT O minecraft:set_passengers 6dab4601af46
+PKT O minecraft:add_entity 01aa4614075747e1463809a16183abe512191e9f01403e800000000000c04e00000000000040290000000000000000808000
+PKT O minecraft:set_entity_data 65aa46090341a00000ff
+PKT O minecraft:set_passengers 6dae4601aa46
+PKT O minecraft:set_passengers 6dae4601aa46
+PKT O minecraft:set_passengers 6dad4601b146
+PKT O minecraft:set_passengers 6dac4601b046
+E Cow minecraft:cow pos=0.5,-59.75,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E st1 minecraft:armor_stand pos=4.5,-59.75,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mn1 minecraft:mannequin pos=8.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+P P minecraft:player pos=12.5,-60.35,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# a second rider and the sneak dismount
+E Cow2 minecraft:cow pos=4.5,-59.75,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E c2 minecraft:cushion pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01b246c4b0f3dfe264499dbece25d2f716b4021e4012000000000000c04b80000000000040120000000000000000000000
+PKT O minecraft:set_entity_data 65b2460408010903412000000f0001ff
+PKT O minecraft:set_entity_data 65b2460408010903412000000f0001ff
+PKT O minecraft:set_passengers 6dac4602b046b246
+# hurting a cushion with riders: the riders are dismounted
+HURT c1 generic 1 -> true
+E Cow minecraft:cow pos=0.5,-59.75,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E c1 minecraft:cushion pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01ab46
+PKT O minecraft:add_entity 01b346bc3c3c34f43944a2bf9f5a482aae42ba483fe0000000000000c04e0000000000003fe000000000000051f18aeb3331000c0000
+PKT O minecraft:set_entity_data 65b346080701a0090000ff
+PKT O minecraft:move_entity_pos 36b34600000000000000
+PKT O minecraft:set_entity_data 65b346080701a0090000ff
+PKT O minecraft:entity_position_sync 23af4601013fe0000000000000c04de000000000003fe000000000000003000000000000000000
+HURT c3 player_attack 1 -> true
+E mn1 minecraft:mannequin pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c3 minecraft:cushion pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+EV sound at=8.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01ad46
+PKT O minecraft:add_entity 01b446b5debfb39b22477d8e54170418537d27484021000000000000c04e0000000000003fe000000000000061f574ab333100a60000
+PKT O minecraft:set_entity_data 65b4460807019f090000ff
+PKT O minecraft:move_entity_pos 36b44600000000000000
+PKT O minecraft:set_entity_data 65b4460807019f090000ff
+PKT O minecraft:set_entity_motion 67b146f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23b14601014021000000000000c04e0000000000003fe000000000000002000000000000000000
+C Killed Cushion
+P P minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c4 minecraft:cushion pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+PKT O minecraft:remove_entities 4e01ae46
+PKT O minecraft:entity_position_sync 23b14601014021000000000000c04e0000000000003fe000000000000002000000000000000001
+PKT O minecraft:entity_position_sync 23aa4601014029000000000000c04e0000000000003fe000000000000002c33400000000000000
+C Killed 2 entities
+# stands and mannequins as vehicles
+E Cow3 minecraft:cow pos=20.5,-58.02499997615814,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Cow4 minecraft:cow pos=24.5,-58.200000047683716,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E st2 minecraft:armor_stand pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mn2 minecraft:mannequin pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N st2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,Passengers:[{AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[20.5d,-58.02499997615814d,0.5d],Rotation:[0.0f,0.0f],Silent:1b,UUID:[I;-1173065617,-1184608532,-1626518257,-221572600],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cow",sound_variant:"minecraft:classic",variant:"minecraft:temperate"}],PortalCooldown:0,Pos:[20.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["st2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N mn2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,Passengers:[{AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[24.5d,-58.200000047683716d,0.5d],Rotation:[0.0f,0.0f],Silent:1b,UUID:[I;1554088938,1867465605,-1845741563,1370625843],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cow",sound_variant:"minecraft:classic",variant:"minecraft:temperate"}],PortalCooldown:0,Pos:[24.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Tags:["mn2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,hidden_layers:[],immovable:0b,main_hand:"right",pose:"standing",profile:{}}
+PKT O minecraft:remove_entities 4e01b346
+PKT O minecraft:remove_entities 4e01b446
+PKT O minecraft:add_entity 01b546f796884721814970a1c3e82bdd2cc8c0054034800000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65b546090341a000000f0004ff
+PKT O minecraft:add_entity 01b64619924d45cbd14d238346e33852470630544038800000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65b646090341a0000010007fff
+PKT O minecraft:add_entity 01b746ba14706fb9644eec9f0d4d0ff2cb12081e4034800000000000c04b8000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65b7460408010903412000000f0001ff
+PKT O minecraft:add_entity 01b8465ca183ea6f4f438591fc380551b217331e4038800000000000c04b8000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65b8460408010903412000000f0001ff
+PKT O minecraft:move_entity_pos 36b84600000000000000
+PKT O minecraft:set_entity_data 65b8460408010903412000000f0001ff
+PKT O minecraft:move_entity_pos 36b64600000000000000
+PKT O minecraft:set_entity_data 65b646090341a0000010007fff
+PKT O minecraft:move_entity_pos 36b74600000000000000
+PKT O minecraft:set_entity_data 65b7460408010903412000000f0001ff
+PKT O minecraft:move_entity_pos 36b54600000000000000
+PKT O minecraft:set_entity_data 65b546090341a000000f0004ff
+PKT O minecraft:entity_position_sync 23aa4601014029000000000000c04e0000000000003fe000000000000002c33400000000000001
+PKT O minecraft:set_passengers 6db64601b846
+PKT O minecraft:set_passengers 6db54601b746
+PKT O minecraft:set_entity_motion 67b646f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23b64601014038800000000000c04e0000000000003fe000000000000002000000000000000001
+PKT O minecraft:set_entity_motion 67b546f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23b54601014034800000000000c04e0000000000003fe000000000000003000000000000000001
+P P minecraft:player pos=24.5,-58.80000004768372,0.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E mn2 minecraft:mannequin pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT O minecraft:set_passengers 6db64602aa46b846
+HURT st2 generic_kill 1 -> false
+E Cow3 minecraft:cow pos=20.5,-58.02499997615814,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E st2 minecraft:armor_stand pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT O minecraft:remove_entities 4e01b546
+C Killed Mannequin
+P P minecraft:player pos=24.5,-60.39999999701977,0.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E Cow4 minecraft:cow pos=24.5,-59.79999999701977,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+PKT O minecraft:sound 77bd0506000000c4fffffe20000000043f8000003f85b2036fd465a290351d3c
+PKT O minecraft:entity_event 220000233603
+PKT O minecraft:set_entity_data 65b646061407090300000000ff
+PKT O minecraft:set_entity_motion 67b646f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23b74601014034800000000000c04d0333330000003fe000000000000003000000000000000000
+# stands and mannequins as passengers of a boat and of a minecart
+E boat1 minecraft:oak_boat pos=32.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=st3 mdir=west leash=- ooc=0.0
+E mc1 minecraft:minecart pos=36.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=mn3
+E st3 minecraft:armor_stand pos=32.5,-59.8125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mn3 minecraft:mannequin pos=36.5,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT O minecraft:add_entity 01b946137f0072aeb64510b835391570e049075a4040400000000000c04e00000000000040040000000000000000000000
+PKT O minecraft:add_entity 01ba464a189bc558454ee6b923b8cbe72fad69564042400000000000c04e00000000000040040000000000000000000000
+PKT O minecraft:add_entity 01bb467a9b49a3fa674a6c8d71454270c95fce054040400000000000c04b80000000000040040000000000000000000000
+PKT O minecraft:set_entity_data 65bb46090341a00000ff
+PKT O minecraft:add_entity 01bc46a011b4bc7d3845148bb28089e94d5fde544042400000000000c04b80000000000040040000000000000000000000
+PKT O minecraft:set_entity_data 65bc46090341a0000010007fff
+PKT O minecraft:move_entity_pos 36ba4600000000000000
+PKT O minecraft:move_entity_pos 36bc4600000000000000
+PKT O minecraft:set_entity_data 65bc46090341a0000010007fff
+PKT O minecraft:move_entity_pos 36b94600000000000000
+PKT O minecraft:move_entity_pos 36bb4600000000000000
+PKT O minecraft:set_entity_data 65bb46090341a00000ff
+PKT O minecraft:set_passengers 6dba4601bc46
+PKT O minecraft:set_passengers 6db94601bb46
+PKT O minecraft:entity_position_sync 23ba46004042400000000000c04e0000000000004004000000000000000000000000000001
+PKT O minecraft:entity_position_sync 23b946004040400000000000c04e0000000000004004000000000000000000000000000001
+E boat1 minecraft:oak_boat pos=32.94727895705207,-60.0,2.5 delta=0.0018139841987808072,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=st3 mdir=west leash=- ooc=0.0
+E mc1 minecraft:minecart pos=36.699609375,-60.0,2.5 delta=1.953125E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=mn3
+E st3 minecraft:armor_stand pos=32.94727895705207,-59.8125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mn3 minecraft:mannequin pos=36.699609375,-60.4125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT O minecraft:set_entity_motion 67ba4661667ffefffe
+PKT O minecraft:set_entity_motion 67b94691997ffefffe
+PKT O minecraft:set_entity_motion 67ba46c90c7ffefffe
+PKT O minecraft:move_entity_pos 36ba460102cd00000000
+PKT O minecraft:set_entity_motion 67b94629217ffefffe
+PKT O minecraft:move_entity_pos 36b9460105a500000000
+PKT O minecraft:set_entity_motion 67ba4691017ffefffe
+PKT O minecraft:move_entity_pos 36ba4601005900000000
+PKT O minecraft:set_entity_motion 67b94621077ffefffe
+PKT O minecraft:move_entity_pos 36b94601013800000000
+PKT O minecraft:set_entity_motion 67ba4629007ffefffe
+PKT O minecraft:set_entity_motion 67b94689017ffefffe
+PKT O minecraft:move_entity_pos 36b94601004400000000
+HURT st3 player_attack 1 -> true
+E boat1 minecraft:oak_boat pos=32.94836734750647,-60.0,2.5 delta=0.001088390454395354,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=st3 mdir=west leash=- ooc=0.0
+E st3 minecraft:armor_stand pos=32.94836734750647,-59.8125,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.generic.death source=neutral vol=1.0 pitch=1.044495
+PKT O minecraft:entity_event 220000233b20

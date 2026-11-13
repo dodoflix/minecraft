@@ -1,0 +1,759 @@
+# arrow thrown at a stand, a frame with an item, a painting and a cushion
+E ar_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar_p minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01c33e6346680ea1334612840ad20bcf758dbc053fe0000000000000c04e000000000000bfe00000000000000000000000
+PKT O minecraft:set_entity_data 65c33e090341a000000f0004ff
+PKT O minecraft:set_equipment 68c33e8401b90800000501b8080000
+PKT O minecraft:add_entity 01c43eadad6b6aebed4038b7f1e83b9a27eb0d4a4010000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65c43e090701f4070000ff
+PKT O minecraft:add_entity 01c53e09077f238bfb4623a5a6a1a6adcc90925e4020000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65c53e092219ff
+PKT O minecraft:add_entity 01c63edd228f80380d4949bce90cd630c01ee4214029000000000000c04e0000000000003ff80000000000000000000000
+PKT O minecraft:set_entity_data 65c63e082b0eff
+PKT O minecraft:set_entity_data 65c63e082b0eff
+PKT O minecraft:set_entity_data 65c43e090701f4070000ff
+PKT O minecraft:set_entity_data 65c53e092219ff
+PKT O minecraft:set_entity_data 65c33e090341a000000f0004ff
+PKT O minecraft:set_equipment 68c33e8401b90800000501b8080000
+E ar_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar_a3 minecraft:arrow pos=12.5,-59.94999999925494,3.584974841786276 delta=0.0,0.0,0.0 rot=87.84,-0.81259227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E item#1 minecraft:item pos=0.46261957213972027,-59.492436092472566,-0.5365089928495502 delta=0.09203819837490365,0.1568000030517578,-0.05747928432982973 rot=140.92172,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.7298250632263075,-58.23398096655124,-0.4596030036466465 delta=0.0357436974965159,0.1568000030517578,-0.08122917423608551 rot=34.07004,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.4876753366377843,-58.36301240782136,-0.3310880977736135 delta=-0.048928622056519926,0.1568000030517578,0.02619817615419187 rot=98.80213,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.495128580949664,-59.34,-0.7955541570532992 delta=-0.0047739907622444165,0.1568000030517578,0.022731920688936997 rot=282.31897,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=8.45445554149703,-59.34,-0.7247714136826596 delta=-0.044633570201601684,0.1568000030517578,0.09209901054223757 rot=186.01845,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=12.5,-59.94999999925494,3.584974841786276 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1528592
+EV sound at=0.5,-60.0,-0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-59.58714242616598,-0.25 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1527997
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-59.9422635271726,-0.7874999940395355 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1527401
+EV sound at=8.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=8.5,-59.957646160793495,-0.9375 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1527601
+PKT O minecraft:add_entity 01c73ebce6f341e4364be590c0d5c3dddb6cc1063fe0000000000000c04d99999999999a4021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01c83e3d75323c028048e2881c74343ac9095a064012000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01c93eb6ddaee6353f4a8e93dd8859ed5d92b7064021000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01ca3e6ebc282d5cb447d4bac23229f6f825ea064029000000000000c04df333333333334021000000000000faff0000fffd00000000
+PKT O minecraft:sound 77560600000064fffffe210000001c3f8000003f9390e43dace6703e05bff8
+PKT O minecraft:set_entity_data 65ca3e0a0801ff
+PKT O minecraft:add_entity 01cb3e5d594dd8db7d4489a1cb057492479b27483fd798d4a8113875c04dd383069ff329bfde95341cfc4e5b1130787d333200640000
+PKT O minecraft:set_entity_data 65cb3e080701fd0a0000ff
+PKT O minecraft:add_entity 01cc3e3f5c282fd1b8471981a2ebeb8287d549483fe62ff0549f1fe1c04d326df7e34ac2bfd81c1dd095da5da9127563333200180000
+PKT O minecraft:set_entity_data 65cc3e080701b9080000ff
+PKT O minecraft:add_entity 01cd3e562ba65a55b44aacb2ce688932d8bec8483fe1340a2905794ec04d42f212117f5abfd6e689c21caba869e6836b333100460000
+PKT O minecraft:set_entity_data 65cd3e080701b8080000ff
+PKT O minecraft:level_particles 30010f00003fe0000000000000c04d577777555555bfe00000000000003e0000003efccccd3e0000003d4ccccd3d4ccccd3d4ccccd0a00
+PKT O minecraft:remove_entities 4e01c33e
+PKT O minecraft:remove_entities 4e01c73e
+PKT O minecraft:add_entity 01ce3ef091fea25f3d49eab384d650c599b0a7484012000000000000c04dc00000000000bfea33333000000079fd82f7333100c80000
+PKT O minecraft:set_entity_data 65ce3e080701f4070000ff
+PKT O minecraft:remove_entities 4e01c83e
+PKT O minecraft:remove_entities 4e01c53e
+PKT O minecraft:add_entity 01cf3e6b0132d5174341df9a7767d18857f02e484021000000000000c04dc00000000000bfea333330000000a9e88c07333100840000
+PKT O minecraft:set_entity_data 65cf3e080701cb080000ff
+PKT O minecraft:remove_entities 4e01c93e
+PKT O minecraft:set_entity_data 65c43e090700ff
+PKT O minecraft:set_entity_data 65ce3e080701f4070000ff
+PKT O minecraft:set_entity_data 65cc3e080701b9080000ff
+PKT O minecraft:set_entity_data 65cb3e080701fd0a0000ff
+PKT O minecraft:set_entity_data 65cf3e080701cb080000ff
+PKT O minecraft:set_entity_data 65cd3e080701b8080000ff
+E ar_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ar_a3 minecraft:arrow pos=12.5,-59.94999999925494,3.584974841786276 delta=0.0,0.0,0.0 rot=87.84,-0.81259227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E item#1 minecraft:item pos=1.3044341075313257,-60.0,-0.875 delta=0.04512115789313461,0.0,0.0 rot=140.92172,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.056749803524269,-58.872966814885736,-0.875 delta=0.029205208926151242,-0.23042029216924012,0.0 rot=34.07004,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=0.040156524110790334,-59.00199825615585,-0.09147013613648083 delta=-0.039978254341723994,-0.23042029216924012,0.02140582149179913 rot=98.80213,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=4.45146394076285,-59.978985848334496,-0.5876398172335596 delta=-0.003900698791345093,-0.23042029216924012,0.018573637858193524 rot=282.31897,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=8.046220821287914,-59.978985848334496,0.11759933170973098 delta=-0.03646888358387871,-0.23042029216924012,0.07525161170133665 rot=186.01845,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
+C Killed 5 entities
+C Killed 3 entities
+# spectral_arrow thrown at a stand, a frame with an item, a painting and a cushion
+E sp_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sp_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sp_p minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sp_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01d03e7072f10053c64106bd1bf6a957a060cb053fe0000000000000c04e000000000000bfe00000000000000000000000
+PKT O minecraft:set_entity_data 65d03e090341a000000f0004ff
+PKT O minecraft:set_equipment 68d03e8401b90800000501b8080000
+PKT O minecraft:add_entity 01d13e82d919f2491645a4914a54596a142b9c4a4010000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65d13e090701f4070000ff
+PKT O minecraft:add_entity 01d23e9b1a751556994a16817c7b43da5674a25e4020000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65d23e092219ff
+PKT O minecraft:add_entity 01d33e39c4b13da76643e98cc6db4d34428efc214029000000000000c04e0000000000003ff80000000000000000000000
+PKT O minecraft:set_entity_data 65d33e082b0eff
+PKT O minecraft:set_entity_data 65d13e090701f4070000ff
+PKT O minecraft:set_entity_data 65d03e090341a000000f0004ff
+PKT O minecraft:set_entity_data 65d33e082b0eff
+PKT O minecraft:set_entity_data 65d23e092219ff
+PKT O minecraft:set_equipment 68d03e8401b90800000501b8080000
+E sp_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sp_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sp_a3 minecraft:spectral_arrow pos=12.5,-59.94999999925494,3.584974841786276 delta=0.0,0.0,0.0 rot=87.84,-0.81259227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E item#6 minecraft:item pos=0.2465018347894985,-59.5030987991187,-0.7570676791277781 delta=-0.08459814622156184,0.1568000030517578,-0.06156871443295403 rot=145.79391,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=0.7505915394812672,-58.60734325177007,-0.5600654702689715 delta=0.06852859802652275,0.1568000030517578,-0.04850748122049022 rot=211.36835,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=0.5789478304160587,-58.361816019631455,-0.5877531220773191 delta=-0.02512243097656045,0.1568000030517578,0.07759883366432575 rot=45.48241,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=4.47991967682074,-59.34,-0.8189938216202444 delta=-0.019678717098676548,0.1568000030517578,-2.3895103374526848E-4 rot=251.1522,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=8.40920070462436,-59.34,-0.7591383540240305 delta=-0.08898331119998557,0.1568000030517578,0.05841940835219668 rot=314.46655,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=12.5,-59.94999999925494,3.584974841786276 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1523832
+EV sound at=0.5,-60.0,-0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-59.58714242616598,-0.25 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1529585
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-59.9422635271726,-0.7874999940395355 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.152899
+EV sound at=8.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=8.5,-59.957646160793495,-0.9375 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1529188
+PKT O minecraft:add_entity 01d43e0273852cbf6a4521960aba3f1e528ab87e3fe0000000000000c04d99999999999a4021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01d53e166a1b09bf694db9bcf663dd31b78a587e4012000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01d63e7ac2c138732d4b09a2c558714f8d89e97e4021000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01d73e49cc011846974c1093aa35a5359c76e17e4029000000000000c04df333333333334021000000000000faff0000fffd00000000
+PKT O minecraft:sound 77560600000064fffffe210000001c3f8000003f93814b5ac3b5cd447e2ff6
+PKT O minecraft:set_entity_data 65d73e0a0801ff
+PKT O minecraft:add_entity 01d83ec67e309dabc846089c961b5c36bf2ee7483fd54d07673d6bd8c04dd4e06be41da8bfe6373bf77a12fcc9d377f5333100670000
+PKT O minecraft:set_entity_data 65d83e080701fd0a0000ff
+PKT O minecraft:add_entity 01d93ec67fd3175a5a4f1ab41b68a5959e0b72483fe5c800b5317d22c04d62384dbd9451bfe05692ca086527c92379a9333200960000
+PKT O minecraft:set_entity_data 65d93e080701b9080000ff
+PKT O minecraft:add_entity 01da3eb54d3f38f9714da9b40e8ce1f05bae5d483fe358be5f079ad6c04d42cade096c49bfe5578955e4b7ded9f28a21333100200000
+PKT O minecraft:set_entity_data 65da3e080701b8080000ff
+PKT O minecraft:level_particles 30010f00003fe0000000000000c04d577777555555bfe00000000000003e0000003efccccd3e0000003d4ccccd3d4ccccd3d4ccccd0a00
+PKT O minecraft:remove_entities 4e01d03e
+PKT O minecraft:remove_entities 4e01d43e
+PKT O minecraft:add_entity 01db3ee24ab39967924b42826add4f528edb5d484012000000000000c04dc00000000000bfea333330000000b1f57ff7333100b20000
+PKT O minecraft:set_entity_data 65db3e080701f4070000ff
+PKT O minecraft:remove_entities 4e01d53e
+PKT O minecraft:remove_entities 4e01d23e
+PKT O minecraft:add_entity 01dc3e6448da93d9b747b79b57b2dc30d939d6484021000000000000c04dc00000000000bfea33333000000079d187a1333100df0000
+PKT O minecraft:set_entity_data 65dc3e080701cb080000ff
+PKT O minecraft:remove_entities 4e01d63e
+PKT O minecraft:set_entity_data 65d93e080701b9080000ff
+PKT O minecraft:set_entity_data 65d83e080701fd0a0000ff
+PKT O minecraft:set_entity_data 65db3e080701f4070000ff
+PKT O minecraft:set_entity_data 65da3e080701b8080000ff
+PKT O minecraft:set_entity_data 65dc3e080701cb080000ff
+PKT O minecraft:set_entity_data 65d13e090700ff
+E sp_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sp_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sp_a3 minecraft:spectral_arrow pos=12.5,-59.94999999925494,3.584974841786276 delta=0.0,0.0,0.0 rot=87.84,-0.81259227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E item#6 minecraft:item pos=-0.5272633020117219,-60.0,-0.875 delta=-0.04147371830966238,0.0,0.0 rot=145.79391,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=1.377378796591087,-59.24632910010456,-0.875 delta=0.05599286483934453,-0.23042029216924012,0.0 rot=211.36835,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=0.34916902190118543,-59.00080186796595,0.12199377933396406 delta=-0.020526859188945947,-0.23042029216924012,0.06340390917344792 rot=45.48241,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=4.299931037494632,-59.978985848334496,-0.8211793538992905 delta=-0.01607894774516525,-0.23042029216924012,-1.9524042985006291E-4 rot=251.1522,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#10 minecraft:item pos=7.595327268398475,-59.978985848334496,-0.22481338930083422 delta=-0.07270585799887172,-0.23042029216924012,0.047732919249172674 rot=314.46655,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
+PKT O minecraft:remove_entities 4e01d83e
+C Killed 5 entities
+C Killed 3 entities
+# trident thrown at a stand, a frame with an item, a painting and a cushion
+E tr_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tr_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E tr_p minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E tr_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01dd3e5a111c683a1746fe89cfe921d08ec1ce053fe0000000000000c04e000000000000bfe00000000000000000000000
+PKT O minecraft:set_entity_data 65dd3e090341a000000f0004ff
+PKT O minecraft:set_equipment 68dd3e8401b90800000501b8080000
+PKT O minecraft:add_entity 01de3e4b1a26db78904c39815ce85860ed26314a4010000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65de3e090701f4070000ff
+PKT O minecraft:add_entity 01df3e14a11ac9c868405886abb91db4970c3e5e4020000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65df3e092219ff
+PKT O minecraft:add_entity 01e03ed1bf4aef04204549a9040cf35c755a08214029000000000000c04e0000000000003ff80000000000000000000000
+PKT O minecraft:set_entity_data 65e03e082b0eff
+PKT O minecraft:set_entity_data 65df3e092219ff
+PKT O minecraft:set_entity_data 65de3e090701f4070000ff
+PKT O minecraft:set_entity_data 65dd3e090341a000000f0004ff
+PKT O minecraft:set_entity_data 65e03e082b0eff
+PKT O minecraft:set_equipment 68dd3e8401b90800000501b8080000
+E tr_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E tr_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E tr_a0 minecraft:trident pos=0.5,-59.60225481702772,-0.08098019212543976 delta=0.0,-0.08019007452862519,0.01882960407634177 rot=-43.88745,-13.52268 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E tr_a1 minecraft:trident pos=4.5,-59.972758551655225,-0.7684801921254397 delta=0.0,-0.08019007452862519,0.01882960407634177 rot=-43.883156,-13.52268 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E tr_a2 minecraft:trident pos=8.5,-59.972758551655225,-0.7684801921254397 delta=0.0,-0.08019007452862519,0.01882960407634177 rot=-43.884594,-13.52268 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E tr_a3 minecraft:trident pos=12.5,-59.94999999925494,3.584974841786276 delta=0.0,0.0,0.0 rot=87.84,-0.81259227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E item#11 minecraft:item pos=0.26707765907570447,-59.4301469817548,-0.43561922384353524 delta=-0.06945655311734517,0.1568000030517578,0.08315675860015738 rot=18.797436,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=0.25696661231465057,-58.268291496738804,-0.44168620948883497 delta=0.0029999176761475494,0.1568000030517578,-0.09123508138351802 rot=162.83977,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=0.3539396913085422,-58.433415502594215,-0.23822868283906798 delta=-0.09625314184500783,0.1568000030517578,0.02685673401315695 rot=264.69556,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=4.456018142452079,-59.34,-0.8148097136324554 delta=-0.043102221235849954,0.1568000030517578,0.003861474874093406 rot=206.8999,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=8.53179414151187,-59.34,-0.7487419661051494 delta=0.03115825928805755,0.1568000030517578,0.06860786871099554 rot=236.16232,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=12.5,-59.94999999925494,3.584974841786276 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1525418
+EV sound at=0.5,-60.0,-0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-59.571759792545095,-0.09999999403953552 r=16.0 ex=0 event=minecraft:item.trident.hit source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-59.9422635271726,-0.7874999940395355 r=16.0 ex=0 event=minecraft:item.trident.hit source=neutral vol=1.0 pitch=1.0
+EV sound at=8.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+EV sound at=8.5,-59.9422635271726,-0.7874999940395355 r=16.0 ex=0 event=minecraft:item.trident.hit source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01e13e0d6cdcc18c7248e89a1afc0acabb3e818b013fe0000000000000c04d99999999999a4021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01e23e1a4c1e097c66419694a27089b7c0006a8b014012000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01e33ef0e0a69a561042e5bc7783c5f051da708b014021000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01e43e54c558ad139f4fd797ba776fe2052aaa8b014029000000000000c04df333333333334021000000000000faff0000fffd00000000
+PKT O minecraft:sound 77df0c0600000064fffffe210000001c3f8000003f93867d9f4d398f7d66aef4
+PKT O minecraft:set_entity_data 65e43e0a0801ff
+PKT O minecraft:add_entity 01e53e470ebf0ecf694950bb80c89da2d8bef4483fd5a10021a4d238c04dcb89efb13c28bfe0a7b71d0cf14cb1db8adb3331000d0000
+PKT O minecraft:set_entity_data 65e53e080701fd0a0000ff
+PKT O minecraft:add_entity 01e63e26a25de538ba49d997ff1fe116968b4f483fd03ffcbc824d56c04d36d24179d2f3bfd64f490823cc9a89017415333200730000
+PKT O minecraft:set_entity_data 65e63e080701b9080000ff
+PKT O minecraft:add_entity 01e73e362a9ce05be949559b51163448f1b5de483fdcf024ac57be60c04d4bf50a084a70bfd10023b4b0c171b1cd8381333100bc0000
+PKT O minecraft:set_entity_data 65e73e080701b8080000ff
+PKT O minecraft:level_particles 30010f00003fe0000000000000c04d577777555555bfe00000000000003e0000003efccccd3e0000003d4ccccd3d4ccccd3d4ccccd0a00
+PKT O minecraft:remove_entities 4e01dd3e
+PKT O minecraft:add_entity 01e83e10b3818f61cf4dab99e10eef5fa38c50484012000000000000c04dc00000000000bfea33333000000071e98081333100930000
+PKT O minecraft:set_entity_data 65e83e080701f4070000ff
+PKT O minecraft:remove_entities 4e01df3e
+PKT O minecraft:add_entity 01e93ec054149ee8784d84b3aa9ddef30c96bf484021000000000000c04dc00000000000bfea333330000000411088f5333200a70000
+PKT O minecraft:set_entity_data 65e93e080701cb080000ff
+PKT O minecraft:set_entity_data 65e93e080701cb080000ff
+PKT O minecraft:set_entity_data 65e53e080701fd0a0000ff
+PKT O minecraft:set_entity_data 65de3e090700ff
+PKT O minecraft:set_entity_data 65e83e080701f4070000ff
+PKT O minecraft:set_entity_data 65e63e080701b9080000ff
+PKT O minecraft:set_entity_data 65e73e080701b8080000ff
+E tr_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E tr_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E tr_a0 minecraft:trident pos=0.5,-59.94999999925494,-0.07424121795635426 delta=0.0,0.0,0.0 rot=-17.976301,-54.4027 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E tr_a1 minecraft:trident pos=4.5,-59.94999999925494,-0.8120835697246354 delta=0.0,0.0,0.0 rot=-35.106525,-26.175306 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=9 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E tr_a2 minecraft:trident pos=8.5,-59.94999999925494,-0.8120835697246354 delta=0.0,0.0,0.0 rot=-35.107674,-26.175306 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=9 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E tr_a3 minecraft:trident pos=12.5,-59.94999999925494,3.584974841786276 delta=0.0,0.0,0.0 rot=87.84,-0.81259227 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E item#11 minecraft:item pos=-0.3681970097548773,-60.0,0.3249624622572567 delta=-0.03405064587591025,0.0,0.040767086937048155 rot=18.797436,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#12 minecraft:item pos=0.28440494063212246,-58.9072773450733,-0.875 delta=0.002451151633142691,-0.23042029216924012,0.0 rot=162.83977,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#13 minecraft:item pos=-0.5264262362402041,-59.07240135092871,0.007412686338214337 delta=-0.07864584008568037,-0.23042029216924012,0.021943911314848602 rot=264.69556,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#14 minecraft:item pos=4.061789691823291,-59.978985848334496,-0.7794912726540663 delta=-0.03521765974258517,-0.23042029216924012,0.0031551067281714263 rot=206.8999,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#15 minecraft:item pos=8.816778811239383,-59.978985848334496,-0.12122967074384378 delta=0.025458571329158467,-0.23042029216924012,0.05605763477261661 rot=236.16232,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
+EV sound at=4.5,-59.94999999925494,-0.8120835697246354 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1889974
+EV sound at=8.5,-59.94999999925494,-0.8120835697246354 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1288167
+EV sound at=0.5,-59.94999999925494,-0.07424121795635426 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.2362556
+PKT O minecraft:set_entity_data 65e33e0a0801ff
+PKT O minecraft:set_entity_data 65e23e0a0801ff
+PKT O minecraft:remove_entities 4e01e53e
+PKT O minecraft:set_entity_data 65e13e0a0801ff
+PKT O minecraft:remove_entities 4e01e73e
+C Killed 5 entities
+C Killed 6 entities
+# snowball thrown at a stand, a frame with an item, a painting and a cushion
+E sn_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sn_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sn_p minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sn_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01ea3eb4dbbe8ae5b6428fac8852d62b4d14f0053fe0000000000000c04e000000000000bfe00000000000000000000000
+PKT O minecraft:set_entity_data 65ea3e090341a000000f0004ff
+PKT O minecraft:set_equipment 68ea3e8401b90800000501b8080000
+PKT O minecraft:add_entity 01eb3e64aa079711414023869ffac0ab79e4624a4010000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65eb3e090701f4070000ff
+PKT O minecraft:add_entity 01ec3eae14ee85a57a4b4287eb76866f5a996f5e4020000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65ec3e092219ff
+PKT O minecraft:add_entity 01ed3e596cd2ab177b4434a0f69e5abbd52b38214029000000000000c04e0000000000003ff80000000000000000000000
+PKT O minecraft:set_entity_data 65ed3e082b0eff
+PKT O minecraft:set_entity_data 65eb3e090701f4070000ff
+PKT O minecraft:set_entity_data 65ed3e082b0eff
+PKT O minecraft:set_entity_data 65ea3e090341a000000f0004ff
+PKT O minecraft:set_entity_data 65ec3e092219ff
+PKT O minecraft:set_equipment 68ea3e8401b90800000501b8080000
+E sn_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sn_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sn_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#16 minecraft:item pos=4.551227660119245,-59.34,-0.866655405606406 delta=0.050203107893950216,0.1568000030517578,-0.04694730424925623 rot=12.5023985,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=8.574864250549938,-59.34,-0.7219926583613646 delta=0.07336696696686153,0.1568000030517578,0.09482219081010723 rot=41.338356,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
+EV sound at=8.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01ee3e42035828547d46198c3b686c02d948747b3fe0000000000000c04d99999999999a4021000000000000faff0000fffd00000000
+PKT O minecraft:set_entity_data 65ee3e080701ec080000ff
+PKT O minecraft:add_entity 01ef3e08cdab20c4534716ab033adacf91090d7b4012000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:set_entity_data 65ef3e080701ec080000ff
+PKT O minecraft:add_entity 01f03ea5496097ebb5486f817798db8a6f4f727b4021000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:set_entity_data 65f03e080701ec080000ff
+PKT O minecraft:add_entity 01f13e0a212df8d2694613ab5ca39597f971fd7b4029000000000000c04df333333333334021000000000000faff0000fffd00000000
+PKT O minecraft:set_entity_data 65f13e080701ec080000ff
+PKT O minecraft:set_entity_data 65ef3e080701ec080000ff
+PKT O minecraft:set_entity_data 65f13e080701ec080000ff
+PKT O minecraft:set_entity_data 65f03e080701ec080000ff
+PKT O minecraft:set_entity_data 65ee3e080701ec080000ff
+PKT O minecraft:entity_event 2200001f7103
+PKT O minecraft:remove_entities 4e01f13e
+PKT O minecraft:entity_event 2200001f6e03
+PKT O minecraft:remove_entities 4e01ee3e
+PKT O minecraft:add_entity 01f23e65edaf42a4a1443dbdecaa5a8915ae72484012000000000000c04dc00000000000bfea333330000000311a79dd333200080000
+PKT O minecraft:set_entity_data 65f23e080701f4070000ff
+PKT O minecraft:entity_event 2200001f6f03
+PKT O minecraft:remove_entities 4e01ef3e
+PKT O minecraft:remove_entities 4e01ec3e
+PKT O minecraft:add_entity 01f33ef2d96f4dc7be4f7ebc77d6847bbd2b30484021000000000000c04dc00000000000bfea33333000000051268c613332001d0000
+PKT O minecraft:set_entity_data 65f33e080701cb080000ff
+PKT O minecraft:entity_event 2200001f7003
+PKT O minecraft:remove_entities 4e01f03e
+PKT O minecraft:set_entity_data 65eb3e090700ff
+PKT O minecraft:set_entity_data 65f23e080701f4070000ff
+PKT O minecraft:set_entity_data 65f33e080701cb080000ff
+E sn_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sn_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E sn_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#16 minecraft:item pos=5.010403379474525,-59.978985848334496,-0.875 delta=0.04101960226492643,-0.23042029216924012,0.0 rot=12.5023985,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#17 minecraft:item pos=9.245904973867058,-59.978985848334496,0.1452852752687454 delta=0.05994616529960521,-0.23042029216924012,0.07747664867951883 rot=41.338356,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
+C Killed 2 entities
+C Killed 3 entities
+# wind_charge thrown at a stand, a frame with an item, a painting and a cushion
+E wc_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E wc_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wc_p minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E wc_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01f43ebb2f6e0a97fd41ccb1d88813a7e874e8053fe0000000000000c04e000000000000bfe00000000000000000000000
+PKT O minecraft:set_entity_data 65f43e090341a000000f0004ff
+PKT O minecraft:set_equipment 68f43e8401b90800000501b8080000
+PKT O minecraft:add_entity 01f53ea919371997634baab4c192e3091cdba04a4010000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65f53e090701f4070000ff
+PKT O minecraft:add_entity 01f63e8b611decfe6a418a89340189010e14c65e4020000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65f63e092219ff
+PKT O minecraft:add_entity 01f73ed25b1b2f343044baae33777c8078cf77214029000000000000c04e0000000000003ff80000000000000000000000
+PKT O minecraft:set_entity_data 65f73e082b0eff
+PKT O minecraft:set_entity_data 65f73e082b0eff
+PKT O minecraft:set_entity_data 65f53e090701f4070000ff
+PKT O minecraft:set_entity_data 65f43e090341a000000f0004ff
+PKT O minecraft:set_entity_data 65f63e092219ff
+PKT O minecraft:set_equipment 68f43e8401b90800000501b8080000
+E wc_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#18 minecraft:item pos=12.630308319816564,-59.723199996948246,1.4449989233653004 delta=0.06320611819076671,0.11446400521850592,-0.026678300781454282 rot=165.07361,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#19 minecraft:item pos=0.5734438934892256,-59.39921994053245,-0.6394519551713689 delta=0.08791109093538799,0.1568000030517578,0.08943723577667413 rot=119.60614,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#20 minecraft:item pos=0.6822129008543133,-58.38303893409591,-0.23745816582921683 delta=0.003887105542618207,0.1568000030517578,0.09078624505056426 rot=344.56195,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#21 minecraft:item pos=0.7622041537715345,-58.548760461242146,-0.7098710274239648 delta=0.04276817732388984,0.1568000030517578,-0.03597138646236094 rot=272.0413,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#22 minecraft:item pos=4.480127976208292,-59.34,-0.7458060538128051 delta=-0.01947458369490258,0.1568000030517578,0.07148506281349107 rot=258.93616,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#23 minecraft:item pos=8.503574470351266,-59.34,-0.875 delta=0.0035029810124174604,0.1568000030517578,0.0 rot=79.51102,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=12.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+EV sound at=0.5,-60.0,-0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
+EV sound at=8.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01f83eceda26a2bdf442a38bb3490e1b72b97093013fe0000000000000c04d99999999999a4021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01f93e9691e0cf9d2b43f3aa4971a20ed1dd0293014012000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01fa3e475ddb16931f41a18022c72159d96beb93014021000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:add_entity 01fb3eed418f739745499d8ebfcf37c523d1f993014029000000000000c04df333333333334021000000000000faff0000fffd00000000
+PKT O minecraft:remove_entities 4e01f73e
+PKT O minecraft:sound 77ed030600000064fffffe200000000c3f8000003f8000005d2b33aadd70f981
+PKT O minecraft:level_particles 3001f71200004029000000000000c04deaaaaaaaaaab3ff80000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+PKT O minecraft:add_entity 01fc3e2a2f6c8a750e4ac081a7e4e619b713bb484029000000000000c04e0000000000003ff8000000000000a9217c71333200750000
+PKT O minecraft:set_entity_data 65fc3e080701a0090000ff
+PKT O minecraft:explode 244029000000000000c04df333333333334000cccccd0000003f99999a0000003d0022f10d0001
+PKT O minecraft:remove_entities 4e01fb3e
+PKT O minecraft:set_entity_data 65fc3e080701a0090000ff
+PKT O minecraft:add_entity 01fd3ee14def3c27e64e81afc3c113a3a25805483fdef5932a829dd2c04dc79484ddedd0bfe762033f36c2a6e92d8bad333200550000
+PKT O minecraft:set_entity_data 65fd3e080701fd0a0000ff
+PKT O minecraft:add_entity 01fe3e64e739b0fab6494fbce24e8dc875bcce483fe5b431ef23ed70c04d45824cbf32c4bfd5204ff6720c5f01028bdb333200f50000
+PKT O minecraft:set_entity_data 65fe3e080701b9080000ff
+PKT O minecraft:add_entity 01ff3e1fa6b214fadb402d9550760cdad97407483fe6fe78299df1c7c04d5ab8a9acddcfbfe58a9270f4e4c651167b4d333200c10000
+PKT O minecraft:set_entity_data 65ff3e080701b8080000ff
+PKT O minecraft:level_particles 30010f00003fe0000000000000c04d577777555555bfe00000000000003e0000003efccccd3e0000003d4ccccd3d4ccccd3d4ccccd0a00
+PKT O minecraft:remove_entities 4e01f43e
+PKT O minecraft:explode 243fe0000000000000c04d99999999999abfb99999800000003f99999a0000003d0022f10d0001
+PKT O minecraft:remove_entities 4e01f83e
+PKT O minecraft:add_entity 01803f96db963602f042a99ee1310fd2829a63484012000000000000c04dc00000000000bfea333330000000c9f58955333100b80000
+PKT O minecraft:set_entity_data 65803f080701f4070000ff
+PKT O minecraft:explode 244012000000000000c04dc00000000000bfe93333300000003f99999a0000003e0022f10d0001
+PKT O minecraft:remove_entities 4e01f93e
+PKT O minecraft:remove_entities 4e01f63e
+PKT O minecraft:add_entity 01813ff3067bd9d4e24bdda77666a1432964f1484021000000000000c04dc00000000000bfea333330000000d1017809333200380000
+PKT O minecraft:set_entity_data 65813f080701cb080000ff
+PKT O minecraft:explode 244021000000000000c04dc00000000000bfe93333300000003f99999a0000003e0022f10d0001
+PKT O minecraft:remove_entities 4e01fa3e
+PKT O minecraft:set_entity_data 65803f080701f4070000ff
+PKT O minecraft:set_entity_data 65f53e090700ff
+PKT O minecraft:set_entity_data 65813f080701cb080000ff
+PKT O minecraft:set_entity_data 65ff3e080701b8080000ff
+PKT O minecraft:set_entity_data 65fd3e080701fd0a0000ff
+PKT O minecraft:set_entity_data 65fe3e080701b9080000ff
+E wc_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#18 minecraft:item pos=13.110735718609613,-60.0,1.2422181322721224 delta=0.006693065925919626,0.0,-0.0028250370538950606 rot=165.07361,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#19 minecraft:item pos=1.3775104167179324,-60.0,0.17857323883959808 delta=0.04309786897931017,0.0,0.04384605205511277 rot=119.60614,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:armor_stand*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#20 minecraft:item pos=0.717765769165016,-59.0220247824304,0.592905553220159 delta=0.0031760488545213004,-0.23042029216924012,0.0741789865075078 rot=344.56195,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#21 minecraft:item pos=1.1533773183830787,-59.18774630957664,-0.875 delta=0.034944721492694966,-0.23042029216924012,0.0 rot=272.0413,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#22 minecraft:item pos=4.3020064145683,-59.978985848334496,-0.09197790417154225 delta=-0.01591215585950188,-0.23042029216924012,0.0584085122914481 rot=258.93616,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#23 minecraft:item pos=8.535613997259889,-59.978985848334496,-0.875 delta=0.002862191085350498,-0.23042029216924012,0.0 rot=79.51102,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
+C Killed 6 entities
+C Killed Item Frame
+# small_fireball thrown at a stand, a frame with an item, a painting and a cushion
+E fb_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fb_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E fb_p minecraft:painting pos=8.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E fb_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+PKT O minecraft:add_entity 01823fa3302f58737c4ff986b59251e0cb5527053fe0000000000000c04e000000000000bfe00000000000000000000000
+PKT O minecraft:set_entity_data 65823f090341a000000f0004ff
+PKT O minecraft:set_equipment 68823f8401b90800000501b8080000
+PKT O minecraft:add_entity 01833f4678dfb3d3bb43209fee9d820d8103794a4010000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65833f090701f4070000ff
+PKT O minecraft:add_entity 01843f4b4e26a3467f4e3ea79b7946851798865e4020000000000000c04e000000000000bff00000000000000000000003
+PKT O minecraft:set_entity_data 65843f092219ff
+PKT O minecraft:add_entity 01853f41315dfbf22643839d72c34225916948214029000000000000c04e0000000000003ff80000000000000000000000
+PKT O minecraft:set_entity_data 65853f082b0eff
+PKT O minecraft:set_entity_data 65843f092219ff
+PKT O minecraft:set_entity_data 65823f090341a000000f0004ff
+PKT O minecraft:set_entity_data 65853f082b0eff
+PKT O minecraft:set_entity_data 65833f090701f4070000ff
+PKT O minecraft:set_equipment 68823f8401b90800000501b8080000
+E fb_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fb_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=100 air=300 alive=1 pose=standing
+E item#24 minecraft:item pos=12.59392858435506,-59.723199996948246,1.5616264387037722 delta=0.04556010861466694,0.11446400521850592,0.029891936093335392 rot=233.00674,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#25 minecraft:item pos=4.548277523144655,-59.34,-0.8394038081408416 delta=0.0473119736025829,0.1568000030517578,-0.020240738213220158 rot=112.13243,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#26 minecraft:item pos=8.545309202461949,-59.34,-0.875 delta=0.0444030192769142,0.1568000030517578,0.0 rot=266.79324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=1 pickup=9 health=5 owner=- thrower=-
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=12.5,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
+EV sound at=8.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.painting.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01863f80844498be3f4e62a0c3ed814a6f25c1793fe0000000000000c04d99999999999a4021000000000000faff0000fffd00000000
+PKT O minecraft:set_entity_data 65863f080701d90a0000ff
+PKT O minecraft:add_entity 01873fb8f179140e3e4ffbadea617684117fed794012000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:set_entity_data 65873f080701d90a0000ff
+PKT O minecraft:add_entity 01883f8843df40b0d94d4cb5a9160afb7c3f7e794021000000000000c04dc000000000004021000000000000faff0000fffd00000000
+PKT O minecraft:set_entity_data 65883f080701d90a0000ff
+PKT O minecraft:add_entity 01893f0f5b2d84c82f4e5281801de6fb9022eb794029000000000000c04df333333333334021000000000000faff0000fffd00000000
+PKT O minecraft:set_entity_data 65893f080701d90a0000ff
+PKT O minecraft:set_entity_data 65883f080701d90a0000ff
+PKT O minecraft:set_entity_data 65873f080701d90a0000ff
+PKT O minecraft:set_entity_data 65863f080701d90a0000ff
+PKT O minecraft:set_entity_data 65893f080701d90a0000ff
+PKT O minecraft:set_entity_data 65883f000001ff
+PKT O minecraft:set_entity_data 65873f000001ff
+PKT O minecraft:set_entity_data 65863f000001ff
+PKT O minecraft:set_entity_data 65893f000001ff
+PKT O minecraft:remove_entities 4e01853f
+PKT O minecraft:sound 77ed030600000064fffffe200000000c3f8000003f800000df64141eada66804
+PKT O minecraft:level_particles 3001f71200004029000000000000c04deaaaaaaaaaab3ff80000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+PKT O minecraft:add_entity 018a3fb46b4e38aa4c44b0a6c5e2a60feb8016484029000000000000c04e0000000000003ff8000000000000411883fb333200a50000
+PKT O minecraft:set_entity_data 658a3f080701a0090000ff
+PKT O minecraft:remove_entities 4e01893f
+PKT O minecraft:set_entity_data 658a3f080701a0090000ff
+PKT O minecraft:remove_entities 4e01863f
+PKT O minecraft:add_entity 018b3f6fb475668a554aef9ba1416af01eb0e6484012000000000000c04dc00000000000bfea333330000000b1187d5b3332004f0000
+PKT O minecraft:set_entity_data 658b3f080701f4070000ff
+PKT O minecraft:remove_entities 4e01873f
+PKT O minecraft:remove_entities 4e01843f
+PKT O minecraft:add_entity 018c3fa5b3728f858941cbbf0ccff0ea12eed2484021000000000000c04dc00000000000bfea3333300000002917740b333200bd0000
+PKT O minecraft:set_entity_data 658c3f080701cb080000ff
+PKT O minecraft:remove_entities 4e01883f
+PKT O minecraft:set_entity_data 658b3f080701f4070000ff
+PKT O minecraft:set_entity_data 65833f090700ff
+PKT O minecraft:set_entity_data 658c3f080701cb080000ff
+E fb_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E fb_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=100 air=300 alive=1 pose=standing
+E item#24 minecraft:item pos=12.940229308035173,-60.0,1.7888339545785084 delta=0.004824482491230895,0.0,0.0031653375441002274 rot=233.00674,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#25 minecraft:item pos=4.9810098862281365,-59.978985848334496,-0.875 delta=0.0386573345946281,-0.23042029216924012,0.0 rot=112.13243,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#26 minecraft:item pos=8.951435220817086,-59.978985848334496,-0.875 delta=0.036280506656050475,-0.23042029216924012,0.0 rot=266.79324,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
+C Killed 3 entities
+C Killed 2 entities
+# explosions of every interaction on a line of decoration (a visible stand, an invisible stand, a marker stand, a frame, a painting, a cushion)
+E e_none_i minecraft:armor_stand pos=4.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_m minecraft:armor_stand pos=5.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_f minecraft:item_frame pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_none_p minecraft:painting pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_none_c minecraft:cushion pos=11.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_s minecraft:armor_stand pos=16.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_i minecraft:armor_stand pos=18.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_m minecraft:armor_stand pos=19.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_f minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_p minecraft:painting pos=23.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_c minecraft:cushion pos=25.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_s minecraft:armor_stand pos=30.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_i minecraft:armor_stand pos=32.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_m minecraft:armor_stand pos=33.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_f minecraft:item_frame pos=35.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_p minecraft:painting pos=37.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_c minecraft:cushion pos=39.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_s minecraft:armor_stand pos=44.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_i minecraft:armor_stand pos=46.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_m minecraft:armor_stand pos=47.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_f minecraft:item_frame pos=49.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_p minecraft:painting pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_c minecraft:cushion pos=53.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#27 minecraft:item pos=2.7047160747585477,-58.41651350507406,-0.46582906187571943 delta=-0.0217799330606662,0.11446400521850592,-0.027819511272292513 rot=187.45808,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=2.5943286981970695,-58.35121763127155,-0.4888216584909829 delta=0.0037965158128859837,0.11446400521850592,-0.07228380407602884 rot=179.61604,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=2 pickup=8 health=5 owner=- thrower=-
+EV sound at=7.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=21.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=35.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=49.5,-59.5,-0.96875 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=2.5,-60.0,-0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01a53f143593dba64d43ff9f6fd21d378b15bd484005ff37f8b8c669c04d58be7f3da340bfda24753eb2fb1d59f47c49333100850000
+PKT O minecraft:set_entity_data 65a53f080701b9080000ff
+PKT O minecraft:add_entity 01a63f0f332b978d354c98bc2c453ab1336018484004b127c65f4387c04d5062e1c05d6dbfd5bf41d483da900102765d3332007f0000
+PKT O minecraft:set_entity_data 65a63f080701b8080000ff
+PKT O minecraft:remove_entities 4e018d3f
+PKT O minecraft:explode 243fe0000000000000c04e0000000000004004000000000000400000000000007f001ec00502453f0000003f80000001483f8000003f8000000101
+PKT O minecraft:set_entity_data 65a53f080701b9080000ff
+PKT O minecraft:set_entity_data 65a63f080701b8080000ff
+E e_none_i minecraft:armor_stand pos=4.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_m minecraft:armor_stand pos=5.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_f minecraft:item_frame pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_none_p minecraft:painting pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_i minecraft:armor_stand pos=18.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_m minecraft:armor_stand pos=19.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_f minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_p minecraft:painting pos=23.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_c minecraft:cushion pos=25.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_s minecraft:armor_stand pos=30.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_i minecraft:armor_stand pos=32.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_m minecraft:armor_stand pos=33.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_f minecraft:item_frame pos=35.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_p minecraft:painting pos=37.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_c minecraft:cushion pos=39.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_s minecraft:armor_stand pos=44.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_i minecraft:armor_stand pos=46.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_m minecraft:armor_stand pos=47.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_f minecraft:item_frame pos=49.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_p minecraft:painting pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_c minecraft:cushion pos=53.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#27 minecraft:item pos=2.6615918068830093,-58.30907477332112,-0.5209116947254736 delta=-0.020917448525685566,0.0323152326326785,-0.02671785966591527 rot=187.45808,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=2.6018457995789968,-58.24377889951862,-0.6319435919402242 delta=0.003646173928624773,0.0323152326326785,-0.06942136813687826 rot=179.61604,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=10.981330135103331,-59.723199996948246,1.5289402625695059 delta=-0.009055827662621578,0.11446400521850592,0.014037489386824881 rot=218.6575,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#30 minecraft:item pos=16.82483557879802,-58.197841462606235,-0.6658029229436687 delta=0.053109223916546454,0.11446400521850592,0.025572060772158633 rot=220.27344,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#31 minecraft:item pos=16.63866621006203,-58.53771706896895,-0.7851144981286116 delta=0.054068119827000306,0.11446400521850592,-0.021238492538131155 rot=144.95667,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#32 minecraft:item pos=14.096820967842703,-61.31685526166872,3.430887397826569 delta=-0.09475352266526424,0.11446400521850592,0.042486292151118814 rot=334.70044,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=2 pickup=8 health=5 owner=- thrower=-
+EV sound at=11.0,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+EV sound at=16.5,-60.0,-0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01923f
+PKT O minecraft:sound 77ed030600000058fffffe200000000c3f8000003f800000b84c9240c7b3400a
+PKT O minecraft:level_particles 3001f71200004026000000000000c04deaaaaaaaaaab3ff80000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+PKT O minecraft:add_entity 01a73f613c05e91f8f4cd0b2e9fbcf03cb328b484026000000000000c04e0000000000003ff800000000000029fb81dd3331009b0000
+PKT O minecraft:set_entity_data 65a73f080701a0090000ff
+PKT O minecraft:sound 77520600000084fffffe20fffffffc3f8000003f800000249bb459349a99f1
+PKT O minecraft:add_entity 01a83f420d9cc91dc549ccab4f1212630f4fa5484030b720bf3ab6e8c04d3cc10d3229cdbfe6fe24a36b5e40491c83673332009c0000
+PKT O minecraft:set_entity_data 65a83f080701b9080000ff
+PKT O minecraft:add_entity 01a93f3ac8befd0d4d49caa30bce4d7a9d5ebc48403086f664a7b62bc04d6842186d2e6abfe7b8f63cd9141ac91c7d2b333200670000
+PKT O minecraft:set_entity_data 65a93f080701b8080000ff
+PKT O minecraft:remove_entities 4e01933f
+PKT O minecraft:add_entity 01aa3f37bc2ef2e81c49f3a5985549dc57192548402c959723092cc8c04ecbfce54d894d400abf11ee514d1879cd85a9333100ee0000
+PKT O minecraft:set_entity_data 65aa3f080705370000ff
+PKT O minecraft:explode 24402d000000000000c04e0000000000004004000000000000400000000000007a001dc00502453f0000003f80000001483f8000003f8000000101
+PKT O minecraft:set_entity_data 65a93f080701b8080000ff
+PKT O minecraft:set_entity_data 65aa3f080705370000ff
+PKT O minecraft:set_entity_data 65a83f080701b9080000ff
+PKT O minecraft:set_entity_data 65a73f080701a0090000ff
+E e_none_i minecraft:armor_stand pos=4.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_m minecraft:armor_stand pos=5.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_f minecraft:item_frame pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_none_p minecraft:painting pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_i minecraft:armor_stand pos=18.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_m minecraft:armor_stand pos=19.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_f minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_p minecraft:painting pos=23.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_i minecraft:armor_stand pos=32.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_m minecraft:armor_stand pos=33.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_f minecraft:item_frame pos=35.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_p minecraft:painting pos=37.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_c minecraft:cushion pos=39.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_s minecraft:armor_stand pos=44.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_i minecraft:armor_stand pos=46.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_m minecraft:armor_stand pos=47.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_f minecraft:item_frame pos=49.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_p minecraft:painting pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_c minecraft:cushion pos=53.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#27 minecraft:item pos=2.620175258403183,-58.364290612854994,-0.5738130573735886 delta=-0.020089118346047017,-0.04658045162980263,-0.02565983342196639 rot=187.45808,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=2.6090652240272187,-58.29899473905249,-0.7693979021753506 delta=0.0035017855773599206,-0.04658045162980263,-0.06667228455390863 rot=179.61604,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=10.963399596158615,-59.61576126519531,1.5567344918231631 delta=-0.008697217225725128,0.0323152326326785,0.01348160533188459 rot=218.6575,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#30 minecraft:item pos=16.92999184316576,-58.0904027308533,-0.6151702421270462 delta=0.051006100634888224,0.0323152326326785,0.02455940812156793 rot=220.27344,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#31 minecraft:item pos=16.74572108835076,-58.430278337216016,-0.8271667137592034 delta=0.0519270243031355,0.0323152326326785,-0.02039744902760168 rot=144.95667,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#32 minecraft:item pos=13.909208991158199,-61.209416529915785,3.5150102570961455 delta=-0.09100128670998865,0.0323152326326785,0.04080383657024348 rot=334.70044,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=4 pickup=6 health=5 owner=- thrower=-
+E item#33 minecraft:item pos=25.054079592543314,-59.723199996948246,1.4499199877213802 delta=0.02623133444443904,0.11446400521850592,-0.024291335960231687 rot=320.8696,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#34 minecraft:item pos=30.352557571400528,-58.353857582559115,-0.25939198066818014 delta=0.016680406927920638,0.11446400521850592,0.014060167403802084 rot=98.474236,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#35 minecraft:item pos=30.894159685812937,-58.47821876332733,-0.4562163344251448 delta=0.09169835755091627,0.11446400521850592,0.039057326424012904 rot=187.21997,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#36 minecraft:item pos=27.3235590916932,-60.195011072652136,3.5602881692553945 delta=-0.045439978309343605,0.11446400521850592,-0.033736445581068294 rot=67.514336,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*7 age=2 pickup=8 health=5 owner=- thrower=-
+EV sound at=25.0,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+EV sound at=30.5,-60.0,-0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e01983f
+PKT O minecraft:sound 77ed0306000000c8fffffe200000000c3f8000003f8000009f7728a9938866a2
+PKT O minecraft:level_particles 3001f71200004039000000000000c04deaaaaaaaaaab3ff80000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+PKT O minecraft:add_entity 01ab3fca5e996d7754402a9e7ddb122d571bcc484039000000000000c04e0000000000003ff8000000000000f10d7cc3333200e40000
+PKT O minecraft:set_entity_data 65ab3f080701a0090000ff
+PKT O minecraft:add_entity 01ac3fe19e80fb259844dba6ea0829f0853d1448403e51737eafdc97c04d50b963449625bfd274cd2e6b7855e10881df333200460000
+PKT O minecraft:set_entity_data 65ac3f080701b9080000ff
+PKT O minecraft:add_entity 01ad3f710abc76c1b74be787e648a24d40a38648403eb48220d44cfcc04d60a47476bb72bfe12cf641139fa4d9308533333200850000
+PKT O minecraft:set_entity_data 65ad3f080701b8080000ff
+PKT O minecraft:remove_entities 4e01993f
+PKT O minecraft:add_entity 01ae3f4eae797e2c504acd8cf713daf06a447048403b6ad03dc7a861c04e3c644e2a04f7400d09e9df2549c0c1e77b81333100300000
+PKT O minecraft:set_entity_data 65ae3f080707370000ff
+PKT O minecraft:explode 24403c800000000000c04e0000000000004004000000000000400000000000007b001dc00502453f0000003f80000001483f8000003f8000000101
+PKT O minecraft:set_entity_data 65ad3f080701b8080000ff
+PKT O minecraft:set_entity_data 65ab3f080701a0090000ff
+PKT O minecraft:set_entity_data 65ac3f080701b9080000ff
+PKT O minecraft:set_entity_data 65ae3f080707370000ff
+E e_none_i minecraft:armor_stand pos=4.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_m minecraft:armor_stand pos=5.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_f minecraft:item_frame pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_none_p minecraft:painting pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_i minecraft:armor_stand pos=18.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_m minecraft:armor_stand pos=19.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_f minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_p minecraft:painting pos=23.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_i minecraft:armor_stand pos=32.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_m minecraft:armor_stand pos=33.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_f minecraft:item_frame pos=35.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_p minecraft:painting pos=37.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_i minecraft:armor_stand pos=46.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_m minecraft:armor_stand pos=47.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_f minecraft:item_frame pos=49.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_p minecraft:painting pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_c minecraft:cushion pos=53.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#27 minecraft:item pos=2.58039880369484,-58.57571990873339,-0.6246195280385045 delta=-0.01929359001055583,-0.1223518697449284,-0.02464370497772459 rot=187.45808,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#28 minecraft:item pos=2.6159987595371827,-58.510424034930885,-0.875 delta=0.003363114999407337,-0.1223518697449284,0.0 rot=179.61604,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#29 minecraft:item pos=10.946179105885793,-59.67097710472918,1.583428070637436 delta=-0.008352807748723474,-0.04658045162980263,0.012947734264738747 rot=218.6575,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#30 minecraft:item pos=17.030983923395702,-58.14561857038717,-0.5665426135779081 delta=0.04898626095656043,-0.04658045162980263,0.023586856478083576 rot=220.27344,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#31 minecraft:item pos=16.848536597461397,-58.48549417674989,-0.8675536632229052 delta=0.04987071608197295,-0.04658045162980263,-0.019589710808647572 rot=144.95667,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=6 pickup=4 health=5 owner=- thrower=-
+E item#32 minecraft:item pos=13.729026441736709,-61.26463236944966,3.5958018542834993 delta=-0.08739763915826826,-0.04658045162980263,0.03918800616747383 rot=334.70044,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=6 pickup=4 health=5 owner=- thrower=-
+E item#33 minecraft:item pos=25.106017635243628,-59.61576126519531,1.401823142056801 delta=0.025192574581072342,0.0323152326326785,-0.02332939996431463 rot=320.8696,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#34 minecraft:item pos=30.385584777435966,-58.24641885080618,-0.2315528489404756 delta=0.016019863437155873,0.0323152326326785,0.013503385300237291 rot=98.474236,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#35 minecraft:item pos=31.07572243551276,-58.37078003157439,-0.3788828273606399 delta=0.08806710601995446,0.0323152326326785,0.03751065775774239 rot=187.21997,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#36 minecraft:item pos=27.233587933774,-60.0875723408992,3.493490006361408 delta=-0.04364055686702327,0.0323152326326785,-0.03240048359726241 rot=67.514336,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*7 age=4 pickup=6 health=5 owner=- thrower=-
+E item#37 minecraft:item pos=38.98061138603298,-59.723199996948246,1.5717265668594773 delta=-0.009404457272409524,0.11446400521850592,0.034791008499840716 rot=266.31116,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#38 minecraft:item pos=44.366913698327174,-58.13518554754187,-0.6948704931189481 delta=0.04026897930408227,0.11446400521850592,-0.04677991399284626 rot=51.37853,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#39 minecraft:item pos=44.52555306796638,-58.164718193574146,-0.4860345174376194 delta=-0.05832880659032507,0.11446400521850592,-0.023168947488240624 rot=64.66613,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#40 minecraft:item pos=42.731458376615485,-61.257983651442494,3.498498638419322 delta=0.0418942409860861,0.11446400521850592,-0.03582705127227028 rot=160.55728,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#41 minecraft:item pos=43.84956883340834,-61.39878238524479,3.46986069860354 delta=0.059839047581402606,0.11446400521850592,0.07563173334329684 rot=140.49634,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=2 pickup=8 health=5 owner=- thrower=-
+EV sound at=39.0,-60.0,1.5 r=16.0 ex=0 event=minecraft:entity.cushion.break source=neutral vol=1.0 pitch=1.0
+EV sound at=44.5,-60.0,-0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:remove_entities 4e019e3f
+PKT O minecraft:level_particles 3001f71200004043800000000000c04deaaaaaaaaaab3ff80000000000003e8000003d8000003e8000003d4ccccd3d4ccccd3d4ccccd0a00
+PKT O minecraft:add_entity 01af3fbebc7e54bea94d5480d9f46135e47fc1484043800000000000c04e0000000000003ff8000000000000f9fa84a1333100bd0000
+PKT O minecraft:set_entity_data 65af3f080701a0090000ff
+PKT O minecraft:add_entity 01b03f09f3fb1760974e5ba2354507fc647f5e48404624569f79bd59c04d34bbf1491cb2bfe326509b479cdc711579c3333200240000
+PKT O minecraft:set_entity_data 65b03f080701b9080000ff
+PKT O minecraft:add_entity 01b13f1fc68cd3af3b40d5a539dbdb1007488348404652a9c6680d5bc04d3883ab138c6fbfdc0c972f558cece1e07ce93331002d0000
+PKT O minecraft:set_entity_data 65b13f080701b8080000ff
+PKT O minecraft:remove_entities 4e019f3f
+PKT O minecraft:add_entity 01b23faff4389623f64afc8d5ee2f8346eb7c948404552923a1effc1c04ec473ca713e7c400c9432159cc0ad51167b39333200720000
+PKT O minecraft:set_entity_data 65b23f080710370000ff
+PKT O minecraft:add_entity 01b33f8c054707009747eb8c277dc2c0f8cf8b484045dcf4319e8d40c04ed6797bd3be5e400a82f0783fe2c6e11f8a13333200630000
+PKT O minecraft:set_entity_data 65b33f080701370000ff
+PKT O minecraft:explode 244045400000000000c04e0000000000004004000000000000400000000000007a001dc00502453f0000003f80000001483f8000003f8000000101
+PKT O minecraft:set_entity_data 65b23f080710370000ff
+PKT O minecraft:set_entity_data 65b13f080701b8080000ff
+PKT O minecraft:set_entity_data 65af3f080701a0090000ff
+PKT O minecraft:set_entity_data 65b33f080701370000ff
+PKT O minecraft:set_entity_data 65b03f080701b9080000ff
+C Killed 15 entities
+# explosions sourced by a player and by primed TNT
+E e_none_i minecraft:armor_stand pos=4.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_m minecraft:armor_stand pos=5.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_f minecraft:item_frame pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_none_p minecraft:painting pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_i minecraft:armor_stand pos=18.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_m minecraft:armor_stand pos=19.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_f minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_p minecraft:painting pos=23.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_i minecraft:armor_stand pos=32.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_m minecraft:armor_stand pos=33.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_f minecraft:item_frame pos=35.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_p minecraft:painting pos=37.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_i minecraft:armor_stand pos=46.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_m minecraft:armor_stand pos=47.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_f minecraft:item_frame pos=49.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_p minecraft:painting pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_c minecraft:cushion pos=53.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#42 minecraft:item pos=1.6777007835088902,-58.54182535010393,20.198870284991234 delta=0.031616802569782165,0.11446400521850592,-0.0739517976665035 rot=22.702066,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#43 minecraft:item pos=1.2390294824673505,-58.59721537461058,20.736285920824578 delta=-0.0534788842792078,0.11446400521850592,0.08837819791295935 rot=43.101852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#44 minecraft:item pos=5.547707316235179,-59.223199996948246,20.125 delta=0.02314045851231777,0.11446400521850592,0.0 rot=49.877266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#45 minecraft:item pos=5.4179190931203305,-59.223199996948246,20.33083233093118 delta=-0.03981338650321732,0.11446400521850592,0.0725549843989845 rot=151.56148,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#46 minecraft:item pos=3.1856930640472028,-60.46090211743258,24.05882615445272 delta=-0.08360729179082853,0.11446400521850592,-0.09332934436285002 rot=220.97324,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*12 age=2 pickup=8 health=5 owner=- thrower=-
+EV sound at=5.5,-59.5,20.03125 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
+EV sound at=1.5,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+EV sound at=5.5,-59.5,20.03125 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01b43f7e1dd85db2ba423c95b2f8f0c43d282d053ff8000000000000c04e00000000000040348000000000000000000000
+PKT O minecraft:set_entity_data 65b43f090341a00000ff
+PKT O minecraft:set_equipment 68b43f8401b90800000501b8080000
+PKT O minecraft:add_entity 01b53f226b48b9c67e4562895ec41fcc4e967f4a4014000000000000c04e00000000000040340000000000000000000003
+PKT O minecraft:set_entity_data 65b53f090701f4070000ff
+PKT O minecraft:set_entity_data 65b53f090701f4070000ff
+PKT O minecraft:set_entity_data 65b43f090341a00000ff
+PKT O minecraft:set_equipment 68b43f8401b90800000501b8080000
+PKT O minecraft:add_entity 01b63f3e597739cce846df88a8ebc49247838e483ff9ccdffa5913a1c04d68c8b72fbd74403459f0ea82f7fdd1107623333200100000
+PKT O minecraft:set_entity_data 65b63f080701b9080000ff
+PKT O minecraft:add_entity 01b73fa187200b8b984ddfaf10868eb2647aae483ff596aa8bb1f59dc04d6fdfbc63a16240348dd84e3b0bbb79e38bc73331001e0000
+PKT O minecraft:set_entity_data 65b73f080701b8080000ff
+PKT O minecraft:remove_entities 4e01b43f
+PKT O minecraft:remove_entities 4e01b53f
+PKT O minecraft:add_entity 01b83f9656173d22a745f8b5b27a2dc635daf4484016000000000000c04dc0000000000040342e6666800000510c76bd333200230000
+PKT O minecraft:set_entity_data 65b83f080701df0a0000ff
+PKT O minecraft:add_entity 01b93ffa62317e7d0d455ea25afd29a92306bb484016000000000000c04dc0000000000040342e6666800000c1ea89ab3331006b0000
+PKT O minecraft:set_entity_data 65b93f080701f4070000ff
+PKT O minecraft:add_entity 01ba3fb95bcd0c3a7449ee840ab349c724e60248400add4f3b3f88fbc04e5e6d05e8d5c5403840511e000c1169d3738f3331009d0000
+PKT O minecraft:set_entity_data 65ba3f08070c370000ff
+PKT O minecraft:explode 24400c000000000000c04e0000000000004036800000000000404000000000014e001dc00502453f0000003f80000001483f8000003f8000000101
+PKT O minecraft:set_entity_data 65b63f080701b9080000ff
+PKT O minecraft:set_entity_data 65b93f080701f4070000ff
+PKT O minecraft:set_entity_data 65b83f080701df0a0000ff
+PKT O minecraft:set_entity_data 65ba3f08070c370000ff
+PKT O minecraft:set_entity_data 65b73f080701b8080000ff
+E e_none_i minecraft:armor_stand pos=4.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_m minecraft:armor_stand pos=5.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_none_f minecraft:item_frame pos=7.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_none_p minecraft:painting pos=9.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_i minecraft:armor_stand pos=18.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_m minecraft:armor_stand pos=19.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_block_f minecraft:item_frame pos=21.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_block_p minecraft:painting pos=23.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_i minecraft:armor_stand pos=32.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_m minecraft:armor_stand pos=33.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_mob_f minecraft:item_frame pos=35.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_mob_p minecraft:painting pos=37.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_i minecraft:armor_stand pos=46.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_m minecraft:armor_stand pos=47.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E e_tnt_f minecraft:item_frame pos=49.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_p minecraft:painting pos=51.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E e_tnt_c minecraft:cushion pos=53.0,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E item#42 minecraft:item pos=1.8581657373858,-58.70103175376326,19.776762207314988 delta=0.028007506934339794,-0.1223518697449284,-0.06550964416405122 rot=22.702066,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#43 minecraft:item pos=0.9337783627965751,-58.75642177826991,21.24073817765494 delta=-0.04737386770799535,-0.1223518697449284,0.0782891623980153 rot=43.101852,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#44 minecraft:item pos=5.679790304984561,-59.38240640060758,20.125 delta=0.0204988012566132,-0.1223518697449284,0.0 rot=49.877266,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:item_frame*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#45 minecraft:item pos=5.190669011676177,-59.38240640060758,20.744967564378758 delta=-0.03526838920878558,-0.1223518697449284,0.06427228762903567 rot=151.56148,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8 pickup=2 health=5 owner=- thrower=-
+E item#46 minecraft:item pos=2.7084725727118197,-60.620108521091915,23.52611334174403 delta=-0.07406289106637938,-0.1223518697449284,-0.08267509826936678 rot=220.97324,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*12 age=8 pickup=2 health=5 owner=- thrower=-
+E item#47 minecraft:item pos=22.431090959662235,-58.213227797501666,20.262074330808925 delta=-0.014184871213123633,0.0323152326326785,-0.022231522664522437 rot=302.34546,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#48 minecraft:item pos=22.769870163216066,-58.001807706757404,20.534436186726644 delta=0.07191175383995481,0.0323152326326785,-0.048914265590999616 rot=160.88141,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#49 minecraft:item pos=21.624656890511766,-62.45450803770907,20.799001642602995 delta=0.04572468253155531,0.0323152326326785,0.024925747244156866 rot=294.3694,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#50 minecraft:item pos=20.656355106255113,-60.39538381676961,19.860178625151928 delta=0.010451128940067585,0.0323152326326785,0.06586627307586002 rot=341.6256,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#51 minecraft:item pos=18.43727079153241,-61.04645463161086,21.058423709081715 delta=0.0035614440165142396,0.0323152326326785,-0.07185348562253019 rot=169.07549,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#52 minecraft:item pos=21.54136695306064,-60.03536111775687,25.454522185831173 delta=-0.04508762942707241,0.0323152326326785,-0.02162693179450456 rot=296.69092,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#53 minecraft:item pos=23.39359018101597,-60.11350217324769,23.241365075564783 delta=-0.025418557494681533,0.0323152326326785,-0.049290843936601964 rot=214.57663,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#54 minecraft:item pos=20.46661902482207,-61.187639480043416,19.711989672451626 delta=-0.040715659187922165,0.0323152326326785,0.012188863595001329 rot=91.441826,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#55 minecraft:item pos=24.7134864016775,-60.450104112309376,22.50892043772895 delta=0.06057421484207009,0.0323152326326785,0.029444976361065207 rot=319.30783,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#56 minecraft:item pos=23.45098873236216,-61.04323189758103,20.66064828375929 delta=-0.03463878980254875,0.0323152326326785,-0.0049084969146987525 rot=269.26517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#57 minecraft:item pos=18.350600110739833,-60.25049724845798,18.681909617751828 delta=-0.0802699819371491,0.0323152326326785,0.0030998701023516794 rot=120.44758,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*9 age=4 pickup=6 health=5 owner=- thrower=-
+EV sound at=22.5,-60.0,20.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+PKT O minecraft:add_entity 01bb3f649c8e1c6ec0432aadd57efd464195d188014034800000000000c04d80000000000040348000000000000000000000
+PKT O minecraft:set_entity_data 65bb3f080102ff
+PKT O minecraft:add_entity 01bc3fb4d3a7b7ef0a4c54a3ebe7f8446962fe054036800000000000c04e00000000000040348000000000000000000000
+PKT O minecraft:set_entity_data 65bc3f090341a00000ff
+PKT O minecraft:set_equipment 68bc3f8401b90800000501b8080000
+PKT O minecraft:set_entity_data 65bc3f090341a00000ff
+PKT O minecraft:set_entity_data 65bb3f080102ff
+PKT O minecraft:set_equipment 68bc3f8401b90800000501b8080000
+PKT O minecraft:set_entity_data 65bb3f080101ff
+PKT O minecraft:remove_entities 4e01bb3f
+PKT O minecraft:sound 775206000000b4fffffe20000000a43f8000003f800000eea5f3f2ce425ce6
+PKT O minecraft:add_entity 01bd3fe40de0da881a4f28a52ba658fede17834840367da415e9f793c04d4c79c8885aec40345b0aa22a929219f87ce9333100d70000
+PKT O minecraft:set_entity_data 65bd3f080701b9080000ff
+PKT O minecraft:add_entity 01be3f872a315f4a6245ba86869b9e8d595c6e484036779d5990cfe9c04d3169f8449f894034bd831788560ae1277935333200720000
+PKT O minecraft:set_entity_data 65be3f080701b8080000ff
+PKT O minecraft:remove_entities 4e01bc3f
+PKT O minecraft:add_entity 01bf3f7361477e09c449bb9ba1a176008887e64840356ea6e6b6d35bc04f6b5c0de2c93c4034b1b0fd494a2059198375333200d10000
+PKT O minecraft:set_entity_data 65bf3f080710370000ff
+PKT O minecraft:add_entity 01c03fd718f834ca984a9d942e512f0d60ddb24840349cc4866cb2b8c04e63caabf91e2b4033953f1d7a5554c9058923333200f20000
+PKT O minecraft:set_entity_data 65c03f080710370000ff
+PKT O minecraft:add_entity 01c13fafaf858872f74763a2b3cee6351313274840326c1ac08e559bc04eb720f5d1adf140355c5da5b5666cf1017607333200780000
+PKT O minecraft:set_entity_data 65c13f080710370000ff
+PKT O minecraft:add_entity 01c23f2497f5b01562452e800b33628ed618b7484035bb29f1126d45c04e35b572ae144440398ba8273e4fbcf1e67cff333100d20000
+PKT O minecraft:set_entity_data 65c23f080710370000ff
+PKT O minecraft:add_entity 01c33fc272eaa53ffc4da9b04d806334fbc2fb48403780249f67a46fc04e3fb5f95cfbb0403772e43de626f5e1f17929333100980000
+PKT O minecraft:set_entity_data 65c33f080710370000ff
+PKT O minecraft:add_entity 01c43f8ff185d4a823442d983608190c40ee37484034a3517f15923dc04ec9334e2b08a34033a92355a1009061e981af333100410000
+PKT O minecraft:set_entity_data 65c43f080710370000ff
+PKT O minecraft:add_entity 01c53fd8247fff5e9345999baf3f8250202bc948403875650386abd2c04e6acbbf1500d34036628fd96e4b9d99218415333200e30000
+PKT O minecraft:set_entity_data 65c53f080710370000ff
+PKT O minecraft:add_entity 01c63f1fde0e955af8492e85c3ee3a411dab9548403798c52ecf2d44c04eb6b75b910c6e4034ae69fb667b9dc1ec7f51333100bf0000
+PKT O minecraft:set_entity_data 65c63f080710370000ff
+PKT O minecraft:add_entity 01c73fbd53116bfd6748aeac2a8d4d79a16991484032b03af158c548c04e513f0758da924032ab3ab3a942b569d3806d333100550000
+PKT O minecraft:set_entity_data 65c73f080709370000ff
+PKT O minecraft:explode 244034800000000000c04d876ae7d47ae140348000000000004080000000000335001dc00502453f0000003f80000001483f8000003f8000000101
+PKT O minecraft:set_entity_data 65c23f080710370000ff
+PKT O minecraft:set_entity_data 65c63f080710370000ff
+PKT O minecraft:set_entity_data 65c53f080710370000ff
+PKT O minecraft:set_entity_data 65c13f080710370000ff
+PKT O minecraft:set_entity_data 65be3f080701b8080000ff
+PKT O minecraft:set_entity_data 65bd3f080701b9080000ff
+PKT O minecraft:set_entity_data 65bf3f080710370000ff
+PKT O minecraft:set_entity_data 65c03f080710370000ff
+PKT O minecraft:set_entity_data 65c33f080710370000ff
+PKT O minecraft:set_entity_data 65c73f080709370000ff
+PKT O minecraft:set_entity_data 65c43f080710370000ff

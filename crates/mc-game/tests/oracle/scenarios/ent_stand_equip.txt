@@ -1,0 +1,491 @@
+# Armor stand equipment through ArmorStand.interact: an empty hand takes the item of the clicked height (feet, legs, chest, head,
+# then the off hand when the main hand slot is empty), a held item goes to the slot it belongs to, the swap branches (stack of one,
+# stack of more than one into an empty and into a worn slot, creative players keep their stack), hidden arms, DisabledSlots (slot,
+# take and put bits), Small, spectator and adventure players, marker stands and name tags. The observer sees set_equipment.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 1000
+spawn_player P survival 0.5 -60 2.5 180 0
+spawn_player O survival 20.5 -60 12.5 90 0
+spawn_player C creative 40.5 -60 2.5 180 0
+spawn_player S spectator 48.5 -60 2.5 180 0
+spawn_player A adventure 52.5 -60 2.5 180 0
+tick 2
+dump packets:P:none packets:O:none packets:C:none packets:S:none packets:A:none
+spawn s1 minecraft:armor_stand 0.5 -60 0.5 0 0
+entity_seed s1 101
+spawn s2 minecraft:armor_stand 4.5 -60 0.5 0 0 {ShowArms:1b}
+entity_seed s2 102
+spawn s3 minecraft:armor_stand 8.5 -60 0.5 0 0 {DisabledSlots:2056,ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed s3 103
+spawn s4 minecraft:armor_stand 12.5 -60 0.5 0 0 {DisabledSlots:4112,ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed s4 104
+spawn s5 minecraft:armor_stand 16.5 -60 0.5 0 0 {DisabledSlots:16777215,ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed s5 105
+spawn s6 minecraft:armor_stand 20.5 -60 0.5 0 0 {DisabledSlots:2048,ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed s6 106
+spawn s7 minecraft:armor_stand 24.5 -60 0.5 0 0 {DisabledSlots:524288,ShowArms:1b}
+entity_seed s7 107
+spawn s8 minecraft:armor_stand 28.5 -60 0.5 0 0 {Small:1b,ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed s8 108
+spawn s9 minecraft:armor_stand 32.5 -60 0.5 0 0 {Marker:1b,ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed s9 109
+spawn s10 minecraft:armor_stand 36.5 -60 0.5 0 0 {Invisible:1b,ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed s10 110
+tick 2
+dump xentities edata:s1 edata:s8 edata:s9 packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities
+# P stands next to each stand in turn
+tp P 0.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note a helmet goes to the head whatever height is clicked
+give P mainhand minecraft:iron_helmet 1
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note an empty hand takes the item at head height
+give P mainhand minecraft:air
+interact P s1 main at 0 1.7 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note hidden arms: a sword is refused
+give P mainhand minecraft:wooden_sword 1
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note a stack of three into the empty chest slot puts one
+give P mainhand minecraft:iron_chestplate 3
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note the same stack again: the slot is worn, nothing
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note leggings, boots, a pumpkin on the head, elytra on the chest
+give P mainhand minecraft:iron_leggings 1
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:carved_pumpkin 1
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:elytra 1
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note a swap with a worn chest slot
+give P mainhand minecraft:diamond_chestplate 1
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note a stick has no armor slot
+give P mainhand minecraft:stick 1
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note empty hand: feet, legs, chest and the middle gap
+give P mainhand minecraft:air
+interact P s1 main at 0 0.2 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s1 main at 0 0.2 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s1 main at 0 0.6 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s1 main at 0 1.0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s1 main at 0 1.2 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s1 main at 0 1.0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s1 main at 0 0.0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note a name tag names the stand
+give P mainhand minecraft:name_tag[custom_name="Mannequin Bob"] 1
+interact P s1 main at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note sneaking does not change the swap
+give P mainhand minecraft:iron_helmet 1
+interact P s1 main sneak at 0 0 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s1 main sneak at 0 1.8 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note the off hand
+give P offhand minecraft:iron_helmet 1
+interact P s1 off at 0 1.8 0
+tick 1
+dump xentity:s1 nbt:s1 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+tp P 4.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note arms shown: a sword goes to the main hand, a shield to the off hand
+give P mainhand minecraft:wooden_sword 1
+interact P s2 main at 0 0 0
+tick 1
+dump xentity:s2 nbt:s2 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:shield 1
+interact P s2 main at 0 0 0
+tick 1
+dump xentity:s2 nbt:s2 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note swap with a worn main hand
+give P mainhand minecraft:iron_axe 1
+interact P s2 main at 0 0 0
+tick 1
+dump xentity:s2 nbt:s2 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note empty hand at no armor height: main hand then
+give P mainhand minecraft:air
+interact P s2 main at 0 0.0 0
+tick 1
+dump xentity:s2 nbt:s2 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note the off hand is taken when the main hand is empty
+give P mainhand minecraft:air
+interact P s2 main at 0 0.0 0
+tick 1
+dump xentity:s2 nbt:s2 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s2 main at 0 0.0 0
+tick 1
+dump xentity:s2 nbt:s2 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note an off hand item does the same
+give P offhand minecraft:stick 1
+interact P s2 off at 0 0 0
+tick 1
+dump xentity:s2 nbt:s2 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note a stack in the hand of the stand
+give P mainhand minecraft:diamond 5
+interact P s2 main at 0 0 0
+tick 1
+dump xentity:s2 nbt:s2 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond 5
+interact P s2 main at 0 0 0
+tick 1
+dump xentity:s2 nbt:s2 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+tp P 8.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note chest slot disabled (0x0808): refused
+give P mainhand minecraft:diamond_chestplate 1
+interact P s3 main at 0 0 0
+tick 1
+dump xentity:s3 nbt:s3 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note empty hand at chest height: the disabled slot falls back to the main hand slot
+give P mainhand minecraft:air
+interact P s3 main at 0 1.0 0
+tick 1
+dump xentity:s3 nbt:s3 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note head still works
+give P mainhand minecraft:air
+interact P s3 main at 0 1.7 0
+tick 1
+dump xentity:s3 nbt:s3 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond_helmet 1
+interact P s3 main at 0 1.7 0
+tick 1
+dump xentity:s3 nbt:s3 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond_sword 1
+interact P s3 main at 0 0 0
+tick 1
+dump xentity:s3 nbt:s3 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+tp P 12.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note head disabled (0x1010)
+give P mainhand minecraft:air
+interact P s4 main at 0 1.7 0
+tick 1
+dump xentity:s4 nbt:s4 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond_helmet 1
+interact P s4 main at 0 1.7 0
+tick 1
+dump xentity:s4 nbt:s4 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note but the chest takes
+give P mainhand minecraft:air
+interact P s4 main at 0 1.0 0
+tick 1
+dump xentity:s4 nbt:s4 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s4 main at 0 1.0 0
+tick 1
+dump xentity:s4 nbt:s4 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+tp P 16.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note every slot disabled
+give P mainhand minecraft:air
+interact P s5 main at 0 1.7 0
+tick 1
+dump xentity:s5 nbt:s5 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s5 main at 0 1.0 0
+tick 1
+dump xentity:s5 nbt:s5 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s5 main at 0 0.2 0
+tick 1
+dump xentity:s5 nbt:s5 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s5 main at 0 0.0 0
+tick 1
+dump xentity:s5 nbt:s5 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond_boots 1
+interact P s5 main at 0 0 0
+tick 1
+dump xentity:s5 nbt:s5 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond_sword 1
+interact P s5 main at 0 0 0
+tick 1
+dump xentity:s5 nbt:s5 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+tp P 20.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note take bit of the chest (0x0800): nothing comes out, nothing goes in
+give P mainhand minecraft:air
+interact P s6 main at 0 1.0 0
+tick 1
+dump xentity:s6 nbt:s6 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond_chestplate 1
+interact P s6 main at 0 1.0 0
+tick 1
+dump xentity:s6 nbt:s6 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note the other slots are free
+give P mainhand minecraft:air
+interact P s6 main at 0 0.2 0
+tick 1
+dump xentity:s6 nbt:s6 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond_chestplate 1
+interact P s6 main at 0 1.0 0
+tick 1
+dump xentity:s6 nbt:s6 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+tp P 24.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note put bit of the chest (0x80000): an empty chest slot refuses
+give P mainhand minecraft:diamond_chestplate 1
+interact P s7 main at 0 0 0
+tick 1
+dump xentity:s7 nbt:s7 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond_boots 1
+interact P s7 main at 0 0 0
+tick 1
+dump xentity:s7 nbt:s7 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:diamond_chestplate 1
+interact P s7 main at 0 0 0
+tick 1
+dump xentity:s7 nbt:s7 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+tp P 28.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note small stand with every slot worn: empty hand at height 0.05
+give P mainhand minecraft:air
+interact P s8 main at 0 0.05 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s8 main at 0 0.2 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s8 main at 0 0.4 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s8 main at 0 0.5 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s8 main at 0 0.9 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s8 main at 0 1.0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s8 main at 0 1.2 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s8 main at 0 1.5 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s8 main at 0 1.6 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s8 main at 0 1.9 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:iron_boots 1
+interact P s8 main at 0 0 0
+tick 1
+dump xentity:s8 nbt:s8 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+tp P 32.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note a marker stand takes no equipment
+give P mainhand minecraft:iron_helmet 1
+interact P s9 main at 0 0 0
+tick 1
+dump xentity:s9 nbt:s9 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s9 main at 0 1.7 0
+tick 1
+dump xentity:s9 nbt:s9 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note but it takes a name tag
+give P mainhand minecraft:name_tag[custom_name="Marker Mo"] 1
+interact P s9 main at 0 0 0
+tick 1
+dump xentity:s9 nbt:s9 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+tp P 36.5 -60 2.5 180 0
+tick 1
+dump packets:P:none
+note an invisible stand is used like any other
+give P mainhand minecraft:iron_helmet 1
+interact P s10 main at 0 0 0
+tick 1
+dump xentity:s10 nbt:s10 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give P mainhand minecraft:air
+interact P s10 main at 0 1.7 0
+tick 1
+dump xentity:s10 nbt:s10 inventory:P packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+# creative, spectator and adventure players
+spawn c1 minecraft:armor_stand 40.5 -60 0.5 0 0 {ShowArms:1b}
+entity_seed c1 111
+tick 1
+tp C 40.5 -60 2.5 180 0
+tick 1
+dump packets:C:none
+note creative: the stack stays whole when it goes into an empty slot
+give C mainhand minecraft:diamond_chestplate 5
+interact C c1 main at 0 0 0
+tick 1
+dump xentity:c1 nbt:c1 inventory:C packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note creative into a worn slot: a plain swap of the stack
+give C mainhand minecraft:iron_chestplate 5
+interact C c1 main at 0 0 0
+tick 1
+dump xentity:c1 nbt:c1 inventory:C packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+note empty hand takes the item
+give C mainhand minecraft:air
+interact C c1 main at 0 1.0 0
+tick 1
+dump xentity:c1 nbt:c1 inventory:C packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give C mainhand minecraft:diamond_sword 3
+interact C c1 main at 0 0 0
+tick 1
+dump xentity:c1 nbt:c1 inventory:C packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give C mainhand minecraft:shield 3
+interact C c1 main at 0 0 0
+tick 1
+dump xentity:c1 nbt:c1 inventory:C packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give C offhand minecraft:stick 2
+interact C c1 off at 0 0 0
+tick 1
+dump xentity:c1 nbt:c1 inventory:C packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+spawn c2 minecraft:armor_stand 42.5 -60 0.5 0 0 {ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed c2 112
+tick 1
+note creative taking from a full stand
+give C mainhand minecraft:air
+interact C c2 main at 0 1.7 0
+tick 1
+dump xentity:c2 nbt:c2 inventory:C packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give C mainhand minecraft:diamond_helmet 1
+interact C c2 main at 0 1.7 0
+tick 1
+dump xentity:c2 nbt:c2 inventory:C packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+spawn sp1 minecraft:armor_stand 50.5 -60 0.5 0 0 {ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed sp1 113
+tick 1
+tp S 50.5 -60 2.5 180 0
+tick 1
+dump packets:S:none
+note a spectator changes nothing
+give S mainhand minecraft:air
+interact S sp1 main at 0 1.7 0
+tick 1
+dump xentity:sp1 nbt:sp1 inventory:S packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give S mainhand minecraft:diamond_helmet 1
+interact S sp1 main at 0 1.7 0
+tick 1
+dump xentity:sp1 nbt:sp1 inventory:S packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+spawn ad1 minecraft:armor_stand 54.5 -60 0.5 0 0 {ShowArms:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},legs:{id:"minecraft:iron_leggings",count:1},chest:{id:"minecraft:iron_chestplate",count:1},head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:wooden_sword",count:1},offhand:{id:"minecraft:shield",count:1}}}
+entity_seed ad1 114
+tick 1
+tp A 54.5 -60 2.5 180 0
+tick 1
+dump packets:A:none
+note an adventure player uses the stand like a survival player
+give A mainhand minecraft:air
+interact A ad1 main at 0 1.7 0
+tick 1
+dump xentity:ad1 nbt:ad1 inventory:A packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give A mainhand minecraft:diamond_helmet 1
+interact A ad1 main at 0 1.7 0
+tick 1
+dump xentity:ad1 nbt:ad1 inventory:A packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events
+give A mainhand minecraft:diamond_sword 1
+interact A ad1 main at 0 0 0
+tick 1
+dump xentity:ad1 nbt:ad1 inventory:A packets:O:set_equipment,entity_event,sound,set_entity_data,add_entity,remove_entities events

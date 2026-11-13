@@ -1,0 +1,285 @@
+# Armor stands, item frames, paintings and cushions hit by real flying projectiles and by explosions of every interaction: the damage
+# source they get (arrow, trident, thrown, wind charge, fireball, explosions), the pop of a frame's item against its break, drops, sounds.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 8000
+fill -2 -61 -2 60 -45 -2 minecraft:stone
+spawn_player O survival 20.5 -60 12.5 180 0
+spawn_player P survival 30.5 -60 12.5 180 0
+tick 2
+dump packets:O:none packets:P:none
+note arrow thrown at a stand, a frame with an item, a painting and a cushion
+spawn ar_s minecraft:armor_stand 0.5 -60 -0.5 0 0 {Tags:[ar_s],ShowArms:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed ar_s 801
+spawn ar_f minecraft:item_frame 4.5 -59.5 -0.5 0 0 {Tags:[ar_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed ar_f 802
+spawn ar_p minecraft:painting 8.5 -59.5 -0.5 0 0 {Tags:[ar_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed ar_p 803
+spawn ar_c minecraft:cushion 12.5 -60 1.5 0 0 {Tags:[ar_c],color:"red"}
+entity_seed ar_c 804
+tick 1
+dump xentities packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+level_seed 140
+spawn ar_a0 minecraft:arrow 0.5 -59.2 8.5 0 0 {Tags:[ar_a0],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed ar_a0 805
+level_seed 141
+spawn ar_a1 minecraft:arrow 4.5 -59.5 8.5 0 0 {Tags:[ar_a1],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed ar_a1 806
+level_seed 142
+spawn ar_a2 minecraft:arrow 8.5 -59.5 8.5 0 0 {Tags:[ar_a2],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed ar_a2 807
+level_seed 143
+spawn ar_a3 minecraft:arrow 12.5 -59.9 8.5 0 0 {Tags:[ar_a3],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed ar_a3 808
+tick 6
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+tick 10
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=!minecraft:player]
+tick 1
+dump packets:O:none
+note spectral_arrow thrown at a stand, a frame with an item, a painting and a cushion
+spawn sp_s minecraft:armor_stand 0.5 -60 -0.5 0 0 {Tags:[sp_s],ShowArms:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed sp_s 809
+spawn sp_f minecraft:item_frame 4.5 -59.5 -0.5 0 0 {Tags:[sp_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed sp_f 810
+spawn sp_p minecraft:painting 8.5 -59.5 -0.5 0 0 {Tags:[sp_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed sp_p 811
+spawn sp_c minecraft:cushion 12.5 -60 1.5 0 0 {Tags:[sp_c],color:"red"}
+entity_seed sp_c 812
+tick 1
+dump xentities packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+level_seed 144
+spawn sp_a0 minecraft:spectral_arrow 0.5 -59.2 8.5 0 0 {Tags:[sp_a0],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed sp_a0 813
+level_seed 145
+spawn sp_a1 minecraft:spectral_arrow 4.5 -59.5 8.5 0 0 {Tags:[sp_a1],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed sp_a1 814
+level_seed 146
+spawn sp_a2 minecraft:spectral_arrow 8.5 -59.5 8.5 0 0 {Tags:[sp_a2],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed sp_a2 815
+level_seed 147
+spawn sp_a3 minecraft:spectral_arrow 12.5 -59.9 8.5 0 0 {Tags:[sp_a3],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed sp_a3 816
+tick 6
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+tick 10
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=!minecraft:player]
+tick 1
+dump packets:O:none
+note trident thrown at a stand, a frame with an item, a painting and a cushion
+spawn tr_s minecraft:armor_stand 0.5 -60 -0.5 0 0 {Tags:[tr_s],ShowArms:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed tr_s 817
+spawn tr_f minecraft:item_frame 4.5 -59.5 -0.5 0 0 {Tags:[tr_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed tr_f 818
+spawn tr_p minecraft:painting 8.5 -59.5 -0.5 0 0 {Tags:[tr_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed tr_p 819
+spawn tr_c minecraft:cushion 12.5 -60 1.5 0 0 {Tags:[tr_c],color:"red"}
+entity_seed tr_c 820
+tick 1
+dump xentities packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+level_seed 148
+spawn tr_a0 minecraft:trident 0.5 -59.2 8.5 0 0 {Tags:[tr_a0],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed tr_a0 821
+level_seed 149
+spawn tr_a1 minecraft:trident 4.5 -59.5 8.5 0 0 {Tags:[tr_a1],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed tr_a1 822
+level_seed 150
+spawn tr_a2 minecraft:trident 8.5 -59.5 8.5 0 0 {Tags:[tr_a2],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed tr_a2 823
+level_seed 151
+spawn tr_a3 minecraft:trident 12.5 -59.9 8.5 0 0 {Tags:[tr_a3],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed tr_a3 824
+tick 6
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+tick 10
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=!minecraft:player]
+tick 1
+dump packets:O:none
+note snowball thrown at a stand, a frame with an item, a painting and a cushion
+spawn sn_s minecraft:armor_stand 0.5 -60 -0.5 0 0 {Tags:[sn_s],ShowArms:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed sn_s 825
+spawn sn_f minecraft:item_frame 4.5 -59.5 -0.5 0 0 {Tags:[sn_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed sn_f 826
+spawn sn_p minecraft:painting 8.5 -59.5 -0.5 0 0 {Tags:[sn_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed sn_p 827
+spawn sn_c minecraft:cushion 12.5 -60 1.5 0 0 {Tags:[sn_c],color:"red"}
+entity_seed sn_c 828
+tick 1
+dump xentities packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+level_seed 152
+spawn sn_a0 minecraft:snowball 0.5 -59.2 8.5 0 0 {Tags:[sn_a0],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed sn_a0 829
+level_seed 153
+spawn sn_a1 minecraft:snowball 4.5 -59.5 8.5 0 0 {Tags:[sn_a1],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed sn_a1 830
+level_seed 154
+spawn sn_a2 minecraft:snowball 8.5 -59.5 8.5 0 0 {Tags:[sn_a2],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed sn_a2 831
+level_seed 155
+spawn sn_a3 minecraft:snowball 12.5 -59.9 8.5 0 0 {Tags:[sn_a3],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed sn_a3 832
+tick 6
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+tick 10
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=!minecraft:player]
+tick 1
+dump packets:O:none
+note wind_charge thrown at a stand, a frame with an item, a painting and a cushion
+spawn wc_s minecraft:armor_stand 0.5 -60 -0.5 0 0 {Tags:[wc_s],ShowArms:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed wc_s 833
+spawn wc_f minecraft:item_frame 4.5 -59.5 -0.5 0 0 {Tags:[wc_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed wc_f 834
+spawn wc_p minecraft:painting 8.5 -59.5 -0.5 0 0 {Tags:[wc_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed wc_p 835
+spawn wc_c minecraft:cushion 12.5 -60 1.5 0 0 {Tags:[wc_c],color:"red"}
+entity_seed wc_c 836
+tick 1
+dump xentities packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+level_seed 156
+spawn wc_a0 minecraft:wind_charge 0.5 -59.2 8.5 0 0 {Tags:[wc_a0],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed wc_a0 837
+level_seed 157
+spawn wc_a1 minecraft:wind_charge 4.5 -59.5 8.5 0 0 {Tags:[wc_a1],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed wc_a1 838
+level_seed 158
+spawn wc_a2 minecraft:wind_charge 8.5 -59.5 8.5 0 0 {Tags:[wc_a2],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed wc_a2 839
+level_seed 159
+spawn wc_a3 minecraft:wind_charge 12.5 -59.9 8.5 0 0 {Tags:[wc_a3],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed wc_a3 840
+tick 6
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+tick 10
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=!minecraft:player]
+tick 1
+dump packets:O:none
+note small_fireball thrown at a stand, a frame with an item, a painting and a cushion
+spawn fb_s minecraft:armor_stand 0.5 -60 -0.5 0 0 {Tags:[fb_s],ShowArms:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed fb_s 841
+spawn fb_f minecraft:item_frame 4.5 -59.5 -0.5 0 0 {Tags:[fb_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed fb_f 842
+spawn fb_p minecraft:painting 8.5 -59.5 -0.5 0 0 {Tags:[fb_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed fb_p 843
+spawn fb_c minecraft:cushion 12.5 -60 1.5 0 0 {Tags:[fb_c],color:"red"}
+entity_seed fb_c 844
+tick 1
+dump xentities packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+level_seed 160
+spawn fb_a0 minecraft:small_fireball 0.5 -59.2 8.5 0 0 {Tags:[fb_a0],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed fb_a0 845
+level_seed 161
+spawn fb_a1 minecraft:small_fireball 4.5 -59.5 8.5 0 0 {Tags:[fb_a1],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed fb_a1 846
+level_seed 162
+spawn fb_a2 minecraft:small_fireball 8.5 -59.5 8.5 0 0 {Tags:[fb_a2],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed fb_a2 847
+level_seed 163
+spawn fb_a3 minecraft:small_fireball 12.5 -59.9 8.5 0 0 {Tags:[fb_a3],Motion:[0.0d,0.0d,-2.0d]}
+entity_seed fb_a3 848
+tick 6
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+tick 10
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=!minecraft:player]
+tick 1
+dump packets:O:none
+note explosions of every interaction on a line of decoration (a visible stand, an invisible stand, a marker stand, a frame, a painting, a cushion)
+spawn e_none_s minecraft:armor_stand 2.5 -60 -0.5 0 0 {Tags:[e_none_s],equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_none_s 849
+spawn e_none_i minecraft:armor_stand 4.0 -60 -0.5 0 0 {Tags:[e_none_i],Invisible:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_none_i 850
+spawn e_none_m minecraft:armor_stand 5.5 -60 -0.5 0 0 {Tags:[e_none_m],Marker:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_none_m 851
+spawn e_none_f minecraft:item_frame 7.0 -59.5 -0.5 0 0 {Tags:[e_none_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed e_none_f 852
+spawn e_none_p minecraft:painting 9.0 -59.5 -0.5 0 0 {Tags:[e_none_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed e_none_p 853
+spawn e_none_c minecraft:cushion 11.0 -60 1.5 0 0 {Tags:[e_none_c],color:"red"}
+entity_seed e_none_c 854
+spawn e_block_s minecraft:armor_stand 16.5 -60 -0.5 0 0 {Tags:[e_block_s],equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_block_s 855
+spawn e_block_i minecraft:armor_stand 18.0 -60 -0.5 0 0 {Tags:[e_block_i],Invisible:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_block_i 856
+spawn e_block_m minecraft:armor_stand 19.5 -60 -0.5 0 0 {Tags:[e_block_m],Marker:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_block_m 857
+spawn e_block_f minecraft:item_frame 21.0 -59.5 -0.5 0 0 {Tags:[e_block_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed e_block_f 858
+spawn e_block_p minecraft:painting 23.0 -59.5 -0.5 0 0 {Tags:[e_block_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed e_block_p 859
+spawn e_block_c minecraft:cushion 25.0 -60 1.5 0 0 {Tags:[e_block_c],color:"red"}
+entity_seed e_block_c 860
+spawn e_mob_s minecraft:armor_stand 30.5 -60 -0.5 0 0 {Tags:[e_mob_s],equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_mob_s 861
+spawn e_mob_i minecraft:armor_stand 32.0 -60 -0.5 0 0 {Tags:[e_mob_i],Invisible:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_mob_i 862
+spawn e_mob_m minecraft:armor_stand 33.5 -60 -0.5 0 0 {Tags:[e_mob_m],Marker:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_mob_m 863
+spawn e_mob_f minecraft:item_frame 35.0 -59.5 -0.5 0 0 {Tags:[e_mob_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed e_mob_f 864
+spawn e_mob_p minecraft:painting 37.0 -59.5 -0.5 0 0 {Tags:[e_mob_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed e_mob_p 865
+spawn e_mob_c minecraft:cushion 39.0 -60 1.5 0 0 {Tags:[e_mob_c],color:"red"}
+entity_seed e_mob_c 866
+spawn e_tnt_s minecraft:armor_stand 44.5 -60 -0.5 0 0 {Tags:[e_tnt_s],equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_tnt_s 867
+spawn e_tnt_i minecraft:armor_stand 46.0 -60 -0.5 0 0 {Tags:[e_tnt_i],Invisible:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_tnt_i 868
+spawn e_tnt_m minecraft:armor_stand 47.5 -60 -0.5 0 0 {Tags:[e_tnt_m],Marker:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed e_tnt_m 869
+spawn e_tnt_f minecraft:item_frame 49.0 -59.5 -0.5 0 0 {Tags:[e_tnt_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed e_tnt_f 870
+spawn e_tnt_p minecraft:painting 51.0 -59.5 -0.5 0 0 {Tags:[e_tnt_p],facing:0b,variant:"minecraft:kebab"}
+entity_seed e_tnt_p 871
+spawn e_tnt_c minecraft:cushion 53.0 -60 1.5 0 0 {Tags:[e_tnt_c],color:"red"}
+entity_seed e_tnt_c 872
+tick 1
+dump packets:O:none
+level_seed 164
+explode 0.5 -60 2.5 2 none
+tick 2
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+level_seed 165
+explode 14.5 -60 2.5 2 block
+tick 2
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+level_seed 166
+explode 28.5 -60 2.5 2 mob
+tick 2
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+level_seed 167
+explode 42.5 -60 2.5 2 tnt
+tick 2
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+cmd kill @e[type=minecraft:item]
+tick 1
+dump packets:O:none
+note explosions sourced by a player and by primed TNT
+spawn x_s minecraft:armor_stand 1.5 -60 20.5 0 0 {Tags:[x_s],equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed x_s 873
+spawn x_f minecraft:item_frame 5.5 -59.5 20.5 0 0 {Tags:[x_f],Facing:3b,Item:{id:"minecraft:diamond",count:1}}
+entity_seed x_f 874
+fill 5 -60 19 5 -60 19 minecraft:stone
+tick 1
+level_seed 168
+explode 3.5 -60 22.5 3 block source=P
+tick 2
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment
+spawn tnt1 minecraft:tnt 20.5 -59 20.5 0 0 {fuse:2s,Tags:[tnt1]}
+spawn x_s2 minecraft:armor_stand 22.5 -60 20.5 0 0 {Tags:[x_s2],equipment:{head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:iron_chestplate",count:1}}}
+entity_seed x_s2 875
+level_seed 169
+tick 6
+dump xentities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,explode,set_equipment

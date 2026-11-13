@@ -1,0 +1,318 @@
+# Hanging entities that no longer survive (BlockAttachedEntity.tick every 101 ticks, HangingEntity.survives and canCoexist, ItemFrame and
+# Painting): an item frame and a painting whose support block is gone, is not solid, is a diode, has a block in the popping box, shares
+# the cell with another hanging entity in the same direction; fixed frames, frames on the floor and ceiling, painting variants of every
+# size, and a piston that moves into them. They survive at tick 100 and drop (item, frame, painting) at tick 101.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 4000
+fill -2 -61 -2 70 -45 -2 minecraft:stone
+spawn_player O survival 30.5 -60 12.5 0 0
+spawn_player P survival 28.5 -60 12.5 0 0
+tick 2
+dump packets:O:none packets:P:none
+note supports of an item frame facing south: solid, glass, slab, diode, ice, chest, leaves, button
+block 0 -60 -2 minecraft:stone
+spawn s0 minecraft:item_frame 0.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s0],Item:{id:"minecraft:stick",count:1}}
+entity_seed s0 401
+block 3 -60 -2 minecraft:glass
+spawn s1 minecraft:item_frame 3.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s1],Item:{id:"minecraft:stick",count:1}}
+entity_seed s1 402
+block 6 -60 -2 minecraft:oak_slab[type=bottom]
+spawn s2 minecraft:item_frame 6.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s2],Item:{id:"minecraft:stick",count:1}}
+entity_seed s2 403
+block 9 -60 -2 minecraft:oak_slab[type=top]
+spawn s3 minecraft:item_frame 9.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s3],Item:{id:"minecraft:stick",count:1}}
+entity_seed s3 404
+block 12 -60 -2 minecraft:repeater[facing=north]
+spawn s4 minecraft:item_frame 12.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s4],Item:{id:"minecraft:stick",count:1}}
+entity_seed s4 405
+block 15 -60 -2 minecraft:comparator[facing=north]
+spawn s5 minecraft:item_frame 15.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s5],Item:{id:"minecraft:stick",count:1}}
+entity_seed s5 406
+block 18 -60 -2 minecraft:ice
+spawn s6 minecraft:item_frame 18.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s6],Item:{id:"minecraft:stick",count:1}}
+entity_seed s6 407
+block 21 -60 -2 minecraft:chest
+spawn s7 minecraft:item_frame 21.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s7],Item:{id:"minecraft:stick",count:1}}
+entity_seed s7 408
+block 24 -60 -2 minecraft:oak_leaves
+spawn s8 minecraft:item_frame 24.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s8],Item:{id:"minecraft:stick",count:1}}
+entity_seed s8 409
+block 27 -60 -2 minecraft:stone_button[face=wall,facing=south]
+spawn s9 minecraft:item_frame 27.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s9],Item:{id:"minecraft:stick",count:1}}
+entity_seed s9 410
+block 30 -60 -2 minecraft:barrier
+spawn s10 minecraft:item_frame 30.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s10],Item:{id:"minecraft:stick",count:1}}
+entity_seed s10 411
+block 33 -60 -2 minecraft:soul_sand
+spawn s11 minecraft:item_frame 33.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s11],Item:{id:"minecraft:stick",count:1}}
+entity_seed s11 412
+block 36 -60 -2 minecraft:oak_fence
+spawn s12 minecraft:item_frame 36.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s12],Item:{id:"minecraft:stick",count:1}}
+entity_seed s12 413
+block 39 -60 -2 minecraft:air
+spawn s13 minecraft:item_frame 39.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s13],Item:{id:"minecraft:stick",count:1}}
+entity_seed s13 414
+block 42 -60 -2 minecraft:water[level=0]
+spawn s14 minecraft:item_frame 42.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s14],Item:{id:"minecraft:stick",count:1}}
+entity_seed s14 415
+block 45 -60 -2 minecraft:oak_stairs[facing=south]
+spawn s15 minecraft:item_frame 45.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s15],Item:{id:"minecraft:stick",count:1}}
+entity_seed s15 416
+block 48 -60 -2 minecraft:snow[layers=2]
+spawn s16 minecraft:item_frame 48.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s16],Item:{id:"minecraft:stick",count:1}}
+entity_seed s16 417
+block 51 -60 -2 minecraft:glowstone
+spawn s17 minecraft:item_frame 51.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[s17],Item:{id:"minecraft:stick",count:1}}
+entity_seed s17 418
+tick 2
+dump edata:s0 edata:s1 edata:s2 xentities packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+tick 98
+dump xentities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+tick 1
+dump xentity:s0 xentity:s1 xentity:s2 xentity:s3 xentity:s4 xentity:s5 xentity:s6 xentity:s7 xentity:s8 xentity:s9 xentity:s10 xentity:s11 xentity:s12 xentity:s13 xentity:s14 xentity:s15 xentity:s16 xentity:s17 entities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=minecraft:item_frame]
+tick 1
+dump packets:O:none
+note blocks in the cell of a frame (the popping box)
+block 0 -60 -2 minecraft:stone
+block 0 -60 -1 minecraft:stone
+spawn b0 minecraft:glow_item_frame 0.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b0]}
+entity_seed b0 419
+block 3 -60 -2 minecraft:stone
+block 3 -60 -1 minecraft:oak_slab[type=bottom]
+spawn b1 minecraft:glow_item_frame 3.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b1]}
+entity_seed b1 420
+block 6 -60 -2 minecraft:stone
+block 6 -60 -1 minecraft:torch
+spawn b2 minecraft:glow_item_frame 6.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b2]}
+entity_seed b2 421
+block 9 -60 -2 minecraft:stone
+block 9 -60 -1 minecraft:cobweb
+spawn b3 minecraft:glow_item_frame 9.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b3]}
+entity_seed b3 422
+block 12 -60 -2 minecraft:stone
+block 12 -60 -1 minecraft:white_carpet
+spawn b4 minecraft:glow_item_frame 12.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b4]}
+entity_seed b4 423
+block 15 -60 -2 minecraft:stone
+block 15 -60 -1 minecraft:oak_fence
+spawn b5 minecraft:glow_item_frame 15.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b5]}
+entity_seed b5 424
+block 18 -60 -2 minecraft:stone
+block 18 -60 -1 minecraft:glass_pane
+spawn b6 minecraft:glow_item_frame 18.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b6]}
+entity_seed b6 425
+block 21 -60 -2 minecraft:stone
+block 21 -60 -1 minecraft:oak_trapdoor[open=true,facing=south]
+spawn b7 minecraft:glow_item_frame 21.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b7]}
+entity_seed b7 426
+block 24 -60 -2 minecraft:stone
+block 24 -60 -1 minecraft:short_grass
+spawn b8 minecraft:glow_item_frame 24.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b8]}
+entity_seed b8 427
+block 27 -60 -2 minecraft:stone
+block 27 -60 -1 minecraft:water[level=0]
+spawn b9 minecraft:glow_item_frame 27.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b9]}
+entity_seed b9 428
+block 30 -60 -2 minecraft:stone
+block 30 -60 -1 minecraft:oak_pressure_plate
+spawn b10 minecraft:glow_item_frame 30.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b10]}
+entity_seed b10 429
+block 33 -60 -2 minecraft:stone
+block 33 -60 -1 minecraft:oak_door[facing=south,half=lower]
+spawn b11 minecraft:glow_item_frame 33.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[b11]}
+entity_seed b11 430
+tick 100
+dump xentities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+tick 1
+dump xentity:b0 xentity:b1 xentity:b2 xentity:b3 xentity:b4 xentity:b5 xentity:b6 xentity:b7 xentity:b8 xentity:b9 xentity:b10 xentity:b11 entities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=minecraft:glow_item_frame]
+block 0 -60 -1 minecraft:air
+block 3 -60 -1 minecraft:air
+block 6 -60 -1 minecraft:air
+block 9 -60 -1 minecraft:air
+block 12 -60 -1 minecraft:air
+block 15 -60 -1 minecraft:air
+block 18 -60 -1 minecraft:air
+block 21 -60 -1 minecraft:air
+block 24 -60 -1 minecraft:air
+block 27 -60 -1 minecraft:air
+block 30 -60 -1 minecraft:air
+block 33 -60 -1 minecraft:air
+tick 1
+dump packets:O:none
+fill 0 -60 -2 40 -60 -2 minecraft:stone
+note two hanging entities in the same cell: same direction both break, opposite directions coexist, different types
+block 0 -60 0 minecraft:stone
+spawn c1 minecraft:item_frame 0.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[c1]}
+entity_seed c1 431
+spawn c2 minecraft:item_frame 0.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[c2]}
+entity_seed c2 432
+block 6 -60 0 minecraft:stone
+spawn c3 minecraft:item_frame 6.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[c3]}
+entity_seed c3 433
+spawn c4 minecraft:glow_item_frame 6.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[c4]}
+entity_seed c4 434
+block 12 -60 0 minecraft:stone
+spawn c5 minecraft:item_frame 12.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[c5]}
+entity_seed c5 435
+spawn c6 minecraft:item_frame 12.5 -59.5 -0.5 0 0 {Facing:2b,Tags:[c6]}
+entity_seed c6 436
+block 18 -60 -1 minecraft:air
+spawn c7 minecraft:painting 18.5 -59.5 -0.5 0 0 {Tags:[c7],facing:0b,variant:"minecraft:kebab"}
+entity_seed c7 437
+spawn c8 minecraft:item_frame 18.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[c8]}
+entity_seed c8 438
+spawn c9 minecraft:item_frame 24.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[c9],Fixed:1b,Item:{id:"minecraft:stick",count:1}}
+entity_seed c9 439
+spawn c10 minecraft:item_frame 24.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[c10],Fixed:1b}
+entity_seed c10 440
+spawn c11 minecraft:painting 30.5 -59.5 -0.5 0 0 {Tags:[c11],facing:0b,variant:"minecraft:kebab"}
+entity_seed c11 441
+spawn c12 minecraft:painting 30.5 -59.5 -0.5 0 0 {Tags:[c12],facing:0b,variant:"minecraft:alban"}
+entity_seed c12 442
+tick 100
+dump xentities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+tick 1
+dump xentity:c1 xentity:c2 xentity:c3 xentity:c4 xentity:c5 xentity:c6 xentity:c7 xentity:c8 xentity:c9 xentity:c10 xentity:c11 xentity:c12 entities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=minecraft:item_frame]
+cmd kill @e[type=minecraft:glow_item_frame]
+cmd kill @e[type=minecraft:painting]
+tick 1
+dump packets:O:none
+note frames on the floor and the ceiling
+fill 40 -59 4 46 -59 4 minecraft:stone
+spawn y0 minecraft:item_frame 40.5 -60.0 4.5 0 0 {Facing:1b,Tags:[y0],Item:{id:"minecraft:diamond",count:1},ItemRotation:3b}
+entity_seed y0 443
+spawn y1 minecraft:item_frame 43.5 -59.5 4.5 0 0 {Facing:0b,Tags:[y1],Item:{id:"minecraft:diamond",count:1},ItemRotation:3b}
+entity_seed y1 444
+tick 1
+dump xentities edata:y0 edata:y1 nbt:y0 nbt:y1 packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+tick 100
+dump xentities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+cmd kill @e[type=minecraft:item_frame]
+tick 1
+dump packets:O:none
+note painting variants of every size: wall intact (they stay), one block missing (they drop)
+fill 1 -60 -1 6 -56 -1 minecraft:air
+spawn v0 minecraft:painting 2.5 -59.5 -0.5 0 0 {Tags:[v0],facing:0b,variant:"minecraft:kebab"}
+entity_seed v0 445
+fill 6 -60 -1 11 -56 -1 minecraft:air
+spawn v1 minecraft:painting 7.5 -59.5 -0.5 0 0 {Tags:[v1],facing:0b,variant:"minecraft:aztec"}
+entity_seed v1 446
+fill 11 -60 -1 16 -56 -1 minecraft:air
+spawn v2 minecraft:painting 12.5 -59.5 -0.5 0 0 {Tags:[v2],facing:0b,variant:"minecraft:pool"}
+entity_seed v2 447
+fill 16 -60 -1 21 -56 -1 minecraft:air
+spawn v3 minecraft:painting 17.5 -59.5 -0.5 0 0 {Tags:[v3],facing:0b,variant:"minecraft:courbet"}
+entity_seed v3 448
+fill 21 -60 -1 26 -56 -1 minecraft:air
+spawn v4 minecraft:painting 22.5 -59.5 -0.5 0 0 {Tags:[v4],facing:0b,variant:"minecraft:match"}
+entity_seed v4 449
+fill 26 -60 -1 31 -56 -1 minecraft:air
+spawn v5 minecraft:painting 27.5 -59.5 -0.5 0 0 {Tags:[v5],facing:0b,variant:"minecraft:skull_and_roses"}
+entity_seed v5 450
+fill 31 -60 -1 36 -56 -1 minecraft:air
+spawn v6 minecraft:painting 32.5 -59.5 -0.5 0 0 {Tags:[v6],facing:0b,variant:"minecraft:bust"}
+entity_seed v6 451
+fill 36 -60 -1 41 -56 -1 minecraft:air
+spawn v7 minecraft:painting 37.5 -59.5 -0.5 0 0 {Tags:[v7],facing:0b,variant:"minecraft:fighters"}
+entity_seed v7 452
+fill 41 -60 -1 46 -56 -1 minecraft:air
+spawn v8 minecraft:painting 42.5 -59.5 -0.5 0 0 {Tags:[v8],facing:0b,variant:"minecraft:pointer"}
+entity_seed v8 453
+fill 46 -60 -1 51 -56 -1 minecraft:air
+spawn v9 minecraft:painting 47.5 -59.5 -0.5 0 0 {Tags:[v9],facing:0b,variant:"minecraft:pigscene"}
+entity_seed v9 454
+fill 51 -60 -1 56 -56 -1 minecraft:air
+spawn v10 minecraft:painting 52.5 -59.5 -0.5 0 0 {Tags:[v10],facing:0b,variant:"minecraft:skeleton"}
+entity_seed v10 455
+fill 56 -60 -1 61 -56 -1 minecraft:air
+spawn v11 minecraft:painting 57.5 -59.5 -0.5 0 0 {Tags:[v11],facing:0b,variant:"minecraft:donkey_kong"}
+entity_seed v11 456
+fill 1 -55 -1 6 -51 -1 minecraft:air
+spawn v12 minecraft:painting 2.5 -54.5 -0.5 0 0 {Tags:[v12],facing:0b,variant:"minecraft:wasteland"}
+entity_seed v12 457
+fill 6 -55 -1 11 -51 -1 minecraft:air
+spawn v13 minecraft:painting 7.5 -54.5 -0.5 0 0 {Tags:[v13],facing:0b,variant:"minecraft:graham"}
+entity_seed v13 458
+fill 11 -55 -1 16 -51 -1 minecraft:air
+spawn v14 minecraft:painting 12.5 -54.5 -0.5 0 0 {Tags:[v14],facing:0b,variant:"minecraft:wither"}
+entity_seed v14 459
+fill 16 -55 -1 21 -51 -1 minecraft:air
+spawn v15 minecraft:painting 17.5 -54.5 -0.5 0 0 {Tags:[v15],facing:0b,variant:"minecraft:burning_skull"}
+entity_seed v15 460
+fill 21 -55 -1 26 -51 -1 minecraft:air
+spawn v16 minecraft:painting 22.5 -54.5 -0.5 0 0 {Tags:[v16],facing:0b,variant:"minecraft:baroque"}
+entity_seed v16 461
+fill 26 -55 -1 31 -51 -1 minecraft:air
+spawn v17 minecraft:painting 27.5 -54.5 -0.5 0 0 {Tags:[v17],facing:0b,variant:"minecraft:humble"}
+entity_seed v17 462
+fill 31 -55 -1 36 -51 -1 minecraft:air
+spawn v18 minecraft:painting 32.5 -54.5 -0.5 0 0 {Tags:[v18],facing:0b,variant:"minecraft:meditative"}
+entity_seed v18 463
+fill 36 -55 -1 41 -51 -1 minecraft:air
+spawn v19 minecraft:painting 37.5 -54.5 -0.5 0 0 {Tags:[v19],facing:0b,variant:"minecraft:prairie_ride"}
+entity_seed v19 464
+fill 41 -55 -1 46 -51 -1 minecraft:air
+spawn v20 minecraft:painting 42.5 -54.5 -0.5 0 0 {Tags:[v20],facing:0b,variant:"minecraft:unpacked"}
+entity_seed v20 465
+fill 46 -55 -1 51 -51 -1 minecraft:air
+spawn v21 minecraft:painting 47.5 -54.5 -0.5 0 0 {Tags:[v21],facing:0b,variant:"minecraft:backyard"}
+entity_seed v21 466
+fill 51 -55 -1 56 -51 -1 minecraft:air
+spawn v22 minecraft:painting 52.5 -54.5 -0.5 0 0 {Tags:[v22],facing:0b,variant:"minecraft:bouquet"}
+entity_seed v22 467
+fill 56 -55 -1 61 -51 -1 minecraft:air
+spawn v23 minecraft:painting 57.5 -54.5 -0.5 0 0 {Tags:[v23],facing:0b,variant:"minecraft:cavebird"}
+entity_seed v23 468
+tick 2
+dump xentities edata:v0 edata:v8 nbt:v0 nbt:v8 nbt:v11 packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+block 2 -60 -2 minecraft:air
+block 12 -60 -2 minecraft:air
+block 22 -60 -2 minecraft:air
+block 32 -60 -2 minecraft:air
+block 42 -60 -2 minecraft:air
+block 52 -60 -2 minecraft:air
+block 2 -55 -2 minecraft:air
+block 12 -55 -2 minecraft:air
+block 22 -55 -2 minecraft:air
+block 32 -55 -2 minecraft:air
+block 42 -55 -2 minecraft:air
+block 52 -55 -2 minecraft:air
+tick 98
+dump xentities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+tick 1
+dump xentity:v0 xentity:v1 xentity:v2 xentity:v3 xentity:v4 xentity:v5 xentity:v6 xentity:v7 xentity:v8 xentity:v9 xentity:v10 xentity:v11 xentity:v12 xentity:v13 xentity:v14 xentity:v15 xentity:v16 xentity:v17 xentity:v18 xentity:v19 xentity:v20 xentity:v21 xentity:v22 xentity:v23 entities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+cmd kill @e[type=minecraft:item]
+cmd kill @e[type=minecraft:painting]
+tick 1
+dump packets:O:none
+note a piston moves its stone into a frame, a painting and a fixed frame
+fill 50 -60 -3 62 -60 -3 minecraft:air
+block 50 -60 -3 minecraft:piston[facing=south,extended=false]
+block 50 -60 -2 minecraft:stone
+spawn m0 minecraft:item_frame 50.5 -59.5 -0.5 0 0 {Facing:3b,Tags:[m0]}
+entity_seed m0 469
+block 54 -60 -3 minecraft:piston[facing=south,extended=false]
+block 54 -60 -2 minecraft:stone
+spawn m1 minecraft:painting 54.5 -59.5 -0.5 0 0 {facing:0b,variant:"minecraft:kebab",Tags:[m1]}
+entity_seed m1 470
+block 58 -60 -3 minecraft:piston[facing=south,extended=false]
+block 58 -60 -2 minecraft:stone
+spawn m2 minecraft:item_frame 58.5 -59.5 -0.5 0 0 {Fixed:1b,Facing:3b,Item:{id:"minecraft:stick",count:1},Tags:[m2]}
+entity_seed m2 471
+tick 3
+block 50 -60 -4 minecraft:redstone_block
+block 54 -60 -4 minecraft:redstone_block
+block 58 -60 -4 minecraft:redstone_block
+tick 8
+dump xentities entities events packets:O:add_entity,remove_entities,sound,set_entity_data,entity_event,level_particles
+tick 1
+dump packets:O:none

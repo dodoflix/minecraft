@@ -1,0 +1,125 @@
+# Mannequin: its save data (profile, hidden layers, main hand, pose, immovable, description, hide_description), the entity data of its
+# pairing, a pose that is not allowed, damage and death (the animation, the loot table without drops, equipment), fire and lava, a hit
+# by a player, lightning, and the /data merge round trip.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 6000
+spawn_player O survival 20.5 -60 12.5 0 0
+spawn_player P survival 0.5 -60 3.5 180 0
+spawn_player C creative 4.5 -60 3.5 180 0
+give P mainhand minecraft:diamond_sword
+give C mainhand minecraft:diamond_sword
+tick 2
+dump packets:O:none packets:P:none packets:C:none
+note defaults and every NBT field: the entity data of the pairing and the save data
+spawn m0 minecraft:mannequin 0.5 -60 0.5 0 0 {Tags:[m0]}
+entity_seed m0 601
+spawn m1 minecraft:mannequin 4.5 -60 0.5 0 0 {Tags:[m1],hidden_layers:["cape","jacket","hat"],main_hand:"left",pose:"crouching",immovable:1b}
+entity_seed m1 602
+spawn m2 minecraft:mannequin 8.5 -60 0.5 0 0 {Tags:[m2],pose:"sleeping",description:'{"text":"Fred","color":"red"}',profile:"Steve"}
+entity_seed m2 603
+spawn m3 minecraft:mannequin 12.5 -60 0.5 0 0 {Tags:[m3],pose:"swimming",hide_description:1b,profile:{name:"Alex",id:[I;1,2,3,4],properties:[{name:"textures",value:"abc"}]}}
+entity_seed m3 604
+spawn m4 minecraft:mannequin 16.5 -60 0.5 0 0 {Tags:[m4],pose:"fall_flying",CustomName:'"Dummy"',CustomNameVisible:1b,profile:{id:[I;5,6,7,8]}}
+entity_seed m4 605
+spawn m5 minecraft:mannequin 20.5 -60 0.5 0 0 {Tags:[m5],pose:"spin_attack",hidden_layers:["bogus"]}
+entity_seed m5 606
+spawn m6 minecraft:mannequin 24.5 -60 0.5 0 0 {Tags:[m6],pose:"dying",equipment:{head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:stick",count:1}}}
+entity_seed m6 607
+spawn m7 minecraft:mannequin 28.5 -60 0.5 0 0 {Tags:[m7],hidden_layers:["left_sleeve","right_sleeve","left_pants_leg","right_pants_leg"],description:'"plain"',profile:{name:"Bob",properties:[]}}
+entity_seed m7 608
+tick 2
+dump xentity:m0 edata:m0 nbt:m0 xentity:m1 edata:m1 nbt:m1 xentity:m2 edata:m2 nbt:m2 xentity:m3 edata:m3 nbt:m3 xentity:m4 edata:m4 nbt:m4 xentity:m5 edata:m5 nbt:m5 xentity:m6 edata:m6 nbt:m6 xentity:m7 edata:m7 nbt:m7 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+tick 20
+dump xentities packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+note data merge round trip through the command
+cmd data merge entity @e[tag=m0,limit=1] {pose:"crouching",immovable:1b,main_hand:"left",description:'{"text":"merged"}',hidden_layers:["cape"]}
+cmd data merge entity @e[tag=m1,limit=1] {pose:"standing",hide_description:1b}
+cmd data get entity @e[tag=m3,limit=1] profile
+tick 2
+dump xentity:m0 edata:m0 nbt:m0 xentity:m1 edata:m1 nbt:m1 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+note damage: survival hit, 3 damage types, fire, death
+level_seed 100
+attack P m0
+tick 1
+dump xentity:m0 nbt:m0 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+level_seed 101
+hurt m1 generic 4
+tick 1
+dump xentity:m1 nbt:m1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+level_seed 102
+hurt m2 magic 30
+tick 1
+dump xentity:m2 nbt:m2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+tick 22
+dump xentities entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+level_seed 103
+hurt m3 player_attack 6 by=P
+tick 1
+dump xentity:m3 nbt:m3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+level_seed 104
+hurt m3 player_attack 6 by=P
+tick 1
+dump xentity:m3 nbt:m3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+tick 10
+dump xentities entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+note creative player hit, in_fire, fall, void
+level_seed 105
+attack C m4
+tick 1
+dump xentity:m4 nbt:m4 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+tick 25
+dump xentities entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+level_seed 106
+hurt m5 in_fire 2
+tick 30
+dump xentity:m5 nbt:m5 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+level_seed 107
+hurt m6 fall 3
+tick 1
+dump xentity:m6 nbt:m6 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+level_seed 108
+hurt m7 out_of_world 3
+tick 30
+dump xentity:m7 nbt:m7 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+note fire, lava and lightning (natural ticks)
+block 40 -60 0 minecraft:fire
+block 44 -60 0 minecraft:lava[level=0]
+spawn n1 minecraft:mannequin 40.5 -60 0.5 0 0 {Tags:[n1]}
+entity_seed n1 609
+spawn n2 minecraft:mannequin 44.5 -60 0.5 0 0 {Tags:[n2]}
+entity_seed n2 610
+spawn n3 minecraft:mannequin 48.5 -60 0.5 0 0 {Tags:[n3]}
+entity_seed n3 611
+tick 1
+dump packets:O:none
+spawn bolt1 minecraft:lightning_bolt 48.5 -60 0.5
+tick 50
+dump xentity:n1 xentity:n2 xentity:n3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+tick 100
+dump xentity:n1 xentity:n2 xentity:n3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+note killing with /kill, a mannequin in the air falls and takes fall damage
+spawn k1 minecraft:mannequin 4.5 -60 8.5 0 0 {Tags:[k1]}
+entity_seed k1 612
+spawn k2 minecraft:mannequin 8.5 -40 8.5 0 0 {Tags:[k2]}
+entity_seed k2 613
+tick 1
+cmd kill @e[tag=k1]
+tick 1
+dump xentity:k1 nbt:k1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+tick 30
+dump xentity:k2 nbt:k2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+tick 20
+dump xentity:k2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync
+note a player walks into a mannequin and pushes it, an immovable one stays
+spawn p1 minecraft:mannequin 4.5 -60 14.5 0 0 {Tags:[p1]}
+entity_seed p1 614
+spawn p2 minecraft:mannequin 8.5 -60 14.5 0 0 {Tags:[p2],immovable:1b}
+entity_seed p2 615
+tick 1
+snap P 4.5 -60 14.5 0 0
+snap C 8.5 -60 14.5 0 0
+tick 10
+dump xentity:p1 xentity:p2 entity:P entity:C packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate,set_equipment,damage_event,set_entity_motion,teleport_entity,move_entity_pos,move_entity_pos_rot,move_entity_rot,rotate_head,entity_position_sync

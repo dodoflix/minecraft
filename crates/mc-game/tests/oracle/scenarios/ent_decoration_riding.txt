@@ -1,0 +1,99 @@
+# Decoration entities as vehicles and passengers: a cow, an armor stand, a mannequin and a player on a cushion, an armor stand on a boat
+# and on a minecart, a player on a stand and on a mannequin; the riding positions, the passenger packets, and what happens to the
+# passengers when the vehicle breaks, is killed or the passenger is hurt.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 9000
+spawn_player O survival 20.5 -60 12.5 180 0
+spawn_player P survival 30.5 -60 12.5 180 0
+tick 2
+dump packets:O:none packets:P:none
+note passengers on cushions
+spawn c1 minecraft:cushion 0.5 -60 0.5 0 0 {Tags:[c1],color:"red"}
+entity_seed c1 901
+spawn c2 minecraft:cushion 4.5 -60 0.5 0 0 {Tags:[c2],color:"blue"}
+entity_seed c2 902
+spawn c3 minecraft:cushion 8.5 -60 0.5 0 0 {Tags:[c3],color:"green"}
+entity_seed c3 903
+spawn c4 minecraft:cushion 12.5 -60 0.5 0 0 {Tags:[c4],color:"white"}
+entity_seed c4 904
+mobspawn Cow minecraft:cow 0.5 -55 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn st1 minecraft:armor_stand 4.5 -55 0.5 0 0 {Tags:[st1],ShowArms:1b}
+entity_seed st1 905
+spawn mn1 minecraft:mannequin 8.5 -55 0.5 0 0 {Tags:[mn1]}
+entity_seed mn1 906
+tick 1
+ride Cow c1
+ride st1 c2
+ride mn1 c3
+ride P c4
+tick 3
+dump mob:Cow xentity:st1 xentity:mn1 entity:P xentity:c1 xentity:c2 xentity:c3 xentity:c4 nbt:c1 nbt:c2 nbt:c3 nbt:c4 events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+tick 20
+dump mob:Cow xentity:st1 xentity:mn1 entity:P packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+note a second rider and the sneak dismount
+mobspawn Cow2 minecraft:cow 4.5 -55 4.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+ride Cow2 c2
+tick 2
+dump mob:Cow2 xentity:c2 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+note hurting a cushion with riders: the riders are dismounted
+level_seed 160
+hurt c1 generic 1
+tick 2
+dump mob:Cow xentity:c1 events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+level_seed 161
+hurt c3 player_attack 1 by=P
+tick 2
+dump xentity:mn1 xentity:c3 events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+cmd kill @e[tag=c4]
+tick 2
+dump entity:P xentity:c4 events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+cmd kill @e[type=minecraft:item]
+note stands and mannequins as vehicles
+spawn st2 minecraft:armor_stand 20.5 -60 0.5 0 0 {Tags:[st2],ShowArms:1b}
+entity_seed st2 907
+spawn mn2 minecraft:mannequin 24.5 -60 0.5 0 0 {Tags:[mn2]}
+entity_seed mn2 908
+mobspawn Cow3 minecraft:cow 20.5 -55 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+mobspawn Cow4 minecraft:cow 24.5 -55 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+tick 1
+ride Cow3 st2
+ride Cow4 mn2
+tick 3
+dump mob:Cow3 mob:Cow4 xentity:st2 xentity:mn2 nbt:st2 nbt:mn2 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+snap P 20.5 -60 3.5 180 0
+ride P mn2
+tick 3
+dump entity:P xentity:mn2 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+level_seed 162
+hurt st2 generic_kill 1
+tick 2
+dump mob:Cow3 xentity:st2 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+cmd kill @e[tag=mn2]
+tick 2
+dump entity:P mob:Cow4 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+note stands and mannequins as passengers of a boat and of a minecart
+fill 30 -61 0 40 -61 6 minecraft:grass_block
+spawn boat1 minecraft:oak_boat 32.5 -60 2.5 0 0 {Tags:[boat1]}
+entity_seed boat1 909
+spawn mc1 minecraft:minecart 36.5 -60 2.5 0 0 {Tags:[mc1]}
+entity_seed mc1 910
+spawn st3 minecraft:armor_stand 32.5 -55 2.5 0 0 {Tags:[st3]}
+entity_seed st3 911
+spawn mn3 minecraft:mannequin 36.5 -55 2.5 0 0 {Tags:[mn3]}
+entity_seed mn3 912
+tick 1
+ride st3 boat1
+ride mn3 mc1
+tick 5
+dump xentity:boat1 xentity:mc1 xentity:st3 xentity:mn3 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+velocity boat1 0.3 0 0
+velocity mc1 0.2 0 0
+tick 10
+dump xentity:boat1 xentity:mc1 xentity:st3 xentity:mn3 packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion
+level_seed 163
+hurt st3 player_attack 1 by=P
+tick 1
+dump xentity:boat1 xentity:st3 events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,set_passengers,teleport_entity,move_entity_pos,move_entity_pos_rot,rotate_head,move_entity_rot,entity_position_sync,set_entity_motion

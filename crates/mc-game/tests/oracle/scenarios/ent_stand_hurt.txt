@@ -1,0 +1,901 @@
+# Armor stand damage (ArmorStand.hurtServer and the kill paths): which damage types ignite, burn, break or ignore a stand, the five tick
+# window of a first hit (the stand wobbles, the second hit breaks it), invisible and marker stands, creative and adventure players, the
+# mob_griefing and entity_drops rules, equipment that does not drop (vanishing curse), a custom name on the dropped stand, explosions,
+# lightning, fire and lava around a stand, /kill and the void. The observer sees the entity events, sounds and particles.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 2000
+spawn_player P survival 0.5 -60 3.5 180 0
+spawn_player C creative 4.5 -60 3.5 180 0
+spawn_player A adventure 8.5 -60 3.5 180 0
+spawn_player O survival 20.5 -60 -2.5 180 0
+give P mainhand minecraft:diamond_sword
+give C mainhand minecraft:diamond_sword
+give A mainhand minecraft:diamond_sword
+tick 2
+dump packets:P:none packets:C:none packets:A:none packets:O:none
+note real attacks through the listener: a survival player hits a named stand twice, a creative player once, an adventure player twice
+spawn a1 minecraft:armor_stand 0.5 -60 0.5 0 0 {Tags:[a1],CustomName:'"Dummy"',equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed a1 201
+spawn a2 minecraft:armor_stand 4.5 -60 0.5 0 0 {Tags:[a2],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed a2 202
+spawn a3 minecraft:armor_stand 8.5 -60 0.5 0 0 {Tags:[a3],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed a3 203
+tick 1
+dump xentities packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 20
+attack P a1
+tick 1
+dump xentity:a1 nbt:a1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 21
+attack P a1 second
+tick 1
+dump xentity:a1 nbt:a1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=a1]
+tick 1
+dump packets:O:none
+level_seed 22
+attack C a2
+tick 1
+dump xentity:a2 nbt:a2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=a2]
+tick 1
+dump packets:O:none
+level_seed 23
+attack A a3
+tick 1
+dump xentity:a3 nbt:a3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 24
+attack A a3 again
+tick 1
+dump xentity:a3 nbt:a3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=a3]
+tick 1
+dump packets:O:none
+note each damage type on a fresh stand
+spawn d_in_fire minecraft:armor_stand 0.5 -60 -5.5 0 0 {Tags:[d_in_fire],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_in_fire 204
+spawn d_on_fire minecraft:armor_stand 4.5 -60 -5.5 0 0 {Tags:[d_on_fire],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_on_fire 205
+spawn d_lava minecraft:armor_stand 8.5 -60 -5.5 0 0 {Tags:[d_lava],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_lava 206
+spawn d_hot_floor minecraft:armor_stand 12.5 -60 -5.5 0 0 {Tags:[d_hot_floor],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_hot_floor 207
+spawn d_explosion minecraft:armor_stand 16.5 -60 -5.5 0 0 {Tags:[d_explosion],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_explosion 208
+spawn d_player_explosion minecraft:armor_stand 20.5 -60 -5.5 0 0 {Tags:[d_player_explosion],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_player_explosion 209
+spawn d_magic minecraft:armor_stand 24.5 -60 -5.5 0 0 {Tags:[d_magic],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_magic 210
+spawn d_generic minecraft:armor_stand 28.5 -60 -5.5 0 0 {Tags:[d_generic],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_generic 211
+spawn d_generic_kill minecraft:armor_stand 32.5 -60 -5.5 0 0 {Tags:[d_generic_kill],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_generic_kill 212
+spawn d_out_of_world minecraft:armor_stand 36.5 -60 -5.5 0 0 {Tags:[d_out_of_world],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_out_of_world 213
+spawn d_cactus minecraft:armor_stand 40.5 -60 -5.5 0 0 {Tags:[d_cactus],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_cactus 214
+spawn d_fall minecraft:armor_stand 0.5 -60 -9.5 0 0 {Tags:[d_fall],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_fall 215
+spawn d_drown minecraft:armor_stand 4.5 -60 -9.5 0 0 {Tags:[d_drown],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_drown 216
+spawn d_wither minecraft:armor_stand 8.5 -60 -9.5 0 0 {Tags:[d_wither],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_wither 217
+spawn d_lightning_bolt minecraft:armor_stand 12.5 -60 -9.5 0 0 {Tags:[d_lightning_bolt],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_lightning_bolt 218
+spawn d_falling_anvil minecraft:armor_stand 16.5 -60 -9.5 0 0 {Tags:[d_falling_anvil],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_falling_anvil 219
+spawn d_fly_into_wall minecraft:armor_stand 20.5 -60 -9.5 0 0 {Tags:[d_fly_into_wall],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_fly_into_wall 220
+spawn d_starve minecraft:armor_stand 24.5 -60 -9.5 0 0 {Tags:[d_starve],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_starve 221
+spawn d_freeze minecraft:armor_stand 28.5 -60 -9.5 0 0 {Tags:[d_freeze],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_freeze 222
+spawn d_cramming minecraft:armor_stand 32.5 -60 -9.5 0 0 {Tags:[d_cramming],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_cramming 223
+spawn d_outside_border minecraft:armor_stand 36.5 -60 -9.5 0 0 {Tags:[d_outside_border],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_outside_border 224
+spawn d_in_wall minecraft:armor_stand 40.5 -60 -9.5 0 0 {Tags:[d_in_wall],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_in_wall 225
+spawn d_sting minecraft:armor_stand 0.5 -60 -13.5 0 0 {Tags:[d_sting],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_sting 226
+spawn d_thorns minecraft:armor_stand 4.5 -60 -13.5 0 0 {Tags:[d_thorns],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_thorns 227
+spawn d_dragon_breath minecraft:armor_stand 8.5 -60 -13.5 0 0 {Tags:[d_dragon_breath],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_dragon_breath 228
+spawn d_fireball minecraft:armor_stand 12.5 -60 -13.5 0 0 {Tags:[d_fireball],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_fireball 229
+spawn d_fireworks minecraft:armor_stand 16.5 -60 -13.5 0 0 {Tags:[d_fireworks],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_fireworks 230
+spawn d_sweet_berry_bush minecraft:armor_stand 20.5 -60 -13.5 0 0 {Tags:[d_sweet_berry_bush],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_sweet_berry_bush 231
+spawn d_stalagmite minecraft:armor_stand 24.5 -60 -13.5 0 0 {Tags:[d_stalagmite],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_stalagmite 232
+spawn d_falling_stalactite minecraft:armor_stand 28.5 -60 -13.5 0 0 {Tags:[d_falling_stalactite],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_falling_stalactite 233
+spawn d_campfire minecraft:armor_stand 32.5 -60 -13.5 0 0 {Tags:[d_campfire],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_campfire 234
+spawn d_dry_out minecraft:armor_stand 36.5 -60 -13.5 0 0 {Tags:[d_dry_out],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_dry_out 235
+spawn d_mob_attack minecraft:armor_stand 40.5 -60 -13.5 0 0 {Tags:[d_mob_attack],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_mob_attack 236
+spawn d_player_attack minecraft:armor_stand 0.5 -60 -17.5 0 0 {Tags:[d_player_attack],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_player_attack 237
+spawn d_arrow minecraft:armor_stand 4.5 -60 -17.5 0 0 {Tags:[d_arrow],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_arrow 238
+spawn d_trident minecraft:armor_stand 8.5 -60 -17.5 0 0 {Tags:[d_trident],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_trident 239
+spawn d_thrown minecraft:armor_stand 12.5 -60 -17.5 0 0 {Tags:[d_thrown],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_thrown 240
+spawn d_indirect_magic minecraft:armor_stand 16.5 -60 -17.5 0 0 {Tags:[d_indirect_magic],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_indirect_magic 241
+spawn d_wither_skull minecraft:armor_stand 20.5 -60 -17.5 0 0 {Tags:[d_wither_skull],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_wither_skull 242
+spawn d_mob_projectile minecraft:armor_stand 24.5 -60 -17.5 0 0 {Tags:[d_mob_projectile],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_mob_projectile 243
+spawn d_wind_charge minecraft:armor_stand 28.5 -60 -17.5 0 0 {Tags:[d_wind_charge],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_wind_charge 244
+spawn d_spear minecraft:armor_stand 32.5 -60 -17.5 0 0 {Tags:[d_spear],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_spear 245
+spawn d_spit minecraft:armor_stand 36.5 -60 -17.5 0 0 {Tags:[d_spit],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_spit 246
+spawn d_mace_smash minecraft:armor_stand 40.5 -60 -17.5 0 0 {Tags:[d_mace_smash],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_mace_smash 247
+spawn d_sonic_boom minecraft:armor_stand 0.5 -60 -21.5 0 0 {Tags:[d_sonic_boom],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_sonic_boom 248
+spawn d_unattributed_fireball minecraft:armor_stand 4.5 -60 -21.5 0 0 {Tags:[d_unattributed_fireball],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed d_unattributed_fireball 249
+tick 1
+dump packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 25
+hurt d_in_fire in_fire 3
+tick 1
+dump xentity:d_in_fire nbt:d_in_fire entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_in_fire]
+tick 1
+dump packets:O:none
+level_seed 26
+hurt d_on_fire on_fire 3
+tick 1
+dump xentity:d_on_fire nbt:d_on_fire entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_on_fire]
+tick 1
+dump packets:O:none
+level_seed 27
+hurt d_lava lava 3
+tick 1
+dump xentity:d_lava nbt:d_lava entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_lava]
+tick 1
+dump packets:O:none
+level_seed 28
+hurt d_hot_floor hot_floor 3
+tick 1
+dump xentity:d_hot_floor nbt:d_hot_floor entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_hot_floor]
+tick 1
+dump packets:O:none
+level_seed 29
+hurt d_explosion explosion 3
+tick 1
+dump xentity:d_explosion nbt:d_explosion entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_explosion]
+tick 1
+dump packets:O:none
+level_seed 30
+hurt d_player_explosion player_explosion 3
+tick 1
+dump xentity:d_player_explosion nbt:d_player_explosion entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_player_explosion]
+tick 1
+dump packets:O:none
+level_seed 31
+hurt d_magic magic 3
+tick 1
+dump xentity:d_magic nbt:d_magic entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_magic]
+tick 1
+dump packets:O:none
+level_seed 32
+hurt d_generic generic 3
+tick 1
+dump xentity:d_generic nbt:d_generic entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_generic]
+tick 1
+dump packets:O:none
+level_seed 33
+hurt d_generic_kill generic_kill 3
+tick 1
+dump xentity:d_generic_kill nbt:d_generic_kill entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_generic_kill]
+tick 1
+dump packets:O:none
+level_seed 34
+hurt d_out_of_world out_of_world 3
+tick 1
+dump xentity:d_out_of_world nbt:d_out_of_world entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_out_of_world]
+tick 1
+dump packets:O:none
+level_seed 35
+hurt d_cactus cactus 3
+tick 1
+dump xentity:d_cactus nbt:d_cactus entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_cactus]
+tick 1
+dump packets:O:none
+level_seed 36
+hurt d_fall fall 3
+tick 1
+dump xentity:d_fall nbt:d_fall entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_fall]
+tick 1
+dump packets:O:none
+level_seed 37
+hurt d_drown drown 3
+tick 1
+dump xentity:d_drown nbt:d_drown entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_drown]
+tick 1
+dump packets:O:none
+level_seed 38
+hurt d_wither wither 3
+tick 1
+dump xentity:d_wither nbt:d_wither entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_wither]
+tick 1
+dump packets:O:none
+level_seed 39
+hurt d_lightning_bolt lightning_bolt 3
+tick 1
+dump xentity:d_lightning_bolt nbt:d_lightning_bolt entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_lightning_bolt]
+tick 1
+dump packets:O:none
+level_seed 40
+hurt d_falling_anvil falling_anvil 3
+tick 1
+dump xentity:d_falling_anvil nbt:d_falling_anvil entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_falling_anvil]
+tick 1
+dump packets:O:none
+level_seed 41
+hurt d_fly_into_wall fly_into_wall 3
+tick 1
+dump xentity:d_fly_into_wall nbt:d_fly_into_wall entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_fly_into_wall]
+tick 1
+dump packets:O:none
+level_seed 42
+hurt d_starve starve 3
+tick 1
+dump xentity:d_starve nbt:d_starve entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_starve]
+tick 1
+dump packets:O:none
+level_seed 43
+hurt d_freeze freeze 3
+tick 1
+dump xentity:d_freeze nbt:d_freeze entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_freeze]
+tick 1
+dump packets:O:none
+level_seed 44
+hurt d_cramming cramming 3
+tick 1
+dump xentity:d_cramming nbt:d_cramming entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_cramming]
+tick 1
+dump packets:O:none
+level_seed 45
+hurt d_outside_border outside_border 3
+tick 1
+dump xentity:d_outside_border nbt:d_outside_border entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_outside_border]
+tick 1
+dump packets:O:none
+level_seed 46
+hurt d_in_wall in_wall 3
+tick 1
+dump xentity:d_in_wall nbt:d_in_wall entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_in_wall]
+tick 1
+dump packets:O:none
+level_seed 47
+hurt d_sting sting 3
+tick 1
+dump xentity:d_sting nbt:d_sting entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_sting]
+tick 1
+dump packets:O:none
+level_seed 48
+hurt d_thorns thorns 3
+tick 1
+dump xentity:d_thorns nbt:d_thorns entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_thorns]
+tick 1
+dump packets:O:none
+level_seed 49
+hurt d_dragon_breath dragon_breath 3
+tick 1
+dump xentity:d_dragon_breath nbt:d_dragon_breath entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_dragon_breath]
+tick 1
+dump packets:O:none
+level_seed 50
+hurt d_fireball fireball 3
+tick 1
+dump xentity:d_fireball nbt:d_fireball entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_fireball]
+tick 1
+dump packets:O:none
+level_seed 51
+hurt d_fireworks fireworks 3
+tick 1
+dump xentity:d_fireworks nbt:d_fireworks entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_fireworks]
+tick 1
+dump packets:O:none
+level_seed 52
+hurt d_sweet_berry_bush sweet_berry_bush 3
+tick 1
+dump xentity:d_sweet_berry_bush nbt:d_sweet_berry_bush entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_sweet_berry_bush]
+tick 1
+dump packets:O:none
+level_seed 53
+hurt d_stalagmite stalagmite 3
+tick 1
+dump xentity:d_stalagmite nbt:d_stalagmite entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_stalagmite]
+tick 1
+dump packets:O:none
+level_seed 54
+hurt d_falling_stalactite falling_stalactite 3
+tick 1
+dump xentity:d_falling_stalactite nbt:d_falling_stalactite entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_falling_stalactite]
+tick 1
+dump packets:O:none
+level_seed 55
+hurt d_campfire campfire 3
+tick 1
+dump xentity:d_campfire nbt:d_campfire entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_campfire]
+tick 1
+dump packets:O:none
+level_seed 56
+hurt d_dry_out dry_out 3
+tick 1
+dump xentity:d_dry_out nbt:d_dry_out entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_dry_out]
+tick 1
+dump packets:O:none
+level_seed 57
+hurt d_mob_attack mob_attack 3
+tick 1
+dump xentity:d_mob_attack nbt:d_mob_attack entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_mob_attack]
+tick 1
+dump packets:O:none
+level_seed 58
+hurt d_player_attack player_attack 3
+tick 1
+dump xentity:d_player_attack nbt:d_player_attack entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_player_attack]
+tick 1
+dump packets:O:none
+level_seed 59
+hurt d_arrow arrow 3
+tick 1
+dump xentity:d_arrow nbt:d_arrow entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_arrow]
+tick 1
+dump packets:O:none
+level_seed 60
+hurt d_trident trident 3
+tick 1
+dump xentity:d_trident nbt:d_trident entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_trident]
+tick 1
+dump packets:O:none
+level_seed 61
+hurt d_thrown thrown 3
+tick 1
+dump xentity:d_thrown nbt:d_thrown entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_thrown]
+tick 1
+dump packets:O:none
+level_seed 62
+hurt d_indirect_magic indirect_magic 3
+tick 1
+dump xentity:d_indirect_magic nbt:d_indirect_magic entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_indirect_magic]
+tick 1
+dump packets:O:none
+level_seed 63
+hurt d_wither_skull wither_skull 3
+tick 1
+dump xentity:d_wither_skull nbt:d_wither_skull entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_wither_skull]
+tick 1
+dump packets:O:none
+level_seed 64
+hurt d_mob_projectile mob_projectile 3
+tick 1
+dump xentity:d_mob_projectile nbt:d_mob_projectile entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_mob_projectile]
+tick 1
+dump packets:O:none
+level_seed 65
+hurt d_wind_charge wind_charge 3
+tick 1
+dump xentity:d_wind_charge nbt:d_wind_charge entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_wind_charge]
+tick 1
+dump packets:O:none
+level_seed 66
+hurt d_spear spear 3
+tick 1
+dump xentity:d_spear nbt:d_spear entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_spear]
+tick 1
+dump packets:O:none
+level_seed 67
+hurt d_spit spit 3
+tick 1
+dump xentity:d_spit nbt:d_spit entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_spit]
+tick 1
+dump packets:O:none
+level_seed 68
+hurt d_mace_smash mace_smash 3
+tick 1
+dump xentity:d_mace_smash nbt:d_mace_smash entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_mace_smash]
+tick 1
+dump packets:O:none
+level_seed 69
+hurt d_sonic_boom sonic_boom 3
+tick 1
+dump xentity:d_sonic_boom nbt:d_sonic_boom entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_sonic_boom]
+tick 1
+dump packets:O:none
+level_seed 70
+hurt d_unattributed_fireball unattributed_fireball 3
+tick 1
+dump xentity:d_unattributed_fireball nbt:d_unattributed_fireball entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=d_unattributed_fireball]
+tick 1
+dump packets:O:none
+note on_fire damage 4 per hit until the stand is below half a heart
+spawn f1 minecraft:armor_stand 8.5 -60 -21.5 0 0 {Tags:[f1],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed f1 250
+tick 1
+level_seed 71
+hurt f1 on_fire 1
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 72
+hurt f1 on_fire 1
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 73
+hurt f1 on_fire 1
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 74
+hurt f1 on_fire 1
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 75
+hurt f1 on_fire 1
+tick 1
+dump xentity:f1 nbt:f1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=f1]
+tick 1
+dump packets:O:none
+note in_fire ignites, then 0.15 per hit while it burns
+spawn f2 minecraft:armor_stand 12.5 -60 -21.5 0 0 {Tags:[f2],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed f2 251
+tick 1
+level_seed 76
+hurt f2 in_fire 1
+tick 1
+dump xentity:f2 nbt:f2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 77
+hurt f2 in_fire 1
+tick 1
+dump xentity:f2 nbt:f2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 78
+hurt f2 in_fire 1
+tick 1
+dump xentity:f2 nbt:f2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 79
+hurt f2 in_fire 1
+tick 1
+dump xentity:f2 nbt:f2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=f2]
+tick 1
+dump packets:O:none
+note a player hit twice with a wait of 3 and of 6 ticks
+spawn w1 minecraft:armor_stand 16.5 -60 -21.5 0 0 {Tags:[w1],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed w1 252
+spawn w2 minecraft:armor_stand 20.5 -60 -21.5 0 0 {Tags:[w2],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed w2 253
+tick 1
+level_seed 80
+hurt w1 player_attack 1 by=P
+tick 1
+dump xentity:w1 nbt:w1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+tick 3
+level_seed 81
+hurt w1 player_attack 1 by=P
+tick 1
+dump xentity:w1 nbt:w1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=w1]
+tick 1
+dump packets:O:none
+level_seed 82
+hurt w2 player_attack 1 by=P
+tick 6
+dump xentity:w2 nbt:w2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 83
+hurt w2 player_attack 1 by=P
+tick 1
+dump xentity:w2 nbt:w2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=w2]
+tick 1
+dump packets:O:none
+note arrows kill outright, a first hit by a spear or a trident too
+spawn p1 minecraft:armor_stand 24.5 -60 -21.5 0 0 {Tags:[p1],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed p1 254
+tick 1
+spawn ar1 minecraft:arrow 20.5 -55 -30.5
+level_seed 84
+hurt p1 arrow 2 by=P direct=ar1
+tick 1
+dump xentity:p1 nbt:p1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=p1]
+tick 1
+dump packets:O:none
+note invisible and marker stands refuse damage unless it bypasses invulnerability, a creative player breaks them anyway
+spawn i1 minecraft:armor_stand 28.5 -60 -21.5 0 0 {Tags:[i1],Invisible:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed i1 255
+spawn i2 minecraft:armor_stand 32.5 -60 -21.5 0 0 {Tags:[i2],Marker:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed i2 256
+spawn i3 minecraft:armor_stand 36.5 -60 -21.5 0 0 {Tags:[i3],Invisible:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed i3 257
+spawn i4 minecraft:armor_stand 40.5 -60 -21.5 0 0 {Tags:[i4],Marker:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed i4 258
+spawn i5 minecraft:armor_stand 0.5 -60 -25.5 0 0 {Tags:[i5],Invisible:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed i5 259
+tick 1
+hurt i1 player_attack 1 by=P
+tick 1
+dump xentity:i1 nbt:i1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+hurt i1 generic_kill 1
+tick 1
+dump xentity:i1 nbt:i1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=i1]
+tick 1
+dump packets:O:none
+hurt i2 player_attack 1 by=P
+tick 1
+dump xentity:i2 nbt:i2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+hurt i2 explosion 1
+tick 1
+dump xentity:i2 nbt:i2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=i2]
+tick 1
+dump packets:O:none
+level_seed 85
+hurt i3 player_attack 1 by=C
+tick 1
+dump xentity:i3 nbt:i3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=i3]
+tick 1
+dump packets:O:none
+level_seed 86
+hurt i4 player_attack 1 by=C
+tick 1
+dump xentity:i4 nbt:i4 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=i4]
+tick 1
+dump packets:O:none
+hurt i5 in_fire 1
+tick 1
+dump xentity:i5 nbt:i5 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=i5]
+tick 1
+dump packets:O:none
+note a player who may not build, creative players
+spawn c1 minecraft:armor_stand 4.5 -60 -25.5 0 0 {Tags:[c1],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed c1 260
+spawn c2 minecraft:armor_stand 8.5 -60 -25.5 0 0 {Tags:[c2],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed c2 261
+spawn c3 minecraft:armor_stand 12.5 -60 -25.5 0 0 {Tags:[c3],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed c3 262
+tick 1
+level_seed 87
+hurt c1 player_attack 1 by=A
+tick 1
+dump xentity:c1 nbt:c1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=c1]
+tick 1
+dump packets:O:none
+level_seed 88
+hurt c2 player_attack 1 by=C
+tick 1
+dump xentity:c2 nbt:c2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=c2]
+tick 1
+dump packets:O:none
+level_seed 89
+hurt c3 arrow 1 by=C
+tick 1
+dump xentity:c3 nbt:c3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=c3]
+tick 1
+dump packets:O:none
+note mob_griefing off: a mob cannot hurt a stand, a player can
+mobspawn Cow minecraft:cow 44.5 -60 3.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+spawn g1 minecraft:armor_stand 16.5 -60 -25.5 0 0 {Tags:[g1],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed g1 263
+spawn g2 minecraft:armor_stand 20.5 -60 -25.5 0 0 {Tags:[g2],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed g2 264
+spawn g3 minecraft:armor_stand 24.5 -60 -25.5 0 0 {Tags:[g3],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed g3 265
+tick 1
+level_seed 90
+hurt g1 mob_attack 1 by=Cow
+tick 1
+dump xentity:g1 nbt:g1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 91
+hurt g1 mob_attack 1 by=Cow
+tick 1
+dump xentity:g1 nbt:g1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=g1]
+tick 1
+dump packets:O:none
+gamerule mob_griefing false
+hurt g2 mob_attack 1 by=Cow
+tick 1
+dump xentity:g2 nbt:g2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+hurt g2 mob_attack 1 by=Cow
+tick 1
+dump xentity:g2 nbt:g2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+hurt g2 generic_kill 1 by=Cow
+tick 1
+dump xentity:g2 nbt:g2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=g2]
+tick 1
+dump packets:O:none
+level_seed 92
+hurt g3 player_attack 1 by=P
+tick 1
+dump xentity:g3 nbt:g3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+hurt g3 player_attack 1 by=P
+tick 1
+dump xentity:g3 nbt:g3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=g3]
+tick 1
+dump packets:O:none
+gamerule mob_griefing true
+note entity_drops off, block_drops off
+gamerule entity_drops false
+spawn r1 minecraft:armor_stand 28.5 -60 -25.5 0 0 {Tags:[r1],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed r1 266
+spawn r2 minecraft:armor_stand 32.5 -60 -25.5 0 0 {Tags:[r2],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed r2 267
+spawn r3 minecraft:armor_stand 36.5 -60 -25.5 0 0 {Tags:[r3],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed r3 268
+tick 1
+level_seed 93
+hurt r1 player_attack 1 by=P
+tick 1
+dump xentity:r1 nbt:r1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+hurt r1 player_attack 1 by=P
+tick 1
+dump xentity:r1 nbt:r1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=r1]
+tick 1
+dump packets:O:none
+level_seed 94
+hurt r2 explosion 1
+tick 1
+dump xentity:r2 nbt:r2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=r2]
+tick 1
+dump packets:O:none
+gamerule entity_drops true
+gamerule block_drops false
+level_seed 95
+hurt r3 explosion 1
+tick 1
+dump xentity:r3 nbt:r3 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+cmd kill @e[tag=r3]
+tick 1
+dump packets:O:none
+gamerule block_drops true
+note /kill and the void
+spawn k1 minecraft:armor_stand 40.5 -60 -25.5 0 0 {Tags:[k1],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed k1 269
+spawn k2 minecraft:armor_stand 0.5 -60 -29.5 0 0 {Tags:[k2],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed k2 270
+tick 1
+cmd kill @e[tag=k1]
+tick 1
+dump xentity:k1 nbt:k1 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+snap k2 4.5 -200 -30.5 0 0
+tick 3
+dump xentity:k2 nbt:k2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+tick 1
+dump packets:O:none
+note fire, soul fire, lava, campfire and lightning under stands (natural ticks)
+block 12 -60 12 minecraft:lava[level=0]
+block 16 -60 12 minecraft:fire
+block 20 -60 12 minecraft:campfire[lit=true]
+block 24 -60 12 minecraft:soul_fire
+block 28 -60 12 minecraft:magma_block
+block 32 -60 12 minecraft:cactus
+spawn n1 minecraft:armor_stand 12.5 -60 12.5 0 0 {Tags:[n1],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed n1 271
+spawn n2 minecraft:armor_stand 16.5 -60 12.5 0 0 {Tags:[n2],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed n2 272
+spawn n3 minecraft:armor_stand 20.5 -60 12.5 0 0 {Tags:[n3],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed n3 273
+spawn n4 minecraft:armor_stand 24.5 -60 12.5 0 0 {Tags:[n4],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed n4 274
+spawn n5 minecraft:armor_stand 28.5 -60 12.5 0 0 {Tags:[n5],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed n5 275
+spawn n6 minecraft:armor_stand 32.5 -60 12.5 0 0 {Tags:[n6],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed n6 276
+tick 1
+dump packets:O:none
+tick 20
+dump xentity:n1 xentity:n2 xentity:n3 xentity:n4 xentity:n5 xentity:n6 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+tick 20
+dump xentity:n1 xentity:n2 xentity:n3 xentity:n4 xentity:n5 xentity:n6 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+tick 40
+dump xentity:n1 xentity:n2 xentity:n3 xentity:n4 xentity:n5 xentity:n6 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+tick 60
+dump xentity:n1 xentity:n2 xentity:n3 xentity:n4 xentity:n5 xentity:n6 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+tick 100
+dump xentity:n1 xentity:n2 xentity:n3 xentity:n4 xentity:n5 xentity:n6 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+note lightning on a stand and on an invisible one
+spawn l1 minecraft:armor_stand 50.5 -60 12.5 0 0 {Tags:[l1],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed l1 277
+spawn l2 minecraft:armor_stand 54.5 -60 12.5 0 0 {Tags:[l2],Invisible:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed l2 278
+tick 1
+spawn bolt1 minecraft:lightning_bolt 50.5 -60 12.5
+spawn bolt2 minecraft:lightning_bolt 54.5 -60 12.5
+tick 3
+dump xentity:l1 xentity:l2 nbt:l1 nbt:l2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+tick 30
+dump xentity:l1 xentity:l2 entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[tag=l1]
+cmd kill @e[tag=l2]
+tick 1
+dump packets:O:none
+note explosions: block, none, mob and tnt interactions; a visible, an invisible and a marker stand each
+spawn x1a minecraft:armor_stand 2.5 -60 24.5 0 0 {Tags:[x1a],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x1a 279
+spawn x1b minecraft:armor_stand -1.5 -60 24.5 0 0 {Tags:[x1b],Invisible:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x1b 280
+spawn x1c minecraft:armor_stand 0.5 -60 26.5 0 0 {Tags:[x1c],Marker:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x1c 281
+spawn x2a minecraft:armor_stand 22.5 -60 24.5 0 0 {Tags:[x2a],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x2a 282
+spawn x2b minecraft:armor_stand 18.5 -60 24.5 0 0 {Tags:[x2b],Invisible:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x2b 283
+spawn x2c minecraft:armor_stand 20.5 -60 26.5 0 0 {Tags:[x2c],Marker:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x2c 284
+spawn x3a minecraft:armor_stand 42.5 -60 24.5 0 0 {Tags:[x3a],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x3a 285
+spawn x3b minecraft:armor_stand 38.5 -60 24.5 0 0 {Tags:[x3b],Invisible:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x3b 286
+spawn x3c minecraft:armor_stand 40.5 -60 26.5 0 0 {Tags:[x3c],Marker:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x3c 287
+spawn x4a minecraft:armor_stand 62.5 -60 24.5 0 0 {Tags:[x4a],equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x4a 288
+spawn x4b minecraft:armor_stand 58.5 -60 24.5 0 0 {Tags:[x4b],Invisible:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x4b 289
+spawn x4c minecraft:armor_stand 60.5 -60 26.5 0 0 {Tags:[x4c],Marker:1b,equipment:{feet:{id:"minecraft:iron_boots",count:1},head:{id:"minecraft:iron_helmet",count:1,components:{"minecraft:enchantments":{"minecraft:vanishing_curse":1}}},chest:{id:"minecraft:iron_chestplate",count:1},mainhand:{id:"minecraft:wooden_sword",count:1}},ShowArms:1b}
+entity_seed x4c 290
+tick 1
+dump packets:O:none
+level_seed 96
+explode 0.5 -60 24.5 3 block
+tick 1
+dump xentity:x1a nbt:x1a xentity:x1b nbt:x1b xentity:x1c nbt:x1c entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 97
+explode 20.5 -60 24.5 3 none
+tick 1
+dump xentity:x2a nbt:x2a xentity:x2b nbt:x2b xentity:x2c nbt:x2c entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 98
+explode 40.5 -60 24.5 3 mob
+tick 1
+dump xentity:x3a nbt:x3a xentity:x3b nbt:x3b xentity:x3c nbt:x3c entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+level_seed 99
+explode 60.5 -60 24.5 3 tnt
+tick 1
+dump xentity:x4a nbt:x4a xentity:x4b nbt:x4b xentity:x4c nbt:x4c entities events packets:O:entity_event,sound,set_entity_data,add_entity,remove_entities,level_particles,hurt_animation,animate
+cmd kill @e[type=minecraft:item]
+tick 1
+dump entities events

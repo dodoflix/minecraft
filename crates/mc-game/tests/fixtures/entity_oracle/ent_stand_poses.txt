@@ -1,0 +1,472 @@
+E a0 minecraft:armor_stand pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED a0 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:9:000000000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
+N a0 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["a0"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E a1 minecraft:armor_stand pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED a1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:04 16:9:4120000041a0000041f00000 17:9:3f8000004000000040400000 18:9:c2b400004234000000000000 19:9:433e0000c33e000000000000 20:9:40a0000040a0000040a00000 21:9:c0a0000000000000bf800000
+N a1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,0.5d],Pose:{Body:[1.0f,2.0f,3.0f],Head:[10.0f,20.0f,30.0f],LeftArm:[-90.0f,45.0f,0.0f],LeftLeg:[5.0f,5.0f,5.0f],RightArm:[190.0f,-190.0f,0.0f],RightLeg:[-5.0f,0.0f,-1.0f]},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["a1"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E a2 minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED a2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:09 16:9:4120000041a0000041f00000 17:9:3f8000004000000040400000 18:9:c2b400004234000000000000 19:9:433e0000c33e000000000000 20:9:40a0000040a0000040a00000 21:9:c0a0000000000000bf800000
+N a2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:1b,OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],Pose:{Body:[1.0f,2.0f,3.0f],Head:[10.0f,20.0f,30.0f],LeftArm:[-90.0f,45.0f,0.0f],LeftLeg:[5.0f,5.0f,5.0f],RightArm:[190.0f,-190.0f,0.0f],RightLeg:[-5.0f,0.0f,-1.0f]},Rotation:[0.0f,0.0f],ShowArms:0b,Small:1b,Tags:["a2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E a3 minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED a3 0:0:20 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:14 16:9:000000000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
+N a3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:1b,Invulnerable:0b,Marker:1b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[12.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["a3"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E a4 minecraft:armor_stand pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED a4 0:0:00 1:1:ac02 2:6:010800082253746174756522 3:8:01 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:08 16:9:000000000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
+N a4 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CustomName:'"Statue"',CustomNameVisible:1b,DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:1b,OnGround:1b,PortalCooldown:0,Pos:[16.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["a4"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E a5 minecraft:armor_stand pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED a5 0:0:40 1:1:ac02 2:6:00 3:8:00 4:8:01 5:8:01 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:9:000000000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
+N a5 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Glowing:1b,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,NoGravity:1b,OnGround:0b,PortalCooldown:0,Pos:[20.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:0b,Silent:1b,Small:0b,Tags:["a5"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E a6 minecraft:armor_stand pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED a6 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:05 16:9:000000000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
+N a6 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:-1,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[24.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:1b,Tags:["a6"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E a7 minecraft:armor_stand pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,10.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED a7 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:9:000000000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
+N a7 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:1b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[28.5d,-60.0d,0.5d],Pose:{},Rotation:[135.0f,10.0f],ShowArms:0b,Small:0b,Tags:["a7"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+PKT O minecraft:add_entity 01db369530aa7241264b29850441af9f60d1b2053fe0000000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65db36090341a00000ff
+PKT O minecraft:add_entity 01dc3697fd63b95d8d486fb6212b7f8c6ea4e5054012000000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65dc36090341a000000f000410094120000041a0000041f0000011093f80000040000000404000001209c2b4000042340000000000001309433e0000c33e000000000000140940a0000040a0000040a000001509c0a0000000000000bf800000ff
+PKT O minecraft:add_entity 01dd367354d119e2584613b69ed63b58b4e76f054021000000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65dd36090341a000000f000910094120000041a0000041f0000011093f80000040000000404000001209c2b4000042340000000000001309433e0000c33e000000000000140940a0000040a0000040a000001509c0a0000000000000bf800000ff
+PKT O minecraft:add_entity 01de365407935cbb164b1995c072164081cedb054029000000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65de36000020090341a000000f0014ff
+PKT O minecraft:add_entity 01df36abeddfa391724f5f8e18a6e5ab30910e054030800000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65df360206010800082253746174756522030801090341a000000f0008ff
+PKT O minecraft:add_entity 01e036966939cf560847cea5224f45b0868410054034800000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65e036000040040801050801090341a00000ff
+PKT O minecraft:add_entity 01e136a1710345d9064d278bd2e1469bbeee75054038800000000000c04e0000000000003fe00000000000000000000000
+PKT O minecraft:set_entity_data 65e136090341a000000f0005ff
+PKT O minecraft:add_entity 01e23654954240452e4a249eb47fb594ba8b0e05403c800000000000c04e0000000000003fe00000000000000007606000
+PKT O minecraft:set_entity_data 65e236090341a00000ff
+PKT O minecraft:move_entity_pos 36de3600000000000000
+PKT O minecraft:set_entity_data 65de36000020090341a000000f0014ff
+PKT O minecraft:move_entity_pos 36dc3600000000000000
+PKT O minecraft:set_entity_data 65dc36090341a000000f000410094120000041a0000041f0000011093f80000040000000404000001209c2b4000042340000000000001309433e0000c33e000000000000140940a0000040a0000040a000001509c0a0000000000000bf800000ff
+PKT O minecraft:move_entity_pos 36db3600000000000000
+PKT O minecraft:set_entity_data 65db36090341a00000ff
+PKT O minecraft:move_entity_pos 36df3600000000000000
+PKT O minecraft:set_entity_data 65df360206010800082253746174756522030801090341a000000f0008ff
+PKT O minecraft:move_entity_pos 36dd3600000000000000
+PKT O minecraft:set_entity_data 65dd36090341a000000f000910094120000041a0000041f0000011093f80000040000000404000001209c2b4000042340000000000001309433e0000c33e000000000000140940a0000040a0000040a000001509c0a0000000000000bf800000ff
+PKT O minecraft:move_entity_pos 36e03600000000000000
+PKT O minecraft:set_entity_data 65e036000040040801050801090341a00000ff
+PKT O minecraft:move_entity_pos 36e13600000000000000
+PKT O minecraft:set_entity_data 65e136090341a000000f0005ff
+PKT O minecraft:move_entity_pos 36e23600000000000000
+PKT O minecraft:set_entity_data 65e236090341a00000ff
+# bounding boxes: the selector box at the stand reaches only as high as the stand does
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+# small, marker and the pose merged through the command: new boxes, new data
+C Modified entity data of Armor Stand
+C Modified entity data of Armor Stand
+C Modified entity data of Armor Stand
+E a0 minecraft:armor_stand pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ED a0 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:05 16:9:423400000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
+N a0 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Pose:{Head:[45.0f,0.0f,0.0f]},Rotation:[0.0f,0.0f],ShowArms:1b,Small:1b,Tags:["a0"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E a2 minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N a2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Marker:1b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:1b,OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],Pose:{Body:[1.0f,2.0f,3.0f],Head:[10.0f,20.0f,30.0f],LeftArm:[-90.0f,45.0f,0.0f],LeftLeg:[5.0f,5.0f,5.0f],RightArm:[190.0f,-190.0f,0.0f],RightLeg:[-5.0f,0.0f,-1.0f]},Rotation:[0.0f,0.0f],ShowArms:0b,Small:0b,Tags:["a2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+E a3 minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N a3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[12.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["a3"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+PKT O minecraft:set_entity_data 65de360000000f0004ff
+PKT O minecraft:set_entity_motion 67dc36f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23dc3601014012000000000000c04e0000000000003fe000000000000003000000000000000001
+PKT O minecraft:set_entity_motion 67db36f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23db3601013fe0000000000000c04e0000000000003fe000000000000003000000000000000001
+PKT O minecraft:set_entity_data 65db360f00051009423400000000000000000000ff
+PKT O minecraft:set_entity_motion 67df36f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23df3601014030800000000000c04e0000000000003fe000000000000003000000000000000001
+PKT O minecraft:set_entity_motion 67dd36f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23dd3601014021000000000000c04e0000000000003fe000000000000003000000000000000001
+PKT O minecraft:set_entity_data 65dd360f0018ff
+PKT O minecraft:set_entity_motion 67e136f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23e13601014038800000000000c04e0000000000003fe000000000000003000000000000000001
+PKT O minecraft:set_entity_motion 67e236f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23e2360101403c800000000000c04e0000000000003fe000000000000003430700004120000001
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+C Test failed
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test passed. Count: 1
+C Test passed. Count: 1
+# physics: falling from 20 blocks (the landing sound), a marker and a no gravity stand stay in the air
+E f1 minecraft:armor_stand pos=4.5,-43.346270382411404,8.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f2 minecraft:armor_stand pos=8.5,-40.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f3 minecraft:armor_stand pos=12.5,-40.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f4 minecraft:armor_stand pos=16.5,-43.346270382411404,8.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a0 minecraft:armor_stand pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a1 minecraft:armor_stand pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a2 minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a3 minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a4 minecraft:armor_stand pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a5 minecraft:armor_stand pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a6 minecraft:armor_stand pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,10.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f1 minecraft:armor_stand pos=4.5,-43.346270382411404,8.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f2 minecraft:armor_stand pos=8.5,-40.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f3 minecraft:armor_stand pos=12.5,-40.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f4 minecraft:armor_stand pos=16.5,-43.346270382411404,8.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT O minecraft:add_entity 01e33626ed55fe927a4feda78229645840cf7a054012000000000000c04400000000000040210000000000000000000000
+PKT O minecraft:set_entity_data 65e336090341a00000ff
+PKT O minecraft:add_entity 01e436e94354f929514ceaa74b87d2a6692c14054021000000000000c04400000000000040210000000000000000000000
+PKT O minecraft:set_entity_data 65e436090341a000000f0010ff
+PKT O minecraft:add_entity 01e53647e9c23fe9214e3085bb45a33a334346054029000000000000c04400000000000040210000000000000000000000
+PKT O minecraft:set_entity_data 65e536050801090341a00000ff
+PKT O minecraft:add_entity 01e636c3bac2a17fc142d3b7d43b5d4efa74d0054030800000000000c04400000000000040210000000000000000000000
+PKT O minecraft:set_entity_data 65e636090341a000000f0001ff
+PKT O minecraft:move_entity_pos 36e63600000000000000
+PKT O minecraft:set_entity_data 65e636090341a000000f0001ff
+PKT O minecraft:move_entity_pos 36e43600000000000000
+PKT O minecraft:set_entity_data 65e436090341a000000f0010ff
+PKT O minecraft:move_entity_pos 36e53600000000000000
+PKT O minecraft:set_entity_data 65e536050801090341a00000ff
+PKT O minecraft:move_entity_pos 36e33600000000000000
+PKT O minecraft:set_entity_data 65e336090341a00000ff
+PKT O minecraft:set_entity_motion 67de36f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23de3601014029000000000000c04e0000000000003fe000000000000003000000000000000001
+PKT O minecraft:set_entity_motion 67e636f9ff7ffec4f9
+PKT O minecraft:move_entity_pos 36e63602030000fc430000
+PKT O minecraft:set_entity_motion 67e336f9ff7ffec4f9
+PKT O minecraft:move_entity_pos 36e33602030000fc430000
+PKT O minecraft:set_entity_motion 67e636f9ff7ffe8d71
+PKT O minecraft:move_entity_pos 36e63602030000f16b0000
+PKT O minecraft:set_entity_motion 67e336f9ff7ffe8d71
+PKT O minecraft:move_entity_pos 36e33602030000f16b0000
+PKT O minecraft:set_entity_motion 67e636f9ff7ffe5929
+PKT O minecraft:move_entity_pos 36e63602030000e7350000
+PKT O minecraft:set_entity_motion 67e336f9ff7ffe5929
+PKT O minecraft:move_entity_pos 36e33602030000e7350000
+E f1 minecraft:armor_stand pos=4.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f2 minecraft:armor_stand pos=8.5,-40.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f3 minecraft:armor_stand pos=12.5,-40.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f4 minecraft:armor_stand pos=16.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a0 minecraft:armor_stand pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a1 minecraft:armor_stand pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a2 minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a3 minecraft:armor_stand pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a4 minecraft:armor_stand pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a5 minecraft:armor_stand pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a6 minecraft:armor_stand pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E a7 minecraft:armor_stand pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,10.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f1 minecraft:armor_stand pos=4.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f2 minecraft:armor_stand pos=8.5,-40.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f3 minecraft:armor_stand pos=12.5,-40.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E f4 minecraft:armor_stand pos=16.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=4.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.fall source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:block.grass.fall source=neutral vol=0.5 pitch=0.75
+EV sound at=16.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.fall source=neutral vol=1.0 pitch=1.0
+EV sound at=16.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:block.grass.fall source=neutral vol=0.5 pitch=0.75
+PKT O minecraft:set_entity_motion 67e636f9ff7ffe27f5
+PKT O minecraft:move_entity_pos 36e63602030000dd9a0000
+PKT O minecraft:set_entity_motion 67e336f9ff7ffe27f5
+PKT O minecraft:move_entity_pos 36e33602030000dd9a0000
+PKT O minecraft:set_entity_motion 67e636faff7ffe7cd1
+PKT O minecraft:move_entity_pos 36e63602030000d48f0000
+PKT O minecraft:set_entity_motion 67e336faff7ffe7cd1
+PKT O minecraft:move_entity_pos 36e33602030000d48f0000
+PKT O minecraft:set_entity_motion 67e636faff7ffe6709
+PKT O minecraft:move_entity_pos 36e63602030000cc0c0000
+PKT O minecraft:set_entity_motion 67e336faff7ffe6709
+PKT O minecraft:move_entity_pos 36e33602030000cc0c0000
+PKT O minecraft:set_entity_motion 67e636faff7ffe5285
+PKT O minecraft:move_entity_pos 36e63602030000c40a0000
+PKT O minecraft:set_entity_motion 67e336faff7ffe5285
+PKT O minecraft:move_entity_pos 36e33602030000c40a0000
+PKT O minecraft:set_entity_motion 67e636faff7ffe3f35
+PKT O minecraft:move_entity_pos 36e63602030000bc800000
+PKT O minecraft:set_entity_motion 67e336faff7ffe3f35
+PKT O minecraft:move_entity_pos 36e33602030000bc800000
+PKT O minecraft:sound 77530600000084fffffe20000000443f8000003f8000006fd465a290351d3c
+PKT O minecraft:sound 77f9050600000084fffffe20000000443f0000003f4000004b970fd5e0db99e1
+PKT O minecraft:set_entity_motion 67e636f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23e63601014030800000000000c04e000000000000402100000000000003000000000000000001
+PKT O minecraft:set_entity_motion 67e336f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23e33601014012000000000000c04e000000000000402100000000000003000000000000000001
+# velocity on the ground, on ice and in the air: friction, travel only with physics
+E v1 minecraft:armor_stand pos=5.3,-59.7,12.7 delta=0.4368000507354737,0.21560000419616696,0.10920001268386842 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E v2 minecraft:armor_stand pos=8.5,-60.0,12.5 delta=0.8,0.3,0.2 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E v3 minecraft:armor_stand pos=23.3,-59.7,12.7 delta=0.7134400367736817,0.21560000419616696,0.17836000919342043 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E v4 minecraft:armor_stand pos=26.5,-60.0,12.5 delta=0.8,0.3,0.2 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT O minecraft:add_entity 01e7360a4661e89b9d4fa8bfdb1366381d2281054012000000000000c04e00000000000040290000000000000000000000
+PKT O minecraft:set_entity_data 65e736090341a00000ff
+PKT O minecraft:add_entity 01e836fdb92f2fd4b240eea1de313639e719b4054021000000000000c04e00000000000040290000000000000000000000
+PKT O minecraft:set_entity_data 65e836090341a000000f0010ff
+PKT O minecraft:add_entity 01e936a230fc9092854e92a4633bf0c3913c3e054036800000000000c04e00000000000040290000000000000000000000
+PKT O minecraft:set_entity_data 65e936090341a00000ff
+PKT O minecraft:add_entity 01ea36528222a4bdf342ec832a8649af7f572f05403a800000000000c04e00000000000040290000000000000000000000
+PKT O minecraft:set_entity_data 65ea36050801090341a00000ff
+PKT O minecraft:move_entity_pos 36e83600000000000000
+PKT O minecraft:set_entity_data 65e836090341a000000f0010ff
+PKT O minecraft:move_entity_pos 36e93600000000000000
+PKT O minecraft:set_entity_data 65e936090341a00000ff
+PKT O minecraft:move_entity_pos 36ea3600000000000000
+PKT O minecraft:set_entity_data 65ea36050801090341a00000ff
+PKT O minecraft:move_entity_pos 36e73600000000000000
+PKT O minecraft:set_entity_data 65e736090341a00000ff
+E v1 minecraft:armor_stand pos=8.316933641033824,-60.0,13.450381049940622 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E v2 minecraft:armor_stand pos=8.5,-60.0,12.5 delta=0.8,0.3,0.2 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E v3 minecraft:armor_stand pos=30.52064442773639,-60.0,14.500049838752574 delta=0.008595050027778717,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E v4 minecraft:armor_stand pos=26.5,-60.0,12.5 delta=0.8,0.3,0.2 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=7.871041587608155,-60.0,13.342760396902037 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=27.499367655112,-60.0,13.749841913778 r=16.0 ex=0 event=minecraft:block.glass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=29.04028953500167,-60.0,14.135072383750419 r=16.0 ex=0 event=minecraft:block.glass.step source=neutral vol=0.15 pitch=1.0
+PKT O minecraft:set_entity_motion 67e836899999994ccb
+PKT O minecraft:set_entity_motion 67e936396d96d3372f
+PKT O minecraft:move_entity_pos 36e93602030ccd04cd0333
+PKT O minecraft:set_entity_motion 67ea36899999994ccb
+PKT O minecraft:set_entity_motion 67e73699df8df9372e
+PKT O minecraft:move_entity_pos 36e73602030ccd04cd0333
+PKT O minecraft:set_entity_motion 67e93639139132f8ef
+PKT O minecraft:move_entity_pos 36e93602031f41066807d1
+PKT O minecraft:set_entity_motion 67e73681a88a86f8ee
+PKT O minecraft:move_entity_pos 36e73602031323066804c9
+PKT O minecraft:set_entity_motion 67e93661cf8cf4be56
+PKT O minecraft:move_entity_pos 36e9360203178efaf605e3
+PKT O minecraft:set_entity_motion 67e736f97e87eebe56
+PKT O minecraft:move_entity_pos 36e73602030e6bfaf6039b
+PKT O minecraft:sound 77fc05060000003efffffe200000006a3e19999a3f800000e8168c54d2216418
+PKT O minecraft:sound 77d90506000000dbfffffe200000006d3e19999a3f800000a3981763e0103683
+PKT O minecraft:set_entity_motion 67e93629998990ebee
+PKT O minecraft:entity_position_sync 23e9360101403bd5b9b19f2b96c04e000000000000402baadcd8cf95cb03000000000000000001
+PKT O minecraft:set_entity_motion 67e73661398394ebee
+PKT O minecraft:entity_position_sync 23e7360101402027242ff8e468c04e000000000000402ac9c90bfe391903000000000000000001
+PKT O minecraft:move_entity_pos 36de360303000000000000
+PKT O minecraft:move_entity_pos 36dc360303000000000000
+PKT O minecraft:set_entity_motion 67e936a16c86c8ebee
+PKT O minecraft:move_entity_pos 36e93603030cdd00000337
+PKT O minecraft:move_entity_pos 36db360303000000000000
+PKT O minecraft:move_entity_pos 36df360303000000000000
+PKT O minecraft:set_entity_motion 67e73651098094ebee
+PKT O minecraft:move_entity_pos 36e7360303034f000000d4
+PKT O minecraft:move_entity_pos 36dd360303000000000000
+PKT O minecraft:move_entity_pos 36e0360203000000000000
+PKT O minecraft:move_entity_pos 36e1360303000000000000
+PKT O minecraft:move_entity_pos 36e2360303000000000000
+PKT O minecraft:sound 77d90506000000e8fffffe20000000713e19999a3f800000a1a24ca263725fe3
+PKT O minecraft:set_entity_motion 67e936094d84ceebee
+PKT O minecraft:move_entity_pos 36e9360303091f00000248
+PKT O minecraft:set_entity_motion 67e73681017ffeebee
+PKT O minecraft:move_entity_pos 36e7360303008a00000013
+PKT O minecraft:move_entity_pos 36e6360303000000000000
+PKT O minecraft:move_entity_pos 36e4360203000000000000
+PKT O minecraft:move_entity_pos 36e5360203000000000000
+PKT O minecraft:move_entity_pos 36e3360303000000000000
+PKT O minecraft:set_entity_motion 67e936a1368368ebee
+PKT O minecraft:move_entity_pos 36e936030306790000019e
+PKT O minecraft:set_entity_motion 67e736f9ff7ffeebed
+PKT O minecraft:set_entity_motion 67e936b926826aebee
+PKT O minecraft:move_entity_pos 36e9360303049700000126
+PKT O minecraft:set_entity_motion 67e936791b81b6ebee
+PKT O minecraft:move_entity_pos 36e93603030341000000d0
+PKT O minecraft:set_entity_motion 67e93679138136ebee
+PKT O minecraft:move_entity_pos 36e9360303024f00000094
+PKT O minecraft:set_entity_motion 67e936d10d80dcebee
+PKT O minecraft:move_entity_pos 36e936030301a300000069
+PKT O minecraft:set_entity_motion 67e936c909809aebee
+PKT O minecraft:move_entity_pos 36e9360303012a0000004a
+PKT O minecraft:set_entity_motion 67e936f106806eebee
+PKT O minecraft:move_entity_pos 36e936030300d300000035
+PKT O minecraft:set_entity_motion 67e936e9047ffeebee
+PKT O minecraft:move_entity_pos 36e936030300950000001a
+# water, flowing water and lava
+E w1 minecraft:armor_stand pos=-0.3478813314901882,-60.0,24.5 delta=-0.05442374380949549,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w2 minecraft:armor_stand pos=4.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w3 minecraft:armor_stand pos=8.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w4 minecraft:armor_stand pos=16.5,-60.0,24.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=294 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w5 minecraft:armor_stand pos=22.62322822750348,-60.0,24.5 delta=0.05535436788922734,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV level_event r=64.0 ex=0 type=1501 pos=16,-60,24 data=0 global=0
+PKT O minecraft:add_entity 01eb366a41c4e0b24c4d74af08a316a72b98ab053fe0000000000000c04e00000000000040388000000000000000000000
+PKT O minecraft:set_entity_data 65eb36090341a00000ff
+PKT O minecraft:add_entity 01ec36fc2cf95816c84e65bcad5568dc5de359054012000000000000c04e00000000000040388000000000000000000000
+PKT O minecraft:set_entity_data 65ec36090341a000000f0010ff
+PKT O minecraft:add_entity 01ed360bf1539f22bd4c13ba260ae836815242054021000000000000c04e00000000000040388000000000000000000000
+PKT O minecraft:set_entity_data 65ed36050801090341a00000ff
+PKT O minecraft:add_entity 01ee368176f9cb94aa4963ad69ff7bed2851d4054030800000000000c04e00000000000040388000000000000000000000
+PKT O minecraft:set_entity_data 65ee36090341a00000ff
+PKT O minecraft:add_entity 01ef36d24152e0780c41568b647226b716b50e054035800000000000c04e00000000000040388000000000000000000000
+PKT O minecraft:set_entity_data 65ef36090341a00000ff
+PKT O minecraft:move_entity_pos 36eb3600000000000000
+PKT O minecraft:set_entity_data 65eb36090341a00000ff
+PKT O minecraft:move_entity_pos 36ef3600000000000000
+PKT O minecraft:set_entity_data 65ef36090341a00000ff
+PKT O minecraft:move_entity_pos 36ee3600000000000000
+PKT O minecraft:set_entity_data 65ee36090341a00000ff
+PKT O minecraft:move_entity_pos 36ec3600000000000000
+PKT O minecraft:set_entity_data 65ec36090341a000000f0010ff
+PKT O minecraft:move_entity_pos 36ed3600000000000000
+PKT O minecraft:set_entity_data 65ed36050801090341a00000ff
+PKT O minecraft:set_entity_motion 67e93679037ffeebee
+PKT O minecraft:move_entity_pos 36e9360303006a00000000
+PKT O minecraft:set_entity_motion 67ee36f9ff7ffefadd
+PKT O minecraft:entity_position_sync 23ee3601014030800000000000c04e000000000000403880000000000002000000000000000001
+PKT O minecraft:set_entity_data 65ee36000001ff
+PKT O minecraft:set_entity_motion 67eb36f9ff7ffefeb5
+PKT O minecraft:entity_position_sync 23eb3601013fe0000000000000c04e000000000000403880000000000003000000000000000001
+PKT O minecraft:set_entity_motion 67ef36f90d7ffefeb6
+PKT O minecraft:entity_position_sync 23ef360101403592c7b8936a40c04e000000000000403880000000000003000000000000000001
+PKT O minecraft:set_entity_motion 67e93671027ffeebee
+PKT O minecraft:move_entity_pos 36e9360303004b00000000
+PKT O minecraft:set_entity_motion 67eb36a9f57ffefeb5
+PKT O minecraft:move_entity_pos 36eb360303ff5f00000000
+PKT O minecraft:set_entity_motion 67ef3621157ffefeb6
+PKT O minecraft:move_entity_pos 36ef360303023e00000000
+PKT O minecraft:set_entity_motion 67e936b9017ffeebee
+PKT O minecraft:move_entity_pos 36e9360303003600000000
+PKT O minecraft:set_entity_motion 67eb36b1ec7ffefeb5
+PKT O minecraft:move_entity_pos 36eb360303fe0a00000000
+PKT O minecraft:set_entity_motion 67ef36c9187ffefeb6
+PKT O minecraft:move_entity_pos 36ef36030302ca00000000
+PKT O minecraft:set_entity_motion 67e936f9ff7ffeebed
+PKT O minecraft:move_entity_pos 36e9360303001a00000000
+PKT O minecraft:set_entity_motion 67eb3619e87ffefeb5
+PKT O minecraft:move_entity_pos 36eb360303fd5c00000000
+PKT O minecraft:set_entity_motion 67ef36a91a7ffefeb6
+PKT O minecraft:move_entity_pos 36ef360303031100000000
+PKT O minecraft:remove_entities 4e01eb36
+PKT O minecraft:set_entity_motion 67ef36a11b7ffefeb6
+PKT O minecraft:move_entity_pos 36ef360303033500000000
+PKT O minecraft:set_entity_motion 67ee36f9ff7ffeebed
+PKT O minecraft:set_entity_data 65ee36090341800000ff
+PKT O minecraft:move_entity_pos 36e8360203000000000000
+PKT O minecraft:move_entity_pos 36e9360303000000000000
+PKT O minecraft:move_entity_pos 36ea360203000000000000
+PKT O minecraft:move_entity_pos 36e7360303000000000000
+PKT O minecraft:set_entity_motion 67ef36211c7ffefeb6
+PKT O minecraft:move_entity_pos 36ef360303034900000000
+E w1 minecraft:armor_stand pos=-5.94000036313156,-60.0,24.5 delta=-0.05600000414447525,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w2 minecraft:armor_stand pos=4.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w3 minecraft:armor_stand pos=8.5,-60.0,24.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w4 minecraft:armor_stand pos=16.5,-60.0,24.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=219 air=300 alive=0 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E w5 minecraft:armor_stand pos=28.220000379738636,-60.0,24.5 delta=0.05600000416091797,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=23.180541678339974,-60.0,24.5 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-1.180541678339975,-60.0,24.5 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=24.86000273704018,-60.0,24.5 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-2.860002737040181,-60.0,24.5 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=26.54000029162387,-60.0,24.5 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=-4.540000291623871,-60.0,24.5 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=16.5,-60.0,24.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
+EV sound at=28.220000379738636,-60.0,24.5 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+PKT O minecraft:set_entity_motion 67ef36611c7ffefeb6
+PKT O minecraft:move_entity_pos 36ef360303035200000000
+PKT O minecraft:move_entity_pos 36ef360303035700000000
+PKT O minecraft:set_entity_motion 67ef36911c7ffefeb6
+PKT O minecraft:move_entity_pos 36ef360303035900000000
+PKT O minecraft:sound 77fc0506000000b9fffffe20000000c43e19999a3f80000029a8e9b76b35b192
+PKT O minecraft:move_entity_pos 36ef360303035b00000000
+PKT O minecraft:move_entity_pos 36de360303000000000000
+PKT O minecraft:move_entity_pos 36dc360303000000000000
+PKT O minecraft:move_entity_pos 36db360303000000000000
+PKT O minecraft:move_entity_pos 36df360303000000000000
+PKT O minecraft:move_entity_pos 36dd360303000000000000
+PKT O minecraft:move_entity_pos 36e0360203000000000000
+PKT O minecraft:move_entity_pos 36e1360303000000000000
+PKT O minecraft:move_entity_pos 36e2360303000000000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:set_entity_data 65ee36090341400000ff
+PKT O minecraft:move_entity_pos 36ef360303035b00000000
+PKT O minecraft:move_entity_pos 36e6360303000000000000
+PKT O minecraft:move_entity_pos 36e4360203000000000000
+PKT O minecraft:move_entity_pos 36e5360203000000000000
+PKT O minecraft:move_entity_pos 36e3360303000000000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035d00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:sound 77fc0506000000c6fffffe20000000c43e19999a3f8000005ac3b5cd447e2ff6
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:set_entity_data 65ee36090341000000ff
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ee360303000000000000
+PKT O minecraft:move_entity_pos 36ec360203000000000000
+PKT O minecraft:move_entity_pos 36ed360203000000000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035d00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:set_entity_data 65ee36090340800000ff
+PKT O minecraft:sound 77fc0506000000d4fffffe20000000c43e19999a3f800000d55fad91ece1d6ce
+PKT O minecraft:move_entity_pos 36e8360203000000000000
+PKT O minecraft:move_entity_pos 36e9360303000000000000
+PKT O minecraft:move_entity_pos 36ea360203000000000000
+PKT O minecraft:move_entity_pos 36e7360303000000000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035d00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36de360303000000000000
+PKT O minecraft:move_entity_pos 36dc360303000000000000
+PKT O minecraft:move_entity_pos 36db360303000000000000
+PKT O minecraft:move_entity_pos 36df360303000000000000
+PKT O minecraft:move_entity_pos 36dd360303000000000000
+PKT O minecraft:move_entity_pos 36e0360203000000000000
+PKT O minecraft:move_entity_pos 36e1360303000000000000
+PKT O minecraft:move_entity_pos 36e2360303000000000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:sound 77520600000084fffffe20000000c43f8000003f8000003b8fbbb9f9feaeb8
+PKT O minecraft:remove_entities 4e01ee36
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:move_entity_pos 36e6360303000000000000
+PKT O minecraft:move_entity_pos 36e4360203000000000000
+PKT O minecraft:move_entity_pos 36e5360203000000000000
+PKT O minecraft:move_entity_pos 36e3360303000000000000
+PKT O minecraft:move_entity_pos 36ef360303035c00000000
+PKT O minecraft:sound 77fc0506000000e1fffffe20000000c43e19999a3f800000dd1c412737275425
+# a player walking into a stand: stands are not pushable; a minecart beside a stand is pushed
+E p1 minecraft:armor_stand pos=40.5,-60.0,16.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+P P minecraft:player pos=40.5,-60.0,16.2 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT O minecraft:add_entity 01f0364a4833e255ef4b5a9ab05d9bbb3cb437054044400000000000c04e00000000000040308000000000000000000000
+PKT O minecraft:set_entity_data 65f036090341a00000ff
+PKT O minecraft:move_entity_pos 36f03600000000000000
+PKT O minecraft:set_entity_data 65f036090341a00000ff
+PKT O minecraft:add_entity 01da3614075747e1463809a16183abe512191e9f014044400000000000c04e00000000000040290000000000000000000000
+PKT O minecraft:set_entity_data 65da36090341a00000ff
+PKT O minecraft:move_entity_pos 36da360302000000003b33
+PKT O minecraft:set_entity_motion 67ef36a10f7ffeebee
+PKT O minecraft:move_entity_pos 36ef360303032300000000
+PKT O minecraft:set_entity_motion 67f036f9ff7ffeebed
+PKT O minecraft:entity_position_sync 23f03601014044400000000000c04e000000000000403080000000000003000000000000000001
+PKT O minecraft:set_entity_motion 67ef3689027ffeebee
+PKT O minecraft:move_entity_pos 36ef36030300e700000000
+E c1 minecraft:armor_stand pos=62.38502207863591,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E mc1 minecraft:minecart pos=62.94960937871947,-60.0,2.5 delta=7.629394644936838E-7,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=1 vhurt=0/1/0.0 mdir=east rider=-
+E mc2 minecraft:minecart pos=66.05034179464492,-60.0,2.5 delta=-6.675720314319733E-7,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
+E c2 minecraft:armor_stand pos=66.58762238315795,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+EV sound at=-6.220000379738647,-60.0,24.5 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+PKT O minecraft:set_entity_motion 67ef36f9ff7ffeebed
+PKT O minecraft:move_entity_pos 36ef360303001500000000
+PKT O minecraft:move_entity_pos 36ec360203000000000000
+PKT O minecraft:move_entity_pos 36ed360203000000000000
+PKT O minecraft:move_entity_pos 36ef360303000000000000
+# potion effects do not touch a stand
+C Applied effect Speed to Armor Stand
+C Applied effect Instant Damage to Armor Stand
+C Applied effect Poison to Armor Stand
+C Applied effect Invisibility to Armor Stand
+E a7 minecraft:armor_stand pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,10.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:invisibility/0/597;minecraft:poison/3/597;minecraft:speed/3/597
+ED a7 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:9:000000000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
