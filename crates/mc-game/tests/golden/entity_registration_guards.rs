@@ -1,7 +1,8 @@
 //! Guard of the entity registrations (reads the vanilla `EntityTypes` source): every vanilla `EntityType` whose class is not a
 //! `Mob` has a Rust factory, or is listed in `EXPECTED_MISSING` until its class lands (until then it is created as an inert
 //! `PlainEntity`). The list only ever shrinks: a type that gains a factory without removing its line fails, and so does a line
-//! that names no vanilla type. Mob types are accounted for by the mob tests, and the player type has no factory in vanilla.
+//! that names no vanilla type. Mob types are accounted for by `mob_registration_guards`, and the player type has no factory
+//! in vanilla.
 //! The boat table is pinned separately: the type -> drop item table, the factories and the dispenser behaviours must all
 //! name the same 22 vanilla boats, a boat missing from one of them fails.
 use mc_data::{EntityType, Item};
@@ -27,6 +28,10 @@ struct Boat {
 struct Vanilla {
     /// Every non-mob type except the player (`createNothing`).
     non_mob: Vec<String>,
+    /// Every type whose class extends `Mob`.
+    mob: Vec<String>,
+    /// Every type whose class extends `LivingEntity` (the types `DefaultAttributes` has a supplier for), mobs included.
+    living: Vec<String>,
     boats: Vec<Boat>,
 }
 
@@ -56,11 +61,11 @@ fn ident_at(text: &str) -> &str {
     &text[..end]
 }
 
-/// Whether `class` is `Mob` or extends it (following the `extends` chain through the vanilla sources).
-fn is_mob(class: &str, files: &HashMap<String, PathBuf>) -> bool {
+/// Whether `class` is `root` or extends it (following the `extends` chain through the vanilla sources).
+fn extends(class: &str, root: &str, files: &HashMap<String, PathBuf>) -> bool {
     let mut class = class.to_owned();
     loop {
-        if class == "Mob" {
+        if class == root {
             return true;
         }
         // `Display.BlockDisplay`: a nested class lives in its outer class's file
@@ -89,6 +94,8 @@ fn vanilla() -> Vanilla {
     java_files(&dir, &mut files);
     let text = std::fs::read_to_string(dir.join("EntityTypes.java")).expect("read EntityTypes");
     let mut non_mob = Vec::new();
+    let mut mob = Vec::new();
+    let mut living = Vec::new();
     let mut boats = Vec::new();
     for chunk in text.split("public static final EntityType<").skip(1) {
         let (class, rest) = chunk.split_once("> ").expect("EntityType<Class>");
@@ -96,7 +103,14 @@ fn vanilla() -> Vanilla {
         let builder = rest.split_once("Builder.").expect("a Builder").1;
         let builder = builder[..builder.find("MobCategory.").expect("category")].to_lowercase();
         let name = format!("minecraft:{}", constant.to_lowercase());
-        if builder.contains("createnothing") || is_mob(class, &files) {
+        if extends(class, "LivingEntity", &files) {
+            living.push(name.clone());
+        }
+        if extends(class, "Mob", &files) {
+            mob.push(name);
+            continue;
+        }
+        if builder.contains("createnothing") {
             continue;
         }
         if builder.contains("factory(") {
@@ -114,14 +128,27 @@ fn vanilla() -> Vanilla {
         }
         non_mob.push(name);
     }
-    Vanilla { non_mob, boats }
+    Vanilla {
+        non_mob,
+        mob,
+        living,
+        boats,
+    }
 }
 
-/// The problems of `missing` against the vanilla non-mob types (`implemented` tells whether a type has a Rust factory).
-fn problems(
-    non_mob: &[String],
+/// The vanilla types whose class extends `Mob` and the ones whose class extends `LivingEntity`.
+pub fn mob_and_living_types() -> (Vec<String>, Vec<String>) {
+    let vanilla = vanilla();
+    (vanilla.mob, vanilla.living)
+}
+
+/// The problems of `missing` (the types still lacking `what`) against `types` (`implemented` tells whether a type has
+/// it).
+pub fn problems(
+    types: &[String],
     missing: &[(&str, &str)],
     implemented: &dyn Fn(&str) -> bool,
+    what: &str,
 ) -> Vec<String> {
     let mut out = Vec::new();
     let mut listed = BTreeSet::new();
@@ -129,36 +156,34 @@ fn problems(
         if !listed.insert(name) {
             out.push(format!("{name}: listed twice"));
         }
-        if !non_mob.iter().any(|t| t == name) {
-            out.push(format!("{name}: not a vanilla non-mob entity type"));
+        if !types.iter().any(|t| t == name) {
+            out.push(format!("{name}: not a vanilla type of this guard"));
         }
         if implemented(name) {
             out.push(format!(
-                "{name}: has a factory, delete it from EXPECTED_MISSING"
+                "{name}: has a {what}, delete it from EXPECTED_MISSING"
             ));
         }
         if reason.is_empty() {
             out.push(format!("{name}: no reason"));
         }
     }
-    for name in non_mob {
+    for name in types {
         if !implemented(name) && !listed.contains(name.as_str()) {
-            out.push(format!(
-                "{name}: no factory and not in EXPECTED_MISSING (it would be created as an inert placeholder)"
-            ));
+            out.push(format!("{name}: no {what} and not in EXPECTED_MISSING"));
         }
     }
     out
 }
 
-fn has(name: &str) -> bool {
+pub fn has(name: &str) -> bool {
     has_factory(EntityType::by_name(name).unwrap_or_else(|| panic!("{name} is not an entity type")))
 }
 
 #[test]
 fn every_non_mob_entity_type_has_a_factory_or_a_missing_entry() {
     let vanilla = vanilla();
-    let problems = problems(&vanilla.non_mob, EXPECTED_MISSING, &has);
+    let problems = problems(&vanilla.non_mob, EXPECTED_MISSING, &has, "factory");
     assert!(problems.is_empty(), "{}", problems.join("\n"));
     for name in [
         "minecraft:armor_stand",
@@ -180,7 +205,7 @@ const NON_MOB_TYPES: usize = 70;
 fn a_non_mob_type_without_a_factory_fails_the_guard() {
     let vanilla = vanilla();
     let without_boat = |name: &str| name != "minecraft:oak_boat" && has(name);
-    let problems = problems(&vanilla.non_mob, EXPECTED_MISSING, &without_boat);
+    let problems = problems(&vanilla.non_mob, EXPECTED_MISSING, &without_boat, "factory");
     assert_eq!(problems.len(), 1, "{problems:?}");
     assert!(problems[0].starts_with("minecraft:oak_boat: no factory"));
 }
@@ -190,7 +215,7 @@ fn an_implemented_type_still_listed_as_missing_fails_the_guard() {
     let vanilla = vanilla();
     let mut missing = EXPECTED_MISSING.to_vec();
     missing.push(("minecraft:oak_boat", "boat"));
-    let problems = problems(&vanilla.non_mob, &missing, &has);
+    let problems = problems(&vanilla.non_mob, &missing, &has, "factory");
     assert_eq!(problems.len(), 1, "{problems:?}");
     assert!(problems[0].contains("delete it from EXPECTED_MISSING"));
 }

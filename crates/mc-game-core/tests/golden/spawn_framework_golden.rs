@@ -61,6 +61,23 @@ fn spawn_placement_table() {
     assert_eq!(actual, expected);
 }
 
+/// The types with a spawn predicate in vanilla (`SpawnPlacements.register` was called) are exactly the types `mc_data`
+/// carries a spawn placement for: the table every predicate is bound to.
+#[test]
+fn registered_spawn_predicate_types() {
+    let mut expected: Vec<&str> = section("registered ")
+        .map(|l| &l["registered ".len()..])
+        .collect();
+    let mut actual: Vec<&str> = EntityType::iter()
+        .filter(|ty| ty.data().spawn_placement.is_some())
+        .map(|ty| ty.name())
+        .collect();
+    expected.sort_unstable();
+    actual.sort_unstable();
+    assert_eq!(actual, expected);
+    assert_eq!(expected.len(), 83);
+}
+
 #[test]
 fn potential_calculator() {
     let mut random = LegacyRandomSource::new(1234);

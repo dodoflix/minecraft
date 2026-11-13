@@ -340,6 +340,7 @@ fn check_guardian_spawn_rules(
 }
 
 register_spawn_placement!(EntityType::GUARDIAN, check_guardian_spawn_rules);
+register_spawn_placement!(EntityType::ELDER_GUARDIAN, check_guardian_spawn_rules);
 
 /// `LevelReader.canSeeSkyFromBelowWater(pos)`.
 fn can_see_sky_from_below_water(level: &dyn ServerLevelAccessor, pos: BlockPos) -> bool {

@@ -1,8 +1,8 @@
 // Generates tests/fixtures/spawn_framework_golden.txt (Bootstrap routes stdout through the logger, so the output goes to the file named by the second argument):
 // Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/spawn_framework_golden.txt crates/mc-game/tests/fixtures/SpawnFrameworkGolden.java ref/src/data/minecraft/worldgen/biome crates/mc-game/tests/fixtures/spawn_framework_golden.txt
 // Output: crates/mc-game/tests/fixtures/spawn_framework_golden.txt
-// Sections: MobCategory constants, the SpawnPlacements table (placement type + heightmap per entity type), PotentialCalculator
-// charge sums over scripted positions, MobSpawnSettings decoded from every vanilla biome.
+// Sections: MobCategory constants, the SpawnPlacements table (placement type + heightmap per entity type), the types with a
+// registered spawn predicate, PotentialCalculator charge sums over scripted positions, MobSpawnSettings decoded from every vanilla biome.
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -36,6 +36,16 @@ public class SpawnFrameworkGolden {
             : SpawnPlacements.getPlacementType(type) == net.minecraft.world.entity.SpawnPlacementTypes.IN_WATER ? "IN_WATER"
             : SpawnPlacements.getPlacementType(type) == net.minecraft.world.entity.SpawnPlacementTypes.IN_LAVA ? "IN_LAVA" : "NO_RESTRICTIONS")
             + " " + SpawnPlacements.getHeightmapType(type));
+      }
+
+      // the types SpawnPlacements.register(..) was called for (DATA_BY_TYPE keys): the ones that have a spawn predicate
+      java.lang.reflect.Field registrations = SpawnPlacements.class.getDeclaredField("DATA_BY_TYPE");
+      registrations.setAccessible(true);
+      java.util.Map<?, ?> registered = (java.util.Map<?, ?>)registrations.get(null);
+      for (EntityType<?> type : BuiltInRegistries.ENTITY_TYPE) {
+         if (registered.containsKey(type)) {
+            System.out.println("registered " + BuiltInRegistries.ENTITY_TYPE.getKey(type));
+         }
       }
 
       // PotentialCalculator: seeded charges, probes after each batch (bits of the double results)
