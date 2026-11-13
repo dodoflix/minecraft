@@ -16,6 +16,7 @@ mod blk_daylight_weather_golden;
 mod blk_doors_connect_golden;
 mod blk_interactions_golden;
 mod blk_powder_golden;
+mod blk_proj_golden;
 mod blk_shelf_golden;
 mod block_behaviour_golden;
 mod block_class_binding;

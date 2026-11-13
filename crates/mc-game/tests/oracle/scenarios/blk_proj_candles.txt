@@ -1,0 +1,89 @@
+# AbstractCandleBlock.onProjectileHit and CampfireBlock.onProjectileHit: a burning projectile lights an unlit candle (not a waterlogged one), a candle
+# cake and a campfire (not a waterlogged one); a plain arrow does nothing; the candle ignores mob_griefing, the campfire asks the owner's mayInteract.
+level flat
+preload 3
+difficulty normal
+spawn_player Steve survival 20.5 -60 44.5 0 0
+tick 300
+level_seed 7
+entity_counter 200
+spawn pig minecraft:pig 22.5 -60 44.5 0 0 {NoAI:1b,Silent:1b,UUID:[I;41,42,43,44]}
+entity_seed pig 5
+tick 2
+note candles: burning arrow of Steve, plain arrow, four candles with no owner, an already lit candle, a waterlogged candle
+block 10 -60 0 minecraft:candle[candles=1,lit=false,waterlogged=false]
+spawn s1 minecraft:arrow 6.5 -59.8 0.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s1 21
+velocity s1 1.5 0 0
+block 10 -60 3 minecraft:candle[candles=1,lit=false,waterlogged=false]
+spawn s2 minecraft:arrow 6.5 -59.8 3.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s2 22
+velocity s2 1.5 0 0
+block 10 -60 6 minecraft:candle[candles=4,lit=false,waterlogged=false]
+spawn s3 minecraft:arrow 6.5 -59.8 6.5 0 0 {NoGravity:1b,Fire:100s}
+entity_seed s3 23
+velocity s3 1.5 0 0
+block 10 -60 9 minecraft:candle[candles=2,lit=true,waterlogged=false]
+spawn s4 minecraft:arrow 6.5 -59.8 9.5 0 0 {NoGravity:1b,Fire:100s}
+entity_seed s4 24
+velocity s4 1.5 0 0
+block 10 -60 12 minecraft:candle[candles=1,lit=false,waterlogged=true]
+spawn s5 minecraft:arrow 6.5 -59.8 12.5 0 0 {NoGravity:1b,Fire:100s}
+entity_seed s5 25
+velocity s5 1.5 0 0
+note a burning snowball lights a coloured candle
+block 10 -60 15 minecraft:red_candle[candles=3,lit=false,waterlogged=false]
+spawn s6 minecraft:snowball 6.5 -59.8 15.5 0 0 {NoGravity:1b,Fire:100s}
+entity_seed s6 26
+velocity s6 1.5 0 0
+note candle cakes: burning arrow, plain arrow, a plain arrow; a candle takes the burning arrow of a mob with mob_griefing off
+block 10 -60 18 minecraft:candle_cake[lit=false]
+spawn s7 minecraft:arrow 6.5 -59.8 18.5 0 0 {NoGravity:1b,Fire:100s}
+entity_seed s7 27
+velocity s7 1.5 0 0
+block 10 -60 21 minecraft:blue_candle_cake[lit=false]
+spawn s8 minecraft:arrow 6.5 -59.8 21.5 0 0 {NoGravity:1b}
+entity_seed s8 28
+velocity s8 1.5 0 0
+gamerule mob_griefing false
+block 10 -60 24 minecraft:candle[candles=1,lit=false,waterlogged=false]
+spawn s9 minecraft:arrow 6.5 -59.8 24.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;41,42,43,44]}
+entity_seed s9 29
+velocity s9 1.5 0 0
+note campfires: Steve burning arrow, soul campfire without owner, plain arrow, waterlogged, a mob owner with mob_griefing off
+block 10 -60 27 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+spawn s10 minecraft:arrow 6.5 -59.8 27.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s10 30
+velocity s10 1.5 0 0
+tick 4
+dump events blocks:10,-60,0,10,-60,28 xentities
+tick 2
+block 10 -60 30 minecraft:soul_campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+spawn s11 minecraft:arrow 6.5 -59.8 30.5 0 0 {NoGravity:1b,Fire:100s}
+entity_seed s11 31
+velocity s11 1.5 0 0
+block 10 -60 33 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+spawn s12 minecraft:arrow 6.5 -59.8 33.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s12 32
+velocity s12 1.5 0 0
+block 10 -60 36 minecraft:campfire[facing=north,lit=false,signal_fire=true,waterlogged=true]
+spawn s13 minecraft:arrow 6.5 -59.8 36.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s13 33
+velocity s13 1.5 0 0
+block 10 -60 39 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+spawn s14 minecraft:arrow 6.5 -59.8 39.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;41,42,43,44]}
+entity_seed s14 34
+velocity s14 1.5 0 0
+tick 4
+dump events blocks:10,-60,30,10,-60,40
+tick 2
+gamerule mob_griefing true
+note the same mob owner with mob_griefing on
+block 10 -60 42 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+spawn s15 minecraft:arrow 6.5 -59.8 42.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;41,42,43,44]}
+entity_seed s15 35
+velocity s15 1.5 0 0
+tick 4
+dump events blocks:10,-60,42,10,-60,42 xentities
+tick 3
+dump events

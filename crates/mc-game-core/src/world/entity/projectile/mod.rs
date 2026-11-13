@@ -138,6 +138,12 @@ pub trait Projectile: Entity {
     /// `onItemBreak(item)`.
     fn on_item_break(&mut self, _item: &crate::world::item::ItemStack) {}
 
+    /// `AbstractArrow.getPickupItemStackOrigin()` for arrows, `ItemStack.EMPTY` for every other projectile (the stack
+    /// `TntBlock.onProjectileHit` hands to `prime`).
+    fn pickup_item_stack_origin(&self) -> crate::world::item::ItemStack {
+        crate::world::item::ItemStack::empty()
+    }
+
     /// `shoot(xd, yd, zd, pow, uncertainty)` (overridable; default [`shoot_base`]).
     fn shoot(&mut self, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) {
         if let Some(this) = self.as_projectile_mut() {

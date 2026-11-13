@@ -111,9 +111,10 @@ pub fn drop_resources_for_destroy(
     state: BlockState,
     pos: BlockPos,
     breaker: Option<EntityId>,
+    breaker_entity: Option<&dyn Entity>,
 ) {
-    let breaker_type = breaker
-        .and_then(|id| level.get_entity(id))
+    let breaker_type = breaker_entity
+        .or_else(|| breaker.and_then(|id| level.get_entity(id)))
         .map(|e| e.get_type());
     behaviour(state.block()).before_get_drops(state, level, pos, breaker_type);
     let drops = {
@@ -123,7 +124,8 @@ pub fn drop_resources_for_destroy(
         } else {
             None
         };
-        let breaker_entity = breaker.and_then(|id| level_ref.get_entity(id));
+        let breaker_entity =
+            breaker_entity.or_else(|| breaker.and_then(|id| level_ref.get_entity(id)));
         block_drops(
             level_ref,
             state,

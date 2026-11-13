@@ -1,0 +1,102 @@
+# Arrows pressing blocks: wooden buttons (stone and polished blackstone ones ignore arrows), pressure plates by sensitivity (wood and weighted count every
+# entity, stone and polished blackstone only mobs), a tripwire and a hook pair; the release comes back after the arrow is gone (the scheduled
+# tick re-checks the inside entities).
+level flat
+preload 3
+difficulty normal
+spawn_player Steve survival 30.5 -60 30.5 0 0
+tick 300
+level_seed 14
+entity_counter 600
+note wall buttons on a stone wall: an oak button (pressed), stone and polished blackstone buttons (not), a floor button hit from above
+
+block 11 -60 0 minecraft:stone
+block 10 -60 0 minecraft:oak_button[face=wall,facing=west,powered=false]
+spawn a1 minecraft:arrow 6.5 -59.5 0.5 0 0 {NoGravity:1b}
+entity_seed a1 31
+velocity a1 1.5 0 0
+block 11 -60 3 minecraft:stone
+block 10 -60 3 minecraft:stone_button[face=wall,facing=west,powered=false]
+spawn a2 minecraft:arrow 6.5 -59.5 3.5 0 0 {NoGravity:1b}
+entity_seed a2 32
+velocity a2 1.5 0 0
+block 11 -60 6 minecraft:stone
+block 10 -60 6 minecraft:polished_blackstone_button[face=wall,facing=west,powered=false]
+spawn a3 minecraft:arrow 6.5 -59.5 6.5 0 0 {NoGravity:1b}
+entity_seed a3 33
+velocity a3 1.5 0 0
+block 11 -60 9 minecraft:stone
+block 10 -60 9 minecraft:cherry_button[face=wall,facing=west,powered=false]
+spawn a4 minecraft:arrow 6.5 -59.5 9.5 0 0 {NoGravity:1b}
+entity_seed a4 34
+velocity a4 1.5 0 0
+block 10 -60 12 minecraft:oak_button[face=floor,facing=north,powered=false]
+spawn a5 minecraft:arrow 10.5 -57 12.5 0 0 {NoGravity:1b}
+entity_seed a5 35
+velocity a5 0 -1.5 0
+block 10 -60 15 minecraft:stone_button[face=floor,facing=north,powered=false]
+spawn a6 minecraft:arrow 10.5 -57 15.5 0 0 {NoGravity:1b}
+entity_seed a6 36
+velocity a6 0 -1.5 0
+note pressure plates hit from above
+block 14 -60 0 minecraft:oak_pressure_plate[powered=false]
+spawn a7 minecraft:arrow 14.5 -57 0.5 0 0 {NoGravity:1b}
+entity_seed a7 37
+velocity a7 0 -1.5 0
+block 14 -60 3 minecraft:stone_pressure_plate[powered=false]
+spawn a8 minecraft:arrow 14.5 -57 3.5 0 0 {NoGravity:1b}
+entity_seed a8 38
+velocity a8 0 -1.5 0
+block 14 -60 6 minecraft:light_weighted_pressure_plate[power=0]
+spawn a9 minecraft:arrow 14.5 -57 6.5 0 0 {NoGravity:1b}
+entity_seed a9 39
+velocity a9 0 -1.5 0
+block 14 -60 9 minecraft:heavy_weighted_pressure_plate[power=0]
+spawn a10 minecraft:arrow 14.5 -57 9.5 0 0 {NoGravity:1b}
+entity_seed a10 40
+velocity a10 0 -1.5 0
+block 14 -60 12 minecraft:polished_blackstone_pressure_plate[powered=false]
+spawn a11 minecraft:arrow 14.5 -57 12.5 0 0 {NoGravity:1b}
+entity_seed a11 41
+velocity a11 0 -1.5 0
+block 14 -60 15 minecraft:spruce_pressure_plate[powered=false]
+spawn a12 minecraft:arrow 14.5 -57 15.5 0 0 {NoGravity:1b}
+entity_seed a12 42
+velocity a12 0 -1.5 0
+note a tripwire line between two hooks, an arrow flying through the string, and a lone tripwire
+block 18 -60 -1 minecraft:stone
+block 18 -60 5 minecraft:stone
+block 18 -60 0 minecraft:tripwire_hook[attached=false,facing=south,powered=false]
+block 18 -60 4 minecraft:tripwire_hook[attached=false,facing=north,powered=false]
+block 18 -60 1 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,powered=false,south=true,west=false]
+block 18 -60 2 minecraft:tripwire[attached=false,disarmed=false,east=false,north=true,powered=false,south=true,west=false]
+block 18 -60 3 minecraft:tripwire[attached=false,disarmed=false,east=false,north=true,powered=false,south=false,west=false]
+block 20 -60 2 minecraft:stone
+spawn a13 minecraft:arrow 16.5 -59.9 2.5 0 0 {NoGravity:1b}
+entity_seed a13 43
+velocity a13 1.5 0 0
+block 18 -60 8 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,powered=false,south=false,west=false]
+block 20 -60 8 minecraft:stone
+spawn a14 minecraft:arrow 16.5 -59.9 8.5 0 0 {NoGravity:1b}
+entity_seed a14 44
+velocity a14 1.5 0 0
+tick 4
+dump events blocks:10,-60,0,10,-60,15 blocks:14,-60,0,14,-60,15 blocks:18,-60,-1,18,-60,8 xentities
+tick 40
+dump events blocks:10,-60,0,10,-60,15 blocks:14,-60,0,14,-60,15 blocks:18,-60,-1,18,-60,8
+kill a1
+kill a2
+kill a3
+kill a4
+kill a5
+kill a6
+kill a7
+kill a8
+kill a9
+kill a10
+kill a11
+kill a12
+kill a13
+kill a14
+tick 40
+dump events blocks:10,-60,0,10,-60,15 blocks:14,-60,0,14,-60,15 blocks:18,-60,-1,18,-60,8 xentities

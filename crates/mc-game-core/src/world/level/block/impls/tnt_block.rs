@@ -170,8 +170,8 @@ impl BlockBehaviour for TntBlock {
         if !projectile.is_on_fire() || !projectile.may_interact(level, pos) {
             return;
         }
-        // `owner instanceof LivingEntity` (a non-living owner is no source). `AbstractArrow.getPickupItemStackOrigin()` is
-        // not passed on: the adventure-mode check of a player source always sees an empty stack.
+        // `owner instanceof LivingEntity` (a non-living owner is no source); an arrow passes its pickup stack, whose
+        // `can_break` components the adventure-mode check of a player source reads.
         let source = projectile
             .get_owner(level)
             .filter(|o| o.living().is_some())
@@ -182,7 +182,7 @@ impl BlockBehaviour for TntBlock {
                 .and_then(|o| o.as_any().downcast_ref::<ServerPlayer>())
                 .is_some_and(|p| p.game_mode.game_mode_for_player == GameType::Adventure)
         }) && !crate::world::item::can_break_block_in_adventure_mode(
-            &ItemStack::empty(),
+            &projectile.pickup_item_stack_origin(),
             level,
             pos,
         );

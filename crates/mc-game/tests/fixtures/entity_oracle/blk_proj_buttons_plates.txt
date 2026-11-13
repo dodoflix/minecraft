@@ -1,0 +1,111 @@
+# wall buttons on a stone wall: an oak button (pressed), stone and polished blackstone buttons (not), a floor button hit from above
+# pressure plates hit from above
+# a tripwire line between two hooks, an arrow flying through the string, and a lone tripwire
+EV sound at=18.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+EV sound at=18.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.tripwire.attach source=block vol=0.4 pitch=0.7
+EV sound at=18.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+EV sound at=18.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_on source=block vol=0.4 pitch=0.6
+EV sound at=10.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.wooden_button.click_on source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_pressure_plate.click_on source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.metal_pressure_plate.click_on source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,9.5 r=16.0 ex=0 event=minecraft:block.metal_pressure_plate.click_on source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,15.5 r=16.0 ex=0 event=minecraft:block.wooden_pressure_plate.click_on source=block vol=1.0 pitch=1.0
+EV sound at=10.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_button.click_on source=block vol=1.0 pitch=1.0
+EV sound at=10.5,-59.5,9.5 r=16.0 ex=0 event=minecraft:block.cherry_wood_button.click_on source=block vol=1.0 pitch=1.0
+EV sound at=10.5,-59.94999999925494,12.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1476246
+EV sound at=10.5,-59.94999999925494,15.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.147723
+EV sound at=14.5,-59.94999999925494,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1477425
+EV sound at=14.5,-59.94999999925494,3.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1476836
+EV sound at=14.5,-59.94999999925494,6.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1477033
+EV sound at=14.5,-59.94999999925494,9.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1478015
+EV sound at=14.5,-59.94999999925494,12.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1478213
+EV sound at=14.5,-59.94999999925494,15.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1477623
+EV sound at=19.949999999254942,-59.9,2.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.147782
+EV sound at=19.949999999254942,-59.9,8.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1478803
+EV sound at=10.949999999254942,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1469171
+EV sound at=10.949999999254942,-59.5,3.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1476443
+EV sound at=10.949999999254942,-59.5,6.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.147664
+EV sound at=10.949999999254942,-59.5,9.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.147605
+B 10 -60 0 minecraft:oak_button[face=wall,facing=west,powered=true]
+B 10 -60 3 minecraft:stone_button[face=wall,facing=west,powered=false]
+B 10 -60 6 minecraft:polished_blackstone_button[face=wall,facing=west,powered=false]
+B 10 -60 9 minecraft:cherry_button[face=wall,facing=west,powered=true]
+B 10 -60 12 minecraft:oak_button[face=floor,facing=north,powered=true]
+B 10 -60 15 minecraft:stone_button[face=floor,facing=north,powered=false]
+B 14 -60 0 minecraft:oak_pressure_plate[powered=true]
+B 14 -60 3 minecraft:stone_pressure_plate[powered=false]
+B 14 -60 6 minecraft:light_weighted_pressure_plate[power=1]
+B 14 -60 9 minecraft:heavy_weighted_pressure_plate[power=1]
+B 14 -60 12 minecraft:polished_blackstone_pressure_plate[powered=false]
+B 14 -60 15 minecraft:spruce_pressure_plate[powered=true]
+B 18 -60 -1 minecraft:stone
+B 18 -60 0 minecraft:tripwire_hook[attached=true,facing=south,powered=true]
+B 18 -60 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=true,powered=false,south=true,west=false]
+B 18 -60 2 minecraft:tripwire[attached=true,disarmed=false,east=false,north=true,powered=true,south=true,west=false]
+B 18 -60 3 minecraft:tripwire[attached=true,disarmed=false,east=false,north=true,powered=false,south=true,west=false]
+B 18 -60 4 minecraft:tripwire_hook[attached=true,facing=north,powered=true]
+B 18 -60 5 minecraft:stone
+B 18 -60 8 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,powered=true,south=false,west=false]
+E a1 minecraft:arrow pos=10.949999999254942,-59.5,0.5 delta=0.0,0.0,0.0 rot=53.135998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a2 minecraft:arrow pos=10.949999999254942,-59.5,3.5 delta=0.0,0.0,0.0 rot=53.135998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a3 minecraft:arrow pos=10.949999999254942,-59.5,6.5 delta=0.0,0.0,0.0 rot=53.135998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a4 minecraft:arrow pos=10.949999999254942,-59.5,9.5 delta=0.0,0.0,0.0 rot=53.135998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a5 minecraft:arrow pos=10.5,-59.94999999925494,12.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a6 minecraft:arrow pos=10.5,-59.94999999925494,15.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a7 minecraft:arrow pos=14.5,-59.94999999925494,0.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a8 minecraft:arrow pos=14.5,-59.94999999925494,3.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a9 minecraft:arrow pos=14.5,-59.94999999925494,6.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a10 minecraft:arrow pos=14.5,-59.94999999925494,9.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a11 minecraft:arrow pos=14.5,-59.94999999925494,12.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a12 minecraft:arrow pos=14.5,-59.94999999925494,15.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a13 minecraft:arrow pos=19.949999999254942,-59.9,2.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E a14 minecraft:arrow pos=19.949999999254942,-59.9,8.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+EV sound at=18.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_off source=block vol=0.4 pitch=0.5
+EV sound at=18.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.tripwire.click_off source=block vol=0.4 pitch=0.5
+B 10 -60 0 minecraft:oak_button[face=wall,facing=west,powered=true]
+B 10 -60 3 minecraft:stone_button[face=wall,facing=west,powered=false]
+B 10 -60 6 minecraft:polished_blackstone_button[face=wall,facing=west,powered=false]
+B 10 -60 9 minecraft:cherry_button[face=wall,facing=west,powered=true]
+B 10 -60 12 minecraft:oak_button[face=floor,facing=north,powered=true]
+B 10 -60 15 minecraft:stone_button[face=floor,facing=north,powered=false]
+B 14 -60 0 minecraft:oak_pressure_plate[powered=true]
+B 14 -60 3 minecraft:stone_pressure_plate[powered=false]
+B 14 -60 6 minecraft:light_weighted_pressure_plate[power=1]
+B 14 -60 9 minecraft:heavy_weighted_pressure_plate[power=1]
+B 14 -60 12 minecraft:polished_blackstone_pressure_plate[powered=false]
+B 14 -60 15 minecraft:spruce_pressure_plate[powered=true]
+B 18 -60 -1 minecraft:stone
+B 18 -60 0 minecraft:tripwire_hook[attached=true,facing=south,powered=false]
+B 18 -60 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=true,powered=false,south=true,west=false]
+B 18 -60 2 minecraft:tripwire[attached=true,disarmed=false,east=false,north=true,powered=false,south=true,west=false]
+B 18 -60 3 minecraft:tripwire[attached=true,disarmed=false,east=false,north=true,powered=false,south=true,west=false]
+B 18 -60 4 minecraft:tripwire_hook[attached=true,facing=north,powered=false]
+B 18 -60 5 minecraft:stone
+B 18 -60 8 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,powered=false,south=false,west=false]
+EV sound at=14.5,-59.5,6.5 r=16.0 ex=0 event=minecraft:block.metal_pressure_plate.click_off source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,9.5 r=16.0 ex=0 event=minecraft:block.metal_pressure_plate.click_off source=block vol=1.0 pitch=1.0
+EV sound at=10.5,-59.5,12.5 r=16.0 ex=0 event=minecraft:block.wooden_button.click_off source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_pressure_plate.click_off source=block vol=1.0 pitch=1.0
+EV sound at=14.5,-59.5,15.5 r=16.0 ex=0 event=minecraft:block.wooden_pressure_plate.click_off source=block vol=1.0 pitch=1.0
+EV sound at=10.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_button.click_off source=block vol=1.0 pitch=1.0
+EV sound at=10.5,-59.5,9.5 r=16.0 ex=0 event=minecraft:block.cherry_wood_button.click_off source=block vol=1.0 pitch=1.0
+B 10 -60 0 minecraft:oak_button[face=wall,facing=west,powered=false]
+B 10 -60 3 minecraft:stone_button[face=wall,facing=west,powered=false]
+B 10 -60 6 minecraft:polished_blackstone_button[face=wall,facing=west,powered=false]
+B 10 -60 9 minecraft:cherry_button[face=wall,facing=west,powered=false]
+B 10 -60 12 minecraft:oak_button[face=floor,facing=north,powered=false]
+B 10 -60 15 minecraft:stone_button[face=floor,facing=north,powered=false]
+B 14 -60 0 minecraft:oak_pressure_plate[powered=false]
+B 14 -60 3 minecraft:stone_pressure_plate[powered=false]
+B 14 -60 6 minecraft:light_weighted_pressure_plate[power=0]
+B 14 -60 9 minecraft:heavy_weighted_pressure_plate[power=0]
+B 14 -60 12 minecraft:polished_blackstone_pressure_plate[powered=false]
+B 14 -60 15 minecraft:spruce_pressure_plate[powered=false]
+B 18 -60 -1 minecraft:stone
+B 18 -60 0 minecraft:tripwire_hook[attached=true,facing=south,powered=false]
+B 18 -60 1 minecraft:tripwire[attached=true,disarmed=false,east=false,north=true,powered=false,south=true,west=false]
+B 18 -60 2 minecraft:tripwire[attached=true,disarmed=false,east=false,north=true,powered=false,south=true,west=false]
+B 18 -60 3 minecraft:tripwire[attached=true,disarmed=false,east=false,north=true,powered=false,south=true,west=false]
+B 18 -60 4 minecraft:tripwire_hook[attached=true,facing=north,powered=false]
+B 18 -60 5 minecraft:stone
+B 18 -60 8 minecraft:tripwire[attached=false,disarmed=false,east=false,north=false,powered=false,south=false,west=false]

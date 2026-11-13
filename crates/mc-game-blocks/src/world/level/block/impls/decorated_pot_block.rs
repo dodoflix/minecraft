@@ -263,7 +263,7 @@ impl BlockBehaviour for DecoratedPotBlock {
         let pos = hit.block_pos;
         if projectile.may_interact_projectile(level, pos) && projectile.may_break(level, pos) {
             level.set_block(pos, state.set(props::CRACKED, true), 260, 512);
-            LevelAccessor::destroy_block(level, pos, true, Some(projectile.id()), 512);
+            level.destroy_block_by(pos, true, &*projectile, 512);
         }
     }
 

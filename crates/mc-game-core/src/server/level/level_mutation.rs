@@ -4,15 +4,16 @@
 
 use super::FullChunkStatus;
 use super::ServerLevel;
-use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::PoiTypes;
-use crate::world::level::block::helpers::{drop_resources, update_or_destroy_limited};
+use crate::world::entity::{Entity, EntityId};
+use crate::world::level::block::helpers::update_or_destroy_limited;
 use crate::world::level::block::{BlockStateExt, behaviour};
 use crate::world::level::flags::*;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::redstone::{
     CollectingNeighborUpdater, NeighborUpdateHost, Orientation, SideBias,
 };
+use crate::world::level::storage::loot::block_drops::drop_resources_for_destroy;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::{Direction, Plane};
 use mc_core::phys::Vec3;
@@ -260,13 +261,42 @@ impl ServerLevel {
         breaker: Option<EntityId>,
         update_limit: i32,
     ) -> bool {
+        self.destroy_block_with(pos, drop_block, breaker, None, update_limit)
+    }
+
+    /// [`Self::destroy_block_impl`] for a breaker the level cannot look up because its own tick holds it (a projectile that
+    /// hit the block): the drops' loot context reads the passed entity.
+    pub fn destroy_block_by(
+        &mut self,
+        pos: BlockPos,
+        drop_block: bool,
+        breaker: &dyn Entity,
+        update_limit: i32,
+    ) -> bool {
+        self.destroy_block_with(
+            pos,
+            drop_block,
+            Some(breaker.id()),
+            Some(breaker),
+            update_limit,
+        )
+    }
+
+    fn destroy_block_with(
+        &mut self,
+        pos: BlockPos,
+        drop_block: bool,
+        breaker: Option<EntityId>,
+        breaker_entity: Option<&dyn Entity>,
+        update_limit: i32,
+    ) -> bool {
         let block_state = BlockGetter::get_block_state(self, pos);
         if block_state.is_air() {
             return false;
         }
         behaviour(block_state.block()).spawn_destroy_particles(self, pos, block_state);
         if drop_block {
-            drop_resources(self, block_state, pos, breaker);
+            drop_resources_for_destroy(self, block_state, pos, breaker, breaker_entity);
         }
         let fluid_state = self.get_fluid_state(pos);
         let destroyed = self.set_block_impl(

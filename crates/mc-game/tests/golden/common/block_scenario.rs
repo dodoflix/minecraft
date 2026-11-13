@@ -560,7 +560,12 @@ impl Scenario {
         for _ in 0..draws_before_level {
             mc_core::random::generate_unique_seed();
         }
-        let world_data = mc_game::server::level::level_data::default_world_data();
+        // one world data for the level and the command server (`/defaultgamemode` reaches `Projectile.canBreakBlockInAdventureMode`)
+        let world_data = if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| server.world_data.clone())
+        } else {
+            mc_game::server::level::level_data::default_world_data()
+        };
         world_data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
         if self.opts.flat {
             // the vanilla flat world's spawn (natural spawning keeps its distance from it)

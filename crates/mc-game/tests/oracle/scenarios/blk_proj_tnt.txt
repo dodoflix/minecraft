@@ -1,0 +1,96 @@
+# TntBlock.onProjectileHit: a burning projectile primes the TNT it hits when its owner may interact with the block; a player owner in adventure mode also
+# needs the block in the can_break component of the arrow's pickup stack (a snowball has an empty stack), a mob owner needs mob_griefing, the primed TNT
+# remembers a living owner, and tnt_explodes false primes nothing.
+level flat
+preload 4
+difficulty normal
+spawn_player Steve survival 20.5 -60 56.5 0 0
+spawn_player Alex adventure 22.5 -60 56.5 0 0
+tick 300
+level_seed 9
+entity_counter 300
+spawn pig minecraft:pig 24.5 -60 56.5 0 0 {NoAI:1b,Silent:1b,UUID:[I;41,42,43,44]}
+entity_seed pig 5
+spawn bt minecraft:oak_boat 26.5 -60 56.5 0 0 {UUID:[I;31,32,33,34]}
+tick 2
+note Steve (survival), burning arrow: primed with Steve as owner
+block 10 -60 0 minecraft:tnt[unstable=false]
+spawn s1 minecraft:arrow 6.5 -59.5 0.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s1 21
+velocity s1 1.5 0 0
+note a plain arrow does nothing
+block 10 -60 4 minecraft:tnt[unstable=false]
+spawn s2 minecraft:arrow 6.5 -59.5 4.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s2 22
+velocity s2 1.5 0 0
+note a burning arrow with no owner primes too
+block 10 -60 8 minecraft:tnt[unstable=false]
+spawn s3 minecraft:arrow 6.5 -59.5 8.5 0 0 {NoGravity:1b,Fire:100s}
+entity_seed s3 23
+velocity s3 1.5 0 0
+note Alex (adventure): an arrow without can_break, one with the TNT block, one for stone
+block 10 -60 12 minecraft:tnt[unstable=false]
+spawn s4 minecraft:arrow 6.5 -59.5 12.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;911420254,-1002291781,-1572026395,1561302938]}
+entity_seed s4 24
+velocity s4 1.5 0 0
+block 10 -60 16 minecraft:tnt[unstable=false]
+spawn s5 minecraft:arrow 6.5 -59.5 16.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;911420254,-1002291781,-1572026395,1561302938],item:{id:"minecraft:arrow",count:1,components:{"minecraft:can_break":{blocks:"minecraft:tnt"}}}}
+entity_seed s5 25
+velocity s5 1.5 0 0
+block 10 -60 20 minecraft:tnt[unstable=false]
+spawn s6 minecraft:arrow 6.5 -59.5 20.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;911420254,-1002291781,-1572026395,1561302938],item:{id:"minecraft:arrow",count:1,components:{"minecraft:can_break":{blocks:"minecraft:stone"}}}}
+entity_seed s6 26
+velocity s6 1.5 0 0
+note Steve is no adventure player: can_break is not asked
+block 10 -60 24 minecraft:tnt[unstable=false]
+spawn s7 minecraft:arrow 6.5 -59.5 24.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;1445453208,-423740383,-1196889821,1142437441],item:{id:"minecraft:arrow",count:1,components:{"minecraft:can_break":{blocks:"minecraft:stone"}}}}
+entity_seed s7 27
+velocity s7 1.5 0 0
+note burning snowballs: an empty pickup stack, Steve primes, Alex is blocked
+block 10 -60 28 minecraft:tnt[unstable=false]
+spawn s8 minecraft:snowball 6.5 -59.5 28.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s8 28
+velocity s8 1.5 0 0
+block 10 -60 32 minecraft:tnt[unstable=false]
+spawn s9 minecraft:snowball 6.5 -59.5 32.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;911420254,-1002291781,-1572026395,1561302938]}
+entity_seed s9 29
+velocity s9 1.5 0 0
+tick 4
+dump events blocks:10,-60,0,10,-60,33 xentities nbt:tnt#1 nbt:tnt#2 nbt:tnt#3 nbt:tnt#4 nbt:tnt#5
+tick 2
+gamerule mob_griefing false
+note mob_griefing false: a mob owner and a non-living owner prime nothing
+block 10 -60 36 minecraft:tnt[unstable=false]
+spawn s10 minecraft:arrow 6.5 -59.5 36.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;41,42,43,44]}
+entity_seed s10 30
+velocity s10 1.5 0 0
+block 10 -60 40 minecraft:tnt[unstable=false]
+spawn s11 minecraft:arrow 6.5 -59.5 40.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;31,32,33,34]}
+entity_seed s11 31
+velocity s11 1.5 0 0
+tick 4
+dump events blocks:10,-60,36,10,-60,41 xentities
+tick 2
+gamerule mob_griefing true
+note mob_griefing true: the living mob owner is the source, the boat owner is none
+block 10 -60 44 minecraft:tnt[unstable=false]
+spawn s12 minecraft:arrow 6.5 -59.5 44.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;41,42,43,44]}
+entity_seed s12 32
+velocity s12 1.5 0 0
+block 10 -60 48 minecraft:tnt[unstable=false]
+spawn s13 minecraft:arrow 6.5 -59.5 48.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;31,32,33,34]}
+entity_seed s13 33
+velocity s13 1.5 0 0
+tick 4
+dump events blocks:10,-60,44,10,-60,49 xentities nbt:tnt#6 nbt:tnt#7
+tick 2
+gamerule tnt_explodes false
+note tnt_explodes false: nothing is primed
+block 10 -60 52 minecraft:tnt[unstable=false]
+spawn s14 minecraft:arrow 6.5 -59.5 52.5 0 0 {NoGravity:1b,Fire:100s,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s14 34
+velocity s14 1.5 0 0
+tick 4
+dump events blocks:10,-60,52,10,-60,52 xentities
+tick 2
+dump events

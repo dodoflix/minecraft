@@ -1024,6 +1024,9 @@ pub fn read_additional_save_data(arrow: &mut dyn AbstractArrow, input: &Compound
 #[macro_export]
 macro_rules! impl_abstract_arrow_projectile {
     () => {
+        fn pickup_item_stack_origin(&self) -> $crate::world::item::ItemStack {
+            self.arrow_data().pickup_item_stack.clone()
+        }
         fn set_owner(&mut self, owner: Option<&dyn $crate::world::entity::Entity>) {
             $crate::world::entity::projectile::arrow::set_owner(self, owner);
         }

@@ -1,0 +1,125 @@
+# AmethystBlock.onProjectileHit (block, budding amethyst and every cluster/bud: one chime with a pitch drawn from the level random) and
+# SpeleothemBlock.onProjectileHit (pointed dripstone: only a trident faster than 0.6 breaks it, when the owner may interact and break).
+level flat
+preload 4
+difficulty normal
+spawn_player Steve survival 20.5 -60 70.5 0 0
+spawn_player Alex adventure 22.5 -60 70.5 0 0
+tick 300
+level_seed 13
+entity_counter 500
+spawn pig minecraft:pig 24.5 -60 70.5 0 0 {NoAI:1b,Silent:1b,UUID:[I;41,42,43,44]}
+entity_seed pig 5
+tick 2
+note amethyst: the block, budding amethyst, cluster and the three buds chime once; one of them by an arrow of Steve
+block 10 -60 0 minecraft:amethyst_block
+spawn s1 minecraft:arrow 6.5 -59.5 0.5 0 0 {NoGravity:1b}
+entity_seed s1 21
+velocity s1 1.5 0 0
+block 10 -60 4 minecraft:budding_amethyst
+spawn s2 minecraft:arrow 6.5 -59.5 4.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s2 22
+velocity s2 1.5 0 0
+block 10 -60 8 minecraft:amethyst_cluster[facing=up,waterlogged=false]
+spawn s3 minecraft:arrow 6.5 -59.9 8.5 0 0 {NoGravity:1b}
+entity_seed s3 23
+velocity s3 1.5 0 0
+block 10 -60 12 minecraft:large_amethyst_bud[facing=up,waterlogged=false]
+spawn s4 minecraft:arrow 6.5 -59.9 12.5 0 0 {NoGravity:1b}
+entity_seed s4 24
+velocity s4 1.5 0 0
+block 10 -60 16 minecraft:medium_amethyst_bud[facing=up,waterlogged=false]
+spawn s5 minecraft:arrow 6.5 -59.9 16.5 0 0 {NoGravity:1b}
+entity_seed s5 25
+velocity s5 1.5 0 0
+block 10 -60 20 minecraft:small_amethyst_bud[facing=up,waterlogged=false]
+spawn s6 minecraft:arrow 6.5 -59.9 20.5 0 0 {NoGravity:1b}
+entity_seed s6 26
+velocity s6 1.5 0 0
+note a snowball chimes too
+block 10 -60 22 minecraft:amethyst_block
+spawn s7 minecraft:snowball 6.5 -59.5 22.5 0 0 {NoGravity:1b}
+entity_seed s7 27
+velocity s7 1.5 0 0
+level_seed 200
+tick 5
+dump events blocks:10,-60,0,10,-60,23 xentities
+tick 3
+note pointed dripstone: tridents at 0.9, 0.605, 0.6 and 0.5 (threshold 0.6), an arrow at 3.0
+block 10 -60 24 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s8 minecraft:trident 6.5 -59.9 24.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s8 28
+velocity s8 0.9 0 0
+block 10 -60 28 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s9 minecraft:trident 6.5 -59.9 28.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s9 29
+velocity s9 0.605 0 0
+block 10 -60 32 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s10 minecraft:trident 6.5 -59.9 32.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s10 30
+velocity s10 0.6 0 0
+block 10 -60 36 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s11 minecraft:trident 6.5 -59.9 36.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s11 31
+velocity s11 0.5 0 0
+block 10 -60 40 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s12 minecraft:arrow 6.5 -59.9 40.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s12 32
+velocity s12 3.0 0 0
+note Alex (adventure): without and with can_break for the block
+block 10 -60 44 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s13 minecraft:trident 6.5 -59.9 44.5 0 0 {NoGravity:1b,Owner:[I;911420254,-1002291781,-1572026395,1561302938]}
+entity_seed s13 33
+velocity s13 0.9 0 0
+block 10 -60 48 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s14 minecraft:trident 6.5 -59.9 48.5 0 0 {NoGravity:1b,Owner:[I;911420254,-1002291781,-1572026395,1561302938],can_break:{blocks:"minecraft:pointed_dripstone"}}
+entity_seed s14 34
+velocity s14 0.9 0 0
+level_seed 224
+tick 12
+dump events blocks:10,-60,24,10,-60,49 xentities
+tick 3
+gamerule projectiles_can_break_blocks false
+note projectiles_can_break_blocks false
+block 10 -60 52 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s15 minecraft:trident 6.5 -59.9 52.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s15 35
+velocity s15 0.9 0 0
+level_seed 252
+tick 5
+dump events blocks:10,-60,52,10,-60,52 xentities
+tick 3
+gamerule projectiles_can_break_blocks true
+gamerule mob_griefing false
+note a mob owner with can_break: mob_griefing false, then true
+block 10 -60 56 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s16 minecraft:trident 6.5 -59.9 56.5 0 0 {NoGravity:1b,Owner:[I;41,42,43,44],can_break:{blocks:"minecraft:pointed_dripstone"}}
+entity_seed s16 36
+velocity s16 0.9 0 0
+level_seed 256
+tick 5
+dump events blocks:10,-60,56,10,-60,56 xentities
+tick 3
+gamerule mob_griefing true
+block 10 -60 60 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s17 minecraft:trident 6.5 -59.9 60.5 0 0 {NoGravity:1b,Owner:[I;41,42,43,44],can_break:{blocks:"minecraft:pointed_dripstone"}}
+entity_seed s17 37
+velocity s17 0.9 0 0
+level_seed 260
+tick 5
+dump events blocks:10,-60,60,10,-60,60 xentities
+tick 3
+note tridents hitting in their first tick keep their full speed: 0.605 breaks, 0.595 does not
+block 10 -60 64 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s90 minecraft:trident 9.9 -59.9 64.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s90 90
+velocity s90 0.605 0 0
+block 10 -60 68 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
+spawn s91 minecraft:trident 9.9 -59.9 68.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed s91 91
+velocity s91 0.595 0 0
+level_seed 264
+tick 5
+dump events blocks:10,-60,64,10,-60,68 xentities
+tick 3
+dump events

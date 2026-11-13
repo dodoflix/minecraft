@@ -1,0 +1,76 @@
+# BellBlock.onProjectileHit: a projectile rings a bell only when it hits the side the attachment allows (floor: facing axis equals the hit axis,
+# walls: it differs, ceiling: always) below the top 0.1875 of the block; a player owner earns bell_ring, any projectile rings, the game event
+# carries the owner.
+level flat
+preload 3
+difficulty normal
+level_seed 4
+entity_counter 100
+spawn_player Steve survival 20.5 -60 30.5 0 0
+spawn_player Alex survival 22.5 -60 30.5 0 0
+tick 5
+note floor bell facing east hit on its west face by an arrow of Steve: rings, bell_ring
+block 10 -60 0 minecraft:bell[attachment=floor,facing=east,powered=false]
+spawn a1 minecraft:arrow 6.5 -59.5 0.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed a1 11
+velocity a1 1.5 0 0
+tick 4
+dump events be:10,-60,0 stats:Steve xentities
+tick 2
+note floor bell facing north hit along x: no ring
+block 10 -60 4 minecraft:bell[attachment=floor,facing=north,powered=false]
+spawn a2 minecraft:arrow 6.5 -59.5 4.5 0 0 {NoGravity:1b,Owner:[I;1445453208,-423740383,-1196889821,1142437441]}
+entity_seed a2 12
+velocity a2 1.5 0 0
+tick 4
+dump events be:10,-60,4 stats:Steve xentities
+tick 2
+note floor bell facing east hit in the top handle (y above 0.8124): no ring
+block 10 -60 8 minecraft:bell[attachment=floor,facing=east,powered=false]
+spawn a3 minecraft:arrow 6.5 -59.05 8.5 0 0 {NoGravity:1b}
+entity_seed a3 13
+velocity a3 1.5 0 0
+tick 4
+dump events be:10,-60,8 stats:Steve xentities
+tick 2
+note ceiling bell facing north: any side rings, an arrow with no owner
+block 10 -59 12 minecraft:stone
+block 10 -60 12 minecraft:bell[attachment=ceiling,facing=north,powered=false]
+spawn a4 minecraft:arrow 6.5 -59.5 12.5 0 0 {NoGravity:1b}
+entity_seed a4 14
+velocity a4 1.5 0 0
+tick 4
+dump events be:10,-60,12 stats:Steve xentities
+tick 2
+note single wall bell attached to the north, hit along x: rings; attached to the east and hit on its west face: no ring
+block 10 -60 15 minecraft:stone
+block 10 -60 16 minecraft:bell[attachment=single_wall,facing=north,powered=false]
+spawn a5 minecraft:arrow 6.5 -59.5 16.5 0 0 {NoGravity:1b,Owner:[I;911420254,-1002291781,-1572026395,1561302938]}
+entity_seed a5 15
+velocity a5 1.5 0 0
+block 11 -60 20 minecraft:stone
+block 10 -60 20 minecraft:bell[attachment=single_wall,facing=east,powered=false]
+spawn a6 minecraft:arrow 6.5 -59.5 20.5 0 0 {NoGravity:1b,Owner:[I;911420254,-1002291781,-1572026395,1561302938]}
+entity_seed a6 16
+velocity a6 1.5 0 0
+tick 4
+dump events be:10,-60,16 be:10,-60,20 stats:Alex xentities
+tick 2
+note double wall bell: hit along x rings
+block 10 -60 23 minecraft:stone
+block 10 -60 25 minecraft:stone
+block 10 -60 24 minecraft:bell[attachment=double_wall,facing=north,powered=false]
+spawn a7 minecraft:arrow 6.5 -59.5 24.5 0 0 {NoGravity:1b}
+entity_seed a7 17
+velocity a7 1.5 0 0
+tick 4
+dump events be:10,-60,24 xentities
+tick 2
+note a snowball rings a bell too, a second hit while it shakes restarts the swing
+spawn s1 minecraft:snowball 6.5 -59.5 0.5 0 0 {NoGravity:1b}
+entity_seed s1 18
+velocity s1 1.5 0 0
+tick 4
+dump events be:10,-60,0 blocks:10,-60,0,10,-60,24
+tick 60
+dump be:10,-60,0 events

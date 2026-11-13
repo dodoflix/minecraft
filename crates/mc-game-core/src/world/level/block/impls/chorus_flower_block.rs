@@ -118,7 +118,7 @@ impl BlockBehaviour for ChorusFlowerBlock {
     ) {
         let pos = hit.block_pos;
         if projectile.may_interact_projectile(level, pos) && projectile.may_break(level, pos) {
-            level.destroy_block(pos, true, Some(projectile.id()), 512);
+            level.destroy_block_by(pos, true, &*projectile, 512);
         }
     }
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {

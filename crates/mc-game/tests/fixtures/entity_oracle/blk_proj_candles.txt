@@ -1,0 +1,65 @@
+# candles: burning arrow of Steve, plain arrow, four candles with no owner, an already lit candle, a waterlogged candle
+# a burning snowball lights a coloured candle
+# candle cakes: burning arrow, plain arrow, a plain arrow; a candle takes the burning arrow of a mob with mob_griefing off
+C Game rule mob_griefing is now set to false
+# campfires: Steve burning arrow, soul campfire without owner, plain arrow, waterlogged, a mob owner with mob_griefing off
+EV sound at=10.387499999254942,-59.8,0.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1467993
+EV sound at=10.387499999254942,-59.8,3.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1467403
+EV sound at=10.262499999254942,-59.8,6.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1467601
+EV sound at=10.262499999254942,-59.8,9.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1468582
+EV sound at=10.4375,-59.8,12.5 r=16.0 ex=0 event=minecraft:entity.generic.extinguish_fire source=neutral vol=0.7 pitch=1.5133518
+EV sound at=10.387499999254942,-59.8,12.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.3176025
+EV sound at=10.387499999254942,-59.8,12.5 r=16.0 ex=0 event=minecraft:entity.generic.splash source=neutral vol=0.0 pitch=1.1413391
+EV sound at=10.012499999254942,-59.8,18.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1468387
+EV sound at=10.012499999254942,-59.8,21.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1469368
+EV sound at=10.387499999254942,-59.8,24.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1469564
+EV sound at=9.949999999254942,-59.8,27.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1468976
+B 10 -60 0 minecraft:candle[candles=1,lit=true,waterlogged=false]
+B 10 -60 3 minecraft:candle[candles=1,lit=false,waterlogged=false]
+B 10 -60 6 minecraft:candle[candles=4,lit=true,waterlogged=false]
+B 10 -60 9 minecraft:candle[candles=2,lit=true,waterlogged=false]
+B 10 -60 12 minecraft:candle[candles=1,lit=false,waterlogged=true]
+B 10 -60 15 minecraft:red_candle[candles=3,lit=true,waterlogged=false]
+B 10 -60 18 minecraft:candle_cake[lit=true]
+B 10 -60 21 minecraft:blue_candle_cake[lit=false]
+B 10 -60 24 minecraft:candle[candles=1,lit=true,waterlogged=false]
+B 10 -60 27 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+E pig minecraft:pig pos=22.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E s1 minecraft:arrow pos=10.387499999254942,-59.8,0.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
+E s2 minecraft:arrow pos=10.387499999254942,-59.8,3.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
+E s3 minecraft:arrow pos=10.262499999254942,-59.8,6.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s4 minecraft:arrow pos=10.262499999254942,-59.8,9.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s5 minecraft:arrow pos=10.387499999254942,-59.8,12.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s7 minecraft:arrow pos=10.012499999254942,-59.8,18.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s8 minecraft:arrow pos=10.012499999254942,-59.8,21.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s9 minecraft:arrow pos=10.387499999254942,-59.8,24.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
+E s10 minecraft:arrow pos=9.949999999254942,-59.8,27.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
+EV sound at=9.949999999254942,-59.8,30.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1469171
+EV sound at=9.949999999254942,-59.8,33.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1476443
+EV sound at=10.0,-59.8,36.5 r=16.0 ex=0 event=minecraft:entity.generic.extinguish_fire source=neutral vol=0.7 pitch=1.607403
+EV sound at=9.949999999254942,-59.8,36.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.124543
+EV sound at=9.949999999254942,-59.8,36.5 r=16.0 ex=0 event=minecraft:entity.generic.splash source=neutral vol=0.0 pitch=0.83409363
+EV sound at=9.949999999254942,-59.8,39.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.147605
+B 10 -60 30 minecraft:soul_campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+B 10 -60 33 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+B 10 -60 36 minecraft:campfire[facing=north,lit=false,signal_fire=true,waterlogged=true]
+B 10 -60 39 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+C Game rule mob_griefing is now set to true
+# the same mob owner with mob_griefing on
+EV sound at=9.949999999254942,-59.8,42.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1476246
+B 10 -60 42 minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]
+E pig minecraft:pig pos=22.5,-60.0,44.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E s1 minecraft:arrow pos=10.387499999254942,-59.8,0.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
+E s2 minecraft:arrow pos=10.387499999254942,-59.8,3.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
+E s3 minecraft:arrow pos=10.262499999254942,-59.8,6.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s4 minecraft:arrow pos=10.262499999254942,-59.8,9.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s5 minecraft:arrow pos=10.387499999254942,-59.8,12.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s7 minecraft:arrow pos=10.012499999254942,-59.8,18.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s8 minecraft:arrow pos=10.012499999254942,-59.8,21.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s9 minecraft:arrow pos=10.387499999254942,-59.8,24.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
+E s10 minecraft:arrow pos=9.949999999254942,-59.8,27.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
+E s11 minecraft:arrow pos=9.949999999254942,-59.8,30.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E s12 minecraft:arrow pos=9.949999999254942,-59.8,33.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
+E s13 minecraft:arrow pos=9.949999999254942,-59.8,36.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
+E s14 minecraft:arrow pos=9.949999999254942,-59.8,39.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
+E s15 minecraft:arrow pos=9.949999999254942,-59.8,42.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
