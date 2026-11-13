@@ -108,10 +108,16 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         || text.contains("jigsaw_generate")
         || ["_axe", "_shovel", "_hoe"].iter().any(|t| text.contains(t));
     // `command_env`: the vanilla server always has its command environment (lecterns resolve written book pages through it);
-    // the replay installs a real `MinecraftServer` (nothing started) around every command of the scenario
+    // the replay installs a real `MinecraftServer` (nothing started) around every command of the scenario. The verbs that
+    // deliver a packet to the player's listener (`select`, `close_menu`, `menu_button`, `pick_block`) need it as well.
     let mut server = text
         .lines()
-        .any(|l| l.trim() == "command_env")
+        .any(|l| {
+            matches!(
+                l.split_whitespace().next(),
+                Some("command_env" | "select" | "close_menu" | "menu_button" | "pick_block")
+            )
+        })
         .then(crate::command_common::test_server);
     for (i, line) in text.lines().enumerate() {
         let line = line.trim();

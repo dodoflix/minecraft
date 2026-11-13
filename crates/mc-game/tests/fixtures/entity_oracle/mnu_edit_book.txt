@@ -1,0 +1,38 @@
+# update the pages
+I A 0 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"page one"},{raw:"page two"}]}}
+I A 1 minecraft:writable_book*1
+I A 2 minecraft:stick*1
+I A 3 minecraft:writable_book*1
+I A 12 minecraft:writable_book*1
+I A 40 minecraft:writable_book*1
+PKT A minecraft:container_set_slot 140008002401db0a010038020870616765206f6e650008706167652074776f00
+# sign the book
+I A 0 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"page one"},{raw:"page two"}]}}
+I A 1 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"page &aone"},{raw:"page two"}],resolved:1b,title:{raw:"My Title"}}}
+I A 2 minecraft:stick*1
+I A 3 minecraft:writable_book*1
+I A 12 minecraft:writable_book*1
+I A 40 minecraft:writable_book*1
+PKT A minecraft:container_set_slot 140009002501dc0a010039084d79205469746c65000141000208000a706167652026616f6e6500080008706167652074776f0001
+# a stick is no book
+I A 0 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"page one"},{raw:"page two"}]}}
+I A 1 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"page &aone"},{raw:"page two"}],resolved:1b,title:{raw:"My Title"}}}
+I A 2 minecraft:stick*1
+I A 3 minecraft:writable_book*1
+I A 12 minecraft:writable_book*1
+I A 40 minecraft:writable_book*1
+# a slot outside the hotbar and the offhand is ignored, also with a title
+I A 0 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"page one"},{raw:"page two"}]}}
+I A 1 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"page &aone"},{raw:"page two"}],resolved:1b,title:{raw:"My Title"}}}
+I A 2 minecraft:stick*1
+I A 3 minecraft:writable_book*1
+I A 12 minecraft:writable_book*1
+I A 40 minecraft:writable_book*1
+# the offhand, no pages, and a signed book is no writable book any more
+I A 0 minecraft:writable_book*1{minecraft:writable_book_content:{pages:[{raw:"page one"},{raw:"page two"}]}}
+I A 1 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"page &aone"},{raw:"page two"}],resolved:1b,title:{raw:"My Title"}}}
+I A 2 minecraft:stick*1
+I A 3 minecraft:writable_book*1
+I A 12 minecraft:writable_book*1
+I A 40 minecraft:written_book*1{minecraft:written_book_content:{author:"A",pages:[{raw:"left"}],resolved:1b,title:{raw:"Off"}}}
+PKT A minecraft:container_set_slot 14000a002d01dc0a010039034f666600014100010800046c6566740001

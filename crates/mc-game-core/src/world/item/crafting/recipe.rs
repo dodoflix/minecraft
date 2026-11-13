@@ -317,6 +317,24 @@ impl Recipe {
         }
     }
 
+    /// `recipe instanceof CraftingRecipe`.
+    pub fn is_crafting_recipe(&self) -> bool {
+        matches!(
+            self.kind,
+            RecipeKind::Shaped(_)
+                | RecipeKind::Shapeless(_)
+                | RecipeKind::Transmute(_)
+                | RecipeKind::Dye(_)
+                | RecipeKind::Imbue(_)
+                | RecipeKind::Custom(_)
+        )
+    }
+
+    /// `recipe instanceof AbstractCookingRecipe`.
+    pub fn is_cooking_recipe(&self) -> bool {
+        matches!(self.kind, RecipeKind::Cooking(_))
+    }
+
     /// `CraftingRecipe.matches(input, level)` (false for recipes of another input kind).
     pub fn matches_crafting(&self, input: &CraftingInput, level: &ServerLevel) -> bool {
         match &self.kind {

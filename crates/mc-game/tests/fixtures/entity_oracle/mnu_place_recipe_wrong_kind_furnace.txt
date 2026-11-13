@@ -1,0 +1,29 @@
+C No new recipes were learned
+C Unlocked 1 recipe(s) for B
+MENU B cid=1 type=minecraft:furnace state=1 carried=empty
+MS 3 minecraft:oak_log*8
+MS 4 minecraft:oak_planks*64
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+PKT B minecraft:open_screen 3c010e0a0800097472616e736c6174650011636f6e7461696e65722e6675726e61636500
+PKT B minecraft:container_set_content 1201012700000008a3010000403f00000000000000000000000000000000000000000000000000000000000000000000000000
+MENU B cid=1 type=minecraft:furnace state=1 carried=empty
+MS 3 minecraft:oak_log*8
+MS 4 minecraft:oak_planks*64
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+I B 9 minecraft:oak_log*8
+I B 10 minecraft:oak_planks*64
+MENU B cid=1 type=minecraft:furnace state=1 carried=empty
+MS 3 minecraft:oak_log*8
+MS 4 minecraft:oak_planks*64
+MD 0 0
+MD 1 0
+MD 2 0
+MD 3 0
+I B 9 minecraft:oak_log*8
+I B 10 minecraft:oak_planks*64

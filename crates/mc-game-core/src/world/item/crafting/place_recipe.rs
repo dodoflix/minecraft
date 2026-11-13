@@ -58,8 +58,9 @@ pub trait PlaceRecipeMenu {
     );
     /// `clearCraftingContent()`.
     fn clear_crafting_content(&mut self, player: &mut dyn MenuPlayer);
-    /// `recipeMatches(recipe)`.
-    fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> bool;
+    /// `recipeMatches(recipe)`; `None` when the recipe is not of the menu's recipe class: vanilla's unchecked cast of the
+    /// holder throws a `ClassCastException` there, which the packet processor suppresses (nothing else happens).
+    fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> Option<bool>;
 
     /// `inputGridSlots.size()`.
     fn input_grid_len(&self) -> usize;
@@ -142,11 +143,13 @@ impl PlaceRecipeMenu for CraftingGridAccess<'_> {
         base.locals[self.grid.result_local].clear_content();
         base.locals[self.grid.craft_local].clear_content();
     }
-    fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> bool {
-        player.level_ref().is_some_and(|level| {
-            recipe
-                .value
-                .matches_crafting(&self.craft_slots().as_craft_input(), level)
+    fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> Option<bool> {
+        recipe.value.is_crafting_recipe().then(|| {
+            player.level_ref().is_some_and(|level| {
+                recipe
+                    .value
+                    .matches_crafting(&self.craft_slots().as_craft_input(), level)
+            })
         })
     }
 
@@ -337,7 +340,9 @@ impl ServerPlaceRecipe<'_> {
     }
 
     fn place_recipe(&mut self, recipe: &RecipeHolder, available_items: &mut StackedItemContents) {
-        let recipe_matches_placed = self.menu.recipe_matches(self.player, recipe);
+        let Some(recipe_matches_placed) = self.menu.recipe_matches(self.player, recipe) else {
+            return;
+        };
         let biggest_craftable_stack =
             available_items.get_biggest_craftable_stack(&recipe.value, i32::MAX, None);
         if recipe_matches_placed {

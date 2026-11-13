@@ -103,6 +103,11 @@ impl RecipeBookMenu for CraftingMenu {
         );
         // `finishPlacingRecipe(level, recipe)`: the one recompute of the placement, hinted with the placed recipe.
         self.placing_recipe = false;
+        // the hinted lookup calls `matches` of a recipe of another class with a crafting input: vanilla's cast throws there
+        // (suppressed by the packet processor), so there is no recompute and no ghost recipe
+        if !recipe.value.is_crafting_recipe() {
+            return PostPlaceAction::Nothing;
+        }
         let items = self.get_craft_slots().get_items().to_vec();
         slot_changed_crafting_grid(
             &mut self.base,

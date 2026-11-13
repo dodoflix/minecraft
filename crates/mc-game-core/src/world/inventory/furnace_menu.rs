@@ -271,13 +271,18 @@ impl PlaceRecipeMenu for FurnacePlacement<'_> {
         }
     }
 
-    fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> bool {
+    fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> Option<bool> {
+        if !recipe.value.is_cooking_recipe() {
+            return None;
+        }
         let input = with_player_container(player, &ContainerKey::BlockEntity(self.menu.pos), |c| {
             SingleRecipeInput(c.get_item(INGREDIENT_SLOT).clone())
         });
-        player
-            .level_ref()
-            .is_some_and(|level| input.matches(&recipe.value, level))
+        Some(
+            player
+                .level_ref()
+                .is_some_and(|level| input.matches(&recipe.value, level)),
+        )
     }
 
     fn input_grid_len(&self) -> usize {

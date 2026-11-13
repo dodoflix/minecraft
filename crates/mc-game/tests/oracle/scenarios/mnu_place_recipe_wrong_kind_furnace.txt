@@ -1,0 +1,19 @@
+# Crafting recipes from the recipe book placed at a furnace: the recipes are of another class than the menu's, vanilla's cast throws
+# inside the packet handler (suppressed), so nothing moves and nothing is sent.
+command_env
+level flat
+preload 4
+spawn_player B survival 9.5 -60 7.5 0 0
+block 9 -60 4 minecraft:furnace[facing=south,lit=false]
+give B inv9 minecraft:oak_log 8
+give B inv10 minecraft:oak_planks 64
+tick 2
+cmd recipe give B minecraft:oak_planks
+cmd recipe give B minecraft:chest
+dump packets:B:none
+use_on B 9 -60 4 up main
+dump menu:B packets:B:open_screen,container_set_content
+place_recipe B minecraft:oak_planks
+dump menu:B inventory:B packets:B:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe B minecraft:chest all
+dump menu:B inventory:B packets:B:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe

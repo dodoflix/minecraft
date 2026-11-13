@@ -399,7 +399,7 @@ fn player_command(level: &mut ServerLevel, p: &mut ServerPlayer, action: &str) {
     }
 }
 
-/// `handleSetCarriedItem`: a different hotbar slot ends the use of a main hand item.
+/// `handleSetCarriedItem` for the replays whose players have no listener (the entity replay); the block replay delivers the packet.
 fn select(level: &mut ServerLevel, p: &mut ServerPlayer, slot: i32) {
     assert!((0..9).contains(&slot), "hotbar slot {slot}");
     if p.player.inventory.get_selected_slot() != slot

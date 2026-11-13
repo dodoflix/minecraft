@@ -1,0 +1,42 @@
+# The bundle selection packet through the listener: the selection is not visible until the bundle is used, so every case ends with a right click
+# on the bundle that takes one stack out (the selected one, or the first without a selection). Selecting an index selects it, the same index
+# again clears it, an index outside the contents, a slot without a bundle and a slot outside the menu change nothing, and the packet works the
+# same way in the open crafting table's menu.
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+block 3 -60 4 minecraft:crafting_table
+give A inv9 minecraft:bundle[bundle_contents=[{id:"minecraft:diamond",count:3},{id:"minecraft:stick",count:2},{id:"minecraft:apple",count:1}]]
+give A inv10 minecraft:bundle[bundle_contents=[{id:"minecraft:diamond",count:3},{id:"minecraft:stick",count:2},{id:"minecraft:apple",count:1}]]
+give A inv11 minecraft:bundle[bundle_contents=[{id:"minecraft:diamond",count:3},{id:"minecraft:stick",count:2},{id:"minecraft:apple",count:1}]]
+give A inv12 minecraft:bundle[bundle_contents=[{id:"minecraft:diamond",count:3},{id:"minecraft:stick",count:2},{id:"minecraft:apple",count:1}]]
+give A inv13 minecraft:stick 4
+tick 2
+dump packets:A:none
+note the second stack is selected: it comes out first
+bundle_select A 9 1
+click A 9 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 20 0 PICKUP
+note the same index twice clears the selection: the first stack comes out
+bundle_select A 10 2
+bundle_select A 10 2
+click A 10 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 21 0 PICKUP
+note an index outside the contents is ignored
+bundle_select A 11 7
+click A 11 1 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item
+click A 22 0 PICKUP
+note a slot without a bundle and a slot outside the menu are ignored
+bundle_select A 13 0
+bundle_select A 99 0
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note the same packet in the crafting table menu (its inventory part starts one slot later)
+use_on A 3 -60 4 up main
+dump menu:A packets:A:open_screen,container_set_content
+bundle_select A 13 2
+click A 13 1 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item

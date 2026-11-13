@@ -1,0 +1,43 @@
+# The book editing packet through the listener: a writable book in the hotbar or the offhand takes new pages, a title signs it into a written
+# book of the player, a slot that is neither a hotbar slot nor the offhand and a stack that is no writable book are ignored.
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 0.5 0 0
+give A hotbar0 minecraft:writable_book[writable_book_content={pages:[{raw:"first"}]}]
+give A hotbar1 minecraft:writable_book
+give A hotbar2 minecraft:stick
+give A hotbar3 minecraft:writable_book
+give A offhand minecraft:writable_book
+give A inv12 minecraft:writable_book
+tick 2
+dump packets:A:none
+note update the pages
+edit_book A 0 - "page one" "page two"
+tick 1
+dump inventory:A packets:A:container_set_slot,container_set_content
+note sign the book
+edit_book A 1 "My Title" "page &aone" "page two"
+tick 1
+dump inventory:A packets:A:container_set_slot,container_set_content
+note a stick is no book
+edit_book A 2 - "text"
+edit_book A 2 "Title" "text"
+tick 1
+dump inventory:A
+note a slot outside the hotbar and the offhand is ignored, also with a title
+edit_book A 12 - "text"
+edit_book A 12 "Title" "text"
+edit_book A 9 - "text"
+edit_book A 41 - "text"
+edit_book A -1 - "text"
+tick 1
+dump inventory:A
+note the offhand, no pages, and a signed book is no writable book any more
+edit_book A 40 "Off" "left"
+edit_book A 3 -
+tick 1
+edit_book A 1 - "again"
+edit_book A 1 "Again" "again"
+tick 1
+dump inventory:A packets:A:container_set_slot,container_set_content

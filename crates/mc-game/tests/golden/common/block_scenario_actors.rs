@@ -8,6 +8,7 @@
 //! reproduce: always call `entity_seed` right after `spawn`/`spawn_item` when the entity's randomness matters, and give `spawn_item` an
 //! explicit velocity), `explode` takes `source=REF`, `respawn/effect/attribute/move_packet` are not replayed.
 use super::Scenario;
+use crate::common::menu_actions::deliver;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -26,15 +27,16 @@ use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::world::block_entity::sign_block_entity::{SignTextSlot, update_sign_text_from_packet};
 use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::mob::leashable;
-use mc_game::world::entity::player::menu_ctx::PlayerCtx;
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
-use mc_game::world::inventory::{PlayerMenus, handle_container_button_click};
 use mc_game::world::item::InteractionHand;
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_protocol::codec::{Decode, Encode, read_varint};
 use mc_protocol::packets::play::{
     AttributeModifierOperation, ClientboundSetTimePacket, ClientboundUpdateAttributesPacket,
+    ServerboundContainerButtonClickPacket, ServerboundContainerClosePacket,
+    ServerboundPickItemFromBlockPacket, ServerboundPlayPacket as P,
+    ServerboundSetCarriedItemPacket,
 };
 use std::collections::{HashMap, HashSet};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
@@ -486,21 +488,17 @@ impl Scenario {
                     }
                 });
             }
-            "pick_block" => {
-                self.world();
-                // ServerboundPickItemFromBlockPacket: `pick_block PLAYER X Y Z [true|false]` (include block data)
-                let packet = mc_protocol::packets::play::ServerboundPickItemFromBlockPacket {
+            // `pick_block PLAYER X Y Z [true|false]` (include block data)
+            "pick_block" => deliver(self, &a[1], |_, _| {
+                P::PickItemFromBlock(ServerboundPickItemFromBlockPacket {
                     pos: BlockPos::new(
                         a[2].parse().unwrap(),
                         a[3].parse().unwrap(),
                         a[4].parse().unwrap(),
                     ),
                     include_data: a.get(5).is_some_and(|v| v == "true"),
-                };
-                self.with_player_named(&a[1], |level, p| {
-                    mc_game::world::item::pick_item_from_block(p, level, &packet)
-                });
-            }
+                })
+            }),
             "jigsaw_generate" => {
                 self.world();
                 self.load_registries();
@@ -665,24 +663,23 @@ impl Scenario {
                 reseed_for(&a[1]);
                 self.spawn_player(a);
             }
-            "menu_button" => {
-                self.world();
-                // `handleContainerButtonClick` without the packet: the menu's own handler on the player's open menu
-                let button: i32 = a[2].parse().unwrap();
-                self.with_player_named(&a[1], |level, p| {
-                    let container_id = p.player.menus.current_container_id();
-                    let mut ctx = PlayerCtx { player: p, level };
-                    PlayerMenus::with_current(
-                        &mut ctx,
-                        |c| &mut c.player.player.menus,
-                        |menu, c| handle_container_button_click(menu, c, container_id, button),
-                    );
-                });
-            }
-            "close_menu" => {
-                self.world();
-                self.with_player_named(&a[1], |level, p| p.do_close_container(level));
-            }
+            // the listener's packet handlers (`deliver`): the same packets as the Java verbs
+            "menu_button" => deliver(self, &a[1], |_, p| {
+                P::ContainerButtonClick(ServerboundContainerButtonClickPacket {
+                    container_id: p.player.menus.current_container_id(),
+                    button_id: a[2].parse().unwrap(),
+                })
+            }),
+            "close_menu" => deliver(self, &a[1], |_, p| {
+                P::ContainerClose(ServerboundContainerClosePacket {
+                    container_id: p.player.menus.current_container_id(),
+                })
+            }),
+            "select" => deliver(self, &a[1], |_, _| {
+                P::SetCarriedItem(ServerboundSetCarriedItemPacket {
+                    slot: a[2].parse().expect("hotbar slot"),
+                })
+            }),
             "brush" => {
                 self.world();
                 let pos = BlockPos::new(

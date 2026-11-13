@@ -1,0 +1,37 @@
+C Unlocked 1 recipe(s) for C
+C No new recipes were learned
+MENU C cid=0 type=inventory state=11 carried=empty
+MS 0 minecraft:crafting_table*1
+MS 1 minecraft:oak_planks*1
+MS 2 minecraft:oak_planks*1
+MS 3 minecraft:oak_planks*1
+MS 4 minecraft:oak_planks*1
+MS 9 minecraft:oak_planks*60
+MS 10 minecraft:cobblestone*64
+I C 9 minecraft:oak_planks*60
+I C 10 minecraft:cobblestone*64
+PKT C minecraft:container_set_slot 140004000000
+PKT C minecraft:container_set_slot 140005000000
+PKT C minecraft:container_set_slot 140006000000
+PKT C minecraft:container_set_slot 140007000000
+PKT C minecraft:container_set_slot 140008000001da060000
+PKT C minecraft:container_set_slot 140009000001eb060000
+PKT C minecraft:container_set_slot 14000a000000
+PKT C minecraft:container_set_slot 14000b00000195030000
+MENU C cid=0 type=inventory state=19 carried=empty
+MS 1 minecraft:cobblestone*8
+MS 2 minecraft:cobblestone*8
+MS 3 minecraft:cobblestone*8
+MS 4 minecraft:cobblestone*8
+MS 9 minecraft:oak_planks*64
+MS 10 minecraft:cobblestone*32
+I C 9 minecraft:oak_planks*64
+I C 10 minecraft:cobblestone*32
+PKT C minecraft:container_set_slot 14000c000000
+PKT C minecraft:container_set_slot 14000d000001eb060000
+PKT C minecraft:container_set_slot 14000e000001da060000
+PKT C minecraft:container_set_slot 14000f000000
+PKT C minecraft:container_set_slot 140010000000
+PKT C minecraft:container_set_slot 140011000000
+PKT C minecraft:container_set_slot 140012000000
+PKT C minecraft:container_set_slot 140013000000

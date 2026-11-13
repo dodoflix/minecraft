@@ -1,0 +1,16 @@
+C No new recipes were learned
+MENU A cid=1 type=minecraft:crafting state=1 carried=empty
+MS 10 minecraft:raw_iron*8
+MS 11 minecraft:oak_planks*64
+PKT A minecraft:open_screen 3c010c0a0800097472616e736c6174650012636f6e7461696e65722e6372616674696e6700
+PKT A minecraft:container_set_content 1201012e0000000000000000000008f9070000403f00000000000000000000000000000000000000000000000000000000000000000000000000
+MENU A cid=1 type=minecraft:crafting state=1 carried=empty
+MS 10 minecraft:raw_iron*8
+MS 11 minecraft:oak_planks*64
+I A 9 minecraft:raw_iron*8
+I A 10 minecraft:oak_planks*64
+MENU A cid=1 type=minecraft:crafting state=1 carried=empty
+MS 10 minecraft:raw_iron*8
+MS 11 minecraft:oak_planks*64
+I A 9 minecraft:raw_iron*8
+I A 10 minecraft:oak_planks*64

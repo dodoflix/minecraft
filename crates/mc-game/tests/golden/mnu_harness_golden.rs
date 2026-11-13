@@ -5,6 +5,11 @@
 use crate::common;
 
 #[test]
+fn the_bundle_selection_packet_selects_and_clears_the_item_a_right_click_takes_out() {
+    common::block_scenario::check("mnu_bundle_select");
+}
+
+#[test]
 fn clicks_on_a_chest_menu_change_slots_cursor_and_drops_like_vanilla() {
     common::block_scenario::check("mnu_click_chest");
 }
@@ -158,4 +163,9 @@ fn taking_results_awards_statistics_recipes_and_advancements() {
 #[test]
 fn villagers_that_cannot_trade_now_open_no_trade_screen() {
     common::block_scenario::check("mnu_trade_two_players");
+}
+
+#[test]
+fn the_book_editing_packet_updates_and_signs_books_in_the_hotbar_and_the_offhand() {
+    common::block_scenario::check("mnu_edit_book");
 }

@@ -24,3 +24,18 @@ fn the_crafting_table_opens_crafts_and_closes_with_its_block() {
 fn the_recipe_book_places_recipes_into_the_crafting_table_grid() {
     common::block_scenario::check("mnu_place_recipe_table");
 }
+
+#[test]
+fn the_recipe_book_ignores_a_recipe_of_another_class_than_the_crafting_table() {
+    common::block_scenario::check("mnu_place_recipe_wrong_kind_table");
+}
+
+#[test]
+fn the_recipe_book_ignores_crafting_recipes_at_a_furnace() {
+    common::block_scenario::check("mnu_place_recipe_wrong_kind_furnace");
+}
+
+#[test]
+fn the_recipe_book_places_what_fits_of_a_3x3_recipe_into_the_inventory_grid() {
+    common::block_scenario::check("mnu_place_recipe_big_inventory");
+}

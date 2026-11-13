@@ -40,6 +40,8 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayId;
  * place_recipe PLAYER RECIPE_ID [all] [cid=N]   ServerboundPlaceRecipePacket for the first display of the recipe (the recipe must be known to the player: `cmd recipe give`; `cid` as for `click`)
  * recipe_seen PLAYER RECIPE_ID          ServerboundRecipeBookSeenRecipePacket for the first display of the recipe
  * recipe_settings PLAYER TYPE OPEN FILTERING   ServerboundRecipeBookChangeSettingsPacket (TYPE: crafting furnace blast_furnace smoker)
+ * bundle_select PLAYER SLOT INDEX   ServerboundSelectBundleItemPacket (the bundle in menu slot SLOT selects item INDEX)
+ * edit_book PLAYER SLOT TITLE|- PAGE..   ServerboundEditBookPacket (`-` = no title: update the writable book; else sign it); quote a token to keep spaces; the text filter answers on the next tick, so follow with `tick 1`
  * dump recipes:PLAYER        `RECIPES PLAYER crafting=OF furnace=OF blast_furnace=OF smoker=OF known=ID,.. highlight=ID,..` (O = open, F = filtering as 0/1; ids sorted)
  * dump menu:PLAYER            `MENU PLAYER cid=N type=KEY|inventory|none state=N carried=STACK` (none = a menu without a type, the mount inventories), `MS i STACK` per non-empty slot, `MD i value` per data slot
  * </pre>
@@ -96,11 +98,26 @@ final class MenuVerbs {
             boolean all = a.size() > 3 && a.get(3).equals("all");
             Map<String, String> options = d.kv(a, all ? 4 : 3);
             int cid = options.containsKey("cid") ? Integer.parseInt(options.get("cid")) : p.containerMenu.containerId;
-            p.connection.handlePlaceRecipe(new ServerboundPlaceRecipePacket(cid, display(d, a.get(2)), all));
+            try {
+               p.connection.handlePlaceRecipe(new ServerboundPlaceRecipePacket(cid, display(d, a.get(2)), all));
+            } catch (ClassCastException e) {
+               // a recipe of another class than the menu's: the packet processor logs and suppresses the handler's exception (ServerPacketListener.onPacketError)
+               System.err.println("suppressed " + e);
+            }
          }
          case "recipe_seen" -> {
             d.world();
             d.player(a.get(1)).connection.handleRecipeBookSeenRecipePacket(new ServerboundRecipeBookSeenRecipePacket(display(d, a.get(2))));
+         }
+         case "bundle_select" -> {
+            d.world();
+            d.player(a.get(1)).connection.handleBundleItemSelectedPacket(new ServerboundSelectBundleItemPacket(Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3))));
+         }
+         case "edit_book" -> {
+            d.world();
+            // the text filter answers on the next server tick (`thenAcceptAsync(.., server)`): follow with `tick 1`
+            d.player(a.get(1)).connection.handleEditBook(new ServerboundEditBookPacket(Integer.parseInt(a.get(2)), unquote(a.subList(4, a.size())),
+               a.get(3).equals("-") ? Optional.empty() : Optional.of(unquote(List.of(a.get(3))).get(0))));
          }
          case "recipe_settings" -> {
             d.world();
@@ -112,6 +129,11 @@ final class MenuVerbs {
          }
       }
       return true;
+   }
+
+   /** Strips one pair of surrounding quotes from each token (the driver's tokens keep them). */
+   static List<String> unquote(List<String> tokens) {
+      return tokens.stream().map(t -> t.length() > 1 && t.startsWith("\"") && t.endsWith("\"") ? t.substring(1, t.length() - 1) : t).toList();
    }
 
    static HashedPatchMap.HashGenerator hasher(ServerPlayer p) {

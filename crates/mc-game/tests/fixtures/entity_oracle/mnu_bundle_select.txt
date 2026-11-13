@@ -1,0 +1,89 @@
+# the second stack is selected: it comes out first
+MENU A cid=0 type=inventory state=8 carried=minecraft:stick*2
+MS 9 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{id:"minecraft:apple"}]}
+MS 10 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 11 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 12 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 13 minecraft:stick*4
+PKT A minecraft:container_set_slot 140007000000
+PKT A minecraft:container_set_slot 140008000901810901003402f407030000ef07010000
+PKT A minecraft:set_cursor_item 6202a4080000
+# the same index twice clears the selection: the first stack comes out
+MENU A cid=0 type=inventory state=11 carried=minecraft:diamond*3
+MS 9 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{id:"minecraft:apple"}]}
+MS 10 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 11 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 12 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 13 minecraft:stick*4
+MS 20 minecraft:stick*2
+PKT A minecraft:container_set_slot 140009001402a4080000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14000a000000
+PKT A minecraft:container_set_slot 14000b000a01810901003402a408020000ef07010000
+PKT A minecraft:set_cursor_item 6203f4070000
+# an index outside the contents is ignored
+MENU A cid=0 type=inventory state=14 carried=minecraft:diamond*3
+MS 9 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{id:"minecraft:apple"}]}
+MS 10 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 11 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 12 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 13 minecraft:stick*4
+MS 20 minecraft:stick*2
+MS 21 minecraft:diamond*3
+PKT A minecraft:container_set_slot 14000c001503f4070000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 14000d000000
+PKT A minecraft:container_set_slot 14000e000b01810901003402a408020000ef07010000
+PKT A minecraft:set_cursor_item 6203f4070000
+# a slot without a bundle and a slot outside the menu are ignored
+MENU A cid=0 type=inventory state=15 carried=empty
+MS 9 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{id:"minecraft:apple"}]}
+MS 10 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 11 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 12 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 13 minecraft:stick*4
+MS 20 minecraft:stick*2
+MS 21 minecraft:diamond*3
+MS 22 minecraft:diamond*3
+I A 9 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{id:"minecraft:apple"}]}
+I A 10 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+I A 11 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+I A 12 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+I A 13 minecraft:stick*4
+I A 20 minecraft:stick*2
+I A 21 minecraft:diamond*3
+I A 22 minecraft:diamond*3
+PKT A minecraft:container_set_slot 14000f001603f4070000
+PKT A minecraft:set_cursor_item 6200
+# the same packet in the crafting table menu (its inventory part starts one slot later)
+MENU A cid=1 type=minecraft:crafting state=1 carried=empty
+MS 10 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{id:"minecraft:apple"}]}
+MS 11 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 12 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 13 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 14 minecraft:stick*4
+MS 21 minecraft:stick*2
+MS 22 minecraft:diamond*3
+MS 23 minecraft:diamond*3
+PKT A minecraft:open_screen 3c010c0a0800097472616e736c6174650012636f6e7461696e65722e6372616674696e6700
+PKT A minecraft:container_set_content 1201012e0000000000000000000001810901003402f407030000ef0701000001810901003402a408020000ef0701000001810901003402a408020000ef0701000001810901003403f407030000a408020000ef0701000004a408000000000000000002a408000003f407000003f40700000000000000000000000000000000000000000000000000
+MENU A cid=1 type=minecraft:crafting state=3 carried=minecraft:apple*1
+MS 10 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{id:"minecraft:apple"}]}
+MS 11 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 12 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+MS 13 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"}]}
+MS 14 minecraft:stick*4
+MS 21 minecraft:stick*2
+MS 22 minecraft:diamond*3
+MS 23 minecraft:diamond*3
+I A 9 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{id:"minecraft:apple"}]}
+I A 10 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+I A 11 minecraft:bundle*1{minecraft:bundle_contents:[{count:2,id:"minecraft:stick"},{id:"minecraft:apple"}]}
+I A 12 minecraft:bundle*1{minecraft:bundle_contents:[{count:3,id:"minecraft:diamond"},{count:2,id:"minecraft:stick"}]}
+I A 13 minecraft:stick*4
+I A 20 minecraft:stick*2
+I A 21 minecraft:diamond*3
+I A 22 minecraft:diamond*3
+PKT A minecraft:container_set_slot 140102000000
+PKT A minecraft:container_set_slot 140103000d01810901003402f407030000a408020000
+PKT A minecraft:set_cursor_item 6201ef070000

@@ -1,11 +1,12 @@
 //! Menu verbs of the scenario DSL: `click`, `button`, `creative_slot`, `pick_entity`, `rename`, `select_trade`, `set_beacon`, `slot_state`, `place_recipe`,
-//! `recipe_seen`, `recipe_settings` and the dump kinds `menu:REF`, `recipes:REF` (the grammar of the Java driver's `MenuVerbs.java`, which lists
-//! every verb and option).
+//! `recipe_seen`, `recipe_settings`, `bundle_select`, `edit_book` and the dump kinds `menu:REF`, `recipes:REF` (the grammar of the Java driver's
+//! `MenuVerbs.java`, which lists every verb and option). The block replay builds `select`, `close_menu`, `menu_button` and `pick_block` the same way.
 //!
 //! Each verb builds the serverbound packet the vanilla verb builds and hands it to the player's listener through
 //! [`PlayCtx::deliver`] (the registered play handlers), so the listener-level checks (stale container id, state id,
 //! spectator resync, `stillValid`, hashed slot reconciliation) are part of what the replay compares. The handlers need the
-//! server: a scenario that uses these verbs starts with `command_env`.
+//! server: a scenario that uses these verbs starts with `command_env` (the block replay also installs the server for `select`,
+//! `close_menu`, `menu_button` and `pick_block`).
 use super::entity_scenario::item_full;
 use super::player_actions::{ActionHost, item_stack, with_player};
 use mc_game::server::level::ServerLevel;
@@ -19,9 +20,10 @@ use mc_protocol::components::hashed::component_hash;
 use mc_protocol::packets::play::{
     ContainerInput, RecipeBookType, ServerboundContainerButtonClickPacket,
     ServerboundContainerClickPacket, ServerboundContainerSlotStateChangedPacket,
-    ServerboundPickItemFromEntityPacket, ServerboundPlaceRecipePacket, ServerboundPlayPacket,
-    ServerboundRecipeBookChangeSettingsPacket, ServerboundRecipeBookSeenRecipePacket,
-    ServerboundRenameItemPacket, ServerboundSelectTradePacket, ServerboundSetBeaconPacket,
+    ServerboundEditBookPacket, ServerboundPickItemFromEntityPacket, ServerboundPlaceRecipePacket,
+    ServerboundPlayPacket, ServerboundRecipeBookChangeSettingsPacket,
+    ServerboundRecipeBookSeenRecipePacket, ServerboundRenameItemPacket,
+    ServerboundSelectBundleItemPacket, ServerboundSelectTradePacket, ServerboundSetBeaconPacket,
     ServerboundSetCreativeModeSlotPacket,
 };
 
@@ -227,6 +229,25 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
                     }),
                 recipe: display(level, &a[2]),
                 use_max_items: a[3..].iter().any(|t| t == "all"),
+            })
+        }),
+        "bundle_select" => deliver(h, &a[1], |_, _| {
+            P::SelectBundleItem(ServerboundSelectBundleItemPacket {
+                slot_id: a[2].parse().expect("slot"),
+                selected_item_index: a[3].parse().expect("item index"),
+            })
+        }),
+        "edit_book" => deliver(h, &a[1], |_, _| {
+            let unquote = |t: &str| {
+                t.strip_prefix('"')
+                    .and_then(|t| t.strip_suffix('"'))
+                    .unwrap_or(t)
+                    .to_owned()
+            };
+            P::EditBook(ServerboundEditBookPacket {
+                slot: a[2].parse().expect("slot"),
+                pages: a[4..].iter().map(|p| unquote(p)).collect(),
+                title: (a[3] != "-").then(|| unquote(&a[3])),
             })
         }),
         "recipe_seen" => deliver(h, &a[1], |level, _| {
