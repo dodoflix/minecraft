@@ -526,12 +526,13 @@ impl Scenario {
                 let snbt = self.line[self.line.find(&a[2]).expect("snbt token")..].to_string();
                 let extra = mc_nbt::snbt::parse_compound(&snbt)
                     .unwrap_or_else(|e| panic!("bad SNBT {snbt}: {e}"));
-                self.level().with_entity(id, |_, e| {
+                self.level().with_entity(id, |level, e| {
                     let mut tag = mc_nbt::CompoundTag::new();
                     e.save_without_id(&mut tag, &|_| None);
                     tag.merge(&extra);
                     e.load(&tag)
                         .unwrap_or_else(|er| panic!("entity load: {er}"));
+                    e.resolve_registry_refs(&level.registries);
                 });
             }
             "hurt" => {
@@ -968,6 +969,7 @@ impl Scenario {
             );
             e.load(&tag)
                 .unwrap_or_else(|er| panic!("entity load: {er}"));
+            e.resolve_registry_refs(&level.registries);
         }
         if finalize {
             for hook in mc_game::world::entity::scenario_dump::SCENARIO_FINALIZE_SPAWN.iter() {
