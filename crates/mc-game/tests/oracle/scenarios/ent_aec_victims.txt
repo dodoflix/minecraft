@@ -1,0 +1,54 @@
+# Area effect cloud victims: who it affects (survival, creative and spectator players, a pig, an undead horse that heals as damage,
+# a spider that cannot be poisoned, an armor stand, an item that is not alive, the edge of the radius, a mob above the cloud) and what
+# lands on each: a potion with an instant effect, one with a long effect, the owner as the cause of the damage, the radius that
+# shrinks with every victim.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 1100
+spawn_player A survival 10.5 -60 0.5 0 0
+spawn_player B creative 12.5 -60 0.5 0 0
+spawn_player C spectator 8.5 -60 0.5 0 0
+spawn_player O survival 40.5 -60 0.5 0 0
+set A health 10
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:O:none
+spawn p1 minecraft:pig 10.5 -60 2.5 0 0 {NoAI:1b,Health:4.0f}
+entity_seed p1 51
+spawn sh minecraft:skeleton_horse 6.5 -60 0.5 0 0 {NoAI:1b,Health:12.0f}
+entity_seed sh 52
+spawn sp minecraft:spider 10.5 -60 -2.5 0 0 {NoAI:1b}
+entity_seed sp 53
+spawn st minecraft:armor_stand 14.5 -60 0.5 0 0 {}
+entity_seed st 54
+spawn_item it minecraft:apple 8.5 -60 3.5 0 0 0
+spawn p2 minecraft:pig 10.5 -60 -4.5 0 0 {NoAI:1b}
+entity_seed p2 55
+spawn p3 minecraft:pig 10.5 -60 5.51 0 0 {NoAI:1b}
+entity_seed p3 56
+spawn p4 minecraft:pig 10.5 -58 0.5 0 0 {NoAI:1b,NoGravity:1b}
+entity_seed p4 57
+tick 1
+dump all_players entity:it entity:p1 entity:sh entity:sp entity:st entity:p2 entity:p3 entity:p4
+note a healing and poison cloud: undead take the instant health as damage, the spider is immune to poison, the spectator is skipped
+spawn c1 minecraft:area_effect_cloud 10.5 -60 0.5 0 0 {Duration:300,WaitTime:5,ReapplicationDelay:20,Radius:5.0f,potion_contents:{custom_effects:[{id:"minecraft:poison",duration:100,amplifier:0},{id:"minecraft:instant_health",amplifier:0},{id:"minecraft:regeneration",duration:60,amplifier:1}]}}
+entity_seed c1 58
+tick 12
+dump all_players xentity:c1 nbt:c1 entity:p1 entity:sh entity:sp entity:st entity:p2 entity:p3 entity:p4 packets:A:update_mob_effect,remove_mob_effect,set_health packets:B:update_mob_effect,remove_mob_effect,set_health packets:C:update_mob_effect,remove_mob_effect,set_health
+note the effects are applied again after the reapplication delay
+tick 30
+dump all_players nbt:c1 entity:p1 entity:sh entity:sp entity:st entity:p2 entity:p3 entity:p4
+kill c1
+note a damage cloud owned by a player: instant damage with the owner as the cause, wither and slowness, the radius shrinks per victim
+spawn c2 minecraft:area_effect_cloud 10.5 -60 0.5 0 0 {Duration:300,WaitTime:0,ReapplicationDelay:15,Radius:5.0f,RadiusOnUse:-0.5f,DurationOnUse:-20,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],potion_contents:{custom_effects:[{id:"minecraft:instant_damage",amplifier:0},{id:"minecraft:wither",duration:80,amplifier:0},{id:"minecraft:slowness",duration:80,amplifier:1}]}}
+entity_seed c2 59
+tick 6
+dump all_players xentity:c2 nbt:c2 entity:p1 entity:sh entity:sp entity:st entity:p2 entity:p3 entity:p4 packets:A:update_mob_effect,remove_mob_effect,set_health,hurt_animation packets:B:update_mob_effect,remove_mob_effect,set_health packets:C:update_mob_effect,remove_mob_effect,set_health
+tick 20
+dump all_players xentity:c2 nbt:c2 entity:p1 entity:sh entity:sp entity:st entity:p2 entity:p3 entity:p4 packets:A:update_mob_effect,remove_mob_effect,set_health
+note a far cloud that reaches nobody ends with its duration
+spawn c3 minecraft:area_effect_cloud 40.5 -60 -3.5 0 0 {Duration:20,WaitTime:0,Radius:2.0f,potion_contents:{potion:"minecraft:strong_poison"}}
+entity_seed c3 60
+tick 25
+dump all_players entities entity:p1 packets:O:update_mob_effect,remove_mob_effect,set_health

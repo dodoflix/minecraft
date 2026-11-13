@@ -1,0 +1,27 @@
+# a cloud owned by each player, one without an owner, one owned by a pig and one owned by a boat
+C Gave 1 [Apple] to A
+C Gave 1 [Apple] to B
+C Added tag 'owned' to A
+C Added tag 'owned' to B
+C Added tag 'owned' to Pig
+I A 0 minecraft:apple*1
+I B 0 minecraft:apple*1
+N p1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:0b,PortalCooldown:0,Pos:[3.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["owned"],attributes:[{base:0.25d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+N bt {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+# the owner is removed: the relation finds nothing
+C Gave 1 [Cookie] to A
+C Gave 1 [Cookie] to B
+I A 0 minecraft:apple*1
+I A 1 minecraft:cookie*1
+I B 0 minecraft:apple*1
+I B 1 minecraft:cookie*1
+N c4 {Age:4,Air:300s,Duration:400,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;21,22,23,24],PortalCooldown:0,Pos:[6.5d,-60.0d,10.5d],Radius:3.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:20,fall_distance:0.0d}
+N c5 {Age:4,Air:300s,Duration:400,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;31,32,33,34],PortalCooldown:0,Pos:[8.5d,-60.0d,10.5d],Radius:3.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:20,fall_distance:0.0d}
+# a cloud found by its owner after a merge that changes the owner
+C Gave 1 [Bread] to B
+I A 0 minecraft:apple*1
+I A 1 minecraft:cookie*1
+I B 0 minecraft:apple*1
+I B 1 minecraft:cookie*1
+I B 2 minecraft:bread*1
+N c3 {Age:5,Air:300s,Duration:400,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-196291187,2030186727,-1948358755,2017388081],PortalCooldown:0,Pos:[4.5d,-60.0d,10.5d],Radius:3.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:20,fall_distance:0.0d}

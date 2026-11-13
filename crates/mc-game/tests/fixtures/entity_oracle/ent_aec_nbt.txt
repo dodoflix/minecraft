@@ -1,0 +1,48 @@
+# defaults, then a cloud that carries everything
+E c1 minecraft:area_effect_cloud pos=4.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=-1 age=2
+E c2 minecraft:area_effect_cloud pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=1 duration=300 age=5
+E c3 minecraft:area_effect_cloud pos=12.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=32.0 waiting=1 duration=-1 age=2
+E c4 minecraft:area_effect_cloud pos=16.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=0.0 waiting=1 duration=-1 age=2
+E c5 minecraft:area_effect_cloud pos=20.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.0 waiting=1 duration=5 age=2
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40400000 9:8:01 10:16:1cff385dc6
+ED c2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40200000 9:8:01 10:16:27
+ED c3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:42000000 9:8:01 10:16:1cffff0000
+ED c4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:00000000 9:8:01 10:16:1cff385dc6
+ED c5 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:3f800000 9:8:01 10:16:1cff385dc6
+N c1 {Age:2,Air:300s,Duration:-1,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,6.5d],Radius:3.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:20,fall_distance:0.0d}
+N c2 {Age:5,Air:300s,Duration:300,DurationOnUse:-4,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[8.5d,-60.0d,6.5d],Radius:2.5f,RadiusOnUse:-0.25f,RadiusPerTick:-0.002f,ReapplicationDelay:9,Rotation:[0.0f,0.0f],WaitTime:7,custom_particle:{type:"minecraft:flame"},fall_distance:0.0d,potion_contents:{custom_color:255,custom_effects:[{ambient:1b,amplifier:1b,duration:40,id:"minecraft:speed",show_icon:0b,show_particles:0b},{amplifier:2b,id:"minecraft:instant_health",show_icon:1b}],custom_name:"fizz",potion:"minecraft:strong_swiftness"},potion_duration_scale:0.25f}
+N c3 {Age:2,Air:300s,Duration:-1,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[12.5d,-60.0d,6.5d],Radius:32.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:20,custom_particle:{color:-65536,type:"minecraft:entity_effect"},fall_distance:0.0d,potion_contents:{potion:"minecraft:poison"}}
+N c4 {Age:2,Air:300s,Duration:-1,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[16.5d,-60.0d,6.5d],Radius:0.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:20,fall_distance:0.0d,potion_duration_scale:2.0f}
+N c5 {Age:2,Air:300s,Duration:5,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[20.5d,-60.0d,6.5d],Radius:1.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:20,fall_distance:0.0d}
+PKT A minecraft:add_entity 01a206426c566ea4ed4e2a8ae6c6e2f4a67233034012000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65a2060a101cff385dc6ff
+PKT A minecraft:add_entity 01a306b9673318d13f4fd78f713b08c138db90034021000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65a3060803402000000a1027ff
+PKT A minecraft:add_entity 01a406a6f23945b1b64d27b2a98f9e312cbb22034029000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65a4060803420000000a101cffff0000ff
+PKT A minecraft:add_entity 01a50651118b5981fb4a19a6382347ecd32b5c034030800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65a5060803000000000a101cff385dc6ff
+PKT A minecraft:add_entity 01a606dfffc7eb618f4f68abe00a8532a14962034034800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:set_entity_data 65a60608033f8000000a101cff385dc6ff
+PKT A minecraft:set_entity_data 65a60608033f8000000a101cff385dc6ff
+PKT A minecraft:set_entity_data 65a4060803420000000a101cffff0000ff
+PKT A minecraft:set_entity_data 65a2060a101cff385dc6ff
+PKT A minecraft:set_entity_data 65a5060803000000000a101cff385dc6ff
+PKT A minecraft:set_entity_data 65a3060803402000000a1027ff
+PKT A minecraft:set_entity_data 65a606090801ff
+PKT A minecraft:set_entity_data 65a406090801ff
+PKT A minecraft:set_entity_data 65a206090801ff
+PKT A minecraft:set_entity_data 65a506090801ff
+PKT A minecraft:set_entity_data 65a306090801ff
+# merging into a live cloud: the potion, the particle and the radius change, a missing key keeps the field
+E c1 minecraft:area_effect_cloud pos=4.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=5.0 waiting=1 duration=99 age=3
+E c2 minecraft:area_effect_cloud pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=1 duration=300 age=6
+E c3 minecraft:area_effect_cloud pos=12.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=32.0 waiting=1 duration=-1 age=3
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40a00000 9:8:01 10:16:37
+ED c2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40200000 9:8:01 10:16:27
+ED c3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:42000000 9:8:01 10:16:1cff87a363
+N c1 {Age:3,Air:300s,Duration:99,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,6.5d],Radius:5.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:20,custom_particle:{type:"minecraft:heart"},fall_distance:0.0d,potion_contents:{potion:"minecraft:night_vision"}}
+N c2 {Age:6,Air:300s,Duration:300,DurationOnUse:-4,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-196291187,2030186727,-1948358755,2017388081],PortalCooldown:0,Pos:[8.5d,-60.0d,6.5d],Radius:2.5f,RadiusOnUse:-0.25f,RadiusPerTick:-0.002f,ReapplicationDelay:9,Rotation:[0.0f,0.0f],WaitTime:7,custom_particle:{type:"minecraft:flame"},fall_distance:0.0d,potion_contents:{custom_color:255,custom_effects:[{ambient:1b,amplifier:1b,duration:40,id:"minecraft:speed",show_icon:0b,show_particles:0b},{amplifier:2b,id:"minecraft:instant_health",show_icon:1b}],custom_name:"fizz",potion:"minecraft:strong_swiftness"},potion_duration_scale:0.25f}
+N c3 {Age:3,Air:300s,Duration:-1,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[12.5d,-60.0d,6.5d],Radius:32.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:20,fall_distance:0.0d,potion_contents:{potion:"minecraft:poison"}}
+PKT A minecraft:set_entity_data 65a4060a101cff87a363ff
+PKT A minecraft:set_entity_data 65a206080340a000000a1037ff

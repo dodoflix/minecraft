@@ -1,0 +1,118 @@
+# the pairing and the first ticks of a waiting cloud, then the shrinking radius
+T 3
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=12 age=1
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40400000 9:8:01 10:16:1cff87a363
+PKT A minecraft:add_entity 01eb07426c566ea4ed4e2a8ae6c6e2f4a67233034004000000000000c04e00000000000040040000000000000000000000
+PKT A minecraft:set_entity_data 65eb070a101cff87a363ff
+PKT A minecraft:move_entity_pos 36eb0700000000000000
+PKT A minecraft:set_entity_data 65eb070a101cff87a363ff
+PKT O minecraft:add_entity 01eb07426c566ea4ed4e2a8ae6c6e2f4a67233034004000000000000c04e00000000000040040000000000000000000000
+PKT O minecraft:set_entity_data 65eb070a101cff87a363ff
+PKT O minecraft:set_entity_data 65eb070a101cff87a363ff
+T 4
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=12 age=2
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40400000 9:8:01 10:16:1cff87a363
+PKT A minecraft:set_entity_data 65eb07090801ff
+PKT O minecraft:set_entity_data 65eb07090801ff
+T 5
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=12 age=3
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40400000 9:8:01 10:16:1cff87a363
+T 6
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.875 waiting=0 duration=12 age=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40380000 9:8:00 10:16:1cff87a363
+T 7
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.75 waiting=0 duration=12 age=5
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40300000 9:8:00 10:16:1cff87a363
+PKT A minecraft:set_entity_data 65eb07080340380000090800ff
+PKT O minecraft:set_entity_data 65eb07080340380000090800ff
+T 8
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.625 waiting=0 duration=12 age=6
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40280000 9:8:00 10:16:1cff87a363
+PKT A minecraft:set_entity_data 65eb07080340300000ff
+PKT O minecraft:set_entity_data 65eb07080340300000ff
+T 9
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=12 age=7
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40200000 9:8:00 10:16:1cff87a363
+PKT A minecraft:set_entity_data 65eb07080340280000ff
+PKT O minecraft:set_entity_data 65eb07080340280000ff
+T 10
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.375 waiting=0 duration=12 age=8
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40180000 9:8:00 10:16:1cff87a363
+PKT A minecraft:set_entity_data 65eb07080340200000ff
+PKT O minecraft:set_entity_data 65eb07080340200000ff
+T 11
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.25 waiting=0 duration=12 age=9
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40100000 9:8:00 10:16:1cff87a363
+PKT A minecraft:set_entity_data 65eb07080340180000ff
+PKT O minecraft:set_entity_data 65eb07080340180000ff
+T 12
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.125 waiting=0 duration=12 age=10
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40080000 9:8:00 10:16:1cff87a363
+PKT A minecraft:set_entity_data 65eb07080340100000ff
+PKT O minecraft:set_entity_data 65eb07080340100000ff
+T 13
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.0 waiting=0 duration=12 age=11
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40000000 9:8:00 10:16:1cff87a363
+PKT A minecraft:set_entity_data 65eb07080340080000ff
+PKT O minecraft:set_entity_data 65eb07080340080000ff
+T 14
+E c1 minecraft:area_effect_cloud pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.875 waiting=0 duration=12 age=12
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:3ff00000 9:8:00 10:16:1cff87a363
+PKT A minecraft:set_entity_data 65eb07080340000000ff
+PKT O minecraft:set_entity_data 65eb07080340000000ff
+T 15
+PKT A minecraft:set_entity_data 65eb0708033ff00000ff
+PKT O minecraft:set_entity_data 65eb0708033ff00000ff
+T 16
+PKT A minecraft:set_entity_data 65eb0708033fe00000ff
+PKT O minecraft:set_entity_data 65eb0708033fe00000ff
+T 17
+PKT A minecraft:set_entity_data 65eb0708033fd00000ff
+PKT O minecraft:set_entity_data 65eb0708033fd00000ff
+T 18
+PKT A minecraft:set_entity_data 65eb0708033fc00000ff
+PKT A minecraft:remove_entities 4e01eb07
+PKT O minecraft:set_entity_data 65eb0708033fc00000ff
+PKT O minecraft:remove_entities 4e01eb07
+T 19
+T 20
+# a potion colour and a custom particle change the particle, a radius merge resizes it, nothing is sent while nothing changes
+E c2 minecraft:area_effect_cloud pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.0 waiting=0 duration=400 age=2
+ED c2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40000000 9:8:00 10:16:1cff385dc6
+N c2 {Age:2,Air:300s,Duration:400,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,4.5d],Radius:2.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:0,fall_distance:0.0d}
+PKT A minecraft:add_entity 01ec07b9673318d13f4fd78f713b08c138db90034004000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65ec070803400000000a101cff385dc6ff
+PKT A minecraft:set_entity_data 65ec070803400000000a101cff385dc6ff
+PKT O minecraft:add_entity 01ec07b9673318d13f4fd78f713b08c138db90034004000000000000c04e00000000000040120000000000000000000000
+PKT O minecraft:set_entity_data 65ec070803400000000a101cff385dc6ff
+PKT O minecraft:set_entity_data 65ec070803400000000a101cff385dc6ff
+E c2 minecraft:area_effect_cloud pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.0 waiting=0 duration=400 age=3
+ED c2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40000000 9:8:00 10:16:1cffcd5cab
+N c2 {Age:3,Air:300s,Duration:400,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,4.5d],Radius:2.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:0,fall_distance:0.0d,potion_contents:{potion:"minecraft:regeneration"}}
+PKT A minecraft:set_entity_data 65ec070a101cffcd5cabff
+PKT O minecraft:set_entity_data 65ec070a101cffcd5cabff
+E c2 minecraft:area_effect_cloud pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=4.5 waiting=0 duration=400 age=4
+ED c2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40900000 9:8:00 10:16:27
+N c2 {Age:4,Air:300s,Duration:400,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,4.5d],Radius:4.5f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:0,custom_particle:{type:"minecraft:flame"},fall_distance:0.0d,potion_contents:{potion:"minecraft:regeneration"}}
+PKT A minecraft:set_entity_data 65ec070803409000000a1027ff
+PKT O minecraft:set_entity_data 65ec070803409000000a1027ff
+E c2 minecraft:area_effect_cloud pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=4.5 waiting=0 duration=400 age=7
+ED c2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:3:40900000 9:8:00 10:16:27
+N c2 {Age:7,Air:300s,Duration:400,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,4.5d],Radius:4.5f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:0,custom_particle:{type:"minecraft:flame"},fall_distance:0.0d,potion_contents:{potion:"minecraft:regeneration"}}
+PKT A minecraft:set_entity_data 65e9070a11011cffcd5cabff
+PKT O minecraft:set_entity_data 65ea070a11011cffcd5cabff
+# a cloud far away from both observers is never sent; one that already waits is not flagged; a radius under 0.5 with a shrink removes it
+E c2 minecraft:area_effect_cloud pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=4.5 waiting=0 duration=400 age=11
+E c3 minecraft:area_effect_cloud pos=60.5,-60.0,60.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.0 waiting=1 duration=400 age=4
+PKT A minecraft:add_entity 01ee0751118b5981fb4a19a6382347ecd32b5c03401a000000000000c04e00000000000040040000000000000000000000
+PKT A minecraft:set_entity_data 65ee0708033f19999a0a101cff385dc6ff
+PKT A minecraft:set_entity_data 65ee0708033f19999a0a101cff385dc6ff
+PKT A minecraft:set_entity_data 65ee0708033f0ccccdff
+PKT A minecraft:set_entity_data 65ee0708033f000000ff
+PKT A minecraft:remove_entities 4e01ee07
+PKT O minecraft:add_entity 01ee0751118b5981fb4a19a6382347ecd32b5c03401a000000000000c04e00000000000040040000000000000000000000
+PKT O minecraft:set_entity_data 65ee0708033f19999a0a101cff385dc6ff
+PKT O minecraft:set_entity_data 65ee0708033f19999a0a101cff385dc6ff
+PKT O minecraft:set_entity_data 65ee0708033f0ccccdff
+PKT O minecraft:set_entity_data 65ee0708033f000000ff
+PKT O minecraft:remove_entities 4e01ee07

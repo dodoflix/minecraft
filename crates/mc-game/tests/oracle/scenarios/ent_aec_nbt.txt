@@ -1,0 +1,30 @@
+# Area effect cloud NBT: defaults, every saved field (potion contents with a potion, custom effects, colour and name; a custom
+# particle; the owner as an int array; the duration scale), values the loader clamps or rejects (radius above 32, an unknown
+# particle, a malformed potion and owner), a merge into a live cloud and the packets of the pairing.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 2
+dump packets:A:none
+note defaults, then a cloud that carries everything
+spawn c1 minecraft:area_effect_cloud 4.5 -60 6.5 0 0 {}
+entity_seed c1 11
+spawn c2 minecraft:area_effect_cloud 8.5 -60 6.5 0 0 {Age:3,Duration:300,WaitTime:7,ReapplicationDelay:9,Radius:2.5f,RadiusPerTick:-0.002f,RadiusOnUse:-0.25f,DurationOnUse:-4,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],custom_particle:{type:"minecraft:flame"},potion_duration_scale:0.25f,potion_contents:{potion:"minecraft:strong_swiftness",custom_color:255,custom_name:"fizz",custom_effects:[{id:"minecraft:speed",duration:40,amplifier:1,ambient:1b,show_particles:0b,show_icon:0b},{id:"minecraft:instant_health",amplifier:2}]}}
+entity_seed c2 12
+spawn c3 minecraft:area_effect_cloud 12.5 -60 6.5 0 0 {Radius:40.0f,custom_particle:{type:"minecraft:entity_effect",color:-65536},potion_contents:{potion:"minecraft:poison"}}
+entity_seed c3 13
+spawn c4 minecraft:area_effect_cloud 16.5 -60 6.5 0 0 {Radius:-3.0f,custom_particle:{type:"minecraft:nope"},Owner:[I;1,2,3],potion_contents:"x",potion_duration_scale:2.0f}
+entity_seed c4 14
+spawn c5 minecraft:area_effect_cloud 20.5 -60 6.5 0 0 {Radius:1,Duration:5.0d,WaitTime:"3",potion_contents:{custom_effects:[{id:"minecraft:nope",duration:5}]},custom_particle:{type:"minecraft:block",block_state:{Name:"minecraft:stone"}}}
+entity_seed c5 15
+tick 2
+dump xentities edata:c1 edata:c2 edata:c3 edata:c4 edata:c5 nbt:c1 nbt:c2 nbt:c3 nbt:c4 nbt:c5 packets:A:add_entity,set_entity_data
+note merging into a live cloud: the potion, the particle and the radius change, a missing key keeps the field
+nbt c1 {potion_contents:{potion:"minecraft:night_vision"},custom_particle:{type:"minecraft:heart"},Radius:5.0f,Duration:99}
+nbt c2 {potion_contents:{},Owner:[I;-196291187,2030186727,-1948358755,2017388081]}
+nbt c3 {custom_particle:{type:"minecraft:nope"}}
+tick 1
+dump xentity:c1 xentity:c2 xentity:c3 edata:c1 edata:c2 edata:c3 nbt:c1 nbt:c2 nbt:c3 packets:A:set_entity_data

@@ -5,8 +5,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=60 age=2
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=1 duration=40 age=2
 T 3
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -14,8 +14,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=60 age=3
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=1 duration=40 age=3
 T 4
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -23,8 +23,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=60 age=4
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=1 duration=40 age=4
 T 5
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -32,8 +32,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.13941858458785703,0.2751840104494096,0.16811017450967933 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=9/20 death=0 fx=minecraft:speed/1/49 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.12114653873230272,0.2751840104494096,-0.18171980809845406 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=9/20 death=0 fx=minecraft:speed/1/49 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=60 age=5
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=5
 T 6
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -41,8 +41,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.12687091563134778,0.19128033396326094,0.15298026321267297 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=8/19 death=0 fx=minecraft:speed/1/48 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.11024335342358989,0.19128033396326094,-0.1653650301353848 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=8/19 death=0 fx=minecraft:speed/1/48 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=60 age=6
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=6
 T 7
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -50,8 +50,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.11545253655184866,0.10905472940649964,0.13921204353559946 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=7/18 death=0 fx=minecraft:speed/1/47 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.1003214545067138,0.10905472940649964,-0.1504821817600707 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=7/18 death=0 fx=minecraft:speed/1/47 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=60 age=7
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=7
 T 8
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -59,8 +59,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.10506181129004555,0.02847363537254463,0.12668296326837664 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=6/17 death=0 fx=minecraft:speed/1/46 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.09129252623214441,0.02847363537254463,-0.1369387893482166 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=6/17 death=0 fx=minecraft:speed/1/46 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=60 age=8
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=8
 T 9
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -68,8 +68,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.09560625102929711,-0.05049583831769367,0.11528149989661567 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=5/16 death=0 fx=minecraft:speed/1/45 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0830762012654932,-0.05049583831769367,-0.12461430189823978 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=5/16 death=0 fx=minecraft:speed/1/45 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=1 duration=60 age=9
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=9
 T 10
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/431 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/431 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -77,8 +77,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/431 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.0870016909440341,-0.0784000015258789,0.10490616792929791 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=4/15 death=0 fx=minecraft:speed/1/44 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.07559934533035889,-0.0784000015258789,-0.11339901799553834 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=4/15 death=0 fx=minecraft:speed/1/44 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6900003 waiting=0 duration=54 age=10
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=10
 T 11
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/430 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/430 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -86,8 +86,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/430 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.04750292877303261,-0.0784000015258789,0.05727877434247681 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=3/14 death=0 fx=minecraft:speed/1/43 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0412772473448367,-0.0784000015258789,-0.06191587101725504 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=3/14 death=0 fx=minecraft:speed/1/43 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6800003 waiting=0 duration=54 age=11
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=11
 T 12
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/429 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/429 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -95,8 +95,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/429 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.025936602122680293,-0.0784000015258789,0.03127421442357452 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=2/13 death=0 fx=minecraft:speed/1/42 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.022537379668056703,-0.0784000015258789,-0.033806069502085055 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=2/13 death=0 fx=minecraft:speed/1/42 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6700003 waiting=0 duration=54 age=12
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=12
 T 13
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/428 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/428 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -104,8 +104,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/428 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.014161386403865682,-0.0784000015258789,0.017075723058661788 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=1/12 death=0 fx=minecraft:speed/1/41 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.01230541072806475,-0.0784000015258789,-0.018458116092097125 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=1/12 death=0 fx=minecraft:speed/1/41 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6600003 waiting=0 duration=54 age=13
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=13
 T 14
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/427 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/427 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -113,8 +113,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/427 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.0077321178746164706,-0.0784000015258789,0.009323345872960458 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/11 death=0 fx=minecraft:speed/1/40 gm=survival food=20 sat=5.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.006718755037924406,-0.0784000015258789,-0.010078132556886608 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/11 death=0 fx=minecraft:speed/1/40 gm=survival food=20 sat=5.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6500003 waiting=0 duration=54 age=14
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=14
 T 15
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/426 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/426 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -122,8 +122,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/426 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.0042217368499064215,-0.0784000015258789,0.005090547437916871 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/10 death=0 fx=minecraft:speed/1/39 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0036684406768057493,-0.0784000015258789,-0.005502661015208624 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/10 death=0 fx=minecraft:speed/1/39 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6400003 waiting=0 duration=54 age=15
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=15
 T 16
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/425 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/425 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -131,8 +131,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/425 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.0023050685877886792,-0.0784000015258789,0.002779439223941781 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/9 death=0 fx=minecraft:speed/1/38 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.002002968842186033,-0.0784000015258789,-0.00300445326327905 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/9 death=0 fx=minecraft:speed/1/38 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6300004 waiting=0 duration=54 age=16
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=16
 T 17
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/424 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/424 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -140,8 +140,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/424 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.001258567595118552,-0.0784000015258789,0.001517573992542419 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/8 death=0 fx=minecraft:speed/1/37 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0010936211148605403,-0.0784000015258789,-0.0016404316722908104 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/8 death=0 fx=minecraft:speed/1/37 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6200004 waiting=0 duration=54 age=17
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=17
 T 18
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/423 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/423 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -149,8 +149,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/423 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/7 death=0 fx=minecraft:speed/1/36 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/7 death=0 fx=minecraft:speed/1/36 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6100004 waiting=0 duration=54 age=18
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=18
 T 19
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/422 gm=survival food=20 sat=5.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/422 gm=survival food=20 sat=5.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
@@ -158,8 +158,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/422 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/6 death=0 fx=minecraft:speed/1/35 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/6 death=0 fx=minecraft:speed/1/35 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.6000004 waiting=0 duration=54 age=19
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=19
 T 20
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/421 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/421 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -167,8 +167,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/421 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/5 death=0 fx=minecraft:speed/1/34 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/5 death=0 fx=minecraft:speed/1/34 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5900004 waiting=0 duration=54 age=20
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=20
 T 21
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/420 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/420 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -176,8 +176,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/420 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/4 death=0 fx=minecraft:speed/1/33 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/4 death=0 fx=minecraft:speed/1/33 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5800004 waiting=0 duration=54 age=21
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=21
 T 22
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/419 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/419 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -185,8 +185,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/419 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/3 death=0 fx=minecraft:speed/1/32 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/3 death=0 fx=minecraft:speed/1/32 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5700004 waiting=0 duration=54 age=22
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=22
 T 23
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/418 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/418 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -194,8 +194,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/418 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/2 death=0 fx=minecraft:speed/1/31 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/2 death=0 fx=minecraft:speed/1/31 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5600004 waiting=0 duration=54 age=23
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=23
 T 24
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/417 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/417 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -203,8 +203,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/417 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=0/1 death=0 fx=minecraft:speed/1/30 gm=survival food=20 sat=4.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=0/1 death=0 fx=minecraft:speed/1/30 gm=survival food=20 sat=4.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5500004 waiting=0 duration=54 age=24
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=24
 T 25
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/431 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/431 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -212,8 +212,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/431 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.1601912136642792,0.2751840104494096,-0.14844981497772752 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=9/20 death=0 fx=minecraft:speed/1/49 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.12114653873230272,0.2751840104494096,-0.18171980809845406 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=9/20 death=0 fx=minecraft:speed/1/49 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.2400007 waiting=0 duration=48 age=25
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=25
 T 26
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/430 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/430 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -221,8 +221,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/430 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.14577400863567583,0.19128033396326094,-0.13508933552298338 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=8/19 death=0 fx=minecraft:speed/1/48 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.11024335342358989,0.19128033396326094,-0.1653650301353848 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=8/19 death=0 fx=minecraft:speed/1/48 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.2300007 waiting=0 duration=48 age=26
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=26
 T 27
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/429 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/429 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -230,8 +230,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/429 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.13265435168154052,0.10905472940649964,-0.1229312988687737 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=7/18 death=0 fx=minecraft:speed/1/47 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.1003214545067138,0.10905472940649964,-0.1504821817600707 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=7/18 death=0 fx=minecraft:speed/1/47 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.2200007 waiting=0 duration=48 age=27
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=27
 T 28
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/428 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/428 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -239,8 +239,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/428 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.1207154635092007,0.02847363537254463,-0.11186748519458568 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=6/17 death=0 fx=minecraft:speed/1/46 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.09129252623214441,0.02847363537254463,-0.1369387893482166 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=6/17 death=0 fx=minecraft:speed/1/46 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.2100008 waiting=0 duration=48 age=28
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=28
 T 29
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/427 gm=survival food=20 sat=4.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/427 gm=survival food=20 sat=4.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
@@ -248,8 +248,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/427 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.10985107495926166,-0.05049583831769367,-0.10179941446091453 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=5/16 death=0 fx=minecraft:speed/1/45 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0830762012654932,-0.05049583831769367,-0.12461430189823978 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=5/16 death=0 fx=minecraft:speed/1/45 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.2000008 waiting=0 duration=48 age=29
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=29
 T 30
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/426 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/426 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -257,8 +257,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/426 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.09996448109388721,-0.0784000015258789,-0.09263746982922812 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=4/15 death=0 fx=minecraft:speed/1/44 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.07559934533035889,-0.0784000015258789,-0.11339901799553834 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=4/15 death=0 fx=minecraft:speed/1/44 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1900008 waiting=0 duration=48 age=30
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=30
 T 31
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/425 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/425 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -266,8 +266,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/425 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.054580613016944036,-0.0784000015258789,-0.050580064401765934 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=3/14 death=0 fx=minecraft:speed/1/43 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0412772473448367,-0.0784000015258789,-0.06191587101725504 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=3/14 death=0 fx=minecraft:speed/1/43 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1800008 waiting=0 duration=48 age=31
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=31
 T 32
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/424 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/424 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -275,8 +275,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/424 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.02980101816871801,-0.0784000015258789,-0.027616718371118603 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=2/13 death=0 fx=minecraft:speed/1/42 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.022537379668056703,-0.0784000015258789,-0.033806069502085055 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=2/13 death=0 fx=minecraft:speed/1/42 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1700008 waiting=0 duration=48 age=32
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=32
 T 33
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/423 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/423 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -284,8 +284,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/423 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.016271357810081,-0.0784000015258789,-0.015078729982064866 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=1/12 death=0 fx=minecraft:speed/1/41 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.01230541072806475,-0.0784000015258789,-0.018458116092097125 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=1/12 death=0 fx=minecraft:speed/1/41 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1600008 waiting=0 duration=48 age=33
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=33
 T 34
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/8 death=0 fx=minecraft:poison/1/422 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/8 death=0 fx=minecraft:poison/1/422 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -293,8 +293,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/422 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.008884162396223031,-0.0784000015258789,-0.008232987526490551 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/11 death=0 fx=minecraft:speed/1/40 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.006718755037924406,-0.0784000015258789,-0.010078132556886608 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/11 death=0 fx=minecraft:speed/1/40 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1500008 waiting=0 duration=48 age=34
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=34
 T 35
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/7 death=0 fx=minecraft:poison/1/421 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/7 death=0 fx=minecraft:poison/1/421 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -302,8 +302,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/421 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.004850753231765509,-0.0784000015258789,-0.004495211711594493 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/10 death=0 fx=minecraft:speed/1/39 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0036684406768057493,-0.0784000015258789,-0.005502661015208624 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/10 death=0 fx=minecraft:speed/1/39 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1400008 waiting=0 duration=48 age=35
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=35
 T 36
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/6 death=0 fx=minecraft:poison/1/420 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/6 death=0 fx=minecraft:poison/1/420 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -311,8 +311,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/420 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.002648511572175546,-0.0784000015258789,-0.0024543858796139623 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/9 death=0 fx=minecraft:speed/1/38 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.002002968842186033,-0.0784000015258789,-0.00300445326327905 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/9 death=0 fx=minecraft:speed/1/38 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1300008 waiting=0 duration=48 age=36
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=36
 T 37
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/419 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/419 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -320,8 +320,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/419 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=-0.0014460874863747096,-0.0784000015258789,-0.001340094845924761 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/8 death=0 fx=minecraft:speed/1/37 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0010936211148605403,-0.0784000015258789,-0.0016404316722908104 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/8 death=0 fx=minecraft:speed/1/37 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1200008 waiting=0 duration=48 age=37
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=37
 T 38
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/418 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/418 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -329,8 +329,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/418 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/7 death=0 fx=minecraft:speed/1/36 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/7 death=0 fx=minecraft:speed/1/36 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1100008 waiting=0 duration=48 age=38
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=38
 T 39
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/417 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/417 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -338,8 +338,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/417 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/6 death=0 fx=minecraft:speed/1/35 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/6 death=0 fx=minecraft:speed/1/35 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.1000009 waiting=0 duration=48 age=39
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=39
 T 40
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/431 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/416 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -347,8 +347,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/431 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/5 death=0 fx=minecraft:speed/1/34 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/5 death=0 fx=minecraft:speed/1/34 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8900008 waiting=0 duration=44 age=40
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=40
 T 41
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/430 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/415 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -356,8 +356,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/430 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/4 death=0 fx=minecraft:speed/1/33 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/4 death=0 fx=minecraft:speed/1/33 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8800008 waiting=0 duration=44 age=41
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=41
 T 42
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/429 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/414 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -365,8 +365,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/429 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/3 death=0 fx=minecraft:speed/1/32 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/3 death=0 fx=minecraft:speed/1/32 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8700008 waiting=0 duration=44 age=42
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=42
 T 43
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/428 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/413 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -374,8 +374,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/428 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/2 death=0 fx=minecraft:speed/1/31 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/2 death=0 fx=minecraft:speed/1/31 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8600008 waiting=0 duration=44 age=43
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=43
 T 44
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/427 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/412 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -383,8 +383,8 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/427 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/1 death=0 fx=minecraft:speed/1/30 gm=survival food=20 sat=3.0 exh=7.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/1 death=0 fx=minecraft:speed/1/30 gm=survival food=20 sat=3.0 exh=7.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8500009 waiting=0 duration=44 age=44
+E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=2.5 waiting=0 duration=40 age=44
 T 45
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/426 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/411 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -392,8 +392,7 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/426 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/29 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/29 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8400009 waiting=0 duration=44 age=45
 T 46
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/425 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/410 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -401,8 +400,7 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/425 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/28 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/28 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8300009 waiting=0 duration=44 age=46
 T 47
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/424 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/409 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -410,8 +408,7 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/424 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/27 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/27 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8200009 waiting=0 duration=44 age=47
 T 48
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/423 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/408 gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
@@ -419,8 +416,7 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/423 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/26 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/26 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8100009 waiting=0 duration=44 age=48
 T 49
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/8 death=0 fx=minecraft:poison/1/422 gm=survival food=20 sat=3.0 exh=7.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/407 gm=survival food=20 sat=3.0 exh=7.0 xp=0/0/0.0 sel=0 main=empty
@@ -428,8 +424,7 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/422 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/25 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/25 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.8000009 waiting=0 duration=44 age=49
 T 50
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/7 death=0 fx=minecraft:poison/1/421 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/406 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -437,8 +432,7 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/421 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/24 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/24 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.7900009 waiting=0 duration=44 age=50
 T 51
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.5 abs=0.0 hurt=0/6 death=0 fx=minecraft:poison/1/420 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/405 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -446,8 +440,7 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/420 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/23 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/23 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.7800009 waiting=0 duration=44 age=51
 T 52
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/419 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/404 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -455,8 +448,7 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/419 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/22 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/22 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.7700009 waiting=0 duration=44 age=52
 T 53
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/418 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/403 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -464,8 +456,7 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/418 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/21 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/21 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.760001 waiting=0 duration=44 age=53
 T 54
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/417 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/402 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -473,8 +464,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/417 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/20 gm=survival food=20 sat=2.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/20 gm=survival food=20 sat=2.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 55
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/416 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/401 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -482,8 +471,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/416 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/19 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/19 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 56
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/415 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/400 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -491,8 +478,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/415 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/18 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/18 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 57
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/414 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/399 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -500,8 +485,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/414 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/17 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/17 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 58
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/413 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.5 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/398 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -509,8 +492,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/413 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/16 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/16 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 59
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/412 gm=survival food=20 sat=2.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/397 gm=survival food=20 sat=2.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
@@ -518,8 +499,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/412 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/15 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/15 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 60
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/411 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/396 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -527,8 +506,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/411 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/14 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/14 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 61
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/410 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/395 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -536,8 +513,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/410 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/13 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/13 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 62
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/409 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/394 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -545,8 +520,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/409 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/12 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/12 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 63
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.833334 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/408 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/393 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -554,8 +527,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/408 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/11 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.833334 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/11 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 64
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/407 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/392 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -563,8 +534,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/407 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/10 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/10 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 65
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/406 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/391 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -572,8 +541,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/406 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/9 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/9 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 66
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/405 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/390 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -581,8 +548,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/405 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/8 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/8 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 67
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/404 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/389 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -590,8 +555,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/404 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/7 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/7 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 68
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/403 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/388 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
@@ -599,8 +562,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/403 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/6 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/6 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 69
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/402 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/387 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -608,8 +569,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/402 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/5 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/5 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 70
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/401 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/386 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -617,8 +576,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/401 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/4 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/4 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 71
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/400 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/385 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -626,8 +583,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/400 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/3 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/3 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 72
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/399 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/384 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -635,8 +590,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/399 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/2 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/2 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 73
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=1/11 death=0 fx=minecraft:poison/1/398 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/383 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -644,8 +597,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/398 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/1 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/1 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 74
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/10 death=0 fx=minecraft:poison/1/397 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/382 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -653,8 +604,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/397 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 75
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/9 death=0 fx=minecraft:poison/1/396 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/381 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -662,8 +611,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/396 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 76
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:poison/1/395 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/380 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -671,8 +618,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/395 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 77
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/1/394 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/379 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -680,8 +625,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/394 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 78
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=8/18 death=0 fx=minecraft:poison/1/393 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/378 gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
@@ -689,8 +632,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/393 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 79
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=7/17 death=0 fx=minecraft:poison/1/392 gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/1/377 gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -698,8 +639,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/392 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 80
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=6/16 death=0 fx=minecraft:poison/1/391 gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/1/376 gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -707,8 +646,6 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/391 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 T 81
 P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=5/15 death=0 fx=minecraft:poison/1/390 gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=2/12 death=0 fx=minecraft:poison/1/375 gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
@@ -716,5 +653,3 @@ P C minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.
 P D minecraft:player pos=11.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/1/390 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P E minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
 P F minecraft:player pos=31.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.166666 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
-E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
-E c2 minecraft:area_effect_cloud pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing

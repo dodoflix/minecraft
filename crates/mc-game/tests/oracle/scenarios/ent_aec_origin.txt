@@ -1,0 +1,42 @@
+# `/execute on origin` from an area effect cloud: it leads to the living entity that owns it, not to an owner that is gone,
+# not to an entity that is not alive (a boat) and not from a cloud without an owner; `on owner` finds nothing from a cloud.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 900
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 6.5 -60 0.5 0 0
+tick 2
+dump packets:A:none packets:B:none
+note a cloud owned by each player, one without an owner, one owned by a pig and one owned by a boat
+spawn p1 minecraft:pig 3.5 -60 4.5 0 0 {UUID:[I;21,22,23,24]}
+entity_seed p1 21
+spawn bt minecraft:oak_boat 8.5 -60 4.5 0 0 {UUID:[I;31,32,33,34]}
+entity_seed bt 22
+spawn c1 minecraft:area_effect_cloud 0.5 -60 10.5 0 0 {Duration:400,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+entity_seed c1 23
+spawn c2 minecraft:area_effect_cloud 2.5 -60 10.5 0 0 {Duration:400,Owner:[I;-196291187,2030186727,-1948358755,2017388081]}
+entity_seed c2 24
+spawn c3 minecraft:area_effect_cloud 4.5 -60 10.5 0 0 {Duration:400}
+entity_seed c3 25
+spawn c4 minecraft:area_effect_cloud 6.5 -60 10.5 0 0 {Duration:400,Owner:[I;21,22,23,24]}
+entity_seed c4 26
+spawn c5 minecraft:area_effect_cloud 8.5 -60 10.5 0 0 {Duration:400,Owner:[I;31,32,33,34]}
+entity_seed c5 27
+tick 3
+cmd execute as @e[type=minecraft:area_effect_cloud] on origin run give @s minecraft:apple
+cmd execute as @e[type=minecraft:area_effect_cloud] on origin run tag @s add owned
+cmd execute as @e[type=minecraft:area_effect_cloud] on owner run tag @s add wrong
+cmd execute as @e[type=minecraft:area_effect_cloud,x=4.5,y=-60,z=10.5,distance=..0.5] on origin run give A minecraft:string
+dump inventory:A inventory:B nbt:p1 nbt:bt
+note the owner is removed: the relation finds nothing
+kill p1
+tick 1
+cmd execute as @e[type=minecraft:area_effect_cloud] on origin run give @s minecraft:cookie
+dump inventory:A inventory:B nbt:c4 nbt:c5
+note a cloud found by its owner after a merge that changes the owner
+nbt c3 {Owner:[I;-196291187,2030186727,-1948358755,2017388081]}
+tick 1
+cmd execute as @e[type=minecraft:area_effect_cloud,x=4.5,y=-60,z=10.5,distance=..0.5] on origin run give @s minecraft:bread
+dump inventory:A inventory:B nbt:c3

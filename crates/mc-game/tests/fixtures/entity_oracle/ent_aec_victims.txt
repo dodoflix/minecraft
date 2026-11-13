@@ -1,0 +1,109 @@
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P O minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E it minecraft:item pos=8.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=1 pickup=0 health=5 owner=- thrower=-
+E p1 minecraft:pig pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sh minecraft:skeleton_horse pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sp minecraft:spider pos=10.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
+E st minecraft:armor_stand pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=10.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p3 minecraft:pig pos=10.5,-60.0,5.51 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=10.5,-58.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+# a healing and poison cloud: undead take the instant health as damage, the spider is immune to poison, the spectator is skipped
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.833333 abs=0.0 hurt=3/13 death=0 fx=minecraft:poison/0/92;minecraft:regeneration/1/52 gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/92;minecraft:regeneration/1/52 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P O minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c1 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=5.0 waiting=0 duration=300 age=12
+N c1 {Age:12,Air:300s,Duration:300,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[10.5d,-60.0d,0.5d],Radius:5.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:5,fall_distance:0.0d,potion_contents:{custom_effects:[{duration:100,id:"minecraft:poison",show_icon:1b},{id:"minecraft:instant_health",show_icon:1b},{amplifier:1b,duration:60,id:"minecraft:regeneration",show_icon:1b}]}}
+E p1 minecraft:pig pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/0/93;minecraft:regeneration/1/53
+E sh minecraft:skeleton_horse pos=6.5,-60.0,0.5 delta=-0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=3/13 death=0 fx=-
+E sp minecraft:spider pos=10.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/1/53
+E st minecraft:armor_stand pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=10.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/0/93;minecraft:regeneration/1/53
+E p3 minecraft:pig pos=10.5,-60.0,5.51 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=10.5,-58.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT A minecraft:update_mob_effect 8701cd081200640e
+PKT A minecraft:update_mob_effect 8701cd0809013c0e
+PKT A minecraft:set_health 6a413000001440a00000
+PKT A minecraft:set_health 6a413d55551440a00000
+PKT B minecraft:update_mob_effect 8701ce081200640e
+PKT B minecraft:update_mob_effect 8701ce0809013c0e
+# the effects are applied again after the reapplication delay
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/3 death=0 fx=minecraft:poison/0/82;minecraft:regeneration/1/42 gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/82;minecraft:regeneration/1/42 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P O minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+N c1 {Age:42,Air:300s,Duration:300,DurationOnUse:0,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[10.5d,-60.0d,0.5d],Radius:5.0f,RadiusOnUse:0.0f,RadiusPerTick:0.0f,ReapplicationDelay:20,Rotation:[0.0f,0.0f],WaitTime:5,fall_distance:0.0d,potion_contents:{custom_effects:[{duration:100,id:"minecraft:poison",show_icon:1b},{id:"minecraft:instant_health",show_icon:1b},{amplifier:1b,duration:60,id:"minecraft:regeneration",show_icon:1b}]}}
+E p1 minecraft:pig pos=10.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/4 death=0 fx=minecraft:poison/0/83;minecraft:regeneration/1/43
+E sh minecraft:skeleton_horse pos=6.5,-60.0,0.5 delta=-0.6000000089406967,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/3 death=0 fx=-
+E sp minecraft:spider pos=10.5,-60.0,-2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/1/43
+E st minecraft:armor_stand pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=10.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/4 death=0 fx=minecraft:poison/0/83;minecraft:regeneration/1/43
+E p3 minecraft:pig pos=10.5,-60.0,5.51 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=10.5,-58.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+# a damage cloud owned by a player: instant damage with the owner as the cause, wither and slowness, the radius shrinks per victim
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.11763758669791288,0.19128033396326094,0.22727183351298882 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=13.833333 abs=0.0 hurt=8/19 death=0 fx=minecraft:poison/0/76;minecraft:regeneration/1/36;minecraft:slowness/1/78;minecraft:wither/0/78 gm=survival food=20 sat=1.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/76;minecraft:regeneration/1/36;minecraft:slowness/1/78;minecraft:wither/0/78 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P O minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c2 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=3.0 waiting=0 duration=220 age=6
+N c2 {Age:6,Air:300s,Duration:220,DurationOnUse:-20,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[10.5d,-60.0d,0.5d],Radius:3.0f,RadiusOnUse:-0.5f,RadiusPerTick:0.0f,ReapplicationDelay:15,Rotation:[0.0f,0.0f],WaitTime:0,fall_distance:0.0d,potion_contents:{custom_effects:[{id:"minecraft:instant_damage",show_icon:1b},{duration:80,id:"minecraft:wither",show_icon:1b},{amplifier:1b,duration:80,id:"minecraft:slowness",show_icon:1b}]}}
+E p1 minecraft:pig pos=10.5,-60.0,2.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:poison/0/77;minecraft:regeneration/1/37;minecraft:slowness/1/79;minecraft:wither/0/79
+E sh minecraft:skeleton_horse pos=6.5,-60.0,0.5 delta=-0.6000000089406967,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sp minecraft:spider pos=10.5,-60.0,-2.5 delta=0.0,0.0,-0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=13.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:regeneration/1/37;minecraft:slowness/1/79;minecraft:wither/0/79
+E st minecraft:armor_stand pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=10.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/77;minecraft:regeneration/1/37
+E p3 minecraft:pig pos=10.5,-60.0,5.51 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=10.5,-58.0,0.5 delta=-0.027667315343410787,0.0,-0.053452316245030364 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT A minecraft:set_health 6a414d55551440800000
+PKT A minecraft:set_health 6a415800001440800000
+PKT A minecraft:update_mob_effect 8701cd0812006406
+PKT A minecraft:update_mob_effect 8701cd0809013c06
+PKT A minecraft:set_health 6a416800001440400000
+PKT A minecraft:set_health 6a417000001440400000
+PKT A minecraft:set_health 6a418000001440400000
+PKT A minecraft:set_health 6a418400001440400000
+PKT A minecraft:hurt_animation 2bcd0800000000
+PKT A minecraft:update_mob_effect 8701cd081300500e
+PKT A minecraft:update_mob_effect 8701cd080101500e
+PKT A minecraft:set_health 6a415d55551440000000
+PKT B minecraft:update_mob_effect 8701ce0812006406
+PKT B minecraft:update_mob_effect 8701ce0809013c06
+PKT B minecraft:update_mob_effect 8701ce081300500e
+PKT B minecraft:update_mob_effect 8701ce080101500e
+P A minecraft:player pos=10.5,-60.0,0.5 delta=-0.03444719759199163,-0.0784000015258789,-0.08884407080346426 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=12.166667 abs=0.0 hurt=3/14 death=0 fx=minecraft:poison/0/56;minecraft:regeneration/1/16;minecraft:slowness/1/73;minecraft:wither/0/73 gm=survival food=20 sat=1.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/56;minecraft:regeneration/1/16;minecraft:slowness/1/73;minecraft:wither/0/73 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P O minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E c2 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing radius=1.5 waiting=0 duration=160 age=26
+N c2 {Age:26,Air:300s,Duration:160,DurationOnUse:-20,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PortalCooldown:0,Pos:[10.5d,-60.0d,0.5d],Radius:1.5f,RadiusOnUse:-0.5f,RadiusPerTick:0.0f,ReapplicationDelay:15,Rotation:[0.0f,0.0f],WaitTime:0,fall_distance:0.0d,potion_contents:{custom_effects:[{id:"minecraft:instant_damage",show_icon:1b},{duration:80,id:"minecraft:wither",show_icon:1b},{amplifier:1b,duration:80,id:"minecraft:slowness",show_icon:1b}]}}
+E p1 minecraft:pig pos=10.5,-60.0,2.5 delta=0.0,0.0,0.6000000089406967 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=4/14 death=0 fx=minecraft:poison/0/57;minecraft:regeneration/1/17;minecraft:slowness/1/74;minecraft:wither/0/74
+E sh minecraft:skeleton_horse pos=6.5,-60.0,0.5 delta=-0.6000000089406967,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sp minecraft:spider pos=10.5,-60.0,-2.5 delta=0.0,0.0,-0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:regeneration/1/17;minecraft:slowness/1/59;minecraft:wither/0/59
+E st minecraft:armor_stand pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p2 minecraft:pig pos=10.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/3 death=0 fx=minecraft:poison/0/57;minecraft:regeneration/1/17
+E p3 minecraft:pig pos=10.5,-60.0,5.51 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=10.5,-58.0,0.5 delta=-0.006447041706557754,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT A minecraft:set_health 6a41600000143f800000
+PKT A minecraft:set_health 6a41700000143f800000
+PKT A minecraft:update_mob_effect 8701cd0813005006
+PKT A minecraft:update_mob_effect 8701cd0801015006
+PKT A minecraft:set_health 6a41400000143f800000
+PKT A minecraft:set_health 6a4142aaab143f800000
+# a far cloud that reaches nobody ends with its duration
+P A minecraft:player pos=10.5,-60.0,0.5 delta=-0.19308040735756568,0.19128033396326094,-0.17657624132664865 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=6.500001 abs=0.0 hurt=8/19 death=0 fx=minecraft:poison/0/31;minecraft:slowness/1/78;minecraft:wither/0/78 gm=survival food=20 sat=0.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:poison/0/31;minecraft:slowness/1/48;minecraft:wither/0/48 gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=spectator food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P O minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E p1 minecraft:pig pos=10.5,-60.0,2.5 delta=0.0,0.0,0.6000000089406967 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/3 death=0 fx=minecraft:poison/0/32;minecraft:slowness/1/49;minecraft:wither/0/49
+E sh minecraft:skeleton_horse pos=6.5,-60.0,0.5 delta=-0.6000000089406967,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sp minecraft:spider pos=10.5,-60.0,-2.5 delta=0.0,0.0,-0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=13.0 abs=0.0 hurt=5/15 death=0 fx=minecraft:slowness/1/34;minecraft:wither/0/34
+E st minecraft:armor_stand pos=14.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E it minecraft:item pos=8.5,-60.0,3.5 delta=0.0,-0.12,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=94 pickup=0 health=5 owner=- thrower=-
+E p2 minecraft:pig pos=10.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/3 death=0 fx=minecraft:poison/0/32
+E p3 minecraft:pig pos=10.5,-60.0,5.51 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E p4 minecraft:pig pos=10.5,-58.0,0.5 delta=0.042416645467084416,0.0,0.04468690705890417 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E c2 minecraft:area_effect_cloud pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E p1 minecraft:pig pos=10.5,-60.0,2.5 delta=0.0,0.0,0.6000000089406967 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/3 death=0 fx=minecraft:poison/0/32;minecraft:slowness/1/49;minecraft:wither/0/49

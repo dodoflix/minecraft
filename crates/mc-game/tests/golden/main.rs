@@ -5,7 +5,6 @@
 )]
 
 mod advancement_predicates_golden;
-mod area_effect_cloud_golden;
 mod args;
 mod args_common;
 mod arrow_golden;
@@ -80,6 +79,7 @@ mod dispenser_registry_guard;
 mod display_math_golden;
 mod enchant_anvil_golden;
 mod enchant_golden;
+mod ent_aec_golden;
 mod ent_dump_golden;
 mod ent_interact_golden;
 mod ent_leash_knot_golden;

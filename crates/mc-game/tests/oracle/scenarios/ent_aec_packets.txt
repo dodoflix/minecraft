@@ -1,0 +1,42 @@
+# Area effect cloud packets: the pairing (radius, waiting flag and particle as synched entity data), the radius that shrinks
+# every tick once the wait is over, the waiting flag flipping, the particle changing with the potion colour and a merged
+# custom particle, a cloud outside the tracking range of the observer and the removal when the duration runs out.
+command_env
+level flat
+preload 4
+level_seed 5
+entity_counter 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player O survival 4.5 -60 8.5 0 0
+tick 2
+dump packets:A:none packets:O:none
+note the pairing and the first ticks of a waiting cloud, then the shrinking radius
+spawn c1 minecraft:area_effect_cloud 2.5 -60 2.5 0 0 {Duration:12,WaitTime:4,Radius:3.0f,RadiusPerTick:-0.125f,potion_contents:{potion:"minecraft:poison"}}
+entity_seed c1 41
+watch xentity:c1 edata:c1 packets:A:add_entity,set_entity_data,remove_entities,entity_position_sync,move_entity_pos,teleport_entity packets:O:add_entity,set_entity_data,remove_entities
+tick 12
+watch off
+watch packets:A:add_entity,set_entity_data,remove_entities,entity_position_sync,move_entity_pos,teleport_entity packets:O:add_entity,set_entity_data,remove_entities
+tick 6
+watch off
+note a potion colour and a custom particle change the particle, a radius merge resizes it, nothing is sent while nothing changes
+spawn c2 minecraft:area_effect_cloud 2.5 -60 4.5 0 0 {Duration:400,WaitTime:0,Radius:2.0f}
+entity_seed c2 42
+tick 2
+dump xentity:c2 edata:c2 nbt:c2 packets:A:add_entity,set_entity_data packets:O:add_entity,set_entity_data
+nbt c2 {potion_contents:{potion:"minecraft:regeneration"}}
+tick 1
+dump xentity:c2 edata:c2 nbt:c2 packets:A:set_entity_data packets:O:set_entity_data
+nbt c2 {custom_particle:{type:"minecraft:flame"},Radius:4.5f}
+tick 1
+dump xentity:c2 edata:c2 nbt:c2 packets:A:set_entity_data packets:O:set_entity_data
+nbt c2 {Radius:4.5f}
+tick 3
+dump xentity:c2 edata:c2 nbt:c2 packets:A:set_entity_data packets:O:set_entity_data
+note a cloud far away from both observers is never sent; one that already waits is not flagged; a radius under 0.5 with a shrink removes it
+spawn c3 minecraft:area_effect_cloud 60.5 -60 60.5 0 0 {Duration:400,Radius:2.0f}
+entity_seed c3 43
+spawn c4 minecraft:area_effect_cloud 6.5 -60 2.5 0 0 {Duration:400,WaitTime:0,Radius:0.6f,RadiusPerTick:-0.05f}
+entity_seed c4 44
+tick 4
+dump xentities packets:A:add_entity,set_entity_data,remove_entities packets:O:add_entity,set_entity_data,remove_entities
