@@ -31,10 +31,6 @@ const EXPECTED_MISSING: &[(&str, &str)] = &[
         "use casts a FishingHook or reels it in and damages the rod (no fishing hook entity yet)",
     ),
     (
-        "LeadItem",
-        "useOn on a fence attaches the leashed mobs nearby to a LeashFenceKnotEntity (no leash knot entity yet)",
-    ),
-    (
         "MinecartItem",
         "useOn on a rail places the minecart entity of the item (no minecart entities yet)",
     ),

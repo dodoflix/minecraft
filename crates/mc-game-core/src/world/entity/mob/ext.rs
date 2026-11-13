@@ -289,14 +289,6 @@ pub fn trigger_bred_animals(
     level.with_player(cause, |level, player| matches.award(level, player));
 }
 
-/// `LeashFenceKnotEntity.getOrCreateKnot(level, pos)`. Not implemented: always `None` (no knot entity is created).
-pub fn get_or_create_leash_knot(
-    _level: &mut ServerLevel,
-    _pos: mc_core::pos::BlockPos,
-) -> Option<EntityId> {
-    None
-}
-
 /// `CriteriaTriggers.TAME_ANIMAL.trigger(player, animal)`; `animal` is the running entity (the player may be too).
 pub fn trigger_tame_animal(level: &mut ServerLevel, player: EntityId, animal: &dyn Entity) {
     crate::advancements::triggers::fire_with_entity(

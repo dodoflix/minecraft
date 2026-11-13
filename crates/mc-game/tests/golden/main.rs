@@ -80,6 +80,7 @@ mod dispenser_registry_guard;
 mod display_math_golden;
 mod enchant_anvil_golden;
 mod enchant_golden;
+mod ent_leash_knot_golden;
 mod ent_marker_interaction_golden;
 mod entity_base_motion_golden;
 mod entity_items_orbs_golden;

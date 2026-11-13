@@ -1079,10 +1079,6 @@ const ACCEPTED_HOOKS: &[(&str, &str)] = &[
         "minecart detection needs minecart entities",
     ),
     (
-        "useWithoutItem@FenceBlock -> FenceBlock (registered as FenceBlock)",
-        "leash fence knots need their entity",
-    ),
-    (
         "getStateForPlacement@GrowingPlantBlock -> CaveVinesPlantBlock (registered as CaveVinesPlantBlock)",
         "a plant body answers with its own default state, like the trait default",
     ),

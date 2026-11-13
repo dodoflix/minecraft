@@ -4291,8 +4291,8 @@ pub trait Entity: Any {
         false
     }
     /// `getPickResult()`: the stack of a pick-block on the entity (`None`: nothing); `Mob`'s spawn egg by default.
-    // Not implemented: `getPickResult` of `AbstractMinecart` and its subclasses (the minecart items), `EndCrystal`,
-    // `EnderDragonPart` (its parent's) and `LeashFenceKnotEntity` (the lead).
+    // Not implemented: `getPickResult` of `AbstractMinecart` and its subclasses (the minecart items), `EndCrystal` and
+    // `EnderDragonPart` (its parent's).
     fn get_pick_result(&self) -> Option<crate::world::item::ItemStack> {
         crate::world::item::spawn_egg_item::by_id(self.get_type())
             .map(crate::world::item::ItemStack::new)

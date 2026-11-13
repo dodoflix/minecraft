@@ -37,6 +37,7 @@ mod item_utils;
 mod jukebox;
 mod kinetic_weapon;
 pub mod knowledge_book_item;
+pub mod lead_item;
 pub mod mace;
 pub mod map_item;
 mod misc_items;

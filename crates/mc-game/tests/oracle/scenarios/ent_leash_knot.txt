@@ -1,0 +1,92 @@
+# LeashFenceKnotEntity: shears cut every leash and the knot goes with the last one, a player without a lead takes the leashed mobs
+# off the knot (a sneaking one does not), a mob led by the player is tied to the knot by a click on it, the knot is discarded when
+# its last leashed mob dies or is hit away, and a `leash` position tag of a loaded mob creates the knot (and drops the lead when the
+# fence is gone).
+level flat
+preload 2
+difficulty normal
+level_seed 5
+spawn_player P survival 0.5 -60 0.5 0 0
+block 3 -60 0 minecraft:oak_fence
+tick 3
+mobspawn Cow minecraft:cow 2.5 -60 0.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+mobspawn Sheep minecraft:sheep 1.5 -60 1.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+tick 1
+leash Cow P
+leash Sheep P
+tick 1
+use_on P 3 -60 0 up
+tick 1
+dump mob:Cow mob:Sheep entities events nbt:leash_knot#1
+note shears: both leashes are cut (two leads drop), the shears lose one point, the knot is gone
+give P mainhand minecraft:shears 1
+interact P leash_knot#1 main
+tick 1
+dump mob:Cow mob:Sheep inventory:P entities events
+kill item#1
+kill item#2
+note tied again: an empty hand takes both mobs off the knot onto the player (the knot goes), a sneaking one changes nothing
+give P mainhand minecraft:stick 1
+leash Cow P
+leash Sheep P
+tick 1
+use_on P 3 -60 0 east
+tick 1
+interact P leash_knot#2 main sneak
+tick 1
+dump mob:Cow mob:Sheep entities events
+interact P leash_knot#2 main
+tick 1
+dump mob:Cow mob:Sheep entities events
+note the player still leads the cow: a click on the knot ties it there, and the sheep joins by the fence
+leash Sheep P
+tick 1
+use_on P 3 -60 0 north
+tick 1
+leash Cow P
+tick 1
+dump mob:Cow mob:Sheep entities events
+interact P leash_knot#3 main
+tick 1
+dump mob:Cow mob:Sheep entities events
+note a click on the knot with no mob to move: nothing happens
+interact P leash_knot#3 main sneak
+tick 1
+dump mob:Cow mob:Sheep entities events
+note the player stops sneaking (a click on the cow does nothing with a stick)
+interact P Cow main
+note the player takes the lead off a mob by hand: removeLeash tells the knot, which goes with its last mob
+leash Sheep -
+tick 1
+dump mob:Cow mob:Sheep entities events
+leash Cow -
+tick 1
+dump mob:Cow mob:Sheep entities events
+note the last leashed mob dies: its leash drops with the lead and the knot is discarded
+leash Cow P
+leash Sheep P
+tick 1
+use_on P 3 -60 0 west
+tick 1
+dump mob:Cow mob:Sheep entities events
+level_seed 6
+hurt Sheep generic_kill 1000
+tick 3
+dump mob:Cow entities events
+level_seed 7
+hurt Cow generic_kill 1000
+tick 30
+dump entities events
+note a hit from the player breaks the knot: its mobs lose the leash on their next tick and the leads drop
+mobspawn Calf minecraft:cow 2.5 -60 0.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+mobspawn Pig minecraft:pig 1.5 -60 3.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+tick 1
+leash Calf P
+leash Pig P
+tick 1
+use_on P 3 -60 0 down
+tick 1
+dump mob:Calf mob:Pig entities events
+attack P leash_knot#5
+tick 3
+dump mob:Calf mob:Pig entities events

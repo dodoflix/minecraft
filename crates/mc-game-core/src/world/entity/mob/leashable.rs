@@ -292,10 +292,8 @@ fn restore_leash_from_save(e: &mut dyn Entity, level: &mut ServerLevel) {
             }
         }
         DelayedLeashInfo::Knot(pos) => {
-            if let Some(knot) = super::ext::get_or_create_leash_knot(level, pos)
-                .and_then(|id| level.get_entity(id))
-                .map(LeashHolder::of)
-            {
+            let knot = crate::world::entity::decoration::leash_knot::get_or_create_knot(level, pos);
+            if let Some(knot) = level.get_entity(knot).map(LeashHolder::of) {
                 set_leashed_to(e, level, knot, true);
                 return;
             }

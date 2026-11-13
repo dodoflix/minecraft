@@ -1,10 +1,14 @@
 //! `net.minecraft.world.level.block.FenceBlock` (extends `CrossCollisionBlock`).
 use super::cross_collision_block;
 use super::fence_gate_block;
+use mc_core::phys::BlockHitResult;
 use mc_core::phys::shapes::VoxelShape;
 use mc_data::block::PathComputationType;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::item::InteractionResult;
+use mc_game_core::world::item::lead_item::bind_player_mobs;
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::collision::CollisionContext;
 use mc_game_core::{register_block_class, update_shape};
@@ -28,8 +32,17 @@ fn connects_to(
 
 impl BlockBehaviour for FenceBlock {
     mc_game_core::simple_waterlogged!();
-    // Not implemented: `useWithoutItem` (`LeadItem.bindPlayerMobs` ties leashed mobs to a `LeashFenceKnotEntity`, which
-    // has no entity yet); the trait default is `PASS`.
+    /// `useWithoutItem`: `LeadItem.bindPlayerMobs`.
+    fn use_without_item(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut ServerPlayer,
+        _hit: &BlockHitResult,
+    ) -> InteractionResult {
+        bind_player_mobs(player, level, pos)
+    }
     fn get_visual_shape(
         &self,
         state: BlockState,

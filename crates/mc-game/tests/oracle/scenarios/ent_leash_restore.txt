@@ -1,0 +1,23 @@
+# A mob loaded with a `leash` block position (a lead tied to a fence, as saved) gets its knot back when it first ticks and keeps
+# the lead; with no fence there the knot goes at its first 100 tick check and the mob loses the lead as an item.
+level flat
+preload 2
+difficulty normal
+level_seed 7
+spawn_player P survival 0.5 -60 0.5 0 0
+block 5 -60 5 minecraft:oak_fence
+tick 3
+note the cow and the pig are loaded tied to the fence: the knot comes with the first tick and both hang on it
+mobspawn Fenced minecraft:cow 5.5 -60 6.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b,leash:[I;5,-60,5]}
+mobspawn Hung minecraft:pig 4.5 -60 4.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b,leash:[I;5,-60,5]}
+dump mob:Fenced nbt:Fenced entities
+tick 1
+dump mob:Fenced mob:Hung nbt:Fenced nbt:Hung entities events
+tick 120
+dump mob:Fenced mob:Hung nbt:Fenced entities
+note no fence at the tagged position: the knot is discarded at its first check and the lead drops
+mobspawn Lost minecraft:sheep 9.5 -60 9.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b,leash:[I;9,-60,9]}
+tick 1
+dump mob:Lost entities
+tick 110
+dump mob:Lost nbt:Lost entities events

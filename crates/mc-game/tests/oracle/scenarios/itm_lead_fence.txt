@@ -1,0 +1,57 @@
+# Lead on a fence: FenceBlock.useWithoutItem and LeadItem.useOn (both LeadItem.bindPlayerMobs) tie the mobs the player leads to a
+# LeashFenceKnotEntity at the fence (created, or reused when one is there); nobody to tie, a block that is no fence and a mob out of
+# the knot's snap distance leave the leashes alone, and a knot that ties nothing is discarded again.
+level flat
+preload 2
+difficulty normal
+level_seed 3
+spawn_player P survival 0.5 -60 0.5 0 0
+block 3 -60 0 minecraft:oak_fence
+block 3 -60 3 minecraft:nether_brick_fence
+block 4 -60 1 minecraft:stone
+block 4 -60 -1 minecraft:oak_fence
+tick 3
+note nobody is leashed: the click passes and no knot is made
+use_on P 3 -60 0 up
+tick 1
+dump entities events
+note a cow and a horse follow the player: an empty hand takes both onto one new knot
+mobspawn Cow minecraft:cow 2.5 -60 0.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+mobspawn Horse minecraft:horse 0.5 -60 -2.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+tick 1
+leash Cow P
+leash Horse P
+tick 1
+dump mob:Cow mob:Horse
+use_on P 3 -60 0 up
+tick 1
+dump mob:Cow mob:Horse entities events
+note stone is no fence: the leashed pig stays on the player
+mobspawn Pig minecraft:pig 2.5 -60 -1.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+tick 1
+leash Pig P
+tick 1
+use_on P 4 -60 1 up
+tick 1
+dump mob:Pig entities events
+note the lead in the off hand reaches the fence through LeadItem.useOn and reuses the knot
+give P offhand minecraft:lead 2
+use_on P 3 -60 0 east off
+tick 1
+dump mob:Pig inventory:P entities events
+note a nether brick fence takes a wolf onto a second knot
+mobspawn Wolf minecraft:wolf -1.5 -60 -3.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+tick 1
+leash Wolf P
+tick 1
+use_on P 3 -60 3 up
+tick 1
+dump mob:Wolf entities events
+note a sheep 14 blocks from the next fence cannot be tied to it: the new knot is discarded
+mobspawn Sheep minecraft:sheep -9.5 -60 0.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+tick 1
+leash Sheep P
+tick 1
+use_on P 4 -60 -1 up
+tick 1
+dump mob:Sheep entities events
