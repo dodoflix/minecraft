@@ -1,0 +1,42 @@
+# Item entity NBT: the defaults, every saved field (health, age, pickup delay, thrower, owner, item with components), values the
+# loader narrows to a short or rejects (a short overflow, a missing or empty stack, malformed owner and thrower), an unlimited and a
+# never-picked-up item, and a merge into a live item that changes the stack, the owner and the age.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 20.5 0 0
+tick 2
+dump packets:A:none
+note defaults, then an item that carries every field
+spawn i1 minecraft:item 2.5 -60 4.5 0 0 {Item:{id:"minecraft:stone",count:3}}
+entity_seed i1 11
+spawn i2 minecraft:item 4.5 -60 4.5 0 0 {Health:3s,Age:100s,PickupDelay:20s,Thrower:[I;-1217574189,-1929301680,-1288476465,-1272613004],Owner:[I;-196291187,2030186727,-1948358755,2017388081],Item:{id:"minecraft:diamond_sword",count:1,components:{"minecraft:damage":5,"minecraft:custom_name":"Blade","minecraft:enchantments":{"minecraft:sharpness":2}}}}
+entity_seed i2 12
+spawn i3 minecraft:item 6.5 -60 4.5 0 0 {Age:-32768s,PickupDelay:32767s,Item:{id:"minecraft:stone",count:64}}
+entity_seed i3 13
+note a health that overflows a short, a count above the stack size, an unknown component
+spawn i4 minecraft:item 8.5 -60 4.5 0 0 {Health:70000,Age:5000s,PickupDelay:-5s,Item:{id:"minecraft:stone",count:99}}
+entity_seed i4 14
+spawn i5 minecraft:item 10.5 -60 4.5 0 0 {Health:"x",Age:1.9d,Item:{id:"minecraft:dirt",count:1,components:{"minecraft:nope":1}}}
+entity_seed i5 15
+note the entity name and a string thrower
+spawn i6 minecraft:item 12.5 -60 4.5 0 0 {CustomName:"named",CustomNameVisible:1b,Thrower:"b9a5f0c4-5ea1-3c0e-8d2e-6d0d4f0c1a11",Owner:"x",Item:{id:"minecraft:apple",count:2}}
+entity_seed i6 16
+note stacks the loader discards: no item, a count of zero, an unknown item
+spawn i7 minecraft:item 14.5 -60 4.5 0 0 {Health:2s}
+spawn i8 minecraft:item 16.5 -60 4.5 0 0 {Item:{id:"minecraft:stone",count:0}}
+spawn i9 minecraft:item 18.5 -60 4.5 0 0 {Item:{id:"minecraft:nope",count:1}}
+tick 2
+dump xentities edata:i1 edata:i2 edata:i3 edata:i4 edata:i5 edata:i6 nbt:i1 nbt:i2 nbt:i3 nbt:i4 nbt:i5 nbt:i6 packets:A:add_entity,set_entity_data,remove_entities
+note merging into a live item: the stack, the owner and the age change, a missing key keeps the field
+nbt i1 {Age:50s,Item:{id:"minecraft:dirt",count:2},Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+nbt i2 {Item:{id:"minecraft:stone",count:7},Health:9s}
+nbt i3 {Thrower:[I;1,2,3,4]}
+tick 1
+dump xentity:i1 xentity:i2 xentity:i3 edata:i1 edata:i2 edata:i3 nbt:i1 nbt:i2 nbt:i3 packets:A:set_entity_data
+note an item merged to an empty stack is discarded on load
+nbt i4 {Item:{id:"minecraft:stone",count:0}}
+tick 1
+dump xentities packets:A:set_entity_data,remove_entities

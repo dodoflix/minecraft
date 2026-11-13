@@ -1,0 +1,104 @@
+# Resting items merge with a neighbour every 40 ticks: across a chunk border (x 15.9 and 16.1, z 15.9 and 16.1), with different owners, with
+# different components, with equal components, against the 64 cap (80, exactly 64, 65), and the merged item keeps the lower age and the
+# longer pickup delay. Items beyond half a block do not merge, unless one is teleported next to the other.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 30.5 0 0
+tick 2
+dump packets:A:none
+note across the chunk borders
+spawn a1 minecraft:item 15.9 -60 2.5 0 0 {Item:{id:"minecraft:stone",count:10}}
+entity_seed a1 11
+spawn a2 minecraft:item 16.1 -60 2.5 0 0 {Item:{id:"minecraft:stone",count:20}}
+entity_seed a2 12
+spawn b1 minecraft:item 4.5 -60 15.9 0 0 {Item:{id:"minecraft:stone",count:30}}
+entity_seed b1 13
+spawn b2 minecraft:item 4.5 -60 16.1 0 0 {Item:{id:"minecraft:stone",count:5}}
+entity_seed b2 14
+note owners: different, one missing, equal
+spawn o1 minecraft:item 20.5 -60 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],Item:{id:"minecraft:dirt",count:3}}
+entity_seed o1 15
+spawn o2 minecraft:item 20.7 -60 2.5 0 0 {Owner:[I;-196291187,2030186727,-1948358755,2017388081],Item:{id:"minecraft:dirt",count:4}}
+entity_seed o2 16
+spawn o3 minecraft:item 24.5 -60 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],Item:{id:"minecraft:dirt",count:3}}
+entity_seed o3 17
+spawn o4 minecraft:item 24.7 -60 2.5 0 0 {Item:{id:"minecraft:dirt",count:4}}
+entity_seed o4 18
+spawn o5 minecraft:item 28.5 -60 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],Item:{id:"minecraft:dirt",count:3}}
+entity_seed o5 19
+spawn o6 minecraft:item 28.7 -60 2.5 0 0 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],Item:{id:"minecraft:dirt",count:4}}
+entity_seed o6 20
+note components: a name against none, equal names, different names
+spawn c1 minecraft:item 4.5 -60 6.5 0 0 {Item:{id:"minecraft:apple",count:3}}
+entity_seed c1 21
+spawn c2 minecraft:item 4.7 -60 6.5 0 0 {Item:{id:"minecraft:apple",count:4,components:{"minecraft:custom_name":"x"}}}
+entity_seed c2 22
+spawn c3 minecraft:item 8.5 -60 6.5 0 0 {Item:{id:"minecraft:apple",count:3,components:{"minecraft:custom_name":"x"}}}
+entity_seed c3 23
+spawn c4 minecraft:item 8.7 -60 6.5 0 0 {Item:{id:"minecraft:apple",count:4,components:{"minecraft:custom_name":"x"}}}
+entity_seed c4 24
+spawn c5 minecraft:item 12.5 -60 6.5 0 0 {Item:{id:"minecraft:apple",count:3,components:{"minecraft:custom_name":"x"}}}
+entity_seed c5 25
+spawn c6 minecraft:item 12.7 -60 6.5 0 0 {Item:{id:"minecraft:apple",count:4,components:{"minecraft:custom_name":"y"}}}
+entity_seed c6 26
+note the 64 cap
+spawn k1 minecraft:item 4.5 -60 10.5 0 0 {Item:{id:"minecraft:stone",count:40}}
+entity_seed k1 27
+spawn k2 minecraft:item 4.7 -60 10.5 0 0 {Item:{id:"minecraft:stone",count:40}}
+entity_seed k2 28
+spawn k3 minecraft:item 8.5 -60 10.5 0 0 {Item:{id:"minecraft:stone",count:30}}
+entity_seed k3 29
+spawn k4 minecraft:item 8.7 -60 10.5 0 0 {Item:{id:"minecraft:stone",count:34}}
+entity_seed k4 30
+spawn k5 minecraft:item 12.5 -60 10.5 0 0 {Item:{id:"minecraft:stone",count:63}}
+entity_seed k5 31
+spawn k6 minecraft:item 12.7 -60 10.5 0 0 {Item:{id:"minecraft:stone",count:2}}
+entity_seed k6 32
+note age and pickup delay of the merged item, three items at once, a stack that cannot stack
+spawn g1 minecraft:item 20.5 -60 6.5 0 0 {Age:100s,PickupDelay:5s,Item:{id:"minecraft:gravel",count:3}}
+entity_seed g1 33
+spawn g2 minecraft:item 20.7 -60 6.5 0 0 {Age:10s,PickupDelay:30s,Item:{id:"minecraft:gravel",count:3}}
+entity_seed g2 34
+spawn g3 minecraft:item 24.5 -60 6.5 0 0 {Item:{id:"minecraft:sand",count:5}}
+entity_seed g3 35
+spawn g4 minecraft:item 24.7 -60 6.5 0 0 {Item:{id:"minecraft:sand",count:6}}
+entity_seed g4 36
+spawn g5 minecraft:item 24.9 -60 6.5 0 0 {Item:{id:"minecraft:sand",count:7}}
+entity_seed g5 37
+spawn g6 minecraft:item 28.5 -60 6.5 0 0 {Item:{id:"minecraft:diamond_sword",count:1}}
+entity_seed g6 38
+spawn g7 minecraft:item 28.7 -60 6.5 0 0 {Item:{id:"minecraft:diamond_sword",count:1}}
+entity_seed g7 39
+spawn g8 minecraft:item 20.5 -60 10.5 0 0 {PickupDelay:32767s,Item:{id:"minecraft:clay_ball",count:3}}
+entity_seed g8 40
+spawn g9 minecraft:item 20.7 -60 10.5 0 0 {Item:{id:"minecraft:clay_ball",count:4}}
+entity_seed g9 41
+spawn h1 minecraft:item 24.5 -60 10.5 0 0 {Age:-32768s,Item:{id:"minecraft:clay_ball",count:3}}
+entity_seed h1 42
+spawn h2 minecraft:item 24.7 -60 10.5 0 0 {Item:{id:"minecraft:clay_ball",count:4}}
+entity_seed h2 43
+spawn h3 minecraft:item 28.5 -60 10.5 0 0 {Item:{id:"minecraft:clay_ball",count:3}}
+entity_seed h3 44
+spawn h4 minecraft:item 29.5 -60 10.5 0 0 {Item:{id:"minecraft:clay_ball",count:4}}
+entity_seed h4 45
+note a teleported item merges with the item where it arrives at once, not at the next merge tick
+spawn t1 minecraft:item 20.5 -60 14.5 0 0 {Tags:[t1],Item:{id:"minecraft:coal",count:3}}
+entity_seed t1 46
+spawn t2 minecraft:item 24.5 -60 14.5 0 0 {Tags:[t2],Item:{id:"minecraft:coal",count:4}}
+entity_seed t2 47
+tick 1
+dump xentities packets:A:add_entity
+tick 38
+dump xentities packets:A:set_entity_data,remove_entities
+tick 4
+dump xentities packets:A:set_entity_data,remove_entities,take_item_entity
+tick 40
+dump xentities packets:A:set_entity_data,remove_entities
+note the teleport
+cmd teleport @e[type=item,tag=t2] 20.6 -60 14.5
+dump xentities packets:A:set_entity_data,remove_entities,teleport_entity
+tick 1
+dump xentities packets:A:set_entity_data,remove_entities,teleport_entity

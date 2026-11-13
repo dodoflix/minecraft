@@ -1,0 +1,231 @@
+# across the chunk borders
+# owners: different, one missing, equal
+# components: a name against none, equal names, different names
+# the 64 cap
+# age and pickup delay of the merged item, three items at once, a stack that cannot stack
+# a teleported item merges with the item where it arrives at once, not at the next merge tick
+E a1 minecraft:item pos=15.9,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*10 age=1 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=16.1,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*20 age=1 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=4.5,-60.0,15.9 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*30 age=1 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=4.5,-60.0,16.1 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=1 pickup=0 health=5 owner=- thrower=-
+E o1 minecraft:item pos=20.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=1 pickup=0 health=5 owner=A thrower=-
+E o2 minecraft:item pos=20.7,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=1 pickup=0 health=5 owner=f44cd58d-7902-30e7-8bde-679d783ee631 thrower=-
+E o3 minecraft:item pos=24.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=1 pickup=0 health=5 owner=A thrower=-
+E o4 minecraft:item pos=24.7,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=1 pickup=0 health=5 owner=- thrower=-
+E o5 minecraft:item pos=28.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=1 pickup=0 health=5 owner=A thrower=-
+E o6 minecraft:item pos=28.7,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=1 pickup=0 health=5 owner=A thrower=-
+E c1 minecraft:item pos=4.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=1 pickup=0 health=5 owner=- thrower=-
+E c2 minecraft:item pos=4.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=1 pickup=0 health=5 owner=- thrower=-
+E c3 minecraft:item pos=8.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=1 pickup=0 health=5 owner=- thrower=-
+E c4 minecraft:item pos=8.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=1 pickup=0 health=5 owner=- thrower=-
+E c5 minecraft:item pos=12.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=1 pickup=0 health=5 owner=- thrower=-
+E c6 minecraft:item pos=12.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=1 pickup=0 health=5 owner=- thrower=-
+E k1 minecraft:item pos=4.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=1 pickup=0 health=5 owner=- thrower=-
+E k2 minecraft:item pos=4.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=1 pickup=0 health=5 owner=- thrower=-
+E k3 minecraft:item pos=8.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*30 age=1 pickup=0 health=5 owner=- thrower=-
+E k4 minecraft:item pos=8.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*34 age=1 pickup=0 health=5 owner=- thrower=-
+E k5 minecraft:item pos=12.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*63 age=1 pickup=0 health=5 owner=- thrower=-
+E k6 minecraft:item pos=12.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*2 age=1 pickup=0 health=5 owner=- thrower=-
+E g1 minecraft:item pos=20.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*3 age=101 pickup=4 health=5 owner=- thrower=-
+E g2 minecraft:item pos=20.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*3 age=11 pickup=29 health=5 owner=- thrower=-
+E g3 minecraft:item pos=24.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*5 age=1 pickup=0 health=5 owner=- thrower=-
+E g4 minecraft:item pos=24.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*6 age=1 pickup=0 health=5 owner=- thrower=-
+E g5 minecraft:item pos=24.9,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*7 age=1 pickup=0 health=5 owner=- thrower=-
+E g6 minecraft:item pos=28.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=1 pickup=0 health=5 owner=- thrower=-
+E g7 minecraft:item pos=28.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=1 pickup=0 health=5 owner=- thrower=-
+E g8 minecraft:item pos=20.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=1 pickup=32767 health=5 owner=- thrower=-
+E g9 minecraft:item pos=20.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=1 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:item pos=24.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=-32768 pickup=0 health=5 owner=- thrower=-
+E h2 minecraft:item pos=24.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=1 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:item pos=28.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=1 pickup=0 health=5 owner=- thrower=-
+E h4 minecraft:item pos=29.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=1 pickup=0 health=5 owner=- thrower=-
+E t1 minecraft:item pos=20.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*3 age=1 pickup=0 health=5 owner=- thrower=-
+E t2 minecraft:item pos=24.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*4 age=1 pickup=0 health=5 owner=- thrower=-
+PKT A minecraft:add_entity 01a20697fd63b95d8d486fb6212b7f8c6ea4e548402fcccccccccccdc04e00000000000040040000000000000000000000
+PKT A minecraft:add_entity 01a406e24bcde0d77945e6b7dbefb372f88e8a484012000000000000c04e000000000000402fcccccccccccd0000000000
+PKT A minecraft:add_entity 01a506740068f107b142609cf716d6e8f311eb484012000000000000c04e000000000000403019999999999a0000000000
+PKT A minecraft:add_entity 01ac06426c566ea4ed4e2a8ae6c6e2f4a67233484012000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01ad06b9673318d13f4fd78f713b08c138db90484012cccccccccccdc04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01ae06a6f23945b1b64d27b2a98f9e312cbb22484021000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01af0651118b5981fb4a19a6382347ecd32b5c484021666666666666c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01b006dfffc7eb618f4f68abe00a8532a14962484029000000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01b106ee4ab53238e34416b0490b044876a74b484029666666666666c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01b20619c73dcc71bd47ef8166d3e9d8fafcd4484012000000000000c04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01b3062e574b0fe2194054aee01184a099e377484012cccccccccccdc04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01b4068e464787475a4cae90628e8594555cdc484021000000000000c04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01b50609a9468156ba49abb880ecf4acaeb975484021666666666666c04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01b6067cb5ffc6be6146f0b3ddd6c4f6fc8ca7484029000000000000c04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01b70624a6438b55de4c93a809b42774872da6484029666666666666c04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01b806f04a9dc3cbd449658a5f8eee78e89eac484034800000000000c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01b906dfb1732158754e61bf0f20048d2d59b9484034b33333333333c04e000000000000401a0000000000000000000000
+PKT A minecraft:add_entity 01bf06043268c7a4fa4d95b44fef4ddedc4790484034800000000000c04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01c0067c317e2523ee4290a1f1c06497c6429d484034b33333333333c04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01c1061a20bbeb4e404adc87cb27215834cc51484038800000000000c04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01c20639ff3531bdb6482296afd0f0e9cf5f84484038b33333333333c04e00000000000040250000000000000000000000
+PKT A minecraft:add_entity 01c5061f9f00cf840649ef8f01ed5d3e6a7ebf484034800000000000c04e000000000000402d0000000000000000000000
+PKT A minecraft:add_entity 01c60619a8a11467384953bb1675f8178a5462484038800000000000c04e000000000000402d0000000000000000000000
+E a1 minecraft:item pos=15.9,-60.0,2.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*10 age=39 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=16.1,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*20 age=39 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=4.5,-60.0,15.9 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*30 age=39 pickup=0 health=5 owner=- thrower=-
+E b2 minecraft:item pos=4.5,-60.0,16.1 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=39 pickup=0 health=5 owner=- thrower=-
+E o1 minecraft:item pos=20.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=39 pickup=0 health=5 owner=A thrower=-
+E o2 minecraft:item pos=20.7,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=39 pickup=0 health=5 owner=f44cd58d-7902-30e7-8bde-679d783ee631 thrower=-
+E o3 minecraft:item pos=24.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=39 pickup=0 health=5 owner=A thrower=-
+E o4 minecraft:item pos=24.7,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=39 pickup=0 health=5 owner=- thrower=-
+E o5 minecraft:item pos=28.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=39 pickup=0 health=5 owner=A thrower=-
+E o6 minecraft:item pos=28.7,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=39 pickup=0 health=5 owner=A thrower=-
+E c1 minecraft:item pos=4.5,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=39 pickup=0 health=5 owner=- thrower=-
+E c2 minecraft:item pos=4.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=39 pickup=0 health=5 owner=- thrower=-
+E c3 minecraft:item pos=8.5,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=39 pickup=0 health=5 owner=- thrower=-
+E c4 minecraft:item pos=8.7,-60.0,6.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=39 pickup=0 health=5 owner=- thrower=-
+E c5 minecraft:item pos=12.5,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=39 pickup=0 health=5 owner=- thrower=-
+E c6 minecraft:item pos=12.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=39 pickup=0 health=5 owner=- thrower=-
+E k1 minecraft:item pos=4.5,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=39 pickup=0 health=5 owner=- thrower=-
+E k2 minecraft:item pos=4.7,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=39 pickup=0 health=5 owner=- thrower=-
+E k3 minecraft:item pos=8.5,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*30 age=39 pickup=0 health=5 owner=- thrower=-
+E k4 minecraft:item pos=8.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*34 age=39 pickup=0 health=5 owner=- thrower=-
+E k5 minecraft:item pos=12.5,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*63 age=39 pickup=0 health=5 owner=- thrower=-
+E k6 minecraft:item pos=12.7,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*2 age=39 pickup=0 health=5 owner=- thrower=-
+E g1 minecraft:item pos=20.5,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*3 age=139 pickup=0 health=5 owner=- thrower=-
+E g2 minecraft:item pos=20.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*3 age=49 pickup=0 health=5 owner=- thrower=-
+E g3 minecraft:item pos=24.5,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*5 age=39 pickup=0 health=5 owner=- thrower=-
+E g4 minecraft:item pos=24.7,-60.0,6.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*6 age=39 pickup=0 health=5 owner=- thrower=-
+E g5 minecraft:item pos=24.9,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*7 age=39 pickup=0 health=5 owner=- thrower=-
+E g6 minecraft:item pos=28.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=39 pickup=0 health=5 owner=- thrower=-
+E g7 minecraft:item pos=28.7,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=39 pickup=0 health=5 owner=- thrower=-
+E g8 minecraft:item pos=20.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=39 pickup=32767 health=5 owner=- thrower=-
+E g9 minecraft:item pos=20.7,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=39 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:item pos=24.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=-32768 pickup=0 health=5 owner=- thrower=-
+E h2 minecraft:item pos=24.7,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=39 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:item pos=28.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=39 pickup=0 health=5 owner=- thrower=-
+E h4 minecraft:item pos=29.5,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=39 pickup=0 health=5 owner=- thrower=-
+E t1 minecraft:item pos=20.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*3 age=39 pickup=0 health=5 owner=- thrower=-
+E t2 minecraft:item pos=24.5,-60.0,14.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*4 age=39 pickup=0 health=5 owner=- thrower=-
+E a2 minecraft:item pos=16.1,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*30 age=43 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=4.5,-60.0,15.9 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*35 age=43 pickup=0 health=5 owner=- thrower=-
+E o1 minecraft:item pos=20.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=43 pickup=0 health=5 owner=A thrower=-
+E o2 minecraft:item pos=20.7,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=43 pickup=0 health=5 owner=f44cd58d-7902-30e7-8bde-679d783ee631 thrower=-
+E o3 minecraft:item pos=24.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=43 pickup=0 health=5 owner=A thrower=-
+E o4 minecraft:item pos=24.7,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=43 pickup=0 health=5 owner=- thrower=-
+E o6 minecraft:item pos=28.7,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*7 age=43 pickup=0 health=5 owner=A thrower=-
+E c1 minecraft:item pos=4.5,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=43 pickup=0 health=5 owner=- thrower=-
+E c2 minecraft:item pos=4.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=43 pickup=0 health=5 owner=- thrower=-
+E c4 minecraft:item pos=8.7,-60.0,6.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*7 age=43 pickup=0 health=5 owner=- thrower=-
+E c5 minecraft:item pos=12.5,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=43 pickup=0 health=5 owner=- thrower=-
+E c6 minecraft:item pos=12.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=43 pickup=0 health=5 owner=- thrower=-
+E k1 minecraft:item pos=4.5,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=43 pickup=0 health=5 owner=- thrower=-
+E k2 minecraft:item pos=4.7,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=43 pickup=0 health=5 owner=- thrower=-
+E k4 minecraft:item pos=8.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*64 age=43 pickup=0 health=5 owner=- thrower=-
+E k5 minecraft:item pos=12.5,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*63 age=43 pickup=0 health=5 owner=- thrower=-
+E k6 minecraft:item pos=12.7,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*2 age=43 pickup=0 health=5 owner=- thrower=-
+E g2 minecraft:item pos=20.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*6 age=53 pickup=0 health=5 owner=- thrower=-
+E g4 minecraft:item pos=24.7,-60.0,6.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*18 age=43 pickup=0 health=5 owner=- thrower=-
+E g6 minecraft:item pos=28.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=43 pickup=0 health=5 owner=- thrower=-
+E g7 minecraft:item pos=28.7,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=43 pickup=0 health=5 owner=- thrower=-
+E g8 minecraft:item pos=20.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=43 pickup=32767 health=5 owner=- thrower=-
+E g9 minecraft:item pos=20.7,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=43 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:item pos=24.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=-32768 pickup=0 health=5 owner=- thrower=-
+E h2 minecraft:item pos=24.7,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=43 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:item pos=28.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=43 pickup=0 health=5 owner=- thrower=-
+E h4 minecraft:item pos=29.5,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=43 pickup=0 health=5 owner=- thrower=-
+E t1 minecraft:item pos=20.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*3 age=43 pickup=0 health=5 owner=- thrower=-
+E t2 minecraft:item pos=24.5,-60.0,14.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*4 age=43 pickup=0 health=5 owner=- thrower=-
+PKT A minecraft:remove_entities 4e01a206
+PKT A minecraft:remove_entities 4e01a506
+PKT A minecraft:remove_entities 4e01ae06
+PKT A minecraft:remove_entities 4e01b406
+PKT A minecraft:remove_entities 4e01b806
+PKT A minecraft:set_entity_data 65a406080723010000ff
+PKT A minecraft:set_entity_data 65b9060807065c0000ff
+PKT A minecraft:set_entity_data 65af06080707ef0701000608000178ff
+PKT A minecraft:set_entity_data 65b506080740010000ff
+E a2 minecraft:item pos=16.1,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*30 age=83 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=4.5,-60.0,15.9 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*35 age=83 pickup=0 health=5 owner=- thrower=-
+E o1 minecraft:item pos=20.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=83 pickup=0 health=5 owner=A thrower=-
+E o2 minecraft:item pos=20.7,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=83 pickup=0 health=5 owner=f44cd58d-7902-30e7-8bde-679d783ee631 thrower=-
+E o3 minecraft:item pos=24.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=83 pickup=0 health=5 owner=A thrower=-
+E o4 minecraft:item pos=24.7,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=83 pickup=0 health=5 owner=- thrower=-
+E o6 minecraft:item pos=28.7,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*7 age=83 pickup=0 health=5 owner=A thrower=-
+E c1 minecraft:item pos=4.5,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=83 pickup=0 health=5 owner=- thrower=-
+E c2 minecraft:item pos=4.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=83 pickup=0 health=5 owner=- thrower=-
+E c4 minecraft:item pos=8.7,-60.0,6.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*7 age=83 pickup=0 health=5 owner=- thrower=-
+E c5 minecraft:item pos=12.5,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=83 pickup=0 health=5 owner=- thrower=-
+E c6 minecraft:item pos=12.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=83 pickup=0 health=5 owner=- thrower=-
+E k1 minecraft:item pos=4.5,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=83 pickup=0 health=5 owner=- thrower=-
+E k2 minecraft:item pos=4.7,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=83 pickup=0 health=5 owner=- thrower=-
+E k4 minecraft:item pos=8.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*64 age=83 pickup=0 health=5 owner=- thrower=-
+E k5 minecraft:item pos=12.5,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*63 age=83 pickup=0 health=5 owner=- thrower=-
+E k6 minecraft:item pos=12.7,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*2 age=83 pickup=0 health=5 owner=- thrower=-
+E g2 minecraft:item pos=20.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*6 age=93 pickup=0 health=5 owner=- thrower=-
+E g4 minecraft:item pos=24.7,-60.0,6.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*18 age=83 pickup=0 health=5 owner=- thrower=-
+E g6 minecraft:item pos=28.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=83 pickup=0 health=5 owner=- thrower=-
+E g7 minecraft:item pos=28.7,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=83 pickup=0 health=5 owner=- thrower=-
+E g8 minecraft:item pos=20.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=83 pickup=32767 health=5 owner=- thrower=-
+E g9 minecraft:item pos=20.7,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=83 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:item pos=24.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=-32768 pickup=0 health=5 owner=- thrower=-
+E h2 minecraft:item pos=24.7,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=83 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:item pos=28.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=83 pickup=0 health=5 owner=- thrower=-
+E h4 minecraft:item pos=29.5,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=83 pickup=0 health=5 owner=- thrower=-
+E t1 minecraft:item pos=20.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*3 age=83 pickup=0 health=5 owner=- thrower=-
+E t2 minecraft:item pos=24.5,-60.0,14.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*4 age=83 pickup=0 health=5 owner=- thrower=-
+# the teleport
+C Teleported Coal to 20.600000, -60.000000, 14.500000
+E a2 minecraft:item pos=16.1,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*30 age=83 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=4.5,-60.0,15.9 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*35 age=83 pickup=0 health=5 owner=- thrower=-
+E o1 minecraft:item pos=20.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=83 pickup=0 health=5 owner=A thrower=-
+E o2 minecraft:item pos=20.7,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=83 pickup=0 health=5 owner=f44cd58d-7902-30e7-8bde-679d783ee631 thrower=-
+E o3 minecraft:item pos=24.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=83 pickup=0 health=5 owner=A thrower=-
+E o4 minecraft:item pos=24.7,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=83 pickup=0 health=5 owner=- thrower=-
+E o6 minecraft:item pos=28.7,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*7 age=83 pickup=0 health=5 owner=A thrower=-
+E c1 minecraft:item pos=4.5,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=83 pickup=0 health=5 owner=- thrower=-
+E c2 minecraft:item pos=4.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=83 pickup=0 health=5 owner=- thrower=-
+E c4 minecraft:item pos=8.7,-60.0,6.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*7 age=83 pickup=0 health=5 owner=- thrower=-
+E c5 minecraft:item pos=12.5,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=83 pickup=0 health=5 owner=- thrower=-
+E c6 minecraft:item pos=12.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=83 pickup=0 health=5 owner=- thrower=-
+E k1 minecraft:item pos=4.5,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=83 pickup=0 health=5 owner=- thrower=-
+E k2 minecraft:item pos=4.7,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=83 pickup=0 health=5 owner=- thrower=-
+E k4 minecraft:item pos=8.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*64 age=83 pickup=0 health=5 owner=- thrower=-
+E k5 minecraft:item pos=12.5,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*63 age=83 pickup=0 health=5 owner=- thrower=-
+E k6 minecraft:item pos=12.7,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*2 age=83 pickup=0 health=5 owner=- thrower=-
+E g2 minecraft:item pos=20.7,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*6 age=93 pickup=0 health=5 owner=- thrower=-
+E g4 minecraft:item pos=24.7,-60.0,6.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*18 age=83 pickup=0 health=5 owner=- thrower=-
+E g6 minecraft:item pos=28.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=83 pickup=0 health=5 owner=- thrower=-
+E g7 minecraft:item pos=28.7,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=83 pickup=0 health=5 owner=- thrower=-
+E g8 minecraft:item pos=20.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=83 pickup=32767 health=5 owner=- thrower=-
+E g9 minecraft:item pos=20.7,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=83 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:item pos=24.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=-32768 pickup=0 health=5 owner=- thrower=-
+E h2 minecraft:item pos=24.7,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=83 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:item pos=28.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=83 pickup=0 health=5 owner=- thrower=-
+E h4 minecraft:item pos=29.5,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=83 pickup=0 health=5 owner=- thrower=-
+E t2 minecraft:item pos=20.6,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*7 age=83 pickup=0 health=5 owner=- thrower=-
+PKT A minecraft:teleport_entity 8001c606403499999999999ac04e000000000000402d00000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+PKT A minecraft:remove_entities 4e01c506
+E a2 minecraft:item pos=16.1,-60.0,2.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*30 age=84 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=4.5,-60.0,15.9 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*35 age=84 pickup=0 health=5 owner=- thrower=-
+E o1 minecraft:item pos=20.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=84 pickup=0 health=5 owner=A thrower=-
+E o2 minecraft:item pos=20.7,-60.0,2.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=84 pickup=0 health=5 owner=f44cd58d-7902-30e7-8bde-679d783ee631 thrower=-
+E o3 minecraft:item pos=24.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=84 pickup=0 health=5 owner=A thrower=-
+E o4 minecraft:item pos=24.7,-60.0,2.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*4 age=84 pickup=0 health=5 owner=- thrower=-
+E o6 minecraft:item pos=28.7,-60.0,2.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*7 age=84 pickup=0 health=5 owner=A thrower=-
+E c1 minecraft:item pos=4.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=84 pickup=0 health=5 owner=- thrower=-
+E c2 minecraft:item pos=4.7,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=84 pickup=0 health=5 owner=- thrower=-
+E c4 minecraft:item pos=8.7,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*7 age=84 pickup=0 health=5 owner=- thrower=-
+E c5 minecraft:item pos=12.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*3 age=84 pickup=0 health=5 owner=- thrower=-
+E c6 minecraft:item pos=12.7,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=84 pickup=0 health=5 owner=- thrower=-
+E k1 minecraft:item pos=4.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=84 pickup=0 health=5 owner=- thrower=-
+E k2 minecraft:item pos=4.7,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*40 age=84 pickup=0 health=5 owner=- thrower=-
+E k4 minecraft:item pos=8.7,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*64 age=84 pickup=0 health=5 owner=- thrower=-
+E k5 minecraft:item pos=12.5,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*63 age=84 pickup=0 health=5 owner=- thrower=-
+E k6 minecraft:item pos=12.7,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*2 age=84 pickup=0 health=5 owner=- thrower=-
+E g2 minecraft:item pos=20.7,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*6 age=94 pickup=0 health=5 owner=- thrower=-
+E g4 minecraft:item pos=24.7,-60.0,6.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*18 age=84 pickup=0 health=5 owner=- thrower=-
+E g6 minecraft:item pos=28.5,-60.0,6.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=84 pickup=0 health=5 owner=- thrower=-
+E g7 minecraft:item pos=28.7,-60.0,6.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=84 pickup=0 health=5 owner=- thrower=-
+E g8 minecraft:item pos=20.5,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=84 pickup=32767 health=5 owner=- thrower=-
+E g9 minecraft:item pos=20.7,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=84 pickup=0 health=5 owner=- thrower=-
+E h1 minecraft:item pos=24.5,-60.0,10.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=-32768 pickup=0 health=5 owner=- thrower=-
+E h2 minecraft:item pos=24.7,-60.0,10.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=84 pickup=0 health=5 owner=- thrower=-
+E h3 minecraft:item pos=28.5,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*3 age=84 pickup=0 health=5 owner=- thrower=-
+E h4 minecraft:item pos=29.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*4 age=84 pickup=0 health=5 owner=- thrower=-
+E t2 minecraft:item pos=20.6,-60.0,14.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*7 age=84 pickup=0 health=5 owner=- thrower=-
+PKT A minecraft:set_entity_data 65c606080707f2070000ff

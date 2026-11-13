@@ -1,0 +1,332 @@
+# F has 36 stacks, one of them with room for 4 more
+# A: an item with a pickup delay, one owned by B, one owned by A; B stands 4 blocks away
+# C: creative; F: full inventory, then a partial pickup; S: spectator; an item that is never picked up
+E d1 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=122.51569,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=0 pickup=20 health=5 owner=- thrower=-
+E d2 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=0 pickup=0 health=5 owner=A thrower=-
+E d3 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=309.6314,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=0 pickup=5 health=5 owner=A thrower=-
+E d4 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=92.805916,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*2 age=0 pickup=0 health=5 owner=A thrower=B
+E d5 minecraft:item pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=203.45613,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=0 pickup=0 health=5 owner=- thrower=-
+E d6 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=84.03975,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=0 pickup=0 health=5 owner=- thrower=-
+E d7 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=113.796364,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*10 age=0 pickup=0 health=5 owner=- thrower=-
+E d8 minecraft:item pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=79.29915,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*5 age=0 pickup=0 health=5 owner=- thrower=-
+E d9 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=272.88867,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*5 age=0 pickup=32767 health=5 owner=- thrower=-
+PKT A minecraft:set_entity_data 65a706080703010000ff
+PKT A minecraft:set_entity_data 65a806080702370000ff
+PKT A minecraft:set_entity_data 65a906080704ef070000ff
+PKT A minecraft:set_entity_data 65aa06080702ab080000ff
+PKT A minecraft:set_entity_data 65ab06080705010000ff
+PKT A minecraft:set_entity_data 65ac06080705fe070000ff
+PKT A minecraft:set_entity_data 65ad0608070a370000ff
+PKT A minecraft:set_entity_data 65ae06080705f5070000ff
+PKT A minecraft:set_entity_data 65af06080705fa070000ff
+PKT Obs minecraft:set_entity_data 65a706080703010000ff
+PKT Obs minecraft:set_entity_data 65a806080702370000ff
+PKT Obs minecraft:set_entity_data 65a906080704ef070000ff
+PKT Obs minecraft:set_entity_data 65aa06080702ab080000ff
+PKT Obs minecraft:set_entity_data 65ab06080705010000ff
+PKT Obs minecraft:set_entity_data 65ac06080705fe070000ff
+PKT Obs minecraft:set_entity_data 65ad0608070a370000ff
+PKT Obs minecraft:set_entity_data 65ae06080705f5070000ff
+PKT Obs minecraft:set_entity_data 65af06080705fa070000ff
+E d1 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=122.51569,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=1 pickup=19 health=5 owner=- thrower=-
+E d2 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=1 pickup=0 health=5 owner=A thrower=-
+E d3 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=309.6314,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*4 age=1 pickup=4 health=5 owner=A thrower=-
+E d4 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=92.805916,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*2 age=1 pickup=0 health=5 owner=A thrower=B
+E d6 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=84.03975,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=1 pickup=0 health=5 owner=- thrower=-
+E d7 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=113.796364,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=1 pickup=0 health=5 owner=- thrower=-
+E d8 minecraft:item pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=79.29915,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*5 age=1 pickup=0 health=5 owner=- thrower=-
+E d9 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=272.88867,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*5 age=1 pickup=32767 health=5 owner=- thrower=-
+I C 0 minecraft:stone*5
+I F 0 minecraft:cobblestone*64
+I F 1 minecraft:cobblestone*64
+I F 2 minecraft:cobblestone*64
+I F 3 minecraft:cobblestone*64
+I F 4 minecraft:cobblestone*64
+I F 5 minecraft:cobblestone*64
+I F 6 minecraft:cobblestone*64
+I F 7 minecraft:cobblestone*64
+I F 8 minecraft:cobblestone*64
+I F 9 minecraft:cobblestone*64
+I F 10 minecraft:cobblestone*64
+I F 11 minecraft:cobblestone*64
+I F 12 minecraft:cobblestone*64
+I F 13 minecraft:cobblestone*64
+I F 14 minecraft:cobblestone*64
+I F 15 minecraft:cobblestone*64
+I F 16 minecraft:cobblestone*64
+I F 17 minecraft:cobblestone*64
+I F 18 minecraft:cobblestone*64
+I F 19 minecraft:cobblestone*64
+I F 20 minecraft:cobblestone*64
+I F 21 minecraft:cobblestone*64
+I F 22 minecraft:cobblestone*64
+I F 23 minecraft:cobblestone*64
+I F 24 minecraft:cobblestone*64
+I F 25 minecraft:cobblestone*64
+I F 26 minecraft:cobblestone*64
+I F 27 minecraft:cobblestone*64
+I F 28 minecraft:cobblestone*64
+I F 29 minecraft:cobblestone*64
+I F 30 minecraft:cobblestone*64
+I F 31 minecraft:cobblestone*64
+I F 32 minecraft:cobblestone*64
+I F 33 minecraft:cobblestone*64
+I F 34 minecraft:cobblestone*64
+I F 35 minecraft:dirt*64
+STAT A minecraft.custom:minecraft.play_time 33
+STAT A minecraft.custom:minecraft.time_since_death 33
+STAT A minecraft.custom:minecraft.time_since_rest 33
+STAT A minecraft.custom:minecraft.total_world_time 33
+STAT C minecraft.custom:minecraft.play_time 33
+STAT C minecraft.custom:minecraft.time_since_death 33
+STAT C minecraft.custom:minecraft.time_since_rest 33
+STAT C minecraft.custom:minecraft.total_world_time 33
+STAT C minecraft.picked_up:minecraft.stone 5
+STAT F minecraft.custom:minecraft.play_time 33
+STAT F minecraft.custom:minecraft.time_since_death 33
+STAT F minecraft.custom:minecraft.time_since_rest 33
+STAT F minecraft.custom:minecraft.total_world_time 33
+PKT A minecraft:set_entity_data 65aa06080702ab080000ff
+PKT A minecraft:set_entity_data 65ae06080705f5070000ff
+PKT A minecraft:set_entity_data 65ac06080705fe070000ff
+PKT A minecraft:set_entity_data 65a806080702370000ff
+PKT A minecraft:set_entity_data 65a706080703010000ff
+PKT A minecraft:set_entity_data 65a906080704ef070000ff
+PKT A minecraft:set_entity_data 65ab06080705010000ff
+PKT A minecraft:set_entity_data 65af06080705fa070000ff
+PKT A minecraft:set_entity_data 65ad0608070a370000ff
+PKT A minecraft:take_item_entity 7fab06a30605
+PKT A minecraft:remove_entities 4e01ab06
+PKT B minecraft:set_entity_data 65a706080703010000ff
+PKT B minecraft:set_entity_data 65a806080702370000ff
+PKT B minecraft:set_entity_data 65a906080704ef070000ff
+PKT B minecraft:set_entity_data 65aa06080702ab080000ff
+PKT B minecraft:set_entity_data 65ab06080705010000ff
+PKT B minecraft:set_entity_data 65ac06080705fe070000ff
+PKT B minecraft:set_entity_data 65ad0608070a370000ff
+PKT B minecraft:set_entity_data 65ae06080705f5070000ff
+PKT B minecraft:set_entity_data 65af06080705fa070000ff
+PKT B minecraft:set_entity_data 65aa06080702ab080000ff
+PKT B minecraft:set_entity_data 65ae06080705f5070000ff
+PKT B minecraft:set_entity_data 65ac06080705fe070000ff
+PKT B minecraft:set_entity_data 65a806080702370000ff
+PKT B minecraft:set_entity_data 65a706080703010000ff
+PKT B minecraft:set_entity_data 65a906080704ef070000ff
+PKT B minecraft:set_entity_data 65ab06080705010000ff
+PKT B minecraft:set_entity_data 65af06080705fa070000ff
+PKT B minecraft:set_entity_data 65ad0608070a370000ff
+PKT B minecraft:take_item_entity 7fab06a30605
+PKT B minecraft:remove_entities 4e01ab06
+PKT C minecraft:set_entity_data 65a706080703010000ff
+PKT C minecraft:set_entity_data 65a806080702370000ff
+PKT C minecraft:set_entity_data 65a906080704ef070000ff
+PKT C minecraft:set_entity_data 65aa06080702ab080000ff
+PKT C minecraft:set_entity_data 65ab06080705010000ff
+PKT C minecraft:set_entity_data 65ac06080705fe070000ff
+PKT C minecraft:set_entity_data 65ad0608070a370000ff
+PKT C minecraft:set_entity_data 65ae06080705f5070000ff
+PKT C minecraft:set_entity_data 65af06080705fa070000ff
+PKT C minecraft:set_entity_data 65aa06080702ab080000ff
+PKT C minecraft:set_entity_data 65ae06080705f5070000ff
+PKT C minecraft:set_entity_data 65ac06080705fe070000ff
+PKT C minecraft:set_entity_data 65a806080702370000ff
+PKT C minecraft:set_entity_data 65a706080703010000ff
+PKT C minecraft:set_entity_data 65a906080704ef070000ff
+PKT C minecraft:set_entity_data 65ab06080705010000ff
+PKT C minecraft:set_entity_data 65af06080705fa070000ff
+PKT C minecraft:set_entity_data 65ad0608070a370000ff
+PKT C minecraft:take_item_entity 7fab06a30605
+PKT C minecraft:container_set_slot 140002002405010000
+PKT C minecraft:remove_entities 4e01ab06
+PKT F minecraft:set_entity_data 65a706080703010000ff
+PKT F minecraft:set_entity_data 65a806080702370000ff
+PKT F minecraft:set_entity_data 65a906080704ef070000ff
+PKT F minecraft:set_entity_data 65aa06080702ab080000ff
+PKT F minecraft:set_entity_data 65ab06080705010000ff
+PKT F minecraft:set_entity_data 65ac06080705fe070000ff
+PKT F minecraft:set_entity_data 65ad0608070a370000ff
+PKT F minecraft:set_entity_data 65ae06080705f5070000ff
+PKT F minecraft:set_entity_data 65af06080705fa070000ff
+PKT F minecraft:set_entity_data 65aa06080702ab080000ff
+PKT F minecraft:set_entity_data 65ae06080705f5070000ff
+PKT F minecraft:set_entity_data 65ac06080705fe070000ff
+PKT F minecraft:set_entity_data 65a806080702370000ff
+PKT F minecraft:set_entity_data 65a706080703010000ff
+PKT F minecraft:set_entity_data 65a906080704ef070000ff
+PKT F minecraft:set_entity_data 65ab06080705010000ff
+PKT F minecraft:set_entity_data 65af06080705fa070000ff
+PKT F minecraft:set_entity_data 65ad0608070a370000ff
+PKT F minecraft:take_item_entity 7fab06a30605
+PKT F minecraft:remove_entities 4e01ab06
+PKT S minecraft:set_entity_data 65a706080703010000ff
+PKT S minecraft:set_entity_data 65a806080702370000ff
+PKT S minecraft:set_entity_data 65a906080704ef070000ff
+PKT S minecraft:set_entity_data 65aa06080702ab080000ff
+PKT S minecraft:set_entity_data 65ab06080705010000ff
+PKT S minecraft:set_entity_data 65ac06080705fe070000ff
+PKT S minecraft:set_entity_data 65ad0608070a370000ff
+PKT S minecraft:set_entity_data 65ae06080705f5070000ff
+PKT S minecraft:set_entity_data 65af06080705fa070000ff
+PKT S minecraft:set_entity_data 65aa06080702ab080000ff
+PKT S minecraft:set_entity_data 65ae06080705f5070000ff
+PKT S minecraft:set_entity_data 65ac06080705fe070000ff
+PKT S minecraft:set_entity_data 65a806080702370000ff
+PKT S minecraft:set_entity_data 65a706080703010000ff
+PKT S minecraft:set_entity_data 65a906080704ef070000ff
+PKT S minecraft:set_entity_data 65ab06080705010000ff
+PKT S minecraft:set_entity_data 65af06080705fa070000ff
+PKT S minecraft:set_entity_data 65ad0608070a370000ff
+PKT S minecraft:take_item_entity 7fab06a30605
+PKT S minecraft:remove_entities 4e01ab06
+PKT Obs minecraft:set_entity_data 65aa06080702ab080000ff
+PKT Obs minecraft:set_entity_data 65ae06080705f5070000ff
+PKT Obs minecraft:set_entity_data 65ac06080705fe070000ff
+PKT Obs minecraft:set_entity_data 65a806080702370000ff
+PKT Obs minecraft:set_entity_data 65a706080703010000ff
+PKT Obs minecraft:set_entity_data 65a906080704ef070000ff
+PKT Obs minecraft:set_entity_data 65ab06080705010000ff
+PKT Obs minecraft:set_entity_data 65af06080705fa070000ff
+PKT Obs minecraft:set_entity_data 65ad0608070a370000ff
+PKT Obs minecraft:take_item_entity 7fab06a30605
+PKT Obs minecraft:remove_entities 4e01ab06
+E d1 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=122.51569,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=6 pickup=14 health=5 owner=- thrower=-
+E d2 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=6 pickup=0 health=5 owner=A thrower=-
+E d4 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=92.805916,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*2 age=6 pickup=0 health=5 owner=A thrower=B
+E d6 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=84.03975,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=6 pickup=0 health=5 owner=- thrower=-
+E d7 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=113.796364,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=6 pickup=0 health=5 owner=- thrower=-
+E d8 minecraft:item pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=79.29915,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*5 age=6 pickup=0 health=5 owner=- thrower=-
+E d9 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=272.88867,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*5 age=6 pickup=32767 health=5 owner=- thrower=-
+I A 0 minecraft:apple*4
+STAT A minecraft.custom:minecraft.play_time 38
+STAT A minecraft.custom:minecraft.time_since_death 38
+STAT A minecraft.custom:minecraft.time_since_rest 38
+STAT A minecraft.custom:minecraft.total_world_time 38
+STAT A minecraft.picked_up:minecraft.apple 4
+STAT B minecraft.custom:minecraft.play_time 38
+STAT B minecraft.custom:minecraft.time_since_death 38
+STAT B minecraft.custom:minecraft.time_since_rest 38
+STAT B minecraft.custom:minecraft.total_world_time 38
+PKT A minecraft:take_item_entity 7fa906a10604
+PKT A minecraft:container_set_slot 140002002404ef070000
+PKT A minecraft:remove_entities 4e01a906
+PKT B minecraft:take_item_entity 7fa906a10604
+PKT B minecraft:remove_entities 4e01a906
+PKT Obs minecraft:take_item_entity 7fa906a10604
+PKT Obs minecraft:remove_entities 4e01a906
+E d2 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=26 pickup=0 health=5 owner=A thrower=-
+E d4 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=92.805916,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*2 age=26 pickup=0 health=5 owner=A thrower=B
+E d6 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=84.03975,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=26 pickup=0 health=5 owner=- thrower=-
+E d7 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=113.796364,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=26 pickup=0 health=5 owner=- thrower=-
+E d8 minecraft:item pos=16.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=79.29915,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*5 age=26 pickup=0 health=5 owner=- thrower=-
+E d9 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=272.88867,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*5 age=26 pickup=32767 health=5 owner=- thrower=-
+I A 0 minecraft:apple*4
+I A 1 minecraft:stone*3
+STAT A minecraft.custom:minecraft.play_time 58
+STAT A minecraft.custom:minecraft.time_since_death 58
+STAT A minecraft.custom:minecraft.time_since_rest 58
+STAT A minecraft.custom:minecraft.total_world_time 58
+STAT A minecraft.picked_up:minecraft.apple 4
+STAT A minecraft.picked_up:minecraft.stone 3
+STAT B minecraft.custom:minecraft.play_time 58
+STAT B minecraft.custom:minecraft.time_since_death 58
+STAT B minecraft.custom:minecraft.time_since_rest 58
+STAT B minecraft.custom:minecraft.total_world_time 58
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:recipes/building_blocks/chiseled_stone_bricks_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/cobblestone_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/cobblestone_slab_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/cobblestone_stairs_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/smooth_stone has_stone
+ADV A minecraft:recipes/building_blocks/stone_brick_slab_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/stone_brick_stairs_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/stone_bricks has_stone
+ADV A minecraft:recipes/building_blocks/stone_bricks_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/stone_slab has_stone
+ADV A minecraft:recipes/building_blocks/stone_slab_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/building_blocks/stone_stairs has_stone
+ADV A minecraft:recipes/building_blocks/stone_stairs_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/decorations/cobblestone_wall_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/stone_brick_wall_from_stone_stonecutting has_stone
+ADV A minecraft:recipes/decorations/stonecutter has_stone
+ADV A minecraft:recipes/redstone/stone_button has_stone
+ADV A minecraft:recipes/redstone/stone_pressure_plate has_stone
+ADV B minecraft:adventure/adventuring_time minecraft:plains
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT A minecraft:take_item_entity 7fa706a10603
+PKT A minecraft:container_set_slot 140003002503010000
+PKT A minecraft:remove_entities 4e01a706
+PKT B minecraft:take_item_entity 7fa706a10603
+PKT B minecraft:remove_entities 4e01a706
+PKT Obs minecraft:take_item_entity 7fa706a10603
+PKT Obs minecraft:remove_entities 4e01a706
+# B walks onto the item owned by A
+E d2 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=28 pickup=0 health=5 owner=A thrower=-
+E d4 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=92.805916,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*2 age=28 pickup=0 health=5 owner=A thrower=B
+E d6 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=84.03975,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=28 pickup=0 health=5 owner=- thrower=-
+E d7 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=113.796364,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=28 pickup=0 health=5 owner=- thrower=-
+E d8 minecraft:item pos=16.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=79.29915,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*5 age=28 pickup=0 health=5 owner=- thrower=-
+E d9 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=272.88867,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*5 age=28 pickup=32767 health=5 owner=- thrower=-
+I A 0 minecraft:apple*4
+I A 1 minecraft:stone*3
+STAT A minecraft.custom:minecraft.play_time 60
+STAT A minecraft.custom:minecraft.time_since_death 60
+STAT A minecraft.custom:minecraft.time_since_rest 60
+STAT A minecraft.custom:minecraft.total_world_time 60
+STAT A minecraft.picked_up:minecraft.apple 4
+STAT A minecraft.picked_up:minecraft.stone 3
+STAT B minecraft.custom:minecraft.play_time 60
+STAT B minecraft.custom:minecraft.time_since_death 60
+STAT B minecraft.custom:minecraft.time_since_rest 60
+STAT B minecraft.custom:minecraft.total_world_time 60
+STAT B minecraft.custom:minecraft.walk_one_cm 400
+# F frees a slot
+E d2 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=31 pickup=0 health=5 owner=A thrower=-
+E d4 minecraft:item pos=4.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=92.805916,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bread*2 age=31 pickup=0 health=5 owner=A thrower=B
+E d6 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=84.03975,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=31 pickup=0 health=5 owner=- thrower=-
+E d7 minecraft:item pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=113.796364,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=31 pickup=0 health=5 owner=- thrower=-
+E d8 minecraft:item pos=16.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=79.29915,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*5 age=31 pickup=0 health=5 owner=- thrower=-
+E d9 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=272.88867,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_ingot*5 age=31 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=12.493963239809464,-58.63594876408978,1.363372359789573 delta=-0.0019323053393773167,-0.025360944885149873,0.2763566827298589 rot=287.62393,0.0 og=0 fall=0.02587851509451866 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=3 pickup=37 health=5 owner=- thrower=F
+I F 0 minecraft:cobblestone*64
+I F 1 minecraft:cobblestone*64
+I F 2 minecraft:cobblestone*64
+I F 3 minecraft:cobblestone*64
+I F 4 minecraft:cobblestone*64
+I F 5 minecraft:cobblestone*64
+I F 6 minecraft:cobblestone*64
+I F 7 minecraft:cobblestone*64
+I F 8 minecraft:cobblestone*63
+I F 9 minecraft:cobblestone*64
+I F 10 minecraft:cobblestone*64
+I F 11 minecraft:cobblestone*64
+I F 12 minecraft:cobblestone*64
+I F 13 minecraft:cobblestone*64
+I F 14 minecraft:cobblestone*64
+I F 15 minecraft:cobblestone*64
+I F 16 minecraft:cobblestone*64
+I F 17 minecraft:cobblestone*64
+I F 18 minecraft:cobblestone*64
+I F 19 minecraft:cobblestone*64
+I F 20 minecraft:cobblestone*64
+I F 21 minecraft:cobblestone*64
+I F 22 minecraft:cobblestone*64
+I F 23 minecraft:cobblestone*64
+I F 24 minecraft:cobblestone*64
+I F 25 minecraft:cobblestone*64
+I F 26 minecraft:cobblestone*64
+I F 27 minecraft:cobblestone*64
+I F 28 minecraft:cobblestone*64
+I F 29 minecraft:cobblestone*64
+I F 30 minecraft:cobblestone*64
+I F 31 minecraft:cobblestone*64
+I F 32 minecraft:cobblestone*64
+I F 33 minecraft:cobblestone*64
+I F 34 minecraft:cobblestone*64
+I F 35 minecraft:dirt*64
+PKT F minecraft:container_set_slot 140026002340370000
+PKT F minecraft:take_item_entity 7fa906a10604
+PKT F minecraft:remove_entities 4e01a906
+PKT F minecraft:take_item_entity 7fa706a10603
+PKT F minecraft:remove_entities 4e01a706
+PKT F minecraft:container_set_slot 140027002c3f3e0000

@@ -1,0 +1,94 @@
+# Who picks an item up and how: after the pickup delay, only the owner, a creative player (nothing is used up), a full inventory (nothing,
+# then a partial pickup into a stack with room), a spectator (never), an item that is never picked up. An observer sees the pickup packets.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+spawn_player C creative 8.5 -60 0.5 0 0
+spawn_player F survival 12.5 -60 0.5 0 0
+spawn_player S spectator 16.5 -60 0.5 0 0
+spawn_player Obs survival 8.5 -60 6.5 0 0
+tick 30
+dump packets:A:none packets:B:none packets:C:none packets:F:none packets:S:none packets:Obs:none
+note F has 36 stacks, one of them with room for 4 more
+give F hotbar0 minecraft:cobblestone 64
+give F hotbar1 minecraft:cobblestone 64
+give F hotbar2 minecraft:cobblestone 64
+give F hotbar3 minecraft:cobblestone 64
+give F hotbar4 minecraft:cobblestone 64
+give F hotbar5 minecraft:cobblestone 64
+give F hotbar6 minecraft:cobblestone 64
+give F hotbar7 minecraft:cobblestone 64
+give F hotbar8 minecraft:cobblestone 64
+give F inv9 minecraft:cobblestone 64
+give F inv10 minecraft:cobblestone 64
+give F inv11 minecraft:cobblestone 64
+give F inv12 minecraft:cobblestone 64
+give F inv13 minecraft:cobblestone 64
+give F inv14 minecraft:cobblestone 64
+give F inv15 minecraft:cobblestone 64
+give F inv16 minecraft:cobblestone 64
+give F inv17 minecraft:cobblestone 64
+give F inv18 minecraft:cobblestone 64
+give F inv19 minecraft:cobblestone 64
+give F inv20 minecraft:cobblestone 64
+give F inv21 minecraft:cobblestone 64
+give F inv22 minecraft:cobblestone 64
+give F inv23 minecraft:cobblestone 64
+give F inv24 minecraft:cobblestone 64
+give F inv25 minecraft:cobblestone 64
+give F inv26 minecraft:cobblestone 64
+give F inv27 minecraft:cobblestone 64
+give F inv28 minecraft:cobblestone 64
+give F inv29 minecraft:cobblestone 64
+give F inv30 minecraft:cobblestone 64
+give F inv31 minecraft:cobblestone 64
+give F inv32 minecraft:cobblestone 64
+give F inv33 minecraft:cobblestone 64
+give F inv34 minecraft:cobblestone 64
+give F inv35 minecraft:dirt 60
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:F:none packets:S:none packets:Obs:none
+note A: an item with a pickup delay, one owned by B, one owned by A; B stands 4 blocks away
+spawn_item d1 minecraft:stone 0.5 -60 0.5 0 0 0 3
+entity_seed d1 11
+nbt d1 {PickupDelay:20s}
+spawn_item d2 minecraft:dirt 4.5 -60 0.5 0 0 0 2
+entity_seed d2 12
+nbt d2 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004]}
+spawn_item d3 minecraft:apple 0.5 -60 0.5 0 0 0 4
+entity_seed d3 13
+nbt d3 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PickupDelay:5s}
+spawn_item d4 minecraft:bread 4.5 -60 0.5 0 0 0 2
+entity_seed d4 14
+nbt d4 {Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],Thrower:[I;-196291187,2030186727,-1948358755,2017388081]}
+note C: creative; F: full inventory, then a partial pickup; S: spectator; an item that is never picked up
+spawn_item d5 minecraft:stone 8.5 -60 0.5 0 0 0 5
+entity_seed d5 15
+spawn_item d6 minecraft:gold_ingot 12.5 -60 0.5 0 0 0 5
+entity_seed d6 16
+spawn_item d7 minecraft:dirt 12.5 -60 0.5 0 0 0 10
+entity_seed d7 17
+spawn_item d8 minecraft:emerald 16.5 -60 0.5 0 0 0 5
+entity_seed d8 18
+spawn_item d9 minecraft:iron_ingot 0.5 -60 0.5 0 0 0 5
+entity_seed d9 19
+nbt d9 {PickupDelay:32767s}
+dump entities packets:A:take_item_entity,set_player_inventory,container_set_slot,remove_entities,set_entity_data packets:Obs:take_item_entity,remove_entities,set_entity_data
+tick 1
+dump entities inventory:A inventory:C inventory:F stats:A stats:C stats:F packets:A:take_item_entity,set_player_inventory,container_set_slot,remove_entities,set_entity_data packets:B:take_item_entity,set_player_inventory,container_set_slot,remove_entities,set_entity_data packets:C:take_item_entity,set_player_inventory,container_set_slot,remove_entities,set_entity_data packets:F:take_item_entity,set_player_inventory,container_set_slot,remove_entities,set_entity_data packets:S:take_item_entity,set_player_inventory,container_set_slot,remove_entities,set_entity_data packets:Obs:take_item_entity,remove_entities,set_entity_data
+tick 5
+dump entities inventory:A inventory:B stats:A stats:B packets:A:take_item_entity,set_player_inventory,container_set_slot,remove_entities packets:B:take_item_entity,set_player_inventory,container_set_slot,remove_entities packets:Obs:take_item_entity,remove_entities
+tick 20
+dump entities inventory:A inventory:B stats:A stats:B advancements:A advancements:B packets:A:take_item_entity,set_player_inventory,container_set_slot,remove_entities packets:B:take_item_entity,set_player_inventory,container_set_slot,remove_entities packets:Obs:take_item_entity,remove_entities
+note B walks onto the item owned by A
+move_packet B 0.5 -60 0.5 true
+tick 2
+dump entities inventory:A inventory:B stats:A stats:B packets:A:take_item_entity,set_player_inventory,container_set_slot,remove_entities packets:B:take_item_entity,set_player_inventory,container_set_slot,remove_entities packets:Obs:take_item_entity,remove_entities
+note F frees a slot
+click F 44 0 THROW
+tick 3
+dump entities inventory:F packets:F:take_item_entity,set_player_inventory,container_set_slot,remove_entities

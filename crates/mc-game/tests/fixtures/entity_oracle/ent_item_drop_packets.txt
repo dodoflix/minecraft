@@ -1,0 +1,126 @@
+# Q key: one item
+E item#1 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.0062067302287252485,-0.21827764809131622,0.015065182652476342 rot=40.76919,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=0 pickup=40 health=5 owner=- thrower=A
+I A 0 minecraft:stone*4
+I A 1 minecraft:dirt*3
+I A 9 minecraft:dirt*61
+PKT A minecraft:add_entity 01a406a09dd4eac7cc4625bcf8dc5952220999483fe0000000000000c04d570a3d8000003fe0000000000000c9fc81ecc81d001c0000
+PKT A minecraft:set_entity_data 65a406080701010000ff
+PKT Obs minecraft:add_entity 01a406a09dd4eac7cc4625bcf8dc5952220999483fe0000000000000c04d570a3d8000003fe0000000000000c9fc81ecc81d001c0000
+PKT Obs minecraft:set_entity_data 65a406080701010000ff
+E item#1 minecraft:item pos=0.49379326977127475,-58.93827765524387,0.5150651826524764 delta=-0.006082595742534728,-0.2531121000557451,0.01476387928677237 rot=40.76919,0.0 og=0 fall=0.25827765464782715 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=39 health=5 owner=- thrower=A
+PKT A minecraft:set_entity_data 65a406080701010000ff
+PKT Obs minecraft:set_entity_data 65a406080701010000ff
+# THROW click: one item, then the stack
+E item#1 minecraft:item pos=0.49379326977127475,-58.93827765524387,0.5150651826524764 delta=-0.006082595742534728,-0.2531121000557451,0.01476387928677237 rot=40.76919,0.0 og=0 fall=0.25827765464782715 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=39 health=5 owner=- thrower=A
+E item#2 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.010691446817025389,-0.21033400297164917,-0.008011713158788833 rot=339.15543,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=0 pickup=40 health=5 owner=- thrower=A
+I A 0 minecraft:stone*4
+I A 1 minecraft:dirt*2
+I A 9 minecraft:dirt*61
+PKT A minecraft:add_entity 01a506467fe82fcbdc4a0c9da1adaae6bc9a89483fe0000000000000c04d570a3d8000003fe000000000000081fa7ef8ca2500f10000
+PKT A minecraft:set_entity_data 65a506080701370000ff
+PKT A minecraft:container_set_slot 140005002502370000
+PKT Obs minecraft:add_entity 01a506467fe82fcbdc4a0c9da1adaae6bc9a89483fe0000000000000c04d570a3d8000003fe000000000000081fa7ef8ca2500f10000
+PKT Obs minecraft:set_entity_data 65a506080701370000ff
+E item#1 minecraft:item pos=0.49379326977127475,-58.93827765524387,0.5150651826524764 delta=-0.006082595742534728,-0.2531121000557451,0.01476387928677237 rot=40.76919,0.0 og=0 fall=0.25827765464782715 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=39 health=5 owner=- thrower=A
+E item#2 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.010691446817025389,-0.21033400297164917,-0.008011713158788833 rot=339.15543,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=0 pickup=40 health=5 owner=- thrower=A
+E item#3 minecraft:item pos=0.5,-58.68000000715256,0.5 delta=-0.004049339096094964,-0.15974938869476318,-0.00517797372437976 rot=250.92235,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=0 pickup=40 health=5 owner=- thrower=A
+I A 0 minecraft:stone*4
+I A 9 minecraft:dirt*61
+PKT A minecraft:add_entity 01a6067cb51ab143c2443bac14213f9c8d2f87483fe0000000000000c04d570a3d8000003fe0000000000000e9fd7f54d71900b20000
+PKT A minecraft:set_entity_data 65a606080702370000ff
+PKT A minecraft:container_set_slot 140006002500
+PKT Obs minecraft:add_entity 01a6067cb51ab143c2443bac14213f9c8d2f87483fe0000000000000c04d570a3d8000003fe0000000000000e9fd7f54d71900b20000
+PKT Obs minecraft:set_entity_data 65a606080702370000ff
+# the second stone drop merges with the first one
+# creative
+E item#1 minecraft:item pos=0.4817497300850397,-59.558639618944916,0.5442976639218843 delta=-0.005841725178522316,-0.3207048726141896,0.014179230218949544 rot=40.76919,0.0 og=0 fall=0.8786396086215973 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=37 health=5 owner=- thrower=A
+E item#3 minecraft:item pos=0.49198230851249697,-59.115503800578104,0.48974761192696603 delta=-0.003888985419270233,-0.2310393211328279,-0.0049729261584678655 rot=250.92235,0.0 og=0 fall=0.4355037957429886 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=2 pickup=38 health=5 owner=- thrower=A
+E item#4 minecraft:item pos=6.501842303323439,-58.992693074941634,0.519501643350932 delta=0.00180545729210946,-0.30643921239744315,0.019111610855877686 rot=54.77781,0.0 og=0 fall=0.3126930594444275 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*8 age=1 pickup=39 health=5 owner=- thrower=C
+E item#5 minecraft:item pos=6.491421178992663,-58.91207110226154,0.5132006808245947 delta=-0.008407244750818355,-0.22742967763321106,0.01293666745988577 rot=16.355145,0.0 og=0 fall=0.23207110166549683 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=1 pickup=39 health=5 owner=- thrower=C
+I C 1 minecraft:cobblestone*7
+PKT C minecraft:add_entity 01a406a09dd4eac7cc4625bcf8dc5952220999483fe0000000000000c04d570a3d8000003fe0000000000000c9fc81ecc81d001c0000
+PKT C minecraft:set_entity_data 65a406080701010000ff
+PKT C minecraft:set_entity_data 65a406080701010000ff
+PKT C minecraft:add_entity 01a506467fe82fcbdc4a0c9da1adaae6bc9a89483fe0000000000000c04d570a3d8000003fe000000000000081fa7ef8ca2500f10000
+PKT C minecraft:set_entity_data 65a506080701370000ff
+PKT C minecraft:add_entity 01a6067cb51ab143c2443bac14213f9c8d2f87483fe0000000000000c04d570a3d8000003fe0000000000000e9fd7f54d71900b20000
+PKT C minecraft:set_entity_data 65a606080702370000ff
+PKT C minecraft:set_entity_data 65a606080702370000ff
+PKT C minecraft:set_entity_data 65a506080701370000ff
+PKT C minecraft:add_entity 01a80621ff54e6c6a34a168adbe09a428450cd48401a000000000000c04d570a3d8000003fe0000000000000e900827cba2e00260000
+PKT C minecraft:set_entity_data 65a8060807083e0000ff
+PKT C minecraft:add_entity 01a9062ccc223603cf459f91c41a4223c6c0e148401a000000000000c04d570a3d8000003fe000000000000091fb81aeced1000b0000
+PKT C minecraft:set_entity_data 65a9060807013e0000ff
+PKT C minecraft:container_set_slot 1400040025073e0000
+PKT C minecraft:set_entity_data 65a8060807083e0000ff
+PKT C minecraft:set_entity_data 65a9060807013e0000ff
+PKT C minecraft:remove_entities 4e01a506
+PKT Obs minecraft:set_entity_data 65a606080702370000ff
+PKT Obs minecraft:set_entity_data 65a506080701370000ff
+PKT Obs minecraft:add_entity 01a80621ff54e6c6a34a168adbe09a428450cd48401a000000000000c04d570a3d8000003fe0000000000000e900827cba2e00260000
+PKT Obs minecraft:set_entity_data 65a8060807083e0000ff
+PKT Obs minecraft:add_entity 01a9062ccc223603cf459f91c41a4223c6c0e148401a000000000000c04d570a3d8000003fe000000000000091fb81aeced1000b0000
+PKT Obs minecraft:set_entity_data 65a9060807013e0000ff
+PKT Obs minecraft:set_entity_data 65a8060807083e0000ff
+PKT Obs minecraft:set_entity_data 65a9060807013e0000ff
+PKT Obs minecraft:remove_entities 4e01a506
+# an item thrown from the inventory area of a stack that is partly picked up again
+E item#1 minecraft:item pos=0.4629893272857053,-60.0,0.5898335393975045 delta=-4.023963704524492E-4,-0.04,9.76709893319263E-4 rot=40.76919,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=13 pickup=27 health=5 owner=- thrower=A
+E item#3 minecraft:item pos=0.47705961829381005,-60.0,0.4706656590413864 delta=-7.593125751892175E-4,-0.08,-9.70948707830492E-4 rot=250.92235,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=12 pickup=28 health=5 owner=- thrower=A
+E item#4 minecraft:item pos=6.50932993215698,-60.0,0.5987617006922547 delta=1.2187825757354181E-4,-0.12,0.0012901384268228597 rot=54.77781,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*9 age=10 pickup=29 health=5 owner=- thrower=C
+E item#6 minecraft:item pos=0.5165800065741085,-60.0,0.4388307243441503 delta=3.123488539429493E-4,0.0,-0.0011523610115729017 rot=199.77307,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*61 age=10 pickup=30 health=5 owner=- thrower=A
+PKT A minecraft:set_entity_data 65a606080702370000ff
+PKT A minecraft:set_entity_data 65a506080701370000ff
+PKT A minecraft:add_entity 01a80621ff54e6c6a34a168adbe09a428450cd48401a000000000000c04d570a3d8000003fe0000000000000e900827cba2e00260000
+PKT A minecraft:set_entity_data 65a8060807083e0000ff
+PKT A minecraft:add_entity 01a9062ccc223603cf459f91c41a4223c6c0e148401a000000000000c04d570a3d8000003fe000000000000091fb81aeced1000b0000
+PKT A minecraft:set_entity_data 65a9060807013e0000ff
+PKT A minecraft:set_entity_data 65a8060807083e0000ff
+PKT A minecraft:set_entity_data 65a9060807013e0000ff
+PKT A minecraft:remove_entities 4e01a506
+PKT A minecraft:add_entity 01aa061097f3fe15eb4769a479089d115266f1483fe0000000000000c04d570a3d8000003fe000000000000069017ea8cb5a008e0000
+PKT A minecraft:set_entity_data 65aa0608073d370000ff
+PKT A minecraft:container_set_slot 140007000900
+PKT A minecraft:set_entity_data 65a606080703370000ff
+PKT A minecraft:set_entity_data 65aa0608073d370000ff
+PKT A minecraft:remove_entities 4e01a906
+PKT A minecraft:set_entity_data 65a8060807093e0000ff
+PKT Obs minecraft:add_entity 01aa061097f3fe15eb4769a479089d115266f1483fe0000000000000c04d570a3d8000003fe000000000000069017ea8cb5a008e0000
+PKT Obs minecraft:set_entity_data 65aa0608073d370000ff
+PKT Obs minecraft:set_entity_data 65a606080703370000ff
+PKT Obs minecraft:set_entity_data 65aa0608073d370000ff
+PKT Obs minecraft:remove_entities 4e01a906
+PKT Obs minecraft:set_entity_data 65a8060807093e0000ff
+# the pickup delay runs out
+I A 0 minecraft:stone*4
+I A 1 minecraft:dirt*64
+PKT A minecraft:take_item_entity 7fa406a10601
+PKT A minecraft:container_set_slot 140008002404010000
+PKT A minecraft:remove_entities 4e01a406
+PKT A minecraft:remove_entities 4e01a606
+PKT A minecraft:set_entity_data 65aa06080740370000ff
+PKT A minecraft:take_item_entity 7fa806a20609
+PKT A minecraft:remove_entities 4e01a806
+PKT A minecraft:take_item_entity 7faa06a10640
+PKT A minecraft:container_set_slot 140009002540370000
+PKT A minecraft:remove_entities 4e01aa06
+PKT Obs minecraft:take_item_entity 7fa406a10601
+PKT Obs minecraft:remove_entities 4e01a406
+PKT Obs minecraft:remove_entities 4e01a606
+PKT Obs minecraft:set_entity_data 65aa06080740370000ff
+PKT Obs minecraft:take_item_entity 7fa806a20609
+PKT Obs minecraft:remove_entities 4e01a806
+PKT Obs minecraft:take_item_entity 7faa06a10640
+PKT Obs minecraft:remove_entities 4e01aa06
+I A 0 minecraft:stone*4
+I A 1 minecraft:dirt*64
+I C 1 minecraft:cobblestone*16
+PKT C minecraft:remove_entities 4e01a906
+PKT C minecraft:take_item_entity 7fa406a10601
+PKT C minecraft:remove_entities 4e01a406
+PKT C minecraft:remove_entities 4e01a606
+PKT C minecraft:take_item_entity 7fa806a20609
+PKT C minecraft:container_set_slot 1400050025103e0000
+PKT C minecraft:remove_entities 4e01a806
+PKT C minecraft:take_item_entity 7faa06a10640
+PKT C minecraft:remove_entities 4e01aa06

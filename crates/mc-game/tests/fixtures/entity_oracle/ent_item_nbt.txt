@@ -1,0 +1,66 @@
+# defaults, then an item that carries every field
+# a health that overflows a short, a count above the stack size, an unknown component
+# the entity name and a string thrower
+# stacks the loader discards: no item, a count of zero, an unknown item
+E i1 minecraft:item pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=2 pickup=0 health=5 owner=- thrower=-
+E i2 minecraft:item pos=4.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1/dmg=5 age=102 pickup=18 health=3 owner=f44cd58d-7902-30e7-8bde-679d783ee631 thrower=A
+E i3 minecraft:item pos=6.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*64 age=-32768 pickup=32767 health=5 owner=- thrower=-
+E i4 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*99 age=5002 pickup=-5 health=4464 owner=- thrower=-
+E i5 minecraft:item pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E i6 minecraft:item pos=12.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*2 age=2 pickup=0 health=5 owner=- thrower=-
+E i8 minecraft:item pos=16.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=2 pickup=0 health=5 owner=- thrower=-
+ED i1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:03010000
+ED i2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:019a0803000d012102030506080005426c616465
+ED i3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:40010000
+ED i4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:63010000
+ED i5 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:01370000
+ED i6 0:0:00 1:1:ac02 2:6:010800056e616d6564 3:8:01 4:8:00 5:8:00 6:20:00 7:1:00 8:7:02ef070000
+N i1 {Age:2s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:3,id:"minecraft:stone"},Motion:[0.0d,0.0d,0.0d],OnGround:1b,PickupDelay:0s,PortalCooldown:0,Pos:[2.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N i2 {Age:102s,Air:300s,Fire:0s,Health:3s,Invulnerable:0b,Item:{components:{minecraft:custom_name:"Blade",minecraft:damage:5,minecraft:enchantments:{minecraft:sharpness:2}},count:1,id:"minecraft:diamond_sword"},Motion:[0.0d,-0.04d,0.0d],OnGround:1b,Owner:[I;-196291187,2030186727,-1948358755,2017388081],PickupDelay:18s,PortalCooldown:0,Pos:[4.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Thrower:[I;-1217574189,-1929301680,-1288476465,-1272613004],fall_distance:0.0d}
+N i3 {Age:-32768s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:64,id:"minecraft:stone"},Motion:[0.0d,-0.04d,0.0d],OnGround:1b,PickupDelay:32767s,PortalCooldown:0,Pos:[6.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N i4 {Age:5002s,Air:300s,Fire:0s,Health:4464s,Invulnerable:0b,Item:{count:99,id:"minecraft:stone"},Motion:[0.0d,-0.04d,0.0d],OnGround:1b,PickupDelay:-5s,PortalCooldown:0,Pos:[8.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N i5 {Age:3s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:1,id:"minecraft:dirt"},Motion:[0.0d,0.0d,0.0d],OnGround:1b,PickupDelay:0s,PortalCooldown:0,Pos:[10.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N i6 {Age:2s,Air:300s,CustomName:"named",CustomNameVisible:1b,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:2,id:"minecraft:apple"},Motion:[0.0d,-0.04d,0.0d],OnGround:1b,PickupDelay:0s,PortalCooldown:0,Pos:[12.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+PKT A minecraft:add_entity 01a206e602261305c44853acd0eb5367adb5f6484004000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65a206080703010000ff
+PKT A minecraft:add_entity 01a306560d9f5a06624599a02a95231d194929484012000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65a3060807019a0803000d012102030506080005426c616465ff
+PKT A minecraft:add_entity 01a406ef9ede547cf34296b7c133927525e5c248401a000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65a406080740010000ff
+PKT A minecraft:add_entity 01a5067fac07caf77b47f0a36625934aab3027484021000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65a506080763010000ff
+PKT A minecraft:add_entity 01a606ee2b752c144e45938f4bd04cc23972b1484025000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65a606080701370000ff
+PKT A minecraft:add_entity 01a70647a52e72865e42d98f5dba1d6b9845e4484029000000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65a7060206010800056e616d6564030801080702ef070000ff
+PKT A minecraft:add_entity 01a90612a57de0ee04474e88bde95825652f52484030800000000000c04e00000000000040120000000000000000000000
+PKT A minecraft:set_entity_data 65a906080701010000ff
+PKT A minecraft:set_entity_data 65a606080701370000ff
+PKT A minecraft:set_entity_data 65a406080740010000ff
+PKT A minecraft:set_entity_data 65a206080703010000ff
+PKT A minecraft:set_entity_data 65a7060206010800056e616d6564030801080702ef070000ff
+PKT A minecraft:set_entity_data 65a906080701010000ff
+PKT A minecraft:set_entity_data 65a506080763010000ff
+PKT A minecraft:set_entity_data 65a3060807019a0803000d012102030506080005426c616465ff
+# merging into a live item: the stack, the owner and the age change, a missing key keeps the field
+E i1 minecraft:item pos=2.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=51 pickup=0 health=5 owner=A thrower=-
+E i2 minecraft:item pos=4.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*7 age=103 pickup=17 health=9 owner=f44cd58d-7902-30e7-8bde-679d783ee631 thrower=A
+E i3 minecraft:item pos=6.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*64 age=-32768 pickup=32767 health=5 owner=- thrower=00000001-0000-0002-0000-000300000004
+ED i1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:02370000
+ED i2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:070103000d012102030506080005426c616465
+ED i3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:40010000
+N i1 {Age:51s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:2,id:"minecraft:dirt"},Motion:[0.0d,-0.04d,0.0d],OnGround:1b,Owner:[I;-1217574189,-1929301680,-1288476465,-1272613004],PickupDelay:0s,PortalCooldown:0,Pos:[2.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
+N i2 {Age:103s,Air:300s,Fire:0s,Health:9s,Invulnerable:0b,Item:{components:{minecraft:custom_name:"Blade",minecraft:damage:5,minecraft:enchantments:{minecraft:sharpness:2}},count:7,id:"minecraft:stone"},Motion:[0.0d,-0.08d,0.0d],OnGround:1b,Owner:[I;-196291187,2030186727,-1948358755,2017388081],PickupDelay:17s,PortalCooldown:0,Pos:[4.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Thrower:[I;-1217574189,-1929301680,-1288476465,-1272613004],fall_distance:0.0d}
+N i3 {Age:-32768s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:64,id:"minecraft:stone"},Motion:[0.0d,-0.08d,0.0d],OnGround:1b,PickupDelay:32767s,PortalCooldown:0,Pos:[6.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Thrower:[I;1,2,3,4],fall_distance:0.0d}
+PKT A minecraft:set_entity_data 65a406080740010000ff
+PKT A minecraft:set_entity_data 65a206080702370000ff
+PKT A minecraft:set_entity_data 65a3060807070103000d012102030506080005426c616465ff
+# an item merged to an empty stack is discarded on load
+E i1 minecraft:item pos=2.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=52 pickup=0 health=5 owner=A thrower=-
+E i2 minecraft:item pos=4.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*7 age=104 pickup=16 health=9 owner=f44cd58d-7902-30e7-8bde-679d783ee631 thrower=A
+E i3 minecraft:item pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*64 age=-32768 pickup=32767 health=5 owner=- thrower=00000001-0000-0002-0000-000300000004
+E i4 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=5004 pickup=-5 health=4464 owner=- thrower=-
+E i5 minecraft:item pos=10.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=5 pickup=0 health=5 owner=- thrower=-
+E i6 minecraft:item pos=12.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*2 age=4 pickup=0 health=5 owner=- thrower=-
+E i8 minecraft:item pos=16.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=4 pickup=0 health=5 owner=- thrower=-
+PKT A minecraft:set_entity_data 65a506080701010000ff

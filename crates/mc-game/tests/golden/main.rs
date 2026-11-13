@@ -85,6 +85,7 @@ mod ent_displays_golden;
 mod ent_dump_golden;
 mod ent_end_crystal_golden;
 mod ent_interact_golden;
+mod ent_item_golden;
 mod ent_leash_knot_golden;
 mod ent_lightning_golden;
 mod ent_marker_interaction_golden;

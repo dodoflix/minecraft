@@ -1,0 +1,53 @@
+# The packets of dropping and picking an item up: the Q key (one item, a whole stack), a THROW click on an inventory slot (one, all), a
+# creative player's drop, and the pickup after the 40-tick delay (take_item_entity, the slot update of the picker, remove_entities, the
+# count the pickup left in the entity). The player looks straight down, so a dropped item lands at its feet; an observer sees the same.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 0.5 0 90
+spawn_player C creative 6.5 -60 0.5 0 90
+spawn_player Obs survival 3.5 -60 4.5 0 0
+tick 30
+dump packets:A:none packets:C:none packets:Obs:none
+give A hotbar0 minecraft:stone 5
+give A hotbar1 minecraft:dirt 3
+give A inv9 minecraft:dirt 61
+give C hotbar0 minecraft:cobblestone 8
+give C hotbar1 minecraft:cobblestone 8
+tick 2
+dump packets:A:none packets:C:none packets:Obs:none
+note Q key: one item
+level_seed 31
+drop A
+dump entities inventory:A packets:A:add_entity,take_item_entity,container_set_slot,container_set_content,set_player_inventory,set_entity_data,set_entity_motion,remove_entities packets:Obs:add_entity,take_item_entity,set_entity_data,set_entity_motion,remove_entities
+tick 1
+dump entities packets:A:add_entity,take_item_entity,container_set_slot,container_set_content,set_player_inventory,set_entity_data,set_entity_motion,remove_entities packets:Obs:add_entity,take_item_entity,set_entity_data,set_entity_motion,remove_entities
+note THROW click: one item, then the stack
+level_seed 32
+click A 37 0 THROW
+dump entities inventory:A packets:A:add_entity,take_item_entity,container_set_slot,container_set_content,set_player_inventory,set_entity_data,set_entity_motion,remove_entities packets:Obs:add_entity,take_item_entity,set_entity_data,set_entity_motion,remove_entities
+level_seed 33
+click A 37 1 THROW
+dump entities inventory:A packets:A:add_entity,take_item_entity,container_set_slot,container_set_content,set_player_inventory,set_entity_data,set_entity_motion,remove_entities packets:Obs:add_entity,take_item_entity,set_entity_data,set_entity_motion,remove_entities
+note the second stone drop merges with the first one
+level_seed 34
+drop A
+tick 1
+note creative
+level_seed 35
+drop C all
+click C 37 0 THROW
+tick 1
+dump entities inventory:C packets:C:add_entity,take_item_entity,container_set_slot,container_set_content,set_player_inventory,set_entity_data,remove_entities packets:Obs:add_entity,take_item_entity,set_entity_data,remove_entities
+note an item thrown from the inventory area of a stack that is partly picked up again
+level_seed 36
+click A 9 1 THROW
+tick 10
+dump entities packets:A:add_entity,take_item_entity,container_set_slot,container_set_content,set_player_inventory,set_entity_data,remove_entities packets:Obs:add_entity,take_item_entity,set_entity_data,remove_entities
+note the pickup delay runs out
+tick 40
+dump entities inventory:A packets:A:add_entity,take_item_entity,container_set_slot,container_set_content,set_player_inventory,set_entity_data,remove_entities packets:Obs:add_entity,take_item_entity,set_entity_data,remove_entities
+tick 40
+dump entities inventory:A inventory:C packets:A:add_entity,take_item_entity,container_set_slot,container_set_content,set_player_inventory,set_entity_data,remove_entities packets:C:take_item_entity,container_set_slot,set_player_inventory,remove_entities packets:Obs:add_entity,take_item_entity,set_entity_data,remove_entities

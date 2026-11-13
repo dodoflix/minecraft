@@ -1,0 +1,39 @@
+# part of a stack fits, none of another
+# all of it, then a second stack that fills the last free slot
+E p1 minecraft:item pos=2.5,-59.5,2.5 delta=0.0,0.0,0.0 rot=121.775635,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*10 age=0 pickup=0 health=5 owner=- thrower=-
+E p2 minecraft:item pos=2.5,-59.2,2.5 delta=0.0,0.0,0.0 rot=111.30346,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=0 pickup=0 health=5 owner=- thrower=-
+E p3 minecraft:item pos=6.5,-59.5,6.5 delta=0.0,0.0,0.0 rot=345.54947,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*4 age=0 pickup=0 health=5 owner=- thrower=-
+E p4 minecraft:item pos=6.5,-59.5,2.5 delta=0.0,0.0,0.0 rot=10.270994,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*7 age=0 pickup=0 health=5 owner=- thrower=-
+E p5 minecraft:item pos=6.5,-59.2,2.5 delta=0.0,0.0,0.0 rot=180.03117,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*7 age=0 pickup=0 health=5 owner=- thrower=-
+BE 2 -60 2 {Items:[{Slot:0b,count:64,id:"minecraft:cobblestone"},{Slot:1b,count:64,id:"minecraft:cobblestone"},{Slot:2b,count:64,id:"minecraft:cobblestone"},{Slot:3b,count:64,id:"minecraft:cobblestone"},{Slot:4b,count:60,id:"minecraft:dirt"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:2,y:-60,z:2}
+BE 6 -60 2 {Items:[{Slot:0b,count:30,id:"minecraft:cobblestone"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:6,y:-60,z:2}
+PKT A minecraft:set_entity_data 65a20608070a370000ff
+PKT A minecraft:set_entity_data 65a306080705fe070000ff
+PKT A minecraft:set_entity_data 65a4060807043e0000ff
+PKT A minecraft:set_entity_data 65a5060807073e0000ff
+PKT A minecraft:set_entity_data 65a606080707f4070000ff
+E p1 minecraft:item pos=2.5,-59.25393185019493,2.5 delta=0.0,0.24114679150234508,0.0 rot=121.775635,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=1 pickup=0 health=5 owner=- thrower=-
+E p2 minecraft:item pos=2.5,-59.24,2.5 delta=0.0,-0.03920000076293945,0.0 rot=111.30346,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=1 pickup=0 health=5 owner=- thrower=-
+E p3 minecraft:item pos=6.5,-59.54,6.5 delta=0.0,-0.03920000076293945,0.0 rot=345.54947,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*4 age=1 pickup=0 health=5 owner=- thrower=-
+E p4 minecraft:item pos=6.5,-59.25398561358452,2.5 delta=0.0,0.24109410337952397,0.0 rot=10.270994,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*7 age=1 pickup=0 health=5 owner=- thrower=-
+BE 2 -60 2 {Items:[{Slot:0b,count:64,id:"minecraft:cobblestone"},{Slot:1b,count:64,id:"minecraft:cobblestone"},{Slot:2b,count:64,id:"minecraft:cobblestone"},{Slot:3b,count:64,id:"minecraft:cobblestone"},{Slot:4b,count:64,id:"minecraft:dirt"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:2,y:-60,z:2}
+BE 6 -60 2 {Items:[{Slot:0b,count:30,id:"minecraft:cobblestone"},{Slot:1b,count:7,id:"minecraft:diamond"}],TransferCooldown:7,components:{},id:"minecraft:hopper",x:6,y:-60,z:2}
+PKT A minecraft:set_entity_data 65a606080707f4070000ff
+PKT A minecraft:set_entity_data 65a4060807043e0000ff
+PKT A minecraft:set_entity_data 65a20608070a370000ff
+PKT A minecraft:set_entity_data 65a5060807073e0000ff
+PKT A minecraft:set_entity_data 65a306080705fe070000ff
+PKT A minecraft:remove_entities 4e01a606
+E p1 minecraft:item pos=2.5,-58.82930709080783,2.5 delta=0.0,-0.08734569558632244,0.0 rot=121.775635,0.0 og=0 fall=0.14959675818681717 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=9 pickup=0 health=5 owner=- thrower=-
+E p2 minecraft:item pos=2.5,-59.3125,2.5 delta=0.0,0.0,0.0 rot=111.30346,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=9 pickup=0 health=5 owner=- thrower=-
+E p3 minecraft:item pos=6.5,-60.0,6.5 delta=0.0,-0.04,0.0 rot=345.54947,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*4 age=9 pickup=0 health=5 owner=- thrower=-
+BE 2 -60 2 {Items:[{Slot:0b,count:64,id:"minecraft:cobblestone"},{Slot:1b,count:64,id:"minecraft:cobblestone"},{Slot:2b,count:64,id:"minecraft:cobblestone"},{Slot:3b,count:64,id:"minecraft:cobblestone"},{Slot:4b,count:64,id:"minecraft:dirt"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:2,y:-60,z:2}
+BE 6 -60 2 {Items:[{Slot:0b,count:37,id:"minecraft:cobblestone"},{Slot:1b,count:7,id:"minecraft:diamond"}],TransferCooldown:7,components:{},id:"minecraft:hopper",x:6,y:-60,z:2}
+PKT A minecraft:set_entity_data 65a206080706370000ff
+PKT A minecraft:set_entity_data 65a306080705fe070000ff
+PKT A minecraft:remove_entities 4e01a506
+E p1 minecraft:item pos=2.5,-59.3125,2.5 delta=0.0,-0.12,0.0 rot=121.775635,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*6 age=17 pickup=0 health=5 owner=- thrower=-
+E p2 minecraft:item pos=2.5,-59.3125,2.5 delta=0.0,0.0,0.0 rot=111.30346,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*5 age=17 pickup=0 health=5 owner=- thrower=-
+E p3 minecraft:item pos=6.5,-60.0,6.5 delta=0.0,-0.04,0.0 rot=345.54947,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*4 age=17 pickup=0 health=5 owner=- thrower=-
+BE 2 -60 2 {Items:[{Slot:0b,count:64,id:"minecraft:cobblestone"},{Slot:1b,count:64,id:"minecraft:cobblestone"},{Slot:2b,count:64,id:"minecraft:cobblestone"},{Slot:3b,count:64,id:"minecraft:cobblestone"},{Slot:4b,count:64,id:"minecraft:dirt"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:2,y:-60,z:2}
+BE 6 -60 2 {Items:[{Slot:0b,count:37,id:"minecraft:cobblestone"},{Slot:1b,count:7,id:"minecraft:diamond"}],TransferCooldown:0,components:{},id:"minecraft:hopper",x:6,y:-60,z:2}

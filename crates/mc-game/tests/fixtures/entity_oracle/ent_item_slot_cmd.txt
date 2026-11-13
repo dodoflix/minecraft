@@ -1,0 +1,49 @@
+E i1 minecraft:item pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=2 pickup=0 health=5 owner=- thrower=-
+E i2 minecraft:item pos=4.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_sword*1 age=2 pickup=0 health=5 owner=- thrower=-
+E i3 minecraft:item pos=6.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*5 age=2 pickup=0 health=5 owner=- thrower=-
+E i4 minecraft:item pos=8.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=2 pickup=0 health=5 owner=- thrower=-
+ED i1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:03010000
+# names in feedback
+C Diamond Sword has the following entity data: {components: {"minecraft:custom_name": "Blade"}, count: 1, id: "minecraft:diamond_sword"}
+C There are no tags on the 0 entities
+C Teleported Potion of Swiftness to 8.500000, -60.000000, 5.500000
+PKT A minecraft:teleport_entity 8001a5064021000000000000c04e000000000000401600000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+# replace the contents
+C Replaced 1 slot(s) on Emerald with [Emerald]
+E i2 minecraft:item pos=4.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*4 age=3 pickup=0 health=5 owner=- thrower=-
+ED i2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:04f5070000
+N i2 {Age:3s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{count:4,id:"minecraft:emerald"},Motion:[0.0d,-0.08d,0.0d],OnGround:1b,PickupDelay:0s,PortalCooldown:0,Pos:[4.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["two"],fall_distance:0.0d}
+PKT A minecraft:set_entity_data 65a306080704f5070000ff
+C Can't find element 'minecraft:contents.0' in registry 'minecraft:slot_source'
+C ...contents.0 with minecraft:emerald 4<--[HERE]
+C Replaced 1 slot(s) on Emerald with [Emerald]
+C Replaced 1 slot(s) on Air with [Air]
+E i1 minecraft:item pos=2.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=4 pickup=0 health=5 owner=- thrower=-
+E i3 minecraft:item pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*5 age=4 pickup=0 health=5 owner=- thrower=-
+E i4 minecraft:item pos=8.5,-60.0,5.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:potion*1 age=4 pickup=0 health=5 owner=- thrower=-
+PKT A minecraft:set_entity_data 65a306080700ff
+PKT A minecraft:remove_entities 4e01a306
+# copy and modify the contents
+C Replaced 1 slot(s) on named
+C Modified 1 slot(s) on named
+C Modified 1 slot(s) on named
+C Replaced 1 slot(s) on A
+C Replaced 1 slot(s) on Stone
+E i1 minecraft:item pos=2.5,-60.0,4.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=5 pickup=0 health=5 owner=- thrower=-
+E i3 minecraft:item pos=6.5,-60.0,4.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*9 age=5 pickup=0 health=5 owner=- thrower=-
+E i4 minecraft:item pos=8.5,-60.0,5.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*9 age=5 pickup=0 health=5 owner=- thrower=-
+ED i3 0:0:00 1:1:ac02 2:6:010800056e616d6564 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:090101000608000772656e616d6564
+ED i4 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:7:090101000608000772656e616d6564
+I A 0 minecraft:stone*9{minecraft:custom_name:"renamed"}
+N i3 {Age:5s,Air:300s,CustomName:"named",Fire:0s,Health:5s,Invulnerable:0b,Item:{components:{minecraft:custom_name:"renamed"},count:9,id:"minecraft:stone"},Motion:[0.0d,-0.04d,0.0d],OnGround:1b,PickupDelay:0s,PortalCooldown:0,Pos:[6.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["three"],fall_distance:0.0d}
+N i4 {Age:5s,Air:300s,Fire:0s,Health:5s,Invulnerable:0b,Item:{components:{minecraft:custom_name:"renamed"},count:9,id:"minecraft:stone"},Motion:[0.0d,-0.08d,0.0d],OnGround:1b,PickupDelay:0s,PortalCooldown:0,Pos:[8.5d,-60.0d,5.5d],Rotation:[0.0f,0.0f],Tags:["four"],fall_distance:0.0d}
+PKT A minecraft:set_entity_data 65a4060807090101000608000772656e616d6564ff
+PKT A minecraft:set_entity_data 65a5060807090101000608000772656e616d6564ff
+# data merge and kill
+C Modified entity data of named
+C Killed Stone
+E i1 minecraft:item pos=2.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*3 age=6 pickup=0 health=5 owner=- thrower=-
+E i3 minecraft:item pos=6.5,-60.0,4.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*9 age=201 pickup=29 health=5 owner=- thrower=-
+N i3 {Age:201s,Air:300s,CustomName:"named",Fire:0s,Health:5s,Invulnerable:0b,Item:{components:{minecraft:custom_name:"renamed"},count:9,id:"minecraft:stone"},Motion:[0.0d,-0.08d,0.0d],OnGround:1b,PickupDelay:29s,PortalCooldown:0,Pos:[6.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],Tags:["three"],fall_distance:0.0d}
+PKT A minecraft:remove_entities 4e01a506
+PKT A minecraft:set_entity_data 65a4060807090101000608000772656e616d6564ff

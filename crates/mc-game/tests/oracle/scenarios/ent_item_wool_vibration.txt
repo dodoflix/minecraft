@@ -1,0 +1,34 @@
+# Items that land: a wool or carpet item dampens the vibration of its fall (item tag dampens_vibrations), any other item sets a sculk
+# sensor off. Five sensors far enough apart not to hear each other's item: wool, stone, a wool carpet, a moss carpet, another wool.
+command_env
+level flat
+preload 6
+level_seed 5
+entity_counter 800
+spawn_player A survival 0.5 -60 40.5 0 0
+tick 2
+dump packets:A:none
+block 2 -60 2 minecraft:sculk_sensor
+block 42 -60 2 minecraft:sculk_sensor
+block -38 -60 2 minecraft:sculk_sensor
+block 82 -60 2 minecraft:sculk_sensor
+block -78 -60 2 minecraft:sculk_sensor
+tick 2
+note one item each, dropped from three blocks up
+spawn_item w1 minecraft:white_wool 4.5 -57 2.5 0 0 0
+entity_seed w1 11
+spawn_item s1 minecraft:stone 44.5 -57 2.5 0 0 0
+entity_seed s1 12
+spawn_item c1 minecraft:white_carpet -35.5 -57 2.5 0 0 0
+entity_seed c1 13
+spawn_item m1 minecraft:moss_carpet 84.5 -57 2.5 0 0 0
+entity_seed m1 14
+spawn_item w2 minecraft:red_wool -75.5 -57 2.5 0 0 0
+entity_seed w2 15
+dump events
+tick 10
+dump events xentities blocks:2,-60,2,2,-60,2 blocks:42,-60,2,42,-60,2 blocks:-38,-60,2,-38,-60,2 blocks:82,-60,2,82,-60,2 blocks:-78,-60,2,-78,-60,2
+tick 10
+dump events blocks:2,-60,2,2,-60,2 blocks:42,-60,2,42,-60,2 blocks:-38,-60,2,-38,-60,2 blocks:82,-60,2,82,-60,2 blocks:-78,-60,2,-78,-60,2
+tick 40
+dump events blocks:2,-60,2,2,-60,2 blocks:42,-60,2,42,-60,2 blocks:-38,-60,2,-38,-60,2 blocks:82,-60,2,82,-60,2 blocks:-78,-60,2,-78,-60,2

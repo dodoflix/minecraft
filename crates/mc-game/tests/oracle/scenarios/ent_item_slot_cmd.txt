@@ -1,0 +1,51 @@
+# Item entities and commands: `/item replace` and `/item modify` on slot contents (an item entity has the single slot 0), a slot an item
+# entity does not have, the entity name in command feedback (the name of the item, or the custom name; the feedback is a `C` line, compared
+# by its own test), and `data merge`.
+command_env
+level flat
+preload 3
+level_seed 5
+entity_counter 800
+spawn_player A creative 0.5 -60 20.5 0 0
+op A
+tick 2
+dump packets:A:none
+spawn i1 minecraft:item 2.5 -60 4.5 0 0 {Item:{id:"minecraft:stone",count:3}}
+entity_seed i1 11
+spawn i2 minecraft:item 4.5 -60 4.5 0 0 {Item:{id:"minecraft:diamond_sword",count:1,components:{"minecraft:custom_name":"Blade"}},Tags:[two]}
+entity_seed i2 12
+spawn i3 minecraft:item 6.5 -60 4.5 0 0 {CustomName:"named",Item:{id:"minecraft:oak_planks",count:5},Tags:[three]}
+entity_seed i3 13
+spawn i4 minecraft:item 8.5 -60 4.5 0 0 {Item:{id:"minecraft:potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:swiftness"}}},Tags:[four]}
+entity_seed i4 14
+tick 2
+dump xentities edata:i1 packets:A:none
+note names in feedback
+cmd execute as A run data get entity @e[type=item,tag=two,limit=1] Item
+cmd execute as A run tag @e[type=item,limit=1,sort=nearest] list
+cmd execute as A run teleport @e[type=item,tag=four] 8.5 -60 5.5
+cmd execute as A run effect give @e[type=item,tag=four] minecraft:speed
+dump packets:A:teleport_entity
+note replace the contents
+cmd execute as A run item replace entity @e[type=item,tag=two,limit=1] contents with minecraft:emerald 4
+tick 1
+dump xentity:i2 edata:i2 nbt:i2 packets:A:set_entity_data
+cmd execute as A run item replace entity @e[type=item,tag=two,limit=1] contents.0 with minecraft:emerald 4
+cmd execute as A run item replace entity @e[type=item,tag=two,limit=1] weapon.mainhand with minecraft:emerald 4
+cmd execute as A run item replace entity @e[type=item,tag=two,limit=1] container.0 with minecraft:emerald 4
+cmd execute as A run item replace entity @e[type=item,tag=two,limit=1] contents with minecraft:air
+tick 1
+dump xentities packets:A:set_entity_data,remove_entities
+note copy and modify the contents
+cmd execute as A run item replace entity @e[type=item,tag=three,limit=1] contents from entity @e[type=item,limit=1,sort=nearest] contents
+cmd execute as A run item modify entity @e[type=item,tag=three,limit=1] contents {type:"minecraft:set_count",count:9}
+cmd execute as A run item modify entity @e[type=item,tag=three,limit=1] contents {type:"minecraft:set_name",name:{text:"renamed"},target:"custom_name"}
+cmd execute as A run item replace entity A weapon.mainhand from entity @e[type=item,tag=three,limit=1] contents
+cmd execute as A run item replace entity @e[type=item,tag=four,limit=1] contents from entity A weapon.mainhand
+tick 1
+dump xentities edata:i3 edata:i4 inventory:A nbt:i3 nbt:i4 packets:A:set_entity_data
+note data merge and kill
+cmd execute as A run data merge entity @e[type=item,tag=three,limit=1] {Age:200s,PickupDelay:30s}
+cmd execute as A run kill @e[type=item,tag=four]
+tick 1
+dump xentities nbt:i3 packets:A:set_entity_data,remove_entities
