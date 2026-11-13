@@ -241,7 +241,7 @@ public final class MiscPass implements Pass {
          Enumeration<java.util.jar.JarEntry> en = jf.entries();
          while (en.hasMoreElements()) {
             String n = en.nextElement().getName();
-            if (n.startsWith("net/minecraft/world/entity/") && n.endsWith(".class") && !n.contains("$")) {
+            if (n.startsWith("net/minecraft/world/entity/") && n.endsWith(".class")) {
                classNames.add(n.substring(0, n.length() - 6).replace('/', '.'));
             }
          }
