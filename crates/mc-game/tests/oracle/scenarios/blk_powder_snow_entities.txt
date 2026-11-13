@@ -1,0 +1,40 @@
+# Entities in powder snow: the stuck multiplier (0.9, 1.5, 0.9) for a pig, an item and simulated players (the freezing ticks rise inside the
+# block and fade outside), a player in leather boots walks on top and sinks while sneaking, a rabbit walks on it, a burning player and a
+# burning item put the fire out and break the block, jumping out of the pit.
+level flat
+preload 4
+level_seed 9
+entity_counter 700
+fill -2 -61 -2 60 -61 12 minecraft:stone
+fill 1 -60 1 3 -58 3 minecraft:powder_snow
+fill 7 -60 1 9 -58 3 minecraft:powder_snow
+fill 13 -60 1 15 -58 3 minecraft:powder_snow
+fill 19 -60 1 21 -58 3 minecraft:powder_snow
+fill 25 -60 1 27 -58 3 minecraft:powder_snow
+fill 31 -60 1 33 -58 3 minecraft:powder_snow
+fill 37 -60 1 39 -58 3 minecraft:powder_snow
+fill 43 -60 1 45 -58 3 minecraft:powder_snow
+spawn_player Fall survival 2.5 -54 2.5 0 0 sim
+spawn_player Boots survival 8.5 -54 2.5 0 0 sim
+give Boots feet minecraft:leather_boots
+spawn_player Sneak survival 14.5 -54 2.5 0 0 sim
+give Sneak feet minecraft:leather_boots
+spawn_player Burn survival 20.5 -56 2.5 0 0 sim
+set Burn fire 200
+spawn pig minecraft:pig 26.5 -55 2.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig 71
+spawn_item item minecraft:gold_ingot 32.5 -55 2.5 0 0 0
+entity_seed item 72
+spawn rabbit minecraft:rabbit 38.5 -55 2.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed rabbit 73
+spawn_player Jump survival 44.5 -54 2.5 0 0 sim
+watch entities player:Fall player:Boots player:Sneak player:Burn player:Jump events
+tick 30
+input Sneak sneak
+input Jump jump
+tick 40
+input Sneak none
+input Jump none
+tick 30
+watch off
+dump blocks:0,-61,0,46,-57,4 events

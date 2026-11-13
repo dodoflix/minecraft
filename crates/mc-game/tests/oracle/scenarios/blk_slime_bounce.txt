@@ -1,0 +1,33 @@
+# Slime block landings: Block.fallOn / updateEntityMovementAfterFallOn / SlimeBlock.stepOn. A falling item, pig, TNT and simulated
+# players (standing, sneaking, with boots, in creative) from several heights; no fall damage on a bounce, a sneaking player lands like on
+# stone, a walking player is slowed down on the slime, and the landing sounds follow the entity.
+level flat
+preload 4
+level_seed 6
+entity_counter 400
+fill -2 -61 -2 40 -61 12 minecraft:stone
+fill 0 -61 2 0 -61 2 minecraft:slime_block
+fill 4 -61 2 4 -61 2 minecraft:slime_block
+fill 8 -61 2 8 -61 2 minecraft:slime_block
+fill 12 -61 2 12 -61 2 minecraft:slime_block
+fill 16 -61 2 16 -61 2 minecraft:slime_block
+fill 20 -61 2 20 -61 2 minecraft:slime_block
+fill 24 -61 2 24 -61 2 minecraft:slime_block
+fill 28 -61 2 36 -61 2 minecraft:slime_block
+spawn_item item minecraft:gold_ingot 0.5 -50 2.5 0 0 0
+entity_seed item 51
+spawn pig minecraft:pig 4.5 -50 2.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig 52
+spawn tnt minecraft:tnt 8.5 -50 2.5 {fuse:200s}
+spawn_player Fall survival 12.5 -45 2.5 0 0 sim
+spawn_player Sneak survival 16.5 -45 2.5 0 0 sim
+input Sneak sneak
+spawn_player Creative creative 20.5 -45 2.5 0 0 sim
+spawn_player Low survival 24.5 -55 2.5 0 0 sim
+spawn_player Walk survival 28.5 -60 2.5 0 0 sim
+watch entities player:Fall player:Sneak player:Creative player:Low player:Walk events
+tick 5
+input Walk forward
+tick 100
+watch off
+dump events

@@ -1,0 +1,130 @@
+# Entities in the way of moving pistons: PistonMovingBlockEntity.moveCollidedEntities pushes items, mobs and simulated players by
+# the extending head and by pushed blocks (a mob squeezed against a wall keeps its place), ignores spectators and marker stands, a slime block
+# launches what it moves (mobs and items; the server-simulated player too), a honey block carries what stands on it sideways, the sticky
+# piston retraction drags a honey block with its passenger back.
+level flat
+preload 3
+level_seed 5
+entity_counter 300
+fill 0 -61 0 16 -61 40 minecraft:stone
+# slime and honey stick to every neighbour: their lanes have no floor under the moved block
+block 11 -61 3 minecraft:air
+block 11 -61 7 minecraft:air
+block 11 -61 11 minecraft:air
+block 11 -61 19 minecraft:air
+block 11 -61 23 minecraft:air
+block 11 -61 27 minecraft:air
+block 11 -61 31 minecraft:air
+# lane 1 (z=3): the head pushes an item, a pig, a standing player
+block 4 -60 3 minecraft:piston[facing=east,extended=false]
+spawn_item item minecraft:gold_ingot 5.5 -60 3.5 0 0 0
+entity_seed item 31
+block 4 -60 7 minecraft:piston[facing=east,extended=false]
+spawn pig minecraft:pig 5.5 -60 7.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig 32
+block 4 -60 11 minecraft:piston[facing=east,extended=false]
+spawn_player Pushed survival 5.5 -60 11.5 0 0 sim
+# lane 2: a pushed stone block with a pig on top, and a pushed stone block with a pig beside it, squeezed against a wall
+block 4 -60 15 minecraft:piston[facing=east,extended=false]
+block 5 -60 15 minecraft:stone
+spawn ontop minecraft:pig 5.5 -59 15.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed ontop 33
+block 4 -60 19 minecraft:piston[facing=east,extended=false]
+block 5 -60 19 minecraft:stone
+block 8 -60 19 minecraft:stone
+block 8 -59 19 minecraft:stone
+spawn squeezed minecraft:pig 6.5 -60 19.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed squeezed 34
+# lane 3: spectator and marker armor stand are ignored, a normal armor stand is pushed
+block 4 -60 23 minecraft:piston[facing=east,extended=false]
+spawn_player Ghost spectator 5.5 -60 23.5 0 0 sim
+block 4 -60 27 minecraft:piston[facing=east,extended=false]
+spawn marker minecraft:armor_stand 5.5 -60 27.5 {Marker:1b}
+entity_seed marker 35
+block 4 -60 31 minecraft:piston[facing=east,extended=false]
+spawn stand minecraft:armor_stand 5.5 -60 31.5
+entity_seed stand 36
+# lane 4: a slime block pushed sideways bounces an item, a pig and a standing player in its way
+block 10 -60 3 minecraft:piston[facing=east,extended=false]
+block 11 -60 3 minecraft:slime_block
+spawn_item slimeitem minecraft:gold_ingot 12.5 -60 3.5 0 0 0
+entity_seed slimeitem 37
+block 10 -60 7 minecraft:piston[facing=east,extended=false]
+block 11 -60 7 minecraft:slime_block
+spawn slimepig minecraft:pig 12.5 -60 7.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed slimepig 38
+block 10 -60 11 minecraft:piston[facing=east,extended=false]
+block 11 -60 11 minecraft:slime_block
+spawn_player Slimed survival 12.5 -60 11.5 0 0 sim
+# lane 5: a vertical piston launches what stands on its slime block
+block 10 -61 15 minecraft:sticky_piston[facing=up,extended=false]
+block 10 -60 15 minecraft:slime_block
+spawn_item launchitem minecraft:gold_ingot 10.5 -59 15.5 0 0 0
+entity_seed launchitem 39
+block 12 -61 15 minecraft:piston[facing=up,extended=false]
+block 12 -60 15 minecraft:slime_block
+spawn launchpig minecraft:pig 12.5 -59 15.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed launchpig 40
+block 14 -61 15 minecraft:piston[facing=up,extended=false]
+block 14 -60 15 minecraft:slime_block
+spawn_player Launched survival 14.5 -59 15.5 0 0 sim
+# lane 6: a pushed honey block carries what stands on it
+block 10 -60 19 minecraft:piston[facing=east,extended=false]
+block 11 -60 19 minecraft:honey_block
+spawn_item honeyitem minecraft:gold_ingot 11.5 -58.9 19.5 0 0 0
+entity_seed honeyitem 41
+block 10 -60 23 minecraft:piston[facing=east,extended=false]
+block 11 -60 23 minecraft:honey_block
+spawn honeypig minecraft:pig 11.5 -58.9 23.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed honeypig 42
+block 10 -60 27 minecraft:piston[facing=east,extended=false]
+block 11 -60 27 minecraft:honey_block
+spawn_player Honeyed survival 11.5 -58.9 27.5 0 0 sim
+# lane 7: a sticky piston drags a honey block (and its pig) back
+block 10 -60 31 minecraft:sticky_piston[facing=east,extended=false]
+block 11 -60 31 minecraft:honey_block
+spawn dragpig minecraft:pig 11.5 -58.9 31.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed dragpig 43
+watch entities player:Pushed player:Ghost player:Slimed player:Launched player:Honeyed
+tick 4
+block 4 -59 3 minecraft:redstone_block
+block 4 -59 7 minecraft:redstone_block
+block 4 -59 11 minecraft:redstone_block
+block 4 -59 15 minecraft:redstone_block
+block 4 -59 19 minecraft:redstone_block
+block 4 -59 23 minecraft:redstone_block
+block 4 -59 27 minecraft:redstone_block
+block 4 -59 31 minecraft:redstone_block
+block 10 -59 3 minecraft:redstone_block
+block 10 -59 7 minecraft:redstone_block
+block 10 -59 11 minecraft:redstone_block
+block 10 -62 15 minecraft:redstone_block
+block 12 -62 15 minecraft:redstone_block
+block 14 -62 15 minecraft:redstone_block
+block 10 -59 19 minecraft:redstone_block
+block 10 -59 23 minecraft:redstone_block
+block 10 -59 27 minecraft:redstone_block
+block 10 -59 31 minecraft:redstone_block
+tick 24
+dump events
+block 4 -59 3 minecraft:air
+block 4 -59 7 minecraft:air
+block 4 -59 11 minecraft:air
+block 4 -59 15 minecraft:air
+block 4 -59 19 minecraft:air
+block 4 -59 23 minecraft:air
+block 4 -59 27 minecraft:air
+block 4 -59 31 minecraft:air
+block 10 -59 3 minecraft:air
+block 10 -59 7 minecraft:air
+block 10 -59 11 minecraft:air
+block 10 -62 15 minecraft:air
+block 12 -62 15 minecraft:air
+block 14 -62 15 minecraft:air
+block 10 -59 19 minecraft:air
+block 10 -59 23 minecraft:air
+block 10 -59 27 minecraft:air
+block 10 -59 31 minecraft:air
+tick 24
+watch off
+dump blocks:3,-62,2,15,-57,33 events

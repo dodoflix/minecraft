@@ -1,0 +1,28 @@
+# Honey block: falling beside a honey wall slows the slide (entityInside, the slide advancement for a simulated player, slide sounds and
+# entity events for living entities, TNT and items), landing on top halves fall damage (fallOn 0.2), the jump and speed factors.
+level flat
+preload 4
+level_seed 7
+entity_counter 500
+fill -2 -61 -2 40 -61 12 minecraft:stone
+fill 0 -61 2 0 -40 2 minecraft:honey_block
+fill 4 -61 2 4 -40 2 minecraft:honey_block
+fill 8 -61 2 8 -40 2 minecraft:honey_block
+fill 12 -61 2 12 -40 2 minecraft:honey_block
+fill 16 -61 2 16 -40 2 minecraft:honey_block
+fill 20 -61 2 20 -61 2 minecraft:honey_block
+fill 24 -61 2 24 -61 2 minecraft:honey_block
+spawn_player Slide survival 1.24 -42 2.5 0 0 sim
+spawn_player SlideZ survival 4.5 -42 3.245 0 0 sim
+spawn_item item minecraft:gold_ingot 9.07 -42 2.5 0 0 0
+entity_seed item 53
+spawn pig minecraft:pig 13.395 -42 2.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig 54
+spawn tnt minecraft:tnt 17.435 -42 2.5 {fuse:200s}
+spawn_player Land survival 20.5 -52 2.5 0 0 sim
+spawn cow minecraft:cow 24.5 -52 2.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed cow 55
+watch entities player:Slide player:SlideZ player:Land events
+tick 120
+watch off
+dump advancements:Slide advancements:SlideZ stats:Slide events

@@ -1,0 +1,60 @@
+# Entity.push / LivingEntity.pushEntities between overlapping pairs: mob and mob (also closer than the 0.01 limit), mob and boat, boat and
+# boat, a boat with a player rider, simulated player and mob (survival, creative, spectator), armor stand and item (not pushable), and the cramming
+# damage of a crowd of cows when max_entity_cramming is low.
+level flat
+preload 4
+level_seed 10
+entity_counter 800
+gamerule max_entity_cramming 3
+fill -2 -61 -2 80 -61 12 minecraft:stone
+spawn pig1 minecraft:pig 1.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig1 81
+spawn cow1 minecraft:cow 1.9 -60 1.7 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed cow1 82
+spawn pig2 minecraft:pig 8.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig2 83
+spawn pig3 minecraft:pig 8.505 -60 1.505 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig3 84
+spawn pig4 minecraft:pig 15.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig4 85
+spawn boat1 minecraft:oak_boat 16.3 -60 1.5
+entity_seed boat1 86
+spawn boat2 minecraft:birch_boat 22.5 -60 1.5
+entity_seed boat2 87
+spawn boat3 minecraft:spruce_boat 23.2 -60 1.9
+entity_seed boat3 88
+spawn_player Rider survival 29.5 -60 1.5 0 0
+spawn boat4 minecraft:oak_boat 29.5 -60 1.5
+entity_seed boat4 89
+ride Rider boat4
+spawn pig5 minecraft:pig 30.3 -60 1.7 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig5 90
+spawn_player Walker survival 36.5 -60 1.5 0 0 sim
+spawn pig6 minecraft:pig 36.8 -60 1.7 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig6 91
+spawn_player Maker creative 43.5 -60 1.5 0 0 sim
+spawn pig7 minecraft:pig 43.8 -60 1.7 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig7 92
+spawn_player Ghost spectator 50.5 -60 1.5 0 0 sim
+spawn pig8 minecraft:pig 50.8 -60 1.7 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig8 93
+spawn stand minecraft:armor_stand 57.5 -60 1.5
+entity_seed stand 94
+spawn pig9 minecraft:pig 57.8 -60 1.7 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig9 95
+spawn_item item minecraft:gold_ingot 64.5 -60 1.5 0 0 0
+entity_seed item 96
+spawn pig10 minecraft:pig 64.6 -60 1.6 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig10 97
+spawn cowa minecraft:cow 71.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed cowa 98
+spawn cowb minecraft:cow 71.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed cowb 99
+spawn cowc minecraft:cow 71.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed cowc 100
+spawn cowd minecraft:cow 71.5 -60 1.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed cowd 101
+watch entities player:Rider player:Walker player:Maker player:Ghost events
+tick 40
+watch off
+dump events

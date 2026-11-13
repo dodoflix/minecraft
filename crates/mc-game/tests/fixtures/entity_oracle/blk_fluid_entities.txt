@@ -1,0 +1,699 @@
+T 31
+E item minecraft:item pos=3.5138600001335143,-59.79949999997625,3.5 delta=0.02758280039520264,4.900000328104948E-4,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.514,-59.76000000089407,9.5 delta=0.011200000166893006,0.02699999976158141,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=6.512599999666214,-59.809943159054484,3.5 delta=0.012599999666213989,-0.009943159054487415,0.0 rot=0.0,0.0 og=0 fall=0.00994315929710865 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-57.96000000089407,3.5 delta=0.0,0.02699999976158141,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=9 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E burnt minecraft:item pos=29.5,-58.99949999997625,3.5 delta=0.0,4.900000328104948E-4,0.0 rot=55.336678,0.0 og=0 fall=0.0 fire=300 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=0 health=1 owner=- thrower=-
+E lavapig minecraft:pig pos=30.5,-58.96000000089407,4.5 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=10/20 death=0 fx=-
+P Swept minecraft:player pos=3.5,-58.5,15.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-58.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-58.96000000089407,4.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0151039
+EV sound at=30.5,-58.96000000089407,4.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=neutral vol=0.4 pitch=2.070064
+T 32
+E item minecraft:item pos=3.5550269729213295,-59.79850999991969,3.5 delta=0.05434363411725649,9.702000743107886E-4,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=2 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.539200000166893,-59.69300000202656,9.5 delta=0.020160000433921816,0.04859999989271162,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=6.536539998731612,-59.826527838451774,3.5 delta=0.02393999906539918,-0.016584679397292527,0.0 rot=0.0,0.0 og=0 fall=0.01658467948436737 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-57.89300000202656,3.5 delta=0.0,0.04859999989271162,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=8 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.96000000089407,4.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=9/19 death=0 fx=-
+P Swept minecraft:player pos=3.5,-58.57840000152588,15.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-58.07840000152588,3.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=29.5,-58.99850999991969,3.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=ambient vol=0.4 pitch=2.2893772
+T 33
+E item minecraft:item pos=3.622687171349189,-59.797039799821626,3.5 delta=0.08030699574981828,0.0014407961241401654,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=3 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.5733600006008146,-59.60440000302792,9.5 delta=0.02732800075435639,0.06588000025510785,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=6.570685996985912,-59.84673286389921,3.5 delta=0.0341459982542992,-0.020205025447439205,0.0 rot=0.0,0.0 og=0 fall=0.020205024629831314 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-57.80440000302792,3.5 delta=0.0,0.06588000025510785,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=7 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.94000000178814,4.5 delta=0.0,-0.010000000447034836,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=8/18 death=0 fx=-
+P Swept minecraft:player pos=3.5,-58.73363200604248,15.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-58.23363200604248,3.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=300 air=300 alive=1 pose=standing hp=196.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-58.23363200604248,3.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+EV sound at=30.5,-58.23363200604248,3.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=player vol=0.4 pitch=2.057203
+T 34
+E item minecraft:item pos=3.7160510980408907,-59.795099003673734,3.5 delta=0.10549664993864324,0.001901980261948862,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=4 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.614688001355171,-59.53852000277281,9.5 delta=0.03306240109615328,0.047704000989437084,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=6.614017394266891,-59.86799530064242,3.5 delta=0.04333139728097923,-0.02126243674320809,0.0 rot=0.0,0.0 og=0 fall=0.021262437105178833 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-57.698520003666886,3.5 delta=0.0,0.07970400075101848,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=6 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.95000000223518,4.5 delta=0.0,-0.025000000223517418,0.0 rot=0.0,0.0 og=0 fall=0.010000000707805157 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=7/17 death=0 fx=-
+P Swept minecraft:player pos=3.5,-58.96415937495544,15.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-58.46415937495544,3.5 delta=0.0,-0.20942189787847157,0.0 rot=0.0,0.0 og=0 fall=0.3473433703184128 fire=300 air=300 alive=1 pose=standing hp=196.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+T 35
+E item minecraft:item pos=3.8343527826197565,-59.79269702338804,3.5 delta=0.12993565314371391,0.002353940725797774,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=5 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.6617504024513243,-59.49081600178338,9.5 delta=0.03764992143795016,0.03316320136022568,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=6.665615650452885,-59.88830618566314,3.5 delta=0.05159825618599428,-0.020310885020720336,0.0 rot=0.0,0.0 og=0 fall=0.020310884341597557 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-57.57881600380993,3.5 delta=0.0,0.09076320131254192,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=5 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.93500000335276,4.5 delta=0.0,-0.012500000558793545,0.0 rot=0.0,0.0 og=0 fall=0.005000000353902578 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=6/16 death=0 fx=-
+P Swept minecraft:player pos=3.5,-59.268476202412984,15.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-58.673581272833914,3.5 delta=0.0,-0.12471094893923579,0.0 rot=0.0,0.0 og=0 fall=0.38309358805418015 fire=300 air=300 alive=1 pose=swimming hp=196.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+T 36
+E item minecraft:item pos=3.9768490806047105,-59.78984308263849,3.5 delta=0.15364637474315626,0.0027968619889901696,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=6 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.7134003238892745,-59.457652800423155,9.5 delta=0.04131993776607517,0.02153056148351671,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=6.724654079456296,-59.90623687273645,3.5 delta=0.05903842900341055,-0.017930687073308253,0.0 rot=0.0,0.0 og=0 fall=0.017930686473846436 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-57.48805280249739,3.5 delta=0.0,0.0676105621320152,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=4 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.94750000391156,4.5 delta=0.0,-0.026250000279396772,0.0 rot=0.0,0.0 og=0 fall=0.015000000363215804 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=5/15 death=0 fx=-
+P Swept minecraft:player pos=3.5,-59.64510670065164,15.5 delta=0.004095000118017197,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-58.79829222177315,3.5 delta=0.0,-0.0823554744696179,0.0 rot=0.0,0.0 og=0 fall=0.3162577413022518 fire=300 air=300 alive=1 pose=swimming hp=196.0 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+EV sound at=3.5,-59.64510670065164,15.5 r=16.0 ex=1 event=minecraft:entity.player.splash source=player vol=0.0753261 pitch=0.9789972
+T 37
+E item minecraft:item pos=4.142818993199236,-59.78654622062575,3.5 delta=0.1766505175082595,0.0032309248353667697,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=7 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.76872026165535,-59.43612223893964,9.5 delta=0.04425595087232518,0.01222444944347766,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=6.7903886638179936,-59.930027949825714,3.5 delta=0.06573458436169766,-0.02379107708926606,0.0 rot=0.0,0.0 og=0 fall=0.023791076615452766 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-57.380442241259445,3.5 delta=0.0,0.08108845027317428,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=3 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.973750004190954,4.5 delta=0.0,-0.033125000139698386,0.0 rot=0.0,0.0 og=0 fall=0.033750001224689186 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=4/14 death=0 fx=-
+P Swept minecraft:player pos=3.5084598275386285,-60.0,15.5 delta=0.006767862131751783,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-58.88064769624277,3.5 delta=0.0,-0.061177737234808946,0.0 rot=0.0,0.0 og=0 fall=0.24048434756696224 fire=300 air=300 alive=1 pose=swimming hp=196.0 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+T 38
+E item minecraft:item pos=4.3315630073505975,-59.78281529576664,3.5 delta=0.19896913746834108,0.00365630643309493,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=8 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.826976212527675,-59.42389778949616,9.5 delta=0.046604761392325195,0.00477955970050892,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=6.862149787842501,-59.956262231050395,3.5 delta=0.07176112402450725,-0.026234281224679426,0.0 rot=0.0,0.0 og=0 fall=0.026234280318021774 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-57.25935379188034,3.5 delta=0.0,0.09187076094677049,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=2 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.96687500522472,4.5 delta=0.0,-0.01656250051688403,0.0 rot=0.0,0.0 og=0 fall=0.016875000612344593 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=3/13 death=0 fx=-
+P Swept minecraft:player pos=3.5292276896703805,-60.0,15.5 delta=0.016614289952973635,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-58.941825433477575,3.5 delta=0.0,-0.05058886861740447,0.0 rot=0.0,0.0 og=0 fall=0.18141991179436445 fire=300 air=300 alive=1 pose=swimming hp=196.0 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+T 39
+E item minecraft:item pos=4.542402455475287,-59.7786589893098,3.5 delta=0.22062266318363918,0.004073180406982037,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=9 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.8875809739200005,-59.41911822979565,9.5 delta=0.048483809836325206,-0.0011763521826160723,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=6.939334797419853,-59.98217635896846,3.5 delta=0.077185009577352,-0.025914127918060456,0.0 rot=0.0,0.0 og=0 fall=0.025914127007126808 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-57.127483031827644,3.5 delta=0.0,0.10049660961418261,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=1 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.943437506635675,4.5 delta=0.0,-0.008281250705476851,0.0 rot=0.0,0.0 og=0 fall=0.008437500306172296 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=2/12 death=0 fx=-
+P Swept minecraft:player pos=3.559841979623354,-60.0,15.5 delta=0.02449143232732968,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-58.99241430209498,3.5 delta=0.0,-0.04529443430870224,0.0 rot=0.0,0.0 og=0 fall=0.14129882445558906 fire=300 air=300 alive=1 pose=swimming hp=196.0 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+T 40
+E item minecraft:item pos=4.774678894264626,-59.774085808879065,3.5 delta=0.24163091444387358,0.004481716909342641,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=10 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=3.950064783756326,-59.41911822979565,9.5 delta=0.04998704861392522,-0.005,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.02140130386545,-60.0,3.5 delta=0.08206650644559675,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-56.98698642310753,3.5 delta=0.0,0.10739728865094043,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=0 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.911718758235224,4.5 delta=0.0,-0.00414062579977326,0.0 rot=0.0,0.0 og=0 fall=0.004218750153086148 fire=300 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=1/11 death=0 fx=-
+P Swept minecraft:player pos=3.5983334119506836,-60.0,15.5 delta=0.030793146320717377,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.03770873640368,3.5 delta=0.0,-0.042647217154351116,0.0 rot=0.0,0.0 og=0 fall=0.11594384605996311 fire=300 air=300 alive=1 pose=swimming hp=196.0 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+T 41
+E item minecraft:item pos=5.027753502001947,-59.76910409194598,3.5 delta=0.26201312040958985,0.00488208268944825,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=11 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.014051832370251,-59.42411822979565,9.5 delta=0.051189639653925235,-0.009000000059604645,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.1078611573760835,-60.0,3.5 delta=0.08645985351063308,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-56.83958913535066,3.5 delta=0.0,0.11291783196260921,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=-1 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.89999997615814,4.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=0 fall=0.002109375076543074 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=10/20 death=0 fx=-
+P Swept minecraft:player pos=3.6431265582714008,-60.0,15.5 delta=0.035834517590549814,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.08035595355803,3.5 delta=0.0,-0.041323608577175555,0.0 rot=0.0,0.0 og=0 fall=0.10061913949903101 fire=300 air=300 alive=1 pose=swimming hp=196.0 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-58.89999997615814,4.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.1095088
+EV sound at=30.5,-58.89999997615814,4.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=neutral vol=0.4 pitch=2.3641214
+T 42
+E item minecraft:item pos=5.301006493839708,-59.76372200923278,3.5 delta=0.2817879372128922,0.0052744411615881165,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=12 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.079241472024177,-59.43311822985526,9.5 delta=0.05215171250026126,-0.012200000154972078,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.1982750231405035,-60.0,3.5 delta=0.09041386576442022,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-56.686671304282115,3.5 delta=0.0,0.11733426667775422,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=-2 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.919999976158145,4.5 delta=0.0,-0.03,0.0 rot=0.0,0.0 og=0 fall=0.0210546870912367 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=9/19 death=0 fx=-
+P Swept minecraft:player pos=3.6929610758619504,-60.0,15.5 delta=0.0398676146665136,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.121679562135206,3.5 delta=0.0,-0.040661804288587775,0.0 rot=0.0,0.0 og=0 fall=0.09163317939965054 fire=300 air=300 alive=1 pose=swimming hp=196.83333 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=5.0 exh=5.1 xp=0/0/0.0 sel=0 main=empty
+T 43
+E item minecraft:item pos=5.593836554501324,-59.75794756804744,3.5 delta=0.3009734650336747,0.005658952471768831,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=13 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.145393184524438,-59.44531823001023,9.5 delta=0.052921370788798876,-0.014760000269412998,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.292247499839061,-60.0,3.5 delta=0.09397247669855764,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-56.52933703849843,3.5 delta=0.0,0.12086741450251823,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=-3 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.909999977052216,4.5 delta=0.0,-0.015000000447034836,0.0 rot=0.0,0.0 og=0 fall=0.01052734354561835 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=8/18 death=0 fx=-
+P Swept minecraft:player pos=3.746828690528464,-60.0,15.5 delta=0.04309409237536289,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.162341366423796,3.5 delta=0.0,-0.040330902144293884,0.0 rot=0.0,0.0 og=0 fall=0.08647839407785796 fire=300 air=300 alive=1 pose=swimming hp=192.83333 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-59.162341366423796,3.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+EV sound at=30.5,-59.162341366423796,3.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=player vol=0.4 pitch=2.3147688
+T 44
+E item minecraft:item pos=5.905660287888484,-59.751788615551924,3.5 delta=0.31958726466698156,0.006035773563079902,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=14 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.212314555313236,-59.46007823027964,9.5 delta=0.05353709742880401,-0.016808000391483315,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-56.36846962488998,3.5 delta=0.0,0.12369393280444785,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=-4 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.92499997749925,4.5 delta=0.0,-0.027500000223517417,0.0 rot=0.0,0.0 og=0 fall=0.020263672368855623 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=7/17 death=0 fx=-
+P Swept minecraft:player pos=3.8039227829038267,-60.0,15.5 delta=0.04567527458090493,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.20267226856809,3.5 delta=0.0,-0.040165451072146946,0.0 rot=0.0,0.0 og=0 fall=0.08357009878091048 fire=300 air=300 alive=1 pose=swimming hp=192.83333 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 45
+E item minecraft:item pos=6.235911683090132,-59.7452528419651,3.5 delta=0.33764637359666033,0.006405058239752043,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=15 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.279851652742041,-59.47688623067113,9.5 delta=0.054029678748148145,-0.018446400513553632,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-56.2047756929796,3.5 delta=0.0,0.12595514747968628,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=-5 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.912499978616836,4.5 delta=0.0,-0.013750000558793544,0.0 rot=0.0,0.0 og=0 fall=0.010131836184427812 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=6/16 death=0 fx=-
+P Swept minecraft:player pos=3.8635980574847317,-60.0,15.5 delta=0.04774022037610865,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.242837719640235,3.5 delta=0.0,-0.04008272553607348,0.0 rot=0.0,0.0 og=0 fall=0.08195049981441116 fire=300 air=300 alive=1 pose=swimming hp=192.83333 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 46
+E item minecraft:item pos=6.5,-59.77884778372535,3.5 delta=0.014,-0.032923043565815664,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=16 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.347881331490189,-59.49533263118468,9.5 delta=0.05442374380949549,-0.019757120630741136,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-56.038820546393985,3.5 delta=0.0,0.12776411924683279,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=-6 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.89999997615814,4.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=0 fall=0.005065918092213906 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=5/15 death=0 fx=-
+P Swept minecraft:player pos=3.9253382778608406,-60.0,15.5 delta=0.049392177036887704,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.28292044517631,3.5 delta=0.0,-0.04004136276803674,0.0 rot=0.0,0.0 og=0 fall=0.08105797653479385 fire=300 air=300 alive=1 pose=swimming hp=192.83333 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 47
+E item minecraft:item pos=6.5,-59.811270827267414,3.5 delta=0.014,-0.03177458328964608,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=17 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.416305075299685,-59.515089751815424,9.5 delta=0.05473899586327098,-0.02080569674011614,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-55.87105642804122,3.5 delta=0.0,0.12921129668211462,0.0 rot=270.0,9.422674 og=0 fall=0.0 fire=0 air=-7 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.89999997615814,4.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=0 fall=0.002532959046106953 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=4/14 death=0 fx=-
+P Swept minecraft:player pos=3.9887304548977283,-60.0,15.5 delta=0.050713742385203806,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.322961807944345,3.5 delta=0.0,-0.040020681384018375,0.0 rot=0.0,0.0 og=0 fall=0.08057034927151108 fire=300 air=300 alive=1 pose=swimming hp=192.83333 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 48
+E item minecraft:item pos=6.5,-59.84254541053331,3.5 delta=0.014,-0.030649092197094743,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=18 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.485044071162956,-59.53589544855554,9.5 delta=0.05499119751004947,-0.021644557640116146,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-55.701845132253176,3.5 delta=0.0,0.13036903864759178,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-8 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.89999997615814,4.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=0 fall=0.0012664795230534764 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=3/13 death=0 fx=-
+P Swept minecraft:player pos=4.053444197282932,-60.0,15.5 delta=0.051770994679610965,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.36298248932837,3.5 delta=0.0,-0.04001034069200919,0.0 rot=0.0,0.0 og=0 fall=0.08030585655342293 fire=300 air=300 alive=1 pose=swimming hp=192.83333 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 49
+E item minecraft:item pos=6.5,-59.87269450270666,3.5 delta=0.014,-0.029546110904927394,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=19 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.5540352686730055,-59.55754000619566,9.5 delta=0.055192958830478735,-0.02231564637011615,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-55.53147609449965,3.5 delta=0.0,0.13129523223377487,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-9 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.89999997615814,4.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=0 fall=6.332397615267382E-4 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=2/12 death=0 fx=-
+P Swept minecraft:player pos=4.119215191962543,-60.0,15.5 delta=0.05261679652774012,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.402992830020374,3.5 delta=0.0,-0.04000517034600459,0.0 rot=0.0,0.0 og=0 fall=0.08016326878851032 fire=300 air=300 alive=1 pose=swimming hp=192.83333 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 50
+E item minecraft:item pos=6.5,-59.90174061358783,3.5 delta=0.014,-0.028465189217565693,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=20 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.623228227503485,-59.579855652565776,9.5 delta=0.05535436788922734,-0.022852517362116156,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-55.36018086315995,3.5 delta=0.0,0.13203618711376244,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-10 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E lavapig minecraft:pig pos=30.5,-58.89999997615814,4.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=0 fall=3.166198807633691E-4 fire=300 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=1/11 death=0 fx=-
+P Swept minecraft:player pos=4.185831988490284,-60.0,15.5 delta=0.053293438016326196,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.44299800036638,3.5 delta=0.0,-0.0400025851730023,0.0 rot=0.0,0.0 og=0 fall=0.08008680420311975 fire=300 air=300 alive=1 pose=swimming hp=192.83333 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+T 51
+E item minecraft:item pos=6.5,-59.92970580278165,3.5 delta=0.014,-0.02740588594333428,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=21 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.692582595392712,-59.602708169927894,9.5 delta=0.05548349513815037,-0.02328201416211616,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-55.188144676940254,3.5 delta=0.0,0.13262895102658537,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-11 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E item#1 minecraft:item pos=30.5,-58.89999997615814,4.5 delta=-0.08056919559741088,0.2,-0.09707177846544764 rot=260.5651,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cooked_porkchop*3 age=0 pickup=10 health=5 owner=- thrower=-
+P Swept minecraft:player pos=4.25312542650661,-60.0,15.5 delta=0.05383475121526125,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.48300058553938,3.5 delta=0.0,-0.04000129258650115,0.0 rot=0.0,0.0 og=0 fall=0.08004598655895734 fire=300 air=300 alive=1 pose=swimming hp=192.83333 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-58.89999997615814,4.5 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=1.0353297
+EV sound at=30.5,-58.89999997615814,4.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=neutral vol=0.4 pitch=2.3537483
+T 52
+E item minecraft:item pos=6.5,-59.95661168870123,3.5 delta=0.014,-0.02636776871438289,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.762066090530862,-59.62599018409001,9.5 delta=0.055586796938828106,-0.023625611607236165,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-55.01551572680774,3.5 delta=0.0,0.13310316216391,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-12 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E item#1 minecraft:item pos=30.42345926514292,-58.69999997615814,4.407781811615011 delta=-0.07500992161983773,0.1960000038146973,-0.09037382637621204 rot=260.5651,0.0 og=0 fall=0.0 fire=300 air=300 alive=1 pose=standing item=minecraft:cooked_porkchop*3 age=1 pickup=9 health=1 owner=- thrower=-
+P Swept minecraft:player pos=4.320960177721871,-60.0,15.5 delta=0.054267801780862254,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.52300187812588,3.5 delta=0.0,-0.04000064629325058,0.0 rot=0.0,0.0 og=0 fall=0.08002428506114256 fire=300 air=300 alive=1 pose=crouching hp=193.5 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=4.0 exh=5.2 xp=0/0/0.0 sel=0 main=empty
+T 53
+E item minecraft:item pos=6.5,-59.98247945739186,3.5 delta=0.014,-0.025350413810210012,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=23 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.83165288746969,-59.649615795697244,9.5 delta=0.055669438380601746,-0.02390048956742817,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-54.8424125655379,3.5 delta=0.0,0.13348253107942273,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-13 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=4.389227979502734,-60.0,15.5 delta=0.05461424223850542,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.56300252441913,3.5 delta=0.0,-0.040000323146625286,0.0 rot=0.0,0.0 og=0 fall=0.08001278983701354 fire=300 air=300 alive=1 pose=crouching hp=189.5 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.352199840498262,-58.50399997234344,4.321926677634949 r=16.0 ex=0 event=minecraft:entity.generic.burn source=ambient vol=0.4 pitch=2.2408984
+EV sound at=30.5,-59.56300252441913,3.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+EV sound at=30.5,-59.56300252441913,3.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=player vol=0.4 pitch=2.3355932
+T 54
+E item minecraft:item pos=6.5,-60.0,3.5 delta=0.014,0.0,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=24 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.901322325850291,-59.673516285264675,9.5 delta=0.05573555153500582,-0.024120391938858576,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-54.668930035352545,3.5 delta=0.0,0.13378602621635535,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-14 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=4.457842221741239,-60.0,15.5 delta=0.05489139460874984,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.60300284756576,3.5 delta=0.0,-0.04000016157331264,0.0 rot=0.0,0.0 og=0 fall=0.08000671812469307 fire=300 air=300 alive=1 pose=crouching hp=189.5 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+T 55
+E item minecraft:item pos=6.5,-59.99949999997625,3.5 delta=0.014,4.900000328104948E-4,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=25 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=4.971057877385297,-59.69763667720353,9.5 delta=0.05578844205931721,-0.02429631383862434,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-54.49514401003026,3.5 delta=0.0,0.1340288223295194,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-15 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=4.526733616349989,-60.0,15.5 delta=0.055113116508249294,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.64300300913907,3.5 delta=0.0,-0.04000008078665632,0.0 rot=0.0,0.0 og=0 fall=0.08000352208105 fire=300 air=300 alive=1 pose=crouching hp=189.5 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+T 56
+E item minecraft:item pos=6.5,-59.99850999991969,3.5 delta=0.014,9.702000743107886E-4,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=26 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.040846319444614,-59.72193299104216,9.5 delta=0.05583075447939683,-0.024437051360534104,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-54.32111518859481,3.5 delta=0.0,0.134223059222945,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-16 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=4.595846732858238,-60.0,15.5 delta=0.055290494030491986,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.68300308992573,3.5 delta=0.0,-0.04000004039332816,0.0 rot=0.0,0.0 og=0 fall=0.08000184210284189 fire=300 air=300 alive=1 pose=crouching hp=189.5 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+T 57
+E item minecraft:item pos=6.5,-59.99703979982163,3.5 delta=0.014,0.0014407961241401654,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=27 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.110677073924011,-59.746370042402695,9.5 delta=0.055864604415964934,-0.024549641379739636,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-54.14689213026593,3.5 delta=0.0,0.13437844874000096,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-17 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=4.66513722688873,-60.0,15.5 delta=0.05543239605040065,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.72300313031906,3.5 delta=0.0,-0.040000020196664085,0.0 rot=0.0,0.0 og=0 fall=0.08000096113554456 fire=300 air=300 alive=1 pose=crouching hp=189.5 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+T 58
+E item minecraft:item pos=6.5,-59.99509900367374,3.5 delta=0.014,0.001901980261948862,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=28 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.180541678339976,-59.77091968378244,9.5 delta=0.05589168436562294,-0.02463971339644624,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-53.97251368242,3.5 delta=0.0,0.1345027603554981,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-18 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=4.73456962293913,-60.0,15.5 delta=0.05554591766801918,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.76300315051572,3.5 delta=0.0,-0.04000001009833204,0.0 rot=0.0,0.0 og=0 fall=0.0800005020254444 fire=300 air=300 alive=1 pose=crouching hp=189.5 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+EV sound at=5.180541678339976,-59.77091968378244,9.5 r=16.0 ex=0 event=minecraft:entity.generic.swim source=neutral vol=0.01390737 pitch=1.0226394
+T 59
+E item minecraft:item pos=6.5,-59.99269702338804,3.5 delta=0.014,0.002353940725797774,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=29 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.250433362705599,-59.795559397178884,9.5 delta=0.05591334832567216,-0.024711771010885265,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-53.798010922958575,3.5 delta=0.0,0.13460220964937775,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-19 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=4.80411554060715,-60.0,15.5 delta=0.055636734963467285,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.803003160614054,3.5 delta=0.0,-0.040000005049166024,0.0 rot=0.0,0.0 og=0 fall=0.08000026129452342 fire=300 air=300 alive=1 pose=standing hp=189.5 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+T 60
+E item minecraft:item pos=6.5,-59.989843082638494,3.5 delta=0.014,0.0027968619889901696,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=30 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.320346711031271,-59.82027116818977,9.5 delta=0.055930679493969786,-0.024769417103295478,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-53.623408714203265,3.5 delta=0.0,0.13468176908566698,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=0 alive=1 pose=standing hp=8.0 abs=0.0 hurt=9/19 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=4.873752275570617,-60.0,15.5 delta=0.0557093888009084,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.84300316566322,3.5 delta=0.0,-0.04000000252458301,0.0 rot=0.0,0.0 og=0 fall=0.08000013720377264 fire=300 air=300 alive=1 pose=standing hp=189.5 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+EV sound at=21.5,-53.798010922958575,3.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0334954
+T 61
+E item minecraft:item pos=6.5,-59.986546220625755,3.5 delta=0.014,0.0032309248353667697,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=31 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.390277390525241,-59.84504058529306,9.5 delta=0.0559445444288145,-0.024815533977910847,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-53.44872694601167,3.5 delta=0.0,0.1347454166356468,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-1 alive=1 pose=standing hp=8.0 abs=0.0 hurt=8/18 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=4.943461664371525,-60.0,15.5 delta=0.0557675118717274,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.883003168187805,3.5 delta=0.0,-0.0400000012622915,0.0 rot=0.0,0.0 og=0 fall=0.08000007143310695 fire=300 air=300 alive=1 pose=standing hp=189.5 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.2999997 xp=0/0/0.0 sel=0 main=empty
+T 62
+E item minecraft:item pos=6.5,-59.98281529576664,3.5 delta=0.014,0.00365630643309493,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=32 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.460221934954055,-59.86985611927097,9.5 delta=0.05595563637685554,-0.024852427478152896,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-53.27398153027009,3.5 delta=0.0,0.13479633467638938,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-2 alive=1 pose=standing hp=8.0 abs=0.0 hurt=7/17 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.013229176243253,-60.0,15.5 delta=0.05581401032907547,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.9230031694501,3.5 delta=0.0,-0.040000000631145755,0.0 rot=0.0,0.0 og=0 fall=0.0800000385477741 fire=300 air=300 alive=1 pose=standing hp=190.0 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=3.0 exh=4.2999997 xp=0/0/0.0 sel=0 main=empty
+EV sound at=5.390277390525241,-59.84504058529306,9.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=0.90066767
+T 63
+E item minecraft:item pos=6.5,-59.9786589893098,3.5 delta=0.014,0.004073180406982037,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=33 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.530177571330911,-59.89470854674912,9.5 delta=0.05596450993542061,-0.02488194227878634,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-53.099185196487774,3.5 delta=0.0,0.13483706910959045,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-3 alive=1 pose=standing hp=8.0 abs=0.0 hurt=6/16 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.083043186572328,-60.0,15.5 delta=0.05585120909550823,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-59.963003170081244,3.5 delta=0.0,-0.04000000031557288,0.0 rot=0.0,0.0 og=0 fall=0.08000001837981738 fire=300 air=300 alive=1 pose=standing hp=186.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.39999962 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-59.963003170081244,3.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+EV sound at=30.5,-59.963003170081244,3.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=player vol=0.4 pitch=2.3008776
+T 64
+E item minecraft:item pos=6.5,-59.97408580887907,3.5 delta=0.014,0.004481716909342641,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=34 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.600142081266331,-59.91959048902791,9.5 delta=0.05597160878237844,-0.024905554119644936,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-52.92434812827225,3.5 delta=0.0,0.1348696566566369,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-4 alive=1 pose=standing hp=8.0 abs=0.0 hurt=5/15 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.152894395667836,-60.0,15.5 delta=0.055880968109097894,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=186.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.39999962 xp=0/0/0.0 sel=0 main=empty
+T 65
+E item minecraft:item pos=6.5,-59.96910409194598,3.5 delta=0.014,0.00488208268944825,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=35 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.6701136900487095,-59.94449604314756,9.5 delta=0.05597728786002933,-0.024924443592613293,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-52.74947847250968,3.5 delta=0.0,0.13489572669466252,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-5 alive=1 pose=standing hp=8.0 abs=0.0 hurt=4/14 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.222775363776934,-60.0,15.5 delta=0.055904775320324375,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=186.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.39999962 xp=0/0/0.0 sel=0 main=empty
+EV sound at=5.222775363776934,-60.0,15.5 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.010938102 pitch=0.9301467
+EV sound at=5.222775363776934,-60.0,15.5 r=16.0 ex=1 event=minecraft:block.stone.step source=player vol=0.05 pitch=0.8
+T 66
+E item minecraft:item pos=6.5,-59.96372200923278,3.5 delta=0.014,0.0052744411615881165,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=36 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.740090977908739,-59.96942048674017,9.5 delta=0.055981831122217746,-0.024939555171213157,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-52.57458274670908,3.5 delta=0.0,0.13491658272539378,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-6 alive=1 pose=standing hp=8.0 abs=0.0 hurt=3/13 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.292680139097259,-60.0,15.5 delta=0.05592382108958936,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=186.0 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.39999962 xp=0/0/0.0 sel=0 main=empty
+T 67
+E item minecraft:item pos=6.5,-59.957947568047445,3.5 delta=0.014,0.005658952471768831,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=37 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.810072809030957,-59.994360041911385,9.5 delta=0.055985465732022635,-0.024951644434273192,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-52.39966616487776,3.5 delta=0.0,0.13493326755022741,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-7 alive=1 pose=standing hp=8.0 abs=0.0 hurt=2/12 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.362603960186848,-60.0,15.5 delta=0.05593905770522839,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=186.0 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.39999962 xp=0/0/0.0 sel=0 main=empty
+T 68
+E item minecraft:item pos=6.5,-59.951788615551926,3.5 delta=0.014,0.006035773563079902,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=38 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.8800582747629795,-59.97931168723973,9.5 delta=0.05598837341990987,0.007038683916716076,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-52.2247328982216,3.5 delta=0.0,0.13494661541029324,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-8 alive=1 pose=standing hp=8.0 abs=0.0 hurt=1/11 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.432543017892077,-60.0,15.5 delta=0.05595124699792125,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=186.0 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.39999962 xp=0/0/0.0 sel=0 main=empty
+T 69
+E item minecraft:item pos=6.5,-59.9452528419651,3.5 delta=0.014,0.006405058239752043,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=39 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=5.950046648182889,-59.93227300421708,9.5 delta=0.05599069957025433,0.03263094697886192,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-52.04978628370538,3.5 delta=0.0,0.134957293698505,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-9 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/10 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.502494264889998,-60.0,15.5 delta=0.05596099843222085,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=186.0 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.39999962 xp=0/0/0.0 sel=0 main=empty
+T 70
+E item minecraft:item pos=6.5,-59.9383477837016,3.5 delta=0.014,0.006766957229934287,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=40 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.020037347753143,-59.89964205723822,9.5 delta=0.055992560490557626,0.021104757972080737,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-51.874828990900944,3.5 delta=0.0,0.13496583632920173,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-10 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/9 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.572455263322219,-60.0,15.5 delta=0.055968799579776775,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=186.0 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.39999962 xp=0/0/0.0 sel=0 main=empty
+T 71
+E item minecraft:item pos=6.5,-59.93108082644792,3.5 delta=0.014,0.007121618247215563,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=41 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.090029908243701,-59.878537299266135,9.5 delta=0.05599404922682245,0.01188380662925291,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-51.69986315546581,3.5 delta=0.0,0.13497267043386094,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-11 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/8 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.642424062901996,-60.0,15.5 delta=0.05597504049791451,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=186.0 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=2.0 exh=0.39999962 xp=0/0/0.0 sel=0 main=empty
+T 72
+E item minecraft:item pos=6.5,-59.92345920817695,3.5 delta=0.014,0.007469186050915835,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=42 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.160023957470523,-59.866653492636885,9.5 delta=0.05599524021585205,0.004507045445068344,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-51.52489048592602,3.5 delta=0.0,0.13497813771766978,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-12 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/7 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.71239910339991,-60.0,15.5 delta=0.0559800332324991,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=186.33333 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.3999996 xp=0/0/0.0 sel=0 main=empty
+T 73
+E item minecraft:item pos=6.5,-59.91549002210228,3.5 delta=0.014,0.007809802505171431,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=43 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.230019197686375,-59.86214644719182,9.5 delta=0.05599619300708993,-0.0013943635902171569,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-51.349912349102425,3.5 delta=0.0,0.13498251154478202,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-13 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/6 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.782379136632409,-60.0,15.5 delta=0.05598402742022628,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.33333 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.4999995 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-60.0,3.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+EV sound at=30.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=player vol=0.4 pitch=2.1184392
+T 74
+E item minecraft:item pos=6.5,-59.90718021957336,3.5 delta=0.014,0.008143606636838658,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=44 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.300015390693465,-59.86214644719182,9.5 delta=0.055996955240091593,-0.005,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-51.21492983755764,3.5 delta=0.0,0.10298601084494255,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-14 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/5 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.852363164052635,-60.0,15.5 delta=0.05598722277045565,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.33333 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.4999995 xp=0/0/0.0 sel=0 main=empty
+T 75
+E item minecraft:item pos=6.5,-59.89853661291278,3.5 delta=0.014,0.00847073469223935,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=45 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.3700123459335565,-59.86714644719182,9.5 delta=0.05599756502650201,-0.009000000059604645,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-51.071943827606766,3.5 delta=0.0,0.10938880966522437,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-15 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/4 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.922350386823091,-60.0,15.5 delta=0.05598977905067723,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.33333 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.4999995 xp=0/0/0.0 sel=0 main=empty
+T 76
+E item minecraft:item pos=6.5,-59.88956587819679,3.5 delta=0.014,0.0087913201927715,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=46 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.440009910960058,-59.87614644725143,9.5 delta=0.0559980528556376,-0.012200000154972078,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-50.96255501794154,3.5 delta=0.0,0.08251104903619572,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-16 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/3 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=5.992340165873768,-60.0,15.5 delta=0.05599182407488497,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.33333 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.4999995 xp=0/0/0.0 sel=0 main=empty
+T 77
+E item minecraft:item pos=6.5,-59.88027455798027,3.5 delta=0.014,0.00910549398940769,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=47 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.510007963815696,-59.8883464474064,9.5 delta=0.0559984431189519,-0.014760000269412998,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-50.88004396890535,3.5 delta=0.0,0.061008840212564926,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-17 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/2 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.062331989948652,-60.0,15.5 delta=0.055993460094275534,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.33333 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.4999995 xp=0/0/0.0 sel=0 main=empty
+T 78
+E item minecraft:item pos=6.5,-59.870669063967114,3.5 delta=0.014,0.009413384316103546,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=48 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.580006406934648,-59.90310644767581,9.5 delta=0.055998755329607984,-0.016808000391483315,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-50.77903512958685,3.5 delta=0.0,0.07580707265891538,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-18 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/1 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.132325450042928,-60.0,15.5 delta=0.055994768909807494,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.33333 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.4999995 xp=0/0/0.0 sel=0 main=empty
+T 79
+E item minecraft:item pos=6.5,-59.86075567962726,3.5 delta=0.014,0.009715116842138027,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=49 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.6500051622642555,-59.919914448067296,9.5 delta=0.05599900509813658,-0.018446400513553632,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-50.663228057822,3.5 delta=0.0,0.08764565879240444,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-19 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.202320218952735,-60.0,15.5 delta=0.05599581596224866,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.33333 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.4999995 xp=0/0/0.0 sel=0 main=empty
+T 80
+E item minecraft:item pos=6.5,-59.850540562761374,3.5 delta=0.014,0.010010814723406909,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=50 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.720004167362392,-59.93836084858085,9.5 delta=0.05599920491296243,-0.019757120630741136,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-50.53558239992367,3.5 delta=0.0,0.09711652784032263,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=0 alive=1 pose=standing hp=6.0 abs=0.0 hurt=9/19 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.272316034914984,-60.0,15.5 delta=0.055996653604214075,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.33333 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.4999995 xp=0/0/0.0 sel=0 main=empty
+EV sound at=21.5,-50.663228057822,3.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0234449
+T 81
+E item minecraft:item pos=6.5,-59.84002974801422,3.5 delta=0.014,0.010300598652690403,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=51 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.790003372275354,-59.95811796921159,9.5 delta=0.0559993647648255,-0.02080569674011614,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-50.43846587208335,3.5 delta=0.0,0.07269322342997732,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-1 alive=1 pose=standing hp=6.0 abs=0.0 hurt=8/18 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.342312688519198,-60.0,15.5 delta=0.05599732371779639,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.33333 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.4999995 xp=0/0/0.0 sel=0 main=empty
+T 82
+E item minecraft:item pos=6.5,-59.82922914933778,3.5 delta=0.014,0.010584586908915417,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=52 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.86000273704018,-59.97892366595171,9.5 delta=0.05599949264631786,-0.021644557640116146,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-50.32577264954744,3.5 delta=0.0,0.08515457937213401,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-2 alive=1 pose=standing hp=6.0 abs=0.0 hurt=7/17 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.402976679042738,-60.0,15.5 delta=0.048531193142003576,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=182.66666 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=2.0 exh=4.4999995 xp=0/0/0.0 sel=0 main=empty
+EV sound at=6.86000273704018,-59.97892366595171,9.5 r=16.0 ex=0 event=minecraft:entity.generic.swim source=neutral vol=0.013155807 pitch=1.0057726
+T 83
+E item minecraft:item pos=6.5,-59.81814456240512,3.5 delta=0.014,0.010862895405432577,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=53 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=6.930002229686497,-60.0,9.5 delta=0.055999594951513264,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-50.20061807106937,3.5 delta=0.0,0.0951236642744103,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-3 alive=1 pose=standing hp=6.0 abs=0.0 hurt=6/16 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.456174538990486,-60.0,15.5 delta=0.04255828859236611,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.66666 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.5999994 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-60.0,3.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+EV sound at=30.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=player vol=0.4 pitch=2.103003
+T 84
+E item minecraft:item pos=6.5,-59.80678166697594,3.5 delta=0.014,0.011135637737327708,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=54 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.0000018246380105,-60.0,9.5 delta=0.05599967679567081,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-50.10549440679496,3.5 delta=0.0,0.07109893255349067,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-4 alive=1 pose=standing hp=6.0 abs=0.0 hurt=5/15 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.503399494388596,-60.0,15.5 delta=0.03777996488145356,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.66666 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.5999994 xp=0/0/0.0 sel=0 main=empty
+T 85
+E item minecraft:item pos=6.5,-59.79514602921486,3.5 delta=0.014,0.011402925227787082,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=55 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.070001501433682,-60.0,9.5 delta=0.05599974227099783,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.99439547513554,3.5 delta=0.0,0.08387914665193927,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-5 alive=1 pose=standing hp=6.0 abs=0.0 hurt=4/14 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.545846126075793,-60.0,15.5 delta=0.03395730585576147,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.66666 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.5999994 xp=0/0/0.0 sel=0 main=empty
+T 86
+E item minecraft:item pos=6.5,-59.78324310396333,3.5 delta=0.014,0.011664866973535373,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=56 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.140001243704679,-60.0,9.5 delta=0.05599979465126022,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.9105163284836,3.5 delta=0.0,0.062103318321468766,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-6 alive=1 pose=standing hp=6.0 abs=0.0 hurt=3/13 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.584470098737299,-60.0,15.5 delta=0.030899178589638147,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.66666 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.5999994 xp=0/0/0.0 sel=0 main=empty
+T 87
+E item minecraft:item pos=6.5,-59.77107823696605,3.5 delta=0.014,0.011921569889364842,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=57 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.21000103835594,-60.0,9.5 delta=0.05599983655547075,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.8084130110562,3.5 delta=0.0,0.07668265515908566,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-7 alive=1 pose=standing hp=6.0 abs=0.0 hurt=2/12 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.620035944132681,-60.0,15.5 delta=0.028452676740283768,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.66666 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.5999994 xp=0/0/0.0 sel=0 main=empty
+T 88
+E item minecraft:item pos=6.5,-59.75865666705293,3.5 delta=0.014,0.01217313875177394,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=58 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.28000087491141,-60.0,9.5 delta=0.05599987007883968,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.69173035679119,3.5 delta=0.0,0.08834612480297842,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=-3 alive=1 pose=standing hp=6.0 abs=0.0 hurt=1/11 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.653155287678709,-60.0,15.5 delta=0.026495475231635694,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.66666 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.5999994 xp=0/0/0.0 sel=0 main=empty
+T 89
+E item minecraft:item pos=6.5,-59.78648352830116,3.5 delta=0.014,-0.027270324554016796,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=59 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.35000074499025,-60.0,9.5 delta=0.05599989689753522,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.56338423288228,3.5 delta=0.0,0.09767690065713203,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=1 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/10 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.684317429716089,-60.0,15.5 delta=0.024929714001385574,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.66666 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.5999994 xp=0/0/0.0 sel=0 main=empty
+T 90
+E item minecraft:item pos=6.5,-59.81325385283143,3.5 delta=0.014,-0.026234918550266127,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=60 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.420000641887785,-60.0,9.5 delta=0.055999918352491976,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.42570733311921,3.5 delta=0.0,0.10514152145168643,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=5 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/9 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.713913810523219,-60.0,15.5 delta=0.02367710499852015,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.66666 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.5999994 xp=0/0/0.0 sel=0 main=empty
+T 91
+E item minecraft:item pos=6.5,-59.83898877135795,3.5 delta=0.014,-0.02522022064684167,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=61 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.490000560240277,-60.0,9.5 delta=0.055999935516457634,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.32056581166753,3.5 delta=0.0,0.07911321841473375,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=9 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/8 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.7422575823274835,-60.0,15.5 delta=0.022675017781295544,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.66666 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=1.0 exh=0.5999994 xp=0/0/0.0 sel=0 main=empty
+T 92
+E item minecraft:item pos=6.5,-59.86370899198104,3.5 delta=0.014,-0.024225816682131873,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=62 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.560000495756734,-60.0,9.5 delta=0.05599994924763037,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.241452593252795,3.5 delta=0.0,0.05829057567489005,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=13 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/7 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.769599266914523,-60.0,15.5 delta=0.02187334799557005,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=178.83333 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.5999994 xp=0/0/0.0 sel=0 main=empty
+T 93
+E item minecraft:item pos=6.5,-59.887434808639426,3.5 delta=0.014,-0.023251300777749524,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=63 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.630000445004364,-60.0,9.5 delta=0.055999960232568716,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.18316201757791,3.5 delta=0.0,0.04163246123478986,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=17 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/6 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.7961392817158375,-60.0,15.5 delta=0.02123201215743301,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=174.83333 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.6999995 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-60.0,3.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+EV sound at=30.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=player vol=0.4 pitch=2.063761
+T 94
+E item minecraft:item pos=6.5,-59.91018610939343,3.5 delta=0.014,-0.022296275172867405,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=64 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.700000405236933,-60.0,9.5 delta=0.05599996902051953,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.141529556343116,3.5 delta=0.0,0.028305969484129497,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=21 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/5 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.8220379606790145,-60.0,15.5 delta=0.020718943479278055,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=174.83333 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.6999995 xp=0/0/0.0 sel=0 main=empty
+T 95
+E item minecraft:item pos=6.5,-59.93198238454255,3.5 delta=0.014,-0.02136035006186726,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=65 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.770000374257453,-60.0,9.5 delta=0.05599997605088028,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.113223586858986,3.5 delta=0.0,0.01764477592473705,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=25 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/4 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.847423570964037,-60.0,15.5 delta=0.020308488530637835,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=174.83333 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.6999995 xp=0/0/0.0 sel=0 main=empty
+EV sound at=6.847423570964037,-60.0,15.5 r=16.0 ex=1 event=minecraft:entity.player.swim source=player vol=0.0039734766 pitch=0.92954224
+EV sound at=6.847423570964037,-60.0,15.5 r=16.0 ex=1 event=minecraft:block.stone.step source=player vol=0.05 pitch=0.8
+T 96
+E item minecraft:item pos=6.5,-59.95284273458067,3.5 delta=0.014,-0.020443143435235768,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=66 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.840000350308333,-60.0,9.5 delta=0.05599998167516897,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.09557881093425,3.5 delta=0.0,0.009115820950131758,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=29 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/3 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.872398726300419,-60.0,15.5 delta=0.019980124566832656,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=174.83333 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.6999995 xp=0/0/0.0 sel=0 main=empty
+T 97
+E item minecraft:item pos=6.5,-59.97278587799216,3.5 delta=0.014,-0.019544280923642576,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=67 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.910000331983502,-60.0,9.5 delta=0.05599998617459998,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.08646298998412,3.5 delta=0.0,-0.0694664968208793,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=33 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/2 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.897045517672996,-60.0,15.5 delta=0.01971743339187411,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=174.83333 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.6999995 xp=0/0/0.0 sel=0 main=empty
+T 98
+E item minecraft:item pos=6.5,-59.99183015889205,3.5 delta=0.014,-0.018663395645136804,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=68 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=7.980000318158102,-60.0,9.5 delta=0.05599998977414485,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.155929486805,3.5 delta=0.0,-0.14647716973530892,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=37 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/1 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.921429617870615,-60.0,15.5 delta=0.01950728044877575,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=174.83333 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.6999995 xp=0/0/0.0 sel=0 main=empty
+EV sound at=21.5,-49.155929486805,3.5 r=16.0 ex=0 event=minecraft:entity.generic.splash source=neutral vol=0.013893299 pitch=1.132593
+T 99
+E item minecraft:item pos=6.5,-60.0,3.5 delta=0.014,0.0,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=69 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.050000307932248,-60.0,9.5 delta=0.05599999265378079,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.302406656540306,3.5 delta=0.0,-0.12218173753439107,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=41 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.945603565125134,-60.0,15.5 delta=0.019339158091791844,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=174.83333 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.6999995 xp=0/0/0.0 sel=0 main=empty
+T 100
+E item minecraft:item pos=6.5,-59.99949999997625,3.5 delta=0.014,4.900000328104948E-4,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=70 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.120000300586028,-60.0,9.5 delta=0.05599999495748957,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.424588394074696,3.5 delta=0.0,-0.10274539148403268,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=45 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.96960939002267,-60.0,15.5 delta=0.019204660204200544,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=174.83333 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.6999995 xp=0/0/0.0 sel=0 main=empty
+T 101
+E item minecraft:item pos=6.5,-59.99850999991969,3.5 delta=0.014,9.702000743107886E-4,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=71 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.190000295543518,-60.0,9.5 delta=0.05599999680045662,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.52733378555873,3.5 delta=0.0,-0.08719631441204666,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=49 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=6.993480717032615,-60.0,15.5 delta=0.019097061892524168,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=174.83333 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=1.0 exh=1.6999995 xp=0/0/0.0 sel=0 main=empty
+T 102
+E item minecraft:item pos=6.5,-59.99703979982163,3.5 delta=0.014,0.0014407961241401654,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=72 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.260000292343975,-60.0,9.5 delta=0.05599999827483029,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.61453009997078,3.5 delta=0.0,-0.0747570525690984,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=53 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=7.017244445730884,-60.0,15.5 delta=0.01901098324190039,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=175.0 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.6999993 xp=0/0/0.0 sel=0 main=empty
+T 103
+E item minecraft:item pos=6.5,-59.99509900367374,3.5 delta=0.014,0.001901980261948862,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=73 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.330000290618806,-60.0,9.5 delta=0.05599999945432924,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.649287153433946,3.5 delta=0.0,-0.03280564318487082,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=57 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=7.040922095778528,-60.0,15.5 delta=0.018942120320375233,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=171.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.7999992 xp=0/0/0.0 sel=0 main=empty
+EV sound at=30.5,-60.0,3.5 r=16.0 ex=1 event=minecraft:entity.player.hurt_on_fire source=player vol=1.0 pitch=1.0
+EV sound at=30.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.generic.burn source=player vol=0.4 pitch=2.080483
+T 104
+E item minecraft:item pos=6.5,-59.99269702338804,3.5 delta=0.014,0.002353940725797774,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=74 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.400000290073136,-60.0,9.5 delta=0.05600000039792842,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.64209279751289,3.5 delta=0.0,7.554848226110104E-4,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=61 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=7.064530882904648,-60.0,15.5 delta=0.0188870299823342,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=171.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.7999992 xp=0/0/0.0 sel=0 main=empty
+T 105
+E item minecraft:item pos=6.5,-59.989843082638494,3.5 delta=0.014,0.0027968619889901696,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=75 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.470000290471065,-60.0,9.5 delta=0.05600000115280777,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.60209279840696,3.5 delta=0.0,0.02699999976158141,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=65 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=7.088084579692726,-60.0,15.5 delta=0.018842957711244643,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=171.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.7999992 xp=0/0/0.0 sel=0 main=empty
+T 106
+E item minecraft:item pos=6.5,-59.986546220625755,3.5 delta=0.014,0.0032309248353667697,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=76 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.540000291623873,-60.0,9.5 delta=0.05600000175671126,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.53509279953945,3.5 delta=0.0,0.04859999989271162,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=69 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=7.111594204209715,-60.0,15.5 delta=0.018807699893847615,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=171.0 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.7999992 xp=0/0/0.0 sel=0 main=empty
+EV sound at=8.540000291623873,-60.0,9.5 r=16.0 ex=0 event=minecraft:entity.pig.step source=neutral vol=0.15 pitch=1.0
+T 107
+E item minecraft:item pos=6.5,-59.98281529576664,3.5 delta=0.014,0.00365630643309493,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=77 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.610000293380583,-60.0,9.5 delta=0.056000002239834056,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.48649279964674,3.5 delta=0.0,0.03388000049352644,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=73 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=7.135068570909307,-60.0,15.5 delta=0.018779493639509686,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=171.0 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.7999992 xp=0/0/0.0 sel=0 main=empty
+T 108
+E item minecraft:item pos=6.5,-59.9786589893098,3.5 delta=0.014,0.004073180406982037,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=78 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.680000295620417,-60.0,9.5 delta=0.056000002626332306,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.412612800047285,3.5 delta=0.0,0.05410400056028364,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=77 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=7.158514731354561,-60.0,15.5 delta=0.018756928635703097,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=171.0 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.7999992 xp=0/0/0.0 sel=0 main=empty
+T 109
+E item minecraft:item pos=6.5,-59.97408580887907,3.5 delta=0.014,0.004481716909342641,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=79 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.750000298246748,-60.0,9.5 delta=0.05600000293553091,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.358508799487,3.5 delta=0.0,0.03828320109319686,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=81 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=7.181938326796009,-60.0,15.5 delta=0.01873887663238883,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=171.0 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.7999992 xp=0/0/0.0 sel=0 main=empty
+T 110
+E item minecraft:item pos=6.5,-59.96910409194598,3.5 delta=0.014,0.00488208268944825,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=80 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=8.82000030118228,-60.0,9.5 delta=0.056000003182889786,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E boat minecraft:oak_boat pos=7.3125,-60.0,3.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=in_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+E drowner minecraft:pig pos=21.5,-49.320225598393804,3.5 delta=0.0,0.02562656133092881,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=85 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E raft minecraft:birch_boat pos=23.5,-58.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=under_water dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=-
+P Swept minecraft:player pos=7.205343870234142,-60.0,15.5 delta=0.018724435029522223,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Lava minecraft:player pos=30.5,-60.0,3.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=171.0 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.7999992 xp=0/0/0.0 sel=0 main=empty

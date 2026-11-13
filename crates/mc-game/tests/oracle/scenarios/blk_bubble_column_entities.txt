@@ -1,0 +1,31 @@
+# Entities in bubble columns: Entity.onInsideBubbleColumn / onAboveBubbleColumn (up column over soul sand, down column over magma) for a
+# pig, an item, a boat, simulated players inside and at the surface, and a falling block.
+level flat
+preload 4
+level_seed 8
+entity_counter 600
+fill 0 -61 0 30 -41 8 minecraft:stone
+fill 1 -60 1 29 -41 7 minecraft:water[level=0]
+block 3 -60 3 minecraft:soul_sand
+block 7 -60 3 minecraft:magma_block
+block 11 -60 3 minecraft:soul_sand
+block 15 -60 3 minecraft:magma_block
+block 19 -60 3 minecraft:soul_sand
+block 23 -60 3 minecraft:soul_sand
+block 27 -60 3 minecraft:magma_block
+tick 25
+spawn pig minecraft:pig 3.5 -58 3.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig 61
+spawn_item item minecraft:gold_ingot 7.5 -50 3.5 0 0 0
+entity_seed item 62
+spawn boat minecraft:oak_boat 11.5 -58 3.5
+entity_seed boat 63
+spawn_player Drag survival 15.5 -45 3.5 0 0 sim
+spawn_player Rise survival 19.5 -59 3.5 0 0 sim
+spawn_player Top survival 23.5 -43 3.5 0 0 sim
+spawn_item item2 minecraft:gold_ingot 27.5 -59 3.5 0 0 0
+entity_seed item2 64
+watch entities player:Drag player:Rise player:Top events
+tick 80
+watch off
+dump events

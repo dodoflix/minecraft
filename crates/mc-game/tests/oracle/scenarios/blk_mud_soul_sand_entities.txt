@@ -1,0 +1,27 @@
+# Mud and soul sand under entities: both have a 14/16 high collision shape (an item, a pig and a simulated player stand 0.125 lower),
+# soul sand slows walkers (speed factor 0.4) and mud does not.
+level flat
+preload 3
+level_seed 12
+entity_counter 1000
+fill -2 -61 -2 40 -61 8 minecraft:stone
+fill 0 -61 2 6 -61 4 minecraft:mud
+fill 10 -61 2 16 -61 4 minecraft:soul_sand
+spawn_item mudingot minecraft:gold_ingot 2.5 -59 3.5 0 0 0
+entity_seed mudingot 121
+spawn mudpig minecraft:pig 4.5 -59 3.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed mudpig 122
+spawn_player Muddy survival 0.5 -59 2.5 0 0 sim
+spawn_item sandingot minecraft:gold_ingot 12.5 -59 3.5 0 0 0
+entity_seed sandingot 123
+spawn sandpig minecraft:pig 14.5 -59 3.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed sandpig 124
+spawn_player Sandy survival 10.5 -59 2.5 0 0 sim
+watch entities player:Muddy player:Sandy
+tick 5
+input Muddy forward,sprint
+input Sandy forward,sprint
+tick 25
+input Muddy none
+input Sandy none
+tick 10

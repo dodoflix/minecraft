@@ -1,0 +1,47 @@
+# Entities in fluids: the flow of a water stream pushes an item, a pig, a boat and a simulated player downstream, a pig and a boat in a water
+# column (drowning with a low air supply, swimming up), lava burns an item and a pig, a simulated player stands in the lava.
+level flat
+preload 4
+level_seed 11
+entity_counter 900
+fill -2 -61 -2 40 -61 20 minecraft:stone
+# water stream along +x: stone walls at z=2 and z=4, the source at x=1
+fill 1 -60 2 12 -60 2 minecraft:stone
+fill 1 -60 4 12 -60 4 minecraft:stone
+block 1 -60 3 minecraft:water[level=0]
+fill 1 -60 8 12 -60 8 minecraft:stone
+fill 1 -60 10 12 -60 10 minecraft:stone
+block 1 -60 9 minecraft:water[level=0]
+fill 1 -60 14 12 -60 14 minecraft:stone
+fill 1 -60 16 12 -60 16 minecraft:stone
+block 1 -60 15 minecraft:water[level=0]
+tick 30
+spawn_item item minecraft:gold_ingot 3.5 -59.8 3.5 0 0 0
+entity_seed item 111
+spawn pig minecraft:pig 3.5 -59.8 9.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed pig 112
+# the player starts above the water: the driver's join move would push a player already inside the flow once more
+spawn_player Swept survival 3.5 -58.5 15.5 0 0 sim
+spawn boat minecraft:oak_boat 6.5 -59.8 3.5
+entity_seed boat 113
+# a water column: a pig with a low air supply drowns, a boat bobs
+fill 20 -61 2 24 -50 6 minecraft:stone
+fill 21 -60 3 23 -50 5 minecraft:water[level=0]
+spawn drowner minecraft:pig 21.5 -58 3.5 {Air:10s,attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed drowner 114
+spawn raft minecraft:birch_boat 23.5 -58 5.5
+entity_seed raft 115
+# lava pools: an item and a pig, and a simulated player in lava
+fill 28 -61 2 32 -58 6 minecraft:stone
+fill 29 -60 3 31 -59 5 minecraft:lava[level=0]
+spawn_item burnt minecraft:gold_ingot 29.5 -59 3.5 0 0 0
+entity_seed burnt 116
+spawn lavapig minecraft:pig 30.5 -59 4.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed lavapig 117
+spawn_player Lava survival 30.5 -58 3.5 0 0 sim
+attribute Lava minecraft:max_health 200
+set Lava health 200
+watch entities player:Swept player:Lava events
+tick 80
+watch off
+dump events

@@ -1,0 +1,1068 @@
+T 1
+E item minecraft:item pos=9.07,-42.04,2.5 delta=0.0,-0.03920000076293945,0.0 rot=97.65333,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-42.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-42.04,2.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=199
+E cow minecraft:cow pos=24.5,-52.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-42.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-42.0,3.245 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-52.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 2
+E item minecraft:item pos=9.07,-42.11920000076294,2.5 delta=0.0,-0.0776160022583008,0.0 rot=97.65333,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=2 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-42.07840000152588,2.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-42.11920000076294,2.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing fuse=198
+E cow minecraft:cow pos=24.5,-52.07840000152588,2.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-42.07840000152588,2.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-42.07840000152588,3.245 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-52.07840000152588,2.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 3
+E item minecraft:item pos=9.07,-42.23681600302124,2.5 delta=0.0,-0.115263684456482,0.0 rot=97.65333,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=3 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-42.23363200604248,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-42.23681600302124,2.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing fuse=197
+E cow minecraft:cow pos=24.5,-52.23363200604248,2.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-42.23363200604248,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-42.23363200604248,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-52.23363200604248,2.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+E item minecraft:item pos=9.07,-42.39207968747772,2.5 delta=0.0,-0.15215841372877212,0.0 rot=97.65333,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=4 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-42.36103200852203,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-42.39207968747772,2.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing fuse=196
+E cow minecraft:cow pos=24.5,-52.46415937495544,2.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-42.36103200852203,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-42.36103200852203,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-52.46415937495544,2.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+E item minecraft:item pos=9.07,-42.58423810120649,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=5 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-42.488432011001585,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-42.58423810120649,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=195
+E cow minecraft:cow pos=24.5,-52.768476202412984,2.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-42.488432011001585,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-42.488432011001585,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-52.768476202412984,2.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-42.488432011001585,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 6
+E item minecraft:item pos=9.07,-42.74909010606641,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=6 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-42.61583201348114,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-42.74909010606641,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=194
+E cow minecraft:cow pos=24.5,-53.14510670065164,2.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-42.61583201348114,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-42.61583201348114,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-53.14510670065164,2.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+E item minecraft:item pos=9.07,-42.913942110926335,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=7 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-42.74323201596069,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-42.913942110926335,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=193
+E cow minecraft:cow pos=24.5,-53.59260459763506,2.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-42.74323201596069,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-42.74323201596069,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-53.59260459763506,2.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+E item minecraft:item pos=9.07,-43.07879411578626,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=8 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-42.87063201844025,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-43.07879411578626,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=192
+E cow minecraft:cow pos=24.5,-54.109552546740034,2.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-42.87063201844025,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-42.87063201844025,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-54.109552546740034,2.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-42.87063201844025,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=17.435,-43.07879411578626,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 9
+E item minecraft:item pos=9.07,-43.24364612064618,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=9 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-42.9980320209198,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-43.24364612064618,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=191
+E cow minecraft:cow pos=24.5,-54.694561548248785,2.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-42.9980320209198,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-42.9980320209198,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-54.694561548248785,2.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-42.9980320209198,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+EV sound at=4.5,-42.9980320209198,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 10
+E item minecraft:item pos=9.07,-43.40849812550611,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=10 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-43.125432023399355,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-43.40849812550611,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=190
+E cow minecraft:cow pos=24.5,-55.346270382411404,2.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-43.125432023399355,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-43.125432023399355,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-55.346270382411404,2.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+E item minecraft:item pos=9.07,-43.57335013036603,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=11 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-43.25283202587891,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-43.57335013036603,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=189
+E cow minecraft:cow pos=24.5,-56.06334505384701,2.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-43.25283202587891,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-43.25283202587891,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-56.06334505384701,2.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-43.25283202587891,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=1.24,-43.25283202587891,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 12
+E item minecraft:item pos=9.07,-43.738202135225954,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=12 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-43.38023202835846,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-43.738202135225954,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=188
+E cow minecraft:cow pos=24.5,-56.84447824705689,2.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-43.38023202835846,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-43.38023202835846,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-56.84447824705689,2.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+E item minecraft:item pos=9.07,-43.90305414008588,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=13 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-43.50763203083802,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-43.90305414008588,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=187
+E cow minecraft:cow pos=24.5,-57.68838879282739,2.5 delta=0.0,-0.9054323524772837,0.0 rot=0.0,0.0 og=0 fall=5.688388764858246 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-43.50763203083802,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-43.50763203083802,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-57.68838879282739,2.5 delta=0.0,-0.9054323524772837,0.0 rot=0.0,0.0 og=0 fall=5.688388764858246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+E item minecraft:item pos=9.07,-44.0679061449458,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=14 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-43.63503203331757,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-44.0679061449458,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=186
+E cow minecraft:cow pos=24.5,-58.59382114530467,2.5 delta=0.0,-0.9657237242233685,0.0 rot=0.0,0.0 og=0 fall=6.593821108341217 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-43.63503203331757,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-43.63503203331757,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-58.59382114530467,2.5 delta=0.0,-0.9657237242233685,0.0 rot=0.0,0.0 og=0 fall=6.593821108341217 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-43.63503203331757,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=1.24,-43.63503203331757,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 15
+E item minecraft:item pos=9.07,-44.232758149805726,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=15 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-43.762432035797126,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-44.232758149805726,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=185
+E cow minecraft:cow pos=24.5,-59.55954486952804,2.5 delta=0.0,-1.0248092696844984,0.0 rot=0.0,0.0 og=0 fall=7.559544861316681 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-43.762432035797126,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-43.762432035797126,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-59.55954486952804,2.5 delta=0.0,-1.0248092696844984,0.0 rot=0.0,0.0 og=0 fall=7.559544861316681 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-44.232758149805726,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 16
+E item minecraft:item pos=9.07,-44.39761015466565,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=16 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-43.88983203827668,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-44.39761015466565,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=184
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=-
+P Slide minecraft:player pos=1.24,-43.88983203827668,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-43.88983203827668,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=24.5,-60.0625,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=24.5,-60.0625,2.5 r=16.0 ex=0 event=minecraft:entity.generic.small_fall source=neutral vol=1.0 pitch=1.0
+EV sound at=24.5,-60.0625,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.fall source=neutral vol=0.5 pitch=0.75
+EV sound at=24.5,-60.0625,2.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0410147
+EV sound at=24.5,-60.0625,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.fall source=neutral vol=0.5 pitch=0.75
+EV sound at=20.5,-60.0625,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+EV sound at=20.5,-60.0625,2.5 r=16.0 ex=1 event=minecraft:entity.player.small_fall source=player vol=1.0 pitch=1.0
+EV sound at=20.5,-60.0625,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.fall source=player vol=0.5 pitch=0.75
+EV sound at=20.5,-60.0625,2.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=20.5,-60.0625,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.fall source=player vol=0.5 pitch=0.75
+T 17
+E item minecraft:item pos=9.07,-44.56246215952557,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=17 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-44.017232040756234,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-44.56246215952557,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=183
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=-
+P Slide minecraft:player pos=1.24,-44.017232040756234,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-44.017232040756234,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-44.017232040756234,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 18
+E item minecraft:item pos=9.07,-44.7273141643855,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=18 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-44.14463204323579,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-44.7273141643855,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=182
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=-
+P Slide minecraft:player pos=1.24,-44.14463204323579,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-44.14463204323579,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+E item minecraft:item pos=9.07,-44.89216616924542,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=19 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-44.27203204571534,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-44.89216616924542,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=181
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=7/17 death=0 fx=-
+P Slide minecraft:player pos=1.24,-44.27203204571534,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-44.27203204571534,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-44.89216616924542,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 20
+E item minecraft:item pos=9.07,-45.057018174105345,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=20 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-44.399432048194896,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-45.057018174105345,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=180
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=6/16 death=0 fx=-
+P Slide minecraft:player pos=1.24,-44.399432048194896,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-44.399432048194896,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-44.399432048194896,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 21
+E item minecraft:item pos=9.07,-45.22187017896527,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=21 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-44.52683205067445,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-45.22187017896527,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=179
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=5/15 death=0 fx=-
+P Slide minecraft:player pos=1.24,-44.52683205067445,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-44.52683205067445,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-45.22187017896527,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 22
+E item minecraft:item pos=9.07,-45.38672218382519,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-44.654232053154004,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-45.38672218382519,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=178
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=4/14 death=0 fx=-
+P Slide minecraft:player pos=1.24,-44.654232053154004,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-44.654232053154004,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 23
+E item minecraft:item pos=9.07,-45.551574188685116,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=23 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-44.78163205563356,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-45.551574188685116,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=177
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=3/13 death=0 fx=-
+P Slide minecraft:player pos=1.24,-44.78163205563356,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-44.78163205563356,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+E item minecraft:item pos=9.07,-45.71642619354504,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=24 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-44.90903205811311,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-45.71642619354504,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=176
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=2/12 death=0 fx=-
+P Slide minecraft:player pos=1.24,-44.90903205811311,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-44.90903205811311,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=4.5,-44.90903205811311,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 25
+E item minecraft:item pos=9.07,-45.881278198404964,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=25 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-45.03643206059267,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-45.881278198404964,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=175
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=1/11 death=0 fx=-
+P Slide minecraft:player pos=1.24,-45.03643206059267,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-45.03643206059267,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=5.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=4.5,-45.03643206059267,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 26
+E item minecraft:item pos=9.07,-46.04613020326489,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=26 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-45.16383206307222,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-46.04613020326489,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=174
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/10 death=0 fx=-
+P Slide minecraft:player pos=1.24,-45.16383206307222,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-45.16383206307222,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/10 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-45.16383206307222,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 27
+E item minecraft:item pos=9.07,-46.21098220812481,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=27 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-45.291232065551775,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-46.21098220812481,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=173
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/9 death=0 fx=-
+P Slide minecraft:player pos=1.24,-45.291232065551775,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-45.291232065551775,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/9 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-45.291232065551775,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 28
+E item minecraft:item pos=9.07,-46.375834212984735,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=28 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-45.41863206803133,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-46.375834212984735,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=172
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/8 death=0 fx=-
+P Slide minecraft:player pos=1.24,-45.41863206803133,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-45.41863206803133,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/8 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-45.41863206803133,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=1.24,-45.41863206803133,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 29
+E item minecraft:item pos=9.07,-46.54068621784466,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=29 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-45.54603207051088,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-46.54068621784466,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=171
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/7 death=0 fx=-
+P Slide minecraft:player pos=1.24,-45.54603207051088,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-45.54603207051088,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/7 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-45.41863206803133,2.5 r=16.0 ex=0 event=minecraft:entity.pig.ambient source=neutral vol=1.0 pitch=0.9634343
+T 30
+E item minecraft:item pos=9.07,-46.70553822270458,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=30 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-45.67343207299044,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-46.70553822270458,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=170
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/6 death=0 fx=-
+P Slide minecraft:player pos=1.24,-45.67343207299044,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-45.67343207299044,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/6 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-45.67343207299044,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-45.67343207299044,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 31
+E item minecraft:item pos=9.07,-46.870390227564506,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=31 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-45.80083207546999,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-46.870390227564506,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=169
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/5 death=0 fx=-
+P Slide minecraft:player pos=1.24,-45.80083207546999,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-45.80083207546999,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/5 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 32
+E item minecraft:item pos=9.07,-47.03524223242443,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=32 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-45.928232077949545,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-47.03524223242443,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=168
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/4 death=0 fx=-
+P Slide minecraft:player pos=1.24,-45.928232077949545,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-45.928232077949545,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/4 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-45.928232077949545,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 33
+E item minecraft:item pos=9.07,-47.200094237284354,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=33 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-46.0556320804291,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-47.200094237284354,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=167
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/3 death=0 fx=-
+P Slide minecraft:player pos=1.24,-46.0556320804291,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-46.0556320804291,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/3 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-46.0556320804291,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 34
+E item minecraft:item pos=9.07,-47.36494624214428,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=34 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-46.18303208290865,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-47.36494624214428,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=166
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/2 death=0 fx=-
+P Slide minecraft:player pos=1.24,-46.18303208290865,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-46.18303208290865,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.833334 abs=0.0 hurt=0/2 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 35
+E item minecraft:item pos=9.07,-47.5297982470042,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=35 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-46.31043208538821,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-47.5297982470042,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=165
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/1 death=0 fx=-
+P Slide minecraft:player pos=1.24,-46.31043208538821,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-46.31043208538821,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/1 death=0 fx=- gm=survival food=20 sat=4.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
+T 36
+E item minecraft:item pos=9.07,-47.694650251864125,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=36 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-46.43783208786776,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-47.694650251864125,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=164
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-46.43783208786776,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-46.43783208786776,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-46.43783208786776,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 37
+E item minecraft:item pos=9.07,-47.85950225672405,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=37 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-46.565232090347315,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-47.85950225672405,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=163
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-46.565232090347315,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-46.565232090347315,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-46.565232090347315,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 38
+E item minecraft:item pos=9.07,-48.02435426158397,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=38 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-46.69263209282687,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-48.02435426158397,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=162
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-46.69263209282687,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-46.69263209282687,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-46.69263209282687,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 39
+E item minecraft:item pos=9.07,-48.1892062664439,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=39 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-46.82003209530642,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-48.1892062664439,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=161
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-46.82003209530642,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-46.82003209530642,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 40
+E item minecraft:item pos=9.07,-48.35405827130382,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=40 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-46.94743209778598,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-48.35405827130382,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=160
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-46.94743209778598,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-46.94743209778598,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 41
+E item minecraft:item pos=9.07,-48.518910276163744,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=41 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-47.07483210026553,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-48.518910276163744,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=159
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-47.07483210026553,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-47.07483210026553,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=4.5,-47.07483210026553,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 42
+E item minecraft:item pos=9.07,-48.68376228102367,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=42 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-47.202232102745086,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-48.68376228102367,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=158
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-47.202232102745086,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-47.202232102745086,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-47.202232102745086,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-47.202232102745086,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 43
+E item minecraft:item pos=9.07,-48.84861428588359,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=43 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-47.32963210522464,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-48.84861428588359,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=157
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-47.32963210522464,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-47.32963210522464,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-48.84861428588359,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 44
+E item minecraft:item pos=9.07,-49.013466290743516,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=44 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-47.457032107704194,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-49.013466290743516,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=156
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-47.457032107704194,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-47.457032107704194,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 45
+E item minecraft:item pos=9.07,-49.17831829560344,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=45 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-47.58443211018375,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-49.17831829560344,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=155
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-47.58443211018375,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-47.58443211018375,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 46
+E item minecraft:item pos=9.07,-49.34317030046336,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=46 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-47.7118321126633,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,-7.2602634 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-49.34317030046336,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=154
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-47.7118321126633,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-47.7118321126633,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-47.7118321126633,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=1.24,-47.7118321126633,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 47
+E item minecraft:item pos=9.07,-49.50802230532329,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=47 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-47.839232115142856,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-49.50802230532329,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=153
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-47.839232115142856,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-47.839232115142856,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 48
+E item minecraft:item pos=9.07,-49.67287431018321,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=48 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-47.96663211762241,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-49.67287431018321,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=152
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-47.96663211762241,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-47.96663211762241,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 49
+E item minecraft:item pos=9.07,-49.837726315043135,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=49 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-48.094032120101964,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-49.837726315043135,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=151
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-48.094032120101964,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-48.094032120101964,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-48.094032120101964,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 50
+E item minecraft:item pos=9.07,-50.00257831990306,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=50 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-48.22143212258152,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-50.00257831990306,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=150
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-48.22143212258152,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-48.22143212258152,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-48.22143212258152,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=17.435,-50.00257831990306,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 51
+E item minecraft:item pos=9.07,-50.16743032476298,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=51 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-48.34883212506107,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-50.16743032476298,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=149
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-48.34883212506107,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-48.34883212506107,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-48.34883212506107,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 52
+E item minecraft:item pos=9.07,-50.332282329622906,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=52 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-48.47623212754063,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-50.332282329622906,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=148
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-48.47623212754063,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-48.47623212754063,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 53
+E item minecraft:item pos=9.07,-50.49713433448283,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=53 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-48.60363213002018,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-50.49713433448283,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=147
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-48.60363213002018,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-48.60363213002018,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=4.5,-48.60363213002018,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 54
+E item minecraft:item pos=9.07,-50.661986339342754,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=54 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-48.731032132499735,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-50.661986339342754,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=146
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-48.731032132499735,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-48.731032132499735,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 55
+E item minecraft:item pos=9.07,-50.82683834420268,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=55 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-48.85843213497929,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-50.82683834420268,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=145
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-48.85843213497929,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-48.85843213497929,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 56
+E item minecraft:item pos=9.07,-50.9916903490626,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=56 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-48.98583213745884,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-50.9916903490626,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=144
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-48.98583213745884,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-48.98583213745884,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 57
+E item minecraft:item pos=9.07,-51.156542353922525,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=57 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-49.1132321399384,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-51.156542353922525,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=143
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-49.1132321399384,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-49.1132321399384,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-49.1132321399384,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 58
+E item minecraft:item pos=9.07,-51.32139435878245,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=58 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-49.24063214241795,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-51.32139435878245,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=142
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-49.24063214241795,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-49.24063214241795,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 59
+E item minecraft:item pos=9.07,-51.48624636364237,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=59 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-49.368032144897505,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-51.48624636364237,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=141
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-49.368032144897505,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-49.368032144897505,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 60
+E item minecraft:item pos=9.07,-51.651098368502296,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=60 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-49.49543214737706,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-51.651098368502296,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=140
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-49.49543214737706,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-49.49543214737706,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-49.49543214737706,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 61
+E item minecraft:item pos=9.07,-51.81595037336222,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=61 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-49.62283214985661,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-51.81595037336222,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=139
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-49.62283214985661,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-49.62283214985661,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-49.62283214985661,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-49.62283214985661,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 62
+E item minecraft:item pos=9.07,-51.980802378222144,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=62 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-49.75023215233617,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-51.980802378222144,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=138
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-49.75023215233617,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-49.75023215233617,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-51.980802378222144,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 63
+E item minecraft:item pos=9.07,-52.14565438308207,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=63 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-49.87763215481572,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-52.14565438308207,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=137
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-49.87763215481572,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-49.87763215481572,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-52.14565438308207,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=1.24,-49.87763215481572,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 64
+E item minecraft:item pos=9.07,-52.31050638794199,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=64 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-50.005032157295275,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-52.31050638794199,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=136
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-50.005032157295275,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-50.005032157295275,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-50.005032157295275,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 65
+E item minecraft:item pos=9.07,-52.475358392801915,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=65 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-50.13243215977483,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-52.475358392801915,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=135
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-50.13243215977483,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-50.13243215977483,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-50.13243215977483,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 66
+E item minecraft:item pos=9.07,-52.64021039766184,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=66 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-50.25983216225438,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-52.64021039766184,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=134
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-50.25983216225438,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-50.25983216225438,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 67
+E item minecraft:item pos=9.07,-52.80506240252176,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=67 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-50.38723216473394,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-52.80506240252176,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=133
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-50.38723216473394,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-50.38723216473394,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 68
+E item minecraft:item pos=9.07,-52.96991440738169,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=68 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-50.51463216721349,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-52.96991440738169,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=132
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-50.51463216721349,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-50.51463216721349,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 69
+E item minecraft:item pos=9.07,-53.13476641224161,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=69 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-50.642032169693046,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-53.13476641224161,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=131
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-50.642032169693046,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-50.642032169693046,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 70
+E item minecraft:item pos=9.07,-53.299618417101534,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=70 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-50.7694321721726,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-53.299618417101534,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=130
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-50.7694321721726,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-50.7694321721726,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-53.299618417101534,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 71
+E item minecraft:item pos=9.07,-53.46447042196146,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=71 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-50.896832174652154,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-53.46447042196146,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=129
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-50.896832174652154,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-50.896832174652154,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-53.46447042196146,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 72
+E item minecraft:item pos=9.07,-53.62932242682138,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=72 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-51.02423217713171,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-53.62932242682138,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=128
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-51.02423217713171,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-51.02423217713171,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=4.5,-51.02423217713171,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 73
+E item minecraft:item pos=9.07,-53.794174431681306,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=73 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-51.15163217961126,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-53.794174431681306,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=127
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-51.15163217961126,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-51.15163217961126,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 74
+E item minecraft:item pos=9.07,-53.95902643654123,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=74 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-51.279032182090816,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-53.95902643654123,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=126
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-51.279032182090816,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-51.279032182090816,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 75
+E item minecraft:item pos=9.07,-54.12387844140115,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=75 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-51.40643218457037,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-54.12387844140115,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=125
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-51.40643218457037,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-51.40643218457037,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-51.40643218457037,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 76
+E item minecraft:item pos=9.07,-54.28873044626108,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=76 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-51.533832187049924,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-54.28873044626108,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=124
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-51.533832187049924,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-51.533832187049924,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 77
+E item minecraft:item pos=9.07,-54.453582451121,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=77 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-51.66123218952948,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-54.453582451121,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=123
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-51.66123218952948,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-51.66123218952948,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 78
+E item minecraft:item pos=9.07,-54.618434455980925,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=78 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-51.78863219200903,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-54.618434455980925,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=122
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-51.78863219200903,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-51.78863219200903,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 79
+E item minecraft:item pos=9.07,-54.78328646084085,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=79 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-51.91603219448859,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-54.78328646084085,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=121
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-51.91603219448859,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-51.91603219448859,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-51.91603219448859,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 80
+E item minecraft:item pos=9.07,-54.94813846570077,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=80 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-52.04343219696814,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-54.94813846570077,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=120
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-52.04343219696814,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-52.04343219696814,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-54.94813846570077,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-52.04343219696814,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 81
+E item minecraft:item pos=9.07,-55.112990470560696,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=81 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-52.170832199447695,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-55.112990470560696,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=119
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-52.170832199447695,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-52.170832199447695,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-55.112990470560696,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 82
+E item minecraft:item pos=9.07,-55.27784247542062,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=82 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-52.29823220192725,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-55.27784247542062,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=118
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-52.29823220192725,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-52.29823220192725,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 83
+E item minecraft:item pos=9.07,-55.442694480280544,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=83 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-52.4256322044068,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-55.442694480280544,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=117
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-52.4256322044068,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-52.4256322044068,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 84
+E item minecraft:item pos=9.07,-55.60754648514047,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=84 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-52.55303220688636,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-55.60754648514047,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=116
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-52.55303220688636,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-52.55303220688636,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-52.55303220688636,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 85
+E item minecraft:item pos=9.07,-55.77239849000039,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=85 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-52.68043220936591,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-55.77239849000039,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=115
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-52.68043220936591,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-52.68043220936591,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-55.77239849000039,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 86
+E item minecraft:item pos=9.07,-55.937250494860315,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=86 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-52.807832211845465,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-55.937250494860315,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=114
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-52.807832211845465,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-52.807832211845465,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=4.5,-52.807832211845465,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 87
+E item minecraft:item pos=9.07,-56.10210249972024,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=87 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-52.93523221432502,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-56.10210249972024,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=113
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-52.93523221432502,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-52.93523221432502,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 88
+E item minecraft:item pos=9.07,-56.26695450458016,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=88 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-53.06263221680457,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-56.26695450458016,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=112
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-53.06263221680457,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-53.06263221680457,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-53.06263221680457,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 89
+E item minecraft:item pos=9.07,-56.43180650944009,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=89 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-53.19003221928413,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-56.43180650944009,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=111
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-53.19003221928413,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-53.19003221928413,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-53.19003221928413,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+EV sound at=4.5,-53.19003221928413,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 90
+E item minecraft:item pos=9.07,-56.59665851430001,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=90 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-53.31743222176368,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-56.59665851430001,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=110
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-53.31743222176368,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-53.31743222176368,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-53.31743222176368,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 91
+E item minecraft:item pos=9.07,-56.761510519159934,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=91 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-53.444832224243235,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-56.761510519159934,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=109
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-53.444832224243235,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-53.444832224243235,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-53.444832224243235,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+EV sound at=4.5,-53.444832224243235,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 92
+E item minecraft:item pos=9.07,-56.92636252401986,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=92 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-53.57223222672279,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-56.92636252401986,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=108
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-53.57223222672279,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-53.57223222672279,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-53.57223222672279,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 93
+E item minecraft:item pos=9.07,-57.09121452887978,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=93 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-53.699632229202344,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-57.09121452887978,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=107
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-53.699632229202344,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-53.699632229202344,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-53.699632229202344,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 94
+E item minecraft:item pos=9.07,-57.256066533739705,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=94 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-53.8270322316819,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-57.256066533739705,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=106
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-53.8270322316819,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-53.8270322316819,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-53.8270322316819,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 95
+E item minecraft:item pos=9.07,-57.42091853859963,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=95 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-53.95443223416145,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-57.42091853859963,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=105
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-53.95443223416145,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-53.95443223416145,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 96
+E item minecraft:item pos=9.07,-57.58577054345955,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=96 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-54.081832236641006,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-57.58577054345955,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=104
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-54.081832236641006,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-54.081832236641006,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=4.5,-54.081832236641006,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 97
+E item minecraft:item pos=9.07,-57.75062254831948,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=97 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-54.20923223912056,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-57.75062254831948,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=103
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-54.20923223912056,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-54.20923223912056,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-54.20923223912056,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=1.24,-54.20923223912056,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 98
+E item minecraft:item pos=9.07,-57.9154745531794,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=98 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-54.336632241600114,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-57.9154745531794,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=102
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-54.336632241600114,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-54.336632241600114,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 99
+E item minecraft:item pos=9.07,-58.080326558039324,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=99 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-54.46403224407967,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-58.080326558039324,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=101
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-54.46403224407967,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-54.46403224407967,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-54.46403224407967,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 100
+E item minecraft:item pos=9.07,-58.24517856289925,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=100 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-54.59143224655922,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-58.24517856289925,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=100
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-54.59143224655922,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-54.59143224655922,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 101
+E item minecraft:item pos=9.07,-58.41003056775917,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=101 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-54.718832249038776,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-58.41003056775917,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=99
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-54.718832249038776,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-54.718832249038776,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-58.41003056775917,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=1.24,-54.718832249038776,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 102
+E item minecraft:item pos=9.07,-58.574882572619096,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=102 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-54.84623225151833,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-58.574882572619096,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=98
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-54.84623225151833,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-54.84623225151833,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 103
+E item minecraft:item pos=9.07,-58.73973457747902,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=103 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-54.973632253997884,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-58.73973457747902,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=97
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-54.973632253997884,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-54.973632253997884,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 104
+E item minecraft:item pos=9.07,-58.90458658233894,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=104 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-55.10103225647744,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-58.90458658233894,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=96
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-55.10103225647744,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-55.10103225647744,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=17.435,-58.90458658233894,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 105
+E item minecraft:item pos=9.07,-59.06943858719887,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=105 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-55.22843225895699,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-59.06943858719887,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=95
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-55.22843225895699,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-55.22843225895699,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 106
+E item minecraft:item pos=9.07,-59.23429059205879,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=106 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-55.35583226143655,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-59.23429059205879,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=94
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-55.35583226143655,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-55.35583226143655,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-55.35583226143655,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 107
+E item minecraft:item pos=9.07,-59.399142596918715,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=107 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-55.4832322639161,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-59.399142596918715,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=93
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-55.4832322639161,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-55.4832322639161,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 108
+E item minecraft:item pos=9.07,-59.56399460177864,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=108 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-55.610632266395655,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-59.56399460177864,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=92
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-55.610632266395655,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-55.610632266395655,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-55.610632266395655,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-55.610632266395655,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 109
+E item minecraft:item pos=9.07,-59.72884660663856,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=109 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-55.73803226887521,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-59.72884660663856,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=91
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-55.73803226887521,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-55.73803226887521,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-55.73803226887521,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+EV sound at=4.5,-55.73803226887521,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 110
+E item minecraft:item pos=9.07,-59.893698611498486,2.5 delta=0.0,-0.12485200485992436,0.0 rot=97.65333,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=110 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-55.86543227135476,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-59.893698611498486,2.5 delta=0.0,-0.12485200485992436,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=90
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-55.86543227135476,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-55.86543227135476,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-55.86543227135476,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=17.435,-59.893698611498486,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+EV sound at=4.5,-55.86543227135476,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 111
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,0.0,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=111 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-55.99283227383432,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=89
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-55.99283227383432,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-55.99283227383432,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 112
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,-0.04,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=112 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-56.12023227631387,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=88
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-56.12023227631387,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-56.12023227631387,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=1.24,-56.12023227631387,2.5 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+EV sound at=4.5,-56.12023227631387,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 113
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,0.0,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=113 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-56.247632278793425,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=87
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-56.247632278793425,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-56.247632278793425,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 114
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,-0.04,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=114 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-56.37503228127298,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=86
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-56.37503228127298,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-56.37503228127298,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 115
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,-0.08,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=115 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-56.50243228375253,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=85
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-56.50243228375253,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-56.50243228375253,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-56.50243228375253,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 116
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,-0.12,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=116 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-56.62983228623209,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=84
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-56.62983228623209,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-56.62983228623209,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=13.395,-56.62983228623209,2.5 r=16.0 ex=0 event=minecraft:block.honey_block.slide source=neutral vol=1.0 pitch=1.0
+T 117
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,0.0,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=117 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-56.75723228871164,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=83
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-56.75723228871164,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-56.75723228871164,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 118
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,-0.04,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=118 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-56.884632291191195,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=82
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-56.884632291191195,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-56.884632291191195,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 119
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,-0.08,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=119 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-57.01203229367075,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=81
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-57.01203229367075,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-57.01203229367075,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EV sound at=4.5,-57.01203229367075,3.245 r=16.0 ex=1 event=minecraft:block.honey_block.slide source=player vol=1.0 pitch=1.0
+T 120
+E item minecraft:item pos=9.07,-60.0,2.5 delta=0.0,-0.12,0.0 rot=97.65333,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=120 pickup=0 health=5 owner=- thrower=-
+E pig minecraft:pig pos=13.395,-57.139432296150304,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E tnt minecraft:tnt pos=17.435,-60.0,2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
+E cow minecraft:cow pos=24.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,-4.5737777 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Slide minecraft:player pos=1.24,-57.139432296150304,2.5 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P SlideZ minecraft:player pos=4.5,-57.139432296150304,3.245 delta=0.0,-0.12740000247955321,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Land minecraft:player pos=20.5,-60.0625,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+ADV Slide minecraft:adventure/adventuring_time minecraft:plains
+ADV Slide minecraft:adventure/honey_block_slide honey_block_slide
+ADV Slide minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV SlideZ minecraft:adventure/adventuring_time minecraft:plains
+ADV SlideZ minecraft:adventure/honey_block_slide honey_block_slide
+ADV SlideZ minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT Slide minecraft.custom:minecraft.play_time 120
+STAT Slide minecraft.custom:minecraft.time_since_death 120
+STAT Slide minecraft.custom:minecraft.time_since_rest 120
+STAT Slide minecraft.custom:minecraft.total_world_time 120

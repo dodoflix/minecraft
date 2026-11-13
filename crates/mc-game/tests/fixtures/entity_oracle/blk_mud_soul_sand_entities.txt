@@ -1,0 +1,280 @@
+T 1
+E mudingot minecraft:item pos=2.5,-59.04,3.5 delta=0.0,-0.03920000076293945,0.0 rot=97.89672,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-59.04,3.5 delta=0.0,-0.03920000076293945,0.0 rot=333.65112,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=1 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-59.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-59.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-59.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 2
+E mudingot minecraft:item pos=2.5,-59.11920000076294,3.5 delta=0.0,-0.0776160022583008,0.0 rot=97.89672,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=2 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-59.07840000152588,3.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-59.11920000076294,3.5 delta=0.0,-0.0776160022583008,0.0 rot=333.65112,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=2 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-59.07840000152588,3.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-59.07840000152588,2.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-59.07840000152588,2.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 3
+E mudingot minecraft:item pos=2.5,-59.23681600302124,3.5 delta=0.0,-0.115263684456482,0.0 rot=97.89672,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=3 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-59.23363200604248,3.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-59.23681600302124,3.5 delta=0.0,-0.115263684456482,0.0 rot=333.65112,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=3 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-59.23363200604248,3.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-59.23363200604248,2.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-59.23363200604248,2.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+E mudingot minecraft:item pos=2.5,-59.39207968747772,3.5 delta=0.0,-0.15215841372877212,0.0 rot=97.89672,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=4 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-59.46415937495544,3.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-59.39207968747772,3.5 delta=0.0,-0.15215841372877212,0.0 rot=333.65112,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=4 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-59.46415937495544,3.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-59.46415937495544,2.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-59.46415937495544,2.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+E mudingot minecraft:item pos=2.5,-59.58423810120649,3.5 delta=0.0,-0.18831524911932757,0.0 rot=97.89672,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=5 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-59.768476202412984,3.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-59.58423810120649,3.5 delta=0.0,-0.18831524911932757,0.0 rot=333.65112,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=5 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-59.768476202412984,3.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-59.768476202412984,2.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-59.768476202412984,2.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 6
+E mudingot minecraft:item pos=2.5,-59.812553350325814,3.5 delta=0.0,-0.22374894849170882,0.0 rot=97.89672,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=6 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-59.812553350325814,3.5 delta=0.0,-0.22374894849170882,0.0 rot=333.65112,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=6 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.125,2.5259999986737967 delta=0.0,-0.0784000015258789,0.023659999475032056 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,2.5259999986737967 delta=0.0,-0.0784000015258789,0.00946399993103741 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+E mudingot minecraft:item pos=2.5,-60.076302298817524,3.5 delta=0.0,-0.2584739745524866,0.0 rot=97.89672,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=7 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.076302298817524,3.5 delta=0.0,-0.2584739745524866,0.0 rot=333.65112,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=7 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.125,2.679660008281618 delta=0.0,-0.0784000015258789,0.08389837499088734 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,2.6654640087376236 delta=0.0,-0.0784000015258789,0.030458943789699752 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=8 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.826365 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=8 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.125,2.893558393405295 delta=0.0,-0.0784000015258789,0.11678853184282247 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,2.825922962660113 delta=0.0,-0.0784000015258789,0.03504424012935206 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 9
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=9 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.826365 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=9 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.125,3.140346935380907 delta=0.0,-0.0784000015258789,0.13474655956985115 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,2.9909672129222544 delta=0.0,-0.0784000015258789,0.03604566898117316 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 10
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=10 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.018291 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=10 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.125,3.405093505083548 delta=0.0,-0.0784000015258789,0.14455164384769512 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,3.1570128920362173 delta=0.0,-0.0784000015258789,0.03626438107107394 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=11 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.018291 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=11 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.125,3.6796451590640324 delta=0.0,-0.0784000015258789,0.14990522048522992 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,3.3232772832400808 delta=0.0,-0.0784000015258789,0.03631214779776828 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 12
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=12 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.053529 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=12 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.125,3.959550389682052 delta=0.0,-0.0784000015258789,0.15282827366884422 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,3.4895894411706387 delta=0.0,-0.0784000015258789,0.03632258005224551 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=13 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.053529 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=13 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.125,4.242378673483686 delta=0.0,-0.0784000015258789,0.15442426089247574 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,3.655912031355674 delta=0.0,-0.0784000015258789,0.03632485845692193 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=14 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.868652 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=14 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.125,4.526802944508951 delta=0.0,-0.0784000015258789,0.155295670017795 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,3.8222368999453855 delta=0.0,-0.0784000015258789,0.03632535606056848 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 15
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=15 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.868652 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=15 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.027523 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,4.812098624659535 delta=0.0,-0.0784000015258789,0.1557714594554835 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,3.9885622661387434 delta=0.0,-0.0784000015258789,0.03632546473721912 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 16
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=16 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-13.104794 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=16 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.027523 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,5.097870094247808 delta=0.0,-0.0784000015258789,0.1560312405186357 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,4.154887741008753 delta=0.0,-0.0784000015258789,0.03632548847220273 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 17
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=17 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-13.104794 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=17 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.911456 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,5.383901344899233 delta=0.0,-0.0784000015258789,0.15617308099559193 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,4.321213239613745 delta=0.0,-0.0784000015258789,0.03632549365592383 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 18
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=18 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.497397 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=18 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.911456 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,5.670074436027615 delta=0.0,-0.0784000015258789,0.15625052590500546 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,4.4875387434024585 delta=0.0,-0.0784000015258789,0.03632549478804867 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=19 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.497397 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=19 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.723574 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,5.956324972065411 delta=0.0,-0.0784000015258789,0.15629281083045674 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.125,4.653864248323297 delta=0.0,-0.0784000015258789,0.03632549503530476 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 20
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=20 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.792603 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=20 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.723574 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,6.242617793028657 delta=0.0,-0.0784000015258789,0.15631589840243484 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,4.820189753491391 delta=0.0,-0.0784000015258789,0.09081373637003362 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 21
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=21 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.792603 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=21 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-13.097198 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,6.528933701563881 delta=0.0,-0.0784000015258789,0.1563285042181991 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,5.041003499994214 delta=0.0,-0.0784000015258789,0.120564319594404 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 22
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.05183 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-13.097198 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,6.81526221591487 delta=0.0,-0.0784000015258789,0.15633538699440583 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,5.291567829721408 delta=0.0,-0.0784000015258789,0.13680813992167265 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 23
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=23 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.05183 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=23 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.603844 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,7.101597613042065 delta=0.0,-0.0784000015258789,0.1563391449906512 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,5.55837597977587 delta=0.0,-0.0784000015258789,0.1456772668505337 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=24 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-10.31889 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=24 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-12.603844 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,7.387936768165506 delta=0.0,-0.0784000015258789,0.1563411968568395 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,5.834053256759193 delta=0.0,-0.0784000015258789,0.15051981071616607 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 25
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=25 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-10.31889 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=25 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.948059 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,7.674277975155135 delta=0.0,-0.0784000015258789,0.15634231717590844 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,6.114573077608149 delta=0.0,-0.0784000015258789,0.15316383997391225 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 26
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=26 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.620744 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=26 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.948059 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,7.960620302463833 delta=0.0,-0.0784000015258789,0.1563429288701911 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,6.397736927714851 delta=0.0,-0.0784000015258789,0.15460748011632428 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 27
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=27 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.620744 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=27 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.222258 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,8.246963241466814 delta=0.0,-0.0784000015258789,0.15634326285530825 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,6.682344417963964 delta=0.0,-0.0784000015258789,0.15539570772563596 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 28
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=28 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=28 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-11.222258 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,8.533306514454912 delta=0.0,-0.0784000015258789,0.1563434452112034 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,6.96774013582239 delta=0.0,-0.0784000015258789,0.15582608005030898 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 29
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=29 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=29 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-10.487927 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,8.819649969798904 delta=0.0,-0.0784000015258789,0.15634354477753373 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.253566226005488 delta=0.0,-0.0784000015258789,0.1560610633668744 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 30
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=30 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=30 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-10.487927 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.105993524709227 delta=0.0,-0.0784000015258789,0.1563435991407564 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.5396272995051525 delta=0.0,-0.0784000015258789,0.15618936427262162 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 31
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=31 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=31 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.780756 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.262337123849983 delta=0.0,-0.0784000015258789,0.08536361504606119 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.695816663777774 delta=0.0,-0.0784000015258789,0.08527940279827811 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 32
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=32 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=32 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.780756 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.347700738896044 delta=0.0,-0.0784000015258789,0.04660853922885371 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.781096066576052 delta=0.0,-0.0784000015258789,0.04656255933622346 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 33
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=33 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=33 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.495582 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.394309278124899 delta=0.0,-0.0784000015258789,0.025448265374837017 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.827658625912275 delta=0.0,-0.0784000015258789,0.02542316035054489 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 34
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=34 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=34 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.495582 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.419757543499736 delta=0.0,-0.0784000015258789,0.013894754508573257 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.853081786262821 delta=0.0,-0.0784000015258789,0.013881047163717611 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 35
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=35 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=35 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.412378 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.43365229800831 delta=0.0,-0.0784000015258789,0.007586536842877187 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.8669628334265385 delta=0.0,-0.0784000015258789,0.007579052631716694 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 36
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=36 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=36 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.412378 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.441238834851188 delta=0.0,-0.0784000015258789,0.004142249597344119 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.874541886058255 delta=0.0,-0.0784000015258789,0.0041381632175758465 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 37
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=37 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=37 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.387736 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.445381084448531 delta=0.0,-0.0784000015258789,0.0022616685428486333 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.878680049275831 delta=0.0,-0.0784000015258789,0.0022594373792360007 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 38
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=38 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.08,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=38 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.387736 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.445381084448531 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.878680049275831 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 39
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=39 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,-0.12,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=39 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.382993 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.445381084448531 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.878680049275831 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 40
+E mudingot minecraft:item pos=2.5,-60.125,3.5 delta=0.0,-0.04,0.0 rot=97.89672,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=40 pickup=0 health=5 owner=- thrower=-
+E mudpig minecraft:pig pos=4.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=315.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E sandingot minecraft:item pos=12.5,-60.125,3.5 delta=0.0,0.0,0.0 rot=333.65112,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gold_ingot*1 age=40 pickup=0 health=5 owner=- thrower=-
+E sandpig minecraft:pig pos=14.5,-60.125,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-9.382993 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Muddy minecraft:player pos=0.5,-60.0,9.445381084448531 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sandy minecraft:player pos=10.5,-60.0,7.878680049275831 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

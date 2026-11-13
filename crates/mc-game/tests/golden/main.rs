@@ -84,6 +84,7 @@ mod ent_dump_golden;
 mod ent_interact_golden;
 mod ent_leash_knot_golden;
 mod ent_marker_interaction_golden;
+mod ent_movers_golden;
 mod ent_players_golden;
 mod ent_verbs_golden;
 mod entity_base_motion_golden;

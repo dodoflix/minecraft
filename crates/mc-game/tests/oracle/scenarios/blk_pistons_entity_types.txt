@@ -1,0 +1,88 @@
+# Moving pistons and other entity kinds and directions: an extending vertical piston lifts a stone block with a pig or a player on it, a
+# slime block pushed down bounces a pig into the floor and the sticky retraction pulls it back, a pig squeezed against the ceiling, a sticky
+# retraction with a pig standing where the head is (fixEntityWithinPistonBase), a slime block pushed sideways under a pig, and
+# primed TNT, a falling block, an experience orb and a boat in front of an extending head.
+level flat
+preload 3
+level_seed 13
+entity_counter 1100
+fill 0 -61 0 40 -61 40 minecraft:stone
+# vertical lifts (z=3): pig on a stone block, creative player, survival player on a stone block
+block 4 -61 3 minecraft:piston[facing=up,extended=false]
+block 4 -60 3 minecraft:stone
+spawn liftpig minecraft:pig 4.5 -59 3.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed liftpig 131
+block 8 -61 3 minecraft:piston[facing=up,extended=false]
+block 8 -60 3 minecraft:stone
+spawn_player Lifted survival 8.5 -59 3.5 0 0 sim
+block 12 -61 3 minecraft:piston[facing=up,extended=false]
+block 12 -60 3 minecraft:stone
+spawn_player Maker creative 12.5 -59 3.5 0 0 sim
+# a pig squeezed between the lifted stone and the ceiling
+block 16 -61 3 minecraft:piston[facing=up,extended=false]
+block 16 -60 3 minecraft:stone
+block 16 -57 3 minecraft:stone
+spawn squeezed minecraft:pig 16.5 -59 3.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed squeezed 132
+# a slime block pushed down by a (sticky) piston bounces the pig under it into the floor; the sticky retraction pulls it back up
+block 20 -58 3 minecraft:sticky_piston[facing=down,extended=false]
+block 20 -59 3 minecraft:slime_block
+spawn downpig minecraft:pig 20.5 -60 3.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed downpig 133
+block 24 -58 3 minecraft:piston[facing=down,extended=false]
+block 24 -59 3 minecraft:slime_block
+spawn bouncepig minecraft:pig 24.5 -60 3.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed bouncepig 134
+# a sticky piston retracting while a pig stands where its head is
+block 4 -60 8 minecraft:sticky_piston[facing=east,extended=false]
+block 5 -60 8 minecraft:stone
+spawn headpig minecraft:pig 5.5 -60 8.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed headpig 135
+# a slime block pushed sideways with a pig on top of it
+block 10 -60 8 minecraft:piston[facing=east,extended=false]
+block 11 -60 8 minecraft:slime_block
+block 11 -61 8 minecraft:air
+spawn slimetop minecraft:pig 11.5 -59 8.5 {attributes:[{id:"minecraft:movement_speed",base:0.0d}]}
+entity_seed slimetop 136
+# other entity kinds in front of an extending head
+block 4 -60 13 minecraft:piston[facing=east,extended=false]
+spawn tnt minecraft:tnt 5.5 -60 13.5 {fuse:200s}
+block 8 -60 13 minecraft:piston[facing=east,extended=false]
+spawn sand minecraft:falling_block 9.5 -60 13.5 {BlockState:{Name:"minecraft:sand"},Time:1,NoGravity:0b}
+entity_seed sand 137
+block 12 -60 13 minecraft:piston[facing=east,extended=false]
+spawn orb minecraft:experience_orb 13.5 -60 13.5 {Value:5s}
+entity_seed orb 138
+block 16 -60 13 minecraft:piston[facing=east,extended=false]
+spawn boat minecraft:oak_boat 17.5 -60 13.5
+entity_seed boat 139
+watch entities player:Lifted player:Maker
+tick 4
+block 4 -62 3 minecraft:redstone_block
+block 8 -62 3 minecraft:redstone_block
+block 12 -62 3 minecraft:redstone_block
+block 16 -62 3 minecraft:redstone_block
+block 20 -57 3 minecraft:redstone_block
+block 24 -57 3 minecraft:redstone_block
+block 4 -59 8 minecraft:redstone_block
+block 10 -59 8 minecraft:redstone_block
+block 4 -59 13 minecraft:redstone_block
+block 8 -59 13 minecraft:redstone_block
+block 12 -59 13 minecraft:redstone_block
+block 16 -59 13 minecraft:redstone_block
+tick 24
+block 4 -62 3 minecraft:air
+block 8 -62 3 minecraft:air
+block 12 -62 3 minecraft:air
+block 16 -62 3 minecraft:air
+block 20 -57 3 minecraft:air
+block 24 -57 3 minecraft:air
+block 4 -59 8 minecraft:air
+block 10 -59 8 minecraft:air
+block 4 -59 13 minecraft:air
+block 8 -59 13 minecraft:air
+block 12 -59 13 minecraft:air
+block 16 -59 13 minecraft:air
+tick 24
+watch off
+dump blocks:3,-62,2,26,-56,15 events
