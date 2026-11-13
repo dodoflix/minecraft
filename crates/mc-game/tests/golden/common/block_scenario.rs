@@ -624,6 +624,11 @@ impl Scenario {
         level.tick_state.enabled_features = self.opts.features;
         level.server_state.rules.refresh(&self.env.game_rules);
         apply_spawn_settings(&mut level, &self.env.game_rules, self.opts.difficulty);
+        if mc_game::commands::server_access::has_server() {
+            // the scoreboard the `team`/`scoreboard` commands edit is the one the level reads
+            level.server_state.scoreboard =
+                mc_game::commands::server_access::with_server(|s| s.scoreboard.clone());
+        }
         // loot random sequences are seeded from the world seed (`VanillaLevel.Options.seed`)
         level.server_state.loot.world_seed = self.opts_seed();
         level.tick_state.broadcast_log = Some(self.log.clone());
