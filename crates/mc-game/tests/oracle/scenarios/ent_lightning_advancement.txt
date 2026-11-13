@@ -1,0 +1,34 @@
+# The lightning strike trigger: every player within 256 blocks of a bolt that ends gets it, with the living things around the bolt (that
+# it did not hit) as bystanders. "lightning_rod_with_villager_no_fire" needs a villager among them, the player within 30 blocks and no
+# block set on fire: it is awarded on easy (a bolt only lights fires on normal and hard), not to a player 40 blocks away, and not once
+# the bolt has burned something.
+command_env
+level flat
+preload 3
+difficulty easy
+entity_counter 1000
+level_seed 21
+spawn_player A survival 10.5 -60 8.5 0 0
+spawn_player B survival 50.5 -60 8.5 0 0
+spawn_player C survival 10.5 -60 40.5 0 0
+spawn vil minecraft:villager 10.5 -60 4.5 0 0 {NoAI:1b}
+entity_seed vil 41
+block 10 -60 0 minecraft:lightning_rod[facing=up]
+tick 2
+dump advancements:A advancements:B advancements:C
+note easy: a bolt on the rod with the villager 4 blocks away awards the player within 30 blocks only
+spawn b1 minecraft:lightning_bolt 10.5 -59 0.5
+entity_seed b1 42
+tick 8
+dump entities advancements:A advancements:B advancements:C blocks:9,-61,-1,11,-59,1
+note normal: the same on a fresh villager and player D: the bolt lights fires, so nothing is awarded
+difficulty normal
+spawn_player D survival -29.5 -60 8.5 0 0
+spawn vil2 minecraft:villager -29.5 -60 4.5 0 0 {NoAI:1b}
+entity_seed vil2 43
+block -30 -60 0 minecraft:lightning_rod[facing=up]
+tick 2
+spawn b2 minecraft:lightning_bolt -29.5 -59 0.5
+entity_seed b2 44
+tick 8
+dump entities advancements:D blocks:-31,-61,-1,-29,-59,1

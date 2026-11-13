@@ -1,0 +1,35 @@
+# What a bolt makes of the mobs it strikes: a pig turns into a zombified piglin, a mushroom cow swaps its variant (once per bolt), a
+# creeper becomes charged, other mobs are set on fire and hurt,
+# an armor stand ignores it, and the bolt's own sound and event reach the player.
+command_env
+level flat
+preload 3
+difficulty normal
+entity_counter 900
+level_seed 9
+time 18000
+spawn_player A survival 0.5 -60 12.5 0 0
+tick 2
+dump packets:A:none
+spawn pig minecraft:pig 0.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed pig 31
+spawn cow minecraft:mooshroom 2.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed cow 32
+spawn cr minecraft:creeper 0.5 -60 2.5 0 0 {NoAI:1b}
+entity_seed cr 33
+spawn zom minecraft:zombie 1.5 -60 -1.5 0 0 {NoAI:1b}
+entity_seed zom 35
+spawn stand minecraft:armor_stand 1.5 -60 1.5
+entity_seed stand 36
+spawn farpig minecraft:pig 8.5 -60 0.5 0 0 {NoAI:1b}
+entity_seed farpig 37
+spawn farvil minecraft:villager 8.5 -60 2.5 0 0 {NoAI:1b}
+entity_seed farvil 38
+tick 3
+dump entities nbt:cow nbt:cr
+spawn b1 minecraft:lightning_bolt 1.5 -60 0.5
+entity_seed b1 39
+tick 1
+dump entities nbt:cow nbt:cr packets:A:none events
+tick 12
+dump entities nbt:cow nbt:cr nbt:farpig

@@ -1,0 +1,38 @@
+# ServerLevel.tickThunder with lightning rods around: the strike is pulled to the closest rod (point of interest lookup, 128 blocks)
+# that is the topmost block of its column and lands one block above it; a rod covered by another block is ignored; once the open rod
+# is gone the strike goes to the next open rod. The thunder ramps up over 95 ticks before the chunks draw their 1 in 100000 chance
+# (chunk order and the draws come from the level random): `level_seed` picks a seed whose draw in the 96th tick is a strike, and
+# `rand_value` fixes the column of the strike inside its chunk (here 7, 12).
+level flat
+preload 4
+difficulty easy
+entity_counter 700
+level_seed 4
+rand_value 0
+spawn_player A survival 0.5 -60 0.5 0 0
+cmd weather thunder 24000
+note an open rod, a closer rod with a block on top, and a rod in another chunk
+block 45 -60 50 minecraft:lightning_rod[facing=up]
+block 40 -60 44 minecraft:lightning_rod[facing=up]
+block 40 -59 44 minecraft:stone
+block -30 -60 70 minecraft:lightning_rod[facing=up]
+tick 95
+dump entities
+level_seed 2323
+tick 1
+dump entities blocks:39,-61,43,46,-59,51 ticks
+tick 3
+dump entities blocks:39,-61,43,46,-59,51 ticks
+level_seed 11
+tick 12
+dump entities
+note the open rod is gone: the next strike goes to the rod in the other chunk
+block 45 -60 50 minecraft:air
+rand_value 0
+level_seed 1333
+tick 1
+dump entities blocks:-31,-61,69,-29,-59,71 ticks
+tick 3
+dump entities blocks:-31,-61,69,-29,-59,71 ticks
+level_seed 12
+tick 12

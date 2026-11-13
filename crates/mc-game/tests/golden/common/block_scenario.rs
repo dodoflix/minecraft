@@ -393,6 +393,8 @@ fn timelines_of_tag(tag: &str) -> Vec<mc_game::world::attribute::Timeline> {
 
 pub struct Scenario {
     pub level: Option<ServerLevel>,
+    /// The world data of the level (`/difficulty` changes it).
+    world_data: Option<mc_game::server::level::level_data::SharedWorldData>,
     pub env: Env,
     pub out: Vec<String>,
     /// Completed ticks (`T n` header numbering).
@@ -433,6 +435,7 @@ impl Scenario {
         Scenario {
             clocks: Arc::default(),
             level: None,
+            world_data: None,
             env: Env {
                 game_rules,
                 weather: WeatherState::default(),
@@ -557,6 +560,13 @@ impl Scenario {
         for _ in 0..draws_before_level {
             mc_core::random::generate_unique_seed();
         }
+        let world_data = mc_game::server::level::level_data::default_world_data();
+        world_data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
+        if self.opts.flat {
+            // the vanilla flat world's spawn (natural spawning keeps its distance from it)
+            world_data.lock().respawn_data.pos = BlockPos::new(0, -60, 0);
+        }
+        self.world_data = Some(world_data.clone());
         let mut level = ServerLevel::new(ServerLevelParams {
             shared,
             dimension: Identifier::parse(&format!("minecraft:{}", self.opts.dimension)).unwrap(),
@@ -584,16 +594,7 @@ impl Scenario {
             sync_writes: false,
             is_debug: false,
             level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
-                {
-                    let data = mc_game::server::level::level_data::default_world_data();
-                    // `ServerLevel.getDifficulty()` (the endermite roll of a landing ender pearl) reads the level data
-                    data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
-                    if self.opts.flat {
-                        // the vanilla flat world's spawn (natural spawning keeps its distance from it)
-                        data.lock().respawn_data.pos = BlockPos::new(0, -60, 0);
-                    }
-                    data
-                },
+                world_data,
             )),
         });
         // dimension type attributes plus its timelines (the day timeline drives `SKY_LIGHT_LEVEL` and `SUN_ANGLE`) and the weather layers; no biome layers
@@ -622,6 +623,7 @@ impl Scenario {
             && self.opts.dimension != "the_end";
         level.tick_state.enabled_features = self.opts.features;
         level.server_state.rules.refresh(&self.env.game_rules);
+        apply_spawn_settings(&mut level, &self.env.game_rules, self.opts.difficulty);
         // loot random sequences are seeded from the world seed (`VanillaLevel.Options.seed`)
         level.server_state.loot.world_seed = self.opts_seed();
         level.tick_state.broadcast_log = Some(self.log.clone());
@@ -736,6 +738,12 @@ impl Scenario {
                     "hard" => Difficulty::Hard,
                     other => panic!("difficulty {other}"),
                 };
+                // `/difficulty` of a running world
+                if let (Some(data), Some(level)) = (&self.world_data, self.level.as_mut()) {
+                    data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
+                    self.env.difficulty = self.opts.difficulty;
+                    apply_spawn_settings(level, &self.env.game_rules, self.opts.difficulty);
+                }
             }
             "preload" => self.opts.preload = int(&a[1]),
             "features" => {
@@ -751,22 +759,22 @@ impl Scenario {
                     );
                 }
             }
-            // `cmd weather rain|clear DURATION` (the duration is explicit: the command's default draws from the level random) and
+            // `cmd weather rain|thunder|clear DURATION` (the duration is explicit: the command's default draws from the level random) and
             // `cmd recipe give|take PLAYER RECIPE|*`
             "cmd" => {
                 self.world();
                 match (a.get(1).map(String::as_str), a.get(2).map(String::as_str)) {
-                    (Some("weather"), Some(kind @ ("rain" | "clear"))) => {
+                    (Some("weather"), Some(kind @ ("rain" | "thunder" | "clear"))) => {
                         let ticks: i32 = a
                             .get(3)
                             .and_then(|d| d.parse().ok())
                             .unwrap_or_else(|| panic!("weather {kind} needs a duration in ticks"));
-                        self.env.weather = if kind == "rain" {
+                        self.env.weather = if kind != "clear" {
                             WeatherState {
                                 clear_weather_time: 0,
                                 rain_time: ticks,
                                 thunder_time: ticks,
-                                thundering: false,
+                                thundering: kind == "thunder",
                                 raining: true,
                             }
                         } else {
@@ -902,12 +910,9 @@ impl Scenario {
 
     fn gamerule(&mut self, name: &str, value: &str) {
         set_rule(&mut self.env.game_rules, name, value);
-        self.level
-            .as_mut()
-            .expect("world")
-            .server_state
-            .rules
-            .refresh(&self.env.game_rules);
+        let level = self.level.as_mut().expect("world");
+        level.server_state.rules.refresh(&self.env.game_rules);
+        apply_spawn_settings(level, &self.env.game_rules, self.opts.difficulty);
     }
 
     /// One real server tick; with `watch`es set the `T n` header and the dumps follow.
@@ -1192,6 +1197,14 @@ fn fill_biomes(
 }
 
 /// `/gamerule NAME VALUE` (unknown rules and rules disabled by the feature flags are ignored like a rejected command).
+/// `MinecraftServer.updateMobSpawningFlags`: the chunk source spawns monsters while the difficulty is not peaceful and the
+/// `spawn_monsters` rule is on (the vanilla driver turns the rule off, so only the friendly categories spawn).
+fn apply_spawn_settings(level: &mut ServerLevel, rules: &GameRules, difficulty: Difficulty) {
+    level.chunk_source_mut().set_spawn_settings(
+        difficulty != Difficulty::Peaceful && rules.get(GameRules::SPAWN_MONSTERS),
+    );
+}
+
 fn set_rule(rules: &mut GameRules, name: &str, value: &str) {
     let id = Identifier::parse(&format!("minecraft:{name}"))
         .unwrap_or_else(|_| panic!("gamerule {name}"));

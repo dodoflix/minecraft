@@ -1,0 +1,52 @@
+# LightningBolt on hard: fire at the bolt's block and up to four neighbouring air blocks that can hold fire, the fire of the extra
+# flashes, flammable blocks around the strike, no fire on water or inside solid blocks, and what the bolt does to the living things
+# within three blocks (set on fire and hurt) and not to those farther away.
+command_env
+level flat
+preload 3
+difficulty hard
+entity_counter 800
+level_seed 7
+spawn_player A survival 30.5 -60 30.5 0 0
+tick 2
+note a bolt on open ground
+spawn b1 minecraft:lightning_bolt 5.5 -60 5.5
+entity_seed b1 11
+tick 14
+dump entities blocks:3,-61,3,8,-59,8 ticks
+note a bolt among flammable blocks: planks, a hay bale, wool and leaves around it
+fill 11 -60 5 15 -58 9 minecraft:oak_planks hollow
+block 13 -60 7 minecraft:hay_block
+block 12 -60 7 minecraft:white_wool
+block 14 -60 7 minecraft:oak_leaves[persistent=true]
+block 13 -58 7 minecraft:oak_leaves[persistent=true]
+spawn b2 minecraft:lightning_bolt 13.5 -59 7.5
+entity_seed b2 12
+tick 14
+dump entities blocks:10,-61,4,16,-57,10 ticks
+note on water and inside a solid block nothing burns
+block 20 -61 5 minecraft:water[level=0]
+block 21 -61 5 minecraft:water[level=0]
+block 20 -60 5 minecraft:air
+spawn b3 minecraft:lightning_bolt 20.5 -61 5.5
+entity_seed b3 13
+block 25 -60 5 minecraft:stone
+spawn b4 minecraft:lightning_bolt 25.5 -60 5.5
+entity_seed b4 14
+tick 14
+dump entities blocks:19,-62,4,26,-59,6 ticks
+note a cow and a chicken inside the radius burn and are hurt, a cow outside is left alone, an item inside is hurt too
+spawn c1 minecraft:cow 36.5 -60 5.5
+entity_seed c1 15
+spawn c2 minecraft:chicken 38.0 -60 6.5
+entity_seed c2 16
+spawn c3 minecraft:cow 36.5 -60 12.5
+entity_seed c3 17
+spawn_item i1 minecraft:diamond 35.5 -60 5.5 0 0 0 1
+entity_seed i1 18
+spawn b5 minecraft:lightning_bolt 36.5 -60 5.5
+entity_seed b5 19
+tick 3
+dump entities nbt:c1 nbt:c2 nbt:c3
+tick 30
+dump entities blocks:34,-61,4,40,-59,8

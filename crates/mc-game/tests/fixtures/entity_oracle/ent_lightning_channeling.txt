@@ -1,0 +1,42 @@
+C Set the weather to rain and thunder
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:adventure/adventuring_time minecraft:plains
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+# both throw at the rod six blocks ahead
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:adventure/very_very_frightening struck_villager
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:adventure/adventuring_time minecraft:plains
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+B -1 -61 5 minecraft:grass_block[snowy=false]
+B -1 -61 6 minecraft:grass_block[snowy=false]
+B -1 -61 7 minecraft:grass_block[snowy=false]
+B 0 -61 5 minecraft:grass_block[snowy=false]
+B 0 -61 6 minecraft:grass_block[snowy=false]
+B 0 -61 7 minecraft:grass_block[snowy=false]
+B 0 -60 6 minecraft:stone
+B 0 -59 6 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B 1 -61 5 minecraft:grass_block[snowy=false]
+B 1 -61 6 minecraft:grass_block[snowy=false]
+B 1 -61 7 minecraft:grass_block[snowy=false]
+TICK block 0 -59 6 minecraft:lightning_rod delay=4 prio=0
+TICK block 20 -59 6 minecraft:lightning_rod delay=4 prio=0
+B 19 -61 5 minecraft:grass_block[snowy=false]
+B 19 -61 6 minecraft:grass_block[snowy=false]
+B 19 -61 7 minecraft:grass_block[snowy=false]
+B 20 -61 5 minecraft:grass_block[snowy=false]
+B 20 -61 6 minecraft:grass_block[snowy=false]
+B 20 -61 7 minecraft:grass_block[snowy=false]
+B 20 -60 6 minecraft:stone
+B 20 -59 6 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B 21 -61 5 minecraft:grass_block[snowy=false]
+B 21 -61 6 minecraft:grass_block[snowy=false]
+B 21 -61 7 minecraft:grass_block[snowy=false]
+TICK block 0 -59 6 minecraft:lightning_rod delay=4 prio=0
+TICK block 20 -59 6 minecraft:lightning_rod delay=4 prio=0
+ADV A minecraft:adventure/adventuring_time minecraft:plains
+ADV A minecraft:adventure/very_very_frightening struck_villager
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:adventure/adventuring_time minecraft:plains
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away

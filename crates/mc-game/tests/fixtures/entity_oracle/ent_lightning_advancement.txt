@@ -1,0 +1,37 @@
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV C minecraft:recipes/decorations/crafting_table unlock_right_away
+# easy: a bolt on the rod with the villager 4 blocks away awards the player within 30 blocks only
+E vil minecraft:villager pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+ADV A minecraft:adventure/lightning_rod_with_villager_no_fire lightning_rod_with_villager_no_fire
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV C minecraft:recipes/decorations/crafting_table unlock_right_away
+B 9 -61 -1 minecraft:grass_block[snowy=false]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 10 -61 -1 minecraft:grass_block[snowy=false]
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 1 minecraft:grass_block[snowy=false]
+B 10 -60 0 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B 11 -61 -1 minecraft:grass_block[snowy=false]
+B 11 -61 0 minecraft:grass_block[snowy=false]
+B 11 -61 1 minecraft:grass_block[snowy=false]
+# normal: the same on a fresh villager and player D: the bolt lights fires, so nothing is awarded
+C The difficulty has been set to Normal
+E vil minecraft:villager pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E vil2 minecraft:villager pos=-29.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E b2 minecraft:lightning_bolt pos=-29.5,-59.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=-6 flashes=3 seed=-2586666079462666309 fires=2
+ADV D minecraft:recipes/decorations/crafting_table unlock_right_away
+B -31 -61 -1 minecraft:grass_block[snowy=false]
+B -31 -61 0 minecraft:grass_block[snowy=false]
+B -31 -61 1 minecraft:grass_block[snowy=false]
+B -30 -61 -1 minecraft:grass_block[snowy=false]
+B -30 -61 0 minecraft:grass_block[snowy=false]
+B -30 -61 1 minecraft:grass_block[snowy=false]
+B -30 -60 0 minecraft:lightning_rod[facing=up,powered=true,waterlogged=false]
+B -29 -61 -1 minecraft:grass_block[snowy=false]
+B -29 -61 0 minecraft:grass_block[snowy=false]
+B -29 -61 1 minecraft:grass_block[snowy=false]
+B -29 -60 0 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B -29 -60 1 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
