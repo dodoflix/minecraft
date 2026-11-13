@@ -52,6 +52,30 @@ pub struct CommandNode<S> {
     state: RwLock<State<S>>,
 }
 
+impl<S> CommandNode<S> {
+    /// Detaches every child below this node (and below redirect targets). A tree whose nodes redirect to an ancestor (the
+    /// `execute` family redirects to the root) is a cycle of `Arc`s that reference counting never frees, and its argument
+    /// types keep the registries they were built with alive.
+    pub(crate) fn dismantle(self: &Arc<Self>, seen: &mut HashSet<*const Self>) {
+        if !seen.insert(Arc::as_ptr(self)) {
+            return;
+        }
+        let children = {
+            let mut state = self.state.write().unwrap_or_else(|e| e.into_inner());
+            state.by_name.clear();
+            state.literals.clear();
+            state.arguments.clear();
+            std::mem::take(&mut state.children)
+        };
+        for child in &children {
+            child.dismantle(seen);
+        }
+        if let Some(redirect) = &self.redirect {
+            redirect.dismantle(seen);
+        }
+    }
+}
+
 impl<S: Clone + 'static> CommandNode<S> {
     /// `new RootCommandNode<>()`.
     pub fn new_root() -> Arc<Self> {

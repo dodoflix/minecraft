@@ -54,6 +54,12 @@ pub struct CommandDispatcher<S> {
     consumer: ResultConsumer<S>,
 }
 
+impl<S> Drop for CommandDispatcher<S> {
+    fn drop(&mut self) {
+        self.root.dismantle(&mut std::collections::HashSet::new());
+    }
+}
+
 impl<S: Clone + 'static> Default for CommandDispatcher<S> {
     fn default() -> Self {
         Self::new()
