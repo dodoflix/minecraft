@@ -24,14 +24,6 @@ fn jump() {
     run_scenario_test_with("jump", &gaps());
 }
 
-/// From tick 68 (player at the water surface, eye y=-50.2 vs surface -50) vanilla keeps draining the air supply
-/// while our `LivingEntity` starts refilling it (eye-in-fluid evaluation), which changes the whole trajectory afterwards.
-#[test]
-#[ignore = "deviation: air supply refills at the water surface where vanilla keeps draining (#6)"]
-fn swim() {
-    run_scenario_test_with("swim", &gaps());
-}
-
 #[test]
 fn item_fall() {
     run_scenario_test_with("item_fall", &gaps());
@@ -69,9 +61,14 @@ fn plain_entities_and_notes_replay() {
 
 /// Example mob golden (the recipe in the harness header): a zombie chasing a player.
 #[test]
-#[ignore = "deviation: at the first overlap with the player (tick 93) the zombie keeps delta.x -0.0636 where vanilla shows -0.0276 (the player's pushEntities does not push it)"]
 fn example_mob_golden_zombie_chase() {
     run_scenario_test("mob_zombie_chase");
+}
+
+/// A pig, a cow and a zombie idling for 600 ticks: ambient sounds, entity randoms, strolls and body turning.
+#[test]
+fn mob_idle_ambient() {
+    run_scenario_test("mob_idle_ambient");
 }
 
 /// Trade generation through the real `Villager` (profession x level x seed x type): the 130 villager lines of `mob_trades`.

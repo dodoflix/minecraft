@@ -1,0 +1,20 @@
+# Idle mobs: ambient sound draws (Mob.baseTick), the entity random, goal strolls and body/head turning of a pig, a cow and a zombie for 600 ticks.
+level flat
+difficulty normal
+level_seed 9
+time 18000
+preload 4
+entity_counter 400
+spawn_player Steve creative 0.5 -60 0.5 0 0
+entity_seed Steve 401
+mobspawn Pig minecraft:pig 6.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Pig 402
+mobspawn Cow minecraft:cow -6.5 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Cow 403
+mobspawn Zombie minecraft:zombie 0.5 -60 12.5 0 0 {PersistenceRequired:1b}
+entity_seed Zombie 404
+tick 3
+watch mob:Pig mob:Cow mob:Zombie rng:Pig rng:Cow rng:Zombie events
+tick 600
+watch off
+dump mobs

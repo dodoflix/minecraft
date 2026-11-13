@@ -20,11 +20,12 @@
 //!
 //! # What the replay does
 //! * Level: `ServerLevel::detached` + the vanilla registries, flat world (bedrock -64, dirt -63..-62, grass -61) filled for
-//!   `x,z in [-64, 143]` (chunks -4..8, where the scenarios put their lanes); `level void` leaves it empty (the chunks exist). `level normal` is not supported.
+//!   `x,z in [-64, 143]` (chunks -4..8, where the scenarios put their lanes; those chunks are forced and tick with their entities
+//!   loaded like the oracle's preloaded chunks); `level void` leaves it empty (the chunks exist). `level normal` is not supported.
 //! * Time: one `tick` = `HarnessEnv`-less entity pass of `ServerLevel.tick`'s entity part in creation order (no range checks),
 //!   then the connection tick of the players (`doTick`; a client-authoritative player is snapped back like `tickPlayer` does). Each tick
-//!   updates the sky and advances the game time first. Block ticks / fluid flow / random ticks / weather / chunk loading do NOT run
-//!   (scenarios enclose fluids in stone like the item scenarios do). `time N` sets the overworld clock (frozen like the oracle's quiet
+//!   updates the sky and advances the game time first. Block ticks / fluid flow / random ticks / weather do NOT run
+//!   (scenarios enclose fluids in stone like the item scenarios do; the block replay runs the full level tick). `time N` sets the overworld clock (frozen like the oracle's quiet
 //!   world); `gamerule` sets the real rule on top of the oracle's quiet-world rules. `C` lines (command feedback) are never compared.
 //! * Randomness: before every command the entity-seed sequence is restarted with `hash(line)`, `spawn*` with `hash(name)` and every tick
 //!   with the oracle's per-tick seed (`mc_core::random::reseed_uniquifier`, the Rust twin of the oracle's `RandomSupport` shadow), so
@@ -394,6 +395,7 @@ impl Harness {
             return;
         }
         self.booted = true;
+        self.force_chunks();
         if self.flat {
             let (bedrock, dirt, grass) = (
                 Block::BEDROCK.default_state(),
@@ -412,6 +414,40 @@ impl Harness {
             }
         }
         mc_core::random::reseed_uniquifier(8682522807148012);
+    }
+
+    /// `VanillaLevel.preload`: the chunks of the flat extent are forced and run until they tick with their entities loaded, so
+    /// entity pushing and the ticking-range checks see the same ticking chunks as the oracle.
+    fn force_chunks(&mut self) {
+        let (min, max) = (-4, FLAT_MAX >> 4);
+        for cx in min..=max {
+            for cz in min..=max {
+                self.level
+                    .chunk_source_mut()
+                    .update_chunk_forced(mc_core::pos::ChunkPos::new(cx, cz), true);
+            }
+        }
+        let start = std::time::Instant::now();
+        loop {
+            self.level.tick_chunk_source(&|| true, false, true);
+            while self.level.poll_chunk_task() {}
+            self.level.tick_entity_management();
+            let ready = (min..=max).all(|cx| {
+                (min..=max).all(|cz| {
+                    self.level.is_position_ticking_with_entities_loaded(
+                        mc_core::pos::ChunkPos::pack_xz(cx, cz),
+                    )
+                })
+            });
+            if ready {
+                break;
+            }
+            assert!(
+                start.elapsed() < std::time::Duration::from_secs(120),
+                "chunks did not reach entity ticking"
+            );
+            std::thread::sleep(std::time::Duration::from_millis(1));
+        }
     }
 
     fn set_block(&mut self, x: i32, y: i32, z: i32, state: BlockState) {

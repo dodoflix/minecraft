@@ -4,7 +4,7 @@ use crate::common::entity_oracle::*;
 
 #[test]
 fn fixtures_are_well_formed() {
-    for name in ["fall", "jump", "swim"] {
+    for name in ["fall", "jump", "blk_swim_pool"] {
         let f = Fixture::load(name);
         let ticks = f.ticks();
         assert!(!ticks.is_empty(), "{name}: no ticks");

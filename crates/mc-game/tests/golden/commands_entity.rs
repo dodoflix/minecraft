@@ -204,21 +204,21 @@ fn summon_loads_passengers_recursively() {
 #[test]
 fn kill_removes_entities_and_kills_players() {
     let (mut server, _guard) = server_with_players();
-    run(&mut server, "summon minecraft:cow 1 64 1");
-    run(&mut server, "summon minecraft:cow 2 64 2");
-    run(&mut server, "summon minecraft:pig 3 64 3");
+    run(&mut server, "summon minecraft:marker 1 64 1");
+    run(&mut server, "summon minecraft:marker 2 64 2");
+    run(&mut server, "summon minecraft:interaction 3 64 3");
     assert_eq!(
-        run(&mut server, "kill @e[type=minecraft:pig]"),
-        ["Killed Pig"]
+        run(&mut server, "kill @e[type=minecraft:interaction]"),
+        ["Killed Interaction"]
     );
-    assert!(ids_of_type(&server, "minecraft:pig").is_empty());
+    assert!(ids_of_type(&server, "minecraft:interaction").is_empty());
     assert_eq!(
-        run(&mut server, "kill @e[type=minecraft:cow]"),
+        run(&mut server, "kill @e[type=minecraft:marker]"),
         ["Killed 2 entities"]
     );
-    assert!(ids_of_type(&server, "minecraft:cow").is_empty());
+    assert!(ids_of_type(&server, "minecraft:marker").is_empty());
     assert_eq!(
-        run(&mut server, "kill @e[type=minecraft:cow]"),
+        run(&mut server, "kill @e[type=minecraft:marker]"),
         ["No entity was found"]
     );
 
@@ -261,9 +261,9 @@ fn damage_hurts_living_entities_and_reports_invulnerability() {
         "Float must not be less than 0.0: found -1.0"
     );
     // non-living entities do not take damage
-    run(&mut server, "summon minecraft:cow 1 64 1");
+    run(&mut server, "summon minecraft:marker 1 64 1");
     assert_eq!(
-        run(&mut server, "damage @e[type=minecraft:cow,limit=1] 1"),
+        run(&mut server, "damage @e[type=minecraft:marker,limit=1] 1"),
         ["Target is invulnerable to the given damage type"]
     );
     // a hit that does not beat the last one inside the cooldown fails
@@ -346,11 +346,11 @@ fn effect_give_and_clear() {
         "Integer must not be less than 1: found 0"
     );
     // non-living targets are skipped, a command that applied nothing fails
-    run(&mut server, "summon minecraft:cow 1 64 1");
+    run(&mut server, "summon minecraft:marker 1 64 1");
     assert_eq!(
         run(
             &mut server,
-            "effect give @e[type=minecraft:cow] minecraft:speed"
+            "effect give @e[type=minecraft:marker] minecraft:speed"
         ),
         [
             "Unable to apply this effect (target is either immune to effects, or has something stronger)"
@@ -471,20 +471,20 @@ fn attribute_get_set_and_modifiers() {
         ),
         ["Entity Dev has no attribute Flying Speed"]
     );
-    run(&mut server, "summon minecraft:cow 1 64 1");
+    run(&mut server, "summon minecraft:marker 1 64 1");
     assert_eq!(
         run(
             &mut server,
-            "attribute @e[type=minecraft:cow,limit=1] minecraft:max_health get"
+            "attribute @e[type=minecraft:marker,limit=1] minecraft:max_health get"
         ),
-        ["Cow is not a valid entity for this command"]
+        ["Marker is not a valid entity for this command"]
     );
     assert_eq!(
         run(
             &mut server,
-            "attribute @e[type=minecraft:cow,limit=1] minecraft:max_health base set 3"
+            "attribute @e[type=minecraft:marker,limit=1] minecraft:max_health base set 3"
         ),
-        ["Cow is not a valid entity for this command"]
+        ["Marker is not a valid entity for this command"]
     );
 }
 
@@ -694,9 +694,9 @@ fn swing_starts_the_swing_of_living_entities() {
         run(&mut server, "swing @a offhand stab 10"),
         ["Made 2 entities swing their arms"]
     );
-    run(&mut server, "summon minecraft:cow 1 64 1");
+    run(&mut server, "summon minecraft:marker 1 64 1");
     assert_eq!(
-        run(&mut server, "swing @e[type=minecraft:cow]"),
+        run(&mut server, "swing @e[type=minecraft:marker]"),
         ["No living entities were found to swing"]
     );
     assert_eq!(

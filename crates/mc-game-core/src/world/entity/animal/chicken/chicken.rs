@@ -234,6 +234,20 @@ impl Entity for Chicken {
         }
     }
 
+    /// `Chicken.get(type)`: `CHICKEN_VARIANT` and `CHICKEN_SOUND_VARIANT` (read by the `chicken_lay` loot condition).
+    fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
+        let base =
+            crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        mc_protocol::components::DataComponentMap::builder()
+            .add_all(&base)
+            .set(CHICKEN_VARIANT, Holder::Reference(self.variant_key.clone()))
+            .set(
+                CHICKEN_SOUND_VARIANT,
+                Holder::Reference(self.sound_variant_key.clone()),
+            )
+            .build()
+    }
+
     fn ai_step(&mut self, level: &mut ServerLevel) {
         mob::tick::ai_step(self, level);
         self.o_flap = self.flap;
