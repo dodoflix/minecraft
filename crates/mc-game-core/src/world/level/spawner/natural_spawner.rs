@@ -638,7 +638,8 @@ pub fn is_in_nether_fortress_bounds(
 fn get_random_pos_within(level: &mut ServerLevel, chunk_pos: ChunkPos) -> BlockPos {
     let x = chunk_pos.get_min_block_x() + level.tick_state.random.next_int_bounded(16);
     let z = chunk_pos.get_min_block_z() + level.tick_state.random.next_int_bounded(16);
-    let top_empty_y = level.get_height_at(HeightmapType::WorldSurface, x, z) + 1;
+    // `chunk.getHeight(..) + 1` is the level's `getHeight` (first available y)
+    let top_empty_y = level.get_height_at(HeightmapType::WorldSurface, x, z);
     let min_y = level.get_min_y();
     let y = mth::random_between_inclusive(&mut level.tick_state.random, min_y, top_empty_y);
     BlockPos::new(x, y, z)

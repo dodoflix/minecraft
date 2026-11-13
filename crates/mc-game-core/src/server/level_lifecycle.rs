@@ -512,14 +512,8 @@ impl MinecraftServer {
 
     /// `updateMobSpawningFlags`: `level.setSpawnSettings(level.isSpawningMonsters())`.
     pub fn update_mob_spawning_flags(&mut self) {
-        let peaceful = self
-            .world_data
-            .lock()
-            .settings
-            .difficulty_settings
-            .difficulty
-            == Difficulty::Peaceful;
-        let spawning_monsters = !peaceful && self.game_rule(GameRules::SPAWN_MONSTERS);
+        let spawning_monsters =
+            self.game_rule(GameRules::SPAWN_MOBS) && self.game_rule(GameRules::SPAWN_MONSTERS);
         for level in self.all_levels_mut() {
             level.chunk_source.set_spawn_settings(spawning_monsters);
         }

@@ -133,19 +133,16 @@ fn mob_raid_waves() {
 }
 
 #[test]
-#[ignore = "deviation: the pass of seed 22 (chunk 1,-2) spawns pigs in vanilla (line 11: `E pig#1`), none here"]
 fn mob_spawnpass_plains_day() {
     block_scenario::check("mob_spawnpass_plains_day");
 }
 
 #[test]
-#[ignore = "deviation: the pass of seed 22 (chunk 1,-2) spawns nothing in vanilla (line 7: `SPAWNSTATE`), here a zombie, a spider and a skeleton"]
 fn mob_spawnpass_plains_night() {
     block_scenario::check("mob_spawnpass_plains_night");
 }
 
 #[test]
-#[ignore = "deviation: the pass of seed 126 (chunk -1,-3) spawns nothing in vanilla (line 5: `SPAWNSTATE`), here pigs and horses"]
 fn mob_spawnpass_biomes() {
     block_scenario::check("mob_spawnpass_biomes");
 }

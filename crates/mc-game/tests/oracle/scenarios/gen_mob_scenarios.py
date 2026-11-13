@@ -114,7 +114,7 @@ def spawnpasses():
     spawnpass("mob_spawnpass_plains_day", base + ["time 6000"], passes, 3, " persistent=true")
     biomes = []
     for i, b in enumerate(["desert", "swamp", "jungle", "snowy_plains", "mushroom_fields", "dark_forest", "savanna", "cherry_grove"]):
-        biomes += [f"biome {-30 + i * 8} -64 -48 {-23 + i * 8} 320 -33 minecraft:{b}"]
+        biomes += [f"biome {-30 + i * 8} -64 -48 {-23 + i * 8} 64 -33 minecraft:{b}"]
     out = base + ["time 18000"] + biomes + ["tick 3"]
     for i in range(8):
         out.append(f"spawnpass {100 + i * 13} chunk={(-30 + i * 8) // 16},-3 cats=monster,creature")

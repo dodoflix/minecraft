@@ -668,7 +668,7 @@ impl Scenario {
             && self.opts.dimension != "the_end";
         level.tick_state.enabled_features = self.opts.features;
         level.server_state.rules.refresh(&self.env.game_rules);
-        apply_spawn_settings(&mut level, &self.env.game_rules, self.opts.difficulty);
+        apply_spawn_settings(&mut level, &self.env.game_rules);
         if mc_game::commands::server_access::has_server() {
             // the scoreboard the `team`/`scoreboard` commands edit is the one the level reads
             level.server_state.scoreboard =
@@ -804,7 +804,7 @@ impl Scenario {
                 if let (Some(data), Some(level)) = (&self.world_data, self.level.as_mut()) {
                     data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
                     self.env.difficulty = self.opts.difficulty;
-                    apply_spawn_settings(level, &self.env.game_rules, self.opts.difficulty);
+                    apply_spawn_settings(level, &self.env.game_rules);
                 }
             }
             "preload" => self.opts.preload = int(&a[1]),
@@ -981,7 +981,7 @@ impl Scenario {
         }
         let level = self.level.as_mut().expect("world");
         level.server_state.rules.refresh(&self.env.game_rules);
-        apply_spawn_settings(level, &self.env.game_rules, self.opts.difficulty);
+        apply_spawn_settings(level, &self.env.game_rules);
     }
 
     /// `VanillaLevel.drainChunkTasks`: the vanilla server loop runs the chunk source's queued tasks while it waits for the next tick, so
@@ -1282,11 +1282,10 @@ fn fill_biomes(
 }
 
 /// `/gamerule NAME VALUE` (unknown rules and rules disabled by the feature flags are ignored like a rejected command).
-/// `MinecraftServer.updateMobSpawningFlags`: the chunk source spawns monsters while the difficulty is not peaceful and the
-/// `spawn_monsters` rule is on (the vanilla driver turns the rule off, so only the friendly categories spawn).
-fn apply_spawn_settings(level: &mut ServerLevel, rules: &GameRules, difficulty: Difficulty) {
+/// `MinecraftServer.updateMobSpawningFlags`: the chunk source spawns monsters while `spawn_mobs` and `spawn_monsters` are on.
+fn apply_spawn_settings(level: &mut ServerLevel, rules: &GameRules) {
     level.chunk_source_mut().set_spawn_settings(
-        difficulty != Difficulty::Peaceful && rules.get(GameRules::SPAWN_MONSTERS),
+        rules.get(GameRules::SPAWN_MOBS) && rules.get(GameRules::SPAWN_MONSTERS),
     );
 }
 
