@@ -14,6 +14,7 @@ use super::{
     MenuPlayer, Prediction, RemoteSlot, Slot, SlotEnv, place_item_back_in_inventory,
 };
 use crate::world::container::Container;
+use crate::world::item::crafting::RecipeBookMenu;
 use crate::world::item::{HashedStack, ItemStack};
 use mc_data::MenuType;
 use std::any::Any;
@@ -580,6 +581,11 @@ pub trait AbstractContainerMenu: Any {
             self.dispatch_slot_events(player);
         }
         self.base_mut().broadcast_full_state_data(player);
+    }
+
+    /// `menu instanceof RecipeBookMenu`.
+    fn as_recipe_book_menu_mut(&mut self) -> Option<&mut dyn RecipeBookMenu> {
+        None
     }
 
     fn click_menu_button(&mut self, _player: &mut dyn MenuPlayer, _button_id: i32) -> bool {

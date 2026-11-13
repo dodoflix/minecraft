@@ -2,16 +2,22 @@
 //! the needed items from the inventory into the crafting grid) and `PlaceRecipeHelper`.
 //!
 //! Menus never hold the player in this port, so the menu side of `ServerPlaceRecipe.CraftingMenuAccess` plus the slot lists is
-//! the [`PlaceRecipeMenu`] trait and the inventory is reached through the [`MenuPlayer`]. No menu implements the trait yet:
-//! the `place_recipe` packet is not handled.
+//! the [`PlaceRecipeMenu`] trait and the inventory is reached through the [`MenuPlayer`]. Menus with a recipe book implement
+//! [`RecipeBookMenu`]; the crafting grids share [`handle_crafting_placement`] (`AbstractCraftingMenu.handlePlacement`).
+
+use std::ops::Range;
 
 use mc_data::Item;
+use mc_protocol::packets::play::RecipeBookType;
 
 use super::recipe::{Recipe, RecipeKind};
 use super::recipe_manager::RecipeHolder;
 use super::stacked_contents::StackedItemContents;
 use crate::world::container::Container;
-use crate::world::inventory::{MenuPlayer, Prediction, place_item_back_in_inventory};
+use crate::world::inventory::{
+    AbstractContainerMenu, MenuPlayer, Prediction, TransientCraftingContainer,
+    place_item_back_in_inventory,
+};
 use crate::world::item::ItemStack;
 
 /// `RecipeBookMenu.PostPlaceAction`.
@@ -21,32 +27,45 @@ pub enum PostPlaceAction {
     PlaceGhostRecipe,
 }
 
+/// `RecipeBookMenu`: a menu the recipe book can fill (`AbstractContainerMenu.as_recipe_book_menu_mut`).
+pub trait RecipeBookMenu: AbstractContainerMenu {
+    /// `handlePlacement(useMaxItems, allowDroppingItemsToClear, recipe, level, inventory)`; the level and the inventory
+    /// are the player's.
+    fn handle_placement(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        use_max_items: bool,
+        allow_dropping_items_to_clear: bool,
+        recipe: &RecipeHolder,
+    ) -> PostPlaceAction;
+    /// `fillCraftSlotsStackedContents(stackedContents)`.
+    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents);
+    /// `getRecipeBookType()`.
+    fn get_recipe_book_type(&self) -> RecipeBookType;
+}
+
 /// `ServerPlaceRecipe.CraftingMenuAccess` + `Slot` access of the input grid / slots to clear.
 pub trait PlaceRecipeMenu {
     /// `fillCraftSlotsStackedContents(stackedContents)`.
-    fn fill_craft_slots_stacked_contents(
-        &self,
-        player: &mut dyn MenuPlayer,
-        contents: &mut StackedItemContents,
-    );
+    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents);
     /// `clearCraftingContent()`.
-    fn clear_crafting_content(&mut self, player: &mut dyn MenuPlayer);
+    fn clear_crafting_content(&mut self);
     /// `recipeMatches(recipe)`.
     fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> bool;
 
     /// `inputGridSlots.size()`.
     fn input_grid_len(&self) -> usize;
     /// `inputGridSlots.get(i).getItem()`.
-    fn input_grid_item(&self, index: usize) -> ItemStack;
+    fn input_grid_item(&mut self, player: &mut dyn MenuPlayer, index: usize) -> ItemStack;
     /// `inputGridSlots.get(i).set(stack)`.
     fn set_input_grid_item(&mut self, player: &mut dyn MenuPlayer, index: usize, stack: ItemStack);
     /// `inputGridSlots.get(i).getItem().grow(count)` (in place, no change notification).
-    fn grow_input_grid_item(&mut self, index: usize, count: i32);
+    fn grow_input_grid_item(&mut self, player: &mut dyn MenuPlayer, index: usize, count: i32);
 
     /// `slotsToClear.size()`.
     fn slots_to_clear_len(&self) -> usize;
     /// `slotsToClear.get(i).getItem()`.
-    fn slot_to_clear_item(&self, index: usize) -> ItemStack;
+    fn slot_to_clear_item(&mut self, player: &mut dyn MenuPlayer, index: usize) -> ItemStack;
     /// `slotsToClear.get(i).set(stack)`.
     fn set_slot_to_clear_item(
         &mut self,
@@ -54,6 +73,109 @@ pub trait PlaceRecipeMenu {
         index: usize,
         stack: ItemStack,
     );
+}
+
+/// The crafting grid of an `AbstractCraftingMenu`: the menu-local grid and result containers and the slots (in order,
+/// `getInputGridSlots()`) that show the grid.
+#[derive(Clone, Debug)]
+pub struct CraftingGrid {
+    pub craft_local: usize,
+    pub result_local: usize,
+    pub input_slots: Range<usize>,
+    pub width: i32,
+    pub height: i32,
+}
+
+/// `AbstractCraftingMenu.handlePlacement` for the menu `menu` (without `begin/finishPlacingRecipe`, which a menu
+/// overriding them runs around this call). The `slotsChanged` of every grid change runs as the change is made.
+pub fn handle_crafting_placement(
+    menu: &mut dyn AbstractContainerMenu,
+    grid: &CraftingGrid,
+    player: &mut dyn MenuPlayer,
+    use_max_items: bool,
+    allow_dropping_items_to_clear: bool,
+    recipe: &RecipeHolder,
+) -> PostPlaceAction {
+    place_recipe(
+        &mut CraftingGridAccess { menu, grid },
+        player,
+        grid.width,
+        grid.height,
+        recipe,
+        use_max_items,
+        allow_dropping_items_to_clear,
+    )
+}
+
+struct CraftingGridAccess<'a> {
+    menu: &'a mut dyn AbstractContainerMenu,
+    grid: &'a CraftingGrid,
+}
+
+impl CraftingGridAccess<'_> {
+    fn craft_slots(&self) -> &TransientCraftingContainer {
+        self.menu.base().locals[self.grid.craft_local]
+            .as_any()
+            .downcast_ref()
+            .expect("crafting grid")
+    }
+}
+
+impl PlaceRecipeMenu for CraftingGridAccess<'_> {
+    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents) {
+        self.craft_slots().fill_stacked_contents(contents);
+    }
+    fn clear_crafting_content(&mut self) {
+        let base = self.menu.base_mut();
+        base.locals[self.grid.result_local].clear_content();
+        base.locals[self.grid.craft_local].clear_content();
+    }
+    fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> bool {
+        player.level_ref().is_some_and(|level| {
+            recipe
+                .value
+                .matches_crafting(&self.craft_slots().as_craft_input(), level)
+        })
+    }
+
+    fn input_grid_len(&self) -> usize {
+        self.grid.input_slots.len()
+    }
+    fn input_grid_item(&mut self, player: &mut dyn MenuPlayer, index: usize) -> ItemStack {
+        let slot = self.grid.input_slots.start + index;
+        self.menu
+            .base_mut()
+            .with_slot(player, slot, |s, e| s.get_item(e))
+    }
+    fn set_input_grid_item(&mut self, player: &mut dyn MenuPlayer, index: usize, stack: ItemStack) {
+        let slot = self.grid.input_slots.start + index;
+        self.menu
+            .base_mut()
+            .with_slot(player, slot, |s, e| s.set(e, stack));
+        // the grid's `slotsChanged` runs synchronously inside `Slot.set`
+        self.menu.flush_container_events(player);
+    }
+    fn grow_input_grid_item(&mut self, player: &mut dyn MenuPlayer, index: usize, count: i32) {
+        let slot = self.grid.input_slots.start + index;
+        self.menu.base_mut().with_slot(player, slot, |s, e| {
+            s.with_item_mut(e, |stack| stack.grow(count))
+        });
+    }
+
+    fn slots_to_clear_len(&self) -> usize {
+        self.input_grid_len()
+    }
+    fn slot_to_clear_item(&mut self, player: &mut dyn MenuPlayer, index: usize) -> ItemStack {
+        self.input_grid_item(player, index)
+    }
+    fn set_slot_to_clear_item(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        index: usize,
+        stack: ItemStack,
+    ) {
+        self.set_input_grid_item(player, index, stack);
+    }
 }
 
 /// `PlaceRecipeHelper.placeRecipe(gridWidth, gridHeight, recipe, entries, output)`: `output(entry, gridIndex, x, y)`.
@@ -158,7 +280,7 @@ pub fn place_recipe(
     }
     placer
         .menu
-        .fill_craft_slots_stacked_contents(placer.player, &mut available_items);
+        .fill_craft_slots_stacked_contents(&mut available_items);
     placer.try_place_recipe(recipe, &mut available_items)
 }
 
@@ -189,7 +311,7 @@ impl ServerPlaceRecipe<'_> {
 
     fn clear_grid(&mut self) {
         for index in 0..self.menu.slots_to_clear_len() {
-            let mut stack_copy = self.menu.slot_to_clear_item(index).copy();
+            let mut stack_copy = self.menu.slot_to_clear_item(self.player, index).copy();
             place_item_back_in_inventory(
                 self.player,
                 &mut stack_copy,
@@ -199,7 +321,7 @@ impl ServerPlaceRecipe<'_> {
             self.menu
                 .set_slot_to_clear_item(self.player, index, stack_copy);
         }
-        self.menu.clear_crafting_content(self.player);
+        self.menu.clear_crafting_content();
     }
 
     fn place_recipe(&mut self, recipe: &RecipeHolder, available_items: &mut StackedItemContents) {
@@ -208,7 +330,7 @@ impl ServerPlaceRecipe<'_> {
             available_items.get_biggest_craftable_stack(&recipe.value, i32::MAX, None);
         if recipe_matches_placed {
             for index in 0..self.menu.input_grid_len() {
-                let stack = self.menu.input_grid_item(index);
+                let stack = self.menu.input_grid_item(self.player, index);
                 if !stack.is_empty()
                     && biggest_craftable_stack.min(stack.get_max_stack_size()) < stack.count() + 1
                 {
@@ -266,7 +388,7 @@ impl ServerPlaceRecipe<'_> {
     }
 
     fn calculate_amount_to_craft(
-        &self,
+        &mut self,
         biggest_craftable_stack: i32,
         recipe_matches_placed: bool,
     ) -> i32 {
@@ -275,7 +397,7 @@ impl ServerPlaceRecipe<'_> {
         } else if recipe_matches_placed {
             let mut smallest_stack_size = i32::MAX;
             for index in 0..self.menu.input_grid_len() {
-                let stack = self.menu.input_grid_item(index);
+                let stack = self.menu.input_grid_item(self.player, index);
                 if !stack.is_empty() && smallest_stack_size > stack.count() {
                     smallest_stack_size = stack.count();
                 }
@@ -293,7 +415,7 @@ impl ServerPlaceRecipe<'_> {
         item_in_inventory: Item,
         count: i32,
     ) -> i32 {
-        let item_in_target_slot = self.menu.input_grid_item(target_slot);
+        let item_in_target_slot = self.menu.input_grid_item(self.player, target_slot);
         let inventory_slot_id = self
             .player
             .inventory()
@@ -313,12 +435,13 @@ impl ServerPlaceRecipe<'_> {
             self.menu
                 .set_input_grid_item(self.player, target_slot, taken_stack);
         } else {
-            self.menu.grow_input_grid_item(target_slot, taken_count);
+            self.menu
+                .grow_input_grid_item(self.player, target_slot, taken_count);
         }
         count - taken_count
     }
 
-    fn test_clear_grid(&self) -> bool {
+    fn test_clear_grid(&mut self) -> bool {
         let mut free_slots: Vec<ItemStack> = Vec::new();
         let free_slots_in_inventory = self
             .player
@@ -328,7 +451,7 @@ impl ServerPlaceRecipe<'_> {
             .filter(|i| i.is_empty())
             .count();
         for index in 0..self.menu.input_grid_len() {
-            let mut item_stack = self.menu.input_grid_item(index).copy();
+            let mut item_stack = self.menu.input_grid_item(self.player, index).copy();
             if item_stack.is_empty() {
                 continue;
             }

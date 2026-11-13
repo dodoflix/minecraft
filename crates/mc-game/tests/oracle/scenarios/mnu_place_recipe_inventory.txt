@@ -1,0 +1,171 @@
+# The recipe book placing a recipe into the 2x2 grid of the player's own menu (ServerboundPlaceRecipe): items move from the
+# inventory into the grid (one container_set_slot of the result slot per grid change), a recipe that cannot be made clears the
+# grid and gets the ghost recipe packet, and the cases the listener ignores. Slots: 0 result, 1-4 grid, 9-35 inventory,
+# 36-44 hotbar. Player A is the survival case, B creative, C a spectator, D has a full inventory (the grid cannot be cleared),
+# E is creative with a full inventory (the grid is cleared by dropping it).
+command_env
+level flat
+preload 2
+spawn_player A survival 0.5 -60 3.5 180 0
+spawn_player B creative 6.5 -60 3.5 180 0
+spawn_player C spectator 12.5 -60 3.5 180 0
+spawn_player D survival 18.5 -60 3.5 180 0
+spawn_player E creative 24.5 -60 3.5 180 0
+give A inv9 minecraft:oak_planks 64
+give A inv10 minecraft:oak_log 8
+give A inv11 minecraft:cobblestone 20
+tick 2
+cmd recipe give A minecraft:crafting_table
+cmd recipe give A minecraft:oak_planks
+cmd recipe give A minecraft:stick
+cmd recipe give A minecraft:oak_button
+cmd recipe give A minecraft:iron_ingot_from_iron_block
+cmd recipe give A minecraft:iron_pickaxe
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe recipes:A packets:B:none packets:C:none packets:D:none packets:E:none
+
+note one set of ingredients; placing again grows the placed set by one each time, a recipe that matches the grid stops at the stack limit
+place_recipe A minecraft:crafting_table
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe A minecraft:crafting_table
+place_recipe A minecraft:crafting_table
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+note use max items fills the grid with the most the inventory allows
+place_recipe A minecraft:crafting_table all
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+note take the result: the placed stacks shrink, the result slot is recomputed for every mutation
+click A 0 0 PICKUP
+click A 20 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+note another recipe: the grid is cleared into the inventory first, shapeless and shaped placements, the one-by-two stick recipe is centered
+place_recipe A minecraft:oak_planks
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe A minecraft:oak_planks all
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe A minecraft:stick all
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe A minecraft:oak_button
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+note cannot be made (no iron block, no iron): the grid is cleared and the ghost recipe is sent
+place_recipe A minecraft:iron_ingot_from_iron_block
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe A minecraft:iron_pickaxe all
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+note ignored: a recipe that is not in the book, a wrong container id
+cmd recipe take A minecraft:oak_button
+place_recipe A minecraft:oak_button
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe A minecraft:stick cid=3
+place_recipe A minecraft:stick all cid=0
+dump menu:A packets:A:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+
+note creative: the same placement, and a ghost recipe clears the grid back into the inventory
+give B inv9 minecraft:oak_planks 64
+tick 1
+cmd recipe give B minecraft:crafting_table
+cmd recipe give B minecraft:oak_planks
+place_recipe B minecraft:crafting_table all
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe B minecraft:oak_planks
+dump menu:B packets:B:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+
+note spectator: ignored
+cmd recipe give C minecraft:crafting_table
+give C inv9 minecraft:oak_planks 4
+place_recipe C minecraft:crafting_table
+dump menu:C packets:C:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+
+note a full inventory and a stack in the grid that does not fit anywhere: nothing happens
+give D hotbar0 minecraft:cobblestone 64
+give D hotbar1 minecraft:cobblestone 64
+give D hotbar2 minecraft:cobblestone 64
+give D hotbar3 minecraft:cobblestone 64
+give D hotbar4 minecraft:cobblestone 64
+give D hotbar5 minecraft:cobblestone 64
+give D hotbar6 minecraft:cobblestone 64
+give D hotbar7 minecraft:cobblestone 64
+give D hotbar8 minecraft:cobblestone 64
+give D inv9 minecraft:cobblestone 64
+give D inv10 minecraft:cobblestone 64
+give D inv11 minecraft:cobblestone 64
+give D inv12 minecraft:cobblestone 64
+give D inv13 minecraft:cobblestone 64
+give D inv14 minecraft:cobblestone 64
+give D inv15 minecraft:cobblestone 64
+give D inv16 minecraft:cobblestone 64
+give D inv17 minecraft:cobblestone 64
+give D inv18 minecraft:cobblestone 64
+give D inv19 minecraft:cobblestone 64
+give D inv20 minecraft:cobblestone 64
+give D inv21 minecraft:cobblestone 64
+give D inv22 minecraft:cobblestone 64
+give D inv23 minecraft:cobblestone 64
+give D inv24 minecraft:cobblestone 64
+give D inv25 minecraft:cobblestone 64
+give D inv26 minecraft:cobblestone 64
+give D inv27 minecraft:cobblestone 64
+give D inv28 minecraft:cobblestone 64
+give D inv29 minecraft:cobblestone 64
+give D inv30 minecraft:cobblestone 64
+give D inv31 minecraft:cobblestone 64
+give D inv32 minecraft:cobblestone 64
+give D inv33 minecraft:cobblestone 64
+give D inv34 minecraft:cobblestone 64
+give D inv35 minecraft:cobblestone 64
+tick 1
+cmd recipe give D minecraft:crafting_table
+click D 36 0 PICKUP
+click D 1 0 PICKUP
+give D hotbar0 minecraft:dirt 64
+dump menu:D packets:D:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe D minecraft:crafting_table
+place_recipe D minecraft:crafting_table all
+dump menu:D packets:D:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+
+note creative, full inventory, a stack in the grid that has no room: the grid is cleared by dropping it
+give E hotbar0 minecraft:oak_planks 64
+tick 1
+cmd recipe give E minecraft:crafting_table
+cmd recipe give E minecraft:oak_button
+click E 36 0 PICKUP
+click E 1 0 PICKUP
+give E hotbar0 minecraft:dirt 64
+give E hotbar1 minecraft:cobblestone 64
+give E hotbar2 minecraft:cobblestone 64
+give E hotbar3 minecraft:cobblestone 64
+give E hotbar4 minecraft:cobblestone 64
+give E hotbar5 minecraft:cobblestone 64
+give E hotbar6 minecraft:cobblestone 64
+give E hotbar7 minecraft:cobblestone 64
+give E hotbar8 minecraft:cobblestone 64
+give E inv9 minecraft:cobblestone 64
+give E inv10 minecraft:cobblestone 64
+give E inv11 minecraft:cobblestone 64
+give E inv12 minecraft:cobblestone 64
+give E inv13 minecraft:cobblestone 64
+give E inv14 minecraft:cobblestone 64
+give E inv15 minecraft:cobblestone 64
+give E inv16 minecraft:cobblestone 64
+give E inv17 minecraft:cobblestone 64
+give E inv18 minecraft:cobblestone 64
+give E inv19 minecraft:cobblestone 64
+give E inv20 minecraft:cobblestone 64
+give E inv21 minecraft:cobblestone 64
+give E inv22 minecraft:cobblestone 64
+give E inv23 minecraft:cobblestone 64
+give E inv24 minecraft:cobblestone 64
+give E inv25 minecraft:cobblestone 64
+give E inv26 minecraft:cobblestone 64
+give E inv27 minecraft:cobblestone 64
+give E inv28 minecraft:cobblestone 64
+give E inv29 minecraft:cobblestone 64
+give E inv30 minecraft:cobblestone 64
+give E inv31 minecraft:cobblestone 64
+give E inv32 minecraft:cobblestone 64
+give E inv33 minecraft:cobblestone 64
+give E inv34 minecraft:cobblestone 64
+give E inv35 minecraft:cobblestone 64
+dump menu:E packets:E:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe E minecraft:crafting_table all
+dump menu:E packets:E:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe
+place_recipe E minecraft:oak_button
+dump menu:E packets:E:container_set_slot,container_set_content,set_cursor_item,place_ghost_recipe

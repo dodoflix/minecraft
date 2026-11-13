@@ -37,7 +37,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayId;
  * rename PLAYER TEXT          ServerboundRenameItemPacket                     select_trade PLAYER N   ServerboundSelectTradePacket (= trade_select)
  * set_beacon PLAYER EFFECT1|- EFFECT2|-   ServerboundSetBeaconPacket
  * slot_state PLAYER SLOT true|false [cid=N]   ServerboundContainerSlotStateChangedPacket
- * place_recipe PLAYER RECIPE_ID [all]   ServerboundPlaceRecipePacket for the first display of the recipe (the recipe must be known to the player: `cmd recipe give`)
+ * place_recipe PLAYER RECIPE_ID [all] [cid=N]   ServerboundPlaceRecipePacket for the first display of the recipe (the recipe must be known to the player: `cmd recipe give`; `cid` as for `click`)
  * recipe_seen PLAYER RECIPE_ID          ServerboundRecipeBookSeenRecipePacket for the first display of the recipe
  * recipe_settings PLAYER TYPE OPEN FILTERING   ServerboundRecipeBookChangeSettingsPacket (TYPE: crafting furnace blast_furnace smoker)
  * dump recipes:PLAYER        `RECIPES PLAYER crafting=OF furnace=OF blast_furnace=OF smoker=OF known=ID,.. highlight=ID,..` (O = open, F = filtering as 0/1; ids sorted)
@@ -93,7 +93,10 @@ final class MenuVerbs {
          case "place_recipe" -> {
             d.world();
             ServerPlayer p = d.player(a.get(1));
-            p.connection.handlePlaceRecipe(new ServerboundPlaceRecipePacket(p.containerMenu.containerId, display(d, a.get(2)), a.size() > 3 && a.get(3).equals("all")));
+            boolean all = a.size() > 3 && a.get(3).equals("all");
+            Map<String, String> options = d.kv(a, all ? 4 : 3);
+            int cid = options.containsKey("cid") ? Integer.parseInt(options.get("cid")) : p.containerMenu.containerId;
+            p.connection.handlePlaceRecipe(new ServerboundPlaceRecipePacket(cid, display(d, a.get(2)), all));
          }
          case "recipe_seen" -> {
             d.world();

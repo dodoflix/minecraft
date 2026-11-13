@@ -183,8 +183,8 @@ pub fn place_item_back_in_inventory(
             slot = player.inventory().get_free_slot();
         }
         if slot == -1 {
-            let rest = std::mem::take(stack);
-            player.drop(rest, false, prediction);
+            // the dropped entity shares the stack object: the caller's stack keeps its contents
+            player.drop(stack.clone(), false, prediction);
             break;
         }
         let space = stack.get_max_stack_size()

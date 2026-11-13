@@ -33,8 +33,12 @@ import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.tags.TagLoader;
 import net.minecraft.world.item.crafting.*;
 import java.util.concurrent.Executor;
+import net.minecraft.server.dedicated.DedicatedServer;
+import net.minecraft.stats.ServerRecipeBook;
+import net.minecraft.world.level.gamerules.GameRules;
 // Golden generator for crates/mc-game/tests/golden/place_recipe_golden.rs: the REAL vanilla InventoryMenu.handlePlacement
-// (ServerPlaceRecipe + StackedItemContents) over random inventories, using the real RecipeManager.
+// (ServerPlaceRecipe + StackedItemContents, with the grid recompute `slotsChanged` runs for every grid change and its
+// result slot packets) over random inventories, using the real RecipeManager.
 // Usage: scripts/golden-recipes.sh
 // Output: crates/mc-game/tests/fixtures/place_recipe_golden.txt
 // Format: "OP ..." lines (replayed by Rust) each followed by "OUT ..." lines (state after the op).
@@ -49,13 +53,28 @@ public class PlaceRecipeGolden {
    }
    static boolean creative = false;
 
+   /** The synchronizer lines of the running scenario (`CraftingMenu.slotChangedCraftingGrid` sends its slot packet past the synchronizer). */
+   static List<String> syncLines;
    public static class RecListener extends ServerGamePacketListenerImpl {
       public RecListener() { super(null, null, null, null); }
-      @Override public void send(Packet<?> p) { }
+      @Override public void send(Packet<?> p) {
+         if (p instanceof net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket x) syncLines.add("SYNC slot " + x.getStateId() + " " + x.getSlot() + " " + st(x.getItem()));
+         else events.add("PKT other");
+      }
+   }
+   public static class FakeServer extends DedicatedServer {
+      public FakeServer() { super(null, null, null, null, null, null, null, null, null, null); }
+      public RecipeManager recipes;
+      @Override public RecipeManager getRecipeManager() { return recipes; }
    }
    public static class FakeLevel extends ServerLevel {
       public FakeLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
+      public FakeServer server;
+      public GameRules rules;
       @Override public net.minecraft.world.flag.FeatureFlagSet enabledFeatures() { return FeatureFlags.DEFAULT_FLAGS; }
+      @Override public MinecraftServer getServer() { return server; }
+      @Override public RecipeManager recipeAccess() { return server.recipes; }
+      @Override public GameRules getGameRules() { return rules; }
    }
    public static class FakePlayer extends ServerPlayer {
       public FakePlayer() { super(null, null, null, null); }
@@ -65,6 +84,8 @@ public class PlaceRecipeGolden {
       @Override public ItemEntity drop(ItemStack s, boolean thrown, Prediction p) { events.add("DROP " + st(s) + " " + thrown + " " + p); return null; }
       public ServerLevel lvl;
       @Override public ServerLevel level() { return lvl; }
+      public ServerRecipeBook book;
+      @Override public ServerRecipeBook getRecipeBook() { return book; }
    }
    static sun.misc.Unsafe U;
    static void set(Class<?> c, Object o, String f, Object v) throws Exception {
@@ -79,12 +100,15 @@ public class PlaceRecipeGolden {
       StringBuilder b = new StringBuilder("grid");
       for (int i = 1; i <= 4; i++) b.append(' ').append(st(menu.getSlot(i).getItem()));
       out(b.toString());
+      out("result " + st(menu.getSlot(0).getItem()));
       b = new StringBuilder("inv");
       Inventory inv = p.getInventory();
       for (int i = 0; i < inv.getContainerSize(); i++) { ItemStack s = inv.getItem(i); if (!s.isEmpty()) b.append(' ').append(i).append(':').append(st(s)); }
       out(b.toString());
       for (String e : events) out(e);
       events.clear();
+      for (String e : syncLines) out(e);
+      syncLines.clear();
    }
 
    public static void main(String[] args) throws Exception {
@@ -134,8 +158,13 @@ public class PlaceRecipeGolden {
          creative = scenario % 3 == 2;
          Random r = new Random(77 + scenario);
          FakePlayer p = (FakePlayer) U.allocateInstance(FakePlayer.class);
-         ServerLevel lvl = (ServerLevel) U.allocateInstance(FakeLevel.class);
+         FakeLevel lvl = (FakeLevel) U.allocateInstance(FakeLevel.class);
+         FakeServer server = (FakeServer) U.allocateInstance(FakeServer.class);
+         server.recipes = rm;
+         lvl.server = server;
+         lvl.rules = new GameRules(FeatureFlags.DEFAULT_FLAGS);
          p.lvl = lvl;
+         p.book = new ServerRecipeBook((id, output) -> { });
          set(Entity.class, p, "type", EntityTypes.PLAYER);
          EntityEquipment eq = new PlayerEquipment(p);
          Inventory inv = new Inventory(p, eq);
@@ -144,10 +173,17 @@ public class PlaceRecipeGolden {
          Abilities ab = new Abilities(); ab.instabuild = creative;
          set(Player.class, p, "abilities", ab);
          p.connection = (RecListener) U.allocateInstance(RecListener.class);
-         InventoryMenu menu = new InventoryMenu(inv, true, p) {
-            @Override public void slotsChanged(Container c) { }
-            @Override public void finishPlacingRecipe(ServerLevel level, RecipeHolder<CraftingRecipe> recipe) { }
-         };
+         final List<String> sync = new ArrayList<>();
+         syncLines = sync;
+         InventoryMenu menu = new InventoryMenu(inv, true, p);
+         menu.setSynchronizer(new ContainerSynchronizer() {
+            public void sendInitialData(AbstractContainerMenu c, List<ItemStack> items, ItemStack carried, int[] data) { c.incrementStateId(); }
+            public void sendSlotChange(AbstractContainerMenu c, int i, ItemStack s) { sync.add("SYNC slot " + c.incrementStateId() + " " + i + " " + st(s)); }
+            public void sendCarriedChange(AbstractContainerMenu c, ItemStack s) { }
+            public void sendDataChange(AbstractContainerMenu c, int id, int v) { }
+            public RemoteSlot createSlot() { return new RemoteSlot.Synchronized(comp -> 0); }
+         });
+         sync.clear();
          set(Player.class, p, "inventoryMenu", menu);
          set(Player.class, p, "containerMenu", menu);
          op("scenario " + scenario + " creative=" + creative);

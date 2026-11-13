@@ -235,6 +235,9 @@ pub trait PlayHandlers: Sync {
         packet: &ServerboundContainerSlotStateChangedPacket,
     ) {
     }
+    /// `handlePlaceRecipe` (after `resetLastActionTime`): spectator/container id/`stillValid` checks, the recipe book
+    /// lookup, `RecipeBookMenu.handlePlacement` and the ghost recipe packet.
+    fn handle_place_recipe(&self, ctx: &mut PlayCtx, packet: &ServerboundPlaceRecipePacket) {}
     /// `handleRecipeBookSeenRecipePacket`.
     fn handle_recipe_book_seen_recipe(
         &self,
@@ -399,8 +402,10 @@ impl PlayCtx<'_> {
             P::ContainerSlotStateChanged(p) => {
                 self.hooks(|h, c| h.handle_container_slot_state_changed(c, &p))
             }
-            // `handlePlaceRecipe`: the placement itself is not implemented, only the activity timestamp.
-            P::PlaceRecipe(_) => self.player.reset_last_action_time(),
+            P::PlaceRecipe(p) => {
+                self.player.reset_last_action_time();
+                self.hooks(|h, c| h.handle_place_recipe(c, &p));
+            }
             P::RecipeBookSeenRecipe(p) => {
                 self.hooks(|h, c| h.handle_recipe_book_seen_recipe(c, &p))
             }

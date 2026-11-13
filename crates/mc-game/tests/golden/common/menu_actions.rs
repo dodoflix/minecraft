@@ -221,9 +221,12 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
         }),
         "place_recipe" => deliver(h, &a[1], |level, p| {
             P::PlaceRecipe(ServerboundPlaceRecipePacket {
-                container_id: p.player.menus.current_container_id(),
+                container_id: option(a, 3, "cid")
+                    .map_or(p.player.menus.current_container_id(), |c| {
+                        c.parse().expect("cid")
+                    }),
                 recipe: display(level, &a[2]),
-                use_max_items: a.get(3).is_some_and(|t| t == "all"),
+                use_max_items: a[3..].iter().any(|t| t == "all"),
             })
         }),
         "recipe_seen" => deliver(h, &a[1], |level, _| {

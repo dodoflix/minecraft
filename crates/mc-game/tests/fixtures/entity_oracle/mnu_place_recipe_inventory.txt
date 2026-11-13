@@ -1,0 +1,465 @@
+C No new recipes were learned
+C No new recipes were learned
+C No new recipes were learned
+C No new recipes were learned
+C Unlocked 1 recipe(s) for A
+C Unlocked 1 recipe(s) for A
+MENU A cid=0 type=inventory state=4 carried=empty
+MS 9 minecraft:oak_planks*64
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:cobblestone*20
+PKT A minecraft:container_set_slot 1400020009403f0000
+PKT A minecraft:container_set_slot 140003000a08a3010000
+PKT A minecraft:container_set_slot 140004000b143e0000
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:barrel,minecraft:charcoal,minecraft:cobblestone_slab,minecraft:cobblestone_slab_from_cobblestone_stonecutting,minecraft:cobblestone_stairs,minecraft:cobblestone_stairs_from_cobblestone_stonecutting,minecraft:cobblestone_wall,minecraft:cobblestone_wall_from_cobblestone_stonecutting,minecraft:crafting_table,minecraft:furnace,minecraft:iron_ingot_from_iron_block,minecraft:iron_pickaxe,minecraft:lever,minecraft:oak_button,minecraft:oak_door,minecraft:oak_fence,minecraft:oak_fence_gate,minecraft:oak_planks,minecraft:oak_pressure_plate,minecraft:oak_sign,minecraft:oak_slab,minecraft:oak_stairs,minecraft:oak_trapdoor,minecraft:oak_wood,minecraft:stick,minecraft:stone,minecraft:stone_axe,minecraft:stone_hoe,minecraft:stone_pickaxe,minecraft:stone_shovel,minecraft:stone_spear,minecraft:stone_sword highlight=minecraft:barrel,minecraft:charcoal,minecraft:cobblestone_slab,minecraft:cobblestone_slab_from_cobblestone_stonecutting,minecraft:cobblestone_stairs,minecraft:cobblestone_stairs_from_cobblestone_stonecutting,minecraft:cobblestone_wall,minecraft:cobblestone_wall_from_cobblestone_stonecutting,minecraft:crafting_table,minecraft:furnace,minecraft:iron_ingot_from_iron_block,minecraft:iron_pickaxe,minecraft:lever,minecraft:oak_button,minecraft:oak_door,minecraft:oak_fence,minecraft:oak_fence_gate,minecraft:oak_planks,minecraft:oak_pressure_plate,minecraft:oak_sign,minecraft:oak_slab,minecraft:oak_stairs,minecraft:oak_trapdoor,minecraft:oak_wood,minecraft:stick,minecraft:stone,minecraft:stone_axe,minecraft:stone_hoe,minecraft:stone_pickaxe,minecraft:stone_shovel,minecraft:stone_spear,minecraft:stone_sword
+# one set of ingredients; placing again grows the placed set by one each time, a recipe that matches the grid stops at the stack limit
+MENU A cid=0 type=inventory state=12 carried=empty
+MS 0 minecraft:crafting_table*1
+MS 1 minecraft:oak_planks*1
+MS 2 minecraft:oak_planks*1
+MS 3 minecraft:oak_planks*1
+MS 4 minecraft:oak_planks*1
+MS 9 minecraft:oak_planks*60
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:cobblestone*20
+PKT A minecraft:container_set_slot 140005000000
+PKT A minecraft:container_set_slot 140006000000
+PKT A minecraft:container_set_slot 140007000000
+PKT A minecraft:container_set_slot 140008000000
+PKT A minecraft:container_set_slot 140009000001da060000
+PKT A minecraft:container_set_slot 14000a000001eb060000
+PKT A minecraft:container_set_slot 14000b000000
+PKT A minecraft:container_set_slot 14000c00000195030000
+MENU A cid=0 type=inventory state=28 carried=empty
+MS 0 minecraft:crafting_table*1
+MS 1 minecraft:oak_planks*3
+MS 2 minecraft:oak_planks*3
+MS 3 minecraft:oak_planks*3
+MS 4 minecraft:oak_planks*3
+MS 9 minecraft:oak_planks*52
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:cobblestone*20
+PKT A minecraft:container_set_slot 14000d000000
+PKT A minecraft:container_set_slot 14000e000001eb060000
+PKT A minecraft:container_set_slot 14000f000001da060000
+PKT A minecraft:container_set_slot 140010000000
+PKT A minecraft:container_set_slot 140011000001da060000
+PKT A minecraft:container_set_slot 140012000001eb060000
+PKT A minecraft:container_set_slot 140013000000
+PKT A minecraft:container_set_slot 14001400000195030000
+PKT A minecraft:container_set_slot 140015000000
+PKT A minecraft:container_set_slot 140016000001eb060000
+PKT A minecraft:container_set_slot 140017000001da060000
+PKT A minecraft:container_set_slot 140018000000
+PKT A minecraft:container_set_slot 140019000001da060000
+PKT A minecraft:container_set_slot 14001a000001eb060000
+PKT A minecraft:container_set_slot 14001b000000
+PKT A minecraft:container_set_slot 14001c00000195030000
+# use max items fills the grid with the most the inventory allows
+MENU A cid=0 type=inventory state=36 carried=empty
+MS 0 minecraft:crafting_table*1
+MS 1 minecraft:oak_planks*16
+MS 2 minecraft:oak_planks*16
+MS 3 minecraft:oak_planks*16
+MS 4 minecraft:oak_planks*16
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:cobblestone*20
+PKT A minecraft:container_set_slot 14001d000000
+PKT A minecraft:container_set_slot 14001e000001eb060000
+PKT A minecraft:container_set_slot 14001f000001da060000
+PKT A minecraft:container_set_slot 140020000000
+PKT A minecraft:container_set_slot 140021000001da060000
+PKT A minecraft:container_set_slot 140022000001eb060000
+PKT A minecraft:container_set_slot 140023000000
+PKT A minecraft:container_set_slot 14002400000195030000
+# take the result: the placed stacks shrink, the result slot is recomputed for every mutation
+MENU A cid=0 type=inventory state=46 carried=empty
+MS 0 minecraft:crafting_table*1
+MS 1 minecraft:oak_planks*15
+MS 2 minecraft:oak_planks*15
+MS 3 minecraft:oak_planks*15
+MS 4 minecraft:oak_planks*15
+MS 10 minecraft:oak_log*8
+MS 11 minecraft:cobblestone*20
+MS 20 minecraft:crafting_table*1
+PKT A minecraft:container_set_slot 14002500000195030000
+PKT A minecraft:container_set_slot 14002600000195030000
+PKT A minecraft:container_set_slot 14002700000195030000
+PKT A minecraft:container_set_slot 14002800000195030000
+PKT A minecraft:container_set_slot 14002900010f3f0000
+PKT A minecraft:container_set_slot 14002a00020f3f0000
+PKT A minecraft:container_set_slot 14002b00030f3f0000
+PKT A minecraft:container_set_slot 14002c00040f3f0000
+PKT A minecraft:container_set_slot 14002d000900
+PKT A minecraft:set_cursor_item 620195030000
+PKT A minecraft:container_set_slot 14002e00140195030000
+PKT A minecraft:set_cursor_item 6200
+# another recipe: the grid is cleared into the inventory first, shapeless and shaped placements, the one-by-two stick recipe is centered
+MENU A cid=0 type=inventory state=51 carried=empty
+MS 0 minecraft:oak_planks*4
+MS 1 minecraft:oak_log*1
+MS 10 minecraft:oak_log*7
+MS 11 minecraft:cobblestone*20
+MS 20 minecraft:crafting_table*1
+MS 36 minecraft:oak_planks*60
+PKT A minecraft:container_set_slot 14002f000000
+PKT A minecraft:container_set_slot 140030000001eb060000
+PKT A minecraft:container_set_slot 140031000001da060000
+PKT A minecraft:container_set_slot 140032000000
+PKT A minecraft:container_set_slot 1400330000043f0000
+MENU A cid=0 type=inventory state=56 carried=empty
+MS 0 minecraft:oak_planks*4
+MS 1 minecraft:oak_log*8
+MS 11 minecraft:cobblestone*20
+MS 20 minecraft:crafting_table*1
+MS 36 minecraft:oak_planks*60
+PKT A minecraft:container_set_slot 140034000000
+PKT A minecraft:container_set_slot 140035000000
+PKT A minecraft:container_set_slot 140036000000
+PKT A minecraft:container_set_slot 140037000000
+PKT A minecraft:container_set_slot 1400380000043f0000
+MENU A cid=0 type=inventory state=62 carried=empty
+MS 0 minecraft:stick*4
+MS 1 minecraft:oak_planks*30
+MS 3 minecraft:oak_planks*30
+MS 11 minecraft:cobblestone*20
+MS 20 minecraft:crafting_table*1
+MS 37 minecraft:oak_log*8
+PKT A minecraft:container_set_slot 140039000000
+PKT A minecraft:container_set_slot 14003a000000
+PKT A minecraft:container_set_slot 14003b000000
+PKT A minecraft:container_set_slot 14003c000000
+PKT A minecraft:container_set_slot 14003d000001da060000
+PKT A minecraft:container_set_slot 14003e000004a4080000
+MENU A cid=0 type=inventory state=67 carried=empty
+MS 0 minecraft:oak_button*1
+MS 1 minecraft:oak_planks*1
+MS 11 minecraft:cobblestone*20
+MS 20 minecraft:crafting_table*1
+MS 36 minecraft:oak_planks*59
+MS 37 minecraft:oak_log*8
+PKT A minecraft:container_set_slot 14003f000001da060000
+PKT A minecraft:container_set_slot 140040000001da060000
+PKT A minecraft:container_set_slot 140041000000
+PKT A minecraft:container_set_slot 140042000000
+PKT A minecraft:container_set_slot 140043000001da060000
+# cannot be made (no iron block, no iron): the grid is cleared and the ghost recipe is sent
+MENU A cid=0 type=inventory state=71 carried=empty
+MS 11 minecraft:cobblestone*20
+MS 20 minecraft:crafting_table*1
+MS 36 minecraft:oak_planks*60
+MS 37 minecraft:oak_log*8
+PKT A minecraft:container_set_slot 140044000000
+PKT A minecraft:container_set_slot 140045000000
+PKT A minecraft:container_set_slot 140046000000
+PKT A minecraft:container_set_slot 140047000000
+PKT A minecraft:place_ghost_recipe 4000000106027705fa07090000049503
+MENU A cid=0 type=inventory state=75 carried=empty
+MS 11 minecraft:cobblestone*20
+MS 20 minecraft:crafting_table*1
+MS 36 minecraft:oak_planks*60
+MS 37 minecraft:oak_log*8
+PKT A minecraft:container_set_slot 140048000000
+PKT A minecraft:container_set_slot 140049000000
+PKT A minecraft:container_set_slot 14004a000000
+PKT A minecraft:container_set_slot 14004b000000
+PKT A minecraft:place_ghost_recipe 40000103030906001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73000602a40800000602a40800059708010000049503
+# ignored: a recipe that is not in the book, a wrong container id
+C Took 1 recipe(s) from A
+MENU A cid=0 type=inventory state=75 carried=empty
+MS 11 minecraft:cobblestone*20
+MS 20 minecraft:crafting_table*1
+MS 36 minecraft:oak_planks*60
+MS 37 minecraft:oak_log*8
+MENU A cid=0 type=inventory state=81 carried=empty
+MS 0 minecraft:stick*4
+MS 1 minecraft:oak_planks*30
+MS 3 minecraft:oak_planks*30
+MS 11 minecraft:cobblestone*20
+MS 20 minecraft:crafting_table*1
+MS 37 minecraft:oak_log*8
+PKT A minecraft:container_set_slot 14004c000000
+PKT A minecraft:container_set_slot 14004d000000
+PKT A minecraft:container_set_slot 14004e000000
+PKT A minecraft:container_set_slot 14004f000000
+PKT A minecraft:container_set_slot 140050000001da060000
+PKT A minecraft:container_set_slot 140051000004a4080000
+# creative: the same placement, and a ghost recipe clears the grid back into the inventory
+C No new recipes were learned
+C Unlocked 1 recipe(s) for B
+MENU B cid=0 type=inventory state=10 carried=empty
+MS 0 minecraft:crafting_table*1
+MS 1 minecraft:oak_planks*16
+MS 2 minecraft:oak_planks*16
+MS 3 minecraft:oak_planks*16
+MS 4 minecraft:oak_planks*16
+PKT B minecraft:container_set_slot 1400020009403f0000
+PKT B minecraft:container_set_slot 140003000000
+PKT B minecraft:container_set_slot 140004000000
+PKT B minecraft:container_set_slot 140005000000
+PKT B minecraft:container_set_slot 140006000000
+PKT B minecraft:container_set_slot 140007000001da060000
+PKT B minecraft:container_set_slot 140008000001eb060000
+PKT B minecraft:container_set_slot 140009000000
+PKT B minecraft:container_set_slot 14000a00000195030000
+MENU B cid=0 type=inventory state=14 carried=empty
+MS 36 minecraft:oak_planks*64
+PKT B minecraft:container_set_slot 14000b000000
+PKT B minecraft:container_set_slot 14000c000001eb060000
+PKT B minecraft:container_set_slot 14000d000001da060000
+PKT B minecraft:container_set_slot 14000e000000
+PKT B minecraft:place_ghost_recipe 400000010600126d696e6563726166743a6f616b5f6c6f6773053f040000049503
+# spectator: ignored
+C No new recipes were learned
+MENU C cid=0 type=inventory state=1 carried=empty
+MS 9 minecraft:oak_planks*4
+# a full inventory and a stack in the grid that does not fit anywhere: nothing happens
+C No new recipes were learned
+MENU D cid=0 type=inventory state=40 carried=empty
+MS 1 minecraft:cobblestone*64
+MS 9 minecraft:cobblestone*64
+MS 10 minecraft:cobblestone*64
+MS 11 minecraft:cobblestone*64
+MS 12 minecraft:cobblestone*64
+MS 13 minecraft:cobblestone*64
+MS 14 minecraft:cobblestone*64
+MS 15 minecraft:cobblestone*64
+MS 16 minecraft:cobblestone*64
+MS 17 minecraft:cobblestone*64
+MS 18 minecraft:cobblestone*64
+MS 19 minecraft:cobblestone*64
+MS 20 minecraft:cobblestone*64
+MS 21 minecraft:cobblestone*64
+MS 22 minecraft:cobblestone*64
+MS 23 minecraft:cobblestone*64
+MS 24 minecraft:cobblestone*64
+MS 25 minecraft:cobblestone*64
+MS 26 minecraft:cobblestone*64
+MS 27 minecraft:cobblestone*64
+MS 28 minecraft:cobblestone*64
+MS 29 minecraft:cobblestone*64
+MS 30 minecraft:cobblestone*64
+MS 31 minecraft:cobblestone*64
+MS 32 minecraft:cobblestone*64
+MS 33 minecraft:cobblestone*64
+MS 34 minecraft:cobblestone*64
+MS 35 minecraft:cobblestone*64
+MS 36 minecraft:dirt*64
+MS 37 minecraft:cobblestone*64
+MS 38 minecraft:cobblestone*64
+MS 39 minecraft:cobblestone*64
+MS 40 minecraft:cobblestone*64
+MS 41 minecraft:cobblestone*64
+MS 42 minecraft:cobblestone*64
+MS 43 minecraft:cobblestone*64
+MS 44 minecraft:cobblestone*64
+PKT D minecraft:container_set_slot 1400020009403e0000
+PKT D minecraft:container_set_slot 140003000a403e0000
+PKT D minecraft:container_set_slot 140004000b403e0000
+PKT D minecraft:container_set_slot 140005000c403e0000
+PKT D minecraft:container_set_slot 140006000d403e0000
+PKT D minecraft:container_set_slot 140007000e403e0000
+PKT D minecraft:container_set_slot 140008000f403e0000
+PKT D minecraft:container_set_slot 1400090010403e0000
+PKT D minecraft:container_set_slot 14000a0011403e0000
+PKT D minecraft:container_set_slot 14000b0012403e0000
+PKT D minecraft:container_set_slot 14000c0013403e0000
+PKT D minecraft:container_set_slot 14000d0014403e0000
+PKT D minecraft:container_set_slot 14000e0015403e0000
+PKT D minecraft:container_set_slot 14000f0016403e0000
+PKT D minecraft:container_set_slot 1400100017403e0000
+PKT D minecraft:container_set_slot 1400110018403e0000
+PKT D minecraft:container_set_slot 1400120019403e0000
+PKT D minecraft:container_set_slot 140013001a403e0000
+PKT D minecraft:container_set_slot 140014001b403e0000
+PKT D minecraft:container_set_slot 140015001c403e0000
+PKT D minecraft:container_set_slot 140016001d403e0000
+PKT D minecraft:container_set_slot 140017001e403e0000
+PKT D minecraft:container_set_slot 140018001f403e0000
+PKT D minecraft:container_set_slot 1400190020403e0000
+PKT D minecraft:container_set_slot 14001a0021403e0000
+PKT D minecraft:container_set_slot 14001b0022403e0000
+PKT D minecraft:container_set_slot 14001c0023403e0000
+PKT D minecraft:container_set_slot 14001d0024403e0000
+PKT D minecraft:container_set_slot 14001e0025403e0000
+PKT D minecraft:container_set_slot 14001f0026403e0000
+PKT D minecraft:container_set_slot 1400200027403e0000
+PKT D minecraft:container_set_slot 1400210028403e0000
+PKT D minecraft:container_set_slot 1400220029403e0000
+PKT D minecraft:container_set_slot 140023002a403e0000
+PKT D minecraft:container_set_slot 140024002b403e0000
+PKT D minecraft:container_set_slot 140025002c403e0000
+PKT D minecraft:container_set_slot 140026002400
+PKT D minecraft:set_cursor_item 62403e0000
+PKT D minecraft:container_set_slot 140027000000
+PKT D minecraft:container_set_slot 1400280001403e0000
+PKT D minecraft:set_cursor_item 6200
+MENU D cid=0 type=inventory state=40 carried=empty
+MS 1 minecraft:cobblestone*64
+MS 9 minecraft:cobblestone*64
+MS 10 minecraft:cobblestone*64
+MS 11 minecraft:cobblestone*64
+MS 12 minecraft:cobblestone*64
+MS 13 minecraft:cobblestone*64
+MS 14 minecraft:cobblestone*64
+MS 15 minecraft:cobblestone*64
+MS 16 minecraft:cobblestone*64
+MS 17 minecraft:cobblestone*64
+MS 18 minecraft:cobblestone*64
+MS 19 minecraft:cobblestone*64
+MS 20 minecraft:cobblestone*64
+MS 21 minecraft:cobblestone*64
+MS 22 minecraft:cobblestone*64
+MS 23 minecraft:cobblestone*64
+MS 24 minecraft:cobblestone*64
+MS 25 minecraft:cobblestone*64
+MS 26 minecraft:cobblestone*64
+MS 27 minecraft:cobblestone*64
+MS 28 minecraft:cobblestone*64
+MS 29 minecraft:cobblestone*64
+MS 30 minecraft:cobblestone*64
+MS 31 minecraft:cobblestone*64
+MS 32 minecraft:cobblestone*64
+MS 33 minecraft:cobblestone*64
+MS 34 minecraft:cobblestone*64
+MS 35 minecraft:cobblestone*64
+MS 36 minecraft:dirt*64
+MS 37 minecraft:cobblestone*64
+MS 38 minecraft:cobblestone*64
+MS 39 minecraft:cobblestone*64
+MS 40 minecraft:cobblestone*64
+MS 41 minecraft:cobblestone*64
+MS 42 minecraft:cobblestone*64
+MS 43 minecraft:cobblestone*64
+MS 44 minecraft:cobblestone*64
+# creative, full inventory, a stack in the grid that has no room: the grid is cleared by dropping it
+C No new recipes were learned
+C No new recipes were learned
+MENU E cid=0 type=inventory state=5 carried=empty
+MS 0 minecraft:oak_button*1
+MS 1 minecraft:oak_planks*64
+MS 9 minecraft:cobblestone*64
+MS 10 minecraft:cobblestone*64
+MS 11 minecraft:cobblestone*64
+MS 12 minecraft:cobblestone*64
+MS 13 minecraft:cobblestone*64
+MS 14 minecraft:cobblestone*64
+MS 15 minecraft:cobblestone*64
+MS 16 minecraft:cobblestone*64
+MS 17 minecraft:cobblestone*64
+MS 18 minecraft:cobblestone*64
+MS 19 minecraft:cobblestone*64
+MS 20 minecraft:cobblestone*64
+MS 21 minecraft:cobblestone*64
+MS 22 minecraft:cobblestone*64
+MS 23 minecraft:cobblestone*64
+MS 24 minecraft:cobblestone*64
+MS 25 minecraft:cobblestone*64
+MS 26 minecraft:cobblestone*64
+MS 27 minecraft:cobblestone*64
+MS 28 minecraft:cobblestone*64
+MS 29 minecraft:cobblestone*64
+MS 30 minecraft:cobblestone*64
+MS 31 minecraft:cobblestone*64
+MS 32 minecraft:cobblestone*64
+MS 33 minecraft:cobblestone*64
+MS 34 minecraft:cobblestone*64
+MS 35 minecraft:cobblestone*64
+MS 36 minecraft:dirt*64
+MS 37 minecraft:cobblestone*64
+MS 38 minecraft:cobblestone*64
+MS 39 minecraft:cobblestone*64
+MS 40 minecraft:cobblestone*64
+MS 41 minecraft:cobblestone*64
+MS 42 minecraft:cobblestone*64
+MS 43 minecraft:cobblestone*64
+MS 44 minecraft:cobblestone*64
+PKT E minecraft:container_set_slot 1400020024403f0000
+PKT E minecraft:container_set_slot 140003002400
+PKT E minecraft:set_cursor_item 62403f0000
+PKT E minecraft:container_set_slot 140004000001da060000
+PKT E minecraft:container_set_slot 1400050001403f0000
+PKT E minecraft:set_cursor_item 6200
+MENU E cid=0 type=inventory state=9 carried=empty
+MS 9 minecraft:cobblestone*64
+MS 10 minecraft:cobblestone*64
+MS 11 minecraft:cobblestone*64
+MS 12 minecraft:cobblestone*64
+MS 13 minecraft:cobblestone*64
+MS 14 minecraft:cobblestone*64
+MS 15 minecraft:cobblestone*64
+MS 16 minecraft:cobblestone*64
+MS 17 minecraft:cobblestone*64
+MS 18 minecraft:cobblestone*64
+MS 19 minecraft:cobblestone*64
+MS 20 minecraft:cobblestone*64
+MS 21 minecraft:cobblestone*64
+MS 22 minecraft:cobblestone*64
+MS 23 minecraft:cobblestone*64
+MS 24 minecraft:cobblestone*64
+MS 25 minecraft:cobblestone*64
+MS 26 minecraft:cobblestone*64
+MS 27 minecraft:cobblestone*64
+MS 28 minecraft:cobblestone*64
+MS 29 minecraft:cobblestone*64
+MS 30 minecraft:cobblestone*64
+MS 31 minecraft:cobblestone*64
+MS 32 minecraft:cobblestone*64
+MS 33 minecraft:cobblestone*64
+MS 34 minecraft:cobblestone*64
+MS 35 minecraft:cobblestone*64
+MS 36 minecraft:dirt*64
+MS 37 minecraft:cobblestone*64
+MS 38 minecraft:cobblestone*64
+MS 39 minecraft:cobblestone*64
+MS 40 minecraft:cobblestone*64
+MS 41 minecraft:cobblestone*64
+MS 42 minecraft:cobblestone*64
+MS 43 minecraft:cobblestone*64
+MS 44 minecraft:cobblestone*64
+PKT E minecraft:container_set_slot 140006000001da060000
+PKT E minecraft:container_set_slot 140007000001da060000
+PKT E minecraft:container_set_slot 140008000001da060000
+PKT E minecraft:container_set_slot 140009000001da060000
+MENU E cid=0 type=inventory state=13 carried=empty
+MS 9 minecraft:cobblestone*64
+MS 10 minecraft:cobblestone*64
+MS 11 minecraft:cobblestone*64
+MS 12 minecraft:cobblestone*64
+MS 13 minecraft:cobblestone*64
+MS 14 minecraft:cobblestone*64
+MS 15 minecraft:cobblestone*64
+MS 16 minecraft:cobblestone*64
+MS 17 minecraft:cobblestone*64
+MS 18 minecraft:cobblestone*64
+MS 19 minecraft:cobblestone*64
+MS 20 minecraft:cobblestone*64
+MS 21 minecraft:cobblestone*64
+MS 22 minecraft:cobblestone*64
+MS 23 minecraft:cobblestone*64
+MS 24 minecraft:cobblestone*64
+MS 25 minecraft:cobblestone*64
+MS 26 minecraft:cobblestone*64
+MS 27 minecraft:cobblestone*64
+MS 28 minecraft:cobblestone*64
+MS 29 minecraft:cobblestone*64
+MS 30 minecraft:cobblestone*64
+MS 31 minecraft:cobblestone*64
+MS 32 minecraft:cobblestone*64
+MS 33 minecraft:cobblestone*64
+MS 34 minecraft:cobblestone*64
+MS 35 minecraft:cobblestone*64
+MS 36 minecraft:dirt*64
+MS 37 minecraft:cobblestone*64
+MS 38 minecraft:cobblestone*64
+MS 39 minecraft:cobblestone*64
+MS 40 minecraft:cobblestone*64
+MS 41 minecraft:cobblestone*64
+MS 42 minecraft:cobblestone*64
+MS 43 minecraft:cobblestone*64
+MS 44 minecraft:cobblestone*64
+PKT E minecraft:container_set_slot 14000a000000
+PKT E minecraft:container_set_slot 14000b000000
+PKT E minecraft:container_set_slot 14000c000000
+PKT E minecraft:container_set_slot 14000d000000
+PKT E minecraft:place_ghost_recipe 4000000106023f05da06010000049503

@@ -6,6 +6,11 @@ use super::{
 };
 use crate::world::entity::equipment::{EquipmentSlot, EquipmentSlotType};
 use crate::world::item::ItemStack;
+use crate::world::item::crafting::{
+    CraftingGrid, PostPlaceAction, RecipeBookMenu, RecipeHolder, StackedItemContents,
+    handle_crafting_placement,
+};
+use mc_protocol::packets::play::RecipeBookType;
 use std::any::Any;
 
 pub const CONTAINER_ID: i32 = 0;
@@ -110,6 +115,44 @@ impl InventoryMenu {
             None,
         );
     }
+
+    /// `getInputGridSlots()` + the grid size of `AbstractCraftingMenu`.
+    fn crafting_grid() -> CraftingGrid {
+        CraftingGrid {
+            craft_local: CRAFT_LOCAL,
+            result_local: RESULT_LOCAL,
+            input_slots: CRAFT_SLOT_START..CRAFT_SLOT_END,
+            width: 2,
+            height: 2,
+        }
+    }
+}
+
+impl RecipeBookMenu for InventoryMenu {
+    fn handle_placement(
+        &mut self,
+        player: &mut dyn MenuPlayer,
+        use_max_items: bool,
+        allow_dropping_items_to_clear: bool,
+        recipe: &RecipeHolder,
+    ) -> PostPlaceAction {
+        handle_crafting_placement(
+            self,
+            &Self::crafting_grid(),
+            player,
+            use_max_items,
+            allow_dropping_items_to_clear,
+            recipe,
+        )
+    }
+
+    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents) {
+        self.get_craft_slots().fill_stacked_contents(contents);
+    }
+
+    fn get_recipe_book_type(&self) -> RecipeBookType {
+        RecipeBookType::Crafting
+    }
 }
 
 impl AbstractContainerMenu for InventoryMenu {
@@ -124,6 +167,9 @@ impl AbstractContainerMenu for InventoryMenu {
     }
     fn as_any_mut(&mut self) -> &mut dyn Any {
         self
+    }
+    fn as_recipe_book_menu_mut(&mut self) -> Option<&mut dyn RecipeBookMenu> {
+        Some(self)
     }
 
     fn slots_changed(&mut self, player: &mut dyn MenuPlayer, container: &ContainerKey) {
